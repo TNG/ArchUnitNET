@@ -1,7 +1,7 @@
 language: csharp
 mono: 
-	- latest
-	- 0.10.3
+    - latest
+    - 0.10.3
 dotnet: 2.1.0
 solution: ArchUnit.sln
 install:
