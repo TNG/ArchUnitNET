@@ -20,8 +20,8 @@ namespace ArchUnitNET.Fluent
     {
         public const string BackingField = "k__BackingField";
         public const string ConstructorNameBase = ".ctor";
-        public const string ArchUnitCsTestsFluentNamespace = "ArchUnitNETTests.Fluent";
-        public const string ArchUnitCsTestsDependenciesAttributesNamespace = "ArchUnitNETTests.Dependencies.Attributes";
+        public const string ArchUnitNETTestsFluentNamespace = "ArchUnitNETTests.Fluent";
+        public const string ArchUnitNETTestsDependenciesAttributesNamespace = "ArchUnitNETTests.Dependencies.Attributes";
         public const string SystemNamespace = "System";
         public const string GuidClassName = "Guid";
         public const string SystemGuidFullName = SystemNamespace + "." + GuidClassName;

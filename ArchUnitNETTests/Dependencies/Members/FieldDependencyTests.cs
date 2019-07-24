@@ -32,7 +32,7 @@ namespace ArchUnitNETTests.Dependencies.Members
 
         public FieldDependencyTests()
         {
-            var architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+            var architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
             _classWithFieldA = architecture.GetClassOfType(typeof(ClassWithFieldA));
             _fieldAMember = _classWithFieldA.GetFieldMembersWithName(nameof(ClassWithFieldA.FieldA)).SingleOrDefault();
             _fieldType = architecture.GetClassOfType(typeof(FieldType));

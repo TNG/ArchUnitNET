@@ -25,7 +25,7 @@ namespace ArchUnitNETTests.Domain
 {
     public class InterfaceTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly InterfaceEquivalencyTestData _interfaceEquivalencyTestData;
         private readonly Interface _parentInterface;
         private readonly Interface _childInterface;

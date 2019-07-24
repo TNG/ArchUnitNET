@@ -25,7 +25,7 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public class BaseClassTest
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Class _baseClass;
         private readonly Class _childClass;

@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public static class MemberDependencyTestBuild
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         public class MemberDependencyModelingTestData : IEnumerable<object[]>
         {
             private readonly List<object[]> _memberDependencyModelingData = new List<object[]>

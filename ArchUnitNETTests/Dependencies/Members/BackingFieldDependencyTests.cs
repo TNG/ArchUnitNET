@@ -24,7 +24,7 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public class BackingFieldDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly PropertyMember _backedProperty;
         private readonly FieldMember _expectedBackingField;

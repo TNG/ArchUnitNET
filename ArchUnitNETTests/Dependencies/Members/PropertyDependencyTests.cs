@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public class PropertyDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Class _classWithPropertyA;
         private readonly PropertyMember _propertyAMember;

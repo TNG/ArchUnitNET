@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Core
 {
     public static class TypeTestBuild
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         public class TypeModelingTestData : IEnumerable<object[]>
         {

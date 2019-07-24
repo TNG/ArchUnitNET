@@ -39,7 +39,7 @@ namespace ArchUnitNETTests.Dependencies.Members
 
     public static class ClassDependenciesIncludeMemberDependenciesBuild
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         public class MethodDependenciesWithClassTestData : IEnumerable<object[]>
         {

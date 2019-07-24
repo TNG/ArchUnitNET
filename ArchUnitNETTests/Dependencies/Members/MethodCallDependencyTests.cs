@@ -29,7 +29,7 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public class MethodCallDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Class _classWithConstructors;
         private readonly MethodMember _methodAMember;

@@ -29,7 +29,7 @@ namespace ArchUnitNETTests.Domain
 {
     public class MemberTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly MemberEquivalencyTestData _methodMemberEquivalencyTestData;
         private readonly MemberEquivalencyTestData _fieldMemberEquivalencyTestData;
