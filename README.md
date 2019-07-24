@@ -1,15 +1,15 @@
-# ArchUnitCS
+# ArchUnitNET
 
 license: Apache-2.0
 
-ArchUnitCs is a free, simple library for checking the architecture of C# code. ArchUnitCs can check dependencies between
+ArchUnitNET is a free, simple library for checking the architecture of C# code. ArchUnitNET can check dependencies between
 classes, members, interfaces, and more. This is done by analyzing C# bytecode and importing all classes into our C# code
-structure. The main focus of ArchUnitCs is to automatically test architecture and coding rules.
+structure. The main focus of ArchUnitNET is to automatically test architecture and coding rules.
 
 ## An Example
-To use ArchUnitCs, install the ArchUnitCs package from NuGet:
+To use ArchUnitCs, install the ArchUnitNET package from NuGet:
 ```
-PS> Install-Package ArchUnitCs
+PS> Install-Package ArchUnitNET
 ```
 #### Create a Test
 Then you will want to create a class to start testing. We used XUnit for our unit tests here, but you can also use other
@@ -124,7 +124,7 @@ namespace ExampleTest
 
 #### Further Info and Help
 Check out test examples for the current release at 
-[ArchUnitCs Examples](https://github.com/fgather/ArchUnitCS/tree/master/ExampleTest "ExampleTests").
+[ArchUnitNET Examples](https://github.com/fgather/ArchUnitNET/master/ExampleTest "ExampleTests").
 
 
 ## License
