@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// ReSharper disable InconsistentNaming
 namespace ArchUnitNET.Fluent
 {
     public static class StaticConstants

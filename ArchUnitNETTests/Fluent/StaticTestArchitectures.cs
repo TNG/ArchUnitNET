@@ -19,6 +19,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNETTests.Dependencies.Attributes;
 using ArchUnitNETTests.Dependencies.Members;
 using TestAssembly;
+// ReSharper disable InconsistentNaming
 
 namespace ArchUnitNETTests.Fluent
 {
