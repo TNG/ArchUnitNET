@@ -26,7 +26,7 @@ namespace ArchUnitNETTests.Domain
 {
     public static class MemberTestBuild
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         public class OriginMemberTestData : IEnumerable<object[]>
         {

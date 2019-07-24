@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Core
 {
     public class TypeTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly Type _type;
         private readonly Type _duplicateType;
         private readonly object _duplicateReference;

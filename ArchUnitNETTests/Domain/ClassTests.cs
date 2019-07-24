@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Domain
 {
     public class ClassTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly Class _baseClass;
         private readonly Class _childClass;
         private readonly Class _duplicateChildClass;

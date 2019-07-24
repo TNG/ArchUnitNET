@@ -25,7 +25,7 @@ namespace ArchUnitNETTests.Fluent
 {
     public class TypeExtensionTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly Class _methodOriginClass;
         private readonly IMember _methodMember;
         private readonly Class _fieldOriginClass;
@@ -36,10 +36,10 @@ namespace ArchUnitNETTests.Fluent
         private readonly Class _exampleAttribute;
 
         private const string ExpectedAttributeNamespace =
-            StaticConstants.ArchUnitCsTestsDependenciesAttributesNamespace;
+            StaticConstants.ArchUnitNETTestsDependenciesAttributesNamespace;
 
         private readonly Class _regexUtilsTests;
-        private const string ExpectedRegexUtilsTestNamespace = StaticConstants.ArchUnitCsTestsFluentNamespace;
+        private const string ExpectedRegexUtilsTestNamespace = StaticConstants.ArchUnitNETTestsFluentNamespace;
 
         public TypeExtensionTests()
         {

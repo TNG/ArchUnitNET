@@ -28,7 +28,7 @@ namespace ArchUnitNETTests.Domain
 {
     public class AttributeTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly AttributeOriginClassPair _developerAttributePair;
         private readonly AttributeEquivalencyTestData _attributeEquivalencyTestData;

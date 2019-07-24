@@ -26,7 +26,7 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public class BodyTypeMemberDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly MethodMember _methodWithTypeA;
         private readonly Class _typeA;

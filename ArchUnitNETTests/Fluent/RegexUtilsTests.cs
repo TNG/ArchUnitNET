@@ -10,7 +10,7 @@ namespace ArchUnitNETTests.Fluent
 {
     public class RegexUtilsTest
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly PropertyMember _autoPropertyMember;
         private readonly string _expectedBackingFieldName;
         private readonly string _expectedGetMethodName;

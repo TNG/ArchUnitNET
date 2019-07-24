@@ -28,7 +28,7 @@ namespace ArchUnitNETTests.Fluent
             new ArchLoader().LoadAssemblies(typeof(ClassWithExampleAttribute).Assembly, typeof(Class1).Assembly)
                 .Build();
         
-        public static readonly Architecture ArchUnitCsTestArchitecture =
+        public static readonly Architecture ArchUnitNETTestArchitecture =
             new ArchLoader().LoadAssemblies(typeof(BaseClass).Assembly).Build();
     }
 }

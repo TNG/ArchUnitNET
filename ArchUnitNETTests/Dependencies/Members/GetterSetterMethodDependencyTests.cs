@@ -29,7 +29,7 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public class GetterSetterMethodDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly PropertyMember _acceptedCaseProperty;
         private readonly PropertyMember _firstUnacceptedCaseProperty;

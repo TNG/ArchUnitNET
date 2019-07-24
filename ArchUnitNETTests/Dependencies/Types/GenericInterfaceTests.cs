@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Dependencies.Types
 {
     public class GenericInterfaceTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Interface _genericInterface;
         private readonly Class _genericInterfaceImplementation;

@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Fluent
 {
     public class ArchitectureExtensionTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         [Fact]
         public void TypeNotInArchitectureNotFound()

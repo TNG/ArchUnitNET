@@ -10,7 +10,7 @@ namespace ArchUnitNETTests.Domain
 {
     public class MemberListTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitCsTestArchitecture;
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly MemberList _memberList;
         private readonly FieldMember _fieldA;
         private readonly PropertyMember _propertyA;
