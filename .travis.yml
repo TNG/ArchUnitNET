@@ -1,5 +1,5 @@
 language: csharp
-dotnet: 2.1.0
+dotnet: 2.2.301
 solution: ArchUnit.sln
 install:
   - nuget restore ArchUnit.sln
