@@ -7,7 +7,7 @@ classes, members, interfaces, and more. This is done by analyzing C# bytecode an
 structure. The main focus of ArchUnitNET is to automatically test architecture and coding rules.
 
 ## An Example
-To use ArchUnitCs, install the ArchUnitNET package from NuGet:
+To use ArchUnitNET, install the ArchUnitNET package from NuGet:
 ```
 PS> Install-Package ArchUnitNET
 ```
@@ -19,9 +19,9 @@ testing tools, for example NUnit.
 using System.Collections.Generic;
 using System.Linq;
 
-using ArchUnitCs.Core;
-using ArchUnitCs.Domain;
-using ArchUnitCs.Fluent;
+using ArchUnitNET.Core;
+using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent;
 
 using Xunit;
 
@@ -128,5 +128,5 @@ Check out test examples for the current release at
 
 
 ## License
-ArchUnitCs is published under the Apache License 2.0. For more information concerning the license, see
+ArchUnitNET is published under the Apache License 2.0. For more information concerning the license, see
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
