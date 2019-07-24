@@ -1,3 +1,6 @@
+### Status
+[![Build Status](https://travis-ci.com/fgather/ArchUnitNET.svg?branch=master)](https://travis-ci.com/fgather/ArchUnitNET)
+
 # ArchUnitNET
 
 license: Apache-2.0
