@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>ArchUnitNETTests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
+    <PackageReference Include="NBench" Version="1.2.2" />
+    <PackageReference Include="NBench.Runner" Version="1.2.2" />
+    <PackageReference Include="NBench.Runner.DotNetCli" Version="1.1.0" />
+    <PackageReference Include="Pro.NBench.xUnit" Version="1.0.5" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+    <ProjectReference Include="..\ExampleTest\ExampleTest.csproj" />
+    <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
+  </ItemGroup>
+</Project>

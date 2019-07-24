@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <Version>1.0.0</Version>
+    <RootNamespace>ArchUnitNET</RootNamespace>
+    </PropertyGroup>
+    <PropertyGroup>
+    <PackageId>TngTech.ArchUnitNET</PackageId>
+    <Titel>ArchUnit C#</Titel>
+    <Authors>Florian Gather, Paula Ruiz, TNG Technology Consulting GmbH</Authors>
+    <Description>C# Clone of Archunit (see: archunit.org)</Description>
+    <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageTags>test;arch;archunit</PackageTags>
+    <IncludeSource>False</IncludeSource>
+  </PropertyGroup>
+  <ItemGroup>
+      <PackageReference Include="CycleDetection" Version="2.0.0" />
+    <PackageReference Include="Equ" Version="2.0.2" />
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+      <PackageReference Include="Mono.Cecil" Version="0.10.3" />
+  </ItemGroup>
+    <ItemGroup>
+        <None Remove="License.md" />
+    </ItemGroup>
+</Project>
