@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET", "ArchUnitNET\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleTest", "ExampleTest\ExampleTest.csproj", "{27E4C37F-587D-4756-A6DB-71AAB75B5F53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantUmlExport", "PlantUmlExport\PlantUmlExport.csproj", "{760EA787-E934-405C-83A8-1CFF3EFAF501}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNETTests", "ArchUnitNETTests\ArchUnitNETTests.csproj", "{663B49A2-915E-42F8-ABD8-041726315CC6}"
 EndProject
 Global
