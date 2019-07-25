@@ -10,6 +10,6 @@ script:
 
 deploy:
   provider: script
-  script: dotnet nuget push ./nupkgs/TngTech.ArchUnitNET.*.nupkg -k $NUGET_API_KEY -s $NUGET_SOURCE
+  script: dotnet nuget push ./ArchUnitNET/nupkgs/TngTech.ArchUnitNET.*.nupkg -k $NUGET_API_KEY -s $NUGET_SOURCE
   on:
     tags: true
