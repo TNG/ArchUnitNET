@@ -51,37 +51,5 @@ namespace ArchUnitNET.Fluent
 
             return withFullName.FirstOrDefault();
         }
-
-
-        //EqualListMembers sourcecode: https://stackoverflow.com/a/3670089
-        public static bool EqualListMembers<T>(this IEnumerable<T> list1, IEnumerable<T> list2)
-        {
-            var containerCheck = new Dictionary<T, int>();
-            foreach (var element in list1)
-            {
-                if (containerCheck.ContainsKey(element))
-                {
-                    containerCheck[element]++;
-                }
-                else
-                {
-                    containerCheck.Add(element, 1);
-                }
-            }
-
-            foreach (var element in list2)
-            {
-                if (containerCheck.ContainsKey(element))
-                {
-                    containerCheck[element]--;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            return containerCheck.Values.All(c => c == 0);
-        }
     }
 }
