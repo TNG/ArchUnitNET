@@ -41,9 +41,9 @@ namespace ArchUnitNETTests.Domain
 
         public AttributeTests()
         {
-            _developerAttributePair = new AttributeOriginClassPair(typeof(DeveloperAttributeWithParameters));
+            _developerAttributePair = new AttributeOriginClassPair(typeof(CountryAttributeWithParameters));
             _abstractAttributePair = new AttributeOriginClassPair(typeof(ExampleAbstractAttribute));
-            _attributeEquivalencyTestData = new AttributeEquivalencyTestData(typeof(DeveloperAttributeWithParameters));
+            _attributeEquivalencyTestData = new AttributeEquivalencyTestData(typeof(CountryAttributeWithParameters));
             _iAttribute = Architecture.GetInterfaceOfType(typeof(IAttribute));
             _interfaceImplementingAttributePair = new AttributeOriginClassPair(typeof(InterfaceImplementingAttribute));
             _implementsAbstractAttribute = new Attribute(Architecture.GetClassOfType(typeof(ChildOfAbstractAttribute)));

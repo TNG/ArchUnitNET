@@ -117,24 +117,23 @@ namespace ArchUnitNETTests.Dependencies.Attributes
     {
     }
 
-    //Source of idea/code for DeveloperAttributeWithParameters: https://docs.microsoft.com/en-us/dotnet/standard/attributes/writing-custom-attributes
     [AttributeUsage(AttributeTargets.All)]
-    public class DeveloperAttributeWithParameters : Attribute
+    public class CountryAttributeWithParameters : Attribute
     {
         private PropertyType _propertyTypeA;
 
-        public DeveloperAttributeWithParameters(string name, int age)
+        public CountryAttributeWithParameters(string country, int population)
         {
-            Name = name;
-            Age = age;
-            Reviewed = false;
+            Country = country;
+            Population = population;
+            Visited = false;
         }
 
-        private string Name { get; }
+        private string Country { get; }
 
-        private int Age { get; }
+        private int Population { get; }
 
-        public bool Reviewed { get; set; }
+        public bool Visited { get; set; }
 
         public PropertyType PropertyTypeA { get; private set; }
     }
@@ -176,8 +175,8 @@ namespace ArchUnitNETTests.Dependencies.Attributes
         {
         }
 
-        [DeveloperAttributeWithParameters("Paula Ruiz", 20, Reviewed = false)]
-        public void MethodWithDeveloperAttribute()
+        [CountryAttributeWithParameters("Germany", 83000000, Visited = true)]
+        public void MethodWithCountryAttribute()
         {
         }
 
