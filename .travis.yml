@@ -5,6 +5,6 @@ solution: ArchUnit.sln
 script:
   - dotnet restore
   - dotnet build
-  - dotnet test
   - dotnet pack
+  - dotnet test
   - dotnet publish
