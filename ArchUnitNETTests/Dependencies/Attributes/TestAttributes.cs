@@ -265,7 +265,6 @@ namespace ArchUnitNETTests.Dependencies.Attributes
 
     public class Hello : IEventHandler<HelloEvent>
     {
-        //todo: HELP - how to handle Forbidden attribute case?
 //        [Forbidden]
         public void Handle(HelloEvent helloEvent)
         {

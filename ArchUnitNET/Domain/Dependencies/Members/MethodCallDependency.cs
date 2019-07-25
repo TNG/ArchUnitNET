@@ -19,7 +19,6 @@ namespace ArchUnitNET.Domain.Dependencies.Members
 {
     public class MethodCallDependency : IMemberMemberDependency
     {
-        //todo: (JIRA - AUCS-46) why does this dependency have Equals/HashCode methods and the others don't?? 
         public MethodCallDependency(IMember originMember, MethodMember calledMethod)
         {
             OriginMember = originMember;

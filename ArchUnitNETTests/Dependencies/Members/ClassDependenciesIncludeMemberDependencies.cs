@@ -24,7 +24,6 @@ using Xunit;
 
 namespace ArchUnitNETTests.Dependencies.Members
 {
-    //todo: add tests for fields and properties as well
     public class ClassDependenciesIncludeMemberDependencies
     {
         [Theory]
