@@ -1,4 +1,4 @@
-# ArchUnitNET [![Build Status](https://travis-ci.com/fgather/ArchUnitNET.svg?branch=master)](https://travis-ci.com/fgather/ArchUnitNET)
+# ArchUnitNET [![Build Status](https://travis-ci.com/fgather/ArchUnitNET.svg?branch=master)](https://travis-ci.com/fgather/ArchUnitNET) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/fgather/ArchUnitNET/blob/master/LICENSE)
 
 license: Apache-2.0
 
