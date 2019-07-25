@@ -8,5 +8,5 @@ script:
   - dotnet pack
   - dotnet test
   - dotnet publish
-  - dotnet nuget push ./ArchUnitNET/ArchUnitNET/bin/Debug/TngTech.ArchUnitNET.*.nupkg -k $NUGET_API_KEY -s $NUGET_SOURCE
+  - dotnet nuget push ./TngTech.ArchUnitNET.*.nupkg -k $NUGET_API_KEY -s $NUGET_SOURCE
   
