@@ -1,5 +1,6 @@
 /*
- * Copyright 2019 TNG Technology Consulting GmbH
+ * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+ * Copyright 2019 Paula Ruiz <paula.ruiz@tngtech.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
