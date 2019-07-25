@@ -6,10 +6,5 @@ script:
   - dotnet restore
   - dotnet build
   - dotnet test
+  - dotnet pack
   - dotnet publish
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: chmod +x ./deploy/deploy.sh && ./deploy/deploy.sh $NUGET_API_KEY $NUGET_SOURCE
-    on:
-      branch: master
