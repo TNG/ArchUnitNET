@@ -55,6 +55,6 @@ fabric.properties
 **/dep/
 **/obj/
 list_license.ps1
-*/Licenses/
+**/LicenseSources/
 
 *.user
