@@ -3,10 +3,12 @@ mono: none
 dotnet: 2.2.301
 solution: ArchUnit.sln
 script:
-  - dotnet restore
-  - dotnet build
-  - dotnet pack
-  - dotnet test
-  - dotnet publish
-  - dotnet nuget push ./TngTech.ArchUnitNET.*.nupkg -k $NUGET_API_KEY -s $NUGET_SOURCE
-  
+  - dotnet restore -c Release
+  - dotnet build -c Release
+  - dotnet pack -c Release --output nupkgs
+  - dotnet test -c Release
+
+deploy:
+  provider: script
+  script: dotnet nuget push .nupkgs/TngTech.ArchUnitNET.*.nupkg -k $NUGET_API_KEY -s $NUGET_SOURCE
+  on.tags: true
