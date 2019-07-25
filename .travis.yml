@@ -10,7 +10,7 @@ script:
   - dotnet publish
 deploy:
   skip_cleanup: true
-  provider: script
-  script: chmod +x ./deploy/deploy.sh && ./deploy/deploy.sh $NUGET_API_KEY $NUGET_SOURCE
+  script:
+    - dotnet nuget push ./ArchUnitNET.*.nupkg -Verbosity detailed -ApiKey $NUGET_API_KEY -Source $NUGET_SOURCE
     on:
       branch: master
