@@ -54,6 +54,7 @@ fabric.properties
 **/bin/
 **/dep/
 **/obj/
-PlantUmlExport/output
+list_license.ps1
+*/Licenses/
 
 *.user
