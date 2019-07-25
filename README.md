@@ -1,4 +1,4 @@
-<img src="logo/ArchUnit-Logo.png" height="64" alt="ArchUnit">
+<img src="Logo/ArchUnit-Logo.png" height="64" alt="ArchUnit">
 
 # ArchUnitNET [![Build Status](https://travis-ci.com/fgather/ArchUnitNET.svg?branch=master)](https://travis-ci.com/fgather/ArchUnitNET) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/fgather/ArchUnitNET/blob/master/LICENSE)
 
