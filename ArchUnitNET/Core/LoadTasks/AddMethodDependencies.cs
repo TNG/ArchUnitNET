@@ -236,7 +236,6 @@ namespace ArchUnitNET.Core.LoadTasks
             return _type.GetFieldMembersWithName(fieldDefinition.Name).SingleOrDefault();
         }
 
-        //todo: HELP (AUCS-45) improve the logic of this method
         private PropertyMember MatchToPropertyMember(string name, string fullName, MatchFunction matchFunction)
         {
             try

@@ -105,7 +105,6 @@ namespace ArchUnitNETTests.Dependencies.Members
             }
         }
 
-        //todo: maybe combine the two methods below - VERY similar
         private static object[] BuildMethodCallDependencyTestData(Type originType, string nameOfOriginMember,
             Type targetType, string nameOfTargetMember)
         {

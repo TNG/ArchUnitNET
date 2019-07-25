@@ -112,7 +112,6 @@ namespace ArchUnitNETTests.Fluent
             return stringBuilder.ToString();
         }
 
-        //todo: update method below for new MethodMember naming convention
         private static string ConstructParameters(IEnumerable<IType> parameterTypes, CallingConventions callingConvention)
         {
             var stringBuilder = new StringBuilder();
