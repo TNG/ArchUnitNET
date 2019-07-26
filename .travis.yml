@@ -9,7 +9,9 @@ script:
   - dotnet test -c Release
     
 deploy:
+  skip_cleanup: true
   provider: script
-  script: dotnet nuget push ./ArchUnitNET/nupkgs/TngTech.ArchUnitNET.*.nupkg -k $NUGET_API_KEY -s $NUGET_SOURCE
+  script: chmod +x ./Deploy/deploy.sh && ./Deploy/deploy.sh $NUGET_API_KEY $NUGET_SOURCE
   on:
     tags: true
+    all_branches: true
