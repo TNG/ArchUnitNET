@@ -15,6 +15,7 @@
         <PackageReleaseNotes>Initial release</PackageReleaseNotes>
         <PackageTags>test;arch;archunit</PackageTags>
         <IncludeSource>False</IncludeSource>
+        <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="CycleDetection" Version="2.0.0"/>
