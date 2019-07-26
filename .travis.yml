@@ -5,7 +5,7 @@ solution: ArchUnit.sln
 script:
   - dotnet restore
   - dotnet build -c Release
-  - dotnet pack -c Release --output nupkgs -p:PackageVersion=0.1.0-draft-1
+  - dotnet pack -c Release --output nupkgs -p:PackageVersion=0.1.0-draft-2
   - dotnet test -c Release
     
 deploy:
