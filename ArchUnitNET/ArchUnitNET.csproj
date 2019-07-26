@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
-        <Version>0.1.0-draft</Version>
+        <VersionPrefix>0.1.0</VersionPrefix>
         <RootNamespace>ArchUnitNET</RootNamespace>
         <LangVersion>7.2</LangVersion>
     </PropertyGroup>
@@ -16,6 +16,7 @@
         <PackageReleaseNotes>Initial release</PackageReleaseNotes>
         <PackageTags>test;arch;archunit</PackageTags>
         <IncludeSource>False</IncludeSource>
+        <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="CycleDetection" Version="2.0.0" />
