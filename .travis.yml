@@ -4,8 +4,8 @@ dotnet: 2.2.301
 solution: ArchUnit.sln
 script:
   - dotnet restore
-  - dotnet build -c Release --version-suffix "draft-5"
-  - dotnet pack -c Release --output nupkgs
+  - dotnet build -c Release
+  - dotnet pack -c Release --output nupkgs --version-suffix "draft-5"
   - dotnet test -c Release
     
 deploy:
