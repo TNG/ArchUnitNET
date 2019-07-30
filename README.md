@@ -126,7 +126,7 @@ namespace ExampleTest
 
 #### Further Info and Help
 Check out test examples for the current release at 
-[ArchUnitNET Examples](https://github.com/fgather/ArchUnitNET/master/ExampleTest "ExampleTests").
+[ArchUnitNET Examples](https://github.com/TNG/ArchUnitNET/master/ExampleTest "ExampleTests").
 
 
 ## License
