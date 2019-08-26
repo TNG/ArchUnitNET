@@ -64,7 +64,7 @@ namespace ArchUnitNET.Core.LoadTasks
 
         private void SetUpAttributesForMethods(MethodDefinition methodDefinition)
         {
-            var methodMember = _type.GetMethodMembers().WhereFullNameIs(methodDefinition.FullName)
+            var methodMember = _type.GetMethodMembers().WhereFullNameIs(methodDefinition.GetFullName())
                 .RequiredNotNull();
             var memberCustomAttributes = methodDefinition.GetAllMethodCustomAttributes().ToList();
             CollectMemberAttributesAndDependencies(methodMember, memberCustomAttributes);
