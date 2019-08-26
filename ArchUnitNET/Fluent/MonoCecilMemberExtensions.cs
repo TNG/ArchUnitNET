@@ -160,6 +160,12 @@ namespace ArchUnitNET.Fluent
         {
             return methodDefinition.IsPublic ? Visibility.Public : Visibility.Private;
         }
+        
+        public static string GetFullName(this MethodDefinition methodDefinition)
+        {
+            return methodDefinition.FullName + methodDefinition.GenericParameters.Aggregate(string.Empty,
+                       (current, newElement) => current + "<" + newElement.Name + ">");
+        }
 
         public static Visibility GetVisibility(this FieldDefinition fieldDefinition)
         {

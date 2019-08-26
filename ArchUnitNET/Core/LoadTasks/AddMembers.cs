@@ -91,8 +91,9 @@ namespace ArchUnitNET.Core.LoadTasks
             var visibility = methodDefinition.GetVisibility();
             var methodForm = methodDefinition.GetMethodForm();
             var methodName = methodDefinition.BuildMethodMemberName();
+            var methodDefinitionFullName = methodDefinition.GetFullName();
             
-            return new MethodMember(methodName, methodDefinition.FullName, _type, visibility,
+            return new MethodMember(methodName, methodDefinitionFullName, _type, visibility,
                 parameters, returnType, methodDefinition.IsVirtual, methodForm);
         }
     }
