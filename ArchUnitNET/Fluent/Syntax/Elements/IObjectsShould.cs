@@ -10,6 +10,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     {
         TRuleTypeShouldConjunction DependOn(string pattern);
         TRuleTypeShouldConjunction HaveName(string name);
+        TRuleTypeShouldConjunction HaveFullName(string fullname);
         TRuleTypeShouldConjunction HaveNameStartingWith(string pattern);
         TRuleTypeShouldConjunction HaveNameEndingWith(string pattern);
         TRuleTypeShouldConjunction HaveNameContaining(string pattern);
@@ -28,6 +29,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         TRuleTypeShouldConjunction NotDependOn(string pattern);
         TRuleTypeShouldConjunction NotHaveName(string name);
+        TRuleTypeShouldConjunction NotHaveFullName(string fullname);
         TRuleTypeShouldConjunction NotHaveNameStartingWith(string pattern);
         TRuleTypeShouldConjunction NotHaveNameEndingWith(string pattern);
         TRuleTypeShouldConjunction NotHaveNameContaining(string pattern);

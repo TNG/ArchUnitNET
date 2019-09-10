@@ -24,6 +24,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction HaveFullName(string fullname)
+        {
+            _ruleCreator.AddSimpleCondition(obj => obj.FullName.Equals(fullname));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction HaveNameStartingWith(string pattern)
         {
             _ruleCreator.AddSimpleCondition(obj => obj.NameStartsWith(pattern));
@@ -91,6 +97,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction DoNotHaveName(string name)
         {
             _ruleCreator.AddSimpleCondition(obj => !obj.Name.Equals(name));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveFullName(string fullname)
+        {
+            _ruleCreator.AddSimpleCondition(obj => !obj.FullName.Equals(fullname));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
