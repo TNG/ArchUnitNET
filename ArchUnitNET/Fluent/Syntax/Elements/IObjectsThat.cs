@@ -3,6 +3,7 @@
     public interface IObjectsThat<TRuleTypeConjunction>
     {
         TRuleTypeConjunction DependOn(string pattern);
+        TRuleTypeConjunction HaveNameStartingWith(string pattern);
         TRuleTypeConjunction HaveNameEndingWith(string pattern);
         TRuleTypeConjunction HaveNameContaining(string pattern);
         TRuleTypeConjunction ArePrivate();
@@ -17,6 +18,7 @@
 
 
         TRuleTypeConjunction DoNotDependOn(string pattern);
+        TRuleTypeConjunction DoNotHaveNameStartingWith(string pattern);
         TRuleTypeConjunction DoNotHaveNameEndingWith(string pattern);
         TRuleTypeConjunction DoNotHaveNameContaining(string pattern);
         TRuleTypeConjunction AreNotPrivate();

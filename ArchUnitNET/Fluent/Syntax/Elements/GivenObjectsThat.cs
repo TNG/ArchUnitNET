@@ -18,6 +18,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction HaveNameStartingWith(string pattern)
+        {
+            _ruleCreator.AddSimpleCondition(obj => obj.NameStartsWith(pattern));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction HaveNameEndingWith(string pattern)
         {
             _ruleCreator.AddSimpleCondition(obj => obj.NameEndsWith(pattern));
@@ -73,6 +79,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction DoNotDependOn(string pattern)
         {
             _ruleCreator.AddSimpleCondition(obj => !obj.DependsOn(pattern));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveNameStartingWith(string pattern)
+        {
+            _ruleCreator.AddSimpleCondition(obj => !obj.NameStartsWith(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
