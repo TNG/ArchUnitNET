@@ -9,6 +9,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         TRuleTypeShouldConjunction DependOn(string pattern);
+        TRuleTypeShouldConjunction HaveName(string name);
         TRuleTypeShouldConjunction HaveNameStartingWith(string pattern);
         TRuleTypeShouldConjunction HaveNameEndingWith(string pattern);
         TRuleTypeShouldConjunction HaveNameContaining(string pattern);
@@ -26,6 +27,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
 
         TRuleTypeShouldConjunction NotDependOn(string pattern);
+        TRuleTypeShouldConjunction NotHaveName(string name);
         TRuleTypeShouldConjunction NotHaveNameStartingWith(string pattern);
         TRuleTypeShouldConjunction NotHaveNameEndingWith(string pattern);
         TRuleTypeShouldConjunction NotHaveNameContaining(string pattern);
