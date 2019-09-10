@@ -5,11 +5,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+using System;
 using System.Linq;
 using ArchUnitNET.Core.LoadTasks;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Core
 {
@@ -90,10 +92,52 @@ namespace ArchUnitNET.Core
                 typeReference.Module.Assembly.FullName);
             var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(typeNamespaceName);
             var typeDefinition = typeReference.Resolve();
+            var visibility = GetVisibilityFromTypeDefinition(typeDefinition);
+            var isNested = typeReference.IsNested;
             var type = new Type(typeReference.FullName.Replace("/", "+"), typeReference.Name, currentAssembly,
-                currentNamespace);
+                currentNamespace, visibility, isNested);
             AssignGenericProperties(typeReference, type, typeDefinition);
             return type;
+        }
+
+        private static Visibility GetVisibilityFromTypeDefinition(TypeDefinition typeDefinition)
+        {
+            if (typeDefinition == null)
+            {
+                return NotAccessible;
+            }
+
+            if (typeDefinition.IsPublic || typeDefinition.IsNestedPublic)
+            {
+                return Public;
+            }
+
+            if (typeDefinition.IsNestedPrivate)
+            {
+                return Private;
+            }
+
+            if (typeDefinition.IsNestedFamily)
+            {
+                return Protected;
+            }
+
+            if (typeDefinition.IsNestedFamilyOrAssembly)
+            {
+                return ProtectedInternal;
+            }
+
+            if (typeDefinition.IsNestedFamilyAndAssembly)
+            {
+                return PrivateProtected;
+            }
+
+            if (typeDefinition.IsNestedAssembly || typeDefinition.IsNotPublic)
+            {
+                return Internal;
+            }
+
+            throw new ArgumentException("The provided type definition seems to have no visibility.");
         }
 
         private void AssignGenericProperties(IGenericParameterProvider typeReference, Type type,

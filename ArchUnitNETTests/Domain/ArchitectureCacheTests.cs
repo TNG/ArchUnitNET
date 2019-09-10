@@ -13,10 +13,6 @@ namespace ArchUnitNETTests.Domain
 {
     public class ArchitectureCacheTests
     {
-        private readonly TestArchitectureCache _testArchitectureCache;
-        private readonly ArchitectureCacheKey _testArchitectureCacheKey;
-        private readonly Architecture _testEmptyArchitecture;
-
         public ArchitectureCacheTests()
         {
             _testArchitectureCache = new TestArchitectureCache();
@@ -27,14 +23,9 @@ namespace ArchUnitNETTests.Domain
             _testEmptyArchitecture = new Architecture(new List<Assembly>(), new List<Namespace>(), new List<IType>());
         }
 
-
-        [Fact]
-        public void GetExistingArchitecture()
-        {
-            _testArchitectureCache.Add(_testArchitectureCacheKey, _testEmptyArchitecture);
-            Assert.Equal(_testArchitectureCache.TryGetArchitecture(_testArchitectureCacheKey),
-                _testEmptyArchitecture);
-        }
+        private readonly TestArchitectureCache _testArchitectureCache;
+        private readonly ArchitectureCacheKey _testArchitectureCacheKey;
+        private readonly Architecture _testEmptyArchitecture;
 
         [Fact]
         public void DuplicateArchitectureDetected()
@@ -43,6 +34,15 @@ namespace ArchUnitNETTests.Domain
             _testArchitectureCache.Add(_testArchitectureCacheKey, _testEmptyArchitecture);
 
             Assert.True(_testArchitectureCache.Size() == 1);
+        }
+
+
+        [Fact]
+        public void GetExistingArchitecture()
+        {
+            _testArchitectureCache.Add(_testArchitectureCacheKey, _testEmptyArchitecture);
+            Assert.Equal(_testArchitectureCache.TryGetArchitecture(_testArchitectureCacheKey),
+                _testEmptyArchitecture);
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using Xunit;
 
 // ReSharper disable UnusedMember.Global
@@ -18,6 +18,14 @@ namespace ExampleTest
 {
     public class ExampleArchUnitTest
     {
+        // initialize your test variables in the constructor
+        // TIP: access types of values from your architecture, then filter them using provided extension methods
+        public ExampleArchUnitTest()
+        {
+            _chefs = ChefArchitecture.Classes.Where(cls => cls.NameEndsWith("Chef"));
+            _cookInterface = ChefArchitecture.GetInterfaceOfType(typeof(ICook));
+        }
+
         // TIP: load your architecture once at the start to maximize performance of your tests
         private static readonly Architecture ChefArchitecture =
             new ArchLoader().LoadAssembly(typeof(FrenchChef).Assembly).Build();
@@ -26,14 +34,6 @@ namespace ExampleTest
         // declare variables you'll use throughout your tests up here
         private readonly IEnumerable<Class> _chefs;
         private readonly Interface _cookInterface;
-
-        // initialize your test variables in the constructor
-        // TIP: access types of values from your architecture, then filter them using provided extension methods
-        public ExampleArchUnitTest()
-        {
-            _chefs = ChefArchitecture.Classes.Where(cls => cls.NameEndsWith("Chef"));
-            _cookInterface = ChefArchitecture.GetInterfaceOfType(typeof(ICook));
-        }
 
         [Fact]
         public void AllChefsCook()
@@ -45,8 +45,8 @@ namespace ExampleTest
 
     public class FrenchChef : ICook
     {
-        private string _name;
         private int _age;
+        private string _name;
 
         public FrenchChef(string name, int age)
         {
@@ -76,8 +76,8 @@ namespace ExampleTest
 
     public class ItalianChef : ICook
     {
-        private string _name;
         private int _age;
+        private string _name;
 
         public ItalianChef(string name, int age)
         {

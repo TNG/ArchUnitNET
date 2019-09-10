@@ -7,8 +7,8 @@
 
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 
 // ReSharper disable UnusedVariable
@@ -17,11 +17,6 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public class BodyTypeMemberDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly MethodMember _methodWithTypeA;
-        private readonly Class _typeA;
-
         public BodyTypeMemberDependencyTests()
         {
             var classWithBodyTypeA = _architecture.GetClassOfType(typeof(ClassWithBodyTypeA));
@@ -29,6 +24,11 @@ namespace ArchUnitNETTests.Dependencies.Members
                 .Members[nameof(ClassWithBodyTypeA.MethodWithTypeA).BuildMethodMemberName()] as MethodMember;
             _typeA = _architecture.GetClassOfType(typeof(TypeA));
         }
+
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly MethodMember _methodWithTypeA;
+        private readonly Class _typeA;
 
         [Fact]
         public void BodyTypeDependenciesFound()

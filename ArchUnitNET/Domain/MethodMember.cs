@@ -28,9 +28,9 @@ namespace ArchUnitNET.Domain
 
         public bool IsVirtual { get; }
         public MethodForm MethodForm { get; }
-        public Visibility Visibility { get; }
         public List<IType> Parameters { get; }
         public IType ReturnType { get; }
+        public Visibility Visibility { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();

@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 
@@ -23,14 +23,6 @@ namespace ArchUnitNET.Core
         public DotNetCoreAssemblyResolver()
         {
             _libraries = new Dictionary<string, AssemblyDefinition>();
-        }
-
-        public void AddLib(AssemblyDefinition moduleAssembly)
-        {
-            if (!_libraries.ContainsKey(moduleAssembly.FullName))
-            {
-                _libraries.Add(moduleAssembly.FullName, moduleAssembly);
-            }
         }
 
         [CanBeNull]
@@ -70,6 +62,14 @@ namespace ArchUnitNET.Core
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void AddLib(AssemblyDefinition moduleAssembly)
+        {
+            if (!_libraries.ContainsKey(moduleAssembly.FullName))
+            {
+                _libraries.Add(moduleAssembly.FullName, moduleAssembly);
+            }
         }
 
         private void Dispose(bool disposing)

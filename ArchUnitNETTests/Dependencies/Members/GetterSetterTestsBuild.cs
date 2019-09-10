@@ -12,10 +12,9 @@ using System.Linq;
 using System.Reflection;
 using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.ArchitectureTestExceptions;
-using ArchUnitNETTests.Fluent;
-using static ArchUnitNETTests.Fluent.BuildMocksExtensions;
+using static ArchUnitNETTests.Fluent.Extensions.BuildMocksExtensions;
 using Type = System.Type;
 
 namespace ArchUnitNETTests.Dependencies.Members
@@ -24,7 +23,7 @@ namespace ArchUnitNETTests.Dependencies.Members
     {
         private static readonly Architecture Architecture =
             new ArchLoader().LoadAssemblies(typeof(GetterMethodDependencyExamples).Assembly).Build();
-        
+
         private static readonly Type GuidType = typeof(Guid);
         private static readonly Class MockGuidClass = GuidType.CreateStubClass();
         private static readonly MethodInfo NewGuid = GuidType.GetMethods().First(method => method.Name == "NewGuid");
@@ -33,7 +32,86 @@ namespace ArchUnitNETTests.Dependencies.Members
         private static readonly Type[] ExpectedParameters = {typeof(string)};
         private static readonly ConstructorInfo ConstructGuid = GuidType.GetConstructor(ExpectedParameters);
         private static readonly MethodMember MockConstructorMember = ConstructGuid.CreateStubMethodMember();
-        
+
+        private static object[] BuildSetterTestData(Type classType, string backingFieldName,
+            string backedPropertyName, Type expectedFieldDependencyTarget)
+        {
+            if (classType == null)
+            {
+                throw new ArgumentNullException(nameof(classType));
+            }
+
+            if (backingFieldName == null)
+            {
+                throw new ArgumentNullException(nameof(backingFieldName));
+            }
+
+            if (backedPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(backedPropertyName));
+            }
+
+            if (expectedFieldDependencyTarget == null)
+            {
+                throw new ArgumentNullException(nameof(expectedFieldDependencyTarget));
+            }
+
+            var baseClass = Architecture.GetClassOfType(classType);
+            var backingField = baseClass.GetFieldMembersWithName(backingFieldName).First();
+            var backedProperty = baseClass.GetPropertyMembersWithName(backedPropertyName).First();
+            var expectedDependencyTargetClass = Architecture.GetClassOfType(expectedFieldDependencyTarget);
+
+            return new object[] {backingField, backedProperty, expectedDependencyTargetClass};
+        }
+
+        private static object[] BuildGetterTestData(Type classType, string propertyName,
+            Class expectedFieldDependencyTarget, MethodMember expectedTargetMember)
+        {
+            if (classType == null)
+            {
+                throw new ArgumentNullException(nameof(classType));
+            }
+
+            if (propertyName == null)
+            {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+
+            if (expectedFieldDependencyTarget == null)
+            {
+                throw new ArgumentNullException(nameof(expectedFieldDependencyTarget));
+            }
+
+            var baseClass = Architecture.GetClassOfType(classType);
+            var accessedProperty = baseClass.GetPropertyMembersWithName(propertyName).First();
+            var expectedDependency = CreateStubMethodCallDependency(accessedProperty, expectedTargetMember);
+            return new object[] {accessedProperty, expectedFieldDependencyTarget, expectedDependency};
+        }
+
+        private static object[] BuildAccessMethodTestData(Type classType, string propertyName, MethodForm methodForm)
+        {
+            if (classType == null)
+            {
+                throw new ArgumentNullException(nameof(classType));
+            }
+
+            if (propertyName == null)
+            {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+
+            if (methodForm != MethodForm.Getter && methodForm != MethodForm.Setter)
+            {
+                throw new InvalidInputException(
+                    $"Given MethodForm {nameof(methodForm)} is not valid for this test. Please give the form of Getter or Setter.");
+            }
+
+            var baseClass = Architecture.GetClassOfType(classType);
+            var accessedProperty = baseClass.GetPropertyMembersWithName(propertyName).First();
+            var accessorMethod = methodForm == MethodForm.Getter ? accessedProperty.Getter : accessedProperty.Setter;
+            return new object[] {accessedProperty, accessorMethod};
+        }
+
         public class SetterTestData : IEnumerable<object[]>
         {
             private readonly List<object[]> _setterTestData = new List<object[]>
@@ -61,8 +139,9 @@ namespace ArchUnitNETTests.Dependencies.Members
                 BuildSetterTestData(typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples._methodLambdaPairBacking),
                     nameof(SetterMethodDependencyExamples.MethodLambdaPair),
-                    typeof(ChildField)),
+                    typeof(ChildField))
             };
+
             public IEnumerator<object[]> GetEnumerator()
             {
                 return _setterTestData.GetEnumerator();
@@ -88,7 +167,7 @@ namespace ArchUnitNETTests.Dependencies.Members
                     nameof(GetterMethodDependencyExamples.SecondUnacceptedCase),
                     MockGuidClass, MockNewGuid)
             };
-            
+
             public IEnumerator<object[]> GetEnumerator()
             {
                 return _getterTestData.GetEnumerator();
@@ -130,7 +209,7 @@ namespace ArchUnitNETTests.Dependencies.Members
                     MethodForm.Getter),
                 BuildAccessMethodTestData(typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.SecondUnacceptedCase),
-                    MethodForm.Getter),
+                    MethodForm.Getter)
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -143,83 +222,5 @@ namespace ArchUnitNETTests.Dependencies.Members
                 return GetEnumerator();
             }
         }
-
-        private static object[] BuildSetterTestData(Type classType, string backingFieldName,
-            string backedPropertyName, Type expectedFieldDependencyTarget)
-        {
-            if (classType == null)
-            {
-                throw new ArgumentNullException(nameof(classType));
-            }
-
-            if (backingFieldName == null)
-            {
-                throw new ArgumentNullException(nameof(backingFieldName));
-            }
-
-            if (backedPropertyName == null)
-            {
-                throw new ArgumentNullException(nameof(backedPropertyName));
-            }
-
-            if (expectedFieldDependencyTarget == null)
-            {
-                throw new ArgumentNullException(nameof(expectedFieldDependencyTarget));
-            }
-            
-            var baseClass = Architecture.GetClassOfType(classType);
-            var backingField = baseClass.GetFieldMembersWithName(backingFieldName).First();
-            var backedProperty = baseClass.GetPropertyMembersWithName(backedPropertyName).First();
-            var expectedDependencyTargetClass = Architecture.GetClassOfType(expectedFieldDependencyTarget);
-
-            return new object[] {backingField, backedProperty, expectedDependencyTargetClass};
-        }
-        
-        private static object[] BuildGetterTestData(Type classType, string propertyName,
-            Class expectedFieldDependencyTarget, MethodMember expectedTargetMember)
-        {
-            if (classType == null)
-            {
-                throw new ArgumentNullException(nameof(classType));
-            }
-
-            if (propertyName == null)
-            {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-
-            if (expectedFieldDependencyTarget == null)
-            {
-                throw new ArgumentNullException(nameof(expectedFieldDependencyTarget));
-            }
-
-            var baseClass = Architecture.GetClassOfType(classType);
-            var accessedProperty = baseClass.GetPropertyMembersWithName(propertyName).First();
-            var expectedDependency = CreateStubMethodCallDependency(accessedProperty, expectedTargetMember);
-            return new object[] {accessedProperty, expectedFieldDependencyTarget, expectedDependency};
-        }
-
-        private static object[] BuildAccessMethodTestData(Type classType, string propertyName, MethodForm methodForm)
-        {
-            if (classType == null)
-            {
-                throw new ArgumentNullException(nameof(classType));
-            }
-
-            if (propertyName == null)
-            {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-            if (methodForm != MethodForm.Getter && methodForm != MethodForm.Setter)
-            {
-                throw new InvalidInputException($"Given MethodForm {nameof(methodForm)} is not valid for this test. Please give the form of Getter or Setter.");
-            }            
-            var baseClass = Architecture.GetClassOfType(classType);
-            var accessedProperty = baseClass.GetPropertyMembersWithName(propertyName).First();
-            var accessorMethod = methodForm == MethodForm.Getter ? accessedProperty.Getter : accessedProperty.Setter;
-            return new object[] {accessedProperty, accessorMethod};
-        }
-
-
     }
 }

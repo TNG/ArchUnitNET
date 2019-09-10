@@ -8,8 +8,8 @@
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 
 // ReSharper disable UnusedMember.Global

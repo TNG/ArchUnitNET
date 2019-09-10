@@ -11,15 +11,36 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNETTests.Fluent.Extensions;
 
 namespace ArchUnitNETTests.Dependencies.Members
 {
     public static class MethodDependencyTestBuild
     {
         private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        
+
+        private static object[] BuildMethodCallDependencyTestData(Type originType, string nameOfOriginMember,
+            Type targetType, string nameOfTargetMember)
+        {
+            var originClass = Architecture.GetClassOfType(originType);
+            var originMember = originClass.GetMembersWithName(nameOfOriginMember).Single();
+            var targetClass = Architecture.GetClassOfType(targetType);
+            var targetMember = targetClass.GetMethodMembersWithName(nameOfTargetMember).Single();
+            var expectedDependency = new MethodCallDependency(originMember, targetMember);
+            return new object[] {originMember, expectedDependency};
+        }
+
+        private static object[] BuildMethodSignatureDependencyTestData(Type originType,
+            string nameOfOriginMember, Type targetType)
+        {
+            var originClass = Architecture.GetClassOfType(originType);
+            var originMember = originClass.GetMethodMembersWithName(nameOfOriginMember).Single();
+            var target = Architecture.GetTypeOfType(targetType);
+            var expectedDependency = new MethodSignatureDependency(originMember, target);
+            return new object[] {originMember, expectedDependency};
+        }
+
         public class MethodCallDependencyTestData : IEnumerable<object[]>
         {
             private readonly List<object[]> _methodCallDependencyData = new List<object[]>
@@ -93,27 +114,6 @@ namespace ArchUnitNETTests.Dependencies.Members
             {
                 return GetEnumerator();
             }
-        }
-
-        private static object[] BuildMethodCallDependencyTestData(Type originType, string nameOfOriginMember,
-            Type targetType, string nameOfTargetMember)
-        {
-            var originClass = Architecture.GetClassOfType(originType);
-            var originMember = originClass.GetMembersWithName(nameOfOriginMember).Single();
-            var targetClass = Architecture.GetClassOfType(targetType);
-            var targetMember = targetClass.GetMethodMembersWithName(nameOfTargetMember).Single();
-            var expectedDependency = new MethodCallDependency(originMember, targetMember);
-            return new object[] {originMember, expectedDependency};
-        }
-
-        private static object[] BuildMethodSignatureDependencyTestData(Type originType,
-            string nameOfOriginMember, Type targetType)
-        {
-            var originClass = Architecture.GetClassOfType(originType);
-            var originMember = originClass.GetMethodMembersWithName(nameOfOriginMember).Single();
-            var target = Architecture.GetTypeOfType(targetType);
-            var expectedDependency = new MethodSignatureDependency(originMember, target);
-            return new object[] {originMember, expectedDependency};
         }
     }
 }

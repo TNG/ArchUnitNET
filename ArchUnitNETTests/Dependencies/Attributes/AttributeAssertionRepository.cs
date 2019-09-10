@@ -10,7 +10,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
 using ArchUnitNET.Domain.Dependencies.Types;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using Xunit;
 using Attribute = ArchUnitNET.Domain.Attribute;
 

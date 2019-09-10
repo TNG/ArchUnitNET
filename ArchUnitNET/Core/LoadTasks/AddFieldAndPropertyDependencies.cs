@@ -7,7 +7,7 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Core.LoadTasks
 {

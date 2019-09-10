@@ -9,16 +9,41 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Dependencies.Attributes;
 using ArchUnitNETTests.Dependencies.Members;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNETTests.Fluent.Extensions;
 
 namespace ArchUnitNETTests.Core
 {
     public static class TypeTestBuild
     {
         private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private static object[] BuildTypeTestData(Type originType)
+        {
+            var clazz = Architecture.GetTypeOfType(originType);
+            clazz.RequiredNotNull();
+
+            var type = new ArchUnitNET.Core.Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace,
+                clazz.Visibility, clazz.IsNested);
+
+            return new object[] {type};
+        }
+
+        private static object[] BuildTypeEquivalenceTestData(Type originType)
+        {
+            var clazz = Architecture.GetTypeOfType(originType);
+            clazz.RequiredNotNull();
+            var type = new ArchUnitNET.Core.Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace,
+                clazz.Visibility, clazz.IsNested);
+            object duplicateType = new ArchUnitNET.Core.Type(clazz.FullName, clazz.Name, clazz.Assembly,
+                clazz.Namespace, clazz.Visibility, clazz.IsNested);
+            var typeCopy = type;
+            object referenceCopy = type;
+
+            return new[] {type, duplicateType, typeCopy, referenceCopy};
+        }
 
         public class TypeModelingTestData : IEnumerable<object[]>
         {
@@ -41,16 +66,6 @@ namespace ArchUnitNETTests.Core
             }
         }
 
-        private static object[] BuildTypeTestData(Type originType)
-        {
-            var clazz = Architecture.GetTypeOfType(originType);
-            clazz.RequiredNotNull();
-
-            var type = new ArchUnitNET.Core.Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace);
-
-            return new object[] {type};
-        }
-        
         public class TypeEquivalencyModelingTestData : IEnumerable<object[]>
         {
             private readonly List<object[]> _typeModelingData = new List<object[]>
@@ -70,19 +85,6 @@ namespace ArchUnitNETTests.Core
             {
                 return GetEnumerator();
             }
-        }
-
-        private static object[] BuildTypeEquivalenceTestData(Type originType)
-        {
-            var clazz = Architecture.GetTypeOfType(originType);
-            clazz.RequiredNotNull();
-            var type = new ArchUnitNET.Core.Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace);
-            object duplicateType = new ArchUnitNET.Core.Type(clazz.FullName, clazz.Name, clazz.Assembly,
-                clazz.Namespace);
-            var typeCopy = type;
-            object referenceCopy = type;
-
-            return new[] {type, duplicateType, typeCopy, referenceCopy};
         }
     }
 }
