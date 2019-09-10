@@ -4,6 +4,7 @@
     {
         TRuleTypeConjunction DependOn(string pattern);
         TRuleTypeConjunction HaveName(string name);
+        TRuleTypeConjunction HaveFullName(string fullname);
         TRuleTypeConjunction HaveNameStartingWith(string pattern);
         TRuleTypeConjunction HaveNameEndingWith(string pattern);
         TRuleTypeConjunction HaveNameContaining(string pattern);
@@ -20,6 +21,7 @@
 
         TRuleTypeConjunction DoNotDependOn(string pattern);
         TRuleTypeConjunction DoNotHaveName(string name);
+        TRuleTypeConjunction DoNotHaveFullName(string fullname);
         TRuleTypeConjunction DoNotHaveNameStartingWith(string pattern);
         TRuleTypeConjunction DoNotHaveNameEndingWith(string pattern);
         TRuleTypeConjunction DoNotHaveNameContaining(string pattern);

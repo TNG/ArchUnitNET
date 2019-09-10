@@ -38,6 +38,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction HaveFullName(string fullname)
+        {
+            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+                obj => obj.FullName.Equals(fullname));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HaveNameStartingWith(string pattern)
         {
             _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
@@ -116,6 +123,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
                 obj => !obj.Name.Equals(name));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveFullName(string fullname)
+        {
+            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+                obj => !obj.FullName.Equals(fullname));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
