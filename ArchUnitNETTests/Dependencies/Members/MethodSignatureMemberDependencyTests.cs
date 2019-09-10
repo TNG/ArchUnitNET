@@ -7,8 +7,9 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using Xunit;
+
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
 // ReSharper disable UnusedMember.Global
 
@@ -18,7 +19,8 @@ namespace ArchUnitNETTests.Dependencies.Members
     {
         [Theory]
         [ClassData(typeof(MethodDependencyTestBuild.MethodSignatureDependencyTestData))]
-        public void MethodSignatureDependenciesAreFound(MethodMember originMember, MethodSignatureDependency expectedDependency)
+        public void MethodSignatureDependenciesAreFound(MethodMember originMember,
+            MethodSignatureDependency expectedDependency)
         {
             Assert.True(originMember.HasMethodSignatureDependency(expectedDependency));
         }
@@ -43,10 +45,12 @@ namespace ArchUnitNETTests.Dependencies.Members
     public class ClassWithMethodSignatureC
     {
         private ClassWithMethodSignatureB _innerField;
+
         public ClassWithMethodSignatureC(ClassWithMethodSignatureB classWithMethodSignatureB)
         {
             _innerField = classWithMethodSignatureB;
         }
+
         public void OverloadedMethod(string s)
         {
         }

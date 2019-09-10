@@ -7,27 +7,27 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Types;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Matcher;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 
 namespace ArchUnitNETTests.Dependencies.Types
 {
     public class ImplementingInterfacesTest
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly Interface _testInterface;
-        private readonly Interface _inheritedTestInterface;
-        private readonly Class _inheritingType;
-
         public ImplementingInterfacesTest()
         {
             _testInterface = _architecture.GetInterfaceOfType(typeof(ITestInterface));
             _inheritedTestInterface = _architecture.GetInterfaceOfType(typeof(IInheritedTestInterface));
             _inheritingType = _architecture.GetClassOfType(typeof(InheritingType));
         }
+
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly Interface _testInterface;
+        private readonly Interface _inheritedTestInterface;
+        private readonly Class _inheritingType;
 
         [Fact]
         public void InheritingTypeImplementsInheritedInterface()

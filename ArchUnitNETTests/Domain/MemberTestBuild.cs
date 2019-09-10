@@ -5,19 +5,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Dependencies.Members;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNETTests.Fluent.Extensions;
 
 namespace ArchUnitNETTests.Domain
 {
     public static class MemberTestBuild
     {
         private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private static object[] BuildOriginMemberTestData(Type originType, string memberName)
+        {
+            return new object[]
+            {
+                Architecture.GetClassOfType(originType).GetMembersWithName(memberName)
+                    .SingleOrDefault()
+            };
+        }
 
         public class OriginMemberTestData : IEnumerable<object[]>
         {
@@ -38,12 +48,6 @@ namespace ArchUnitNETTests.Domain
             {
                 return GetEnumerator();
             }
-        }
-
-        private static object[] BuildOriginMemberTestData(System.Type originType, string memberName)
-        {
-            return new object[] {Architecture.GetClassOfType(originType).GetMembersWithName(memberName)
-                .SingleOrDefault()};
         }
     }
 }

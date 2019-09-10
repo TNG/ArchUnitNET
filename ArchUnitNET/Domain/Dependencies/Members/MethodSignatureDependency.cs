@@ -62,7 +62,7 @@ namespace ArchUnitNET.Domain.Dependencies.Members
         {
             unchecked
             {
-                int hashCode = base.GetHashCode();
+                var hashCode = base.GetHashCode();
                 hashCode = (hashCode * 397) ^ (OriginMember != null ? OriginMember.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Target != null ? Target.GetHashCode() : 0);
                 return hashCode;

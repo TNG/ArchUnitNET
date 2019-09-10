@@ -7,6 +7,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Domain
 {
@@ -28,6 +30,82 @@ namespace ArchUnitNET.Domain
 
         public IEnumerable<Class> Classes => Types.OfType<Class>();
         public IEnumerable<Interface> Interfaces => Types.OfType<Interface>();
+
+        public IEnumerable<PropertyMember> PropertyMembers
+        {
+            get
+            {
+                var propertyMembers = new List<PropertyMember>();
+                foreach (var type in Types)
+                {
+                    propertyMembers.AddRange(type.GetPropertyMembers());
+                }
+
+                return propertyMembers;
+            }
+        }
+
+        public IEnumerable<FieldMember> FieldMembers
+        {
+            get
+            {
+                var fieldMembers = new List<FieldMember>();
+                foreach (var type in Types)
+                {
+                    fieldMembers.AddRange(type.GetFieldMembers());
+                }
+
+                return fieldMembers;
+            }
+        }
+
+        public IEnumerable<MethodMember> MethodMembers
+        {
+            get
+            {
+                var methodMembers = new List<MethodMember>();
+                foreach (var type in Types)
+                {
+                    methodMembers.AddRange(type.GetMethodMembers());
+                }
+
+                return methodMembers;
+            }
+        }
+
+        public IEnumerable<IMember> Members
+        {
+            get
+            {
+                var members = new List<IMember>();
+                foreach (var type in Types)
+                {
+                    members.AddRange(type.Members);
+                }
+
+                return members;
+            }
+        }
+
+        public IEnumerable<Attribute> Attributes
+        {
+            get
+            {
+                var attributes = new List<Attribute>();
+                foreach (var type in Types)
+                {
+                    attributes.AddRange(type.Attributes);
+                }
+
+                return attributes;
+            }
+        }
+
+        public bool CheckRule<T>(ArchRule<T> archRule)
+            where T : ICanBeAnalyzed
+        {
+            return archRule.Check(this);
+        }
 
         public override bool Equals(object obj)
         {

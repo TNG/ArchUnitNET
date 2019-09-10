@@ -15,15 +15,6 @@ namespace ArchUnitNETTests.Domain
 {
     public class ArchitectureCacheKeyTests
     {
-        private readonly string _baseClassModuleName;
-        private readonly string _architectureCacheTestsClassModuleName;
-        private readonly string _memberDependencyTests;
-        private readonly string _attributeDependencyTests;
-        private readonly ArchitectureCacheKey _architectureCacheKey;
-        private readonly ArchitectureCacheKey _duplicateArchitectureCacheKey;
-        private readonly object _objectReferenceDuplicateArchitectureCacheKey;
-        private readonly object _duplicateObjectArchitectureCacheKey;
-
         public ArchitectureCacheKeyTests()
         {
             _baseClassModuleName = ModuleDefinition
@@ -36,6 +27,34 @@ namespace ArchUnitNETTests.Domain
             _attributeDependencyTests = typeof(AttributeDependencyTests).Namespace;
             _architectureCacheKey = new ArchitectureCacheKey();
             _duplicateArchitectureCacheKey = new ArchitectureCacheKey();
+        }
+
+        private readonly string _baseClassModuleName;
+        private readonly string _architectureCacheTestsClassModuleName;
+        private readonly string _memberDependencyTests;
+        private readonly string _attributeDependencyTests;
+        private readonly ArchitectureCacheKey _architectureCacheKey;
+        private readonly ArchitectureCacheKey _duplicateArchitectureCacheKey;
+        private readonly object _objectReferenceDuplicateArchitectureCacheKey;
+        private readonly object _duplicateObjectArchitectureCacheKey;
+
+        [Fact]
+        public void ArchitectureCacheKeyContentEquivalentsAreEqual()
+        {
+            object contentEquivalent = new ArchitectureCacheKey();
+            Assert.True(_architectureCacheKey.Equals(contentEquivalent));
+        }
+
+        [Fact]
+        public void ArchitectureCacheKeyDoesNotEqualNull()
+        {
+            Assert.False(_architectureCacheKey.Equals((object) null));
+        }
+
+        [Fact]
+        public void ArchitectureCacheKeyIsEqualToItself()
+        {
+            Assert.True(_architectureCacheKey.Equals(_architectureCacheKey));
         }
 
         [Fact]
@@ -93,7 +112,7 @@ namespace ArchUnitNETTests.Domain
         {
             _architectureCacheKey.Add(_baseClassModuleName, null);
             _duplicateArchitectureCacheKey.Add(_baseClassModuleName, null);
-            
+
             Assert.Equal(_architectureCacheKey, _duplicateArchitectureCacheKey);
         }
 
@@ -102,27 +121,8 @@ namespace ArchUnitNETTests.Domain
         {
             _architectureCacheKey.Add(_baseClassModuleName, null);
             object referenceDuplicate = _architectureCacheKey;
-            
+
             Assert.True(_architectureCacheKey.Equals(referenceDuplicate));
-        }
-
-        [Fact]
-        public void ArchitectureCacheKeyIsEqualToItself()
-        {
-            Assert.True(_architectureCacheKey.Equals(_architectureCacheKey));
-        }
-
-        [Fact]
-        public void ArchitectureCacheKeyDoesNotEqualNull()
-        {
-            Assert.False(_architectureCacheKey.Equals((object) null));
-        }
-
-        [Fact]
-        public void ArchitectureCacheKeyContentEquivalentsAreEqual()
-        {
-            object contentEquivalent = new ArchitectureCacheKey();
-            Assert.True(_architectureCacheKey.Equals(contentEquivalent));
         }
     }
 }

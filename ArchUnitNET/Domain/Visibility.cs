@@ -11,6 +11,10 @@ namespace ArchUnitNET.Domain
     {
         Public,
         Private,
-        Protected
+        Protected,
+        Internal,
+        ProtectedInternal,
+        PrivateProtected,
+        NotAccessible //should only be used for Getters/Setters or as default instead of null
     }
 }

@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies.Types;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Domain
 {
@@ -21,35 +21,37 @@ namespace ArchUnitNET.Domain
 
         public Class Type { get; }
         public bool IsAbstract => Type.IsAbstract;
-        public string Name => Type.Name;
-        public string FullName => Type.FullName;
-        public Namespace Namespace => Type.Namespace;
-        public Assembly Assembly => Type.Assembly;
-        public List<Attribute> Attributes => Type.Attributes;
-        public List<ITypeDependency> Dependencies => Type.Dependencies;
-        public List<ITypeDependency> BackwardsDependencies => Type.BackwardsDependencies;
 
         public IEnumerable<ITypeDependency> DependenciesIncludingInherited => BaseClass != null
             ? Type.Dependencies.Concat(BaseClass.DependenciesIncludingInherited).ToList()
             : Type.Dependencies;
-
-        public IEnumerable<IType> ImplementedInterfaces => Type.ImplementedInterfaces;
-        public MemberList Members => Type.Members;
 
         public MemberList MembersIncludingInherited =>
             BaseClass != null
                 ? new MemberList(Type.Members.Concat(BaseClass.MembersIncludingInherited).ToList())
                 : Type.Members;
 
-        public List<IType> GenericTypeParameters => Type.GenericTypeParameters;
-        public IType GenericType => Type.GenericType;
-        public List<IType> GenericTypeArguments => Type.GenericTypeArguments;
-
 
         public Class BaseClass =>
             (Class) Dependencies.OfType<InheritsBaseClassDependency>().FirstOrDefault()?.Target;
 
         public List<MethodMember> Constructors => Type.GetConstructors().ToList();
+        public string Name => Type.Name;
+        public string FullName => Type.FullName;
+        public Visibility Visibility => Type.Visibility;
+        public bool IsNested => Type.IsNested;
+        public Namespace Namespace => Type.Namespace;
+        public Assembly Assembly => Type.Assembly;
+        public List<Attribute> Attributes => Type.Attributes;
+        public List<ITypeDependency> Dependencies => Type.Dependencies;
+        public List<ITypeDependency> BackwardsDependencies => Type.BackwardsDependencies;
+
+        public IEnumerable<IType> ImplementedInterfaces => Type.ImplementedInterfaces;
+        public MemberList Members => Type.Members;
+
+        public List<IType> GenericTypeParameters => Type.GenericTypeParameters;
+        public IType GenericType => Type.GenericType;
+        public List<IType> GenericTypeArguments => Type.GenericTypeArguments;
 
         public bool Implements(IType intf)
         {

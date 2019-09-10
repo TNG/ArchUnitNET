@@ -9,24 +9,19 @@ using System;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Dependencies.Members;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNETTests.Fluent.Extensions;
 using JetBrains.Annotations;
 using Xunit;
+using static ArchUnitNET.Domain.Visibility;
+
 // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local
 
 namespace ArchUnitNETTests.Domain
 {
     public class MemberTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly MemberEquivalencyTestData _methodMemberEquivalencyTestData;
-        private readonly MemberEquivalencyTestData _fieldMemberEquivalencyTestData;
-        private readonly MemberEquivalencyTestData _propertyMemberEquivalencyTestData;
-
-        
         public MemberTests()
         {
             _methodMemberEquivalencyTestData = new MemberEquivalencyTestData(typeof(ClassWithMethodA),
@@ -36,75 +31,13 @@ namespace ArchUnitNETTests.Domain
             _propertyMemberEquivalencyTestData = new MemberEquivalencyTestData(typeof(ClassWithPropertyA),
                 nameof(ClassWithPropertyA.PropertyA));
         }
-        
-        [Fact]
-        public void MethodMemberEquivalencyTests()
-        {
-            //Setup
-            if (!(_methodMemberEquivalencyTestData.OriginMember is MethodMember memberReferenceDuplicate))
-            {
-                return;
-            }
-            object objectReferenceDuplicate = _methodMemberEquivalencyTestData.OriginMember;
-            
-            //Assert
-            MemberHasConsistentHashCode(_methodMemberEquivalencyTestData.OriginMember,
-                _methodMemberEquivalencyTestData.DuplicateMember);
-            DuplicateMembersAreEqual(_methodMemberEquivalencyTestData.OriginMember,
-                _methodMemberEquivalencyTestData.DuplicateMember);
-            MemberDoesNotEqualNull(_methodMemberEquivalencyTestData.OriginMember);
-            
-            DuplicateMemberReferencesAreEqual(_methodMemberEquivalencyTestData.OriginMember, memberReferenceDuplicate);
-            DuplicateMemberObjectReferencesAreEqual(_methodMemberEquivalencyTestData.OriginMember,
-                objectReferenceDuplicate);
-        }
 
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
-        
-        [Fact]
-        public void FieldMemberEquivalencyTests()
-        {
-            //Setup
-            if (!(_fieldMemberEquivalencyTestData.OriginMember is FieldMember memberReferenceDuplicate))
-            {
-                return;
-            }
-            object objectReferenceDuplicate = _fieldMemberEquivalencyTestData.OriginMember;
-            
-            //Assert
-            MemberHasConsistentHashCode(_fieldMemberEquivalencyTestData.OriginMember,
-                _fieldMemberEquivalencyTestData.DuplicateMember);
-            DuplicateMembersAreEqual(_fieldMemberEquivalencyTestData.OriginMember,
-                _fieldMemberEquivalencyTestData.DuplicateMember);
-            MemberDoesNotEqualNull(_fieldMemberEquivalencyTestData.OriginMember);
-            
-            DuplicateMemberReferencesAreEqual(_fieldMemberEquivalencyTestData.OriginMember, memberReferenceDuplicate);
-            DuplicateMemberObjectReferencesAreEqual(_fieldMemberEquivalencyTestData.OriginMember,
-                objectReferenceDuplicate);
-        }
-        
-        [Fact]
-        public void PropertyMemberEquivalencyTests()
-        {
-            //Setup
-            if (!(_propertyMemberEquivalencyTestData.OriginMember is PropertyMember memberReferenceDuplicate))
-            {
-                return;
-            }
-            object objectReferenceDuplicate = _propertyMemberEquivalencyTestData.OriginMember;
-            
-            //Assert
-            MemberHasConsistentHashCode(_propertyMemberEquivalencyTestData.OriginMember,
-                _propertyMemberEquivalencyTestData.DuplicateMember);
-            DuplicateMembersAreEqual(_propertyMemberEquivalencyTestData.OriginMember,
-                _propertyMemberEquivalencyTestData.DuplicateMember);
-            MemberDoesNotEqualNull(_propertyMemberEquivalencyTestData.OriginMember);
-            
-            DuplicateMemberReferencesAreEqual(_propertyMemberEquivalencyTestData.OriginMember, memberReferenceDuplicate);
-            DuplicateMemberObjectReferencesAreEqual(_propertyMemberEquivalencyTestData.OriginMember,
-                objectReferenceDuplicate);
-        }
-        
+        private readonly MemberEquivalencyTestData _methodMemberEquivalencyTestData;
+        private readonly MemberEquivalencyTestData _fieldMemberEquivalencyTestData;
+        private readonly MemberEquivalencyTestData _propertyMemberEquivalencyTestData;
+
 
         [Theory]
         [ClassData(typeof(MemberTestBuild.OriginMemberTestData))]
@@ -114,6 +47,7 @@ namespace ArchUnitNETTests.Domain
             MemberMemberBackwardsDependenciesByTargetMember(originMember);
             MemberTypeBackwardsDependenciesByTargetType(originMember);
         }
+
         private static void DuplicateMembersAreEqual([NotNull] IMember originMember, [NotNull] object duplicateMember)
         {
             originMember.RequiredNotNull();
@@ -135,14 +69,14 @@ namespace ArchUnitNETTests.Domain
         {
             originMember.RequiredNotNull();
             memberReferenceDuplicate.RequiredNotNull();
-            
+
             Assert.True(originMember.Equals(memberReferenceDuplicate));
         }
 
         private static void MemberDoesNotEqualNull([NotNull] IMember member)
         {
             member.RequiredNotNull();
-            
+
             Assert.False(member.Equals(null));
         }
 
@@ -151,7 +85,7 @@ namespace ArchUnitNETTests.Domain
         {
             originMember.RequiredNotNull();
             duplicateMember.RequiredNotNull();
-            
+
             var hash = originMember.GetHashCode();
             var duplicateHash = duplicateMember.GetHashCode();
             Assert.Equal(hash, duplicateHash);
@@ -196,6 +130,133 @@ namespace ArchUnitNETTests.Domain
 
             public IMember OriginMember { get; }
             public object DuplicateMember { get; }
+        }
+
+        [Fact]
+        public void CorrectlyAssignNotAccessibleGetter()
+        {
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs("FieldWithoutGetter"),
+                member => member.Visibility == NotAccessible);
+        }
+
+        [Fact]
+        public void CorrectlyAssignNotAccessibleSetter()
+        {
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs("FieldWithoutSetter"),
+                member => member.SetterVisibility == NotAccessible);
+        }
+
+
+        [Fact]
+        public void FieldMemberEquivalencyTests()
+        {
+            //Setup
+            if (!(_fieldMemberEquivalencyTestData.OriginMember is FieldMember memberReferenceDuplicate))
+            {
+                return;
+            }
+
+            object objectReferenceDuplicate = _fieldMemberEquivalencyTestData.OriginMember;
+
+            //Assert
+            MemberHasConsistentHashCode(_fieldMemberEquivalencyTestData.OriginMember,
+                _fieldMemberEquivalencyTestData.DuplicateMember);
+            DuplicateMembersAreEqual(_fieldMemberEquivalencyTestData.OriginMember,
+                _fieldMemberEquivalencyTestData.DuplicateMember);
+            MemberDoesNotEqualNull(_fieldMemberEquivalencyTestData.OriginMember);
+
+            DuplicateMemberReferencesAreEqual(_fieldMemberEquivalencyTestData.OriginMember, memberReferenceDuplicate);
+            DuplicateMemberObjectReferencesAreEqual(_fieldMemberEquivalencyTestData.OriginMember,
+                objectReferenceDuplicate);
+        }
+
+        [Fact]
+        public void FieldMembersMustHaveAccessibleVisibility()
+        {
+            Assert.True(Architecture.FieldMembers.All(member => member.Visibility != NotAccessible));
+        }
+
+        [Fact]
+        public void MembersAreMethodMembersAndFieldMembersAndPropertyMembers()
+        {
+            var members = Architecture.Members;
+            var methodMembers = Architecture.MethodMembers;
+            var fieldMembers = Architecture.FieldMembers;
+            var propertyMembers = Architecture.PropertyMembers;
+            Assert.True(members.All(member =>
+                methodMembers.Contains(member) ^ fieldMembers.Contains(member) ^ propertyMembers.Contains(member)));
+            Assert.True(methodMembers.All(member => members.Contains(member)));
+            Assert.True(fieldMembers.All(member => members.Contains(member)));
+            Assert.True(propertyMembers.All(member => members.Contains(member)));
+        }
+
+        [Fact]
+        public void MethodMemberEquivalencyTests()
+        {
+            //Setup
+            if (!(_methodMemberEquivalencyTestData.OriginMember is MethodMember memberReferenceDuplicate))
+            {
+                return;
+            }
+
+            object objectReferenceDuplicate = _methodMemberEquivalencyTestData.OriginMember;
+
+            //Assert
+            MemberHasConsistentHashCode(_methodMemberEquivalencyTestData.OriginMember,
+                _methodMemberEquivalencyTestData.DuplicateMember);
+            DuplicateMembersAreEqual(_methodMemberEquivalencyTestData.OriginMember,
+                _methodMemberEquivalencyTestData.DuplicateMember);
+            MemberDoesNotEqualNull(_methodMemberEquivalencyTestData.OriginMember);
+
+            DuplicateMemberReferencesAreEqual(_methodMemberEquivalencyTestData.OriginMember, memberReferenceDuplicate);
+            DuplicateMemberObjectReferencesAreEqual(_methodMemberEquivalencyTestData.OriginMember,
+                objectReferenceDuplicate);
+        }
+
+        [Fact]
+        public void MethodMembersMustHaveAccessibleVisibility()
+        {
+            Assert.True(Architecture.MethodMembers.All(member => member.Visibility != NotAccessible));
+        }
+
+        [Fact]
+        public void PropertyMemberEquivalencyTests()
+        {
+            //Setup
+            if (!(_propertyMemberEquivalencyTestData.OriginMember is PropertyMember memberReferenceDuplicate))
+            {
+                return;
+            }
+
+            object objectReferenceDuplicate = _propertyMemberEquivalencyTestData.OriginMember;
+
+            //Assert
+            MemberHasConsistentHashCode(_propertyMemberEquivalencyTestData.OriginMember,
+                _propertyMemberEquivalencyTestData.DuplicateMember);
+            DuplicateMembersAreEqual(_propertyMemberEquivalencyTestData.OriginMember,
+                _propertyMemberEquivalencyTestData.DuplicateMember);
+            MemberDoesNotEqualNull(_propertyMemberEquivalencyTestData.OriginMember);
+
+            DuplicateMemberReferencesAreEqual(_propertyMemberEquivalencyTestData.OriginMember,
+                memberReferenceDuplicate);
+            DuplicateMemberObjectReferencesAreEqual(_propertyMemberEquivalencyTestData.OriginMember,
+                objectReferenceDuplicate);
+        }
+
+        // ReSharper disable All
+        private class ClassWithMemberWithNotAccessibleGetterSetter
+        {
+            private FieldType _fieldWithoutGetter;
+            private FieldType FieldWithoutSetter { get; }
+
+            private FieldType FieldWithoutGetter
+            {
+                set => _fieldWithoutGetter = value;
+            }
+        }
+
+        public class FieldType
+        {
         }
     }
 }

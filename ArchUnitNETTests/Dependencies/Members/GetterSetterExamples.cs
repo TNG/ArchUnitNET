@@ -24,13 +24,13 @@ namespace ArchUnitNETTests.Dependencies.Members
 
     public class SetterMethodDependencyExamples
     {
-        internal ChildField _castingPairBacking;
         internal ChildField _castingLambdaPairBacking;
-        internal ChildField _constructorPairBacking;
+        internal ChildField _castingPairBacking;
         internal ChildField _constructorLambdaPairBacking;
-        internal ChildField _methodPairBacking;
+        internal ChildField _constructorPairBacking;
         internal ChildField _methodLambdaPairBacking;
-            
+        internal ChildField _methodPairBacking;
+
         public PropertyType CastingPair
         {
             set { _castingPairBacking = (ChildField) value; }
@@ -45,7 +45,7 @@ namespace ArchUnitNETTests.Dependencies.Members
         {
             set { _constructorPairBacking = new PropertyType(value) as ChildField; }
         }
-            
+
         public PropertyType ConstructorLambdaPair
         {
             set => _constructorLambdaPairBacking = new PropertyType(value) as ChildField;
@@ -55,13 +55,13 @@ namespace ArchUnitNETTests.Dependencies.Members
         {
             set { _methodPairBacking = ChildField.NewPropertyType(value) as ChildField; }
         }
-            
+
         public PropertyType MethodLambdaPair
         {
             set { _methodLambdaPairBacking = ChildField.NewPropertyType(value) as ChildField; }
         }
     }
-    
+
     public class ChildField : PropertyType
     {
         public static PropertyType NewPropertyType(object thing)

@@ -23,6 +23,9 @@ namespace ArchUnitNET.Domain
         public string Name => _type.Name;
         public string FullName => _type.FullName;
 
+        public Visibility Visibility => _type.Visibility;
+        public bool IsNested => _type.IsNested;
+
         public Namespace Namespace => _type.Namespace;
         public Assembly Assembly => _type.Assembly;
 
@@ -45,7 +48,7 @@ namespace ArchUnitNET.Domain
         public bool IsAssignableTo(IType assignableToType)
         {
             if (assignableToType is Interface @interface)
-                
+
             {
                 return Implements(@interface);
             }

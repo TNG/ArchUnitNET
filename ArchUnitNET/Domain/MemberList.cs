@@ -8,7 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using Equ;
 
 namespace ArchUnitNET.Domain
@@ -32,11 +32,6 @@ namespace ArchUnitNET.Domain
             set => _list[_list.IndexOf(_list.First(member => member.Name == index))] = value;
         }
 
-        public IEnumerator<IMember> GetEnumerator()
-        {
-            return _list.GetEnumerator();
-        }
-
         IEnumerator<IMember> IEnumerable<IMember>.GetEnumerator()
         {
             return _list.GetEnumerator();
@@ -50,11 +45,6 @@ namespace ArchUnitNET.Domain
         public void Add(IMember item)
         {
             _list.Add(item);
-        }
-
-        public void AddRange(IEnumerable<IMember> memberCollection)
-        {
-            memberCollection.ForEach(member => _list.Add(member));
         }
 
         public void Clear()
@@ -100,6 +90,16 @@ namespace ArchUnitNET.Domain
         {
             get => _list[index];
             set => _list[index] = value;
+        }
+
+        public IEnumerator<IMember> GetEnumerator()
+        {
+            return _list.GetEnumerator();
+        }
+
+        public void AddRange(IEnumerable<IMember> memberCollection)
+        {
+            memberCollection.ForEach(member => _list.Add(member));
         }
     }
 }

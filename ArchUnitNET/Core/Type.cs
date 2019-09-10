@@ -14,12 +14,15 @@ namespace ArchUnitNET.Core
 {
     public class Type : IType
     {
-        public Type(string fullname, string name, Assembly assembly, Namespace namespc)
+        public Type(string fullname, string name, Assembly assembly, Namespace namespc, Visibility visibility,
+            bool isNested)
         {
             FullName = fullname;
             Name = name;
             Assembly = assembly;
             Namespace = namespc;
+            Visibility = visibility;
+            IsNested = isNested;
         }
 
         public string Name { get; }
@@ -29,6 +32,10 @@ namespace ArchUnitNET.Core
         public Namespace Namespace { get; }
 
         public Assembly Assembly { get; }
+
+        public Visibility Visibility { get; }
+
+        public bool IsNested { get; }
 
         public MemberList Members { get; } = new MemberList();
         public List<IType> GenericTypeParameters { get; set; }

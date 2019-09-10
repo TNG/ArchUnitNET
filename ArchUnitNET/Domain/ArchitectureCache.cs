@@ -11,14 +11,14 @@ namespace ArchUnitNET.Domain
 {
     public class ArchitectureCache
     {
-        public static ArchitectureCache Instance { get; } = new ArchitectureCache();
-
         protected readonly ConcurrentDictionary<ArchitectureCacheKey, Architecture> Cache =
             new ConcurrentDictionary<ArchitectureCacheKey, Architecture>();
 
         protected ArchitectureCache()
         {
         }
+
+        public static ArchitectureCache Instance { get; } = new ArchitectureCache();
 
         public Architecture TryGetArchitecture(ArchitectureCacheKey architectureCacheKey)
         {

@@ -17,7 +17,8 @@ namespace ArchUnitNET.Core
     {
         private readonly Dictionary<string, IType> _allTypes = new Dictionary<string, IType>();
 
-        public IType GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference, [NotNull] Func<string, IType> createFunc)
+        public IType GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference,
+            [NotNull] Func<string, IType> createFunc)
         {
             return RegistryUtils.GetFromDictOrCreateAndAdd(typeReference.FullName, _allTypes,
                 createFunc);

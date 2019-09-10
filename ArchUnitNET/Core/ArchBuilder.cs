@@ -9,20 +9,20 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Core.LoadTasks;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using Mono.Cecil;
 
 namespace ArchUnitNET.Core
 {
     internal class ArchBuilder
     {
+        private readonly ArchitectureCache _architectureCache;
+        private readonly ArchitectureCacheKey _architectureCacheKey;
         private readonly List<IType> _architectureTypes = new List<IType>();
         private readonly AssemblyRegistry _assemblyRegistry;
         private readonly LoadTaskRegistry _loadTaskRegistry;
         private readonly NamespaceRegistry _namespaceRegistry;
         private readonly TypeFactory _typeFactory;
-        private readonly ArchitectureCacheKey _architectureCacheKey;
-        private readonly ArchitectureCache _architectureCache;
 
         public ArchBuilder()
         {
@@ -51,18 +51,19 @@ namespace ArchUnitNET.Core
                 .ForEach(typeDefinition =>
                 {
                     var type = _typeFactory.GetOrCreateTypeFromTypeReference(typeDefinition);
-                        if (!_architectureTypes.Contains(type))
-                        {
-                            _architectureTypes.Add(type);
-                        }
+                    if (!_architectureTypes.Contains(type))
+                    {
+                        _architectureTypes.Add(type);
+                    }
                 });
 
             _namespaceRegistry.Namespaces
                 .Where(ns => RegexUtils.MatchNamespaces(namespaceFilter, ns.FullName))
                 .ForEach(ns =>
-            {
-                    _loadTaskRegistry.Add(typeof(AddTypesToNamespace), new AddTypesToNamespace(ns, _architectureTypes));
-            });
+                {
+                    _loadTaskRegistry.Add(typeof(AddTypesToNamespace),
+                        new AddTypesToNamespace(ns, _architectureTypes));
+                });
         }
 
         private void UpdateTypeDefinitions()

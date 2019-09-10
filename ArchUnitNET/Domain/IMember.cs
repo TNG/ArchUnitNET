@@ -10,7 +10,7 @@ using ArchUnitNET.Domain.Dependencies.Members;
 
 namespace ArchUnitNET.Domain
 {
-    public interface IMember : IHasName, IHasDependencies, IHasAttributes
+    public interface IMember : ICanBeAnalyzed
     {
         IType DeclaringType { get; }
         List<IMemberTypeDependency> MemberDependencies { get; }
