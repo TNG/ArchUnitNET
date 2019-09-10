@@ -1,7 +1,10 @@
-﻿namespace ArchUnitNET.Fluent.Syntax.Elements
+﻿using ArchUnitNET.Domain;
+
+namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public interface IObjectsThat<TRuleTypeConjunction>
     {
+        TRuleTypeConjunction Are(ICanBeAnalyzed obj);
         TRuleTypeConjunction DependOn(string pattern);
         TRuleTypeConjunction HaveName(string name);
         TRuleTypeConjunction HaveFullName(string fullname);
@@ -19,6 +22,7 @@
         //Negations
 
 
+        TRuleTypeConjunction AreNot(ICanBeAnalyzed obj);
         TRuleTypeConjunction DoNotDependOn(string pattern);
         TRuleTypeConjunction DoNotHaveName(string name);
         TRuleTypeConjunction DoNotHaveFullName(string fullname);

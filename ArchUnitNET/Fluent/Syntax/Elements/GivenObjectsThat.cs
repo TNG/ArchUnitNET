@@ -12,6 +12,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
         }
 
+        public TGivenRuleTypeConjunction Are(ICanBeAnalyzed obj)
+        {
+            _ruleCreator.AddSimpleCondition(o => o.Equals(obj));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction DependOn(string pattern)
         {
             _ruleCreator.AddSimpleCondition(obj => obj.DependsOn(pattern));
@@ -87,6 +93,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
+
+        public TGivenRuleTypeConjunction AreNot(ICanBeAnalyzed obj)
+        {
+            _ruleCreator.AddSimpleCondition(o => !o.Equals(obj));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TGivenRuleTypeConjunction DoNotDependOn(string pattern)
         {

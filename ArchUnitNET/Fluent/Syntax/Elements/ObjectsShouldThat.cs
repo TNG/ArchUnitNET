@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
@@ -22,6 +22,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _referenceObjectProvider = referenceObjectProvider;
             _relationCondition = relationCondition;
+        }
+
+        public TRuleTypeShouldConjunction Are(ICanBeAnalyzed obj)
+        {
+            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition, o => o.Equals(obj));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DependOn(string pattern)
@@ -111,6 +117,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
+
+        public TRuleTypeShouldConjunction AreNot(ICanBeAnalyzed obj)
+        {
+            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition, o => !o.Equals(obj));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TRuleTypeShouldConjunction DoNotDependOn(string pattern)
         {

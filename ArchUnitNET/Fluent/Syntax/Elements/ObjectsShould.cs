@@ -1,4 +1,4 @@
-﻿using ArchUnitNET.Domain;
+﻿﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
@@ -14,6 +14,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     {
         protected ObjectsShould(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
+        }
+
+        public TRuleTypeShouldConjunction Be(ICanBeAnalyzed obj)
+        {
+            _ruleCreator.AddSimpleCondition(o => o.Equals(obj));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DependOn(string pattern)
@@ -103,6 +109,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
+
+        public TRuleTypeShouldConjunction NotBe(ICanBeAnalyzed obj)
+        {
+            _ruleCreator.AddSimpleCondition(o => !o.Equals(obj));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TRuleTypeShouldConjunction NotDependOn(string pattern)
         {
