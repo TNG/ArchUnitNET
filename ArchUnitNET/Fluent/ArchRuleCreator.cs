@@ -84,7 +84,7 @@ namespace ArchUnitNET.Fluent
                 _objectProvider = new ObjectProvider<T>(objectProvider);
                 _objectFilterElements = new List<ObjectFilterElement<T>>
                 {
-                    new ObjectFilterElement<T>(ForwardSecondValue)
+                    new ObjectFilterElement<T>(ForwardSecondValue, new ObjectFilter<T>(t => true))
                 };
             }
 
@@ -122,28 +122,28 @@ namespace ArchUnitNET.Fluent
             private class ObjectFilterElement<T> where T : ICanBeAnalyzed
             {
                 private readonly LogicalConjunction _logicalConjunction;
-                private ObjectFilter<T> _filter;
+                private ObjectFilter<T> _objectFilter;
 
-                internal ObjectFilterElement(LogicalConjunction logicalConjunction)
+                internal ObjectFilterElement(LogicalConjunction logicalConjunction, ObjectFilter<T> objectFilter = null)
                 {
-                    _filter = null;
+                    _objectFilter = objectFilter;
                     _logicalConjunction = logicalConjunction;
                 }
 
                 internal void SetFilter(ObjectFilter<T> condition)
                 {
-                    _filter = condition;
+                    _objectFilter = condition;
                 }
 
                 internal bool CheckFilter(bool currentResult, T obj)
                 {
-                    if (_filter == null)
+                    if (_objectFilter == null)
                     {
                         throw new InvalidOperationException(
                             "Can't Evaluate an ObjectFilterElement before the filter is set.");
                     }
 
-                    return _logicalConjunction.Evaluate(currentResult, _filter.CheckFilter(obj));
+                    return _logicalConjunction.Evaluate(currentResult, _objectFilter.CheckFilter(obj));
                 }
             }
         }
@@ -284,7 +284,7 @@ namespace ArchUnitNET.Fluent
 
                 public bool Evaluate(T obj, Architecture architecture)
                 {
-                    return true;
+                    return !_valueIfNull;
                 }
 
                 public bool EvaluateNull()
