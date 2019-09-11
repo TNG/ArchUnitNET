@@ -6,7 +6,7 @@ using Xunit;
 namespace ArchUnitNETTests.Fluent.Syntax.Elements.Types
 {
     /// <summary>
-    /// These tests should be true for all Architectures.
+    ///     These tests should be true for all Architectures.
     /// </summary>
     public class TypeVisibilityTests
     {
