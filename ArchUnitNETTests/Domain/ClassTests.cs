@@ -14,6 +14,7 @@ using ArchUnitNETTests.Fluent.Extensions;
 using JetBrains.Annotations;
 using Xunit;
 using static ArchUnitNET.Domain.Visibility;
+using static ArchUnitNETTests.Domain.StaticVisibilityTestClasses;
 
 
 namespace ArchUnitNETTests.Domain
@@ -98,30 +99,27 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void ClassesAreAssignedCorrectVisibility()
         {
-            Assert.Equal(Public, Architecture.GetClassOfType(typeof(PublicTestClass)).Visibility);
-            Assert.Equal(Internal, Architecture.GetClassOfType(typeof(InternalTestClass)).Visibility);
-            Assert.Equal(Public, Architecture.GetClassOfType(typeof(NestedPublicTestClass)).Visibility);
-            Assert.Equal(Private, Architecture.GetClassOfType(typeof(NestedPrivateTestClass)).Visibility);
-            Assert.Equal(Protected,
-                Architecture.GetClassOfType(typeof(NestedProtectedTestClass)).Visibility);
-            Assert.Equal(Internal, Architecture.GetClassOfType(typeof(NestedInternalTestClass)).Visibility);
-            Assert.Equal(ProtectedInternal,
-                Architecture.GetClassOfType(typeof(NestedProtectedInternalTestClass)).Visibility);
-            Assert.Equal(PrivateProtected,
-                Architecture.GetClassOfType(typeof(NestedPrivateProtectedTestClass)).Visibility);
+            Assert.Equal(Public, StaticVisibilityTestClasses.PublicTestClass.Visibility);
+            Assert.Equal(Internal, StaticVisibilityTestClasses.InternalTestClass.Visibility);
+            Assert.Equal(Public, NestedPublicTestClass.Visibility);
+            Assert.Equal(Private, NestedPrivateTestClass.Visibility);
+            Assert.Equal(Protected, NestedProtectedTestClass.Visibility);
+            Assert.Equal(Internal, NestedInternalTestClass.Visibility);
+            Assert.Equal(ProtectedInternal, NestedProtectedInternalTestClass.Visibility);
+            Assert.Equal(PrivateProtected, NestedPrivateProtectedTestClass.Visibility);
         }
 
         [Fact]
         public void ClassesHaveCorrectIsNestedProperty()
         {
-            Assert.False(Architecture.GetClassOfType(typeof(PublicTestClass)).IsNested);
-            Assert.False(Architecture.GetClassOfType(typeof(InternalTestClass)).IsNested);
-            Assert.True(Architecture.GetClassOfType(typeof(NestedPublicTestClass)).IsNested);
-            Assert.True(Architecture.GetClassOfType(typeof(NestedPrivateTestClass)).IsNested);
-            Assert.True(Architecture.GetClassOfType(typeof(NestedProtectedTestClass)).IsNested);
-            Assert.True(Architecture.GetClassOfType(typeof(NestedInternalTestClass)).IsNested);
-            Assert.True(Architecture.GetClassOfType(typeof(NestedProtectedInternalTestClass)).IsNested);
-            Assert.True(Architecture.GetClassOfType(typeof(NestedPrivateProtectedTestClass)).IsNested);
+            Assert.False(StaticVisibilityTestClasses.PublicTestClass.IsNested);
+            Assert.False(StaticVisibilityTestClasses.InternalTestClass.IsNested);
+            Assert.True(NestedPublicTestClass.IsNested);
+            Assert.True(NestedPrivateTestClass.IsNested);
+            Assert.True(NestedProtectedTestClass.IsNested);
+            Assert.True(NestedInternalTestClass.IsNested);
+            Assert.True(NestedProtectedInternalTestClass.IsNested);
+            Assert.True(NestedPrivateProtectedTestClass.IsNested);
         }
 
         [Fact]
@@ -167,39 +165,5 @@ namespace ArchUnitNETTests.Domain
                 Assert.Contains(parentDependency, _childClass.DependenciesIncludingInherited);
             });
         }
-
-        // ReSharper disable MemberCanBePrivate.Global
-
-        public class NestedPublicTestClass
-        {
-        }
-
-        private class NestedPrivateTestClass
-        {
-        }
-
-        protected class NestedProtectedTestClass
-        {
-        }
-
-        internal class NestedInternalTestClass
-        {
-        }
-
-        protected internal class NestedProtectedInternalTestClass
-        {
-        }
-
-        private protected class NestedPrivateProtectedTestClass
-        {
-        }
-    }
-
-    public class PublicTestClass
-    {
-    }
-
-    internal class InternalTestClass
-    {
     }
 }
