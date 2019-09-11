@@ -8,6 +8,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
+        TRuleTypeShouldConjunction Exist();
         TRuleTypeShouldConjunction Be(ICanBeAnalyzed obj);
         TRuleTypeShouldConjunction DependOn(string pattern);
         TRuleTypeShouldConjunction HaveName(string name);
@@ -27,6 +28,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
+        TRuleTypeShouldConjunction NotExist();
         TRuleTypeShouldConjunction NotBe(ICanBeAnalyzed obj);
         TRuleTypeShouldConjunction NotDependOn(string pattern);
         TRuleTypeShouldConjunction NotHaveName(string name);

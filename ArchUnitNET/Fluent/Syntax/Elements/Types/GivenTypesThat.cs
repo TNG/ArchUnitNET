@@ -15,43 +15,43 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public TGivenRuleTypeConjunction ImplementInterface(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(type => type.ImplementsInterface(pattern));
+            _ruleCreator.AddObjectFilter(type => type.ImplementsInterface(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction ResideInNamespace(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(type => type.ResidesInNamespace(pattern));
+            _ruleCreator.AddObjectFilter(type => type.ResidesInNamespace(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HavePropertyMemberWithName(string name)
         {
-            _ruleCreator.AddSimpleCondition(type => type.HasPropertyMemberWithName(name));
+            _ruleCreator.AddObjectFilter(type => type.HasPropertyMemberWithName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveFieldMemberWithName(string name)
         {
-            _ruleCreator.AddSimpleCondition(type => type.HasFieldMemberWithName(name));
+            _ruleCreator.AddObjectFilter(type => type.HasFieldMemberWithName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveMethodMemberWithName(string name)
         {
-            _ruleCreator.AddSimpleCondition(type => type.HasMethodMemberWithName(name));
+            _ruleCreator.AddObjectFilter(type => type.HasMethodMemberWithName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveMemberWithName(string name)
         {
-            _ruleCreator.AddSimpleCondition(type => type.HasMemberWithName(name));
+            _ruleCreator.AddObjectFilter(type => type.HasMemberWithName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreNested()
         {
-            _ruleCreator.AddSimpleCondition(type => type.IsNested);
+            _ruleCreator.AddObjectFilter(type => type.IsNested);
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -61,43 +61,43 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public TGivenRuleTypeConjunction DoNotImplementInterface(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(type => !type.ImplementsInterface(pattern));
+            _ruleCreator.AddObjectFilter(type => !type.ImplementsInterface(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotResideInNamespace(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(type => !type.ResidesInNamespace(pattern));
+            _ruleCreator.AddObjectFilter(type => !type.ResidesInNamespace(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHavePropertyMemberWithName(string name)
         {
-            _ruleCreator.AddSimpleCondition(type => !type.HasPropertyMemberWithName(name));
+            _ruleCreator.AddObjectFilter(type => !type.HasPropertyMemberWithName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveFieldMemberWithName(string name)
         {
-            _ruleCreator.AddSimpleCondition(type => !type.HasFieldMemberWithName(name));
+            _ruleCreator.AddObjectFilter(type => !type.HasFieldMemberWithName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveMethodMemberWithName(string name)
         {
-            _ruleCreator.AddSimpleCondition(type => !type.HasMethodMemberWithName(name));
+            _ruleCreator.AddObjectFilter(type => !type.HasMethodMemberWithName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveMemberWithName(string name)
         {
-            _ruleCreator.AddSimpleCondition(type => !type.HasMemberWithName(name));
+            _ruleCreator.AddObjectFilter(type => !type.HasMemberWithName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreNotNested()
         {
-            _ruleCreator.AddSimpleCondition(type => !type.IsNested);
+            _ruleCreator.AddObjectFilter(type => !type.IsNested);
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }

@@ -1,4 +1,4 @@
-﻿﻿using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
@@ -14,6 +14,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     {
         protected ObjectsShould(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
+        }
+
+        public TRuleTypeShouldConjunction Exist()
+        {
+            _ruleCreator.AddIsNullOrEmptyCondition(false);
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction Be(ICanBeAnalyzed obj)
@@ -96,19 +102,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat()
         {
-            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator,
-                (obj, cls) => obj.DependsOn(cls.FullName));
+            _ruleCreator.BeginComplexCondition<Class>((obj, cls) => obj.DependsOn(cls.FullName));
+            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat()
         {
-            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator,
-                (obj, attribute) => obj.Attributes.Contains(attribute));
+            _ruleCreator.BeginComplexCondition<Attribute>((obj, attribute) => obj.Attributes.Contains(attribute));
+            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
 
         //Negations
 
+
+        public TRuleTypeShouldConjunction NotExist()
+        {
+            _ruleCreator.AddIsNullOrEmptyCondition(true);
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TRuleTypeShouldConjunction NotBe(ICanBeAnalyzed obj)
         {
@@ -190,14 +202,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat()
         {
-            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator,
-                (obj, cls) => !obj.DependsOn(cls.FullName));
+            _ruleCreator.BeginComplexCondition<Class>((obj, cls) => !obj.DependsOn(cls.FullName));
+            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat()
         {
-            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator,
-                (obj, attribute) => !obj.Attributes.Contains(attribute));
+            _ruleCreator.BeginComplexCondition<Attribute>((obj, attribute) => !obj.Attributes.Contains(attribute));
+            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

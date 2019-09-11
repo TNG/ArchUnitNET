@@ -12,19 +12,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TGivenRuleTypeThat And()
         {
-            _ruleCreator.AddConditionConjunction(LogicalConjunctions.And());
+            _ruleCreator.AddObjectFilterConjunction(LogicalConjunctionDefinition.And);
             return CreateSyntaxElement<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeThat Or()
         {
-            _ruleCreator.AddConditionConjunction(LogicalConjunctions.Or());
+            _ruleCreator.AddObjectFilterConjunction(LogicalConjunctionDefinition.Or);
             return CreateSyntaxElement<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShould Should()
         {
-            _ruleCreator.SetConditionPhase();
             return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
         }
     }

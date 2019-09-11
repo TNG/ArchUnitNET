@@ -1,5 +1,4 @@
-﻿using System;
-using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
 {
@@ -9,9 +8,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public FieldMembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
-            Func<TRuleType, FieldMember, bool> relationCondition) : base(ruleCreator,
-            architecture => architecture.FieldMembers, relationCondition)
+        public FieldMembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+            architecture => architecture.FieldMembers)
         {
         }
     }

@@ -12,13 +12,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShould AndShould()
         {
-            _ruleCreator.AddConditionConjunction(LogicalConjunctions.And());
+            _ruleCreator.AddConditionConjunction(LogicalConjunctionDefinition.And);
             return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShould OrShould()
         {
-            _ruleCreator.AddConditionConjunction(LogicalConjunctions.Or());
+            _ruleCreator.AddConditionConjunction(LogicalConjunctionDefinition.Or);
             return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
         }
     }

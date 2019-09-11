@@ -9,15 +9,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
-        public AttributesShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
-            System.Func<TRuleType, Attribute, bool> relationCondition) : base(ruleCreator,
-            architecture => architecture.Attributes, relationCondition)
+        public AttributesShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+            architecture => architecture.Attributes)
         {
         }
 
         public TRuleTypeShouldConjunction AreAbstract()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 attribute => attribute.IsAbstract);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -28,7 +27,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public TRuleTypeShouldConjunction AreNotAbstract()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 attribute => !attribute.IsAbstract);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }

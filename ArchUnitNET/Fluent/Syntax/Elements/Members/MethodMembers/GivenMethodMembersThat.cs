@@ -12,13 +12,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public GivenMethodMembersConjunction AreConstructors()
         {
-            _ruleCreator.AddSimpleCondition(member => member.IsConstructor());
+            _ruleCreator.AddObjectFilter(member => member.IsConstructor());
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
         public GivenMethodMembersConjunction AreVirtual()
         {
-            _ruleCreator.AddSimpleCondition(member => member.IsVirtual);
+            _ruleCreator.AddObjectFilter(member => member.IsVirtual);
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
@@ -27,13 +27,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public GivenMethodMembersConjunction AreNoConstructors()
         {
-            _ruleCreator.AddSimpleCondition(member => !member.IsConstructor());
+            _ruleCreator.AddObjectFilter(member => !member.IsConstructor());
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
         public GivenMethodMembersConjunction AreNotVirtual()
         {
-            _ruleCreator.AddSimpleCondition(member => !member.IsVirtual);
+            _ruleCreator.AddObjectFilter(member => !member.IsVirtual);
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
     }

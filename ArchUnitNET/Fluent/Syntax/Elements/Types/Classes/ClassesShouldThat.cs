@@ -1,5 +1,4 @@
-﻿using System;
-using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
@@ -9,15 +8,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         IClassesThat<TRuleTypeShouldConjunction> where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public ClassesShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
-            Func<TRuleType, Class, bool> relationCondition) : base(
-            ruleCreator, architecture => architecture.Classes, relationCondition)
+        public ClassesShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(
+            ruleCreator, architecture => architecture.Classes)
         {
         }
 
         public TRuleTypeShouldConjunction AreAbstract()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition, cls => cls.IsAbstract);
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, cls => cls.IsAbstract);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -27,7 +25,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public TRuleTypeShouldConjunction AreNotAbstract()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition, cls => !cls.IsAbstract);
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, cls => !cls.IsAbstract);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

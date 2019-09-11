@@ -11,7 +11,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public GivenAttributesConjunction AreAbstract()
         {
-            _ruleCreator.AddSimpleCondition(attribute => attribute.IsAbstract);
+            _ruleCreator.AddObjectFilter(attribute => attribute.IsAbstract);
             return new GivenAttributesConjunction(_ruleCreator);
         }
 
@@ -21,7 +21,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public GivenAttributesConjunction AreNotAbstract()
         {
-            _ruleCreator.AddSimpleCondition(attribute => !attribute.IsAbstract);
+            _ruleCreator.AddObjectFilter(attribute => !attribute.IsAbstract);
             return new GivenAttributesConjunction(_ruleCreator);
         }
     }
