@@ -183,7 +183,7 @@ namespace ArchUnitNET.Fluent
 
             internal void AddIsNullOrEmptyCondition(bool valueIfEmpty)
             {
-                AddCondition(new IsNullOrEmptyCondition<T>(valueIfEmpty));
+                AddCondition(new IsNullCondition<T>(valueIfEmpty));
             }
 
             private void AddCondition(ICondition<T> condition)
@@ -198,14 +198,20 @@ namespace ArchUnitNET.Fluent
 
             internal bool CheckConditions(IEnumerable<T> filteredObjects, Architecture architecture)
             {
-                return _conditionElements.Aggregate(true,
-                    (currentResult, conditionElement) =>
-                        conditionElement.Evaluate(currentResult, filteredObjects, architecture));
+                if (filteredObjects.IsNullOrEmpty())
+                {
+                    return _conditionElements.Aggregate(true,
+                        (currentResult, conditionElement) => conditionElement.EvaluateNull(currentResult));
+                }
+
+                return filteredObjects.All(obj => _conditionElements.Aggregate(true,
+                    (currentResult, conditionElement) => conditionElement.Evaluate(currentResult, obj, architecture)));
             }
 
             private interface ICondition<T> where T : ICanBeAnalyzed
             {
-                bool Evaluate(IEnumerable<T> filteredObjects, Architecture architecture);
+                bool Evaluate(T obj, Architecture architecture);
+                bool EvaluateNull();
             }
 
             private class SimpleCondition<T> : ICondition<T> where T : ICanBeAnalyzed
@@ -217,19 +223,19 @@ namespace ArchUnitNET.Fluent
                     _condition = condition;
                 }
 
-                public bool Evaluate(IEnumerable<T> filteredObjects, Architecture architecture)
+                public bool Evaluate(T obj, Architecture architecture)
                 {
-                    return Evaluate(filteredObjects);
+                    return Evaluate(obj);
+                }
+
+                public bool EvaluateNull()
+                {
+                    return true;
                 }
 
                 internal bool Evaluate(T obj)
                 {
                     return _condition(obj);
-                }
-
-                private bool Evaluate(IEnumerable<T> filteredObjects)
-                {
-                    return filteredObjects.All(Evaluate);
                 }
             }
 
@@ -255,35 +261,35 @@ namespace ArchUnitNET.Fluent
                 {
                 }
 
-                public bool Evaluate(IEnumerable<T> filteredObjects, Architecture architecture)
-                {
-                    return filteredObjects.All(obj => Evaluate(obj, architecture));
-                }
-
-                private bool Evaluate(T obj, Architecture architecture)
+                public bool Evaluate(T obj, Architecture architecture)
                 {
                     return _objectProvider.GetObjects(architecture).Where(refObj => _relationCondition(obj, refObj))
                         .All(relatedObj => _condition.Evaluate(relatedObj));
                 }
+
+                public bool EvaluateNull()
+                {
+                    return true;
+                }
             }
 
-            private class IsNullOrEmptyCondition<T> : ICondition<T> where T : ICanBeAnalyzed
+            private class IsNullCondition<T> : ICondition<T> where T : ICanBeAnalyzed
             {
-                private readonly bool _valueIfEmpty;
+                private readonly bool _valueIfNull;
 
-                internal IsNullOrEmptyCondition(bool valueIfEmpty)
+                internal IsNullCondition(bool valueIfNull)
                 {
-                    _valueIfEmpty = valueIfEmpty;
+                    _valueIfNull = valueIfNull;
                 }
 
-                public bool Evaluate(IEnumerable<T> filteredObjects, Architecture architecture)
+                public bool Evaluate(T obj, Architecture architecture)
                 {
-                    return Evaluate(filteredObjects);
+                    return true;
                 }
 
-                private bool Evaluate(IEnumerable<T> filteredObjects)
+                public bool EvaluateNull()
                 {
-                    return filteredObjects.IsNullOrEmpty() ? _valueIfEmpty : !_valueIfEmpty;
+                    return _valueIfNull;
                 }
             }
 
@@ -303,7 +309,7 @@ namespace ArchUnitNET.Fluent
                     _condition = condition;
                 }
 
-                public bool Evaluate(bool currentResult, IEnumerable<T> filteredObjects, Architecture architecture)
+                internal bool Evaluate(bool currentResult, T obj, Architecture architecture)
                 {
                     if (_condition == null)
                     {
@@ -311,8 +317,18 @@ namespace ArchUnitNET.Fluent
                             "Can't Evaluate a ConditionElement before the condition is set.");
                     }
 
-                    return _logicalConjunction.Evaluate(currentResult,
-                        _condition.Evaluate(filteredObjects, architecture));
+                    return _logicalConjunction.Evaluate(currentResult, _condition.Evaluate(obj, architecture));
+                }
+
+                internal bool EvaluateNull(bool currentResult)
+                {
+                    if (_condition == null)
+                    {
+                        throw new InvalidOperationException(
+                            "Can't Evaluate a ConditionElement before the condition is set.");
+                    }
+
+                    return _logicalConjunction.Evaluate(currentResult, _condition.EvaluateNull());
                 }
             }
         }
