@@ -1,5 +1,4 @@
-﻿using System;
-using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 using static ArchUnitNET.Domain.Visibility;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
@@ -11,71 +10,70 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public PropertyMembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
-            Func<TRuleType, PropertyMember, bool> relationCondition) : base(ruleCreator,
-            architecture => architecture.PropertyMembers, relationCondition)
+        public PropertyMembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+            architecture => architecture.PropertyMembers)
         {
         }
 
         public TRuleTypeShouldConjunction HaveGetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.Visibility != NotAccessible);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility != NotAccessible);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HavePrivateSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility == Private);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HavePublicSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility == Public);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveProtectedSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility == Protected);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveInternalSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility == Internal);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveProtectedInternalSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility == ProtectedInternal);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HavePrivateProtectedSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility == PrivateProtected);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreVirtual()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition, member => member.IsVirtual);
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, member => member.IsVirtual);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -85,63 +83,63 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public TRuleTypeShouldConjunction HaveNoGetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.Visibility == NotAccessible);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveNoSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility == NotAccessible);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHavePrivateSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility != Private);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHavePublicSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility != Public);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveProtectedSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility != Protected);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveInternalSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility != Internal);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveProtectedInternalSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility != ProtectedInternal);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHavePrivateProtectedSetter()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition,
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 member => member.SetterVisibility != PrivateProtected);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotVirtual()
         {
-            _ruleCreator.AddComplexCondition(_referenceObjectProvider, _relationCondition, member => !member.IsVirtual);
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, member => !member.IsVirtual);
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

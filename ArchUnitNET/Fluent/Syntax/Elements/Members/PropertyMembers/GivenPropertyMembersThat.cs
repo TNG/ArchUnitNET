@@ -12,55 +12,55 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction HaveGetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility != NotAccessible);
+            _ruleCreator.AddObjectFilter(member => member.Visibility != NotAccessible);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.SetterVisibility != NotAccessible);
+            _ruleCreator.AddObjectFilter(member => member.SetterVisibility != NotAccessible);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePrivateSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility == Private);
+            _ruleCreator.AddObjectFilter(member => member.Visibility == Private);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePublicSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility == Public);
+            _ruleCreator.AddObjectFilter(member => member.Visibility == Public);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveProtectedSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility == Protected);
+            _ruleCreator.AddObjectFilter(member => member.Visibility == Protected);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveInternalSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility == Internal);
+            _ruleCreator.AddObjectFilter(member => member.Visibility == Internal);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveProtectedInternalSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility == ProtectedInternal);
+            _ruleCreator.AddObjectFilter(member => member.Visibility == ProtectedInternal);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePrivateProtectedSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility == PrivateProtected);
+            _ruleCreator.AddObjectFilter(member => member.Visibility == PrivateProtected);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction AreVirtual()
         {
-            _ruleCreator.AddSimpleCondition(member => member.IsVirtual);
+            _ruleCreator.AddObjectFilter(member => member.IsVirtual);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
@@ -70,55 +70,55 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction HaveNoGetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility == NotAccessible);
+            _ruleCreator.AddObjectFilter(member => member.Visibility == NotAccessible);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveNoSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.SetterVisibility == NotAccessible);
+            _ruleCreator.AddObjectFilter(member => member.SetterVisibility == NotAccessible);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePrivateSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility != Private);
+            _ruleCreator.AddObjectFilter(member => member.Visibility != Private);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePublicSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility != Public);
+            _ruleCreator.AddObjectFilter(member => member.Visibility != Public);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHaveProtectedSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility != Protected);
+            _ruleCreator.AddObjectFilter(member => member.Visibility != Protected);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHaveInternalSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility != Internal);
+            _ruleCreator.AddObjectFilter(member => member.Visibility != Internal);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHaveProtectedInternalSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility != ProtectedInternal);
+            _ruleCreator.AddObjectFilter(member => member.Visibility != ProtectedInternal);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePrivateProtectedSetter()
         {
-            _ruleCreator.AddSimpleCondition(member => member.Visibility != PrivateProtected);
+            _ruleCreator.AddObjectFilter(member => member.Visibility != PrivateProtected);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction AreNotVirtual()
         {
-            _ruleCreator.AddSimpleCondition(member => !member.IsVirtual);
+            _ruleCreator.AddObjectFilter(member => !member.IsVirtual);
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
     }

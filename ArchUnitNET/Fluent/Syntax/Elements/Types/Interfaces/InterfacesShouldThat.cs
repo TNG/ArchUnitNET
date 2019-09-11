@@ -1,5 +1,4 @@
-﻿using System;
-using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
 {
@@ -7,9 +6,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
         TypesShouldThat<TRuleTypeShouldConjunction, Interface, TRuleType>,
         IInterfacesThat<TRuleTypeShouldConjunction> where TRuleType : ICanBeAnalyzed
     {
-        protected InterfacesShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
-            Func<TRuleType, Interface, bool> relationCondition) : base(ruleCreator,
-            architecture => architecture.Interfaces, relationCondition)
+        protected InterfacesShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+            architecture => architecture.Interfaces)
         {
         }
     }
