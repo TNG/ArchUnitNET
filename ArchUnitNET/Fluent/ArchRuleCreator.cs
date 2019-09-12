@@ -10,7 +10,7 @@ using static ArchUnitNET.Fluent.Syntax.LogicalConjunctionDefinition;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ArchRuleCreator<T> where T : ICanBeAnalyzed
+    public class ArchRuleCreator<T> : IArchRuleCreator where T : ICanBeAnalyzed
     {
         private readonly ConditionManager<T> _conditionManager;
         private readonly ObjectFilterManager<T> _objectFilterManager;
@@ -19,6 +19,11 @@ namespace ArchUnitNET.Fluent
         {
             _objectFilterManager = new ObjectFilterManager<T>(objectsToBeAnalyzed);
             _conditionManager = new ConditionManager<T>();
+        }
+
+        public virtual bool Check(Architecture architecture)
+        {
+            return CheckConditions(GetFilteredObjects(architecture), architecture);
         }
 
         public void AddObjectFilter(Func<T, bool> objectFilter)
@@ -67,11 +72,6 @@ namespace ArchUnitNET.Fluent
         private bool CheckConditions(IEnumerable<T> filteredObjects, Architecture architecture)
         {
             return _conditionManager.CheckConditions(filteredObjects, architecture);
-        }
-
-        public bool CheckRule(Architecture architecture)
-        {
-            return CheckConditions(GetFilteredObjects(architecture), architecture);
         }
 
         private class ObjectFilterManager<T> where T : ICanBeAnalyzed
@@ -167,13 +167,13 @@ namespace ArchUnitNET.Fluent
                 AddCondition(new SimpleCondition<T>(simpleCondition));
             }
 
-            public void BeginComplexCondition<TReference>(Func<T, TReference, bool> relationCondition)
+            internal void BeginComplexCondition<TReference>(Func<T, TReference, bool> relationCondition)
                 where TReference : ICanBeAnalyzed
             {
                 _relationConditionTemp = relationCondition;
             }
 
-            public void ContinueComplexCondition<TReference>(
+            internal void ContinueComplexCondition<TReference>(
                 Func<Architecture, IEnumerable<TReference>> referenceObjectProvider, Func<TReference, bool> condition)
                 where TReference : ICanBeAnalyzed
             {

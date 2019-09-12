@@ -101,8 +101,7 @@ namespace ArchUnitNET.Domain
             }
         }
 
-        public bool CheckRule<T>(ArchRule<T> archRule)
-            where T : ICanBeAnalyzed
+        public bool CheckRule(IArchRule archRule)
         {
             return archRule.Check(this);
         }
