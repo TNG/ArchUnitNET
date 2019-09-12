@@ -4,7 +4,7 @@ using ArchUnitNET.Fluent;
 using ArchUnitNETTests.Domain;
 using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
-using static ArchUnitNETTests.Domain.StaticVisibilityTestClasses;
+using static ArchUnitNETTests.Domain.StaticTestTypes;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
@@ -299,8 +299,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     .OrShould().BeInternal().OrShould().BeProtectedInternal().OrShould()
                     .BePrivate(),
 
-                ArchRuleDefinition.Types().That().Are(StaticVisibilityTestClasses.PublicTestClass).Should().BePublic(),
-                ArchRuleDefinition.Types().That().Are(StaticVisibilityTestClasses.InternalTestClass).Should()
+                ArchRuleDefinition.Types().That().Are(StaticTestTypes.PublicTestClass).Should().BePublic(),
+                ArchRuleDefinition.Types().That().Are(StaticTestTypes.InternalTestClass).Should()
                     .BeInternal(),
                 ArchRuleDefinition.Types().That().Are(NestedPrivateTestClass).Should().BePrivate(),
                 ArchRuleDefinition.Types().That().Are(NestedPublicTestClass).Should().BePublic(),

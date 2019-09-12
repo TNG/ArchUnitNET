@@ -8,6 +8,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         TRuleTypeShouldConjunction ImplementInterface(string pattern);
+        TRuleTypeShouldConjunction ImplementInterface(Interface intf);
         TRuleTypeShouldConjunction ResideInNamespace(string pattern);
         TRuleTypeShouldConjunction HavePropertyMemberWithName(string name);
         TRuleTypeShouldConjunction HaveFieldMemberWithName(string name);
@@ -20,6 +21,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
 
         TRuleTypeShouldConjunction NotImplementInterface(string pattern);
+        TRuleTypeShouldConjunction NotImplementInterface(Interface intf);
         TRuleTypeShouldConjunction NotResideInNamespace(string pattern);
         TRuleTypeShouldConjunction NotHavePropertyMemberWithName(string name);
         TRuleTypeShouldConjunction NotHaveFieldMemberWithName(string name);

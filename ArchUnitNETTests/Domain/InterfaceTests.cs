@@ -5,14 +5,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-using System;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Dependencies.Types;
 using ArchUnitNETTests.Fluent.Extensions;
 using JetBrains.Annotations;
 using Xunit;
 using static ArchUnitNET.Domain.Visibility;
+using static ArchUnitNETTests.Domain.StaticTestTypes;
 
 namespace ArchUnitNETTests.Domain
 {
@@ -20,10 +18,10 @@ namespace ArchUnitNETTests.Domain
     {
         public InterfaceTests()
         {
-            _interfaceEquivalencyTestData = new InterfaceEquivalencyTestData(typeof(ITestInterface));
-            _parentInterface = Architecture.GetInterfaceOfType(typeof(IInheritedTestInterface));
-            _childInterface = Architecture.GetInterfaceOfType(typeof(ITestInterface));
-            _interfaceImplementingClass = Architecture.GetClassOfType(typeof(InheritedType));
+            _interfaceEquivalencyTestData = new InterfaceEquivalencyTestData(InheritingInterface);
+            _parentInterface = InheritedTestInterface;
+            _childInterface = InheritingInterface;
+            _interfaceImplementingClass = StaticTestTypes.InheritedType;
         }
 
         private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
@@ -34,10 +32,10 @@ namespace ArchUnitNETTests.Domain
 
         private class InterfaceEquivalencyTestData
         {
-            public InterfaceEquivalencyTestData([NotNull] Type originType)
+            public InterfaceEquivalencyTestData([NotNull] Interface originType)
             {
-                OriginInterface = Architecture.GetInterfaceOfType(originType).RequiredNotNull();
-                DuplicateInterface = Architecture.GetInterfaceOfType(originType).RequiredNotNull();
+                OriginInterface = originType;
+                DuplicateInterface = originType;
                 InterfaceReferenceDuplicate = OriginInterface;
                 ObjectReferenceDuplicate = OriginInterface;
             }
@@ -104,64 +102,27 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void InterfacesAreAssignedCorrectVisibility()
         {
-            Assert.Equal(Public, Architecture.GetInterfaceOfType(typeof(IPublicTestInterface)).Visibility);
-            Assert.Equal(Internal, Architecture.GetInterfaceOfType(typeof(IInternalTestInterface)).Visibility);
-            Assert.Equal(Public, Architecture.GetInterfaceOfType(typeof(INestedPublicTestInterface)).Visibility);
-            Assert.Equal(Private, Architecture.GetInterfaceOfType(typeof(INestedPrivateTestInterface)).Visibility);
-            Assert.Equal(Protected,
-                Architecture.GetInterfaceOfType(typeof(INestedProtectedTestInterface)).Visibility);
-            Assert.Equal(Internal, Architecture.GetInterfaceOfType(typeof(INestedInternalTestInterface)).Visibility);
-            Assert.Equal(ProtectedInternal,
-                Architecture.GetInterfaceOfType(typeof(INestedProtectedInternalTestInterface)).Visibility);
-            Assert.Equal(PrivateProtected,
-                Architecture.GetInterfaceOfType(typeof(INestedPrivateProtectedTestInterface)).Visibility);
+            Assert.Equal(Public, PublicTestInterface.Visibility);
+            Assert.Equal(Internal, InternalTestInterface.Visibility);
+            Assert.Equal(Public, NestedPublicTestInterface.Visibility);
+            Assert.Equal(Private, NestedPrivateTestInterface.Visibility);
+            Assert.Equal(Protected, NestedProtectedTestInterface.Visibility);
+            Assert.Equal(Internal, NestedInternalTestInterface.Visibility);
+            Assert.Equal(ProtectedInternal, NestedProtectedInternalTestInterface.Visibility);
+            Assert.Equal(PrivateProtected, NestedPrivateProtectedTestInterface.Visibility);
         }
 
         [Fact]
         public void InterfacesHaveCorrectIsNestedProperty()
         {
-            Assert.False(Architecture.GetInterfaceOfType(typeof(IPublicTestInterface)).IsNested);
-            Assert.False(Architecture.GetInterfaceOfType(typeof(IInternalTestInterface)).IsNested);
-            Assert.True(Architecture.GetInterfaceOfType(typeof(INestedPublicTestInterface)).IsNested);
-            Assert.True(Architecture.GetInterfaceOfType(typeof(INestedPrivateTestInterface)).IsNested);
-            Assert.True(Architecture.GetInterfaceOfType(typeof(INestedProtectedTestInterface)).IsNested);
-            Assert.True(Architecture.GetInterfaceOfType(typeof(INestedInternalTestInterface)).IsNested);
-            Assert.True(Architecture.GetInterfaceOfType(typeof(INestedProtectedInternalTestInterface)).IsNested);
-            Assert.True(Architecture.GetInterfaceOfType(typeof(INestedPrivateProtectedTestInterface)).IsNested);
+            Assert.False(PublicTestInterface.IsNested);
+            Assert.False(InternalTestInterface.IsNested);
+            Assert.True(NestedPublicTestInterface.IsNested);
+            Assert.True(NestedPrivateTestInterface.IsNested);
+            Assert.True(NestedProtectedTestInterface.IsNested);
+            Assert.True(NestedInternalTestInterface.IsNested);
+            Assert.True(NestedProtectedInternalTestInterface.IsNested);
+            Assert.True(NestedPrivateProtectedTestInterface.IsNested);
         }
-
-        // ReSharper disable MemberCanBePrivate.Global
-
-        public interface INestedPublicTestInterface
-        {
-        }
-
-        private interface INestedPrivateTestInterface
-        {
-        }
-
-        protected interface INestedProtectedTestInterface
-        {
-        }
-
-        internal interface INestedInternalTestInterface
-        {
-        }
-
-        protected internal interface INestedProtectedInternalTestInterface
-        {
-        }
-
-        private protected interface INestedPrivateProtectedTestInterface
-        {
-        }
-    }
-
-    public interface IPublicTestInterface
-    {
-    }
-
-    internal interface IInternalTestInterface
-    {
     }
 }
