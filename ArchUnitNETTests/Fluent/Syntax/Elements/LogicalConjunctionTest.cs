@@ -18,46 +18,46 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         private static readonly string ThisClassName = ThisClass.Name;
         private static readonly string OtherClassName = OtherClass.Name;
 
-        private static readonly ArchRule<Class> ThisClassExists =
+        private static readonly IArchRule ThisClassExists =
             Classes().That().Are(ThisClass).Should().Exist();
 
-        private static readonly ArchRule<Class> ThisClassDoesNotExist =
+        private static readonly IArchRule ThisClassDoesNotExist =
             Classes().That().Are(ThisClass).Should().NotExist();
 
-        private static readonly ArchRule<Class> ThisCondition1 =
+        private static readonly IArchRule ThisCondition1 =
             Classes().That().Are(ThisClass).Should().Be(ThisClass);
 
-        private static readonly ArchRule<Class> ThisCondition2 =
+        private static readonly IArchRule ThisCondition2 =
             Classes().That().HaveName(ThisClassName).Should().Be(ThisClass);
 
-        private static readonly ArchRule<Class> OtherCondition1 =
+        private static readonly IArchRule OtherCondition1 =
             Classes().That().Are(OtherClass).Should().Be(OtherClass);
 
-        private static readonly ArchRule<Class> OtherCondition2 =
+        private static readonly IArchRule OtherCondition2 =
             Classes().That().HaveName(OtherClassName).Should().Be(OtherClass);
 
-        private static readonly ArchRule<Class> FalseThisCondition1 =
+        private static readonly IArchRule FalseThisCondition1 =
             Classes().That().AreNot(ThisClass).Should().Be(ThisClass);
 
-        private static readonly ArchRule<Class> FalseThisCondition2 =
+        private static readonly IArchRule FalseThisCondition2 =
             Classes().That().DoNotHaveName(ThisClassName).Should().Be(ThisClass);
 
-        private static readonly ArchRule<Class> ThisShouldCondition1 =
+        private static readonly IArchRule ThisShouldCondition1 =
             Classes().That().Are(ThisClass).Should().Be(ThisClass);
 
-        private static readonly ArchRule<Class> ThisShouldCondition2 =
+        private static readonly IArchRule ThisShouldCondition2 =
             Classes().That().Are(ThisClass).Should().HaveName(ThisClassName);
 
-        private static readonly ArchRule<Class> OtherShouldCondition1 =
+        private static readonly IArchRule OtherShouldCondition1 =
             Classes().That().Are(OtherClass).Should().Be(OtherClass);
 
-        private static readonly ArchRule<Class> OtherShouldCondition2 =
+        private static readonly IArchRule OtherShouldCondition2 =
             Classes().That().Are(OtherClass).Should().HaveName(OtherClassName);
 
-        private static readonly ArchRule<Class> FalseThisShouldCondition1 =
+        private static readonly IArchRule FalseThisShouldCondition1 =
             Classes().That().Are(ThisClass).Should().NotBe(ThisClass);
 
-        private static readonly ArchRule<Class> FalseThisShouldCondition2 =
+        private static readonly IArchRule FalseThisShouldCondition2 =
             Classes().That().Are(ThisClass).Should().NotHaveName(ThisClassName);
 
         [Fact]
@@ -166,6 +166,128 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.True(thisShouldExistAndShouldNotExistOrShouldExist.Check(Architecture));
             Assert.True(
                 thisShouldExistAndThisShouldCondition1OrOtherShouldCondition1OrShouldNotExist.Check(Architecture));
+        }
+
+        [Fact]
+        public void CombinedArchRuleAndTest()
+        {
+            var thisClassExistsAndThisClassExists1 =
+                ThisClassExists.And().Classes().That().Are(ThisClass).Should().Exist();
+            var thisClassExistsAndThisClassDoesNotExist1 =
+                ThisClassExists.And().Classes().That().Are(ThisClass).Should().NotExist();
+            var thisClassDoesNotExistAndThisClassExists1 =
+                ThisClassDoesNotExist.And().Classes().That().Are(ThisClass).Should().Exist();
+            var thisClassDoesNotExistAndThisClassDoesNotExist1 =
+                ThisClassDoesNotExist.And().Classes().That().Are(ThisClass).Should().NotExist();
+
+
+            var thisClassExistsAndThisClassExists2 = ThisClassExists.And(ThisClassExists);
+            var thisClassExistsAndThisClassDoesNotExist2 = ThisClassExists.And(ThisClassDoesNotExist);
+            var thisClassDoesNotExistAndThisClassExists2 = ThisClassDoesNotExist.And(ThisClassExists);
+            var thisClassDoesNotExistAndThisClassDoesNotExist2 = ThisClassDoesNotExist.And(ThisClassDoesNotExist);
+
+            var thisClassExistsAndThisClassExistsAndThisClassExists =
+                ThisClassExists.And(thisClassExistsAndThisClassExists2);
+            var thisClassExistsAndThisClassExistsAndThisClassExistsAndThisClassExists =
+                thisClassExistsAndThisClassExists2.And(thisClassExistsAndThisClassExists2);
+            var thisClassExistsAndThisClassExistsAndThisClassDoesNotExist =
+                ThisClassExists.And(thisClassExistsAndThisClassDoesNotExist2);
+            var thisClassExistsAndThisClassDoesNotExistAndThisClassExists =
+                thisClassExistsAndThisClassDoesNotExist2.And(ThisClassExists);
+            var thisClassDoesNotExistAndThisClassExistsAndThisClassDoesNotExist =
+                ThisClassDoesNotExist.And(thisClassExistsAndThisClassDoesNotExist2);
+
+            Assert.True(thisClassExistsAndThisClassExists1.Check(Architecture));
+            Assert.False(thisClassExistsAndThisClassDoesNotExist1.Check(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassExists1.Check(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassDoesNotExist1.Check(Architecture));
+
+            Assert.True(thisClassExistsAndThisClassExists2.Check(Architecture));
+            Assert.False(thisClassExistsAndThisClassDoesNotExist2.Check(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassExists2.Check(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassDoesNotExist2.Check(Architecture));
+
+            Assert.True(thisClassExistsAndThisClassExistsAndThisClassExists.Check(Architecture));
+            Assert.True(thisClassExistsAndThisClassExistsAndThisClassExistsAndThisClassExists.Check(Architecture));
+            Assert.False(thisClassExistsAndThisClassExistsAndThisClassDoesNotExist.Check(Architecture));
+            Assert.False(thisClassExistsAndThisClassDoesNotExistAndThisClassExists.Check(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassExistsAndThisClassDoesNotExist.Check(Architecture));
+        }
+
+        [Fact]
+        public void CombinedArchRuleCombinedAndOrTest()
+        {
+            var thisClassExistsAndThisClassExistsOrThisClassExists =
+                ThisClassExists.And(Classes().That().Are(ThisClass).Should().Exist()).Or().Classes().That()
+                    .Are(ThisClass).Should().Exist();
+            var thisClassExistsOrThisClassDoesNotExistOrThisClassExistsAndThisClassDoesNotExist =
+                ThisClassExists.Or(ThisClassDoesNotExist).Or(ThisClassExists).And(ThisClassDoesNotExist);
+            var thisClassExistsOrThisClassDoesNotExistAndThisClassExists =
+                ThisClassExists.Or(ThisClassDoesNotExist).And(ThisClassExists);
+            var thisClassDoesNotExistAndThisClassExistsOrThisClassDoesNotExist =
+                ThisClassDoesNotExist.And(ThisClassExists).Or(ThisClassDoesNotExist);
+
+            var thisClassExistsOrThisClassDoesNotExistOrJoinedThisClassExistsAndThisClassDoesNotExist =
+                ThisClassExists.Or(ThisClassDoesNotExist).Or(ThisClassExists.And(ThisClassDoesNotExist));
+            var thisClassExistsOrJoinedThisClassDoesNotExistAndThisClassExists =
+                ThisClassExists.Or(ThisClassDoesNotExist.And(ThisClassExists));
+
+            Assert.True(thisClassExistsAndThisClassExistsOrThisClassExists.Check(Architecture));
+            Assert.False(
+                thisClassExistsOrThisClassDoesNotExistOrThisClassExistsAndThisClassDoesNotExist.Check(Architecture));
+            Assert.True(thisClassExistsOrThisClassDoesNotExistAndThisClassExists.Check(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassExistsOrThisClassDoesNotExist.Check(Architecture));
+
+            Assert.True(
+                thisClassExistsOrThisClassDoesNotExistOrJoinedThisClassExistsAndThisClassDoesNotExist.Check(
+                    Architecture));
+            Assert.True(thisClassExistsOrJoinedThisClassDoesNotExistAndThisClassExists.Check(Architecture));
+        }
+
+        [Fact]
+        public void CombinedArchRuleOrTest()
+        {
+            var thisClassExistsOrThisClassExists1 =
+                ThisClassExists.Or().Classes().That().Are(ThisClass).Should().Exist();
+            var thisClassExistsOrThisClassDoesNotExist1 =
+                ThisClassExists.Or().Classes().That().Are(ThisClass).Should().NotExist();
+            var thisClassDoesNotExistOrThisClassExists1 =
+                ThisClassDoesNotExist.Or().Classes().That().Are(ThisClass).Should().Exist();
+            var thisClassDoesNotExistOrThisClassDoesNotExist1 =
+                ThisClassDoesNotExist.Or().Classes().That().Are(ThisClass).Should().NotExist();
+
+
+            var thisClassExistsOrThisClassExists2 = ThisClassExists.Or(ThisClassExists);
+            var thisClassExistsOrThisClassDoesNotExist2 = ThisClassExists.Or(ThisClassDoesNotExist);
+            var thisClassDoesNotExistOrThisClassExists2 = ThisClassDoesNotExist.Or(ThisClassExists);
+            var thisClassDoesNotExistOrThisClassDoesNotExist2 = ThisClassDoesNotExist.Or(ThisClassDoesNotExist);
+
+            var thisClassExistsOrThisClassExistsOrThisClassExists =
+                ThisClassExists.Or(thisClassExistsOrThisClassExists2);
+            var thisClassExistsOrThisClassExistsOrThisClassExistsOrThisClassExists =
+                thisClassExistsOrThisClassExists2.Or(thisClassExistsOrThisClassExists2);
+            var thisClassExistsOrThisClassExistsOrThisClassDoesNotExist =
+                ThisClassExists.Or(thisClassExistsOrThisClassDoesNotExist2);
+            var thisClassExistsOrThisClassDoesNotExistOrThisClassExists =
+                thisClassExistsOrThisClassDoesNotExist2.Or(ThisClassExists);
+            var thisClassDoesNotExistOrThisClassDoesNotExistOrThisClassDoesNotExist =
+                ThisClassDoesNotExist.Or(thisClassDoesNotExistOrThisClassDoesNotExist2);
+
+            Assert.True(thisClassExistsOrThisClassExists1.Check(Architecture));
+            Assert.True(thisClassExistsOrThisClassDoesNotExist1.Check(Architecture));
+            Assert.True(thisClassDoesNotExistOrThisClassExists1.Check(Architecture));
+            Assert.False(thisClassDoesNotExistOrThisClassDoesNotExist1.Check(Architecture));
+
+            Assert.True(thisClassExistsOrThisClassExists2.Check(Architecture));
+            Assert.True(thisClassExistsOrThisClassDoesNotExist2.Check(Architecture));
+            Assert.True(thisClassDoesNotExistOrThisClassExists2.Check(Architecture));
+            Assert.False(thisClassDoesNotExistOrThisClassDoesNotExist2.Check(Architecture));
+
+            Assert.True(thisClassExistsOrThisClassExistsOrThisClassExists.Check(Architecture));
+            Assert.True(thisClassExistsOrThisClassExistsOrThisClassExistsOrThisClassExists.Check(Architecture));
+            Assert.True(thisClassExistsOrThisClassExistsOrThisClassDoesNotExist.Check(Architecture));
+            Assert.True(thisClassExistsOrThisClassDoesNotExistOrThisClassExists.Check(Architecture));
+            Assert.False(thisClassDoesNotExistOrThisClassDoesNotExistOrThisClassDoesNotExist.Check(Architecture));
         }
 
         [Fact]

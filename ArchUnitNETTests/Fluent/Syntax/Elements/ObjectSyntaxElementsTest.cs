@@ -243,7 +243,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void VisibilityTest()
         {
-            var visibilityRules = new List<ArchRule<IType>>
+            var visibilityRules = new List<IArchRule>
             {
                 ArchRuleDefinition.Types().That().ArePrivate().Should().BePrivate(),
                 ArchRuleDefinition.Types().That().ArePublic().Should().BePublic(),
