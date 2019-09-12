@@ -19,6 +19,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction ImplementInterface(Interface intf)
+        {
+            _ruleCreator.AddObjectFilter(type => type.ImplementsInterface(intf));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+
         public TGivenRuleTypeConjunction ResideInNamespace(string pattern)
         {
             _ruleCreator.AddObjectFilter(type => type.ResidesInNamespace(pattern));
@@ -62,6 +69,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TGivenRuleTypeConjunction DoNotImplementInterface(string pattern)
         {
             _ruleCreator.AddObjectFilter(type => !type.ImplementsInterface(pattern));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotImplementInterface(Interface intf)
+        {
+            _ruleCreator.AddObjectFilter(type => !type.ImplementsInterface(intf));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

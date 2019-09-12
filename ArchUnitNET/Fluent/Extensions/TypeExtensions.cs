@@ -173,5 +173,10 @@ namespace ArchUnitNET.Fluent.Extensions
         {
             return d.ImplementedInterfaces.Any(intf => intf.FullName.ToLower().Contains(pattern.ToLower()));
         }
+
+        public static bool ImplementsInterface(this IImplementInterfaces d, Interface intf)
+        {
+            return d.ImplementsInterface(intf.FullName);
+        }
     }
 }

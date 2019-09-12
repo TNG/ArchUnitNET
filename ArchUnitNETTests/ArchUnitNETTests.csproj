@@ -18,5 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fluent\Syntax\Elements\Members" />
+    <Folder Include="Fluent\Syntax\Elements\Types" />
   </ItemGroup>
 </Project>

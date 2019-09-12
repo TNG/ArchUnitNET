@@ -9,12 +9,11 @@ using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Dependencies.Members;
-using ArchUnitNETTests.Dependencies.Types;
 using ArchUnitNETTests.Fluent.Extensions;
 using JetBrains.Annotations;
 using Xunit;
 using static ArchUnitNET.Domain.Visibility;
-using static ArchUnitNETTests.Domain.StaticVisibilityTestClasses;
+using static ArchUnitNETTests.Domain.StaticTestTypes;
 
 
 namespace ArchUnitNETTests.Domain
@@ -32,7 +31,7 @@ namespace ArchUnitNETTests.Domain
                     backingType.Visibility, backingType.IsNested);
 
             _implementsInterface = Architecture.GetClassOfType(typeof(InheritingType));
-            _implementedInterface = Architecture.GetInterfaceOfType(typeof(ITestInterface));
+            _implementedInterface = Architecture.GetInterfaceOfType(typeof(IInheritingInterface));
             _chainedInterface = Architecture.GetInterfaceOfType(typeof(IInheritedTestInterface));
 
             _classEquivalencyTestData = new ClassEquivalencyTestData(typeof(ClassWithConstructors));
@@ -99,8 +98,8 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void ClassesAreAssignedCorrectVisibility()
         {
-            Assert.Equal(Public, StaticVisibilityTestClasses.PublicTestClass.Visibility);
-            Assert.Equal(Internal, StaticVisibilityTestClasses.InternalTestClass.Visibility);
+            Assert.Equal(Public, StaticTestTypes.PublicTestClass.Visibility);
+            Assert.Equal(Internal, StaticTestTypes.InternalTestClass.Visibility);
             Assert.Equal(Public, NestedPublicTestClass.Visibility);
             Assert.Equal(Private, NestedPrivateTestClass.Visibility);
             Assert.Equal(Protected, NestedProtectedTestClass.Visibility);
@@ -112,8 +111,8 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void ClassesHaveCorrectIsNestedProperty()
         {
-            Assert.False(StaticVisibilityTestClasses.PublicTestClass.IsNested);
-            Assert.False(StaticVisibilityTestClasses.InternalTestClass.IsNested);
+            Assert.False(StaticTestTypes.PublicTestClass.IsNested);
+            Assert.False(StaticTestTypes.InternalTestClass.IsNested);
             Assert.True(NestedPublicTestClass.IsNested);
             Assert.True(NestedPrivateTestClass.IsNested);
             Assert.True(NestedProtectedTestClass.IsNested);
