@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace ArchUnitNET.Domain
 {
-    public interface IType : ICanBeAnalyzed, IImplementInterfaces
+    public interface IType : ICanBeAnalyzed
     {
         Namespace Namespace { get; }
         Assembly Assembly { get; }
@@ -20,5 +20,6 @@ namespace ArchUnitNET.Domain
         bool IsNested { get; }
         bool Implements(IType intf);
         bool IsAssignableTo(IType assignableToType);
+        IEnumerable<IType> ImplementedInterfaces { get; }
     }
 }

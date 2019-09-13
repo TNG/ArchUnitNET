@@ -5,7 +5,7 @@ using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public class GivenObjectsThat<TGivenRuleTypeConjunction, TRuleType> : SyntaxElement<TRuleType>,
+    public abstract class GivenObjectsThat<TGivenRuleTypeConjunction, TRuleType> : SyntaxElement<TRuleType>,
         IObjectsThat<TGivenRuleTypeConjunction> where TRuleType : ICanBeAnalyzed
     {
         protected GivenObjectsThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)

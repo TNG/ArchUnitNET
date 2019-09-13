@@ -8,6 +8,7 @@
 using System;
 using ArchUnitNETTests.Dependencies.Members;
 using TestAssembly;
+#pragma warning disable 169
 
 // ReSharper disable UnassignedGetOnlyAutoProperty
 // ReSharper disable UnusedMember.Local

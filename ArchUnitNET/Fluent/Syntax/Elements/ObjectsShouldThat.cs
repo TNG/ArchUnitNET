@@ -12,6 +12,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TReferenceType : ICanBeAnalyzed
         where TRuleType : ICanBeAnalyzed
     {
+        // ReSharper disable once InconsistentNaming
         protected readonly Func<Architecture, IEnumerable<TReferenceType>> _referenceObjectProvider;
 
         // ReSharper disable once MemberCanBeProtected.Global

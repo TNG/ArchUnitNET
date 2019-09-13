@@ -7,7 +7,7 @@ using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public class ObjectsShould<TRuleTypeShouldConjunction, TRuleType> : SyntaxElement<TRuleType>,
+    public abstract class ObjectsShould<TRuleTypeShouldConjunction, TRuleType> : SyntaxElement<TRuleType>,
         IObjectsShould<TRuleTypeShouldConjunction, TRuleType>
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
@@ -15,7 +15,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         protected ObjectsShould(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
-
+        
         public TRuleTypeShouldConjunction Exist()
         {
             _ruleCreator.AddIsNullOrEmptyCondition(false);

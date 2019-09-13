@@ -13,14 +13,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void ImplementInterfacesStartingWithSameNameTest()
         {
-            //TODO fix this
             var interfaceImplementsWrongInterface =
                 Interfaces().That().Are(InheritedFromTestInterface12).Should().ImplementInterface(TestInterface1);
 
             Assert.False(interfaceImplementsWrongInterface.Check(Architecture));
-            //this fails because ITestInterface1's full name starts identical as ITestInterface12's full name and ImplementInterface() only compares the patterns of the full names
-            //Equals() method of Generic Types has to be reworked such that implemented instances of generics are equal to the generic version (maybe not possible, then try to find other solution)
-            //the implemented version is missing the generic argument at the end of the name and therefore is considered not equal
         }
 
 
@@ -32,7 +28,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesThatImplementInterfaceImplementInterface = Types().That().ImplementInterface(intf)
                     .Should().ImplementInterface(intf.FullName);
                 var typesThatImplementInterfaceDoNotImplementInterface = Types().That()
-                    .ImplementInterface(intf.FullName).Should().NotImplementInterface(intf).AndShould().Exist();
+                    .ImplementInterface(intf).Should().NotImplementInterface(intf).AndShould().Exist();
                 var typesThatDoNotImplementInterfaceImplementInterface = Types().That().DoNotImplementInterface(intf)
                     .Should().ImplementInterface(intf.FullName).AndShould().Exist();
                 var typesThatDoNotImplementInterfaceDoNotImplementInterface = Types().That()
