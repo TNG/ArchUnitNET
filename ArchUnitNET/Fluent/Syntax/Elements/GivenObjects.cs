@@ -3,7 +3,7 @@ using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public class GivenObjects<TRuleTypeThat, TRuleTypeShould, TRuleType> : SyntaxElement<TRuleType>
+    public abstract class GivenObjects<TRuleTypeThat, TRuleTypeShould, TRuleType> : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
         protected GivenObjects(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)

@@ -16,8 +16,4 @@
     <ProjectReference Include="..\ExampleTest\ExampleTest.csproj" />
     <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Fluent\Syntax\Elements\Members" />
-    <Folder Include="Fluent\Syntax\Elements\Types" />
-  </ItemGroup>
 </Project>

@@ -169,14 +169,14 @@ namespace ArchUnitNET.Fluent.Extensions
             return type.Dependencies.OfType<InheritsBaseClassDependency>();
         }
 
-        public static bool ImplementsInterface(this IImplementInterfaces d, string pattern)
+        public static bool ImplementsInterface(this IType d, string pattern)
         {
             return d.ImplementedInterfaces.Any(intf => intf.FullName.ToLower().Contains(pattern.ToLower()));
         }
 
-        public static bool ImplementsInterface(this IImplementInterfaces d, Interface intf)
+        public static bool ImplementsInterface(this IType d, Interface intf)
         {
-            return d.ImplementsInterface(intf.FullName);
+            return d.Implements(intf);
         }
     }
 }
