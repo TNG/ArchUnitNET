@@ -15,7 +15,11 @@ namespace ArchUnitNET.Fluent
             _firstArchRuleCreator = firstArchRuleCreator;
             _secondArchRuleCreator = secondArchRuleCreator;
             _logicalConjunction = logicalConjunction;
+            Description = firstArchRuleCreator.Description + " " + logicalConjunction.Description + " " +
+                          secondArchRuleCreator.Description;
         }
+
+        public string Description { get; }
 
         public bool Check(Architecture architecture)
         {
@@ -41,6 +45,11 @@ namespace ArchUnitNET.Fluent
         public IArchRule Or(IArchRule archRule)
         {
             return new CombinedArchRule(this, LogicalConjunctionDefinition.Or, archRule);
+        }
+
+        public override string ToString()
+        {
+            return Description;
         }
     }
 }

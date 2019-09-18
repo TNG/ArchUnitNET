@@ -13,7 +13,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         where TRuleType : ICanBeAnalyzed
     {
         // ReSharper disable once MemberCanBeProtected.Global
-        protected MembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
+        public MembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
             Func<Architecture, IEnumerable<TReferenceType>> referenceObjectProvider) :
             base(ruleCreator, referenceObjectProvider)
         {
@@ -27,42 +27,44 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction HaveBodyTypeMemberDependencies()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => member.HasBodyTypeMemberDependencies());
+                member => member.HasBodyTypeMemberDependencies(), "have body type member dependencies");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveBodyTypeMemberDependencies(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => member.HasBodyTypeMemberDependencies(pattern));
+                member => member.HasBodyTypeMemberDependencies(pattern),
+                "have body type member dependencies \"" + pattern + "\"");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveMethodCallDependencies()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => member.HasMethodCallDependencies());
+                member => member.HasMethodCallDependencies(), "have method call dependencies");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveMethodCallDependencies(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => member.HasMethodCallDependencies(pattern));
+                member => member.HasMethodCallDependencies(pattern),
+                "have method call dependencies \"" + pattern + "\"");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveFieldTypeDependencies()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => member.HasFieldTypeDependencies());
+                member => member.HasFieldTypeDependencies(), "have field type dependencies");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveFieldTypeDependencies(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => member.HasFieldTypeDependencies(pattern));
+                member => member.HasFieldTypeDependencies(pattern), "have field type dependencies \"" + pattern + "\"");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -73,42 +75,45 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction DoNotHaveBodyTypeMemberDependencies()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => !member.HasBodyTypeMemberDependencies());
+                member => !member.HasBodyTypeMemberDependencies(), "do not have body type member dependencies");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveBodyTypeMemberDependencies(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => !member.HasBodyTypeMemberDependencies(pattern));
+                member => !member.HasBodyTypeMemberDependencies(pattern),
+                "do not have body type member dependencies \"" + pattern + "\"");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveMethodCallDependencies()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => !member.HasMethodCallDependencies());
+                member => !member.HasMethodCallDependencies(), "do not have method call dependencies");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveMethodCallDependencies(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => !member.HasMethodCallDependencies(pattern));
+                member => !member.HasMethodCallDependencies(pattern),
+                "do not have method call dependencies \"" + pattern + "\"");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveFieldTypeDependencies()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => !member.HasFieldTypeDependencies());
+                member => !member.HasFieldTypeDependencies(), "do not have field type dependencies");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveFieldTypeDependencies(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => !member.HasFieldTypeDependencies(pattern));
+                member => !member.HasFieldTypeDependencies(pattern),
+                "do not have field type dependencies \"" + pattern + "\"");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

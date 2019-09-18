@@ -15,7 +15,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public TRuleTypeShouldConjunction AreAbstract()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, cls => cls.IsAbstract);
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, cls => cls.IsAbstract, "are abstract");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -25,7 +25,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public TRuleTypeShouldConjunction AreNotAbstract()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, cls => !cls.IsAbstract);
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, cls => !cls.IsAbstract, "are not abstract");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

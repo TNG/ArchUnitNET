@@ -26,56 +26,56 @@ namespace ArchUnitNET.Fluent
         public GivenTypes Types()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<IType>(_currentArchRuleCreator, _logicalConjunction,
-                architecture => architecture.Types);
+                architecture => architecture.Types, "Types");
             return new GivenTypes(combinedRuleCreator);
         }
 
         public GivenAttributes Attributes()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<Attribute>(_currentArchRuleCreator,
-                _logicalConjunction, architecture => architecture.Attributes);
+                _logicalConjunction, architecture => architecture.Attributes, "Attributes");
             return new GivenAttributes(combinedRuleCreator);
         }
 
         public GivenClasses Classes()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<Class>(_currentArchRuleCreator, _logicalConjunction,
-                architecture => architecture.Classes);
+                architecture => architecture.Classes, "Classes");
             return new GivenClasses(combinedRuleCreator);
         }
 
         public GivenInterfaces Interfaces()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<Interface>(_currentArchRuleCreator,
-                _logicalConjunction, architecture => architecture.Interfaces);
+                _logicalConjunction, architecture => architecture.Interfaces, "Interfaces");
             return new GivenInterfaces(combinedRuleCreator);
         }
 
         public GivenMembers Members()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<IMember>(_currentArchRuleCreator, _logicalConjunction,
-                architecture => architecture.Members);
+                architecture => architecture.Members, "Members");
             return new GivenMembers(combinedRuleCreator);
         }
 
         public GivenFieldMembers FieldMembers()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<FieldMember>(_currentArchRuleCreator,
-                _logicalConjunction, architecture => architecture.FieldMembers);
+                _logicalConjunction, architecture => architecture.FieldMembers, "Field members");
             return new GivenFieldMembers(combinedRuleCreator);
         }
 
         public GivenMethodMembers MethodMembers()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<MethodMember>(_currentArchRuleCreator,
-                _logicalConjunction, architecture => architecture.MethodMembers);
+                _logicalConjunction, architecture => architecture.MethodMembers, "Method members");
             return new GivenMethodMembers(combinedRuleCreator);
         }
 
         public GivenPropertyMembers PropertyMembers()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<PropertyMember>(_currentArchRuleCreator,
-                _logicalConjunction, architecture => architecture.PropertyMembers);
+                _logicalConjunction, architecture => architecture.PropertyMembers, "Property members");
             return new GivenPropertyMembers(combinedRuleCreator);
         }
     }

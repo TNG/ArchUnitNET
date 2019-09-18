@@ -12,11 +12,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeThat That()
         {
+            _ruleCreator.AddThatDescription();
             return CreateSyntaxElement<TRuleTypeThat, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShould Should()
         {
+            _ruleCreator.AddShouldDescription();
             return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
         }
     }
