@@ -10,7 +10,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public ClassesShouldConjunction BeAbstract()
         {
-            _ruleCreator.AddSimpleCondition(cls => cls.IsAbstract, "be abstract");
+            _ruleCreator.AddSimpleCondition(cls => cls.IsAbstract, "be abstract", "is not abstract");
             return new ClassesShouldConjunction(_ruleCreator);
         }
 
@@ -20,7 +20,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public ClassesShouldConjunction NotBeAbstract()
         {
-            _ruleCreator.AddSimpleCondition(cls => !cls.IsAbstract, "not be abstract");
+            _ruleCreator.AddSimpleCondition(cls => !cls.IsAbstract, "not be abstract", "is abstract");
             return new ClassesShouldConjunction(_ruleCreator);
         }
     }

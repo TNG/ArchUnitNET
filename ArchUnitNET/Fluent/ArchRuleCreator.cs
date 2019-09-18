@@ -15,65 +15,85 @@ namespace ArchUnitNET.Fluent
         private readonly ConditionManager<T> _conditionManager;
         private readonly ObjectFilterManager<T> _objectFilterManager;
 
-        public ArchRuleCreator(Func<Architecture, IEnumerable<T>> objectsToBeAnalyzed, string description)
+        public ArchRuleCreator(ObjectProvider<T> objectProvider)
         {
-            _objectFilterManager = new ObjectFilterManager<T>(objectsToBeAnalyzed);
+            _objectFilterManager = new ObjectFilterManager<T>(objectProvider);
             _conditionManager = new ConditionManager<T>();
-            Description = description;
         }
 
-        public string Description { get; private set; }
+        public virtual string Description => _objectFilterManager.Description + " " + _conditionManager.Description;
 
         public virtual bool Check(Architecture architecture)
         {
             return CheckConditions(GetFilteredObjects(architecture), architecture);
         }
 
-        public void AddObjectFilter(Func<T, bool> objectFilter, string description)
+        public virtual IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
+        {
+            return EvaluateConditions(GetFilteredObjects(architecture), architecture);
+        }
+
+        public void AddObjectFilter(ObjectFilter<T> objectFilter)
         {
             _objectFilterManager.AddFilter(objectFilter);
-            AddDescription(description);
+        }
+
+        public void AddObjectFilter(Func<T, bool> objectFilter, string description)
+        {
+            AddObjectFilter(new ObjectFilter<T>(objectFilter, description));
         }
 
         public void AddObjectFilterConjunction(LogicalConjunction logicalConjunction)
         {
             _objectFilterManager.SetNextLogicalConjunction(logicalConjunction);
-            AddLogicalConjunctionDescription(logicalConjunction);
         }
 
         public void AddConditionConjunction(LogicalConjunction logicalConjunction)
         {
             _conditionManager.SetNextLogicalConjunction(logicalConjunction);
-            AddLogicalConjunctionDescription(logicalConjunction);
-            AddShouldDescription();
         }
 
-        public void AddSimpleCondition(Func<T, bool> simpleCondition, string description)
+        public void AddSimpleCondition(SimpleCondition<T> simpleCondition)
         {
-            _conditionManager.AddSimpleCondition(simpleCondition);
-            AddDescription(description);
+            _conditionManager.AddCondition(simpleCondition);
         }
 
-        public void BeginComplexCondition<TReference>(Func<T, TReference, bool> relationCondition, string description)
+        public void AddSimpleCondition(Func<T, bool> simpleCondition, string description, string failDescription)
+        {
+            AddSimpleCondition(new SimpleCondition<T>(simpleCondition, description, failDescription));
+        }
+
+        public void BeginComplexCondition<TReference>(RelationCondition<T, TReference> relationCondition)
             where TReference : ICanBeAnalyzed
         {
             _conditionManager.BeginComplexCondition(relationCondition);
-            AddDescription(description);
         }
 
-        public void ContinueComplexCondition<TReference>(
-            Func<Architecture, IEnumerable<TReference>> referenceObjectProvider, Func<TReference, bool> condition,
-            string description)
+        public void BeginComplexCondition<TReference>(Func<T, TReference, bool> relationCondition, string description,
+            string failDescription)
             where TReference : ICanBeAnalyzed
         {
-            _conditionManager.ContinueComplexCondition(referenceObjectProvider, condition);
-            AddDescription(description);
+            BeginComplexCondition(
+                new RelationCondition<T, TReference>(relationCondition, description, failDescription));
         }
 
-        public void AddIsNullOrEmptyCondition(bool valueIfEmpty, string description)
+        public void ContinueComplexCondition<TReference>(ObjectProvider<TReference> referenceObjectProvider,
+            ObjectFilter<TReference> objectFilter)
+            where TReference : ICanBeAnalyzed
         {
-            _conditionManager.AddIsNullOrEmptyCondition(valueIfEmpty);
-            AddDescription(description);
+            _conditionManager.ContinueComplexCondition(referenceObjectProvider, objectFilter);
+        }
+
+        public void ContinueComplexCondition<TReference>(ObjectProvider<TReference> referenceObjectProvider,
+            Func<TReference, bool> filter, string description)
+            where TReference : ICanBeAnalyzed
+        {
+            ContinueComplexCondition(referenceObjectProvider, new ObjectFilter<TReference>(filter, description));
+        }
+
+        public void AddIsNullOrEmptyCondition(bool valueIfEmpty, string description, string failDescription)
+        {
+            _conditionManager.AddCondition(new IsNullCondition<T>(valueIfEmpty, description, failDescription));
         }
 
         private IEnumerable<T> GetFilteredObjects(Architecture architecture)
@@ -86,24 +106,11 @@ namespace ArchUnitNET.Fluent
             return _conditionManager.CheckConditions(filteredObjects, architecture);
         }
 
-        public void AddThatDescription()
+        private IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<T> filteredObjects,
+            Architecture architecture)
         {
-            AddDescription("that");
-        }
-
-        public void AddShouldDescription()
-        {
-            AddDescription("should");
-        }
-
-        private void AddLogicalConjunctionDescription(LogicalConjunction logicalConjunction)
-        {
-            AddDescription(logicalConjunction.Description);
-        }
-
-        private void AddDescription(string description)
-        {
-            Description += " " + description;
+            return _conditionManager.EvaluateConditions(filteredObjects, architecture,
+                _objectFilterManager.Description + " " + _conditionManager.Description);
         }
 
         public override string ToString()
@@ -111,19 +118,49 @@ namespace ArchUnitNET.Fluent
             return Description;
         }
 
-        private class ObjectFilterManager<T> where T : ICanBeAnalyzed
+        private bool Equals(ArchRuleCreator<T> other)
+        {
+            return string.Equals(Description, other.Description);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((ArchRuleCreator<T>) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Description != null ? Description.GetHashCode() : 0;
+        }
+
+        private class ObjectFilterManager<T> : IHasDescription where T : ICanBeAnalyzed
         {
             private readonly List<ObjectFilterElement<T>> _objectFilterElements;
             private readonly ObjectProvider<T> _objectProvider;
 
-            internal ObjectFilterManager(Func<Architecture, IEnumerable<T>> objectProvider)
+            internal ObjectFilterManager(ObjectProvider<T> objectProvider)
             {
-                _objectProvider = new ObjectProvider<T>(objectProvider);
+                _objectProvider = objectProvider;
                 _objectFilterElements = new List<ObjectFilterElement<T>>
                 {
-                    new ObjectFilterElement<T>(ForwardSecondValue, new ObjectFilter<T>(t => true))
+                    new ObjectFilterElement<T>(ForwardSecondValue, new ObjectFilter<T>(t => true, ""))
                 };
             }
+
+            public string Description => _objectFilterElements.Count < 2
+                ? _objectProvider.Description
+                : _objectProvider.Description + " that" + _objectFilterElements.Aggregate("",
+                      (current, objectFilterElement) => current + " " + objectFilterElement.Description);
 
             internal IEnumerable<T> GetFilteredObjects(Architecture architecture)
             {
@@ -131,9 +168,9 @@ namespace ArchUnitNET.Fluent
                     (currentResult, objectFilterElement) => objectFilterElement.CheckFilter(currentResult, obj)));
             }
 
-            internal void AddFilter(Func<T, bool> objectFilter)
+            internal void AddFilter(ObjectFilter<T> objectFilter)
             {
-                _objectFilterElements.Last().SetFilter(new ObjectFilter<T>(objectFilter));
+                _objectFilterElements.Last().SetFilter(objectFilter);
             }
 
             internal void SetNextLogicalConjunction(LogicalConjunction logicalConjunction)
@@ -141,38 +178,32 @@ namespace ArchUnitNET.Fluent
                 _objectFilterElements.Add(new ObjectFilterElement<T>(logicalConjunction));
             }
 
-            private class ObjectFilter<T> where T : ICanBeAnalyzed
+            public override string ToString()
             {
-                private readonly Func<T, bool> _filter;
-
-                internal ObjectFilter(Func<T, bool> filter)
-                {
-                    _filter = filter;
-                }
-
-                internal bool CheckFilter(T obj)
-                {
-                    return _filter(obj);
-                }
+                return Description;
             }
 
-            private class ObjectFilterElement<T> where T : ICanBeAnalyzed
+            private class ObjectFilterElement<T> : IHasDescription where T : ICanBeAnalyzed
             {
                 private readonly LogicalConjunction _logicalConjunction;
                 private ObjectFilter<T> _objectFilter;
 
-                internal ObjectFilterElement(LogicalConjunction logicalConjunction, ObjectFilter<T> objectFilter = null)
+                public ObjectFilterElement(LogicalConjunction logicalConjunction, ObjectFilter<T> objectFilter = null)
                 {
                     _objectFilter = objectFilter;
                     _logicalConjunction = logicalConjunction;
                 }
 
-                internal void SetFilter(ObjectFilter<T> condition)
+                public string Description => _objectFilter == null
+                    ? _logicalConjunction.Description
+                    : (_logicalConjunction.Description + " " + _objectFilter.Description).Trim();
+
+                public void SetFilter(ObjectFilter<T> condition)
                 {
                     _objectFilter = condition;
                 }
 
-                internal bool CheckFilter(bool currentResult, T obj)
+                public bool CheckFilter(bool currentResult, T obj)
                 {
                     if (_objectFilter == null)
                     {
@@ -182,10 +213,15 @@ namespace ArchUnitNET.Fluent
 
                     return _logicalConjunction.Evaluate(currentResult, _objectFilter.CheckFilter(obj));
                 }
+
+                public override string ToString()
+                {
+                    return Description;
+                }
             }
         }
 
-        private class ConditionManager<T> where T : ICanBeAnalyzed
+        private class ConditionManager<T> : IHasDescription where T : ICanBeAnalyzed
         {
             private readonly List<ConditionElement<T>> _conditionElements;
             private object _relationConditionTemp;
@@ -198,31 +234,24 @@ namespace ArchUnitNET.Fluent
                 };
             }
 
-            internal void AddSimpleCondition(Func<T, bool> simpleCondition)
-            {
-                AddCondition(new SimpleCondition<T>(simpleCondition));
-            }
+            public string Description => _conditionElements.Aggregate("",
+                (current, conditionElement) => current + " " + conditionElement.Description).Trim();
 
-            internal void BeginComplexCondition<TReference>(Func<T, TReference, bool> relationCondition)
+            internal void BeginComplexCondition<TReference>(RelationCondition<T, TReference> relationCondition)
                 where TReference : ICanBeAnalyzed
             {
                 _relationConditionTemp = relationCondition;
             }
 
-            internal void ContinueComplexCondition<TReference>(
-                Func<Architecture, IEnumerable<TReference>> referenceObjectProvider, Func<TReference, bool> condition)
+            internal void ContinueComplexCondition<TReference>(ObjectProvider<TReference> referenceObjectProvider,
+                ObjectFilter<TReference> filter)
                 where TReference : ICanBeAnalyzed
             {
                 AddCondition(new ComplexCondition<T, TReference>(referenceObjectProvider,
-                    (Func<T, TReference, bool>) _relationConditionTemp, condition));
+                    (RelationCondition<T, TReference>) _relationConditionTemp, filter));
             }
 
-            internal void AddIsNullOrEmptyCondition(bool valueIfEmpty)
-            {
-                AddCondition(new IsNullCondition<T>(valueIfEmpty));
-            }
-
-            private void AddCondition(ICondition<T> condition)
+            internal void AddCondition(ICondition<T> condition)
             {
                 _conditionElements.Last().SetCondition(condition);
             }
@@ -237,150 +266,114 @@ namespace ArchUnitNET.Fluent
                 if (filteredObjects.IsNullOrEmpty())
                 {
                     return _conditionElements.Aggregate(true,
-                        (currentResult, conditionElement) => conditionElement.EvaluateNull(currentResult));
+                        (currentResult, conditionElement) => conditionElement.CheckNull(currentResult));
                 }
 
-                return filteredObjects.All(obj => _conditionElements.Aggregate(true,
-                    (currentResult, conditionElement) => conditionElement.Evaluate(currentResult, obj, architecture)));
+                return filteredObjects.All(obj => CheckConditions(obj, architecture));
             }
 
-            private interface ICondition<T> where T : ICanBeAnalyzed
+            private bool CheckConditions(T obj, Architecture architecture)
             {
-                bool Evaluate(T obj, Architecture architecture);
-                bool EvaluateNull();
+                return _conditionElements.Aggregate(true,
+                    (currentResult, conditionElement) => conditionElement.Check(currentResult, obj, architecture));
             }
 
-            private class SimpleCondition<T> : ICondition<T> where T : ICanBeAnalyzed
+            public IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<T> filteredObjects,
+                Architecture architecture, string archRuleDescription)
             {
-                private readonly Func<T, bool> _condition;
-
-                internal SimpleCondition(Func<T, bool> condition)
-                {
-                    _condition = condition;
-                }
-
-                public bool Evaluate(T obj, Architecture architecture)
-                {
-                    return Evaluate(obj);
-                }
-
-                public bool EvaluateNull()
-                {
-                    return true;
-                }
-
-                internal bool Evaluate(T obj)
-                {
-                    return _condition(obj);
-                }
+                return filteredObjects.Select(obj => EvaluateConditions(obj, architecture, archRuleDescription))
+                    .ToList();
             }
 
-            private class ComplexCondition<T, TReference> : ICondition<T>
-                where T : ICanBeAnalyzed where TReference : ICanBeAnalyzed
+            private EvaluationResult EvaluateConditions(T obj, Architecture architecture, string archRuleDescription)
             {
-                private readonly SimpleCondition<TReference> _condition;
-                private readonly ObjectProvider<TReference> _objectProvider;
-                private readonly Func<T, TReference, bool> _relationCondition;
-
-                internal ComplexCondition(ObjectProvider<TReference> objectProvider,
-                    Func<T, TReference, bool> relationCondition, SimpleCondition<TReference> condition)
+                var passRule = CheckConditions(obj, architecture);
+                var description = obj.FullName;
+                if (passRule)
                 {
-                    _objectProvider = objectProvider;
-                    _relationCondition = relationCondition;
-                    _condition = condition;
+                    description += " passed";
+                }
+                else
+                {
+                    var first = true;
+                    foreach (var conditionElement in _conditionElements.Where(conditionElement =>
+                        !conditionElement.Check(obj, architecture)))
+                    {
+                        if (first)
+                        {
+                            description += " " + conditionElement.ShortFailDescription;
+                            first = false;
+                        }
+                        else
+                        {
+                            description += " " + conditionElement.FailDescription;
+                        }
+                    }
                 }
 
-                internal ComplexCondition(Func<Architecture, IEnumerable<TReference>> objectProvider,
-                    Func<T, TReference, bool> relationCondition, Func<TReference, bool> condition)
-                    : this(new ObjectProvider<TReference>(objectProvider),
-                        relationCondition, new SimpleCondition<TReference>(condition))
-                {
-                }
-
-                public bool Evaluate(T obj, Architecture architecture)
-                {
-                    return _objectProvider.GetObjects(architecture).Where(refObj => _relationCondition(obj, refObj))
-                        .All(relatedObj => _condition.Evaluate(relatedObj));
-                }
-
-                public bool EvaluateNull()
-                {
-                    return true;
-                }
+                return new EvaluationResult(obj, passRule, description, archRuleDescription);
             }
 
-            private class IsNullCondition<T> : ICondition<T> where T : ICanBeAnalyzed
+            public override string ToString()
             {
-                private readonly bool _valueIfNull;
-
-                internal IsNullCondition(bool valueIfNull)
-                {
-                    _valueIfNull = valueIfNull;
-                }
-
-                public bool Evaluate(T obj, Architecture architecture)
-                {
-                    return !_valueIfNull;
-                }
-
-                public bool EvaluateNull()
-                {
-                    return _valueIfNull;
-                }
+                return Description;
             }
 
-            private class ConditionElement<T> where T : ICanBeAnalyzed
+            private class ConditionElement<T> : IHasFailDescription where T : ICanBeAnalyzed
             {
                 private readonly LogicalConjunction _logicalConjunction;
                 private ICondition<T> _condition;
 
-                internal ConditionElement(LogicalConjunction logicalConjunction)
+                public ConditionElement(LogicalConjunction logicalConjunction)
                 {
                     _condition = null;
                     _logicalConjunction = logicalConjunction;
                 }
 
-                internal void SetCondition(ICondition<T> condition)
+                public string ShortFailDescription => _condition.FailDescription;
+
+                public string Description =>
+                    (_logicalConjunction.Description + " should " + _condition.Description).Trim();
+
+                public string FailDescription =>
+                    (_logicalConjunction.Description + " " + _condition.FailDescription).Trim();
+
+                public void SetCondition(ICondition<T> condition)
                 {
                     _condition = condition;
                 }
 
-                internal bool Evaluate(bool currentResult, T obj, Architecture architecture)
+                public bool Check(bool currentResult, T obj, Architecture architecture)
+                {
+                    return _logicalConjunction.Evaluate(currentResult, Check(obj, architecture));
+                }
+
+                public bool Check(T obj, Architecture architecture)
                 {
                     if (_condition == null)
                     {
                         throw new InvalidOperationException(
-                            "Can't Evaluate a ConditionElement before the condition is set.");
+                            "Can't check a ConditionElement before the condition is set.");
                     }
 
-                    return _logicalConjunction.Evaluate(currentResult, _condition.Evaluate(obj, architecture));
+                    return _condition.Check(obj, architecture);
                 }
 
-                internal bool EvaluateNull(bool currentResult)
+                public bool CheckNull(bool currentResult)
                 {
                     if (_condition == null)
                     {
                         throw new InvalidOperationException(
-                            "Can't Evaluate a ConditionElement before the condition is set.");
+                            "Can't check a ConditionElement before the condition is set.");
                     }
 
-                    return _logicalConjunction.Evaluate(currentResult, _condition.EvaluateNull());
+                    return _logicalConjunction.Evaluate(currentResult, _condition.CheckNull());
                 }
-            }
-        }
 
-        private class ObjectProvider<T> where T : ICanBeAnalyzed
-        {
-            private readonly Func<Architecture, IEnumerable<T>> _objects;
-
-            internal ObjectProvider(Func<Architecture, IEnumerable<T>> objects)
-            {
-                _objects = objects;
-            }
-
-            internal IEnumerable<T> GetObjects(Architecture architecture)
-            {
-                return _objects(architecture);
+                public override string ToString()
+                {
+                    return Description;
+                }
             }
         }
     }

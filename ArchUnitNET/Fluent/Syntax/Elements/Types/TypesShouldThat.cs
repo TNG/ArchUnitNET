@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
@@ -12,15 +10,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         where TReferenceType : IType
         where TRuleType : ICanBeAnalyzed
     {
-        // ReSharper disable once MemberCanBeProtected.Global
         protected TypesShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
-            Func<Architecture, IEnumerable<TReferenceType>> referenceObjectProvider) :
+            ObjectProvider<TReferenceType> referenceObjectProvider) :
             base(ruleCreator, referenceObjectProvider)
         {
         }
 
         public TypesShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
-            architecture => (IEnumerable<TReferenceType>) architecture.Types)
+            ObjectProviderDefinition.Types as ObjectProvider<TReferenceType>)
         {
         }
 

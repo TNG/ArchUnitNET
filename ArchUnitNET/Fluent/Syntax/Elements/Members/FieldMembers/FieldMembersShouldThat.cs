@@ -9,7 +9,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
         where TRuleType : ICanBeAnalyzed
     {
         public FieldMembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
-            architecture => architecture.FieldMembers)
+            ObjectProviderDefinition.FieldMembers)
         {
         }
     }

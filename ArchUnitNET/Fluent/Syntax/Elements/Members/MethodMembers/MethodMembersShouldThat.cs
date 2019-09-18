@@ -11,7 +11,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         where TRuleType : ICanBeAnalyzed
     {
         public MethodMembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
-            architecture => architecture.MethodMembers)
+            ObjectProviderDefinition.MethodMembers)
         {
         }
 

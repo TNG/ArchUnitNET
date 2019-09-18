@@ -4,6 +4,7 @@ using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using Xunit;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
+using static ArchUnitNET.Fluent.ObjectProviderDefinition;
 
 namespace ArchUnitNETTests.Fluent.Syntax
 {
@@ -13,8 +14,7 @@ namespace ArchUnitNETTests.Fluent.Syntax
         public void CreateSyntaxElementTest()
         {
             var syntaxElement =
-                CreateSyntaxElement<TypesShouldConjunction, IType>(
-                    new ArchRuleCreator<IType>(architecture => architecture.Types, "Types"));
+                CreateSyntaxElement<TypesShouldConjunction, IType>(new ArchRuleCreator<IType>(Types));
             Assert.NotNull(syntaxElement);
         }
 
@@ -22,8 +22,7 @@ namespace ArchUnitNETTests.Fluent.Syntax
         public void CreateSyntaxElementWithInvalidParametersThrowsExceptionTest()
         {
             Assert.Throws<MissingMethodException>(() =>
-                CreateSyntaxElement<ActivatorHandlerTests, IType>(
-                    new ArchRuleCreator<IType>(architecture => architecture.Types, "Types")));
+                CreateSyntaxElement<ActivatorHandlerTests, IType>(new ArchRuleCreator<IType>(Types)));
         }
     }
 }

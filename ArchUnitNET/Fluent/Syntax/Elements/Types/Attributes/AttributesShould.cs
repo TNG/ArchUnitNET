@@ -10,7 +10,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public AttributesShouldConjunction BeAbstract()
         {
-            _ruleCreator.AddSimpleCondition(attribute => attribute.IsAbstract, "be abstract");
+            _ruleCreator.AddSimpleCondition(attribute => attribute.IsAbstract, "be abstract", "is not abstract");
             return new AttributesShouldConjunction(_ruleCreator);
         }
 
@@ -20,7 +20,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public AttributesShouldConjunction NotBeAbstract()
         {
-            _ruleCreator.AddSimpleCondition(attribute => !attribute.IsAbstract, "not be abstract");
+            _ruleCreator.AddSimpleCondition(attribute => !attribute.IsAbstract, "not be abstract", "is abtract");
             return new AttributesShouldConjunction(_ruleCreator);
         }
     }
