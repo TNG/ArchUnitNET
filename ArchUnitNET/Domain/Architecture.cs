@@ -106,6 +106,11 @@ namespace ArchUnitNET.Domain
             return archRule.Check(this);
         }
 
+        public IEnumerable<EvaluationResult> EvaluateRule(IArchRule archRule)
+        {
+            return archRule.Evaluate(this);
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))

@@ -56,5 +56,10 @@ namespace ArchUnitNET.Fluent.Extensions
 
             return withFullName.FirstOrDefault();
         }
+
+        public static IEnumerable<string> ToStringEnumerable<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.Select(obj => obj.ToString());
+        }
     }
 }

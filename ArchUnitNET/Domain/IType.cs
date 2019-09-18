@@ -18,8 +18,8 @@ namespace ArchUnitNET.Domain
         List<IType> GenericTypeArguments { get; }
         IType GenericType { get; }
         bool IsNested { get; }
+        IEnumerable<IType> ImplementedInterfaces { get; }
         bool Implements(IType intf);
         bool IsAssignableTo(IType assignableToType);
-        IEnumerable<IType> ImplementedInterfaces { get; }
     }
 }

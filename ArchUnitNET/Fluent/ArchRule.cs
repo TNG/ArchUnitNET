@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System.Collections.Generic;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax;
 
 namespace ArchUnitNET.Fluent
@@ -14,6 +15,11 @@ namespace ArchUnitNET.Fluent
         public bool Check(Architecture architecture)
         {
             return _ruleCreator.Check(architecture);
+        }
+
+        public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
+        {
+            return _ruleCreator.Evaluate(architecture);
         }
 
         public CombinedArchRuleDefinition And()
@@ -39,6 +45,31 @@ namespace ArchUnitNET.Fluent
         public override string ToString()
         {
             return Description;
+        }
+
+        private bool Equals(ArchRule<T> other)
+        {
+            return string.Equals(Description, other.Description);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((ArchRule<T>) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Description != null ? Description.GetHashCode() : 0;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
         IInterfacesThat<TRuleTypeShouldConjunction> where TRuleType : ICanBeAnalyzed
     {
         public InterfacesShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
-            architecture => architecture.Interfaces)
+            ObjectProviderDefinition.Interfaces)
         {
         }
     }

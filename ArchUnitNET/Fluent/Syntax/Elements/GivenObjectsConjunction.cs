@@ -25,7 +25,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShould Should()
         {
-            _ruleCreator.AddShouldDescription();
             return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
         }
     }

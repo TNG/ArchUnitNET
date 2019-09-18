@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Domain.Visibility;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
@@ -13,11 +11,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleType : ICanBeAnalyzed
     {
         // ReSharper disable once InconsistentNaming
-        protected readonly Func<Architecture, IEnumerable<TReferenceType>> _referenceObjectProvider;
+        protected readonly ObjectProvider<TReferenceType> _referenceObjectProvider;
 
         // ReSharper disable once MemberCanBeProtected.Global
         public ObjectsShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
-            Func<Architecture, IEnumerable<TReferenceType>> referenceObjectProvider) : base(ruleCreator)
+            ObjectProvider<TReferenceType> referenceObjectProvider) : base(ruleCreator)
         {
             _referenceObjectProvider = referenceObjectProvider;
         }

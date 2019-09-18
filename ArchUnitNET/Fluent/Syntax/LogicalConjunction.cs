@@ -2,7 +2,8 @@
 
 namespace ArchUnitNET.Fluent.Syntax
 {
-    public class LogicalConjunction : IHasDescription
+    public class
+        LogicalConjunction : IHasDescription //TODO change type to readonly struct and change c# version to 7.2?
     {
         private readonly Func<bool, bool, bool> _logicalConjunction;
 

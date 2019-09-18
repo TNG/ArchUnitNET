@@ -1,4 +1,6 @@
-﻿using ArchUnitNET.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax;
 
 namespace ArchUnitNET.Fluent
@@ -15,16 +17,20 @@ namespace ArchUnitNET.Fluent
             _firstArchRuleCreator = firstArchRuleCreator;
             _secondArchRuleCreator = secondArchRuleCreator;
             _logicalConjunction = logicalConjunction;
-            Description = firstArchRuleCreator.Description + " " + logicalConjunction.Description + " " +
-                          secondArchRuleCreator.Description;
         }
 
-        public string Description { get; }
+        public string Description => _firstArchRuleCreator.Description + " " + _logicalConjunction.Description + " " +
+                                     _secondArchRuleCreator.Description;
 
         public bool Check(Architecture architecture)
         {
             return _logicalConjunction.Evaluate(_firstArchRuleCreator.Check(architecture),
                 _secondArchRuleCreator.Check(architecture));
+        }
+
+        public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
+        {
+            return _firstArchRuleCreator.Evaluate(architecture).Concat(_secondArchRuleCreator.Evaluate(architecture));
         }
 
         public CombinedArchRuleDefinition And()
@@ -50,6 +56,31 @@ namespace ArchUnitNET.Fluent
         public override string ToString()
         {
             return Description;
+        }
+
+        private bool Equals(CombinedArchRule other)
+        {
+            return string.Equals(Description, other.Description);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((CombinedArchRule) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Description != null ? Description.GetHashCode() : 0;
         }
     }
 }
