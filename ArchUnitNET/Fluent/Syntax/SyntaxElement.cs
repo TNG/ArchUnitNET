@@ -12,5 +12,10 @@ namespace ArchUnitNET.Fluent.Syntax
         {
             _ruleCreator = ruleCreator;
         }
+
+        public override string ToString()
+        {
+            return _ruleCreator.ToString();
+        }
     }
 }

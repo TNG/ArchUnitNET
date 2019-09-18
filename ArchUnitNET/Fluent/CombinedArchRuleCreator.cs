@@ -11,7 +11,8 @@ namespace ArchUnitNET.Fluent
         private readonly IArchRuleCreator _oldArchRuleCreator;
 
         public CombinedArchRuleCreator(IArchRuleCreator archRuleCreator, LogicalConjunction logicalConjunction,
-            Func<Architecture, IEnumerable<T>> objectsToBeAnalyzed) : base(objectsToBeAnalyzed)
+            Func<Architecture, IEnumerable<T>> objectsToBeAnalyzed, string description) : base(objectsToBeAnalyzed,
+            archRuleCreator.Description + " " + logicalConjunction.Description + " " + description)
         {
             _oldArchRuleCreator = archRuleCreator;
             _logicalConjunction = logicalConjunction;

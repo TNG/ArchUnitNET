@@ -9,6 +9,8 @@ namespace ArchUnitNET.Fluent
         {
         }
 
+        public string Description => _ruleCreator.Description;
+
         public bool Check(Architecture architecture)
         {
             return _ruleCreator.Check(architecture);
@@ -32,6 +34,11 @@ namespace ArchUnitNET.Fluent
         public IArchRule Or(IArchRule archRule)
         {
             return new CombinedArchRule(_ruleCreator, LogicalConjunctionDefinition.Or, archRule);
+        }
+
+        public override string ToString()
+        {
+            return Description;
         }
     }
 }

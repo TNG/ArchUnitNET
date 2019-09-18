@@ -14,7 +14,7 @@ namespace ArchUnitNETTests.Fluent.Syntax
         {
             var syntaxElement =
                 CreateSyntaxElement<TypesShouldConjunction, IType>(
-                    new ArchRuleCreator<IType>(architecture => architecture.Types));
+                    new ArchRuleCreator<IType>(architecture => architecture.Types, "Types"));
             Assert.NotNull(syntaxElement);
         }
 
@@ -23,7 +23,7 @@ namespace ArchUnitNETTests.Fluent.Syntax
         {
             Assert.Throws<MissingMethodException>(() =>
                 CreateSyntaxElement<ActivatorHandlerTests, IType>(
-                    new ArchRuleCreator<IType>(architecture => architecture.Types)));
+                    new ArchRuleCreator<IType>(architecture => architecture.Types, "Types")));
         }
     }
 }

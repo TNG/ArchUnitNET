@@ -18,13 +18,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public TRuleTypeShouldConjunction AreConstructors()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => member.IsConstructor());
+                member => member.IsConstructor(), "are no constructors");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreVirtual()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, member => member.IsVirtual);
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, member => member.IsVirtual, "are virtual");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -35,13 +35,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public TRuleTypeShouldConjunction AreNoConstructors()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => !member.IsConstructor());
+                member => !member.IsConstructor(), "are no constructors");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotVirtual()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, member => !member.IsVirtual);
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, member => !member.IsVirtual,
+                "are not virtual");
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

@@ -15,53 +15,65 @@ namespace ArchUnitNET.Fluent
         private readonly ConditionManager<T> _conditionManager;
         private readonly ObjectFilterManager<T> _objectFilterManager;
 
-        public ArchRuleCreator(Func<Architecture, IEnumerable<T>> objectsToBeAnalyzed)
+        public ArchRuleCreator(Func<Architecture, IEnumerable<T>> objectsToBeAnalyzed, string description)
         {
             _objectFilterManager = new ObjectFilterManager<T>(objectsToBeAnalyzed);
             _conditionManager = new ConditionManager<T>();
+            Description = description;
         }
+
+        public string Description { get; private set; }
 
         public virtual bool Check(Architecture architecture)
         {
             return CheckConditions(GetFilteredObjects(architecture), architecture);
         }
 
-        public void AddObjectFilter(Func<T, bool> objectFilter)
+        public void AddObjectFilter(Func<T, bool> objectFilter, string description)
         {
             _objectFilterManager.AddFilter(objectFilter);
+            AddDescription(description);
         }
 
         public void AddObjectFilterConjunction(LogicalConjunction logicalConjunction)
         {
             _objectFilterManager.SetNextLogicalConjunction(logicalConjunction);
+            AddLogicalConjunctionDescription(logicalConjunction);
         }
 
         public void AddConditionConjunction(LogicalConjunction logicalConjunction)
         {
             _conditionManager.SetNextLogicalConjunction(logicalConjunction);
+            AddLogicalConjunctionDescription(logicalConjunction);
+            AddShouldDescription();
         }
 
-        public void AddSimpleCondition(Func<T, bool> simpleCondition)
+        public void AddSimpleCondition(Func<T, bool> simpleCondition, string description)
         {
             _conditionManager.AddSimpleCondition(simpleCondition);
+            AddDescription(description);
         }
 
-        public void BeginComplexCondition<TReference>(Func<T, TReference, bool> relationCondition)
+        public void BeginComplexCondition<TReference>(Func<T, TReference, bool> relationCondition, string description)
             where TReference : ICanBeAnalyzed
         {
             _conditionManager.BeginComplexCondition(relationCondition);
+            AddDescription(description);
         }
 
         public void ContinueComplexCondition<TReference>(
-            Func<Architecture, IEnumerable<TReference>> referenceObjectProvider, Func<TReference, bool> condition)
+            Func<Architecture, IEnumerable<TReference>> referenceObjectProvider, Func<TReference, bool> condition,
+            string description)
             where TReference : ICanBeAnalyzed
         {
             _conditionManager.ContinueComplexCondition(referenceObjectProvider, condition);
+            AddDescription(description);
         }
 
-        public void AddIsNullOrEmptyCondition(bool valueIfEmpty)
+        public void AddIsNullOrEmptyCondition(bool valueIfEmpty, string description)
         {
             _conditionManager.AddIsNullOrEmptyCondition(valueIfEmpty);
+            AddDescription(description);
         }
 
         private IEnumerable<T> GetFilteredObjects(Architecture architecture)
@@ -72,6 +84,31 @@ namespace ArchUnitNET.Fluent
         private bool CheckConditions(IEnumerable<T> filteredObjects, Architecture architecture)
         {
             return _conditionManager.CheckConditions(filteredObjects, architecture);
+        }
+
+        public void AddThatDescription()
+        {
+            AddDescription("that");
+        }
+
+        public void AddShouldDescription()
+        {
+            AddDescription("should");
+        }
+
+        private void AddLogicalConjunctionDescription(LogicalConjunction logicalConjunction)
+        {
+            AddDescription(logicalConjunction.Description);
+        }
+
+        private void AddDescription(string description)
+        {
+            Description += " " + description;
+        }
+
+        public override string ToString()
+        {
+            return Description;
         }
 
         private class ObjectFilterManager<T> where T : ICanBeAnalyzed
@@ -147,7 +184,6 @@ namespace ArchUnitNET.Fluent
                 }
             }
         }
-
 
         private class ConditionManager<T> where T : ICanBeAnalyzed
         {
