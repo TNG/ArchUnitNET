@@ -53,6 +53,16 @@ namespace ArchUnitNET.Fluent
             _conditionManager.SetNextLogicalConjunction(logicalConjunction);
         }
 
+        public void AddConditionReason(string reason)
+        {
+            _conditionManager.AddReason(reason);
+        }
+
+        public void AddFilterReason(string reason)
+        {
+            _objectFilterManager.AddReason(reason);
+        }
+
         public void BeginComplexCondition<TReferenceType>(
             RelationCondition<TRuleType, TReferenceType> relationCondition)
             where TReferenceType : ICanBeAnalyzed
@@ -144,6 +154,11 @@ namespace ArchUnitNET.Fluent
                 _objectFilterElements.Last().SetFilter(objectFilter);
             }
 
+            public void AddReason(string reason)
+            {
+                _objectFilterElements.Last().AddReason(reason);
+            }
+
             internal void SetNextLogicalConjunction(LogicalConjunction logicalConjunction)
             {
                 _objectFilterElements.Add(new ObjectFilterElement<T>(logicalConjunction));
@@ -158,16 +173,35 @@ namespace ArchUnitNET.Fluent
             {
                 private readonly LogicalConjunction _logicalConjunction;
                 private ObjectFilter<T> _objectFilter;
+                private string _reason;
 
                 public ObjectFilterElement(LogicalConjunction logicalConjunction, ObjectFilter<T> objectFilter = null)
                 {
                     _objectFilter = objectFilter;
                     _logicalConjunction = logicalConjunction;
+                    _reason = "";
                 }
 
                 public string Description => _objectFilter == null
                     ? _logicalConjunction.Description
-                    : (_logicalConjunction.Description + " " + _objectFilter.Description).Trim();
+                    : (_logicalConjunction.Description + " " + _objectFilter.Description + " " + _reason).Trim();
+
+                public void AddReason(string reason)
+                {
+                    if (_objectFilter == null)
+                    {
+                        throw new InvalidOperationException(
+                            "Can't add a reason to an ObjectFilterElement before the filter is set.");
+                    }
+
+                    if (_reason != "")
+                    {
+                        throw new InvalidOperationException(
+                            "Can't add a reason to an ObjectFilterElement which already has a reason.");
+                    }
+
+                    _reason = "because " + reason;
+                }
 
                 public void SetFilter(ObjectFilter<T> condition)
                 {
@@ -226,6 +260,11 @@ namespace ArchUnitNET.Fluent
             internal void AddCondition(ICondition<T> condition)
             {
                 _conditionElements.Last().SetCondition(condition);
+            }
+
+            public void AddReason(string reason)
+            {
+                _conditionElements.Last().AddReason(reason);
             }
 
             internal void SetNextLogicalConjunction(LogicalConjunction logicalConjunction)
@@ -295,17 +334,36 @@ namespace ArchUnitNET.Fluent
             {
                 private readonly LogicalConjunction _logicalConjunction;
                 private ICondition<T> _condition;
+                private string _reason;
 
                 public ConditionElement(LogicalConjunction logicalConjunction)
                 {
                     _condition = null;
                     _logicalConjunction = logicalConjunction;
+                    _reason = "";
                 }
 
                 public string Description =>
-                    (_logicalConjunction.Description + " should " + _condition.Description).Trim();
+                    (_logicalConjunction.Description + " should " + _condition.Description + " " + _reason).Trim();
 
                 public string FailDescription => _condition.FailDescription;
+
+                public void AddReason(string reason)
+                {
+                    if (_condition == null)
+                    {
+                        throw new InvalidOperationException(
+                            "Can't add a reason to a ConditionElement before the condition is set.");
+                    }
+
+                    if (_reason != "")
+                    {
+                        throw new InvalidOperationException(
+                            "Can't add a reason to a ConditionElement which already has a reason.");
+                    }
+
+                    _reason = "because " + reason;
+                }
 
                 public void SetCondition(ICondition<T> condition)
                 {

@@ -5,8 +5,8 @@ namespace ArchUnitNET.Fluent.Syntax
 {
     public static class ActivatorHandler
     {
-        public static TConjunction CreateSyntaxElement<TConjunction, TObject>(ArchRuleCreator<TObject> ruleCreator)
-            where TObject : ICanBeAnalyzed
+        public static TConjunction CreateSyntaxElement<TConjunction, TRuleType>(ArchRuleCreator<TRuleType> ruleCreator)
+            where TRuleType : ICanBeAnalyzed
         {
             return (TConjunction) Activator.CreateInstance(typeof(TConjunction), ruleCreator);
         }

@@ -3,23 +3,19 @@ using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public abstract class ObjectsShouldConjunction<TRuleTypeShould, TRuleType> : ArchRule<TRuleType>
+    public abstract class
+        ObjectsShouldConjunction<TRuleTypeShould, TRuleTypeShouldConjunctionWithoutBecause, TRuleType> :
+            ObjectsShouldConjunctionWithoutBecause<TRuleTypeShould, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
         protected ObjectsShouldConjunction(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
-        public TRuleTypeShould AndShould()
+        public TRuleTypeShouldConjunctionWithoutBecause Because(string reason)
         {
-            _ruleCreator.AddConditionConjunction(LogicalConjunctionDefinition.And);
-            return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShould OrShould()
-        {
-            _ruleCreator.AddConditionConjunction(LogicalConjunctionDefinition.Or);
-            return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
+            _ruleCreator.AddConditionReason(reason);
+            return CreateSyntaxElement<TRuleTypeShouldConjunctionWithoutBecause, TRuleType>(_ruleCreator);
         }
     }
 }
