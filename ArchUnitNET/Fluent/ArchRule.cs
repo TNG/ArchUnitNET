@@ -10,8 +10,6 @@ namespace ArchUnitNET.Fluent
         {
         }
 
-        public string Description => _ruleCreator.Description;
-
         public bool Check(Architecture architecture)
         {
             return _ruleCreator.Check(architecture);
