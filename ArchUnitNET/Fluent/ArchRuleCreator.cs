@@ -288,10 +288,10 @@ namespace ArchUnitNET.Fluent
             private EvaluationResult EvaluateConditions(T obj, Architecture architecture, string archRuleDescription)
             {
                 var passRule = CheckConditions(obj, architecture);
-                var description = obj.FullName;
+                var description = obj.FullName + " ";
                 if (passRule)
                 {
-                    description += " passed";
+                    description += "passed";
                 }
                 else
                 {
@@ -301,12 +301,12 @@ namespace ArchUnitNET.Fluent
                     {
                         if (first)
                         {
-                            description += " " + conditionElement.ShortFailDescription;
+                            description += conditionElement.FailDescription;
                             first = false;
                         }
                         else
                         {
-                            description += " " + conditionElement.FailDescription;
+                            description += " and " + conditionElement.FailDescription;
                         }
                     }
                 }
@@ -330,13 +330,10 @@ namespace ArchUnitNET.Fluent
                     _logicalConjunction = logicalConjunction;
                 }
 
-                public string ShortFailDescription => _condition.FailDescription;
-
                 public string Description =>
                     (_logicalConjunction.Description + " should " + _condition.Description).Trim();
 
-                public string FailDescription =>
-                    (_logicalConjunction.Description + " " + _condition.FailDescription).Trim();
+                public string FailDescription => _condition.FailDescription;
 
                 public void SetCondition(ICondition<T> condition)
                 {
