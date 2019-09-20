@@ -17,7 +17,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public static ObjectFilter<PropertyMember> HavePrivateSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Private, "have private setter");
+            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Private,
+                "have private setter");
         }
 
         public static ObjectFilter<PropertyMember> HavePublicSetter()
@@ -27,12 +28,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public static ObjectFilter<PropertyMember> HaveProtectedSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Protected, "have protected setter");
+            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Protected,
+                "have protected setter");
         }
 
         public static ObjectFilter<PropertyMember> HaveInternalSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Internal, "have internal setter");
+            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Internal,
+                "have internal setter");
         }
 
         public static ObjectFilter<PropertyMember> HaveProtectedInternalSetter()
@@ -74,7 +77,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public static ObjectFilter<PropertyMember> DoNotHavePublicSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility != Public, "do not have public setter");
+            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility != Public,
+                "do not have public setter");
         }
 
         public static ObjectFilter<PropertyMember> DoNotHaveProtectedSetter()

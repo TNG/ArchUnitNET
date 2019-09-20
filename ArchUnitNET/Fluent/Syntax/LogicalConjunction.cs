@@ -2,8 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax
 {
-    public class
-        LogicalConjunction : IHasDescription //TODO change type to readonly struct and change c# version to 7.2?
+    public class LogicalConjunction : IHasDescription
     {
         private readonly Func<bool, bool, bool> _logicalConjunction;
 
@@ -24,7 +23,7 @@ namespace ArchUnitNET.Fluent.Syntax
         {
             return Description;
         }
-        
+
         private bool Equals(LogicalConjunction other)
         {
             return string.Equals(Description, other.Description);
@@ -44,7 +43,7 @@ namespace ArchUnitNET.Fluent.Syntax
 
             return obj.GetType() == GetType() && Equals((LogicalConjunction) obj);
         }
-        
+
         public override int GetHashCode()
         {
             return Description != null ? Description.GetHashCode() : 0;

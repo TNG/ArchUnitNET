@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent
 {
-    public class EvaluationResult //TODO change type to readonly struct and change c# version to 7.2?
+    public class EvaluationResult
     {
         public EvaluationResult(ICanBeAnalyzed obj, bool pass, string description, string archRuleDescription)
         {

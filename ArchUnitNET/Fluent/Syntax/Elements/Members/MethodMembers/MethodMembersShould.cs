@@ -20,7 +20,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             _ruleCreator.AddCondition(MethodMembersConditionDefinition.BeVirtual());
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
-        
+
 
         //Negations
 
