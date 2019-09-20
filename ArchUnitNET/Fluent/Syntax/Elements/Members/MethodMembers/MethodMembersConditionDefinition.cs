@@ -15,8 +15,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             return new SimpleCondition<MethodMember>(member => member.IsVirtual, "be virtual", "is not virtual");
         }
-        
-        
+
+
         //Negations
 
 
