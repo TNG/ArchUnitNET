@@ -1,5 +1,4 @@
 ﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
@@ -24,16 +23,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction ImplementInterface(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => type.ImplementsInterface(pattern),
-                "implement interface \"" + pattern + "\"");
+                TypesFilterDefinition<TReferenceType>.ImplementInterface(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction ImplementInterface(Interface intf)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => type.ImplementsInterface(intf),
-                "implement interface \"" + intf.FullName + "\"");
+                TypesFilterDefinition<TReferenceType>.ImplementInterface(intf));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -41,46 +38,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction ResideInNamespace(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => type.ResidesInNamespace(pattern),
-                "reside in namespace \"" + pattern + "\"");
+                TypesFilterDefinition<TReferenceType>.ResideInNamespace(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HavePropertyMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => type.HasPropertyMemberWithName(name),
-                "have property member with name \"" + name + "\"");
+                TypesFilterDefinition<TReferenceType>.HaveMethodMemberWithName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveFieldMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => type.HasFieldMemberWithName(name),
-                "have field member with name \"" + name + "\"");
+                TypesFilterDefinition<TReferenceType>.HaveFieldMemberWithName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveMethodMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => type.HasMethodMemberWithName(name),
-                "have method member with name \"" + name + "\"");
+                TypesFilterDefinition<TReferenceType>.HaveFieldMemberWithName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => type.HasMemberWithName(name),
-                "have member with name \"" + name + "\"");
+                TypesFilterDefinition<TReferenceType>.HaveMemberWithName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNested()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, type => type.IsNested, "are nested");
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
+                TypesFilterDefinition<TReferenceType>.AreNested());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -91,62 +84,56 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction DoNotImplementInterface(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => !type.ImplementsInterface(pattern),
-                "do not implement interface \"" + pattern + "\"");
+                TypesFilterDefinition<TReferenceType>.DoNotImplementInterface(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotImplementInterface(Interface intf)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => !type.ImplementsInterface(intf),
-                "do not implement interface \"" + intf.FullName + "\"");
+                TypesFilterDefinition<TReferenceType>.DoNotImplementInterface(intf));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotResideInNamespace(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => !type.ResidesInNamespace(pattern),
-                "do not reside in namespace \"" + pattern + "\"");
+                TypesFilterDefinition<TReferenceType>.DoNotResideInNamespace(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHavePropertyMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => !type.HasPropertyMemberWithName(name),
-                "do not have property member with name \"" + name + "\"");
+                TypesFilterDefinition<TReferenceType>.DoNotHavePropertyMemberWithName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveFieldMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => !type.HasFieldMemberWithName(name),
-                "do not have field member with name \"" + name + "\"");
+                TypesFilterDefinition<TReferenceType>.DoNotHaveFieldMemberWithName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveMethodMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => !type.HasMethodMemberWithName(name),
-                "do not have method member with name \"" + name + "\"");
+                TypesFilterDefinition<TReferenceType>.DoNotHaveMethodMemberWithName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                type => !type.HasMemberWithName(name),
-                "do not have member with name \"" + name + "\"");
+                TypesFilterDefinition<TReferenceType>.DoNotHaveMethodMemberWithName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotNested()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, type => !type.IsNested, "are not nested");
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
+                TypesFilterDefinition<TReferenceType>.AreNotNested());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

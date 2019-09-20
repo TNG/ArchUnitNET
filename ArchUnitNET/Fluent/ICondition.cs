@@ -2,9 +2,9 @@
 
 namespace ArchUnitNET.Fluent
 {
-    public interface ICondition<T> : IHasFailDescription where T : ICanBeAnalyzed
+    public interface ICondition<TRuleType> : IHasFailDescription where TRuleType : ICanBeAnalyzed
     {
-        bool Check(T obj, Architecture architecture);
+        bool Check(TRuleType obj, Architecture architecture);
         bool CheckNull();
     }
 }

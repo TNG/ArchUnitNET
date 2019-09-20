@@ -3,12 +3,12 @@ using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax
 {
-    public abstract class SyntaxElement<T> where T : ICanBeAnalyzed
+    public abstract class SyntaxElement<TRuleType> where TRuleType : ICanBeAnalyzed
     {
         // ReSharper disable once InconsistentNaming
-        protected readonly ArchRuleCreator<T> _ruleCreator;
+        protected readonly ArchRuleCreator<TRuleType> _ruleCreator;
 
-        protected SyntaxElement([NotNull] ArchRuleCreator<T> ruleCreator)
+        protected SyntaxElement([NotNull] ArchRuleCreator<TRuleType> ruleCreator)
         {
             _ruleCreator = ruleCreator;
         }

@@ -1,5 +1,4 @@
 ﻿using ArchUnitNET.Domain;
-using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
@@ -12,57 +11,55 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction HaveGetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility != NotAccessible, "have getter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HaveGetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.SetterVisibility != NotAccessible, "have setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HaveSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePrivateSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility == Private, "have private setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HavePrivateSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePublicSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility == Public, "have public setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HavePublicSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveProtectedSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility == Protected, "have protected setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HaveProtectedSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveInternalSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility == Internal, "have internal setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HaveInternalSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveProtectedInternalSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility == ProtectedInternal,
-                "have protected internal setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HaveProtectedInternalSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePrivateProtectedSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility == PrivateProtected,
-                "have private protected setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HavePrivateProtectedSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction AreVirtual()
         {
-            _ruleCreator.AddObjectFilter(member => member.IsVirtual, "are virtual");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.AreVirtual());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
@@ -72,57 +69,55 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction HaveNoGetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility == NotAccessible, "have no getter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HaveNoGetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveNoSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.SetterVisibility == NotAccessible, "have no setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.HaveNoSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePrivateSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility != Private, "do not have private setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.DoNotHavePrivateSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePublicSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility != Public, "do not have public setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.DoNotHavePublicSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHaveProtectedSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility != Protected, "do not have protected setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.DoNotHaveProtectedSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHaveInternalSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility != Internal, "do not have internal setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.DoNotHaveInternalSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHaveProtectedInternalSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility != ProtectedInternal,
-                "do not have protected internal setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.DoNotHaveProtectedInternalSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePrivateProtectedSetter()
         {
-            _ruleCreator.AddObjectFilter(member => member.Visibility != PrivateProtected,
-                "do not have private protected setter");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.DoNotHavePrivateProtectedSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction AreNotVirtual()
         {
-            _ruleCreator.AddObjectFilter(member => !member.IsVirtual, "are not virtual");
+            _ruleCreator.AddObjectFilter(PropertyMembersFilterDefinition.AreNotVirtual());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
     }

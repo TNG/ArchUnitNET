@@ -1,5 +1,4 @@
 ﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
@@ -16,41 +15,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public TGivenRuleTypeConjunction HaveBodyTypeMemberDependencies()
         {
-            _ruleCreator.AddObjectFilter(member => member.HasBodyTypeMemberDependencies(),
-                "have body type member dependencies");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.HaveBodyTypeMemberDependencies());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveBodyTypeMemberDependencies(string pattern)
         {
-            _ruleCreator.AddObjectFilter(member => member.HasBodyTypeMemberDependencies(pattern),
-                "have body type member dependencies \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.HaveBodyTypeMemberDependencies(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveMethodCallDependencies()
         {
-            _ruleCreator.AddObjectFilter(member => member.HasMethodCallDependencies(), "have method call dependencies");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.HaveMethodCallDependencies());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveMethodCallDependencies(string pattern)
         {
-            _ruleCreator.AddObjectFilter(member => member.HasMethodCallDependencies(pattern),
-                "have method call dependencies \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.HaveMethodCallDependencies(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveFieldTypeDependencies()
         {
-            _ruleCreator.AddObjectFilter(member => member.HasFieldTypeDependencies(), "have field type dependencies");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.HaveFieldTypeDependencies());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveFieldTypeDependencies(string pattern)
         {
-            _ruleCreator.AddObjectFilter(member => member.HasFieldTypeDependencies(pattern),
-                "have field type dependencies \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.HaveFieldTypeDependencies(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -60,43 +55,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public TGivenRuleTypeConjunction DoNotHaveBodyTypeMemberDependencies()
         {
-            _ruleCreator.AddObjectFilter(member => !member.HasBodyTypeMemberDependencies(),
-                "do not have body type member dependencies");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.DoNotHaveBodyTypeMemberDependencies());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveBodyTypeMemberDependencies(string pattern)
         {
-            _ruleCreator.AddObjectFilter(member => !member.HasBodyTypeMemberDependencies(pattern),
-                "do not have body type member dependencies \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(
+                MembersFilterDefinition<TRuleType>.DoNotHaveBodyTypeMemberDependencies(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveMethodCallDependencies()
         {
-            _ruleCreator.AddObjectFilter(member => !member.HasMethodCallDependencies(),
-                "do not have method call dependencies");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.DoNotHaveMethodCallDependencies());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveMethodCallDependencies(string pattern)
         {
-            _ruleCreator.AddObjectFilter(member => !member.HasMethodCallDependencies(pattern),
-                "do not have method call dependencies \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.DoNotHaveMethodCallDependencies(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveFieldTypeDependencies()
         {
-            _ruleCreator.AddObjectFilter(member => !member.HasFieldTypeDependencies(),
-                "do not have field type dependencies");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.DoNotHaveFieldTypeDependencies());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveFieldTypeDependencies(string pattern)
         {
-            _ruleCreator.AddObjectFilter(member => !member.HasFieldTypeDependencies(pattern),
-                "do not have field type dependencies \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.DoNotHaveFieldTypeDependencies(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }

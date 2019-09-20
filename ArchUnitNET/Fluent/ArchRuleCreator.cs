@@ -10,15 +10,15 @@ using static ArchUnitNET.Fluent.Syntax.LogicalConjunctionDefinition;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ArchRuleCreator<T> : IArchRuleCreator where T : ICanBeAnalyzed
+    public class ArchRuleCreator<TRuleType> : IArchRuleCreator where TRuleType : ICanBeAnalyzed
     {
-        private readonly ConditionManager<T> _conditionManager;
-        private readonly ObjectFilterManager<T> _objectFilterManager;
+        private readonly ConditionManager<TRuleType> _conditionManager;
+        private readonly ObjectFilterManager<TRuleType> _objectFilterManager;
 
-        public ArchRuleCreator(ObjectProvider<T> objectProvider)
+        public ArchRuleCreator(ObjectProvider<TRuleType> objectProvider)
         {
-            _objectFilterManager = new ObjectFilterManager<T>(objectProvider);
-            _conditionManager = new ConditionManager<T>();
+            _objectFilterManager = new ObjectFilterManager<TRuleType>(objectProvider);
+            _conditionManager = new ConditionManager<TRuleType>();
         }
 
         public virtual string Description => _objectFilterManager.Description + " " + _conditionManager.Description;
@@ -33,14 +33,9 @@ namespace ArchUnitNET.Fluent
             return EvaluateConditions(GetFilteredObjects(architecture), architecture);
         }
 
-        public void AddObjectFilter(ObjectFilter<T> objectFilter)
+        public void AddObjectFilter(ObjectFilter<TRuleType> objectFilter)
         {
             _objectFilterManager.AddFilter(objectFilter);
-        }
-
-        public void AddObjectFilter(Func<T, bool> objectFilter, string description)
-        {
-            AddObjectFilter(new ObjectFilter<T>(objectFilter, description));
         }
 
         public void AddObjectFilterConjunction(LogicalConjunction logicalConjunction)
@@ -48,65 +43,41 @@ namespace ArchUnitNET.Fluent
             _objectFilterManager.SetNextLogicalConjunction(logicalConjunction);
         }
 
+        public void AddCondition(ICondition<TRuleType> condition)
+        {
+            _conditionManager.AddCondition(condition);
+        }
+
         public void AddConditionConjunction(LogicalConjunction logicalConjunction)
         {
             _conditionManager.SetNextLogicalConjunction(logicalConjunction);
         }
 
-        public void AddSimpleCondition(SimpleCondition<T> simpleCondition)
-        {
-            _conditionManager.AddCondition(simpleCondition);
-        }
-
-        public void AddSimpleCondition(Func<T, bool> simpleCondition, string description, string failDescription)
-        {
-            AddSimpleCondition(new SimpleCondition<T>(simpleCondition, description, failDescription));
-        }
-
-        public void BeginComplexCondition<TReference>(RelationCondition<T, TReference> relationCondition)
-            where TReference : ICanBeAnalyzed
+        public void BeginComplexCondition<TReferenceType>(
+            RelationCondition<TRuleType, TReferenceType> relationCondition)
+            where TReferenceType : ICanBeAnalyzed
         {
             _conditionManager.BeginComplexCondition(relationCondition);
         }
 
-        public void BeginComplexCondition<TReference>(Func<T, TReference, bool> relationCondition, string description,
-            string failDescription)
-            where TReference : ICanBeAnalyzed
-        {
-            BeginComplexCondition(
-                new RelationCondition<T, TReference>(relationCondition, description, failDescription));
-        }
-
-        public void ContinueComplexCondition<TReference>(ObjectProvider<TReference> referenceObjectProvider,
-            ObjectFilter<TReference> objectFilter)
-            where TReference : ICanBeAnalyzed
+        public void ContinueComplexCondition<TReferenceType>(ObjectProvider<TReferenceType> referenceObjectProvider,
+            ObjectFilter<TReferenceType> objectFilter)
+            where TReferenceType : ICanBeAnalyzed
         {
             _conditionManager.ContinueComplexCondition(referenceObjectProvider, objectFilter);
         }
 
-        public void ContinueComplexCondition<TReference>(ObjectProvider<TReference> referenceObjectProvider,
-            Func<TReference, bool> filter, string description)
-            where TReference : ICanBeAnalyzed
-        {
-            ContinueComplexCondition(referenceObjectProvider, new ObjectFilter<TReference>(filter, description));
-        }
-
-        public void AddIsNullOrEmptyCondition(bool valueIfEmpty, string description, string failDescription)
-        {
-            _conditionManager.AddCondition(new IsNullCondition<T>(valueIfEmpty, description, failDescription));
-        }
-
-        private IEnumerable<T> GetFilteredObjects(Architecture architecture)
+        private IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture)
         {
             return _objectFilterManager.GetFilteredObjects(architecture);
         }
 
-        private bool CheckConditions(IEnumerable<T> filteredObjects, Architecture architecture)
+        private bool CheckConditions(IEnumerable<TRuleType> filteredObjects, Architecture architecture)
         {
             return _conditionManager.CheckConditions(filteredObjects, architecture);
         }
 
-        private IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<T> filteredObjects,
+        private IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<TRuleType> filteredObjects,
             Architecture architecture)
         {
             return _conditionManager.EvaluateConditions(filteredObjects, architecture,
@@ -118,7 +89,7 @@ namespace ArchUnitNET.Fluent
             return Description;
         }
 
-        private bool Equals(ArchRuleCreator<T> other)
+        private bool Equals(ArchRuleCreator<TRuleType> other)
         {
             return string.Equals(Description, other.Description);
         }
@@ -135,7 +106,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ArchRuleCreator<T>) obj);
+            return obj.GetType() == GetType() && Equals((ArchRuleCreator<TRuleType>) obj);
         }
 
         public override int GetHashCode()
@@ -237,18 +208,19 @@ namespace ArchUnitNET.Fluent
             public string Description => _conditionElements.Aggregate("",
                 (current, conditionElement) => current + " " + conditionElement.Description).Trim();
 
-            internal void BeginComplexCondition<TReference>(RelationCondition<T, TReference> relationCondition)
-                where TReference : ICanBeAnalyzed
+            internal void BeginComplexCondition<TReferenceType>(RelationCondition<T, TReferenceType> relationCondition)
+                where TReferenceType : ICanBeAnalyzed
             {
                 _relationConditionTemp = relationCondition;
             }
 
-            internal void ContinueComplexCondition<TReference>(ObjectProvider<TReference> referenceObjectProvider,
-                ObjectFilter<TReference> filter)
-                where TReference : ICanBeAnalyzed
+            internal void ContinueComplexCondition<TReferenceType>(
+                ObjectProvider<TReferenceType> referenceObjectProvider,
+                ObjectFilter<TReferenceType> filter)
+                where TReferenceType : ICanBeAnalyzed
             {
-                AddCondition(new ComplexCondition<T, TReference>(referenceObjectProvider,
-                    (RelationCondition<T, TReference>) _relationConditionTemp, filter));
+                AddCondition(new ComplexCondition<T, TReferenceType>(referenceObjectProvider,
+                    (RelationCondition<T, TReferenceType>) _relationConditionTemp, filter));
             }
 
             internal void AddCondition(ICondition<T> condition)

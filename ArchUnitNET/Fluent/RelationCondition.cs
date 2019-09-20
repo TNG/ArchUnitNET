@@ -3,12 +3,12 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class RelationCondition<T, TReference> : IHasFailDescription
-        where T : ICanBeAnalyzed where TReference : ICanBeAnalyzed
+    public class RelationCondition<TRuleType, TReferenceType> : IHasFailDescription
+        where TRuleType : ICanBeAnalyzed where TReferenceType : ICanBeAnalyzed
     {
-        private readonly Func<T, TReference, bool> _relationCondition;
+        private readonly Func<TRuleType, TReferenceType, bool> _relationCondition;
 
-        public RelationCondition(Func<T, TReference, bool> relationCondition, string description,
+        public RelationCondition(Func<TRuleType, TReferenceType, bool> relationCondition, string description,
             string failDescription)
         {
             _relationCondition = relationCondition;
@@ -19,7 +19,7 @@ namespace ArchUnitNET.Fluent
         public string Description { get; }
         public string FailDescription { get; }
 
-        public bool Evaluate(T obj, TReference referenceObj)
+        public bool Evaluate(TRuleType obj, TReferenceType referenceObj)
         {
             return _relationCondition(obj, referenceObj);
         }

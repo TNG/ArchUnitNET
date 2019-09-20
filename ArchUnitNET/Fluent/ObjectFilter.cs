@@ -3,11 +3,11 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ObjectFilter<T> : IHasDescription where T : ICanBeAnalyzed
+    public class ObjectFilter<TRuleType> : IHasDescription where TRuleType : ICanBeAnalyzed
     {
-        private readonly Func<T, bool> _filter;
+        private readonly Func<TRuleType, bool> _filter;
 
-        public ObjectFilter(Func<T, bool> filter, string description)
+        public ObjectFilter(Func<TRuleType, bool> filter, string description)
         {
             _filter = filter;
             Description = description;
@@ -15,7 +15,7 @@ namespace ArchUnitNET.Fluent
 
         public string Description { get; }
 
-        public bool CheckFilter(T obj)
+        public bool CheckFilter(TRuleType obj)
         {
             return _filter(obj);
         }
