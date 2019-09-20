@@ -8,16 +8,15 @@ using static ArchUnitNETTests.Domain.StaticTestTypes;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
-    public class ObjectSyntaxElementsTest
+    public class ObjectSyntaxElementsTests
     {
-        public ObjectSyntaxElementsTest()
+        public ObjectSyntaxElementsTests()
         {
             _types = Architecture.Types;
         }
 
         private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly IEnumerable<IType> _types;
-
         private const string NoTypeName = "NotTheNameOfAnyType_58391351286";
 
         [Fact]

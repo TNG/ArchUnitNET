@@ -7,10 +7,10 @@ using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
-    public class LogicalConjunctionTest
+    public class LogicalConjunctionTests
     {
         private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private static readonly Class ThisClass = Architecture.GetClassOfType(typeof(LogicalConjunctionTest));
+        private static readonly Class ThisClass = Architecture.GetClassOfType(typeof(LogicalConjunctionTests));
 
         private static readonly Class OtherClass =
             Architecture.GetClassOfType(typeof(OtherClassForLogicalConjunctionTest));
