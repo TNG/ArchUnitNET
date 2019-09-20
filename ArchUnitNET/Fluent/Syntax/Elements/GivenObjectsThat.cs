@@ -1,6 +1,4 @@
 ﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
-using static ArchUnitNET.Domain.Visibility;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
@@ -8,88 +6,85 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     public abstract class GivenObjectsThat<TGivenRuleTypeConjunction, TRuleType> : SyntaxElement<TRuleType>,
         IObjectsThat<TGivenRuleTypeConjunction> where TRuleType : ICanBeAnalyzed
     {
-        //TODO create ObjectFilterDefinition Class
-
         protected GivenObjectsThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
         public TGivenRuleTypeConjunction Are(ICanBeAnalyzed obj)
         {
-            _ruleCreator.AddObjectFilter(o => o.Equals(obj), "are \"" + obj.FullName + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.Are(obj));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DependOn(string pattern)
         {
-            _ruleCreator.AddObjectFilter(obj => obj.DependsOn(pattern), "depend on \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveName(string name)
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Name.Equals(name), "have name \"" + name + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.HaveName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveFullName(string fullname)
         {
-            _ruleCreator.AddObjectFilter(obj => obj.FullName.Equals(fullname), "have full name \"" + fullname + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.HaveFullName(fullname));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveNameStartingWith(string pattern)
         {
-            _ruleCreator.AddObjectFilter(obj => obj.NameStartsWith(pattern),
-                "have name starting with \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.HaveNameStartingWith(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveNameEndingWith(string pattern)
         {
-            _ruleCreator.AddObjectFilter(obj => obj.NameEndsWith(pattern), "have name ending with \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.HaveNameEndingWith(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveNameContaining(string pattern)
         {
-            _ruleCreator.AddObjectFilter(obj => obj.NameContains(pattern), "have name containing \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.HaveNameContaining(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction ArePrivate()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility == Private, "are private");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.ArePrivate());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction ArePublic()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility == Public, "are public");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.ArePublic());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreProtected()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility == Protected, "are protected");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreProtected());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreInternal()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility == Internal, "are internal");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreInternal());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreProtectedInternal()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility == ProtectedInternal, "are protected internal");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreProtectedInternal());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction ArePrivateProtected()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility == PrivateProtected, "are private protected");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.ArePrivateProtected());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -99,83 +94,79 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TGivenRuleTypeConjunction AreNot(ICanBeAnalyzed obj)
         {
-            _ruleCreator.AddObjectFilter(o => !o.Equals(obj), "are not \"" + obj.FullName + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNot(obj));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotDependOn(string pattern)
         {
-            _ruleCreator.AddObjectFilter(obj => !obj.DependsOn(pattern), "do not depend on \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveName(string name)
         {
-            _ruleCreator.AddObjectFilter(obj => !obj.Name.Equals(name), "do not have name \"" + name + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotHaveName(name));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveFullName(string fullname)
         {
-            _ruleCreator.AddObjectFilter(obj => !obj.FullName.Equals(fullname),
-                "do not have full name \"" + fullname + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotHaveFullName(fullname));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveNameStartingWith(string pattern)
         {
-            _ruleCreator.AddObjectFilter(obj => !obj.NameStartsWith(pattern),
-                "do not have name starting with \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotHaveNameStartingWith(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveNameEndingWith(string pattern)
         {
-            _ruleCreator.AddObjectFilter(obj => !obj.NameEndsWith(pattern),
-                "do not have name ending with \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotHaveNameEndingWith(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction DoNotHaveNameContaining(string pattern)
         {
-            _ruleCreator.AddObjectFilter(obj => !obj.NameContains(pattern),
-                "do not have name containing \"" + pattern + "\"");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotHaveNameContaining(pattern));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreNotPrivate()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility != Private, "are not private");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNotPrivate());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreNotPublic()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility != Public, "are not public");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNotPublic());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreNotProtected()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility != Protected, "are not protected");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNotProtected());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreNotInternal()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility != Internal, "are not internal");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNotInternal());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreNotProtectedInternal()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility != ProtectedInternal, "are not protected internal");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNotProtectedInternal());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction AreNotPrivateProtected()
         {
-            _ruleCreator.AddObjectFilter(obj => obj.Visibility != PrivateProtected, "are not private protected");
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNotPrivateProtected());
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }

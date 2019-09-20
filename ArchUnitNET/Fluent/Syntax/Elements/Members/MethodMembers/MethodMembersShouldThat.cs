@@ -1,5 +1,4 @@
 ﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
@@ -18,13 +17,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public TRuleTypeShouldConjunction AreConstructors()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => member.IsConstructor(), "are no constructors");
+                MethodMembersFilterDefinition.AreConstructors());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreVirtual()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, member => member.IsVirtual, "are virtual");
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, MethodMembersFilterDefinition.AreVirtual());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -35,14 +34,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public TRuleTypeShouldConjunction AreNoConstructors()
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                member => !member.IsConstructor(), "are no constructors");
+                MethodMembersFilterDefinition.AreNoConstructors());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotVirtual()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, member => !member.IsVirtual,
-                "are not virtual");
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
+                MethodMembersFilterDefinition.AreNotVirtual());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

@@ -1,5 +1,4 @@
 ﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
@@ -12,28 +11,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public MethodMembersShouldConjunction BeConstructor()
         {
-            _ruleCreator.AddSimpleCondition(member => member.IsConstructor(), "be constructor", "is no constructor");
+            _ruleCreator.AddCondition(MethodMembersConditionDefinition.BeConstructor());
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction BeVirtual()
         {
-            _ruleCreator.AddSimpleCondition(member => member.IsVirtual, "be virtual", "is not virtual");
+            _ruleCreator.AddCondition(MethodMembersConditionDefinition.BeVirtual());
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
+        
 
         //Negations
 
 
         public MethodMembersShouldConjunction BeNoConstructor()
         {
-            _ruleCreator.AddSimpleCondition(member => !member.IsConstructor(), "be no constructor", "is a constructor");
+            _ruleCreator.AddCondition(MethodMembersConditionDefinition.BeNoConstructor());
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction NotBeVirtual()
         {
-            _ruleCreator.AddSimpleCondition(member => !member.IsVirtual, "not be virtual", "is virtual");
+            _ruleCreator.AddCondition(MethodMembersConditionDefinition.NotBeVirtual());
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
     }

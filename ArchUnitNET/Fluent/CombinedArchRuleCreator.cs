@@ -5,13 +5,13 @@ using ArchUnitNET.Fluent.Syntax;
 
 namespace ArchUnitNET.Fluent
 {
-    public class CombinedArchRuleCreator<T> : ArchRuleCreator<T> where T : ICanBeAnalyzed
+    public class CombinedArchRuleCreator<TRuleType> : ArchRuleCreator<TRuleType> where TRuleType : ICanBeAnalyzed
     {
         private readonly LogicalConjunction _logicalConjunction;
         private readonly IArchRuleCreator _oldArchRuleCreator;
 
         public CombinedArchRuleCreator(IArchRuleCreator archRuleCreator, LogicalConjunction logicalConjunction,
-            ObjectProvider<T> objectProvider) : base(objectProvider)
+            ObjectProvider<TRuleType> objectProvider) : base(objectProvider)
         {
             _oldArchRuleCreator = archRuleCreator;
             _logicalConjunction = logicalConjunction;
@@ -36,7 +36,7 @@ namespace ArchUnitNET.Fluent
             return Description;
         }
 
-        private bool Equals(CombinedArchRuleCreator<T> other)
+        private bool Equals(CombinedArchRuleCreator<TRuleType> other)
         {
             return string.Equals(Description, other.Description);
         }
@@ -53,7 +53,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((CombinedArchRuleCreator<T>) obj);
+            return obj.GetType() == GetType() && Equals((CombinedArchRuleCreator<TRuleType>) obj);
         }
 
         public override int GetHashCode()

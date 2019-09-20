@@ -1,8 +1,6 @@
 ﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
-using static ArchUnitNET.Domain.Visibility;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
@@ -12,116 +10,105 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
-        //TODO Create ConditionDefinition Class
-
         protected ObjectsShould(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
         public TRuleTypeShouldConjunction Exist()
         {
-            _ruleCreator.AddIsNullOrEmptyCondition(false, "exist", "does not exist");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.Exist());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction Be(ICanBeAnalyzed obj)
         {
-            _ruleCreator.AddSimpleCondition(o => o.Equals(obj), "be \"" + obj.FullName + "\"",
-                "is not \"" + obj.FullName + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.Be(obj));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DependOn(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.DependsOn(pattern), "depend on \"" + pattern + "\"",
-                "does not depend on \"" + pattern + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.DependOn(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveName(string name)
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Name.Equals(name), "have name \"" + name + "\"",
-                "does not have name \"" + name + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.HaveName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveFullName(string fullname)
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.FullName.Equals(fullname),
-                "have full name \"" + fullname + "\"", "does not have full name \"" + fullname + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.HaveFullName(fullname));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveNameStartingWith(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.NameStartsWith(pattern),
-                "have name starting with \"" + pattern + "\"", "does not have name starting with \"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.HaveNameStartingWith(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveNameEndingWith(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.NameEndsWith(pattern),
-                "have name ending with \"" + pattern + "\"", "does not have name ending with \"" + pattern + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.HaveNameEndingWith(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveNameContaining(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.NameContains(pattern),
-                "have name containing \"" + pattern + "\"", "does not have name containing \"" + pattern + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.HaveNameContaining(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction BePrivate()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility == Private, "be private", "is not private");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.BePrivate());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction BePublic()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility == Public, "be public", "is not public");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.BePublic());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction BeProtected()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility == Protected, "be protected", "is not protected");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.BeProtected());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction BeInternal()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility == Internal, "be internal", "is not internal");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.BeInternal());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction BeProtectedInternal()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility == ProtectedInternal, "be protected internal",
-                "is not protected internal");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.BeProtectedInternal());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction BePrivateProtected()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility == PrivateProtected, "be private protected",
-                "is not private protected");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.BePrivateProtected());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        //Complex Conditions
+
         public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat()
         {
-            _ruleCreator.BeginComplexCondition<Class>((obj, cls) => obj.DependsOn(cls.FullName),
-                "depend on classes that", "does not depend on classes that");
+            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.DependOnClassesThat());
             return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat()
         {
-            _ruleCreator.BeginComplexCondition<Attribute>((obj, attribute) => obj.Attributes.Contains(attribute),
-                "have attributes that", "does not have attributes that");
+            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.HaveAttributesThat());
             return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -131,108 +118,99 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction NotExist()
         {
-            _ruleCreator.AddIsNullOrEmptyCondition(true, "not exist", "does exist");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotExist());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotBe(ICanBeAnalyzed obj)
         {
-            _ruleCreator.AddSimpleCondition(o => !o.Equals(obj), "not be\"" + obj.FullName + "\"",
-                "is \"" + obj.FullName + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBe(obj));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotDependOn(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(obj => !obj.DependsOn(pattern), "not depend on \"" + pattern + "\"",
-                "does depend on \"" + pattern + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotHaveName(string name)
         {
-            _ruleCreator.AddSimpleCondition(obj => !obj.Name.Equals(name), "not have name \"" + name + "\"",
-                "does have name \"" + name + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotHaveName(name));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotHaveFullName(string fullname)
         {
-            _ruleCreator.AddSimpleCondition(obj => !obj.FullName.Equals(fullname),
-                "not have full name \"" + fullname + "\"", "does have full name \"" + fullname + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotHaveFullName(fullname));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotHaveNameStartingWith(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(obj => !obj.NameStartsWith(pattern),
-                "not have name starting with \"" + pattern + "\"", "does have name starting with \"" + pattern + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotHaveNameStartingWith(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotHaveNameEndingWith(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(obj => !obj.NameEndsWith(pattern),
-                "not have name ending with \"" + pattern + "\"", "does have name ending with \"" + pattern + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotHaveNameEndingWith(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotHaveNameContaining(string pattern)
         {
-            _ruleCreator.AddSimpleCondition(obj => !obj.NameContains(pattern),
-                "not have name containing \"" + pattern + "\"", "does have name containing \"" + pattern + "\"");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotHaveNameContaining(pattern));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotBePrivate()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility != Private, "not be private", "is private");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBePrivate());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotBePublic()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility != Public, "not be public", "is public");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBePublic());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotBeProtected()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility != Protected, "not be protected", "is protected");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBeProtected());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotBeInternal()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility != Internal, "not be internal", "is internal");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBeInternal());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotBeProtectedInternal()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility != ProtectedInternal, "not be protected internal",
-                "is protected internal");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBeProtectedInternal());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotBePrivateProtected()
         {
-            _ruleCreator.AddSimpleCondition(obj => obj.Visibility != PrivateProtected, "not be private protected",
-                "is private protected");
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBePrivateProtected());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        //Complex Condition Negations
+
         public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat()
         {
-            _ruleCreator.BeginComplexCondition<Class>((obj, cls) => !obj.DependsOn(cls.FullName),
-                "not depend on classes that", "does depend on classes that");
+            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.NotDependOnClassesThat());
             return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat()
         {
-            _ruleCreator.BeginComplexCondition<Attribute>((obj, attribute) => !obj.Attributes.Contains(attribute),
-                "not have attributes that", "does have attributes that");
+            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.NotHaveAttributesThat());
             return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

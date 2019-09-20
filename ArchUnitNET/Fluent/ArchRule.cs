@@ -4,9 +4,9 @@ using ArchUnitNET.Fluent.Syntax;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ArchRule<T> : SyntaxElement<T>, IArchRule where T : ICanBeAnalyzed
+    public class ArchRule<TRuleType> : SyntaxElement<TRuleType>, IArchRule where TRuleType : ICanBeAnalyzed
     {
-        protected ArchRule(ArchRuleCreator<T> ruleCreator) : base(ruleCreator)
+        protected ArchRule(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
@@ -47,7 +47,7 @@ namespace ArchUnitNET.Fluent
             return Description;
         }
 
-        private bool Equals(ArchRule<T> other)
+        private bool Equals(ArchRule<TRuleType> other)
         {
             return string.Equals(Description, other.Description);
         }
@@ -64,7 +64,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ArchRule<T>) obj);
+            return obj.GetType() == GetType() && Equals((ArchRule<TRuleType>) obj);
         }
 
         public override int GetHashCode()
