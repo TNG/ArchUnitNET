@@ -60,7 +60,9 @@ namespace ArchUnitNET.Fluent
 
         private bool Equals(CombinedArchRule other)
         {
-            return string.Equals(Description, other.Description);
+            return Equals(_firstArchRuleCreator, other._firstArchRuleCreator) &&
+                   Equals(_secondArchRuleCreator, other._secondArchRuleCreator) &&
+                   Equals(_logicalConjunction, other._logicalConjunction);
         }
 
         public override bool Equals(object obj)
@@ -80,7 +82,15 @@ namespace ArchUnitNET.Fluent
 
         public override int GetHashCode()
         {
-            return Description != null ? Description.GetHashCode() : 0;
+            unchecked
+            {
+                var hashCode = Description != null ? Description.GetHashCode() : 0;
+                hashCode = (hashCode * 397) ^ (_firstArchRuleCreator != null ? _firstArchRuleCreator.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^
+                           (_secondArchRuleCreator != null ? _secondArchRuleCreator.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

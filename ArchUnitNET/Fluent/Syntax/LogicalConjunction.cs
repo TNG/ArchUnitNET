@@ -24,5 +24,30 @@ namespace ArchUnitNET.Fluent.Syntax
         {
             return Description;
         }
+        
+        private bool Equals(LogicalConjunction other)
+        {
+            return string.Equals(Description, other.Description);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((LogicalConjunction) obj);
+        }
+        
+        public override int GetHashCode()
+        {
+            return Description != null ? Description.GetHashCode() : 0;
+        }
     }
 }
