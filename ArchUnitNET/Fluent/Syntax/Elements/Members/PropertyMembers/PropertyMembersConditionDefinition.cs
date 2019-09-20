@@ -123,7 +123,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public static SimpleCondition<PropertyMember> NotBeVirtual()
         {
-            return new SimpleCondition<PropertyMember>(member => member.IsVirtual, "not be virtual", "is virtual");
+            return new SimpleCondition<PropertyMember>(member => !member.IsVirtual, "not be virtual", "is virtual");
         }
     }
 }
