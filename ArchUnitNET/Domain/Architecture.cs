@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Domain
@@ -98,6 +99,16 @@ namespace ArchUnitNET.Domain
 
                 return attributes;
             }
+        }
+
+        public bool CheckRule(IArchRule archRule)
+        {
+            return archRule.Check(this);
+        }
+
+        public IEnumerable<EvaluationResult> EvaluateRule(IArchRule archRule)
+        {
+            return archRule.Evaluate(this);
         }
 
         public override bool Equals(object obj)
