@@ -30,7 +30,7 @@ namespace ArchUnitNET.Fluent
 
         public IEnumerable<IEvaluationResult> Evaluate(Architecture architecture)
         {
-            return EvaluateConditions(GetFilteredObjects(architecture), architecture, this);
+            return EvaluateConditions(GetFilteredObjects(architecture), architecture);
         }
 
         public void AddObjectFilter(ObjectFilter<TRuleType> objectFilter)
@@ -88,9 +88,9 @@ namespace ArchUnitNET.Fluent
         }
 
         private IEnumerable<EvaluationResult<TRuleType>> EvaluateConditions(IEnumerable<TRuleType> filteredObjects,
-            Architecture architecture, IArchRuleCreator<TRuleType> archRuleCreator)
+            Architecture architecture)
         {
-            return _conditionManager.EvaluateConditions(filteredObjects, architecture, archRuleCreator);
+            return _conditionManager.EvaluateConditions(filteredObjects, architecture, this);
         }
 
         public override string ToString()
@@ -133,11 +133,11 @@ namespace ArchUnitNET.Fluent
                 _objectProvider = objectProvider;
                 _objectFilterElements = new List<ObjectFilterElement<T>>
                 {
-                    new ObjectFilterElement<T>(ForwardSecondValue, new ObjectFilter<T>(t => true, ""))
+                    new ObjectFilterElement<T>(ForwardSecondValue, new ObjectFilter<T>(t => true, "not set"))
                 };
             }
 
-            public string Description => _objectFilterElements.Count < 2
+            public string Description => _objectFilterElements.First().Description == "not set"
                 ? _objectProvider.Description
                 : _objectProvider.Description + " that" + _objectFilterElements.Aggregate("",
                       (current, objectFilterElement) => current + " " + objectFilterElement.Description);
@@ -202,9 +202,9 @@ namespace ArchUnitNET.Fluent
                     _reason = "because " + reason;
                 }
 
-                public void SetFilter(ObjectFilter<T> condition)
+                public void SetFilter(ObjectFilter<T> objectFilter)
                 {
-                    _objectFilter = condition;
+                    _objectFilter = objectFilter;
                 }
 
                 public bool CheckFilter(bool currentResult, T obj)
@@ -292,8 +292,7 @@ namespace ArchUnitNET.Fluent
             public IEnumerable<EvaluationResult<T>> EvaluateConditions(IEnumerable<T> filteredObjects,
                 Architecture architecture, IArchRuleCreator<T> archRuleCreator)
             {
-                return filteredObjects.Select(obj => EvaluateConditions(obj, architecture, archRuleCreator))
-                    .ToList();
+                return filteredObjects.Select(obj => EvaluateConditions(obj, architecture, archRuleCreator));
             }
 
             private EvaluationResult<T> EvaluateConditions(T obj, Architecture architecture,
