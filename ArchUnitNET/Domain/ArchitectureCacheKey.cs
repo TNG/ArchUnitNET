@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Domain
 {
@@ -17,14 +17,14 @@ namespace ArchUnitNET.Domain
         private readonly SortedSet<(string moduleName, string filter)> _architectureCacheKey =
             new SortedSet<(string moduleName, string filter)>(new ArchitectureCacheKeyComparer());
 
-        public void Add(string moduleName, string filter)
-        {
-            _architectureCacheKey.Add((moduleName, filter));
-        }
-
         public bool Equals(ArchitectureCacheKey other)
         {
             return other != null && _architectureCacheKey.SequenceEqual(other._architectureCacheKey);
+        }
+
+        public void Add(string moduleName, string filter)
+        {
+            _architectureCacheKey.Add((moduleName, filter));
         }
 
         public override bool Equals(object obj)

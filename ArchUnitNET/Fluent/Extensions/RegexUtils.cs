@@ -7,7 +7,7 @@
 
 using System.Text.RegularExpressions;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Extensions
 {
     public static class RegexUtils
     {

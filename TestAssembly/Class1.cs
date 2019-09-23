@@ -13,12 +13,12 @@ namespace TestAssembly
 {
     public class Class1
     {
-        public string TestProperty { get; }
-
         public Class1(string testProperty)
         {
             TestProperty = testProperty;
         }
+
+        public string TestProperty { get; }
 
         public string AccessClass2(int intparam)
         {

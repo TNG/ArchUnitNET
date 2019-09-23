@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies.Types;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Domain
 {
@@ -36,6 +36,8 @@ namespace ArchUnitNET.Domain
 
         public IEnumerable<MethodMember> Constructors => Type.GetConstructors();
         public bool IsAbstract { get; }
+        public Visibility Visibility => Type.Visibility;
+        public bool IsNested => Type.IsNested;
         public string Name => Type.Name;
         public string FullName => Type.FullName;
 

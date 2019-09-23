@@ -5,12 +5,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Core.LoadTasks
 {
@@ -40,7 +42,7 @@ namespace ArchUnitNET.Core.LoadTasks
         {
             return typeDefinition.Fields.Where(fieldDefinition => !fieldDefinition.IsBackingField())
                 .Select(CreateFieldMember).Concat(typeDefinition.Properties.Select(CreatePropertyMember)
-                .Concat(typeDefinition.Methods.Select(CreateMethodMember)));
+                    .Concat(typeDefinition.Methods.Select(CreateMethodMember)));
         }
 
         [NotNull]
@@ -48,10 +50,44 @@ namespace ArchUnitNET.Core.LoadTasks
         {
             var typeReference = fieldDefinition.FieldType;
             var fieldType = _typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
+            var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
 
-            var visibility = fieldDefinition.GetVisibility();
-            return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, fieldType,
-                visibility);
+            return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, visibility, fieldType);
+        }
+
+        private static Visibility GetVisibilityFromFieldDefinition([NotNull] FieldDefinition fieldDefinition)
+        {
+            if (fieldDefinition.IsPublic)
+            {
+                return Public;
+            }
+
+            if (fieldDefinition.IsPrivate)
+            {
+                return Private;
+            }
+
+            if (fieldDefinition.IsFamily)
+            {
+                return Protected;
+            }
+
+            if (fieldDefinition.IsAssembly)
+            {
+                return Internal;
+            }
+
+            if (fieldDefinition.IsFamilyOrAssembly)
+            {
+                return ProtectedInternal;
+            }
+
+            if (fieldDefinition.IsFamilyAndAssembly)
+            {
+                return PrivateProtected;
+            }
+
+            throw new ArgumentException("The field definition seems to have no visibility.");
         }
 
         [NotNull]
@@ -77,10 +113,10 @@ namespace ArchUnitNET.Core.LoadTasks
                 setter = CreateMethodMember(propertyDefinition.SetMethod);
             }
 
-            return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, 
+            return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName,
                 propertyType, isVirtual, getter, setter);
         }
-        
+
         [NotNull]
         private MethodMember CreateMethodMember(MethodDefinition methodDefinition)
         {
@@ -92,7 +128,7 @@ namespace ArchUnitNET.Core.LoadTasks
             var methodForm = methodDefinition.GetMethodForm();
             var methodName = methodDefinition.BuildMethodMemberName();
             var methodDefinitionFullName = methodDefinition.GetFullName();
-            
+
             return new MethodMember(methodName, methodDefinitionFullName, _type, visibility,
                 parameters, returnType, methodDefinition.IsVirtual, methodForm);
         }

@@ -5,28 +5,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-using System;
 using System.Linq;
 using System.Text;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Dependencies.Members;
 using Xunit;
 
-namespace ArchUnitNETTests.Fluent
+namespace ArchUnitNETTests.Fluent.Extensions
 {
     public class RegexUtilsTest
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly PropertyMember _autoPropertyMember;
-        private readonly string _expectedBackingFieldName;
-        private readonly string _expectedGetMethodName;
-        private readonly string _expectedGetMethodFullName;
-        private readonly string _expectedSetMethodName;
-        private readonly string _nonMatchEmpty = String.Empty;
-        private static readonly string _nonMatch = "Not expected to match.";
-        
-
         public RegexUtilsTest()
         {
             var propertyClass = Architecture.GetClassOfType(typeof(BackingFieldExamples));
@@ -37,69 +26,14 @@ namespace ArchUnitNETTests.Fluent
             _expectedSetMethodName = BuildExpectedSetMethodName(_autoPropertyMember, _autoPropertyMember.DeclaringType);
         }
 
-        [Fact]
-        public void BackingFieldRegexMatchAsExpected()
-        {
-            Assert.Equal(_autoPropertyMember.Name,
-                RegexUtils.MatchFieldName(_expectedBackingFieldName));
-        }
-
-        [Fact]
-        public void GetMethodPropertyMemberRegexMatchAsExpected()
-        {
-            Assert.Equal(_autoPropertyMember.Name,
-                RegexUtils.MatchGetPropertyName(_expectedGetMethodName));
-        }
-        
-        [Fact]
-        public void GetMethodPropertyMemberFullNameRegexMatchAsExpected()
-        {
-            Assert.Equal(_autoPropertyMember.Name,
-                RegexUtils.MatchGetPropertyName(_expectedGetMethodFullName));
-        }
-        
-        
-        [Fact]
-        public void SetMethodPropertyMemberRegexMatchAsExpected()
-        {
-            Assert.Equal(_autoPropertyMember.Name,
-                RegexUtils.MatchSetPropertyName(_expectedSetMethodName));
-        }
-
-        [Fact]
-        public void BackingFieldRegexRecognizesNonMatch()
-        {
-            Assert.Null(RegexUtils.MatchFieldName(_nonMatchEmpty));
-            Assert.Null(RegexUtils.MatchFieldName(_nonMatch));
-        }
-        
-        [Fact]
-        public void GetMethodNameRegexRecognizesNonMatch()
-        {
-            Assert.Null(RegexUtils.MatchGetPropertyName(_nonMatchEmpty));
-            Assert.Null(RegexUtils.MatchGetPropertyName(_nonMatch));
-        }
-        
-        [Fact]
-        public void GetMethodFullNameRegexRecognizesNonMatch()
-        {
-            Assert.Null(RegexUtils.MatchGetPropertyName(_nonMatchEmpty));
-            Assert.Null(RegexUtils.MatchGetPropertyName(_nonMatch));
-        }
-        
-        [Fact]
-        public void SetMethodNameRegexRecognizesNonMatch()
-        {
-            Assert.Null(RegexUtils.MatchSetPropertyName(_nonMatchEmpty));
-            Assert.Null(RegexUtils.MatchSetPropertyName(_nonMatch));
-        }
-        
-        [Fact]
-        public void SetMethodFullNameRegexRecognizesNonMatch()
-        {
-            Assert.Null(RegexUtils.MatchSetPropertyName(_nonMatchEmpty));
-            Assert.Null(RegexUtils.MatchSetPropertyName(_nonMatch));
-        }
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly PropertyMember _autoPropertyMember;
+        private readonly string _expectedBackingFieldName;
+        private readonly string _expectedGetMethodName;
+        private readonly string _expectedGetMethodFullName;
+        private readonly string _expectedSetMethodName;
+        private readonly string _nonMatchEmpty = string.Empty;
+        private static readonly string _nonMatch = "Not expected to match.";
 
         private static string BuildExpectedBackingFieldName(PropertyMember propertyMember)
         {
@@ -147,11 +81,79 @@ namespace ArchUnitNETTests.Fluent
             for (var index = 0; index < parameterTypeNames.Length; ++index)
             {
                 if (index > 0)
+                {
                     nameBuilder.Append(",");
+                }
+
                 nameBuilder.Append(parameterTypeNames[index].FullName);
             }
+
             nameBuilder.Append(")");
             return nameBuilder;
+        }
+
+        [Fact]
+        public void BackingFieldRegexMatchAsExpected()
+        {
+            Assert.Equal(_autoPropertyMember.Name,
+                RegexUtils.MatchFieldName(_expectedBackingFieldName));
+        }
+
+        [Fact]
+        public void BackingFieldRegexRecognizesNonMatch()
+        {
+            Assert.Null(RegexUtils.MatchFieldName(_nonMatchEmpty));
+            Assert.Null(RegexUtils.MatchFieldName(_nonMatch));
+        }
+
+        [Fact]
+        public void GetMethodFullNameRegexRecognizesNonMatch()
+        {
+            Assert.Null(RegexUtils.MatchGetPropertyName(_nonMatchEmpty));
+            Assert.Null(RegexUtils.MatchGetPropertyName(_nonMatch));
+        }
+
+        [Fact]
+        public void GetMethodNameRegexRecognizesNonMatch()
+        {
+            Assert.Null(RegexUtils.MatchGetPropertyName(_nonMatchEmpty));
+            Assert.Null(RegexUtils.MatchGetPropertyName(_nonMatch));
+        }
+
+        [Fact]
+        public void GetMethodPropertyMemberFullNameRegexMatchAsExpected()
+        {
+            Assert.Equal(_autoPropertyMember.Name,
+                RegexUtils.MatchGetPropertyName(_expectedGetMethodFullName));
+        }
+
+        [Fact]
+        public void GetMethodPropertyMemberRegexMatchAsExpected()
+        {
+            Assert.Equal(_autoPropertyMember.Name,
+                RegexUtils.MatchGetPropertyName(_expectedGetMethodName));
+        }
+
+        [Fact]
+        public void SetMethodFullNameRegexRecognizesNonMatch()
+        {
+            Assert.Null(RegexUtils.MatchSetPropertyName(_nonMatchEmpty));
+            Assert.Null(RegexUtils.MatchSetPropertyName(_nonMatch));
+        }
+
+        [Fact]
+        public void SetMethodNameRegexRecognizesNonMatch()
+        {
+            Assert.Null(RegexUtils.MatchSetPropertyName(_nonMatchEmpty));
+            Assert.Null(RegexUtils.MatchSetPropertyName(_nonMatch));
+        }
+
+
+        [Fact]
+        public void SetMethodPropertyMemberRegexMatchAsExpected()
+        {
+            Assert.Equal(_autoPropertyMember.Name,
+                RegexUtils.MatchSetPropertyName(_expectedSetMethodName));
         }
     }
 }

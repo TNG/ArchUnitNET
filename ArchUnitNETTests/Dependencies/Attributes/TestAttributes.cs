@@ -8,6 +8,9 @@
 using System;
 using ArchUnitNETTests.Dependencies.Members;
 using TestAssembly;
+
+#pragma warning disable 169
+
 // ReSharper disable UnassignedGetOnlyAutoProperty
 // ReSharper disable UnusedMember.Local
 
@@ -92,13 +95,13 @@ namespace ArchUnitNETTests.Dependencies.Attributes
     public class ConstructorAttribute : Attribute
     {
         private FieldType _insideField;
-        
-        ConstructorAttribute()
+
+        private ConstructorAttribute()
         {
             _insideField = new FieldType();
         }
 
-        ConstructorAttribute(FieldType insideField)
+        private ConstructorAttribute(FieldType insideField)
         {
             _insideField = insideField;
         }
@@ -106,7 +109,6 @@ namespace ArchUnitNETTests.Dependencies.Attributes
 
     public class ForbiddenAttribute : Attribute
     {
-
     }
 
     public class InterfaceImplementingAttribute : Attribute, IAttribute
@@ -145,16 +147,13 @@ namespace ArchUnitNETTests.Dependencies.Attributes
 
         private string _parameterProperty;
 
-        [ExampleField]
-        public FieldType FieldA;
+        [ExampleField] public FieldType FieldA;
 
-        [ChildOfAbstract]
-        public string FieldWithAbstractAttributeImplemented;
+        [ChildOfAbstract] public string FieldWithAbstractAttributeImplemented;
 
         public string ParameterProperty;
 
-        [ExampleProperty]
-        public string PropertyA { get; private set; }
+        [ExampleProperty] public string PropertyA { get; private set; }
 
         public string get_ParameterProperty()
         {
@@ -226,6 +225,7 @@ namespace ArchUnitNETTests.Dependencies.Attributes
         private FieldType _fieldType;
 
         [TypeDependent(typeof(ClassWithBodyTypeA))]
+        // ReSharper disable once ConvertToAutoProperty
         public FieldType FieldType => _fieldType;
 
         [TypeDependent(typeof(Class1))]

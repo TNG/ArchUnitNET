@@ -10,7 +10,7 @@ using ArchUnitNET.ArchitectureExceptions;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Extensions
 {
     public static class ArchitectureExtensions
     {

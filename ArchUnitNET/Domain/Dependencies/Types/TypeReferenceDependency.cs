@@ -11,12 +11,12 @@ namespace ArchUnitNET.Domain.Dependencies.Types
 {
     public class TypeReferenceDependency : MemberwiseEquatable<TypeReferenceDependency>, ITypeDependency
     {
-
         public TypeReferenceDependency(IType origin, IType target)
         {
             Origin = origin;
             Target = target;
         }
+
         public IType Origin { get; }
         public IType Target { get; }
     }

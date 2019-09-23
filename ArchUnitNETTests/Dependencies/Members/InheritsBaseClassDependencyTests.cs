@@ -7,25 +7,25 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Types;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Matcher;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 
 namespace ArchUnitNETTests.Dependencies.Members
 {
     public class BaseClassTest
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly Class _baseClass;
-        private readonly Class _childClass;
-
         public BaseClassTest()
         {
             _baseClass = _architecture.GetClassOfType(typeof(BaseClass));
             _childClass = _architecture.GetClassOfType(typeof(ChildClass));
         }
+
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly Class _baseClass;
+        private readonly Class _childClass;
 
         [Fact]
         public void ChildClassHasAllMembers()

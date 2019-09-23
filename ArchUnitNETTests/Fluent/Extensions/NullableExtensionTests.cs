@@ -6,10 +6,10 @@
  */
 
 using ArchUnitNET.ArchitectureExceptions;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using Xunit;
 
-namespace ArchUnitNETTests.Fluent
+namespace ArchUnitNETTests.Fluent.Extensions
 {
     public class NullableExtensionTests
     {

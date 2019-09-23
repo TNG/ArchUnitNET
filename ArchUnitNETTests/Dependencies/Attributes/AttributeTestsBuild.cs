@@ -9,15 +9,52 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
-using ArchUnitNETTests.Fluent;
-using Type = System.Type;
+using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNETTests.Fluent.Extensions;
 
 namespace ArchUnitNETTests.Dependencies.Attributes
 {
     public static class AttributeTestsBuild
     {
         private static readonly Architecture Architecture = StaticTestArchitectures.AttributeDependencyTestArchitecture;
+
+        private static object[] BuildTypeAttributeTestData(Type classType, Type attributeType)
+        {
+            var targetClass = Architecture.GetTypeOfType(classType);
+            var attributeClass =
+                Architecture.GetClassOfType(attributeType);
+            var attribute = targetClass.GetAttributeOfType(attributeClass);
+
+            return new object[] {targetClass, attributeClass, attribute};
+        }
+
+
+        private static object[] BuildMemberAttributeTestData(Type classType, string memberName, Type attributeType)
+        {
+            if (classType == null)
+            {
+                throw new ArgumentNullException(nameof(classType));
+            }
+
+            if (memberName == null)
+            {
+                throw new ArgumentNullException(nameof(memberName));
+            }
+
+            if (attributeType == null)
+            {
+                throw new ArgumentNullException(nameof(attributeType));
+            }
+
+            var targetClass = Architecture.GetClassOfType(classType);
+            var targetMember = targetClass.Members[memberName];
+            targetMember.RequiredNotNull();
+            var attributeClass = Architecture.GetClassOfType(attributeType);
+            var attribute = targetMember.GetAttributeFromMember(attributeClass);
+            attribute.RequiredNotNull();
+
+            return new object[] {targetMember, attributeClass, attribute};
+        }
 
         public class TypeAttributesAreFoundData : IEnumerable<object[]>
         {
@@ -76,44 +113,6 @@ namespace ArchUnitNETTests.Dependencies.Attributes
             {
                 return GetEnumerator();
             }
-        }
-
-        private static object[] BuildTypeAttributeTestData(Type classType, Type attributeType)
-        {
-            var targetClass = Architecture.GetTypeOfType(classType);
-            var attributeClass =
-                Architecture.GetClassOfType(attributeType);
-            var attribute = targetClass.GetAttributeOfType(attributeClass);
-
-            return new object[] {targetClass, attributeClass, attribute};
-        }
-
-
-        private static object[] BuildMemberAttributeTestData(Type classType, string memberName, Type attributeType)
-        {
-            if (classType == null)
-            {
-                throw new ArgumentNullException(nameof(classType));
-            }
-
-            if (memberName == null)
-            {
-                throw new ArgumentNullException(nameof(memberName));
-            }
-
-            if (attributeType == null)
-            {
-                throw new ArgumentNullException(nameof(attributeType));
-            }
-
-            var targetClass = Architecture.GetClassOfType(classType);
-            var targetMember = targetClass.Members[memberName];
-            targetMember.RequiredNotNull();
-            var attributeClass = Architecture.GetClassOfType(attributeType);
-            var attribute = targetMember.GetAttributeFromMember(attributeClass);
-            attribute.RequiredNotNull();
-
-            return new object[] {targetMember, attributeClass, attribute};
         }
     }
 }

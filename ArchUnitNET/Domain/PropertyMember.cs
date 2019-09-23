@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using ArchUnitNET.Domain.Dependencies.Members;
 using ArchUnitNET.Domain.Dependencies.Types;
 using Equ;
+using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Domain
 {
@@ -28,11 +29,12 @@ namespace ArchUnitNET.Domain
 
         public IType Type { get; }
         public bool IsVirtual { get; }
-        public Visibility? GetterVisibility => Getter?.Visibility;
-        public Visibility? SetterVisibility => Setter?.Visibility;
+        public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
+
         public MethodMember Getter { get; }
         public MethodMember Setter { get; }
         public FieldMember BackingField { get; internal set; }
+        public Visibility Visibility => Getter?.Visibility ?? NotAccessible;
         public string Name { get; }
         public string FullName { get; }
         public IType DeclaringType { get; }
@@ -64,7 +66,7 @@ namespace ArchUnitNET.Domain
 
         private new bool Equals(PropertyMember other)
         {
-            return base.Equals(other) && Equals(Type, other.Type) && IsVirtual == other.IsVirtual 
+            return base.Equals(other) && Equals(Type, other.Type) && IsVirtual == other.IsVirtual
                    && Equals(Getter, other.Getter) && Equals(Setter, other.Setter)
                    && Equals(BackingField, other.BackingField) && string.Equals(Name, other.Name)
                    && string.Equals(FullName, other.FullName) && Equals(DeclaringType, other.DeclaringType);

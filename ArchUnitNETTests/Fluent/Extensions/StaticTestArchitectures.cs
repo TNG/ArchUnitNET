@@ -10,16 +10,17 @@ using ArchUnitNET.Domain;
 using ArchUnitNETTests.Dependencies.Attributes;
 using ArchUnitNETTests.Dependencies.Members;
 using TestAssembly;
+
 // ReSharper disable InconsistentNaming
 
-namespace ArchUnitNETTests.Fluent
+namespace ArchUnitNETTests.Fluent.Extensions
 {
     public static class StaticTestArchitectures
     {
-        public static readonly Architecture AttributeDependencyTestArchitecture = 
+        public static readonly Architecture AttributeDependencyTestArchitecture =
             new ArchLoader().LoadAssemblies(typeof(ClassWithExampleAttribute).Assembly, typeof(Class1).Assembly)
                 .Build();
-        
+
         public static readonly Architecture ArchUnitNETTestArchitecture =
             new ArchLoader().LoadAssemblies(typeof(BaseClass).Assembly).Build();
     }

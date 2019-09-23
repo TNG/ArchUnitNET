@@ -12,7 +12,7 @@ using ArchUnitNET.ArchitectureExceptions;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Extensions
 {
     public static class EnumerableExtensions
     {
@@ -28,6 +28,11 @@ namespace ArchUnitNET.Fluent
             {
                 action(element);
             }
+        }
+
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
+        {
+            return source == null || !source.Any();
         }
 
         [NotNull]
@@ -50,6 +55,11 @@ namespace ArchUnitNET.Fluent
             }
 
             return withFullName.FirstOrDefault();
+        }
+
+        public static IEnumerable<string> ToStringEnumerable<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.Select(obj => obj.ToString());
         }
     }
 }

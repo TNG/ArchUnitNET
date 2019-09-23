@@ -5,16 +5,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
+using static ArchUnitNET.Domain.Visibility;
 using Assembly = ArchUnitNET.Domain.Assembly;
+using Type = ArchUnitNET.Core.Type;
 
-namespace ArchUnitNETTests.Fluent
+namespace ArchUnitNETTests.Fluent.Extensions
 {
     public static class BuildMocksExtensions
     {
@@ -22,7 +24,48 @@ namespace ArchUnitNETTests.Fluent
         {
             var assembly = type.Assembly.CreateStubAssembly();
             var namespc = type.Namespace.CreateStubNamespace();
-            return new Type(type.FullName, type.Name, assembly, namespc);
+            var visibility = type.GetVisibility();
+            return new Type(type.FullName, type.Name, assembly, namespc, visibility, type.IsNested);
+        }
+
+        private static Visibility GetVisibility(this System.Type type)
+        {
+            if (type == null)
+            {
+                return NotAccessible;
+            }
+
+            if (type.IsPublic || type.IsNestedPublic)
+            {
+                return Public;
+            }
+
+            if (type.IsNestedPrivate)
+            {
+                return Private;
+            }
+
+            if (type.IsNestedFamily)
+            {
+                return Protected;
+            }
+
+            if (type.IsNestedFamORAssem)
+            {
+                return ProtectedInternal;
+            }
+
+            if (type.IsNestedFamANDAssem)
+            {
+                return PrivateProtected;
+            }
+
+            if (type.IsNestedAssembly || type.IsNotPublic)
+            {
+                return Internal;
+            }
+
+            throw new ArgumentException("The provided type seems to have no visibility.");
         }
 
         public static Class CreateStubClass(this System.Type type)
@@ -34,9 +77,10 @@ namespace ArchUnitNETTests.Fluent
 
         public static Type CreateShallowStubType(this Class clazz)
         {
-            return new Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace);
+            return new Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace, clazz.Visibility,
+                clazz.IsNested);
         }
-        
+
         private static Assembly CreateStubAssembly(this System.Reflection.Assembly assembly)
         {
             return new Assembly(assembly.FullName, assembly.FullName);
@@ -50,7 +94,7 @@ namespace ArchUnitNETTests.Fluent
         public static string BuildMethodMemberName(this string methodName, params System.Type[] parameterType)
         {
             var builder = new StringBuilder();
-            
+
             builder.Append(methodName);
             builder.Append("(");
 
@@ -60,9 +104,10 @@ namespace ArchUnitNETTests.Fluent
                 {
                     builder.Append(",");
                 }
-                builder.Append(parameterType[index].FullName);
 
+                builder.Append(parameterType[index].FullName);
             }
+
             builder.Append(")");
             return builder.ToString();
         }
@@ -83,6 +128,7 @@ namespace ArchUnitNETTests.Fluent
                 returnType = typeof(void).CreateStubClass();
                 fullName = constructor.CreateStubFullName(returnType);
             }
+
             if (methodBase is MethodInfo methodInfo)
             {
                 returnType = methodInfo.ReturnType.CreateStubClass();
@@ -95,14 +141,15 @@ namespace ArchUnitNETTests.Fluent
 
         private static string BuildMockMethodName(this MethodBase methodBase)
         {
-            StringBuilder stringBuilder = new StringBuilder(methodBase.Name);
+            var stringBuilder = new StringBuilder(methodBase.Name);
             stringBuilder.Append("(");
             stringBuilder.Append(ConstructParameters(methodBase.CreateStubParameters(), methodBase.CallingConvention));
             stringBuilder.Append(")");
             return stringBuilder.ToString();
         }
 
-        private static string ConstructParameters(IEnumerable<IType> parameterTypes, CallingConventions callingConvention)
+        private static string ConstructParameters(IEnumerable<IType> parameterTypes,
+            CallingConventions callingConvention)
         {
             var stringBuilder = new StringBuilder();
             var str1 = "";
@@ -126,7 +173,7 @@ namespace ArchUnitNETTests.Fluent
 
         private static List<IType> CreateStubParameters(this MethodBase methodInfo)
         {
-            return methodInfo.GetParameters().Select(info => (IType) info.ParameterType.CreateStubClass()).ToList();
+            return methodInfo.GetParameters().Select(info => (IType) CreateStubClass(info.ParameterType)).ToList();
         }
 
         private static string CreateStubFullName(this MethodInfo methodInfo)
@@ -178,7 +225,7 @@ namespace ArchUnitNETTests.Fluent
 
         private static Visibility GetVisibility<TMethod>(this TMethod methodInfo) where TMethod : MethodBase
         {
-            return methodInfo.IsPublic ? Visibility.Public : Visibility.Private;
+            return methodInfo.IsPublic ? Public : Private;
         }
 
         private static MethodForm GetStubMethodForm<TMemberInfo>(this TMemberInfo methodInfo)

@@ -10,8 +10,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using Mono.Cecil;
+using Assembly = System.Reflection.Assembly;
 
 namespace ArchUnitNET.Core
 {
@@ -29,9 +30,9 @@ namespace ArchUnitNET.Core
             return architecture;
         }
 
-        public ArchLoader LoadAssemblies(params System.Reflection.Assembly[] assemblies)
+        public ArchLoader LoadAssemblies(params Assembly[] assemblies)
         {
-            var assemblySet = new HashSet<System.Reflection.Assembly>(assemblies);
+            var assemblySet = new HashSet<Assembly>(assemblies);
             assemblySet.ForEach(assembly => LoadAssembly(assembly.Location));
             return this;
         }
@@ -45,14 +46,14 @@ namespace ArchUnitNET.Core
             return assemblies.Aggregate(result, (current, assembly) => current.LoadAssembly(assembly));
         }
 
-        public ArchLoader LoadNamespacesWithinAssembly(System.Reflection.Assembly assembly, params string[] namespc)
+        public ArchLoader LoadNamespacesWithinAssembly(Assembly assembly, params string[] namespc)
         {
             var nameSpaces = new HashSet<string>(namespc);
             nameSpaces.ForEach(nameSpace => { LoadModule(assembly.Location, nameSpace); });
             return this;
         }
 
-        public ArchLoader LoadAssembly(System.Reflection.Assembly assembly)
+        public ArchLoader LoadAssembly(Assembly assembly)
         {
             return LoadAssembly(assembly.Location);
         }

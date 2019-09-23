@@ -7,9 +7,10 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
+using static ArchUnitNET.Domain.Visibility;
 
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -18,13 +19,6 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public class PropertyDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly Class _classWithPropertyA;
-        private readonly PropertyMember _propertyAMember;
-        private readonly PropertyMember _privatePropertyAMember;
-        private readonly Class _propertyType;
-
         public PropertyDependencyTests()
         {
             _classWithPropertyA = _architecture.GetClassOfType(typeof(ClassWithPropertyA));
@@ -32,6 +26,13 @@ namespace ArchUnitNETTests.Dependencies.Members
             _propertyAMember = _classWithPropertyA.Members["PropertyA"] as PropertyMember;
             _privatePropertyAMember = _classWithPropertyA.Members["PrivatePropertyA"] as PropertyMember;
         }
+
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly Class _classWithPropertyA;
+        private readonly PropertyMember _propertyAMember;
+        private readonly PropertyMember _privatePropertyAMember;
+        private readonly Class _propertyType;
 
         [Fact]
         public void ClassDependencyForPropertyMemberTypesAreCreated()
@@ -44,8 +45,8 @@ namespace ArchUnitNETTests.Dependencies.Members
         [Fact]
         public void PrivatePropertyMembersAreCreatedWithCorrectVisibility()
         {
-            Assert.Equal(Visibility.Private, _privatePropertyAMember?.GetterVisibility);
-            Assert.Equal(Visibility.Private, _privatePropertyAMember?.SetterVisibility);
+            Assert.Equal(Private, _privatePropertyAMember?.Visibility);
+            Assert.Equal(Private, _privatePropertyAMember?.SetterVisibility);
         }
 
         [Fact]
@@ -60,7 +61,7 @@ namespace ArchUnitNETTests.Dependencies.Members
         public void PropertyMembersAreCreated()
         {
             Assert.Equal(_classWithPropertyA, _propertyAMember?.DeclaringType);
-            Assert.Equal(Visibility.Public, _propertyAMember?.GetterVisibility);
+            Assert.Equal(Public, _propertyAMember?.Visibility);
             Assert.Equal(_propertyType, _propertyAMember?.Type);
         }
     }

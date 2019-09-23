@@ -5,6 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,37 +13,45 @@ using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
-using Mono.Collections.Generic;
+using static ArchUnitNET.Domain.Visibility;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Extensions
 {
     public static class MonoCecilMemberExtensions
     {
         [NotNull]
         internal static string BuildMethodMemberName(this MethodReference methodReference)
         {
-            StringBuilder builder = new StringBuilder();
-            
+            var builder = new StringBuilder();
+
             builder.Append(methodReference.Name);
             builder.Append("(");
             if (methodReference.HasParameters)
             {
-                Collection<ParameterDefinition> parameters = methodReference.Parameters;
-                for (int index = 0; index < parameters.Count; ++index)
+                var parameters = methodReference.Parameters;
+                for (var index = 0; index < parameters.Count; ++index)
                 {
-                    ParameterDefinition parameterDefinition = parameters[index];
+                    var parameterDefinition = parameters[index];
                     if (index > 0)
+                    {
                         builder.Append(",");
+                    }
+
                     if (parameterDefinition.ParameterType.IsSentinel)
+                    {
                         builder.Append("...,");
+                    }
+
                     builder.Append(parameterDefinition.ParameterType.FullName);
                 }
             }
+
             builder.Append(")");
             return builder.ToString();
         }
 
-        internal static MethodMember CreateStubMethodMemberFromMethodReference(this TypeFactory typeFactory, IType type, MethodReference methodReference)
+        internal static MethodMember CreateStubMethodMemberFromMethodReference(this TypeFactory typeFactory, IType type,
+            MethodReference methodReference)
         {
             if (type == null || methodReference == null)
             {
@@ -55,19 +64,20 @@ namespace ArchUnitNET.Fluent
 
             var methodForm = methodReference.HasConstructorName() ? MethodForm.Constructor : MethodForm.Normal;
 
-            return new MethodMember(methodReference.BuildMethodMemberName(), methodReference.FullName, type, Visibility.Public,
-                parameters, returnType, false, methodForm);
+            return new MethodMember(methodReference.BuildMethodMemberName(), methodReference.FullName, type,
+                Public, parameters, returnType, false, methodForm);
         }
-        
+
         [NotNull]
-        internal static IEnumerable<CustomAttribute> GetAllMethodCustomAttributes(this MethodDefinition methodDefinition)
+        internal static IEnumerable<CustomAttribute> GetAllMethodCustomAttributes(
+            this MethodDefinition methodDefinition)
         {
             return methodDefinition.CustomAttributes
                 .Concat(methodDefinition.Parameters.SelectMany(parameterDefinition =>
                     parameterDefinition.CustomAttributes))
                 .Concat(methodDefinition.MethodReturnType.CustomAttributes);
         }
-        
+
         [NotNull]
         internal static IEnumerable<IType> GetSignatureTypes(this MethodReference methodReference,
             TypeFactory typeFactory)
@@ -78,24 +88,27 @@ namespace ArchUnitNET.Fluent
             {
                 parameters.Insert(0, returnType);
             }
+
             return parameters;
         }
 
         private static IType GetReturnType(this MethodReference methodReference, TypeFactory typeFactory)
         {
-            return ReturnsVoid(methodReference) ? null : 
-                typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.MethodReturnType.ReturnType);
+            return ReturnsVoid(methodReference)
+                ? null
+                : typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.MethodReturnType.ReturnType);
         }
-        
+
         [NotNull]
-        private static IEnumerable<IType> GetAllParameters(this MethodReference methodReference, TypeFactory typeFactory)
+        private static IEnumerable<IType> GetAllParameters(this MethodReference methodReference,
+            TypeFactory typeFactory)
         {
             var parameters = methodReference.GetParameters(typeFactory).ToList();
             var genericParameters = methodReference.GetGenericParameters(typeFactory).ToList();
             parameters.AddRange(genericParameters);
             return parameters;
         }
-        
+
         [NotNull]
         internal static IEnumerable<IType> GetParameters(this MethodReference method, TypeFactory typeFactory)
         {
@@ -158,18 +171,43 @@ namespace ArchUnitNET.Fluent
 
         public static Visibility GetVisibility(this MethodDefinition methodDefinition)
         {
-            return methodDefinition.IsPublic ? Visibility.Public : Visibility.Private;
+            if (methodDefinition.IsPublic)
+            {
+                return Public;
+            }
+
+            if (methodDefinition.IsPrivate)
+            {
+                return Private;
+            }
+
+            if (methodDefinition.IsFamily)
+            {
+                return Protected;
+            }
+
+            if (methodDefinition.IsAssembly)
+            {
+                return Internal;
+            }
+
+            if (methodDefinition.IsFamilyOrAssembly)
+            {
+                return ProtectedInternal;
+            }
+
+            if (methodDefinition.IsFamilyAndAssembly)
+            {
+                return PrivateProtected;
+            }
+
+            throw new ArgumentException("The method definition seems to have no visibility.");
         }
-        
+
         public static string GetFullName(this MethodDefinition methodDefinition)
         {
             return methodDefinition.FullName + methodDefinition.GenericParameters.Aggregate(string.Empty,
                        (current, newElement) => current + "<" + newElement.Name + ">");
-        }
-
-        public static Visibility GetVisibility(this FieldDefinition fieldDefinition)
-        {
-            return fieldDefinition.IsPublic ? Visibility.Public : Visibility.Private;
         }
     }
 }
