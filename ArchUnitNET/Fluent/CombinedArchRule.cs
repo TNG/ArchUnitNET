@@ -28,7 +28,7 @@ namespace ArchUnitNET.Fluent
                 _secondRule.Check(architecture));
         }
 
-        public IEnumerable<IEvaluationResult> Evaluate(Architecture architecture)
+        public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
             return _firstRule.Evaluate(architecture).Concat(_secondRule.Evaluate(architecture));
         }

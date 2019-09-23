@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ArchUnitNET.ArchitectureExceptions;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
@@ -60,6 +61,31 @@ namespace ArchUnitNET.Fluent.Extensions
         public static IEnumerable<string> ToStringEnumerable<T>(this IEnumerable<T> enumerable)
         {
             return enumerable.Select(obj => obj.ToString());
+        }
+
+        public static string ToErrorMessage(this IEnumerable<EvaluationResult> evaluationResults)
+        {
+            var failedResults = evaluationResults.Where(result => !result.Passed).ToList();
+            if (failedResults.IsNullOrEmpty())
+            {
+                throw new ArgumentException(
+                    "Can't create an error message if the evaluation of the rule returned no fails.");
+            }
+
+            var analyzedRules = failedResults.Select(result => result.ArchRule).Distinct();
+            var errorMessage = new StringBuilder();
+            foreach (var rule in analyzedRules)
+            {
+                errorMessage.AppendLine("\"" + rule.Description + "\" failed:");
+                foreach (var result in failedResults.Where(result => result.ArchRule.Equals(rule)))
+                {
+                    errorMessage.AppendLine("\t" + result.Description);
+                }
+
+                errorMessage.AppendLine();
+            }
+
+            return errorMessage.ToString();
         }
     }
 }

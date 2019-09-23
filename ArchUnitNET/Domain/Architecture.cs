@@ -106,7 +106,7 @@ namespace ArchUnitNET.Domain
             return archRule.Check(this);
         }
 
-        public IEnumerable<IEvaluationResult> EvaluateRule(IArchRule archRule)
+        public IEnumerable<EvaluationResult> EvaluateRule(IArchRule archRule)
         {
             return archRule.Evaluate(this);
         }

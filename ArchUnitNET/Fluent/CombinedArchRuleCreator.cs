@@ -28,10 +28,9 @@ namespace ArchUnitNET.Fluent
                 _currentArchRuleCreator.Check(architecture));
         }
 
-        public IEnumerable<IEvaluationResult> Evaluate(Architecture architecture)
+        public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
-            return _oldRule.Evaluate(architecture)
-                .Concat(_currentArchRuleCreator.Evaluate(architecture));
+            return _oldRule.Evaluate(architecture).Concat(_currentArchRuleCreator.Evaluate(architecture));
         }
 
         public void AddObjectFilter(ObjectFilter<TRuleType> objectFilter)

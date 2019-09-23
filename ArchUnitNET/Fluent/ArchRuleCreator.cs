@@ -28,7 +28,7 @@ namespace ArchUnitNET.Fluent
             return CheckConditions(GetFilteredObjects(architecture), architecture);
         }
 
-        public IEnumerable<IEvaluationResult> Evaluate(Architecture architecture)
+        public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
             return EvaluateConditions(GetFilteredObjects(architecture), architecture);
         }
@@ -87,7 +87,7 @@ namespace ArchUnitNET.Fluent
             return _conditionManager.CheckConditions(filteredObjects, architecture);
         }
 
-        private IEnumerable<EvaluationResult<TRuleType>> EvaluateConditions(IEnumerable<TRuleType> filteredObjects,
+        private IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<TRuleType> filteredObjects,
             Architecture architecture)
         {
             return _conditionManager.EvaluateConditions(filteredObjects, architecture, this);
@@ -289,14 +289,14 @@ namespace ArchUnitNET.Fluent
                     (currentResult, conditionElement) => conditionElement.Check(currentResult, obj, architecture));
             }
 
-            public IEnumerable<EvaluationResult<T>> EvaluateConditions(IEnumerable<T> filteredObjects,
-                Architecture architecture, IArchRuleCreator<T> archRuleCreator)
+            public IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<T> filteredObjects,
+                Architecture architecture, ICanBeEvaluated archRuleCreator)
             {
                 return filteredObjects.Select(obj => EvaluateConditions(obj, architecture, archRuleCreator));
             }
 
-            private EvaluationResult<T> EvaluateConditions(T obj, Architecture architecture,
-                IArchRuleCreator<T> archRuleCreator)
+            private EvaluationResult EvaluateConditions(T obj, Architecture architecture,
+                ICanBeEvaluated archRuleCreator)
             {
                 var passRule = CheckConditions(obj, architecture);
                 var description = obj.FullName + " ";
@@ -322,7 +322,7 @@ namespace ArchUnitNET.Fluent
                     }
                 }
 
-                return new EvaluationResult<T>(obj, passRule, description, archRuleCreator, architecture);
+                return new EvaluationResult(obj, passRule, description, archRuleCreator, architecture);
             }
 
             public override string ToString()

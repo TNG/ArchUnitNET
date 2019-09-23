@@ -15,7 +15,7 @@ namespace ArchUnitNET.Fluent
             return _ruleCreator.Check(architecture);
         }
 
-        public IEnumerable<IEvaluationResult> Evaluate(Architecture architecture)
+        public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
             return _ruleCreator.Evaluate(architecture);
         }
