@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         PropertyMembersShouldConjunction : ObjectsShouldConjunction<PropertyMembersShould,
             PropertyMembersShouldConjunctionWithoutBecause, PropertyMember>
     {
-        public PropertyMembersShouldConjunction(ArchRuleCreator<PropertyMember> ruleCreator) : base(ruleCreator)
+        public PropertyMembersShouldConjunction(IArchRuleCreator<PropertyMember> ruleCreator) : base(ruleCreator)
         {
         }
     }

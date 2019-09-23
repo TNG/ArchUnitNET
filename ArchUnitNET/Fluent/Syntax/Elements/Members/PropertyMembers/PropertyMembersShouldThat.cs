@@ -9,7 +9,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public PropertyMembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+        public PropertyMembersShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
             ObjectProviderDefinition.PropertyMembers)
         {
         }

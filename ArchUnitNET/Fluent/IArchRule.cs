@@ -1,6 +1,6 @@
 ﻿namespace ArchUnitNET.Fluent
 {
-    public interface IArchRule : IArchRuleCreator
+    public interface IArchRule : ICanBeEvaluated
     {
         CombinedArchRuleDefinition And();
         CombinedArchRuleDefinition Or();

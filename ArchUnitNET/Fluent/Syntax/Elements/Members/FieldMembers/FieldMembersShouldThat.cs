@@ -8,7 +8,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public FieldMembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+        public FieldMembersShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
             ObjectProviderDefinition.FieldMembers)
         {
         }

@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
     public class PropertyMembersShould : MembersShould<PropertyMembersShouldConjunction, PropertyMember>,
         IPropertyMembersShould
     {
-        public PropertyMembersShould(ArchRuleCreator<PropertyMember> ruleCreator) : base(ruleCreator)
+        public PropertyMembersShould(IArchRuleCreator<PropertyMember> ruleCreator) : base(ruleCreator)
         {
         }
 

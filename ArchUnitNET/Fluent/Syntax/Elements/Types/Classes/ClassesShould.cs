@@ -4,7 +4,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
     public class ClassesShould : TypesShould<ClassesShouldConjunction, Class>, IClassesShould
     {
-        public ClassesShould(ArchRuleCreator<Class> ruleCreator) : base(ruleCreator)
+        public ClassesShould(IArchRuleCreator<Class> ruleCreator) : base(ruleCreator)
         {
         }
 

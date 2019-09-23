@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     public abstract class GivenObjects<TRuleTypeThat, TRuleTypeShould, TRuleType> : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        protected GivenObjects(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        protected GivenObjects(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 

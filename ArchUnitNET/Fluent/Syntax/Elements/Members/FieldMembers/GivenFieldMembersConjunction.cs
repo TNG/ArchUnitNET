@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
         GivenFieldMembersConjunction : GivenObjectsConjunction<GivenFieldMembersThat, FieldMembersShould,
             GivenFieldMembersConjunctionWithoutBecause, FieldMember>
     {
-        public GivenFieldMembersConjunction(ArchRuleCreator<FieldMember> ruleCreator) : base(ruleCreator)
+        public GivenFieldMembersConjunction(IArchRuleCreator<FieldMember> ruleCreator) : base(ruleCreator)
         {
         }
     }

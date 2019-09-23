@@ -8,7 +8,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             ObjectsShouldConjunctionWithoutBecause<TRuleTypeShould, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        protected ObjectsShouldConjunction(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        protected ObjectsShouldConjunction(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 

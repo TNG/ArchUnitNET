@@ -10,7 +10,7 @@ using static ArchUnitNET.Fluent.Syntax.LogicalConjunctionDefinition;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ArchRuleCreator<TRuleType> : IArchRuleCreator where TRuleType : ICanBeAnalyzed
+    public class ArchRuleCreator<TRuleType> : IArchRuleCreator<TRuleType> where TRuleType : ICanBeAnalyzed
     {
         private readonly ConditionManager<TRuleType> _conditionManager;
         private readonly ObjectFilterManager<TRuleType> _objectFilterManager;
@@ -21,16 +21,16 @@ namespace ArchUnitNET.Fluent
             _conditionManager = new ConditionManager<TRuleType>();
         }
 
-        public virtual string Description => _objectFilterManager.Description + " " + _conditionManager.Description;
+        public string Description => _objectFilterManager.Description + " " + _conditionManager.Description;
 
-        public virtual bool Check(Architecture architecture)
+        public bool Check(Architecture architecture)
         {
             return CheckConditions(GetFilteredObjects(architecture), architecture);
         }
 
-        public virtual IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
+        public IEnumerable<IEvaluationResult> Evaluate(Architecture architecture)
         {
-            return EvaluateConditions(GetFilteredObjects(architecture), architecture);
+            return EvaluateConditions(GetFilteredObjects(architecture), architecture, this);
         }
 
         public void AddObjectFilter(ObjectFilter<TRuleType> objectFilter)
@@ -87,11 +87,10 @@ namespace ArchUnitNET.Fluent
             return _conditionManager.CheckConditions(filteredObjects, architecture);
         }
 
-        private IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<TRuleType> filteredObjects,
-            Architecture architecture)
+        private IEnumerable<EvaluationResult<TRuleType>> EvaluateConditions(IEnumerable<TRuleType> filteredObjects,
+            Architecture architecture, IArchRuleCreator<TRuleType> archRuleCreator)
         {
-            return _conditionManager.EvaluateConditions(filteredObjects, architecture,
-                _objectFilterManager.Description + " " + _conditionManager.Description);
+            return _conditionManager.EvaluateConditions(filteredObjects, architecture, archRuleCreator);
         }
 
         public override string ToString()
@@ -274,13 +273,14 @@ namespace ArchUnitNET.Fluent
 
             internal bool CheckConditions(IEnumerable<T> filteredObjects, Architecture architecture)
             {
-                if (filteredObjects.IsNullOrEmpty())
+                var filteredObjectsList = filteredObjects.ToList();
+                if (filteredObjectsList.IsNullOrEmpty())
                 {
                     return _conditionElements.Aggregate(true,
                         (currentResult, conditionElement) => conditionElement.CheckNull(currentResult));
                 }
 
-                return filteredObjects.All(obj => CheckConditions(obj, architecture));
+                return filteredObjectsList.All(obj => CheckConditions(obj, architecture));
             }
 
             private bool CheckConditions(T obj, Architecture architecture)
@@ -289,14 +289,15 @@ namespace ArchUnitNET.Fluent
                     (currentResult, conditionElement) => conditionElement.Check(currentResult, obj, architecture));
             }
 
-            public IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<T> filteredObjects,
-                Architecture architecture, string archRuleDescription)
+            public IEnumerable<EvaluationResult<T>> EvaluateConditions(IEnumerable<T> filteredObjects,
+                Architecture architecture, IArchRuleCreator<T> archRuleCreator)
             {
-                return filteredObjects.Select(obj => EvaluateConditions(obj, architecture, archRuleDescription))
+                return filteredObjects.Select(obj => EvaluateConditions(obj, architecture, archRuleCreator))
                     .ToList();
             }
 
-            private EvaluationResult EvaluateConditions(T obj, Architecture architecture, string archRuleDescription)
+            private EvaluationResult<T> EvaluateConditions(T obj, Architecture architecture,
+                IArchRuleCreator<T> archRuleCreator)
             {
                 var passRule = CheckConditions(obj, architecture);
                 var description = obj.FullName + " ";
@@ -322,7 +323,7 @@ namespace ArchUnitNET.Fluent
                     }
                 }
 
-                return new EvaluationResult(obj, passRule, description, archRuleDescription);
+                return new EvaluationResult<T>(obj, passRule, description, archRuleCreator, architecture);
             }
 
             public override string ToString()

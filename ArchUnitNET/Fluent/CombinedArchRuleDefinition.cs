@@ -13,68 +13,67 @@ namespace ArchUnitNET.Fluent
 {
     public class CombinedArchRuleDefinition
     {
-        private readonly IArchRuleCreator _currentArchRuleCreator;
         private readonly LogicalConjunction _logicalConjunction;
+        private readonly ICanBeEvaluated _oldRule;
 
-        public CombinedArchRuleDefinition(IArchRuleCreator currentArchRuleCreator,
-            LogicalConjunction logicalConjunction)
+        public CombinedArchRuleDefinition(ICanBeEvaluated oldRule, LogicalConjunction logicalConjunction)
         {
-            _currentArchRuleCreator = currentArchRuleCreator;
+            _oldRule = oldRule;
             _logicalConjunction = logicalConjunction;
         }
 
         public GivenTypes Types()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<IType>(_currentArchRuleCreator, _logicalConjunction,
+            var combinedRuleCreator = new CombinedArchRuleCreator<IType>(_oldRule, _logicalConjunction,
                 ObjectProviderDefinition.Types);
             return new GivenTypes(combinedRuleCreator);
         }
 
         public GivenAttributes Attributes()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<Attribute>(_currentArchRuleCreator,
+            var combinedRuleCreator = new CombinedArchRuleCreator<Attribute>(_oldRule,
                 _logicalConjunction, ObjectProviderDefinition.Attributes);
             return new GivenAttributes(combinedRuleCreator);
         }
 
         public GivenClasses Classes()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<Class>(_currentArchRuleCreator, _logicalConjunction,
+            var combinedRuleCreator = new CombinedArchRuleCreator<Class>(_oldRule, _logicalConjunction,
                 ObjectProviderDefinition.Classes);
             return new GivenClasses(combinedRuleCreator);
         }
 
         public GivenInterfaces Interfaces()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<Interface>(_currentArchRuleCreator,
+            var combinedRuleCreator = new CombinedArchRuleCreator<Interface>(_oldRule,
                 _logicalConjunction, ObjectProviderDefinition.Interfaces);
             return new GivenInterfaces(combinedRuleCreator);
         }
 
         public GivenMembers Members()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<IMember>(_currentArchRuleCreator, _logicalConjunction,
+            var combinedRuleCreator = new CombinedArchRuleCreator<IMember>(_oldRule, _logicalConjunction,
                 ObjectProviderDefinition.Members);
             return new GivenMembers(combinedRuleCreator);
         }
 
         public GivenFieldMembers FieldMembers()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<FieldMember>(_currentArchRuleCreator,
+            var combinedRuleCreator = new CombinedArchRuleCreator<FieldMember>(_oldRule,
                 _logicalConjunction, ObjectProviderDefinition.FieldMembers);
             return new GivenFieldMembers(combinedRuleCreator);
         }
 
         public GivenMethodMembers MethodMembers()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<MethodMember>(_currentArchRuleCreator,
+            var combinedRuleCreator = new CombinedArchRuleCreator<MethodMember>(_oldRule,
                 _logicalConjunction, ObjectProviderDefinition.MethodMembers);
             return new GivenMethodMembers(combinedRuleCreator);
         }
 
         public GivenPropertyMembers PropertyMembers()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<PropertyMember>(_currentArchRuleCreator,
+            var combinedRuleCreator = new CombinedArchRuleCreator<PropertyMember>(_oldRule,
                 _logicalConjunction, ObjectProviderDefinition.PropertyMembers);
             return new GivenPropertyMembers(combinedRuleCreator);
         }

@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         GivenPropertyMembersThat,
         PropertyMembersShould, PropertyMember>
     {
-        public GivenPropertyMembersConjunctionWithoutBecause(ArchRuleCreator<PropertyMember> ruleCreator) : base(
+        public GivenPropertyMembersConjunctionWithoutBecause(IArchRuleCreator<PropertyMember> ruleCreator) : base(
             ruleCreator)
         {
         }

@@ -9,13 +9,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         where TReferenceType : IType
         where TRuleType : ICanBeAnalyzed
     {
-        protected TypesShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
+        protected TypesShouldThat(IArchRuleCreator<TRuleType> ruleCreator,
             ObjectProvider<TReferenceType> referenceObjectProvider) :
             base(ruleCreator, referenceObjectProvider)
         {
         }
 
-        public TypesShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+        public TypesShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
             ObjectProviderDefinition.Types as ObjectProvider<TReferenceType>)
         {
         }

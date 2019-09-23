@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         GivenTypesThat<GivenTypesConjunction, IType>,
         TypesShould<TypesShouldConjunction, IType>, IType>
     {
-        public GivenTypesConjunctionWithoutBecause(ArchRuleCreator<IType> ruleCreator) : base(ruleCreator)
+        public GivenTypesConjunctionWithoutBecause(IArchRuleCreator<IType> ruleCreator) : base(ruleCreator)
         {
         }
     }

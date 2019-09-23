@@ -5,30 +5,75 @@ using ArchUnitNET.Fluent.Syntax;
 
 namespace ArchUnitNET.Fluent
 {
-    public class CombinedArchRuleCreator<TRuleType> : ArchRuleCreator<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class CombinedArchRuleCreator<TRuleType> : IArchRuleCreator<TRuleType> where TRuleType : ICanBeAnalyzed
     {
+        private readonly ArchRuleCreator<TRuleType> _currentArchRuleCreator;
         private readonly LogicalConjunction _logicalConjunction;
-        private readonly IArchRuleCreator _oldArchRuleCreator;
+        private readonly ICanBeEvaluated _oldRule;
 
-        public CombinedArchRuleCreator(IArchRuleCreator archRuleCreator, LogicalConjunction logicalConjunction,
-            ObjectProvider<TRuleType> objectProvider) : base(objectProvider)
+        public CombinedArchRuleCreator(ICanBeEvaluated oldRule, LogicalConjunction logicalConjunction,
+            ObjectProvider<TRuleType> objectProvider)
         {
-            _oldArchRuleCreator = archRuleCreator;
+            _oldRule = oldRule;
             _logicalConjunction = logicalConjunction;
+            _currentArchRuleCreator = new ArchRuleCreator<TRuleType>(objectProvider);
         }
 
-        public override string Description => _oldArchRuleCreator.Description + " " + _logicalConjunction.Description +
-                                              " " + base.Description;
+        public string Description => _oldRule.Description + " " + _logicalConjunction.Description +
+                                     " " + _currentArchRuleCreator.Description;
 
-        public override bool Check(Architecture architecture)
+        public bool Check(Architecture architecture)
         {
-            return _logicalConjunction.Evaluate(_oldArchRuleCreator.Check(architecture),
-                base.Check(architecture));
+            return _logicalConjunction.Evaluate(_oldRule.Check(architecture),
+                _currentArchRuleCreator.Check(architecture));
         }
 
-        public override IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
+        public IEnumerable<IEvaluationResult> Evaluate(Architecture architecture)
         {
-            return _oldArchRuleCreator.Evaluate(architecture).Concat(base.Evaluate(architecture));
+            return _oldRule.Evaluate(architecture)
+                .Concat(_currentArchRuleCreator.Evaluate(architecture));
+        }
+
+        public void AddObjectFilter(ObjectFilter<TRuleType> objectFilter)
+        {
+            _currentArchRuleCreator.AddObjectFilter(objectFilter);
+        }
+
+        public void AddObjectFilterConjunction(LogicalConjunction logicalConjunction)
+        {
+            _currentArchRuleCreator.AddObjectFilterConjunction(logicalConjunction);
+        }
+
+        public void AddCondition(ICondition<TRuleType> condition)
+        {
+            _currentArchRuleCreator.AddCondition(condition);
+        }
+
+        public void AddConditionConjunction(LogicalConjunction logicalConjunction)
+        {
+            _currentArchRuleCreator.AddConditionConjunction(logicalConjunction);
+        }
+
+        public void AddConditionReason(string reason)
+        {
+            _currentArchRuleCreator.AddConditionReason(reason);
+        }
+
+        public void AddFilterReason(string reason)
+        {
+            _currentArchRuleCreator.AddFilterReason(reason);
+        }
+
+        public void BeginComplexCondition<TReferenceType>(
+            RelationCondition<TRuleType, TReferenceType> relationCondition) where TReferenceType : ICanBeAnalyzed
+        {
+            _currentArchRuleCreator.BeginComplexCondition(relationCondition);
+        }
+
+        public void ContinueComplexCondition<TReferenceType>(ObjectProvider<TReferenceType> referenceObjectProvider,
+            ObjectFilter<TReferenceType> objectFilter) where TReferenceType : ICanBeAnalyzed
+        {
+            _currentArchRuleCreator.ContinueComplexCondition(referenceObjectProvider, objectFilter);
         }
 
         public override string ToString()
@@ -39,7 +84,7 @@ namespace ArchUnitNET.Fluent
         private bool Equals(CombinedArchRuleCreator<TRuleType> other)
         {
             return string.Equals(Description, other.Description) &&
-                   Equals(_oldArchRuleCreator, other._oldArchRuleCreator) &&
+                   Equals(_oldRule, other._oldRule) &&
                    Equals(_logicalConjunction, other._logicalConjunction);
         }
 
@@ -63,7 +108,7 @@ namespace ArchUnitNET.Fluent
             unchecked
             {
                 var hashCode = Description != null ? Description.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (_oldArchRuleCreator != null ? _oldArchRuleCreator.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_oldRule != null ? _oldRule.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (_logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0);
                 return hashCode;
             }

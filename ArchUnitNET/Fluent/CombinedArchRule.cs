@@ -7,30 +7,30 @@ namespace ArchUnitNET.Fluent
 {
     public class CombinedArchRule : IArchRule
     {
-        private readonly IArchRuleCreator _firstArchRuleCreator;
+        private readonly ICanBeEvaluated _firstRule;
         private readonly LogicalConjunction _logicalConjunction;
-        private readonly IArchRuleCreator _secondArchRuleCreator;
+        private readonly ICanBeEvaluated _secondRule;
 
-        public CombinedArchRule(IArchRuleCreator firstArchRuleCreator, LogicalConjunction logicalConjunction,
-            IArchRuleCreator secondArchRuleCreator)
+        public CombinedArchRule(ICanBeEvaluated firstRule, LogicalConjunction logicalConjunction,
+            ICanBeEvaluated secondRule)
         {
-            _firstArchRuleCreator = firstArchRuleCreator;
-            _secondArchRuleCreator = secondArchRuleCreator;
+            _firstRule = firstRule;
+            _secondRule = secondRule;
             _logicalConjunction = logicalConjunction;
         }
 
-        public string Description => _firstArchRuleCreator.Description + " " + _logicalConjunction.Description + " " +
-                                     _secondArchRuleCreator.Description;
+        public string Description => _firstRule.Description + " " + _logicalConjunction.Description + " " +
+                                     _secondRule.Description;
 
         public bool Check(Architecture architecture)
         {
-            return _logicalConjunction.Evaluate(_firstArchRuleCreator.Check(architecture),
-                _secondArchRuleCreator.Check(architecture));
+            return _logicalConjunction.Evaluate(_firstRule.Check(architecture),
+                _secondRule.Check(architecture));
         }
 
-        public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
+        public IEnumerable<IEvaluationResult> Evaluate(Architecture architecture)
         {
-            return _firstArchRuleCreator.Evaluate(architecture).Concat(_secondArchRuleCreator.Evaluate(architecture));
+            return _firstRule.Evaluate(architecture).Concat(_secondRule.Evaluate(architecture));
         }
 
         public CombinedArchRuleDefinition And()
@@ -60,8 +60,8 @@ namespace ArchUnitNET.Fluent
 
         private bool Equals(CombinedArchRule other)
         {
-            return Equals(_firstArchRuleCreator, other._firstArchRuleCreator) &&
-                   Equals(_secondArchRuleCreator, other._secondArchRuleCreator) &&
+            return Equals(_firstRule, other._firstRule) &&
+                   Equals(_secondRule, other._secondRule) &&
                    Equals(_logicalConjunction, other._logicalConjunction);
         }
 
@@ -85,10 +85,10 @@ namespace ArchUnitNET.Fluent
             unchecked
             {
                 var hashCode = Description != null ? Description.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (_firstArchRuleCreator != null ? _firstArchRuleCreator.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_firstRule != null ? _firstRule.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (_logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^
-                           (_secondArchRuleCreator != null ? _secondArchRuleCreator.GetHashCode() : 0);
+                           (_secondRule != null ? _secondRule.GetHashCode() : 0);
                 return hashCode;
             }
         }

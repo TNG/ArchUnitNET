@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
     public class MethodMembersShould : MembersShould<MethodMembersShouldConjunction, MethodMember>,
         IMethodMembersShould
     {
-        public MethodMembersShould(ArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
+        public MethodMembersShould(IArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
         {
         }
 

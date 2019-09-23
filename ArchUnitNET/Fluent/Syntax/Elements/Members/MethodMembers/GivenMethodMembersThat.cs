@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
     public class GivenMethodMembersThat : GivenMembersThat<GivenMethodMembersConjunction, MethodMember>,
         IMethodMembersThat<GivenMethodMembersConjunction>
     {
-        public GivenMethodMembersThat(ArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
+        public GivenMethodMembersThat(IArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
         {
         }
 

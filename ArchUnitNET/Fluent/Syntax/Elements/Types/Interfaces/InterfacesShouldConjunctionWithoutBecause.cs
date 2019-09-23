@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
     public class
         InterfacesShouldConjunctionWithoutBecause : ObjectsShouldConjunctionWithoutBecause<InterfacesShould, Interface>
     {
-        public InterfacesShouldConjunctionWithoutBecause(ArchRuleCreator<Interface> ruleCreator) : base(ruleCreator)
+        public InterfacesShouldConjunctionWithoutBecause(IArchRuleCreator<Interface> ruleCreator) : base(ruleCreator)
         {
         }
     }

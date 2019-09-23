@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
     public class GivenInterfacesThat : GivenTypesThat<GivenInterfacesConjunction, Interface>,
         IInterfacesThat<GivenInterfacesConjunction>
     {
-        public GivenInterfacesThat(ArchRuleCreator<Interface> ruleCreator) : base(ruleCreator)
+        public GivenInterfacesThat(IArchRuleCreator<Interface> ruleCreator) : base(ruleCreator)
         {
         }
     }

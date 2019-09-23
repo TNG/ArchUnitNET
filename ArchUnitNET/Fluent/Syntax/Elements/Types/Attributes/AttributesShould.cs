@@ -4,7 +4,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
     public class AttributesShould : TypesShould<AttributesShouldConjunction, Attribute>, IAttributesShould
     {
-        public AttributesShould(ArchRuleCreator<Attribute> ruleCreator) : base(ruleCreator)
+        public AttributesShould(IArchRuleCreator<Attribute> ruleCreator) : base(ruleCreator)
         {
         }
 

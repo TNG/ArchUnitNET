@@ -12,7 +12,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         protected readonly ObjectProvider<TReferenceType> _referenceObjectProvider;
 
 
-        protected ObjectsShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
+        protected ObjectsShouldThat(IArchRuleCreator<TRuleType> ruleCreator,
             ObjectProvider<TReferenceType> referenceObjectProvider) : base(ruleCreator)
         {
             _referenceObjectProvider = referenceObjectProvider;

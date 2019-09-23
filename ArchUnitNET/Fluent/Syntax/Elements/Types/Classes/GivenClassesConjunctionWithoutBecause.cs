@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         GivenClassesConjunctionWithoutBecause : GivenObjectsConjunctionWithoutBecause<GivenClassesThat, ClassesShould,
             Class>
     {
-        public GivenClassesConjunctionWithoutBecause(ArchRuleCreator<Class> ruleCreator) : base(ruleCreator)
+        public GivenClassesConjunctionWithoutBecause(IArchRuleCreator<Class> ruleCreator) : base(ruleCreator)
         {
         }
     }

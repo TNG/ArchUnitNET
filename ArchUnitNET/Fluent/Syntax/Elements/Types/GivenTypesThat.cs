@@ -9,7 +9,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         where TRuleType : IType
     {
         // ReSharper disable once MemberCanBeProtected.Global
-        public GivenTypesThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        public GivenTypesThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 

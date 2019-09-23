@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent
 {
     public class ArchRule<TRuleType> : SyntaxElement<TRuleType>, IArchRule where TRuleType : ICanBeAnalyzed
     {
-        protected ArchRule(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        protected ArchRule(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
@@ -15,7 +15,7 @@ namespace ArchUnitNET.Fluent
             return _ruleCreator.Check(architecture);
         }
 
-        public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
+        public IEnumerable<IEvaluationResult> Evaluate(Architecture architecture)
         {
             return _ruleCreator.Evaluate(architecture);
         }

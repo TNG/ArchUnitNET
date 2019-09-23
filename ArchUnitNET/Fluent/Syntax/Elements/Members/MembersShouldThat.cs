@@ -9,13 +9,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         where TReferenceType : IMember
         where TRuleType : ICanBeAnalyzed
     {
-        protected MembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator,
+        protected MembersShouldThat(IArchRuleCreator<TRuleType> ruleCreator,
             ObjectProvider<TReferenceType> referenceObjectProvider) :
             base(ruleCreator, referenceObjectProvider)
         {
         }
 
-        public MembersShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+        public MembersShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
             ObjectProviderDefinition.Members as ObjectProvider<TReferenceType>)
         {
         }

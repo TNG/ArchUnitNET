@@ -10,7 +10,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         // ReSharper disable once MemberCanBeProtected.Global
-        public MembersShould(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        public MembersShould(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 

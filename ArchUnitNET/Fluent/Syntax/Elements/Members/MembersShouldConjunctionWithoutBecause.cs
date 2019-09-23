@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         MembersShouldConjunctionWithoutBecause : ObjectsShouldConjunctionWithoutBecause<
             MembersShould<MembersShouldConjunction, IMember>, IMember>
     {
-        public MembersShouldConjunctionWithoutBecause(ArchRuleCreator<IMember> ruleCreator) : base(ruleCreator)
+        public MembersShouldConjunctionWithoutBecause(IArchRuleCreator<IMember> ruleCreator) : base(ruleCreator)
         {
         }
     }

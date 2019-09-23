@@ -4,7 +4,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
 {
     public class GivenFieldMembers : GivenObjects<GivenFieldMembersThat, FieldMembersShould, FieldMember>
     {
-        public GivenFieldMembers(ArchRuleCreator<FieldMember> ruleCreator) : base(ruleCreator)
+        public GivenFieldMembers(IArchRuleCreator<FieldMember> ruleCreator) : base(ruleCreator)
         {
         }
     }

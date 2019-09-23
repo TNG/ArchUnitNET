@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
     public class GivenClassesThat : GivenTypesThat<GivenClassesConjunction, Class>,
         IClassesThat<GivenClassesConjunction>
     {
-        public GivenClassesThat(ArchRuleCreator<Class> ruleCreator) : base(ruleCreator)
+        public GivenClassesThat(IArchRuleCreator<Class> ruleCreator) : base(ruleCreator)
         {
         }
 

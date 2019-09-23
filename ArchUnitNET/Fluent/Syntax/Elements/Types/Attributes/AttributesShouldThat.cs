@@ -9,7 +9,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
-        public AttributesShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+        public AttributesShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
             ObjectProviderDefinition.Attributes)
         {
         }

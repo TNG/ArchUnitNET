@@ -8,7 +8,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         IClassesThat<TRuleTypeShouldConjunction> where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public ClassesShouldThat(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
+        public ClassesShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
             ObjectProviderDefinition.Classes)
         {
         }

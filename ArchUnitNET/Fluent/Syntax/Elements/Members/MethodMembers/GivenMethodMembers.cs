@@ -4,7 +4,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
     public class GivenMethodMembers : GivenObjects<GivenMethodMembersThat, MethodMembersShould, MethodMember>
     {
-        public GivenMethodMembers(ArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
+        public GivenMethodMembers(IArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
         {
         }
     }

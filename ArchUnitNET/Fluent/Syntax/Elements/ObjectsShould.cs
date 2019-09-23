@@ -10,7 +10,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
-        protected ObjectsShould(ArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        protected ObjectsShould(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
