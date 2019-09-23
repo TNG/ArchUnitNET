@@ -16,6 +16,7 @@ namespace ArchUnitNETTests.Fluent.Syntax
             var syntaxElement =
                 CreateSyntaxElement<TypesShouldConjunction, IType>(new ArchRuleCreator<IType>(Types));
             Assert.NotNull(syntaxElement);
+            Assert.Equal(typeof(TypesShouldConjunction), syntaxElement.GetType());
         }
 
         [Fact]
