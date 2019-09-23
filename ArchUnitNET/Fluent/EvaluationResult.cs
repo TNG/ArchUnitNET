@@ -1,10 +1,11 @@
 ﻿using ArchUnitNET.Domain;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent
 {
     public class EvaluationResult
     {
-        public EvaluationResult(ICanBeAnalyzed obj, bool passed, string description,
+        public EvaluationResult([CanBeNull] ICanBeAnalyzed obj, bool passed, string description,
             ICanBeEvaluated archRule, Architecture architecture)
         {
             Object = obj;
@@ -15,7 +16,7 @@ namespace ArchUnitNET.Fluent
         }
 
         public ICanBeEvaluated ArchRule { get; }
-        public ICanBeAnalyzed Object { get; }
+        [CanBeNull] public ICanBeAnalyzed Object { get; }
         public bool Passed { get; }
         public string Description { get; }
         public Architecture Architecture { get; }

@@ -68,8 +68,7 @@ namespace ArchUnitNET.Fluent.Extensions
             var failedResults = evaluationResults.Where(result => !result.Passed).ToList();
             if (failedResults.IsNullOrEmpty())
             {
-                throw new ArgumentException(
-                    "Can't create an error message if the evaluation of the rule returned no fails.");
+                return "All Evaluations passed";
             }
 
             var analyzedRules = failedResults.Select(result => result.ArchRule).Distinct();

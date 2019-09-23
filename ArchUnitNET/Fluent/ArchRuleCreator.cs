@@ -274,13 +274,9 @@ namespace ArchUnitNET.Fluent
             public bool CheckConditions(IEnumerable<T> filteredObjects, Architecture architecture)
             {
                 var filteredObjectsList = filteredObjects.ToList();
-                if (filteredObjectsList.IsNullOrEmpty())
-                {
-                    return _conditionElements.Aggregate(true,
-                        (currentResult, conditionElement) => conditionElement.CheckNull(currentResult));
-                }
-
-                return filteredObjectsList.All(obj => CheckConditions(obj, architecture));
+                return filteredObjectsList.IsNullOrEmpty()
+                    ? CheckNull()
+                    : filteredObjectsList.All(obj => CheckConditions(obj, architecture));
             }
 
             private bool CheckConditions(T obj, Architecture architecture)
@@ -289,10 +285,26 @@ namespace ArchUnitNET.Fluent
                     (currentResult, conditionElement) => conditionElement.Check(currentResult, obj, architecture));
             }
 
+            private bool CheckNull()
+            {
+                return _conditionElements.Aggregate(true,
+                    (currentResult, conditionElement) => conditionElement.CheckNull(currentResult));
+            }
+
             public IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<T> filteredObjects,
                 Architecture architecture, ICanBeEvaluated archRuleCreator)
             {
-                return filteredObjects.Select(obj => EvaluateConditions(obj, architecture, archRuleCreator));
+                var filteredObjectsList = filteredObjects.ToList();
+                if (filteredObjectsList.IsNullOrEmpty())
+                {
+                    return new List<EvaluationResult>
+                    {
+                        new EvaluationResult(null, CheckNull(), "There are no objects matching the criteria",
+                            archRuleCreator, architecture)
+                    };
+                }
+
+                return filteredObjectsList.Select(obj => EvaluateConditions(obj, architecture, archRuleCreator));
             }
 
             private EvaluationResult EvaluateConditions(T obj, Architecture architecture,
