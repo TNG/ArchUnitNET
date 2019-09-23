@@ -128,7 +128,7 @@ namespace ArchUnitNET.Fluent
             private readonly List<ObjectFilterElement<T>> _objectFilterElements;
             private readonly ObjectProvider<T> _objectProvider;
 
-            internal ObjectFilterManager(ObjectProvider<T> objectProvider)
+            public ObjectFilterManager(ObjectProvider<T> objectProvider)
             {
                 _objectProvider = objectProvider;
                 _objectFilterElements = new List<ObjectFilterElement<T>>
@@ -142,13 +142,13 @@ namespace ArchUnitNET.Fluent
                 : _objectProvider.Description + " that" + _objectFilterElements.Aggregate("",
                       (current, objectFilterElement) => current + " " + objectFilterElement.Description);
 
-            internal IEnumerable<T> GetFilteredObjects(Architecture architecture)
+            public IEnumerable<T> GetFilteredObjects(Architecture architecture)
             {
                 return _objectProvider.GetObjects(architecture).Where(obj => _objectFilterElements.Aggregate(true,
                     (currentResult, objectFilterElement) => objectFilterElement.CheckFilter(currentResult, obj)));
             }
 
-            internal void AddFilter(ObjectFilter<T> objectFilter)
+            public void AddFilter(ObjectFilter<T> objectFilter)
             {
                 _objectFilterElements.Last().SetFilter(objectFilter);
             }
@@ -158,7 +158,7 @@ namespace ArchUnitNET.Fluent
                 _objectFilterElements.Last().AddReason(reason);
             }
 
-            internal void SetNextLogicalConjunction(LogicalConjunction logicalConjunction)
+            public void SetNextLogicalConjunction(LogicalConjunction logicalConjunction)
             {
                 _objectFilterElements.Add(new ObjectFilterElement<T>(logicalConjunction));
             }
@@ -230,7 +230,7 @@ namespace ArchUnitNET.Fluent
             private readonly List<ConditionElement<T>> _conditionElements;
             private object _relationConditionTemp;
 
-            internal ConditionManager()
+            public ConditionManager()
             {
                 _conditionElements = new List<ConditionElement<T>>
                 {
@@ -241,13 +241,13 @@ namespace ArchUnitNET.Fluent
             public string Description => _conditionElements.Aggregate("",
                 (current, conditionElement) => current + " " + conditionElement.Description).Trim();
 
-            internal void BeginComplexCondition<TReferenceType>(RelationCondition<T, TReferenceType> relationCondition)
+            public void BeginComplexCondition<TReferenceType>(RelationCondition<T, TReferenceType> relationCondition)
                 where TReferenceType : ICanBeAnalyzed
             {
                 _relationConditionTemp = relationCondition;
             }
 
-            internal void ContinueComplexCondition<TReferenceType>(
+            public void ContinueComplexCondition<TReferenceType>(
                 ObjectProvider<TReferenceType> referenceObjectProvider,
                 ObjectFilter<TReferenceType> filter)
                 where TReferenceType : ICanBeAnalyzed
@@ -256,7 +256,7 @@ namespace ArchUnitNET.Fluent
                     (RelationCondition<T, TReferenceType>) _relationConditionTemp, filter));
             }
 
-            internal void AddCondition(ICondition<T> condition)
+            public void AddCondition(ICondition<T> condition)
             {
                 _conditionElements.Last().SetCondition(condition);
             }
@@ -266,12 +266,12 @@ namespace ArchUnitNET.Fluent
                 _conditionElements.Last().AddReason(reason);
             }
 
-            internal void SetNextLogicalConjunction(LogicalConjunction logicalConjunction)
+            public void SetNextLogicalConjunction(LogicalConjunction logicalConjunction)
             {
                 _conditionElements.Add(new ConditionElement<T>(logicalConjunction));
             }
 
-            internal bool CheckConditions(IEnumerable<T> filteredObjects, Architecture architecture)
+            public bool CheckConditions(IEnumerable<T> filteredObjects, Architecture architecture)
             {
                 var filteredObjectsList = filteredObjects.ToList();
                 if (filteredObjectsList.IsNullOrEmpty())
