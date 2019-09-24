@@ -94,7 +94,7 @@ namespace ArchUnitNET.Domain
 
         private bool Equals(Class other)
         {
-            return Equals(Type, other.Type) && IsAbstract == other.IsAbstract;
+            return Equals(Type, other.Type);
         }
 
         public override bool Equals(object obj)
@@ -114,10 +114,7 @@ namespace ArchUnitNET.Domain
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return ((Type != null ? Type.GetHashCode() : 0) * 397) ^ IsAbstract.GetHashCode();
-            }
+            return Type != null ? Type.GetHashCode() : 0;
         }
     }
 }

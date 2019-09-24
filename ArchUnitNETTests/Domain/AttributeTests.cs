@@ -64,7 +64,7 @@ namespace ArchUnitNETTests.Domain
             public AttributeOriginClassPair(System.Type originType)
             {
                 OriginClass = Architecture.GetClassOfType(originType);
-                Attribute = new Attribute(OriginClass);
+                Attribute = Architecture.GetAttributeOfType(originType);
             }
 
             [NotNull] public Class OriginClass { get; }
@@ -107,6 +107,13 @@ namespace ArchUnitNETTests.Domain
             var hash = _attributeEquivalencyTestData.OriginAttribute.GetHashCode();
             var duplicateHash = _attributeEquivalencyTestData.DuplicateAttribute.GetHashCode();
             Assert.Equal(hash, duplicateHash);
+        }
+
+        [Fact]
+        public void AttributesAreSubsetOfClasses()
+        {
+            Assert.NotEmpty(Architecture.Attributes);
+            Architecture.Attributes.ForEach(attribute => Assert.Contains(attribute, Architecture.Classes));
         }
 
         [Fact]

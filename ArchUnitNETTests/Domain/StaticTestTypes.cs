@@ -150,16 +150,20 @@ namespace ArchUnitNETTests.Domain
     {
     }
 
-    [SealedTestAttribute]
     public sealed class SealedTestClass
     {
     }
 
-    [SealedTestAttribute]
-    public sealed class SealedTestAttribute : Attribute
+    public class TestAttribute : Attribute
     {
     }
 
+
+    public sealed class SealedTestAttribute : TestAttribute
+    {
+    }
+
+    [SealedTest]
     public class PublicTestClass
     {
     }

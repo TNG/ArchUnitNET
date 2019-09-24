@@ -9,6 +9,7 @@ using System;
 using ArchUnitNET.ArchitectureExceptions;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Extensions
 {
@@ -56,6 +57,12 @@ namespace ArchUnitNET.Fluent.Extensions
         public static Interface GetInterfaceOfType([NotNull] this Architecture architecture, [NotNull] Type type)
         {
             return architecture.Interfaces.WhereFullNameIs(type.FullName);
+        }
+
+        [NotNull]
+        public static Attribute GetAttributeOfType([NotNull] this Architecture architecture, [NotNull] Type type)
+        {
+            return architecture.Attributes.WhereFullNameIs(type.FullName);
         }
     }
 }

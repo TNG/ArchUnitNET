@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ArchUnitNETTests\ArchUnitNETTests.csproj" />
       <ProjectReference Include="..\XunitExtension\XunitExtension.csproj" />
     </ItemGroup>
 

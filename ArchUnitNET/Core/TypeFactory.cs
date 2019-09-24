@@ -12,6 +12,7 @@ using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Core
 {
@@ -65,9 +66,10 @@ namespace ArchUnitNET.Core
             }
             else
             {
-                var cls = new Class(type, typeDefinition.IsAbstract, typeDefinition.IsSealed,
-                    typeDefinition.IsValueType, typeDefinition.IsEnum);
-                createdType = cls;
+                createdType = IsAttribute(typeDefinition)
+                    ? new Attribute(type, typeDefinition.IsAbstract, typeDefinition.IsSealed)
+                    : new Class(type, typeDefinition.IsAbstract, typeDefinition.IsSealed,
+                        typeDefinition.IsValueType, typeDefinition.IsEnum);
             }
 
             if (isStub)
@@ -83,6 +85,17 @@ namespace ArchUnitNET.Core
             LoadNonBaseTasks(createdType, type, typeDefinition);
 
             return createdType;
+        }
+
+        private static bool IsAttribute([CanBeNull] TypeDefinition typeDefinition)
+        {
+            if (typeDefinition?.BaseType != null)
+            {
+                return typeDefinition.BaseType.FullName == "System.Attribute" ||
+                       IsAttribute(typeDefinition.BaseType.Resolve());
+            }
+
+            return false;
         }
 
         [NotNull]
