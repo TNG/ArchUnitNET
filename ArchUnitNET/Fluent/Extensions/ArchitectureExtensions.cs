@@ -31,13 +31,13 @@ namespace ArchUnitNET.Fluent.Extensions
             try
             {
                 var foundType = architecture.Types.WhereFullNameIs(type.FullName);
-                if (foundType == null)
+                if (foundType != null)
                 {
-                    throw new TypeDoesNotExistInArchitecture(
-                        $"Type {type.FullName} does not exist in provided architecture.");
+                    return foundType;
                 }
 
-                return foundType;
+                throw new TypeDoesNotExistInArchitecture(
+                    $"Type {type.FullName} does not exist in provided architecture.");
             }
             catch (MultipleOccurrencesInSequenceException)
             {
@@ -50,19 +50,67 @@ namespace ArchUnitNET.Fluent.Extensions
         [NotNull]
         public static Class GetClassOfType([NotNull] this Architecture architecture, [NotNull] Type type)
         {
-            return architecture.Classes.WhereFullNameIs(type.FullName);
+            try
+            {
+                var cls = architecture.Classes.WhereFullNameIs(type.FullName);
+                if (cls != null)
+                {
+                    return cls;
+                }
+
+                throw new TypeDoesNotExistInArchitecture(
+                    $"Type {type.FullName} does not exist in provided architecture or is no class.");
+            }
+            catch (MultipleOccurrencesInSequenceException)
+            {
+                throw new NotSupportedException(
+                    $"Type {type.FullName} found multiple times in provided architecture. Please use extern "
+                    + "alias to reference assemblies that have the same fully-qualified type names.");
+            }
         }
 
         [NotNull]
         public static Interface GetInterfaceOfType([NotNull] this Architecture architecture, [NotNull] Type type)
         {
-            return architecture.Interfaces.WhereFullNameIs(type.FullName);
+            try
+            {
+                var intf = architecture.Interfaces.WhereFullNameIs(type.FullName);
+                if (intf != null)
+                {
+                    return intf;
+                }
+
+                throw new TypeDoesNotExistInArchitecture(
+                    $"Type {type.FullName} does not exist in provided architecture or is no interface.");
+            }
+            catch (MultipleOccurrencesInSequenceException)
+            {
+                throw new NotSupportedException(
+                    $"Type {type.FullName} found multiple times in provided architecture. Please use extern "
+                    + "alias to reference assemblies that have the same fully-qualified type names.");
+            }
         }
 
         [NotNull]
         public static Attribute GetAttributeOfType([NotNull] this Architecture architecture, [NotNull] Type type)
         {
-            return architecture.Attributes.WhereFullNameIs(type.FullName);
+            try
+            {
+                var attribute = architecture.Attributes.WhereFullNameIs(type.FullName);
+                if (attribute != null)
+                {
+                    return attribute;
+                }
+
+                throw new TypeDoesNotExistInArchitecture(
+                    $"Type {type.FullName} does not exist in provided architecture or is no attribute.");
+            }
+            catch (MultipleOccurrencesInSequenceException)
+            {
+                throw new NotSupportedException(
+                    $"Type {type.FullName} found multiple times in provided architecture. Please use extern "
+                    + "alias to reference assemblies that have the same fully-qualified type names.");
+            }
         }
     }
 }

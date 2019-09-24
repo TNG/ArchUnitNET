@@ -43,6 +43,7 @@ namespace ArchUnitNET.Fluent.Extensions
             return source.Where(hasName => hasName.Name == name);
         }
 
+        [CanBeNull]
         public static TType WhereFullNameIs<TType>(this IEnumerable<TType> source, string fullName)
             where TType : IHasName
         {

@@ -18,7 +18,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
 {
     public class ArchitectureExtensionTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture;
 
         [Fact]
         public void FoundCorrectClassInArchitecture()

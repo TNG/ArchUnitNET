@@ -23,5 +23,8 @@ namespace ArchUnitNETTests.Fluent.Extensions
 
         public static readonly Architecture ArchUnitNETTestArchitecture =
             new ArchLoader().LoadAssemblies(typeof(BaseClass).Assembly).Build();
+
+        public static readonly Architecture ArchUnitNETTestAssemblyArchitecture =
+            new ArchLoader().LoadAssemblies(typeof(Class1).Assembly).Build();
     }
 }
