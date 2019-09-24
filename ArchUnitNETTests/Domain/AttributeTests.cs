@@ -117,6 +117,16 @@ namespace ArchUnitNETTests.Domain
         }
 
         [Fact]
+        public void AttributesCorrectlyAssigned()
+        {
+            Assert.Contains(StaticTestTypes.TestAttribute, Architecture.Attributes);
+            Assert.Contains(StaticTestTypes.ChildTestAttribute, Architecture.Attributes);
+            Assert.Contains(StaticTestTypes.SealedTestAttribute, Architecture.Attributes);
+            Assert.DoesNotContain(StaticTestTypes.PublicTestClass, Architecture.Attributes);
+            Assert.DoesNotContain(StaticTestTypes.InheritingType, Architecture.Attributes);
+        }
+
+        [Fact]
         public void AttributesOfAttributeAsExpected()
         {
             _attributeWithAttributesPair.OriginClass.Attributes.ForEach(originClassAttribute =>
