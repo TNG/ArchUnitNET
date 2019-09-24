@@ -3,11 +3,11 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ObjectFilter<TRuleType> : IObjectFilter<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class ArchitectureObjectFilter<TRuleType> : IObjectFilter<TRuleType> where TRuleType : ICanBeAnalyzed
     {
-        private readonly Func<TRuleType, bool> _filter;
+        private readonly Func<TRuleType, Architecture, bool> _filter;
 
-        public ObjectFilter(Func<TRuleType, bool> filter, string description)
+        public ArchitectureObjectFilter(Func<TRuleType, Architecture, bool> filter, string description)
         {
             _filter = filter;
             Description = description;
@@ -17,7 +17,7 @@ namespace ArchUnitNET.Fluent
 
         public bool CheckFilter(TRuleType obj, Architecture architecture)
         {
-            return _filter(obj);
+            return _filter(obj, architecture);
         }
 
         public override string ToString()

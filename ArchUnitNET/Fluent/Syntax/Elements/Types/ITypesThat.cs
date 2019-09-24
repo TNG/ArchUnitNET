@@ -1,9 +1,11 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public interface ITypesThat<TRuleTypeConjunction> : IObjectsThat<TRuleTypeConjunction>
     {
+        TRuleTypeConjunction Are(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction ImplementInterface(string pattern);
         TRuleTypeConjunction ImplementInterface(Interface intf);
         TRuleTypeConjunction ResideInNamespace(string pattern);
@@ -17,6 +19,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         //Negations
 
 
+        TRuleTypeConjunction AreNot(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction DoNotImplementInterface(string pattern);
         TRuleTypeConjunction DoNotImplementInterface(Interface intf);
         TRuleTypeConjunction DoNotResideInNamespace(string pattern);

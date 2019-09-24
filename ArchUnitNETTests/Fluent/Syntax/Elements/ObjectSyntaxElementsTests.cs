@@ -5,6 +5,7 @@ using ArchUnitNETTests.Domain;
 using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 using static ArchUnitNETTests.Domain.StaticTestTypes;
+using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
@@ -22,17 +23,51 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void AreTest()
         {
+            //Tests with one argument
+
             foreach (var type in _types)
             {
-                var typeIsItself = ArchRuleDefinition.Types().That().Are(type).Should().Be(type);
-                var typeIsNotItself = ArchRuleDefinition.Types().That().Are(type).Should().NotBe(type);
-                var otherTypesAreNotThisType = ArchRuleDefinition.Types().That().AreNot(type).Should().NotBe(type);
-                var otherTypesAreThisType = ArchRuleDefinition.Types().That().AreNot(type).Should().Be(type);
+                var typeIsItself = Types().That().Are(type).Should().Be(type);
+                var typeIsNotItself = Types().That().Are(type).Should().NotBe(type);
+                var otherTypesAreNotThisType = Types().That().AreNot(type).Should().NotBe(type);
+                var otherTypesAreThisType = Types().That().AreNot(type).Should().Be(type);
+
                 Assert.True(typeIsItself.Check(Architecture));
                 Assert.False(typeIsNotItself.Check(Architecture));
                 Assert.True(otherTypesAreNotThisType.Check(Architecture));
                 Assert.False(otherTypesAreThisType.Check(Architecture));
             }
+
+            var publicTestClassIsPublic = Types().That().Are(StaticTestTypes.PublicTestClass).Should().BePublic();
+            var publicTestClassIsNotPublic = Types().That().Are(StaticTestTypes.PublicTestClass).Should().NotBePublic();
+            var notPublicTypesAreNotPublicTestClass =
+                Types().That().AreNotPublic().Should().NotBe(StaticTestTypes.PublicTestClass);
+            var publicTypesAreNotPublicTestClass =
+                Types().That().ArePublic().Should().NotBe(StaticTestTypes.PublicTestClass);
+
+            Assert.True(publicTestClassIsPublic.Check(Architecture));
+            Assert.False(publicTestClassIsNotPublic.Check(Architecture));
+            Assert.True(notPublicTypesAreNotPublicTestClass.Check(Architecture));
+            Assert.False(publicTypesAreNotPublicTestClass.Check(Architecture));
+
+
+            //Tests with multiple arguments
+
+            var publicTestClassAndInternalTestClassIsPublicOrInternal = Types().That()
+                .Are(StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass).Should().BePublic().OrShould()
+                .BeInternal();
+            var publicTestClassAndInternalTestClassIsPublic = Types().That()
+                .Are(StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass).Should().BePublic();
+            var notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass = Types().That().AreNotPublic()
+                .And().AreNotInternal().Should()
+                .NotBe(StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass);
+            var internalTypesAreNotPublicTestClassOrInternalTestClass = Types().That().AreInternal().Should()
+                .NotBe(StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass);
+
+            Assert.True(publicTestClassAndInternalTestClassIsPublicOrInternal.Check(Architecture));
+            Assert.False(publicTestClassAndInternalTestClassIsPublic.Check(Architecture));
+            Assert.True(notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass.Check(Architecture));
+            Assert.False(internalTypesAreNotPublicTestClassOrInternalTestClass.Check(Architecture));
         }
 
         [Fact]
@@ -43,29 +78,32 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
                 foreach (var dependency in type.Dependencies)
                 {
-                    var typeDependsOnDependency = ArchRuleDefinition.Types().That().Are(type).Should()
+                    var typeDependsOnDependency = Types().That().Are(type).Should()
                         .DependOn(dependency.Origin.FullName).OrShould()
                         .DependOn(dependency.Target
                             .FullName);
-                    var typeDoesNotDependOnDependency = ArchRuleDefinition.Types().That().Are(type).Should()
+                    var typeDoesNotDependOnDependency = Types().That().Are(type).Should()
                         .NotDependOn(dependency.Origin.FullName).AndShould().NotDependOn(dependency.Target.FullName);
+
                     Assert.True(typeDependsOnDependency.Check(Architecture));
                     Assert.False(typeDoesNotDependOnDependency.Check(Architecture));
                 }
 
-                var typesDependOnOwnDependencies = ArchRuleDefinition.Types().That().DependOn(type.FullName).Should()
+                var typesDependOnOwnDependencies = Types().That().DependOn(type.FullName).Should()
                     .DependOn(type.FullName);
                 var typeDoesNotDependOnFalseDependency =
-                    ArchRuleDefinition.Types().That().Are(type).Should().NotDependOn(NoTypeName);
+                    Types().That().Are(type).Should().NotDependOn(NoTypeName);
                 var typeDependsOnFalseDependency =
-                    ArchRuleDefinition.Types().That().Are(type).Should().DependOn(NoTypeName);
+                    Types().That().Are(type).Should().DependOn(NoTypeName);
+
                 Assert.True(typesDependOnOwnDependencies.Check(Architecture));
                 Assert.True(typeDoesNotDependOnFalseDependency.Check(Architecture));
                 Assert.False(typeDependsOnFalseDependency.Check(Architecture));
             }
 
             var noTypeDependsOnFalseDependency =
-                ArchRuleDefinition.Types().That().DependOn(NoTypeName).Should().NotExist();
+                Types().That().DependOn(NoTypeName).Should().NotExist();
+
             Assert.True(noTypeDependsOnFalseDependency.Check(Architecture));
         }
 
@@ -74,15 +112,15 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             foreach (var type in _types)
             {
-                var typeExists = ArchRuleDefinition.Types().That().Are(type).Should().Exist();
-                var typeDoesNotExist = ArchRuleDefinition.Types().That().Are(type).Should().NotExist();
+                var typeExists = Types().That().Are(type).Should().Exist();
+                var typeDoesNotExist = Types().That().Are(type).Should().NotExist();
 
                 Assert.True(typeExists.Check(Architecture));
                 Assert.False(typeDoesNotExist.Check(Architecture));
             }
 
-            var typesExist = ArchRuleDefinition.Types().Should().Exist();
-            var typesDoNotExist = ArchRuleDefinition.Types().Should().NotExist();
+            var typesExist = Types().Should().Exist();
+            var typesDoNotExist = Types().Should().NotExist();
 
             Assert.True(typesExist.Check(Architecture));
             Assert.False(typesDoNotExist.Check(Architecture));
@@ -94,16 +132,16 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var type in _types)
             {
                 var typeHasRightFullName =
-                    ArchRuleDefinition.Types().That().Are(type).Should().HaveFullName(type.FullName);
+                    Types().That().Are(type).Should().HaveFullName(type.FullName);
                 var typeDoesNotHaveRightFullName =
-                    ArchRuleDefinition.Types().That().Are(type).Should().NotHaveFullName(type.FullName);
+                    Types().That().Are(type).Should().NotHaveFullName(type.FullName);
                 var typeHasFalseFullName =
-                    ArchRuleDefinition.Types().That().Are(type).Should().HaveFullName(NoTypeName);
+                    Types().That().Are(type).Should().HaveFullName(NoTypeName);
                 var typeDoesNotHaveFalseFullName =
-                    ArchRuleDefinition.Types().That().Are(type).Should().NotHaveFullName(NoTypeName);
+                    Types().That().Are(type).Should().NotHaveFullName(NoTypeName);
                 var typesWithSameFullNameAreEqual =
-                    ArchRuleDefinition.Types().That().HaveFullName(type.FullName).Should().Be(type);
-                var typesWithDifferentFullNamesAreNotEqual = ArchRuleDefinition.Types().That()
+                    Types().That().HaveFullName(type.FullName).Should().Be(type);
+                var typesWithDifferentFullNamesAreNotEqual = Types().That()
                     .DoNotHaveFullName(type.FullName).Should().NotBe(type);
 
                 Assert.True(typeHasRightFullName.Check(Architecture));
@@ -115,9 +153,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var findNoTypesWithFalseFullName =
-                ArchRuleDefinition.Types().That().HaveFullName(NoTypeName).Should().NotExist();
+                Types().That().HaveFullName(NoTypeName).Should().NotExist();
             var findTypesWithRightFullName =
-                ArchRuleDefinition.Types().That().DoNotHaveFullName(NoTypeName).Should().Exist();
+                Types().That().DoNotHaveFullName(NoTypeName).Should().Exist();
 
             Assert.True(findNoTypesWithFalseFullName.Check(Architecture));
             Assert.True(findTypesWithRightFullName.Check(Architecture));
@@ -132,29 +170,29 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 for (var i = 0; i <= name.Length; i++)
                 {
                     var subString = name.Substring(i);
-                    var typeNameEndsWithSubstringOfOwnName = ArchRuleDefinition.Types().That().Are(type).Should()
+                    var typeNameEndsWithSubstringOfOwnName = Types().That().Are(type).Should()
                         .HaveNameEndingWith(subString);
-                    var typeNameDoesNotEndWithSubstringOfOwnName = ArchRuleDefinition.Types().That().Are(type).Should()
+                    var typeNameDoesNotEndWithSubstringOfOwnName = Types().That().Are(type).Should()
                         .NotHaveNameEndingWith(subString);
 
                     Assert.True(typeNameEndsWithSubstringOfOwnName.Check(Architecture));
                     Assert.False(typeNameDoesNotEndWithSubstringOfOwnName.Check(Architecture));
                 }
 
-                var typeNameDoesNotEndWithFalseTypeName = ArchRuleDefinition.Types().That().Are(type).Should()
+                var typeNameDoesNotEndWithFalseTypeName = Types().That().Are(type).Should()
                     .NotHaveNameEndingWith(NoTypeName);
                 var typeNameEndsWithFalseTypeName =
-                    ArchRuleDefinition.Types().That().Are(type).Should().HaveNameEndingWith(NoTypeName);
+                    Types().That().Are(type).Should().HaveNameEndingWith(NoTypeName);
 
                 Assert.True(typeNameDoesNotEndWithFalseTypeName.Check(Architecture));
                 Assert.False(typeNameEndsWithFalseTypeName.Check(Architecture));
             }
 
             var findNoTypesEndingWithFalseName =
-                ArchRuleDefinition.Types().That().HaveNameEndingWith(NoTypeName).Or().HaveNameContaining(NoTypeName)
+                Types().That().HaveNameEndingWith(NoTypeName).Or().HaveNameContaining(NoTypeName)
                     .Should().NotExist();
             var findTypesStartingWithRightName =
-                ArchRuleDefinition.Types().That().DoNotHaveNameStartingWith(NoTypeName).Or()
+                Types().That().DoNotHaveNameStartingWith(NoTypeName).Or()
                     .DoNotHaveNameContaining(NoTypeName).Should().Exist();
 
             Assert.True(findNoTypesEndingWithFalseName.Check(Architecture));
@@ -172,9 +210,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     for (var j = 1; j <= i; j++)
                     {
                         var subString = name.Substring(j, i - j);
-                        var typeNameContainsSubstringOfOwnName = ArchRuleDefinition.Types().That().Are(type).Should()
+                        var typeNameContainsSubstringOfOwnName = Types().That().Are(type).Should()
                             .HaveNameContaining(subString);
-                        var typeNameDoesNotContainsSubstringOfOwnName = ArchRuleDefinition.Types().That().Are(type)
+                        var typeNameDoesNotContainsSubstringOfOwnName = Types().That().Are(type)
                             .Should().NotHaveNameContaining(subString);
 
                         Assert.True(typeNameContainsSubstringOfOwnName.Check(Architecture));
@@ -182,9 +220,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     }
 
                     var startString = name.Substring(0, i);
-                    var typeNameStartsWithAndContainsSubstringOfOwnName = ArchRuleDefinition.Types().That().Are(type)
+                    var typeNameStartsWithAndContainsSubstringOfOwnName = Types().That().Are(type)
                         .Should().HaveNameStartingWith(startString).AndShould().HaveNameContaining(startString);
-                    var typeNameDoesNotStartWithOrContainSubstringOfOwnName = ArchRuleDefinition.Types().That()
+                    var typeNameDoesNotStartWithOrContainSubstringOfOwnName = Types().That()
                         .Are(type).Should().NotHaveNameStartingWith(startString).OrShould()
                         .NotHaveNameContaining(startString);
 
@@ -192,9 +230,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     Assert.False(typeNameDoesNotStartWithOrContainSubstringOfOwnName.Check(Architecture));
                 }
 
-                var typeNameDoesNotStartWithOrContainFalseTypeName = ArchRuleDefinition.Types().That().Are(type)
+                var typeNameDoesNotStartWithOrContainFalseTypeName = Types().That().Are(type)
                     .Should().NotHaveNameStartingWith(NoTypeName).AndShould().NotHaveNameContaining(NoTypeName);
-                var typeNameStartsWithOrContainsFalseTypeName = ArchRuleDefinition.Types().That().Are(type)
+                var typeNameStartsWithOrContainsFalseTypeName = Types().That().Are(type)
                     .Should().HaveNameStartingWith(NoTypeName).OrShould().HaveNameContaining(NoTypeName);
 
                 Assert.True(typeNameDoesNotStartWithOrContainFalseTypeName.Check(Architecture));
@@ -202,10 +240,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var findNoTypesStartingWithOrContainingFalseName =
-                ArchRuleDefinition.Types().That().HaveNameStartingWith(NoTypeName).Or().HaveNameContaining(NoTypeName)
+                Types().That().HaveNameStartingWith(NoTypeName).Or().HaveNameContaining(NoTypeName)
                     .Should().NotExist();
             var findTypesStartingWithOrContainingRightName =
-                ArchRuleDefinition.Types().That().DoNotHaveNameStartingWith(NoTypeName).Or()
+                Types().That().DoNotHaveNameStartingWith(NoTypeName).Or()
                     .DoNotHaveNameContaining(NoTypeName).Should().Exist();
 
             Assert.True(findNoTypesStartingWithOrContainingFalseName.Check(Architecture));
@@ -217,12 +255,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             foreach (var type in _types)
             {
-                var typeHasRightName = ArchRuleDefinition.Types().That().Are(type).Should().HaveName(type.Name);
+                var typeHasRightName = Types().That().Are(type).Should().HaveName(type.Name);
                 var typeDoesNotHaveRightName =
-                    ArchRuleDefinition.Types().That().Are(type).Should().NotHaveName(type.Name);
-                var typeHasFalseName = ArchRuleDefinition.Types().That().Are(type).Should().HaveName(NoTypeName);
+                    Types().That().Are(type).Should().NotHaveName(type.Name);
+                var typeHasFalseName = Types().That().Are(type).Should().HaveName(NoTypeName);
                 var typeDoesNotHaveFalseName =
-                    ArchRuleDefinition.Types().That().Are(type).Should().NotHaveName(NoTypeName);
+                    Types().That().Are(type).Should().NotHaveName(NoTypeName);
 
                 Assert.True(typeHasRightName.Check(Architecture));
                 Assert.False(typeDoesNotHaveRightName.Check(Architecture));
@@ -231,9 +269,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var findTypesWithRightName =
-                ArchRuleDefinition.Types().That().DoNotHaveName(NoTypeName).Should().Exist();
+                Types().That().DoNotHaveName(NoTypeName).Should().Exist();
             var findNoTypesWithFalseName =
-                ArchRuleDefinition.Types().That().HaveName(NoTypeName).Should().NotExist();
+                Types().That().HaveName(NoTypeName).Should().NotExist();
 
             Assert.True(findTypesWithRightName.Check(Architecture));
             Assert.True(findNoTypesWithFalseName.Check(Architecture));
@@ -244,69 +282,69 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var visibilityRules = new List<IArchRule>
             {
-                ArchRuleDefinition.Types().That().ArePrivate().Should().BePrivate(),
-                ArchRuleDefinition.Types().That().ArePublic().Should().BePublic(),
-                ArchRuleDefinition.Types().That().AreProtected().Should().BeProtected(),
-                ArchRuleDefinition.Types().That().AreInternal().Should().BeInternal(),
-                ArchRuleDefinition.Types().That().AreProtectedInternal().Should().BeProtectedInternal(),
-                ArchRuleDefinition.Types().That().ArePrivateProtected().Should().BePrivateProtected(),
+                Types().That().ArePrivate().Should().BePrivate(),
+                Types().That().ArePublic().Should().BePublic(),
+                Types().That().AreProtected().Should().BeProtected(),
+                Types().That().AreInternal().Should().BeInternal(),
+                Types().That().AreProtectedInternal().Should().BeProtectedInternal(),
+                Types().That().ArePrivateProtected().Should().BePrivateProtected(),
 
-                ArchRuleDefinition.Types().That().AreNotPrivate().Should().NotBePrivate(),
-                ArchRuleDefinition.Types().That().AreNotPublic().Should().NotBePublic(),
-                ArchRuleDefinition.Types().That().AreNotProtected().Should().NotBeProtected(),
-                ArchRuleDefinition.Types().That().AreNotInternal().Should().NotBeInternal(),
-                ArchRuleDefinition.Types().That().AreNotProtectedInternal().Should().NotBeProtectedInternal(),
-                ArchRuleDefinition.Types().That().AreNotPrivateProtected().Should().NotBePrivateProtected(),
+                Types().That().AreNotPrivate().Should().NotBePrivate(),
+                Types().That().AreNotPublic().Should().NotBePublic(),
+                Types().That().AreNotProtected().Should().NotBeProtected(),
+                Types().That().AreNotInternal().Should().NotBeInternal(),
+                Types().That().AreNotProtectedInternal().Should().NotBeProtectedInternal(),
+                Types().That().AreNotPrivateProtected().Should().NotBePrivateProtected(),
 
-                ArchRuleDefinition.Types().That().ArePrivate().Should().NotBePublic().AndShould().NotBeProtected()
+                Types().That().ArePrivate().Should().NotBePublic().AndShould().NotBeProtected()
                     .AndShould().NotBeInternal().AndShould().NotBeProtectedInternal().AndShould()
                     .NotBePrivateProtected(),
-                ArchRuleDefinition.Types().That().ArePublic().Should().NotBePrivate().AndShould().NotBeProtected()
+                Types().That().ArePublic().Should().NotBePrivate().AndShould().NotBeProtected()
                     .AndShould().NotBeInternal().AndShould().NotBeProtectedInternal().AndShould()
                     .NotBePrivateProtected(),
-                ArchRuleDefinition.Types().That().AreProtected().Should().NotBePublic().AndShould().NotBePrivate()
+                Types().That().AreProtected().Should().NotBePublic().AndShould().NotBePrivate()
                     .AndShould().NotBeInternal().AndShould().NotBeProtectedInternal().AndShould()
                     .NotBePrivateProtected(),
-                ArchRuleDefinition.Types().That().AreInternal().Should().NotBePublic().AndShould().NotBeProtected()
+                Types().That().AreInternal().Should().NotBePublic().AndShould().NotBeProtected()
                     .AndShould().NotBePrivate().AndShould().NotBeProtectedInternal().AndShould()
                     .NotBePrivateProtected(),
-                ArchRuleDefinition.Types().That().AreProtectedInternal().Should().NotBePublic().AndShould()
+                Types().That().AreProtectedInternal().Should().NotBePublic().AndShould()
                     .NotBeProtected()
                     .AndShould().NotBeInternal().AndShould().NotBePrivate().AndShould()
                     .NotBePrivateProtected(),
-                ArchRuleDefinition.Types().That().ArePrivateProtected().Should().NotBePublic().AndShould()
+                Types().That().ArePrivateProtected().Should().NotBePublic().AndShould()
                     .NotBeProtected()
                     .AndShould().NotBeInternal().AndShould().NotBeProtectedInternal().AndShould()
                     .NotBePrivate(),
 
-                ArchRuleDefinition.Types().That().AreNotPrivate().Should().BePublic().OrShould().BeProtected()
+                Types().That().AreNotPrivate().Should().BePublic().OrShould().BeProtected()
                     .OrShould().BeInternal().OrShould().BeProtectedInternal().OrShould()
                     .BePrivateProtected(),
-                ArchRuleDefinition.Types().That().AreNotPublic().Should().BePrivate().OrShould().BeProtected()
+                Types().That().AreNotPublic().Should().BePrivate().OrShould().BeProtected()
                     .OrShould().BeInternal().OrShould().BeProtectedInternal().OrShould()
                     .BePrivateProtected(),
-                ArchRuleDefinition.Types().That().AreNotProtected().Should().BePublic().OrShould().BePrivate()
+                Types().That().AreNotProtected().Should().BePublic().OrShould().BePrivate()
                     .OrShould().BeInternal().OrShould().BeProtectedInternal().OrShould()
                     .BePrivateProtected(),
-                ArchRuleDefinition.Types().That().AreNotInternal().Should().BePublic().OrShould().BeProtected()
+                Types().That().AreNotInternal().Should().BePublic().OrShould().BeProtected()
                     .OrShould().BePrivate().OrShould().BeProtectedInternal().OrShould()
                     .BePrivateProtected(),
-                ArchRuleDefinition.Types().That().AreNotProtectedInternal().Should().BePublic().OrShould().BeProtected()
+                Types().That().AreNotProtectedInternal().Should().BePublic().OrShould().BeProtected()
                     .OrShould().BeInternal().OrShould().BePrivate().OrShould()
                     .BePrivateProtected(),
-                ArchRuleDefinition.Types().That().AreNotPrivateProtected().Should().BePublic().OrShould().BeProtected()
+                Types().That().AreNotPrivateProtected().Should().BePublic().OrShould().BeProtected()
                     .OrShould().BeInternal().OrShould().BeProtectedInternal().OrShould()
                     .BePrivate(),
 
-                ArchRuleDefinition.Types().That().Are(StaticTestTypes.PublicTestClass).Should().BePublic(),
-                ArchRuleDefinition.Types().That().Are(StaticTestTypes.InternalTestClass).Should()
+                Types().That().Are(StaticTestTypes.PublicTestClass).Should().BePublic(),
+                Types().That().Are(StaticTestTypes.InternalTestClass).Should()
                     .BeInternal(),
-                ArchRuleDefinition.Types().That().Are(NestedPrivateTestClass).Should().BePrivate(),
-                ArchRuleDefinition.Types().That().Are(NestedPublicTestClass).Should().BePublic(),
-                ArchRuleDefinition.Types().That().Are(NestedProtectedTestClass).Should().BeProtected(),
-                ArchRuleDefinition.Types().That().Are(NestedInternalTestClass).Should().BeInternal(),
-                ArchRuleDefinition.Types().That().Are(NestedProtectedInternalTestClass).Should().BeProtectedInternal(),
-                ArchRuleDefinition.Types().That().Are(NestedPrivateProtectedTestClass).Should().BePrivateProtected()
+                Types().That().Are(NestedPrivateTestClass).Should().BePrivate(),
+                Types().That().Are(NestedPublicTestClass).Should().BePublic(),
+                Types().That().Are(NestedProtectedTestClass).Should().BeProtected(),
+                Types().That().Are(NestedInternalTestClass).Should().BeInternal(),
+                Types().That().Are(NestedProtectedInternalTestClass).Should().BeProtectedInternal(),
+                Types().That().Are(NestedPrivateProtectedTestClass).Should().BePrivateProtected()
             };
 
             foreach (var visibilityRule in visibilityRules)

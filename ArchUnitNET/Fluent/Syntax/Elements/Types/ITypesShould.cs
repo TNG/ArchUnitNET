@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -7,6 +8,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         where TRuleType : IType
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
+        TRuleTypeShouldConjunction Be(Type firstType, params Type[] moreTypes);
         TRuleTypeShouldConjunction ImplementInterface(string pattern);
         TRuleTypeShouldConjunction ImplementInterface(Interface intf);
         TRuleTypeShouldConjunction ResideInNamespace(string pattern);
@@ -20,6 +22,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         //Negations
 
 
+        TRuleTypeShouldConjunction NotBe(Type firstType, params Type[] moreTypes);
         TRuleTypeShouldConjunction NotImplementInterface(string pattern);
         TRuleTypeShouldConjunction NotImplementInterface(Interface intf);
         TRuleTypeShouldConjunction NotResideInNamespace(string pattern);

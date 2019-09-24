@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System.Linq;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Domain.Visibility;
 
@@ -6,9 +7,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public static class ObjectsFilterDefinition<T> where T : ICanBeAnalyzed
     {
-        public static ObjectFilter<T> Are(ICanBeAnalyzed obj)
+        public static ObjectFilter<T> Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            return new ObjectFilter<T>(o => o.Equals(obj), "are \"" + obj.FullName + "\"");
+            var description = moreObjects.Aggregate("are \"" + firstObject.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ObjectFilter<T>(o => o.Equals(firstObject) || moreObjects.Any(o.Equals), description);
         }
 
         public static ObjectFilter<T> DependOn(string pattern)
@@ -76,9 +79,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         //Negations
 
 
-        public static ObjectFilter<T> AreNot(ICanBeAnalyzed obj)
+        public static ObjectFilter<T> AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            return new ObjectFilter<T>(o => !o.Equals(obj), "are not \"" + obj.FullName + "\"");
+            var description = moreObjects.Aggregate("are not \"" + firstObject.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ObjectFilter<T>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals), description);
         }
 
         public static ObjectFilter<T> DoNotDependOn(string pattern)

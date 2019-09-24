@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent
 {
     public interface IArchRuleCreator<TRuleType> : ICanBeEvaluated where TRuleType : ICanBeAnalyzed
     {
-        void AddObjectFilter(ObjectFilter<TRuleType> objectFilter);
+        void AddObjectFilter(IObjectFilter<TRuleType> objectFilter);
         void AddObjectFilterConjunction(LogicalConjunction logicalConjunction);
         void AddCondition(ICondition<TRuleType> condition);
         void AddConditionConjunction(LogicalConjunction logicalConjunction);
@@ -16,6 +16,6 @@ namespace ArchUnitNET.Fluent
             where TReferenceType : ICanBeAnalyzed;
 
         void ContinueComplexCondition<TReferenceType>(ObjectProvider<TReferenceType> referenceObjectProvider,
-            ObjectFilter<TReferenceType> objectFilter) where TReferenceType : ICanBeAnalyzed;
+            IObjectFilter<TReferenceType> objectFilter) where TReferenceType : ICanBeAnalyzed;
     }
 }

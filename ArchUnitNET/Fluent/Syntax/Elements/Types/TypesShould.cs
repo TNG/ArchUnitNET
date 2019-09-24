@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
@@ -12,6 +13,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         // ReSharper disable once MemberCanBeProtected.Global
         public TypesShould(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
+        }
+
+        public TRuleTypeShouldConjunction Be(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.Be(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction ImplementInterface(string pattern)
@@ -65,6 +72,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
+
+        public TRuleTypeShouldConjunction NotBe(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBe(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TRuleTypeShouldConjunction NotImplementInterface(string pattern)
         {

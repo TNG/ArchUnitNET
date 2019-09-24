@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
@@ -11,6 +12,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         // ReSharper disable once MemberCanBeProtected.Global
         public GivenTypesThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
+        }
+
+        public TGivenRuleTypeConjunction Are(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.Are(firstType, moreTypes));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction ImplementInterface(string pattern)
@@ -64,6 +71,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
+
+        public TGivenRuleTypeConjunction AreNot(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNot(firstType, moreTypes));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TGivenRuleTypeConjunction DoNotImplementInterface(string pattern)
         {

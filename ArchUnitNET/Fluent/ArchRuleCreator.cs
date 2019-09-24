@@ -33,7 +33,7 @@ namespace ArchUnitNET.Fluent
             return EvaluateConditions(GetFilteredObjects(architecture), architecture);
         }
 
-        public void AddObjectFilter(ObjectFilter<TRuleType> objectFilter)
+        public void AddObjectFilter(IObjectFilter<TRuleType> objectFilter)
         {
             _objectFilterManager.AddFilter(objectFilter);
         }
@@ -71,7 +71,7 @@ namespace ArchUnitNET.Fluent
         }
 
         public void ContinueComplexCondition<TReferenceType>(ObjectProvider<TReferenceType> referenceObjectProvider,
-            ObjectFilter<TReferenceType> objectFilter)
+            IObjectFilter<TReferenceType> objectFilter)
             where TReferenceType : ICanBeAnalyzed
         {
             _conditionManager.ContinueComplexCondition(referenceObjectProvider, objectFilter);
@@ -145,10 +145,11 @@ namespace ArchUnitNET.Fluent
             public IEnumerable<T> GetFilteredObjects(Architecture architecture)
             {
                 return _objectProvider.GetObjects(architecture).Where(obj => _objectFilterElements.Aggregate(true,
-                    (currentResult, objectFilterElement) => objectFilterElement.CheckFilter(currentResult, obj)));
+                    (currentResult, objectFilterElement) =>
+                        objectFilterElement.CheckFilter(currentResult, obj, architecture)));
             }
 
-            public void AddFilter(ObjectFilter<T> objectFilter)
+            public void AddFilter(IObjectFilter<T> objectFilter)
             {
                 _objectFilterElements.Last().SetFilter(objectFilter);
             }
@@ -171,10 +172,10 @@ namespace ArchUnitNET.Fluent
             private class ObjectFilterElement<T> : IHasDescription where T : ICanBeAnalyzed
             {
                 private readonly LogicalConjunction _logicalConjunction;
-                private ObjectFilter<T> _objectFilter;
+                private IObjectFilter<T> _objectFilter;
                 private string _reason;
 
-                public ObjectFilterElement(LogicalConjunction logicalConjunction, ObjectFilter<T> objectFilter = null)
+                public ObjectFilterElement(LogicalConjunction logicalConjunction, IObjectFilter<T> objectFilter = null)
                 {
                     _objectFilter = objectFilter;
                     _logicalConjunction = logicalConjunction;
@@ -202,12 +203,12 @@ namespace ArchUnitNET.Fluent
                     _reason = "because " + reason;
                 }
 
-                public void SetFilter(ObjectFilter<T> objectFilter)
+                public void SetFilter(IObjectFilter<T> objectFilter)
                 {
                     _objectFilter = objectFilter;
                 }
 
-                public bool CheckFilter(bool currentResult, T obj)
+                public bool CheckFilter(bool currentResult, T obj, Architecture architecture)
                 {
                     if (_objectFilter == null)
                     {
@@ -215,7 +216,7 @@ namespace ArchUnitNET.Fluent
                             "Can't Evaluate an ObjectFilterElement before the filter is set.");
                     }
 
-                    return _logicalConjunction.Evaluate(currentResult, _objectFilter.CheckFilter(obj));
+                    return _logicalConjunction.Evaluate(currentResult, _objectFilter.CheckFilter(obj, architecture));
                 }
 
                 public override string ToString()
@@ -249,7 +250,7 @@ namespace ArchUnitNET.Fluent
 
             public void ContinueComplexCondition<TReferenceType>(
                 ObjectProvider<TReferenceType> referenceObjectProvider,
-                ObjectFilter<TReferenceType> filter)
+                IObjectFilter<TReferenceType> filter)
                 where TReferenceType : ICanBeAnalyzed
             {
                 AddCondition(new ComplexCondition<T, TReferenceType>(referenceObjectProvider,

@@ -18,10 +18,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             _referenceObjectProvider = referenceObjectProvider;
         }
 
-        public TRuleTypeShouldConjunction Are(ICanBeAnalyzed obj)
+        public TRuleTypeShouldConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                ObjectsFilterDefinition<TReferenceType>.Are(obj));
+                ObjectsFilterDefinition<TReferenceType>.Are(firstObject, moreObjects));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -113,10 +113,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         //Negations
 
 
-        public TRuleTypeShouldConjunction AreNot(ICanBeAnalyzed obj)
+        public TRuleTypeShouldConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                ObjectsFilterDefinition<TReferenceType>.AreNot(obj));
+                ObjectsFilterDefinition<TReferenceType>.AreNot(firstObject, moreObjects));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

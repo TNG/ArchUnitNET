@@ -1,10 +1,27 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using System.Linq;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public static class TypesConditionDefinition<TRuleType> where TRuleType : IType
     {
+        public static ArchitectureCondition<TRuleType> Be(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return architecture.GetTypeOfType(firstType).Equals(ruleType) ||
+                       moreTypes.Any(type => architecture.GetTypeOfType(type).Equals(ruleType));
+            }
+
+            var description = moreTypes.Aggregate("be \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var failDescription = moreTypes.Aggregate("is not \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
         public static SimpleCondition<TRuleType> ImplementInterface(string pattern)
         {
             return new SimpleCondition<TRuleType>(
@@ -60,6 +77,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         //Negations
+
+        public static ArchitectureCondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return !architecture.GetTypeOfType(firstType).Equals(ruleType) &&
+                       !moreTypes.Any(type => architecture.GetTypeOfType(type).Equals(ruleType));
+            }
+
+            var description = moreTypes.Aggregate("not be \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var failDescription = moreTypes.Aggregate("is \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
 
         public static SimpleCondition<TRuleType> NotImplementInterface(string pattern)
         {

@@ -33,7 +33,7 @@ namespace ArchUnitNET.Fluent
             return _oldRule.Evaluate(architecture).Concat(_currentArchRuleCreator.Evaluate(architecture));
         }
 
-        public void AddObjectFilter(ObjectFilter<TRuleType> objectFilter)
+        public void AddObjectFilter(IObjectFilter<TRuleType> objectFilter)
         {
             _currentArchRuleCreator.AddObjectFilter(objectFilter);
         }
@@ -70,7 +70,7 @@ namespace ArchUnitNET.Fluent
         }
 
         public void ContinueComplexCondition<TReferenceType>(ObjectProvider<TReferenceType> referenceObjectProvider,
-            ObjectFilter<TReferenceType> objectFilter) where TReferenceType : ICanBeAnalyzed
+            IObjectFilter<TReferenceType> objectFilter) where TReferenceType : ICanBeAnalyzed
         {
             _currentArchRuleCreator.ContinueComplexCondition(referenceObjectProvider, objectFilter);
         }

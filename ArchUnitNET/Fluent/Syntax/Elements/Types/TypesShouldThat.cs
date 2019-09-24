@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
@@ -18,6 +19,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TypesShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
             ObjectProviderDefinition.Types as ObjectProvider<TReferenceType>)
         {
+        }
+
+        public TRuleTypeShouldConjunction Are(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
+                TypesFilterDefinition<TReferenceType>.Are(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction ImplementInterface(string pattern)
@@ -80,6 +88,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
+
+        public TRuleTypeShouldConjunction AreNot(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
+                TypesFilterDefinition<TReferenceType>.AreNot(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TRuleTypeShouldConjunction DoNotImplementInterface(string pattern)
         {

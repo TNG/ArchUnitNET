@@ -10,9 +10,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
         }
 
-        public TGivenRuleTypeConjunction Are(ICanBeAnalyzed obj)
+        public TGivenRuleTypeConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.Are(obj));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.Are(firstObject, moreObjects));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -92,9 +92,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         //Negations
 
 
-        public TGivenRuleTypeConjunction AreNot(ICanBeAnalyzed obj)
+        public TGivenRuleTypeConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNot(obj));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNot(firstObject, moreObjects));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

@@ -4,7 +4,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public interface IObjectsThat<TRuleTypeConjunction>
     {
-        TRuleTypeConjunction Are(ICanBeAnalyzed obj);
+        TRuleTypeConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeConjunction DependOn(string pattern);
         TRuleTypeConjunction HaveName(string name);
         TRuleTypeConjunction HaveFullName(string fullname);
@@ -22,7 +22,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         //Negations
 
 
-        TRuleTypeConjunction AreNot(ICanBeAnalyzed obj);
+        TRuleTypeConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeConjunction DoNotDependOn(string pattern);
         TRuleTypeConjunction DoNotHaveName(string name);
         TRuleTypeConjunction DoNotHaveFullName(string fullname);

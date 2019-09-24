@@ -1,10 +1,25 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using System.Linq;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public static class TypesFilterDefinition<T> where T : IType
     {
+        public static ArchitectureObjectFilter<T> Are(Type firstType, params Type[] moreTypes)
+        {
+            bool Filter(T ruleType, Architecture architecture)
+            {
+                return architecture.GetTypeOfType(firstType).Equals(ruleType) ||
+                       moreTypes.Any(type => architecture.GetTypeOfType(type).Equals(ruleType));
+            }
+
+            var description = moreTypes.Aggregate("are \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureObjectFilter<T>(Filter, description);
+        }
+
         public static ObjectFilter<T> ImplementInterface(string pattern)
         {
             return new ObjectFilter<T>(type => type.ImplementsInterface(pattern),
@@ -53,6 +68,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
 
         //Negations
+
+
+        public static ArchitectureObjectFilter<T> AreNot(Type firstType, params Type[] moreTypes)
+        {
+            bool Filter(T ruleType, Architecture architecture)
+            {
+                return !architecture.GetTypeOfType(firstType).Equals(ruleType) &&
+                       !moreTypes.Any(type => architecture.GetTypeOfType(type).Equals(ruleType));
+            }
+
+            var description = moreTypes.Aggregate("are not \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureObjectFilter<T>(Filter, description);
+        }
+
 
         public static ObjectFilter<T> DoNotImplementInterface(string pattern)
         {

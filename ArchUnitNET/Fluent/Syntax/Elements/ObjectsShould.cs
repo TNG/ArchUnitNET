@@ -20,9 +20,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction Be(ICanBeAnalyzed obj)
+        public TRuleTypeShouldConjunction Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.Be(obj));
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.Be(firstObject, moreObjects));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -122,9 +122,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotBe(ICanBeAnalyzed obj)
+        public TRuleTypeShouldConjunction NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBe(obj));
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBe(firstObject, moreObjects));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

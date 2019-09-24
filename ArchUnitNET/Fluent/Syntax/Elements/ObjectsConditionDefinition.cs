@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System.Linq;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Domain.Visibility;
 
@@ -11,11 +12,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ExistsCondition<TRuleType>(true);
         }
 
-        public static SimpleCondition<TRuleType> Be(ICanBeAnalyzed obj)
+        public static SimpleCondition<TRuleType> Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            return new SimpleCondition<TRuleType>(
-                o => o.Equals(obj), "be \"" + obj.FullName + "\"",
-                "is not \"" + obj.FullName + "\"");
+            var description = moreObjects.Aggregate("be \"" + firstObject.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var failDescription = moreObjects.Aggregate("is not \"" + firstObject.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new SimpleCondition<TRuleType>(o => o.Equals(firstObject) || moreObjects.Any(o.Equals), description,
+                failDescription);
         }
 
         public static SimpleCondition<TRuleType> DependOn(string pattern)
@@ -120,10 +124,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ExistsCondition<TRuleType>(false);
         }
 
-        public static SimpleCondition<TRuleType> NotBe(ICanBeAnalyzed obj)
+        public static SimpleCondition<TRuleType> NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            return new SimpleCondition<TRuleType>(o => !o.Equals(obj), "not be\"" + obj.FullName + "\"",
-                "is \"" + obj.FullName + "\"");
+            var description = moreObjects.Aggregate("not be \"" + firstObject.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var failDescription = moreObjects.Aggregate("is not \"" + firstObject.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new SimpleCondition<TRuleType>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals),
+                description, failDescription);
         }
 
         public static SimpleCondition<TRuleType> NotDependOn(string pattern)

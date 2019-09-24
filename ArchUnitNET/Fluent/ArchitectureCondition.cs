@@ -3,11 +3,12 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class SimpleCondition<TRuleType> : ICondition<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class ArchitectureCondition<TRuleType> : ICondition<TRuleType> where TRuleType : ICanBeAnalyzed
     {
-        private readonly Func<TRuleType, bool> _condition;
+        private readonly Func<TRuleType, Architecture, bool> _condition;
 
-        public SimpleCondition(Func<TRuleType, bool> condition, string description, string failDescription)
+        public ArchitectureCondition(Func<TRuleType, Architecture, bool> condition, string description,
+            string failDescription)
         {
             _condition = condition;
             Description = description;
@@ -19,7 +20,7 @@ namespace ArchUnitNET.Fluent
 
         public bool Check(TRuleType obj, Architecture architecture)
         {
-            return _condition(obj);
+            return _condition(obj, architecture);
         }
 
         public bool CheckNull()

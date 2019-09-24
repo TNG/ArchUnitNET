@@ -2,6 +2,7 @@
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNETTests.Domain;
 using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
@@ -44,6 +45,40 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(nestedTypesAreNotNested.Check(Architecture));
             Assert.False(notNestedTypesAreNested.Check(Architecture));
             Assert.True(notNestedTypesAreNotNested.Check(Architecture));
+        }
+
+        [Fact]
+        public void AreTest()
+        {
+            //Tests with one argument
+
+            var publicTestClassIsPublic = Types().That().Are(typeof(PublicTestClass)).Should().BePublic();
+            var publicTestClassIsNotPublic = Types().That().Are(typeof(PublicTestClass)).Should().NotBePublic();
+            var notPublicTypesAreNotPublicTestClass =
+                Types().That().AreNotPublic().Should().NotBe(typeof(PublicTestClass));
+            var publicTypesAreNotPublicTestClass = Types().That().ArePublic().Should().NotBe(typeof(PublicTestClass));
+
+            Assert.True(publicTestClassIsPublic.Check(Architecture));
+            Assert.False(publicTestClassIsNotPublic.Check(Architecture));
+            Assert.True(notPublicTypesAreNotPublicTestClass.Check(Architecture));
+            Assert.False(publicTypesAreNotPublicTestClass.Check(Architecture));
+
+
+            //Tests with multiple arguments
+
+            var publicTestClassAndInternalTestClassIsPublicOrInternal = Types().That()
+                .Are(typeof(PublicTestClass), typeof(InternalTestClass)).Should().BePublic().OrShould().BeInternal();
+            var publicTestClassAndInternalTestClassIsPublic = Types().That()
+                .Are(typeof(PublicTestClass), typeof(InternalTestClass)).Should().BePublic();
+            var notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass = Types().That().AreNotPublic()
+                .And().AreNotInternal().Should().NotBe(typeof(PublicTestClass), typeof(InternalTestClass));
+            var internalTypesAreNotPublicTestClassOrInternalTestClass = Types().That().AreInternal().Should()
+                .NotBe(typeof(PublicTestClass), typeof(InternalTestClass));
+
+            Assert.True(publicTestClassAndInternalTestClassIsPublicOrInternal.Check(Architecture));
+            Assert.False(publicTestClassAndInternalTestClassIsPublic.Check(Architecture));
+            Assert.True(notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass.Check(Architecture));
+            Assert.False(internalTypesAreNotPublicTestClassOrInternalTestClass.Check(Architecture));
         }
 
         [Fact]
@@ -222,16 +257,17 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var testClassThatImplementsInterfaceImplementsInterface = Classes().That()
-                .Are(InheritedType).Should().ImplementInterface(InheritedTestInterface);
+                .Are(StaticTestTypes.InheritedType).Should().ImplementInterface(InheritedTestInterface);
             var testClassThatImplementsOtherInterfaceImplementsInterfaces = Types().That()
-                .Are(InheritedType).Should().ImplementInterface(InheritedTestInterface).AndShould()
+                .Are(StaticTestTypes.InheritedType).Should().ImplementInterface(InheritedTestInterface).AndShould()
                 .ImplementInterface(InheritingInterface);
             var testInterfaceThatImplementsInterfaceImplementsInterface = Interfaces().That()
                 .Are(InheritingInterface).Should().ImplementInterface(InheritedTestInterface);
             var testClassThatImplementsNoInterfaceDoesNotImplementInterface = Interfaces().That()
-                .Are(PublicTestClass).Should().NotImplementInterface(InheritedTestInterface);
+                .Are(StaticTestTypes.PublicTestClass).Should().NotImplementInterface(InheritedTestInterface);
             var testClassThatImplementsNoInterfaceImplementsInterface = Interfaces().That()
-                .Are(PublicTestClass).Should().ImplementInterface(InheritedTestInterface).AndShould().Exist();
+                .Are(StaticTestTypes.PublicTestClass).Should().ImplementInterface(InheritedTestInterface).AndShould()
+                .Exist();
 
             Assert.True(testClassThatImplementsInterfaceImplementsInterface.Check(Architecture));
             Assert.True(testClassThatImplementsOtherInterfaceImplementsInterfaces.Check(Architecture));
