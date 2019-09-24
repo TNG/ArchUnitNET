@@ -21,6 +21,7 @@ namespace ArchUnitNET.Domain
 
         public Class Type { get; }
         public bool IsAbstract => Type.IsAbstract;
+        public bool IsSealed => Type.IsSealed;
 
         public IEnumerable<ITypeDependency> DependenciesIncludingInherited => BaseClass != null
             ? Type.Dependencies.Concat(BaseClass.DependenciesIncludingInherited).ToList()

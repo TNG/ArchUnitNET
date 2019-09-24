@@ -14,10 +14,11 @@ namespace ArchUnitNET.Domain
 {
     public class Class : IType
     {
-        public Class(IType type, bool isAbstract)
+        public Class(IType type, bool isAbstract, bool isSealed)
         {
             Type = type;
             IsAbstract = isAbstract;
+            IsSealed = isSealed;
         }
 
         public IType Type { get; }
@@ -36,6 +37,7 @@ namespace ArchUnitNET.Domain
 
         public IEnumerable<MethodMember> Constructors => Type.GetConstructors();
         public bool IsAbstract { get; }
+        public bool IsSealed { get; }
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;
         public string Name => Type.Name;

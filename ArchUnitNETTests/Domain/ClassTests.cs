@@ -122,6 +122,13 @@ namespace ArchUnitNETTests.Domain
         }
 
         [Fact]
+        public void ClassesHaveCorrectIsSealedProperty()
+        {
+            Assert.True(StaticTestTypes.SealedTestClass.IsSealed);
+            Assert.False(StaticTestTypes.PublicTestClass.IsSealed);
+        }
+
+        [Fact]
         public void ClassHasConsistentHashCode()
         {
             var hash = _classEquivalencyTestData.OriginClass.GetHashCode();
