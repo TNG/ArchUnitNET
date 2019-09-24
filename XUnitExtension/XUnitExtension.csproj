@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+
+        <LangVersion>7.2</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+        <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+        <PackageReference Include="xunit.assert.source" Version="2.4.1" />
+        <PackageReference Include="xunit.core" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="..\..\..\Users\brandhuf\.nuget\packages\xunit.assert.source\2.4.1\contentFiles\cs\netstandard1.1\Asserts\ArchRuleAsserts.cs">
+        <Link>Asserts\ArchRuleAsserts.cs</Link>
+      </Compile>
+      <Compile Include="..\..\..\Users\brandhuf\.nuget\packages\xunit.assert.source\2.4.1\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\FailedArchRuleException.cs">
+        <Link>Asserts\Sdk\Exceptions\FailedArchRuleException.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+</Project>

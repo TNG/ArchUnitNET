@@ -4,6 +4,7 @@
         <IsPackable>true</IsPackable>
         <Version>0.1.0-draft</Version>
         <RootNamespace>ArchUnitNET</RootNamespace>
+        <LangVersion>7.2</LangVersion>
     </PropertyGroup>
     <PropertyGroup>
         <PackageId>TngTech.ArchUnitNET</PackageId>
