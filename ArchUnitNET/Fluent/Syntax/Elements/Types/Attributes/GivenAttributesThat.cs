@@ -15,6 +15,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
             return new GivenAttributesConjunction(_ruleCreator);
         }
 
+        public GivenAttributesConjunction AreSealed()
+        {
+            _ruleCreator.AddObjectFilter(AttributesFilterDefinition.AreSealed());
+            return new GivenAttributesConjunction(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -22,6 +28,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
         public GivenAttributesConjunction AreNotAbstract()
         {
             _ruleCreator.AddObjectFilter(AttributesFilterDefinition.AreNotAbstract());
+            return new GivenAttributesConjunction(_ruleCreator);
+        }
+
+        public GivenAttributesConjunction AreNotSealed()
+        {
+            _ruleCreator.AddObjectFilter(AttributesFilterDefinition.AreNotSealed());
             return new GivenAttributesConjunction(_ruleCreator);
         }
     }

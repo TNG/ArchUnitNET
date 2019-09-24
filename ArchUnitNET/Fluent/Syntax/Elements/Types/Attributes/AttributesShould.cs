@@ -14,6 +14,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
             return new AttributesShouldConjunction(_ruleCreator);
         }
 
+        public AttributesShouldConjunction BeSealed()
+        {
+            _ruleCreator.AddCondition(AttributesConditionDefinition.BeSealed());
+            return new AttributesShouldConjunction(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -21,6 +27,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
         public AttributesShouldConjunction NotBeAbstract()
         {
             _ruleCreator.AddCondition(AttributesConditionDefinition.NotBeAbstract());
+            return new AttributesShouldConjunction(_ruleCreator);
+        }
+
+        public AttributesShouldConjunction NotBeSealed()
+        {
+            _ruleCreator.AddCondition(AttributesConditionDefinition.NotBeSealed());
             return new AttributesShouldConjunction(_ruleCreator);
         }
     }

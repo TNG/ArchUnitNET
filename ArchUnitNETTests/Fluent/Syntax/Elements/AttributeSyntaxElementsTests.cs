@@ -46,5 +46,34 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(notAbstractAttributesAreAbstract.Check(Architecture));
             Assert.True(notAbstractAttributesAreNotAbstract.Check(Architecture));
         }
+
+        [Fact]
+        public void AreSealedTest()
+        {
+            foreach (var attribute in _attributes)
+            {
+                var attributeIsSealed = Attributes().That().Are(attribute).Should().BeSealed();
+                var attributeIsNotSealed = Attributes().That().Are(attribute).Should().NotBeSealed();
+                var sealedAttributesDoNotIncludeType = Attributes().That().AreSealed().Should().NotBe(attribute);
+                var notSealedAttributesDoNotIncludeType = Attributes().That().AreNotSealed().Should().NotBe(attribute);
+
+                Assert.Equal(attribute.IsSealed, attributeIsSealed.Check(Architecture));
+                Assert.Equal(!attribute.IsSealed, attributeIsNotSealed.Check(Architecture));
+                Assert.Equal(!attribute.IsSealed, sealedAttributesDoNotIncludeType.Check(Architecture));
+                Assert.Equal(attribute.IsSealed, notSealedAttributesDoNotIncludeType.Check(Architecture));
+            }
+
+            var sealedAttributesAreSealed = Attributes().That().AreSealed().Should().BeSealed();
+            var sealedAttributesAreNotSealed =
+                Attributes().That().AreSealed().Should().NotBeSealed().AndShould().Exist();
+            var notSealedAttributesAreSealed =
+                Attributes().That().AreNotSealed().Should().BeSealed().AndShould().Exist();
+            var notSealedAttributesAreNotSealed = Attributes().That().AreNotSealed().Should().NotBeSealed();
+
+            Assert.True(sealedAttributesAreSealed.Check(Architecture));
+            Assert.False(sealedAttributesAreNotSealed.Check(Architecture));
+            Assert.False(notSealedAttributesAreSealed.Check(Architecture));
+            Assert.True(notSealedAttributesAreNotSealed.Check(Architecture));
+        }
     }
 }

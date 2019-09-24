@@ -20,6 +20,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction AreSealed()
+        {
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, AttributesFilterDefinition.AreSealed());
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -28,6 +34,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 AttributesFilterDefinition.AreNotAbstract());
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotSealed()
+        {
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, AttributesFilterDefinition.AreNotSealed());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

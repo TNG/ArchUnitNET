@@ -2,6 +2,7 @@
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Fluent.Extensions;
+using Attribute = System.Attribute;
 
 namespace ArchUnitNETTests.Domain
 {
@@ -12,6 +13,7 @@ namespace ArchUnitNETTests.Domain
         public static readonly Class TestEnum = Architecture.GetClassOfType(typeof(TestEnum));
         public static readonly Class TestStruct = Architecture.GetClassOfType(typeof(TestStruct));
         public static readonly Class SealedTestClass = Architecture.GetClassOfType(typeof(SealedTestClass));
+        public static readonly Class SealedTestAttribute = Architecture.GetClassOfType(typeof(SealedTestAttribute));
         public static readonly Class PublicTestClass = Architecture.GetClassOfType(typeof(PublicTestClass));
         public static readonly Class InternalTestClass = Architecture.GetClassOfType(typeof(InternalTestClass));
 
@@ -148,7 +150,13 @@ namespace ArchUnitNETTests.Domain
     {
     }
 
+    [SealedTestAttribute]
     public sealed class SealedTestClass
+    {
+    }
+
+    [SealedTestAttribute]
+    public sealed class SealedTestAttribute : Attribute
     {
     }
 
