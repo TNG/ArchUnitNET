@@ -71,9 +71,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
         public static Class CreateStubClass(this System.Type type)
         {
             var classType = type.CreateStubType();
-            var isAbstract = type.IsAbstract;
-            var isSealed = type.IsSealed;
-            return new Class(classType, isAbstract, isSealed);
+            return new Class(classType, type.IsAbstract, type.IsSealed, type.IsValueType, type.IsEnum);
         }
 
         public static Type CreateShallowStubType(this Class clazz)

@@ -29,7 +29,7 @@ namespace ArchUnitNETTests.Domain
             var guidMock = new Type(StaticConstants.SystemGuidFullName, StaticConstants.GuidClassName,
                 _classWithGenericParameters.Assembly,
                 new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false);
-            _expectedGenericArgument = new Class(guidMock, false, false);
+            _expectedGenericArgument = new Class(guidMock, false, false, false, false);
         }
 
         private static readonly Architecture Architecture =

@@ -9,6 +9,8 @@ namespace ArchUnitNETTests.Domain
     {
         private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
+        public static readonly Class TestEnum = Architecture.GetClassOfType(typeof(TestEnum));
+        public static readonly Class TestStruct = Architecture.GetClassOfType(typeof(TestStruct));
         public static readonly Class SealedTestClass = Architecture.GetClassOfType(typeof(SealedTestClass));
         public static readonly Class PublicTestClass = Architecture.GetClassOfType(typeof(PublicTestClass));
         public static readonly Class InternalTestClass = Architecture.GetClassOfType(typeof(InternalTestClass));
@@ -136,6 +138,14 @@ namespace ArchUnitNETTests.Domain
         private protected interface INestedPrivateProtectedTestInterface
         {
         }
+    }
+
+    public enum TestEnum
+    {
+    }
+
+    public struct TestStruct
+    {
     }
 
     public sealed class SealedTestClass
