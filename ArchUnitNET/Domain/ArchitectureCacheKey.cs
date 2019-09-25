@@ -44,9 +44,12 @@ namespace ArchUnitNET.Domain
 
         public override int GetHashCode()
         {
-            var hashCode = 397;
-            _architectureCacheKey.ForEach(tuple => { hashCode = (hashCode * 131) ^ tuple.GetHashCode(); });
-            return hashCode;
+            unchecked
+            {
+                var hashCode = 397;
+                _architectureCacheKey.ForEach(tuple => { hashCode = (hashCode * 131) ^ tuple.GetHashCode(); });
+                return hashCode;
+            }
         }
     }
 

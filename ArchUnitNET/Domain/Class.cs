@@ -108,7 +108,9 @@ namespace ArchUnitNET.Domain
 
         private bool Equals(Class other)
         {
-            return Equals(Type, other.Type);
+            return Equals(Type, other.Type) && Equals(IsAbstract, other.IsAbstract) &&
+                   Equals(IsSealed, other.IsSealed) && Equals(IsValueType, other.IsValueType) &&
+                   Equals(IsEnum, other.IsEnum);
         }
 
         public override bool Equals(object obj)
@@ -128,7 +130,15 @@ namespace ArchUnitNET.Domain
 
         public override int GetHashCode()
         {
-            return Type != null ? Type.GetHashCode() : 0;
+            unchecked
+            {
+                var hashCode = Type != null ? Type.GetHashCode() : 0;
+                hashCode = (hashCode * 397) ^ IsAbstract.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsSealed.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsValueType.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsEnum.GetHashCode();
+                return hashCode;
+            }
         }
     }
 }

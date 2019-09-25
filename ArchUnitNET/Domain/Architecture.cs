@@ -81,10 +81,13 @@ namespace ArchUnitNET.Domain
 
         public override int GetHashCode()
         {
-            var hashCode = 397 ^ (Assemblies != null ? Assemblies.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ (Namespaces != null ? Namespaces.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ (Types != null ? Types.GetHashCode() : 0);
-            return hashCode;
+            unchecked
+            {
+                var hashCode = 397 ^ (Assemblies != null ? Assemblies.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Namespaces != null ? Namespaces.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Types != null ? Types.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }
