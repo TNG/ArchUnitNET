@@ -10,6 +10,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNETTests.Dependencies.Attributes;
 using ArchUnitNETTests.Dependencies.Members;
 using TestAssembly;
+using Xunit.Sdk;
 
 // ReSharper disable InconsistentNaming
 
@@ -26,5 +27,9 @@ namespace ArchUnitNETTests.Fluent.Extensions
 
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture =
             new ArchLoader().LoadAssemblies(typeof(Class1).Assembly).Build();
+
+        public static readonly Architecture FullArchUnitNETArchitecture =
+            new ArchLoader().LoadAssemblies(typeof(Architecture).Assembly, typeof(BaseClass).Assembly,
+                typeof(Class1).Assembly, typeof(FailedArchRuleException).Assembly).Build();
     }
 }

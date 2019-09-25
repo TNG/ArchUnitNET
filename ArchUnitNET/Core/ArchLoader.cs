@@ -12,6 +12,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using Mono.Cecil;
+using static System.IO.SearchOption;
 using Assembly = System.Reflection.Assembly;
 
 namespace ArchUnitNET.Core
@@ -37,10 +38,12 @@ namespace ArchUnitNET.Core
             return this;
         }
 
-        public ArchLoader LoadFilteredDirectory(string directory, string filter)
+        public ArchLoader LoadFilteredDirectory(string directory, string filter,
+            SearchOption searchOption = TopDirectoryOnly)
         {
-            _assemblyResolver.AssemblyPath = directory;
-            var assemblies = Directory.GetFiles(directory, filter);
+            var path = Path.GetFullPath(directory);
+            _assemblyResolver.AssemblyPath = path;
+            var assemblies = Directory.GetFiles(path, filter, searchOption);
 
             var result = this;
             return assemblies.Aggregate(result, (current, assembly) => current.LoadAssembly(assembly));
