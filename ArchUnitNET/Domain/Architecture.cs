@@ -35,20 +35,7 @@ namespace ArchUnitNET.Domain
         public IEnumerable<PropertyMember> PropertyMembers => Members.OfType<PropertyMember>();
         public IEnumerable<FieldMember> FieldMembers => Members.OfType<FieldMember>();
         public IEnumerable<MethodMember> MethodMembers => Members.OfType<MethodMember>();
-
-        public IEnumerable<IMember> Members
-        {
-            get
-            {
-                var members = new List<IMember>();
-                foreach (var type in Types)
-                {
-                    members.AddRange(type.Members);
-                }
-
-                return members;
-            }
-        }
+        public IEnumerable<IMember> Members => Types.SelectMany(type => type.Members);
 
         public bool CheckRule(IArchRule archRule)
         {
