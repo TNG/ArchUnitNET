@@ -17,12 +17,14 @@ namespace ArchUnitNET.Core
 {
     internal class DotNetCoreAssemblyResolver : IAssemblyResolver
     {
+        private readonly DefaultAssemblyResolver _defaultAssemblyResolver;
         private readonly Dictionary<string, AssemblyDefinition> _libraries;
         public string AssemblyPath = "";
 
         public DotNetCoreAssemblyResolver()
         {
             _libraries = new Dictionary<string, AssemblyDefinition>();
+            _defaultAssemblyResolver = new DefaultAssemblyResolver();
         }
 
         [CanBeNull]
@@ -39,7 +41,7 @@ namespace ArchUnitNET.Core
                 throw new ArgumentNullException(nameof(name));
             }
 
-            if (_libraries.TryGetValue(name.Name, out var assemblyDefinition) || string.IsNullOrEmpty(AssemblyPath))
+            if (_libraries.TryGetValue(name.FullName, out var assemblyDefinition) || string.IsNullOrEmpty(AssemblyPath))
             {
                 return assemblyDefinition;
             }
@@ -53,7 +55,7 @@ namespace ArchUnitNET.Core
             }
 
             assemblyDefinition = AssemblyDefinition.ReadAssembly(file, parameters);
-            _libraries.Add(name.Name, assemblyDefinition);
+            _libraries.Add(name.FullName, assemblyDefinition);
 
             return assemblyDefinition;
         }
@@ -64,12 +66,18 @@ namespace ArchUnitNET.Core
             GC.SuppressFinalize(this);
         }
 
-        public void AddLib(AssemblyDefinition moduleAssembly)
+        public void AddLib([NotNull] AssemblyDefinition moduleAssembly)
         {
             if (!_libraries.ContainsKey(moduleAssembly.FullName))
             {
                 _libraries.Add(moduleAssembly.FullName, moduleAssembly);
             }
+        }
+
+        public void AddLib(AssemblyNameReference name)
+        {
+            var assembly = _defaultAssemblyResolver.Resolve(name);
+            AddLib(assembly ?? throw new AssemblyResolutionException(name));
         }
 
         private void Dispose(bool disposing)

@@ -72,6 +72,10 @@ namespace ArchUnitNET.Core
                 var module = ModuleDefinition.ReadModule(fileName,
                     new ReaderParameters {AssemblyResolver = _assemblyResolver});
                 _assemblyResolver.AddLib(module.Assembly);
+                foreach (var reference in module.AssemblyReferences)
+                {
+                    _assemblyResolver.AddLib(reference);
+                }
 
                 _archBuilder.LoadTypesForModule(module, nameSpace);
             }
