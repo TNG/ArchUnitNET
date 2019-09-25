@@ -11,11 +11,14 @@ namespace ArchUnitNET.Domain
 {
     public class Assembly : MemberwiseEquatable<Assembly>, IHasName
     {
-        public Assembly(string name, string fullName)
+        public Assembly(string name, string fullName, bool isOnlyReferenced)
         {
             Name = name;
             FullName = fullName;
+            IsOnlyReferenced = isOnlyReferenced;
         }
+
+        public bool IsOnlyReferenced { get; }
 
         public string Name { get; }
         public string FullName { get; }

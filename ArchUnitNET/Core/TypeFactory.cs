@@ -103,7 +103,7 @@ namespace ArchUnitNET.Core
         {
             var typeNamespaceName = typeReference.Namespace;
             var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
-                typeReference.Module.Assembly.FullName);
+                typeReference.Module.Assembly.FullName, true);
             var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(typeNamespaceName);
             var typeDefinition = typeReference.Resolve();
             var visibility = GetVisibilityFromTypeDefinition(typeDefinition);

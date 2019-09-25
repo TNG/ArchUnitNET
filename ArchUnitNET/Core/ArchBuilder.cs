@@ -40,6 +40,12 @@ namespace ArchUnitNET.Core
         public IEnumerable<Assembly> Assemblies => _assemblyRegistry.Assemblies;
         public IEnumerable<Namespace> Namespaces => _namespaceRegistry.Namespaces;
 
+        public void AddAssembly(AssemblyDefinition moduleAssembly, bool isOnlyReferenced)
+        {
+            _assemblyRegistry.GetOrCreateAssembly(moduleAssembly.Name.FullName, moduleAssembly.FullName,
+                isOnlyReferenced);
+        }
+
         public void LoadTypesForModule(ModuleDefinition module, string namespaceFilter)
         {
             _architectureCacheKey.Add(module.Name, namespaceFilter);

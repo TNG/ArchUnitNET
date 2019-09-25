@@ -13,15 +13,17 @@ namespace ArchUnitNET.Domain
 {
     public class Architecture
     {
-        public Architecture(IEnumerable<Assembly> assemblies, IEnumerable<Namespace> namespaces,
+        private readonly IEnumerable<Assembly> _allAssemblies;
+
+        public Architecture(IEnumerable<Assembly> allAssemblies, IEnumerable<Namespace> namespaces,
             IEnumerable<IType> types)
         {
-            Assemblies = assemblies;
+            _allAssemblies = allAssemblies;
             Namespaces = namespaces;
             Types = types;
         }
 
-        public IEnumerable<Assembly> Assemblies { get; }
+        public IEnumerable<Assembly> Assemblies => _allAssemblies.Where(assembly => !assembly.IsOnlyReferenced);
 
         public IEnumerable<Namespace> Namespaces { get; }
 
