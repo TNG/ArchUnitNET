@@ -96,7 +96,7 @@ namespace ArchUnitNET.Fluent.Extensions
 
         public static Attribute GetAttributeOfType(this IType type, Class attributeClass)
         {
-            return type.Attributes.Find(attribute => attribute.Type.FullName.Equals(attributeClass.FullName));
+            return type.Attributes.Find(attribute => attribute.FullName.Equals(attributeClass.FullName));
         }
 
         public static bool NameEndsWith(this IHasName cls, string pattern)

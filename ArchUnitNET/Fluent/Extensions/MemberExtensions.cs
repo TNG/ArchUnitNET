@@ -65,7 +65,7 @@ namespace ArchUnitNET.Fluent.Extensions
 
         public static Attribute GetAttributeFromMember(this IMember member, Class attributeClass)
         {
-            return member.Attributes.Find(attribute => attribute.Type.FullName.Equals(attributeClass.FullName));
+            return member.Attributes.Find(attribute => attribute.FullName.Equals(attributeClass.FullName));
         }
 
         public static bool HasMethodSignatureDependency(this IMember member,
