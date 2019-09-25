@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -17,6 +18,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeConjunction AreInternal();
         TRuleTypeConjunction AreProtectedInternal();
         TRuleTypeConjunction ArePrivateProtected();
+        TRuleTypeConjunction DependOn(Type firstType, params Type[] moreTypes);
+        TRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes);
 
 
         //Negations
@@ -35,5 +38,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeConjunction AreNotInternal();
         TRuleTypeConjunction AreNotProtectedInternal();
         TRuleTypeConjunction AreNotPrivateProtected();
+        TRuleTypeConjunction DoNotDependOn(Type firstType, params Type[] moreTypes);
+        TRuleTypeConjunction DoNotDependOn(IType firstType, params IType[] moreTypes);
     }
 }

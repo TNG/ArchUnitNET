@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
@@ -95,6 +96,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction BePrivateProtected()
         {
             _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.BePrivateProtected());
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -197,6 +210,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotBePrivateProtected()
         {
             _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotBePrivateProtected());
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotDependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotDependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(firstType, moreTypes));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

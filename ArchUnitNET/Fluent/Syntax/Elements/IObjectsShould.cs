@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
 
@@ -22,6 +23,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction BeInternal();
         TRuleTypeShouldConjunction BeProtectedInternal();
         TRuleTypeShouldConjunction BePrivateProtected();
+        TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes);
+        TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes);
         ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat();
         AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat();
 
@@ -42,6 +45,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction NotBeInternal();
         TRuleTypeShouldConjunction NotBeProtectedInternal();
         TRuleTypeShouldConjunction NotBePrivateProtected();
+        TRuleTypeShouldConjunction NotDependOn(IType firstType, params IType[] moreTypes);
+        TRuleTypeShouldConjunction NotDependOn(Type firstType, params Type[] moreTypes);
         ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat();
         AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat();
     }

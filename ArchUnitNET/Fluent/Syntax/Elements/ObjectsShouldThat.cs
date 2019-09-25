@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
@@ -109,6 +110,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction DependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
+                ObjectsFilterDefinition<TReferenceType>.DependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
+                ObjectsFilterDefinition<TReferenceType>.DependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -201,6 +216,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
                 ObjectsFilterDefinition<TReferenceType>.AreNotPrivateProtected());
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotDependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
+                ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotDependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
+                ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(firstType, moreTypes));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

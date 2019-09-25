@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Domain.Visibility;
@@ -17,6 +18,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public static ObjectFilter<T> DependOn(string pattern)
         {
             return new ObjectFilter<T>(obj => obj.DependsOn(pattern), "depend on \"" + pattern + "\"");
+        }
+
+        public static ObjectFilter<T> DependOn(IType firstType, params IType[] moreTypes)
+        {
+            bool Condition(T type)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .Any(target => target.Equals(firstType) || moreTypes.Contains(target));
+            }
+
+            var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ObjectFilter<T>(Condition, description);
+        }
+
+        public static ArchitectureObjectFilter<T> DependOn(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(T type, Architecture architecture)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .Any(target =>
+                        target.Equals(architecture.GetTypeOfType(firstType)) ||
+                        moreTypes.Any(t => architecture.GetTypeOfType(t).Equals(target)));
+            }
+
+            var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureObjectFilter<T>(Condition, description);
         }
 
         public static ObjectFilter<T> HaveName(string name)
@@ -89,6 +118,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public static ObjectFilter<T> DoNotDependOn(string pattern)
         {
             return new ObjectFilter<T>(obj => !obj.DependsOn(pattern), "do not depend on \"" + pattern + "\"");
+        }
+
+        public static ObjectFilter<T> DoNotDependOn(IType firstType, params IType[] moreTypes)
+        {
+            bool Condition(T type)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => !target.Equals(firstType) && !moreTypes.Contains(target));
+            }
+
+            var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ObjectFilter<T>(Condition, description);
+        }
+
+        public static ArchitectureObjectFilter<T> DoNotDependOn(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(T type, Architecture architecture)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .All(target =>
+                        !target.Equals(architecture.GetTypeOfType(firstType)) &&
+                        moreTypes.All(t => !architecture.GetTypeOfType(t).Equals(target)));
+            }
+
+            var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureObjectFilter<T>(Condition, description);
         }
 
         public static ObjectFilter<T> DoNotHaveName(string name)
