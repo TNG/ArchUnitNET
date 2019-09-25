@@ -14,7 +14,7 @@ namespace ArchUnitNET.Domain
         {
         }
 
-        public Attribute(Class cls) : this(cls.Type, cls.IsAbstract, cls.IsSealed)
+        public Attribute(Class cls) : base(cls.Type, cls.IsAbstract, cls.IsSealed, cls.IsValueType, cls.IsSealed)
         {
         }
     }

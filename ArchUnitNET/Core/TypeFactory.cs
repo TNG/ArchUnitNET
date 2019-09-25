@@ -55,7 +55,7 @@ namespace ArchUnitNET.Core
             var typeDefinition = typeReference.Resolve();
             if (typeDefinition == null)
             {
-                return new Class(type, false, false, false, false);
+                return new Class(type);
             }
 
             IType createdType;

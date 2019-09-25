@@ -14,7 +14,8 @@ namespace ArchUnitNET.Domain
 {
     public class Class : IType
     {
-        public Class(IType type, bool isAbstract, bool isSealed, bool isValueType, bool isEnum)
+        public Class(IType type, bool? isAbstract = null, bool? isSealed = null, bool? isValueType = null,
+            bool? isEnum = null)
         {
             Type = type;
             IsAbstract = isAbstract;
@@ -38,11 +39,24 @@ namespace ArchUnitNET.Domain
             (Class) Dependencies.OfType<InheritsBaseClassDependency>().FirstOrDefault()?.Target;
 
         public IEnumerable<MethodMember> Constructors => Type.GetConstructors();
-        public bool IsAbstract { get; }
-        public bool IsSealed { get; }
-        public bool IsValueType { get; }
-        public bool IsEnum { get; }
-        public bool IsStruct => IsValueType && !IsEnum;
+        public bool? IsAbstract { get; }
+        public bool? IsSealed { get; }
+        public bool? IsValueType { get; }
+        public bool? IsEnum { get; }
+
+        public bool? IsStruct
+        {
+            get
+            {
+                if (IsValueType.HasValue && IsEnum.HasValue)
+                {
+                    return IsValueType.Value && !IsEnum.Value;
+                }
+
+                return null;
+            }
+        }
+
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;
         public string Name => Type.Name;
