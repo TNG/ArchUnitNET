@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
@@ -30,6 +31,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction DependOn(string pattern)
         {
             _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.DependOn(pattern));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(types));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(types));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -99,32 +124,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes)
-        {
-            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes)
-        {
-            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        //Complex Conditions
-
-        public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat()
-        {
-            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.DependOnClassesThat());
-            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat()
-        {
-            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.HaveAttributesThat());
-            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
 
         //Negations
 
@@ -144,6 +143,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotDependOn(string pattern)
         {
             _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(pattern));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotDependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotDependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotDependOn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(types));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotDependOn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(types));
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -213,18 +236,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotDependOn(IType firstType, params IType[] moreTypes)
-        {
-            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(firstType, moreTypes));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotDependOn(Type firstType, params Type[] moreTypes)
-        {
-            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(firstType, moreTypes));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         //Complex Condition Negations
 
         public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat()
@@ -236,6 +247,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat()
         {
             _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.NotHaveAttributesThat());
+            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        //Complex Conditions
+
+        public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat()
+        {
+            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.DependOnClassesThat());
+            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat()
+        {
+            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.HaveAttributesThat());
             return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

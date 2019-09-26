@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Exceptions;
 using ArchUnitNET.Fluent.Syntax;
 
 namespace ArchUnitNET.Fluent
@@ -73,6 +74,12 @@ namespace ArchUnitNET.Fluent
             IObjectFilter<TReferenceType> objectFilter) where TReferenceType : ICanBeAnalyzed
         {
             _currentArchRuleCreator.ContinueComplexCondition(referenceObjectProvider, objectFilter);
+        }
+
+        public IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture)
+        {
+            throw new CannotGetObjectsOfCombinedArchRuleException(
+                "GetFilteredObjects() can't be used with CombinedArchRuleCreators because the analyzed objects might be of different type.");
         }
 
         public override string ToString()

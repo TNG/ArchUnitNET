@@ -4,7 +4,7 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ObjectProvider<T> : IHasDescription where T : ICanBeAnalyzed
+    public class ObjectProvider<T> : IObjectProvider<T> where T : ICanBeAnalyzed
     {
         private readonly Func<Architecture, IEnumerable<T>> _objects;
 

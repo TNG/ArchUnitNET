@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
@@ -12,6 +13,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction Exist();
         TRuleTypeShouldConjunction Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeShouldConjunction DependOn(string pattern);
+        TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes);
+        TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes);
+        TRuleTypeShouldConjunction OnlyDependOn(IObjectProvider<IType> types);
+        TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<IType> types);
         TRuleTypeShouldConjunction HaveName(string name);
         TRuleTypeShouldConjunction HaveFullName(string fullname);
         TRuleTypeShouldConjunction HaveNameStartingWith(string pattern);
@@ -23,10 +28,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction BeInternal();
         TRuleTypeShouldConjunction BeProtectedInternal();
         TRuleTypeShouldConjunction BePrivateProtected();
-        TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes);
-        TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes);
-        ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat();
-        AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat();
 
 
         //Negations
@@ -34,6 +35,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction NotExist();
         TRuleTypeShouldConjunction NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeShouldConjunction NotDependOn(string pattern);
+        TRuleTypeShouldConjunction NotDependOn(IType firstType, params IType[] moreTypes);
+        TRuleTypeShouldConjunction NotDependOn(Type firstType, params Type[] moreTypes);
+        TRuleTypeShouldConjunction NotDependOn(IObjectProvider<IType> types);
+        TRuleTypeShouldConjunction NotDependOn(IEnumerable<IType> types);
         TRuleTypeShouldConjunction NotHaveName(string name);
         TRuleTypeShouldConjunction NotHaveFullName(string fullname);
         TRuleTypeShouldConjunction NotHaveNameStartingWith(string pattern);
@@ -45,8 +50,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction NotBeInternal();
         TRuleTypeShouldConjunction NotBeProtectedInternal();
         TRuleTypeShouldConjunction NotBePrivateProtected();
-        TRuleTypeShouldConjunction NotDependOn(IType firstType, params IType[] moreTypes);
-        TRuleTypeShouldConjunction NotDependOn(Type firstType, params Type[] moreTypes);
         ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat();
         AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat();
     }

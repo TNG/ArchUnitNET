@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
@@ -29,6 +30,89 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(
                 obj => obj.DependsOn(pattern), "depend on \"" + pattern + "\"",
                 "does not depend on \"" + pattern + "\"");
+        }
+
+        public static SimpleCondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType)
+            {
+                return ruleType.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => target.Equals(firstType) || moreTypes.Contains(target));
+            }
+
+            var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var failDescription = moreTypes.Aggregate(
+                "does also depend on other types than just \"" + firstType.FullName + "\"",
+                (current, obj) => current + " and \"" + obj.FullName + "\"");
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> OnlyDependOn(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return ruleType.Dependencies.Select(dependency => dependency.Target).All(target =>
+                    target.Equals(architecture.GetTypeOfType(firstType)) ||
+                    moreTypes.Any(type => architecture.GetTypeOfType(type).Equals(target)));
+            }
+
+            var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var failDescription = moreTypes.Aggregate(
+                "does also depend on other types than just \"" + firstType.FullName + "\"",
+                (current, obj) => current + " and \"" + obj.FullName + "\"");
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> OnlyDependOn(IObjectProvider<IType> objectProvider)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                var types = objectProvider.GetObjects(architecture);
+                return ruleType.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => types.Any(t => t.Equals(target)));
+            }
+
+            var description = "only depend on " + objectProvider.Description;
+            var failDescription = "does also depend on other types than just " + objectProvider.Description;
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static SimpleCondition<TRuleType> OnlyDependOn(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType type)
+            {
+                if (type.Dependencies.IsNullOrEmpty())
+                {
+                    return typeList.IsNullOrEmpty();
+                }
+
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => typeList.Any(t => t.Equals(target)));
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "have no dependencies";
+                failDescription = "has dependencies";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
+                    "only depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                failDescription = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
+                    "does also depend on other types than just \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " and \"" + obj.FullName + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static SimpleCondition<TRuleType> HaveName(string name)
@@ -101,37 +185,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "is not private protected");
         }
 
-        public static SimpleCondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
-        {
-            bool Condition(TRuleType ruleType)
-            {
-                return ruleType.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => target.Equals(firstType) || moreTypes.Contains(target));
-            }
-
-            var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            var failDescription = moreTypes.Aggregate("also depends on other types than \"" + firstType.FullName + "\"",
-                (current, obj) => current + " and \"" + obj.FullName + "\"");
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
-        }
-
-        public static ArchitectureCondition<TRuleType> OnlyDependOn(Type firstType, params Type[] moreTypes)
-        {
-            bool Condition(TRuleType ruleType, Architecture architecture)
-            {
-                return ruleType.Dependencies.Select(dependency => dependency.Target).All(target =>
-                    target.Equals(architecture.GetTypeOfType(firstType)) ||
-                    moreTypes.Any(type => architecture.GetTypeOfType(type).Equals(target)));
-            }
-
-            var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            var failDescription = moreTypes.Aggregate("also depends on other types than \"" + firstType.FullName + "\"",
-                (current, obj) => current + " and \"" + obj.FullName + "\"");
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
-        }
-
 
         //Relation Conditions
 
@@ -172,6 +225,82 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(
                 obj => !obj.DependsOn(pattern), "not depend on \"" + pattern + "\"",
                 "does depend on \"" + pattern + "\"");
+        }
+
+        public static SimpleCondition<TRuleType> NotDependOn(IType firstType, params IType[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType)
+            {
+                return ruleType.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => !target.Equals(firstType) && !moreTypes.Contains(target));
+            }
+
+            var description = moreTypes.Aggregate("not depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var failDescription = moreTypes.Aggregate("does depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> NotDependOn(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return ruleType.Dependencies.Select(dependency => dependency.Target).All(target =>
+                    !target.Equals(architecture.GetTypeOfType(firstType)) &&
+                    moreTypes.All(type => !architecture.GetTypeOfType(type).Equals(target)));
+            }
+
+            var description = moreTypes.Aggregate("not depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var failDescription = moreTypes.Aggregate("does depend on \"" + firstType.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> NotDependOn(IObjectProvider<IType> objectProvider)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                var types = objectProvider.GetObjects(architecture);
+                return ruleType.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => types.All(t => !t.Equals(target)));
+            }
+
+            var description = "not depend on " + objectProvider.Description;
+            var failDescription = "does depend on " + objectProvider.Description;
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static SimpleCondition<TRuleType> NotDependOn(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType type)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => typeList.All(t => !t.Equals(target)));
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "not depend on no types (always true)";
+                failDescription = "does depend on one of no types (impossible)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
+                    "not depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                failDescription = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
+                    "does depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static SimpleCondition<TRuleType> NotHaveName(string name)
@@ -236,37 +365,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility != PrivateProtected, "not be private protected",
                 "is private protected");
-        }
-
-        public static SimpleCondition<TRuleType> NotDependOn(IType firstType, params IType[] moreTypes)
-        {
-            bool Condition(TRuleType ruleType)
-            {
-                return ruleType.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => !target.Equals(firstType) && !moreTypes.Contains(target));
-            }
-
-            var description = moreTypes.Aggregate("not depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            var failDescription = moreTypes.Aggregate("does depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
-        }
-
-        public static ArchitectureCondition<TRuleType> NotDependOn(Type firstType, params Type[] moreTypes)
-        {
-            bool Condition(TRuleType ruleType, Architecture architecture)
-            {
-                return ruleType.Dependencies.Select(dependency => dependency.Target).All(target =>
-                    !target.Equals(architecture.GetTypeOfType(firstType)) &&
-                    moreTypes.All(type => !architecture.GetTypeOfType(type).Equals(target)));
-            }
-
-            var description = moreTypes.Aggregate("not depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            var failDescription = moreTypes.Aggregate("does depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
 

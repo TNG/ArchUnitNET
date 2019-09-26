@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System.Collections.Generic;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax;
 
 namespace ArchUnitNET.Fluent
@@ -17,5 +18,7 @@ namespace ArchUnitNET.Fluent
 
         void ContinueComplexCondition<TReferenceType>(ObjectProvider<TReferenceType> referenceObjectProvider,
             IObjectFilter<TReferenceType> objectFilter) where TReferenceType : ICanBeAnalyzed;
+
+        IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture);
     }
 }

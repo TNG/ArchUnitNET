@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
@@ -20,6 +21,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction DependOn(string pattern)
         {
             _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(pattern));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DependOn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(types));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DependOn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(types));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -89,18 +114,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOn(Type firstType, params Type[] moreTypes)
-        {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(firstType, moreTypes));
-            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes)
-        {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(firstType, moreTypes));
-            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
 
         //Negations
 
@@ -114,6 +127,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction DoNotDependOn(string pattern)
         {
             _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(pattern));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotDependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotDependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotDependOn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(types));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotDependOn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(types));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -180,18 +217,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction AreNotPrivateProtected()
         {
             _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNotPrivateProtected());
-            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotDependOn(Type firstType, params Type[] moreTypes)
-        {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(firstType, moreTypes));
-            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotDependOn(IType firstType, params IType[] moreTypes)
-        {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(firstType, moreTypes));
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }

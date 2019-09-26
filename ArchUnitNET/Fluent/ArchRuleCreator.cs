@@ -77,7 +77,7 @@ namespace ArchUnitNET.Fluent
             _conditionManager.ContinueComplexCondition(referenceObjectProvider, objectFilter);
         }
 
-        private IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture)
+        public IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture)
         {
             return _objectFilterManager.GetFilteredObjects(architecture);
         }

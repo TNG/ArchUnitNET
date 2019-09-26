@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
@@ -7,6 +8,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     {
         TRuleTypeConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeConjunction DependOn(string pattern);
+        TRuleTypeConjunction DependOn(Type firstType, params Type[] moreTypes);
+        TRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes);
+        TRuleTypeConjunction DependOn(IObjectProvider<IType> types);
+        TRuleTypeConjunction DependOn(IEnumerable<IType> types);
         TRuleTypeConjunction HaveName(string name);
         TRuleTypeConjunction HaveFullName(string fullname);
         TRuleTypeConjunction HaveNameStartingWith(string pattern);
@@ -18,8 +23,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeConjunction AreInternal();
         TRuleTypeConjunction AreProtectedInternal();
         TRuleTypeConjunction ArePrivateProtected();
-        TRuleTypeConjunction DependOn(Type firstType, params Type[] moreTypes);
-        TRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes);
 
 
         //Negations
@@ -27,6 +30,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         TRuleTypeConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeConjunction DoNotDependOn(string pattern);
+        TRuleTypeConjunction DoNotDependOn(Type firstType, params Type[] moreTypes);
+        TRuleTypeConjunction DoNotDependOn(IType firstType, params IType[] moreTypes);
+        TRuleTypeConjunction DoNotDependOn(IObjectProvider<IType> types);
+        TRuleTypeConjunction DoNotDependOn(IEnumerable<IType> types);
         TRuleTypeConjunction DoNotHaveName(string name);
         TRuleTypeConjunction DoNotHaveFullName(string fullname);
         TRuleTypeConjunction DoNotHaveNameStartingWith(string pattern);
@@ -38,7 +45,5 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeConjunction AreNotInternal();
         TRuleTypeConjunction AreNotProtectedInternal();
         TRuleTypeConjunction AreNotPrivateProtected();
-        TRuleTypeConjunction DoNotDependOn(Type firstType, params Type[] moreTypes);
-        TRuleTypeConjunction DoNotDependOn(IType firstType, params IType[] moreTypes);
     }
 }
