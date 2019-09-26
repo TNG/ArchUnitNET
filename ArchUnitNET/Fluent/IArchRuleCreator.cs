@@ -16,8 +16,8 @@ namespace ArchUnitNET.Fluent
         void BeginComplexCondition<TReferenceType>(RelationCondition<TRuleType, TReferenceType> relationCondition)
             where TReferenceType : ICanBeAnalyzed;
 
-        void ContinueComplexCondition<TReferenceType>(ObjectProvider<TReferenceType> referenceObjectProvider,
-            IObjectFilter<TReferenceType> objectFilter) where TReferenceType : ICanBeAnalyzed;
+        void ContinueComplexCondition<TReferenceType>(IObjectFilter<TReferenceType> objectFilter)
+            where TReferenceType : ICanBeAnalyzed;
 
         IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture);
     }

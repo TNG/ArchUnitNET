@@ -70,10 +70,10 @@ namespace ArchUnitNET.Fluent
             _currentArchRuleCreator.BeginComplexCondition(relationCondition);
         }
 
-        public void ContinueComplexCondition<TReferenceType>(ObjectProvider<TReferenceType> referenceObjectProvider,
-            IObjectFilter<TReferenceType> objectFilter) where TReferenceType : ICanBeAnalyzed
+        public void ContinueComplexCondition<TReferenceType>(IObjectFilter<TReferenceType> objectFilter)
+            where TReferenceType : ICanBeAnalyzed
         {
-            _currentArchRuleCreator.ContinueComplexCondition(referenceObjectProvider, objectFilter);
+            _currentArchRuleCreator.ContinueComplexCondition(objectFilter);
         }
 
         public IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture)

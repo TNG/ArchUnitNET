@@ -70,11 +70,10 @@ namespace ArchUnitNET.Fluent
             _conditionManager.BeginComplexCondition(relationCondition);
         }
 
-        public void ContinueComplexCondition<TReferenceType>(ObjectProvider<TReferenceType> referenceObjectProvider,
-            IObjectFilter<TReferenceType> objectFilter)
+        public void ContinueComplexCondition<TReferenceType>(IObjectFilter<TReferenceType> objectFilter)
             where TReferenceType : ICanBeAnalyzed
         {
-            _conditionManager.ContinueComplexCondition(referenceObjectProvider, objectFilter);
+            _conditionManager.ContinueComplexCondition(objectFilter);
         }
 
         public IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture)
@@ -229,6 +228,7 @@ namespace ArchUnitNET.Fluent
         private class ConditionManager<T> : IHasDescription where T : ICanBeAnalyzed
         {
             private readonly List<ConditionElement<T>> _conditionElements;
+            private Type _referenceTypeTemp;
             private object _relationConditionTemp;
 
             public ConditionManager()
@@ -246,15 +246,23 @@ namespace ArchUnitNET.Fluent
                 where TReferenceType : ICanBeAnalyzed
             {
                 _relationConditionTemp = relationCondition;
+                _referenceTypeTemp = typeof(TReferenceType);
             }
 
-            public void ContinueComplexCondition<TReferenceType>(
-                ObjectProvider<TReferenceType> referenceObjectProvider,
-                IObjectFilter<TReferenceType> filter)
+            public void ContinueComplexCondition<TReferenceType>(IObjectFilter<TReferenceType> filter)
                 where TReferenceType : ICanBeAnalyzed
             {
-                AddCondition(new ComplexCondition<T, TReferenceType>(referenceObjectProvider,
-                    (RelationCondition<T, TReferenceType>) _relationConditionTemp, filter));
+                if (typeof(TReferenceType) == _referenceTypeTemp)
+                {
+                    AddCondition(
+                        new ComplexCondition<T, TReferenceType>(
+                            (RelationCondition<T, TReferenceType>) _relationConditionTemp, filter));
+                }
+                else
+                {
+                    throw new InvalidCastException(
+                        "ContinueComplexCondition() has to be called with the same generic type argument that was used for BeginComplexCondition().");
+                }
             }
 
             public void AddCondition(ICondition<T> condition)

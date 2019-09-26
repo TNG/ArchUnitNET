@@ -9,21 +9,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public MethodMembersShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
-            ObjectProviderDefinition.MethodMembers)
+        public MethodMembersShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
         public TRuleTypeShouldConjunction AreConstructors()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                MethodMembersFilterDefinition.AreConstructors());
+            _ruleCreator.ContinueComplexCondition(MethodMembersFilterDefinition.AreConstructors());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreVirtual()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, MethodMembersFilterDefinition.AreVirtual());
+            _ruleCreator.ContinueComplexCondition(MethodMembersFilterDefinition.AreVirtual());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -33,15 +31,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public TRuleTypeShouldConjunction AreNoConstructors()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                MethodMembersFilterDefinition.AreNoConstructors());
+            _ruleCreator.ContinueComplexCondition(MethodMembersFilterDefinition.AreNoConstructors());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotVirtual()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider,
-                MethodMembersFilterDefinition.AreNotVirtual());
+            _ruleCreator.ContinueComplexCondition(MethodMembersFilterDefinition.AreNotVirtual());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

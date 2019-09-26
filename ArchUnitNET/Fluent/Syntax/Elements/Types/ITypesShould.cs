@@ -1,5 +1,6 @@
 ﻿using System;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -17,6 +18,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TRuleTypeShouldConjunction HaveMethodMemberWithName(string name);
         TRuleTypeShouldConjunction HaveMemberWithName(string name);
         TRuleTypeShouldConjunction BeNested();
+        AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat();
+        AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat();
 
 
         //Negations
@@ -31,5 +34,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TRuleTypeShouldConjunction NotHaveMethodMemberWithName(string name);
         TRuleTypeShouldConjunction NotHaveMemberWithName(string name);
         TRuleTypeShouldConjunction NotBeNested();
+        AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat();
     }
 }

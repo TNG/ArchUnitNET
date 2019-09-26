@@ -8,38 +8,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         IClassesThat<TRuleTypeShouldConjunction> where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public ClassesShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator,
-            ObjectProviderDefinition.Classes)
+        public ClassesShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
         public TRuleTypeShouldConjunction AreAbstract()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreAbstract());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreAbstract());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreSealed()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreSealed());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreSealed());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreValueTypes()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreValueTypes());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreValueTypes());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreEnums()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreEnums());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreEnums());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreStructs()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreStructs());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreStructs());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -49,31 +48,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public TRuleTypeShouldConjunction AreNotAbstract()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreNotAbstract());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotAbstract());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotSealed()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreNotSealed());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotSealed());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotValueTypes()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreNotValueTypes());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotValueTypes());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotEnums()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreNotEnums());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotEnums());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotStructs()
         {
-            _ruleCreator.ContinueComplexCondition(_referenceObjectProvider, ClassesFilterDefinition.AreNotStructs());
+            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotStructs());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

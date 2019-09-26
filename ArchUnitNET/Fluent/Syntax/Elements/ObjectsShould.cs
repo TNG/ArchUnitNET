@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
@@ -124,6 +123,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        //Complex Conditions
+
+        public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat()
+        {
+            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.DependOnClassesThat());
+            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnClassesThat()
+        {
+            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOnClassesThat());
+            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -242,26 +255,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.NotDependOnClassesThat());
             return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat()
-        {
-            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.NotHaveAttributesThat());
-            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        //Complex Conditions
-
-        public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat()
-        {
-            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.DependOnClassesThat());
-            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat()
-        {
-            _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.HaveAttributesThat());
-            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

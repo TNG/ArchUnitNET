@@ -2,6 +2,8 @@
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
+using static ArchUnitNET.Fluent.EnumerableOperator;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -76,6 +78,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(type => type.IsNested, "be nested", "is not nested");
         }
 
+        //Complex Conditions
+
+        public static RelationCondition<TRuleType, Attribute> HaveAttributesThat()
+        {
+            return new RelationCondition<TRuleType, Attribute>(type => type.GetAttributes(), Any,
+                "have attributes that",
+                "does not have attributes that");
+        }
+
+        public static RelationCondition<TRuleType, Attribute> OnlyHaveAttributesThat()
+        {
+            return new RelationCondition<TRuleType, Attribute>(type => type.GetAttributes(), All,
+                "only have attributes that",
+                "does not only have attributes that");
+        }
+
         //Negations
 
         public static ArchitectureCondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
@@ -145,6 +163,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static SimpleCondition<TRuleType> NotBeNested()
         {
             return new SimpleCondition<TRuleType>(type => !type.IsNested, "not be nested", "is nested");
+        }
+
+        //Complex Condition Negations
+        public static RelationCondition<TRuleType, Attribute> NotHaveAttributesThat()
+        {
+            return new RelationCondition<TRuleType, Attribute>(type => type.GetAttributes(), None,
+                "not have attributes that",
+                "does have attributes that");
         }
     }
 }

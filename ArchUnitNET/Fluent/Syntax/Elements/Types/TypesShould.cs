@@ -1,5 +1,6 @@
 ﻿using System;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
@@ -69,6 +70,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        //Complex Conditions
+
+        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat()
+        {
+            _ruleCreator.BeginComplexCondition(TypesConditionDefinition<TRuleType>.HaveAttributesThat());
+            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat()
+        {
+            _ruleCreator.BeginComplexCondition(TypesConditionDefinition<TRuleType>.OnlyHaveAttributesThat());
+            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -125,6 +140,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBeNested());
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        //Complex Condition Negations
+
+        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat()
+        {
+            _ruleCreator.BeginComplexCondition(TypesConditionDefinition<TRuleType>.NotHaveAttributesThat());
+            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Domain.Visibility;
-using Attribute = ArchUnitNET.Domain.Attribute;
+using static ArchUnitNET.Fluent.EnumerableOperator;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -190,15 +190,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static RelationCondition<TRuleType, Class> DependOnClassesThat()
         {
-            return new RelationCondition<TRuleType, Class>((obj, cls) => obj.DependsOn(cls.FullName),
+            return new RelationCondition<TRuleType, Class>(obj => obj.GetClassDependencies(), Any,
                 "depend on classes that",
                 "does not depend on classes that");
         }
 
-        public static RelationCondition<TRuleType, Attribute> HaveAttributesThat()
+        public static RelationCondition<TRuleType, Class> OnlyDependOnClassesThat()
         {
-            return new RelationCondition<TRuleType, Attribute>((obj, attribute) => obj.Attributes.Contains(attribute),
-                "have attributes that", "does not have attributes that");
+            return new RelationCondition<TRuleType, Class>(obj => obj.GetClassDependencies(), All,
+                "only depend on classes that",
+                "does not only depend on classes that");
         }
 
 
@@ -368,18 +369,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
 
-        //Relation Conditions Negations
+        //Relation Conditions
 
         public static RelationCondition<TRuleType, Class> NotDependOnClassesThat()
         {
-            return new RelationCondition<TRuleType, Class>((obj, cls) => !obj.DependsOn(cls.FullName),
-                "not depend on classes that", "does depend on classes that");
-        }
-
-        public static RelationCondition<TRuleType, Attribute> NotHaveAttributesThat()
-        {
-            return new RelationCondition<TRuleType, Attribute>((obj, attribute) => !obj.Attributes.Contains(attribute),
-                "not have attributes that", "does have attributes that");
+            return new RelationCondition<TRuleType, Class>(obj => obj.GetClassDependencies(), None,
+                "not depend on classes that",
+                "does depend on classes that");
         }
     }
 }

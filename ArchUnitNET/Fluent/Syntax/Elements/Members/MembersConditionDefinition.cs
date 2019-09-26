@@ -1,5 +1,6 @@
 ﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
+using static ArchUnitNET.Fluent.EnumerableOperator;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
@@ -47,6 +48,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 "has no field type dependencies \"" + pattern + "\"");
         }
 
+        //Complex Conditions
+
+        public static RelationCondition<TRuleType, Attribute> HaveAttributesThat()
+        {
+            return new RelationCondition<TRuleType, Attribute>(member => member.GetAttributes(), Any,
+                "have attributes that",
+                "does not have attributes that");
+        }
+
+        public static RelationCondition<TRuleType, Attribute> OnlyHaveAttributesThat()
+        {
+            return new RelationCondition<TRuleType, Attribute>(member => member.GetAttributes(), All,
+                "only have attributes that",
+                "does not only have attributes that");
+        }
+
 
         //Negations
 
@@ -91,6 +108,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimpleCondition<TRuleType>(member => !member.HasFieldTypeDependencies(pattern),
                 "not have field type dependencies \"" + pattern + "\"",
                 "does have field type dependencies \"" + pattern + "\"");
+        }
+
+        //Complex Condition Negations
+
+        public static RelationCondition<TRuleType, Attribute> NotHaveAttributesThat()
+        {
+            return new RelationCondition<TRuleType, Attribute>(member => member.GetAttributes(), None,
+                "not have attributes that", "does have attributes that");
         }
     }
 }
