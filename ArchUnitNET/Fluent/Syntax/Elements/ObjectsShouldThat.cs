@@ -53,6 +53,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction OnlyDependOn(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.OnlyDependOn(pattern));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.OnlyDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.OnlyDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.OnlyDependOn(types));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.OnlyDependOn(types));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HaveName(string name)
         {
             _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.HaveName(name));

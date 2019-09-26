@@ -33,6 +33,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction DependOn(IType type)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.DependOn(type));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DependOn(Type type)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.DependOn(type));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(string pattern)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(pattern));
+            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));

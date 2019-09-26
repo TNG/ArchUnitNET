@@ -48,6 +48,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction OnlyDependOn(string pattern)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.OnlyDependOn(pattern));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyDependOn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyDependOn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyDependOn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.OnlyDependOn(types));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyDependOn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.OnlyDependOn(types));
+            return CreateSyntaxElement<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction HaveName(string name)
         {
             _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.HaveName(name));

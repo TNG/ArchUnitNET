@@ -12,6 +12,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction Exist();
         TRuleTypeShouldConjunction Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeShouldConjunction DependOn(string pattern);
+        TRuleTypeShouldConjunction DependOn(IType type);
+        TRuleTypeShouldConjunction DependOn(Type type);
+        TRuleTypeShouldConjunction OnlyDependOn(string pattern);
         TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes);
         TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes);
         TRuleTypeShouldConjunction OnlyDependOn(IObjectProvider<IType> types);

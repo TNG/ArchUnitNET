@@ -12,6 +12,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes);
         TRuleTypeConjunction DependOn(IObjectProvider<IType> types);
         TRuleTypeConjunction DependOn(IEnumerable<IType> types);
+        TRuleTypeConjunction OnlyDependOn(string pattern);
+        TRuleTypeConjunction OnlyDependOn(Type firstType, params Type[] moreTypes);
+        TRuleTypeConjunction OnlyDependOn(IType firstType, params IType[] moreTypes);
+        TRuleTypeConjunction OnlyDependOn(IObjectProvider<IType> types);
+        TRuleTypeConjunction OnlyDependOn(IEnumerable<IType> types);
         TRuleTypeConjunction HaveName(string name);
         TRuleTypeConjunction HaveFullName(string fullname);
         TRuleTypeConjunction HaveNameStartingWith(string pattern);

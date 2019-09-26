@@ -32,6 +32,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "does not depend on \"" + pattern + "\"");
         }
 
+        public static SimpleCondition<TRuleType> DependOn(IType type)
+        {
+            return new SimpleCondition<TRuleType>(obj => obj.DependsOn(type), "depend on \"" + type.FullName + "\"",
+                "does not depend on \"" + type.FullName + "\"");
+        }
+
+        public static ArchitectureCondition<TRuleType> DependOn(Type type)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return ruleType.DependsOn(architecture.GetTypeOfType(type));
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, "depend on \"" + type.FullName + "\"",
+                "does not depend on \"" + type.FullName + "\"");
+        }
+
+        public static SimpleCondition<TRuleType> OnlyDependOn(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(obj => obj.OnlyDependsOn(pattern),
+                "only depend on \"" + pattern + "\"",
+                "does not only depend on \"" + pattern + "\"");
+        }
+
+
         public static SimpleCondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType ruleType)
@@ -71,7 +96,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var types = objectProvider.GetObjects(architecture);
                 return ruleType.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => types.Any(t => t.Equals(target)));
+                    .All(target => types.Contains(target));
             }
 
             var description = "only depend on " + objectProvider.Description;
@@ -91,7 +116,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
 
                 return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => typeList.Any(t => t.Equals(target)));
+                    .All(target => typeList.Contains(target));
             }
 
             string description;
@@ -265,7 +290,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var types = objectProvider.GetObjects(architecture);
                 return ruleType.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => types.All(t => !t.Equals(target)));
+                    .All(target => !types.Contains(target));
             }
 
             var description = "not depend on " + objectProvider.Description;
@@ -280,7 +305,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Condition(TRuleType type)
             {
                 return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => typeList.All(t => !t.Equals(target)));
+                    .All(target => !typeList.Contains(target));
             }
 
             string description;

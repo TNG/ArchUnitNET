@@ -124,6 +124,16 @@ namespace ArchUnitNET.Fluent.Extensions
             return c.Dependencies.Exists(d => d.Target.FullName.ToLower().Contains(pattern.ToLower()));
         }
 
+        public static bool DependsOn(this IHasDependencies c, IType type)
+        {
+            return c.Dependencies.Select(dependency => dependency.Target).Contains(type);
+        }
+
+        public static bool OnlyDependsOn(this IHasDependencies c, string pattern)
+        {
+            return c.Dependencies.All(d => d.Target.FullName.ToLower().Contains(pattern.ToLower()));
+        }
+
         public static IEnumerable<Class> GetClassDependencies(this IHasDependencies c)
         {
             return c.Dependencies.Select(dependency => dependency.Target).OfType<Class>();
