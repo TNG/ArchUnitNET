@@ -37,6 +37,10 @@ namespace ArchUnitNETTests.Core
 
             Assert.Single(ArchUnitNETTestAssemblyArchitecture.Assemblies);
             Assert.Contains(ArchUnitTestAssemblyAssembly, ArchUnitNETTestAssemblyArchitecture.Assemblies);
+
+            Assert.NotEmpty(FullArchUnitNETArchitectureWithDependencies.Assemblies);
+            Assert.NotEmpty(ArchUnitNETTestArchitectureWithDependencies.Assemblies);
+            Assert.NotEmpty(ArchUnitNETTestAssemblyArchitectureWithDependencies.Assemblies);
         }
     }
 }

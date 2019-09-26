@@ -31,44 +31,50 @@ namespace ArchUnitNET.Core
             return architecture;
         }
 
-        public ArchLoader LoadAssemblies(params Assembly[] assemblies)
+        public ArchLoader LoadAssemblies(bool includeDependencies, params Assembly[] assemblies)
         {
             var assemblySet = new HashSet<Assembly>(assemblies);
-            assemblySet.ForEach(assembly => LoadAssembly(assembly.Location));
+            assemblySet.ForEach(assembly => LoadAssembly(assembly, includeDependencies));
             return this;
         }
 
+        public ArchLoader LoadAssemblies(params Assembly[] assemblies)
+        {
+            return LoadAssemblies(false, assemblies);
+        }
+
         public ArchLoader LoadFilteredDirectory(string directory, string filter,
-            SearchOption searchOption = TopDirectoryOnly)
+            SearchOption searchOption = TopDirectoryOnly, bool includeDependencies = false)
         {
             var path = Path.GetFullPath(directory);
             _assemblyResolver.AssemblyPath = path;
             var assemblies = Directory.GetFiles(path, filter, searchOption);
 
             var result = this;
-            return assemblies.Aggregate(result, (current, assembly) => current.LoadAssembly(assembly));
+            return assemblies.Aggregate(result,
+                (current, assembly) => current.LoadAssembly(assembly, includeDependencies));
         }
 
         public ArchLoader LoadNamespacesWithinAssembly(Assembly assembly, params string[] namespc)
         {
             var nameSpaces = new HashSet<string>(namespc);
-            nameSpaces.ForEach(nameSpace => { LoadModule(assembly.Location, nameSpace); });
+            nameSpaces.ForEach(nameSpace => { LoadModule(assembly.Location, nameSpace, false); });
             return this;
         }
 
-        public ArchLoader LoadAssembly(Assembly assembly)
+        public ArchLoader LoadAssembly(Assembly assembly, bool includeDependencies = false)
         {
-            return LoadAssembly(assembly.Location);
+            return LoadAssembly(assembly.Location, includeDependencies);
         }
 
-        private ArchLoader LoadAssembly(string fileName)
+        private ArchLoader LoadAssembly(string fileName, bool includeDependencies)
         {
-            LoadModule(fileName, null);
+            LoadModule(fileName, null, includeDependencies);
 
             return this;
         }
 
-        private void LoadModule(string fileName, string nameSpace)
+        private void LoadModule(string fileName, string nameSpace, bool includeDependencies)
         {
             try
             {
@@ -76,12 +82,26 @@ namespace ArchUnitNET.Core
                     new ReaderParameters {AssemblyResolver = _assemblyResolver});
                 _assemblyResolver.AddLib(module.Assembly);
                 _archBuilder.AddAssembly(module.Assembly, false);
-                foreach (var reference in module.AssemblyReferences)
+                foreach (var assemblyReference in module.AssemblyReferences)
                 {
-                    _assemblyResolver.AddLib(reference);
+                    _assemblyResolver.AddLib(assemblyReference);
+                    if (includeDependencies)
+                    {
+                        _archBuilder.AddAssembly(
+                            _assemblyResolver.Resolve(assemblyReference) ??
+                            throw new AssemblyResolutionException(assemblyReference), false);
+                    }
                 }
 
                 _archBuilder.LoadTypesForModule(module, nameSpace);
+                if (includeDependencies)
+                {
+                    foreach (var moduleDefinition in module.AssemblyReferences.SelectMany(reference =>
+                        _assemblyResolver.Resolve(reference)?.Modules))
+                    {
+                        _archBuilder.LoadTypesForModule(moduleDefinition, null);
+                    }
+                }
             }
             catch (BadImageFormatException)
             {

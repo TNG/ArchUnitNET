@@ -122,11 +122,11 @@ namespace ArchUnitNET.Core.LoadTasks
 
             if (methodForm == MethodForm.Getter)
             {
-                accessedProperty.Getter.MemberDependencies.AddRange(memberDependenciesToAdd);
+                accessedProperty.Getter?.MemberDependencies.AddRange(memberDependenciesToAdd);
             }
             else if (methodForm == MethodForm.Setter)
             {
-                accessedProperty.Setter.MemberDependencies.AddRange(memberDependenciesToAdd);
+                accessedProperty.Setter?.MemberDependencies.AddRange(memberDependenciesToAdd);
             }
 
             accessedProperty.MemberDependencies.AddRange(memberDependenciesToAdd);

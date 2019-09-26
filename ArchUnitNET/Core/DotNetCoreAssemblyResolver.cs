@@ -74,10 +74,18 @@ namespace ArchUnitNET.Core
             }
         }
 
+        private void AddLib([NotNull] AssemblyNameReference name, [NotNull] AssemblyDefinition moduleAssembly)
+        {
+            if (!_libraries.ContainsKey(name.FullName))
+            {
+                _libraries.Add(name.FullName, moduleAssembly);
+            }
+        }
+
         public void AddLib(AssemblyNameReference name)
         {
             var assembly = _defaultAssemblyResolver.Resolve(name);
-            AddLib(assembly ?? throw new AssemblyResolutionException(name));
+            AddLib(name, assembly ?? throw new AssemblyResolutionException(name));
         }
 
         private void Dispose(bool disposing)

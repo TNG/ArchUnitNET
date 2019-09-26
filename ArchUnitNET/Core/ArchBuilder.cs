@@ -10,6 +10,7 @@ using System.Linq;
 using ArchUnitNET.Core.LoadTasks;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
+using JetBrains.Annotations;
 using Mono.Cecil;
 
 namespace ArchUnitNET.Core
@@ -40,7 +41,7 @@ namespace ArchUnitNET.Core
         public IEnumerable<Assembly> Assemblies => _assemblyRegistry.Assemblies;
         public IEnumerable<Namespace> Namespaces => _namespaceRegistry.Namespaces;
 
-        public void AddAssembly(AssemblyDefinition moduleAssembly, bool isOnlyReferenced)
+        public void AddAssembly([NotNull] AssemblyDefinition moduleAssembly, bool isOnlyReferenced)
         {
             _assemblyRegistry.GetOrCreateAssembly(moduleAssembly.Name.FullName, moduleAssembly.FullName,
                 isOnlyReferenced);
