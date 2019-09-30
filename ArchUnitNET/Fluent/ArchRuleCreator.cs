@@ -17,9 +17,9 @@ namespace ArchUnitNET.Fluent
 
         public string Description => _objectFilterManager.Description + " " + _conditionManager.Description;
 
-        public bool Check(Architecture architecture)
+        public bool HasViolations(Architecture architecture)
         {
-            return CheckConditions(GetFilteredObjects(architecture), architecture);
+            return HasViolations(GetFilteredObjects(architecture), architecture);
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
@@ -75,7 +75,7 @@ namespace ArchUnitNET.Fluent
             return _objectFilterManager.GetFilteredObjects(architecture);
         }
 
-        private bool CheckConditions(IEnumerable<TRuleType> filteredObjects, Architecture architecture)
+        private bool HasViolations(IEnumerable<TRuleType> filteredObjects, Architecture architecture)
         {
             return _conditionManager.CheckConditions(filteredObjects, architecture);
         }

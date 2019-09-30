@@ -10,9 +10,9 @@ namespace ArchUnitNET.Fluent
         {
         }
 
-        public bool Check(Architecture architecture)
+        public bool HasViolations(Architecture architecture)
         {
-            return _ruleCreator.Check(architecture);
+            return _ruleCreator.HasViolations(architecture);
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)

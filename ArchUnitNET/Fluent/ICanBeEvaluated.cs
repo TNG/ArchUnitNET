@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent
 {
     public interface ICanBeEvaluated : IHasDescription
     {
-        bool Check(Architecture architecture);
+        bool HasViolations(Architecture architecture);
         IEnumerable<EvaluationResult> Evaluate(Architecture architecture);
     }
 }

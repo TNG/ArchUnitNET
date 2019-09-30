@@ -30,10 +30,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var nestedTypesDoNotIncludeType = Types().That().AreNested().Should().NotBe(type);
                 var notNestedTypesDoNotIncludeType = Types().That().AreNotNested().Should().NotBe(type);
 
-                Assert.Equal(type.IsNested, typeIsNested.Check(Architecture));
-                Assert.Equal(!type.IsNested, typeIsNotNested.Check(Architecture));
-                Assert.Equal(!type.IsNested, nestedTypesDoNotIncludeType.Check(Architecture));
-                Assert.Equal(type.IsNested, notNestedTypesDoNotIncludeType.Check(Architecture));
+                Assert.Equal(type.IsNested, typeIsNested.HasViolations(Architecture));
+                Assert.Equal(!type.IsNested, typeIsNotNested.HasViolations(Architecture));
+                Assert.Equal(!type.IsNested, nestedTypesDoNotIncludeType.HasViolations(Architecture));
+                Assert.Equal(type.IsNested, notNestedTypesDoNotIncludeType.HasViolations(Architecture));
             }
 
             var nestedTypesAreNested = Types().That().AreNested().Should().BeNested();
@@ -41,10 +41,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var notNestedTypesAreNested = Types().That().AreNotNested().Should().BeNested();
             var notNestedTypesAreNotNested = Types().That().AreNotNested().Should().NotBeNested();
 
-            Assert.True(nestedTypesAreNested.Check(Architecture));
-            Assert.False(nestedTypesAreNotNested.Check(Architecture));
-            Assert.False(notNestedTypesAreNested.Check(Architecture));
-            Assert.True(notNestedTypesAreNotNested.Check(Architecture));
+            Assert.True(nestedTypesAreNested.HasViolations(Architecture));
+            Assert.False(nestedTypesAreNotNested.HasViolations(Architecture));
+            Assert.False(notNestedTypesAreNested.HasViolations(Architecture));
+            Assert.True(notNestedTypesAreNotNested.HasViolations(Architecture));
         }
 
         [Fact]
@@ -58,10 +58,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Types().That().AreNotPublic().Should().NotBe(typeof(PublicTestClass));
             var publicTypesAreNotPublicTestClass = Types().That().ArePublic().Should().NotBe(typeof(PublicTestClass));
 
-            Assert.True(publicTestClassIsPublic.Check(Architecture));
-            Assert.False(publicTestClassIsNotPublic.Check(Architecture));
-            Assert.True(notPublicTypesAreNotPublicTestClass.Check(Architecture));
-            Assert.False(publicTypesAreNotPublicTestClass.Check(Architecture));
+            Assert.True(publicTestClassIsPublic.HasViolations(Architecture));
+            Assert.False(publicTestClassIsNotPublic.HasViolations(Architecture));
+            Assert.True(notPublicTypesAreNotPublicTestClass.HasViolations(Architecture));
+            Assert.False(publicTypesAreNotPublicTestClass.HasViolations(Architecture));
 
 
             //Tests with multiple arguments
@@ -75,10 +75,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var internalTypesAreNotPublicTestClassOrInternalTestClass = Types().That().AreInternal().Should()
                 .NotBe(typeof(PublicTestClass), typeof(InternalTestClass));
 
-            Assert.True(publicTestClassAndInternalTestClassIsPublicOrInternal.Check(Architecture));
-            Assert.False(publicTestClassAndInternalTestClassIsPublic.Check(Architecture));
-            Assert.True(notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass.Check(Architecture));
-            Assert.False(internalTypesAreNotPublicTestClassOrInternalTestClass.Check(Architecture));
+            Assert.True(publicTestClassAndInternalTestClassIsPublicOrInternal.HasViolations(Architecture));
+            Assert.False(publicTestClassAndInternalTestClassIsPublic.HasViolations(Architecture));
+            Assert.True(
+                notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass.HasViolations(Architecture));
+            Assert.False(internalTypesAreNotPublicTestClassOrInternalTestClass.HasViolations(Architecture));
         }
 
         [Fact]
@@ -97,10 +98,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var typesWithFieldMemberShouldBeOtherTypes = Types().That()
                         .HaveFieldMemberWithName(fieldMember.Name).Should().NotBe(type);
 
-                    Assert.True(typeHasFieldMember.Check(Architecture));
-                    Assert.False(typeDoesNotHaveFieldMember.Check(Architecture));
-                    Assert.True(typesWithFieldMemberShouldExist.Check(Architecture));
-                    Assert.False(typesWithFieldMemberShouldBeOtherTypes.Check(Architecture));
+                    Assert.True(typeHasFieldMember.HasViolations(Architecture));
+                    Assert.False(typeDoesNotHaveFieldMember.HasViolations(Architecture));
+                    Assert.True(typesWithFieldMemberShouldExist.HasViolations(Architecture));
+                    Assert.False(typesWithFieldMemberShouldBeOtherTypes.HasViolations(Architecture));
                 }
             }
 
@@ -112,8 +113,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesWithFieldMemberExist =
                     Types().That().HaveFieldMemberWithName(fieldMember.Name).Should().Exist();
 
-                Assert.True(typesWithFieldMemberShouldHaveFieldMember.Check(Architecture));
-                Assert.True(typesWithFieldMemberExist.Check(Architecture));
+                Assert.True(typesWithFieldMemberShouldHaveFieldMember.HasViolations(Architecture));
+                Assert.True(typesWithFieldMemberExist.HasViolations(Architecture));
             }
         }
 
@@ -133,10 +134,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var typesWithMemberShouldBeOtherTypes = Types().That()
                         .HaveMemberWithName(member.Name).Should().NotBe(type);
 
-                    Assert.True(typeHasMember.Check(Architecture));
-                    Assert.False(typeDoesNotHaveMember.Check(Architecture));
-                    Assert.True(typesWithMemberShouldExist.Check(Architecture));
-                    Assert.False(typesWithMemberShouldBeOtherTypes.Check(Architecture));
+                    Assert.True(typeHasMember.HasViolations(Architecture));
+                    Assert.False(typeDoesNotHaveMember.HasViolations(Architecture));
+                    Assert.True(typesWithMemberShouldExist.HasViolations(Architecture));
+                    Assert.False(typesWithMemberShouldBeOtherTypes.HasViolations(Architecture));
                 }
             }
 
@@ -148,8 +149,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesWithMemberExist =
                     Types().That().HaveMemberWithName(member.Name).Should().Exist();
 
-                Assert.True(typesWithMemberShouldHaveMember.Check(Architecture));
-                Assert.True(typesWithMemberExist.Check(Architecture));
+                Assert.True(typesWithMemberShouldHaveMember.HasViolations(Architecture));
+                Assert.True(typesWithMemberExist.HasViolations(Architecture));
             }
         }
 
@@ -170,10 +171,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var typesWithMethodMemberShouldBeOtherTypes = Types().That()
                         .HaveMethodMemberWithName(methodMember.Name).Should().NotBe(type);
 
-                    Assert.True(typeHasMethodMember.Check(Architecture));
-                    Assert.False(typeDoesNotHaveMethodMember.Check(Architecture));
-                    Assert.True(typesWithMethodMemberShouldExist.Check(Architecture));
-                    Assert.False(typesWithMethodMemberShouldBeOtherTypes.Check(Architecture));
+                    Assert.True(typeHasMethodMember.HasViolations(Architecture));
+                    Assert.False(typeDoesNotHaveMethodMember.HasViolations(Architecture));
+                    Assert.True(typesWithMethodMemberShouldExist.HasViolations(Architecture));
+                    Assert.False(typesWithMethodMemberShouldBeOtherTypes.HasViolations(Architecture));
                 }
             }
 
@@ -185,8 +186,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesWithMethodMemberExist =
                     Types().That().HaveMethodMemberWithName(methodMember.Name).Should().Exist();
 
-                Assert.True(typesWithMethodMemberShouldHaveMethodMember.Check(Architecture));
-                Assert.True(typesWithMethodMemberExist.Check(Architecture));
+                Assert.True(typesWithMethodMemberShouldHaveMethodMember.HasViolations(Architecture));
+                Assert.True(typesWithMethodMemberExist.HasViolations(Architecture));
             }
         }
 
@@ -206,10 +207,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var typesWithPropertyMemberShouldBeOtherTypes = Types().That()
                         .HavePropertyMemberWithName(propertyMember.Name).Should().NotBe(type);
 
-                    Assert.True(typeHasPropertyMember.Check(Architecture));
-                    Assert.False(typeDoesNotHavePropertyMember.Check(Architecture));
-                    Assert.True(typesWithPropertyMemberShouldExist.Check(Architecture));
-                    Assert.False(typesWithPropertyMemberShouldBeOtherTypes.Check(Architecture));
+                    Assert.True(typeHasPropertyMember.HasViolations(Architecture));
+                    Assert.False(typeDoesNotHavePropertyMember.HasViolations(Architecture));
+                    Assert.True(typesWithPropertyMemberShouldExist.HasViolations(Architecture));
+                    Assert.False(typesWithPropertyMemberShouldBeOtherTypes.HasViolations(Architecture));
                 }
             }
 
@@ -221,8 +222,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesWithPropertyMemberExist =
                     Types().That().HavePropertyMemberWithName(propertyMember.Name).Should().Exist();
 
-                Assert.True(typesWithPropertyMemberShouldHavePropertyMember.Check(Architecture));
-                Assert.True(typesWithPropertyMemberExist.Check(Architecture));
+                Assert.True(typesWithPropertyMemberShouldHavePropertyMember.HasViolations(Architecture));
+                Assert.True(typesWithPropertyMemberExist.HasViolations(Architecture));
             }
         }
 
@@ -232,7 +233,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var interfaceImplementsWrongInterface =
                 Interfaces().That().Are(InheritedFromTestInterface12).Should().ImplementInterface(TestInterface1);
 
-            Assert.False(interfaceImplementsWrongInterface.Check(Architecture));
+            Assert.False(interfaceImplementsWrongInterface.HasViolations(Architecture));
         }
 
 
@@ -250,10 +251,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesThatDoNotImplementInterfaceDoNotImplementInterface = Types().That()
                     .DoNotImplementInterface(intf.FullName).Should().NotImplementInterface(intf);
 
-                Assert.True(typesThatImplementInterfaceImplementInterface.Check(Architecture));
-                Assert.False(typesThatImplementInterfaceDoNotImplementInterface.Check(Architecture));
-                Assert.False(typesThatDoNotImplementInterfaceImplementInterface.Check(Architecture));
-                Assert.True(typesThatDoNotImplementInterfaceDoNotImplementInterface.Check(Architecture));
+                Assert.True(typesThatImplementInterfaceImplementInterface.HasViolations(Architecture));
+                Assert.False(typesThatImplementInterfaceDoNotImplementInterface.HasViolations(Architecture));
+                Assert.False(typesThatDoNotImplementInterfaceImplementInterface.HasViolations(Architecture));
+                Assert.True(typesThatDoNotImplementInterfaceDoNotImplementInterface.HasViolations(Architecture));
             }
 
             var testClassThatImplementsInterfaceImplementsInterface = Classes().That()
@@ -269,11 +270,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .Are(StaticTestTypes.PublicTestClass).Should().ImplementInterface(InheritedTestInterface).AndShould()
                 .Exist();
 
-            Assert.True(testClassThatImplementsInterfaceImplementsInterface.Check(Architecture));
-            Assert.True(testClassThatImplementsOtherInterfaceImplementsInterfaces.Check(Architecture));
-            Assert.True(testInterfaceThatImplementsInterfaceImplementsInterface.Check(Architecture));
-            Assert.True(testClassThatImplementsNoInterfaceDoesNotImplementInterface.Check(Architecture));
-            Assert.False(testClassThatImplementsNoInterfaceImplementsInterface.Check(Architecture));
+            Assert.True(testClassThatImplementsInterfaceImplementsInterface.HasViolations(Architecture));
+            Assert.True(testClassThatImplementsOtherInterfaceImplementsInterfaces.HasViolations(Architecture));
+            Assert.True(testInterfaceThatImplementsInterfaceImplementsInterface.HasViolations(Architecture));
+            Assert.True(testClassThatImplementsNoInterfaceDoesNotImplementInterface.HasViolations(Architecture));
+            Assert.False(testClassThatImplementsNoInterfaceImplementsInterface.HasViolations(Architecture));
         }
 
         [Fact]
@@ -290,10 +291,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesInOtherNamespaceAreOtherTypes = Types().That().DoNotResideInNamespace(type.Namespace.FullName)
                     .Should().NotBe(type);
 
-                Assert.True(typeResidesInOwnNamespace.Check(Architecture));
-                Assert.False(typeDoesNotResideInOwnNamespace.Check(Architecture));
-                Assert.True(thereAreTypesInOwnNamespace.Check(Architecture));
-                Assert.True(typesInOtherNamespaceAreOtherTypes.Check(Architecture));
+                Assert.True(typeResidesInOwnNamespace.HasViolations(Architecture));
+                Assert.False(typeDoesNotResideInOwnNamespace.HasViolations(Architecture));
+                Assert.True(thereAreTypesInOwnNamespace.HasViolations(Architecture));
+                Assert.True(typesInOtherNamespaceAreOtherTypes.HasViolations(Architecture));
             }
 
             foreach (var namespc in Architecture.Namespaces.Select(namespc => namespc.FullName))
@@ -303,8 +304,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesInOtherNamespaceAreInOtherNamespace = Types().That().DoNotResideInNamespace(namespc).Should()
                     .NotResideInNamespace(namespc);
 
-                Assert.True(typesInNamespaceAreInNamespace.Check(Architecture));
-                Assert.True(typesInOtherNamespaceAreInOtherNamespace.Check(Architecture));
+                Assert.True(typesInNamespaceAreInNamespace.HasViolations(Architecture));
+                Assert.True(typesInOtherNamespaceAreInOtherNamespace.HasViolations(Architecture));
             }
         }
 
@@ -313,7 +314,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var typesThatAreNotNestedMustBeVisible =
                 Types().That().AreNotNested().Should().BePublic().OrShould().BeInternal();
-            Assert.True(typesThatAreNotNestedMustBeVisible.Check(Architecture));
+            Assert.True(typesThatAreNotNestedMustBeVisible.HasViolations(Architecture));
         }
 
         [Fact]
@@ -321,7 +322,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var typesWithRestrictedVisibilityMustBeNested = Types().That().ArePrivate().Or()
                 .AreProtected().Or().ArePrivateProtected().Or().AreProtectedInternal().Should().BeNested();
-            Assert.True(typesWithRestrictedVisibilityMustBeNested.Check(Architecture));
+            Assert.True(typesWithRestrictedVisibilityMustBeNested.HasViolations(Architecture));
         }
     }
 }

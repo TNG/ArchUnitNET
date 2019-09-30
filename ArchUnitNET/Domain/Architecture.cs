@@ -37,9 +37,9 @@ namespace ArchUnitNET.Domain
         public IEnumerable<MethodMember> MethodMembers => Members.OfType<MethodMember>();
         public IEnumerable<IMember> Members => Types.SelectMany(type => type.Members);
 
-        public bool CheckRule(IArchRule archRule)
+        public bool ViolatesRule(IArchRule archRule)
         {
-            return archRule.Check(this);
+            return archRule.HasViolations(this);
         }
 
         public IEnumerable<EvaluationResult> EvaluateRule(IArchRule archRule)

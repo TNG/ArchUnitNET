@@ -23,10 +23,10 @@ namespace ArchUnitNET.Fluent
         public string Description => _oldRule.Description + " " + _logicalConjunction.Description +
                                      " " + _currentArchRuleCreator.Description;
 
-        public bool Check(Architecture architecture)
+        public bool HasViolations(Architecture architecture)
         {
-            return _logicalConjunction.Evaluate(_oldRule.Check(architecture),
-                _currentArchRuleCreator.Check(architecture));
+            return _logicalConjunction.Evaluate(_oldRule.HasViolations(architecture),
+                _currentArchRuleCreator.HasViolations(architecture));
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
