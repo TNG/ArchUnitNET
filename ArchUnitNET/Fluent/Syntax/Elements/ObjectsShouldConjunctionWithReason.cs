@@ -3,10 +3,10 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public abstract class ObjectsShouldConjunctionWithoutBecause<TRuleTypeShould, TRuleType> : ArchRule<TRuleType>
+    public abstract class ObjectsShouldConjunctionWithReason<TRuleTypeShould, TRuleType> : ArchRule<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        protected ObjectsShouldConjunctionWithoutBecause(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        protected ObjectsShouldConjunctionWithReason(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 

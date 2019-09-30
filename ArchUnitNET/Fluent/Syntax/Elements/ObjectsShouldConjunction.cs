@@ -4,18 +4,18 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public abstract class
-        ObjectsShouldConjunction<TRuleTypeShould, TRuleTypeShouldConjunctionWithoutBecause, TRuleType> :
-            ObjectsShouldConjunctionWithoutBecause<TRuleTypeShould, TRuleType>
+        ObjectsShouldConjunction<TRuleTypeShould, TRuleTypeShouldConjunctionWithReason, TRuleType> :
+            ObjectsShouldConjunctionWithReason<TRuleTypeShould, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
         protected ObjectsShouldConjunction(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
-        public TRuleTypeShouldConjunctionWithoutBecause Because(string reason)
+        public TRuleTypeShouldConjunctionWithReason Because(string reason)
         {
             _ruleCreator.AddConditionReason(reason);
-            return Create<TRuleTypeShouldConjunctionWithoutBecause, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunctionWithReason, TRuleType>(_ruleCreator);
         }
     }
 }

@@ -3,10 +3,10 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
     public class
-        MembersShouldConjunctionWithoutBecause : ObjectsShouldConjunctionWithoutBecause<
+        MembersShouldConjunctionWithReason : ObjectsShouldConjunctionWithReason<
             MembersShould<MembersShouldConjunction, IMember>, IMember>
     {
-        public MembersShouldConjunctionWithoutBecause(IArchRuleCreator<IMember> ruleCreator) : base(ruleCreator)
+        public MembersShouldConjunctionWithReason(IArchRuleCreator<IMember> ruleCreator) : base(ruleCreator)
         {
         }
     }
