@@ -15,11 +15,11 @@ namespace ArchUnitNET.Fluent
             _conditionManager = new ConditionManager<TRuleType>();
         }
 
-        public string Description => _objectFilterManager.Description + " " + _conditionManager.Description;
+        public string Description => (_objectFilterManager.Description + " " + _conditionManager.Description).Trim();
 
-        public bool HasViolations(Architecture architecture)
+        public bool HasNoViolations(Architecture architecture)
         {
-            return HasViolations(GetFilteredObjects(architecture), architecture);
+            return HasNoViolations(GetFilteredObjects(architecture), architecture);
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
@@ -75,7 +75,7 @@ namespace ArchUnitNET.Fluent
             return _objectFilterManager.GetFilteredObjects(architecture);
         }
 
-        private bool HasViolations(IEnumerable<TRuleType> filteredObjects, Architecture architecture)
+        private bool HasNoViolations(IEnumerable<TRuleType> filteredObjects, Architecture architecture)
         {
             return _conditionManager.CheckConditions(filteredObjects, architecture);
         }

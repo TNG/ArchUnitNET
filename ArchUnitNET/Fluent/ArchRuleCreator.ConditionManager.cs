@@ -149,8 +149,9 @@ namespace ArchUnitNET.Fluent
                 _reason = "";
             }
 
-            public string Description =>
-                (_logicalConjunction.Description + " should " + _condition.Description + " " + _reason).Trim();
+            public string Description => _condition == null
+                ? ""
+                : (_logicalConjunction.Description + " should " + _condition.Description + " " + _reason).Trim();
 
             public string FailDescription => _condition.FailDescription;
 

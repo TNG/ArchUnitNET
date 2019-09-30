@@ -72,10 +72,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var falseThisCondition1AndFalseThisCondition2 =
                 Classes().That().Are(ThisClass).Should().NotBe(ThisClass).AndShould().NotHaveName(ThisClassName);
 
-            Assert.True(thisShouldCondition1AndThisShouldCondition2.HasViolations(Architecture));
-            Assert.False(thisShouldCondition1AndOtherShouldCondition1.HasViolations(Architecture));
-            Assert.False(otherCondition2AndThisCondition2.HasViolations(Architecture));
-            Assert.False(falseThisCondition1AndFalseThisCondition2.HasViolations(Architecture));
+            Assert.True(thisShouldCondition1AndThisShouldCondition2.HasNoViolations(Architecture));
+            Assert.False(thisShouldCondition1AndOtherShouldCondition1.HasNoViolations(Architecture));
+            Assert.False(otherCondition2AndThisCondition2.HasNoViolations(Architecture));
+            Assert.False(falseThisCondition1AndFalseThisCondition2.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -90,30 +90,30 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var falseThisCondition1AndFalseThisCondition2 =
                 Classes().That().AreNot(ThisClass).And().DoNotHaveName(ThisClassName).Should().NotBe(ThisClass);
 
-            Assert.True(thisCondition1AndThisCondition2.HasViolations(Architecture));
-            Assert.True(thisCondition1AndOtherCondition1.HasViolations(Architecture));
-            Assert.True(otherCondition2AndThisCondition2.HasViolations(Architecture));
-            Assert.True(falseThisCondition1AndFalseThisCondition2.HasViolations(Architecture));
+            Assert.True(thisCondition1AndThisCondition2.HasNoViolations(Architecture));
+            Assert.True(thisCondition1AndOtherCondition1.HasNoViolations(Architecture));
+            Assert.True(otherCondition2AndThisCondition2.HasNoViolations(Architecture));
+            Assert.True(falseThisCondition1AndFalseThisCondition2.HasNoViolations(Architecture));
         }
 
         [Fact]
         public void BasicRulesBehaveAsExpected()
         {
-            Assert.True(ThisClassExists.HasViolations(Architecture));
-            Assert.False(ThisClassDoesNotExist.HasViolations(Architecture));
-            Assert.True(ThisCondition1.HasViolations(Architecture));
-            Assert.True(ThisCondition2.HasViolations(Architecture));
-            Assert.True(OtherCondition1.HasViolations(Architecture));
-            Assert.True(OtherCondition2.HasViolations(Architecture));
-            Assert.False(FalseThisCondition1.HasViolations(Architecture));
-            Assert.False(FalseThisCondition2.HasViolations(Architecture));
+            Assert.True(ThisClassExists.HasNoViolations(Architecture));
+            Assert.False(ThisClassDoesNotExist.HasNoViolations(Architecture));
+            Assert.True(ThisCondition1.HasNoViolations(Architecture));
+            Assert.True(ThisCondition2.HasNoViolations(Architecture));
+            Assert.True(OtherCondition1.HasNoViolations(Architecture));
+            Assert.True(OtherCondition2.HasNoViolations(Architecture));
+            Assert.False(FalseThisCondition1.HasNoViolations(Architecture));
+            Assert.False(FalseThisCondition2.HasNoViolations(Architecture));
 
-            Assert.True(ThisShouldCondition1.HasViolations(Architecture));
-            Assert.True(ThisShouldCondition2.HasViolations(Architecture));
-            Assert.True(OtherShouldCondition1.HasViolations(Architecture));
-            Assert.True(OtherShouldCondition2.HasViolations(Architecture));
-            Assert.False(FalseThisShouldCondition1.HasViolations(Architecture));
-            Assert.False(FalseThisShouldCondition2.HasViolations(Architecture));
+            Assert.True(ThisShouldCondition1.HasNoViolations(Architecture));
+            Assert.True(ThisShouldCondition2.HasNoViolations(Architecture));
+            Assert.True(OtherShouldCondition1.HasNoViolations(Architecture));
+            Assert.True(OtherShouldCondition2.HasNoViolations(Architecture));
+            Assert.False(FalseThisShouldCondition1.HasNoViolations(Architecture));
+            Assert.False(FalseThisShouldCondition2.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -130,10 +130,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Classes().That().Are(ThisClass).And().HaveName(ThisClassName).Or().AreNot(ThisClass).Should()
                     .Be(ThisClass);
 
-            Assert.True(thisCondition1OrThisCondition2AndOtherCondition1.HasViolations(Architecture));
-            Assert.True(thisCondition1AndOtherCondition1OrThisCondition2.HasViolations(Architecture));
-            Assert.True(thisCondition1OrOtherCondition1AndOtherCondition2.HasViolations(Architecture));
-            Assert.False(thisCondition1AndThisCondition2OrFalseThisCondition1.HasViolations(Architecture));
+            Assert.True(thisCondition1OrThisCondition2AndOtherCondition1.HasNoViolations(Architecture));
+            Assert.True(thisCondition1AndOtherCondition1OrThisCondition2.HasNoViolations(Architecture));
+            Assert.True(thisCondition1OrOtherCondition1AndOtherCondition2.HasNoViolations(Architecture));
+            Assert.False(thisCondition1AndThisCondition2OrFalseThisCondition1.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -158,15 +158,17 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Classes().That().Are(ThisClass).Should().Exist().AndShould().Be(ThisClass).OrShould().Be(OtherClass)
                     .OrShould().NotExist();
 
-            Assert.True(thisShouldCondition1AndOtherShouldCondition1OrThisShouldCondition2.HasViolations(Architecture));
-            Assert.True(otherShouldCondition1OrThisShouldCondition1AndThisShouldCondition2.HasViolations(Architecture));
-            Assert.False(
-                thisShouldCondition1OrThisShouldCondition2AndOtherShouldCondition1.HasViolations(Architecture));
-            Assert.False(thisShouldExistAndShouldNotExistOrShouldNotExist.HasViolations(Architecture));
-            Assert.False(thisShouldExistOrShouldNotExistAndShouldNotExist.HasViolations(Architecture));
-            Assert.True(thisShouldExistAndShouldNotExistOrShouldExist.HasViolations(Architecture));
             Assert.True(
-                thisShouldExistAndThisShouldCondition1OrOtherShouldCondition1OrShouldNotExist.HasViolations(
+                thisShouldCondition1AndOtherShouldCondition1OrThisShouldCondition2.HasNoViolations(Architecture));
+            Assert.True(
+                otherShouldCondition1OrThisShouldCondition1AndThisShouldCondition2.HasNoViolations(Architecture));
+            Assert.False(
+                thisShouldCondition1OrThisShouldCondition2AndOtherShouldCondition1.HasNoViolations(Architecture));
+            Assert.False(thisShouldExistAndShouldNotExistOrShouldNotExist.HasNoViolations(Architecture));
+            Assert.False(thisShouldExistOrShouldNotExistAndShouldNotExist.HasNoViolations(Architecture));
+            Assert.True(thisShouldExistAndShouldNotExistOrShouldExist.HasNoViolations(Architecture));
+            Assert.True(
+                thisShouldExistAndThisShouldCondition1OrOtherShouldCondition1OrShouldNotExist.HasNoViolations(
                     Architecture));
         }
 
@@ -199,22 +201,22 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var thisClassDoesNotExistAndThisClassExistsAndThisClassDoesNotExist =
                 ThisClassDoesNotExist.And(thisClassExistsAndThisClassDoesNotExist2);
 
-            Assert.True(thisClassExistsAndThisClassExists1.HasViolations(Architecture));
-            Assert.False(thisClassExistsAndThisClassDoesNotExist1.HasViolations(Architecture));
-            Assert.False(thisClassDoesNotExistAndThisClassExists1.HasViolations(Architecture));
-            Assert.False(thisClassDoesNotExistAndThisClassDoesNotExist1.HasViolations(Architecture));
+            Assert.True(thisClassExistsAndThisClassExists1.HasNoViolations(Architecture));
+            Assert.False(thisClassExistsAndThisClassDoesNotExist1.HasNoViolations(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassExists1.HasNoViolations(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassDoesNotExist1.HasNoViolations(Architecture));
 
-            Assert.True(thisClassExistsAndThisClassExists2.HasViolations(Architecture));
-            Assert.False(thisClassExistsAndThisClassDoesNotExist2.HasViolations(Architecture));
-            Assert.False(thisClassDoesNotExistAndThisClassExists2.HasViolations(Architecture));
-            Assert.False(thisClassDoesNotExistAndThisClassDoesNotExist2.HasViolations(Architecture));
+            Assert.True(thisClassExistsAndThisClassExists2.HasNoViolations(Architecture));
+            Assert.False(thisClassExistsAndThisClassDoesNotExist2.HasNoViolations(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassExists2.HasNoViolations(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassDoesNotExist2.HasNoViolations(Architecture));
 
-            Assert.True(thisClassExistsAndThisClassExistsAndThisClassExists.HasViolations(Architecture));
+            Assert.True(thisClassExistsAndThisClassExistsAndThisClassExists.HasNoViolations(Architecture));
             Assert.True(
-                thisClassExistsAndThisClassExistsAndThisClassExistsAndThisClassExists.HasViolations(Architecture));
-            Assert.False(thisClassExistsAndThisClassExistsAndThisClassDoesNotExist.HasViolations(Architecture));
-            Assert.False(thisClassExistsAndThisClassDoesNotExistAndThisClassExists.HasViolations(Architecture));
-            Assert.False(thisClassDoesNotExistAndThisClassExistsAndThisClassDoesNotExist.HasViolations(Architecture));
+                thisClassExistsAndThisClassExistsAndThisClassExistsAndThisClassExists.HasNoViolations(Architecture));
+            Assert.False(thisClassExistsAndThisClassExistsAndThisClassDoesNotExist.HasNoViolations(Architecture));
+            Assert.False(thisClassExistsAndThisClassDoesNotExistAndThisClassExists.HasNoViolations(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassExistsAndThisClassDoesNotExist.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -235,17 +237,17 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var thisClassExistsOrJoinedThisClassDoesNotExistAndThisClassExists =
                 ThisClassExists.Or(ThisClassDoesNotExist.And(ThisClassExists));
 
-            Assert.True(thisClassExistsAndThisClassExistsOrThisClassExists.HasViolations(Architecture));
+            Assert.True(thisClassExistsAndThisClassExistsOrThisClassExists.HasNoViolations(Architecture));
             Assert.False(
-                thisClassExistsOrThisClassDoesNotExistOrThisClassExistsAndThisClassDoesNotExist.HasViolations(
+                thisClassExistsOrThisClassDoesNotExistOrThisClassExistsAndThisClassDoesNotExist.HasNoViolations(
                     Architecture));
-            Assert.True(thisClassExistsOrThisClassDoesNotExistAndThisClassExists.HasViolations(Architecture));
-            Assert.False(thisClassDoesNotExistAndThisClassExistsOrThisClassDoesNotExist.HasViolations(Architecture));
+            Assert.True(thisClassExistsOrThisClassDoesNotExistAndThisClassExists.HasNoViolations(Architecture));
+            Assert.False(thisClassDoesNotExistAndThisClassExistsOrThisClassDoesNotExist.HasNoViolations(Architecture));
 
             Assert.True(
-                thisClassExistsOrThisClassDoesNotExistOrJoinedThisClassExistsAndThisClassDoesNotExist.HasViolations(
+                thisClassExistsOrThisClassDoesNotExistOrJoinedThisClassExistsAndThisClassDoesNotExist.HasNoViolations(
                     Architecture));
-            Assert.True(thisClassExistsOrJoinedThisClassDoesNotExistAndThisClassExists.HasViolations(Architecture));
+            Assert.True(thisClassExistsOrJoinedThisClassDoesNotExistAndThisClassExists.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -277,22 +279,23 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var thisClassDoesNotExistOrThisClassDoesNotExistOrThisClassDoesNotExist =
                 ThisClassDoesNotExist.Or(thisClassDoesNotExistOrThisClassDoesNotExist2);
 
-            Assert.True(thisClassExistsOrThisClassExists1.HasViolations(Architecture));
-            Assert.True(thisClassExistsOrThisClassDoesNotExist1.HasViolations(Architecture));
-            Assert.True(thisClassDoesNotExistOrThisClassExists1.HasViolations(Architecture));
-            Assert.False(thisClassDoesNotExistOrThisClassDoesNotExist1.HasViolations(Architecture));
+            Assert.True(thisClassExistsOrThisClassExists1.HasNoViolations(Architecture));
+            Assert.True(thisClassExistsOrThisClassDoesNotExist1.HasNoViolations(Architecture));
+            Assert.True(thisClassDoesNotExistOrThisClassExists1.HasNoViolations(Architecture));
+            Assert.False(thisClassDoesNotExistOrThisClassDoesNotExist1.HasNoViolations(Architecture));
 
-            Assert.True(thisClassExistsOrThisClassExists2.HasViolations(Architecture));
-            Assert.True(thisClassExistsOrThisClassDoesNotExist2.HasViolations(Architecture));
-            Assert.True(thisClassDoesNotExistOrThisClassExists2.HasViolations(Architecture));
-            Assert.False(thisClassDoesNotExistOrThisClassDoesNotExist2.HasViolations(Architecture));
+            Assert.True(thisClassExistsOrThisClassExists2.HasNoViolations(Architecture));
+            Assert.True(thisClassExistsOrThisClassDoesNotExist2.HasNoViolations(Architecture));
+            Assert.True(thisClassDoesNotExistOrThisClassExists2.HasNoViolations(Architecture));
+            Assert.False(thisClassDoesNotExistOrThisClassDoesNotExist2.HasNoViolations(Architecture));
 
-            Assert.True(thisClassExistsOrThisClassExistsOrThisClassExists.HasViolations(Architecture));
-            Assert.True(thisClassExistsOrThisClassExistsOrThisClassExistsOrThisClassExists.HasViolations(Architecture));
-            Assert.True(thisClassExistsOrThisClassExistsOrThisClassDoesNotExist.HasViolations(Architecture));
-            Assert.True(thisClassExistsOrThisClassDoesNotExistOrThisClassExists.HasViolations(Architecture));
+            Assert.True(thisClassExistsOrThisClassExistsOrThisClassExists.HasNoViolations(Architecture));
+            Assert.True(
+                thisClassExistsOrThisClassExistsOrThisClassExistsOrThisClassExists.HasNoViolations(Architecture));
+            Assert.True(thisClassExistsOrThisClassExistsOrThisClassDoesNotExist.HasNoViolations(Architecture));
+            Assert.True(thisClassExistsOrThisClassDoesNotExistOrThisClassExists.HasNoViolations(Architecture));
             Assert.False(
-                thisClassDoesNotExistOrThisClassDoesNotExistOrThisClassDoesNotExist.HasViolations(Architecture));
+                thisClassDoesNotExistOrThisClassDoesNotExistOrThisClassDoesNotExist.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -307,10 +310,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var falseThisCondition1OrFalseThisCondition2 =
                 Classes().That().Are(ThisClass).Should().NotBe(ThisClass).OrShould().NotHaveName(ThisClassName);
 
-            Assert.True(thisShouldCondition1OrThisShouldCondition2.HasViolations(Architecture));
-            Assert.True(thisShouldCondition1OrOtherShouldCondition1.HasViolations(Architecture));
-            Assert.True(otherCondition2OrThisCondition2.HasViolations(Architecture));
-            Assert.False(falseThisCondition1OrFalseThisCondition2.HasViolations(Architecture));
+            Assert.True(thisShouldCondition1OrThisShouldCondition2.HasNoViolations(Architecture));
+            Assert.True(thisShouldCondition1OrOtherShouldCondition1.HasNoViolations(Architecture));
+            Assert.True(otherCondition2OrThisCondition2.HasNoViolations(Architecture));
+            Assert.False(falseThisCondition1OrFalseThisCondition2.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -325,10 +328,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var falseThisCondition1OrFalseThisCondition2 =
                 Classes().That().AreNot(ThisClass).Or().DoNotHaveName(ThisClassName).Should().NotBe(ThisClass);
 
-            Assert.True(thisCondition1OrThisCondition2.HasViolations(Architecture));
-            Assert.True(thisCondition1OrOtherCondition1.HasViolations(Architecture));
-            Assert.True(otherCondition2OrThisCondition2.HasViolations(Architecture));
-            Assert.True(falseThisCondition1OrFalseThisCondition2.HasViolations(Architecture));
+            Assert.True(thisCondition1OrThisCondition2.HasNoViolations(Architecture));
+            Assert.True(thisCondition1OrOtherCondition1.HasNoViolations(Architecture));
+            Assert.True(otherCondition2OrThisCondition2.HasNoViolations(Architecture));
+            Assert.True(falseThisCondition1OrFalseThisCondition2.HasNoViolations(Architecture));
         }
     }
 

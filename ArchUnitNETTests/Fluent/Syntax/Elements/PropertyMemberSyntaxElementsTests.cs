@@ -30,12 +30,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var notVirtualPropertyMembersDoNotIncludeMember =
                     PropertyMembers().That().AreNotVirtual().Should().NotBe(propertyMember).AndShould().Exist();
 
-                Assert.Equal(propertyMember.IsVirtual, propertyMemberIsVirtual.HasViolations(Architecture));
-                Assert.Equal(!propertyMember.IsVirtual, propertyMemberIsNotVirtual.HasViolations(Architecture));
+                Assert.Equal(propertyMember.IsVirtual, propertyMemberIsVirtual.HasNoViolations(Architecture));
+                Assert.Equal(!propertyMember.IsVirtual, propertyMemberIsNotVirtual.HasNoViolations(Architecture));
                 Assert.Equal(!propertyMember.IsVirtual,
-                    virtualPropertyMembersDoNotIncludeMember.HasViolations(Architecture));
+                    virtualPropertyMembersDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.IsVirtual,
-                    notVirtualPropertyMembersDoNotIncludeMember.HasViolations(Architecture));
+                    notVirtualPropertyMembersDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var virtualPropertyMembersShouldBeVirtual = PropertyMembers().That().AreVirtual().Should().BeVirtual();
@@ -46,10 +46,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var notVirtualPropertyMembersAreNotVirtual =
                 PropertyMembers().That().AreNotVirtual().Should().NotBeVirtual();
 
-            Assert.True(virtualPropertyMembersShouldBeVirtual.HasViolations(Architecture));
-            Assert.False(virtualPropertyMembersAreNotVirtual.HasViolations(Architecture));
-            Assert.False(notVirtualPropertyMembersShouldBeVirtual.HasViolations(Architecture));
-            Assert.True(notVirtualPropertyMembersAreNotVirtual.HasViolations(Architecture));
+            Assert.True(virtualPropertyMembersShouldBeVirtual.HasNoViolations(Architecture));
+            Assert.False(virtualPropertyMembersAreNotVirtual.HasNoViolations(Architecture));
+            Assert.False(notVirtualPropertyMembersShouldBeVirtual.HasNoViolations(Architecture));
+            Assert.True(notVirtualPropertyMembersAreNotVirtual.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -65,13 +65,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     PropertyMembers().That().HaveNoGetter().Should().NotBe(propertyMember).AndShould().Exist();
 
                 Assert.Equal(propertyMember.Visibility != NotAccessible,
-                    propertyMemberHasGetter.HasViolations(Architecture));
+                    propertyMemberHasGetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.Visibility == NotAccessible,
-                    propertyMemberHasNoGetter.HasViolations(Architecture));
+                    propertyMemberHasNoGetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.Visibility == NotAccessible,
-                    propertyMembersWithGetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithGetterDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.Visibility != NotAccessible,
-                    propertyMembersWithoutGetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithoutGetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var propertyMembersWithGetterHaveGetter = PropertyMembers().That().HaveGetter().Should().HaveGetter();
@@ -82,10 +82,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var propertyMembersWithoutGetterHaveNoGetter =
                 PropertyMembers().That().HaveNoGetter().Should().NotHaveGetter();
 
-            Assert.True(propertyMembersWithGetterHaveGetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithGetterHaveNoGetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithoutGetterHaveGetter.HasViolations(Architecture));
-            Assert.True(propertyMembersWithoutGetterHaveNoGetter.HasViolations(Architecture));
+            Assert.True(propertyMembersWithGetterHaveGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithGetterHaveNoGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutGetterHaveGetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutGetterHaveNoGetter.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -104,13 +104,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                         .Exist();
 
                 Assert.Equal(propertyMember.SetterVisibility == Internal,
-                    propertyMemberHasInternalSetter.HasViolations(Architecture));
+                    propertyMemberHasInternalSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != Internal,
-                    propertyMemberDoesNotHaveInternalSetter.HasViolations(Architecture));
+                    propertyMemberDoesNotHaveInternalSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != Internal,
-                    propertyMembersWithInternalSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithInternalSetterDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility == Internal,
-                    propertyMembersWithoutInternalSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithoutInternalSetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var propertyMembersWithInternalSetterHaveInternalSetter =
@@ -122,10 +122,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var propertyMembersWithoutInternalSetterDoNotHaveInternalSetter =
                 PropertyMembers().That().DoNotHaveInternalSetter().Should().NotHaveInternalSetter();
 
-            Assert.True(propertyMembersWithInternalSetterHaveInternalSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithInternalSetterDoNotHaveInternalSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithoutInternalSetterHaveInternalSetter.HasViolations(Architecture));
-            Assert.True(propertyMembersWithoutInternalSetterDoNotHaveInternalSetter.HasViolations(Architecture));
+            Assert.True(propertyMembersWithInternalSetterHaveInternalSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithInternalSetterDoNotHaveInternalSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutInternalSetterHaveInternalSetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutInternalSetterDoNotHaveInternalSetter.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -146,13 +146,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                         .Exist();
 
                 Assert.Equal(propertyMember.SetterVisibility == PrivateProtected,
-                    propertyMemberHasPrivateProtectedSetter.HasViolations(Architecture));
+                    propertyMemberHasPrivateProtectedSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != PrivateProtected,
-                    propertyMemberDoesNotHavePrivateProtectedSetter.HasViolations(Architecture));
+                    propertyMemberDoesNotHavePrivateProtectedSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != PrivateProtected,
-                    propertyMembersWithPrivateProtectedSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithPrivateProtectedSetterDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility == PrivateProtected,
-                    propertyMembersWithoutPrivateProtectedSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithoutPrivateProtectedSetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var propertyMembersWithPrivateProtectedSetterHavePrivateProtectedSetter =
@@ -167,14 +167,14 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 PropertyMembers().That().DoNotHavePrivateProtectedSetter().Should().NotHavePrivateProtectedSetter();
 
             Assert.True(
-                propertyMembersWithPrivateProtectedSetterHavePrivateProtectedSetter.HasViolations(Architecture));
+                propertyMembersWithPrivateProtectedSetterHavePrivateProtectedSetter.HasNoViolations(Architecture));
             Assert.False(
-                propertyMembersWithPrivateProtectedSetterDoNotHavePrivateProtectedSetter.HasViolations(Architecture));
+                propertyMembersWithPrivateProtectedSetterDoNotHavePrivateProtectedSetter.HasNoViolations(Architecture));
             Assert.False(
-                propertyMembersWithoutPrivateProtectedSetterHavePrivateProtectedSetter.HasViolations(Architecture));
+                propertyMembersWithoutPrivateProtectedSetterHavePrivateProtectedSetter.HasNoViolations(Architecture));
             Assert.True(
                 propertyMembersWithoutPrivateProtectedSetterDoNotHavePrivateProtectedSetter
-                    .HasViolations(Architecture));
+                    .HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -193,13 +193,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                         .Exist();
 
                 Assert.Equal(propertyMember.SetterVisibility == Private,
-                    propertyMemberHasPrivateSetter.HasViolations(Architecture));
+                    propertyMemberHasPrivateSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != Private,
-                    propertyMemberDoesNotHavePrivateSetter.HasViolations(Architecture));
+                    propertyMemberDoesNotHavePrivateSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != Private,
-                    propertyMembersWithPrivateSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithPrivateSetterDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility == Private,
-                    propertyMembersWithoutPrivateSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithoutPrivateSetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var propertyMembersWithPrivateSetterHavePrivateSetter =
@@ -211,10 +211,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var propertyMembersWithoutPrivateSetterDoNotHavePrivateSetter =
                 PropertyMembers().That().DoNotHavePrivateSetter().Should().NotHavePrivateSetter();
 
-            Assert.True(propertyMembersWithPrivateSetterHavePrivateSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithPrivateSetterDoNotHavePrivateSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithoutPrivateSetterHavePrivateSetter.HasViolations(Architecture));
-            Assert.True(propertyMembersWithoutPrivateSetterDoNotHavePrivateSetter.HasViolations(Architecture));
+            Assert.True(propertyMembersWithPrivateSetterHavePrivateSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithPrivateSetterDoNotHavePrivateSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutPrivateSetterHavePrivateSetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutPrivateSetterDoNotHavePrivateSetter.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -235,13 +235,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                         .Exist();
 
                 Assert.Equal(propertyMember.SetterVisibility == ProtectedInternal,
-                    propertyMemberHasProtectedInternalSetter.HasViolations(Architecture));
+                    propertyMemberHasProtectedInternalSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != ProtectedInternal,
-                    propertyMemberDoesNotHaveProtectedInternalSetter.HasViolations(Architecture));
+                    propertyMemberDoesNotHaveProtectedInternalSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != ProtectedInternal,
-                    propertyMembersWithProtectedInternalSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithProtectedInternalSetterDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility == ProtectedInternal,
-                    propertyMembersWithoutProtectedInternalSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithoutProtectedInternalSetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var propertyMembersWithProtectedInternalSetterHaveProtectedInternalSetter =
@@ -256,13 +256,14 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 PropertyMembers().That().DoNotHaveProtectedInternalSetter().Should().NotHaveProtectedInternalSetter();
 
             Assert.True(
-                propertyMembersWithProtectedInternalSetterHaveProtectedInternalSetter.HasViolations(Architecture));
+                propertyMembersWithProtectedInternalSetterHaveProtectedInternalSetter.HasNoViolations(Architecture));
             Assert.False(
-                propertyMembersWithProtectedInternalSetterDoNotHaveProtectedInternalSetter.HasViolations(Architecture));
+                propertyMembersWithProtectedInternalSetterDoNotHaveProtectedInternalSetter
+                    .HasNoViolations(Architecture));
             Assert.False(
-                propertyMembersWithoutProtectedInternalSetterHaveProtectedInternalSetter.HasViolations(Architecture));
+                propertyMembersWithoutProtectedInternalSetterHaveProtectedInternalSetter.HasNoViolations(Architecture));
             Assert.True(
-                propertyMembersWithoutProtectedInternalSetterDoNotHaveProtectedInternalSetter.HasViolations(
+                propertyMembersWithoutProtectedInternalSetterDoNotHaveProtectedInternalSetter.HasNoViolations(
                     Architecture));
         }
 
@@ -282,13 +283,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                         .Exist();
 
                 Assert.Equal(propertyMember.SetterVisibility == Protected,
-                    propertyMemberHasProtectedSetter.HasViolations(Architecture));
+                    propertyMemberHasProtectedSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != Protected,
-                    propertyMemberDoesNotHaveProtectedSetter.HasViolations(Architecture));
+                    propertyMemberDoesNotHaveProtectedSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != Protected,
-                    propertyMembersWithProtectedSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithProtectedSetterDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility == Protected,
-                    propertyMembersWithoutProtectedSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithoutProtectedSetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var propertyMembersWithProtectedSetterHaveProtectedSetter =
@@ -300,10 +301,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var propertyMembersWithoutProtectedSetterDoNotHaveProtectedSetter =
                 PropertyMembers().That().DoNotHaveProtectedSetter().Should().NotHaveProtectedSetter();
 
-            Assert.True(propertyMembersWithProtectedSetterHaveProtectedSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithProtectedSetterDoNotHaveProtectedSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithoutProtectedSetterHaveProtectedSetter.HasViolations(Architecture));
-            Assert.True(propertyMembersWithoutProtectedSetterDoNotHaveProtectedSetter.HasViolations(Architecture));
+            Assert.True(propertyMembersWithProtectedSetterHaveProtectedSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithProtectedSetterDoNotHaveProtectedSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutProtectedSetterHaveProtectedSetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutProtectedSetterDoNotHaveProtectedSetter.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -322,13 +323,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                         .Exist();
 
                 Assert.Equal(propertyMember.SetterVisibility == Public,
-                    propertyMemberHasPublicSetter.HasViolations(Architecture));
+                    propertyMemberHasPublicSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != Public,
-                    propertyMemberDoesNotHavePublicSetter.HasViolations(Architecture));
+                    propertyMemberDoesNotHavePublicSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != Public,
-                    propertyMembersWithPublicSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithPublicSetterDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility == Public,
-                    propertyMembersWithoutPublicSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithoutPublicSetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var propertyMembersWithPublicSetterHavePublicSetter =
@@ -340,10 +341,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var propertyMembersWithoutPublicSetterDoNotHavePublicSetter =
                 PropertyMembers().That().DoNotHavePublicSetter().Should().NotHavePublicSetter();
 
-            Assert.True(propertyMembersWithPublicSetterHavePublicSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithPublicSetterDoNotHavePublicSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithoutPublicSetterHavePublicSetter.HasViolations(Architecture));
-            Assert.True(propertyMembersWithoutPublicSetterDoNotHavePublicSetter.HasViolations(Architecture));
+            Assert.True(propertyMembersWithPublicSetterHavePublicSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithPublicSetterDoNotHavePublicSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutPublicSetterHavePublicSetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutPublicSetterDoNotHavePublicSetter.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -359,13 +360,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     PropertyMembers().That().HaveNoSetter().Should().NotBe(propertyMember).AndShould().Exist();
 
                 Assert.Equal(propertyMember.SetterVisibility != NotAccessible,
-                    propertyMemberHasSetter.HasViolations(Architecture));
+                    propertyMemberHasSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility == NotAccessible,
-                    propertyMemberHasNoSetter.HasViolations(Architecture));
+                    propertyMemberHasNoSetter.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility == NotAccessible,
-                    propertyMembersWithSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithSetterDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(propertyMember.SetterVisibility != NotAccessible,
-                    propertyMembersWithoutSetterDoNotIncludeMember.HasViolations(Architecture));
+                    propertyMembersWithoutSetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var propertyMembersWithSetterHaveSetter = PropertyMembers().That().HaveSetter().Should().HaveSetter();
@@ -376,10 +377,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var propertyMembersWithoutSetterHaveNoSetter =
                 PropertyMembers().That().HaveNoSetter().Should().NotHaveSetter();
 
-            Assert.True(propertyMembersWithSetterHaveSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithSetterHaveNoSetter.HasViolations(Architecture));
-            Assert.False(propertyMembersWithoutSetterHaveSetter.HasViolations(Architecture));
-            Assert.True(propertyMembersWithoutSetterHaveNoSetter.HasViolations(Architecture));
+            Assert.True(propertyMembersWithSetterHaveSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithSetterHaveNoSetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutSetterHaveSetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutSetterHaveNoSetter.HasNoViolations(Architecture));
         }
     }
 }

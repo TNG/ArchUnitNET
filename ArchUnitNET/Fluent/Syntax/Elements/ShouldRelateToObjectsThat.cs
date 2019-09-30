@@ -61,6 +61,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction DependOn(IEnumerable<Type> types)
+        {
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DependOn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction OnlyDependOn(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.OnlyDependOn(pattern));
@@ -88,6 +94,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.OnlyDependOn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.OnlyDependOn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -205,6 +217,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TRuleTypeShouldConjunction DoNotDependOn(IEnumerable<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotDependOn(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);

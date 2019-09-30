@@ -33,13 +33,14 @@ namespace ArchUnitNETTests.Fluent.Extensions
                 typeof(Class1).Assembly, typeof(FailedArchRuleException).Assembly).Build();
 
         public static readonly Architecture ArchUnitNETTestArchitectureWithDependencies =
-            new ArchLoader().LoadAssemblies(true, typeof(BaseClass).Assembly).Build();
+            new ArchLoader().LoadAssembliesIncludingDependencies(typeof(BaseClass).Assembly).Build();
 
         public static readonly Architecture ArchUnitNETTestAssemblyArchitectureWithDependencies =
-            new ArchLoader().LoadAssemblies(true, typeof(Class1).Assembly).Build();
+            new ArchLoader().LoadAssembliesIncludingDependencies(typeof(Class1).Assembly).Build();
 
         public static readonly Architecture FullArchUnitNETArchitectureWithDependencies =
-            new ArchLoader().LoadAssemblies(true, typeof(Architecture).Assembly, typeof(BaseClass).Assembly,
+            new ArchLoader().LoadAssembliesIncludingDependencies(typeof(Architecture).Assembly,
+                typeof(BaseClass).Assembly,
                 typeof(Class1).Assembly, typeof(FailedArchRuleException).Assembly).Build();
     }
 }

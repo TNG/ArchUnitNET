@@ -70,7 +70,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ArchitectureObjectFilter<T> DependOn(IObjectProvider<IType> objectProvider)
         {
-            bool Condition(T type, Architecture architecture)
+            bool Filter(T type, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
                 return type.Dependencies.Select(dependency => dependency.Target)
@@ -78,14 +78,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             var description = "depend on " + objectProvider.Description;
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
         public static ObjectFilter<T> DependOn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(T type)
+            bool Filter(T type)
             {
                 return type.Dependencies.Select(dependency => dependency.Target)
                     .Any(target => typeList.Any(t => t.Equals(target)));
@@ -104,7 +104,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(Condition, description);
+            return new ObjectFilter<T>(Filter, description);
+        }
+
+        public static ArchitectureObjectFilter<T> DependOn(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Filter(T type, Architecture architecture)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .Any(target => typeList.Select(architecture.GetTypeOfType).Any(t => t.Equals(target)));
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "have no dependencies";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
         public static ObjectFilter<T> OnlyDependOn(string pattern)
@@ -114,7 +140,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ObjectFilter<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
-            bool Condition(T type)
+            bool Filter(T type)
             {
                 return type.Dependencies.Select(dependency => dependency.Target)
                     .All(target => target.Equals(firstType) || moreTypes.Contains(target));
@@ -122,12 +148,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ObjectFilter<T>(Condition, description);
+            return new ObjectFilter<T>(Filter, description);
         }
 
         public static ArchitectureObjectFilter<T> OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
-            bool Condition(T type, Architecture architecture)
+            bool Filter(T type, Architecture architecture)
             {
                 return type.Dependencies.Select(dependency => dependency.Target)
                     .All(target =>
@@ -137,12 +163,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
         public static ArchitectureObjectFilter<T> OnlyDependOn(IObjectProvider<IType> objectProvider)
         {
-            bool Condition(T type, Architecture architecture)
+            bool Filter(T type, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
                 return type.Dependencies.Select(dependency => dependency.Target)
@@ -150,14 +176,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             var description = "only depend on " + objectProvider.Description;
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
         public static ObjectFilter<T> OnlyDependOn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(T type)
+            bool Filter(T type)
             {
                 return type.Dependencies.Select(dependency => dependency.Target)
                     .All(target => typeList.Contains(target));
@@ -176,7 +202,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(Condition, description);
+            return new ObjectFilter<T>(Filter, description);
+        }
+
+        public static ArchitectureObjectFilter<T> OnlyDependOn(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Filter(T type, Architecture architecture)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => typeList.Select(architecture.GetTypeOfType).Contains(target));
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "have no dependencies";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "only depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
         public static ObjectFilter<T> HaveName(string name)
@@ -272,7 +324,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ObjectFilter<T> DoNotDependOn(IType firstType, params IType[] moreTypes)
         {
-            bool Condition(T type)
+            bool Filter(T type)
             {
                 return type.Dependencies.Select(dependency => dependency.Target)
                     .All(target => !target.Equals(firstType) && !moreTypes.Contains(target));
@@ -280,12 +332,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ObjectFilter<T>(Condition, description);
+            return new ObjectFilter<T>(Filter, description);
         }
 
         public static ArchitectureObjectFilter<T> DoNotDependOn(Type firstType, params Type[] moreTypes)
         {
-            bool Condition(T type, Architecture architecture)
+            bool Filter(T type, Architecture architecture)
             {
                 return type.Dependencies.Select(dependency => dependency.Target)
                     .All(target =>
@@ -295,12 +347,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
         public static ArchitectureObjectFilter<T> DoNotDependOn(IObjectProvider<IType> objectProvider)
         {
-            bool Condition(T type, Architecture architecture)
+            bool Filter(T type, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
                 return type.Dependencies.Select(dependency => dependency.Target)
@@ -308,14 +360,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             var description = "do not depend on " + objectProvider.Description;
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
         public static ObjectFilter<T> DoNotDependOn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(T type)
+            bool Filter(T type)
             {
                 return type.Dependencies.Select(dependency => dependency.Target)
                     .All(target => typeList.All(t => !t.Equals(target)));
@@ -334,7 +386,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(Condition, description);
+            return new ObjectFilter<T>(Filter, description);
+        }
+
+        public static ArchitectureObjectFilter<T> DoNotDependOn(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Filter(T type, Architecture architecture)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => typeList.Select(architecture.GetTypeOfType).All(t => !t.Equals(target)));
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "do not depend on no types (always true)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "do not depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
         public static ObjectFilter<T> DoNotHaveName(string name)

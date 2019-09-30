@@ -28,10 +28,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var notAbstractAttributesDoNotIncludeType = Attributes().That().AreNotAbstract().Should()
                     .NotBe(attribute).AndShould().Exist();
 
-                Assert.Equal(attribute.IsAbstract, attributeIsAbstract.HasViolations(Architecture));
-                Assert.Equal(!attribute.IsAbstract, attributeIsNotAbstract.HasViolations(Architecture));
-                Assert.Equal(!attribute.IsAbstract, abstractAttributesDoNotIncludeType.HasViolations(Architecture));
-                Assert.Equal(attribute.IsAbstract, notAbstractAttributesDoNotIncludeType.HasViolations(Architecture));
+                Assert.Equal(attribute.IsAbstract, attributeIsAbstract.HasNoViolations(Architecture));
+                Assert.Equal(!attribute.IsAbstract, attributeIsNotAbstract.HasNoViolations(Architecture));
+                Assert.Equal(!attribute.IsAbstract, abstractAttributesDoNotIncludeType.HasNoViolations(Architecture));
+                Assert.Equal(attribute.IsAbstract, notAbstractAttributesDoNotIncludeType.HasNoViolations(Architecture));
             }
 
             var abstractAttributesAreAbstract = Attributes().That().AreAbstract().Should().BeAbstract();
@@ -41,10 +41,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Attributes().That().AreNotAbstract().Should().BeAbstract().AndShould().Exist();
             var notAbstractAttributesAreNotAbstract = Attributes().That().AreNotAbstract().Should().NotBeAbstract();
 
-            Assert.True(abstractAttributesAreAbstract.HasViolations(Architecture));
-            Assert.False(abstractAttributesAreNotAbstract.HasViolations(Architecture));
-            Assert.False(notAbstractAttributesAreAbstract.HasViolations(Architecture));
-            Assert.True(notAbstractAttributesAreNotAbstract.HasViolations(Architecture));
+            Assert.True(abstractAttributesAreAbstract.HasNoViolations(Architecture));
+            Assert.False(abstractAttributesAreNotAbstract.HasNoViolations(Architecture));
+            Assert.False(notAbstractAttributesAreAbstract.HasNoViolations(Architecture));
+            Assert.True(notAbstractAttributesAreNotAbstract.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -57,10 +57,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var sealedAttributesDoNotIncludeType = Attributes().That().AreSealed().Should().NotBe(attribute);
                 var notSealedAttributesDoNotIncludeType = Attributes().That().AreNotSealed().Should().NotBe(attribute);
 
-                Assert.Equal(attribute.IsSealed, attributeIsSealed.HasViolations(Architecture));
-                Assert.Equal(!attribute.IsSealed, attributeIsNotSealed.HasViolations(Architecture));
-                Assert.Equal(!attribute.IsSealed, sealedAttributesDoNotIncludeType.HasViolations(Architecture));
-                Assert.Equal(attribute.IsSealed, notSealedAttributesDoNotIncludeType.HasViolations(Architecture));
+                Assert.Equal(attribute.IsSealed, attributeIsSealed.HasNoViolations(Architecture));
+                Assert.Equal(!attribute.IsSealed, attributeIsNotSealed.HasNoViolations(Architecture));
+                Assert.Equal(!attribute.IsSealed, sealedAttributesDoNotIncludeType.HasNoViolations(Architecture));
+                Assert.Equal(attribute.IsSealed, notSealedAttributesDoNotIncludeType.HasNoViolations(Architecture));
             }
 
             var sealedAttributesAreSealed = Attributes().That().AreSealed().Should().BeSealed();
@@ -70,10 +70,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Attributes().That().AreNotSealed().Should().BeSealed().AndShould().Exist();
             var notSealedAttributesAreNotSealed = Attributes().That().AreNotSealed().Should().NotBeSealed();
 
-            Assert.True(sealedAttributesAreSealed.HasViolations(Architecture));
-            Assert.False(sealedAttributesAreNotSealed.HasViolations(Architecture));
-            Assert.False(notSealedAttributesAreSealed.HasViolations(Architecture));
-            Assert.True(notSealedAttributesAreNotSealed.HasViolations(Architecture));
+            Assert.True(sealedAttributesAreSealed.HasNoViolations(Architecture));
+            Assert.False(sealedAttributesAreNotSealed.HasNoViolations(Architecture));
+            Assert.False(notSealedAttributesAreSealed.HasNoViolations(Architecture));
+            Assert.True(notSealedAttributesAreNotSealed.HasNoViolations(Architecture));
         }
     }
 }

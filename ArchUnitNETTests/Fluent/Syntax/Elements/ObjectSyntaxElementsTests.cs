@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Domain;
 using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
@@ -32,10 +35,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var otherTypesAreNotThisType = Types().That().AreNot(type).Should().NotBe(type);
                 var otherTypesAreThisType = Types().That().AreNot(type).Should().Be(type);
 
-                Assert.True(typeIsItself.HasViolations(Architecture));
-                Assert.False(typeIsNotItself.HasViolations(Architecture));
-                Assert.True(otherTypesAreNotThisType.HasViolations(Architecture));
-                Assert.False(otherTypesAreThisType.HasViolations(Architecture));
+                Assert.True(typeIsItself.HasNoViolations(Architecture));
+                Assert.False(typeIsNotItself.HasNoViolations(Architecture));
+                Assert.True(otherTypesAreNotThisType.HasNoViolations(Architecture));
+                Assert.False(otherTypesAreThisType.HasNoViolations(Architecture));
             }
 
             var publicTestClassIsPublic = Types().That().Are(StaticTestTypes.PublicTestClass).Should().BePublic();
@@ -45,10 +48,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var publicTypesAreNotPublicTestClass =
                 Types().That().ArePublic().Should().NotBe(StaticTestTypes.PublicTestClass);
 
-            Assert.True(publicTestClassIsPublic.HasViolations(Architecture));
-            Assert.False(publicTestClassIsNotPublic.HasViolations(Architecture));
-            Assert.True(notPublicTypesAreNotPublicTestClass.HasViolations(Architecture));
-            Assert.False(publicTypesAreNotPublicTestClass.HasViolations(Architecture));
+            Assert.True(publicTestClassIsPublic.HasNoViolations(Architecture));
+            Assert.False(publicTestClassIsNotPublic.HasNoViolations(Architecture));
+            Assert.True(notPublicTypesAreNotPublicTestClass.HasNoViolations(Architecture));
+            Assert.False(publicTypesAreNotPublicTestClass.HasNoViolations(Architecture));
 
 
             //Tests with multiple arguments
@@ -64,49 +67,170 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var internalTypesAreNotPublicTestClassOrInternalTestClass = Types().That().AreInternal().Should()
                 .NotBe(StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass);
 
-            Assert.True(publicTestClassAndInternalTestClassIsPublicOrInternal.HasViolations(Architecture));
-            Assert.False(publicTestClassAndInternalTestClassIsPublic.HasViolations(Architecture));
+            Assert.True(publicTestClassAndInternalTestClassIsPublicOrInternal.HasNoViolations(Architecture));
+            Assert.False(publicTestClassAndInternalTestClassIsPublic.HasNoViolations(Architecture));
             Assert.True(
-                notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass.HasViolations(Architecture));
-            Assert.False(internalTypesAreNotPublicTestClassOrInternalTestClass.HasViolations(Architecture));
+                notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass.HasNoViolations(Architecture));
+            Assert.False(internalTypesAreNotPublicTestClassOrInternalTestClass.HasNoViolations(Architecture));
+
+
+            //Tests with list
+
+            var list = new List<Class> {StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass};
+            var listPublicTestClassAndInternalTestClassIsPublicOrInternal =
+                Types().That().Are(list).Should().BePublic().OrShould().BeInternal();
+            var listPublicTestClassAndInternalTestClassIsPublic = Types().That().Are(list).Should().BePublic();
+            var listNotPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass =
+                Types().That().AreNotPublic().And().AreNotInternal().Should().NotBe(list);
+            var listInternalTypesAreNotPublicTestClassOrInternalTestClass =
+                Types().That().AreInternal().Should().NotBe(list);
+
+            Assert.True(listPublicTestClassAndInternalTestClassIsPublicOrInternal.HasNoViolations(Architecture));
+            Assert.False(listPublicTestClassAndInternalTestClassIsPublic.HasNoViolations(Architecture));
+            Assert.True(
+                listNotPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass
+                    .HasNoViolations(Architecture));
+            Assert.False(listInternalTypesAreNotPublicTestClassOrInternalTestClass.HasNoViolations(Architecture));
         }
 
         [Fact]
-        public void DependOnTest()
+        public void DependOnPatternTest()
         {
             foreach (var type in _types)
             {
                 // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
                 foreach (var dependency in type.Dependencies)
                 {
-                    var typeDependsOnDependency = Types().That().Are(type).Should()
-                        .DependOn(dependency.Origin.FullName).OrShould()
-                        .DependOn(dependency.Target
-                            .FullName);
-                    var typeDoesNotDependOnDependency = Types().That().Are(type).Should()
-                        .NotDependOn(dependency.Origin.FullName).AndShould().NotDependOn(dependency.Target.FullName);
+                    var typeDependsOnDependency =
+                        Types().That().Are(type).Should().DependOn(dependency.Target.FullName);
+                    var typeDoesNotDependOnDependency =
+                        Types().That().Are(type).Should().NotDependOn(dependency.Target.FullName);
 
-                    Assert.True(typeDependsOnDependency.HasViolations(Architecture));
-                    Assert.False(typeDoesNotDependOnDependency.HasViolations(Architecture));
+                    Assert.True(typeDependsOnDependency.HasNoViolations(Architecture));
+                    Assert.False(typeDoesNotDependOnDependency.HasNoViolations(Architecture));
                 }
 
-                var typesDependOnOwnDependencies = Types().That().DependOn(type.FullName).Should()
-                    .DependOn(type.FullName);
+                var typesDependOnOwnDependencies =
+                    Types().That().DependOn(type.FullName).Should().DependOn(type.FullName);
                 var typeDoesNotDependOnFalseDependency =
                     Types().That().Are(type).Should().NotDependOn(NoTypeName);
                 var typeDependsOnFalseDependency =
                     Types().That().Are(type).Should().DependOn(NoTypeName);
 
-                Assert.True(typesDependOnOwnDependencies.HasViolations(Architecture));
-                Assert.True(typeDoesNotDependOnFalseDependency.HasViolations(Architecture));
-                Assert.False(typeDependsOnFalseDependency.HasViolations(Architecture));
+                Assert.True(typesDependOnOwnDependencies.HasNoViolations(Architecture));
+                Assert.True(typeDoesNotDependOnFalseDependency.HasNoViolations(Architecture));
+                Assert.False(typeDependsOnFalseDependency.HasNoViolations(Architecture));
             }
 
             var noTypeDependsOnFalseDependency =
                 Types().That().DependOn(NoTypeName).Should().NotExist();
+            var typesDoNotDependsOnFalseDependency =
+                Types().That().DoNotDependOn(NoTypeName).Should().Exist();
 
-            Assert.True(noTypeDependsOnFalseDependency.HasViolations(Architecture));
+            Assert.True(noTypeDependsOnFalseDependency.HasNoViolations(Architecture));
+            Assert.True(typesDoNotDependsOnFalseDependency.HasNoViolations(Architecture));
         }
+
+        [Fact]
+        public void DependOnTypeTest()
+        {
+            var falseDependencies = new List<Type> {typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2)};
+            foreach (var type in _types)
+            {
+                // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
+                foreach (var dependency in type.Dependencies)
+                {
+                    var typeDependsOnDependency = Types().That().Are(type).Should().DependOn(dependency.Target);
+                    var typeDoesNotDependOnDependency =
+                        Types().That().Are(type).Should().NotDependOn(dependency.Target);
+
+                    Assert.True(typeDependsOnDependency.HasNoViolations(Architecture));
+                    Assert.False(typeDoesNotDependOnDependency.HasNoViolations(Architecture));
+                }
+
+                //One Argument
+
+                var typesDependOnOwnDependencies = Types().That().DependOn(type).Should().DependOn(type);
+                var typeDoesNotDependOnOneFalseDependency =
+                    Types().That().Are(type).Should().NotDependOn(typeof(ClassWithNoDependencies1));
+                var typeDependsOnOneFalseDependency =
+                    Types().That().Are(type).Should().DependOn(typeof(ClassWithNoDependencies1));
+                var typeOnlyDependsOnOneFalseDependency =
+                    Types().That().Are(type).Should().OnlyDependOn(typeof(ClassWithNoDependencies1));
+
+                Assert.True(typesDependOnOwnDependencies.HasNoViolations(Architecture));
+                Assert.True(typeDoesNotDependOnOneFalseDependency.HasNoViolations(Architecture));
+                Assert.False(typeDependsOnOneFalseDependency.HasNoViolations(Architecture));
+                Assert.Equal(type.Dependencies.IsNullOrEmpty(),
+                    typeOnlyDependsOnOneFalseDependency.HasNoViolations(Architecture));
+
+                //Multiple Arguments
+
+                var typeDoesNotDependOnMultipleFalseDependencies =
+                    Types().That().Are(type).Should().NotDependOn(typeof(ClassWithNoDependencies1),
+                        typeof(ClassWithNoDependencies2));
+                var typeOnlyDependsOnMultipleFalseDependencies =
+                    Types().That().Are(type).Should().OnlyDependOn(typeof(ClassWithNoDependencies1),
+                        typeof(ClassWithNoDependencies2));
+
+                Assert.True(typeDoesNotDependOnMultipleFalseDependencies.HasNoViolations(Architecture));
+                Assert.Equal(type.Dependencies.IsNullOrEmpty(),
+                    typeOnlyDependsOnMultipleFalseDependencies.HasNoViolations(Architecture));
+
+                //Multiple Arguments as IEnumerable
+
+                var typeDependencies = type.Dependencies.Select(dependency => dependency.Target).ToList();
+                var typeOnlyDependsOnOwnDependencies = Types().That().Are(type).Should().OnlyDependOn(typeDependencies);
+                var typeDoesNotDependsOnOwnDependencies =
+                    Types().That().Are(type).Should().NotDependOn(typeDependencies);
+                var typeDoesNotDependOnListOfMultipleFalseDependencies =
+                    Types().That().Are(type).Should().NotDependOn(falseDependencies);
+                var typeOnlyDependsOnListOfMultipleFalseDependencies =
+                    Types().That().Are(type).Should().OnlyDependOn(falseDependencies);
+
+                Assert.True(typeOnlyDependsOnOwnDependencies.HasNoViolations(Architecture));
+                Assert.Equal(type.Dependencies.IsNullOrEmpty(),
+                    typeDoesNotDependsOnOwnDependencies.HasNoViolations(Architecture));
+                Assert.True(typeDoesNotDependOnListOfMultipleFalseDependencies.HasNoViolations(Architecture));
+                Assert.Equal(type.Dependencies.IsNullOrEmpty(),
+                    typeOnlyDependsOnListOfMultipleFalseDependencies.HasNoViolations(Architecture));
+            }
+
+            var noTypeDependsOnFalseDependency =
+                Types().That().DependOn(typeof(ClassWithNoDependencies1)).Should().NotExist();
+            var noTypeDependsOnMultipleFalseDependencies =
+                Types().That().DependOn(typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2)).Should()
+                    .NotExist();
+            var noTypeDependsOnListOfMultipleFalseDependencies =
+                Types().That().DependOn(falseDependencies).Should().NotExist();
+            var typesDoNotDependOnFalseDependency =
+                Types().That().DoNotDependOn(typeof(ClassWithNoDependencies1)).Should().Exist();
+            var typesDoNotDependOnMultipleFalseDependencies =
+                Types().That().DoNotDependOn(typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2))
+                    .Should().Exist();
+            var typeDoNotDependOnListOfMultipleFalseDependencies =
+                Types().That().DoNotDependOn(falseDependencies).Should().Exist();
+
+            Assert.True(noTypeDependsOnFalseDependency.HasNoViolations(Architecture));
+            Assert.True(noTypeDependsOnMultipleFalseDependencies.HasNoViolations(Architecture));
+            Assert.True(noTypeDependsOnListOfMultipleFalseDependencies.HasNoViolations(Architecture));
+            Assert.True(typesDoNotDependOnFalseDependency.HasNoViolations(Architecture));
+            Assert.True(typesDoNotDependOnMultipleFalseDependencies.HasNoViolations(Architecture));
+            Assert.True(typeDoNotDependOnListOfMultipleFalseDependencies.HasNoViolations(Architecture));
+
+            //Fluent arguments
+
+            var typeThatDependOnTypesWithPDoNotDependOnTypesWithP =
+                Types().That().DependOn(Types().That().HaveNameStartingWith("P")).Should()
+                    .NotDependOn(Types().That().HaveNameStartingWith("P"));
+            var typesThatDependOnFalseTypeShouldDependOnNoType =
+                Types().That().OnlyDependOn(Classes().That().Are(typeof(ClassWithNoDependencies1))).Should()
+                    .NotDependOn(Types());
+
+            Assert.False(typeThatDependOnTypesWithPDoNotDependOnTypesWithP.HasNoViolations(Architecture));
+            Assert.True(typesThatDependOnFalseTypeShouldDependOnNoType.HasNoViolations(Architecture));
+        }
+
 
         [Fact]
         public void ExistTest()
@@ -116,15 +240,15 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typeExists = Types().That().Are(type).Should().Exist();
                 var typeDoesNotExist = Types().That().Are(type).Should().NotExist();
 
-                Assert.True(typeExists.HasViolations(Architecture));
-                Assert.False(typeDoesNotExist.HasViolations(Architecture));
+                Assert.True(typeExists.HasNoViolations(Architecture));
+                Assert.False(typeDoesNotExist.HasNoViolations(Architecture));
             }
 
             var typesExist = Types().Should().Exist();
             var typesDoNotExist = Types().Should().NotExist();
 
-            Assert.True(typesExist.HasViolations(Architecture));
-            Assert.False(typesDoNotExist.HasViolations(Architecture));
+            Assert.True(typesExist.HasNoViolations(Architecture));
+            Assert.False(typesDoNotExist.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -145,12 +269,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesWithDifferentFullNamesAreNotEqual = Types().That()
                     .DoNotHaveFullName(type.FullName).Should().NotBe(type);
 
-                Assert.True(typeHasRightFullName.HasViolations(Architecture));
-                Assert.False(typeDoesNotHaveRightFullName.HasViolations(Architecture));
-                Assert.False(typeHasFalseFullName.HasViolations(Architecture));
-                Assert.True(typeDoesNotHaveFalseFullName.HasViolations(Architecture));
-                Assert.True(typesWithSameFullNameAreEqual.HasViolations(Architecture));
-                Assert.True(typesWithDifferentFullNamesAreNotEqual.HasViolations(Architecture));
+                Assert.True(typeHasRightFullName.HasNoViolations(Architecture));
+                Assert.False(typeDoesNotHaveRightFullName.HasNoViolations(Architecture));
+                Assert.False(typeHasFalseFullName.HasNoViolations(Architecture));
+                Assert.True(typeDoesNotHaveFalseFullName.HasNoViolations(Architecture));
+                Assert.True(typesWithSameFullNameAreEqual.HasNoViolations(Architecture));
+                Assert.True(typesWithDifferentFullNamesAreNotEqual.HasNoViolations(Architecture));
             }
 
             var findNoTypesWithFalseFullName =
@@ -158,8 +282,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var findTypesWithRightFullName =
                 Types().That().DoNotHaveFullName(NoTypeName).Should().Exist();
 
-            Assert.True(findNoTypesWithFalseFullName.HasViolations(Architecture));
-            Assert.True(findTypesWithRightFullName.HasViolations(Architecture));
+            Assert.True(findNoTypesWithFalseFullName.HasNoViolations(Architecture));
+            Assert.True(findTypesWithRightFullName.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -176,8 +300,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var typeNameDoesNotEndWithSubstringOfOwnName = Types().That().Are(type).Should()
                         .NotHaveNameEndingWith(subString);
 
-                    Assert.True(typeNameEndsWithSubstringOfOwnName.HasViolations(Architecture));
-                    Assert.False(typeNameDoesNotEndWithSubstringOfOwnName.HasViolations(Architecture));
+                    Assert.True(typeNameEndsWithSubstringOfOwnName.HasNoViolations(Architecture));
+                    Assert.False(typeNameDoesNotEndWithSubstringOfOwnName.HasNoViolations(Architecture));
                 }
 
                 var typeNameDoesNotEndWithFalseTypeName = Types().That().Are(type).Should()
@@ -185,8 +309,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typeNameEndsWithFalseTypeName =
                     Types().That().Are(type).Should().HaveNameEndingWith(NoTypeName);
 
-                Assert.True(typeNameDoesNotEndWithFalseTypeName.HasViolations(Architecture));
-                Assert.False(typeNameEndsWithFalseTypeName.HasViolations(Architecture));
+                Assert.True(typeNameDoesNotEndWithFalseTypeName.HasNoViolations(Architecture));
+                Assert.False(typeNameEndsWithFalseTypeName.HasNoViolations(Architecture));
             }
 
             var findNoTypesEndingWithFalseName =
@@ -196,8 +320,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Types().That().DoNotHaveNameStartingWith(NoTypeName).Or()
                     .DoNotHaveNameContaining(NoTypeName).Should().Exist();
 
-            Assert.True(findNoTypesEndingWithFalseName.HasViolations(Architecture));
-            Assert.True(findTypesStartingWithRightName.HasViolations(Architecture));
+            Assert.True(findNoTypesEndingWithFalseName.HasNoViolations(Architecture));
+            Assert.True(findTypesStartingWithRightName.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -216,8 +340,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                         var typeNameDoesNotContainsSubstringOfOwnName = Types().That().Are(type)
                             .Should().NotHaveNameContaining(subString);
 
-                        Assert.True(typeNameContainsSubstringOfOwnName.HasViolations(Architecture));
-                        Assert.False(typeNameDoesNotContainsSubstringOfOwnName.HasViolations(Architecture));
+                        Assert.True(typeNameContainsSubstringOfOwnName.HasNoViolations(Architecture));
+                        Assert.False(typeNameDoesNotContainsSubstringOfOwnName.HasNoViolations(Architecture));
                     }
 
                     var startString = name.Substring(0, i);
@@ -227,8 +351,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                         .Are(type).Should().NotHaveNameStartingWith(startString).OrShould()
                         .NotHaveNameContaining(startString);
 
-                    Assert.True(typeNameStartsWithAndContainsSubstringOfOwnName.HasViolations(Architecture));
-                    Assert.False(typeNameDoesNotStartWithOrContainSubstringOfOwnName.HasViolations(Architecture));
+                    Assert.True(typeNameStartsWithAndContainsSubstringOfOwnName.HasNoViolations(Architecture));
+                    Assert.False(typeNameDoesNotStartWithOrContainSubstringOfOwnName.HasNoViolations(Architecture));
                 }
 
                 var typeNameDoesNotStartWithOrContainFalseTypeName = Types().That().Are(type)
@@ -236,8 +360,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typeNameStartsWithOrContainsFalseTypeName = Types().That().Are(type)
                     .Should().HaveNameStartingWith(NoTypeName).OrShould().HaveNameContaining(NoTypeName);
 
-                Assert.True(typeNameDoesNotStartWithOrContainFalseTypeName.HasViolations(Architecture));
-                Assert.False(typeNameStartsWithOrContainsFalseTypeName.HasViolations(Architecture));
+                Assert.True(typeNameDoesNotStartWithOrContainFalseTypeName.HasNoViolations(Architecture));
+                Assert.False(typeNameStartsWithOrContainsFalseTypeName.HasNoViolations(Architecture));
             }
 
             var findNoTypesStartingWithOrContainingFalseName =
@@ -247,8 +371,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Types().That().DoNotHaveNameStartingWith(NoTypeName).Or()
                     .DoNotHaveNameContaining(NoTypeName).Should().Exist();
 
-            Assert.True(findNoTypesStartingWithOrContainingFalseName.HasViolations(Architecture));
-            Assert.True(findTypesStartingWithOrContainingRightName.HasViolations(Architecture));
+            Assert.True(findNoTypesStartingWithOrContainingFalseName.HasNoViolations(Architecture));
+            Assert.True(findTypesStartingWithOrContainingRightName.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -263,10 +387,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typeDoesNotHaveFalseName =
                     Types().That().Are(type).Should().NotHaveName(NoTypeName);
 
-                Assert.True(typeHasRightName.HasViolations(Architecture));
-                Assert.False(typeDoesNotHaveRightName.HasViolations(Architecture));
-                Assert.False(typeHasFalseName.HasViolations(Architecture));
-                Assert.True(typeDoesNotHaveFalseName.HasViolations(Architecture));
+                Assert.True(typeHasRightName.HasNoViolations(Architecture));
+                Assert.False(typeDoesNotHaveRightName.HasNoViolations(Architecture));
+                Assert.False(typeHasFalseName.HasNoViolations(Architecture));
+                Assert.True(typeDoesNotHaveFalseName.HasNoViolations(Architecture));
             }
 
             var findTypesWithRightName =
@@ -274,8 +398,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var findNoTypesWithFalseName =
                 Types().That().HaveName(NoTypeName).Should().NotExist();
 
-            Assert.True(findTypesWithRightName.HasViolations(Architecture));
-            Assert.True(findNoTypesWithFalseName.HasViolations(Architecture));
+            Assert.True(findTypesWithRightName.HasNoViolations(Architecture));
+            Assert.True(findNoTypesWithFalseName.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -350,8 +474,16 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             foreach (var visibilityRule in visibilityRules)
             {
-                Assert.True(visibilityRule.HasViolations(Architecture));
+                Assert.True(visibilityRule.HasNoViolations(Architecture));
             }
         }
+    }
+
+    public class ClassWithNoDependencies1
+    {
+    }
+
+    public class ClassWithNoDependencies2
+    {
     }
 }

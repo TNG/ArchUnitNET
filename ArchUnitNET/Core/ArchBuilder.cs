@@ -51,7 +51,9 @@ namespace ArchUnitNET.Core
         {
             _architectureCacheKey.Add(module.Name, namespaceFilter);
 
-            var allTypes = module.Types.Concat(module.Types.SelectMany(typeDefinition => typeDefinition.NestedTypes));
+            var types = module.Types;
+
+            var allTypes = types.Concat(types.SelectMany(typeDefinition => typeDefinition.NestedTypes));
             allTypes
                 .Where(typeDefinition => RegexUtils.MatchNamespaces(namespaceFilter,
                     typeDefinition.Namespace))
@@ -96,7 +98,8 @@ namespace ArchUnitNET.Core
             }
 
             UpdateTypeDefinitions();
-            var newArchitecture = new Architecture(Assemblies, Namespaces, Types);
+            var newArchitecture =
+                new Architecture(Assemblies, Namespaces, Types.Skip(1)); //Skip first Type to ignore <Module>
             _architectureCache.Add(_architectureCacheKey, newArchitecture);
             return newArchitecture;
         }

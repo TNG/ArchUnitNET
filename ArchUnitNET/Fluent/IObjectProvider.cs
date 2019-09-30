@@ -3,7 +3,7 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public interface IObjectProvider<T> : IHasDescription where T : ICanBeAnalyzed
+    public interface IObjectProvider<out T> : IHasDescription where T : ICanBeAnalyzed
     {
         IEnumerable<T> GetObjects(Architecture architecture);
     }

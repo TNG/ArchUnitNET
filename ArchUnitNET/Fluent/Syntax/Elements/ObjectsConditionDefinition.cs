@@ -135,11 +135,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Condition(TRuleType type)
             {
-                if (type.Dependencies.IsNullOrEmpty())
-                {
-                    return typeList.IsNullOrEmpty();
-                }
-
                 return type.Dependencies.Select(dependency => dependency.Target)
                     .All(target => typeList.Contains(target));
             }
@@ -163,6 +158,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> OnlyDependOn(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType type, Architecture architecture)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => typeList.Select(architecture.GetTypeOfType).Contains(target));
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "have no dependencies";
+                failDescription = "has dependencies";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "only depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                failDescription = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "does also depend on other types than just \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " and \"" + obj.FullName + "\"");
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static SimpleCondition<TRuleType> HaveName(string name)
@@ -391,6 +417,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> NotDependOn(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType type, Architecture architecture)
+            {
+                return type.Dependencies.Select(dependency => dependency.Target)
+                    .All(target => !typeList.Select(architecture.GetTypeOfType).Contains(target));
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "not depend on no types (always true)";
+                failDescription = "does depend on one of no types (impossible)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "not depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                failDescription = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "does depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static SimpleCondition<TRuleType> NotHaveName(string name)

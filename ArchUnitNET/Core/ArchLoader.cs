@@ -31,20 +31,22 @@ namespace ArchUnitNET.Core
             return architecture;
         }
 
-        public ArchLoader LoadAssemblies(bool includeDependencies, params Assembly[] assemblies)
+        public ArchLoader LoadAssemblies(params Assembly[] assemblies)
         {
             var assemblySet = new HashSet<Assembly>(assemblies);
-            assemblySet.ForEach(assembly => LoadAssembly(assembly, includeDependencies));
+            assemblySet.ForEach(assembly => LoadAssembly(assembly));
             return this;
         }
 
-        public ArchLoader LoadAssemblies(params Assembly[] assemblies)
+        public ArchLoader LoadAssembliesIncludingDependencies(params Assembly[] assemblies)
         {
-            return LoadAssemblies(false, assemblies);
+            var assemblySet = new HashSet<Assembly>(assemblies);
+            assemblySet.ForEach(assembly => LoadAssemblyIncludingDependencies(assembly));
+            return this;
         }
 
         public ArchLoader LoadFilteredDirectory(string directory, string filter,
-            SearchOption searchOption = TopDirectoryOnly, bool includeDependencies = false)
+            SearchOption searchOption = TopDirectoryOnly)
         {
             var path = Path.GetFullPath(directory);
             _assemblyResolver.AssemblyPath = path;
@@ -52,7 +54,19 @@ namespace ArchUnitNET.Core
 
             var result = this;
             return assemblies.Aggregate(result,
-                (current, assembly) => current.LoadAssembly(assembly, includeDependencies));
+                (current, assembly) => current.LoadAssembly(assembly, false));
+        }
+
+        public ArchLoader LoadFilteredDirectoryIncludingDependencies(string directory, string filter,
+            SearchOption searchOption = TopDirectoryOnly)
+        {
+            var path = Path.GetFullPath(directory);
+            _assemblyResolver.AssemblyPath = path;
+            var assemblies = Directory.GetFiles(path, filter, searchOption);
+
+            var result = this;
+            return assemblies.Aggregate(result,
+                (current, assembly) => current.LoadAssembly(assembly, true));
         }
 
         public ArchLoader LoadNamespacesWithinAssembly(Assembly assembly, params string[] namespc)
@@ -62,9 +76,14 @@ namespace ArchUnitNET.Core
             return this;
         }
 
-        public ArchLoader LoadAssembly(Assembly assembly, bool includeDependencies = false)
+        public ArchLoader LoadAssembly(Assembly assembly)
         {
-            return LoadAssembly(assembly.Location, includeDependencies);
+            return LoadAssembly(assembly.Location, false);
+        }
+
+        public ArchLoader LoadAssemblyIncludingDependencies(Assembly assembly)
+        {
+            return LoadAssembly(assembly.Location, true);
         }
 
         private ArchLoader LoadAssembly(string fileName, bool includeDependencies)

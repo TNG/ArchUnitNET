@@ -82,6 +82,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HaveName(string name)
         {
             _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.HaveName(name));
@@ -221,6 +227,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TRuleTypeShouldConjunction NotDependOn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotDependOn(IEnumerable<Type> types)
         {
             _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotDependOn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);

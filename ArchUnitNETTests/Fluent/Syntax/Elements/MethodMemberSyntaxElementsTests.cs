@@ -29,12 +29,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var noConstructorMethodMembersDoNotIncludeMember =
                     MethodMembers().That().AreNoConstructors().Should().NotBe(methodMember).AndShould().Exist();
 
-                Assert.Equal(methodMember.IsConstructor(), methodMemberIsConstructor.HasViolations(Architecture));
-                Assert.Equal(!methodMember.IsConstructor(), methodMemberIsNoConstructor.HasViolations(Architecture));
+                Assert.Equal(methodMember.IsConstructor(), methodMemberIsConstructor.HasNoViolations(Architecture));
+                Assert.Equal(!methodMember.IsConstructor(), methodMemberIsNoConstructor.HasNoViolations(Architecture));
                 Assert.Equal(!methodMember.IsConstructor(),
-                    constructorMethodMembersDoNotIncludeMember.HasViolations(Architecture));
+                    constructorMethodMembersDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(methodMember.IsConstructor(),
-                    noConstructorMethodMembersDoNotIncludeMember.HasViolations(Architecture));
+                    noConstructorMethodMembersDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var constructorMethodMembersShouldBeConstructor =
@@ -46,10 +46,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var noConstructorMethodMembersAreNoConstructors =
                 MethodMembers().That().AreNoConstructors().Should().BeNoConstructor();
 
-            Assert.True(constructorMethodMembersShouldBeConstructor.HasViolations(Architecture));
-            Assert.False(constructorMethodMembersAreNoConstructors.HasViolations(Architecture));
-            Assert.False(noConstructorMethodMembersShouldBeConstructor.HasViolations(Architecture));
-            Assert.True(noConstructorMethodMembersAreNoConstructors.HasViolations(Architecture));
+            Assert.True(constructorMethodMembersShouldBeConstructor.HasNoViolations(Architecture));
+            Assert.False(constructorMethodMembersAreNoConstructors.HasNoViolations(Architecture));
+            Assert.False(noConstructorMethodMembersShouldBeConstructor.HasNoViolations(Architecture));
+            Assert.True(noConstructorMethodMembersAreNoConstructors.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -64,12 +64,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var notVirtualMethodMembersDoNotIncludeMember =
                     MethodMembers().That().AreNotVirtual().Should().NotBe(methodMember).AndShould().Exist();
 
-                Assert.Equal(methodMember.IsVirtual, methodMemberIsVirtual.HasViolations(Architecture));
-                Assert.Equal(!methodMember.IsVirtual, methodMemberIsNotVirtual.HasViolations(Architecture));
+                Assert.Equal(methodMember.IsVirtual, methodMemberIsVirtual.HasNoViolations(Architecture));
+                Assert.Equal(!methodMember.IsVirtual, methodMemberIsNotVirtual.HasNoViolations(Architecture));
                 Assert.Equal(!methodMember.IsVirtual,
-                    virtualMethodMembersDoNotIncludeMember.HasViolations(Architecture));
+                    virtualMethodMembersDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(methodMember.IsVirtual,
-                    notVirtualMethodMembersDoNotIncludeMember.HasViolations(Architecture));
+                    notVirtualMethodMembersDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var virtualMethodMembersShouldBeVirtual = MethodMembers().That().AreVirtual().Should().BeVirtual();
@@ -80,10 +80,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var notVirtualMethodMembersAreNotVirtual =
                 MethodMembers().That().AreNotVirtual().Should().NotBeVirtual();
 
-            Assert.True(virtualMethodMembersShouldBeVirtual.HasViolations(Architecture));
-            Assert.False(virtualMethodMembersAreNotVirtual.HasViolations(Architecture));
-            Assert.False(notVirtualMethodMembersShouldBeVirtual.HasViolations(Architecture));
-            Assert.True(notVirtualMethodMembersAreNotVirtual.HasViolations(Architecture));
+            Assert.True(virtualMethodMembersShouldBeVirtual.HasNoViolations(Architecture));
+            Assert.False(virtualMethodMembersAreNotVirtual.HasNoViolations(Architecture));
+            Assert.False(notVirtualMethodMembersShouldBeVirtual.HasNoViolations(Architecture));
+            Assert.True(notVirtualMethodMembersAreNotVirtual.HasNoViolations(Architecture));
         }
     }
 }

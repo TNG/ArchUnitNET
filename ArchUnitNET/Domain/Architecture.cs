@@ -39,7 +39,7 @@ namespace ArchUnitNET.Domain
 
         public bool ViolatesRule(IArchRule archRule)
         {
-            return archRule.HasViolations(this);
+            return archRule.HasNoViolations(this);
         }
 
         public IEnumerable<EvaluationResult> EvaluateRule(IArchRule archRule)

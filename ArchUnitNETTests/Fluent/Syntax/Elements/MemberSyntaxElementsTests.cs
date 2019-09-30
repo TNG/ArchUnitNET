@@ -42,12 +42,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var membersWithDependencyExist =
                         Members().That().HaveBodyTypeMemberDependencies(dependency.Origin.Name).Should().Exist();
 
-                    Assert.True(memberHasDependency.HasViolations(Architecture));
-                    Assert.False(memberDoesNotHaveDependency.HasViolations(Architecture));
-                    Assert.True(membersWithDependencyShouldExist.HasViolations(Architecture));
-                    Assert.False(membersWithDependencyShouldBeOtherMembers.HasViolations(Architecture));
-                    Assert.True(membersWithDependencyShouldHaveDependency.HasViolations(Architecture));
-                    Assert.True(membersWithDependencyExist.HasViolations(Architecture));
+                    Assert.True(memberHasDependency.HasNoViolations(Architecture));
+                    Assert.False(memberDoesNotHaveDependency.HasNoViolations(Architecture));
+                    Assert.True(membersWithDependencyShouldExist.HasNoViolations(Architecture));
+                    Assert.False(membersWithDependencyShouldBeOtherMembers.HasNoViolations(Architecture));
+                    Assert.True(membersWithDependencyShouldHaveDependency.HasNoViolations(Architecture));
+                    Assert.True(membersWithDependencyExist.HasNoViolations(Architecture));
                 }
 
                 var memberHasBodyTypeMemberDependencies =
@@ -60,13 +60,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     Members().That().DoNotHaveBodyTypeMemberDependencies().Should().NotBe(member);
 
                 Assert.Equal(member.HasBodyTypeMemberDependencies(),
-                    memberHasBodyTypeMemberDependencies.HasViolations(Architecture));
+                    memberHasBodyTypeMemberDependencies.HasNoViolations(Architecture));
                 Assert.Equal(!member.HasBodyTypeMemberDependencies(),
-                    memberDoesNotHaveBodyTypeMemberDependencies.HasViolations(Architecture));
+                    memberDoesNotHaveBodyTypeMemberDependencies.HasNoViolations(Architecture));
                 Assert.Equal(!member.HasBodyTypeMemberDependencies(),
-                    membersWithBodyTypeMemberDependenciesDoNotIncludeMember.HasViolations(Architecture));
+                    membersWithBodyTypeMemberDependenciesDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(member.HasBodyTypeMemberDependencies(),
-                    membersWithoutBodyTypeMemberDependenciesDoNotIncludeMember.HasViolations(Architecture));
+                    membersWithoutBodyTypeMemberDependenciesDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var membersWithBodyTypeMemberDependenciesHaveBodyTypeMemberDependencies = Members().That()
@@ -79,14 +79,14 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .DoNotHaveBodyTypeMemberDependencies().Should().NotHaveBodyTypeMemberDependencies();
 
             Assert.True(
-                membersWithBodyTypeMemberDependenciesHaveBodyTypeMemberDependencies.HasViolations(Architecture));
+                membersWithBodyTypeMemberDependenciesHaveBodyTypeMemberDependencies.HasNoViolations(Architecture));
             Assert.False(
-                membersWithBodyTypeMemberDependenciesDoNotHaveBodyTypeMemberDependencies.HasViolations(Architecture));
+                membersWithBodyTypeMemberDependenciesDoNotHaveBodyTypeMemberDependencies.HasNoViolations(Architecture));
             Assert.False(
-                membersWithoutBodyTypeMemberDependenciesHaveBodyTypeMemberDependencies.HasViolations(Architecture));
+                membersWithoutBodyTypeMemberDependenciesHaveBodyTypeMemberDependencies.HasNoViolations(Architecture));
             Assert.True(
                 membersWithoutBodyTypeMemberDependenciesDoNotHaveBodyTypeMemberDependencies
-                    .HasViolations(Architecture));
+                    .HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -114,12 +114,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var membersWithDependencyExist =
                         Members().That().HaveFieldTypeDependencies(dependency.Origin.Name).Should().Exist();
 
-                    Assert.True(memberHasDependency.HasViolations(Architecture));
-                    Assert.False(memberDoesNotHaveDependency.HasViolations(Architecture));
-                    Assert.True(membersWithDependencyShouldExist.HasViolations(Architecture));
-                    Assert.False(membersWithDependencyShouldBeOtherMembers.HasViolations(Architecture));
-                    Assert.True(membersWithDependencyShouldHaveDependency.HasViolations(Architecture));
-                    Assert.True(membersWithDependencyExist.HasViolations(Architecture));
+                    Assert.True(memberHasDependency.HasNoViolations(Architecture));
+                    Assert.False(memberDoesNotHaveDependency.HasNoViolations(Architecture));
+                    Assert.True(membersWithDependencyShouldExist.HasNoViolations(Architecture));
+                    Assert.False(membersWithDependencyShouldBeOtherMembers.HasNoViolations(Architecture));
+                    Assert.True(membersWithDependencyShouldHaveDependency.HasNoViolations(Architecture));
+                    Assert.True(membersWithDependencyExist.HasNoViolations(Architecture));
                 }
 
                 var memberHasFieldTypeDependencies =
@@ -132,13 +132,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     Members().That().DoNotHaveFieldTypeDependencies().Should().NotBe(member);
 
                 Assert.Equal(member.HasFieldTypeDependencies(),
-                    memberHasFieldTypeDependencies.HasViolations(Architecture));
+                    memberHasFieldTypeDependencies.HasNoViolations(Architecture));
                 Assert.Equal(!member.HasFieldTypeDependencies(),
-                    memberDoesNotHaveFieldTypeDependencies.HasViolations(Architecture));
+                    memberDoesNotHaveFieldTypeDependencies.HasNoViolations(Architecture));
                 Assert.Equal(!member.HasFieldTypeDependencies(),
-                    membersWithFieldTypeDependenciesDoNotIncludeMember.HasViolations(Architecture));
+                    membersWithFieldTypeDependenciesDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(member.HasFieldTypeDependencies(),
-                    membersWithoutFieldTypeDependenciesDoNotIncludeMember.HasViolations(Architecture));
+                    membersWithoutFieldTypeDependenciesDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var membersWithFieldTypeDependenciesHaveFieldTypeDependencies = Members().That()
@@ -150,11 +150,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var membersWithoutFieldTypeDependenciesDoNotHaveFieldTypeDependencies = Members().That()
                 .DoNotHaveFieldTypeDependencies().Should().NotHaveFieldTypeDependencies();
 
-            Assert.True(membersWithFieldTypeDependenciesHaveFieldTypeDependencies.HasViolations(Architecture));
-            Assert.False(membersWithFieldTypeDependenciesDoNotHaveFieldTypeDependencies.HasViolations(Architecture));
-            Assert.False(membersWithoutFieldTypeDependenciesHaveFieldTypeDependencies.HasViolations(Architecture));
+            Assert.True(membersWithFieldTypeDependenciesHaveFieldTypeDependencies.HasNoViolations(Architecture));
+            Assert.False(membersWithFieldTypeDependenciesDoNotHaveFieldTypeDependencies.HasNoViolations(Architecture));
+            Assert.False(membersWithoutFieldTypeDependenciesHaveFieldTypeDependencies.HasNoViolations(Architecture));
             Assert.True(
-                membersWithoutFieldTypeDependenciesDoNotHaveFieldTypeDependencies.HasViolations(Architecture));
+                membersWithoutFieldTypeDependenciesDoNotHaveFieldTypeDependencies.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -182,12 +182,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var membersWithDependencyExist =
                         Members().That().HaveMethodCallDependencies(dependency.Origin.Name).Should().Exist();
 
-                    Assert.True(memberHasDependency.HasViolations(Architecture));
-                    Assert.False(memberDoesNotHaveDependency.HasViolations(Architecture));
-                    Assert.True(membersWithDependencyShouldExist.HasViolations(Architecture));
-                    Assert.False(membersWithDependencyShouldBeOtherMembers.HasViolations(Architecture));
-                    Assert.True(membersWithDependencyShouldHaveDependency.HasViolations(Architecture));
-                    Assert.True(membersWithDependencyExist.HasViolations(Architecture));
+                    Assert.True(memberHasDependency.HasNoViolations(Architecture));
+                    Assert.False(memberDoesNotHaveDependency.HasNoViolations(Architecture));
+                    Assert.True(membersWithDependencyShouldExist.HasNoViolations(Architecture));
+                    Assert.False(membersWithDependencyShouldBeOtherMembers.HasNoViolations(Architecture));
+                    Assert.True(membersWithDependencyShouldHaveDependency.HasNoViolations(Architecture));
+                    Assert.True(membersWithDependencyExist.HasNoViolations(Architecture));
                 }
 
                 var memberHasMethodCallDependencies =
@@ -200,13 +200,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     Members().That().DoNotHaveMethodCallDependencies().Should().NotBe(member);
 
                 Assert.Equal(member.HasMethodCallDependencies(),
-                    memberHasMethodCallDependencies.HasViolations(Architecture));
+                    memberHasMethodCallDependencies.HasNoViolations(Architecture));
                 Assert.Equal(!member.HasMethodCallDependencies(),
-                    memberDoesNotHaveMethodCallDependencies.HasViolations(Architecture));
+                    memberDoesNotHaveMethodCallDependencies.HasNoViolations(Architecture));
                 Assert.Equal(!member.HasMethodCallDependencies(),
-                    membersWithMethodCallDependenciesDoNotIncludeMember.HasViolations(Architecture));
+                    membersWithMethodCallDependenciesDoNotIncludeMember.HasNoViolations(Architecture));
                 Assert.Equal(member.HasMethodCallDependencies(),
-                    membersWithoutMethodCallDependenciesDoNotIncludeMember.HasViolations(Architecture));
+                    membersWithoutMethodCallDependenciesDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
             var membersWithMethodCallDependenciesHaveMethodCallDependencies = Members().That()
@@ -218,11 +218,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var membersWithoutMethodCallDependenciesDoNotHaveMethodCallDependencies = Members().That()
                 .DoNotHaveMethodCallDependencies().Should().NotHaveMethodCallDependencies();
 
-            Assert.True(membersWithMethodCallDependenciesHaveMethodCallDependencies.HasViolations(Architecture));
-            Assert.False(membersWithMethodCallDependenciesDoNotHaveMethodCallDependencies.HasViolations(Architecture));
-            Assert.False(membersWithoutMethodCallDependenciesHaveMethodCallDependencies.HasViolations(Architecture));
+            Assert.True(membersWithMethodCallDependenciesHaveMethodCallDependencies.HasNoViolations(Architecture));
+            Assert.False(
+                membersWithMethodCallDependenciesDoNotHaveMethodCallDependencies.HasNoViolations(Architecture));
+            Assert.False(membersWithoutMethodCallDependenciesHaveMethodCallDependencies.HasNoViolations(Architecture));
             Assert.True(
-                membersWithoutMethodCallDependenciesDoNotHaveMethodCallDependencies.HasViolations(Architecture));
+                membersWithoutMethodCallDependenciesDoNotHaveMethodCallDependencies.HasNoViolations(Architecture));
         }
     }
 }
