@@ -252,6 +252,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "does not only depend on classes that");
         }
 
+        public static RelationCondition<TRuleType, IType> DependOnTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(
+                obj => obj.Dependencies.Select(dependency => dependency.Target), Any, "depend on types that",
+                "does not depend on types that");
+        }
+
+        public static RelationCondition<TRuleType, IType> OnlyDependOnTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(
+                obj => obj.Dependencies.Select(dependency => dependency.Target), All, "only depend on types that",
+                "does not only depend on types that");
+        }
+
 
         //Negations
 
@@ -451,6 +465,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new RelationCondition<TRuleType, Class>(obj => obj.GetClassDependencies(), None,
                 "not depend on classes that",
                 "does depend on classes that");
+        }
+
+        public static RelationCondition<TRuleType, IType> NotDependOnTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(
+                obj => obj.Dependencies.Select(dependency => dependency.Target), None, "not depend on types that",
+                "does depend on types that");
         }
     }
 }
