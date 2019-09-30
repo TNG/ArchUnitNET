@@ -272,20 +272,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public static RelationCondition<TRuleType, Class> OnlyDependOnClassesThat()
         {
             return new RelationCondition<TRuleType, Class>(obj => obj.GetClassDependencies(), All,
-                "only depend on classes that",
-                "does not only depend on classes that");
+                "only depend on classes that", "does not only depend on classes that");
         }
 
         public static RelationCondition<TRuleType, Interface> DependOnInterfacesThat()
         {
             return new RelationCondition<TRuleType, Interface>(obj => obj.GetInterfaceDependencies(), Any,
-                "not depend on interfaces that", "does depend on interfaces that");
+                "depend on interfaces that", "does not depend on interfaces that");
         }
 
         public static RelationCondition<TRuleType, Interface> OnlyDependOnInterfacesThat()
         {
             return new RelationCondition<TRuleType, Interface>(obj => obj.GetInterfaceDependencies(), All,
-                "not depend on interfaces that", "does depend on interfaces that");
+                "only depend on interfaces that", "does not only depend on interfaces that");
         }
 
         public static RelationCondition<TRuleType, IType> DependOnTypesThat()
