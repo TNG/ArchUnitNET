@@ -1,5 +1,5 @@
 ﻿using ArchUnitNET.Domain;
-using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
+using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -13,13 +13,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShould AndShould()
         {
             _ruleCreator.AddConditionConjunction(LogicalConjunctionDefinition.And);
-            return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShould, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShould OrShould()
         {
             _ruleCreator.AddConditionConjunction(LogicalConjunctionDefinition.Or);
-            return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShould, TRuleType>(_ruleCreator);
         }
     }
 }

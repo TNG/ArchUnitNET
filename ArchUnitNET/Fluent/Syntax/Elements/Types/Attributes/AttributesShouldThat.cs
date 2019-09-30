@@ -1,5 +1,5 @@
 ﻿using ArchUnitNET.Domain;
-using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
+using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
@@ -16,13 +16,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
         public TRuleTypeShouldConjunction AreAbstract()
         {
             _ruleCreator.ContinueComplexCondition(AttributesFilterDefinition.AreAbstract());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreSealed()
         {
             _ruleCreator.ContinueComplexCondition(AttributesFilterDefinition.AreSealed());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
 
@@ -32,13 +32,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
         public TRuleTypeShouldConjunction AreNotAbstract()
         {
             _ruleCreator.ContinueComplexCondition(AttributesFilterDefinition.AreNotAbstract());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotSealed()
         {
             _ruleCreator.ContinueComplexCondition(AttributesFilterDefinition.AreNotSealed());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

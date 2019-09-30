@@ -1,5 +1,5 @@
 ﻿using ArchUnitNET.Domain;
-using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
+using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
@@ -16,13 +16,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public TRuleTypeShouldConjunction AreConstructors()
         {
             _ruleCreator.ContinueComplexCondition(MethodMembersFilterDefinition.AreConstructors());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreVirtual()
         {
             _ruleCreator.ContinueComplexCondition(MethodMembersFilterDefinition.AreVirtual());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
 
@@ -32,13 +32,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public TRuleTypeShouldConjunction AreNoConstructors()
         {
             _ruleCreator.ContinueComplexCondition(MethodMembersFilterDefinition.AreNoConstructors());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotVirtual()
         {
             _ruleCreator.ContinueComplexCondition(MethodMembersFilterDefinition.AreNotVirtual());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

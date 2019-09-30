@@ -1,5 +1,5 @@
 ﻿using ArchUnitNET.Domain;
-using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
+using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -15,7 +15,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunctionWithoutBecause Because(string reason)
         {
             _ruleCreator.AddConditionReason(reason);
-            return CreateSyntaxElement<TRuleTypeShouldConjunctionWithoutBecause, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunctionWithoutBecause, TRuleType>(_ruleCreator);
         }
     }
 }

@@ -3,9 +3,9 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax
 {
-    public static class ActivatorHandler
+    public static class ConjunctionFactory
     {
-        public static TConjunction CreateSyntaxElement<TConjunction, TRuleType>(IArchRuleCreator<TRuleType> ruleCreator)
+        public static TConjunction Create<TConjunction, TRuleType>(IArchRuleCreator<TRuleType> ruleCreator)
             where TRuleType : ICanBeAnalyzed
         {
             return (TConjunction) Activator.CreateInstance(typeof(TConjunction), ruleCreator);

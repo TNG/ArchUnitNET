@@ -1,6 +1,6 @@
 ﻿using System;
 using ArchUnitNET.Domain;
-using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
+using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -18,56 +18,56 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction Are(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.Are(firstType, moreTypes));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction ImplementInterface(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.ImplementInterface(pattern));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction ImplementInterface(Interface intf)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.ImplementInterface(intf));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
 
         public TRuleTypeShouldConjunction ResideInNamespace(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.ResideInNamespace(pattern));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HavePropertyMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.HaveMethodMemberWithName(name));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveFieldMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.HaveFieldMemberWithName(name));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveMethodMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.HaveFieldMemberWithName(name));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.HaveMemberWithName(name));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNested()
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreNested());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
 
@@ -77,61 +77,61 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction AreNot(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreNot(firstType, moreTypes));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotImplementInterface(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
                 TypesFilterDefinition<TReferenceType>.DoNotImplementInterface(pattern));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotImplementInterface(Interface intf)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.DoNotImplementInterface(intf));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotResideInNamespace(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
                 TypesFilterDefinition<TReferenceType>.DoNotResideInNamespace(pattern));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHavePropertyMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(
                 TypesFilterDefinition<TReferenceType>.DoNotHavePropertyMemberWithName(name));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveFieldMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(
                 TypesFilterDefinition<TReferenceType>.DoNotHaveFieldMemberWithName(name));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveMethodMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(
                 TypesFilterDefinition<TReferenceType>.DoNotHaveMethodMemberWithName(name));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(
                 TypesFilterDefinition<TReferenceType>.DoNotHaveMethodMemberWithName(name));
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotNested()
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreNotNested());
-            return CreateSyntaxElement<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

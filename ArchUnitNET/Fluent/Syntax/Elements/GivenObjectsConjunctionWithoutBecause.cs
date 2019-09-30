@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Exceptions;
-using static ArchUnitNET.Fluent.Syntax.ActivatorHandler;
+using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -32,18 +32,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeThat And()
         {
             _ruleCreator.AddObjectFilterConjunction(LogicalConjunctionDefinition.And);
-            return CreateSyntaxElement<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
+            return Create<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeThat Or()
         {
             _ruleCreator.AddObjectFilterConjunction(LogicalConjunctionDefinition.Or);
-            return CreateSyntaxElement<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
+            return Create<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShould Should()
         {
-            return CreateSyntaxElement<TRuleTypeShould, TRuleType>(_ruleCreator);
+            return Create<TRuleTypeShould, TRuleType>(_ruleCreator);
         }
     }
 }
