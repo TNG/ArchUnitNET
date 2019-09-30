@@ -19,7 +19,7 @@ namespace ArchUnitNET.Fluent
             return _valueIfExists;
         }
 
-        public bool CheckNull()
+        public bool CheckEmpty()
         {
             return !_valueIfExists;
         }

@@ -23,7 +23,7 @@ namespace ArchUnitNET.Fluent
             return _condition(obj, architecture);
         }
 
-        public bool CheckNull()
+        public bool CheckEmpty()
         {
             return true;
         }

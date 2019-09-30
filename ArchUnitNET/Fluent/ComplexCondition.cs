@@ -24,7 +24,7 @@ namespace ArchUnitNET.Fluent
             return _relation.CheckRelation(obj, _objectFilter, architecture);
         }
 
-        public bool CheckNull()
+        public bool CheckEmpty()
         {
             return true;
         }
