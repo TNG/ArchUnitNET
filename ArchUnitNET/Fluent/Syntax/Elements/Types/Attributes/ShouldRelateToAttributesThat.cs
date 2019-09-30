@@ -3,13 +3,13 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public class AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> :
-        TypesShouldThat<TRuleTypeShouldConjunction, Attribute, TRuleType>,
+    public class ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> :
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, Attribute, TRuleType>,
         IAttributesThat<TRuleTypeShouldConjunction>
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
-        public AttributesShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        public ShouldRelateToAttributesThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 

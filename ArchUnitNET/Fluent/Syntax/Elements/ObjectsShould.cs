@@ -143,16 +143,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Complex Conditions
 
-        public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat()
+        public ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat()
         {
             _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.DependOnClassesThat());
-            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return new ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnClassesThat()
+        public ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnClassesThat()
         {
             _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.OnlyDependOnClassesThat());
-            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return new ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
 
@@ -269,10 +269,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Complex Condition Negations
 
-        public ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat()
+        public ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat()
         {
             _ruleCreator.BeginComplexCondition(ObjectsConditionDefinition<TRuleType>.NotDependOnClassesThat());
-            return new ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return new ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

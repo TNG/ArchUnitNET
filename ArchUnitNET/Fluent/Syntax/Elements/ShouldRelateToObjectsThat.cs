@@ -5,12 +5,13 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public class ObjectsShouldThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType> : SyntaxElement<TRuleType>,
+    public class ShouldRelateToObjectsThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType> :
+        SyntaxElement<TRuleType>,
         IObjectsThat<TRuleTypeShouldConjunction>
         where TReferenceType : ICanBeAnalyzed
         where TRuleType : ICanBeAnalyzed
     {
-        protected ObjectsShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        protected ShouldRelateToObjectsThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 

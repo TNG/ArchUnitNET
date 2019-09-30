@@ -30,8 +30,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction BeInternal();
         TRuleTypeShouldConjunction BeProtectedInternal();
         TRuleTypeShouldConjunction BePrivateProtected();
-        ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat();
-        ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnClassesThat();
+        ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat();
+        ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnClassesThat();
 
 
         //Negations
@@ -54,6 +54,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction NotBeInternal();
         TRuleTypeShouldConjunction NotBeProtectedInternal();
         TRuleTypeShouldConjunction NotBePrivateProtected();
-        ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat();
+        ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat();
     }
 }

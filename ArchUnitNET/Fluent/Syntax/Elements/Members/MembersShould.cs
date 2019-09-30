@@ -53,16 +53,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Complex Conditions
 
-        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat()
+        public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat()
         {
             _ruleCreator.BeginComplexCondition(MembersConditionDefinition<TRuleType>.HaveAttributesThat());
-            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return new ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat()
+        public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat()
         {
             _ruleCreator.BeginComplexCondition(MembersConditionDefinition<TRuleType>.OnlyHaveAttributesThat());
-            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return new ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         //Negations
@@ -106,10 +106,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Complex Condition Negations
 
-        public AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat()
+        public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat()
         {
             _ruleCreator.BeginComplexCondition(MembersConditionDefinition<TRuleType>.NotHaveAttributesThat());
-            return new AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            return new ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

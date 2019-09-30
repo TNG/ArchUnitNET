@@ -3,12 +3,12 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
-    public class ClassesShouldThat<TRuleTypeShouldConjunction, TRuleType> :
-        TypesShouldThat<TRuleTypeShouldConjunction, Class, TRuleType>,
+    public class ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> :
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, Class, TRuleType>,
         IClassesThat<TRuleTypeShouldConjunction> where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public ClassesShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        public ShouldRelateToClassesThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 

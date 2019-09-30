@@ -14,8 +14,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         TRuleTypeShouldConjunction HaveMethodCallDependencies(string pattern);
         TRuleTypeShouldConjunction HaveFieldTypeDependencies();
         TRuleTypeShouldConjunction HaveFieldTypeDependencies(string pattern);
-        AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat();
-        AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat();
+        ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat();
+        ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat();
 
 
         //Negations
@@ -27,6 +27,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         TRuleTypeShouldConjunction NotHaveMethodCallDependencies(string pattern);
         TRuleTypeShouldConjunction NotHaveFieldTypeDependencies();
         TRuleTypeShouldConjunction NotHaveFieldTypeDependencies(string pattern);
-        AttributesShouldThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat();
+        ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat();
     }
 }

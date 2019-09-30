@@ -3,14 +3,14 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public class MembersShouldThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType> :
-        ObjectsShouldThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType>,
+    public class ShouldRelateToMembersThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType> :
+        ShouldRelateToObjectsThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType>,
         IMembersThat<TRuleTypeShouldConjunction>
         where TReferenceType : IMember
         where TRuleType : ICanBeAnalyzed
     {
         // ReSharper disable once MemberCanBeProtected.Global
-        public MembersShouldThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        public ShouldRelateToMembersThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 
