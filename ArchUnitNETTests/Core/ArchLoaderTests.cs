@@ -3,6 +3,8 @@ using ArchUnitNET.Domain;
 using Xunit;
 using static ArchUnitNETTests.Fluent.Extensions.StaticTestArchitectures;
 
+// ReSharper disable InconsistentNaming
+
 namespace ArchUnitNETTests.Core
 {
     public class ArchLoaderTests

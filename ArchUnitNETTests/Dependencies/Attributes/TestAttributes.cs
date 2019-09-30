@@ -10,10 +10,13 @@ using ArchUnitNETTests.Dependencies.Members;
 using TestAssembly;
 
 #pragma warning disable 169
+#pragma warning disable 649
 
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable NotAccessedField.Local
 // ReSharper disable UnassignedGetOnlyAutoProperty
 // ReSharper disable UnusedMember.Local
-
 // ReSharper disable UnassignedField.Global
 // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local

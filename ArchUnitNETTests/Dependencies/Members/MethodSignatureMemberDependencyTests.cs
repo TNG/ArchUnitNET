@@ -10,6 +10,7 @@ using ArchUnitNET.Domain.Dependencies.Members;
 using ArchUnitNET.Fluent.Extensions;
 using Xunit;
 
+// ReSharper disable NotAccessedField.Local
 // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
 // ReSharper disable UnusedMember.Global
 

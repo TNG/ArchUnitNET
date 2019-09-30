@@ -12,6 +12,8 @@ using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 using static ArchUnitNET.Domain.Visibility;
 
+// ReSharper disable MemberCanBeProtected.Global
+// ReSharper disable NotAccessedField.Local
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 
