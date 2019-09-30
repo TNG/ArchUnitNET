@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
@@ -17,6 +18,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureObjectFilter<T>(Filter, description);
+        }
+
+        public static ArchitectureObjectFilter<T> Are(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Filter(T ruleType, Architecture architecture)
+            {
+                return typeList.Select(architecture.GetTypeOfType).Any(type => type.Equals(ruleType));
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "do not exist";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "are \"" + firstType.FullName + "\"", (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
             return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
@@ -80,6 +105,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are not \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureObjectFilter<T>(Filter, description);
+        }
+
+        public static ArchitectureObjectFilter<T> AreNot(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Filter(T ruleType, Architecture architecture)
+            {
+                return typeList.Select(architecture.GetTypeOfType).All(type => !type.Equals(ruleType));
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "are not no types (always true)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "are not \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
             return new ArchitectureObjectFilter<T>(Filter, description);
         }
 

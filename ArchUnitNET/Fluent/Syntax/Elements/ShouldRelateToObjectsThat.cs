@@ -22,6 +22,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction Are(IEnumerable<ICanBeAnalyzed> objects)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.Are(objects));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction DependOn(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DependOn(pattern));
@@ -161,6 +168,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectsFilterDefinition<TReferenceType>.AreNot(firstObject, moreObjects));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNot(IEnumerable<ICanBeAnalyzed> objects)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.AreNot(objects));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

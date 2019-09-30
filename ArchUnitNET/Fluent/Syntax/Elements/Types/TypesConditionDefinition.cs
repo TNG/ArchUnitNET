@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
@@ -21,6 +22,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
             var failDescription = moreTypes.Aggregate("is not \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> Be(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return typeList.Select(architecture.GetTypeOfType).Any(type => type.Equals(ruleType));
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "not exist";
+                failDescription = "does exist";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "be \"" + firstType.FullName + "\"", (current, obj) => current + " or \"" + obj.FullName + "\"");
+                failDescription = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "is not \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
@@ -108,6 +139,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
             var failDescription = moreTypes.Aggregate("is \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> NotBe(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return typeList.Select(architecture.GetTypeOfType).All(type => !type.Equals(ruleType));
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "not be no type (always true)";
+                failDescription = "is no type";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "not be \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                failDescription = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "is \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 

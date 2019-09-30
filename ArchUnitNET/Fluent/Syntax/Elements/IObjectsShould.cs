@@ -11,6 +11,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     {
         TRuleTypeShouldConjunction Exist();
         TRuleTypeShouldConjunction Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
+        TRuleTypeShouldConjunction Be(IEnumerable<ICanBeAnalyzed> objects);
         TRuleTypeShouldConjunction DependOn(string pattern);
         TRuleTypeShouldConjunction DependOn(IType type);
         TRuleTypeShouldConjunction DependOn(Type type);
@@ -38,6 +39,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         TRuleTypeShouldConjunction NotExist();
         TRuleTypeShouldConjunction NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
+        TRuleTypeShouldConjunction NotBe(IEnumerable<ICanBeAnalyzed> objects);
         TRuleTypeShouldConjunction NotDependOn(string pattern);
         TRuleTypeShouldConjunction NotDependOn(IType firstType, params IType[] moreTypes);
         TRuleTypeShouldConjunction NotDependOn(Type firstType, params Type[] moreTypes);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
@@ -17,6 +18,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TGivenRuleTypeConjunction Are(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.Are(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction Are(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.Are(types));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -75,6 +82,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TGivenRuleTypeConjunction AreNot(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNot(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNot(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNot(types));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

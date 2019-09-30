@@ -18,6 +18,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction Are(IEnumerable<ICanBeAnalyzed> objects)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.Are(objects));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction DependOn(string pattern)
         {
             _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(pattern));
@@ -151,6 +157,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNot(firstObject, moreObjects));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNot(IEnumerable<ICanBeAnalyzed> objects)
+        {
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.AreNot(objects));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

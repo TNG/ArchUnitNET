@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
@@ -18,6 +19,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction Are(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.Are(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction Are(IEnumerable<Type> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.Are(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -77,6 +84,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction AreNot(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreNot(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNot(IEnumerable<Type> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreNot(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

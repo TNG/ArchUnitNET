@@ -7,6 +7,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     public interface IObjectsThat<TRuleTypeConjunction>
     {
         TRuleTypeConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
+        TRuleTypeConjunction Are(IEnumerable<ICanBeAnalyzed> objects);
         TRuleTypeConjunction DependOn(string pattern);
         TRuleTypeConjunction DependOn(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes);
@@ -34,6 +35,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
 
         TRuleTypeConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
+        TRuleTypeConjunction AreNot(IEnumerable<ICanBeAnalyzed> objects);
         TRuleTypeConjunction DoNotDependOn(string pattern);
         TRuleTypeConjunction DoNotDependOn(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction DoNotDependOn(IType firstType, params IType[] moreTypes);

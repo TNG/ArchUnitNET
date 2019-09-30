@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 
@@ -10,6 +11,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         TRuleTypeShouldConjunction Be(Type firstType, params Type[] moreTypes);
+        TRuleTypeShouldConjunction Be(IEnumerable<Type> types);
         TRuleTypeShouldConjunction ImplementInterface(string pattern);
         TRuleTypeShouldConjunction ImplementInterface(Interface intf);
         TRuleTypeShouldConjunction ResideInNamespace(string pattern);
@@ -26,6 +28,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
 
         TRuleTypeShouldConjunction NotBe(Type firstType, params Type[] moreTypes);
+        TRuleTypeShouldConjunction NotBe(IEnumerable<Type> types);
         TRuleTypeShouldConjunction NotImplementInterface(string pattern);
         TRuleTypeShouldConjunction NotImplementInterface(Interface intf);
         TRuleTypeShouldConjunction NotResideInNamespace(string pattern);

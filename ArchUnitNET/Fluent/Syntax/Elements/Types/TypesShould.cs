@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
@@ -19,6 +20,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction Be(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.Be(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction Be(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.Be(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -91,6 +98,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction NotBe(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBe(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBe(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBe(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

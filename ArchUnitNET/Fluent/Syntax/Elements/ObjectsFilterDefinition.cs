@@ -16,6 +16,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(o => o.Equals(firstObject) || moreObjects.Any(o.Equals), description);
         }
 
+        public static ObjectFilter<T> Are(IEnumerable<ICanBeAnalyzed> objects)
+        {
+            var objectList = objects.ToList();
+            string description;
+            if (objectList.IsNullOrEmpty())
+            {
+                description = "do not exist (always empty)";
+            }
+            else
+            {
+                var firstObject = objectList.First();
+                description = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
+                    "are \"" + firstObject.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new ObjectFilter<T>(obj => objectList.Any(o => o.Equals(obj)), description);
+        }
+
         public static ObjectFilter<T> DependOn(string pattern)
         {
             return new ObjectFilter<T>(obj => obj.DependsOn(pattern), "depend on \"" + pattern + "\"");
@@ -225,6 +244,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             var description = moreObjects.Aggregate("are not \"" + firstObject.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
             return new ObjectFilter<T>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals), description);
+        }
+
+        public static ObjectFilter<T> AreNot(IEnumerable<ICanBeAnalyzed> objects)
+        {
+            var objectList = objects.ToList();
+            string description;
+            if (objectList.IsNullOrEmpty())
+            {
+                description = "are not no object (always true)";
+            }
+            else
+            {
+                var firstObject = objectList.First();
+                description = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
+                    "are not \"" + firstObject.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new ObjectFilter<T>(obj => objectList.All(o => !o.Equals(obj)), description);
         }
 
         public static ObjectFilter<T> DoNotDependOn(string pattern)

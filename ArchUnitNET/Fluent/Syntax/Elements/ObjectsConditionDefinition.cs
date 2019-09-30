@@ -25,6 +25,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 failDescription);
         }
 
+        public static SimpleCondition<TRuleType> Be(IEnumerable<ICanBeAnalyzed> objects)
+        {
+            var objectList = objects.ToList();
+            string description;
+            string failDescription;
+            if (objectList.IsNullOrEmpty())
+            {
+                description = "not exist";
+                failDescription = "does exist";
+            }
+            else
+            {
+                var firstObject = objectList.First();
+                description = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
+                    "be \"" + firstObject.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                failDescription = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
+                    "is not \"" + firstObject.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(obj => objectList.Any(o => o.Equals(obj)), description,
+                failDescription);
+        }
+
         public static SimpleCondition<TRuleType> DependOn(string pattern)
         {
             return new SimpleCondition<TRuleType>(
@@ -244,6 +269,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
             return new SimpleCondition<TRuleType>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals),
                 description, failDescription);
+        }
+
+        public static SimpleCondition<TRuleType> NotBe(IEnumerable<ICanBeAnalyzed> objects)
+        {
+            var objectList = objects.ToList();
+            string description;
+            string failDescription;
+            if (objectList.IsNullOrEmpty())
+            {
+                description = "not be no object (always true)";
+                failDescription = "is no object";
+            }
+            else
+            {
+                var firstObject = objectList.First();
+                description = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
+                    "not be \"" + firstObject.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                failDescription = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
+                    "is \"" + firstObject.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(obj => objectList.All(o => !o.Equals(obj)), description,
+                failDescription);
         }
 
         public static SimpleCondition<TRuleType> NotDependOn(string pattern)
