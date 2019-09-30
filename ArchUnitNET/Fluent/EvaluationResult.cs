@@ -8,7 +8,7 @@ namespace ArchUnitNET.Fluent
         public EvaluationResult([CanBeNull] ICanBeAnalyzed obj, bool passed, string description,
             ICanBeEvaluated archRule, Architecture architecture)
         {
-            Object = obj;
+            EvaluatedObject = obj;
             Passed = passed;
             Description = description;
             ArchRule = archRule;
@@ -16,7 +16,7 @@ namespace ArchUnitNET.Fluent
         }
 
         public ICanBeEvaluated ArchRule { get; }
-        [CanBeNull] public ICanBeAnalyzed Object { get; }
+        [CanBeNull] public ICanBeAnalyzed EvaluatedObject { get; }
         public bool Passed { get; }
         public string Description { get; }
         public Architecture Architecture { get; }
@@ -29,7 +29,7 @@ namespace ArchUnitNET.Fluent
         private bool Equals(EvaluationResult other)
         {
             return string.Equals(Description, other.Description) &&
-                   Equals(Object, other.Object) &&
+                   Equals(EvaluatedObject, other.EvaluatedObject) &&
                    Equals(Passed, other.Passed) &&
                    Equals(ArchRule, other.ArchRule) &&
                    Equals(Architecture, other.Architecture);
@@ -55,7 +55,7 @@ namespace ArchUnitNET.Fluent
             unchecked
             {
                 var hashCode = Description != null ? Description.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (Object != null ? Object.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (EvaluatedObject != null ? EvaluatedObject.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Passed.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ArchRule != null ? ArchRule.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Architecture != null ? Architecture.GetHashCode() : 0);
