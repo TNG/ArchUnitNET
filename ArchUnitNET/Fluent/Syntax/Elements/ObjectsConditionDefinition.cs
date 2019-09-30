@@ -86,7 +86,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Condition(TRuleType ruleType)
             {
-                return ruleType.Dependencies.Select(dependency => dependency.Target)
+                return ruleType.GetTypeDependencies()
                     .All(target => target.Equals(firstType) || moreTypes.Contains(target));
             }
 
@@ -102,7 +102,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
-                return ruleType.Dependencies.Select(dependency => dependency.Target).All(target =>
+                return ruleType.GetTypeDependencies().All(target =>
                     target.Equals(architecture.GetTypeOfType(firstType)) ||
                     moreTypes.Any(type => architecture.GetTypeOfType(type).Equals(target)));
             }
@@ -120,8 +120,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return ruleType.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => types.Contains(target));
+                return ruleType.GetTypeDependencies().All(target => types.Contains(target));
             }
 
             var description = "only depend on " + objectProvider.Description;
@@ -135,8 +134,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Condition(TRuleType type)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => typeList.Contains(target));
+                return type.GetTypeDependencies().All(target => typeList.Contains(target));
             }
 
             string description;
@@ -166,7 +164,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Condition(TRuleType type, Architecture architecture)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
+                return type.GetTypeDependencies()
                     .All(target => typeList.Select(architecture.GetTypeOfType).Contains(target));
             }
 
@@ -278,18 +276,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "does not only depend on classes that");
         }
 
+        public static RelationCondition<TRuleType, Interface> DependOnInterfacesThat()
+        {
+            return new RelationCondition<TRuleType, Interface>(obj => obj.GetInterfaceDependencies(), Any,
+                "not depend on interfaces that", "does depend on interfaces that");
+        }
+
+        public static RelationCondition<TRuleType, Interface> OnlyDependOnInterfacesThat()
+        {
+            return new RelationCondition<TRuleType, Interface>(obj => obj.GetInterfaceDependencies(), All,
+                "not depend on interfaces that", "does depend on interfaces that");
+        }
+
         public static RelationCondition<TRuleType, IType> DependOnTypesThat()
         {
-            return new RelationCondition<TRuleType, IType>(
-                obj => obj.Dependencies.Select(dependency => dependency.Target), Any, "depend on types that",
-                "does not depend on types that");
+            return new RelationCondition<TRuleType, IType>(obj => obj.GetTypeDependencies(), Any,
+                "depend on types that", "does not depend on types that");
         }
 
         public static RelationCondition<TRuleType, IType> OnlyDependOnTypesThat()
         {
-            return new RelationCondition<TRuleType, IType>(
-                obj => obj.Dependencies.Select(dependency => dependency.Target), All, "only depend on types that",
-                "does not only depend on types that");
+            return new RelationCondition<TRuleType, IType>(obj => obj.GetTypeDependencies(), All,
+                "only depend on types that", "does not only depend on types that");
         }
 
 
@@ -347,7 +355,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Condition(TRuleType ruleType)
             {
-                return ruleType.Dependencies.Select(dependency => dependency.Target)
+                return ruleType.GetTypeDependencies()
                     .All(target => !target.Equals(firstType) && !moreTypes.Contains(target));
             }
 
@@ -362,7 +370,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
-                return ruleType.Dependencies.Select(dependency => dependency.Target).All(target =>
+                return ruleType.GetTypeDependencies().All(target =>
                     !target.Equals(architecture.GetTypeOfType(firstType)) &&
                     moreTypes.All(type => !architecture.GetTypeOfType(type).Equals(target)));
             }
@@ -379,8 +387,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return ruleType.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => !types.Contains(target));
+                return ruleType.GetTypeDependencies().All(target => !types.Contains(target));
             }
 
             var description = "not depend on " + objectProvider.Description;
@@ -394,8 +401,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Condition(TRuleType type)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => !typeList.Contains(target));
+                return type.GetTypeDependencies().All(target => !typeList.Contains(target));
             }
 
             string description;
@@ -425,7 +431,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Condition(TRuleType type, Architecture architecture)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
+                return type.GetTypeDependencies()
                     .All(target => !typeList.Select(architecture.GetTypeOfType).Contains(target));
             }
 
@@ -515,20 +521,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
 
-        //Relation Conditions
+        //Relation Condition Negations
 
         public static RelationCondition<TRuleType, Class> NotDependOnClassesThat()
         {
             return new RelationCondition<TRuleType, Class>(obj => obj.GetClassDependencies(), None,
-                "not depend on classes that",
-                "does depend on classes that");
+                "not depend on classes that", "does depend on classes that");
+        }
+
+        public static RelationCondition<TRuleType, Interface> NotDependOnInterfacesThat()
+        {
+            return new RelationCondition<TRuleType, Interface>(obj => obj.GetInterfaceDependencies(), None,
+                "not depend on interfaces that", "does depend on interfaces that");
         }
 
         public static RelationCondition<TRuleType, IType> NotDependOnTypesThat()
         {
-            return new RelationCondition<TRuleType, IType>(
-                obj => obj.Dependencies.Select(dependency => dependency.Target), None, "not depend on types that",
-                "does depend on types that");
+            return new RelationCondition<TRuleType, IType>(obj => obj.GetTypeDependencies(), None,
+                "not depend on types that", "does depend on types that");
         }
     }
 }

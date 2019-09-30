@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
+using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -33,8 +34,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction BeInternal();
         TRuleTypeShouldConjunction BeProtectedInternal();
         TRuleTypeShouldConjunction BePrivateProtected();
+
+        //Relation Conditions
+
         ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat();
         ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnClassesThat();
+        ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> DependOnInterfacesThat();
+        ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnInterfacesThat();
         ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> DependOnTypesThat();
         ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> OnlyDependOnTypesThat();
 
@@ -61,7 +67,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction NotBeInternal();
         TRuleTypeShouldConjunction NotBeProtectedInternal();
         TRuleTypeShouldConjunction NotBePrivateProtected();
+
+        //Relation Condition Negations
+
         ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat();
+        ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnInterfacesThat();
         ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotDependOnTypesThat();
     }
 }

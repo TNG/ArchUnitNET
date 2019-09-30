@@ -136,9 +136,18 @@ namespace ArchUnitNET.Fluent.Extensions
 
         public static IEnumerable<Class> GetClassDependencies(this IHasDependencies c)
         {
-            return c.Dependencies.Select(dependency => dependency.Target).OfType<Class>();
+            return c.GetTypeDependencies().OfType<Class>();
         }
 
+        public static IEnumerable<Interface> GetInterfaceDependencies(this IHasDependencies c)
+        {
+            return c.GetTypeDependencies().OfType<Interface>();
+        }
+
+        public static IEnumerable<IType> GetTypeDependencies(this IHasDependencies c)
+        {
+            return c.Dependencies.Select(dependency => dependency.Target);
+        }
 
         public static bool HasDependency(this IType type, ITypeDependency dependency)
         {

@@ -44,8 +44,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Condition(T type)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .Any(target => target.Equals(firstType) || moreTypes.Contains(target));
+                return type.GetTypeDependencies().Any(target => target.Equals(firstType) || moreTypes.Contains(target));
             }
 
             var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
@@ -57,10 +56,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Condition(T type, Architecture architecture)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .Any(target =>
-                        target.Equals(architecture.GetTypeOfType(firstType)) ||
-                        moreTypes.Any(t => architecture.GetTypeOfType(t).Equals(target)));
+                return type.GetTypeDependencies().Any(target =>
+                    target.Equals(architecture.GetTypeOfType(firstType)) ||
+                    moreTypes.Any(t => architecture.GetTypeOfType(t).Equals(target)));
             }
 
             var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
@@ -73,8 +71,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Filter(T type, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .Any(target => types.Contains(target));
+                return type.GetTypeDependencies().Any(target => types.Contains(target));
             }
 
             var description = "depend on " + objectProvider.Description;
@@ -87,8 +84,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Filter(T type)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .Any(target => typeList.Any(t => t.Equals(target)));
+                return type.GetTypeDependencies().Any(target => typeList.Any(t => t.Equals(target)));
             }
 
             string description;
@@ -113,8 +109,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Filter(T type, Architecture architecture)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .Any(target => typeList.Select(architecture.GetTypeOfType).Any(t => t.Equals(target)));
+                return type.GetTypeDependencies().Any(target =>
+                    typeList.Select(architecture.GetTypeOfType).Any(t => t.Equals(target)));
             }
 
             string description;
@@ -142,8 +138,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Filter(T type)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => target.Equals(firstType) || moreTypes.Contains(target));
+                return type.GetTypeDependencies().All(target => target.Equals(firstType) || moreTypes.Contains(target));
             }
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
@@ -155,10 +150,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Filter(T type, Architecture architecture)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target =>
-                        target.Equals(architecture.GetTypeOfType(firstType)) ||
-                        moreTypes.Any(t => architecture.GetTypeOfType(t).Equals(target)));
+                return type.GetTypeDependencies().All(target =>
+                    target.Equals(architecture.GetTypeOfType(firstType)) ||
+                    moreTypes.Any(t => architecture.GetTypeOfType(t).Equals(target)));
             }
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
@@ -171,8 +165,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Filter(T type, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => types.Contains(target));
+                return type.GetTypeDependencies().All(target => types.Contains(target));
             }
 
             var description = "only depend on " + objectProvider.Description;
@@ -185,8 +178,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Filter(T type)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => typeList.Contains(target));
+                return type.GetTypeDependencies().All(target => typeList.Contains(target));
             }
 
             string description;
@@ -211,7 +203,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Filter(T type, Architecture architecture)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
+                return type.GetTypeDependencies()
                     .All(target => typeList.Select(architecture.GetTypeOfType).Contains(target));
             }
 
@@ -326,7 +318,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Filter(T type)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
+                return type.GetTypeDependencies()
                     .All(target => !target.Equals(firstType) && !moreTypes.Contains(target));
             }
 
@@ -339,10 +331,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             bool Filter(T type, Architecture architecture)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target =>
-                        !target.Equals(architecture.GetTypeOfType(firstType)) &&
-                        moreTypes.All(t => !architecture.GetTypeOfType(t).Equals(target)));
+                return type.GetTypeDependencies().All(target =>
+                    !target.Equals(architecture.GetTypeOfType(firstType)) &&
+                    moreTypes.All(t => !architecture.GetTypeOfType(t).Equals(target)));
             }
 
             var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
@@ -355,8 +346,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Filter(T type, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => types.All(t => !t.Equals(target)));
+                return type.GetTypeDependencies().All(target => types.All(t => !t.Equals(target)));
             }
 
             var description = "do not depend on " + objectProvider.Description;
@@ -369,8 +359,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Filter(T type)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => typeList.All(t => !t.Equals(target)));
+                return type.GetTypeDependencies().All(target => typeList.All(t => !t.Equals(target)));
             }
 
             string description;
@@ -395,8 +384,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Filter(T type, Architecture architecture)
             {
-                return type.Dependencies.Select(dependency => dependency.Target)
-                    .All(target => typeList.Select(architecture.GetTypeOfType).All(t => !t.Equals(target)));
+                return type.GetTypeDependencies().All(target =>
+                    typeList.Select(architecture.GetTypeOfType).All(t => !t.Equals(target)));
             }
 
             string description;
