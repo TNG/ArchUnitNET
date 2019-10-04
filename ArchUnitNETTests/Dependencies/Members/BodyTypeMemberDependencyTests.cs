@@ -11,8 +11,6 @@ using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 
-// ReSharper disable UnusedVariable
-
 namespace ArchUnitNETTests.Dependencies.Members
 {
     public class BodyTypeMemberDependencyTests
@@ -36,18 +34,22 @@ namespace ArchUnitNETTests.Dependencies.Members
             var bodyTypeDependencies =
                 _methodWithTypeA.GetBodyTypeMemberDependencies().ToList();
 
-            Assert.Equal(3, bodyTypeDependencies.Count);
+            var classWithBodyTypeA = new ClassWithBodyTypeA();
+            Assert.Equal("AABC", ClassWithBodyTypeA.MethodWithTypeA());
+            Assert.True(bodyTypeDependencies.Count >= 3);
             Assert.Contains(_typeA, bodyTypeDependencies.Select(dependency => (Class) dependency.Target));
         }
     }
 
     public class ClassWithBodyTypeA
     {
-        public void MethodWithTypeA()
+        public static string MethodWithTypeA()
         {
             var typeA = new TypeA();
+            var typeA2 = new TypeA();
             var typeB = new TypeB();
             var typeC = typeA.MethodReturnsTypeC();
+            return typeA.ToString() + typeA2 + typeB + typeC;
         }
     }
 
@@ -57,13 +59,26 @@ namespace ArchUnitNETTests.Dependencies.Members
         {
             return new TypeC();
         }
+
+        public override string ToString()
+        {
+            return "A";
+        }
     }
 
     public class TypeB
     {
+        public override string ToString()
+        {
+            return "B";
+        }
     }
 
     public class TypeC
     {
+        public override string ToString()
+        {
+            return "C";
+        }
     }
 }
