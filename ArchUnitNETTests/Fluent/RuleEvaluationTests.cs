@@ -104,7 +104,7 @@ namespace ArchUnitNETTests.Fluent
             NewLine + NewLine;
 
         [Fact]
-        public void AssertCheckArchRuleTests()
+        public void AssertArchRuleTest()
         {
             Assert.ArchRule(Architecture, TrueArchRule1);
             Assert.ArchRule(Architecture, TrueArchRule2);
@@ -128,6 +128,44 @@ namespace ArchUnitNETTests.Fluent
                 Assert.ArchRule(Architecture, WrongArchRule1AndWrongArchRule3));
             var exception4And8 = Assert.Throws<FailedArchRuleException>(() =>
                 Assert.ArchRule(Architecture, WrongArchRule4AndWrongArchRule8));
+
+            Assert.Equal(_expectedWrongArchRule1ErrorMessage, exception1.Message);
+            Assert.Equal(_expectedWrongArchRule2ErrorMessage, exception2.Message);
+            Assert.Equal(_expectedWrongArchRule3ErrorMessage, exception3.Message);
+            Assert.Equal(_expectedWrongArchRule4ErrorMessage, exception4.Message);
+            Assert.Equal(_expectedWrongArchRule5ErrorMessage, exception5.Message);
+            Assert.Equal(_expectedWrongArchRule6ErrorMessage, exception6.Message);
+            Assert.Equal(_expectedWrongArchRule7ErrorMessage, exception7.Message);
+            Assert.Equal(_expectedWrongArchRule8ErrorMessage, exception8.Message);
+            Assert.Equal(_expectedWrongArchRule1AndWrongArchRule3ErrorMessage, exception1And3.Message);
+            Assert.Equal(_expectedWrongArchRule4AndWrongArchRule8ErrorMessage, exception4And8.Message);
+        }
+
+        [Fact]
+        public void CheckArchRuleTest()
+        {
+            TrueArchRule1.Check(Architecture);
+            TrueArchRule2.Check(Architecture);
+            var exception1 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule1.Check(Architecture));
+            var exception2 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule2.Check(Architecture));
+            var exception3 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule3.Check(Architecture));
+            var exception4 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule4.Check(Architecture));
+            var exception5 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule5.Check(Architecture));
+            var exception6 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule6.Check(Architecture));
+            var exception7 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule7.Check(Architecture));
+            var exception8 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule8.Check(Architecture));
+            var exception1And3 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule1AndWrongArchRule3.Check(Architecture));
+            var exception4And8 =
+                Assert.Throws<FailedArchRuleException>(() => WrongArchRule4AndWrongArchRule8.Check(Architecture));
 
             Assert.Equal(_expectedWrongArchRule1ErrorMessage, exception1.Message);
             Assert.Equal(_expectedWrongArchRule2ErrorMessage, exception2.Message);
