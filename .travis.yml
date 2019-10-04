@@ -1,6 +1,6 @@
 language: csharp
 mono: none
-dotnet: 2.2.301
+dotnet: 2.2.402
 solution: ArchUnit.sln
 script:
   - dotnet restore
