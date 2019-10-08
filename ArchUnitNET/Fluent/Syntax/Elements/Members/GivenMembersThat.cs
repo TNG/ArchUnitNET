@@ -1,4 +1,6 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using System.Collections.Generic;
+using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
@@ -11,6 +13,43 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         // ReSharper disable once MemberCanBeProtected.Global
         public GivenMembersThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
+        }
+
+        public TGivenRuleTypeConjunction AreDeclaredInTypesWithFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddObjectFilter(
+                MembersFilterDefinition<TRuleType>.AreDeclaredInTypesWithFullNameMatching(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreDeclaredIn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreDeclaredIn(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreDeclaredIn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreDeclaredIn(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreDeclaredIn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreDeclaredIn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreDeclaredIn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreDeclaredIn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreDeclaredIn(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreDeclaredIn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeConjunction HaveBodyTypeMemberDependencies()
@@ -55,6 +94,43 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Negations
 
+
+        public TGivenRuleTypeConjunction AreNotDeclaredInTypesWithFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddObjectFilter(
+                MembersFilterDefinition<TRuleType>.AreNotDeclaredInTypesWithFullNameMatching(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotDeclaredIn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreNotDeclaredIn(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotDeclaredIn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreNotDeclaredIn(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotDeclaredIn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreNotDeclaredIn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotDeclaredIn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreNotDeclaredIn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotDeclaredIn(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.AreNotDeclaredIn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TGivenRuleTypeConjunction DoNotHaveBodyTypeMemberDependencies()
         {

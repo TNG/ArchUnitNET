@@ -109,19 +109,24 @@ namespace ArchUnitNET.Fluent.Extensions
             return cls.Name.ToLower().StartsWith(pattern.ToLower());
         }
 
-        public static bool NameContains(this IHasName cls, string pattern)
+        public static bool NameMatches(this IHasName cls, string pattern)
         {
             return cls.Name.ToLower().Contains(pattern.ToLower());
         }
 
+        public static bool FullNameMatches(this IHasName cls, string pattern)
+        {
+            return cls.FullName.ToLower().Contains(pattern.ToLower());
+        }
+
         public static bool ResidesInNamespace(this IType e, string pattern)
         {
-            return e.Namespace.FullName.ToLower().Contains(pattern.ToLower());
+            return e.Namespace.FullNameMatches(pattern);
         }
 
         public static bool DependsOn(this IHasDependencies c, string pattern)
         {
-            return c.Dependencies.Exists(d => d.Target.FullName.ToLower().Contains(pattern.ToLower()));
+            return c.Dependencies.Exists(d => d.Target.FullNameMatches(pattern));
         }
 
         public static bool DependsOn(this IHasDependencies c, IType type)
@@ -131,7 +136,7 @@ namespace ArchUnitNET.Fluent.Extensions
 
         public static bool OnlyDependsOn(this IHasDependencies c, string pattern)
         {
-            return c.Dependencies.All(d => d.Target.FullName.ToLower().Contains(pattern.ToLower()));
+            return c.Dependencies.All(d => d.Target.FullNameMatches(pattern));
         }
 
         public static IEnumerable<Class> GetClassDependencies(this IHasDependencies c)
@@ -196,7 +201,7 @@ namespace ArchUnitNET.Fluent.Extensions
 
         public static bool ImplementsInterface(this IType d, string pattern)
         {
-            return d.ImplementedInterfaces.Any(intf => intf.FullName.ToLower().Contains(pattern.ToLower()));
+            return d.ImplementedInterfaces.Any(intf => intf.FullNameMatches(pattern));
         }
 
         public static bool ImplementsInterface(this IType d, Interface intf)

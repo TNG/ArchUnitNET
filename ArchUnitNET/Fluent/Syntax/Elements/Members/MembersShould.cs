@@ -1,4 +1,6 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using System.Collections.Generic;
+using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
@@ -12,6 +14,43 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         // ReSharper disable once MemberCanBeProtected.Global
         public MembersShould(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
+        }
+
+        public TRuleTypeShouldConjunction BeDeclaredInTypesWithFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                MembersConditionDefinition<TRuleType>.BeDeclaredInTypesWithFullNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeDeclaredIn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.BeDeclaredIn(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeDeclaredIn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.BeDeclaredIn(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeDeclaredIn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.BeDeclaredIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeDeclaredIn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.BeDeclaredIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeDeclaredIn(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.BeDeclaredIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveBodyTypeMemberDependencies()
@@ -56,6 +95,43 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Negations
 
+
+        public TRuleTypeShouldConjunction NotBeDeclaredInTypesWithFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                MembersConditionDefinition<TRuleType>.NotBeDeclaredInTypesWithFullNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeDeclaredIn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.NotBeDeclaredIn(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeDeclaredIn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.NotBeDeclaredIn(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeDeclaredIn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.NotBeDeclaredIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeDeclaredIn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.NotBeDeclaredIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeDeclaredIn(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddCondition(MembersConditionDefinition<TRuleType>.NotBeDeclaredIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TRuleTypeShouldConjunction NotHaveBodyTypeMemberDependencies()
         {

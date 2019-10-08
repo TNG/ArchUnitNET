@@ -15,6 +15,16 @@ namespace ArchUnitNET.Fluent.Extensions
 {
     public static class MemberExtensions
     {
+        public static bool IsDeclaredIn(this IMember member, string pattern)
+        {
+            return member.DeclaringType.FullNameMatches(pattern);
+        }
+
+        public static bool IsDeclaredIn(this IMember member, IType type)
+        {
+            return member.DeclaringType.Equals(type);
+        }
+
         public static IEnumerable<BodyTypeMemberDependency> GetBodyTypeMemberDependencies(this IMember member)
         {
             return member.MemberDependencies.OfType<BodyTypeMemberDependency>();
@@ -28,7 +38,7 @@ namespace ArchUnitNET.Fluent.Extensions
         public static bool HasBodyTypeMemberDependencies(this IMember member, string pattern)
         {
             return member.GetBodyTypeMemberDependencies().Any(dependency =>
-                dependency.Origin.NameContains(pattern) || dependency.Target.NameContains(pattern));
+                dependency.Origin.FullNameMatches(pattern) || dependency.Target.FullNameMatches(pattern));
         }
 
         public static IEnumerable<MethodCallDependency> GetMethodCallDependencies(this IMember member)
@@ -44,7 +54,7 @@ namespace ArchUnitNET.Fluent.Extensions
         public static bool HasMethodCallDependencies(this IMember member, string pattern)
         {
             return member.GetMethodCallDependencies().Any(dependency =>
-                dependency.Origin.NameContains(pattern) || dependency.Target.NameContains(pattern));
+                dependency.Origin.FullNameMatches(pattern) || dependency.Target.FullNameMatches(pattern));
         }
 
         public static IEnumerable<ITypeDependency> GetFieldTypeDependencies(this IHasDependencies type)
@@ -60,7 +70,7 @@ namespace ArchUnitNET.Fluent.Extensions
         public static bool HasFieldTypeDependencies(this IMember member, string pattern)
         {
             return member.GetFieldTypeDependencies().Any(dependency =>
-                dependency.Origin.NameContains(pattern) || dependency.Target.NameContains(pattern));
+                dependency.Origin.FullNameMatches(pattern) || dependency.Target.FullNameMatches(pattern));
         }
 
         public static Attribute GetAttributeFromMember(this IMember member, Class attributeClass)

@@ -248,7 +248,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ObjectFilter<T> HaveNameContaining(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.NameContains(pattern), "have name containing \"" + pattern + "\"");
+            return new ObjectFilter<T>(obj => obj.NameMatches(pattern), "have name containing \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> ArePrivate()
@@ -432,7 +432,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ObjectFilter<T> DoNotHaveNameContaining(string pattern)
         {
-            return new ObjectFilter<T>(obj => !obj.NameContains(pattern),
+            return new ObjectFilter<T>(obj => !obj.NameMatches(pattern),
                 "do not have name containing \"" + pattern + "\"");
         }
 

@@ -106,11 +106,11 @@ namespace ArchUnitNETTests.Fluent.Extensions
         [Fact]
         public void NameContainsTest()
         {
-            Assert.True(_fieldMember.NameContains("ieLda"));
-            Assert.True(_propertyOriginClass.NameContains("sswITH"));
-            Assert.False(_methodOriginClass.NameContains("ClassMethod"));
-            Assert.True(_methodMember.NameContains(""));
-            Assert.Throws<NullReferenceException>(() => _exampleAttribute.NameContains(null));
+            Assert.True(_fieldMember.NameMatches("ieLda"));
+            Assert.True(_propertyOriginClass.NameMatches("sswITH"));
+            Assert.False(_methodOriginClass.NameMatches("ClassMethod"));
+            Assert.True(_methodMember.NameMatches(""));
+            Assert.Throws<NullReferenceException>(() => _exampleAttribute.NameMatches(null));
         }
 
         [Fact]
