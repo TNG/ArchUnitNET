@@ -54,6 +54,11 @@ namespace ArchUnitNET.Domain
             return false;
         }
 
+        public override string ToString()
+        {
+            return FullName;
+        }
+
         private bool Equals(Interface other)
         {
             return Equals(Type, other.Type);

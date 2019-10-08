@@ -40,6 +40,11 @@ namespace ArchUnitNET.Domain
         public string FullName { get; }
         public IType DeclaringType { get; }
 
+        public override string ToString()
+        {
+            return $"{DeclaringType.FullName}{'.'}{Name}";
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
