@@ -17,9 +17,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = moreTypes.Aggregate("be \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
+                (current, type) => current + " or \"" + type.FullName + "\"");
             var failDescription = moreTypes.Aggregate("is not \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
+                (current, type) => current + " or \"" + type.FullName + "\"");
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
@@ -42,13 +42,114 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "be \"" + firstType.FullName + "\"", (current, obj) => current + " or \"" + obj.FullName + "\"");
-                failDescription = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "be \"" + firstType.FullName + "\"", (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => type != firstType).Distinct().Aggregate(
                     "is not \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                    (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
+
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static SimpleCondition<TRuleType> BeAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType)
+            {
+                return ruleType.IsAssignableTo(firstType) || moreTypes.Any(ruleType.IsAssignableTo);
+            }
+
+            var description = moreTypes.Aggregate("be assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            var failDescription = moreTypes.Aggregate("is not assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> BeAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return ruleType.IsAssignableTo(architecture.GetTypeOfType(firstType)) ||
+                       moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetTypeOfType(type)));
+            }
+
+            var description = moreTypes.Aggregate("be assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            var failDescription = moreTypes.Aggregate("is not assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> BeAssignableTo(IObjectProvider<IType> objectProvider)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return objectProvider.GetObjects(architecture).Any(ruleType.IsAssignableTo);
+            }
+
+            var description = "be assignable to " + objectProvider.Description;
+            var failDescription = "is not assignable to " + objectProvider.Description;
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static SimpleCondition<TRuleType> BeAssignableTo(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return typeList.Any(ruleType.IsAssignableTo);
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "be assignable to no types (always false)";
+                failDescription = "is assignable to any type (always true)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "be assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "is not assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> BeAssignableTo(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return typeList.Select(architecture.GetTypeOfType).Any(ruleType.IsAssignableTo);
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "be assignable to no types (always false)";
+                failDescription = "is assignable to any type (always true)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "be assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "is not assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
 
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
@@ -122,9 +223,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = moreTypes.Aggregate("not be \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
+                (current, type) => current + " or \"" + type.FullName + "\"");
             var failDescription = moreTypes.Aggregate("is \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
+                (current, type) => current + " or \"" + type.FullName + "\"");
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
@@ -147,18 +248,118 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
                     "not be \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
-                failDescription = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => type != firstType).Distinct().Aggregate(
                     "is \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                    (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
 
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
+        public static SimpleCondition<TRuleType> NotBeAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType)
+            {
+                return !ruleType.IsAssignableTo(firstType) && !moreTypes.Any(ruleType.IsAssignableTo);
+            }
+
+            var description = moreTypes.Aggregate("not be assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            var failDescription = moreTypes.Aggregate("is assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> NotBeAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return !ruleType.IsAssignableTo(architecture.GetTypeOfType(firstType)) &&
+                       !moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetTypeOfType(type)));
+            }
+
+            var description = moreTypes.Aggregate("not be assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            var failDescription = moreTypes.Aggregate("is assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> NotBeAssignableTo(IObjectProvider<IType> objectProvider)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return !objectProvider.GetObjects(architecture).Any(ruleType.IsAssignableTo);
+            }
+
+            var description = "not be assignable to " + objectProvider.Description;
+            var failDescription = "is assignable to " + objectProvider.Description;
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static SimpleCondition<TRuleType> NotBeAssignableTo(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return !typeList.Any(ruleType.IsAssignableTo);
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "not be assignable to no types (always true)";
+                failDescription = "is assignable to no type (always false)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "not be assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "is assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> NotBeAssignableTo(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return !typeList.Select(architecture.GetTypeOfType).Any(ruleType.IsAssignableTo);
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "not be assignable to no types (always true)";
+                failDescription = "is assignable to no type (always false)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "not be assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "is assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
 
         public static SimpleCondition<TRuleType> NotImplementInterfaceWithFullNameMatching(string pattern)
         {

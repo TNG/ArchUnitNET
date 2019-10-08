@@ -45,6 +45,92 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
+        public static ObjectFilter<T> AreAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            bool Condition(T ruleType)
+            {
+                return ruleType.IsAssignableTo(firstType) || moreTypes.Any(ruleType.IsAssignableTo);
+            }
+
+            var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new ObjectFilter<T>(Condition, description);
+        }
+
+        public static ArchitectureObjectFilter<T> AreAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(T ruleType, Architecture architecture)
+            {
+                return ruleType.IsAssignableTo(architecture.GetTypeOfType(firstType)) ||
+                       moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetTypeOfType(type)));
+            }
+
+            var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new ArchitectureObjectFilter<T>(Condition, description);
+        }
+
+        public static ArchitectureObjectFilter<T> AreAssignableTo(IObjectProvider<IType> objectProvider)
+        {
+            bool Condition(T ruleType, Architecture architecture)
+            {
+                return objectProvider.GetObjects(architecture).Any(ruleType.IsAssignableTo);
+            }
+
+            var description = "are assignable to " + objectProvider.Description;
+            return new ArchitectureObjectFilter<T>(Condition, description);
+        }
+
+        public static ObjectFilter<T> AreAssignableTo(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(T ruleType)
+            {
+                return typeList.Any(ruleType.IsAssignableTo);
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "are assignable to no types (always false)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "are assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new ObjectFilter<T>(Condition, description);
+        }
+
+        public static ArchitectureObjectFilter<T> AreAssignableTo(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(T ruleType, Architecture architecture)
+            {
+                return typeList.Select(architecture.GetTypeOfType).Any(ruleType.IsAssignableTo);
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "are assignable to no types (always false)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "are assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new ArchitectureObjectFilter<T>(Condition, description);
+        }
+
         public static ObjectFilter<T> ImplementInterfaceWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(type => type.ImplementsInterface(pattern),
@@ -131,6 +217,92 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             return new ArchitectureObjectFilter<T>(Filter, description);
+        }
+
+        public static ObjectFilter<T> AreNotAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            bool Condition(T ruleType)
+            {
+                return !ruleType.IsAssignableTo(firstType) && !moreTypes.Any(ruleType.IsAssignableTo);
+            }
+
+            var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new ObjectFilter<T>(Condition, description);
+        }
+
+        public static ArchitectureObjectFilter<T> AreNotAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(T ruleType, Architecture architecture)
+            {
+                return !ruleType.IsAssignableTo(architecture.GetTypeOfType(firstType)) &&
+                       !moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetTypeOfType(type)));
+            }
+
+            var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new ArchitectureObjectFilter<T>(Condition, description);
+        }
+
+        public static ArchitectureObjectFilter<T> AreNotAssignableTo(IObjectProvider<IType> objectProvider)
+        {
+            bool Condition(T ruleType, Architecture architecture)
+            {
+                return !objectProvider.GetObjects(architecture).Any(ruleType.IsAssignableTo);
+            }
+
+            var description = "are not assignable to " + objectProvider.Description;
+            return new ArchitectureObjectFilter<T>(Condition, description);
+        }
+
+        public static ObjectFilter<T> AreNotAssignableTo(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(T ruleType)
+            {
+                return !typeList.Any(ruleType.IsAssignableTo);
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "are not assignable to no types (always true)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "are not assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new ObjectFilter<T>(Condition, description);
+        }
+
+        public static ArchitectureObjectFilter<T> AreNotAssignableTo(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(T ruleType, Architecture architecture)
+            {
+                return !typeList.Select(architecture.GetTypeOfType).Any(ruleType.IsAssignableTo);
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "are not assignable to no types (always true)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "are not assignable to \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new ArchitectureObjectFilter<T>(Condition, description);
         }
 
 

@@ -28,6 +28,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction BeAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.BeAssignableTo(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.BeAssignableTo(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeAssignableTo(ObjectProvider<IType> types)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.BeAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeAssignableTo(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.BeAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeAssignableTo(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.BeAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction ImplementInterfaceWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddCondition(
@@ -93,6 +123,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBe(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
+        public TRuleTypeShouldConjunction NotBeAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBeAssignableTo(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBeAssignableTo(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeAssignableTo(ObjectProvider<IType> types)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBeAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeAssignableTo(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBeAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeAssignableTo(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBeAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         public TRuleTypeShouldConjunction NotImplementInterfaceWithFullNameMatching(string pattern)
         {

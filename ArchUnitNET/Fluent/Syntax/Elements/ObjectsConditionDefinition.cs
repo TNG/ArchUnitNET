@@ -109,10 +109,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
+                (current, type) => current + " or \"" + type.FullName + "\"");
             var failDescription = moreTypes.Aggregate(
                 "does also depend on other types than just \"" + firstType.FullName + "\"",
-                (current, obj) => current + " and \"" + obj.FullName + "\"");
+                (current, type) => current + " and \"" + type.FullName + "\"");
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
@@ -133,9 +133,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            bool Condition(TRuleType type)
+            bool Condition(TRuleType ruleType)
             {
-                return type.GetTypeDependencies().All(target => typeList.Contains(target));
+                return ruleType.GetTypeDependencies().All(target => typeList.Contains(target));
             }
 
             string description;
@@ -148,12 +148,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
+                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
                     "only depend on \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
-                failDescription = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
                     "does also depend on other types than just \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " and \"" + obj.FullName + "\"");
+                    (current, type) => current + " and \"" + type.FullName + "\"");
             }
 
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
@@ -163,9 +163,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            bool Condition(TRuleType type, Architecture architecture)
+            bool Condition(TRuleType ruleType, Architecture architecture)
             {
-                return type.GetTypeDependencies()
+                return ruleType.GetTypeDependencies()
                     .All(target => typeList.Select(architecture.GetTypeOfType).Contains(target));
             }
 
@@ -179,12 +179,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
                     "only depend on \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
-                failDescription = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => type != firstType).Distinct().Aggregate(
                     "does also depend on other types than just \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " and \"" + obj.FullName + "\"");
+                    (current, type) => current + " and \"" + type.FullName + "\"");
             }
 
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);

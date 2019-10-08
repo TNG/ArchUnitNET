@@ -8,6 +8,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         TRuleTypeConjunction Are(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction Are(IEnumerable<Type> types);
+        TRuleTypeConjunction AreAssignableTo(IType firstType, params IType[] moreTypes);
+        TRuleTypeConjunction AreAssignableTo(Type type, params Type[] moreTypes);
+        TRuleTypeConjunction AreAssignableTo(ObjectProvider<IType> types);
+        TRuleTypeConjunction AreAssignableTo(IEnumerable<IType> types);
+        TRuleTypeConjunction AreAssignableTo(IEnumerable<Type> types);
         TRuleTypeConjunction ImplementInterfaceWithFullNameMatching(string pattern);
         TRuleTypeConjunction ImplementInterface(Interface intf);
         TRuleTypeConjunction ResideInNamespaceWithFullNameMatching(string pattern);
@@ -23,6 +28,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         TRuleTypeConjunction AreNot(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction AreNot(IEnumerable<Type> types);
+        TRuleTypeConjunction AreNotAssignableTo(IType type, params IType[] moreTypes);
+        TRuleTypeConjunction AreNotAssignableTo(Type type, params Type[] moreTypes);
+        TRuleTypeConjunction AreNotAssignableTo(ObjectProvider<IType> types);
+        TRuleTypeConjunction AreNotAssignableTo(IEnumerable<IType> types);
+        TRuleTypeConjunction AreNotAssignableTo(IEnumerable<Type> types);
         TRuleTypeConjunction DoNotImplementInterfaceWithFullNameMatching(string pattern);
         TRuleTypeConjunction DoNotImplementInterface(Interface intf);
         TRuleTypeConjunction DoNotResideInNamespaceWithFullNameMatching(string pattern);

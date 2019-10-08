@@ -11,6 +11,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         TRuleTypeShouldConjunction Be(Type firstType, params Type[] moreTypes);
         TRuleTypeShouldConjunction Be(IEnumerable<Type> types);
+        TRuleTypeShouldConjunction BeAssignableTo(IType firstType, params IType[] moreTypes);
+        TRuleTypeShouldConjunction BeAssignableTo(Type type, params Type[] moreTypes);
+        TRuleTypeShouldConjunction BeAssignableTo(ObjectProvider<IType> types);
+        TRuleTypeShouldConjunction BeAssignableTo(IEnumerable<IType> types);
+        TRuleTypeShouldConjunction BeAssignableTo(IEnumerable<Type> types);
         TRuleTypeShouldConjunction ImplementInterfaceWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction ImplementInterface(Interface intf);
         TRuleTypeShouldConjunction ResideInNamespaceWithFullNameMatching(string pattern);
@@ -26,6 +31,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         TRuleTypeShouldConjunction NotBe(Type firstType, params Type[] moreTypes);
         TRuleTypeShouldConjunction NotBe(IEnumerable<Type> types);
+        TRuleTypeShouldConjunction NotBeAssignableTo(IType type, params IType[] moreTypes);
+        TRuleTypeShouldConjunction NotBeAssignableTo(Type type, params Type[] moreTypes);
+        TRuleTypeShouldConjunction NotBeAssignableTo(ObjectProvider<IType> types);
+        TRuleTypeShouldConjunction NotBeAssignableTo(IEnumerable<IType> types);
+        TRuleTypeShouldConjunction NotBeAssignableTo(IEnumerable<Type> types);
         TRuleTypeShouldConjunction NotImplementInterfaceWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction NotImplementInterface(Interface intf);
         TRuleTypeShouldConjunction NotResideInNamespaceWithFullNameMatching(string pattern);

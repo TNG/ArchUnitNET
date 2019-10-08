@@ -28,6 +28,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction AreAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypesFilterDefinition<TReferenceType>.AreAssignableTo(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypesFilterDefinition<TReferenceType>.AreAssignableTo(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreAssignableTo(ObjectProvider<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreAssignableTo(IEnumerable<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreAssignableTo(IEnumerable<Type> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction ImplementInterfaceWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -92,6 +124,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction AreNot(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreNot(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypesFilterDefinition<TReferenceType>.AreNotAssignableTo(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypesFilterDefinition<TReferenceType>.AreNotAssignableTo(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotAssignableTo(ObjectProvider<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreNotAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotAssignableTo(IEnumerable<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreNotAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotAssignableTo(IEnumerable<Type> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypesFilterDefinition<TReferenceType>.AreNotAssignableTo(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

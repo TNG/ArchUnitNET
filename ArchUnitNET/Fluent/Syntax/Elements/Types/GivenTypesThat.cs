@@ -27,6 +27,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction AreAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreAssignableTo(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreAssignableTo(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreAssignableTo(ObjectProvider<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreAssignableTo(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreAssignableTo(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreAssignableTo(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreAssignableTo(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreAssignableTo(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction ImplementInterfaceWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddObjectFilter(
@@ -90,6 +120,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TGivenRuleTypeConjunction AreNot(IEnumerable<Type> types)
         {
             _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNot(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotAssignableTo(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNotAssignableTo(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotAssignableTo(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNotAssignableTo(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotAssignableTo(ObjectProvider<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNotAssignableTo(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotAssignableTo(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNotAssignableTo(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotAssignableTo(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNotAssignableTo(types));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
