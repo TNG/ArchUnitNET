@@ -64,12 +64,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction ImplementInterface(Interface intf)
-        {
-            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.ImplementInterface(intf));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TGivenRuleTypeConjunction ResideInNamespaceWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddObjectFilter(
@@ -157,12 +151,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddObjectFilter(
                 TypesFilterDefinition<TRuleType>.DoNotImplementInterfaceWithFullNameMatching(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotImplementInterface(Interface intf)
-        {
-            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.DoNotImplementInterface(intf));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

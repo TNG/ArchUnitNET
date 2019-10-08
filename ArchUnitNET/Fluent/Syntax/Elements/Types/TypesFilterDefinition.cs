@@ -137,12 +137,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "implement interface with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> ImplementInterface(Interface intf)
-        {
-            return new ObjectFilter<T>(type => type.ImplementsInterface(intf),
-                "implement interface \"" + intf.FullName + "\"");
-        }
-
         public static ObjectFilter<T> ResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(type => type.ResidesInNamespace(pattern),
@@ -310,12 +304,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new ObjectFilter<T>(type => !type.ImplementsInterface(pattern),
                 "do not implement interface with full name matching \"" + pattern + "\"");
-        }
-
-        public static ObjectFilter<T> DoNotImplementInterface(Interface intf)
-        {
-            return new ObjectFilter<T>(type => !type.ImplementsInterface(intf),
-                "do not implement interface \"" + intf.FullName + "\"");
         }
 
         public static ObjectFilter<T> DoNotResideInNamespaceWithFullNameMatching(string pattern)

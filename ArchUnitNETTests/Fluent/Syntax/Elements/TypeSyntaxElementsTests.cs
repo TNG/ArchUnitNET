@@ -227,29 +227,24 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
         }
 
-        [Fact]
-        public void ImplementInterfacesStartingWithSameNameTest()
-        {
-            var interfaceImplementsWrongInterface =
-                Interfaces().That().Are(InheritedFromTestInterface12).Should().ImplementInterface(TestInterface1);
-
-            Assert.False(interfaceImplementsWrongInterface.HasNoViolations(Architecture));
-        }
-
 
         [Fact]
         public void ImplementInterfaceTest()
         {
             foreach (var intf in Architecture.Interfaces)
             {
-                var typesThatImplementInterfaceImplementInterface = Types().That().ImplementInterface(intf)
+                var typesThatImplementInterfaceImplementInterface = Types().That()
+                    .ImplementInterfaceWithFullNameMatching(intf.FullName)
                     .Should().ImplementInterfaceWithFullNameMatching(intf.FullName);
                 var typesThatImplementInterfaceDoNotImplementInterface = Types().That()
-                    .ImplementInterface(intf).Should().NotImplementInterface(intf).AndShould().Exist();
-                var typesThatDoNotImplementInterfaceImplementInterface = Types().That().DoNotImplementInterface(intf)
+                    .ImplementInterfaceWithFullNameMatching(intf.FullName).Should()
+                    .NotImplementInterfaceWithFullNameMatching(intf.FullName).AndShould().Exist();
+                var typesThatDoNotImplementInterfaceImplementInterface = Types().That()
+                    .DoNotImplementInterfaceWithFullNameMatching(intf.FullName)
                     .Should().ImplementInterfaceWithFullNameMatching(intf.FullName).AndShould().Exist();
                 var typesThatDoNotImplementInterfaceDoNotImplementInterface = Types().That()
-                    .DoNotImplementInterfaceWithFullNameMatching(intf.FullName).Should().NotImplementInterface(intf);
+                    .DoNotImplementInterfaceWithFullNameMatching(intf.FullName).Should()
+                    .NotImplementInterfaceWithFullNameMatching(intf.FullName);
 
                 Assert.True(typesThatImplementInterfaceImplementInterface.HasNoViolations(Architecture));
                 Assert.False(typesThatImplementInterfaceDoNotImplementInterface.HasNoViolations(Architecture));
@@ -258,16 +253,21 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var testClassThatImplementsInterfaceImplementsInterface = Classes().That()
-                .Are(StaticTestTypes.InheritedType).Should().ImplementInterface(InheritedTestInterface);
+                .Are(StaticTestTypes.InheritedType).Should()
+                .ImplementInterfaceWithFullNameMatching(InheritedTestInterface.FullName);
             var testClassThatImplementsOtherInterfaceImplementsInterfaces = Types().That()
-                .Are(StaticTestTypes.InheritedType).Should().ImplementInterface(InheritedTestInterface).AndShould()
-                .ImplementInterface(InheritingInterface);
+                .Are(StaticTestTypes.InheritedType).Should()
+                .ImplementInterfaceWithFullNameMatching(InheritedTestInterface.FullName).AndShould()
+                .ImplementInterfaceWithFullNameMatching(InheritingInterface.FullName);
             var testInterfaceThatImplementsInterfaceImplementsInterface = Interfaces().That()
-                .Are(InheritingInterface).Should().ImplementInterface(InheritedTestInterface);
+                .Are(InheritingInterface).Should()
+                .ImplementInterfaceWithFullNameMatching(InheritedTestInterface.FullName);
             var testClassThatImplementsNoInterfaceDoesNotImplementInterface = Interfaces().That()
-                .Are(StaticTestTypes.PublicTestClass).Should().NotImplementInterface(InheritedTestInterface);
+                .Are(StaticTestTypes.PublicTestClass).Should()
+                .NotImplementInterfaceWithFullNameMatching(InheritedTestInterface.FullName);
             var testClassThatImplementsNoInterfaceImplementsInterface = Interfaces().That()
-                .Are(StaticTestTypes.PublicTestClass).Should().ImplementInterface(InheritedTestInterface).AndShould()
+                .Are(StaticTestTypes.PublicTestClass).Should()
+                .ImplementInterfaceWithFullNameMatching(InheritedTestInterface.FullName).AndShould()
                 .Exist();
 
             Assert.True(testClassThatImplementsInterfaceImplementsInterface.HasNoViolations(Architecture));

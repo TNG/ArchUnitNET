@@ -162,13 +162,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "does not implement interface with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> ImplementInterface(Interface intf)
-        {
-            return new SimpleCondition<TRuleType>(
-                type => type.ImplementsInterface(intf), "implement interface \"" + intf.FullName + "\"",
-                "does not implement interface \"" + intf.FullName + "\"");
-        }
-
         public static SimpleCondition<TRuleType> ResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
@@ -366,13 +359,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(type => !type.ImplementsInterface(pattern),
                 "not implement interface with full name matching \"" + pattern + "\"",
                 "does implement interface with full name matching \"" + pattern + "\"");
-        }
-
-        public static SimpleCondition<TRuleType> NotImplementInterface(Interface intf)
-        {
-            return new SimpleCondition<TRuleType>(type => !type.ImplementsInterface(intf),
-                "not implement interface \"" + intf.FullName + "\"",
-                "does implement interface \"" + intf.FullName + "\"");
         }
 
         public static SimpleCondition<TRuleType> NotResideInNamespaceWithFullNameMatching(string pattern)

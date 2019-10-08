@@ -17,7 +17,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TRuleTypeShouldConjunction BeAssignableTo(IEnumerable<IType> types);
         TRuleTypeShouldConjunction BeAssignableTo(IEnumerable<Type> types);
         TRuleTypeShouldConjunction ImplementInterfaceWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction ImplementInterface(Interface intf);
         TRuleTypeShouldConjunction ResideInNamespaceWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction HavePropertyMemberWithName(string name);
         TRuleTypeShouldConjunction HaveFieldMemberWithName(string name);
@@ -37,7 +36,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TRuleTypeShouldConjunction NotBeAssignableTo(IEnumerable<IType> types);
         TRuleTypeShouldConjunction NotBeAssignableTo(IEnumerable<Type> types);
         TRuleTypeShouldConjunction NotImplementInterfaceWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction NotImplementInterface(Interface intf);
         TRuleTypeShouldConjunction NotResideInNamespaceWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction NotHavePropertyMemberWithName(string name);
         TRuleTypeShouldConjunction NotHaveFieldMemberWithName(string name);
