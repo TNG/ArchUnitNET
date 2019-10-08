@@ -68,10 +68,9 @@ namespace ArchUnitNET.Fluent.Extensions
             return member.Attributes.Find(attribute => attribute.FullName.Equals(attributeClass.FullName));
         }
 
-        public static IEnumerable<Attribute> GetAttributes(this IMember member)
+        public static IEnumerable<AttributeMemberDependency> GetAttributeMemberDependencies(this IMember member)
         {
-            return member.Dependencies.OfType<AttributeMemberDependency>().Select(dependency => dependency.Target)
-                .OfType<Attribute>();
+            return member.Dependencies.OfType<AttributeMemberDependency>();
         }
 
         public static bool HasMethodSignatureDependency(this IMember member,

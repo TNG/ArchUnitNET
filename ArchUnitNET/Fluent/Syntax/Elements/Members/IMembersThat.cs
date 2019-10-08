@@ -3,21 +3,21 @@
     public interface IMembersThat<TRuleTypeConjunction> : IObjectsThat<TRuleTypeConjunction>
     {
         TRuleTypeConjunction HaveBodyTypeMemberDependencies();
-        TRuleTypeConjunction HaveBodyTypeMemberDependencies(string pattern);
+        TRuleTypeConjunction HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern);
         TRuleTypeConjunction HaveMethodCallDependencies();
-        TRuleTypeConjunction HaveMethodCallDependencies(string pattern);
+        TRuleTypeConjunction HaveMethodCallDependenciesWithFullNameMatching(string pattern);
         TRuleTypeConjunction HaveFieldTypeDependencies();
-        TRuleTypeConjunction HaveFieldTypeDependencies(string pattern);
+        TRuleTypeConjunction HaveFieldTypeDependenciesWithFullNameMatching(string pattern);
 
 
         //Negations
 
 
         TRuleTypeConjunction DoNotHaveBodyTypeMemberDependencies();
-        TRuleTypeConjunction DoNotHaveBodyTypeMemberDependencies(string pattern);
+        TRuleTypeConjunction DoNotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern);
         TRuleTypeConjunction DoNotHaveMethodCallDependencies();
-        TRuleTypeConjunction DoNotHaveMethodCallDependencies(string pattern);
+        TRuleTypeConjunction DoNotHaveMethodCallDependenciesWithFullNameMatching(string pattern);
         TRuleTypeConjunction DoNotHaveFieldTypeDependencies();
-        TRuleTypeConjunction DoNotHaveFieldTypeDependencies(string pattern);
+        TRuleTypeConjunction DoNotHaveFieldTypeDependenciesWithFullNameMatching(string pattern);
     }
 }

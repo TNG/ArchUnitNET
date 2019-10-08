@@ -29,9 +29,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DependOn(string pattern)
+        public TRuleTypeShouldConjunction DependOnTypesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DependOn(pattern));
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.DependOnTypesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -67,9 +68,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction OnlyDependOn(string pattern)
+        public TRuleTypeShouldConjunction OnlyDependOnTypesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.OnlyDependOn(pattern));
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.OnlyDependOnTypesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -190,9 +192,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotDependOn(string pattern)
+        public TRuleTypeShouldConjunction DoNotDependOnTypesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(pattern));
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.DoNotDependOnTypesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

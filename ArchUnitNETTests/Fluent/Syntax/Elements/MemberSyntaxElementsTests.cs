@@ -25,22 +25,26 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 foreach (var dependency in member.GetBodyTypeMemberDependencies())
                 {
                     var memberHasDependency =
-                        Members().That().Are(member).Should().HaveBodyTypeMemberDependencies(dependency.Origin.Name)
-                            .OrShould().HaveBodyTypeMemberDependencies(dependency.Target.Name);
+                        Members().That().Are(member).Should()
+                            .HaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Origin.Name)
+                            .OrShould().HaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Target.Name);
                     var memberDoesNotHaveDependency = Members().That().Are(member).Should()
-                        .NotHaveBodyTypeMemberDependencies(dependency.Origin.Name).AndShould()
-                        .NotHaveBodyTypeMemberDependencies(dependency.Target.Name);
+                        .NotHaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Origin.Name).AndShould()
+                        .NotHaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Target.Name);
                     var membersWithDependencyShouldExist =
-                        Members().That().HaveBodyTypeMemberDependencies(dependency.Origin.Name).Or()
-                            .HaveBodyTypeMemberDependencies(dependency.Target.Name).Should().Exist();
+                        Members().That().HaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Origin.Name).Or()
+                            .HaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Target.Name).Should()
+                            .Exist();
                     var membersWithDependencyShouldBeOtherMembers = Members().That()
-                        .HaveBodyTypeMemberDependencies(dependency.Origin.Name).Or()
-                        .HaveBodyTypeMemberDependencies(dependency.Target.Name).Should().NotBe(member);
+                        .HaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Origin.Name).Or()
+                        .HaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Target.Name).Should()
+                        .NotBe(member);
                     var membersWithDependencyShouldHaveDependency = Members().That()
-                        .HaveBodyTypeMemberDependencies(dependency.Origin.Name).Should()
-                        .HaveBodyTypeMemberDependencies(dependency.Origin.Name);
+                        .HaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Origin.Name).Should()
+                        .HaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Origin.Name);
                     var membersWithDependencyExist =
-                        Members().That().HaveBodyTypeMemberDependencies(dependency.Origin.Name).Should().Exist();
+                        Members().That().HaveBodyTypeMemberDependenciesWithFullNameMatching(dependency.Origin.Name)
+                            .Should().Exist();
 
                     Assert.True(memberHasDependency.HasNoViolations(Architecture));
                     Assert.False(memberDoesNotHaveDependency.HasNoViolations(Architecture));
@@ -97,22 +101,24 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 foreach (var dependency in member.GetFieldTypeDependencies())
                 {
                     var memberHasDependency =
-                        Members().That().Are(member).Should().HaveFieldTypeDependencies(dependency.Origin.Name)
-                            .OrShould().HaveFieldTypeDependencies(dependency.Target.Name);
+                        Members().That().Are(member).Should()
+                            .HaveFieldTypeDependenciesWithFullNameMatching(dependency.Origin.Name)
+                            .OrShould().HaveFieldTypeDependenciesWithFullNameMatching(dependency.Target.Name);
                     var memberDoesNotHaveDependency = Members().That().Are(member).Should()
-                        .NotHaveFieldTypeDependencies(dependency.Origin.Name).AndShould()
-                        .NotHaveFieldTypeDependencies(dependency.Target.Name);
+                        .NotHaveFieldTypeDependenciesWithFullNameMatching(dependency.Origin.Name).AndShould()
+                        .NotHaveFieldTypeDependenciesWithFullNameMatching(dependency.Target.Name);
                     var membersWithDependencyShouldExist =
-                        Members().That().HaveFieldTypeDependencies(dependency.Origin.Name).Or()
-                            .HaveFieldTypeDependencies(dependency.Target.Name).Should().Exist();
+                        Members().That().HaveFieldTypeDependenciesWithFullNameMatching(dependency.Origin.Name).Or()
+                            .HaveFieldTypeDependenciesWithFullNameMatching(dependency.Target.Name).Should().Exist();
                     var membersWithDependencyShouldBeOtherMembers = Members().That()
-                        .HaveFieldTypeDependencies(dependency.Origin.Name).Or()
-                        .HaveFieldTypeDependencies(dependency.Target.Name).Should().NotBe(member);
+                        .HaveFieldTypeDependenciesWithFullNameMatching(dependency.Origin.Name).Or()
+                        .HaveFieldTypeDependenciesWithFullNameMatching(dependency.Target.Name).Should().NotBe(member);
                     var membersWithDependencyShouldHaveDependency = Members().That()
-                        .HaveFieldTypeDependencies(dependency.Origin.Name).Should()
-                        .HaveFieldTypeDependencies(dependency.Origin.Name);
+                        .HaveFieldTypeDependenciesWithFullNameMatching(dependency.Origin.Name).Should()
+                        .HaveFieldTypeDependenciesWithFullNameMatching(dependency.Origin.Name);
                     var membersWithDependencyExist =
-                        Members().That().HaveFieldTypeDependencies(dependency.Origin.Name).Should().Exist();
+                        Members().That().HaveFieldTypeDependenciesWithFullNameMatching(dependency.Origin.Name).Should()
+                            .Exist();
 
                     Assert.True(memberHasDependency.HasNoViolations(Architecture));
                     Assert.False(memberDoesNotHaveDependency.HasNoViolations(Architecture));
@@ -165,22 +171,24 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 foreach (var dependency in member.GetMethodCallDependencies())
                 {
                     var memberHasDependency =
-                        Members().That().Are(member).Should().HaveMethodCallDependencies(dependency.Origin.Name)
-                            .OrShould().HaveMethodCallDependencies(dependency.Target.Name);
+                        Members().That().Are(member).Should()
+                            .HaveMethodCallDependenciesWithFullNameMatching(dependency.Origin.Name)
+                            .OrShould().HaveMethodCallDependenciesWithFullNameMatching(dependency.Target.Name);
                     var memberDoesNotHaveDependency = Members().That().Are(member).Should()
-                        .NotHaveMethodCallDependencies(dependency.Origin.Name).AndShould()
-                        .NotHaveMethodCallDependencies(dependency.Target.Name);
+                        .NotHaveMethodCallDependenciesWithFullNameMatching(dependency.Origin.Name).AndShould()
+                        .NotHaveMethodCallDependenciesWithFullNameMatching(dependency.Target.Name);
                     var membersWithDependencyShouldExist =
-                        Members().That().HaveMethodCallDependencies(dependency.Origin.Name).Or()
-                            .HaveMethodCallDependencies(dependency.Target.Name).Should().Exist();
+                        Members().That().HaveMethodCallDependenciesWithFullNameMatching(dependency.Origin.Name).Or()
+                            .HaveMethodCallDependenciesWithFullNameMatching(dependency.Target.Name).Should().Exist();
                     var membersWithDependencyShouldBeOtherMembers = Members().That()
-                        .HaveMethodCallDependencies(dependency.Origin.Name).Or()
-                        .HaveMethodCallDependencies(dependency.Target.Name).Should().NotBe(member);
+                        .HaveMethodCallDependenciesWithFullNameMatching(dependency.Origin.Name).Or()
+                        .HaveMethodCallDependenciesWithFullNameMatching(dependency.Target.Name).Should().NotBe(member);
                     var membersWithDependencyShouldHaveDependency = Members().That()
-                        .HaveMethodCallDependencies(dependency.Origin.Name).Should()
-                        .HaveMethodCallDependencies(dependency.Origin.Name);
+                        .HaveMethodCallDependenciesWithFullNameMatching(dependency.Origin.Name).Should()
+                        .HaveMethodCallDependenciesWithFullNameMatching(dependency.Origin.Name);
                     var membersWithDependencyExist =
-                        Members().That().HaveMethodCallDependencies(dependency.Origin.Name).Should().Exist();
+                        Members().That().HaveMethodCallDependenciesWithFullNameMatching(dependency.Origin.Name).Should()
+                            .Exist();
 
                     Assert.True(memberHasDependency.HasNoViolations(Architecture));
                     Assert.False(memberDoesNotHaveDependency.HasNoViolations(Architecture));

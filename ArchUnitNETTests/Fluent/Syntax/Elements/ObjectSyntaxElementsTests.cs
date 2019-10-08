@@ -228,20 +228,22 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 foreach (var dependency in type.Dependencies)
                 {
                     var typeDependsOnDependency =
-                        Types().That().Are(type).Should().DependOn(dependency.Target.FullName);
+                        Types().That().Are(type).Should().DependOnTypesWithFullNameMatching(dependency.Target.FullName);
                     var typeDoesNotDependOnDependency =
-                        Types().That().Are(type).Should().NotDependOn(dependency.Target.FullName);
+                        Types().That().Are(type).Should()
+                            .NotDependOnTypesWithFullNameMatching(dependency.Target.FullName);
 
                     Assert.True(typeDependsOnDependency.HasNoViolations(Architecture));
                     Assert.False(typeDoesNotDependOnDependency.HasNoViolations(Architecture));
                 }
 
                 var typesDependOnOwnDependencies =
-                    Types().That().DependOn(type.FullName).Should().DependOn(type.FullName);
+                    Types().That().DependOnTypesWithFullNameMatching(type.FullName).Should()
+                        .DependOnTypesWithFullNameMatching(type.FullName);
                 var typeDoesNotDependOnFalseDependency =
-                    Types().That().Are(type).Should().NotDependOn(NoTypeName);
+                    Types().That().Are(type).Should().NotDependOnTypesWithFullNameMatching(NoTypeName);
                 var typeDependsOnFalseDependency =
-                    Types().That().Are(type).Should().DependOn(NoTypeName);
+                    Types().That().Are(type).Should().DependOnTypesWithFullNameMatching(NoTypeName);
 
                 Assert.True(typesDependOnOwnDependencies.HasNoViolations(Architecture));
                 Assert.True(typeDoesNotDependOnFalseDependency.HasNoViolations(Architecture));
@@ -249,9 +251,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var noTypeDependsOnFalseDependency =
-                Types().That().DependOn(NoTypeName).Should().NotExist();
+                Types().That().DependOnTypesWithFullNameMatching(NoTypeName).Should().NotExist();
             var typesDoNotDependsOnFalseDependency =
-                Types().That().DoNotDependOn(NoTypeName).Should().Exist();
+                Types().That().DoNotDependOnTypesWithFullNameMatching(NoTypeName).Should().Exist();
 
             Assert.True(noTypeDependsOnFalseDependency.HasNoViolations(Architecture));
             Assert.True(typesDoNotDependsOnFalseDependency.HasNoViolations(Architecture));

@@ -8,13 +8,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     {
         TRuleTypeConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeConjunction Are(IEnumerable<ICanBeAnalyzed> objects);
-        TRuleTypeConjunction DependOn(string pattern);
+        TRuleTypeConjunction DependOnTypesWithFullNameMatching(string pattern);
         TRuleTypeConjunction DependOn(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes);
         TRuleTypeConjunction DependOn(IObjectProvider<IType> types);
         TRuleTypeConjunction DependOn(IEnumerable<IType> types);
         TRuleTypeConjunction DependOn(IEnumerable<Type> types);
-        TRuleTypeConjunction OnlyDependOn(string pattern);
+        TRuleTypeConjunction OnlyDependOnTypesWithFullNameMatching(string pattern);
         TRuleTypeConjunction OnlyDependOn(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction OnlyDependOn(IType firstType, params IType[] moreTypes);
         TRuleTypeConjunction OnlyDependOn(IObjectProvider<IType> types);
@@ -38,7 +38,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         TRuleTypeConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeConjunction AreNot(IEnumerable<ICanBeAnalyzed> objects);
-        TRuleTypeConjunction DoNotDependOn(string pattern);
+        TRuleTypeConjunction DoNotDependOnTypesWithFullNameMatching(string pattern);
         TRuleTypeConjunction DoNotDependOn(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction DoNotDependOn(IType firstType, params IType[] moreTypes);
         TRuleTypeConjunction DoNotDependOn(IObjectProvider<IType> types);

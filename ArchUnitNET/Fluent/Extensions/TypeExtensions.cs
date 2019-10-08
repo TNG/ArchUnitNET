@@ -184,12 +184,6 @@ namespace ArchUnitNET.Fluent.Extensions
             return type.Dependencies.OfType<AttributeTypeDependency>();
         }
 
-        public static IEnumerable<Attribute> GetAttributes(this IType type)
-        {
-            return type.GetAttributeTypeDependencies().Select(dependency => dependency.Target).OfType<Attribute>();
-        }
-
-
         public static IEnumerable<ImplementsInterfaceDependency> GetImplementsInterfaceDependencies(this IType type)
         {
             return type.Dependencies.OfType<ImplementsInterfaceDependency>();

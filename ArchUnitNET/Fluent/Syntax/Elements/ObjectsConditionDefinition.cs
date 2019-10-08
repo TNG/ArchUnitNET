@@ -5,6 +5,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Domain.Visibility;
 using static ArchUnitNET.Fluent.EnumerableOperator;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -50,11 +51,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 failDescription);
         }
 
-        public static SimpleCondition<TRuleType> DependOn(string pattern)
+        public static SimpleCondition<TRuleType> DependOnTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                obj => obj.DependsOn(pattern), "depend on \"" + pattern + "\"",
-                "does not depend on \"" + pattern + "\"");
+                obj => obj.DependsOn(pattern), "depend on types with full name matching \"" + pattern + "\"",
+                "does not depend on types with full name matching \"" + pattern + "\"");
         }
 
         public static SimpleCondition<TRuleType> DependOn(IType type)
@@ -74,11 +75,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "does not depend on \"" + type.FullName + "\"");
         }
 
-        public static SimpleCondition<TRuleType> OnlyDependOn(string pattern)
+        public static SimpleCondition<TRuleType> OnlyDependOnTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(obj => obj.OnlyDependsOn(pattern),
-                "only depend on \"" + pattern + "\"",
-                "does not only depend on \"" + pattern + "\"");
+                "only depend on types with full name matching \"" + pattern + "\"",
+                "does not only depend on types with full name matching \"" + pattern + "\"");
         }
 
 
@@ -299,6 +300,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "only depend on types that", "does not only depend on types that");
         }
 
+        public static RelationCondition<TRuleType, Attribute> HaveAttributesThat()
+        {
+            return new RelationCondition<TRuleType, Attribute>(obj => obj.Attributes, Any,
+                "have attributes that",
+                "does not have attributes that");
+        }
+
+        public static RelationCondition<TRuleType, Attribute> OnlyHaveAttributesThat()
+        {
+            return new RelationCondition<TRuleType, Attribute>(obj => obj.Attributes, All,
+                "only have attributes that",
+                "does not only have attributes that");
+        }
+
 
         //Negations
 
@@ -343,11 +358,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotDependOn(string pattern)
+        public static SimpleCondition<TRuleType> NotDependOnTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                obj => !obj.DependsOn(pattern), "not depend on \"" + pattern + "\"",
-                "does depend on \"" + pattern + "\"");
+                obj => !obj.DependsOn(pattern), "not depend on types with full name matching \"" + pattern + "\"",
+                "does depend on types with full name matching \"" + pattern + "\"");
         }
 
         public static SimpleCondition<TRuleType> NotDependOn(IType firstType, params IType[] moreTypes)
@@ -538,6 +553,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new RelationCondition<TRuleType, IType>(obj => obj.GetTypeDependencies(), None,
                 "not depend on types that", "does depend on types that");
+        }
+
+        public static RelationCondition<TRuleType, Attribute> NotHaveAttributesThat()
+        {
+            return new RelationCondition<TRuleType, Attribute>(obj => obj.Attributes, None,
+                "not have attributes that",
+                "does have attributes that");
         }
     }
 }

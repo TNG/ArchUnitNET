@@ -8,9 +8,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         TRuleTypeConjunction Are(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction Are(IEnumerable<Type> types);
-        TRuleTypeConjunction ImplementInterface(string pattern);
+        TRuleTypeConjunction ImplementInterfaceWithFullNameMatching(string pattern);
         TRuleTypeConjunction ImplementInterface(Interface intf);
-        TRuleTypeConjunction ResideInNamespace(string pattern);
+        TRuleTypeConjunction ResideInNamespaceWithFullNameMatching(string pattern);
         TRuleTypeConjunction HavePropertyMemberWithName(string name);
         TRuleTypeConjunction HaveFieldMemberWithName(string name);
         TRuleTypeConjunction HaveMethodMemberWithName(string name);
@@ -23,9 +23,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         TRuleTypeConjunction AreNot(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction AreNot(IEnumerable<Type> types);
-        TRuleTypeConjunction DoNotImplementInterface(string pattern);
+        TRuleTypeConjunction DoNotImplementInterfaceWithFullNameMatching(string pattern);
         TRuleTypeConjunction DoNotImplementInterface(Interface intf);
-        TRuleTypeConjunction DoNotResideInNamespace(string pattern);
+        TRuleTypeConjunction DoNotResideInNamespaceWithFullNameMatching(string pattern);
         TRuleTypeConjunction DoNotHavePropertyMemberWithName(string name);
         TRuleTypeConjunction DoNotHaveFieldMemberWithName(string name);
         TRuleTypeConjunction DoNotHaveMethodMemberWithName(string name);

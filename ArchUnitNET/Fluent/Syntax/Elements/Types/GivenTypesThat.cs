@@ -27,9 +27,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction ImplementInterface(string pattern)
+        public TGivenRuleTypeConjunction ImplementInterfaceWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.ImplementInterface(pattern));
+            _ruleCreator.AddObjectFilter(
+                TypesFilterDefinition<TRuleType>.ImplementInterfaceWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -39,9 +40,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction ResideInNamespace(string pattern)
+        public TGivenRuleTypeConjunction ResideInNamespaceWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.ResideInNamespace(pattern));
+            _ruleCreator.AddObjectFilter(
+                TypesFilterDefinition<TRuleType>.ResideInNamespaceWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -91,9 +93,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotImplementInterface(string pattern)
+        public TGivenRuleTypeConjunction DoNotImplementInterfaceWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.DoNotImplementInterface(pattern));
+            _ruleCreator.AddObjectFilter(
+                TypesFilterDefinition<TRuleType>.DoNotImplementInterfaceWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -103,9 +106,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotResideInNamespace(string pattern)
+        public TGivenRuleTypeConjunction DoNotResideInNamespaceWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.DoNotResideInNamespace(pattern));
+            _ruleCreator.AddObjectFilter(
+                TypesFilterDefinition<TRuleType>.DoNotResideInNamespaceWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

@@ -11,7 +11,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 "have body type member dependencies");
         }
 
-        public static ObjectFilter<T> HaveBodyTypeMemberDependencies(string pattern)
+        public static ObjectFilter<T> HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(
                 member => member.HasBodyTypeMemberDependencies(pattern),
@@ -24,7 +24,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 "have method call dependencies");
         }
 
-        public static ObjectFilter<T> HaveMethodCallDependencies(string pattern)
+        public static ObjectFilter<T> HaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(
                 member => member.HasMethodCallDependencies(pattern),
@@ -37,7 +37,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 "have field type dependencies");
         }
 
-        public static ObjectFilter<T> HaveFieldTypeDependencies(string pattern)
+        public static ObjectFilter<T> HaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(
                 member => member.HasFieldTypeDependencies(pattern),
@@ -54,7 +54,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 member => !member.HasBodyTypeMemberDependencies(), "do not have body type member dependencies");
         }
 
-        public static ObjectFilter<T> DoNotHaveBodyTypeMemberDependencies(string pattern)
+        public static ObjectFilter<T> DoNotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(
                 member => !member.HasBodyTypeMemberDependencies(pattern),
@@ -67,7 +67,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 member => !member.HasMethodCallDependencies(), "do not have method call dependencies");
         }
 
-        public static ObjectFilter<T> DoNotHaveMethodCallDependencies(string pattern)
+        public static ObjectFilter<T> DoNotHaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(
                 member => !member.HasMethodCallDependencies(pattern),
@@ -80,7 +80,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 member => !member.HasFieldTypeDependencies(), "do not have field type dependencies");
         }
 
-        public static ObjectFilter<T> DoNotHaveFieldTypeDependencies(string pattern)
+        public static ObjectFilter<T> DoNotHaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(
                 member => !member.HasFieldTypeDependencies(pattern),

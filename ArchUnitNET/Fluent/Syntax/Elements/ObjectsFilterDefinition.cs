@@ -35,9 +35,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(obj => objectList.Any(o => o.Equals(obj)), description);
         }
 
-        public static ObjectFilter<T> DependOn(string pattern)
+        public static ObjectFilter<T> DependOnTypesWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.DependsOn(pattern), "depend on \"" + pattern + "\"");
+            return new ObjectFilter<T>(obj => obj.DependsOn(pattern),
+                "depend on types with full name matching \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> DependOn(IType firstType, params IType[] moreTypes)
@@ -129,9 +130,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> OnlyDependOn(string pattern)
+        public static ObjectFilter<T> OnlyDependOnTypesWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.OnlyDependsOn(pattern), "only depend on \"" + pattern + "\"");
+            return new ObjectFilter<T>(obj => obj.OnlyDependsOn(pattern),
+                "only depend on types with full name matching \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
@@ -309,9 +311,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(obj => objectList.All(o => !o.Equals(obj)), description);
         }
 
-        public static ObjectFilter<T> DoNotDependOn(string pattern)
+        public static ObjectFilter<T> DoNotDependOnTypesWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => !obj.DependsOn(pattern), "do not depend on \"" + pattern + "\"");
+            return new ObjectFilter<T>(obj => !obj.DependsOn(pattern),
+                "do not depend on types with full name matching \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> DoNotDependOn(IType firstType, params IType[] moreTypes)

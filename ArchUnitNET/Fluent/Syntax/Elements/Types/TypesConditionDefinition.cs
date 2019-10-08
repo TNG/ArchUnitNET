@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
-using static ArchUnitNET.Fluent.EnumerableOperator;
-using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -55,11 +53,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> ImplementInterface(string pattern)
+        public static SimpleCondition<TRuleType> ImplementInterfaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                type => type.ImplementsInterface(pattern), "implement interface \"" + pattern + "\"",
-                "does not implement interface \"" + pattern + "\"");
+                type => type.ImplementsInterface(pattern),
+                "implement interface with full name matching \"" + pattern + "\"",
+                "does not implement interface with full name matching \"" + pattern + "\"");
         }
 
         public static SimpleCondition<TRuleType> ImplementInterface(Interface intf)
@@ -69,11 +68,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "does not implement interface \"" + intf.FullName + "\"");
         }
 
-        public static SimpleCondition<TRuleType> ResideInNamespace(string pattern)
+        public static SimpleCondition<TRuleType> ResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                type => type.ResidesInNamespace(pattern), "reside in namespace \"" + pattern + "\"",
-                "does not reside in namespace \"" + pattern + "\"");
+                type => type.ResidesInNamespace(pattern),
+                "reside in namespace with full name matching \"" + pattern + "\"",
+                "does not reside in namespace with full name matching \"" + pattern + "\"");
         }
 
         public static SimpleCondition<TRuleType> HavePropertyMemberWithName(string name)
@@ -109,23 +109,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(type => type.IsNested, "be nested", "is not nested");
         }
 
-        //Complex Conditions
-
-        public static RelationCondition<TRuleType, Attribute> HaveAttributesThat()
-        {
-            return new RelationCondition<TRuleType, Attribute>(type => type.GetAttributes(), Any,
-                "have attributes that",
-                "does not have attributes that");
-        }
-
-        public static RelationCondition<TRuleType, Attribute> OnlyHaveAttributesThat()
-        {
-            return new RelationCondition<TRuleType, Attribute>(type => type.GetAttributes(), All,
-                "only have attributes that",
-                "does not only have attributes that");
-        }
 
         //Negations
+
 
         public static ArchitectureCondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
         {
@@ -174,10 +160,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
 
-        public static SimpleCondition<TRuleType> NotImplementInterface(string pattern)
+        public static SimpleCondition<TRuleType> NotImplementInterfaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(type => !type.ImplementsInterface(pattern),
-                "not implement interface \"" + pattern + "\"", "does implement interface \"" + pattern + "\"");
+                "not implement interface with full name matching \"" + pattern + "\"",
+                "does implement interface with full name matching \"" + pattern + "\"");
         }
 
         public static SimpleCondition<TRuleType> NotImplementInterface(Interface intf)
@@ -187,11 +174,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "does implement interface \"" + intf.FullName + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotResideInNamespace(string pattern)
+        public static SimpleCondition<TRuleType> NotResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                type => !type.ResidesInNamespace(pattern), "not reside in namespace \"" + pattern + "\"",
-                "does reside in namespace \"" + pattern + "\"");
+                type => !type.ResidesInNamespace(pattern),
+                "not reside in namespace with full name matching \"" + pattern + "\"",
+                "does reside in namespace with full name matching \"" + pattern + "\"");
         }
 
         public static SimpleCondition<TRuleType> NotHavePropertyMemberWithName(string name)
@@ -225,14 +213,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static SimpleCondition<TRuleType> NotBeNested()
         {
             return new SimpleCondition<TRuleType>(type => !type.IsNested, "not be nested", "is nested");
-        }
-
-        //Complex Condition Negations
-        public static RelationCondition<TRuleType, Attribute> NotHaveAttributesThat()
-        {
-            return new RelationCondition<TRuleType, Attribute>(type => type.GetAttributes(), None,
-                "not have attributes that",
-                "does have attributes that");
         }
     }
 }

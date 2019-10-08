@@ -24,9 +24,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOn(string pattern)
+        public TGivenRuleTypeConjunction DependOnTypesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(pattern));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOnTypesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -60,9 +60,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction OnlyDependOn(string pattern)
+        public TGivenRuleTypeConjunction OnlyDependOnTypesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.OnlyDependOn(pattern));
+            _ruleCreator.AddObjectFilter(
+                ObjectsFilterDefinition<TRuleType>.OnlyDependOnTypesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -178,9 +179,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotDependOn(string pattern)
+        public TGivenRuleTypeConjunction DoNotDependOnTypesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(pattern));
+            _ruleCreator.AddObjectFilter(
+                ObjectsFilterDefinition<TRuleType>.DoNotDependOnTypesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

@@ -45,10 +45,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> ImplementInterface(string pattern)
+        public static ObjectFilter<T> ImplementInterfaceWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(type => type.ImplementsInterface(pattern),
-                "implement interface \"" + pattern + "\"");
+                "implement interface with full name matching \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> ImplementInterface(Interface intf)
@@ -57,10 +57,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "implement interface \"" + intf.FullName + "\"");
         }
 
-        public static ObjectFilter<T> ResideInNamespace(string pattern)
+        public static ObjectFilter<T> ResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(type => type.ResidesInNamespace(pattern),
-                "reside in namespace \"" + pattern + "\"");
+                "reside in namespace with full name matching \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> HavePropertyMemberWithName(string name)
@@ -134,10 +134,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
 
-        public static ObjectFilter<T> DoNotImplementInterface(string pattern)
+        public static ObjectFilter<T> DoNotImplementInterfaceWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(type => !type.ImplementsInterface(pattern),
-                "do not implement interface \"" + pattern + "\"");
+                "do not implement interface with full name matching \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> DoNotImplementInterface(Interface intf)
@@ -146,10 +146,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "do not implement interface \"" + intf.FullName + "\"");
         }
 
-        public static ObjectFilter<T> DoNotResideInNamespace(string pattern)
+        public static ObjectFilter<T> DoNotResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(type => !type.ResidesInNamespace(pattern),
-                "do not reside in namespace \"" + pattern + "\"");
+                "do not reside in namespace with full name matching \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> DoNotHavePropertyMemberWithName(string name)

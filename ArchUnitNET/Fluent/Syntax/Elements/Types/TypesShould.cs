@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
@@ -29,9 +28,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ImplementInterface(string pattern)
+        public TRuleTypeShouldConjunction ImplementInterfaceWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.ImplementInterface(pattern));
+            _ruleCreator.AddCondition(
+                TypesConditionDefinition<TRuleType>.ImplementInterfaceWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -41,9 +41,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ResideInNamespace(string pattern)
+        public TRuleTypeShouldConjunction ResideInNamespaceWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.ResideInNamespace(pattern));
+            _ruleCreator.AddCondition(
+                TypesConditionDefinition<TRuleType>.ResideInNamespaceWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -77,20 +78,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        //Complex Conditions
-
-        public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat()
-        {
-            _ruleCreator.BeginComplexCondition(TypesConditionDefinition<TRuleType>.HaveAttributesThat());
-            return new ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat()
-        {
-            _ruleCreator.BeginComplexCondition(TypesConditionDefinition<TRuleType>.OnlyHaveAttributesThat());
-            return new ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
 
         //Negations
 
@@ -107,9 +94,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotImplementInterface(string pattern)
+        public TRuleTypeShouldConjunction NotImplementInterfaceWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotImplementInterface(pattern));
+            _ruleCreator.AddCondition(
+                TypesConditionDefinition<TRuleType>.NotImplementInterfaceWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -119,9 +107,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotResideInNamespace(string pattern)
+        public TRuleTypeShouldConjunction NotResideInNamespaceWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotResideInNamespace(pattern));
+            _ruleCreator.AddCondition(
+                TypesConditionDefinition<TRuleType>.NotResideInNamespaceWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -153,14 +142,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBeNested());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        //Complex Condition Negations
-
-        public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat()
-        {
-            _ruleCreator.BeginComplexCondition(TypesConditionDefinition<TRuleType>.NotHaveAttributesThat());
-            return new ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

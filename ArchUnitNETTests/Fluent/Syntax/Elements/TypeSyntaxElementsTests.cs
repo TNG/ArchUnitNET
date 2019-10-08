@@ -243,13 +243,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var intf in Architecture.Interfaces)
             {
                 var typesThatImplementInterfaceImplementInterface = Types().That().ImplementInterface(intf)
-                    .Should().ImplementInterface(intf.FullName);
+                    .Should().ImplementInterfaceWithFullNameMatching(intf.FullName);
                 var typesThatImplementInterfaceDoNotImplementInterface = Types().That()
                     .ImplementInterface(intf).Should().NotImplementInterface(intf).AndShould().Exist();
                 var typesThatDoNotImplementInterfaceImplementInterface = Types().That().DoNotImplementInterface(intf)
-                    .Should().ImplementInterface(intf.FullName).AndShould().Exist();
+                    .Should().ImplementInterfaceWithFullNameMatching(intf.FullName).AndShould().Exist();
                 var typesThatDoNotImplementInterfaceDoNotImplementInterface = Types().That()
-                    .DoNotImplementInterface(intf.FullName).Should().NotImplementInterface(intf);
+                    .DoNotImplementInterfaceWithFullNameMatching(intf.FullName).Should().NotImplementInterface(intf);
 
                 Assert.True(typesThatImplementInterfaceImplementInterface.HasNoViolations(Architecture));
                 Assert.False(typesThatImplementInterfaceDoNotImplementInterface.HasNoViolations(Architecture));
@@ -283,12 +283,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var type in _types)
             {
                 var typeResidesInOwnNamespace =
-                    Types().That().Are(type).Should().ResideInNamespace(type.Namespace.FullName);
+                    Types().That().Are(type).Should().ResideInNamespaceWithFullNameMatching(type.Namespace.FullName);
                 var typeDoesNotResideInOwnNamespace =
-                    Types().That().Are(type).Should().NotResideInNamespace(type.Namespace.FullName);
+                    Types().That().Are(type).Should().NotResideInNamespaceWithFullNameMatching(type.Namespace.FullName);
                 var thereAreTypesInOwnNamespace =
-                    Types().That().ResideInNamespace(type.Namespace.FullName).Should().Exist();
-                var typesInOtherNamespaceAreOtherTypes = Types().That().DoNotResideInNamespace(type.Namespace.FullName)
+                    Types().That().ResideInNamespaceWithFullNameMatching(type.Namespace.FullName).Should().Exist();
+                var typesInOtherNamespaceAreOtherTypes = Types().That()
+                    .DoNotResideInNamespaceWithFullNameMatching(type.Namespace.FullName)
                     .Should().NotBe(type);
 
                 Assert.True(typeResidesInOwnNamespace.HasNoViolations(Architecture));
@@ -300,9 +301,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var namespc in Architecture.Namespaces.Select(namespc => namespc.FullName))
             {
                 var typesInNamespaceAreInNamespace =
-                    Types().That().ResideInNamespace(namespc).Should().ResideInNamespace(namespc);
-                var typesInOtherNamespaceAreInOtherNamespace = Types().That().DoNotResideInNamespace(namespc).Should()
-                    .NotResideInNamespace(namespc);
+                    Types().That().ResideInNamespaceWithFullNameMatching(namespc).Should()
+                        .ResideInNamespaceWithFullNameMatching(namespc);
+                var typesInOtherNamespaceAreInOtherNamespace = Types().That()
+                    .DoNotResideInNamespaceWithFullNameMatching(namespc).Should()
+                    .NotResideInNamespaceWithFullNameMatching(namespc);
 
                 Assert.True(typesInNamespaceAreInNamespace.HasNoViolations(Architecture));
                 Assert.True(typesInOtherNamespaceAreInOtherNamespace.HasNoViolations(Architecture));

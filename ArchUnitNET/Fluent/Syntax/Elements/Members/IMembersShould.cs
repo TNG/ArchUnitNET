@@ -1,5 +1,4 @@
 ﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
@@ -9,24 +8,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         TRuleTypeShouldConjunction HaveBodyTypeMemberDependencies();
-        TRuleTypeShouldConjunction HaveBodyTypeMemberDependencies(string pattern);
+        TRuleTypeShouldConjunction HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction HaveMethodCallDependencies();
-        TRuleTypeShouldConjunction HaveMethodCallDependencies(string pattern);
+        TRuleTypeShouldConjunction HaveMethodCallDependenciesWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction HaveFieldTypeDependencies();
-        TRuleTypeShouldConjunction HaveFieldTypeDependencies(string pattern);
-        ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat();
-        ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat();
+        TRuleTypeShouldConjunction HaveFieldTypeDependenciesWithFullNameMatching(string pattern);
 
 
         //Negations
 
 
         TRuleTypeShouldConjunction NotHaveBodyTypeMemberDependencies();
-        TRuleTypeShouldConjunction NotHaveBodyTypeMemberDependencies(string pattern);
+        TRuleTypeShouldConjunction NotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction NotHaveMethodCallDependencies();
-        TRuleTypeShouldConjunction NotHaveMethodCallDependencies(string pattern);
+        TRuleTypeShouldConjunction NotHaveMethodCallDependenciesWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction NotHaveFieldTypeDependencies();
-        TRuleTypeShouldConjunction NotHaveFieldTypeDependencies(string pattern);
-        ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat();
+        TRuleTypeShouldConjunction NotHaveFieldTypeDependenciesWithFullNameMatching(string pattern);
     }
 }

@@ -19,9 +19,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveBodyTypeMemberDependencies(string pattern)
+        public TGivenRuleTypeConjunction HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.HaveBodyTypeMemberDependencies(pattern));
+            _ruleCreator.AddObjectFilter(
+                MembersFilterDefinition<TRuleType>.HaveBodyTypeMemberDependenciesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -31,9 +32,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveMethodCallDependencies(string pattern)
+        public TGivenRuleTypeConjunction HaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.HaveMethodCallDependencies(pattern));
+            _ruleCreator.AddObjectFilter(
+                MembersFilterDefinition<TRuleType>.HaveMethodCallDependenciesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -43,9 +45,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveFieldTypeDependencies(string pattern)
+        public TGivenRuleTypeConjunction HaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.HaveFieldTypeDependencies(pattern));
+            _ruleCreator.AddObjectFilter(
+                MembersFilterDefinition<TRuleType>.HaveFieldTypeDependenciesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -59,10 +62,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotHaveBodyTypeMemberDependencies(string pattern)
+        public TGivenRuleTypeConjunction DoNotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddObjectFilter(
-                MembersFilterDefinition<TRuleType>.DoNotHaveBodyTypeMemberDependencies(pattern));
+                MembersFilterDefinition<TRuleType>.DoNotHaveBodyTypeMemberDependenciesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -72,9 +75,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotHaveMethodCallDependencies(string pattern)
+        public TGivenRuleTypeConjunction DoNotHaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.DoNotHaveMethodCallDependencies(pattern));
+            _ruleCreator.AddObjectFilter(
+                MembersFilterDefinition<TRuleType>.DoNotHaveMethodCallDependenciesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -84,9 +88,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotHaveFieldTypeDependencies(string pattern)
+        public TGivenRuleTypeConjunction DoNotHaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(MembersFilterDefinition<TRuleType>.DoNotHaveFieldTypeDependencies(pattern));
+            _ruleCreator.AddObjectFilter(
+                MembersFilterDefinition<TRuleType>.DoNotHaveFieldTypeDependenciesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }
