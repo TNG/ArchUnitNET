@@ -8,7 +8,7 @@ using static ArchUnitNET.Fluent.ObjectProviderDefinition;
 
 namespace ArchUnitNETTests.Fluent.Syntax
 {
-    public class ActivatorHandlerTests
+    public class ConjunctionFactoryTest
     {
         [Fact]
         public void CreateSyntaxElementTest()
@@ -23,7 +23,7 @@ namespace ArchUnitNETTests.Fluent.Syntax
         public void CreateSyntaxElementWithInvalidParametersThrowsExceptionTest()
         {
             Assert.Throws<MissingMethodException>(() =>
-                Create<ActivatorHandlerTests, IType>(new ArchRuleCreator<IType>(Types)));
+                Create<ConjunctionFactoryTest, IType>(new ArchRuleCreator<IType>(Types)));
         }
     }
 }
