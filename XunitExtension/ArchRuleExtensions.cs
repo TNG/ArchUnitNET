@@ -13,7 +13,6 @@ namespace Xunit
         /// <param name="architecture">The architecture to be tested</param>
         public static void Check(this IArchRule archRule, Architecture architecture)
         {
-            
             Assert.ArchRule(architecture, archRule);
         }
     }
