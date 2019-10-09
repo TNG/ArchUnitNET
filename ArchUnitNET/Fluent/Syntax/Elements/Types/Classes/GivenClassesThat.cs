@@ -11,31 +11,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public GivenClassesConjunction AreAbstract()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreAbstract());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreAbstract());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
         public GivenClassesConjunction AreSealed()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreSealed());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreSealed());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
         public GivenClassesConjunction AreValueTypes()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreValueTypes());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreValueTypes());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
         public GivenClassesConjunction AreEnums()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreEnums());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreEnums());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
         public GivenClassesConjunction AreStructs()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreStructs());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreStructs());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
@@ -45,31 +45,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public GivenClassesConjunction AreNotAbstract()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreNotAbstract());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotAbstract());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
         public GivenClassesConjunction AreNotSealed()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreNotSealed());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotSealed());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
         public GivenClassesConjunction AreNotValueTypes()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreNotValueTypes());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotValueTypes());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
         public GivenClassesConjunction AreNotEnums()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreNotEnums());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotEnums());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
         public GivenClassesConjunction AreNotStructs()
         {
-            _ruleCreator.AddObjectFilter(ClassPredicatesDefinition.AreNotStructs());
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotStructs());
             return new GivenClassesConjunction(_ruleCreator);
         }
     }

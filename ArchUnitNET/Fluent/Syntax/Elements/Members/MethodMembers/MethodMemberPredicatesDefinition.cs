@@ -5,28 +5,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
     public static class MethodMemberPredicatesDefinition
     {
-        public static ObjectFilter<MethodMember> AreConstructors()
+        public static Predicate<MethodMember> AreConstructors()
         {
-            return new ObjectFilter<MethodMember>(member => member.IsConstructor(), "are constructors");
+            return new Predicate<MethodMember>(member => member.IsConstructor(), "are constructors");
         }
 
-        public static ObjectFilter<MethodMember> AreVirtual()
+        public static Predicate<MethodMember> AreVirtual()
         {
-            return new ObjectFilter<MethodMember>(member => member.IsVirtual, "are virtual");
+            return new Predicate<MethodMember>(member => member.IsVirtual, "are virtual");
         }
 
 
         //Negations
 
 
-        public static ObjectFilter<MethodMember> AreNoConstructors()
+        public static Predicate<MethodMember> AreNoConstructors()
         {
-            return new ObjectFilter<MethodMember>(member => !member.IsConstructor(), "are no constructors");
+            return new Predicate<MethodMember>(member => !member.IsConstructor(), "are no constructors");
         }
 
-        public static ObjectFilter<MethodMember> AreNotVirtual()
+        public static Predicate<MethodMember> AreNotVirtual()
         {
-            return new ObjectFilter<MethodMember>(member => !member.IsVirtual, "are not virtual");
+            return new Predicate<MethodMember>(member => !member.IsVirtual, "are not virtual");
         }
     }
 }

@@ -4,29 +4,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
     public static class AttributePredicatesDefinition
     {
-        public static ObjectFilter<Attribute> AreAbstract()
+        public static Predicate<Attribute> AreAbstract()
         {
-            return new ObjectFilter<Attribute>(
+            return new Predicate<Attribute>(
                 attribute => !attribute.IsAbstract.HasValue || attribute.IsAbstract.Value, "are abstract");
         }
 
-        public static ObjectFilter<Attribute> AreSealed()
+        public static Predicate<Attribute> AreSealed()
         {
-            return new ObjectFilter<Attribute>(attribute => !attribute.IsSealed.HasValue || attribute.IsSealed.Value,
+            return new Predicate<Attribute>(attribute => !attribute.IsSealed.HasValue || attribute.IsSealed.Value,
                 "are sealed");
         }
 
         //Negations
 
-        public static ObjectFilter<Attribute> AreNotAbstract()
+        public static Predicate<Attribute> AreNotAbstract()
         {
-            return new ObjectFilter<Attribute>(
+            return new Predicate<Attribute>(
                 attribute => !attribute.IsAbstract.HasValue || !attribute.IsAbstract.Value, "are not abstract");
         }
 
-        public static ObjectFilter<Attribute> AreNotSealed()
+        public static Predicate<Attribute> AreNotSealed()
         {
-            return new ObjectFilter<Attribute>(attribute => !attribute.IsSealed.HasValue || !attribute.IsSealed.Value,
+            return new Predicate<Attribute>(attribute => !attribute.IsSealed.HasValue || !attribute.IsSealed.Value,
                 "are not sealed");
         }
     }

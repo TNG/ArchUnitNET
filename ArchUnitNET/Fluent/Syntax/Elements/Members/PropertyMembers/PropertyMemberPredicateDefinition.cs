@@ -5,109 +5,109 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
     public static class PropertyMemberPredicateDefinition
     {
-        public static ObjectFilter<PropertyMember> HaveGetter()
+        public static Predicate<PropertyMember> HaveGetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.Visibility != NotAccessible, "have getter");
+            return new Predicate<PropertyMember>(member => member.Visibility != NotAccessible, "have getter");
         }
 
-        public static ObjectFilter<PropertyMember> HaveSetter()
+        public static Predicate<PropertyMember> HaveSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility != NotAccessible, "have setter");
+            return new Predicate<PropertyMember>(member => member.SetterVisibility != NotAccessible, "have setter");
         }
 
-        public static ObjectFilter<PropertyMember> HavePrivateSetter()
+        public static Predicate<PropertyMember> HavePrivateSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Private,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility == Private,
                 "have private setter");
         }
 
-        public static ObjectFilter<PropertyMember> HavePublicSetter()
+        public static Predicate<PropertyMember> HavePublicSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Public, "have public setter");
+            return new Predicate<PropertyMember>(member => member.SetterVisibility == Public, "have public setter");
         }
 
-        public static ObjectFilter<PropertyMember> HaveProtectedSetter()
+        public static Predicate<PropertyMember> HaveProtectedSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Protected,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility == Protected,
                 "have protected setter");
         }
 
-        public static ObjectFilter<PropertyMember> HaveInternalSetter()
+        public static Predicate<PropertyMember> HaveInternalSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == Internal,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility == Internal,
                 "have internal setter");
         }
 
-        public static ObjectFilter<PropertyMember> HaveProtectedInternalSetter()
+        public static Predicate<PropertyMember> HaveProtectedInternalSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == ProtectedInternal,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility == ProtectedInternal,
                 "have protected internal setter");
         }
 
-        public static ObjectFilter<PropertyMember> HavePrivateProtectedSetter()
+        public static Predicate<PropertyMember> HavePrivateProtectedSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == PrivateProtected,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility == PrivateProtected,
                 "have private protected setter");
         }
 
-        public static ObjectFilter<PropertyMember> AreVirtual()
+        public static Predicate<PropertyMember> AreVirtual()
         {
-            return new ObjectFilter<PropertyMember>(member => member.IsVirtual, "are virtual");
+            return new Predicate<PropertyMember>(member => member.IsVirtual, "are virtual");
         }
 
         //Negations
 
 
-        public static ObjectFilter<PropertyMember> HaveNoGetter()
+        public static Predicate<PropertyMember> HaveNoGetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.Visibility == NotAccessible, "have no getter");
+            return new Predicate<PropertyMember>(member => member.Visibility == NotAccessible, "have no getter");
         }
 
-        public static ObjectFilter<PropertyMember> HaveNoSetter()
+        public static Predicate<PropertyMember> HaveNoSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility == NotAccessible,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility == NotAccessible,
                 "have no setter");
         }
 
-        public static ObjectFilter<PropertyMember> DoNotHavePrivateSetter()
+        public static Predicate<PropertyMember> DoNotHavePrivateSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility != Private,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility != Private,
                 "do not have private setter");
         }
 
-        public static ObjectFilter<PropertyMember> DoNotHavePublicSetter()
+        public static Predicate<PropertyMember> DoNotHavePublicSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility != Public,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility != Public,
                 "do not have public setter");
         }
 
-        public static ObjectFilter<PropertyMember> DoNotHaveProtectedSetter()
+        public static Predicate<PropertyMember> DoNotHaveProtectedSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility != Protected,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility != Protected,
                 "do not have protected setter");
         }
 
-        public static ObjectFilter<PropertyMember> DoNotHaveInternalSetter()
+        public static Predicate<PropertyMember> DoNotHaveInternalSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility != Internal,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility != Internal,
                 "do not have internal setter");
         }
 
-        public static ObjectFilter<PropertyMember> DoNotHaveProtectedInternalSetter()
+        public static Predicate<PropertyMember> DoNotHaveProtectedInternalSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility != ProtectedInternal,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility != ProtectedInternal,
                 "do not have protected internal setter");
         }
 
-        public static ObjectFilter<PropertyMember> DoNotHavePrivateProtectedSetter()
+        public static Predicate<PropertyMember> DoNotHavePrivateProtectedSetter()
         {
-            return new ObjectFilter<PropertyMember>(member => member.SetterVisibility != PrivateProtected,
+            return new Predicate<PropertyMember>(member => member.SetterVisibility != PrivateProtected,
                 "do not have private protected setter");
         }
 
-        public static ObjectFilter<PropertyMember> AreNotVirtual()
+        public static Predicate<PropertyMember> AreNotVirtual()
         {
-            return new ObjectFilter<PropertyMember>(member => !member.IsVirtual, "are not virtual");
+            return new Predicate<PropertyMember>(member => !member.IsVirtual, "are not virtual");
         }
     }
 }

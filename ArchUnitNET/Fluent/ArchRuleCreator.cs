@@ -8,36 +8,36 @@ namespace ArchUnitNET.Fluent
     public partial class ArchRuleCreator<TRuleType> : IArchRuleCreator<TRuleType> where TRuleType : ICanBeAnalyzed
     {
         private readonly ConditionManager<TRuleType> _conditionManager;
-        private readonly ObjectFilterManager<TRuleType> _objectFilterManager;
+        private readonly PredicateManager<TRuleType> _predicateManager;
         [CanBeNull] private string _customDescription;
 
         public ArchRuleCreator(ObjectProvider<TRuleType> objectProvider)
         {
-            _objectFilterManager = new ObjectFilterManager<TRuleType>(objectProvider);
+            _predicateManager = new PredicateManager<TRuleType>(objectProvider);
             _conditionManager = new ConditionManager<TRuleType>();
         }
 
         public string Description => _customDescription ??
-                                     (_objectFilterManager.Description + " " + _conditionManager.Description).Trim();
+                                     (_predicateManager.Description + " " + _conditionManager.Description).Trim();
 
         public bool HasNoViolations(Architecture architecture)
         {
-            return HasNoViolations(GetFilteredObjects(architecture), architecture);
+            return HasNoViolations(GetAnalyzedObjects(architecture), architecture);
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
-            return EvaluateConditions(GetFilteredObjects(architecture), architecture);
+            return EvaluateConditions(GetAnalyzedObjects(architecture), architecture);
         }
 
-        public void AddObjectFilter(IObjectFilter<TRuleType> objectFilter)
+        public void AddPredicate(IPredicate<TRuleType> predicate)
         {
-            _objectFilterManager.AddFilter(objectFilter);
+            _predicateManager.AddPredicate(predicate);
         }
 
-        public void AddObjectFilterConjunction(LogicalConjunction logicalConjunction)
+        public void AddPredicateConjunction(LogicalConjunction logicalConjunction)
         {
-            _objectFilterManager.SetNextLogicalConjunction(logicalConjunction);
+            _predicateManager.SetNextLogicalConjunction(logicalConjunction);
         }
 
         public void AddCondition(ICondition<TRuleType> condition)
@@ -55,9 +55,9 @@ namespace ArchUnitNET.Fluent
             _conditionManager.AddReason(reason);
         }
 
-        public void AddFilterReason(string reason)
+        public void AddPredicateReason(string reason)
         {
-            _objectFilterManager.AddReason(reason);
+            _predicateManager.AddReason(reason);
         }
 
         public void BeginComplexCondition<TReferenceType>(
@@ -67,15 +67,15 @@ namespace ArchUnitNET.Fluent
             _conditionManager.BeginComplexCondition(relationCondition);
         }
 
-        public void ContinueComplexCondition<TReferenceType>(IObjectFilter<TReferenceType> objectFilter)
+        public void ContinueComplexCondition<TReferenceType>(IPredicate<TReferenceType> predicate)
             where TReferenceType : ICanBeAnalyzed
         {
-            _conditionManager.ContinueComplexCondition(objectFilter);
+            _conditionManager.ContinueComplexCondition(predicate);
         }
 
-        public IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture)
+        public IEnumerable<TRuleType> GetAnalyzedObjects(Architecture architecture)
         {
-            return _objectFilterManager.GetFilteredObjects(architecture);
+            return _predicateManager.GetObjects(architecture);
         }
 
         public void SetCustomDescription(string description)

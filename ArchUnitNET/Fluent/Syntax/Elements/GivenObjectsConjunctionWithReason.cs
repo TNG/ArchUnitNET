@@ -18,7 +18,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             try
             {
-                return _ruleCreator.GetFilteredObjects(architecture);
+                return _ruleCreator.GetAnalyzedObjects(architecture);
             }
             catch (CannotGetObjectsOfCombinedArchRuleCreatorException exception)
             {
@@ -31,13 +31,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TGivenRuleTypeThat And()
         {
-            _ruleCreator.AddObjectFilterConjunction(LogicalConjunctionDefinition.And);
+            _ruleCreator.AddPredicateConjunction(LogicalConjunctionDefinition.And);
             return Create<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
         }
 
         public TGivenRuleTypeThat Or()
         {
-            _ruleCreator.AddObjectFilterConjunction(LogicalConjunctionDefinition.Or);
+            _ruleCreator.AddPredicateConjunction(LogicalConjunctionDefinition.Or);
             return Create<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
         }
 

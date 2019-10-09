@@ -33,7 +33,7 @@ namespace ArchUnitNET.Fluent
                 _referenceTypeTemp = typeof(TReferenceType);
             }
 
-            public void ContinueComplexCondition<TReferenceType>(IObjectFilter<TReferenceType> filter)
+            public void ContinueComplexCondition<TReferenceType>(IPredicate<TReferenceType> filter)
                 where TReferenceType : ICanBeAnalyzed
             {
                 if (typeof(TReferenceType) == _referenceTypeTemp)

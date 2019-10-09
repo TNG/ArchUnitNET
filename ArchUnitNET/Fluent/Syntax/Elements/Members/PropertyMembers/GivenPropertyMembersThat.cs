@@ -11,55 +11,55 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction HaveGetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HaveGetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveGetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HaveSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePrivateSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HavePrivateSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HavePrivateSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePublicSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HavePublicSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HavePublicSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveProtectedSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HaveProtectedSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveProtectedSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveInternalSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HaveInternalSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveInternalSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveProtectedInternalSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HaveProtectedInternalSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveProtectedInternalSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePrivateProtectedSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HavePrivateProtectedSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HavePrivateProtectedSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction AreVirtual()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.AreVirtual());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.AreVirtual());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
@@ -69,55 +69,55 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction HaveNoGetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HaveNoGetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveNoGetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HaveNoSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.HaveNoSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveNoSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePrivateSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.DoNotHavePrivateSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHavePrivateSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePublicSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.DoNotHavePublicSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHavePublicSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHaveProtectedSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.DoNotHaveProtectedSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHaveProtectedSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHaveInternalSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.DoNotHaveInternalSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHaveInternalSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHaveProtectedInternalSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.DoNotHaveProtectedInternalSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHaveProtectedInternalSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePrivateProtectedSetter()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedSetter());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction AreNotVirtual()
         {
-            _ruleCreator.AddObjectFilter(PropertyMemberPredicateDefinition.AreNotVirtual());
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.AreNotVirtual());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
     }

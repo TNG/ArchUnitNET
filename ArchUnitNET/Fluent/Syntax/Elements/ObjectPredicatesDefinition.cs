@@ -9,14 +9,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public static class ObjectPredicatesDefinition<T> where T : ICanBeAnalyzed
     {
-        public static ObjectFilter<T> Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
+        public static Predicate<T> Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             var description = moreObjects.Aggregate("are \"" + firstObject.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ObjectFilter<T>(o => o.Equals(firstObject) || moreObjects.Any(o.Equals), description);
+            return new Predicate<T>(o => o.Equals(firstObject) || moreObjects.Any(o.Equals), description);
         }
 
-        public static ObjectFilter<T> Are(IEnumerable<ICanBeAnalyzed> objects)
+        public static Predicate<T> Are(IEnumerable<ICanBeAnalyzed> objects)
         {
             var objectList = objects.ToList();
             string description;
@@ -32,16 +32,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(obj => objectList.Any(o => o.Equals(obj)), description);
+            return new Predicate<T>(obj => objectList.Any(o => o.Equals(obj)), description);
         }
 
-        public static ObjectFilter<T> DependOnAnyTypesWithFullNameMatching(string pattern)
+        public static Predicate<T> DependOnAnyTypesWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.DependsOn(pattern),
+            return new Predicate<T>(obj => obj.DependsOn(pattern),
                 "depend on any types with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DependOnAny(IType firstType, params IType[] moreTypes)
+        public static Predicate<T> DependOnAny(IType firstType, params IType[] moreTypes)
         {
             bool Condition(T type)
             {
@@ -50,10 +50,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ObjectFilter<T>(Condition, description);
+            return new Predicate<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> DependOnAny(Type firstType, params Type[] moreTypes)
+        public static ArchitecturePredicate<T> DependOnAny(Type firstType, params Type[] moreTypes)
         {
             bool Condition(T type, Architecture architecture)
             {
@@ -64,10 +64,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> DependOnAny(IObjectProvider<IType> objectProvider)
+        public static ArchitecturePredicate<T> DependOnAny(IObjectProvider<IType> objectProvider)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -76,10 +76,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             var description = "depend on any " + objectProvider.Description;
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> DependOnAny(IEnumerable<IType> types)
+        public static Predicate<T> DependOnAny(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -101,10 +101,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(Filter, description);
+            return new Predicate<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> DependOnAny(IEnumerable<Type> types)
+        public static ArchitecturePredicate<T> DependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -127,16 +127,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> OnlyDependOnTypesWithFullNameMatching(string pattern)
+        public static Predicate<T> OnlyDependOnTypesWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.OnlyDependsOn(pattern),
+            return new Predicate<T>(obj => obj.OnlyDependsOn(pattern),
                 "only depend on types with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
+        public static Predicate<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
             bool Filter(T type)
             {
@@ -145,10 +145,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ObjectFilter<T>(Filter, description);
+            return new Predicate<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> OnlyDependOn(Type firstType, params Type[] moreTypes)
+        public static ArchitecturePredicate<T> OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -159,10 +159,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> OnlyDependOn(IObjectProvider<IType> objectProvider)
+        public static ArchitecturePredicate<T> OnlyDependOn(IObjectProvider<IType> objectProvider)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -171,10 +171,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             var description = "only depend on " + objectProvider.Description;
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> OnlyDependOn(IEnumerable<IType> types)
+        public static Predicate<T> OnlyDependOn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -196,10 +196,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(Filter, description);
+            return new Predicate<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> OnlyDependOn(IEnumerable<Type> types)
+        public static ArchitecturePredicate<T> OnlyDependOn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -222,88 +222,88 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> HaveName(string name)
+        public static Predicate<T> HaveName(string name)
         {
-            return new ObjectFilter<T>(obj => obj.Name.Equals(name), "have name \"" + name + "\"");
+            return new Predicate<T>(obj => obj.Name.Equals(name), "have name \"" + name + "\"");
         }
 
-        public static ObjectFilter<T> HaveNameMatching(string pattern)
+        public static Predicate<T> HaveNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.NameMatches(pattern), "have name matching \"" + pattern + "\"");
+            return new Predicate<T>(obj => obj.NameMatches(pattern), "have name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> HaveFullName(string fullname)
+        public static Predicate<T> HaveFullName(string fullname)
         {
-            return new ObjectFilter<T>(obj => obj.FullName.Equals(fullname), "have full name \"" + fullname + "\"");
+            return new Predicate<T>(obj => obj.FullName.Equals(fullname), "have full name \"" + fullname + "\"");
         }
 
-        public static ObjectFilter<T> HaveFullNameMatching(string pattern)
+        public static Predicate<T> HaveFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.FullNameMatches(pattern),
+            return new Predicate<T>(obj => obj.FullNameMatches(pattern),
                 "have full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> HaveNameStartingWith(string pattern)
+        public static Predicate<T> HaveNameStartingWith(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.NameStartsWith(pattern),
+            return new Predicate<T>(obj => obj.NameStartsWith(pattern),
                 "have name starting with \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> HaveNameEndingWith(string pattern)
+        public static Predicate<T> HaveNameEndingWith(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.NameEndsWith(pattern), "have name ending with \"" + pattern + "\"");
+            return new Predicate<T>(obj => obj.NameEndsWith(pattern), "have name ending with \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> HaveNameContaining(string pattern)
+        public static Predicate<T> HaveNameContaining(string pattern)
         {
-            return new ObjectFilter<T>(obj => obj.NameMatches(pattern), "have name containing \"" + pattern + "\"");
+            return new Predicate<T>(obj => obj.NameMatches(pattern), "have name containing \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> ArePrivate()
+        public static Predicate<T> ArePrivate()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility == Private, "are private");
+            return new Predicate<T>(obj => obj.Visibility == Private, "are private");
         }
 
-        public static ObjectFilter<T> ArePublic()
+        public static Predicate<T> ArePublic()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility == Public, "are public");
+            return new Predicate<T>(obj => obj.Visibility == Public, "are public");
         }
 
-        public static ObjectFilter<T> AreProtected()
+        public static Predicate<T> AreProtected()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility == Protected, "are protected");
+            return new Predicate<T>(obj => obj.Visibility == Protected, "are protected");
         }
 
-        public static ObjectFilter<T> AreInternal()
+        public static Predicate<T> AreInternal()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility == Internal, "are internal");
+            return new Predicate<T>(obj => obj.Visibility == Internal, "are internal");
         }
 
-        public static ObjectFilter<T> AreProtectedInternal()
+        public static Predicate<T> AreProtectedInternal()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility == ProtectedInternal, "are protected internal");
+            return new Predicate<T>(obj => obj.Visibility == ProtectedInternal, "are protected internal");
         }
 
-        public static ObjectFilter<T> ArePrivateProtected()
+        public static Predicate<T> ArePrivateProtected()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility == PrivateProtected, "are private protected");
+            return new Predicate<T>(obj => obj.Visibility == PrivateProtected, "are private protected");
         }
 
 
         //Negations
 
 
-        public static ObjectFilter<T> AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
+        public static Predicate<T> AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             var description = moreObjects.Aggregate("are not \"" + firstObject.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ObjectFilter<T>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals), description);
+            return new Predicate<T>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals), description);
         }
 
-        public static ObjectFilter<T> AreNot(IEnumerable<ICanBeAnalyzed> objects)
+        public static Predicate<T> AreNot(IEnumerable<ICanBeAnalyzed> objects)
         {
             var objectList = objects.ToList();
             string description;
@@ -319,16 +319,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(obj => objectList.All(o => !o.Equals(obj)), description);
+            return new Predicate<T>(obj => objectList.All(o => !o.Equals(obj)), description);
         }
 
-        public static ObjectFilter<T> DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
+        public static Predicate<T> DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => !obj.DependsOn(pattern),
+            return new Predicate<T>(obj => !obj.DependsOn(pattern),
                 "do not depend on any types with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DoNotDependOnAny(IType firstType, params IType[] moreTypes)
+        public static Predicate<T> DoNotDependOnAny(IType firstType, params IType[] moreTypes)
         {
             bool Filter(T type)
             {
@@ -338,10 +338,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ObjectFilter<T>(Filter, description);
+            return new Predicate<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> DoNotDependOnAny(Type firstType, params Type[] moreTypes)
+        public static ArchitecturePredicate<T> DoNotDependOnAny(Type firstType, params Type[] moreTypes)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -352,10 +352,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> DoNotDependOnAny(IObjectProvider<IType> objectProvider)
+        public static ArchitecturePredicate<T> DoNotDependOnAny(IObjectProvider<IType> objectProvider)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -364,10 +364,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             var description = "do not depend on any " + objectProvider.Description;
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> DoNotDependOnAny(IEnumerable<IType> types)
+        public static Predicate<T> DoNotDependOnAny(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -389,10 +389,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(Filter, description);
+            return new Predicate<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> DoNotDependOnAny(IEnumerable<Type> types)
+        public static ArchitecturePredicate<T> DoNotDependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -415,78 +415,78 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> DoNotHaveName(string name)
+        public static Predicate<T> DoNotHaveName(string name)
         {
-            return new ObjectFilter<T>(obj => !obj.Name.Equals(name), "do not have name \"" + name + "\"");
+            return new Predicate<T>(obj => !obj.Name.Equals(name), "do not have name \"" + name + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHaveNameMatching(string pattern)
+        public static Predicate<T> DoNotHaveNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => !obj.NameMatches(pattern),
+            return new Predicate<T>(obj => !obj.NameMatches(pattern),
                 "do not have name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHaveFullName(string fullname)
+        public static Predicate<T> DoNotHaveFullName(string fullname)
         {
-            return new ObjectFilter<T>(obj => !obj.FullName.Equals(fullname),
+            return new Predicate<T>(obj => !obj.FullName.Equals(fullname),
                 "do not have full name \"" + fullname + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHaveFullNameMatching(string pattern)
+        public static Predicate<T> DoNotHaveFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(obj => !obj.FullNameMatches(pattern),
+            return new Predicate<T>(obj => !obj.FullNameMatches(pattern),
                 "do not have full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHaveNameStartingWith(string pattern)
+        public static Predicate<T> DoNotHaveNameStartingWith(string pattern)
         {
-            return new ObjectFilter<T>(obj => !obj.NameStartsWith(pattern),
+            return new Predicate<T>(obj => !obj.NameStartsWith(pattern),
                 "do not have name starting with \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHaveNameEndingWith(string pattern)
+        public static Predicate<T> DoNotHaveNameEndingWith(string pattern)
         {
-            return new ObjectFilter<T>(obj => !obj.NameEndsWith(pattern),
+            return new Predicate<T>(obj => !obj.NameEndsWith(pattern),
                 "do not have name ending with \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHaveNameContaining(string pattern)
+        public static Predicate<T> DoNotHaveNameContaining(string pattern)
         {
-            return new ObjectFilter<T>(obj => !obj.NameMatches(pattern),
+            return new Predicate<T>(obj => !obj.NameMatches(pattern),
                 "do not have name containing \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> AreNotPrivate()
+        public static Predicate<T> AreNotPrivate()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility != Private, "are not private");
+            return new Predicate<T>(obj => obj.Visibility != Private, "are not private");
         }
 
-        public static ObjectFilter<T> AreNotPublic()
+        public static Predicate<T> AreNotPublic()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility != Public, "are not public");
+            return new Predicate<T>(obj => obj.Visibility != Public, "are not public");
         }
 
-        public static ObjectFilter<T> AreNotProtected()
+        public static Predicate<T> AreNotProtected()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility != Protected, "are not protected");
+            return new Predicate<T>(obj => obj.Visibility != Protected, "are not protected");
         }
 
-        public static ObjectFilter<T> AreNotInternal()
+        public static Predicate<T> AreNotInternal()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility != Internal, "are not internal");
+            return new Predicate<T>(obj => obj.Visibility != Internal, "are not internal");
         }
 
-        public static ObjectFilter<T> AreNotProtectedInternal()
+        public static Predicate<T> AreNotProtectedInternal()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility != ProtectedInternal, "are not protected internal");
+            return new Predicate<T>(obj => obj.Visibility != ProtectedInternal, "are not protected internal");
         }
 
-        public static ObjectFilter<T> AreNotPrivateProtected()
+        public static Predicate<T> AreNotPrivateProtected()
         {
-            return new ObjectFilter<T>(obj => obj.Visibility != PrivateProtected, "are not private protected");
+            return new Predicate<T>(obj => obj.Visibility != PrivateProtected, "are not private protected");
         }
     }
 }

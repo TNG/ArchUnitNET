@@ -17,7 +17,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             try
             {
-                return _ruleCreator.GetFilteredObjects(architecture);
+                return _ruleCreator.GetAnalyzedObjects(architecture);
             }
             catch (CannotGetObjectsOfCombinedArchRuleCreatorException exception)
             {

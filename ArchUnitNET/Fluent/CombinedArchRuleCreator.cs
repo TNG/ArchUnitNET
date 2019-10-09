@@ -34,14 +34,14 @@ namespace ArchUnitNET.Fluent
             return _oldRule.Evaluate(architecture).Concat(_currentArchRuleCreator.Evaluate(architecture));
         }
 
-        public void AddObjectFilter(IObjectFilter<TRuleType> objectFilter)
+        public void AddPredicate(IPredicate<TRuleType> predicate)
         {
-            _currentArchRuleCreator.AddObjectFilter(objectFilter);
+            _currentArchRuleCreator.AddPredicate(predicate);
         }
 
-        public void AddObjectFilterConjunction(LogicalConjunction logicalConjunction)
+        public void AddPredicateConjunction(LogicalConjunction logicalConjunction)
         {
-            _currentArchRuleCreator.AddObjectFilterConjunction(logicalConjunction);
+            _currentArchRuleCreator.AddPredicateConjunction(logicalConjunction);
         }
 
         public void AddCondition(ICondition<TRuleType> condition)
@@ -59,9 +59,9 @@ namespace ArchUnitNET.Fluent
             _currentArchRuleCreator.AddConditionReason(reason);
         }
 
-        public void AddFilterReason(string reason)
+        public void AddPredicateReason(string reason)
         {
-            _currentArchRuleCreator.AddFilterReason(reason);
+            _currentArchRuleCreator.AddPredicateReason(reason);
         }
 
         public void BeginComplexCondition<TReferenceType>(
@@ -70,13 +70,13 @@ namespace ArchUnitNET.Fluent
             _currentArchRuleCreator.BeginComplexCondition(relationCondition);
         }
 
-        public void ContinueComplexCondition<TReferenceType>(IObjectFilter<TReferenceType> objectFilter)
+        public void ContinueComplexCondition<TReferenceType>(IPredicate<TReferenceType> predicate)
             where TReferenceType : ICanBeAnalyzed
         {
-            _currentArchRuleCreator.ContinueComplexCondition(objectFilter);
+            _currentArchRuleCreator.ContinueComplexCondition(predicate);
         }
 
-        public IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture)
+        public IEnumerable<TRuleType> GetAnalyzedObjects(Architecture architecture)
         {
             throw new CannotGetObjectsOfCombinedArchRuleException(
                 "GetFilteredObjects() can't be used with CombinedArchRuleCreators because the analyzed objects might be of different type.");

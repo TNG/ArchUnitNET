@@ -8,7 +8,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public static class TypePredicatesDefinition<T> where T : IType
     {
-        public static ArchitectureObjectFilter<T> Are(Type firstType, params Type[] moreTypes)
+        public static ArchitecturePredicate<T> Are(Type firstType, params Type[] moreTypes)
         {
             bool Filter(T ruleType, Architecture architecture)
             {
@@ -18,10 +18,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> Are(IEnumerable<Type> types)
+        public static ArchitecturePredicate<T> Are(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -42,16 +42,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     "are \"" + firstType.FullName + "\"", (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> AreAssignableToTypesWithFullNameMatching(string pattern)
+        public static Predicate<T> AreAssignableToTypesWithFullNameMatching(string pattern)
         {
             var description = "are assignable to types with full name matching \"" + pattern + "\"";
-            return new ObjectFilter<T>(type => type.IsAssignableTo(pattern), description);
+            return new Predicate<T>(type => type.IsAssignableTo(pattern), description);
         }
 
-        public static ObjectFilter<T> AreAssignableTo(IType firstType, params IType[] moreTypes)
+        public static Predicate<T> AreAssignableTo(IType firstType, params IType[] moreTypes)
         {
             bool Condition(T ruleType)
             {
@@ -60,10 +60,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ObjectFilter<T>(Condition, description);
+            return new Predicate<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> AreAssignableTo(Type firstType, params Type[] moreTypes)
+        public static ArchitecturePredicate<T> AreAssignableTo(Type firstType, params Type[] moreTypes)
         {
             bool Condition(T ruleType, Architecture architecture)
             {
@@ -73,10 +73,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> AreAssignableTo(IObjectProvider<IType> objectProvider)
+        public static ArchitecturePredicate<T> AreAssignableTo(IObjectProvider<IType> objectProvider)
         {
             bool Condition(T ruleType, Architecture architecture)
             {
@@ -84,10 +84,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = "are assignable to " + objectProvider.Description;
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static ObjectFilter<T> AreAssignableTo(IEnumerable<IType> types)
+        public static Predicate<T> AreAssignableTo(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -109,10 +109,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(Condition, description);
+            return new Predicate<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> AreAssignableTo(IEnumerable<Type> types)
+        public static ArchitecturePredicate<T> AreAssignableTo(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -134,54 +134,54 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static ObjectFilter<T> ImplementInterfaceWithFullNameMatching(string pattern)
+        public static Predicate<T> ImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(type => type.Implements(pattern),
+            return new Predicate<T>(type => type.Implements(pattern),
                 "implement interface with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> ResideInNamespaceWithFullNameMatching(string pattern)
+        public static Predicate<T> ResideInNamespaceWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(type => type.ResidesInNamespace(pattern),
+            return new Predicate<T>(type => type.ResidesInNamespace(pattern),
                 "reside in namespace with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> HavePropertyMemberWithName(string name)
+        public static Predicate<T> HavePropertyMemberWithName(string name)
         {
-            return new ObjectFilter<T>(type => type.HasPropertyMemberWithName(name),
+            return new Predicate<T>(type => type.HasPropertyMemberWithName(name),
                 "have property member with name\"" + name + "\"");
         }
 
-        public static ObjectFilter<T> HaveFieldMemberWithName(string name)
+        public static Predicate<T> HaveFieldMemberWithName(string name)
         {
-            return new ObjectFilter<T>(type => type.HasFieldMemberWithName(name),
+            return new Predicate<T>(type => type.HasFieldMemberWithName(name),
                 "have field member with name \"" + name + "\"");
         }
 
-        public static ObjectFilter<T> HaveMethodMemberWithName(string name)
+        public static Predicate<T> HaveMethodMemberWithName(string name)
         {
-            return new ObjectFilter<T>(type => type.HasMethodMemberWithName(name),
+            return new Predicate<T>(type => type.HasMethodMemberWithName(name),
                 "have method member with name \"" + name + "\"");
         }
 
-        public static ObjectFilter<T> HaveMemberWithName(string name)
+        public static Predicate<T> HaveMemberWithName(string name)
         {
-            return new ObjectFilter<T>(type => type.HasMemberWithName(name), "have member with name \"" + name + "\"");
+            return new Predicate<T>(type => type.HasMemberWithName(name), "have member with name \"" + name + "\"");
         }
 
-        public static ObjectFilter<T> AreNested()
+        public static Predicate<T> AreNested()
         {
-            return new ObjectFilter<T>(type => type.IsNested, "are nested");
+            return new Predicate<T>(type => type.IsNested, "are nested");
         }
 
 
         //Negations
 
 
-        public static ArchitectureObjectFilter<T> AreNot(Type firstType, params Type[] moreTypes)
+        public static ArchitecturePredicate<T> AreNot(Type firstType, params Type[] moreTypes)
         {
             bool Filter(T ruleType, Architecture architecture)
             {
@@ -191,10 +191,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are not \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> AreNot(IEnumerable<Type> types)
+        public static ArchitecturePredicate<T> AreNot(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -216,16 +216,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new ArchitectureObjectFilter<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> AreNotAssignableToTypesWithFullNameMatching(string pattern)
+        public static Predicate<T> AreNotAssignableToTypesWithFullNameMatching(string pattern)
         {
             var description = "are not assignable to types with full name matching \"" + pattern + "\"";
-            return new ObjectFilter<T>(type => !type.IsAssignableTo(pattern), description);
+            return new Predicate<T>(type => !type.IsAssignableTo(pattern), description);
         }
 
-        public static ObjectFilter<T> AreNotAssignableTo(IType firstType, params IType[] moreTypes)
+        public static Predicate<T> AreNotAssignableTo(IType firstType, params IType[] moreTypes)
         {
             bool Condition(T ruleType)
             {
@@ -234,10 +234,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ObjectFilter<T>(Condition, description);
+            return new Predicate<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> AreNotAssignableTo(Type firstType, params Type[] moreTypes)
+        public static ArchitecturePredicate<T> AreNotAssignableTo(Type firstType, params Type[] moreTypes)
         {
             bool Condition(T ruleType, Architecture architecture)
             {
@@ -247,10 +247,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> AreNotAssignableTo(IObjectProvider<IType> objectProvider)
+        public static ArchitecturePredicate<T> AreNotAssignableTo(IObjectProvider<IType> objectProvider)
         {
             bool Condition(T ruleType, Architecture architecture)
             {
@@ -258,10 +258,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = "are not assignable to " + objectProvider.Description;
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static ObjectFilter<T> AreNotAssignableTo(IEnumerable<IType> types)
+        public static Predicate<T> AreNotAssignableTo(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -283,10 +283,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new ObjectFilter<T>(Condition, description);
+            return new Predicate<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> AreNotAssignableTo(IEnumerable<Type> types)
+        public static ArchitecturePredicate<T> AreNotAssignableTo(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -308,49 +308,49 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new ArchitectureObjectFilter<T>(Condition, description);
+            return new ArchitecturePredicate<T>(Condition, description);
         }
 
 
-        public static ObjectFilter<T> DoNotImplementInterfaceWithFullNameMatching(string pattern)
+        public static Predicate<T> DoNotImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(type => !type.Implements(pattern),
+            return new Predicate<T>(type => !type.Implements(pattern),
                 "do not implement interface with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DoNotResideInNamespaceWithFullNameMatching(string pattern)
+        public static Predicate<T> DoNotResideInNamespaceWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(type => !type.ResidesInNamespace(pattern),
+            return new Predicate<T>(type => !type.ResidesInNamespace(pattern),
                 "do not reside in namespace with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHavePropertyMemberWithName(string name)
+        public static Predicate<T> DoNotHavePropertyMemberWithName(string name)
         {
-            return new ObjectFilter<T>(type => !type.HasPropertyMemberWithName(name),
+            return new Predicate<T>(type => !type.HasPropertyMemberWithName(name),
                 "do not have property member with name \"" + name + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHaveFieldMemberWithName(string name)
+        public static Predicate<T> DoNotHaveFieldMemberWithName(string name)
         {
-            return new ObjectFilter<T>(type => !type.HasFieldMemberWithName(name),
+            return new Predicate<T>(type => !type.HasFieldMemberWithName(name),
                 "do not have field member with name \"" + name + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHaveMethodMemberWithName(string name)
+        public static Predicate<T> DoNotHaveMethodMemberWithName(string name)
         {
-            return new ObjectFilter<T>(type => !type.HasMethodMemberWithName(name),
+            return new Predicate<T>(type => !type.HasMethodMemberWithName(name),
                 "do not have method member with name \"" + name + "\"");
         }
 
-        public static ObjectFilter<T> DoNotHaveMemberWithName(string name)
+        public static Predicate<T> DoNotHaveMemberWithName(string name)
         {
-            return new ObjectFilter<T>(type => !type.HasMemberWithName(name),
+            return new Predicate<T>(type => !type.HasMemberWithName(name),
                 "do not have member with name \"" + name + "\"");
         }
 
-        public static ObjectFilter<T> AreNotNested()
+        public static Predicate<T> AreNotNested()
         {
-            return new ObjectFilter<T>(type => !type.IsNested, "are not nested");
+            return new Predicate<T>(type => !type.IsNested, "are not nested");
         }
     }
 }

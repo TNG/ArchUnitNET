@@ -14,7 +14,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TGivenRuleTypeConjunctionWithReason Because(string reason)
         {
-            _ruleCreator.AddFilterReason(reason);
+            _ruleCreator.AddPredicateReason(reason);
             return Create<TGivenRuleTypeConjunctionWithReason, TRuleType>(_ruleCreator);
         }
     }
