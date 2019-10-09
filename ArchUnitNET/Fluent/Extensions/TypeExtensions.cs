@@ -110,6 +110,11 @@ namespace ArchUnitNET.Fluent.Extensions
             return cls.Name.ToLower().StartsWith(pattern.ToLower());
         }
 
+        public static bool NameContains(this IHasName cls, string pattern)
+        {
+            return cls.Name.ToLower().Contains(pattern.ToLower());
+        }
+
         public static bool NameMatches(this IHasName cls, string pattern)
         {
             return pattern != null && Regex.IsMatch(cls.Name, pattern);

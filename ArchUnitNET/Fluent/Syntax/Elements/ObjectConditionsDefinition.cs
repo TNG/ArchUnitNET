@@ -326,7 +326,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public static ICondition<TRuleType> HaveNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                obj => obj.NameMatches(pattern),
+                obj => obj.NameContains(pattern),
                 "have name containing \"" + pattern + "\"", "does not have name containing \"" + pattern + "\"");
         }
 
@@ -613,7 +613,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> NotHaveNameContaining(string pattern)
         {
-            return new SimpleCondition<TRuleType>(obj => !obj.NameMatches(pattern),
+            return new SimpleCondition<TRuleType>(obj => !obj.NameContains(pattern),
                 "not have name containing \"" + pattern + "\"", "does have name containing \"" + pattern + "\"");
         }
 

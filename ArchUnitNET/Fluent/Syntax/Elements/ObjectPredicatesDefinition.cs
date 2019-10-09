@@ -259,7 +259,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> HaveNameContaining(string pattern)
         {
-            return new Predicate<T>(obj => obj.NameMatches(pattern), "have name containing \"" + pattern + "\"");
+            return new Predicate<T>(obj => obj.NameContains(pattern), "have name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> ArePrivate()
@@ -455,7 +455,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotHaveNameContaining(string pattern)
         {
-            return new Predicate<T>(obj => !obj.NameMatches(pattern),
+            return new Predicate<T>(obj => !obj.NameContains(pattern),
                 "do not have name containing \"" + pattern + "\"");
         }
 
