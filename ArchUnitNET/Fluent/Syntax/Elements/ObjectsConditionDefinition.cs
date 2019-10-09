@@ -51,28 +51,120 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 failDescription);
         }
 
-        public static SimpleCondition<TRuleType> DependOnTypesWithFullNameMatching(string pattern)
+        public static SimpleCondition<TRuleType> DependOnAnyTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                obj => obj.DependsOn(pattern), "depend on types with full name matching \"" + pattern + "\"",
-                "does not depend on types with full name matching \"" + pattern + "\"");
+                obj => obj.DependsOn(pattern), "depend on any types with full name matching \"" + pattern + "\"",
+                "does not depend on any type with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> DependOn(IType type)
+        public static SimpleCondition<TRuleType> DependOnAny(IType firstType, params IType[] moreTypes)
         {
-            return new SimpleCondition<TRuleType>(obj => obj.DependsOn(type), "depend on \"" + type.FullName + "\"",
-                "does not depend on \"" + type.FullName + "\"");
+            bool Condition(TRuleType type)
+            {
+                return type.GetTypeDependencies().Any(target => target.Equals(firstType) || moreTypes.Contains(target));
+            }
+
+            var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            var failDescription = moreTypes.Aggregate(
+                "does not depend on \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> DependOn(Type type)
+        public static ArchitectureCondition<TRuleType> DependOnAny(Type firstType, params Type[] moreTypes)
+        {
+            bool Condition(TRuleType type, Architecture architecture)
+            {
+                return type.GetTypeDependencies().Any(target =>
+                    target.Equals(architecture.GetTypeOfType(firstType)) ||
+                    moreTypes.Select(architecture.GetTypeOfType).Contains(target));
+            }
+
+            var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            var failDescription = moreTypes.Aggregate(
+                "does not depend on \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> DependOnAny(IObjectProvider<IType> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
-                return ruleType.DependsOn(architecture.GetTypeOfType(type));
+                var types = objectProvider.GetObjects(architecture);
+                return !ruleType.GetTypeDependencies().IsNullOrEmpty() &&
+                       ruleType.GetTypeDependencies().Any(target => types.Contains(target));
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, "depend on \"" + type.FullName + "\"",
-                "does not depend on \"" + type.FullName + "\"");
+            var description = "depend on any " + objectProvider.Description;
+            var failDescription = "does not depend on any " + objectProvider.Description;
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static SimpleCondition<TRuleType> DependOnAny(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return !ruleType.GetTypeDependencies().IsNullOrEmpty() &&
+                       ruleType.GetTypeDependencies().Any(target => typeList.Contains(target));
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "depend on no types (always false)";
+                failDescription = "does not depend on no types (always true)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "depend on \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "does not depend on \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ArchitectureCondition<TRuleType> DependOnAny(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return !ruleType.GetTypeDependencies().IsNullOrEmpty() &&
+                       ruleType.GetTypeDependencies().Any(target =>
+                           typeList.Select(architecture.GetTypeOfType).Contains(target));
+            }
+
+            string description;
+            string failDescription;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "depend on no types (always false)";
+                failDescription = "does not depend on no types (always true)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "depend on \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+                failDescription = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "does not depend on \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static SimpleCondition<TRuleType> OnlyDependOnTypesWithFullNameMatching(string pattern)
@@ -81,7 +173,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "only depend on types with full name matching \"" + pattern + "\"",
                 "does not only depend on types with full name matching \"" + pattern + "\"");
         }
-
 
         public static SimpleCondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
@@ -276,11 +367,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Conditions
 
-        public static RelationCondition<TRuleType, Class> DependOnClassesThat()
+        public static RelationCondition<TRuleType, Class> DependOnAnyClassesThat()
         {
             return new RelationCondition<TRuleType, Class>(obj => obj.GetClassDependencies(), Any,
-                "depend on classes that",
-                "does not depend on classes that");
+                "depend on any classes that", "does not depend on any classes that");
         }
 
         public static RelationCondition<TRuleType, Class> OnlyDependOnClassesThat()
@@ -289,10 +379,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "only depend on classes that", "does not only depend on classes that");
         }
 
-        public static RelationCondition<TRuleType, Interface> DependOnInterfacesThat()
+        public static RelationCondition<TRuleType, Interface> DependOnAnyInterfacesThat()
         {
             return new RelationCondition<TRuleType, Interface>(obj => obj.GetInterfaceDependencies(), Any,
-                "depend on interfaces that", "does not depend on interfaces that");
+                "depend on any interfaces that", "does not depend on any interfaces that");
         }
 
         public static RelationCondition<TRuleType, Interface> OnlyDependOnInterfacesThat()
@@ -301,10 +391,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "only depend on interfaces that", "does not only depend on interfaces that");
         }
 
-        public static RelationCondition<TRuleType, IType> DependOnTypesThat()
+        public static RelationCondition<TRuleType, IType> DependOnAnyTypesThat()
         {
             return new RelationCondition<TRuleType, IType>(obj => obj.GetTypeDependencies(), Any,
-                "depend on types that", "does not depend on types that");
+                "depend on any types that", "does not depend on any types that");
         }
 
         public static RelationCondition<TRuleType, IType> OnlyDependOnTypesThat()
@@ -371,14 +461,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotDependOnTypesWithFullNameMatching(string pattern)
+        public static SimpleCondition<TRuleType> NotDependOnAnyTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                obj => !obj.DependsOn(pattern), "not depend on types with full name matching \"" + pattern + "\"",
+                obj => !obj.DependsOn(pattern), "not depend on any types with full name matching \"" + pattern + "\"",
                 "does depend on types with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotDependOn(IType firstType, params IType[] moreTypes)
+        public static SimpleCondition<TRuleType> NotDependOnAny(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType ruleType)
             {
@@ -393,7 +483,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotDependOn(Type firstType, params Type[] moreTypes)
+        public static ArchitectureCondition<TRuleType> NotDependOnAny(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -409,7 +499,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotDependOn(IObjectProvider<IType> objectProvider)
+        public static ArchitectureCondition<TRuleType> NotDependOnAny(IObjectProvider<IType> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -422,7 +512,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotDependOn(IEnumerable<IType> types)
+        public static SimpleCondition<TRuleType> NotDependOnAny(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -452,7 +542,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotDependOn(IEnumerable<Type> types)
+        public static ArchitectureCondition<TRuleType> NotDependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -562,29 +652,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Condition Negations
 
-        public static RelationCondition<TRuleType, Class> NotDependOnClassesThat()
+        public static RelationCondition<TRuleType, Class> NotDependOnAnyClassesThat()
         {
             return new RelationCondition<TRuleType, Class>(obj => obj.GetClassDependencies(), None,
-                "not depend on classes that", "does depend on classes that");
+                "not depend on any classes that", "does depend on any classes that");
         }
 
-        public static RelationCondition<TRuleType, Interface> NotDependOnInterfacesThat()
+        public static RelationCondition<TRuleType, Interface> NotDependOnAnyInterfacesThat()
         {
             return new RelationCondition<TRuleType, Interface>(obj => obj.GetInterfaceDependencies(), None,
-                "not depend on interfaces that", "does depend on interfaces that");
+                "not depend on any interfaces that", "does depend on any interfaces that");
         }
 
-        public static RelationCondition<TRuleType, IType> NotDependOnTypesThat()
+        public static RelationCondition<TRuleType, IType> NotDependOnAnyTypesThat()
         {
             return new RelationCondition<TRuleType, IType>(obj => obj.GetTypeDependencies(), None,
-                "not depend on types that", "does depend on types that");
+                "not depend on any types that", "does depend on any types that");
         }
 
         public static RelationCondition<TRuleType, Attribute> NotHaveAttributesThat()
         {
             return new RelationCondition<TRuleType, Attribute>(obj => obj.Attributes, None,
-                "not have attributes that",
-                "does have attributes that");
+                "not have attributes that", "does have attributes that");
         }
     }
 }

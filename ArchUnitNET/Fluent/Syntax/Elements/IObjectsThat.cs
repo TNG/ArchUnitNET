@@ -8,12 +8,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     {
         TRuleTypeConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeConjunction Are(IEnumerable<ICanBeAnalyzed> objects);
-        TRuleTypeConjunction DependOnTypesWithFullNameMatching(string pattern);
-        TRuleTypeConjunction DependOn(Type firstType, params Type[] moreTypes);
-        TRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes);
-        TRuleTypeConjunction DependOn(IObjectProvider<IType> types);
-        TRuleTypeConjunction DependOn(IEnumerable<IType> types);
-        TRuleTypeConjunction DependOn(IEnumerable<Type> types);
+        TRuleTypeConjunction DependOnAnyTypesWithFullNameMatching(string pattern);
+        TRuleTypeConjunction DependOnAny(Type firstType, params Type[] moreTypes);
+        TRuleTypeConjunction DependOnAny(IType firstType, params IType[] moreTypes);
+        TRuleTypeConjunction DependOnAny(IObjectProvider<IType> types);
+        TRuleTypeConjunction DependOnAny(IEnumerable<IType> types);
+        TRuleTypeConjunction DependOnAny(IEnumerable<Type> types);
         TRuleTypeConjunction OnlyDependOnTypesWithFullNameMatching(string pattern);
         TRuleTypeConjunction OnlyDependOn(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction OnlyDependOn(IType firstType, params IType[] moreTypes);
@@ -40,12 +40,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         TRuleTypeConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeConjunction AreNot(IEnumerable<ICanBeAnalyzed> objects);
-        TRuleTypeConjunction DoNotDependOnTypesWithFullNameMatching(string pattern);
-        TRuleTypeConjunction DoNotDependOn(Type firstType, params Type[] moreTypes);
-        TRuleTypeConjunction DoNotDependOn(IType firstType, params IType[] moreTypes);
-        TRuleTypeConjunction DoNotDependOn(IObjectProvider<IType> types);
-        TRuleTypeConjunction DoNotDependOn(IEnumerable<IType> types);
-        TRuleTypeConjunction DoNotDependOn(IEnumerable<Type> types);
+        TRuleTypeConjunction DoNotDependOnAnyTypesWithFullNameMatching(string pattern);
+        TRuleTypeConjunction DoNotDependOnAny(Type firstType, params Type[] moreTypes);
+        TRuleTypeConjunction DoNotDependOnAny(IType firstType, params IType[] moreTypes);
+        TRuleTypeConjunction DoNotDependOnAny(IObjectProvider<IType> types);
+        TRuleTypeConjunction DoNotDependOnAny(IEnumerable<IType> types);
+        TRuleTypeConjunction DoNotDependOnAny(IEnumerable<Type> types);
         TRuleTypeConjunction DoNotHaveName(string name);
         TRuleTypeConjunction DoNotHaveNameMatching(string pattern);
         TRuleTypeConjunction DoNotHaveFullName(string fullname);

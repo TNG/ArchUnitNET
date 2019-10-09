@@ -35,13 +35,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(obj => objectList.Any(o => o.Equals(obj)), description);
         }
 
-        public static ObjectFilter<T> DependOnTypesWithFullNameMatching(string pattern)
+        public static ObjectFilter<T> DependOnAnyTypesWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(obj => obj.DependsOn(pattern),
-                "depend on types with full name matching \"" + pattern + "\"");
+                "depend on any types with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DependOn(IType firstType, params IType[] moreTypes)
+        public static ObjectFilter<T> DependOnAny(IType firstType, params IType[] moreTypes)
         {
             bool Condition(T type)
             {
@@ -53,7 +53,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> DependOn(Type firstType, params Type[] moreTypes)
+        public static ArchitectureObjectFilter<T> DependOnAny(Type firstType, params Type[] moreTypes)
         {
             bool Condition(T type, Architecture architecture)
             {
@@ -67,7 +67,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureObjectFilter<T>(Condition, description);
         }
 
-        public static ArchitectureObjectFilter<T> DependOn(IObjectProvider<IType> objectProvider)
+        public static ArchitectureObjectFilter<T> DependOnAny(IObjectProvider<IType> objectProvider)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -75,11 +75,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return type.GetTypeDependencies().Any(target => types.Contains(target));
             }
 
-            var description = "depend on " + objectProvider.Description;
+            var description = "depend on any " + objectProvider.Description;
             return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> DependOn(IEnumerable<IType> types)
+        public static ObjectFilter<T> DependOnAny(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -104,7 +104,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> DependOn(IEnumerable<Type> types)
+        public static ArchitectureObjectFilter<T> DependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -322,13 +322,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(obj => objectList.All(o => !o.Equals(obj)), description);
         }
 
-        public static ObjectFilter<T> DoNotDependOnTypesWithFullNameMatching(string pattern)
+        public static ObjectFilter<T> DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
         {
             return new ObjectFilter<T>(obj => !obj.DependsOn(pattern),
-                "do not depend on types with full name matching \"" + pattern + "\"");
+                "do not depend on any types with full name matching \"" + pattern + "\"");
         }
 
-        public static ObjectFilter<T> DoNotDependOn(IType firstType, params IType[] moreTypes)
+        public static ObjectFilter<T> DoNotDependOnAny(IType firstType, params IType[] moreTypes)
         {
             bool Filter(T type)
             {
@@ -341,7 +341,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> DoNotDependOn(Type firstType, params Type[] moreTypes)
+        public static ArchitectureObjectFilter<T> DoNotDependOnAny(Type firstType, params Type[] moreTypes)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -355,7 +355,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> DoNotDependOn(IObjectProvider<IType> objectProvider)
+        public static ArchitectureObjectFilter<T> DoNotDependOnAny(IObjectProvider<IType> objectProvider)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -363,11 +363,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return type.GetTypeDependencies().All(target => types.All(t => !t.Equals(target)));
             }
 
-            var description = "do not depend on " + objectProvider.Description;
+            var description = "do not depend on any " + objectProvider.Description;
             return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
-        public static ObjectFilter<T> DoNotDependOn(IEnumerable<IType> types)
+        public static ObjectFilter<T> DoNotDependOnAny(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -392,7 +392,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(Filter, description);
         }
 
-        public static ArchitectureObjectFilter<T> DoNotDependOn(IEnumerable<Type> types)
+        public static ArchitectureObjectFilter<T> DoNotDependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 

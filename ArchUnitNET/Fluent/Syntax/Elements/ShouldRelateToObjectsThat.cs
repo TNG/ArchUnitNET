@@ -29,42 +29,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DependOnTypesWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction DependOnAnyTypesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectsFilterDefinition<TReferenceType>.DependOnTypesWithFullNameMatching(pattern));
+                ObjectsFilterDefinition<TReferenceType>.DependOnAnyTypesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DependOn(Type firstType, params Type[] moreTypes)
+        public TRuleTypeShouldConjunction DependOnAny(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectsFilterDefinition<TReferenceType>.DependOn(firstType, moreTypes));
+                ObjectsFilterDefinition<TReferenceType>.DependOnAny(firstType, moreTypes));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DependOn(IType firstType, params IType[] moreTypes)
+        public TRuleTypeShouldConjunction DependOnAny(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectsFilterDefinition<TReferenceType>.DependOn(firstType, moreTypes));
+                ObjectsFilterDefinition<TReferenceType>.DependOnAny(firstType, moreTypes));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DependOn(IObjectProvider<IType> types)
+        public TRuleTypeShouldConjunction DependOnAny(IObjectProvider<IType> types)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DependOn(types));
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DependOnAny(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DependOn(IEnumerable<IType> types)
+        public TRuleTypeShouldConjunction DependOnAny(IEnumerable<IType> types)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DependOn(types));
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DependOnAny(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DependOn(IEnumerable<Type> types)
+        public TRuleTypeShouldConjunction DependOnAny(IEnumerable<Type> types)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DependOn(types));
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DependOnAny(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -206,42 +206,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotDependOnTypesWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectsFilterDefinition<TReferenceType>.DoNotDependOnTypesWithFullNameMatching(pattern));
+                ObjectsFilterDefinition<TReferenceType>.DoNotDependOnAnyTypesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotDependOn(Type firstType, params Type[] moreTypes)
+        public TRuleTypeShouldConjunction DoNotDependOnAny(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(firstType, moreTypes));
+                ObjectsFilterDefinition<TReferenceType>.DoNotDependOnAny(firstType, moreTypes));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotDependOn(IType firstType, params IType[] moreTypes)
+        public TRuleTypeShouldConjunction DoNotDependOnAny(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(firstType, moreTypes));
+                ObjectsFilterDefinition<TReferenceType>.DoNotDependOnAny(firstType, moreTypes));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotDependOn(IObjectProvider<IType> types)
+        public TRuleTypeShouldConjunction DoNotDependOnAny(IObjectProvider<IType> types)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(types));
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotDependOnAny(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotDependOn(IEnumerable<IType> types)
+        public TRuleTypeShouldConjunction DoNotDependOnAny(IEnumerable<IType> types)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(types));
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotDependOnAny(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotDependOn(IEnumerable<Type> types)
+        public TRuleTypeShouldConjunction DoNotDependOnAny(IEnumerable<Type> types)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotDependOn(types));
+            _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotDependOnAny(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

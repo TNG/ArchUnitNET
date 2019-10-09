@@ -24,39 +24,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOnTypesWithFullNameMatching(string pattern)
+        public TGivenRuleTypeConjunction DependOnAnyTypesWithFullNameMatching(string pattern)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOnTypesWithFullNameMatching(pattern));
+            _ruleCreator.AddObjectFilter(
+                ObjectsFilterDefinition<TRuleType>.DependOnAnyTypesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOn(Type firstType, params Type[] moreTypes)
+        public TGivenRuleTypeConjunction DependOnAny(Type firstType, params Type[] moreTypes)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(firstType, moreTypes));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOnAny(firstType, moreTypes));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOn(IType firstType, params IType[] moreTypes)
+        public TGivenRuleTypeConjunction DependOnAny(IType firstType, params IType[] moreTypes)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(firstType, moreTypes));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOnAny(firstType, moreTypes));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOn(IObjectProvider<IType> types)
+        public TGivenRuleTypeConjunction DependOnAny(IObjectProvider<IType> types)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(types));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOnAny(types));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOn(IEnumerable<IType> types)
+        public TGivenRuleTypeConjunction DependOnAny(IEnumerable<IType> types)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(types));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOnAny(types));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOn(IEnumerable<Type> types)
+        public TGivenRuleTypeConjunction DependOnAny(IEnumerable<Type> types)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOn(types));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DependOnAny(types));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -191,40 +192,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotDependOnTypesWithFullNameMatching(string pattern)
+        public TGivenRuleTypeConjunction DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddObjectFilter(
-                ObjectsFilterDefinition<TRuleType>.DoNotDependOnTypesWithFullNameMatching(pattern));
+                ObjectsFilterDefinition<TRuleType>.DoNotDependOnAnyTypesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotDependOn(Type firstType, params Type[] moreTypes)
+        public TGivenRuleTypeConjunction DoNotDependOnAny(Type firstType, params Type[] moreTypes)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(firstType, moreTypes));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOnAny(firstType, moreTypes));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotDependOn(IType firstType, params IType[] moreTypes)
+        public TGivenRuleTypeConjunction DoNotDependOnAny(IType firstType, params IType[] moreTypes)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(firstType, moreTypes));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOnAny(firstType, moreTypes));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotDependOn(IObjectProvider<IType> types)
+        public TGivenRuleTypeConjunction DoNotDependOnAny(IObjectProvider<IType> types)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(types));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOnAny(types));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotDependOn(IEnumerable<IType> types)
+        public TGivenRuleTypeConjunction DoNotDependOnAny(IEnumerable<IType> types)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(types));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOnAny(types));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotDependOn(IEnumerable<Type> types)
+        public TGivenRuleTypeConjunction DoNotDependOnAny(IEnumerable<Type> types)
         {
-            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOn(types));
+            _ruleCreator.AddObjectFilter(ObjectsFilterDefinition<TRuleType>.DoNotDependOnAny(types));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

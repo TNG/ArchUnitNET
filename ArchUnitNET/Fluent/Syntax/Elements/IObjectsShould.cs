@@ -15,9 +15,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction Exist();
         TRuleTypeShouldConjunction Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeShouldConjunction Be(IEnumerable<ICanBeAnalyzed> objects);
-        TRuleTypeShouldConjunction DependOnTypesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction DependOn(IType type);
-        TRuleTypeShouldConjunction DependOn(Type type);
+        TRuleTypeShouldConjunction DependOnAnyTypesWithFullNameMatching(string pattern);
+        TRuleTypeShouldConjunction DependOnAny(IType firstType, params IType[] moreTypes);
+        TRuleTypeShouldConjunction DependOnAny(Type firstType, params Type[] moreTypes);
+        TRuleTypeShouldConjunction DependOnAny(IObjectProvider<IType> types);
+        TRuleTypeShouldConjunction DependOnAny(IEnumerable<IType> types);
+        TRuleTypeShouldConjunction DependOnAny(IEnumerable<Type> types);
         TRuleTypeShouldConjunction OnlyDependOnTypesWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes);
         TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes);
@@ -40,11 +43,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Conditions
 
-        ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> DependOnClassesThat();
+        ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> DependOnAnyClassesThat();
         ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnClassesThat();
-        ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> DependOnInterfacesThat();
+        ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> DependOnAnyInterfacesThat();
         ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnInterfacesThat();
-        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> DependOnTypesThat();
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> DependOnAnyTypesThat();
         ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> OnlyDependOnTypesThat();
         ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> HaveAttributesThat();
         ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat();
@@ -55,12 +58,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction NotExist();
         TRuleTypeShouldConjunction NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TRuleTypeShouldConjunction NotBe(IEnumerable<ICanBeAnalyzed> objects);
-        TRuleTypeShouldConjunction NotDependOnTypesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction NotDependOn(IType firstType, params IType[] moreTypes);
-        TRuleTypeShouldConjunction NotDependOn(Type firstType, params Type[] moreTypes);
-        TRuleTypeShouldConjunction NotDependOn(IObjectProvider<IType> types);
-        TRuleTypeShouldConjunction NotDependOn(IEnumerable<IType> types);
-        TRuleTypeShouldConjunction NotDependOn(IEnumerable<Type> types);
+        TRuleTypeShouldConjunction NotDependOnAnyTypesWithFullNameMatching(string pattern);
+        TRuleTypeShouldConjunction NotDependOnAny(IType firstType, params IType[] moreTypes);
+        TRuleTypeShouldConjunction NotDependOnAny(Type firstType, params Type[] moreTypes);
+        TRuleTypeShouldConjunction NotDependOnAny(IObjectProvider<IType> types);
+        TRuleTypeShouldConjunction NotDependOnAny(IEnumerable<IType> types);
+        TRuleTypeShouldConjunction NotDependOnAny(IEnumerable<Type> types);
         TRuleTypeShouldConjunction NotHaveName(string name);
         TRuleTypeShouldConjunction NotHaveNameMatching(string pattern);
         TRuleTypeShouldConjunction NotHaveFullName(string fullname);
@@ -77,9 +80,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Condition Negations
 
-        ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnClassesThat();
-        ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnInterfacesThat();
-        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotDependOnTypesThat();
+        ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnAnyClassesThat();
+        ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnAnyInterfacesThat();
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotDependOnAnyTypesThat();
         ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAttributesThat();
     }
 }

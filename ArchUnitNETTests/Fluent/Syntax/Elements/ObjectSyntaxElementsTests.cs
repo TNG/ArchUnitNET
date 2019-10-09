@@ -110,11 +110,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 //One Argument
 
                 var classesDependOnOwnDependencies =
-                    Classes().That().DependOn(cls).Should().DependOnClassesThat().Are(cls);
+                    Classes().That().DependOnAny(cls).Should().DependOnAnyClassesThat().Are(cls);
                 var classDoesNotDependOnOneFalseDependency =
-                    Classes().That().Are(cls).Should().NotDependOnClassesThat().Are(typeof(ClassWithNoDependencies1));
+                    Classes().That().Are(cls).Should().NotDependOnAnyClassesThat()
+                        .Are(typeof(ClassWithNoDependencies1));
                 var classDependsOnOneFalseDependency =
-                    Classes().That().Are(cls).Should().DependOnClassesThat().Are(typeof(ClassWithNoDependencies1));
+                    Classes().That().Are(cls).Should().DependOnAnyClassesThat().Are(typeof(ClassWithNoDependencies1));
                 var classOnlyDependsOnOneFalseDependency =
                     Classes().That().Are(cls).Should().OnlyDependOnClassesThat().Are(typeof(ClassWithNoDependencies1));
 
@@ -127,7 +128,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 //Multiple Arguments
 
                 var classDoesNotDependOnMultipleFalseDependencies =
-                    Classes().That().Are(cls).Should().NotDependOnClassesThat().Are(typeof(ClassWithNoDependencies1),
+                    Classes().That().Are(cls).Should().NotDependOnAnyClassesThat().Are(typeof(ClassWithNoDependencies1),
                         typeof(ClassWithNoDependencies2));
                 var classOnlyDependsOnMultipleFalseDependencies =
                     Classes().That().Are(cls).Should().OnlyDependOnClassesThat().Are(typeof(ClassWithNoDependencies1),
@@ -142,9 +143,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var classOnlyDependsOnOwnDependencies =
                     Classes().That().Are(cls).Should().OnlyDependOnClassesThat().Are(classDependencies);
                 var classDoesNotDependsOnOwnDependencies =
-                    Classes().That().Are(cls).Should().NotDependOnClassesThat().Are(classDependencies);
+                    Classes().That().Are(cls).Should().NotDependOnAnyClassesThat().Are(classDependencies);
                 var classDoesNotDependOnListOfMultipleFalseDependencies =
-                    Classes().That().Are(cls).Should().NotDependOnClassesThat().Are(_falseDependencies);
+                    Classes().That().Are(cls).Should().NotDependOnAnyClassesThat().Are(_falseDependencies);
                 var classOnlyDependsOnListOfMultipleFalseDependencies =
                     Classes().That().Are(cls).Should().OnlyDependOnClassesThat().Are(_falseDependencies);
 
@@ -167,12 +168,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 //One Argument
 
                 var interfacesDependOnOwnDependencies =
-                    Interfaces().That().DependOn(intf).Should().DependOnInterfacesThat().Are(intf);
+                    Interfaces().That().DependOnAny(intf).Should().DependOnAnyInterfacesThat().Are(intf);
                 var interfaceDoesNotDependOnOneFalseDependency =
-                    Interfaces().That().Are(intf).Should().NotDependOnInterfacesThat()
+                    Interfaces().That().Are(intf).Should().NotDependOnAnyInterfacesThat()
                         .Are(typeof(IInterfaceWithNoDependencies1));
                 var interfaceDependsOnOneFalseDependency =
-                    Interfaces().That().Are(intf).Should().DependOnInterfacesThat()
+                    Interfaces().That().Are(intf).Should().DependOnAnyInterfacesThat()
                         .Are(typeof(IInterfaceWithNoDependencies1));
                 var interfaceOnlyDependsOnOneFalseDependency =
                     Interfaces().That().Are(intf).Should().OnlyDependOnInterfacesThat()
@@ -187,7 +188,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 //Multiple Arguments
 
                 var interfaceDoesNotDependOnMultipleFalseDependencies =
-                    Interfaces().That().Are(intf).Should().NotDependOnInterfacesThat().Are(
+                    Interfaces().That().Are(intf).Should().NotDependOnAnyInterfacesThat().Are(
                         typeof(IInterfaceWithNoDependencies1),
                         typeof(IInterfaceWithNoDependencies2));
                 var interfaceOnlyDependsOnMultipleFalseDependencies =
@@ -204,9 +205,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var interfaceOnlyDependsOnOwnDependencies =
                     Interfaces().That().Are(intf).Should().OnlyDependOnInterfacesThat().Are(interfaceDependencies);
                 var interfaceDoesNotDependsOnOwnDependencies =
-                    Interfaces().That().Are(intf).Should().NotDependOnInterfacesThat().Are(interfaceDependencies);
+                    Interfaces().That().Are(intf).Should().NotDependOnAnyInterfacesThat().Are(interfaceDependencies);
                 var interfaceDoesNotDependOnListOfMultipleFalseDependencies =
-                    Interfaces().That().Are(intf).Should().NotDependOnInterfacesThat().Are(_falseDependencies);
+                    Interfaces().That().Are(intf).Should().NotDependOnAnyInterfacesThat().Are(_falseDependencies);
                 var interfaceOnlyDependsOnListOfMultipleFalseDependencies =
                     Interfaces().That().Are(intf).Should().OnlyDependOnInterfacesThat().Are(_falseDependencies);
 
@@ -228,22 +229,23 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 foreach (var dependency in type.Dependencies)
                 {
                     var typeDependsOnDependency =
-                        Types().That().Are(type).Should().DependOnTypesWithFullNameMatching(dependency.Target.FullName);
+                        Types().That().Are(type).Should()
+                            .DependOnAnyTypesWithFullNameMatching(dependency.Target.FullName);
                     var typeDoesNotDependOnDependency =
                         Types().That().Are(type).Should()
-                            .NotDependOnTypesWithFullNameMatching(dependency.Target.FullName);
+                            .NotDependOnAnyTypesWithFullNameMatching(dependency.Target.FullName);
 
                     Assert.True(typeDependsOnDependency.HasNoViolations(Architecture));
                     Assert.False(typeDoesNotDependOnDependency.HasNoViolations(Architecture));
                 }
 
                 var typesDependOnOwnDependencies =
-                    Types().That().DependOnTypesWithFullNameMatching(type.FullName).Should()
-                        .DependOnTypesWithFullNameMatching(type.FullName);
+                    Types().That().DependOnAnyTypesWithFullNameMatching(type.FullName).Should()
+                        .DependOnAnyTypesWithFullNameMatching(type.FullName);
                 var typeDoesNotDependOnFalseDependency =
-                    Types().That().Are(type).Should().NotDependOnTypesWithFullNameMatching(NoTypeName);
+                    Types().That().Are(type).Should().NotDependOnAnyTypesWithFullNameMatching(NoTypeName);
                 var typeDependsOnFalseDependency =
-                    Types().That().Are(type).Should().DependOnTypesWithFullNameMatching(NoTypeName);
+                    Types().That().Are(type).Should().DependOnAnyTypesWithFullNameMatching(NoTypeName);
 
                 Assert.True(typesDependOnOwnDependencies.HasNoViolations(Architecture));
                 Assert.True(typeDoesNotDependOnFalseDependency.HasNoViolations(Architecture));
@@ -251,9 +253,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var noTypeDependsOnFalseDependency =
-                Types().That().DependOnTypesWithFullNameMatching(NoTypeName).Should().NotExist();
+                Types().That().DependOnAnyTypesWithFullNameMatching(NoTypeName).Should().NotExist();
             var typesDoNotDependsOnFalseDependency =
-                Types().That().DoNotDependOnTypesWithFullNameMatching(NoTypeName).Should().Exist();
+                Types().That().DoNotDependOnAnyTypesWithFullNameMatching(NoTypeName).Should().Exist();
 
             Assert.True(noTypeDependsOnFalseDependency.HasNoViolations(Architecture));
             Assert.True(typesDoNotDependsOnFalseDependency.HasNoViolations(Architecture));
@@ -266,11 +268,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             {
                 //One Argument
 
-                var typesDependOnOwnDependencies = Types().That().DependOn(type).Should().DependOnTypesThat().Are(type);
+                var typesDependOnOwnDependencies =
+                    Types().That().DependOnAny(type).Should().DependOnAnyTypesThat().Are(type);
                 var typeDoesNotDependOnOneFalseDependency =
-                    Types().That().Are(type).Should().NotDependOnTypesThat().Are(typeof(ClassWithNoDependencies1));
+                    Types().That().Are(type).Should().NotDependOnAnyTypesThat().Are(typeof(ClassWithNoDependencies1));
                 var typeDependsOnOneFalseDependency =
-                    Types().That().Are(type).Should().DependOnTypesThat().Are(typeof(ClassWithNoDependencies1));
+                    Types().That().Are(type).Should().DependOnAnyTypesThat().Are(typeof(ClassWithNoDependencies1));
                 var typeOnlyDependsOnOneFalseDependency =
                     Types().That().Are(type).Should().OnlyDependOnTypesThat().Are(typeof(ClassWithNoDependencies1));
 
@@ -283,7 +286,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 //Multiple Arguments
 
                 var typeDoesNotDependOnMultipleFalseDependencies =
-                    Types().That().Are(type).Should().NotDependOnTypesThat().Are(typeof(ClassWithNoDependencies1),
+                    Types().That().Are(type).Should().NotDependOnAnyTypesThat().Are(typeof(ClassWithNoDependencies1),
                         typeof(ClassWithNoDependencies2));
                 var typeOnlyDependsOnMultipleFalseDependencies =
                     Types().That().Are(type).Should().OnlyDependOnTypesThat().Are(typeof(ClassWithNoDependencies1),
@@ -299,9 +302,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typeOnlyDependsOnOwnDependencies =
                     Types().That().Are(type).Should().OnlyDependOnTypesThat().Are(typeDependencies);
                 var typeDoesNotDependsOnOwnDependencies =
-                    Types().That().Are(type).Should().NotDependOnTypesThat().Are(typeDependencies);
+                    Types().That().Are(type).Should().NotDependOnAnyTypesThat().Are(typeDependencies);
                 var typeDoesNotDependOnListOfMultipleFalseDependencies =
-                    Types().That().Are(type).Should().NotDependOnTypesThat().Are(_falseDependencies);
+                    Types().That().Are(type).Should().NotDependOnAnyTypesThat().Are(_falseDependencies);
                 var typeOnlyDependsOnListOfMultipleFalseDependencies =
                     Types().That().Are(type).Should().OnlyDependOnTypesThat().Are(_falseDependencies);
 
@@ -322,9 +325,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
                 foreach (var dependency in type.Dependencies)
                 {
-                    var typeDependsOnDependency = Types().That().Are(type).Should().DependOn(dependency.Target);
+                    var typeDependsOnDependency = Types().That().Are(type).Should().DependOnAny(dependency.Target);
                     var typeDoesNotDependOnDependency =
-                        Types().That().Are(type).Should().NotDependOn(dependency.Target);
+                        Types().That().Are(type).Should().NotDependOnAny(dependency.Target);
 
                     Assert.True(typeDependsOnDependency.HasNoViolations(Architecture));
                     Assert.False(typeDoesNotDependOnDependency.HasNoViolations(Architecture));
@@ -332,11 +335,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
                 //One Argument
 
-                var typesDependOnOwnDependencies = Types().That().DependOn(type).Should().DependOn(type);
+                var typesDependOnOwnDependencies = Types().That().DependOnAny(type).Should().DependOnAny(type);
                 var typeDoesNotDependOnOneFalseDependency =
-                    Types().That().Are(type).Should().NotDependOn(typeof(ClassWithNoDependencies1));
+                    Types().That().Are(type).Should().NotDependOnAny(typeof(ClassWithNoDependencies1));
                 var typeDependsOnOneFalseDependency =
-                    Types().That().Are(type).Should().DependOn(typeof(ClassWithNoDependencies1));
+                    Types().That().Are(type).Should().DependOnAny(typeof(ClassWithNoDependencies1));
                 var typeOnlyDependsOnOneFalseDependency =
                     Types().That().Are(type).Should().OnlyDependOn(typeof(ClassWithNoDependencies1));
 
@@ -349,7 +352,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 //Multiple Arguments
 
                 var typeDoesNotDependOnMultipleFalseDependencies =
-                    Types().That().Are(type).Should().NotDependOn(typeof(ClassWithNoDependencies1),
+                    Types().That().Are(type).Should().NotDependOnAny(typeof(ClassWithNoDependencies1),
                         typeof(ClassWithNoDependencies2));
                 var typeOnlyDependsOnMultipleFalseDependencies =
                     Types().That().Are(type).Should().OnlyDependOn(typeof(ClassWithNoDependencies1),
@@ -364,9 +367,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typeDependencies = type.Dependencies.Select(dependency => dependency.Target).ToList();
                 var typeOnlyDependsOnOwnDependencies = Types().That().Are(type).Should().OnlyDependOn(typeDependencies);
                 var typeDoesNotDependsOnOwnDependencies =
-                    Types().That().Are(type).Should().NotDependOn(typeDependencies);
+                    Types().That().Are(type).Should().NotDependOnAny(typeDependencies);
                 var typeDoesNotDependOnListOfMultipleFalseDependencies =
-                    Types().That().Are(type).Should().NotDependOn(_falseDependencies);
+                    Types().That().Are(type).Should().NotDependOnAny(_falseDependencies);
                 var typeOnlyDependsOnListOfMultipleFalseDependencies =
                     Types().That().Are(type).Should().OnlyDependOn(_falseDependencies);
 
@@ -379,19 +382,19 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var noTypeDependsOnFalseDependency =
-                Types().That().DependOn(typeof(ClassWithNoDependencies1)).Should().NotExist();
+                Types().That().DependOnAny(typeof(ClassWithNoDependencies1)).Should().NotExist();
             var noTypeDependsOnMultipleFalseDependencies =
-                Types().That().DependOn(typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2)).Should()
+                Types().That().DependOnAny(typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2)).Should()
                     .NotExist();
             var noTypeDependsOnListOfMultipleFalseDependencies =
-                Types().That().DependOn(_falseDependencies).Should().NotExist();
+                Types().That().DependOnAny(_falseDependencies).Should().NotExist();
             var typesDoNotDependOnFalseDependency =
-                Types().That().DoNotDependOn(typeof(ClassWithNoDependencies1)).Should().Exist();
+                Types().That().DoNotDependOnAny(typeof(ClassWithNoDependencies1)).Should().Exist();
             var typesDoNotDependOnMultipleFalseDependencies =
-                Types().That().DoNotDependOn(typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2))
+                Types().That().DoNotDependOnAny(typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2))
                     .Should().Exist();
             var typeDoNotDependOnListOfMultipleFalseDependencies =
-                Types().That().DoNotDependOn(_falseDependencies).Should().Exist();
+                Types().That().DoNotDependOnAny(_falseDependencies).Should().Exist();
 
             Assert.True(noTypeDependsOnFalseDependency.HasNoViolations(Architecture));
             Assert.True(noTypeDependsOnMultipleFalseDependencies.HasNoViolations(Architecture));
@@ -403,11 +406,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             //Fluent arguments
 
             var typeThatDependOnTypesWithPDoNotDependOnTypesWithP =
-                Types().That().DependOn(Types().That().HaveNameStartingWith("P")).Should()
-                    .NotDependOn(Types().That().HaveNameStartingWith("P"));
+                Types().That().DependOnAny(Types().That().HaveNameStartingWith("P")).Should()
+                    .NotDependOnAny(Types().That().HaveNameStartingWith("P"));
             var typesThatDependOnFalseTypeShouldDependOnNoType =
                 Types().That().OnlyDependOn(Classes().That().Are(typeof(ClassWithNoDependencies1))).Should()
-                    .NotDependOn(Types());
+                    .NotDependOnAny(Types());
 
             Assert.False(typeThatDependOnTypesWithPDoNotDependOnTypesWithP.HasNoViolations(Architecture));
             Assert.True(typesThatDependOnFalseTypeShouldDependOnNoType.HasNoViolations(Architecture));
