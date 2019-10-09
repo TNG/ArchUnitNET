@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
     public class ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> :
         ShouldRelateToTypesThat<TRuleTypeShouldConjunction, Attribute, TRuleType>,
-        IAttributesThat<TRuleTypeShouldConjunction>
+        IAttributePredicates<TRuleTypeShouldConjunction>
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {

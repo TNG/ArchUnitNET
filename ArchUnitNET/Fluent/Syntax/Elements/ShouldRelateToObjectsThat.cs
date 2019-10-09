@@ -7,7 +7,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public class ShouldRelateToObjectsThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType> :
         SyntaxElement<TRuleType>,
-        IObjectsThat<TRuleTypeShouldConjunction>
+        IObjectPredicates<TRuleTypeShouldConjunction>
         where TReferenceType : ICanBeAnalyzed
         where TRuleType : ICanBeAnalyzed
     {

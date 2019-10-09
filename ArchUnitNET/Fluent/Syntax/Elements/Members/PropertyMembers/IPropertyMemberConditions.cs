@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public interface IPropertyMembersShould : IMembersShould<PropertyMembersShouldConjunction, PropertyMember>
+    public interface IPropertyMemberConditions : IMemberConditions<PropertyMembersShouldConjunction, PropertyMember>
     {
         /// <summary>
         ///     Refers to the getter of the property member.

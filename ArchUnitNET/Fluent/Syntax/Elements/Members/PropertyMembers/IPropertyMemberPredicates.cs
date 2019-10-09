@@ -1,6 +1,6 @@
 ﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public interface IPropertyMembersThat<TRuleTypeConjunction> : IMembersThat<TRuleTypeConjunction>
+    public interface IPropertyMemberPredicates<TRuleTypeConjunction> : IMemberPredicates<TRuleTypeConjunction>
     {
         /// <summary>
         ///     Refers to the getter of the property member.

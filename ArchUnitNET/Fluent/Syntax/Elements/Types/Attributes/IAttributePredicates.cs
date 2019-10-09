@@ -1,6 +1,6 @@
 ﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public interface IAttributesThat<TRuleTypeConjunction> : ITypesThat<TRuleTypeConjunction>
+    public interface IAttributePredicates<TRuleTypeConjunction> : ITypePredicates<TRuleTypeConjunction>
     {
         TRuleTypeConjunction AreAbstract();
         TRuleTypeConjunction AreSealed();

@@ -3,7 +3,7 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
 {
     public class GivenFieldMembersThat : GivenMembersThat<GivenFieldMembersConjunction, FieldMember>,
-        IFieldMembersThat<GivenFieldMembersConjunction>
+        IFieldMemberPredicates<GivenFieldMembersConjunction>
     {
         public GivenFieldMembersThat(IArchRuleCreator<FieldMember> ruleCreator) : base(ruleCreator)
         {

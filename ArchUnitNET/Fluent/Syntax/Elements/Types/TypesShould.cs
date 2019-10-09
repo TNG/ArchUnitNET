@@ -7,7 +7,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public class TypesShould<TRuleTypeShouldConjunction, TRuleType> :
         ObjectsShould<TRuleTypeShouldConjunction, TRuleType>,
-        ITypesShould<TRuleTypeShouldConjunction, TRuleType>
+        ITypeConditions<TRuleTypeShouldConjunction, TRuleType>
         where TRuleType : IType
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {

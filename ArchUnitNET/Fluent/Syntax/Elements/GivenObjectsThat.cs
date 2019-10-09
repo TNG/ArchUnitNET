@@ -6,7 +6,7 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public abstract class GivenObjectsThat<TGivenRuleTypeConjunction, TRuleType> : SyntaxElement<TRuleType>,
-        IObjectsThat<TGivenRuleTypeConjunction> where TRuleType : ICanBeAnalyzed
+        IObjectPredicates<TGivenRuleTypeConjunction> where TRuleType : ICanBeAnalyzed
     {
         protected GivenObjectsThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {

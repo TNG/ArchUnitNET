@@ -3,7 +3,7 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
     public class GivenAttributesThat : GivenTypesThat<GivenAttributesConjunction, Attribute>,
-        IAttributesThat<GivenAttributesConjunction>
+        IAttributePredicates<GivenAttributesConjunction>
     {
         public GivenAttributesThat(IArchRuleCreator<Attribute> ruleCreator) : base(ruleCreator)
         {

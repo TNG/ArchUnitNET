@@ -3,7 +3,7 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
     public class MethodMembersShould : MembersShould<MethodMembersShouldConjunction, MethodMember>,
-        IMethodMembersShould
+        IMethodMemberConditions
     {
         public MethodMembersShould(IArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
         {

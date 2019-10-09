@@ -8,7 +8,7 @@ using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public interface IObjectsShould<TRuleTypeShouldConjunction, TRuleType>
+    public interface IObjectConditions<TRuleTypeShouldConjunction, TRuleType>
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {

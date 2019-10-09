@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public interface IMethodMembersShould : IMembersShould<MethodMembersShouldConjunction, MethodMember>
+    public interface IMethodMemberConditions : IMemberConditions<MethodMembersShouldConjunction, MethodMember>
     {
         MethodMembersShouldConjunction BeConstructor();
         MethodMembersShouldConjunction BeVirtual();

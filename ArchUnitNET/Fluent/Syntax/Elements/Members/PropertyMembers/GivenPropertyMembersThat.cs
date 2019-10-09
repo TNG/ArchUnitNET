@@ -3,7 +3,7 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
     public class GivenPropertyMembersThat : GivenMembersThat<GivenPropertyMembersConjunction, PropertyMember>,
-        IPropertyMembersThat<GivenPropertyMembersConjunction>
+        IPropertyMemberPredicates<GivenPropertyMembersConjunction>
     {
         public GivenPropertyMembersThat(IArchRuleCreator<PropertyMember> ruleCreator) : base(ruleCreator)
         {

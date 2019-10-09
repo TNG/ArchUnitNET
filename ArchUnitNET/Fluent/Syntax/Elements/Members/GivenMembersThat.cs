@@ -7,7 +7,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
     public class GivenMembersThat<TGivenRuleTypeConjunction, TRuleType> :
         GivenObjectsThat<TGivenRuleTypeConjunction, TRuleType>,
-        IMembersThat<TGivenRuleTypeConjunction>
+        IMemberPredicates<TGivenRuleTypeConjunction>
         where TRuleType : IMember
     {
         // ReSharper disable once MemberCanBeProtected.Global

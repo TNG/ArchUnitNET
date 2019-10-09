@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
-    public interface IClassesShould : ITypesShould<ClassesShouldConjunction, Class>
+    public interface IClassConditions : ITypeConditions<ClassesShouldConjunction, Class>
     {
         ClassesShouldConjunction BeAbstract();
         ClassesShouldConjunction BeSealed();

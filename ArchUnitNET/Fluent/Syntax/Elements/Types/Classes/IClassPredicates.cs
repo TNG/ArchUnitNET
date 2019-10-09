@@ -1,6 +1,6 @@
 ﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
-    public interface IClassesThat<TRuleTypeConjunction> : ITypesThat<TRuleTypeConjunction>
+    public interface IClassPredicates<TRuleTypeConjunction> : ITypePredicates<TRuleTypeConjunction>
     {
         TRuleTypeConjunction AreAbstract();
         TRuleTypeConjunction AreSealed();

@@ -4,7 +4,7 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public interface IMembersThat<TRuleTypeConjunction> : IObjectsThat<TRuleTypeConjunction>
+    public interface IMemberPredicates<TRuleTypeConjunction> : IObjectPredicates<TRuleTypeConjunction>
     {
         TRuleTypeConjunction AreDeclaredInTypesWithFullNameMatching(string pattern);
         TRuleTypeConjunction AreDeclaredIn(IType firstType, params IType[] moreTypes);

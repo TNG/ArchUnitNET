@@ -4,7 +4,7 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public interface ITypesThat<TRuleTypeConjunction> : IObjectsThat<TRuleTypeConjunction>
+    public interface ITypePredicates<TRuleTypeConjunction> : IObjectPredicates<TRuleTypeConjunction>
     {
         TRuleTypeConjunction Are(Type firstType, params Type[] moreTypes);
         TRuleTypeConjunction Are(IEnumerable<Type> types);

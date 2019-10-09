@@ -3,7 +3,7 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
     public class GivenMethodMembersThat : GivenMembersThat<GivenMethodMembersConjunction, MethodMember>,
-        IMethodMembersThat<GivenMethodMembersConjunction>
+        IMethodMemberPredicates<GivenMethodMembersConjunction>
     {
         public GivenMethodMembersThat(IArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
         {

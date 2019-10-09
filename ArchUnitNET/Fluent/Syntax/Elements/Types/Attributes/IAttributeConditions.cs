@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public interface IAttributesShould : ITypesShould<AttributesShouldConjunction, Attribute>
+    public interface IAttributeConditions : ITypeConditions<AttributesShouldConjunction, Attribute>
     {
         AttributesShouldConjunction BeAbstract();
         AttributesShouldConjunction BeSealed();

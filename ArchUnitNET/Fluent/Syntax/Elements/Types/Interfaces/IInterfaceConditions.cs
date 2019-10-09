@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
 {
-    public interface IInterfacesShould : ITypesShould<InterfacesShouldConjunction, Interface>
+    public interface IInterfaceConditions : ITypeConditions<InterfacesShouldConjunction, Interface>
     {
     }
 }

@@ -5,7 +5,8 @@ using ArchUnitNET.Domain;
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public interface
-        ITypesShould<TRuleTypeShouldConjunction, TRuleType> : IObjectsShould<TRuleTypeShouldConjunction, TRuleType>
+        ITypeConditions<TRuleTypeShouldConjunction, TRuleType> : IObjectConditions<TRuleTypeShouldConjunction, TRuleType
+        >
         where TRuleType : IType
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {

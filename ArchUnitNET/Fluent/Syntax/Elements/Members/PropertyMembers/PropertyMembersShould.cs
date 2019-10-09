@@ -3,7 +3,7 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
     public class PropertyMembersShould : MembersShould<PropertyMembersShouldConjunction, PropertyMember>,
-        IPropertyMembersShould
+        IPropertyMemberConditions
     {
         public PropertyMembersShould(IArchRuleCreator<PropertyMember> ruleCreator) : base(ruleCreator)
         {
