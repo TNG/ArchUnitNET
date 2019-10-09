@@ -56,6 +56,16 @@ namespace ArchUnitNETTests.Fluent.Extensions
         }
 
         [Fact]
+        public void FullNameContainsTest()
+        {
+            Assert.True(_fieldMember.FullNameContains("ieLda"));
+            Assert.True(_propertyOriginClass.FullNameContains("TeST"));
+            Assert.False(_methodOriginClass.FullNameContains("ClassMethod"));
+            Assert.True(_methodMember.FullNameContains(""));
+            Assert.Throws<NullReferenceException>(() => _exampleAttribute.FullNameContains(null));
+        }
+
+        [Fact]
         public void HasMembersWithFullNameTest()
         {
             Assert.True(Architecture.Types.All(type =>
@@ -102,6 +112,16 @@ namespace ArchUnitNETTests.Fluent.Extensions
         {
             Assert.True(_methodMember is MethodMember);
             Assert.NotNull(_methodOriginClass.Members[_methodMember.Name]);
+        }
+
+        [Fact]
+        public void NameContainsTest()
+        {
+            Assert.True(_fieldMember.NameContains("ieLda"));
+            Assert.True(_propertyOriginClass.NameContains("sswITH"));
+            Assert.False(_methodOriginClass.NameContains("ClassMethod"));
+            Assert.True(_methodMember.NameContains(""));
+            Assert.Throws<NullReferenceException>(() => _exampleAttribute.NameContains(null));
         }
 
         [Fact]
