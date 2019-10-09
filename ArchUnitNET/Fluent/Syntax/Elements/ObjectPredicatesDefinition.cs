@@ -269,6 +269,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimplePredicate<T>(obj => obj.NameContains(pattern), "have name containing \"" + pattern + "\"");
         }
 
+        public static IPredicate<T> HaveFullNameContaining(string pattern)
+        {
+            return new SimplePredicate<T>(obj => obj.FullNameContains(pattern),
+                "have full name containing \"" + pattern + "\"");
+        }
+
         public static IPredicate<T> ArePrivate()
         {
             return new SimplePredicate<T>(obj => obj.Visibility == Private, "are private");
@@ -470,6 +476,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimplePredicate<T>(obj => !obj.NameContains(pattern),
                 "do not have name containing \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> DoNotHaveFullNameContaining(string pattern)
+        {
+            return new SimplePredicate<T>(obj => !obj.FullNameContains(pattern),
+                "do not have full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> AreNotPrivate()

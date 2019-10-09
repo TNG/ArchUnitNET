@@ -338,6 +338,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "have name containing \"" + pattern + "\"", "does not have name containing \"" + pattern + "\"");
         }
 
+        public static ICondition<TRuleType> HaveFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameContains(pattern),
+                "have full name containing \"" + pattern + "\"",
+                "does not have full name containing \"" + pattern + "\"");
+        }
+
         public static ICondition<TRuleType> BePrivate()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility == Private, "be private", "is not private");
@@ -631,6 +639,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimpleCondition<TRuleType>(obj => !obj.NameContains(pattern),
                 "not have name containing \"" + pattern + "\"", "does have name containing \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotHaveFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(obj => !obj.FullNameContains(pattern),
+                "not have full name containing \"" + pattern + "\"",
+                "does have full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotBePrivate()

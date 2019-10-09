@@ -147,6 +147,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction HaveFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction ArePrivate()
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.ArePrivate());
@@ -282,6 +288,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction DoNotHaveNameContaining(string pattern)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveFullNameContaining(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

@@ -159,6 +159,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction HaveFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.HaveFullNameContaining(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction BePrivate()
         {
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.BePrivate());
@@ -349,6 +355,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotHaveNameContaining(string pattern)
         {
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveNameContaining(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotHaveFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveFullNameContaining(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

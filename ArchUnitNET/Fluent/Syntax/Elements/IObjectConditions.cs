@@ -29,6 +29,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType HaveNameStartingWith(string pattern);
         TReturnType HaveNameEndingWith(string pattern);
         TReturnType HaveNameContaining(string pattern);
+        TReturnType HaveFullNameContaining(string pattern);
         TReturnType BePrivate();
         TReturnType BePublic();
         TReturnType BeProtected();
@@ -57,6 +58,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType NotHaveNameStartingWith(string pattern);
         TReturnType NotHaveNameEndingWith(string pattern);
         TReturnType NotHaveNameContaining(string pattern);
+        TReturnType NotHaveFullNameContaining(string pattern);
         TReturnType NotBePrivate();
         TReturnType NotBePublic();
         TReturnType NotBeProtected();
