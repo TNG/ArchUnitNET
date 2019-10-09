@@ -4,13 +4,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
     public static class AttributePredicatesDefinition
     {
-        public static Predicate<Attribute> AreAbstract()
+        public static IPredicate<Attribute> AreAbstract()
         {
             return new Predicate<Attribute>(
                 attribute => !attribute.IsAbstract.HasValue || attribute.IsAbstract.Value, "are abstract");
         }
 
-        public static Predicate<Attribute> AreSealed()
+        public static IPredicate<Attribute> AreSealed()
         {
             return new Predicate<Attribute>(attribute => !attribute.IsSealed.HasValue || attribute.IsSealed.Value,
                 "are sealed");
@@ -18,13 +18,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         //Negations
 
-        public static Predicate<Attribute> AreNotAbstract()
+        public static IPredicate<Attribute> AreNotAbstract()
         {
             return new Predicate<Attribute>(
                 attribute => !attribute.IsAbstract.HasValue || !attribute.IsAbstract.Value, "are not abstract");
         }
 
-        public static Predicate<Attribute> AreNotSealed()
+        public static IPredicate<Attribute> AreNotSealed()
         {
             return new Predicate<Attribute>(attribute => !attribute.IsSealed.HasValue || !attribute.IsSealed.Value,
                 "are not sealed");

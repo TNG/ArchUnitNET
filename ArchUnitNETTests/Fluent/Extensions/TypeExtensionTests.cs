@@ -104,16 +104,6 @@ namespace ArchUnitNETTests.Fluent.Extensions
         }
 
         [Fact]
-        public void NameContainsTest()
-        {
-            Assert.True(_fieldMember.NameMatches("ieLda"));
-            Assert.True(_propertyOriginClass.NameMatches("sswITH"));
-            Assert.False(_methodOriginClass.NameMatches("ClassMethod"));
-            Assert.True(_methodMember.NameMatches(""));
-            Assert.Throws<NullReferenceException>(() => _exampleAttribute.NameMatches(null));
-        }
-
-        [Fact]
         public void NameEndsWithTest()
         {
             Assert.True(_fieldMember.NameEndsWith("ieLda"));
@@ -121,6 +111,16 @@ namespace ArchUnitNETTests.Fluent.Extensions
             Assert.False(_methodOriginClass.NameEndsWith("ClassMethod"));
             Assert.True(_methodMember.NameEndsWith(""));
             Assert.Throws<NullReferenceException>(() => _exampleAttribute.NameEndsWith(null));
+        }
+
+        [Fact]
+        public void NameMatchesTest()
+        {
+            Assert.True(_fieldMember.NameMatches("(?i)ieLda"));
+            Assert.True(_propertyOriginClass.NameMatches("(?i)sswITH"));
+            Assert.False(_methodOriginClass.NameMatches("ClassMethod"));
+            Assert.True(_methodMember.NameMatches(""));
+            Assert.False(_exampleAttribute.NameMatches(null));
         }
 
         [Fact]

@@ -69,6 +69,7 @@ namespace ArchUnitNET.Core
 
             return ImplementedInterfaces.Any(implementedInterface =>
                 implementedInterface.FullNameMatches(interfacePattern) ||
+                implementedInterface.GenericType != null &&
                 implementedInterface.GenericType.FullNameMatches(interfacePattern));
         }
 

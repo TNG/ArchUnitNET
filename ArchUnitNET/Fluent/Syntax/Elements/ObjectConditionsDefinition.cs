@@ -12,12 +12,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     public static class ObjectConditionsDefinition<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public static ExistsCondition<TRuleType> Exist()
+        public static ICondition<TRuleType> Exist()
         {
             return new ExistsCondition<TRuleType>(true);
         }
 
-        public static SimpleCondition<TRuleType> Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
+        public static ICondition<TRuleType> Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             var description = moreObjects.Aggregate("be \"" + firstObject.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
@@ -27,7 +27,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 failDescription);
         }
 
-        public static SimpleCondition<TRuleType> Be(IEnumerable<ICanBeAnalyzed> objects)
+        public static ICondition<TRuleType> Be(IEnumerable<ICanBeAnalyzed> objects)
         {
             var objectList = objects.ToList();
             string description;
@@ -52,14 +52,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 failDescription);
         }
 
-        public static SimpleCondition<TRuleType> DependOnAnyTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> DependOnAnyTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.DependsOn(pattern), "depend on any types with full name matching \"" + pattern + "\"",
                 "does not depend on any type with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> DependOnAny(IType firstType, params IType[] moreTypes)
+        public static ICondition<TRuleType> DependOnAny(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType type)
             {
@@ -74,7 +74,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> DependOnAny(Type firstType, params Type[] moreTypes)
+        public static ICondition<TRuleType> DependOnAny(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType type, Architecture architecture)
             {
@@ -91,7 +91,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> DependOnAny(IObjectProvider<IType> objectProvider)
+        public static ICondition<TRuleType> DependOnAny(IObjectProvider<IType> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -105,7 +105,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> DependOnAny(IEnumerable<IType> types)
+        public static ICondition<TRuleType> DependOnAny(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -136,7 +136,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> DependOnAny(IEnumerable<Type> types)
+        public static ICondition<TRuleType> DependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -168,14 +168,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> OnlyDependOnTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> OnlyDependOnTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(obj => obj.OnlyDependsOn(pattern),
                 "only depend on types with full name matching \"" + pattern + "\"",
                 "does not only depend on types with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
+        public static ICondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType ruleType)
             {
@@ -191,7 +191,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> OnlyDependOn(Type firstType, params Type[] moreTypes)
+        public static ICondition<TRuleType> OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -208,7 +208,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> OnlyDependOn(IObjectProvider<IType> objectProvider)
+        public static ICondition<TRuleType> OnlyDependOn(IObjectProvider<IType> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -221,7 +221,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> OnlyDependOn(IEnumerable<IType> types)
+        public static ICondition<TRuleType> OnlyDependOn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -251,7 +251,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> OnlyDependOn(IEnumerable<Type> types)
+        public static ICondition<TRuleType> OnlyDependOn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -282,7 +282,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> HaveName(string name)
+        public static ICondition<TRuleType> HaveName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Name.Equals(name), "have name \"" + name + "\"",
@@ -296,69 +296,69 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
 
-        public static SimpleCondition<TRuleType> HaveFullName(string fullname)
+        public static ICondition<TRuleType> HaveFullName(string fullname)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullName.Equals(fullname),
                 "have full name \"" + fullname + "\"", "does not have full name \"" + fullname + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HaveFullNameMatching(string pattern)
+        public static ICondition<TRuleType> HaveFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(obj => obj.FullNameMatches(pattern),
                 "have full name matching \"" + pattern + "\"", "does not have full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HaveNameStartingWith(string pattern)
+        public static ICondition<TRuleType> HaveNameStartingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameStartsWith(pattern),
                 "have name starting with \"" + pattern + "\"", "does not have name starting with \"");
         }
 
-        public static SimpleCondition<TRuleType> HaveNameEndingWith(string pattern)
+        public static ICondition<TRuleType> HaveNameEndingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameEndsWith(pattern),
                 "have name ending with \"" + pattern + "\"", "does not have name ending with \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HaveNameContaining(string pattern)
+        public static ICondition<TRuleType> HaveNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameMatches(pattern),
                 "have name containing \"" + pattern + "\"", "does not have name containing \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> BePrivate()
+        public static ICondition<TRuleType> BePrivate()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility == Private, "be private", "is not private");
         }
 
-        public static SimpleCondition<TRuleType> BePublic()
+        public static ICondition<TRuleType> BePublic()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility == Public, "be public", "is not public");
         }
 
-        public static SimpleCondition<TRuleType> BeProtected()
+        public static ICondition<TRuleType> BeProtected()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility == Protected, "be protected",
                 "is not protected");
         }
 
-        public static SimpleCondition<TRuleType> BeInternal()
+        public static ICondition<TRuleType> BeInternal()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility == Internal, "be internal", "is not internal");
         }
 
-        public static SimpleCondition<TRuleType> BeProtectedInternal()
+        public static ICondition<TRuleType> BeProtectedInternal()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility == ProtectedInternal, "be protected internal",
                 "is not protected internal");
         }
 
-        public static SimpleCondition<TRuleType> BePrivateProtected()
+        public static ICondition<TRuleType> BePrivateProtected()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility == PrivateProtected, "be private protected",
@@ -422,12 +422,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         //Negations
 
 
-        public static ExistsCondition<TRuleType> NotExist()
+        public static ICondition<TRuleType> NotExist()
         {
             return new ExistsCondition<TRuleType>(false);
         }
 
-        public static SimpleCondition<TRuleType> NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
+        public static ICondition<TRuleType> NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             var description = moreObjects.Aggregate("not be \"" + firstObject.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
@@ -437,7 +437,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotBe(IEnumerable<ICanBeAnalyzed> objects)
+        public static ICondition<TRuleType> NotBe(IEnumerable<ICanBeAnalyzed> objects)
         {
             var objectList = objects.ToList();
             string description;
@@ -462,14 +462,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotDependOnAnyTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotDependOnAnyTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.DependsOn(pattern), "not depend on any types with full name matching \"" + pattern + "\"",
                 "does depend on types with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotDependOnAny(IType firstType, params IType[] moreTypes)
+        public static ICondition<TRuleType> NotDependOnAny(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType ruleType)
             {
@@ -484,7 +484,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotDependOnAny(Type firstType, params Type[] moreTypes)
+        public static ICondition<TRuleType> NotDependOnAny(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -500,7 +500,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotDependOnAny(IObjectProvider<IType> objectProvider)
+        public static ICondition<TRuleType> NotDependOnAny(IObjectProvider<IType> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -513,7 +513,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotDependOnAny(IEnumerable<IType> types)
+        public static ICondition<TRuleType> NotDependOnAny(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -543,7 +543,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotDependOnAny(IEnumerable<Type> types)
+        public static ICondition<TRuleType> NotDependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -574,77 +574,77 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotHaveName(string name)
+        public static ICondition<TRuleType> NotHaveName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.Name.Equals(name), "not have name \"" + name + "\"", "does have name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveNameMatching(string pattern)
+        public static ICondition<TRuleType> NotHaveNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(obj => !obj.NameMatches(pattern),
                 "not have name matching \"" + pattern + "\"", "does have name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveFullName(string fullname)
+        public static ICondition<TRuleType> NotHaveFullName(string fullname)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullName.Equals(fullname), "not have full name \"" + fullname + "\"",
                 "does have full name \"" + fullname + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotHaveFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(obj => !obj.FullNameMatches(pattern),
                 "not have full name matching \"" + pattern + "\"", "does have full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveNameStartingWith(string pattern)
+        public static ICondition<TRuleType> NotHaveNameStartingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(obj => !obj.NameStartsWith(pattern),
                 "not have name starting with \"" + pattern + "\"", "does have name starting with \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveNameEndingWith(string pattern)
+        public static ICondition<TRuleType> NotHaveNameEndingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(obj => !obj.NameEndsWith(pattern),
                 "not have name ending with \"" + pattern + "\"", "does have name ending with \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveNameContaining(string pattern)
+        public static ICondition<TRuleType> NotHaveNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(obj => !obj.NameMatches(pattern),
                 "not have name containing \"" + pattern + "\"", "does have name containing \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotBePrivate()
+        public static ICondition<TRuleType> NotBePrivate()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility != Private, "not be private", "is private");
         }
 
-        public static SimpleCondition<TRuleType> NotBePublic()
+        public static ICondition<TRuleType> NotBePublic()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility != Public, "not be public", "is public");
         }
 
-        public static SimpleCondition<TRuleType> NotBeProtected()
+        public static ICondition<TRuleType> NotBeProtected()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility != Protected, "not be protected",
                 "is protected");
         }
 
-        public static SimpleCondition<TRuleType> NotBeInternal()
+        public static ICondition<TRuleType> NotBeInternal()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility != Internal, "not be internal", "is internal");
         }
 
-        public static SimpleCondition<TRuleType> NotBeProtectedInternal()
+        public static ICondition<TRuleType> NotBeProtectedInternal()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility != ProtectedInternal, "not be protected internal", "is protected internal");
         }
 
-        public static SimpleCondition<TRuleType> NotBePrivateProtected()
+        public static ICondition<TRuleType> NotBePrivateProtected()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility != PrivateProtected, "not be private protected",
                 "is private protected");

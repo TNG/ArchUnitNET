@@ -112,12 +112,12 @@ namespace ArchUnitNET.Fluent.Extensions
 
         public static bool NameMatches(this IHasName cls, string pattern)
         {
-            return Regex.IsMatch(cls.Name, pattern);
+            return pattern != null && Regex.IsMatch(cls.Name, pattern);
         }
 
         public static bool FullNameMatches(this IHasName cls, string pattern)
         {
-            return Regex.IsMatch(cls.FullName, pattern);
+            return pattern != null && Regex.IsMatch(cls.FullName, pattern);
         }
 
         public static bool ResidesInNamespace(this IType e, string pattern)

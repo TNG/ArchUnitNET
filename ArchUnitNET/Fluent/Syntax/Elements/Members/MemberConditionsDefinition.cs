@@ -8,14 +8,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
     public static class MemberConditionsDefinition<TRuleType> where TRuleType : IMember
     {
-        public static SimpleCondition<TRuleType> BeDeclaredInTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> BeDeclaredInTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => member.IsDeclaredIn(pattern),
                 "be declared in types with full name matching \"" + pattern + "\"",
                 "is not declared in a type with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> BeDeclaredIn(IType firstType, params IType[] moreTypes)
+        public static ICondition<TRuleType> BeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType ruleType)
             {
@@ -29,7 +29,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> BeDeclaredIn(Type firstType, params Type[] moreTypes)
+        public static ICondition<TRuleType> BeDeclaredIn(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -44,7 +44,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> BeDeclaredIn(IObjectProvider<IType> objectProvider)
+        public static ICondition<TRuleType> BeDeclaredIn(IObjectProvider<IType> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -56,7 +56,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> BeDeclaredIn(IEnumerable<IType> types)
+        public static ICondition<TRuleType> BeDeclaredIn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -86,7 +86,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> BeDeclaredIn(IEnumerable<Type> types)
+        public static ICondition<TRuleType> BeDeclaredIn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -116,42 +116,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> HaveBodyTypeMemberDependencies()
+        public static ICondition<TRuleType> HaveBodyTypeMemberDependencies()
         {
             return new SimpleCondition<TRuleType>(
                 member => member.HasBodyTypeMemberDependencies(), "have body type member dependencies",
                 "has no body type member dependencies");
         }
 
-        public static SimpleCondition<TRuleType> HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => member.HasBodyTypeMemberDependencies(pattern),
                 "have body type member dependencies \"" + pattern + "\"",
                 "has no body type member dependencies \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HaveMethodCallDependencies()
+        public static ICondition<TRuleType> HaveMethodCallDependencies()
         {
             return new SimpleCondition<TRuleType>(
                 member => member.HasMethodCallDependencies(), "have method call dependencies",
                 "has no method call dependencies");
         }
 
-        public static SimpleCondition<TRuleType> HaveMethodCallDependenciesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> HaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => member.HasMethodCallDependencies(pattern),
                 "have method call dependencies \"" + pattern + "\"",
                 "has no method call dependencies \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HaveFieldTypeDependencies()
+        public static ICondition<TRuleType> HaveFieldTypeDependencies()
         {
             return new SimpleCondition<TRuleType>(
                 member => member.HasFieldTypeDependencies(), "have field type dependencies",
                 "has no field type dependencies");
         }
 
-        public static SimpleCondition<TRuleType> HaveFieldTypeDependenciesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> HaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => member.HasFieldTypeDependencies(pattern),
                 "have field type dependencies \"" + pattern + "\"",
@@ -162,14 +162,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         //Negations
 
 
-        public static SimpleCondition<TRuleType> NotBeDeclaredInTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotBeDeclaredInTypesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => !member.IsDeclaredIn(pattern),
                 "not be declared in types with full name matching \"" + pattern + "\"",
                 "is declared in a type with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotBeDeclaredIn(IType firstType, params IType[] moreTypes)
+        public static ICondition<TRuleType> NotBeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType ruleType)
             {
@@ -183,7 +183,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotBeDeclaredIn(Type firstType, params Type[] moreTypes)
+        public static ICondition<TRuleType> NotBeDeclaredIn(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -198,7 +198,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotBeDeclaredIn(IObjectProvider<IType> objectProvider)
+        public static ICondition<TRuleType> NotBeDeclaredIn(IObjectProvider<IType> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -210,7 +210,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotBeDeclaredIn(IEnumerable<IType> types)
+        public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -240,7 +240,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotBeDeclaredIn(IEnumerable<Type> types)
+        public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -270,42 +270,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotHaveBodyTypeMemberDependencies()
+        public static ICondition<TRuleType> NotHaveBodyTypeMemberDependencies()
         {
             return new SimpleCondition<TRuleType>(
                 member => !member.HasBodyTypeMemberDependencies(), "not have body type member dependencies",
                 "does have body type member dependencies");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => !member.HasBodyTypeMemberDependencies(pattern),
                 "not have body type member dependencies \"" + pattern + "\"",
                 "does have body type member dependencies \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveMethodCallDependencies()
+        public static ICondition<TRuleType> NotHaveMethodCallDependencies()
         {
             return new SimpleCondition<TRuleType>(
                 member => !member.HasMethodCallDependencies(), "not have method call dependencies",
                 "does have method call dependencies");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveMethodCallDependenciesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotHaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => !member.HasMethodCallDependencies(pattern),
                 "not have method call dependencies \"" + pattern + "\"",
                 "does have method call dependencies \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveFieldTypeDependencies()
+        public static ICondition<TRuleType> NotHaveFieldTypeDependencies()
         {
             return new SimpleCondition<TRuleType>(
                 member => !member.HasFieldTypeDependencies(), "not have field type dependencies",
                 "does have field type dependencies");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveFieldTypeDependenciesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotHaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => !member.HasFieldTypeDependencies(pattern),
                 "not have field type dependencies \"" + pattern + "\"",

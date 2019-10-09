@@ -6,6 +6,7 @@
  */
 
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -16,7 +17,7 @@ namespace ArchUnitNET.Domain
         MemberList Members { get; }
         List<IType> GenericTypeParameters { get; }
         List<IType> GenericTypeArguments { get; }
-        IType GenericType { get; }
+        [CanBeNull] IType GenericType { get; }
         bool IsNested { get; }
         IEnumerable<IType> ImplementedInterfaces { get; }
         bool Implements(IType intf);

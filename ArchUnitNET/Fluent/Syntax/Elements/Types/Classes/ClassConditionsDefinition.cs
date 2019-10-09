@@ -4,31 +4,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
     public static class ClassConditionsDefinition
     {
-        public static SimpleCondition<Class> BeAbstract()
+        public static ICondition<Class> BeAbstract()
         {
             return new SimpleCondition<Class>(cls => !cls.IsAbstract.HasValue || cls.IsAbstract.Value, "be abstract",
                 "is not abstract");
         }
 
-        public static SimpleCondition<Class> BeSealed()
+        public static ICondition<Class> BeSealed()
         {
             return new SimpleCondition<Class>(cls => !cls.IsSealed.HasValue || cls.IsSealed.Value, "be sealed",
                 "is not sealed");
         }
 
-        public static SimpleCondition<Class> BeValueTypes()
+        public static ICondition<Class> BeValueTypes()
         {
             return new SimpleCondition<Class>(cls => !cls.IsValueType.HasValue || cls.IsValueType.Value,
                 "be value types", "is no value type");
         }
 
-        public static SimpleCondition<Class> BeEnums()
+        public static ICondition<Class> BeEnums()
         {
             return new SimpleCondition<Class>(cls => !cls.IsEnum.HasValue || cls.IsEnum.Value, "be enums",
                 "is no enum");
         }
 
-        public static SimpleCondition<Class> BeStructs()
+        public static ICondition<Class> BeStructs()
         {
             return new SimpleCondition<Class>(cls => !cls.IsStruct.HasValue || cls.IsStruct.Value, "be structs",
                 "is no struct");
@@ -38,31 +38,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         //Negations
 
 
-        public static SimpleCondition<Class> NotBeAbstract()
+        public static ICondition<Class> NotBeAbstract()
         {
             return new SimpleCondition<Class>(cls => !cls.IsAbstract.HasValue || !cls.IsAbstract.Value,
                 "not be abstract", "is abstract");
         }
 
-        public static SimpleCondition<Class> NotBeSealed()
+        public static ICondition<Class> NotBeSealed()
         {
             return new SimpleCondition<Class>(cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value, "not be sealed",
                 "is sealed");
         }
 
-        public static SimpleCondition<Class> NotBeValueTypes()
+        public static ICondition<Class> NotBeValueTypes()
         {
             return new SimpleCondition<Class>(cls => !cls.IsValueType.HasValue || !cls.IsValueType.Value,
                 "not be value types", "is a value type");
         }
 
-        public static SimpleCondition<Class> NotBeEnums()
+        public static ICondition<Class> NotBeEnums()
         {
             return new SimpleCondition<Class>(cls => !cls.IsEnum.HasValue || !cls.IsEnum.Value, "not be enums",
                 "is an enum");
         }
 
-        public static SimpleCondition<Class> NotBeStructs()
+        public static ICondition<Class> NotBeStructs()
         {
             return new SimpleCondition<Class>(cls => !cls.IsStruct.HasValue || !cls.IsStruct.Value, "not be structs",
                 "is a struct");

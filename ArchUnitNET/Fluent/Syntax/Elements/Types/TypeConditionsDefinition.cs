@@ -8,7 +8,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public static class TypeConditionsDefinition<TRuleType> where TRuleType : IType
     {
-        public static ArchitectureCondition<TRuleType> Be(Type firstType, params Type[] moreTypes)
+        public static ICondition<TRuleType> Be(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -23,7 +23,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> Be(IEnumerable<Type> types)
+        public static ICondition<TRuleType> Be(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -53,7 +53,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> BeAssignableToTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> BeAssignableToTypesWithFullNameMatching(string pattern)
         {
             var description = "be assignable to types with full name matching\"" + pattern + "\"";
             var failDescription = "is not assignable to a type with full name matching\"" + pattern + "\"";
@@ -74,7 +74,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> BeAssignableTo(Type firstType, params Type[] moreTypes)
+        public static ICondition<TRuleType> BeAssignableTo(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -89,7 +89,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> BeAssignableTo(IObjectProvider<IType> objectProvider)
+        public static ICondition<TRuleType> BeAssignableTo(IObjectProvider<IType> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -101,7 +101,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> BeAssignableTo(IEnumerable<IType> types)
+        public static ICondition<TRuleType> BeAssignableTo(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -131,7 +131,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> BeAssignableTo(IEnumerable<Type> types)
+        public static ICondition<TRuleType> BeAssignableTo(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -161,7 +161,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> ImplementInterfaceWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> ImplementInterfaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.Implements(pattern),
@@ -169,7 +169,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "does not implement interface with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> ResideInNamespaceWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> ResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInNamespace(pattern),
@@ -177,35 +177,35 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "does not reside in namespace with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HavePropertyMemberWithName(string name)
+        public static ICondition<TRuleType> HavePropertyMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(type => type.HasPropertyMemberWithName(name),
                 "have property member with name \"" + name + "\"",
                 "does not have property member with name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HaveFieldMemberWithName(string name)
+        public static ICondition<TRuleType> HaveFieldMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.HasFieldMemberWithName(name), "have field member with name \"" + name + "\"",
                 "does not have field member with name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HaveMethodMemberWithName(string name)
+        public static ICondition<TRuleType> HaveMethodMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(type => type.HasMethodMemberWithName(name),
                 "have method member with name \"" + name + "\"",
                 "does not have method member with name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HaveMemberWithName(string name)
+        public static ICondition<TRuleType> HaveMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.HasMemberWithName(name), "have member with name \"" + name + "\"",
                 "does not have member with name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> BeNested()
+        public static ICondition<TRuleType> BeNested()
         {
             return new SimpleCondition<TRuleType>(type => type.IsNested, "be nested", "is not nested");
         }
@@ -214,7 +214,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         //Negations
 
 
-        public static ArchitectureCondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
+        public static ICondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -229,7 +229,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotBe(IEnumerable<Type> types)
+        public static ICondition<TRuleType> NotBe(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -260,14 +260,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotBeAssignableToTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotBeAssignableToTypesWithFullNameMatching(string pattern)
         {
             var description = "not be assignable to types with full name matching\"" + pattern + "\"";
             var failDescription = "is assignable to a type with full name matching\"" + pattern + "\"";
             return new SimpleCondition<TRuleType>(type => !type.IsAssignableTo(pattern), description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotBeAssignableTo(IType firstType, params IType[] moreTypes)
+        public static ICondition<TRuleType> NotBeAssignableTo(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType ruleType)
             {
@@ -281,7 +281,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotBeAssignableTo(Type firstType, params Type[] moreTypes)
+        public static ICondition<TRuleType> NotBeAssignableTo(Type firstType, params Type[] moreTypes)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -296,7 +296,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotBeAssignableTo(IObjectProvider<IType> objectProvider)
+        public static ICondition<TRuleType> NotBeAssignableTo(IObjectProvider<IType> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -308,7 +308,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotBeAssignableTo(IEnumerable<IType> types)
+        public static ICondition<TRuleType> NotBeAssignableTo(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -338,7 +338,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ArchitectureCondition<TRuleType> NotBeAssignableTo(IEnumerable<Type> types)
+        public static ICondition<TRuleType> NotBeAssignableTo(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -368,14 +368,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static SimpleCondition<TRuleType> NotImplementInterfaceWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotImplementInterfaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(type => !type.Implements(pattern),
                 "not implement interface with full name matching \"" + pattern + "\"",
                 "does implement interface with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotResideInNamespaceWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInNamespace(pattern),
@@ -383,35 +383,35 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "does reside in namespace with full name matching \"" + pattern + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHavePropertyMemberWithName(string name)
+        public static ICondition<TRuleType> NotHavePropertyMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(type => !type.HasPropertyMemberWithName(name),
                 "not have property member with name \"" + name + "\"",
                 "does have property member with name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveFieldMemberWithName(string name)
+        public static ICondition<TRuleType> NotHaveFieldMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(type => !type.HasFieldMemberWithName(name),
                 "not have field member with name \"" + name + "\"",
                 "does have field member with name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveMethodMemberWithName(string name)
+        public static ICondition<TRuleType> NotHaveMethodMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(type => !type.HasMethodMemberWithName(name),
                 "not have method member with name \"" + name + "\"",
                 "does have method member with name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotHaveMemberWithName(string name)
+        public static ICondition<TRuleType> NotHaveMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.HasMemberWithName(name), "not have member with name \"" + name + "\"",
                 "does have member with name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> NotBeNested()
+        public static ICondition<TRuleType> NotBeNested()
         {
             return new SimpleCondition<TRuleType>(type => !type.IsNested, "not be nested", "is nested");
         }

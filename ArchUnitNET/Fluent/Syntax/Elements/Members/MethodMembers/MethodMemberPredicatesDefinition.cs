@@ -5,12 +5,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
     public static class MethodMemberPredicatesDefinition
     {
-        public static Predicate<MethodMember> AreConstructors()
+        public static IPredicate<MethodMember> AreConstructors()
         {
             return new Predicate<MethodMember>(member => member.IsConstructor(), "are constructors");
         }
 
-        public static Predicate<MethodMember> AreVirtual()
+        public static IPredicate<MethodMember> AreVirtual()
         {
             return new Predicate<MethodMember>(member => member.IsVirtual, "are virtual");
         }
@@ -19,12 +19,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         //Negations
 
 
-        public static Predicate<MethodMember> AreNoConstructors()
+        public static IPredicate<MethodMember> AreNoConstructors()
         {
             return new Predicate<MethodMember>(member => !member.IsConstructor(), "are no constructors");
         }
 
-        public static Predicate<MethodMember> AreNotVirtual()
+        public static IPredicate<MethodMember> AreNotVirtual()
         {
             return new Predicate<MethodMember>(member => !member.IsVirtual, "are not virtual");
         }

@@ -5,13 +5,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
     public static class MethodMemberConditionsDefinition
     {
-        public static SimpleCondition<MethodMember> BeConstructor()
+        public static ICondition<MethodMember> BeConstructor()
         {
             return new SimpleCondition<MethodMember>(member => member.IsConstructor(), "be constructor",
                 "is no constructor");
         }
 
-        public static SimpleCondition<MethodMember> BeVirtual()
+        public static ICondition<MethodMember> BeVirtual()
         {
             return new SimpleCondition<MethodMember>(member => member.IsVirtual, "be virtual", "is not virtual");
         }
@@ -20,13 +20,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         //Negations
 
 
-        public static SimpleCondition<MethodMember> BeNoConstructor()
+        public static ICondition<MethodMember> BeNoConstructor()
         {
             return new SimpleCondition<MethodMember>(member => !member.IsConstructor(), "be no constructor",
                 "is a constructor");
         }
 
-        public static SimpleCondition<MethodMember> NotBeVirtual()
+        public static ICondition<MethodMember> NotBeVirtual()
         {
             return new SimpleCondition<MethodMember>(member => !member.IsVirtual, "not be virtual", "is virtual");
         }
