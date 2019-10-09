@@ -20,5 +20,7 @@ namespace ArchUnitNET.Fluent
             where TReferenceType : ICanBeAnalyzed;
 
         IEnumerable<TRuleType> GetFilteredObjects(Architecture architecture);
+
+        void SetCustomDescription(string description);
     }
 }

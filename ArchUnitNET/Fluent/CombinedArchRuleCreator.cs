@@ -20,8 +20,8 @@ namespace ArchUnitNET.Fluent
             _currentArchRuleCreator = new ArchRuleCreator<TRuleType>(objectProvider);
         }
 
-        public string Description => _oldRule.Description + " " + _logicalConjunction.Description +
-                                     " " + _currentArchRuleCreator.Description;
+        public string Description => _oldRule.Description + " " + _logicalConjunction.Description + " " +
+                                     _currentArchRuleCreator.Description;
 
         public bool HasNoViolations(Architecture architecture)
         {
@@ -80,6 +80,11 @@ namespace ArchUnitNET.Fluent
         {
             throw new CannotGetObjectsOfCombinedArchRuleException(
                 "GetFilteredObjects() can't be used with CombinedArchRuleCreators because the analyzed objects might be of different type.");
+        }
+
+        public void SetCustomDescription(string description)
+        {
+            _currentArchRuleCreator.SetCustomDescription(description);
         }
 
         public override string ToString()

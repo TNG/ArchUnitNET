@@ -21,5 +21,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             _ruleCreator.AddConditionConjunction(LogicalConjunctionDefinition.Or);
             return Create<TRuleTypeShould, TRuleType>(_ruleCreator);
         }
+
+        public IArchRule As(string description)
+        {
+            _ruleCreator.SetCustomDescription(description);
+            return this;
+        }
     }
 }
