@@ -1,23 +1,21 @@
-﻿using ArchUnitNET.Domain;
-
-namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
+﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
-    public interface IClassConditions : ITypeConditions<ClassesShouldConjunction, Class>
+    public interface IClassConditions<out TReturnType> : ITypeConditions<TReturnType>
     {
-        ClassesShouldConjunction BeAbstract();
-        ClassesShouldConjunction BeSealed();
-        ClassesShouldConjunction BeValueTypes();
-        ClassesShouldConjunction BeEnums();
-        ClassesShouldConjunction BeStructs();
+        TReturnType BeAbstract();
+        TReturnType BeSealed();
+        TReturnType BeValueTypes();
+        TReturnType BeEnums();
+        TReturnType BeStructs();
 
 
         //Negations
 
 
-        ClassesShouldConjunction NotBeAbstract();
-        ClassesShouldConjunction NotBeSealed();
-        ClassesShouldConjunction NotBeValueTypes();
-        ClassesShouldConjunction NotBeEnums();
-        ClassesShouldConjunction NotBeStructs();
+        TReturnType NotBeAbstract();
+        TReturnType NotBeSealed();
+        TReturnType NotBeValueTypes();
+        TReturnType NotBeEnums();
+        TReturnType NotBeStructs();
     }
 }

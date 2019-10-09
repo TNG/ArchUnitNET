@@ -9,7 +9,8 @@ using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public static class ObjectConditionsDefinition<TRuleType> where TRuleType : ICanBeAnalyzed
+    public static class ObjectConditionsDefinition<TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         public static ExistsCondition<TRuleType> Exist()
         {

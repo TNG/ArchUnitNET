@@ -1,54 +1,52 @@
-﻿using ArchUnitNET.Domain;
-
-namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
+﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public interface IPropertyMemberConditions : IMemberConditions<PropertyMembersShouldConjunction, PropertyMember>
+    public interface IPropertyMemberConditions<out TReturnType> : IMemberConditions<TReturnType>
     {
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction BePrivate();
+        new TReturnType BePrivate();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction BePublic();
+        new TReturnType BePublic();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction BeProtected();
+        new TReturnType BeProtected();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction BeInternal();
+        new TReturnType BeInternal();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction BeProtectedInternal();
+        new TReturnType BeProtectedInternal();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction BePrivateProtected();
+        new TReturnType BePrivateProtected();
 
-        PropertyMembersShouldConjunction HaveGetter();
-        PropertyMembersShouldConjunction HaveSetter();
-        PropertyMembersShouldConjunction HavePrivateSetter();
-        PropertyMembersShouldConjunction HavePublicSetter();
-        PropertyMembersShouldConjunction HaveProtectedSetter();
-        PropertyMembersShouldConjunction HaveInternalSetter();
-        PropertyMembersShouldConjunction HaveProtectedInternalSetter();
-        PropertyMembersShouldConjunction HavePrivateProtectedSetter();
-        PropertyMembersShouldConjunction BeVirtual();
+        TReturnType HaveGetter();
+        TReturnType HaveSetter();
+        TReturnType HavePrivateSetter();
+        TReturnType HavePublicSetter();
+        TReturnType HaveProtectedSetter();
+        TReturnType HaveInternalSetter();
+        TReturnType HaveProtectedInternalSetter();
+        TReturnType HavePrivateProtectedSetter();
+        TReturnType BeVirtual();
 
 
         //Negations
@@ -58,46 +56,46 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction NotBePrivate();
+        new TReturnType NotBePrivate();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction NotBePublic();
+        new TReturnType NotBePublic();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction NotBeProtected();
+        new TReturnType NotBeProtected();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction NotBeInternal();
+        new TReturnType NotBeInternal();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction NotBeProtectedInternal();
+        new TReturnType NotBeProtectedInternal();
 
         /// <summary>
         ///     Refers to the getter of the property member.
         /// </summary>
         /// <returns></returns>
-        new PropertyMembersShouldConjunction NotBePrivateProtected();
+        new TReturnType NotBePrivateProtected();
 
-        PropertyMembersShouldConjunction NotHaveGetter();
-        PropertyMembersShouldConjunction NotHaveSetter();
-        PropertyMembersShouldConjunction NotHavePrivateSetter();
-        PropertyMembersShouldConjunction NotHavePublicSetter();
-        PropertyMembersShouldConjunction NotHaveProtectedSetter();
-        PropertyMembersShouldConjunction NotHaveInternalSetter();
-        PropertyMembersShouldConjunction NotHaveProtectedInternalSetter();
-        PropertyMembersShouldConjunction NotHavePrivateProtectedSetter();
-        PropertyMembersShouldConjunction NotBeVirtual();
+        TReturnType NotHaveGetter();
+        TReturnType NotHaveSetter();
+        TReturnType NotHavePrivateSetter();
+        TReturnType NotHavePublicSetter();
+        TReturnType NotHaveProtectedSetter();
+        TReturnType NotHaveInternalSetter();
+        TReturnType NotHaveProtectedInternalSetter();
+        TReturnType NotHavePrivateProtectedSetter();
+        TReturnType NotBeVirtual();
     }
 }

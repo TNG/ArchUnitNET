@@ -1,6 +1,6 @@
 ﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
 {
-    public interface IFieldMemberPredicates<TRuleTypeConjunction> : IMemberPredicates<TRuleTypeConjunction>
+    public interface IFieldMemberPredicates<out TRuleTypeConjunction> : IMemberPredicates<TRuleTypeConjunction>
     {
     }
 }

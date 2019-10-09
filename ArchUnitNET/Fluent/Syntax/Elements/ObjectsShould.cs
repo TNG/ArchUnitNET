@@ -10,7 +10,7 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public abstract class ObjectsShould<TRuleTypeShouldConjunction, TRuleType> : SyntaxElement<TRuleType>,
-        IObjectConditions<TRuleTypeShouldConjunction, TRuleType>
+        IComplexObjectConditions<TRuleTypeShouldConjunction, TRuleType>
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {

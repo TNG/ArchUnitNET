@@ -1,21 +1,21 @@
 ﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
-    public interface IClassPredicates<TRuleTypeConjunction> : ITypePredicates<TRuleTypeConjunction>
+    public interface IClassPredicates<out TReturnType> : ITypePredicates<TReturnType>
     {
-        TRuleTypeConjunction AreAbstract();
-        TRuleTypeConjunction AreSealed();
-        TRuleTypeConjunction AreValueTypes();
-        TRuleTypeConjunction AreEnums();
-        TRuleTypeConjunction AreStructs();
+        TReturnType AreAbstract();
+        TReturnType AreSealed();
+        TReturnType AreValueTypes();
+        TReturnType AreEnums();
+        TReturnType AreStructs();
 
 
         //Negations
 
 
-        TRuleTypeConjunction AreNotAbstract();
-        TRuleTypeConjunction AreNotSealed();
-        TRuleTypeConjunction AreNotValueTypes();
-        TRuleTypeConjunction AreNotEnums();
-        TRuleTypeConjunction AreNotStructs();
+        TReturnType AreNotAbstract();
+        TReturnType AreNotSealed();
+        TReturnType AreNotValueTypes();
+        TReturnType AreNotEnums();
+        TReturnType AreNotStructs();
     }
 }

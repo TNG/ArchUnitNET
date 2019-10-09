@@ -4,46 +4,42 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public interface
-        ITypeConditions<TRuleTypeShouldConjunction, TRuleType> : IObjectConditions<TRuleTypeShouldConjunction, TRuleType
-        >
-        where TRuleType : IType
-        where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
+    public interface ITypeConditions<out TReturnType> : IObjectConditions<TReturnType>
     {
-        TRuleTypeShouldConjunction Be(Type firstType, params Type[] moreTypes);
-        TRuleTypeShouldConjunction Be(IEnumerable<Type> types);
-        TRuleTypeShouldConjunction BeAssignableToTypesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction BeAssignableTo(IType firstType, params IType[] moreTypes);
-        TRuleTypeShouldConjunction BeAssignableTo(Type type, params Type[] moreTypes);
-        TRuleTypeShouldConjunction BeAssignableTo(ObjectProvider<IType> types);
-        TRuleTypeShouldConjunction BeAssignableTo(IEnumerable<IType> types);
-        TRuleTypeShouldConjunction BeAssignableTo(IEnumerable<Type> types);
-        TRuleTypeShouldConjunction ImplementInterfaceWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction ResideInNamespaceWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction HavePropertyMemberWithName(string name);
-        TRuleTypeShouldConjunction HaveFieldMemberWithName(string name);
-        TRuleTypeShouldConjunction HaveMethodMemberWithName(string name);
-        TRuleTypeShouldConjunction HaveMemberWithName(string name);
-        TRuleTypeShouldConjunction BeNested();
+        TReturnType Be(Type firstType, params Type[] moreTypes);
+        TReturnType Be(IEnumerable<Type> types);
+        TReturnType BeAssignableToTypesWithFullNameMatching(string pattern);
+        TReturnType BeAssignableTo(IType firstType, params IType[] moreTypes);
+        TReturnType BeAssignableTo(Type type, params Type[] moreTypes);
+        TReturnType BeAssignableTo(ObjectProvider<IType> types);
+        TReturnType BeAssignableTo(IEnumerable<IType> types);
+        TReturnType BeAssignableTo(IEnumerable<Type> types);
+        TReturnType ImplementInterfaceWithFullNameMatching(string pattern);
+        TReturnType ResideInNamespaceWithFullNameMatching(string pattern);
+        TReturnType HavePropertyMemberWithName(string name);
+        TReturnType HaveFieldMemberWithName(string name);
+        TReturnType HaveMethodMemberWithName(string name);
+        TReturnType HaveMemberWithName(string name);
+        TReturnType BeNested();
 
 
         //Negations
 
 
-        TRuleTypeShouldConjunction NotBe(Type firstType, params Type[] moreTypes);
-        TRuleTypeShouldConjunction NotBe(IEnumerable<Type> types);
-        TRuleTypeShouldConjunction NotBeAssignableToTypesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction NotBeAssignableTo(IType type, params IType[] moreTypes);
-        TRuleTypeShouldConjunction NotBeAssignableTo(Type type, params Type[] moreTypes);
-        TRuleTypeShouldConjunction NotBeAssignableTo(ObjectProvider<IType> types);
-        TRuleTypeShouldConjunction NotBeAssignableTo(IEnumerable<IType> types);
-        TRuleTypeShouldConjunction NotBeAssignableTo(IEnumerable<Type> types);
-        TRuleTypeShouldConjunction NotImplementInterfaceWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction NotResideInNamespaceWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction NotHavePropertyMemberWithName(string name);
-        TRuleTypeShouldConjunction NotHaveFieldMemberWithName(string name);
-        TRuleTypeShouldConjunction NotHaveMethodMemberWithName(string name);
-        TRuleTypeShouldConjunction NotHaveMemberWithName(string name);
-        TRuleTypeShouldConjunction NotBeNested();
+        TReturnType NotBe(Type firstType, params Type[] moreTypes);
+        TReturnType NotBe(IEnumerable<Type> types);
+        TReturnType NotBeAssignableToTypesWithFullNameMatching(string pattern);
+        TReturnType NotBeAssignableTo(IType type, params IType[] moreTypes);
+        TReturnType NotBeAssignableTo(Type type, params Type[] moreTypes);
+        TReturnType NotBeAssignableTo(ObjectProvider<IType> types);
+        TReturnType NotBeAssignableTo(IEnumerable<IType> types);
+        TReturnType NotBeAssignableTo(IEnumerable<Type> types);
+        TReturnType NotImplementInterfaceWithFullNameMatching(string pattern);
+        TReturnType NotResideInNamespaceWithFullNameMatching(string pattern);
+        TReturnType NotHavePropertyMemberWithName(string name);
+        TReturnType NotHaveFieldMemberWithName(string name);
+        TReturnType NotHaveMethodMemberWithName(string name);
+        TReturnType NotHaveMemberWithName(string name);
+        TReturnType NotBeNested();
     }
 }

@@ -4,39 +4,35 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public interface
-        IMemberConditions<TRuleTypeShouldConjunction, TRuleType> : IObjectConditions<TRuleTypeShouldConjunction,
-            TRuleType>
-        where TRuleType : IMember
-        where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
+    public interface IMemberConditions<out TReturnType> : IObjectConditions<TReturnType>
     {
-        TRuleTypeShouldConjunction BeDeclaredInTypesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction BeDeclaredIn(IType firstType, params IType[] moreTypes);
-        TRuleTypeShouldConjunction BeDeclaredIn(Type firstType, params Type[] moreTypes);
-        TRuleTypeShouldConjunction BeDeclaredIn(IObjectProvider<IType> types);
-        TRuleTypeShouldConjunction BeDeclaredIn(IEnumerable<IType> types);
-        TRuleTypeShouldConjunction BeDeclaredIn(IEnumerable<Type> types);
-        TRuleTypeShouldConjunction HaveBodyTypeMemberDependencies();
-        TRuleTypeShouldConjunction HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction HaveMethodCallDependencies();
-        TRuleTypeShouldConjunction HaveMethodCallDependenciesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction HaveFieldTypeDependencies();
-        TRuleTypeShouldConjunction HaveFieldTypeDependenciesWithFullNameMatching(string pattern);
+        TReturnType BeDeclaredInTypesWithFullNameMatching(string pattern);
+        TReturnType BeDeclaredIn(IType firstType, params IType[] moreTypes);
+        TReturnType BeDeclaredIn(Type firstType, params Type[] moreTypes);
+        TReturnType BeDeclaredIn(IObjectProvider<IType> types);
+        TReturnType BeDeclaredIn(IEnumerable<IType> types);
+        TReturnType BeDeclaredIn(IEnumerable<Type> types);
+        TReturnType HaveBodyTypeMemberDependencies();
+        TReturnType HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern);
+        TReturnType HaveMethodCallDependencies();
+        TReturnType HaveMethodCallDependenciesWithFullNameMatching(string pattern);
+        TReturnType HaveFieldTypeDependencies();
+        TReturnType HaveFieldTypeDependenciesWithFullNameMatching(string pattern);
 
 
         //Negations
 
-        TRuleTypeShouldConjunction NotBeDeclaredInTypesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction NotBeDeclaredIn(IType firstType, params IType[] moreTypes);
-        TRuleTypeShouldConjunction NotBeDeclaredIn(Type firstType, params Type[] moreTypes);
-        TRuleTypeShouldConjunction NotBeDeclaredIn(IObjectProvider<IType> types);
-        TRuleTypeShouldConjunction NotBeDeclaredIn(IEnumerable<IType> types);
-        TRuleTypeShouldConjunction NotBeDeclaredIn(IEnumerable<Type> types);
-        TRuleTypeShouldConjunction NotHaveBodyTypeMemberDependencies();
-        TRuleTypeShouldConjunction NotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction NotHaveMethodCallDependencies();
-        TRuleTypeShouldConjunction NotHaveMethodCallDependenciesWithFullNameMatching(string pattern);
-        TRuleTypeShouldConjunction NotHaveFieldTypeDependencies();
-        TRuleTypeShouldConjunction NotHaveFieldTypeDependenciesWithFullNameMatching(string pattern);
+        TReturnType NotBeDeclaredInTypesWithFullNameMatching(string pattern);
+        TReturnType NotBeDeclaredIn(IType firstType, params IType[] moreTypes);
+        TReturnType NotBeDeclaredIn(Type firstType, params Type[] moreTypes);
+        TReturnType NotBeDeclaredIn(IObjectProvider<IType> types);
+        TReturnType NotBeDeclaredIn(IEnumerable<IType> types);
+        TReturnType NotBeDeclaredIn(IEnumerable<Type> types);
+        TReturnType NotHaveBodyTypeMemberDependencies();
+        TReturnType NotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern);
+        TReturnType NotHaveMethodCallDependencies();
+        TReturnType NotHaveMethodCallDependenciesWithFullNameMatching(string pattern);
+        TReturnType NotHaveFieldTypeDependencies();
+        TReturnType NotHaveFieldTypeDependenciesWithFullNameMatching(string pattern);
     }
 }

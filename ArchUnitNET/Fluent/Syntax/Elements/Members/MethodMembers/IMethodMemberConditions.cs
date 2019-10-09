@@ -1,17 +1,15 @@
-﻿using ArchUnitNET.Domain;
-
-namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
+﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public interface IMethodMemberConditions : IMemberConditions<MethodMembersShouldConjunction, MethodMember>
+    public interface IMethodMemberConditions<out TReturnType> : IMemberConditions<TReturnType>
     {
-        MethodMembersShouldConjunction BeConstructor();
-        MethodMembersShouldConjunction BeVirtual();
+        TReturnType BeConstructor();
+        TReturnType BeVirtual();
 
 
         //Negations
 
 
-        MethodMembersShouldConjunction BeNoConstructor();
-        MethodMembersShouldConjunction NotBeVirtual();
+        TReturnType BeNoConstructor();
+        TReturnType NotBeVirtual();
     }
 }

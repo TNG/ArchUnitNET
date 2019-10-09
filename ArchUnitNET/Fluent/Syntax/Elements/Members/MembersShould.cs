@@ -7,7 +7,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
     public class MembersShould<TRuleTypeShouldConjunction, TRuleType> :
         ObjectsShould<TRuleTypeShouldConjunction, TRuleType>,
-        IMemberConditions<TRuleTypeShouldConjunction, TRuleType>
+        IComplexMemberConditions<TRuleTypeShouldConjunction, TRuleType>
         where TRuleType : IMember
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {

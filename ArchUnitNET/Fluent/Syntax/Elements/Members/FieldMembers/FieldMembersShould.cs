@@ -3,7 +3,7 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
 {
     public class FieldMembersShould : MembersShould<FieldMembersShouldConjunction, FieldMember>,
-        IFieldMemberConditions
+        IComplexFieldMemberConditions
     {
         public FieldMembersShould(IArchRuleCreator<FieldMember> ruleCreator) : base(ruleCreator)
         {

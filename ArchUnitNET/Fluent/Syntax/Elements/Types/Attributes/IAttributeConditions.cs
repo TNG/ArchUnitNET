@@ -1,17 +1,15 @@
-﻿using ArchUnitNET.Domain;
-
-namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
+﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public interface IAttributeConditions : ITypeConditions<AttributesShouldConjunction, Attribute>
+    public interface IAttributeConditions<out TReturnType> : ITypeConditions<TReturnType>
     {
-        AttributesShouldConjunction BeAbstract();
-        AttributesShouldConjunction BeSealed();
+        TReturnType BeAbstract();
+        TReturnType BeSealed();
 
 
         //Negations
 
 
-        AttributesShouldConjunction NotBeAbstract();
-        AttributesShouldConjunction NotBeSealed();
+        TReturnType NotBeAbstract();
+        TReturnType NotBeSealed();
     }
 }

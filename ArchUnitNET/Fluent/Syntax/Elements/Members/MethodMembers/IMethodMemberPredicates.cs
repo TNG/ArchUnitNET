@@ -1,6 +1,6 @@
 ﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public interface IMethodMemberPredicates<TRuleTypeConjunction> : IMemberPredicates<TRuleTypeConjunction>
+    public interface IMethodMemberPredicates<out TRuleTypeConjunction> : IMemberPredicates<TRuleTypeConjunction>
     {
         TRuleTypeConjunction AreConstructors();
         TRuleTypeConjunction AreVirtual();

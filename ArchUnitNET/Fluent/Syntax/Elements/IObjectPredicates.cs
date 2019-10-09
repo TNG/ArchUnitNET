@@ -4,60 +4,60 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public interface IObjectPredicates<TRuleTypeConjunction>
+    public interface IObjectPredicates<out TReturnType>
     {
-        TRuleTypeConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
-        TRuleTypeConjunction Are(IEnumerable<ICanBeAnalyzed> objects);
-        TRuleTypeConjunction DependOnAnyTypesWithFullNameMatching(string pattern);
-        TRuleTypeConjunction DependOnAny(Type firstType, params Type[] moreTypes);
-        TRuleTypeConjunction DependOnAny(IType firstType, params IType[] moreTypes);
-        TRuleTypeConjunction DependOnAny(IObjectProvider<IType> types);
-        TRuleTypeConjunction DependOnAny(IEnumerable<IType> types);
-        TRuleTypeConjunction DependOnAny(IEnumerable<Type> types);
-        TRuleTypeConjunction OnlyDependOnTypesWithFullNameMatching(string pattern);
-        TRuleTypeConjunction OnlyDependOn(Type firstType, params Type[] moreTypes);
-        TRuleTypeConjunction OnlyDependOn(IType firstType, params IType[] moreTypes);
-        TRuleTypeConjunction OnlyDependOn(IObjectProvider<IType> types);
-        TRuleTypeConjunction OnlyDependOn(IEnumerable<IType> types);
-        TRuleTypeConjunction OnlyDependOn(IEnumerable<Type> types);
-        TRuleTypeConjunction HaveName(string name);
-        TRuleTypeConjunction HaveNameMatching(string pattern);
-        TRuleTypeConjunction HaveFullName(string fullname);
-        TRuleTypeConjunction HaveFullNameMatching(string pattern);
-        TRuleTypeConjunction HaveNameStartingWith(string pattern);
-        TRuleTypeConjunction HaveNameEndingWith(string pattern);
-        TRuleTypeConjunction HaveNameContaining(string pattern);
-        TRuleTypeConjunction ArePrivate();
-        TRuleTypeConjunction ArePublic();
-        TRuleTypeConjunction AreProtected();
-        TRuleTypeConjunction AreInternal();
-        TRuleTypeConjunction AreProtectedInternal();
-        TRuleTypeConjunction ArePrivateProtected();
+        TReturnType Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
+        TReturnType Are(IEnumerable<ICanBeAnalyzed> objects);
+        TReturnType DependOnAnyTypesWithFullNameMatching(string pattern);
+        TReturnType DependOnAny(Type firstType, params Type[] moreTypes);
+        TReturnType DependOnAny(IType firstType, params IType[] moreTypes);
+        TReturnType DependOnAny(IObjectProvider<IType> types);
+        TReturnType DependOnAny(IEnumerable<IType> types);
+        TReturnType DependOnAny(IEnumerable<Type> types);
+        TReturnType OnlyDependOnTypesWithFullNameMatching(string pattern);
+        TReturnType OnlyDependOn(Type firstType, params Type[] moreTypes);
+        TReturnType OnlyDependOn(IType firstType, params IType[] moreTypes);
+        TReturnType OnlyDependOn(IObjectProvider<IType> types);
+        TReturnType OnlyDependOn(IEnumerable<IType> types);
+        TReturnType OnlyDependOn(IEnumerable<Type> types);
+        TReturnType HaveName(string name);
+        TReturnType HaveNameMatching(string pattern);
+        TReturnType HaveFullName(string fullname);
+        TReturnType HaveFullNameMatching(string pattern);
+        TReturnType HaveNameStartingWith(string pattern);
+        TReturnType HaveNameEndingWith(string pattern);
+        TReturnType HaveNameContaining(string pattern);
+        TReturnType ArePrivate();
+        TReturnType ArePublic();
+        TReturnType AreProtected();
+        TReturnType AreInternal();
+        TReturnType AreProtectedInternal();
+        TReturnType ArePrivateProtected();
 
 
         //Negations
 
 
-        TRuleTypeConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
-        TRuleTypeConjunction AreNot(IEnumerable<ICanBeAnalyzed> objects);
-        TRuleTypeConjunction DoNotDependOnAnyTypesWithFullNameMatching(string pattern);
-        TRuleTypeConjunction DoNotDependOnAny(Type firstType, params Type[] moreTypes);
-        TRuleTypeConjunction DoNotDependOnAny(IType firstType, params IType[] moreTypes);
-        TRuleTypeConjunction DoNotDependOnAny(IObjectProvider<IType> types);
-        TRuleTypeConjunction DoNotDependOnAny(IEnumerable<IType> types);
-        TRuleTypeConjunction DoNotDependOnAny(IEnumerable<Type> types);
-        TRuleTypeConjunction DoNotHaveName(string name);
-        TRuleTypeConjunction DoNotHaveNameMatching(string pattern);
-        TRuleTypeConjunction DoNotHaveFullName(string fullname);
-        TRuleTypeConjunction DoNotHaveFullNameMatching(string pattern);
-        TRuleTypeConjunction DoNotHaveNameStartingWith(string pattern);
-        TRuleTypeConjunction DoNotHaveNameEndingWith(string pattern);
-        TRuleTypeConjunction DoNotHaveNameContaining(string pattern);
-        TRuleTypeConjunction AreNotPrivate();
-        TRuleTypeConjunction AreNotPublic();
-        TRuleTypeConjunction AreNotProtected();
-        TRuleTypeConjunction AreNotInternal();
-        TRuleTypeConjunction AreNotProtectedInternal();
-        TRuleTypeConjunction AreNotPrivateProtected();
+        TReturnType AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
+        TReturnType AreNot(IEnumerable<ICanBeAnalyzed> objects);
+        TReturnType DoNotDependOnAnyTypesWithFullNameMatching(string pattern);
+        TReturnType DoNotDependOnAny(Type firstType, params Type[] moreTypes);
+        TReturnType DoNotDependOnAny(IType firstType, params IType[] moreTypes);
+        TReturnType DoNotDependOnAny(IObjectProvider<IType> types);
+        TReturnType DoNotDependOnAny(IEnumerable<IType> types);
+        TReturnType DoNotDependOnAny(IEnumerable<Type> types);
+        TReturnType DoNotHaveName(string name);
+        TReturnType DoNotHaveNameMatching(string pattern);
+        TReturnType DoNotHaveFullName(string fullname);
+        TReturnType DoNotHaveFullNameMatching(string pattern);
+        TReturnType DoNotHaveNameStartingWith(string pattern);
+        TReturnType DoNotHaveNameEndingWith(string pattern);
+        TReturnType DoNotHaveNameContaining(string pattern);
+        TReturnType AreNotPrivate();
+        TReturnType AreNotPublic();
+        TReturnType AreNotProtected();
+        TReturnType AreNotInternal();
+        TReturnType AreNotProtectedInternal();
+        TReturnType AreNotPrivateProtected();
     }
 }

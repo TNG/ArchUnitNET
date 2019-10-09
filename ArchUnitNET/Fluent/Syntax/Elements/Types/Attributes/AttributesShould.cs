@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public class AttributesShould : TypesShould<AttributesShouldConjunction, Attribute>, IAttributeConditions
+    public class AttributesShould : TypesShould<AttributesShouldConjunction, Attribute>, IComplexAttributeConditions
     {
         public AttributesShould(IArchRuleCreator<Attribute> ruleCreator) : base(ruleCreator)
         {

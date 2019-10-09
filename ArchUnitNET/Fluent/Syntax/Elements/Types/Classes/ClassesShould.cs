@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
-    public class ClassesShould : TypesShould<ClassesShouldConjunction, Class>, IClassConditions
+    public class ClassesShould : TypesShould<ClassesShouldConjunction, Class>, IComplexClassConditions
     {
         public ClassesShould(IArchRuleCreator<Class> ruleCreator) : base(ruleCreator)
         {

@@ -1,15 +1,15 @@
 ﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public interface IAttributePredicates<TRuleTypeConjunction> : ITypePredicates<TRuleTypeConjunction>
+    public interface IAttributePredicates<out TReturnType> : ITypePredicates<TReturnType>
     {
-        TRuleTypeConjunction AreAbstract();
-        TRuleTypeConjunction AreSealed();
+        TReturnType AreAbstract();
+        TReturnType AreSealed();
 
 
         //Negations
 
 
-        TRuleTypeConjunction AreNotAbstract();
-        TRuleTypeConjunction AreNotSealed();
+        TReturnType AreNotAbstract();
+        TReturnType AreNotSealed();
     }
 }

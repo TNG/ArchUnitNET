@@ -1,8 +1,6 @@
-﻿using ArchUnitNET.Domain;
-
-namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
+﻿namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
 {
-    public interface IInterfaceConditions : ITypeConditions<InterfacesShouldConjunction, Interface>
+    public interface IInterfaceConditions<out TReturnType> : ITypeConditions<TReturnType>
     {
     }
 }
