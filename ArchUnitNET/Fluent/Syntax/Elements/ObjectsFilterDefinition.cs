@@ -230,9 +230,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(obj => obj.Name.Equals(name), "have name \"" + name + "\"");
         }
 
+        public static ObjectFilter<T> HaveNameMatching(string pattern)
+        {
+            return new ObjectFilter<T>(obj => obj.NameMatches(pattern), "have name matching \"" + pattern + "\"");
+        }
+
         public static ObjectFilter<T> HaveFullName(string fullname)
         {
             return new ObjectFilter<T>(obj => obj.FullName.Equals(fullname), "have full name \"" + fullname + "\"");
+        }
+
+        public static ObjectFilter<T> HaveFullNameMatching(string pattern)
+        {
+            return new ObjectFilter<T>(obj => obj.FullNameMatches(pattern),
+                "have full name matching \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> HaveNameStartingWith(string pattern)
@@ -412,10 +423,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ObjectFilter<T>(obj => !obj.Name.Equals(name), "do not have name \"" + name + "\"");
         }
 
+        public static ObjectFilter<T> DoNotHaveNameMatching(string pattern)
+        {
+            return new ObjectFilter<T>(obj => !obj.NameMatches(pattern),
+                "do not have name matching \"" + pattern + "\"");
+        }
+
         public static ObjectFilter<T> DoNotHaveFullName(string fullname)
         {
             return new ObjectFilter<T>(obj => !obj.FullName.Equals(fullname),
                 "do not have full name \"" + fullname + "\"");
+        }
+
+        public static ObjectFilter<T> DoNotHaveFullNameMatching(string pattern)
+        {
+            return new ObjectFilter<T>(obj => !obj.FullNameMatches(pattern),
+                "do not have full name matching \"" + pattern + "\"");
         }
 
         public static ObjectFilter<T> DoNotHaveNameStartingWith(string pattern)

@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Types;
 
@@ -111,12 +112,12 @@ namespace ArchUnitNET.Fluent.Extensions
 
         public static bool NameMatches(this IHasName cls, string pattern)
         {
-            return cls.Name.ToLower().Contains(pattern.ToLower());
+            return Regex.IsMatch(cls.Name, pattern);
         }
 
         public static bool FullNameMatches(this IHasName cls, string pattern)
         {
-            return cls.FullName.ToLower().Contains(pattern.ToLower());
+            return Regex.IsMatch(cls.FullName, pattern);
         }
 
         public static bool ResidesInNamespace(this IType e, string pattern)
@@ -202,11 +203,6 @@ namespace ArchUnitNET.Fluent.Extensions
         public static bool ImplementsInterface(this IType d, string pattern)
         {
             return d.ImplementedInterfaces.Any(intf => intf.FullNameMatches(pattern));
-        }
-
-        public static bool ImplementsInterface(this IType d, Interface intf)
-        {
-            return d.Implements(intf);
         }
     }
 }

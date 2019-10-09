@@ -113,9 +113,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction HaveNameMatching(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.HaveNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HaveFullName(string fullname)
         {
             _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.HaveFullName(fullname));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.HaveFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -237,9 +251,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction DoNotHaveNameMatching(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.DoNotHaveNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction DoNotHaveFullName(string fullname)
         {
             _ruleCreator.ContinueComplexCondition(ObjectsFilterDefinition<TReferenceType>.DoNotHaveFullName(fullname));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectsFilterDefinition<TReferenceType>.DoNotHaveFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

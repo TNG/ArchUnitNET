@@ -197,11 +197,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "does not have name \"" + name + "\"");
         }
 
+        public static SimpleCondition<TRuleType> HaveNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(obj => obj.FullNameMatches(pattern),
+                "have full name matching \"" + pattern + "\"", "does not have full name matching \"" + pattern + "\"");
+        }
+
+
         public static SimpleCondition<TRuleType> HaveFullName(string fullname)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullName.Equals(fullname),
                 "have full name \"" + fullname + "\"", "does not have full name \"" + fullname + "\"");
+        }
+
+        public static SimpleCondition<TRuleType> HaveFullNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(obj => obj.FullNameMatches(pattern),
+                "have full name matching \"" + pattern + "\"", "does not have full name matching \"" + pattern + "\"");
         }
 
         public static SimpleCondition<TRuleType> HaveNameStartingWith(string pattern)
@@ -476,11 +489,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 obj => !obj.Name.Equals(name), "not have name \"" + name + "\"", "does have name \"" + name + "\"");
         }
 
+        public static SimpleCondition<TRuleType> NotHaveNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(obj => !obj.NameMatches(pattern),
+                "not have name matching \"" + pattern + "\"", "does have name matching \"" + pattern + "\"");
+        }
+
         public static SimpleCondition<TRuleType> NotHaveFullName(string fullname)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullName.Equals(fullname), "not have full name \"" + fullname + "\"",
                 "does have full name \"" + fullname + "\"");
+        }
+
+        public static SimpleCondition<TRuleType> NotHaveFullNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(obj => !obj.FullNameMatches(pattern),
+                "not have full name matching \"" + pattern + "\"", "does have full name matching \"" + pattern + "\"");
         }
 
         public static SimpleCondition<TRuleType> NotHaveNameStartingWith(string pattern)

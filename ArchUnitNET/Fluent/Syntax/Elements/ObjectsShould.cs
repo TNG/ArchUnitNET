@@ -97,9 +97,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction HaveNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.HaveNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HaveFullName(string fullname)
         {
             _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.HaveFullName(fullname));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.HaveFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -271,9 +283,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction NotHaveNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotHaveNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction NotHaveFullName(string fullname)
         {
             _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotHaveFullName(fullname));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotHaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(ObjectsConditionDefinition<TRuleType>.NotHaveFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

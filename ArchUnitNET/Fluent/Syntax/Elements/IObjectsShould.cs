@@ -25,7 +25,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<IType> types);
         TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<Type> types);
         TRuleTypeShouldConjunction HaveName(string name);
+        TRuleTypeShouldConjunction HaveNameMatching(string pattern);
         TRuleTypeShouldConjunction HaveFullName(string fullname);
+        TRuleTypeShouldConjunction HaveFullNameMatching(string pattern);
         TRuleTypeShouldConjunction HaveNameStartingWith(string pattern);
         TRuleTypeShouldConjunction HaveNameEndingWith(string pattern);
         TRuleTypeShouldConjunction HaveNameContaining(string pattern);
@@ -60,7 +62,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TRuleTypeShouldConjunction NotDependOn(IEnumerable<IType> types);
         TRuleTypeShouldConjunction NotDependOn(IEnumerable<Type> types);
         TRuleTypeShouldConjunction NotHaveName(string name);
+        TRuleTypeShouldConjunction NotHaveNameMatching(string pattern);
         TRuleTypeShouldConjunction NotHaveFullName(string fullname);
+        TRuleTypeShouldConjunction NotHaveFullNameMatching(string pattern);
         TRuleTypeShouldConjunction NotHaveNameStartingWith(string pattern);
         TRuleTypeShouldConjunction NotHaveNameEndingWith(string pattern);
         TRuleTypeShouldConjunction NotHaveNameContaining(string pattern);
