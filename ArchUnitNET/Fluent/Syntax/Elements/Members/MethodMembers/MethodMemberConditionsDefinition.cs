@@ -3,7 +3,7 @@ using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public static class MethodMembersConditionDefinition
+    public static class MethodMemberConditionsDefinition
     {
         public static SimpleCondition<MethodMember> BeConstructor()
         {

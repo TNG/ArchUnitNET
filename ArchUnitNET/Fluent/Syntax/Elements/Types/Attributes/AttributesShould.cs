@@ -10,13 +10,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public AttributesShouldConjunction BeAbstract()
         {
-            _ruleCreator.AddCondition(AttributesConditionDefinition.BeAbstract());
+            _ruleCreator.AddCondition(AttributeConditionsDefinition.BeAbstract());
             return new AttributesShouldConjunction(_ruleCreator);
         }
 
         public AttributesShouldConjunction BeSealed()
         {
-            _ruleCreator.AddCondition(AttributesConditionDefinition.BeSealed());
+            _ruleCreator.AddCondition(AttributeConditionsDefinition.BeSealed());
             return new AttributesShouldConjunction(_ruleCreator);
         }
 
@@ -26,13 +26,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public AttributesShouldConjunction NotBeAbstract()
         {
-            _ruleCreator.AddCondition(AttributesConditionDefinition.NotBeAbstract());
+            _ruleCreator.AddCondition(AttributeConditionsDefinition.NotBeAbstract());
             return new AttributesShouldConjunction(_ruleCreator);
         }
 
         public AttributesShouldConjunction NotBeSealed()
         {
-            _ruleCreator.AddCondition(AttributesConditionDefinition.NotBeSealed());
+            _ruleCreator.AddCondition(AttributeConditionsDefinition.NotBeSealed());
             return new AttributesShouldConjunction(_ruleCreator);
         }
     }

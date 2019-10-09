@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public static class AttributesFilterDefinition
+    public static class AttributePredicatesDefinition
     {
         public static ObjectFilter<Attribute> AreAbstract()
         {

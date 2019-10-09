@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public static class AttributesConditionDefinition
+    public static class AttributeConditionsDefinition
     {
         public static SimpleCondition<Attribute> BeAbstract()
         {

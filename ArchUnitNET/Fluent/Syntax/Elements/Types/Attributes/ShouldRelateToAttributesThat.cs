@@ -15,13 +15,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public TRuleTypeShouldConjunction AreAbstract()
         {
-            _ruleCreator.ContinueComplexCondition(AttributesFilterDefinition.AreAbstract());
+            _ruleCreator.ContinueComplexCondition(AttributePredicatesDefinition.AreAbstract());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreSealed()
         {
-            _ruleCreator.ContinueComplexCondition(AttributesFilterDefinition.AreSealed());
+            _ruleCreator.ContinueComplexCondition(AttributePredicatesDefinition.AreSealed());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -31,13 +31,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public TRuleTypeShouldConjunction AreNotAbstract()
         {
-            _ruleCreator.ContinueComplexCondition(AttributesFilterDefinition.AreNotAbstract());
+            _ruleCreator.ContinueComplexCondition(AttributePredicatesDefinition.AreNotAbstract());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotSealed()
         {
-            _ruleCreator.ContinueComplexCondition(AttributesFilterDefinition.AreNotSealed());
+            _ruleCreator.ContinueComplexCondition(AttributePredicatesDefinition.AreNotSealed());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

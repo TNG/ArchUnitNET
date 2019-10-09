@@ -19,79 +19,81 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction AreDeclaredInTypesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.AreDeclaredInTypesWithFullNameMatching(pattern));
+                MemberPredicatesDefinition<TReferenceType>.AreDeclaredInTypesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.AreDeclaredIn(firstType, moreTypes));
+                MemberPredicatesDefinition<TReferenceType>.AreDeclaredIn(firstType, moreTypes));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreDeclaredIn(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.AreDeclaredIn(firstType, moreTypes));
+                MemberPredicatesDefinition<TReferenceType>.AreDeclaredIn(firstType, moreTypes));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreDeclaredIn(IObjectProvider<IType> types)
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>.AreDeclaredIn(types));
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreDeclaredIn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreDeclaredIn(IEnumerable<IType> types)
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>.AreDeclaredIn(types));
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreDeclaredIn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreDeclaredIn(IEnumerable<Type> types)
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>.AreDeclaredIn(types));
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreDeclaredIn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveBodyTypeMemberDependencies()
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.HaveBodyTypeMemberDependencies());
+                MemberPredicatesDefinition<TReferenceType>.HaveBodyTypeMemberDependencies());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.HaveBodyTypeMemberDependenciesWithFullNameMatching(pattern));
+                MemberPredicatesDefinition<TReferenceType>.HaveBodyTypeMemberDependenciesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveMethodCallDependencies()
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>.HaveMethodCallDependencies());
+            _ruleCreator.ContinueComplexCondition(
+                MemberPredicatesDefinition<TReferenceType>.HaveMethodCallDependencies());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.HaveMethodCallDependenciesWithFullNameMatching(pattern));
+                MemberPredicatesDefinition<TReferenceType>.HaveMethodCallDependenciesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveFieldTypeDependencies()
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>.HaveFieldTypeDependencies());
+            _ruleCreator.ContinueComplexCondition(
+                MemberPredicatesDefinition<TReferenceType>.HaveFieldTypeDependencies());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.HaveFieldTypeDependenciesWithFullNameMatching(pattern));
+                MemberPredicatesDefinition<TReferenceType>.HaveFieldTypeDependenciesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -102,45 +104,45 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction AreNotDeclaredInTypesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.AreNotDeclaredInTypesWithFullNameMatching(pattern));
+                MemberPredicatesDefinition<TReferenceType>.AreNotDeclaredInTypesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.AreNotDeclaredIn(firstType, moreTypes));
+                MemberPredicatesDefinition<TReferenceType>.AreNotDeclaredIn(firstType, moreTypes));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotDeclaredIn(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.AreNotDeclaredIn(firstType, moreTypes));
+                MemberPredicatesDefinition<TReferenceType>.AreNotDeclaredIn(firstType, moreTypes));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotDeclaredIn(IObjectProvider<IType> types)
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>.AreNotDeclaredIn(types));
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotDeclaredIn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotDeclaredIn(IEnumerable<IType> types)
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>.AreNotDeclaredIn(types));
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotDeclaredIn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotDeclaredIn(IEnumerable<Type> types)
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>.AreNotDeclaredIn(types));
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotDeclaredIn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveBodyTypeMemberDependencies()
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>
                 .DoNotHaveBodyTypeMemberDependencies());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -148,14 +150,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction DoNotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>
+                MemberPredicatesDefinition<TReferenceType>
                     .DoNotHaveBodyTypeMemberDependenciesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveMethodCallDependencies()
         {
-            _ruleCreator.ContinueComplexCondition(MembersFilterDefinition<TReferenceType>
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>
                 .DoNotHaveMethodCallDependencies());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -163,21 +165,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction DoNotHaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.DoNotHaveMethodCallDependenciesWithFullNameMatching(pattern));
+                MemberPredicatesDefinition<TReferenceType>
+                    .DoNotHaveMethodCallDependenciesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveFieldTypeDependencies()
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.DoNotHaveFieldTypeDependencies());
+                MemberPredicatesDefinition<TReferenceType>.DoNotHaveFieldTypeDependencies());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                MembersFilterDefinition<TReferenceType>.DoNotHaveFieldTypeDependenciesWithFullNameMatching(pattern));
+                MemberPredicatesDefinition<TReferenceType>.DoNotHaveFieldTypeDependenciesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

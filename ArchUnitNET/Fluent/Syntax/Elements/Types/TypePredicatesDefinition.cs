@@ -6,7 +6,7 @@ using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public static class TypesFilterDefinition<T> where T : IType
+    public static class TypePredicatesDefinition<T> where T : IType
     {
         public static ArchitectureObjectFilter<T> Are(Type firstType, params Type[] moreTypes)
         {

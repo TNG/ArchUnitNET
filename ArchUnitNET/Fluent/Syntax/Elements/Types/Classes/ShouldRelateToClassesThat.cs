@@ -14,31 +14,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public TRuleTypeShouldConjunction AreAbstract()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreAbstract());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreAbstract());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreSealed()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreSealed());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreSealed());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreValueTypes()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreValueTypes());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreValueTypes());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreEnums()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreEnums());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreEnums());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreStructs()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreStructs());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreStructs());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -48,31 +48,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public TRuleTypeShouldConjunction AreNotAbstract()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotAbstract());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotAbstract());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotSealed()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotSealed());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotSealed());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotValueTypes()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotValueTypes());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotValueTypes());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotEnums()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotEnums());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotEnums());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotStructs()
         {
-            _ruleCreator.ContinueComplexCondition(ClassesFilterDefinition.AreNotStructs());
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotStructs());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

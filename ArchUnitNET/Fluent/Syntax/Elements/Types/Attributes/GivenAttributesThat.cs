@@ -11,13 +11,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public GivenAttributesConjunction AreAbstract()
         {
-            _ruleCreator.AddObjectFilter(AttributesFilterDefinition.AreAbstract());
+            _ruleCreator.AddObjectFilter(AttributePredicatesDefinition.AreAbstract());
             return new GivenAttributesConjunction(_ruleCreator);
         }
 
         public GivenAttributesConjunction AreSealed()
         {
-            _ruleCreator.AddObjectFilter(AttributesFilterDefinition.AreSealed());
+            _ruleCreator.AddObjectFilter(AttributePredicatesDefinition.AreSealed());
             return new GivenAttributesConjunction(_ruleCreator);
         }
 
@@ -27,13 +27,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         public GivenAttributesConjunction AreNotAbstract()
         {
-            _ruleCreator.AddObjectFilter(AttributesFilterDefinition.AreNotAbstract());
+            _ruleCreator.AddObjectFilter(AttributePredicatesDefinition.AreNotAbstract());
             return new GivenAttributesConjunction(_ruleCreator);
         }
 
         public GivenAttributesConjunction AreNotSealed()
         {
-            _ruleCreator.AddObjectFilter(AttributesFilterDefinition.AreNotSealed());
+            _ruleCreator.AddObjectFilter(AttributePredicatesDefinition.AreNotSealed());
             return new GivenAttributesConjunction(_ruleCreator);
         }
     }

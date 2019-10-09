@@ -6,7 +6,7 @@ using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public static class MembersConditionDefinition<TRuleType> where TRuleType : IMember
+    public static class MemberConditionsDefinition<TRuleType> where TRuleType : IMember
     {
         public static SimpleCondition<TRuleType> BeDeclaredInTypesWithFullNameMatching(string pattern)
         {

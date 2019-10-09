@@ -6,7 +6,7 @@ using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public static class TypesConditionDefinition<TRuleType> where TRuleType : IType
+    public static class TypeConditionsDefinition<TRuleType> where TRuleType : IType
     {
         public static ArchitectureCondition<TRuleType> Be(Type firstType, params Type[] moreTypes)
         {

@@ -3,7 +3,7 @@ using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public static class MethodMembersFilterDefinition
+    public static class MethodMemberPredicatesDefinition
     {
         public static ObjectFilter<MethodMember> AreConstructors()
         {

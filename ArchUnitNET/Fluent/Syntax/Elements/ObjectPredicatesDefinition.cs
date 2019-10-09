@@ -7,7 +7,7 @@ using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public static class ObjectsFilterDefinition<T> where T : ICanBeAnalyzed
+    public static class ObjectPredicatesDefinition<T> where T : ICanBeAnalyzed
     {
         public static ObjectFilter<T> Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {

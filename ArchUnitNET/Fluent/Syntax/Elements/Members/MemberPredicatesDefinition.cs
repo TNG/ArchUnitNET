@@ -6,7 +6,7 @@ using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public static class MembersFilterDefinition<T> where T : IMember
+    public static class MemberPredicatesDefinition<T> where T : IMember
     {
         public static ObjectFilter<T> AreDeclaredInTypesWithFullNameMatching(string pattern)
         {

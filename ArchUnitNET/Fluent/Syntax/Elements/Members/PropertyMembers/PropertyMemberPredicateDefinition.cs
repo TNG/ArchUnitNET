@@ -3,7 +3,7 @@ using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public static class PropertyMembersFilterDefinition
+    public static class PropertyMemberPredicateDefinition
     {
         public static ObjectFilter<PropertyMember> HaveGetter()
         {
