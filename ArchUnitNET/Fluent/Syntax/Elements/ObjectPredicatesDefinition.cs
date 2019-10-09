@@ -13,7 +13,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var description = moreObjects.Aggregate("are \"" + firstObject.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new Predicate<T>(o => o.Equals(firstObject) || moreObjects.Any(o.Equals), description);
+            return new SimplePredicate<T>(o => o.Equals(firstObject) || moreObjects.Any(o.Equals), description);
         }
 
         public static IPredicate<T> Are(IEnumerable<ICanBeAnalyzed> objects)
@@ -32,18 +32,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new Predicate<T>(obj => objectList.Any(o => o.Equals(obj)), description);
+            return new SimplePredicate<T>(obj => objectList.Any(o => o.Equals(obj)), description);
         }
 
         public static IPredicate<T> DependOnAnyTypesWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(obj => obj.DependsOn(pattern),
+            return new SimplePredicate<T>(obj => obj.DependsOn(pattern),
                 "depend on any types with full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DependOnAnyTypesWithFullNameContaining(string pattern)
         {
-            return new Predicate<T>(obj => obj.FullNameContains(pattern),
+            return new SimplePredicate<T>(obj => obj.FullNameContains(pattern),
                 "depend on any types with full name containing \"" + pattern + "\"");
         }
 
@@ -56,7 +56,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new Predicate<T>(Condition, description);
+            return new SimplePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> DependOnAny(Type firstType, params Type[] moreTypes)
@@ -107,7 +107,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new Predicate<T>(Filter, description);
+            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DependOnAny(IEnumerable<Type> types)
@@ -138,7 +138,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> OnlyDependOnTypesWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(obj => obj.OnlyDependsOn(pattern),
+            return new SimplePredicate<T>(obj => obj.OnlyDependsOn(pattern),
                 "only depend on types with full name matching \"" + pattern + "\"");
         }
 
@@ -151,7 +151,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new Predicate<T>(Filter, description);
+            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> OnlyDependOn(Type firstType, params Type[] moreTypes)
@@ -202,7 +202,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new Predicate<T>(Filter, description);
+            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> OnlyDependOn(IEnumerable<Type> types)
@@ -233,69 +233,70 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> HaveName(string name)
         {
-            return new Predicate<T>(obj => obj.Name.Equals(name), "have name \"" + name + "\"");
+            return new SimplePredicate<T>(obj => obj.Name.Equals(name), "have name \"" + name + "\"");
         }
 
         public static IPredicate<T> HaveNameMatching(string pattern)
         {
-            return new Predicate<T>(obj => obj.NameMatches(pattern), "have name matching \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => obj.NameMatches(pattern), "have name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> HaveFullName(string fullname)
         {
-            return new Predicate<T>(obj => obj.FullName.Equals(fullname), "have full name \"" + fullname + "\"");
+            return new SimplePredicate<T>(obj => obj.FullName.Equals(fullname), "have full name \"" + fullname + "\"");
         }
 
         public static IPredicate<T> HaveFullNameMatching(string pattern)
         {
-            return new Predicate<T>(obj => obj.FullNameMatches(pattern),
+            return new SimplePredicate<T>(obj => obj.FullNameMatches(pattern),
                 "have full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> HaveNameStartingWith(string pattern)
         {
-            return new Predicate<T>(obj => obj.NameStartsWith(pattern),
+            return new SimplePredicate<T>(obj => obj.NameStartsWith(pattern),
                 "have name starting with \"" + pattern + "\"");
         }
 
         public static IPredicate<T> HaveNameEndingWith(string pattern)
         {
-            return new Predicate<T>(obj => obj.NameEndsWith(pattern), "have name ending with \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => obj.NameEndsWith(pattern),
+                "have name ending with \"" + pattern + "\"");
         }
 
         public static IPredicate<T> HaveNameContaining(string pattern)
         {
-            return new Predicate<T>(obj => obj.NameContains(pattern), "have name containing \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => obj.NameContains(pattern), "have name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> ArePrivate()
         {
-            return new Predicate<T>(obj => obj.Visibility == Private, "are private");
+            return new SimplePredicate<T>(obj => obj.Visibility == Private, "are private");
         }
 
         public static IPredicate<T> ArePublic()
         {
-            return new Predicate<T>(obj => obj.Visibility == Public, "are public");
+            return new SimplePredicate<T>(obj => obj.Visibility == Public, "are public");
         }
 
         public static IPredicate<T> AreProtected()
         {
-            return new Predicate<T>(obj => obj.Visibility == Protected, "are protected");
+            return new SimplePredicate<T>(obj => obj.Visibility == Protected, "are protected");
         }
 
         public static IPredicate<T> AreInternal()
         {
-            return new Predicate<T>(obj => obj.Visibility == Internal, "are internal");
+            return new SimplePredicate<T>(obj => obj.Visibility == Internal, "are internal");
         }
 
         public static IPredicate<T> AreProtectedInternal()
         {
-            return new Predicate<T>(obj => obj.Visibility == ProtectedInternal, "are protected internal");
+            return new SimplePredicate<T>(obj => obj.Visibility == ProtectedInternal, "are protected internal");
         }
 
         public static IPredicate<T> ArePrivateProtected()
         {
-            return new Predicate<T>(obj => obj.Visibility == PrivateProtected, "are private protected");
+            return new SimplePredicate<T>(obj => obj.Visibility == PrivateProtected, "are private protected");
         }
 
 
@@ -306,7 +307,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var description = moreObjects.Aggregate("are not \"" + firstObject.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new Predicate<T>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals), description);
+            return new SimplePredicate<T>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals), description);
         }
 
         public static IPredicate<T> AreNot(IEnumerable<ICanBeAnalyzed> objects)
@@ -325,18 +326,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new Predicate<T>(obj => objectList.All(o => !o.Equals(obj)), description);
+            return new SimplePredicate<T>(obj => objectList.All(o => !o.Equals(obj)), description);
         }
 
         public static IPredicate<T> DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(obj => !obj.DependsOn(pattern),
+            return new SimplePredicate<T>(obj => !obj.DependsOn(pattern),
                 "do not depend on any types with full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotDependOnAnyTypesWithFullNameContaining(string pattern)
         {
-            return new Predicate<T>(obj => !obj.FullNameContains(pattern),
+            return new SimplePredicate<T>(obj => !obj.FullNameContains(pattern),
                 "do not depend on any types with full name containing \"" + pattern + "\"");
         }
 
@@ -350,7 +351,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new Predicate<T>(Filter, description);
+            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DoNotDependOnAny(Type firstType, params Type[] moreTypes)
@@ -401,7 +402,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new Predicate<T>(Filter, description);
+            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DoNotDependOnAny(IEnumerable<Type> types)
@@ -432,73 +433,73 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotHaveName(string name)
         {
-            return new Predicate<T>(obj => !obj.Name.Equals(name), "do not have name \"" + name + "\"");
+            return new SimplePredicate<T>(obj => !obj.Name.Equals(name), "do not have name \"" + name + "\"");
         }
 
         public static IPredicate<T> DoNotHaveNameMatching(string pattern)
         {
-            return new Predicate<T>(obj => !obj.NameMatches(pattern),
+            return new SimplePredicate<T>(obj => !obj.NameMatches(pattern),
                 "do not have name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotHaveFullName(string fullname)
         {
-            return new Predicate<T>(obj => !obj.FullName.Equals(fullname),
+            return new SimplePredicate<T>(obj => !obj.FullName.Equals(fullname),
                 "do not have full name \"" + fullname + "\"");
         }
 
         public static IPredicate<T> DoNotHaveFullNameMatching(string pattern)
         {
-            return new Predicate<T>(obj => !obj.FullNameMatches(pattern),
+            return new SimplePredicate<T>(obj => !obj.FullNameMatches(pattern),
                 "do not have full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotHaveNameStartingWith(string pattern)
         {
-            return new Predicate<T>(obj => !obj.NameStartsWith(pattern),
+            return new SimplePredicate<T>(obj => !obj.NameStartsWith(pattern),
                 "do not have name starting with \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotHaveNameEndingWith(string pattern)
         {
-            return new Predicate<T>(obj => !obj.NameEndsWith(pattern),
+            return new SimplePredicate<T>(obj => !obj.NameEndsWith(pattern),
                 "do not have name ending with \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotHaveNameContaining(string pattern)
         {
-            return new Predicate<T>(obj => !obj.NameContains(pattern),
+            return new SimplePredicate<T>(obj => !obj.NameContains(pattern),
                 "do not have name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> AreNotPrivate()
         {
-            return new Predicate<T>(obj => obj.Visibility != Private, "are not private");
+            return new SimplePredicate<T>(obj => obj.Visibility != Private, "are not private");
         }
 
         public static IPredicate<T> AreNotPublic()
         {
-            return new Predicate<T>(obj => obj.Visibility != Public, "are not public");
+            return new SimplePredicate<T>(obj => obj.Visibility != Public, "are not public");
         }
 
         public static IPredicate<T> AreNotProtected()
         {
-            return new Predicate<T>(obj => obj.Visibility != Protected, "are not protected");
+            return new SimplePredicate<T>(obj => obj.Visibility != Protected, "are not protected");
         }
 
         public static IPredicate<T> AreNotInternal()
         {
-            return new Predicate<T>(obj => obj.Visibility != Internal, "are not internal");
+            return new SimplePredicate<T>(obj => obj.Visibility != Internal, "are not internal");
         }
 
         public static IPredicate<T> AreNotProtectedInternal()
         {
-            return new Predicate<T>(obj => obj.Visibility != ProtectedInternal, "are not protected internal");
+            return new SimplePredicate<T>(obj => obj.Visibility != ProtectedInternal, "are not protected internal");
         }
 
         public static IPredicate<T> AreNotPrivateProtected()
         {
-            return new Predicate<T>(obj => obj.Visibility != PrivateProtected, "are not private protected");
+            return new SimplePredicate<T>(obj => obj.Visibility != PrivateProtected, "are not private protected");
         }
     }
 }

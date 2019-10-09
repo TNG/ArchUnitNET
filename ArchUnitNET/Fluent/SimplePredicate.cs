@@ -3,11 +3,11 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class Predicate<TRuleType> : IPredicate<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class SimplePredicate<TRuleType> : IPredicate<TRuleType> where TRuleType : ICanBeAnalyzed
     {
         private readonly Func<TRuleType, bool> _predicate;
 
-        public Predicate(Func<TRuleType, bool> predicate, string description)
+        public SimplePredicate(Func<TRuleType, bool> predicate, string description)
         {
             _predicate = predicate;
             Description = description;

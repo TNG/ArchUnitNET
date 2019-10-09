@@ -20,7 +20,7 @@ namespace ArchUnitNET.Fluent
                 _predicateElements = new List<PredicateElement<T>>
                 {
                     new PredicateElement<T>(LogicalConjunctionDefinition.ForwardSecondValue,
-                        new Predicate<T>(t => true, NotSet))
+                        new SimplePredicate<T>(t => true, NotSet))
                 };
             }
 

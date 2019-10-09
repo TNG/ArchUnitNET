@@ -7,12 +7,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
     {
         public static IPredicate<MethodMember> AreConstructors()
         {
-            return new Predicate<MethodMember>(member => member.IsConstructor(), "are constructors");
+            return new SimplePredicate<MethodMember>(member => member.IsConstructor(), "are constructors");
         }
 
         public static IPredicate<MethodMember> AreVirtual()
         {
-            return new Predicate<MethodMember>(member => member.IsVirtual, "are virtual");
+            return new SimplePredicate<MethodMember>(member => member.IsVirtual, "are virtual");
         }
 
 
@@ -21,12 +21,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public static IPredicate<MethodMember> AreNoConstructors()
         {
-            return new Predicate<MethodMember>(member => !member.IsConstructor(), "are no constructors");
+            return new SimplePredicate<MethodMember>(member => !member.IsConstructor(), "are no constructors");
         }
 
         public static IPredicate<MethodMember> AreNotVirtual()
         {
-            return new Predicate<MethodMember>(member => !member.IsVirtual, "are not virtual");
+            return new SimplePredicate<MethodMember>(member => !member.IsVirtual, "are not virtual");
         }
     }
 }

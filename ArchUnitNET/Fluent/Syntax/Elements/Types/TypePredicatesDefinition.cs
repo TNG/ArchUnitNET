@@ -48,13 +48,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> AreAssignableToTypesWithFullNameMatching(string pattern)
         {
             var description = "are assignable to types with full name matching \"" + pattern + "\"";
-            return new Predicate<T>(type => type.IsAssignableToTypesWithFullNameMatching(pattern), description);
+            return new SimplePredicate<T>(type => type.IsAssignableToTypesWithFullNameMatching(pattern), description);
         }
 
         public static IPredicate<T> AreAssignableToTypesWithFullNameContaining(string pattern)
         {
             var description = "are assignable to types with full name containing \"" + pattern + "\"";
-            return new Predicate<T>(type => type.IsAssignableToTypesWithFullNameContaining(pattern), description);
+            return new SimplePredicate<T>(type => type.IsAssignableToTypesWithFullNameContaining(pattern), description);
         }
 
         public static IPredicate<T> AreAssignableTo(IType firstType, params IType[] moreTypes)
@@ -66,7 +66,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            return new Predicate<T>(Condition, description);
+            return new SimplePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreAssignableTo(Type firstType, params Type[] moreTypes)
@@ -115,7 +115,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new Predicate<T>(Condition, description);
+            return new SimplePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreAssignableTo(IEnumerable<Type> types)
@@ -145,54 +145,55 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> ImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(type => type.ImplementsInterfacesWithFullNameMatching(pattern),
+            return new SimplePredicate<T>(type => type.ImplementsInterfacesWithFullNameMatching(pattern),
                 "implement interface with full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> ImplementInterfaceWithFullNameContaining(string pattern)
         {
-            return new Predicate<T>(type => type.ImplementsInterfacesWithFullNameContaining(pattern),
+            return new SimplePredicate<T>(type => type.ImplementsInterfacesWithFullNameContaining(pattern),
                 "implement interface with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> ResideInNamespaceWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(type => type.ResidesInNamespaceWithFullNameMatching(pattern),
+            return new SimplePredicate<T>(type => type.ResidesInNamespaceWithFullNameMatching(pattern),
                 "reside in namespace with full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> ResideInNamespaceWithFullNameContaining(string pattern)
         {
-            return new Predicate<T>(type => type.ResidesInNamespaceWithFullNameContaining(pattern),
+            return new SimplePredicate<T>(type => type.ResidesInNamespaceWithFullNameContaining(pattern),
                 "reside in namespace with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> HavePropertyMemberWithName(string name)
         {
-            return new Predicate<T>(type => type.HasPropertyMemberWithName(name),
+            return new SimplePredicate<T>(type => type.HasPropertyMemberWithName(name),
                 "have property member with name\"" + name + "\"");
         }
 
         public static IPredicate<T> HaveFieldMemberWithName(string name)
         {
-            return new Predicate<T>(type => type.HasFieldMemberWithName(name),
+            return new SimplePredicate<T>(type => type.HasFieldMemberWithName(name),
                 "have field member with name \"" + name + "\"");
         }
 
         public static IPredicate<T> HaveMethodMemberWithName(string name)
         {
-            return new Predicate<T>(type => type.HasMethodMemberWithName(name),
+            return new SimplePredicate<T>(type => type.HasMethodMemberWithName(name),
                 "have method member with name \"" + name + "\"");
         }
 
         public static IPredicate<T> HaveMemberWithName(string name)
         {
-            return new Predicate<T>(type => type.HasMemberWithName(name), "have member with name \"" + name + "\"");
+            return new SimplePredicate<T>(type => type.HasMemberWithName(name),
+                "have member with name \"" + name + "\"");
         }
 
         public static IPredicate<T> AreNested()
         {
-            return new Predicate<T>(type => type.IsNested, "are nested");
+            return new SimplePredicate<T>(type => type.IsNested, "are nested");
         }
 
 
@@ -240,13 +241,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> AreNotAssignableToTypesWithFullNameMatching(string pattern)
         {
             var description = "are not assignable to types with full name matching \"" + pattern + "\"";
-            return new Predicate<T>(type => !type.IsAssignableToTypesWithFullNameMatching(pattern), description);
+            return new SimplePredicate<T>(type => !type.IsAssignableToTypesWithFullNameMatching(pattern), description);
         }
 
         public static IPredicate<T> AreNotAssignableToTypesWithFullNameContaining(string pattern)
         {
             var description = "are not assignable to types with full name containing \"" + pattern + "\"";
-            return new Predicate<T>(type => !type.IsAssignableToTypesWithFullNameContaining(pattern), description);
+            return new SimplePredicate<T>(type => !type.IsAssignableToTypesWithFullNameContaining(pattern),
+                description);
         }
 
         public static IPredicate<T> AreNotAssignableTo(IType firstType, params IType[] moreTypes)
@@ -258,7 +260,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            return new Predicate<T>(Condition, description);
+            return new SimplePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreNotAssignableTo(Type firstType, params Type[] moreTypes)
@@ -307,7 +309,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new Predicate<T>(Condition, description);
+            return new SimplePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreNotAssignableTo(IEnumerable<Type> types)
@@ -338,57 +340,57 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> DoNotImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(type => !type.ImplementsInterfacesWithFullNameMatching(pattern),
+            return new SimplePredicate<T>(type => !type.ImplementsInterfacesWithFullNameMatching(pattern),
                 "do not implement interface with full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotImplementInterfaceWithFullNameContaining(string pattern)
         {
-            return new Predicate<T>(type => !type.ImplementsInterfacesWithFullNameContaining(pattern),
+            return new SimplePredicate<T>(type => !type.ImplementsInterfacesWithFullNameContaining(pattern),
                 "do not implement interface with full name containing \"" + pattern + "\"");
         }
 
 
         public static IPredicate<T> DoNotResideInNamespaceWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(type => !type.ResidesInNamespaceWithFullNameMatching(pattern),
+            return new SimplePredicate<T>(type => !type.ResidesInNamespaceWithFullNameMatching(pattern),
                 "do not reside in namespace with full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotResideInNamespaceWithFullNameContaining(string pattern)
         {
-            return new Predicate<T>(type => !type.ResidesInNamespaceWithFullNameContaining(pattern),
+            return new SimplePredicate<T>(type => !type.ResidesInNamespaceWithFullNameContaining(pattern),
                 "do not reside in namespace with full name containing \"" + pattern + "\"");
         }
 
 
         public static IPredicate<T> DoNotHavePropertyMemberWithName(string name)
         {
-            return new Predicate<T>(type => !type.HasPropertyMemberWithName(name),
+            return new SimplePredicate<T>(type => !type.HasPropertyMemberWithName(name),
                 "do not have property member with name \"" + name + "\"");
         }
 
         public static IPredicate<T> DoNotHaveFieldMemberWithName(string name)
         {
-            return new Predicate<T>(type => !type.HasFieldMemberWithName(name),
+            return new SimplePredicate<T>(type => !type.HasFieldMemberWithName(name),
                 "do not have field member with name \"" + name + "\"");
         }
 
         public static IPredicate<T> DoNotHaveMethodMemberWithName(string name)
         {
-            return new Predicate<T>(type => !type.HasMethodMemberWithName(name),
+            return new SimplePredicate<T>(type => !type.HasMethodMemberWithName(name),
                 "do not have method member with name \"" + name + "\"");
         }
 
         public static IPredicate<T> DoNotHaveMemberWithName(string name)
         {
-            return new Predicate<T>(type => !type.HasMemberWithName(name),
+            return new SimplePredicate<T>(type => !type.HasMemberWithName(name),
                 "do not have member with name \"" + name + "\"");
         }
 
         public static IPredicate<T> AreNotNested()
         {
-            return new Predicate<T>(type => !type.IsNested, "are not nested");
+            return new SimplePredicate<T>(type => !type.IsNested, "are not nested");
         }
     }
 }
