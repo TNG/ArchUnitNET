@@ -22,6 +22,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction AreDeclaredInTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.AreDeclaredInTypesWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction AreDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(firstType, moreTypes));
@@ -65,6 +72,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction HaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.HaveBodyTypeMemberDependenciesWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction HaveMethodCallDependencies()
         {
             _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.HaveMethodCallDependencies());
@@ -75,6 +89,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             _ruleCreator.AddPredicate(
                 MemberPredicatesDefinition<TRuleType>.HaveMethodCallDependenciesWithFullNameMatching(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveMethodCallDependenciesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.HaveMethodCallDependenciesWithFullNameContaining(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -91,6 +112,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction HaveFieldTypeDependenciesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.HaveFieldTypeDependenciesWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -99,6 +127,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             _ruleCreator.AddPredicate(
                 MemberPredicatesDefinition<TRuleType>.AreNotDeclaredInTypesWithFullNameMatching(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotDeclaredInTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.AreNotDeclaredInTypesWithFullNameContaining(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -145,6 +180,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction DoNotHaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>
+                    .DoNotHaveBodyTypeMemberDependenciesWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction DoNotHaveMethodCallDependencies()
         {
             _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.DoNotHaveMethodCallDependencies());
@@ -158,6 +201,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction DoNotHaveMethodCallDependenciesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.DoNotHaveMethodCallDependenciesWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction DoNotHaveFieldTypeDependencies()
         {
             _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.DoNotHaveFieldTypeDependencies());
@@ -168,6 +218,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             _ruleCreator.AddPredicate(
                 MemberPredicatesDefinition<TRuleType>.DoNotHaveFieldTypeDependenciesWithFullNameMatching(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveFieldTypeDependenciesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.DoNotHaveFieldTypeDependenciesWithFullNameContaining(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }

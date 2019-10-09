@@ -43,9 +43,14 @@ namespace ArchUnitNET.Domain
             return Type.Implements(intf);
         }
 
-        public bool Implements(string interfacePattern)
+        public bool ImplementsInterfacesWithFullNameMatching(string pattern)
         {
-            return Type.Implements(interfacePattern);
+            return Type.ImplementsInterfacesWithFullNameMatching(pattern);
+        }
+
+        public bool ImplementsInterfacesWithFullNameContaining(string pattern)
+        {
+            return Type.ImplementsInterfacesWithFullNameContaining(pattern);
         }
 
         public bool IsAssignableTo(IType assignableToType)
@@ -59,9 +64,14 @@ namespace ArchUnitNET.Domain
             return false;
         }
 
-        public bool IsAssignableTo(string pattern)
+        public bool IsAssignableToTypesWithFullNameMatching(string pattern)
         {
-            return Implements(pattern);
+            return ImplementsInterfacesWithFullNameMatching(pattern);
+        }
+
+        public bool IsAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            return ImplementsInterfacesWithFullNameContaining(pattern);
         }
 
         public override string ToString()

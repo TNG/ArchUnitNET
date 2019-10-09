@@ -55,9 +55,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> BeAssignableToTypesWithFullNameMatching(string pattern)
         {
-            var description = "be assignable to types with full name matching\"" + pattern + "\"";
-            var failDescription = "is not assignable to a type with full name matching\"" + pattern + "\"";
-            return new SimpleCondition<TRuleType>(type => type.IsAssignableTo(pattern), description, failDescription);
+            var description = "be assignable to types with full name matching \"" + pattern + "\"";
+            var failDescription = "is not assignable to a type with full name matching \"" + pattern + "\"";
+            return new SimpleCondition<TRuleType>(type => type.IsAssignableToTypesWithFullNameMatching(pattern),
+                description, failDescription);
+        }
+
+        public static ICondition<TRuleType> BeAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            var description = "be assignable to types with full name containing \"" + pattern + "\"";
+            var failDescription = "is not assignable to a type with full name containing \"" + pattern + "\"";
+            return new SimpleCondition<TRuleType>(type => type.IsAssignableToTypesWithFullNameContaining(pattern),
+                description, failDescription);
         }
 
         public static SimpleCondition<TRuleType> BeAssignableTo(IType firstType, params IType[] moreTypes)
@@ -164,17 +173,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static ICondition<TRuleType> ImplementInterfaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                type => type.Implements(pattern),
+                type => type.ImplementsInterfacesWithFullNameMatching(pattern),
                 "implement interface with full name matching \"" + pattern + "\"",
                 "does not implement interface with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> ImplementInterfaceWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ImplementsInterfacesWithFullNameContaining(pattern),
+                "implement interface with full name containing \"" + pattern + "\"",
+                "does not implement interface with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> ResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                type => type.ResidesInNamespace(pattern),
+                type => type.ResidesInNamespaceWithFullNameMatching(pattern),
                 "reside in namespace with full name matching \"" + pattern + "\"",
                 "does not reside in namespace with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> ResideInNamespaceWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInNamespaceWithFullNameContaining(pattern),
+                "reside in namespace with full name containing \"" + pattern + "\"",
+                "does not reside in namespace with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> HavePropertyMemberWithName(string name)
@@ -262,9 +287,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> NotBeAssignableToTypesWithFullNameMatching(string pattern)
         {
-            var description = "not be assignable to types with full name matching\"" + pattern + "\"";
-            var failDescription = "is assignable to a type with full name matching\"" + pattern + "\"";
-            return new SimpleCondition<TRuleType>(type => !type.IsAssignableTo(pattern), description, failDescription);
+            var description = "not be assignable to types with full name matching \"" + pattern + "\"";
+            var failDescription = "is assignable to a type with full name matching \"" + pattern + "\"";
+            return new SimpleCondition<TRuleType>(type => !type.IsAssignableToTypesWithFullNameMatching(pattern),
+                description, failDescription);
+        }
+
+        public static ICondition<TRuleType> NotBeAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            var description = "not be assignable to types with full name containing \"" + pattern + "\"";
+            var failDescription = "is assignable to a type with full name containing \"" + pattern + "\"";
+            return new SimpleCondition<TRuleType>(type => !type.IsAssignableToTypesWithFullNameContaining(pattern),
+                description, failDescription);
         }
 
         public static ICondition<TRuleType> NotBeAssignableTo(IType firstType, params IType[] moreTypes)
@@ -370,17 +404,32 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> NotImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(type => !type.Implements(pattern),
+            return new SimpleCondition<TRuleType>(type => !type.ImplementsInterfacesWithFullNameMatching(pattern),
                 "not implement interface with full name matching \"" + pattern + "\"",
                 "does implement interface with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotImplementInterfaceWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(type => !type.ImplementsInterfacesWithFullNameContaining(pattern),
+                "not implement interface with full name containing \"" + pattern + "\"",
+                "does implement interface with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotResideInNamespaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                type => !type.ResidesInNamespace(pattern),
+                type => !type.ResidesInNamespaceWithFullNameMatching(pattern),
                 "not reside in namespace with full name matching \"" + pattern + "\"",
                 "does reside in namespace with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotResideInNamespaceWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInNamespaceWithFullNameContaining(pattern),
+                "not reside in namespace with full name containing \"" + pattern + "\"",
+                "does reside in namespace with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotHavePropertyMemberWithName(string name)

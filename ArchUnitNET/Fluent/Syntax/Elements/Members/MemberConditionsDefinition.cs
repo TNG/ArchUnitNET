@@ -10,9 +10,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
     {
         public static ICondition<TRuleType> BeDeclaredInTypesWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(member => member.IsDeclaredIn(pattern),
+            return new SimpleCondition<TRuleType>(member => member.IsDeclaredInTypeWithFullNameMatching(pattern),
                 "be declared in types with full name matching \"" + pattern + "\"",
                 "is not declared in a type with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> BeDeclaredInTypesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(member => member.IsDeclaredInTypeWithFullNameContaining(pattern),
+                "be declared in types with full name containing \"" + pattern + "\"",
+                "is not declared in a type with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(IType firstType, params IType[] moreTypes)
@@ -125,9 +132,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static ICondition<TRuleType> HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(member => member.HasBodyTypeMemberDependencies(pattern),
-                "have body type member dependencies \"" + pattern + "\"",
-                "has no body type member dependencies \"" + pattern + "\"");
+            return new SimpleCondition<TRuleType>(
+                member => member.HasBodyTypeMemberDependenciesWithFullNameMatching(pattern),
+                "have body type member dependencies with full name matching \"" + pattern + "\"",
+                "has no body type member dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> HaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                member => member.HasBodyTypeMemberDependenciesWithFullNameContaining(pattern),
+                "have body type member dependencies with full name containing \"" + pattern + "\"",
+                "has no body type member dependencies with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> HaveMethodCallDependencies()
@@ -139,9 +155,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static ICondition<TRuleType> HaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(member => member.HasMethodCallDependencies(pattern),
-                "have method call dependencies \"" + pattern + "\"",
-                "has no method call dependencies \"" + pattern + "\"");
+            return new SimpleCondition<TRuleType>(
+                member => member.HasMethodCallDependenciesWithFullNameMatching(pattern),
+                "have method call dependencies with full name matching \"" + pattern + "\"",
+                "has no method call dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> HaveMethodCallDependenciesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                member => member.HasMethodCallDependenciesWithFullNameContaining(pattern),
+                "have method call dependencies with full name matching \"" + pattern + "\"",
+                "has no method call dependencies with full name matching \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> HaveFieldTypeDependencies()
@@ -153,9 +178,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static ICondition<TRuleType> HaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(member => member.HasFieldTypeDependencies(pattern),
-                "have field type dependencies \"" + pattern + "\"",
-                "has no field type dependencies \"" + pattern + "\"");
+            return new SimpleCondition<TRuleType>(
+                member => member.HasFieldTypeDependenciesWithFullNameMatching(pattern),
+                "have field type dependencies with full name matching \"" + pattern + "\"",
+                "has no field type dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> HaveFieldTypeDependenciesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                member => member.HasFieldTypeDependenciesWithFullNameContaining(pattern),
+                "have field type dependencies with full name containing \"" + pattern + "\"",
+                "has no field type dependencies with full name containing \"" + pattern + "\"");
         }
 
 
@@ -164,9 +198,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static ICondition<TRuleType> NotBeDeclaredInTypesWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(member => !member.IsDeclaredIn(pattern),
+            return new SimpleCondition<TRuleType>(member => !member.IsDeclaredInTypeWithFullNameMatching(pattern),
                 "not be declared in types with full name matching \"" + pattern + "\"",
                 "is declared in a type with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotBeDeclaredInTypesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(member => !member.IsDeclaredInTypeWithFullNameContaining(pattern),
+                "not be declared in types with full name containing \"" + pattern + "\"",
+                "is declared in a type with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IType firstType, params IType[] moreTypes)
@@ -279,9 +320,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static ICondition<TRuleType> NotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(member => !member.HasBodyTypeMemberDependencies(pattern),
-                "not have body type member dependencies \"" + pattern + "\"",
-                "does have body type member dependencies \"" + pattern + "\"");
+            return new SimpleCondition<TRuleType>(
+                member => !member.HasBodyTypeMemberDependenciesWithFullNameMatching(pattern),
+                "not have body type member dependencies with full name matching \"" + pattern + "\"",
+                "does have body type member dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotHaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                member => !member.HasBodyTypeMemberDependenciesWithFullNameContaining(pattern),
+                "not have body type member dependencies with full name containing \"" + pattern + "\"",
+                "does have body type member dependencies with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotHaveMethodCallDependencies()
@@ -293,9 +343,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static ICondition<TRuleType> NotHaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(member => !member.HasMethodCallDependencies(pattern),
-                "not have method call dependencies \"" + pattern + "\"",
-                "does have method call dependencies \"" + pattern + "\"");
+            return new SimpleCondition<TRuleType>(
+                member => !member.HasMethodCallDependenciesWithFullNameMatching(pattern),
+                "not have method call dependencies with full name matching \"" + pattern + "\"",
+                "does have method call dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotHaveMethodCallDependenciesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                member => !member.HasMethodCallDependenciesWithFullNameContaining(pattern),
+                "not have method call dependencies with full name containing \"" + pattern + "\"",
+                "does have method call dependencies with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotHaveFieldTypeDependencies()
@@ -307,9 +366,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static ICondition<TRuleType> NotHaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(member => !member.HasFieldTypeDependencies(pattern),
-                "not have field type dependencies \"" + pattern + "\"",
-                "does have field type dependencies \"" + pattern + "\"");
+            return new SimpleCondition<TRuleType>(
+                member => !member.HasFieldTypeDependenciesWithFullNameMatching(pattern),
+                "not have field type dependencies with full name matching \"" + pattern + "\"",
+                "does have field type dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotHaveFieldTypeDependenciesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                member => !member.HasFieldTypeDependenciesWithFullNameContaining(pattern),
+                "not have field type dependencies with full name containing \"" + pattern + "\"",
+                "does have field type dependencies with full name containing \"" + pattern + "\"");
         }
     }
 }

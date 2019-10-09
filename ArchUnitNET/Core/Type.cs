@@ -60,17 +60,30 @@ namespace ArchUnitNET.Core
                 Equals(implementedInterface, @interface) || Equals(implementedInterface.GenericType, @interface));
         }
 
-        public bool Implements(string interfacePattern)
+        public bool ImplementsInterfacesWithFullNameMatching(string pattern)
         {
-            if (interfacePattern == null)
+            if (pattern == null)
             {
                 return false;
             }
 
             return ImplementedInterfaces.Any(implementedInterface =>
-                implementedInterface.FullNameMatches(interfacePattern) ||
+                implementedInterface.FullNameMatches(pattern) ||
                 implementedInterface.GenericType != null &&
-                implementedInterface.GenericType.FullNameMatches(interfacePattern));
+                implementedInterface.GenericType.FullNameMatches(pattern));
+        }
+
+        public bool ImplementsInterfacesWithFullNameContaining(string pattern)
+        {
+            if (pattern == null)
+            {
+                return false;
+            }
+
+            return ImplementedInterfaces.Any(implementedInterface =>
+                implementedInterface.FullNameContains(pattern) ||
+                implementedInterface.GenericType != null &&
+                implementedInterface.GenericType.FullNameContains(pattern));
         }
 
         public bool IsAssignableTo(IType assignableToType)
@@ -88,15 +101,26 @@ namespace ArchUnitNET.Core
             return assignableToType is Interface && Implements(assignableToType);
         }
 
-        public bool IsAssignableTo(string pattern)
+        public bool IsAssignableToTypesWithFullNameMatching(string pattern)
         {
             if (pattern == null)
             {
                 return false;
             }
 
-            return this.FullNameMatches(pattern) || Implements(pattern);
+            return this.FullNameMatches(pattern) || ImplementsInterfacesWithFullNameMatching(pattern);
         }
+
+        public bool IsAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            if (pattern == null)
+            {
+                return false;
+            }
+
+            return this.FullNameContains(pattern) || ImplementsInterfacesWithFullNameContaining(pattern);
+        }
+
 
         public override string ToString()
         {

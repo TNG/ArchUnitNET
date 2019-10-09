@@ -10,8 +10,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
     {
         public static IPredicate<T> AreDeclaredInTypesWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(member => member.IsDeclaredIn(pattern),
+            return new Predicate<T>(member => member.IsDeclaredInTypeWithFullNameMatching(pattern),
                 "are declared in types with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> AreDeclaredInTypesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(member => member.IsDeclaredInTypeWithFullNameContaining(pattern),
+                "are declared in types with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> AreDeclaredIn(IType firstType, params IType[] moreTypes)
@@ -109,8 +115,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
             return new Predicate<T>(
-                member => member.HasBodyTypeMemberDependencies(pattern),
-                "have body type member dependencies \"" + pattern + "\"");
+                member => member.HasBodyTypeMemberDependenciesWithFullNameMatching(pattern),
+                "have body type member dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> HaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(
+                member => member.HasBodyTypeMemberDependenciesWithFullNameContaining(pattern),
+                "have body type member dependencies with full name containing\"" + pattern + "\"");
         }
 
         public static IPredicate<T> HaveMethodCallDependencies()
@@ -122,8 +135,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> HaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
             return new Predicate<T>(
-                member => member.HasMethodCallDependencies(pattern),
-                "have method call dependencies \"" + pattern + "\"");
+                member => member.HasMethodCallDependenciesWithFullNameMatching(pattern),
+                "have method call dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> HaveMethodCallDependenciesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(
+                member => member.HasMethodCallDependenciesWithFullNameContaining(pattern),
+                "have method call dependencies with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> HaveFieldTypeDependencies()
@@ -135,8 +155,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> HaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
             return new Predicate<T>(
-                member => member.HasFieldTypeDependencies(pattern),
-                "have field type dependencies \"" + pattern + "\"");
+                member => member.HasFieldTypeDependenciesWithFullNameMatching(pattern),
+                "have field type dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> HaveFieldTypeDependenciesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(
+                member => member.HasFieldTypeDependenciesWithFullNameContaining(pattern),
+                "have field type dependencies with full name containing \"" + pattern + "\"");
         }
 
 
@@ -145,8 +172,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static IPredicate<T> AreNotDeclaredInTypesWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(member => !member.IsDeclaredIn(pattern),
+            return new Predicate<T>(member => !member.IsDeclaredInTypeWithFullNameMatching(pattern),
                 "are not declared in types with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> AreNotDeclaredInTypesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(member => !member.IsDeclaredInTypeWithFullNameContaining(pattern),
+                "are not declared in types with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> AreNotDeclaredIn(IType firstType, params IType[] moreTypes)
@@ -244,8 +277,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> DoNotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
         {
             return new Predicate<T>(
-                member => !member.HasBodyTypeMemberDependencies(pattern),
-                "do not have body type member dependencies \"" + pattern + "\"");
+                member => !member.HasBodyTypeMemberDependenciesWithFullNameMatching(pattern),
+                "do not have body type member dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> DoNotHaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(
+                member => !member.HasBodyTypeMemberDependenciesWithFullNameContaining(pattern),
+                "do not have body type member dependencies with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotHaveMethodCallDependencies()
@@ -257,8 +297,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> DoNotHaveMethodCallDependenciesWithFullNameMatching(string pattern)
         {
             return new Predicate<T>(
-                member => !member.HasMethodCallDependencies(pattern),
-                "do not have method call dependencies \"" + pattern + "\"");
+                member => !member.HasMethodCallDependenciesWithFullNameMatching(pattern),
+                "do not have method call dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> DoNotHaveMethodCallDependenciesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(
+                member => !member.HasMethodCallDependenciesWithFullNameContaining(pattern),
+                "do not have method call dependencies with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotHaveFieldTypeDependencies()
@@ -270,8 +317,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> DoNotHaveFieldTypeDependenciesWithFullNameMatching(string pattern)
         {
             return new Predicate<T>(
-                member => !member.HasFieldTypeDependencies(pattern),
-                "do not have field type dependencies \"" + pattern + "\"");
+                member => !member.HasFieldTypeDependenciesWithFullNameMatching(pattern),
+                "do not have field type dependencies with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> DoNotHaveFieldTypeDependenciesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(
+                member => !member.HasFieldTypeDependenciesWithFullNameContaining(pattern),
+                "do not have field type dependencies with full name containing \"" + pattern + "\"");
         }
     }
 }

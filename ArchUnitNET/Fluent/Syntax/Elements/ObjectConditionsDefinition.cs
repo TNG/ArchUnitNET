@@ -59,6 +59,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "does not depend on any type with full name matching \"" + pattern + "\"");
         }
 
+        public static ICondition<TRuleType> DependOnAnyTypesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameContains(pattern),
+                "depend on any types with full name containing \"" + pattern + "\"",
+                "does not depend on any type with full name containing \"" + pattern + "\"");
+        }
+
         public static ICondition<TRuleType> DependOnAny(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType type)
@@ -467,6 +475,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(
                 obj => !obj.DependsOn(pattern), "not depend on any types with full name matching \"" + pattern + "\"",
                 "does depend on types with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotDependOnAnyTypesWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.FullNameContains(pattern),
+                "not depend on any types with full name containing \"" + pattern + "\"",
+                "does depend on types with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotDependOnAny(IType firstType, params IType[] moreTypes)

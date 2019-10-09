@@ -15,9 +15,14 @@ namespace ArchUnitNET.Fluent.Extensions
 {
     public static class MemberExtensions
     {
-        public static bool IsDeclaredIn(this IMember member, string pattern)
+        public static bool IsDeclaredInTypeWithFullNameMatching(this IMember member, string pattern)
         {
             return member.DeclaringType.FullNameMatches(pattern);
+        }
+
+        public static bool IsDeclaredInTypeWithFullNameContaining(this IMember member, string pattern)
+        {
+            return member.DeclaringType.FullNameContains(pattern);
         }
 
         public static bool IsDeclaredIn(this IMember member, IType type)
@@ -35,10 +40,16 @@ namespace ArchUnitNET.Fluent.Extensions
             return member.GetBodyTypeMemberDependencies().Any();
         }
 
-        public static bool HasBodyTypeMemberDependencies(this IMember member, string pattern)
+        public static bool HasBodyTypeMemberDependenciesWithFullNameMatching(this IMember member, string pattern)
         {
             return member.GetBodyTypeMemberDependencies().Any(dependency =>
                 dependency.Origin.FullNameMatches(pattern) || dependency.Target.FullNameMatches(pattern));
+        }
+
+        public static bool HasBodyTypeMemberDependenciesWithFullNameContaining(this IMember member, string pattern)
+        {
+            return member.GetBodyTypeMemberDependencies().Any(dependency =>
+                dependency.Origin.FullNameContains(pattern) || dependency.Target.FullNameContains(pattern));
         }
 
         public static IEnumerable<MethodCallDependency> GetMethodCallDependencies(this IMember member)
@@ -51,10 +62,16 @@ namespace ArchUnitNET.Fluent.Extensions
             return member.GetMethodCallDependencies().Any();
         }
 
-        public static bool HasMethodCallDependencies(this IMember member, string pattern)
+        public static bool HasMethodCallDependenciesWithFullNameMatching(this IMember member, string pattern)
         {
             return member.GetMethodCallDependencies().Any(dependency =>
                 dependency.Origin.FullNameMatches(pattern) || dependency.Target.FullNameMatches(pattern));
+        }
+
+        public static bool HasMethodCallDependenciesWithFullNameContaining(this IMember member, string pattern)
+        {
+            return member.GetMethodCallDependencies().Any(dependency =>
+                dependency.Origin.FullNameContains(pattern) || dependency.Target.FullNameContains(pattern));
         }
 
         public static IEnumerable<ITypeDependency> GetFieldTypeDependencies(this IHasDependencies type)
@@ -67,10 +84,16 @@ namespace ArchUnitNET.Fluent.Extensions
             return member.GetFieldTypeDependencies().Any();
         }
 
-        public static bool HasFieldTypeDependencies(this IMember member, string pattern)
+        public static bool HasFieldTypeDependenciesWithFullNameMatching(this IMember member, string pattern)
         {
             return member.GetFieldTypeDependencies().Any(dependency =>
                 dependency.Origin.FullNameMatches(pattern) || dependency.Target.FullNameMatches(pattern));
+        }
+
+        public static bool HasFieldTypeDependenciesWithFullNameContaining(this IMember member, string pattern)
+        {
+            return member.GetFieldTypeDependencies().Any(dependency =>
+                dependency.Origin.FullNameContains(pattern) || dependency.Target.FullNameContains(pattern));
         }
 
         public static Attribute GetAttributeFromMember(this IMember member, Class attributeClass)

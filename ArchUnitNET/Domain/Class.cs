@@ -83,9 +83,14 @@ namespace ArchUnitNET.Domain
             return Type.Implements(intf);
         }
 
-        public bool Implements(string interfacePattern)
+        public bool ImplementsInterfacesWithFullNameMatching(string pattern)
         {
-            return Type.Implements(interfacePattern);
+            return Type.ImplementsInterfacesWithFullNameMatching(pattern);
+        }
+
+        public bool ImplementsInterfacesWithFullNameContaining(string pattern)
+        {
+            return Type.ImplementsInterfacesWithFullNameContaining(pattern);
         }
 
         public bool IsAssignableTo(IType assignableToType)
@@ -106,19 +111,34 @@ namespace ArchUnitNET.Domain
             }
         }
 
-        public bool IsAssignableTo(string pattern)
+        public bool IsAssignableToTypesWithFullNameMatching(string pattern)
         {
             if (pattern == null)
             {
                 return false;
             }
 
-            if (this.FullNameMatches(pattern) || Implements(pattern))
+            if (this.FullNameMatches(pattern) || ImplementsInterfacesWithFullNameMatching(pattern))
             {
                 return true;
             }
 
-            return BaseClass != null && BaseClass.IsAssignableTo(pattern);
+            return BaseClass != null && BaseClass.IsAssignableToTypesWithFullNameMatching(pattern);
+        }
+
+        public bool IsAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            if (pattern == null)
+            {
+                return false;
+            }
+
+            if (this.FullNameContains(pattern) || ImplementsInterfacesWithFullNameContaining(pattern))
+            {
+                return true;
+            }
+
+            return BaseClass != null && BaseClass.IsAssignableToTypesWithFullNameContaining(pattern);
         }
 
         public override string ToString()

@@ -36,6 +36,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction DependOnAnyTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DependOnAnyTypesWithFullNameContaining(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction DependOnAny(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -212,6 +219,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectPredicatesDefinition<TReferenceType>.DoNotDependOnAnyTypesWithFullNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotDependOnAnyTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotDependOnAnyTypesWithFullNameContaining(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

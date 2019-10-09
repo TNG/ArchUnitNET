@@ -35,6 +35,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction BeAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.BeAssignableToTypesWithFullNameContaining(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction BeAssignableTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeAssignableTo(firstType, moreTypes));
@@ -72,10 +79,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction ImplementInterfaceWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.ImplementInterfaceWithFullNameContaining(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction ResideInNamespaceWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddCondition(
                 TypeConditionsDefinition<TRuleType>.ResideInNamespaceWithFullNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction ResideInNamespaceWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.ResideInNamespaceWithFullNameContaining(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -132,6 +153,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction NotBeAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.NotBeAssignableToTypesWithFullNameContaining(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction NotBeAssignableTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.NotBeAssignableTo(firstType, moreTypes));
@@ -170,10 +198,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction NotImplementInterfaceWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.NotImplementInterfaceWithFullNameContaining(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction NotResideInNamespaceWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddCondition(
                 TypeConditionsDefinition<TRuleType>.NotResideInNamespaceWithFullNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotResideInNamespaceWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.NotResideInNamespaceWithFullNameContaining(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

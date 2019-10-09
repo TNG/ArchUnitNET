@@ -34,6 +34,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction AreAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.AreAssignableToTypesWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction AreAssignableTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreAssignableTo(firstType, moreTypes));
@@ -71,10 +78,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction ImplementInterfaceWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ImplementInterfaceWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction ResideInNamespaceWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
                 TypePredicatesDefinition<TRuleType>.ResideInNamespaceWithFullNameMatching(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction ResideInNamespaceWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ResideInNamespaceWithFullNameContaining(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -131,6 +152,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction AreNotAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.AreNotAssignableToTypesWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction AreNotAssignableTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNotAssignableTo(firstType, moreTypes));
@@ -168,10 +196,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction DoNotImplementInterfaceWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotImplementInterfaceWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction DoNotResideInNamespaceWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
                 TypePredicatesDefinition<TRuleType>.DoNotResideInNamespaceWithFullNameMatching(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotResideInNamespaceWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotResideInNamespaceWithFullNameContaining(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

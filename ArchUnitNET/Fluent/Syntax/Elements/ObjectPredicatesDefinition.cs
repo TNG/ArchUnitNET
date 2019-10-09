@@ -41,6 +41,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "depend on any types with full name matching \"" + pattern + "\"");
         }
 
+        public static IPredicate<T> DependOnAnyTypesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(obj => obj.FullNameContains(pattern),
+                "depend on any types with full name containing \"" + pattern + "\"");
+        }
+
         public static IPredicate<T> DependOnAny(IType firstType, params IType[] moreTypes)
         {
             bool Condition(T type)
@@ -326,6 +332,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new Predicate<T>(obj => !obj.DependsOn(pattern),
                 "do not depend on any types with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> DoNotDependOnAnyTypesWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(obj => !obj.FullNameContains(pattern),
+                "do not depend on any types with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotDependOnAny(IType firstType, params IType[] moreTypes)

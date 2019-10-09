@@ -48,7 +48,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> AreAssignableToTypesWithFullNameMatching(string pattern)
         {
             var description = "are assignable to types with full name matching \"" + pattern + "\"";
-            return new Predicate<T>(type => type.IsAssignableTo(pattern), description);
+            return new Predicate<T>(type => type.IsAssignableToTypesWithFullNameMatching(pattern), description);
+        }
+
+        public static IPredicate<T> AreAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            var description = "are assignable to types with full name containing \"" + pattern + "\"";
+            return new Predicate<T>(type => type.IsAssignableToTypesWithFullNameContaining(pattern), description);
         }
 
         public static IPredicate<T> AreAssignableTo(IType firstType, params IType[] moreTypes)
@@ -139,14 +145,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> ImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(type => type.Implements(pattern),
+            return new Predicate<T>(type => type.ImplementsInterfacesWithFullNameMatching(pattern),
                 "implement interface with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> ImplementInterfaceWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(type => type.ImplementsInterfacesWithFullNameContaining(pattern),
+                "implement interface with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> ResideInNamespaceWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(type => type.ResidesInNamespace(pattern),
+            return new Predicate<T>(type => type.ResidesInNamespaceWithFullNameMatching(pattern),
                 "reside in namespace with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> ResideInNamespaceWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(type => type.ResidesInNamespaceWithFullNameContaining(pattern),
+                "reside in namespace with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> HavePropertyMemberWithName(string name)
@@ -222,7 +240,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> AreNotAssignableToTypesWithFullNameMatching(string pattern)
         {
             var description = "are not assignable to types with full name matching \"" + pattern + "\"";
-            return new Predicate<T>(type => !type.IsAssignableTo(pattern), description);
+            return new Predicate<T>(type => !type.IsAssignableToTypesWithFullNameMatching(pattern), description);
+        }
+
+        public static IPredicate<T> AreNotAssignableToTypesWithFullNameContaining(string pattern)
+        {
+            var description = "are not assignable to types with full name containing \"" + pattern + "\"";
+            return new Predicate<T>(type => !type.IsAssignableToTypesWithFullNameContaining(pattern), description);
         }
 
         public static IPredicate<T> AreNotAssignableTo(IType firstType, params IType[] moreTypes)
@@ -314,15 +338,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> DoNotImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(type => !type.Implements(pattern),
+            return new Predicate<T>(type => !type.ImplementsInterfacesWithFullNameMatching(pattern),
                 "do not implement interface with full name matching \"" + pattern + "\"");
         }
 
+        public static IPredicate<T> DoNotImplementInterfaceWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(type => !type.ImplementsInterfacesWithFullNameContaining(pattern),
+                "do not implement interface with full name containing \"" + pattern + "\"");
+        }
+
+
         public static IPredicate<T> DoNotResideInNamespaceWithFullNameMatching(string pattern)
         {
-            return new Predicate<T>(type => !type.ResidesInNamespace(pattern),
+            return new Predicate<T>(type => !type.ResidesInNamespaceWithFullNameMatching(pattern),
                 "do not reside in namespace with full name matching \"" + pattern + "\"");
         }
+
+        public static IPredicate<T> DoNotResideInNamespaceWithFullNameContaining(string pattern)
+        {
+            return new Predicate<T>(type => !type.ResidesInNamespaceWithFullNameContaining(pattern),
+                "do not reside in namespace with full name containing \"" + pattern + "\"");
+        }
+
 
         public static IPredicate<T> DoNotHavePropertyMemberWithName(string name)
         {

@@ -125,9 +125,19 @@ namespace ArchUnitNET.Fluent.Extensions
             return pattern != null && Regex.IsMatch(cls.FullName, pattern);
         }
 
-        public static bool ResidesInNamespace(this IType e, string pattern)
+        public static bool FullNameContains(this IHasName cls, string pattern)
+        {
+            return cls.FullName.ToLower().Contains(pattern.ToLower());
+        }
+
+        public static bool ResidesInNamespaceWithFullNameMatching(this IType e, string pattern)
         {
             return e.Namespace.FullNameMatches(pattern);
+        }
+
+        public static bool ResidesInNamespaceWithFullNameContaining(this IType e, string pattern)
+        {
+            return e.Namespace.FullNameContains(pattern);
         }
 
         public static bool DependsOn(this IHasDependencies c, string pattern)

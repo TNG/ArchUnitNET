@@ -93,7 +93,8 @@ namespace ArchUnitNETTests.Fluent.Extensions
         public void ImplementsInterfaceTest()
         {
             Assert.True(Architecture.Types.All(type =>
-                type.ImplementedInterfaces.All(intf => type.Implements(intf.FullName))));
+                type.ImplementedInterfaces.All(intf =>
+                    type.ImplementsInterfacesWithFullNameContaining(intf.FullName))));
         }
 
         [Fact]
@@ -126,9 +127,9 @@ namespace ArchUnitNETTests.Fluent.Extensions
         [Fact]
         public void NamespaceMatchAsExpected()
         {
-            Assert.True(_exampleAttribute.ResidesInNamespace(ExpectedAttributeNamespace));
-            Assert.True(_regexUtilsTests.ResidesInNamespace(ExpectedRegexUtilsTestNamespace));
-            Assert.True(_exampleAttribute.ResidesInNamespace(string.Empty));
+            Assert.True(_exampleAttribute.ResidesInNamespaceWithFullNameContaining(ExpectedAttributeNamespace));
+            Assert.True(_regexUtilsTests.ResidesInNamespaceWithFullNameContaining(ExpectedRegexUtilsTestNamespace));
+            Assert.True(_exampleAttribute.ResidesInNamespaceWithFullNameContaining(string.Empty));
         }
 
         [Fact]
