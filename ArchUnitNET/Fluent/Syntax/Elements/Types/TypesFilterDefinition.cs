@@ -45,6 +45,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureObjectFilter<T>(Filter, description);
         }
 
+        public static ObjectFilter<T> AreAssignableToTypesWithFullNameMatching(string pattern)
+        {
+            var description = "are assignable to types with full name matching \"" + pattern + "\"";
+            return new ObjectFilter<T>(type => type.IsAssignableTo(pattern), description);
+        }
+
         public static ObjectFilter<T> AreAssignableTo(IType firstType, params IType[] moreTypes)
         {
             bool Condition(T ruleType)
@@ -133,7 +139,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ObjectFilter<T> ImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(type => type.ImplementsInterface(pattern),
+            return new ObjectFilter<T>(type => type.Implements(pattern),
                 "implement interface with full name matching \"" + pattern + "\"");
         }
 
@@ -211,6 +217,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             return new ArchitectureObjectFilter<T>(Filter, description);
+        }
+
+        public static ObjectFilter<T> AreNotAssignableToTypesWithFullNameMatching(string pattern)
+        {
+            var description = "are not assignable to types with full name matching \"" + pattern + "\"";
+            return new ObjectFilter<T>(type => !type.IsAssignableTo(pattern), description);
         }
 
         public static ObjectFilter<T> AreNotAssignableTo(IType firstType, params IType[] moreTypes)
@@ -302,7 +314,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ObjectFilter<T> DoNotImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new ObjectFilter<T>(type => !type.ImplementsInterface(pattern),
+            return new ObjectFilter<T>(type => !type.Implements(pattern),
                 "do not implement interface with full name matching \"" + pattern + "\"");
         }
 

@@ -53,6 +53,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
+        public static SimpleCondition<TRuleType> BeAssignableToTypesWithFullNameMatching(string pattern)
+        {
+            var description = "be assignable to types with full name matching\"" + pattern + "\"";
+            var failDescription = "is not assignable to a type with full name matching\"" + pattern + "\"";
+            return new SimpleCondition<TRuleType>(type => type.IsAssignableTo(pattern), description, failDescription);
+        }
+
         public static SimpleCondition<TRuleType> BeAssignableTo(IType firstType, params IType[] moreTypes)
         {
             bool Condition(TRuleType ruleType)
@@ -157,7 +164,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static SimpleCondition<TRuleType> ImplementInterfaceWithFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                type => type.ImplementsInterface(pattern),
+                type => type.Implements(pattern),
                 "implement interface with full name matching \"" + pattern + "\"",
                 "does not implement interface with full name matching \"" + pattern + "\"");
         }
@@ -251,6 +258,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
 
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static SimpleCondition<TRuleType> NotBeAssignableToTypesWithFullNameMatching(string pattern)
+        {
+            var description = "not be assignable to types with full name matching\"" + pattern + "\"";
+            var failDescription = "is assignable to a type with full name matching\"" + pattern + "\"";
+            return new SimpleCondition<TRuleType>(type => !type.IsAssignableTo(pattern), description, failDescription);
         }
 
         public static SimpleCondition<TRuleType> NotBeAssignableTo(IType firstType, params IType[] moreTypes)
@@ -356,7 +370,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static SimpleCondition<TRuleType> NotImplementInterfaceWithFullNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(type => !type.ImplementsInterface(pattern),
+            return new SimpleCondition<TRuleType>(type => !type.Implements(pattern),
                 "not implement interface with full name matching \"" + pattern + "\"",
                 "does implement interface with full name matching \"" + pattern + "\"");
         }

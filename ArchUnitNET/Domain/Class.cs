@@ -83,6 +83,11 @@ namespace ArchUnitNET.Domain
             return Type.Implements(intf);
         }
 
+        public bool Implements(string interfacePattern)
+        {
+            return Type.Implements(interfacePattern);
+        }
+
         public bool IsAssignableTo(IType assignableToType)
         {
             if (Equals(assignableToType, this))
@@ -99,6 +104,21 @@ namespace ArchUnitNET.Domain
                 default:
                     return false;
             }
+        }
+
+        public bool IsAssignableTo(string pattern)
+        {
+            if (pattern == null)
+            {
+                return false;
+            }
+
+            if (this.FullNameMatches(pattern) || Implements(pattern))
+            {
+                return true;
+            }
+
+            return BaseClass != null && BaseClass.IsAssignableTo(pattern);
         }
 
         public override string ToString()

@@ -20,6 +20,8 @@ namespace ArchUnitNET.Domain
         bool IsNested { get; }
         IEnumerable<IType> ImplementedInterfaces { get; }
         bool Implements(IType intf);
+        bool Implements(string interfacePattern);
         bool IsAssignableTo(IType assignableToType);
+        bool IsAssignableTo(string pattern);
     }
 }

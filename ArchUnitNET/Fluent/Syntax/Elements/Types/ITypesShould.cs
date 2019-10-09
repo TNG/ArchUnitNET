@@ -11,6 +11,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         TRuleTypeShouldConjunction Be(Type firstType, params Type[] moreTypes);
         TRuleTypeShouldConjunction Be(IEnumerable<Type> types);
+        TRuleTypeShouldConjunction BeAssignableToTypesWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction BeAssignableTo(IType firstType, params IType[] moreTypes);
         TRuleTypeShouldConjunction BeAssignableTo(Type type, params Type[] moreTypes);
         TRuleTypeShouldConjunction BeAssignableTo(ObjectProvider<IType> types);
@@ -30,6 +31,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         TRuleTypeShouldConjunction NotBe(Type firstType, params Type[] moreTypes);
         TRuleTypeShouldConjunction NotBe(IEnumerable<Type> types);
+        TRuleTypeShouldConjunction NotBeAssignableToTypesWithFullNameMatching(string pattern);
         TRuleTypeShouldConjunction NotBeAssignableTo(IType type, params IType[] moreTypes);
         TRuleTypeShouldConjunction NotBeAssignableTo(Type type, params Type[] moreTypes);
         TRuleTypeShouldConjunction NotBeAssignableTo(ObjectProvider<IType> types);

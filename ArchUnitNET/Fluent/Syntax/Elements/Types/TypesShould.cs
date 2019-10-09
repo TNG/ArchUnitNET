@@ -28,6 +28,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction BeAssignableToTypesWithFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypesConditionDefinition<TRuleType>.BeAssignableToTypesWithFullNameMatching(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction BeAssignableTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.BeAssignableTo(firstType, moreTypes));
@@ -115,6 +122,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction NotBe(IEnumerable<Type> types)
         {
             _ruleCreator.AddCondition(TypesConditionDefinition<TRuleType>.NotBe(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeAssignableToTypesWithFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypesConditionDefinition<TRuleType>.NotBeAssignableToTypesWithFullNameMatching(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

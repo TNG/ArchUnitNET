@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Types;
+using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Core
 {
@@ -59,6 +60,18 @@ namespace ArchUnitNET.Core
                 Equals(implementedInterface, @interface) || Equals(implementedInterface.GenericType, @interface));
         }
 
+        public bool Implements(string interfacePattern)
+        {
+            if (interfacePattern == null)
+            {
+                return false;
+            }
+
+            return ImplementedInterfaces.Any(implementedInterface =>
+                implementedInterface.FullNameMatches(interfacePattern) ||
+                implementedInterface.GenericType.FullNameMatches(interfacePattern));
+        }
+
         public bool IsAssignableTo(IType assignableToType)
         {
             if (assignableToType == null)
@@ -72,6 +85,16 @@ namespace ArchUnitNET.Core
             }
 
             return assignableToType is Interface && Implements(assignableToType);
+        }
+
+        public bool IsAssignableTo(string pattern)
+        {
+            if (pattern == null)
+            {
+                return false;
+            }
+
+            return this.FullNameMatches(pattern) || Implements(pattern);
         }
 
         public override string ToString()

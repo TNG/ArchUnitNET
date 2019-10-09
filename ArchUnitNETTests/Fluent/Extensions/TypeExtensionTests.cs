@@ -93,7 +93,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
         public void ImplementsInterfaceTest()
         {
             Assert.True(Architecture.Types.All(type =>
-                type.ImplementedInterfaces.All(intf => type.ImplementsInterface(intf.FullName))));
+                type.ImplementedInterfaces.All(intf => type.Implements(intf.FullName))));
         }
 
         [Fact]

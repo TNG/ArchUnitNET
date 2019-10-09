@@ -43,6 +43,11 @@ namespace ArchUnitNET.Domain
             return Type.Implements(intf);
         }
 
+        public bool Implements(string interfacePattern)
+        {
+            return Type.Implements(interfacePattern);
+        }
+
         public bool IsAssignableTo(IType assignableToType)
         {
             if (assignableToType is Interface @interface)
@@ -52,6 +57,11 @@ namespace ArchUnitNET.Domain
             }
 
             return false;
+        }
+
+        public bool IsAssignableTo(string pattern)
+        {
+            return Implements(pattern);
         }
 
         public override string ToString()

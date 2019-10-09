@@ -27,6 +27,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction AreAssignableToTypesWithFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddObjectFilter(
+                TypesFilterDefinition<TRuleType>.AreAssignableToTypesWithFullNameMatching(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction AreAssignableTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreAssignableTo(firstType, moreTypes));
@@ -114,6 +121,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TGivenRuleTypeConjunction AreNot(IEnumerable<Type> types)
         {
             _ruleCreator.AddObjectFilter(TypesFilterDefinition<TRuleType>.AreNot(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotAssignableToTypesWithFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddObjectFilter(
+                TypesFilterDefinition<TRuleType>.AreNotAssignableToTypesWithFullNameMatching(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
