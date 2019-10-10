@@ -156,7 +156,8 @@ namespace ArchUnitNET.Fluent
 
             public string Description => _condition == null
                 ? ""
-                : (_logicalConjunction.Description + " should " + _condition.Description + " " + _reason).Trim();
+                : (_logicalConjunction.Description + " should " + _condition.GetShortDescription() + " " + _reason)
+                .Trim();
 
             public void AddReason(string reason)
             {

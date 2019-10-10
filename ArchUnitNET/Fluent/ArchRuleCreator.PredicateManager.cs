@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Fluent.Syntax;
 
 namespace ArchUnitNET.Fluent
@@ -72,7 +73,7 @@ namespace ArchUnitNET.Fluent
 
             public string Description => _predicate == null
                 ? _logicalConjunction.Description
-                : (_logicalConjunction.Description + " " + _predicate.Description + " " + _reason).Trim();
+                : (_logicalConjunction.Description + " " + _predicate.GetShortDescription() + " " + _reason).Trim();
 
             public void AddReason(string reason)
             {
