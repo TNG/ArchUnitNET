@@ -12,11 +12,10 @@ namespace ArchUnitNET.Fluent
         }
 
         public string Description => _valueIfExists ? "exist" : "not exist";
-        public string FailDescription => _valueIfExists ? "does not exist" : "does exist";
 
         public ConditionResult Check(TRuleType obj, Architecture architecture)
         {
-            return new ConditionResult(_valueIfExists, FailDescription);
+            return new ConditionResult(_valueIfExists, "does exist");
         }
 
         public bool CheckEmpty()

@@ -9,6 +9,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType Exist();
         TReturnType Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType Be(IEnumerable<ICanBeAnalyzed> objects);
+        TReturnType Be(IObjectProvider<ICanBeAnalyzed> objects);
         TReturnType DependOnAnyTypesWithFullNameMatching(string pattern);
         TReturnType DependOnAnyTypesWithFullNameContaining(string pattern);
         TReturnType DependOnAny(IType firstType, params IType[] moreTypes);
@@ -45,6 +46,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType NotExist();
         TReturnType NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType NotBe(IEnumerable<ICanBeAnalyzed> objects);
+        TReturnType NotBe(IObjectProvider<ICanBeAnalyzed> objects);
         TReturnType NotDependOnAnyTypesWithFullNameMatching(string pattern);
         TReturnType NotDependOnAnyTypesWithFullNameContaining(string pattern);
         TReturnType NotDependOnAny(IType firstType, params IType[] moreTypes);

@@ -11,26 +11,22 @@ namespace ArchUnitNET.Fluent
         {
             _condition = obj => new ConditionResult(condition(obj), failDescription);
             Description = description;
-            FailDescription = failDescription;
         }
 
-        public SimpleCondition(Func<TRuleType, ConditionResult> condition, string description, string failDescription)
+        public SimpleCondition(Func<TRuleType, ConditionResult> condition, string description)
         {
             _condition = condition;
             Description = description;
-            FailDescription = failDescription;
         }
 
         public SimpleCondition(Func<TRuleType, bool> condition, Func<TRuleType, string> dynamicFailDescription,
-            string description, string failDescription)
+            string description)
         {
             _condition = obj => new ConditionResult(condition(obj), dynamicFailDescription(obj));
             Description = description;
-            FailDescription = failDescription;
         }
 
         public string Description { get; }
-        public string FailDescription { get; }
 
         public ConditionResult Check(TRuleType obj, Architecture architecture)
         {

@@ -141,7 +141,7 @@ namespace ArchUnitNET.Fluent
             }
 
 #pragma warning disable 693
-        private class ConditionElement<T> : IHasFailDescription where T : ICanBeAnalyzed
+        private class ConditionElement<T> : IHasDescription where T : ICanBeAnalyzed
         {
             private readonly LogicalConjunction _logicalConjunction;
             private ICondition<T> _condition;
@@ -157,8 +157,6 @@ namespace ArchUnitNET.Fluent
             public string Description => _condition == null
                 ? ""
                 : (_logicalConjunction.Description + " should " + _condition.Description + " " + _reason).Trim();
-
-            public string FailDescription => _condition.FailDescription;
 
             public void AddReason(string reason)
             {

@@ -6,7 +6,7 @@ using static ArchUnitNET.Fluent.EnumerableOperator;
 
 namespace ArchUnitNET.Fluent
 {
-    public class RelationCondition<TRuleType, TRelatedType> : IHasFailDescription
+    public class RelationCondition<TRuleType, TRelatedType> : IHasDescription
         where TRuleType : ICanBeAnalyzed where TRelatedType : ICanBeAnalyzed
     {
         private readonly Func<TRuleType, IEnumerable<TRelatedType>> _relation;
@@ -23,8 +23,9 @@ namespace ArchUnitNET.Fluent
             FailDescription = failDescription;
         }
 
-        public string Description { get; }
         public string FailDescription { get; }
+
+        public string Description { get; }
 
         public bool CheckRelation(TRuleType obj, IPredicate<TRelatedType> filter, Architecture architecture)
         {

@@ -24,6 +24,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction Are(IObjectProvider<ICanBeAnalyzed> objects)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.Are(objects));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction DependOnAnyTypesWithFullNameMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
@@ -207,6 +213,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TGivenRuleTypeConjunction AreNot(IEnumerable<ICanBeAnalyzed> objects)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.AreNot(objects));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNot(IObjectProvider<ICanBeAnalyzed> objects)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.AreNot(objects));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);

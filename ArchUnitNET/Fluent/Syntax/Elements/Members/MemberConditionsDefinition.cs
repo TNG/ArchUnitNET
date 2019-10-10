@@ -12,16 +12,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             return new SimpleCondition<TRuleType>(member => member.IsDeclaredInTypeWithFullNameMatching(pattern),
                 member => "is declared in " + member.DeclaringType.FullName,
-                "be declared in types with full name matching \"" + pattern + "\"",
-                "is not declared in a type with full name matching \"" + pattern + "\"");
+                "be declared in types with full name matching \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> BeDeclaredInTypesWithFullNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => member.IsDeclaredInTypeWithFullNameContaining(pattern),
                 member => "is declared in " + member.DeclaringType.FullName,
-                "be declared in types with full name containing \"" + pattern + "\"",
-                "is not declared in a type with full name containing \"" + pattern + "\"");
+                "be declared in types with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(IType firstType, params IType[] moreTypes)
@@ -33,10 +31,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             var description = moreTypes.Aggregate("be declared in \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            var failDescription = moreTypes.Aggregate("is not declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
             return new SimpleCondition<TRuleType>(Condition,
-                member => "is declared in " + member.DeclaringType.FullName, description, failDescription);
+                member => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(Type firstType, params Type[] moreTypes)
@@ -49,11 +45,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             var description = moreTypes.Aggregate("be declared in \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            var failDescription = moreTypes.Aggregate("is not declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
             return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description,
-                failDescription);
+                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(IObjectProvider<IType> objectProvider)
@@ -64,10 +57,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             var description = "be declared in " + objectProvider.Description;
-            var failDescription = "is not declared in " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description,
-                failDescription);
+                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(IEnumerable<IType> types)
@@ -80,11 +71,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             string description;
-            string failDescription;
             if (typeList.IsNullOrEmpty())
             {
                 description = "be declared in no type (always false)";
-                failDescription = "is declared in any type (always true)";
             }
             else
             {
@@ -92,13 +81,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
                     "be declared in \"" + firstType.FullName + "\"",
                     (current, type) => current + " or \"" + type.FullName + "\"");
-                failDescription = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
-                    "is not declared in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
             return new SimpleCondition<TRuleType>(Condition,
-                member => "is declared in " + member.DeclaringType.FullName, description, failDescription);
+                member => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(IEnumerable<Type> types)
@@ -111,11 +97,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             string description;
-            string failDescription;
             if (typeList.IsNullOrEmpty())
             {
                 description = "be declared in no type (always false)";
-                failDescription = "is declared in any type (always true)";
             }
             else
             {
@@ -123,14 +107,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
                     "be declared in \"" + firstType.FullName + "\"",
                     (current, type) => current + " or \"" + type.FullName + "\"");
-                failDescription = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "is not declared in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
             return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description,
-                failDescription);
+                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> HaveBodyTypeMemberDependencies()
@@ -210,16 +190,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             return new SimpleCondition<TRuleType>(member => !member.IsDeclaredInTypeWithFullNameMatching(pattern),
                 member => "is declared in " + member.DeclaringType.FullName,
-                "not be declared in types with full name matching \"" + pattern + "\"",
-                "is declared in a type with full name matching \"" + pattern + "\"");
+                "not be declared in types with full name matching \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotBeDeclaredInTypesWithFullNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(member => !member.IsDeclaredInTypeWithFullNameContaining(pattern),
                 member => "is declared in " + member.DeclaringType.FullName,
-                "not be declared in types with full name containing \"" + pattern + "\"",
-                "is declared in a type with full name containing \"" + pattern + "\"");
+                "not be declared in types with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IType firstType, params IType[] moreTypes)
@@ -231,10 +209,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             var description = moreTypes.Aggregate("not be declared in \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            var failDescription = moreTypes.Aggregate("is declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
             return new SimpleCondition<TRuleType>(Condition,
-                member => "is declared in " + member.DeclaringType.FullName, description, failDescription);
+                member => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(Type firstType, params Type[] moreTypes)
@@ -247,11 +223,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             var description = moreTypes.Aggregate("not be declared in \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            var failDescription = moreTypes.Aggregate("is declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
             return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description,
-                failDescription);
+                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IObjectProvider<IType> objectProvider)
@@ -262,10 +235,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             var description = "not be declared in " + objectProvider.Description;
-            var failDescription = "is declared in " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description,
-                failDescription);
+                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<IType> types)
@@ -278,11 +249,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             string description;
-            string failDescription;
             if (typeList.IsNullOrEmpty())
             {
                 description = "not be declared in no type (always true)";
-                failDescription = "is not declared in any type (always false)";
             }
             else
             {
@@ -290,13 +259,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
                     "not be declared in \"" + firstType.FullName + "\"",
                     (current, type) => current + " or \"" + type.FullName + "\"");
-                failDescription = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
-                    "is declared in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
             return new SimpleCondition<TRuleType>(Condition,
-                member => "is declared in " + member.DeclaringType.FullName, description, failDescription);
+                member => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<Type> types)
@@ -309,11 +275,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             string description;
-            string failDescription;
             if (typeList.IsNullOrEmpty())
             {
                 description = "not be declared in no type (always true)";
-                failDescription = "is not declared in any type (always false)";
             }
             else
             {
@@ -321,14 +285,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
                     "not be declared in \"" + firstType.FullName + "\"",
                     (current, type) => current + " or \"" + type.FullName + "\"");
-                failDescription = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "is declared in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
             return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description,
-                failDescription);
+                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> NotHaveBodyTypeMemberDependencies()

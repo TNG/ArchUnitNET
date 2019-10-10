@@ -23,8 +23,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == Private,
                 member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "have a private setter",
-                "does not have a private setter");
+                "have a private setter");
         }
 
         public static ICondition<PropertyMember> HavePublicSetter()
@@ -32,8 +31,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == Public,
                 member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "have a public setter",
-                "does not have a public setter");
+                "have a public setter");
         }
 
         public static ICondition<PropertyMember> HaveProtectedSetter()
@@ -41,7 +39,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == Protected,
                 member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "have a protected setter", "does not have a protected setter");
+                "have a protected setter");
         }
 
         public static ICondition<PropertyMember> HaveInternalSetter()
@@ -49,21 +47,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == Internal,
                 member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "have an internal setter", "does not have an internal setter");
+                "have an internal setter");
         }
 
         public static ICondition<PropertyMember> HaveProtectedInternalSetter()
         {
             return new SimpleCondition<PropertyMember>(member => member.SetterVisibility == ProtectedInternal,
                 member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "have a protected internal setter", "does not have a protected internal setter");
+                "have a protected internal setter");
         }
 
         public static ICondition<PropertyMember> HavePrivateProtectedSetter()
         {
             return new SimpleCondition<PropertyMember>(member => member.SetterVisibility == PrivateProtected,
                 member => "does have " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "have a private protected setter", "does not have a private protected setter");
+                "have a private protected setter");
         }
 
         public static ICondition<PropertyMember> BeVirtual()
@@ -90,49 +88,39 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public static ICondition<PropertyMember> NotHavePrivateSetter()
         {
             return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != Private,
-                member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "not have a private setter",
+                member => member.SetterVisibility != Private, "not have a private setter",
                 "does have a private setter");
         }
 
         public static ICondition<PropertyMember> NotHavePublicSetter()
         {
             return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != Public,
-                member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "not have a public setter",
-                "does have a public setter");
+                member => member.SetterVisibility != Public, "not have a public setter", "does have a public setter");
         }
 
         public static ICondition<PropertyMember> NotHaveProtectedSetter()
         {
             return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != Protected,
-                member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "not have a protected setter", "does have a protected setter");
+                member => member.SetterVisibility != Protected, "not have a protected setter",
+                "does have a protected setter");
         }
 
         public static ICondition<PropertyMember> NotHaveInternalSetter()
         {
             return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != Internal,
-                member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
-                "not have an internal setter",
+                member => member.SetterVisibility != Internal, "not have an internal setter",
                 "does have an internal setter");
         }
 
         public static ICondition<PropertyMember> NotHaveProtectedInternalSetter()
         {
             return new SimpleCondition<PropertyMember>(member => member.SetterVisibility != ProtectedInternal,
-                member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
                 "not have a protected internal setter", "does have a protected internal setter");
         }
 
         public static ICondition<PropertyMember> NotHavePrivateProtectedSetter()
         {
             return new SimpleCondition<PropertyMember>(member => member.SetterVisibility != PrivateProtected,
-                member => "does have a " + member.SetterVisibility.ToStringInLowerCase() + " setter",
                 "not have a private protected setter", "does have a private protected setter");
         }
 
