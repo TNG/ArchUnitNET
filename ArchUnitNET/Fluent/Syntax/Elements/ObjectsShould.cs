@@ -87,6 +87,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction OnlyDependOnTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.OnlyDependOnTypesWithFullNameContaining(pattern));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
@@ -282,7 +289,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotDependOnAnyTypesWithFullNameContaining(string pattern)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotDependOnAnyTypesWithFullNameMatching(pattern));
+                ObjectConditionsDefinition<TRuleType>.NotDependOnAnyTypesWithFullNameContaining(pattern));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

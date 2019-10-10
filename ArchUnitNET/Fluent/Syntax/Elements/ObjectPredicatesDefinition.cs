@@ -37,13 +37,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DependOnAnyTypesWithFullNameMatching(string pattern)
         {
-            return new SimplePredicate<T>(obj => obj.DependsOn(pattern),
+            return new SimplePredicate<T>(obj => obj.DependsOnTypesWithFullNameMatching(pattern),
                 "depend on any types with full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DependOnAnyTypesWithFullNameContaining(string pattern)
         {
-            return new SimplePredicate<T>(obj => obj.FullNameContains(pattern),
+            return new SimplePredicate<T>(obj => obj.DependsOnTypesWithFullNameContaining(pattern),
                 "depend on any types with full name containing \"" + pattern + "\"");
         }
 
@@ -64,8 +64,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Condition(T type, Architecture architecture)
             {
                 return type.GetTypeDependencies().Any(target =>
-                    target.Equals(architecture.GetTypeOfType(firstType)) ||
-                    moreTypes.Any(t => architecture.GetTypeOfType(t).Equals(target)));
+                    target.Equals(architecture.GetITypeOfType(firstType)) ||
+                    moreTypes.Any(t => architecture.GetITypeOfType(t).Equals(target)));
             }
 
             var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
@@ -117,7 +117,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Filter(T type, Architecture architecture)
             {
                 return type.GetTypeDependencies().Any(target =>
-                    typeList.Select(architecture.GetTypeOfType).Any(t => t.Equals(target)));
+                    typeList.Select(architecture.GetITypeOfType).Any(t => t.Equals(target)));
             }
 
             string description;
@@ -138,8 +138,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> OnlyDependOnTypesWithFullNameMatching(string pattern)
         {
-            return new SimplePredicate<T>(obj => obj.OnlyDependsOn(pattern),
+            return new SimplePredicate<T>(obj => obj.OnlyDependsOnTypesWithFullNameMatching(pattern),
                 "only depend on types with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> OnlyDependOnTypesWithFullNameContaining(string pattern)
+        {
+            return new SimplePredicate<T>(obj => obj.OnlyDependsOnTypesWithFullNameContaining(pattern),
+                "only depend on types with full name containing \"" + pattern + "\"");
         }
 
         public static IPredicate<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
@@ -159,8 +165,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Filter(T type, Architecture architecture)
             {
                 return type.GetTypeDependencies().All(target =>
-                    target.Equals(architecture.GetTypeOfType(firstType)) ||
-                    moreTypes.Any(t => architecture.GetTypeOfType(t).Equals(target)));
+                    target.Equals(architecture.GetITypeOfType(firstType)) ||
+                    moreTypes.Any(t => architecture.GetITypeOfType(t).Equals(target)));
             }
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
@@ -212,7 +218,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Filter(T type, Architecture architecture)
             {
                 return type.GetTypeDependencies()
-                    .All(target => typeList.Select(architecture.GetTypeOfType).Contains(target));
+                    .All(target => typeList.Select(architecture.GetITypeOfType).Contains(target));
             }
 
             string description;
@@ -337,13 +343,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
         {
-            return new SimplePredicate<T>(obj => !obj.DependsOn(pattern),
+            return new SimplePredicate<T>(obj => !obj.DependsOnTypesWithFullNameMatching(pattern),
                 "do not depend on any types with full name matching \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotDependOnAnyTypesWithFullNameContaining(string pattern)
         {
-            return new SimplePredicate<T>(obj => !obj.FullNameContains(pattern),
+            return new SimplePredicate<T>(obj => !obj.DependsOnTypesWithFullNameContaining(pattern),
                 "do not depend on any types with full name containing \"" + pattern + "\"");
         }
 
@@ -365,8 +371,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Filter(T type, Architecture architecture)
             {
                 return type.GetTypeDependencies().All(target =>
-                    !target.Equals(architecture.GetTypeOfType(firstType)) &&
-                    moreTypes.All(t => !architecture.GetTypeOfType(t).Equals(target)));
+                    !target.Equals(architecture.GetITypeOfType(firstType)) &&
+                    moreTypes.All(t => !architecture.GetITypeOfType(t).Equals(target)));
             }
 
             var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
@@ -418,7 +424,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Filter(T type, Architecture architecture)
             {
                 return type.GetTypeDependencies().All(target =>
-                    typeList.Select(architecture.GetTypeOfType).All(t => !t.Equals(target)));
+                    typeList.Select(architecture.GetITypeOfType).All(t => !t.Equals(target)));
             }
 
             string description;

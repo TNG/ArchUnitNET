@@ -20,7 +20,7 @@ namespace ArchUnitNETTests.Dependencies.Attributes
 
         private static object[] BuildTypeAttributeTestData(Type classType, Type attributeType)
         {
-            var targetClass = Architecture.GetTypeOfType(classType);
+            var targetClass = Architecture.GetITypeOfType(classType);
             var attributeClass =
                 Architecture.GetClassOfType(attributeType);
             var attribute = targetClass.GetAttributeOfType(attributeClass);

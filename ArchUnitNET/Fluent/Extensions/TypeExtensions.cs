@@ -140,19 +140,29 @@ namespace ArchUnitNET.Fluent.Extensions
             return e.Namespace.FullNameContains(pattern);
         }
 
-        public static bool DependsOn(this IHasDependencies c, string pattern)
+        public static bool DependsOnTypesWithFullNameMatching(this IHasDependencies c, string pattern)
         {
-            return c.Dependencies.Exists(d => d.Target.FullNameMatches(pattern));
+            return c.GetTypeDependencies().Any(d => d.FullNameMatches(pattern));
+        }
+
+        public static bool DependsOnTypesWithFullNameContaining(this IHasDependencies c, string pattern)
+        {
+            return c.GetTypeDependencies().Any(d => d.FullNameContains(pattern));
         }
 
         public static bool DependsOn(this IHasDependencies c, IType type)
         {
-            return c.Dependencies.Select(dependency => dependency.Target).Contains(type);
+            return c.GetTypeDependencies().Contains(type);
         }
 
-        public static bool OnlyDependsOn(this IHasDependencies c, string pattern)
+        public static bool OnlyDependsOnTypesWithFullNameMatching(this IHasDependencies c, string pattern)
         {
-            return c.Dependencies.All(d => d.Target.FullNameMatches(pattern));
+            return c.GetTypeDependencies().All(d => d.FullNameMatches(pattern));
+        }
+
+        public static bool OnlyDependsOnTypesWithFullNameContaining(this IHasDependencies c, string pattern)
+        {
+            return c.GetTypeDependencies().All(d => d.FullNameContains(pattern));
         }
 
         public static IEnumerable<Class> GetClassDependencies(this IHasDependencies c)

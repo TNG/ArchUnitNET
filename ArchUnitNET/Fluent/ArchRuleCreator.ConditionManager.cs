@@ -104,7 +104,7 @@ namespace ArchUnitNET.Fluent
                 ICanBeEvaluated archRuleCreator)
             {
                 var passRule = CheckConditions(obj, architecture);
-                var description = obj.FullName + " ";
+                var description = obj.FullName;
                 if (passRule)
                 {
                     description += "passed";
@@ -112,17 +112,22 @@ namespace ArchUnitNET.Fluent
                 else
                 {
                     var first = true;
-                    foreach (var conditionElement in _conditionElements.Where(conditionElement =>
-                        !conditionElement.Check(obj, architecture)))
+                    var failDescriptionCache =
+                        new List<string>(); //Prevent failDescriptions like ... failed because ... is public and is public
+                    foreach (var conditionResult in _conditionElements
+                        .Select(conditionElement => conditionElement.Check(obj, architecture))
+                        .Where(conditionResult => !conditionResult.Pass))
                     {
-                        if (first)
+                        if (!failDescriptionCache.Contains(conditionResult.FailDescription))
                         {
-                            description += conditionElement.FailDescription;
+                            if (!first)
+                            {
+                                description += " and";
+                            }
+
+                            description += " " + conditionResult.FailDescription;
+                            failDescriptionCache.Add(conditionResult.FailDescription);
                             first = false;
-                        }
-                        else
-                        {
-                            description += " and " + conditionElement.FailDescription;
                         }
                     }
                 }
@@ -179,10 +184,10 @@ namespace ArchUnitNET.Fluent
 
             public bool Check(bool currentResult, T obj, Architecture architecture)
             {
-                return _logicalConjunction.Evaluate(currentResult, Check(obj, architecture));
+                return _logicalConjunction.Evaluate(currentResult, Check(obj, architecture).Pass);
             }
 
-            public bool Check(T obj, Architecture architecture)
+            public ConditionResult Check(T obj, Architecture architecture)
             {
                 if (_condition == null)
                 {

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies.Types;
 using ArchUnitNET.Fluent.Extensions;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -35,6 +36,7 @@ namespace ArchUnitNET.Domain
                 ? new MemberList(Type.Members.Concat(BaseClass.MembersIncludingInherited).ToList())
                 : Type.Members;
 
+        [CanBeNull]
         public Class BaseClass =>
             (Class) Dependencies.OfType<InheritsBaseClassDependency>().FirstOrDefault()?.Target;
 
@@ -56,6 +58,8 @@ namespace ArchUnitNET.Domain
                 return null;
             }
         }
+
+        public IEnumerable<Class> InheritedClasses => BaseClass?.InheritedClasses.Append(BaseClass);
 
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;

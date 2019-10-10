@@ -7,7 +7,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
     {
         public static ICondition<MethodMember> BeConstructor()
         {
-            return new SimpleCondition<MethodMember>(member => member.IsConstructor(), "be constructor",
+            return new SimpleCondition<MethodMember>(member => member.IsConstructor(), "be a constructor",
                 "is no constructor");
         }
 

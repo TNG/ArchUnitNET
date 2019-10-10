@@ -36,8 +36,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             bool Condition(T ruleType, Architecture architecture)
             {
-                return ruleType.DeclaringType.Equals(architecture.GetTypeOfType(firstType)) ||
-                       moreTypes.Select(architecture.GetTypeOfType).Contains(ruleType.DeclaringType);
+                return ruleType.DeclaringType.Equals(architecture.GetITypeOfType(firstType)) ||
+                       moreTypes.Select(architecture.GetITypeOfType).Contains(ruleType.DeclaringType);
             }
 
             var description = moreTypes.Aggregate("are declared in \"" + firstType.FullName + "\"",
@@ -87,7 +87,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             bool Condition(T ruleType, Architecture architecture)
             {
-                return typeList.Select(architecture.GetTypeOfType).Contains(ruleType.DeclaringType);
+                return typeList.Select(architecture.GetITypeOfType).Contains(ruleType.DeclaringType);
             }
 
             string description;
@@ -198,8 +198,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             bool Condition(T ruleType, Architecture architecture)
             {
-                return !ruleType.DeclaringType.Equals(architecture.GetTypeOfType(firstType)) &&
-                       !moreTypes.Select(architecture.GetTypeOfType).Contains(ruleType.DeclaringType);
+                return !ruleType.DeclaringType.Equals(architecture.GetITypeOfType(firstType)) &&
+                       !moreTypes.Select(architecture.GetITypeOfType).Contains(ruleType.DeclaringType);
             }
 
             var description = moreTypes.Aggregate("are not declared in \"" + firstType.FullName + "\"",
@@ -249,7 +249,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             bool Condition(T ruleType, Architecture architecture)
             {
-                return !typeList.Select(architecture.GetTypeOfType).Contains(ruleType.DeclaringType);
+                return !typeList.Select(architecture.GetITypeOfType).Contains(ruleType.DeclaringType);
             }
 
             string description;

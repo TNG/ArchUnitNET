@@ -12,8 +12,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             bool Filter(T ruleType, Architecture architecture)
             {
-                return architecture.GetTypeOfType(firstType).Equals(ruleType) ||
-                       moreTypes.Any(type => architecture.GetTypeOfType(type).Equals(ruleType));
+                return architecture.GetITypeOfType(firstType).Equals(ruleType) ||
+                       moreTypes.Any(type => architecture.GetITypeOfType(type).Equals(ruleType));
             }
 
             var description = moreTypes.Aggregate("are \"" + firstType.FullName + "\"",
@@ -27,7 +27,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             bool Filter(T ruleType, Architecture architecture)
             {
-                return typeList.Select(architecture.GetTypeOfType).Any(type => type.Equals(ruleType));
+                return typeList.Select(architecture.GetITypeOfType).Any(type => type.Equals(ruleType));
             }
 
             string description;
@@ -73,8 +73,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             bool Condition(T ruleType, Architecture architecture)
             {
-                return ruleType.IsAssignableTo(architecture.GetTypeOfType(firstType)) ||
-                       moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetTypeOfType(type)));
+                return ruleType.IsAssignableTo(architecture.GetITypeOfType(firstType)) ||
+                       moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetITypeOfType(type)));
             }
 
             var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
@@ -124,7 +124,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             bool Condition(T ruleType, Architecture architecture)
             {
-                return typeList.Select(architecture.GetTypeOfType).Any(ruleType.IsAssignableTo);
+                return typeList.Select(architecture.GetITypeOfType).Any(ruleType.IsAssignableTo);
             }
 
             string description;
@@ -204,8 +204,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             bool Filter(T ruleType, Architecture architecture)
             {
-                return !architecture.GetTypeOfType(firstType).Equals(ruleType) &&
-                       !moreTypes.Any(type => architecture.GetTypeOfType(type).Equals(ruleType));
+                return !architecture.GetITypeOfType(firstType).Equals(ruleType) &&
+                       !moreTypes.Any(type => architecture.GetITypeOfType(type).Equals(ruleType));
             }
 
             var description = moreTypes.Aggregate("are not \"" + firstType.FullName + "\"",
@@ -219,7 +219,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             bool Filter(T ruleType, Architecture architecture)
             {
-                return typeList.Select(architecture.GetTypeOfType).All(type => !type.Equals(ruleType));
+                return typeList.Select(architecture.GetITypeOfType).All(type => !type.Equals(ruleType));
             }
 
             string description;
@@ -267,8 +267,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             bool Condition(T ruleType, Architecture architecture)
             {
-                return !ruleType.IsAssignableTo(architecture.GetTypeOfType(firstType)) &&
-                       !moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetTypeOfType(type)));
+                return !ruleType.IsAssignableTo(architecture.GetITypeOfType(firstType)) &&
+                       !moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetITypeOfType(type)));
             }
 
             var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
@@ -318,7 +318,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             bool Condition(T ruleType, Architecture architecture)
             {
-                return !typeList.Select(architecture.GetTypeOfType).Any(ruleType.IsAssignableTo);
+                return !typeList.Select(architecture.GetITypeOfType).Any(ruleType.IsAssignableTo);
             }
 
             string description;

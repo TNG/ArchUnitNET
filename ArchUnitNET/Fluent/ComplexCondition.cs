@@ -19,9 +19,9 @@ namespace ArchUnitNET.Fluent
 
         public string FailDescription => _relation.FailDescription + " " + _predicate.Description;
 
-        public bool Check(TRuleType obj, Architecture architecture)
+        public ConditionResult Check(TRuleType obj, Architecture architecture)
         {
-            return _relation.CheckRelation(obj, _predicate, architecture);
+            return new ConditionResult(_relation.CheckRelation(obj, _predicate, architecture), FailDescription);
         }
 
         public bool CheckEmpty()

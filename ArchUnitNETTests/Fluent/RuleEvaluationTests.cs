@@ -48,18 +48,18 @@ namespace ArchUnitNETTests.Fluent
 
         private readonly string _expectedWrongArchRule1ErrorMessage =
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is not private" + NewLine +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" + NewLine +
             NewLine;
 
 
         private readonly string _expectedWrongArchRule2ErrorMessage =
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private and should be public\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is not private" + NewLine +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" + NewLine +
             NewLine;
 
         private readonly string _expectedWrongArchRule3ErrorMessage =
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private and should be public or should be protected\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is not private and is not protected" +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" +
             NewLine + NewLine;
 
         private readonly string _expectedWrongArchRule4ErrorMessage =
@@ -84,15 +84,15 @@ namespace ArchUnitNETTests.Fluent
 
         private readonly string _expectedWrongArchRule8ErrorMessage =
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should not exist or should be private\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass does exist and is not private" +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass does exist and is public" +
             NewLine + NewLine;
 
         private readonly string _expectedWrongArchRule1AndWrongArchRule3ErrorMessage =
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is not private" + NewLine +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" + NewLine +
             NewLine +
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private and should be public or should be protected\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is not private and is not protected" +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" +
             NewLine + NewLine;
 
         private readonly string _expectedWrongArchRule4AndWrongArchRule8ErrorMessage =
@@ -100,7 +100,7 @@ namespace ArchUnitNETTests.Fluent
             NewLine + "\tThere are no objects matching the criteria" + NewLine +
             NewLine +
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should not exist or should be private\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass does exist and is not private" +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass does exist and is public" +
             NewLine + NewLine;
 
         [Fact]

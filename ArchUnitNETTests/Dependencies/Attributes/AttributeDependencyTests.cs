@@ -68,13 +68,14 @@ namespace ArchUnitNETTests.Dependencies.Attributes
             var expectedClassTargets = new[] {_hello, _helloEvent};
 
             //Assert
-            expectedClassTargets.ShouldAll(targetClass => _originClass.DependsOn(targetClass.Name));
+            expectedClassTargets.ShouldAll(targetClass =>
+                _originClass.DependsOnTypesWithFullNameMatching(targetClass.Name));
         }
 
         [Fact]
         public void ForbidAttributeForClass()
         {
-            _eventHandlerImplementClasses.ShouldAll(cls => !cls.DependsOn("forbidden"));
+            _eventHandlerImplementClasses.ShouldAll(cls => !cls.DependsOnTypesWithFullNameMatching("forbidden"));
         }
 
         [Fact]
@@ -84,7 +85,8 @@ namespace ArchUnitNETTests.Dependencies.Attributes
             var expectedClassTargets = new[] {_class1, _class2, _classWithAttribute, _classWithBodyTypeA};
 
             //Assert
-            expectedClassTargets.ShouldAll(targetClass => _originClass.DependsOn(targetClass.Name));
+            expectedClassTargets.ShouldAll(targetClass =>
+                _originClass.DependsOnTypesWithFullNameMatching(targetClass.Name));
         }
 
         [Fact]

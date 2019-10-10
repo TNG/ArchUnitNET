@@ -16,7 +16,7 @@ namespace ArchUnitNET.Fluent.Extensions
     public static class ArchitectureExtensions
     {
         [NotNull]
-        public static IType GetTypeOfType([NotNull] this Architecture architecture, [NotNull] Type type)
+        public static IType GetITypeOfType([NotNull] this Architecture architecture, [NotNull] Type type)
         {
             if (type.IsClass)
             {

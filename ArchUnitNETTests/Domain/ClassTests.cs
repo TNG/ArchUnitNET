@@ -25,7 +25,7 @@ namespace ArchUnitNETTests.Domain
             _baseClass = Architecture.GetClassOfType(typeof(BaseClass));
             _childClass = Architecture.GetClassOfType(typeof(ChildClass));
             _duplicateChildClass = _baseClass;
-            var backingType = Architecture.GetTypeOfType(typeof(PropertyType));
+            var backingType = Architecture.GetITypeOfType(typeof(PropertyType));
             _misMatchType =
                 new Type(backingType.FullName, backingType.Name, backingType.Assembly, backingType.Namespace,
                     backingType.Visibility, backingType.IsNested);

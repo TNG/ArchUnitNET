@@ -16,6 +16,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType DependOnAny(IEnumerable<IType> types);
         TReturnType DependOnAny(IEnumerable<Type> types);
         TReturnType OnlyDependOnTypesWithFullNameMatching(string pattern);
+        TReturnType OnlyDependOnTypesWithFullNameContaining(string pattern);
         TReturnType OnlyDependOn(Type firstType, params Type[] moreTypes);
         TReturnType OnlyDependOn(IType firstType, params IType[] moreTypes);
         TReturnType OnlyDependOn(IObjectProvider<IType> types);

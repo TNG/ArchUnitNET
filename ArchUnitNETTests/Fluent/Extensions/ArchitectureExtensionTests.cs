@@ -38,7 +38,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
         [Fact]
         public void TypeNotInArchitectureNotFound()
         {
-            Assert.Throws<TypeDoesNotExistInArchitecture>(() => _architecture.GetTypeOfType(typeof(Guid)));
+            Assert.Throws<TypeDoesNotExistInArchitecture>(() => _architecture.GetITypeOfType(typeof(Guid)));
         }
     }
 }

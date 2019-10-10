@@ -22,7 +22,7 @@ namespace ArchUnitNETTests.Core
 
         private static object[] BuildTypeTestData(Type originType)
         {
-            var clazz = Architecture.GetTypeOfType(originType);
+            var clazz = Architecture.GetITypeOfType(originType);
             clazz.RequiredNotNull();
 
             var type = new ArchUnitNET.Core.Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace,
@@ -33,7 +33,7 @@ namespace ArchUnitNETTests.Core
 
         private static object[] BuildTypeEquivalenceTestData(Type originType)
         {
-            var clazz = Architecture.GetTypeOfType(originType);
+            var clazz = Architecture.GetITypeOfType(originType);
             clazz.RequiredNotNull();
             var type = new ArchUnitNET.Core.Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace,
                 clazz.Visibility, clazz.IsNested);

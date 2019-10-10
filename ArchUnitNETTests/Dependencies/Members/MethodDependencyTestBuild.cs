@@ -36,7 +36,7 @@ namespace ArchUnitNETTests.Dependencies.Members
         {
             var originClass = Architecture.GetClassOfType(originType);
             var originMember = originClass.GetMethodMembersWithName(nameOfOriginMember).Single();
-            var target = Architecture.GetTypeOfType(targetType);
+            var target = Architecture.GetITypeOfType(targetType);
             var expectedDependency = new MethodSignatureDependency(originMember, target);
             return new object[] {originMember, expectedDependency};
         }

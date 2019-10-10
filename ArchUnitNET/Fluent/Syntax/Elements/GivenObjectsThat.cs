@@ -75,6 +75,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction OnlyDependOnTypesWithFullNameContaining(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.OnlyDependOnTypesWithFullNameContaining(pattern));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes));
