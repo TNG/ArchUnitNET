@@ -197,6 +197,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "reside in namespace with full name containing \"" + pattern + "\"");
         }
 
+        public static ICondition<TRuleType> ResideInAssemblyWithFullNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInAssemblyWithFullNameMatching(pattern),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "reside in assembly with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> ResideInAssemblyWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInAssemblyWithFullNameContaining(pattern),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "reside in assembly with full name containing \"" + pattern + "\"");
+        }
+
         public static ICondition<TRuleType> HavePropertyMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(type => type.HasPropertyMemberWithName(name),
@@ -450,6 +466,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 type => !type.ResidesInNamespaceWithFullNameContaining(pattern),
                 obj => "does reside in " + obj.Namespace.FullName,
                 "not reside in namespace with full name containing \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotResideInAssemblyWithFullNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInAssemblyWithFullNameMatching(pattern),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "not reside in assembly with full name matching \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotResideInAssemblyWithFullNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInAssemblyWithFullNameContaining(pattern),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "not reside in assembly with full name containing \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotHavePropertyMemberWithName(string name)

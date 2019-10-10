@@ -19,6 +19,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType ImplementInterfaceWithFullNameContaining(string pattern);
         TReturnType ResideInNamespaceWithFullNameMatching(string pattern);
         TReturnType ResideInNamespaceWithFullNameContaining(string pattern);
+        TReturnType ResideInAssemblyWithFullNameMatching(string pattern);
+        TReturnType ResideInAssemblyWithFullNameContaining(string pattern);
         TReturnType HavePropertyMemberWithName(string name);
         TReturnType HaveFieldMemberWithName(string name);
         TReturnType HaveMethodMemberWithName(string name);
@@ -42,6 +44,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType DoNotImplementInterfaceWithFullNameContaining(string pattern);
         TReturnType DoNotResideInNamespaceWithFullNameMatching(string pattern);
         TReturnType DoNotResideInNamespaceWithFullNameContaining(string pattern);
+        TReturnType DoNotResideInAssemblyWithFullNameMatching(string pattern);
+        TReturnType DoNotResideInAssemblyWithFullNameContaining(string pattern);
         TReturnType DoNotHavePropertyMemberWithName(string name);
         TReturnType DoNotHaveFieldMemberWithName(string name);
         TReturnType DoNotHaveMethodMemberWithName(string name);

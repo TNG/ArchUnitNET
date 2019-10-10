@@ -167,6 +167,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "reside in namespace with full name containing \"" + pattern + "\"");
         }
 
+        public static IPredicate<T> ResideInAssemblyWithFullNameMatching(string pattern)
+        {
+            return new SimplePredicate<T>(type => type.ResidesInAssemblyWithFullNameMatching(pattern),
+                "reside in assembly with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> ResideInAssemblyWithFullNameContaining(string pattern)
+        {
+            return new SimplePredicate<T>(type => type.ResidesInAssemblyWithFullNameContaining(pattern),
+                "reside in assembly with full name containing \"" + pattern + "\"");
+        }
+
         public static IPredicate<T> HavePropertyMemberWithName(string name)
         {
             return new SimplePredicate<T>(type => type.HasPropertyMemberWithName(name),
@@ -363,6 +375,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "do not reside in namespace with full name containing \"" + pattern + "\"");
         }
 
+        public static IPredicate<T> DoNotResideInAssemblyWithFullNameMatching(string pattern)
+        {
+            return new SimplePredicate<T>(type => !type.ResidesInAssemblyWithFullNameMatching(pattern),
+                "do not reside in assembly with full name matching \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> DoNotResideInAssemblyWithFullNameContaining(string pattern)
+        {
+            return new SimplePredicate<T>(type => !type.ResidesInAssemblyWithFullNameContaining(pattern),
+                "do not reside in assembly with full name containing \"" + pattern + "\"");
+        }
 
         public static IPredicate<T> DoNotHavePropertyMemberWithName(string name)
         {

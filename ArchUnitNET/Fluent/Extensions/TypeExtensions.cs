@@ -135,9 +135,19 @@ namespace ArchUnitNET.Fluent.Extensions
             return e.Namespace.FullNameMatches(pattern);
         }
 
+        public static bool ResidesInAssemblyWithFullNameMatching(this IType e, string pattern)
+        {
+            return e.Assembly.FullNameMatches(pattern);
+        }
+
         public static bool ResidesInNamespaceWithFullNameContaining(this IType e, string pattern)
         {
             return e.Namespace.FullNameContains(pattern);
+        }
+
+        public static bool ResidesInAssemblyWithFullNameContaining(this IType e, string pattern)
+        {
+            return e.Assembly.FullNameContains(pattern);
         }
 
         public static bool DependsOnTypesWithFullNameMatching(this IHasDependencies c, string pattern)
