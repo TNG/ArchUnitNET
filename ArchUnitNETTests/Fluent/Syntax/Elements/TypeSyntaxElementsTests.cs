@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
@@ -80,6 +81,77 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.True(
                 notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClass.HasNoViolations(Architecture));
             Assert.False(internalTypesAreNotPublicTestClassOrInternalTestClass.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void AssignableToTest()
+        {
+            var falseTypeList1 = new List<Type> {typeof(PublicTestClass), typeof(InternalTestClass)};
+            var falseTypeList2 = new List<IType> {StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass};
+            var falseTypeListPattern = new List<string>
+                {StaticTestTypes.PublicTestClass.FullName, StaticTestTypes.InternalTestClass.FullName};
+            foreach (var type in _types)
+            {
+                //One Argument
+
+                var typeIsAssignableToItself = Types().That().Are(type).Should().BeAssignableTo(type);
+                var typeIsAssignableToItselfPattern = Types().That().Are(type).Should().BeAssignableTo(type.FullName);
+                var typeIsNotAssignableToItself = Types().That().Are(type).Should().NotBeAssignableTo(type);
+                var typeIsNotAssignableToItselfPattern =
+                    Types().That().Are(type).Should().NotBeAssignableTo(type.FullName);
+                var typeIsNotAssignableToFalseType1 = Types().That().Are(type).Should()
+                    .NotBeAssignableTo(typeof(PublicTestClass)).OrShould().Be(typeof(PublicTestClass));
+                var typeIsNotAssignableToFalseType2 = Types().That().Are(type).Should()
+                    .NotBeAssignableTo(StaticTestTypes.PublicTestClass).OrShould().Be(typeof(PublicTestClass));
+                var typeIsNotAssignableToFalseTypePattern = Types().That().Are(type).Should()
+                    .NotBeAssignableTo(StaticTestTypes.PublicTestClass.FullName).OrShould().Be(typeof(PublicTestClass));
+                var typeIsAssignableToFalseType1 = Types().That().Are(type).Should()
+                    .BeAssignableTo(typeof(PublicTestClass)).AndShould().NotBe(typeof(PublicTestClass));
+                var typeIsAssignableToFalseType2 = Types().That().Are(type).Should()
+                    .BeAssignableTo(StaticTestTypes.PublicTestClass).AndShould().NotBe(typeof(PublicTestClass));
+                var typeIsAssignableToFalseTypePattern = Types().That().Are(type).Should()
+                    .BeAssignableTo(StaticTestTypes.PublicTestClass.FullName).AndShould()
+                    .NotBe(typeof(PublicTestClass));
+
+                Assert.True(typeIsAssignableToItself.HasNoViolations(Architecture));
+                Assert.True(typeIsAssignableToItselfPattern.HasNoViolations(Architecture));
+                Assert.False(typeIsNotAssignableToItself.HasNoViolations(Architecture));
+                Assert.False(typeIsNotAssignableToItselfPattern.HasNoViolations(Architecture));
+                Assert.True(typeIsNotAssignableToFalseType1.HasNoViolations(Architecture));
+                Assert.True(typeIsNotAssignableToFalseType2.HasNoViolations(Architecture));
+                Assert.True(typeIsNotAssignableToFalseTypePattern.HasNoViolations(Architecture));
+                Assert.False(typeIsAssignableToFalseType1.HasNoViolations(Architecture));
+                Assert.False(typeIsAssignableToFalseType2.HasNoViolations(Architecture));
+                Assert.False(typeIsAssignableToFalseTypePattern.HasNoViolations(Architecture));
+
+                //Multiple Arguments
+
+                var typeIsAssignableToItselfFluent =
+                    Types().That().Are(type).Should().BeAssignableTo(Types().That().Are(type));
+                var typeIsNotAssignableToItselfFluent =
+                    Types().That().Are(type).Should().NotBeAssignableTo(Types().That().Are(type));
+                var typeIsNotAssignableToFalseTypeMultiple1 = Types().That().Are(type).Should()
+                    .NotBeAssignableTo(falseTypeList1).OrShould().Be(falseTypeList1);
+                var typeIsNotAssignableToFalseTypeMultiple2 = Types().That().Are(type).Should()
+                    .NotBeAssignableTo(falseTypeList2).OrShould().Be(falseTypeList1);
+                var typeIsNotAssignableToFalseTypeMultiplePattern = Types().That().Are(type).Should()
+                    .NotBeAssignableTo(falseTypeListPattern).OrShould().Be(falseTypeList1);
+                var typeIsAssignableToFalseTypeMultiple1 = Types().That().Are(type).Should()
+                    .BeAssignableTo(falseTypeList1).AndShould().NotBe(falseTypeList1);
+                var typeIsAssignableToFalseTypeMultiple2 = Types().That().Are(type).Should()
+                    .BeAssignableTo(falseTypeList2).AndShould().NotBe(falseTypeList1);
+                var typeIsAssignableToFalseTypeMultiplePattern = Types().That().Are(type).Should()
+                    .BeAssignableTo(falseTypeListPattern).AndShould().NotBe(falseTypeList1);
+
+                Assert.True(typeIsAssignableToItselfFluent.HasNoViolations(Architecture));
+                Assert.False(typeIsNotAssignableToItselfFluent.HasNoViolations(Architecture));
+                Assert.True(typeIsNotAssignableToFalseTypeMultiple1.HasNoViolations(Architecture));
+                Assert.True(typeIsNotAssignableToFalseTypeMultiple2.HasNoViolations(Architecture));
+                Assert.True(typeIsNotAssignableToFalseTypeMultiplePattern.HasNoViolations(Architecture));
+                Assert.False(typeIsAssignableToFalseTypeMultiple1.HasNoViolations(Architecture));
+                Assert.False(typeIsAssignableToFalseTypeMultiple2.HasNoViolations(Architecture));
+                Assert.False(typeIsAssignableToFalseTypeMultiplePattern.HasNoViolations(Architecture));
+            }
         }
 
         [Fact]
@@ -275,6 +347,38 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.True(testInterfaceThatImplementsInterfaceImplementsInterface.HasNoViolations(Architecture));
             Assert.True(testClassThatImplementsNoInterfaceDoesNotImplementInterface.HasNoViolations(Architecture));
             Assert.False(testClassThatImplementsNoInterfaceImplementsInterface.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void ResideInAssemblyTest()
+        {
+            foreach (var type in _types)
+            {
+                var typeResidesInOwnAssembly =
+                    Types().That().Are(type).Should().ResideInAssembly(type.Assembly.FullName);
+                var typeDoesNotResideInOwnAssembly =
+                    Types().That().Are(type).Should().NotResideInAssembly(type.Assembly.FullName);
+                var thereAreTypesInOwnAssembly =
+                    Types().That().ResideInAssembly(type.Assembly.FullName).Should().Exist();
+                var typesInOtherAssemblyAreOtherTypes =
+                    Types().That().DoNotResideInAssembly(type.Assembly.FullName).Should().NotBe(type);
+
+                Assert.True(typeResidesInOwnAssembly.HasNoViolations(Architecture));
+                Assert.False(typeDoesNotResideInOwnAssembly.HasNoViolations(Architecture));
+                Assert.True(thereAreTypesInOwnAssembly.HasNoViolations(Architecture));
+                Assert.True(typesInOtherAssemblyAreOtherTypes.HasNoViolations(Architecture));
+            }
+
+            foreach (var assembly in Architecture.Assemblies.Select(assembly => assembly.FullName))
+            {
+                var typesInAssemblyAreInAssembly =
+                    Types().That().ResideInAssembly(assembly).Should().ResideInAssembly(assembly);
+                var typesInOtherAssemblyAreInOtherAssembly = Types().That().DoNotResideInAssembly(assembly).Should()
+                    .NotResideInAssembly(assembly);
+
+                Assert.True(typesInAssemblyAreInAssembly.HasNoViolations(Architecture));
+                Assert.True(typesInOtherAssemblyAreInOtherAssembly.HasNoViolations(Architecture));
+            }
         }
 
         [Fact]
