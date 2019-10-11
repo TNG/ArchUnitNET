@@ -2,7 +2,7 @@
 {
     public static class SyntaxElementExtensions
     {
-        public static string GetShortDescription(this IHasDescription obj, int maxLength = 50)
+        public static string GetShortDescription(this IHasDescription obj, int maxLength = 150)
         {
             return obj.Description.Length > maxLength
                 ? obj.Description.Substring(0, maxLength - 3) + "..."
