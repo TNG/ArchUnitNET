@@ -103,12 +103,19 @@ namespace ArchUnitNET.Core
                 _archBuilder.AddAssembly(module.Assembly, false);
                 foreach (var assemblyReference in module.AssemblyReferences)
                 {
-                    _assemblyResolver.AddLib(assemblyReference);
-                    if (includeDependencies)
+                    try
                     {
-                        _archBuilder.AddAssembly(
-                            _assemblyResolver.Resolve(assemblyReference) ??
-                            throw new AssemblyResolutionException(assemblyReference), false);
+                        _assemblyResolver.AddLib(assemblyReference);
+                        if (includeDependencies)
+                        {
+                            _archBuilder.AddAssembly(
+                                _assemblyResolver.Resolve(assemblyReference) ??
+                                throw new AssemblyResolutionException(assemblyReference), false);
+                        }
+                    }
+                    catch (AssemblyResolutionException)
+                    {
+                        //Failed to resolve assembly, skip it
                     }
                 }
 

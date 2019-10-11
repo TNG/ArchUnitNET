@@ -84,7 +84,7 @@ namespace ArchUnitNET.Core
 
         public void AddLib(AssemblyNameReference name)
         {
-            var assembly = _defaultAssemblyResolver.Resolve(name);
+            var assembly = Resolve(name) ?? _defaultAssemblyResolver.Resolve(name);
             AddLib(name, assembly ?? throw new AssemblyResolutionException(name));
         }
 
