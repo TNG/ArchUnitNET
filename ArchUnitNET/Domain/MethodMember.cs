@@ -42,7 +42,7 @@ namespace ArchUnitNET.Domain
 
         public override string ToString()
         {
-            return $"{DeclaringType.FullName}{'.'}{Name}";
+            return $"{DeclaringType.FullName}::{Name}";
         }
 
         public override bool Equals(object obj)
