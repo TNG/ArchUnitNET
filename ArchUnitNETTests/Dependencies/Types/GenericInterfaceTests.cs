@@ -39,7 +39,7 @@ namespace ArchUnitNETTests.Dependencies.Types
             var genericArgumentsOfImplementedInterface = implementedGenericInterface?.GenericTypeArguments;
 
             // Assert
-            Assert.True(_genericInterfaceImplementation.Implements(_genericInterface));
+            Assert.True(_genericInterfaceImplementation.ImplementsInterface(_genericInterface));
             Assert.Single(genericArgumentsOfImplementedInterface ??
                           throw new NullException("No generic arguments from inherited " +
                                                   "generic interface implementation."));

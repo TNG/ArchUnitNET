@@ -112,52 +112,47 @@ namespace ArchUnitNET.Fluent.Extensions
 
         public static bool NameContains(this IHasName cls, string pattern)
         {
-            return cls.Name.ToLower().Contains(pattern.ToLower());
+            return pattern != null && cls.Name.ToLower().Contains(pattern.ToLower());
         }
 
-        public static bool NameMatches(this IHasName cls, string pattern)
+        public static bool NameMatches(this IHasName cls, string pattern, bool useRegularExpressions = false)
         {
-            return pattern != null && Regex.IsMatch(cls.Name, pattern);
+            if (useRegularExpressions)
+            {
+                return pattern != null && Regex.IsMatch(cls.Name, pattern);
+            }
+
+            return cls.NameContains(pattern);
         }
 
-        public static bool FullNameMatches(this IHasName cls, string pattern)
+        public static bool FullNameMatches(this IHasName cls, string pattern, bool useRegularExpressions = false)
         {
-            return pattern != null && Regex.IsMatch(cls.FullName, pattern);
+            if (useRegularExpressions)
+            {
+                return pattern != null && Regex.IsMatch(cls.FullName, pattern);
+            }
+
+            return cls.FullNameContains(pattern);
         }
 
         public static bool FullNameContains(this IHasName cls, string pattern)
         {
-            return cls.FullName.ToLower().Contains(pattern.ToLower());
+            return pattern != null && cls.FullName.ToLower().Contains(pattern.ToLower());
         }
 
-        public static bool ResidesInNamespaceWithFullNameMatching(this IType e, string pattern)
+        public static bool ResidesInNamespace(this IType e, string pattern, bool useRegularExpressions = false)
         {
-            return e.Namespace.FullNameMatches(pattern);
+            return e.Namespace.FullNameMatches(pattern, useRegularExpressions);
         }
 
-        public static bool ResidesInAssemblyWithFullNameMatching(this IType e, string pattern)
+        public static bool ResidesInAssembly(this IType e, string pattern, bool useRegularExpressions = false)
         {
-            return e.Assembly.FullNameMatches(pattern);
+            return e.Assembly.FullNameMatches(pattern, useRegularExpressions);
         }
 
-        public static bool ResidesInNamespaceWithFullNameContaining(this IType e, string pattern)
+        public static bool DependsOn(this IHasDependencies c, string pattern, bool useRegularExpressions = false)
         {
-            return e.Namespace.FullNameContains(pattern);
-        }
-
-        public static bool ResidesInAssemblyWithFullNameContaining(this IType e, string pattern)
-        {
-            return e.Assembly.FullNameContains(pattern);
-        }
-
-        public static bool DependsOnTypesWithFullNameMatching(this IHasDependencies c, string pattern)
-        {
-            return c.GetTypeDependencies().Any(d => d.FullNameMatches(pattern));
-        }
-
-        public static bool DependsOnTypesWithFullNameContaining(this IHasDependencies c, string pattern)
-        {
-            return c.GetTypeDependencies().Any(d => d.FullNameContains(pattern));
+            return c.GetTypeDependencies().Any(d => d.FullNameMatches(pattern, useRegularExpressions));
         }
 
         public static bool DependsOn(this IHasDependencies c, IType type)
@@ -165,14 +160,15 @@ namespace ArchUnitNET.Fluent.Extensions
             return c.GetTypeDependencies().Contains(type);
         }
 
-        public static bool OnlyDependsOnTypesWithFullNameMatching(this IHasDependencies c, string pattern)
+        public static bool IsDeclaredAsFieldIn(this IType type, string pattern, bool useRegularExpressions = false)
         {
-            return c.GetTypeDependencies().All(d => d.FullNameMatches(pattern));
+            return type.GetFieldTypeDependencies(true).Any(dependency =>
+                dependency.Target.FullNameMatches(pattern, useRegularExpressions));
         }
 
-        public static bool OnlyDependsOnTypesWithFullNameContaining(this IHasDependencies c, string pattern)
+        public static bool OnlyDependsOn(this IHasDependencies c, string pattern, bool useRegularExpressions = false)
         {
-            return c.GetTypeDependencies().All(d => d.FullNameContains(pattern));
+            return c.GetTypeDependencies().All(d => d.FullNameMatches(pattern, useRegularExpressions));
         }
 
         public static IEnumerable<Class> GetClassDependencies(this IHasDependencies c)
@@ -220,19 +216,28 @@ namespace ArchUnitNET.Fluent.Extensions
             return type.GetMethodMembers().Where(method => method.IsConstructor());
         }
 
-        public static IEnumerable<AttributeTypeDependency> GetAttributeTypeDependencies(this IType type)
+        public static IEnumerable<AttributeTypeDependency> GetAttributeTypeDependencies(this IType type,
+            bool getBackwardsDependencies = false)
         {
-            return type.Dependencies.OfType<AttributeTypeDependency>();
+            return getBackwardsDependencies
+                ? type.BackwardsDependencies.OfType<AttributeTypeDependency>()
+                : type.Dependencies.OfType<AttributeTypeDependency>();
         }
 
-        public static IEnumerable<ImplementsInterfaceDependency> GetImplementsInterfaceDependencies(this IType type)
+        public static IEnumerable<ImplementsInterfaceDependency> GetImplementsInterfaceDependencies(this IType type,
+            bool getBackwardsDependencies = false)
         {
-            return type.Dependencies.OfType<ImplementsInterfaceDependency>();
+            return getBackwardsDependencies
+                ? type.BackwardsDependencies.OfType<ImplementsInterfaceDependency>()
+                : type.Dependencies.OfType<ImplementsInterfaceDependency>();
         }
 
-        public static IEnumerable<InheritsBaseClassDependency> GetInheritsBaseClassDependencies(this IType type)
+        public static IEnumerable<InheritsBaseClassDependency> GetInheritsBaseClassDependencies(this IType type,
+            bool getBackwardsDependencies = false)
         {
-            return type.Dependencies.OfType<InheritsBaseClassDependency>();
+            return getBackwardsDependencies
+                ? type.BackwardsDependencies.OfType<InheritsBaseClassDependency>()
+                : type.Dependencies.OfType<InheritsBaseClassDependency>();
         }
     }
 }

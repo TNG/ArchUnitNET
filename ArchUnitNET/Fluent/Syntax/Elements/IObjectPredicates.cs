@@ -6,18 +6,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public interface IObjectPredicates<out TReturnType>
     {
+        TReturnType Are(string pattern, bool useRegularExpressions = false);
+        TReturnType Are(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType Are(IEnumerable<ICanBeAnalyzed> objects);
         TReturnType Are(IObjectProvider<ICanBeAnalyzed> objects);
-        TReturnType DependOnAnyTypesWithFullNameMatching(string pattern);
-        TReturnType DependOnAnyTypesWithFullNameContaining(string pattern);
+        TReturnType DependOnAny(string pattern, bool useRegularExpressions = false);
+        TReturnType DependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType DependOnAny(Type firstType, params Type[] moreTypes);
         TReturnType DependOnAny(IType firstType, params IType[] moreTypes);
         TReturnType DependOnAny(IObjectProvider<IType> types);
         TReturnType DependOnAny(IEnumerable<IType> types);
         TReturnType DependOnAny(IEnumerable<Type> types);
-        TReturnType OnlyDependOnTypesWithFullNameMatching(string pattern);
-        TReturnType OnlyDependOnTypesWithFullNameContaining(string pattern);
+        TReturnType OnlyDependOn(string pattern, bool useRegularExpressions = false);
+        TReturnType OnlyDependOn(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType OnlyDependOn(Type firstType, params Type[] moreTypes);
         TReturnType OnlyDependOn(IType firstType, params IType[] moreTypes);
         TReturnType OnlyDependOn(IObjectProvider<IType> types);
@@ -42,11 +44,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         //Negations
 
 
+        TReturnType AreNot(string pattern, bool useRegularExpressions = false);
+        TReturnType AreNot(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType AreNot(IEnumerable<ICanBeAnalyzed> objects);
         TReturnType AreNot(IObjectProvider<ICanBeAnalyzed> objects);
-        TReturnType DoNotDependOnAnyTypesWithFullNameMatching(string pattern);
-        TReturnType DoNotDependOnAnyTypesWithFullNameContaining(string pattern);
+        TReturnType DoNotDependOnAny(string pattern, bool useRegularExpressions = false);
+        TReturnType DoNotDependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType DoNotDependOnAny(Type firstType, params Type[] moreTypes);
         TReturnType DoNotDependOnAny(IType firstType, params IType[] moreTypes);
         TReturnType DoNotDependOnAny(IObjectProvider<IType> types);

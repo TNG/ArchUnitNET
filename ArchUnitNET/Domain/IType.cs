@@ -20,11 +20,9 @@ namespace ArchUnitNET.Domain
         [CanBeNull] IType GenericType { get; }
         bool IsNested { get; }
         IEnumerable<IType> ImplementedInterfaces { get; }
-        bool Implements(IType intf);
-        bool ImplementsInterfacesWithFullNameMatching(string pattern);
-        bool ImplementsInterfacesWithFullNameContaining(string pattern);
+        bool ImplementsInterface(IType intf);
+        bool ImplementsInterface(string pattern, bool useRegularExpressions = false);
         bool IsAssignableTo(IType assignableToType);
-        bool IsAssignableToTypesWithFullNameMatching(string pattern);
-        bool IsAssignableToTypesWithFullNameContaining(string pattern);
+        bool IsAssignableTo(string pattern, bool useRegularExpressions = false);
     }
 }

@@ -54,13 +54,13 @@ namespace ArchUnitNET.Core
             .OfType<ImplementsInterfaceDependency>()
             .Select(dependency => dependency.Target);
 
-        public bool Implements(IType @interface)
+        public bool ImplementsInterface(IType @interface)
         {
             return ImplementedInterfaces.Any(implementedInterface =>
                 Equals(implementedInterface, @interface) || Equals(implementedInterface.GenericType, @interface));
         }
 
-        public bool ImplementsInterfacesWithFullNameMatching(string pattern)
+        public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
         {
             if (pattern == null)
             {
@@ -68,22 +68,9 @@ namespace ArchUnitNET.Core
             }
 
             return ImplementedInterfaces.Any(implementedInterface =>
-                implementedInterface.FullNameMatches(pattern) ||
+                implementedInterface.FullNameMatches(pattern, useRegularExpressions) ||
                 implementedInterface.GenericType != null &&
-                implementedInterface.GenericType.FullNameMatches(pattern));
-        }
-
-        public bool ImplementsInterfacesWithFullNameContaining(string pattern)
-        {
-            if (pattern == null)
-            {
-                return false;
-            }
-
-            return ImplementedInterfaces.Any(implementedInterface =>
-                implementedInterface.FullNameContains(pattern) ||
-                implementedInterface.GenericType != null &&
-                implementedInterface.GenericType.FullNameContains(pattern));
+                implementedInterface.GenericType.FullNameMatches(pattern, useRegularExpressions));
         }
 
         public bool IsAssignableTo(IType assignableToType)
@@ -98,29 +85,19 @@ namespace ArchUnitNET.Core
                 return true;
             }
 
-            return assignableToType is Interface && Implements(assignableToType);
+            return assignableToType is Interface && ImplementsInterface(assignableToType);
         }
 
-        public bool IsAssignableToTypesWithFullNameMatching(string pattern)
+        public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
         {
             if (pattern == null)
             {
                 return false;
             }
 
-            return this.FullNameMatches(pattern) || ImplementsInterfacesWithFullNameMatching(pattern);
+            return this.FullNameMatches(pattern, useRegularExpressions) ||
+                   ImplementsInterface(pattern, useRegularExpressions);
         }
-
-        public bool IsAssignableToTypesWithFullNameContaining(string pattern)
-        {
-            if (pattern == null)
-            {
-                return false;
-            }
-
-            return this.FullNameContains(pattern) || ImplementsInterfacesWithFullNameContaining(pattern);
-        }
-
 
         public override string ToString()
         {

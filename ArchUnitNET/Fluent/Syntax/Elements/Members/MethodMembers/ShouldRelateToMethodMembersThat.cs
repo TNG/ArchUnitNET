@@ -25,6 +25,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction AreCalledBy(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.AreCalledBy(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(string pattern,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -38,6 +53,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public TRuleTypeShouldConjunction AreNotVirtual()
         {
             _ruleCreator.ContinueComplexCondition(MethodMemberPredicatesDefinition.AreNotVirtual());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotCalledBy(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.AreNotCalledBy(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(string pattern,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

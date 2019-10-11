@@ -76,7 +76,7 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void ImplementedInterfaceRecognized()
         {
-            Assert.True(_childInterface.Implements(_parentInterface));
+            Assert.True(_childInterface.ImplementsInterface(_parentInterface));
         }
 
         [Fact]

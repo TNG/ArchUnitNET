@@ -12,6 +12,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
         }
 
+        public TGivenRuleTypeConjunction Are(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.Are(pattern, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction Are(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.Are(patterns, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.Are(firstObject, moreObjects));
@@ -30,17 +44,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOnAnyTypesWithFullNameMatching(string pattern)
+        public TGivenRuleTypeConjunction DependOnAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DependOnAnyTypesWithFullNameMatching(pattern));
+                ObjectPredicatesDefinition<TRuleType>.DependOnAny(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DependOnAnyTypesWithFullNameContaining(string pattern)
+        public TGivenRuleTypeConjunction DependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DependOnAnyTypesWithFullNameContaining(pattern));
+                ObjectPredicatesDefinition<TRuleType>.DependOnAny(patterns, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -74,17 +88,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction OnlyDependOnTypesWithFullNameMatching(string pattern)
+        public TGivenRuleTypeConjunction OnlyDependOn(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.OnlyDependOnTypesWithFullNameMatching(pattern));
+                ObjectPredicatesDefinition<TRuleType>.OnlyDependOn(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction OnlyDependOnTypesWithFullNameContaining(string pattern)
+        public TGivenRuleTypeConjunction OnlyDependOn(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.OnlyDependOnTypesWithFullNameContaining(pattern));
+                ObjectPredicatesDefinition<TRuleType>.OnlyDependOn(patterns, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -206,6 +220,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         //Negations
 
 
+        public TGivenRuleTypeConjunction AreNot(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.AreNot(pattern, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNot(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.AreNot(patterns, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.AreNot(firstObject, moreObjects));
@@ -224,17 +252,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
+        public TGivenRuleTypeConjunction DoNotDependOnAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotDependOnAnyTypesWithFullNameMatching(pattern));
+                ObjectPredicatesDefinition<TRuleType>.DoNotDependOnAny(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotDependOnAnyTypesWithFullNameContaining(string pattern)
+        public TGivenRuleTypeConjunction DoNotDependOnAny(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotDependOnAnyTypesWithFullNameContaining(pattern));
+                ObjectPredicatesDefinition<TRuleType>.DoNotDependOnAny(patterns, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

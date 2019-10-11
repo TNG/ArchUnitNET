@@ -15,14 +15,9 @@ namespace ArchUnitNET.Fluent.Extensions
 {
     public static class MemberExtensions
     {
-        public static bool IsDeclaredInTypeWithFullNameMatching(this IMember member, string pattern)
+        public static bool IsDeclaredIn(this IMember member, string pattern, bool useRegularExpressions = false)
         {
-            return member.DeclaringType.FullNameMatches(pattern);
-        }
-
-        public static bool IsDeclaredInTypeWithFullNameContaining(this IMember member, string pattern)
-        {
-            return member.DeclaringType.FullNameContains(pattern);
+            return member.DeclaringType.FullNameMatches(pattern, useRegularExpressions);
         }
 
         public static bool IsDeclaredIn(this IMember member, IType type)
@@ -30,70 +25,56 @@ namespace ArchUnitNET.Fluent.Extensions
             return member.DeclaringType.Equals(type);
         }
 
-        public static IEnumerable<BodyTypeMemberDependency> GetBodyTypeMemberDependencies(this IMember member)
+        public static IEnumerable<BodyTypeMemberDependency> GetBodyTypeMemberDependencies(this IMember member,
+            bool getBackwardsDependencies = false)
         {
-            return member.MemberDependencies.OfType<BodyTypeMemberDependency>();
+            return getBackwardsDependencies
+                ? member.MemberBackwardsDependencies.OfType<BodyTypeMemberDependency>()
+                : member.MemberDependencies.OfType<BodyTypeMemberDependency>();
         }
 
-        public static bool HasBodyTypeMemberDependencies(this IMember member)
+        public static bool HasBodyTypeMemberDependencies(this IMember member, bool getBackwardsDependencies = false)
         {
-            return member.GetBodyTypeMemberDependencies().Any();
+            return member.GetBodyTypeMemberDependencies(getBackwardsDependencies).Any();
         }
 
-        public static bool HasBodyTypeMemberDependenciesWithFullNameMatching(this IMember member, string pattern)
+        public static IEnumerable<MethodCallDependency> GetMethodCallDependencies(this IMember member,
+            bool getBackwardsDependencies = false)
+        {
+            return getBackwardsDependencies
+                ? member.MemberBackwardsDependencies.OfType<MethodCallDependency>()
+                : member.MemberDependencies.OfType<MethodCallDependency>();
+        }
+
+        public static bool HasMethodCallDependencies(this IMember member, bool getBackwardsDependencies = false)
+        {
+            return member.GetMethodCallDependencies(getBackwardsDependencies).Any();
+        }
+
+        public static bool IsCalledBy(this MethodMember member, string pattern, bool useRegularExpressions = false)
+        {
+            return member.GetMethodCallDependencies(true).Any(dependency =>
+                dependency.Origin.FullNameMatches(pattern, useRegularExpressions));
+        }
+
+        public static bool HasDependencyInMethodBodyTo(this MethodMember member, string pattern,
+            bool useRegularExpressions = false)
         {
             return member.GetBodyTypeMemberDependencies().Any(dependency =>
-                dependency.Origin.FullNameMatches(pattern) || dependency.Target.FullNameMatches(pattern));
+                dependency.Target.FullNameMatches(pattern, useRegularExpressions));
         }
 
-        public static bool HasBodyTypeMemberDependenciesWithFullNameContaining(this IMember member, string pattern)
+        public static IEnumerable<ITypeDependency> GetFieldTypeDependencies(this IHasDependencies type,
+            bool getBackwardsDependencies = false)
         {
-            return member.GetBodyTypeMemberDependencies().Any(dependency =>
-                dependency.Origin.FullNameContains(pattern) || dependency.Target.FullNameContains(pattern));
+            return getBackwardsDependencies
+                ? type.BackwardsDependencies.OfType<FieldTypeDependency>()
+                : type.Dependencies.OfType<FieldTypeDependency>();
         }
 
-        public static IEnumerable<MethodCallDependency> GetMethodCallDependencies(this IMember member)
+        public static bool HasFieldTypeDependencies(this IMember member, bool getBackwardsDependencies = false)
         {
-            return member.MemberDependencies.OfType<MethodCallDependency>();
-        }
-
-        public static bool HasMethodCallDependencies(this IMember member)
-        {
-            return member.GetMethodCallDependencies().Any();
-        }
-
-        public static bool HasMethodCallDependenciesWithFullNameMatching(this IMember member, string pattern)
-        {
-            return member.GetMethodCallDependencies().Any(dependency =>
-                dependency.Origin.FullNameMatches(pattern) || dependency.Target.FullNameMatches(pattern));
-        }
-
-        public static bool HasMethodCallDependenciesWithFullNameContaining(this IMember member, string pattern)
-        {
-            return member.GetMethodCallDependencies().Any(dependency =>
-                dependency.Origin.FullNameContains(pattern) || dependency.Target.FullNameContains(pattern));
-        }
-
-        public static IEnumerable<ITypeDependency> GetFieldTypeDependencies(this IHasDependencies type)
-        {
-            return type.Dependencies.OfType<FieldTypeDependency>();
-        }
-
-        public static bool HasFieldTypeDependencies(this IMember member)
-        {
-            return member.GetFieldTypeDependencies().Any();
-        }
-
-        public static bool HasFieldTypeDependenciesWithFullNameMatching(this IMember member, string pattern)
-        {
-            return member.GetFieldTypeDependencies().Any(dependency =>
-                dependency.Origin.FullNameMatches(pattern) || dependency.Target.FullNameMatches(pattern));
-        }
-
-        public static bool HasFieldTypeDependenciesWithFullNameContaining(this IMember member, string pattern)
-        {
-            return member.GetFieldTypeDependencies().Any(dependency =>
-                dependency.Origin.FullNameContains(pattern) || dependency.Target.FullNameContains(pattern));
+            return member.GetFieldTypeDependencies(getBackwardsDependencies).Any();
         }
 
         public static Attribute GetAttributeFromMember(this IMember member, Class attributeClass)
@@ -101,27 +82,37 @@ namespace ArchUnitNET.Fluent.Extensions
             return member.Attributes.Find(attribute => attribute.FullName.Equals(attributeClass.FullName));
         }
 
-        public static IEnumerable<AttributeMemberDependency> GetAttributeMemberDependencies(this IMember member)
+        public static IEnumerable<AttributeMemberDependency> GetAttributeMemberDependencies(
+            this IHasDependencies member, bool getBackwardsDependencies = false)
         {
-            return member.Dependencies.OfType<AttributeMemberDependency>();
+            return getBackwardsDependencies
+                ? member.BackwardsDependencies.OfType<AttributeMemberDependency>()
+                : member.Dependencies.OfType<AttributeMemberDependency>();
         }
 
         public static bool HasMethodSignatureDependency(this IMember member,
-            MethodSignatureDependency methodSignatureDependency)
+            MethodSignatureDependency methodSignatureDependency, bool getBackwardsDependencies = false)
         {
-            return member.MemberDependencies.OfType<MethodSignatureDependency>().Contains(methodSignatureDependency);
+            return getBackwardsDependencies
+                ? member.MemberBackwardsDependencies.OfType<MethodSignatureDependency>()
+                    .Contains(methodSignatureDependency)
+                : member.MemberDependencies.OfType<MethodSignatureDependency>().Contains(methodSignatureDependency);
         }
 
         public static bool HasMemberDependency(this IMember member,
-            IMemberTypeDependency memberDependency)
+            IMemberTypeDependency memberDependency, bool getBackwardsDependencies = false)
         {
-            return member.MemberDependencies.Contains(memberDependency);
+            return getBackwardsDependencies
+                ? member.MemberBackwardsDependencies.Contains(memberDependency)
+                : member.MemberDependencies.Contains(memberDependency);
         }
 
         public static bool HasDependency(this IMember member,
-            IMemberTypeDependency memberDependency)
+            IMemberTypeDependency memberDependency, bool getBackwardsDependencies = false)
         {
-            return member.Dependencies.Contains(memberDependency);
+            return getBackwardsDependencies
+                ? member.BackwardsDependencies.Contains(memberDependency)
+                : member.Dependencies.Contains(memberDependency);
         }
 
         public static bool IsConstructor(this MethodMember methodMember)

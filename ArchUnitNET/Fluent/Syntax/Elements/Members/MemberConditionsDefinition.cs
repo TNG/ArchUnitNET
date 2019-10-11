@@ -8,18 +8,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
     public static class MemberConditionsDefinition<TRuleType> where TRuleType : IMember
     {
-        public static ICondition<TRuleType> BeDeclaredInTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> BeDeclaredIn(string pattern, bool useRegularExpressions = false)
         {
-            return new SimpleCondition<TRuleType>(member => member.IsDeclaredInTypeWithFullNameMatching(pattern),
+            return new SimpleCondition<TRuleType>(member => member.IsDeclaredIn(pattern, useRegularExpressions),
                 member => "is declared in " + member.DeclaringType.FullName,
-                "be declared in types with full name matching \"" + pattern + "\"");
+                "be declared in types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                pattern + "\"");
         }
 
-        public static ICondition<TRuleType> BeDeclaredInTypesWithFullNameContaining(string pattern)
+        public static ICondition<TRuleType> BeDeclaredIn(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
-            return new SimpleCondition<TRuleType>(member => member.IsDeclaredInTypeWithFullNameContaining(pattern),
-                member => "is declared in " + member.DeclaringType.FullName,
-                "be declared in types with full name containing \"" + pattern + "\"");
+            var patternList = patterns.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return patternList.Any(pattern => ruleType.IsDeclaredIn(pattern, useRegularExpressions));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "be declared in no type (always false)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(obj => !obj.Equals(firstPattern)).Distinct().Aggregate(
+                    "be declared in types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"",
+                    (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition,
+                member => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(IType firstType, params IType[] moreTypes)
@@ -113,91 +135,44 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
         }
 
-        public static ICondition<TRuleType> HaveBodyTypeMemberDependencies()
-        {
-            return new SimpleCondition<TRuleType>(
-                member => member.HasBodyTypeMemberDependencies(), "have body type member dependencies",
-                "has no body type member dependencies");
-        }
-
-        public static ICondition<TRuleType> HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => member.HasBodyTypeMemberDependenciesWithFullNameMatching(pattern),
-                "have body type member dependencies with full name matching \"" + pattern + "\"",
-                "has no body type member dependencies with full name matching \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> HaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => member.HasBodyTypeMemberDependenciesWithFullNameContaining(pattern),
-                "have body type member dependencies with full name containing \"" + pattern + "\"",
-                "has no body type member dependencies with full name containing \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> HaveMethodCallDependencies()
-        {
-            return new SimpleCondition<TRuleType>(
-                member => member.HasMethodCallDependencies(), "have method call dependencies",
-                "has no method call dependencies");
-        }
-
-        public static ICondition<TRuleType> HaveMethodCallDependenciesWithFullNameMatching(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => member.HasMethodCallDependenciesWithFullNameMatching(pattern),
-                "have method call dependencies with full name matching \"" + pattern + "\"",
-                "has no method call dependencies with full name matching \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> HaveMethodCallDependenciesWithFullNameContaining(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => member.HasMethodCallDependenciesWithFullNameContaining(pattern),
-                "have method call dependencies with full name matching \"" + pattern + "\"",
-                "has no method call dependencies with full name matching \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> HaveFieldTypeDependencies()
-        {
-            return new SimpleCondition<TRuleType>(
-                member => member.HasFieldTypeDependencies(), "have field type dependencies",
-                "has no field type dependencies");
-        }
-
-        public static ICondition<TRuleType> HaveFieldTypeDependenciesWithFullNameMatching(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => member.HasFieldTypeDependenciesWithFullNameMatching(pattern),
-                "have field type dependencies with full name matching \"" + pattern + "\"",
-                "has no field type dependencies with full name matching \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> HaveFieldTypeDependenciesWithFullNameContaining(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => member.HasFieldTypeDependenciesWithFullNameContaining(pattern),
-                "have field type dependencies with full name containing \"" + pattern + "\"",
-                "has no field type dependencies with full name containing \"" + pattern + "\"");
-        }
-
 
         //Negations
 
 
-        public static ICondition<TRuleType> NotBeDeclaredInTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotBeDeclaredIn(string pattern, bool useRegularExpressions = false)
         {
-            return new SimpleCondition<TRuleType>(member => !member.IsDeclaredInTypeWithFullNameMatching(pattern),
+            return new SimpleCondition<TRuleType>(member => !member.IsDeclaredIn(pattern, useRegularExpressions),
                 member => "is declared in " + member.DeclaringType.FullName,
-                "not be declared in types with full name matching \"" + pattern + "\"");
+                "not be declared in types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                " \"" + pattern + "\"");
         }
 
-        public static ICondition<TRuleType> NotBeDeclaredInTypesWithFullNameContaining(string pattern)
+        public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
-            return new SimpleCondition<TRuleType>(member => !member.IsDeclaredInTypeWithFullNameContaining(pattern),
-                member => "is declared in " + member.DeclaringType.FullName,
-                "not be declared in types with full name containing \"" + pattern + "\"");
+            var patternList = patterns.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return patternList.All(pattern => !ruleType.IsDeclaredIn(pattern, useRegularExpressions));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "not be declared in no type (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(obj => !obj.Equals(firstPattern)).Distinct().Aggregate(
+                    "not be declared in types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"",
+                    (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition,
+                member => "is declared in " + member.DeclaringType.FullName, description);
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IType firstType, params IType[] moreTypes)
@@ -289,75 +264,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             return new ArchitectureCondition<TRuleType>(Condition,
                 (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
-        }
-
-        public static ICondition<TRuleType> NotHaveBodyTypeMemberDependencies()
-        {
-            return new SimpleCondition<TRuleType>(
-                member => !member.HasBodyTypeMemberDependencies(), "not have body type member dependencies",
-                "does have body type member dependencies");
-        }
-
-        public static ICondition<TRuleType> NotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => !member.HasBodyTypeMemberDependenciesWithFullNameMatching(pattern),
-                "not have body type member dependencies with full name matching \"" + pattern + "\"",
-                "does have body type member dependencies with full name matching \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> NotHaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => !member.HasBodyTypeMemberDependenciesWithFullNameContaining(pattern),
-                "not have body type member dependencies with full name containing \"" + pattern + "\"",
-                "does have body type member dependencies with full name containing \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> NotHaveMethodCallDependencies()
-        {
-            return new SimpleCondition<TRuleType>(
-                member => !member.HasMethodCallDependencies(), "not have method call dependencies",
-                "does have method call dependencies");
-        }
-
-        public static ICondition<TRuleType> NotHaveMethodCallDependenciesWithFullNameMatching(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => !member.HasMethodCallDependenciesWithFullNameMatching(pattern),
-                "not have method call dependencies with full name matching \"" + pattern + "\"",
-                "does have method call dependencies with full name matching \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> NotHaveMethodCallDependenciesWithFullNameContaining(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => !member.HasMethodCallDependenciesWithFullNameContaining(pattern),
-                "not have method call dependencies with full name containing \"" + pattern + "\"",
-                "does have method call dependencies with full name containing \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> NotHaveFieldTypeDependencies()
-        {
-            return new SimpleCondition<TRuleType>(
-                member => !member.HasFieldTypeDependencies(), "not have field type dependencies",
-                "does have field type dependencies");
-        }
-
-        public static ICondition<TRuleType> NotHaveFieldTypeDependenciesWithFullNameMatching(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => !member.HasFieldTypeDependenciesWithFullNameMatching(pattern),
-                "not have field type dependencies with full name matching \"" + pattern + "\"",
-                "does have field type dependencies with full name matching \"" + pattern + "\"");
-        }
-
-        public static ICondition<TRuleType> NotHaveFieldTypeDependenciesWithFullNameContaining(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                member => !member.HasFieldTypeDependenciesWithFullNameContaining(pattern),
-                "not have field type dependencies with full name containing \"" + pattern + "\"",
-                "does have field type dependencies with full name containing \"" + pattern + "\"");
         }
     }
 }

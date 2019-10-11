@@ -47,9 +47,9 @@ namespace ArchUnitNET.Domain
             Add(patterns, useRegularExpressions);
         }
 
-        public TypeList(string firstPattern, bool useRegularExpressions = false, params string[] morePatterns) : this()
+        public TypeList(string pattern, bool useRegularExpressions = false, params string[] morePatterns) : this()
         {
-            Add(firstPattern, useRegularExpressions, morePatterns);
+            Add(pattern, useRegularExpressions, morePatterns);
         }
 
         public void Add(IObjectProvider<IType> typeProvider)
@@ -144,9 +144,9 @@ namespace ArchUnitNET.Domain
             Add(new PatternCollection(patterns, useRegularExpressions));
         }
 
-        public void Add(string firstPattern, bool useRegularExpressions = false, params string[] morePatterns)
+        public void Add(string pattern, bool useRegularExpressions = false, params string[] morePatterns)
         {
-            Add(new PatternCollection(firstPattern, useRegularExpressions, morePatterns));
+            Add(new PatternCollection(pattern, useRegularExpressions, morePatterns));
         }
 
         private abstract class Collection<T> : IObjectProvider<IType>
@@ -215,8 +215,8 @@ namespace ArchUnitNET.Domain
                 _useRegularExpressions = useRegularExpressions;
             }
 
-            public PatternCollection(string firstPatterns, bool useRegularExpressions = false,
-                params string[] morePatterns) : base(firstPatterns, morePatterns)
+            public PatternCollection(string pattern, bool useRegularExpressions = false,
+                params string[] morePatterns) : base(pattern, morePatterns)
             {
                 _useRegularExpressions = useRegularExpressions;
             }
@@ -229,9 +229,8 @@ namespace ArchUnitNET.Domain
                 var types = new List<IType>();
                 foreach (var pattern in Items)
                 {
-                    types.AddRange(_useRegularExpressions
-                        ? architecture.Types.Where(type => type.FullNameMatches(pattern))
-                        : architecture.Types.Where(type => type.FullNameContains(pattern)));
+                    types.AddRange(architecture.Types.Where(type =>
+                        type.FullNameMatches(pattern, _useRegularExpressions)));
                 }
 
                 return types.Distinct();

@@ -21,6 +21,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
+        public MethodMembersShouldConjunction BeCalledBy(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.BeCalledBy(pattern, useRegularExpressions));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(string pattern,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(pattern, useRegularExpressions));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -34,6 +48,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public MethodMembersShouldConjunction NotBeVirtual()
         {
             _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotBeVirtual());
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction NotBeCalledBy(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotBeCalledBy(pattern, useRegularExpressions));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(string pattern,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(pattern, useRegularExpressions));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
     }

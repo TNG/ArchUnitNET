@@ -82,19 +82,14 @@ namespace ArchUnitNET.Domain
         public IType GenericType => Type.GenericType;
         public List<IType> GenericTypeArguments => Type.GenericTypeArguments;
 
-        public bool Implements(IType intf)
+        public bool ImplementsInterface(IType intf)
         {
-            return Type.Implements(intf);
+            return Type.ImplementsInterface(intf);
         }
 
-        public bool ImplementsInterfacesWithFullNameMatching(string pattern)
+        public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
         {
-            return Type.ImplementsInterfacesWithFullNameMatching(pattern);
-        }
-
-        public bool ImplementsInterfacesWithFullNameContaining(string pattern)
-        {
-            return Type.ImplementsInterfacesWithFullNameContaining(pattern);
+            return Type.ImplementsInterface(pattern, useRegularExpressions);
         }
 
         public bool IsAssignableTo(IType assignableToType)
@@ -107,7 +102,7 @@ namespace ArchUnitNET.Domain
             switch (assignableToType)
             {
                 case Interface @interface:
-                    return Implements(@interface);
+                    return ImplementsInterface(@interface);
                 case Class cls:
                     return BaseClass != null && BaseClass.IsAssignableTo(cls);
                 default:
@@ -115,34 +110,20 @@ namespace ArchUnitNET.Domain
             }
         }
 
-        public bool IsAssignableToTypesWithFullNameMatching(string pattern)
+        public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
         {
             if (pattern == null)
             {
                 return false;
             }
 
-            if (this.FullNameMatches(pattern) || ImplementsInterfacesWithFullNameMatching(pattern))
+            if (this.FullNameMatches(pattern, useRegularExpressions) ||
+                ImplementsInterface(pattern, useRegularExpressions))
             {
                 return true;
             }
 
-            return BaseClass != null && BaseClass.IsAssignableToTypesWithFullNameMatching(pattern);
-        }
-
-        public bool IsAssignableToTypesWithFullNameContaining(string pattern)
-        {
-            if (pattern == null)
-            {
-                return false;
-            }
-
-            if (this.FullNameContains(pattern) || ImplementsInterfacesWithFullNameContaining(pattern))
-            {
-                return true;
-            }
-
-            return BaseClass != null && BaseClass.IsAssignableToTypesWithFullNameContaining(pattern);
+            return BaseClass != null && BaseClass.IsAssignableTo(pattern, useRegularExpressions);
         }
 
         public override string ToString()

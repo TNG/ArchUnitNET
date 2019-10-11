@@ -23,7 +23,7 @@ namespace ArchUnitNETTests.Dependencies.Attributes
         public AttributeDependencyTests()
         {
             var eventHandler = Architecture.GetInterfaceOfType(typeof(IEventHandler<>));
-            _eventHandlerImplementClasses = Architecture.Classes.Where(cls => cls.Implements(eventHandler));
+            _eventHandlerImplementClasses = Architecture.Classes.Where(cls => cls.ImplementsInterface(eventHandler));
             _originClass = Architecture.GetClassOfType(typeof(ClassWithInnerAttributeDependency));
             _hello = Architecture.GetClassOfType(typeof(Hello));
             _helloEvent = Architecture.GetClassOfType(typeof(HelloEvent));
@@ -69,13 +69,13 @@ namespace ArchUnitNETTests.Dependencies.Attributes
 
             //Assert
             expectedClassTargets.ShouldAll(targetClass =>
-                _originClass.DependsOnTypesWithFullNameMatching(targetClass.Name));
+                _originClass.DependsOn(targetClass.FullName));
         }
 
         [Fact]
         public void ForbidAttributeForClass()
         {
-            _eventHandlerImplementClasses.ShouldAll(cls => !cls.DependsOnTypesWithFullNameMatching("forbidden"));
+            _eventHandlerImplementClasses.ShouldAll(cls => !cls.DependsOn("forbidden"));
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace ArchUnitNETTests.Dependencies.Attributes
 
             //Assert
             expectedClassTargets.ShouldAll(targetClass =>
-                _originClass.DependsOnTypesWithFullNameMatching(targetClass.Name));
+                _originClass.DependsOn(targetClass.FullName));
         }
 
         [Fact]

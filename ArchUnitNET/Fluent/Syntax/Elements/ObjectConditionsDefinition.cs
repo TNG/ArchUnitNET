@@ -17,6 +17,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ExistsCondition<TRuleType>(true);
         }
 
+        public static ICondition<TRuleType> Be(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameMatches(pattern, useRegularExpressions),
+                obj => "is " + obj.FullName,
+                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> Be(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "not exist";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "have full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"",
+                    (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(
+                obj => patternList.Any(pattern => obj.FullNameMatches(pattern, useRegularExpressions)),
+                obj => "is " + obj.FullName, description);
+        }
+
+
         public static ICondition<TRuleType> Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             var description = moreObjects.Aggregate("be \"" + firstObject.FullName + "\"",
@@ -56,20 +87,49 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "be " + objectProvider.Description);
         }
 
-        public static ICondition<TRuleType> DependOnAnyTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> DependOnAny(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(
-                obj => obj.DependsOnTypesWithFullNameMatching(pattern),
-                "depend on any types with full name matching \"" + pattern + "\"",
-                "does not depend on any type with full name matching \"" + pattern + "\"");
+                obj => obj.DependsOn(pattern, useRegularExpressions),
+                "depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                pattern + "\"",
+                "does not depend on any type with full name " + (useRegularExpressions ? "matching" : "containing") +
+                " \"" + pattern + "\"");
         }
 
-        public static ICondition<TRuleType> DependOnAnyTypesWithFullNameContaining(string pattern)
+        public static ICondition<TRuleType> DependOnAny(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.DependsOnTypesWithFullNameContaining(pattern),
-                "depend on any types with full name containing \"" + pattern + "\"",
-                "does not depend on any type with full name containing \"" + pattern + "\"");
+            var patternList = patterns.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return !ruleType.GetTypeDependencies().IsNullOrEmpty() &&
+                       ruleType.GetTypeDependencies().Any(target =>
+                           patternList.Any(pattern => target.FullNameMatches(pattern, useRegularExpressions)));
+            }
+
+            string description;
+            string failDescription;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "depend on one of no types (impossible)";
+                failDescription = "does not depend on no types (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"",
+                    (current, pattern) => current + " or \"" + pattern + "\"");
+                failDescription = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "does not depend any types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"",
+                    (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> DependOnAny(IType firstType, params IType[] moreTypes)
@@ -180,7 +240,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ICondition<TRuleType> OnlyDependOnTypesWithFullNameMatching(string pattern)
+        public static ICondition<TRuleType> OnlyDependOn(string pattern, bool useRegularExpressions = false)
         {
             ConditionResult Condition(TRuleType ruleType)
             {
@@ -188,7 +248,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 var dynamicFailDescription = "does depend on";
                 foreach (var dependency in ruleType.GetTypeDependencies())
                 {
-                    if (!dependency.FullNameMatches(pattern))
+                    if (!dependency.FullNameMatches(pattern, useRegularExpressions))
                     {
                         dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
                         pass = false;
@@ -199,18 +259,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new SimpleCondition<TRuleType>(Condition,
-                "only depend on types with full name matching \"" + pattern + "\"");
+                "only depend on types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                pattern + "\"");
         }
 
-        public static ICondition<TRuleType> OnlyDependOnTypesWithFullNameContaining(string pattern)
+        public static ICondition<TRuleType> OnlyDependOn(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
+            var patternList = patterns.ToList();
+
             ConditionResult Condition(TRuleType ruleType)
             {
                 var pass = true;
                 var dynamicFailDescription = "does depend on";
                 foreach (var dependency in ruleType.GetTypeDependencies())
                 {
-                    if (!dependency.FullNameContains(pattern))
+                    if (!patternList.Any(pattern => dependency.FullNameMatches(pattern, useRegularExpressions)))
                     {
                         dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
                         pass = false;
@@ -220,8 +284,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return new ConditionResult(pass, dynamicFailDescription);
             }
 
-            return new SimpleCondition<TRuleType>(Condition,
-                "only depend on types with full name containing \"" + pattern + "\"");
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "have no dependencies";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "only depend on types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
@@ -378,8 +454,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static SimpleCondition<TRuleType> HaveNameMatching(string pattern)
         {
-            return new SimpleCondition<TRuleType>(obj => obj.FullNameMatches(pattern),
-                obj => "does have full name " + obj.FullName,
+            return new SimpleCondition<TRuleType>(obj => obj.NameMatches(pattern),
+                obj => "does have name " + obj.Name,
                 "have full name matching \"" + pattern + "\"");
         }
 
@@ -526,6 +602,35 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ExistsCondition<TRuleType>(false);
         }
 
+        public static ICondition<TRuleType> NotBe(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.FullNameMatches(pattern, useRegularExpressions),
+                obj => "is " + obj.FullName,
+                "not have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotBe(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "exist";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "not have full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(
+                obj => patternList.All(pattern => !obj.FullNameMatches(pattern, useRegularExpressions)),
+                obj => "is " + obj.FullName, description);
+        }
+
         public static ICondition<TRuleType> NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             var description = moreObjects.Aggregate("not be \"" + firstObject.FullName + "\"",
@@ -540,7 +645,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             string description;
             if (objectList.IsNullOrEmpty())
             {
-                description = "not be no object (always true)";
+                description = "exist";
             }
             else
             {
@@ -565,7 +670,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "not be " + objectProvider.Description);
         }
 
-        public static ICondition<TRuleType> NotDependOnAnyTypesWithFullNameMatching(string pattern)
+
+        public static ICondition<TRuleType> NotDependOnAny(string pattern, bool useRegularExpressions = false)
         {
             ConditionResult Condition(TRuleType ruleType)
             {
@@ -573,7 +679,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 var dynamicFailDescription = "does depend on";
                 foreach (var dependency in ruleType.GetTypeDependencies())
                 {
-                    if (dependency.FullNameMatches(pattern))
+                    if (dependency.FullNameMatches(pattern, useRegularExpressions))
                     {
                         dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
                         pass = false;
@@ -584,18 +690,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new SimpleCondition<TRuleType>(Condition,
-                "not depend on any types with full name matching \"" + pattern + "\"");
+                "not depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                " \"" + pattern + "\"");
         }
 
-        public static ICondition<TRuleType> NotDependOnAnyTypesWithFullNameContaining(string pattern)
+        public static ICondition<TRuleType> NotDependOnAny(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
+            var patternList = patterns.ToList();
+
             ConditionResult Condition(TRuleType ruleType)
             {
                 var pass = true;
                 var dynamicFailDescription = "does depend on";
                 foreach (var dependency in ruleType.GetTypeDependencies())
                 {
-                    if (dependency.FullNameContains(pattern))
+                    if (patternList.Any(pattern => dependency.FullNameMatches(pattern, useRegularExpressions)))
                     {
                         dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
                         pass = false;
@@ -605,8 +715,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return new ConditionResult(pass, dynamicFailDescription);
             }
 
-            return new SimpleCondition<TRuleType>(Condition,
-                "not depend on any types with full name containing \"" + pattern + "\"");
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "not depend on no types (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "not depend on types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotDependOnAny(IType firstType, params IType[] moreTypes)

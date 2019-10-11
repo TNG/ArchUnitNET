@@ -9,6 +9,32 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public static class ObjectPredicatesDefinition<T> where T : ICanBeAnalyzed
     {
+        public static IPredicate<T> Are(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimplePredicate<T>(obj => obj.FullNameMatches(pattern, useRegularExpressions),
+                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> Are(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "not exist (impossible)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(
+                obj => patternList.Any(pattern => obj.FullNameMatches(pattern, useRegularExpressions)), description);
+        }
+
         public static IPredicate<T> Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             var description = moreObjects.Aggregate("are \"" + firstObject.FullName + "\"",
@@ -45,16 +71,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, "are " + objectProvider.Description);
         }
 
-        public static IPredicate<T> DependOnAnyTypesWithFullNameMatching(string pattern)
+        public static IPredicate<T> DependOnAny(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.DependsOnTypesWithFullNameMatching(pattern),
-                "depend on any types with full name matching \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => obj.DependsOn(pattern, useRegularExpressions),
+                "depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                pattern + "\"");
         }
 
-        public static IPredicate<T> DependOnAnyTypesWithFullNameContaining(string pattern)
+        public static IPredicate<T> DependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.DependsOnTypesWithFullNameContaining(pattern),
-                "depend on any types with full name containing \"" + pattern + "\"");
+            var patternList = patterns.ToList();
+
+            bool Filter(T type)
+            {
+                return type.GetTypeDependencies().Any(target =>
+                    patternList.Any(pattern => target.FullNameMatches(pattern, useRegularExpressions)));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "have no dependencies";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DependOnAny(IType firstType, params IType[] moreTypes)
@@ -146,16 +194,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> OnlyDependOnTypesWithFullNameMatching(string pattern)
+        public static IPredicate<T> OnlyDependOn(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.OnlyDependsOnTypesWithFullNameMatching(pattern),
-                "only depend on types with full name matching \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => obj.OnlyDependsOn(pattern, useRegularExpressions),
+                "only depend on types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                pattern + "\"");
         }
 
-        public static IPredicate<T> OnlyDependOnTypesWithFullNameContaining(string pattern)
+        public static IPredicate<T> OnlyDependOn(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.OnlyDependsOnTypesWithFullNameContaining(pattern),
-                "only depend on types with full name containing \"" + pattern + "\"");
+            var patternList = patterns.ToList();
+
+            bool Filter(T type)
+            {
+                return type.GetTypeDependencies().All(target =>
+                    patternList.Any(pattern => target.FullNameMatches(pattern, useRegularExpressions)));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "have no dependencies";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "only depend on types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
@@ -325,6 +395,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         //Negations
 
 
+        public static IPredicate<T> AreNot(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimplePredicate<T>(obj => !obj.FullNameMatches(pattern, useRegularExpressions),
+                "do not have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern +
+                "\"");
+        }
+
+        public static IPredicate<T> AreNot(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "exist (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "do not have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(
+                obj => patternList.All(pattern => !obj.FullNameMatches(pattern, useRegularExpressions)), description);
+        }
+
         public static IPredicate<T> AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             var description = moreObjects.Aggregate("are not \"" + firstObject.FullName + "\"",
@@ -361,16 +458,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, "are not " + objectProvider.Description);
         }
 
-        public static IPredicate<T> DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
+        public static IPredicate<T> DoNotDependOnAny(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => !obj.DependsOnTypesWithFullNameMatching(pattern),
-                "do not depend on any types with full name matching \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => !obj.DependsOn(pattern, useRegularExpressions),
+                "do not depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                " \"" + pattern + "\"");
         }
 
-        public static IPredicate<T> DoNotDependOnAnyTypesWithFullNameContaining(string pattern)
+        public static IPredicate<T> DoNotDependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => !obj.DependsOnTypesWithFullNameContaining(pattern),
-                "do not depend on any types with full name containing \"" + pattern + "\"");
+            var patternList = patterns.ToList();
+
+            bool Filter(T type)
+            {
+                return type.GetTypeDependencies().All(target =>
+                    patternList.All(pattern => target.FullNameMatches(pattern, useRegularExpressions)));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "do not depend on no types (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "do not depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DoNotDependOnAny(IType firstType, params IType[] moreTypes)

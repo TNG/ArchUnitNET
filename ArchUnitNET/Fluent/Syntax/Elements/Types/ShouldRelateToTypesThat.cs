@@ -28,17 +28,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreAssignableToTypesWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction AreAssignableTo(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.AreAssignableToTypesWithFullNameMatching(pattern));
+                TypePredicatesDefinition<TReferenceType>.AreAssignableTo(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreAssignableToTypesWithFullNameContaining(string pattern)
+        public TRuleTypeShouldConjunction AreAssignableTo(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.AreAssignableToTypesWithFullNameContaining(pattern));
+                TypePredicatesDefinition<TReferenceType>.AreAssignableTo(patterns, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -56,7 +57,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreAssignableTo(ObjectProvider<IType> types)
+        public TRuleTypeShouldConjunction AreAssignableTo(IObjectProvider<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreAssignableTo(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -74,45 +75,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ImplementInterfaceWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction ImplementInterface(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.ImplementInterfaceWithFullNameMatching(pattern));
+                TypePredicatesDefinition<TReferenceType>.ImplementInterface(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ImplementInterfaceWithFullNameContaining(string pattern)
+
+        public TRuleTypeShouldConjunction ResideInNamespace(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.ImplementInterfaceWithFullNameContaining(pattern));
+                TypePredicatesDefinition<TReferenceType>.ResideInNamespace(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ResideInNamespaceWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction ResideInAssembly(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.ResideInNamespaceWithFullNameMatching(pattern));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction ResideInNamespaceWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.ResideInNamespaceWithFullNameContaining(pattern));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction ResideInAssemblyWithFullNameMatching(string pattern)
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.ResideInAssemblyWithFullNameMatching(pattern));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction ResideInAssemblyWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.ResideInAssemblyWithFullNameContaining(pattern));
+                TypePredicatesDefinition<TReferenceType>.ResideInAssembly(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -166,17 +147,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreNotAssignableToTypesWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction AreNotAssignableTo(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.AreNotAssignableToTypesWithFullNameMatching(pattern));
+                TypePredicatesDefinition<TReferenceType>.AreNotAssignableTo(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreNotAssignableToTypesWithFullNameContaining(string pattern)
+        public TRuleTypeShouldConjunction AreNotAssignableTo(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.AreNotAssignableToTypesWithFullNameContaining(pattern));
+                TypePredicatesDefinition<TReferenceType>.AreNotAssignableTo(patterns, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -194,7 +176,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreNotAssignableTo(ObjectProvider<IType> types)
+        public TRuleTypeShouldConjunction AreNotAssignableTo(IObjectProvider<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreNotAssignableTo(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -212,45 +194,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotImplementInterfaceWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction DoNotImplementInterface(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.DoNotImplementInterfaceWithFullNameMatching(pattern));
+                TypePredicatesDefinition<TReferenceType>.DoNotImplementInterface(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotImplementInterfaceWithFullNameContaining(string pattern)
+        public TRuleTypeShouldConjunction DoNotResideInNamespace(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.DoNotImplementInterfaceWithFullNameContaining(pattern));
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInNamespace(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotResideInNamespaceWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction DoNotResideInAssembly(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.DoNotResideInNamespaceWithFullNameMatching(pattern));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction DoNotResideInNamespaceWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.DoNotResideInNamespaceWithFullNameContaining(pattern));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction DoNotResideInAssemblyWithFullNameMatching(string pattern)
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.DoNotResideInAssemblyWithFullNameMatching(pattern));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction DoNotResideInAssemblyWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.DoNotResideInAssemblyWithFullNameContaining(pattern));
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInAssembly(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

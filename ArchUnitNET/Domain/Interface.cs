@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using ArchUnitNET.Domain.Dependencies.Types;
+using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Domain
 {
@@ -38,40 +39,30 @@ namespace ArchUnitNET.Domain
         public IType GenericType => Type.GenericType;
         public List<IType> GenericTypeArguments => Type.GenericTypeArguments;
 
-        public bool Implements(IType intf)
+        public bool ImplementsInterface(IType intf)
         {
-            return Type.Implements(intf);
+            return Type.ImplementsInterface(intf);
         }
 
-        public bool ImplementsInterfacesWithFullNameMatching(string pattern)
+        public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
         {
-            return Type.ImplementsInterfacesWithFullNameMatching(pattern);
-        }
-
-        public bool ImplementsInterfacesWithFullNameContaining(string pattern)
-        {
-            return Type.ImplementsInterfacesWithFullNameContaining(pattern);
+            return Type.ImplementsInterface(pattern, useRegularExpressions);
         }
 
         public bool IsAssignableTo(IType assignableToType)
         {
             if (assignableToType is Interface @interface)
-
             {
-                return Implements(@interface);
+                return Equals(@interface) || ImplementsInterface(@interface);
             }
 
             return false;
         }
 
-        public bool IsAssignableToTypesWithFullNameMatching(string pattern)
+        public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
         {
-            return ImplementsInterfacesWithFullNameMatching(pattern);
-        }
-
-        public bool IsAssignableToTypesWithFullNameContaining(string pattern)
-        {
-            return ImplementsInterfacesWithFullNameContaining(pattern);
+            return this.FullNameMatches(pattern, useRegularExpressions) ||
+                   ImplementsInterface(pattern, useRegularExpressions);
         }
 
         public override string ToString()

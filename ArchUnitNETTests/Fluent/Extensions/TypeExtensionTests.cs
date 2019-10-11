@@ -62,7 +62,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
             Assert.True(_propertyOriginClass.FullNameContains("TeST"));
             Assert.False(_methodOriginClass.FullNameContains("ClassMethod"));
             Assert.True(_methodMember.FullNameContains(""));
-            Assert.Throws<NullReferenceException>(() => _exampleAttribute.FullNameContains(null));
+            Assert.False(_exampleAttribute.FullNameContains(null));
         }
 
         [Fact]
@@ -104,7 +104,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
         {
             Assert.True(Architecture.Types.All(type =>
                 type.ImplementedInterfaces.All(intf =>
-                    type.ImplementsInterfacesWithFullNameContaining(intf.FullName))));
+                    type.ImplementsInterface(intf.FullName))));
         }
 
         [Fact]
@@ -121,7 +121,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
             Assert.True(_propertyOriginClass.NameContains("sswITH"));
             Assert.False(_methodOriginClass.NameContains("ClassMethod"));
             Assert.True(_methodMember.NameContains(""));
-            Assert.Throws<NullReferenceException>(() => _exampleAttribute.NameContains(null));
+            Assert.False(_exampleAttribute.NameContains(null));
         }
 
         [Fact]
@@ -137,8 +137,8 @@ namespace ArchUnitNETTests.Fluent.Extensions
         [Fact]
         public void NameMatchesTest()
         {
-            Assert.True(_fieldMember.NameMatches("(?i)ieLda"));
-            Assert.True(_propertyOriginClass.NameMatches("(?i)sswITH"));
+            Assert.True(_fieldMember.NameMatches("(?i)ieLda", true));
+            Assert.True(_propertyOriginClass.NameMatches("(?i)sswITH", true));
             Assert.False(_methodOriginClass.NameMatches("ClassMethod"));
             Assert.True(_methodMember.NameMatches(""));
             Assert.False(_exampleAttribute.NameMatches(null));
@@ -147,9 +147,9 @@ namespace ArchUnitNETTests.Fluent.Extensions
         [Fact]
         public void NamespaceMatchAsExpected()
         {
-            Assert.True(_exampleAttribute.ResidesInNamespaceWithFullNameContaining(ExpectedAttributeNamespace));
-            Assert.True(_regexUtilsTests.ResidesInNamespaceWithFullNameContaining(ExpectedRegexUtilsTestNamespace));
-            Assert.True(_exampleAttribute.ResidesInNamespaceWithFullNameContaining(string.Empty));
+            Assert.True(_exampleAttribute.ResidesInNamespace(ExpectedAttributeNamespace));
+            Assert.True(_regexUtilsTests.ResidesInNamespace(ExpectedRegexUtilsTestNamespace));
+            Assert.True(_exampleAttribute.ResidesInNamespace(string.Empty));
         }
 
         [Fact]

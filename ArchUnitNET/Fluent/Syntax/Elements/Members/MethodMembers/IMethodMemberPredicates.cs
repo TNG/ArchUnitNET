@@ -4,6 +4,8 @@
     {
         TRuleTypeConjunction AreConstructors();
         TRuleTypeConjunction AreVirtual();
+        TRuleTypeConjunction AreCalledBy(string pattern, bool useRegularExpressions = false);
+        TRuleTypeConjunction HaveDependencyInMethodBodyTo(string pattern, bool useRegularExpressions = false);
 
 
         //Negations
@@ -11,5 +13,7 @@
 
         TRuleTypeConjunction AreNoConstructors();
         TRuleTypeConjunction AreNotVirtual();
+        TRuleTypeConjunction AreNotCalledBy(string pattern, bool useRegularExpressions = false);
+        TRuleTypeConjunction DoNotHaveDependencyInMethodBodyTo(string pattern, bool useRegularExpressions = false);
     }
 }

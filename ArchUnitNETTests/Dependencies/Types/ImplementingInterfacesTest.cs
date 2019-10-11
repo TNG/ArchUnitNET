@@ -36,8 +36,8 @@ namespace ArchUnitNETTests.Dependencies.Types
             var expectedDependency = new ImplementsInterfaceDependency(_inheritingType, _implementingInterface);
 
             Assert.True(_inheritingType.HasDependency(expectedDependency));
-            Assert.True(_inheritingType.Implements(_implementingInterface));
-            Assert.True(_inheritingType.Implements(_inheritedTestInterface));
+            Assert.True(_inheritingType.ImplementsInterface(_implementingInterface));
+            Assert.True(_inheritingType.ImplementsInterface(_inheritedTestInterface));
         }
 
         [Fact]

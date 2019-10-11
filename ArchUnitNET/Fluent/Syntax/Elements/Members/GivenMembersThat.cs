@@ -15,17 +15,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
         }
 
-        public TGivenRuleTypeConjunction AreDeclaredInTypesWithFullNameMatching(string pattern)
+        public TGivenRuleTypeConjunction AreDeclaredIn(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.AreDeclaredInTypesWithFullNameMatching(pattern));
+                MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction AreDeclaredInTypesWithFullNameContaining(string pattern)
+        public TGivenRuleTypeConjunction AreDeclaredIn(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.AreDeclaredInTypesWithFullNameContaining(pattern));
+                MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(patterns, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -59,81 +59,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveBodyTypeMemberDependencies()
-        {
-            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.HaveBodyTypeMemberDependencies());
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.HaveBodyTypeMemberDependenciesWithFullNameMatching(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.HaveBodyTypeMemberDependenciesWithFullNameContaining(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveMethodCallDependencies()
-        {
-            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.HaveMethodCallDependencies());
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveMethodCallDependenciesWithFullNameMatching(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.HaveMethodCallDependenciesWithFullNameMatching(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveMethodCallDependenciesWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.HaveMethodCallDependenciesWithFullNameContaining(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveFieldTypeDependencies()
-        {
-            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.HaveFieldTypeDependencies());
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveFieldTypeDependenciesWithFullNameMatching(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.HaveFieldTypeDependenciesWithFullNameMatching(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveFieldTypeDependenciesWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.HaveFieldTypeDependenciesWithFullNameContaining(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-
         //Negations
 
 
-        public TGivenRuleTypeConjunction AreNotDeclaredInTypesWithFullNameMatching(string pattern)
+        public TGivenRuleTypeConjunction AreNotDeclaredIn(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.AreNotDeclaredInTypesWithFullNameMatching(pattern));
+                MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction AreNotDeclaredInTypesWithFullNameContaining(string pattern)
+        public TGivenRuleTypeConjunction AreNotDeclaredIn(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.AreNotDeclaredInTypesWithFullNameContaining(pattern));
+                MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(patterns, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -164,67 +104,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TGivenRuleTypeConjunction AreNotDeclaredIn(IEnumerable<Type> types)
         {
             _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(types));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveBodyTypeMemberDependencies()
-        {
-            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.DoNotHaveBodyTypeMemberDependencies());
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveBodyTypeMemberDependenciesWithFullNameMatching(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.DoNotHaveBodyTypeMemberDependenciesWithFullNameMatching(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveBodyTypeMemberDependenciesWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>
-                    .DoNotHaveBodyTypeMemberDependenciesWithFullNameContaining(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveMethodCallDependencies()
-        {
-            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.DoNotHaveMethodCallDependencies());
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveMethodCallDependenciesWithFullNameMatching(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.DoNotHaveMethodCallDependenciesWithFullNameMatching(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveMethodCallDependenciesWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.DoNotHaveMethodCallDependenciesWithFullNameContaining(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveFieldTypeDependencies()
-        {
-            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.DoNotHaveFieldTypeDependencies());
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveFieldTypeDependenciesWithFullNameMatching(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.DoNotHaveFieldTypeDependenciesWithFullNameMatching(pattern));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveFieldTypeDependenciesWithFullNameContaining(string pattern)
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.DoNotHaveFieldTypeDependenciesWithFullNameContaining(pattern));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }

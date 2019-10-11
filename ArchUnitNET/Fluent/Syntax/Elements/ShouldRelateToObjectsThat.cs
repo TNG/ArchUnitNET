@@ -15,6 +15,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
         }
 
+
+        public TRuleTypeShouldConjunction Are(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.Are(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction Are(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.Are(patterns, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -36,17 +51,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DependOnAnyTypesWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction DependOnAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DependOnAnyTypesWithFullNameMatching(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.DependOnAny(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DependOnAnyTypesWithFullNameContaining(string pattern)
+        public TRuleTypeShouldConjunction DependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DependOnAnyTypesWithFullNameContaining(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.DependOnAny(patterns, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -82,17 +97,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction OnlyDependOnTypesWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction OnlyDependOn(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.OnlyDependOnTypesWithFullNameMatching(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.OnlyDependOn(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction OnlyDependOnTypesWithFullNameContaining(string pattern)
+        public TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.OnlyDependOnTypesWithFullNameContaining(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.OnlyDependOn(patterns, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -222,6 +237,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         //Negations
 
 
+        public TRuleTypeShouldConjunction AreNot(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.AreNot(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNot(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.AreNot(patterns, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -243,17 +272,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotDependOnAnyTypesWithFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction DoNotDependOnAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotDependOnAnyTypesWithFullNameMatching(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotDependOnAny(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotDependOnAnyTypesWithFullNameContaining(string pattern)
+        public TRuleTypeShouldConjunction DoNotDependOnAny(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotDependOnAnyTypesWithFullNameContaining(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotDependOnAny(patterns, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

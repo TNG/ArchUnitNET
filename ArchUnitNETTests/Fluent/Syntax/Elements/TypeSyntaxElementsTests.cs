@@ -234,17 +234,17 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var intf in Architecture.Interfaces)
             {
                 var typesThatImplementInterfaceImplementInterface = Types().That()
-                    .ImplementInterfaceWithFullNameContaining(intf.FullName)
-                    .Should().ImplementInterfaceWithFullNameContaining(intf.FullName);
+                    .ImplementInterface(intf.FullName)
+                    .Should().ImplementInterface(intf.FullName);
                 var typesThatImplementInterfaceDoNotImplementInterface = Types().That()
-                    .ImplementInterfaceWithFullNameContaining(intf.FullName).Should()
-                    .NotImplementInterfaceWithFullNameContaining(intf.FullName).AndShould().Exist();
+                    .ImplementInterface(intf.FullName).Should()
+                    .NotImplementInterface(intf.FullName).AndShould().Exist();
                 var typesThatDoNotImplementInterfaceImplementInterface = Types().That()
-                    .DoNotImplementInterfaceWithFullNameContaining(intf.FullName)
-                    .Should().ImplementInterfaceWithFullNameContaining(intf.FullName).AndShould().Exist();
+                    .DoNotImplementInterface(intf.FullName)
+                    .Should().ImplementInterface(intf.FullName).AndShould().Exist();
                 var typesThatDoNotImplementInterfaceDoNotImplementInterface = Types().That()
-                    .DoNotImplementInterfaceWithFullNameContaining(intf.FullName).Should()
-                    .NotImplementInterfaceWithFullNameContaining(intf.FullName);
+                    .DoNotImplementInterface(intf.FullName).Should()
+                    .NotImplementInterface(intf.FullName);
 
                 Assert.True(typesThatImplementInterfaceImplementInterface.HasNoViolations(Architecture));
                 Assert.False(typesThatImplementInterfaceDoNotImplementInterface.HasNoViolations(Architecture));
@@ -254,20 +254,20 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             var testClassThatImplementsInterfaceImplementsInterface = Classes().That()
                 .Are(StaticTestTypes.InheritedType).Should()
-                .ImplementInterfaceWithFullNameContaining(InheritedTestInterface.FullName);
+                .ImplementInterface(InheritedTestInterface.FullName);
             var testClassThatImplementsOtherInterfaceImplementsInterfaces = Types().That()
                 .Are(StaticTestTypes.InheritedType).Should()
-                .ImplementInterfaceWithFullNameContaining(InheritedTestInterface.FullName).AndShould()
-                .ImplementInterfaceWithFullNameContaining(InheritingInterface.FullName);
+                .ImplementInterface(InheritedTestInterface.FullName).AndShould()
+                .ImplementInterface(InheritingInterface.FullName);
             var testInterfaceThatImplementsInterfaceImplementsInterface = Interfaces().That()
                 .Are(InheritingInterface).Should()
-                .ImplementInterfaceWithFullNameContaining(InheritedTestInterface.FullName);
+                .ImplementInterface(InheritedTestInterface.FullName);
             var testClassThatImplementsNoInterfaceDoesNotImplementInterface = Interfaces().That()
                 .Are(StaticTestTypes.PublicTestClass).Should()
-                .NotImplementInterfaceWithFullNameContaining(InheritedTestInterface.FullName);
+                .NotImplementInterface(InheritedTestInterface.FullName);
             var testClassThatImplementsNoInterfaceImplementsInterface = Interfaces().That()
                 .Are(StaticTestTypes.PublicTestClass).Should()
-                .ImplementInterfaceWithFullNameContaining(InheritedTestInterface.FullName).AndShould()
+                .ImplementInterface(InheritedTestInterface.FullName).AndShould()
                 .Exist();
 
             Assert.True(testClassThatImplementsInterfaceImplementsInterface.HasNoViolations(Architecture));
@@ -283,14 +283,14 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var type in _types)
             {
                 var typeResidesInOwnNamespace =
-                    Types().That().Are(type).Should().ResideInNamespaceWithFullNameContaining(type.Namespace.FullName);
+                    Types().That().Are(type).Should().ResideInNamespace(type.Namespace.FullName);
                 var typeDoesNotResideInOwnNamespace =
                     Types().That().Are(type).Should()
-                        .NotResideInNamespaceWithFullNameContaining(type.Namespace.FullName);
+                        .NotResideInNamespace(type.Namespace.FullName);
                 var thereAreTypesInOwnNamespace =
-                    Types().That().ResideInNamespaceWithFullNameContaining(type.Namespace.FullName).Should().Exist();
+                    Types().That().ResideInNamespace(type.Namespace.FullName).Should().Exist();
                 var typesInOtherNamespaceAreOtherTypes = Types().That()
-                    .DoNotResideInNamespaceWithFullNameContaining(type.Namespace.FullName)
+                    .DoNotResideInNamespace(type.Namespace.FullName)
                     .Should().NotBe(type);
 
                 Assert.True(typeResidesInOwnNamespace.HasNoViolations(Architecture));
@@ -302,11 +302,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var namespc in Architecture.Namespaces.Select(namespc => namespc.FullName))
             {
                 var typesInNamespaceAreInNamespace =
-                    Types().That().ResideInNamespaceWithFullNameContaining(namespc).Should()
-                        .ResideInNamespaceWithFullNameContaining(namespc);
+                    Types().That().ResideInNamespace(namespc).Should()
+                        .ResideInNamespace(namespc);
                 var typesInOtherNamespaceAreInOtherNamespace = Types().That()
-                    .DoNotResideInNamespaceWithFullNameContaining(namespc).Should()
-                    .NotResideInNamespaceWithFullNameContaining(namespc);
+                    .DoNotResideInNamespace(namespc).Should()
+                    .NotResideInNamespace(namespc);
 
                 Assert.True(typesInNamespaceAreInNamespace.HasNoViolations(Architecture));
                 Assert.True(typesInOtherNamespaceAreInOtherNamespace.HasNoViolations(Architecture));
