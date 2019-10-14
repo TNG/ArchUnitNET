@@ -14,10 +14,9 @@ namespace ArchUnitNET.Domain
         private readonly IList<IObjectProvider<IType>> _typeProviderList;
         [CanBeNull] private string _customDescription;
 
-        public TypeList(string description = null)
+        public TypeList()
         {
             _typeProviderList = new List<IObjectProvider<IType>>();
-            _customDescription = description;
         }
 
         public TypeList(IList<IObjectProvider<IType>> typeProviderList, string description = null)
@@ -51,9 +50,14 @@ namespace ArchUnitNET.Domain
             Add(patterns, useRegularExpressions);
         }
 
-        public TypeList(string pattern, bool useRegularExpressions = false, params string[] morePatterns) : this()
+        public TypeList(string pattern, bool useRegularExpressions = false) : this()
         {
-            Add(pattern, useRegularExpressions, morePatterns);
+            Add(pattern, useRegularExpressions);
+        }
+
+        public TypeList(string pattern, params string[] morePatterns) : this()
+        {
+            Add(pattern, morePatterns);
         }
 
         public void Add(IObjectProvider<IType> typeProvider)
@@ -156,9 +160,14 @@ namespace ArchUnitNET.Domain
             Add(new PatternCollection(patterns, useRegularExpressions));
         }
 
-        public void Add(string pattern, bool useRegularExpressions = false, params string[] morePatterns)
+        public void Add(string pattern, params string[] morePatterns)
         {
-            Add(new PatternCollection(pattern, useRegularExpressions, morePatterns));
+            Add(new PatternCollection(pattern, morePatterns));
+        }
+
+        public void Add(string pattern, bool useRegularExpressions = false)
+        {
+            Add(new PatternCollection(pattern, useRegularExpressions));
         }
 
         private abstract class Collection<T> : IObjectProvider<IType>
@@ -227,11 +236,16 @@ namespace ArchUnitNET.Domain
                 _useRegularExpressions = useRegularExpressions;
             }
 
-            public PatternCollection(string pattern, bool useRegularExpressions = false,
-                params string[] morePatterns) : base(pattern, morePatterns)
+            public PatternCollection(string pattern, params string[] morePatterns) : base(pattern, morePatterns)
+            {
+                _useRegularExpressions = false;
+            }
+
+            public PatternCollection(string pattern, bool useRegularExpressions = false) : base(pattern)
             {
                 _useRegularExpressions = useRegularExpressions;
             }
+
 
             public override string Description => Items
                 .Aggregate("", (current, pattern) => current + ", \"" + pattern + "\"").Remove(0, 2);
