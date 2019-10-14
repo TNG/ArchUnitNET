@@ -10,7 +10,10 @@ namespace ArchUnitNETTests.Fluent
             .Because("reason1").And().AreNotNested().Should().BeAbstract().Because("reason2").OrShould().NotBeAbstract()
             .And(Types().Should().BeNested()).Or().Attributes().Should().Exist().Because("reason3");
 
-        private readonly IArchRule _customDescriptionTestRule = Classes().Should().BeAbstract().As(CustomDescription);
+        private readonly IArchRule _customDescriptionTestRule1 = Classes().Should().BeAbstract().As(CustomDescription);
+
+        private readonly IArchRule _customDescriptionTestRule2 = Classes().That().ArePublic().As(CustomDescription)
+            .And().AreProtected().Should().BePublic().AndShould().BeAbstract().As(CustomDescription);
 
         private readonly IArchRule _combinedCustomDescriptionTestRule =
             Classes().Should().BeAbstract().As(CustomDescription).And().Attributes().Should().BeAbstract()
@@ -24,11 +27,15 @@ namespace ArchUnitNETTests.Fluent
         [Fact]
         public void CustomDescriptionTest()
         {
-            Assert.Equal(CustomDescription, _customDescriptionTestRule.Description);
-            Assert.Equal(CustomDescription, _customDescriptionTestRule.ToString());
-            Assert.Equal(CustomDescription + " and " + CustomDescription,
+            Assert.Equal("Classes " + CustomDescription, _customDescriptionTestRule1.Description);
+            Assert.Equal("Classes " + CustomDescription, _customDescriptionTestRule1.ToString());
+            Assert.Equal(CustomDescription + " and are protected " + CustomDescription,
+                _customDescriptionTestRule2.Description);
+            Assert.Equal(CustomDescription + " and are protected " + CustomDescription,
+                _customDescriptionTestRule2.ToString());
+            Assert.Equal("Classes " + CustomDescription + " and Attributes " + CustomDescription,
                 _combinedCustomDescriptionTestRule.Description);
-            Assert.Equal(CustomDescription + " and " + CustomDescription,
+            Assert.Equal("Classes " + CustomDescription + " and Attributes " + CustomDescription,
                 _combinedCustomDescriptionTestRule.ToString());
         }
 

@@ -21,6 +21,7 @@ namespace ArchUnitNET.Fluent
 
         IEnumerable<TRuleType> GetAnalyzedObjects(Architecture architecture);
 
-        void SetCustomDescription(string description);
+        void SetCustomPredicateDescription(string description);
+        void SetCustomConditionDescription(string description);
     }
 }

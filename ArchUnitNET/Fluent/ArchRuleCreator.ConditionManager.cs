@@ -4,6 +4,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Fluent.Syntax;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent
 {
@@ -23,8 +24,8 @@ namespace ArchUnitNET.Fluent
                 };
             }
 
-            public string Description => _conditionElements.Aggregate("",
-                (current, conditionElement) => current + " " + conditionElement.Description).Trim();
+            public string Description => _conditionElements
+                .Aggregate("", (current, conditionElement) => current + " " + conditionElement.Description).Trim();
 
             public void BeginComplexCondition<TReferenceType>(RelationCondition<T, TReferenceType> relationCondition)
                 where TReferenceType : ICanBeAnalyzed
@@ -57,6 +58,12 @@ namespace ArchUnitNET.Fluent
             public void AddReason(string reason)
             {
                 _conditionElements.Last().AddReason(reason);
+            }
+
+            public void SetCustomDescription(string description)
+            {
+                _conditionElements.ForEach(conditionElement => conditionElement.SetCustomDescription(""));
+                _conditionElements.Last().SetCustomDescription(description);
             }
 
             public void SetNextLogicalConjunction(LogicalConjunction logicalConjunction)
@@ -145,6 +152,7 @@ namespace ArchUnitNET.Fluent
         {
             private readonly LogicalConjunction _logicalConjunction;
             private ICondition<T> _condition;
+            [CanBeNull] private string _customDescription;
             private string _reason;
 
             public ConditionElement(LogicalConjunction logicalConjunction)
@@ -154,10 +162,10 @@ namespace ArchUnitNET.Fluent
                 _reason = "";
             }
 
-            public string Description => _condition == null
-                ? ""
-                : (_logicalConjunction.Description + " should " + _condition.GetShortDescription() + " " + _reason)
-                .Trim();
+            public string Description => _customDescription ?? (_condition == null
+                                             ? ""
+                                             : (_logicalConjunction.Description + " should " +
+                                                _condition.GetShortDescription() + " " + _reason).Trim());
 
             public void AddReason(string reason)
             {
@@ -179,6 +187,11 @@ namespace ArchUnitNET.Fluent
             public void SetCondition(ICondition<T> condition)
             {
                 _condition = condition;
+            }
+
+            public void SetCustomDescription(string description)
+            {
+                _customDescription = description;
             }
 
             public bool Check(bool currentResult, T obj, Architecture architecture)

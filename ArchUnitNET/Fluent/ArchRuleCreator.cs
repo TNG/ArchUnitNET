@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax;
-using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent
 {
@@ -9,7 +8,6 @@ namespace ArchUnitNET.Fluent
     {
         private readonly ConditionManager<TRuleType> _conditionManager;
         private readonly PredicateManager<TRuleType> _predicateManager;
-        [CanBeNull] private string _customDescription;
 
         public ArchRuleCreator(ObjectProvider<TRuleType> objectProvider)
         {
@@ -17,8 +15,7 @@ namespace ArchUnitNET.Fluent
             _conditionManager = new ConditionManager<TRuleType>();
         }
 
-        public string Description => _customDescription ??
-                                     (_predicateManager.Description + " " + _conditionManager.Description).Trim();
+        public string Description => (_predicateManager.Description + " " + _conditionManager.Description).Trim();
 
         public bool HasNoViolations(Architecture architecture)
         {
@@ -78,9 +75,14 @@ namespace ArchUnitNET.Fluent
             return _predicateManager.GetObjects(architecture);
         }
 
-        public void SetCustomDescription(string description)
+        public void SetCustomPredicateDescription(string description)
         {
-            _customDescription = description;
+            _predicateManager.SetCustomDescription(description);
+        }
+
+        public void SetCustomConditionDescription(string description)
+        {
+            _conditionManager.SetCustomDescription(description);
         }
 
         private bool HasNoViolations(IEnumerable<TRuleType> filteredObjects, Architecture architecture)

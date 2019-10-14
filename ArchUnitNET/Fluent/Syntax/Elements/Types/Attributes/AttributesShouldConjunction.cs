@@ -3,7 +3,7 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
     public class AttributesShouldConjunction : ObjectsShouldConjunction<AttributesShould,
-        AttributesShouldConjunctionWithReason, Attribute>
+        AttributesShouldConjunctionWithDescription, Attribute>
     {
         public AttributesShouldConjunction(IArchRuleCreator<Attribute> ruleCreator) : base(ruleCreator)
         {

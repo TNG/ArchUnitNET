@@ -6,11 +6,11 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public abstract class
-        GivenObjectsConjunctionWithReason<TGivenRuleTypeThat, TRuleTypeShould, TRuleType> :
+        GivenObjectsConjunctionWithDescription<TGivenRuleTypeThat, TRuleTypeShould, TRuleType> :
             SyntaxElement<TRuleType>, IObjectProvider<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        protected GivenObjectsConjunctionWithReason(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
+        protected GivenObjectsConjunctionWithDescription(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Fluent.Syntax;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent
 {
@@ -14,6 +15,7 @@ namespace ArchUnitNET.Fluent
             private const string NotSet = "not set";
             private readonly ObjectProvider<T> _objectProvider;
             private readonly List<PredicateElement<T>> _predicateElements;
+            private bool _hasCustomDescription;
 
             public PredicateManager(ObjectProvider<T> objectProvider)
             {
@@ -23,12 +25,16 @@ namespace ArchUnitNET.Fluent
                     new PredicateElement<T>(LogicalConjunctionDefinition.ForwardSecondValue,
                         new SimplePredicate<T>(t => true, NotSet))
                 };
+                _hasCustomDescription = false;
             }
 
-            public string Description => _predicateElements.First().Description == NotSet
-                ? _objectProvider.Description
-                : _objectProvider.Description + " that" + _predicateElements.Aggregate("",
-                      (current, objectFilterElement) => current + " " + objectFilterElement.Description);
+            public string Description => _hasCustomDescription
+                ? _predicateElements.Aggregate("",
+                    (current, objectFilterElement) => current + " " + objectFilterElement.Description)
+                : _predicateElements.First().Description == NotSet
+                    ? _objectProvider.Description
+                    : _objectProvider.Description + " that" + _predicateElements.Aggregate("",
+                          (current, objectFilterElement) => current + " " + objectFilterElement.Description);
 
             public IEnumerable<T> GetObjects(Architecture architecture)
             {
@@ -47,6 +53,13 @@ namespace ArchUnitNET.Fluent
                 _predicateElements.Last().AddReason(reason);
             }
 
+            public void SetCustomDescription(string description)
+            {
+                _hasCustomDescription = true;
+                _predicateElements.ForEach(predicateElement => predicateElement.SetCustomDescription(""));
+                _predicateElements.Last().SetCustomDescription(description);
+            }
+
             public void SetNextLogicalConjunction(LogicalConjunction logicalConjunction)
             {
                 _predicateElements.Add(new PredicateElement<T>(logicalConjunction));
@@ -61,6 +74,7 @@ namespace ArchUnitNET.Fluent
         private class PredicateElement<T> : IHasDescription where T : ICanBeAnalyzed
         {
             private readonly LogicalConjunction _logicalConjunction;
+            [CanBeNull] private string _customDescription;
             private IPredicate<T> _predicate;
             private string _reason;
 
@@ -71,9 +85,10 @@ namespace ArchUnitNET.Fluent
                 _reason = "";
             }
 
-            public string Description => _predicate == null
-                ? _logicalConjunction.Description
-                : (_logicalConjunction.Description + " " + _predicate.GetShortDescription() + " " + _reason).Trim();
+            public string Description => _customDescription ?? (_predicate == null
+                                             ? _logicalConjunction.Description
+                                             : (_logicalConjunction.Description + " " +
+                                                _predicate.GetShortDescription() + " " + _reason).Trim());
 
             public void AddReason(string reason)
             {
@@ -90,6 +105,11 @@ namespace ArchUnitNET.Fluent
                 }
 
                 _reason = "because " + reason;
+            }
+
+            public void SetCustomDescription(string description)
+            {
+                _customDescription = description;
             }
 
             public void SetPredicate(IPredicate<T> predicate)

@@ -2,11 +2,11 @@
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public class GivenPropertyMembersConjunctionWithReason : GivenObjectsConjunctionWithReason<
+    public class GivenPropertyMembersConjunctionWithDescription : GivenObjectsConjunctionWithDescription<
         GivenPropertyMembersThat,
         PropertyMembersShould, PropertyMember>
     {
-        public GivenPropertyMembersConjunctionWithReason(IArchRuleCreator<PropertyMember> ruleCreator) : base(
+        public GivenPropertyMembersConjunctionWithDescription(IArchRuleCreator<PropertyMember> ruleCreator) : base(
             ruleCreator)
         {
         }

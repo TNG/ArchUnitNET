@@ -5,21 +5,25 @@ using System.Linq;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Extensions;
 using Equ;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
     public class TypeList : MemberwiseEquatable<TypeList>, IList<IObjectProvider<IType>>, IObjectProvider<IType>
     {
         private readonly IList<IObjectProvider<IType>> _typeProviderList;
+        [CanBeNull] private string _customDescription;
 
-        public TypeList()
+        public TypeList(string description = null)
         {
             _typeProviderList = new List<IObjectProvider<IType>>();
+            _customDescription = description;
         }
 
-        public TypeList(IList<IObjectProvider<IType>> typeProviderList)
+        public TypeList(IList<IObjectProvider<IType>> typeProviderList, string description = null)
         {
             _typeProviderList = typeProviderList;
+            _customDescription = description;
         }
 
         public TypeList(Type firstType, params Type[] moreTypes) : this()
@@ -111,12 +115,20 @@ namespace ArchUnitNET.Domain
             set => _typeProviderList[index] = value;
         }
 
-        public string Description => _typeProviderList
-            .Aggregate("", (current, typeProvider) => current + "\r\n" + typeProvider.Description).Remove(0, 4);
+        public string Description => _customDescription ?? _typeProviderList
+                                         .Aggregate("",
+                                             (current, typeProvider) => current + "\r\n" + typeProvider.Description)
+                                         .Remove(0, 4);
 
         public IEnumerable<IType> GetObjects(Architecture architecture)
         {
             return _typeProviderList.SelectMany(provider => provider.GetObjects(architecture)).Distinct();
+        }
+
+        public TypeList As(string description)
+        {
+            _customDescription = description;
+            return this;
         }
 
         public void Add(Type firstType, params Type[] moreTypes)

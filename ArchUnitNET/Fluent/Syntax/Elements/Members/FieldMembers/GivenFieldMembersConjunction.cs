@@ -4,7 +4,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
 {
     public class
         GivenFieldMembersConjunction : GivenObjectsConjunction<GivenFieldMembersThat, FieldMembersShould,
-            GivenFieldMembersConjunctionWithReason, FieldMember>
+            GivenFieldMembersConjunctionWithDescription, FieldMember>
     {
         public GivenFieldMembersConjunction(IArchRuleCreator<FieldMember> ruleCreator) : base(ruleCreator)
         {

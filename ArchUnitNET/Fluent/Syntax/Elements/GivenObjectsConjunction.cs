@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public abstract class
         GivenObjectsConjunction<TGivenRuleTypeThat, TRuleTypeShould, TGivenRuleTypeConjunctionWithReason, TRuleType>
-        : GivenObjectsConjunctionWithReason<TGivenRuleTypeThat, TRuleTypeShould, TRuleType>
+        : GivenObjectsConjunctionWithDescription<TGivenRuleTypeThat, TRuleTypeShould, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
         protected GivenObjectsConjunction(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
@@ -15,6 +15,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunctionWithReason Because(string reason)
         {
             _ruleCreator.AddPredicateReason(reason);
+            return Create<TGivenRuleTypeConjunctionWithReason, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunctionWithReason As(string description)
+        {
+            _ruleCreator.SetCustomPredicateDescription(description);
             return Create<TGivenRuleTypeConjunctionWithReason, TRuleType>(_ruleCreator);
         }
     }

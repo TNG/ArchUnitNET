@@ -82,9 +82,14 @@ namespace ArchUnitNET.Fluent
                 "GetFilteredObjects() can't be used with CombinedArchRuleCreators because the analyzed objects might be of different type.");
         }
 
-        public void SetCustomDescription(string description)
+        public void SetCustomPredicateDescription(string description)
         {
-            _currentArchRuleCreator.SetCustomDescription(description);
+            _currentArchRuleCreator.SetCustomPredicateDescription(description);
+        }
+
+        public void SetCustomConditionDescription(string description)
+        {
+            _currentArchRuleCreator.SetCustomConditionDescription(description);
         }
 
         public override string ToString()

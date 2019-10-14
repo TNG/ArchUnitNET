@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public abstract class
         ObjectsShouldConjunction<TRuleTypeShould, TRuleTypeShouldConjunctionWithReason, TRuleType> :
-            ObjectsShouldConjunctionWithReason<TRuleTypeShould, TRuleType>
+            ObjectsShouldConjunctionWithDescription<TRuleTypeShould, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
         protected ObjectsShouldConjunction(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
@@ -15,6 +15,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunctionWithReason Because(string reason)
         {
             _ruleCreator.AddConditionReason(reason);
+            return Create<TRuleTypeShouldConjunctionWithReason, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunctionWithReason As(string description)
+        {
+            _ruleCreator.SetCustomConditionDescription(description);
             return Create<TRuleTypeShouldConjunctionWithReason, TRuleType>(_ruleCreator);
         }
     }
