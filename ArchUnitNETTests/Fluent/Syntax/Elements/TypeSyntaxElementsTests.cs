@@ -317,11 +317,15 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesThatDoNotImplementInterfaceDoNotImplementInterface = Types().That()
                     .DoNotImplementInterface(intf.FullName).Should()
                     .NotImplementInterface(intf.FullName);
+                var implementInterfaceIsEqualToAssignableTo = Types().That().ImplementInterface(intf.FullName).Should()
+                    .BeAssignableTo(intf.FullName).And().Types().That().AreAssignableTo(intf.FullName).Should()
+                    .ImplementInterface(intf.FullName).OrShould().Be(intf.FullName);
 
                 Assert.True(typesThatImplementInterfaceImplementInterface.HasNoViolations(Architecture));
                 Assert.False(typesThatImplementInterfaceDoNotImplementInterface.HasNoViolations(Architecture));
                 Assert.False(typesThatDoNotImplementInterfaceImplementInterface.HasNoViolations(Architecture));
                 Assert.True(typesThatDoNotImplementInterfaceDoNotImplementInterface.HasNoViolations(Architecture));
+                Assert.True(implementInterfaceIsEqualToAssignableTo.HasNoViolations(Architecture));
             }
 
             var testClassThatImplementsInterfaceImplementsInterface = Classes().That()
