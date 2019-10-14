@@ -379,6 +379,18 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Assert.True(typesInAssemblyAreInAssembly.HasNoViolations(Architecture));
                 Assert.True(typesInOtherAssemblyAreInOtherAssembly.HasNoViolations(Architecture));
             }
+
+            var testClassIsInRightAssembly = Types().That().Are(typeof(PublicTestClass)).Should()
+                .ResideInAssembly(typeof(PublicTestClass).Assembly);
+            var testClassIsInFalseAssembly = Types().That().Are(typeof(PublicTestClass)).Should()
+                .NotResideInAssembly(typeof(PublicTestClass).Assembly);
+            var typesInRightAssemblyDoNotContainTestClass = Types().That()
+                .ResideInAssembly(typeof(PublicTestClass).Assembly)
+                .Should().NotBe(typeof(PublicTestClass));
+
+            Assert.True(testClassIsInRightAssembly.HasNoViolations(Architecture));
+            Assert.False(testClassIsInFalseAssembly.HasNoViolations(Architecture));
+            Assert.False(typesInRightAssemblyDoNotContainTestClass.HasNoViolations(Architecture));
         }
 
         [Fact]
