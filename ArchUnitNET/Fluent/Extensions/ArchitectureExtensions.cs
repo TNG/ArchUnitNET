@@ -112,5 +112,27 @@ namespace ArchUnitNET.Fluent.Extensions
                     + "alias to reference assemblies that have the same fully-qualified type names.");
             }
         }
+
+        [NotNull]
+        public static Assembly GetAssemblyOfAssembly([NotNull] this Architecture architecture,
+            [NotNull] System.Reflection.Assembly assembly)
+        {
+            try
+            {
+                var foundAssembly = architecture.Assemblies.WhereFullNameIs(assembly.FullName);
+                if (foundAssembly != null)
+                {
+                    return foundAssembly;
+                }
+
+                throw new AssemblyDoesNotExistInArchitecture(
+                    $"Assembly {assembly.FullName} does not exist in provided architecture.");
+            }
+            catch (MultipleOccurrencesInSequenceException)
+            {
+                throw new NotSupportedException(
+                    $"Assembly {assembly.FullName} found multiple times in provided architecture.");
+            }
+        }
     }
 }

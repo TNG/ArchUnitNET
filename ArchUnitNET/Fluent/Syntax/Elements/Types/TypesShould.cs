@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using Assembly = System.Reflection.Assembly;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -91,6 +92,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddCondition(
                 TypeConditionsDefinition<TRuleType>.ResideInAssembly(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.ResideInAssembly(assembly, moreAssemblies));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -204,6 +212,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddCondition(
                 TypeConditionsDefinition<TRuleType>.NotResideInAssembly(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.NotResideInAssembly(assembly, moreAssemblies));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

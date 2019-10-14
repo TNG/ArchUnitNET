@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
+using Assembly = System.Reflection.Assembly;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -218,6 +219,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 obj => "does reside in " + obj.Assembly.FullName,
                 "reside in assembly with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
                 pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return ruleType.Assembly.Equals(architecture.GetAssemblyOfAssembly(assembly)) ||
+                       moreAssemblies.Any(asm => ruleType.Assembly.Equals(architecture.GetAssemblyOfAssembly(asm)));
+            }
+
+            var description = moreAssemblies.Aggregate("reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\"");
+
+            return new ArchitectureCondition<TRuleType>(Condition,
+                (type, architecture) => "does reside in " + type.Assembly.FullName, description);
         }
 
         public static ICondition<TRuleType> HavePropertyMemberWithName(string name)
@@ -500,6 +516,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 obj => "does reside in " + obj.Assembly.FullName,
                 "not reside in assembly with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
                 pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                return !ruleType.Assembly.Equals(architecture.GetAssemblyOfAssembly(assembly)) &&
+                       !moreAssemblies.Any(asm => ruleType.Assembly.Equals(architecture.GetAssemblyOfAssembly(asm)));
+            }
+
+            var description = moreAssemblies.Aggregate("not reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\"");
+
+            return new ArchitectureCondition<TRuleType>(Condition,
+                (type, architecture) => "does reside in " + type.Assembly.FullName, description);
         }
 
         public static ICondition<TRuleType> NotHavePropertyMemberWithName(string name)

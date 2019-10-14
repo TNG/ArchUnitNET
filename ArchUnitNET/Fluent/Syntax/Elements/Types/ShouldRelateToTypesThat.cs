@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using Assembly = System.Reflection.Assembly;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -94,6 +95,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.ContinueComplexCondition(
                 TypePredicatesDefinition<TReferenceType>.ResideInAssembly(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.ResideInAssembly(assembly, moreAssemblies));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -212,6 +220,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.ContinueComplexCondition(
                 TypePredicatesDefinition<TReferenceType>.DoNotResideInAssembly(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInAssembly(assembly, moreAssemblies));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

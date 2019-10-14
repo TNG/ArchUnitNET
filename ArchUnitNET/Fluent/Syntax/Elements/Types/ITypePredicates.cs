@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using Assembly = System.Reflection.Assembly;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -18,6 +19,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType ImplementInterface(string pattern, bool useRegularExpressions = false);
         TReturnType ResideInNamespace(string pattern, bool useRegularExpressions = false);
         TReturnType ResideInAssembly(string pattern, bool useRegularExpressions = false);
+        TReturnType ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
         TReturnType HavePropertyMemberWithName(string name);
         TReturnType HaveFieldMemberWithName(string name);
         TReturnType HaveMethodMemberWithName(string name);
@@ -40,6 +42,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType DoNotImplementInterface(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotResideInNamespace(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotResideInAssembly(string pattern, bool useRegularExpressions = false);
+        TReturnType DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
         TReturnType DoNotHavePropertyMemberWithName(string name);
         TReturnType DoNotHaveFieldMemberWithName(string name);
         TReturnType DoNotHaveMethodMemberWithName(string name);

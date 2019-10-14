@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using Assembly = System.Reflection.Assembly;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
@@ -90,6 +91,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddPredicate(
                 TypePredicatesDefinition<TRuleType>.ResideInAssembly(pattern, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ResideInAssembly(assembly, moreAssemblies));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -202,6 +210,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddPredicate(
                 TypePredicatesDefinition<TRuleType>.DoNotResideInAssembly(pattern, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotResideInAssembly(assembly, moreAssemblies));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
