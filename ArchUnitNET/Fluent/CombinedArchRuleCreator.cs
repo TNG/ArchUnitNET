@@ -78,7 +78,7 @@ namespace ArchUnitNET.Fluent
 
         public IEnumerable<TRuleType> GetAnalyzedObjects(Architecture architecture)
         {
-            throw new CannotGetObjectsOfCombinedArchRuleException(
+            throw new CannotGetObjectsOfCombinedArchRuleCreatorException(
                 "GetFilteredObjects() can't be used with CombinedArchRuleCreators because the analyzed objects might be of different type.");
         }
 
