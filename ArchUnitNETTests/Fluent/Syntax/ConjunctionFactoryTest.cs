@@ -4,7 +4,7 @@ using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using Xunit;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
-using static ArchUnitNET.Fluent.ObjectProviderDefinition;
+using static ArchUnitNET.Fluent.BasicObjectProviderDefinition;
 
 namespace ArchUnitNETTests.Fluent.Syntax
 {

@@ -13,13 +13,13 @@ namespace ArchUnitNET.Fluent
         private class PredicateManager<T> : IHasDescription where T : ICanBeAnalyzed
         {
             private const string NotSet = "not set";
-            private readonly ObjectProvider<T> _objectProvider;
+            private readonly BasicObjectProvider<T> _basicObjectProvider;
             private readonly List<PredicateElement<T>> _predicateElements;
             private bool _hasCustomDescription;
 
-            public PredicateManager(ObjectProvider<T> objectProvider)
+            public PredicateManager(BasicObjectProvider<T> basicObjectProvider)
             {
-                _objectProvider = objectProvider;
+                _basicObjectProvider = basicObjectProvider;
                 _predicateElements = new List<PredicateElement<T>>
                 {
                     new PredicateElement<T>(LogicalConjunctionDefinition.ForwardSecondValue,
@@ -32,13 +32,13 @@ namespace ArchUnitNET.Fluent
                 ? _predicateElements.Aggregate("",
                     (current, objectFilterElement) => current + " " + objectFilterElement.Description)
                 : _predicateElements.First().Description == NotSet
-                    ? _objectProvider.Description
-                    : _objectProvider.Description + " that" + _predicateElements.Aggregate("",
+                    ? _basicObjectProvider.Description
+                    : _basicObjectProvider.Description + " that" + _predicateElements.Aggregate("",
                           (current, objectFilterElement) => current + " " + objectFilterElement.Description);
 
             public IEnumerable<T> GetObjects(Architecture architecture)
             {
-                return _objectProvider.GetObjects(architecture).Where(obj => _predicateElements.Aggregate(true,
+                return _basicObjectProvider.GetObjects(architecture).Where(obj => _predicateElements.Aggregate(true,
                     (currentResult, objectFilterElement) =>
                         objectFilterElement.CheckPredicate(currentResult, obj, architecture)));
             }

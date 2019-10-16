@@ -13,11 +13,11 @@ namespace ArchUnitNET.Fluent
         private readonly ICanBeEvaluated _oldRule;
 
         public CombinedArchRuleCreator(ICanBeEvaluated oldRule, LogicalConjunction logicalConjunction,
-            ObjectProvider<TRuleType> objectProvider)
+            BasicObjectProvider<TRuleType> basicObjectProvider)
         {
             _oldRule = oldRule;
             _logicalConjunction = logicalConjunction;
-            _currentArchRuleCreator = new ArchRuleCreator<TRuleType>(objectProvider);
+            _currentArchRuleCreator = new ArchRuleCreator<TRuleType>(basicObjectProvider);
         }
 
         public string Description => _oldRule.Description + " " + _logicalConjunction.Description + " " +

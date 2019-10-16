@@ -9,9 +9,9 @@ namespace ArchUnitNET.Fluent
         private readonly ConditionManager<TRuleType> _conditionManager;
         private readonly PredicateManager<TRuleType> _predicateManager;
 
-        public ArchRuleCreator(ObjectProvider<TRuleType> objectProvider)
+        public ArchRuleCreator(BasicObjectProvider<TRuleType> basicObjectProvider)
         {
-            _predicateManager = new PredicateManager<TRuleType>(objectProvider);
+            _predicateManager = new PredicateManager<TRuleType>(basicObjectProvider);
             _conditionManager = new ConditionManager<TRuleType>();
         }
 

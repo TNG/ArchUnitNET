@@ -4,11 +4,11 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ObjectProvider<T> : IObjectProvider<T> where T : ICanBeAnalyzed
+    public class BasicObjectProvider<T> : IObjectProvider<T> where T : ICanBeAnalyzed
     {
         private readonly Func<Architecture, IEnumerable<T>> _objects;
 
-        public ObjectProvider(Func<Architecture, IEnumerable<T>> objects, string description)
+        public BasicObjectProvider(Func<Architecture, IEnumerable<T>> objects, string description)
         {
             _objects = objects;
             Description = description;
@@ -26,7 +26,7 @@ namespace ArchUnitNET.Fluent
             return Description;
         }
 
-        private bool Equals(ObjectProvider<T> other)
+        private bool Equals(BasicObjectProvider<T> other)
         {
             return string.Equals(Description, other.Description);
         }
@@ -43,7 +43,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ObjectProvider<T>) obj);
+            return obj.GetType() == GetType() && Equals((BasicObjectProvider<T>) obj);
         }
 
         public override int GetHashCode()

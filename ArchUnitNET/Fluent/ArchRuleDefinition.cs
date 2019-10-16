@@ -14,52 +14,52 @@ namespace ArchUnitNET.Fluent
     {
         public static GivenTypes Types()
         {
-            var ruleCreator = new ArchRuleCreator<IType>(ObjectProviderDefinition.Types);
+            var ruleCreator = new ArchRuleCreator<IType>(BasicObjectProviderDefinition.Types);
             return new GivenTypes(ruleCreator);
         }
 
         public static GivenAttributes Attributes()
         {
-            var ruleCreator = new ArchRuleCreator<Attribute>(ObjectProviderDefinition.Attributes);
+            var ruleCreator = new ArchRuleCreator<Attribute>(BasicObjectProviderDefinition.Attributes);
             return new GivenAttributes(ruleCreator);
         }
 
         public static GivenClasses Classes()
         {
-            var ruleCreator = new ArchRuleCreator<Class>(ObjectProviderDefinition.Classes);
+            var ruleCreator = new ArchRuleCreator<Class>(BasicObjectProviderDefinition.Classes);
             return new GivenClasses(ruleCreator);
         }
 
         public static GivenInterfaces Interfaces()
         {
-            var ruleCreator = new ArchRuleCreator<Interface>(ObjectProviderDefinition.Interfaces);
+            var ruleCreator = new ArchRuleCreator<Interface>(BasicObjectProviderDefinition.Interfaces);
             return new GivenInterfaces(ruleCreator);
         }
 
         public static GivenMembers Members()
         {
-            var ruleCreator = new ArchRuleCreator<IMember>(ObjectProviderDefinition.Members);
+            var ruleCreator = new ArchRuleCreator<IMember>(BasicObjectProviderDefinition.Members);
             return new GivenMembers(ruleCreator);
         }
 
         public static GivenFieldMembers FieldMembers()
         {
             var ruleCreator =
-                new ArchRuleCreator<FieldMember>(ObjectProviderDefinition.FieldMembers);
+                new ArchRuleCreator<FieldMember>(BasicObjectProviderDefinition.FieldMembers);
             return new GivenFieldMembers(ruleCreator);
         }
 
         public static GivenMethodMembers MethodMembers()
         {
             var ruleCreator =
-                new ArchRuleCreator<MethodMember>(ObjectProviderDefinition.MethodMembers);
+                new ArchRuleCreator<MethodMember>(BasicObjectProviderDefinition.MethodMembers);
             return new GivenMethodMembers(ruleCreator);
         }
 
         public static GivenPropertyMembers PropertyMembers()
         {
             var ruleCreator =
-                new ArchRuleCreator<PropertyMember>(ObjectProviderDefinition.PropertyMembers);
+                new ArchRuleCreator<PropertyMember>(BasicObjectProviderDefinition.PropertyMembers);
             return new GivenPropertyMembers(ruleCreator);
         }
     }

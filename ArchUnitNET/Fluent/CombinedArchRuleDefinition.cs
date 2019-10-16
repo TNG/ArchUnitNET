@@ -25,56 +25,56 @@ namespace ArchUnitNET.Fluent
         public GivenTypes Types()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<IType>(_oldRule, _logicalConjunction,
-                ObjectProviderDefinition.Types);
+                BasicObjectProviderDefinition.Types);
             return new GivenTypes(combinedRuleCreator);
         }
 
         public GivenAttributes Attributes()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<Attribute>(_oldRule,
-                _logicalConjunction, ObjectProviderDefinition.Attributes);
+                _logicalConjunction, BasicObjectProviderDefinition.Attributes);
             return new GivenAttributes(combinedRuleCreator);
         }
 
         public GivenClasses Classes()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<Class>(_oldRule, _logicalConjunction,
-                ObjectProviderDefinition.Classes);
+                BasicObjectProviderDefinition.Classes);
             return new GivenClasses(combinedRuleCreator);
         }
 
         public GivenInterfaces Interfaces()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<Interface>(_oldRule,
-                _logicalConjunction, ObjectProviderDefinition.Interfaces);
+                _logicalConjunction, BasicObjectProviderDefinition.Interfaces);
             return new GivenInterfaces(combinedRuleCreator);
         }
 
         public GivenMembers Members()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<IMember>(_oldRule, _logicalConjunction,
-                ObjectProviderDefinition.Members);
+                BasicObjectProviderDefinition.Members);
             return new GivenMembers(combinedRuleCreator);
         }
 
         public GivenFieldMembers FieldMembers()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<FieldMember>(_oldRule,
-                _logicalConjunction, ObjectProviderDefinition.FieldMembers);
+                _logicalConjunction, BasicObjectProviderDefinition.FieldMembers);
             return new GivenFieldMembers(combinedRuleCreator);
         }
 
         public GivenMethodMembers MethodMembers()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<MethodMember>(_oldRule,
-                _logicalConjunction, ObjectProviderDefinition.MethodMembers);
+                _logicalConjunction, BasicObjectProviderDefinition.MethodMembers);
             return new GivenMethodMembers(combinedRuleCreator);
         }
 
         public GivenPropertyMembers PropertyMembers()
         {
             var combinedRuleCreator = new CombinedArchRuleCreator<PropertyMember>(_oldRule,
-                _logicalConjunction, ObjectProviderDefinition.PropertyMembers);
+                _logicalConjunction, BasicObjectProviderDefinition.PropertyMembers);
             return new GivenPropertyMembers(combinedRuleCreator);
         }
     }
