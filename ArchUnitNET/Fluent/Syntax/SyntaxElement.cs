@@ -19,5 +19,30 @@ namespace ArchUnitNET.Fluent.Syntax
         {
             return Description;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((SyntaxElement<TRuleType>) obj);
+        }
+
+        private bool Equals(SyntaxElement<TRuleType> other)
+        {
+            return _ruleCreator.Equals(other._ruleCreator);
+        }
+
+        public override int GetHashCode()
+        {
+            return _ruleCreator != null ? _ruleCreator.GetHashCode() : 0;
+        }
     }
 }

@@ -70,6 +70,39 @@ namespace ArchUnitNET.Fluent
                 return Description;
             }
 
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType() && Equals((PredicateManager<T>) obj);
+            }
+
+            private bool Equals(PredicateManager<T> other)
+            {
+                return Equals(_basicObjectProvider, other._basicObjectProvider) &&
+                       _predicateElements.SequenceEqual(other._predicateElements) &&
+                       _hasCustomDescription == other._hasCustomDescription;
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = _basicObjectProvider != null ? _basicObjectProvider.GetHashCode() : 0;
+                    return _predicateElements.Aggregate(hashCode,
+                        (current, predicateElement) =>
+                            (current * 397) ^ (predicateElement != null ? predicateElement.GetHashCode() : 0));
+                }
+            }
+
 #pragma warning disable 693
         private class PredicateElement<T> : IHasDescription where T : ICanBeAnalyzed
         {
@@ -131,6 +164,42 @@ namespace ArchUnitNET.Fluent
             public override string ToString()
             {
                 return Description;
+            }
+
+            private bool Equals(PredicateElement<T> other)
+            {
+                return Equals(_logicalConjunction, other._logicalConjunction) &&
+                       _customDescription == other._customDescription &&
+                       Equals(_predicate, other._predicate) &&
+                       _reason == other._reason;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType() && Equals((PredicateElement<T>) obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = _logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0;
+                    hashCode = (hashCode * 397) ^
+                               (_customDescription != null ? _customDescription.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^ (_predicate != null ? _predicate.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^ (_reason != null ? _reason.GetHashCode() : 0);
+                    return hashCode;
+                }
             }
         }
     }

@@ -103,7 +103,8 @@ namespace ArchUnitNET.Fluent
 
         private bool Equals(ArchRuleCreator<TRuleType> other)
         {
-            return string.Equals(Description, other.Description);
+            return _conditionManager.Equals(other._conditionManager) &&
+                   _predicateManager.Equals(other._predicateManager);
         }
 
         public override bool Equals(object obj)
@@ -123,7 +124,12 @@ namespace ArchUnitNET.Fluent
 
         public override int GetHashCode()
         {
-            return Description != null ? Description.GetHashCode() : 0;
+            unchecked
+            {
+                var hashCode = 397 ^ (_conditionManager != null ? _conditionManager.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_predicateManager != null ? _predicateManager.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

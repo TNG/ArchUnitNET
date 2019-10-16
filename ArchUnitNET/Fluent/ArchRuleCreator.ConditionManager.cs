@@ -120,7 +120,7 @@ namespace ArchUnitNET.Fluent
                 {
                     var first = true;
                     var failDescriptionCache =
-                        new List<string>(); //Prevent failDescriptions like ... failed because ... is public and is public
+                        new List<string>(); //Prevent failDescriptions like "... failed because ... is public and is public"
                     foreach (var conditionResult in _conditionElements
                         .Select(conditionElement => conditionElement.Check(obj, architecture))
                         .Where(conditionResult => !conditionResult.Pass))
@@ -145,6 +145,38 @@ namespace ArchUnitNET.Fluent
             public override string ToString()
             {
                 return Description;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType() && Equals((ConditionManager<T>) obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    return _conditionElements.Aggregate(397,
+                        (current, conditionElement) =>
+                            (current * 397) ^ (conditionElement != null ? conditionElement.GetHashCode() : 0));
+                }
+            }
+
+            private bool Equals(ConditionManager<T> other)
+            {
+                return _conditionElements.SequenceEqual(other._conditionElements) &&
+                       _referenceTypeTemp == other._referenceTypeTemp &&
+                       _relationConditionTemp.Equals(other._relationConditionTemp);
             }
 
 #pragma warning disable 693
@@ -224,6 +256,42 @@ namespace ArchUnitNET.Fluent
             public override string ToString()
             {
                 return Description;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType() && Equals((ConditionElement<T>) obj);
+            }
+
+            private bool Equals(ConditionElement<T> other)
+            {
+                return Equals(_logicalConjunction, other._logicalConjunction) &&
+                       Equals(_condition, other._condition) &&
+                       _customDescription == other._customDescription &&
+                       _reason == other._reason;
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = _logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0;
+                    hashCode = (hashCode * 397) ^ (_condition != null ? _condition.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^
+                               (_customDescription != null ? _customDescription.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^ (_reason != null ? _reason.GetHashCode() : 0);
+                    return hashCode;
+                }
             }
         }
     }

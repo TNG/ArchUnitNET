@@ -99,9 +99,9 @@ namespace ArchUnitNET.Fluent
 
         private bool Equals(CombinedArchRuleCreator<TRuleType> other)
         {
-            return string.Equals(Description, other.Description) &&
-                   Equals(_oldRule, other._oldRule) &&
-                   Equals(_logicalConjunction, other._logicalConjunction);
+            return Equals(_oldRule, other._oldRule) &&
+                   Equals(_logicalConjunction, other._logicalConjunction) &&
+                   Equals(_currentArchRuleCreator, other._currentArchRuleCreator);
         }
 
         public override bool Equals(object obj)
@@ -123,9 +123,10 @@ namespace ArchUnitNET.Fluent
         {
             unchecked
             {
-                var hashCode = Description != null ? Description.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (_oldRule != null ? _oldRule.GetHashCode() : 0);
+                var hashCode = _oldRule != null ? _oldRule.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (_logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^
+                           (_currentArchRuleCreator != null ? _currentArchRuleCreator.GetHashCode() : 0);
                 return hashCode;
             }
         }

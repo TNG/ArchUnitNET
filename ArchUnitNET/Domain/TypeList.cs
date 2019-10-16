@@ -170,6 +170,49 @@ namespace ArchUnitNET.Domain
             Add(new PatternCollection(pattern, useRegularExpressions));
         }
 
+        private new bool Equals(TypeList other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return base.Equals(other) &&
+                   _typeProviderList.SequenceEqual(other._typeProviderList) &&
+                   _customDescription == other._customDescription;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((TypeList) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ (_typeProviderList != null ? _typeProviderList.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_customDescription != null ? _customDescription.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
+
         private abstract class Collection<T> : IObjectProvider<IType>
         {
             protected readonly List<T> Items;
@@ -187,6 +230,42 @@ namespace ArchUnitNET.Domain
 
             public abstract string Description { get; }
             public abstract IEnumerable<IType> GetObjects(Architecture architecture);
+
+            public override string ToString()
+            {
+                return Description;
+            }
+
+            protected bool Equals(Collection<T> other)
+            {
+                return Items.SequenceEqual(other.Items);
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType() && Equals((Collection<T>) obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    return Items != null
+                        ? Items.Aggregate(397,
+                            (current, item) => (current * 397) ^ (item != null ? item.GetHashCode() : 0))
+                        : 0;
+                }
+            }
         }
 
         private class TypeCollection : Collection<Type>
@@ -260,6 +339,34 @@ namespace ArchUnitNET.Domain
                 }
 
                 return types.Distinct();
+            }
+
+            private bool Equals(PatternCollection other)
+            {
+                return base.Equals(other) && _useRegularExpressions == other._useRegularExpressions;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType() && Equals((PatternCollection) obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    return (base.GetHashCode() * 397) ^ _useRegularExpressions.GetHashCode();
+                }
             }
         }
     }
