@@ -51,39 +51,39 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction CallAnyMethod(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction CallAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.CallAnyMethod(pattern, useRegularExpressions));
+                ObjectPredicatesDefinition<TReferenceType>.CallAny(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction CallAnyMethod(IEnumerable<string> patterns,
+        public TRuleTypeShouldConjunction CallAny(IEnumerable<string> patterns,
             bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.CallAnyMethod(patterns, useRegularExpressions));
+                ObjectPredicatesDefinition<TReferenceType>.CallAny(patterns, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction CallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        public TRuleTypeShouldConjunction CallAny(MethodMember method, params MethodMember[] moreMethods)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.CallAnyMethod(method, moreMethods));
+                ObjectPredicatesDefinition<TReferenceType>.CallAny(method, moreMethods));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction CallAnyMethod(IEnumerable<MethodMember> methods)
+        public TRuleTypeShouldConjunction CallAny(IEnumerable<MethodMember> methods)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.CallAnyMethod(methods));
+                ObjectPredicatesDefinition<TReferenceType>.CallAny(methods));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction CallAnyMethod(IObjectProvider<MethodMember> methods)
+        public TRuleTypeShouldConjunction CallAny(IObjectProvider<MethodMember> methods)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.CallAnyMethod(methods));
+                ObjectPredicatesDefinition<TReferenceType>.CallAny(methods));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -308,39 +308,39 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotCallAnyMethod(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction DoNotCallAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAnyMethod(pattern, useRegularExpressions));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAny(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotCallAnyMethod(IEnumerable<string> patterns,
+        public TRuleTypeShouldConjunction DoNotCallAny(IEnumerable<string> patterns,
             bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAnyMethod(patterns, useRegularExpressions));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAny(patterns, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotCallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        public TRuleTypeShouldConjunction DoNotCallAny(MethodMember method, params MethodMember[] moreMethods)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAnyMethod(method, moreMethods));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAny(method, moreMethods));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotCallAnyMethod(IEnumerable<MethodMember> methods)
+        public TRuleTypeShouldConjunction DoNotCallAny(IEnumerable<MethodMember> methods)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAnyMethod(methods));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAny(methods));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotCallAnyMethod(IObjectProvider<MethodMember> methods)
+        public TRuleTypeShouldConjunction DoNotCallAny(IObjectProvider<MethodMember> methods)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAnyMethod(methods));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAny(methods));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

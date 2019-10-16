@@ -44,35 +44,35 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction CallAnyMethod(string pattern, bool useRegularExpressions = false)
+        public TGivenRuleTypeConjunction CallAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.CallAnyMethod(pattern, useRegularExpressions));
+                ObjectPredicatesDefinition<TRuleType>.CallAny(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction CallAnyMethod(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public TGivenRuleTypeConjunction CallAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.CallAnyMethod(patterns, useRegularExpressions));
+                ObjectPredicatesDefinition<TRuleType>.CallAny(patterns, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction CallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        public TGivenRuleTypeConjunction CallAny(MethodMember method, params MethodMember[] moreMethods)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.CallAnyMethod(method, moreMethods));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.CallAny(method, moreMethods));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction CallAnyMethod(IEnumerable<MethodMember> methods)
+        public TGivenRuleTypeConjunction CallAny(IEnumerable<MethodMember> methods)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.CallAnyMethod(methods));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.CallAny(methods));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction CallAnyMethod(IObjectProvider<MethodMember> methods)
+        public TGivenRuleTypeConjunction CallAny(IObjectProvider<MethodMember> methods)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.CallAnyMethod(methods));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.CallAny(methods));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -284,36 +284,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotCallAnyMethod(string pattern, bool useRegularExpressions = false)
+        public TGivenRuleTypeConjunction DoNotCallAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotCallAnyMethod(pattern, useRegularExpressions));
+                ObjectPredicatesDefinition<TRuleType>.DoNotCallAny(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotCallAnyMethod(IEnumerable<string> patterns,
+        public TGivenRuleTypeConjunction DoNotCallAny(IEnumerable<string> patterns,
             bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotCallAnyMethod(patterns, useRegularExpressions));
+                ObjectPredicatesDefinition<TRuleType>.DoNotCallAny(patterns, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotCallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        public TGivenRuleTypeConjunction DoNotCallAny(MethodMember method, params MethodMember[] moreMethods)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotCallAnyMethod(method, moreMethods));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotCallAny(method, moreMethods));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotCallAnyMethod(IEnumerable<MethodMember> methods)
+        public TGivenRuleTypeConjunction DoNotCallAny(IEnumerable<MethodMember> methods)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotCallAnyMethod(methods));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotCallAny(methods));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotCallAnyMethod(IObjectProvider<MethodMember> methods)
+        public TGivenRuleTypeConjunction DoNotCallAny(IObjectProvider<MethodMember> methods)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotCallAnyMethod(methods));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotCallAny(methods));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

@@ -71,14 +71,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, "are " + objectProvider.Description);
         }
 
-        public static IPredicate<T> CallAnyMethod(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> CallAny(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(obj => obj.CallsMethod(pattern, useRegularExpressions),
                 "calls any method with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
                 pattern + "\"");
         }
 
-        public static IPredicate<T> CallAnyMethod(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> CallAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
             var patternList = patterns.ToList();
 
@@ -104,7 +104,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimplePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> CallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        public static IPredicate<T> CallAny(MethodMember method, params MethodMember[] moreMethods)
         {
             bool Filter(T type)
             {
@@ -116,7 +116,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimplePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> CallAnyMethod(IObjectProvider<MethodMember> objectProvider)
+        public static IPredicate<T> CallAny(IObjectProvider<MethodMember> objectProvider)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -128,7 +128,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> CallAnyMethod(IEnumerable<MethodMember> methods)
+        public static IPredicate<T> CallAny(IEnumerable<MethodMember> methods)
         {
             var methodList = methods.ToList();
 
@@ -540,14 +540,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, "are not " + objectProvider.Description);
         }
 
-        public static IPredicate<T> DoNotCallAnyMethod(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotCallAny(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(obj => !obj.CallsMethod(pattern, useRegularExpressions),
                 "do not call any methods with full name " + (useRegularExpressions ? "matching" : "containing") +
                 " \"" + pattern + "\"");
         }
 
-        public static IPredicate<T> DoNotCallAnyMethod(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotCallAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
             var patternList = patterns.ToList();
 
@@ -573,7 +573,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimplePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> DoNotCallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        public static IPredicate<T> DoNotCallAny(MethodMember method, params MethodMember[] moreMethods)
         {
             bool Filter(T type)
             {
@@ -585,7 +585,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimplePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> DoNotCallAnyMethod(IObjectProvider<MethodMember> objectProvider)
+        public static IPredicate<T> DoNotCallAny(IObjectProvider<MethodMember> objectProvider)
         {
             bool Filter(T type, Architecture architecture)
             {
@@ -597,7 +597,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> DoNotCallAnyMethod(IEnumerable<MethodMember> methods)
+        public static IPredicate<T> DoNotCallAny(IEnumerable<MethodMember> methods)
         {
             var methodList = methods.ToList();
 

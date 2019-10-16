@@ -87,7 +87,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "be " + objectProvider.Description);
         }
 
-        public static ICondition<TRuleType> CallAnyMethod(string pattern, bool useRegularExpressions = false)
+        public static ICondition<TRuleType> CallAny(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.CallsMethod(pattern, useRegularExpressions),
@@ -97,7 +97,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 " \"" + pattern + "\"");
         }
 
-        public static ICondition<TRuleType> CallAnyMethod(IEnumerable<string> patterns,
+        public static ICondition<TRuleType> CallAny(IEnumerable<string> patterns,
             bool useRegularExpressions = false)
         {
             var patternList = patterns.ToList();
@@ -130,7 +130,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ICondition<TRuleType> CallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        public static ICondition<TRuleType> CallAny(MethodMember method, params MethodMember[] moreMethods)
         {
             bool Condition(TRuleType type)
             {
@@ -144,7 +144,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ICondition<TRuleType> CallAnyMethod(IObjectProvider<MethodMember> objectProvider)
+        public static ICondition<TRuleType> CallAny(IObjectProvider<MethodMember> objectProvider)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -157,7 +157,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ICondition<TRuleType> CallAnyMethod(IEnumerable<MethodMember> methods)
+        public static ICondition<TRuleType> CallAny(IEnumerable<MethodMember> methods)
         {
             var methodList = methods.ToList();
 
@@ -770,7 +770,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "not be " + objectProvider.Description);
         }
 
-        public static ICondition<TRuleType> NotCallAnyMethod(string pattern, bool useRegularExpressions = false)
+        public static ICondition<TRuleType> NotCallAny(string pattern, bool useRegularExpressions = false)
         {
             ConditionResult Condition(TRuleType ruleType)
             {
@@ -793,7 +793,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 " \"" + pattern + "\"");
         }
 
-        public static ICondition<TRuleType> NotCallAnyMethod(IEnumerable<string> patterns,
+        public static ICondition<TRuleType> NotCallAny(IEnumerable<string> patterns,
             bool useRegularExpressions = false)
         {
             var patternList = patterns.ToList();
@@ -830,7 +830,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotCallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        public static ICondition<TRuleType> NotCallAny(MethodMember method, params MethodMember[] moreMethods)
         {
             ConditionResult Condition(TRuleType ruleType)
             {
@@ -855,7 +855,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotCallAnyMethod(IObjectProvider<MethodMember> objectProvider)
+        public static ICondition<TRuleType> NotCallAny(IObjectProvider<MethodMember> objectProvider)
         {
             ConditionResult Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -878,7 +878,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotCallAnyMethod(IEnumerable<MethodMember> methods)
+        public static ICondition<TRuleType> NotCallAny(IEnumerable<MethodMember> methods)
         {
             var methodList = methods.ToList();
 
