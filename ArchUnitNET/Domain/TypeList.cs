@@ -122,7 +122,7 @@ namespace ArchUnitNET.Domain
         public string Description => _customDescription ?? _typeProviderList
                                          .Aggregate("",
                                              (current, typeProvider) => current + "\r\n" + typeProvider.Description)
-                                         .Remove(0, 4);
+                                         .Remove(0, 2);
 
         public IEnumerable<IType> GetObjects(Architecture architecture)
         {

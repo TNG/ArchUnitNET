@@ -122,7 +122,7 @@ namespace ArchUnitNET.Fluent
                 if (_predicate == null)
                 {
                     throw new InvalidOperationException(
-                        "Can't Evaluate an PredicateElement before the predicate is set.");
+                        "Can't check a PredicateElement before the predicate is set.");
                 }
 
                 return _logicalConjunction.Evaluate(currentResult, _predicate.CheckPredicate(obj, architecture));
