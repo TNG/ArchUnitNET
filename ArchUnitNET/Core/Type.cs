@@ -54,10 +54,10 @@ namespace ArchUnitNET.Core
             .OfType<ImplementsInterfaceDependency>()
             .Select(dependency => dependency.Target);
 
-        public bool ImplementsInterface(IType @interface)
+        public bool ImplementsInterface(IType intf)
         {
             return ImplementedInterfaces.Any(implementedInterface =>
-                Equals(implementedInterface, @interface) || Equals(implementedInterface.GenericType, @interface));
+                Equals(implementedInterface, intf) || Equals(implementedInterface.GenericType, intf));
         }
 
         public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)

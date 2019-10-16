@@ -33,6 +33,19 @@ namespace ArchUnitNET.Fluent.Extensions
                 .Any(member => member.FullNameMatches(pattern, useRegularExpressions));
         }
 
+        public static IEnumerable<IType> GetAssignableTypes(this IType type)
+        {
+            switch (type)
+            {
+                case Interface intf:
+                    return intf.ImplementedInterfaces.Append(intf);
+                case Class cls:
+                    return cls.InheritedClasses.Append(cls).Concat(cls.ImplementedInterfaces);
+                default:
+                    return Enumerable.Empty<IType>();
+            }
+        }
+
         public static IEnumerable<MethodMember> GetCalledMethods(this IHasDependencies type)
         {
             return type.GetMethodCallDependencies().Select(dependency => (MethodMember) dependency.TargetMember);

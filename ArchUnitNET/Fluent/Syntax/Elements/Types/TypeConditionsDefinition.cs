@@ -316,12 +316,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> NotBeAssignableTo(string pattern, bool useRegularExpressions = false)
         {
+            ConditionResult Condition(TRuleType ruleType)
+            {
+                var pass = true;
+                var dynamicFailDescription = "is assignable to";
+                foreach (var type in ruleType.GetAssignableTypes())
+                {
+                    if (type.FullNameMatches(pattern, useRegularExpressions))
+                    {
+                        dynamicFailDescription += (pass ? " " : " and ") + type.FullName;
+                        pass = false;
+                    }
+                }
+
+                return new ConditionResult(pass, dynamicFailDescription);
+            }
+
             var description = "not be assignable to types with full name " +
                               (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"";
-            var failDescription = "is assignable to a type with full name " +
-                                  (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"";
-            return new SimpleCondition<TRuleType>(type => !type.IsAssignableTo(pattern, useRegularExpressions),
-                description, failDescription);
+            return new SimpleCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotBeAssignableTo(IEnumerable<string> patterns,
@@ -332,13 +345,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             ConditionResult Condition(TRuleType ruleType)
             {
                 var pass = true;
-                var dynamicFailDescription = "is assignable to types with full name " +
-                                             (useRegularExpressions ? "matching" : "containing");
-                foreach (var assignablePattern in patternList.Where(pattern =>
-                    ruleType.IsAssignableTo(pattern, useRegularExpressions)))
+                var dynamicFailDescription = "is assignable to";
+                foreach (var type in ruleType.GetAssignableTypes())
                 {
-                    dynamicFailDescription += (pass ? " \"" : " and \"") + assignablePattern + "\"";
-                    pass = false;
+                    if (patternList.Any(pattern => type.FullNameMatches(pattern, useRegularExpressions)))
+                    {
+                        dynamicFailDescription += (pass ? " " : " and ") + type.FullName;
+                        pass = false;
+                    }
                 }
 
                 return new ConditionResult(pass, dynamicFailDescription);

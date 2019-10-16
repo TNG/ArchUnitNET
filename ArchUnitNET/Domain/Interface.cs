@@ -51,9 +51,9 @@ namespace ArchUnitNET.Domain
 
         public bool IsAssignableTo(IType assignableToType)
         {
-            if (assignableToType is Interface @interface)
+            if (assignableToType is Interface intf)
             {
-                return Equals(@interface) || ImplementsInterface(@interface);
+                return Equals(intf) || ImplementsInterface(intf);
             }
 
             return false;

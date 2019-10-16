@@ -96,36 +96,13 @@ namespace ArchUnitNET.Domain
 
         public bool IsAssignableTo(IType assignableToType)
         {
-            if (Equals(assignableToType, this))
-            {
-                return true;
-            }
-
-            switch (assignableToType)
-            {
-                case Interface @interface:
-                    return ImplementsInterface(@interface);
-                case Class cls:
-                    return BaseClass != null && BaseClass.IsAssignableTo(cls);
-                default:
-                    return false;
-            }
+            return this.GetAssignableTypes().Contains(assignableToType);
         }
 
         public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
         {
-            if (pattern == null)
-            {
-                return false;
-            }
-
-            if (this.FullNameMatches(pattern, useRegularExpressions) ||
-                ImplementsInterface(pattern, useRegularExpressions))
-            {
-                return true;
-            }
-
-            return BaseClass != null && BaseClass.IsAssignableTo(pattern, useRegularExpressions);
+            return pattern != null && this.GetAssignableTypes()
+                       .Any(type => type.FullNameMatches(pattern, useRegularExpressions));
         }
 
         public override string ToString()
