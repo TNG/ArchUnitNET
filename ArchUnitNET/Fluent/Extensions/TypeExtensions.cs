@@ -9,12 +9,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Dependencies.Members;
 using ArchUnitNET.Domain.Dependencies.Types;
 
 namespace ArchUnitNET.Fluent.Extensions
 {
     public static class TypeExtensions
     {
+        public static bool CallsMethod(this IHasDependencies type, MethodMember method)
+        {
+            return type.GetCalledMethods().Contains(type);
+        }
+
+        public static bool CallsMethod(this IHasDependencies type, string pattern, bool useRegularExpressions = false)
+        {
+            return type.GetCalledMethods().Any(member => member.FullNameMatches(pattern, useRegularExpressions));
+        }
+
+        public static bool CallsAnyMethodFromType(this IHasDependencies type, string pattern,
+            bool useRegularExpressions = false)
+        {
+            return type.GetMethodCallDependencies().Select(dependency => dependency.Target)
+                .Any(member => member.FullNameMatches(pattern, useRegularExpressions));
+        }
+
+        public static IEnumerable<MethodMember> GetCalledMethods(this IHasDependencies type)
+        {
+            return type.GetMethodCallDependencies().Select(dependency => (MethodMember) dependency.TargetMember);
+        }
+
         public static IEnumerable<PropertyMember> GetPropertyMembersWithName(this IType type, string name)
         {
             return type.GetPropertyMembers().WhereNameIs(name);
@@ -214,6 +237,14 @@ namespace ArchUnitNET.Fluent.Extensions
         public static IEnumerable<MethodMember> GetConstructors(this IType type)
         {
             return type.GetMethodMembers().Where(method => method.IsConstructor());
+        }
+
+        public static IEnumerable<MethodCallDependency> GetMethodCallDependencies(this IHasDependencies type,
+            bool getBackwardsDependencies = false)
+        {
+            return getBackwardsDependencies
+                ? type.BackwardsDependencies.OfType<MethodCallDependency>()
+                : type.Dependencies.OfType<MethodCallDependency>();
         }
 
         public static IEnumerable<AttributeTypeDependency> GetAttributeTypeDependencies(this IType type,

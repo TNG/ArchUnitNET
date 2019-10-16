@@ -12,6 +12,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType Be(IEnumerable<ICanBeAnalyzed> objects);
         TReturnType Be(IObjectProvider<ICanBeAnalyzed> objects);
+        TReturnType CallAnyMethod(string pattern, bool useRegularExpressions = false);
+        TReturnType CallAnyMethod(IEnumerable<string> patterns, bool useRegularExpressions = false);
+        TReturnType CallAnyMethod(MethodMember method, params MethodMember[] moreMethods);
+        TReturnType CallAnyMethod(IEnumerable<MethodMember> methods);
+        TReturnType CallAnyMethod(IObjectProvider<MethodMember> methods);
         TReturnType DependOnAny(string pattern, bool useRegularExpressions = false);
         TReturnType DependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType DependOnAny(IType firstType, params IType[] moreTypes);
@@ -51,6 +56,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType NotBe(IEnumerable<ICanBeAnalyzed> objects);
         TReturnType NotBe(IObjectProvider<ICanBeAnalyzed> objects);
+        TReturnType NotCallAnyMethod(string pattern, bool useRegularExpressions = false);
+        TReturnType NotCallAnyMethod(IEnumerable<string> patterns, bool useRegularExpressions = false);
+        TReturnType NotCallAnyMethod(MethodMember method, params MethodMember[] moreMethods);
+        TReturnType NotCallAnyMethod(IEnumerable<MethodMember> methods);
+        TReturnType NotCallAnyMethod(IObjectProvider<MethodMember> methods);
         TReturnType NotDependOnAny(string pattern, bool useRegularExpressions = false);
         TReturnType NotDependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType NotDependOnAny(IType firstType, params IType[] moreTypes);

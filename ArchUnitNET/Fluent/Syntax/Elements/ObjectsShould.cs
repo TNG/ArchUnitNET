@@ -56,6 +56,39 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction CallAnyMethod(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.CallAnyMethod(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction CallAnyMethod(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.CallAnyMethod(patterns, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction CallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        {
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.CallAnyMethod(method, moreMethods));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction CallAnyMethod(IEnumerable<MethodMember> methods)
+        {
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.CallAnyMethod(methods));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction CallAnyMethod(IObjectProvider<MethodMember> methods)
+        {
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.CallAnyMethod(methods));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction DependOnAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddCondition(
@@ -316,6 +349,39 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotBe(IObjectProvider<ICanBeAnalyzed> objects)
         {
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotBe(objects));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotCallAnyMethod(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotCallAnyMethod(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotCallAnyMethod(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotCallAnyMethod(patterns, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotCallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        {
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotCallAnyMethod(method, moreMethods));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotCallAnyMethod(IEnumerable<MethodMember> methods)
+        {
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotCallAnyMethod(methods));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotCallAnyMethod(IObjectProvider<MethodMember> methods)
+        {
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotCallAnyMethod(methods));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

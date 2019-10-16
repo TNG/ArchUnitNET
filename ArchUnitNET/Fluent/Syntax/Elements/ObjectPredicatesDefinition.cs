@@ -71,6 +71,88 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, "are " + objectProvider.Description);
         }
 
+        public static IPredicate<T> CallAnyMethod(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimplePredicate<T>(obj => obj.CallsMethod(pattern, useRegularExpressions),
+                "calls any method with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                pattern + "\"");
+        }
+
+        public static IPredicate<T> CallAnyMethod(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+
+            bool Filter(T type)
+            {
+                return patternList.Any(method => type.CallsMethod(method));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "call one of no methods (impossible)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "call any method with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> CallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        {
+            bool Filter(T type)
+            {
+                return type.CallsMethod(method) || moreMethods.Any(m => type.CallsMethod(m));
+            }
+
+            var description = moreMethods.Aggregate("call \"" + method.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new SimplePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> CallAnyMethod(IObjectProvider<MethodMember> objectProvider)
+        {
+            bool Filter(T type, Architecture architecture)
+            {
+                var methods = objectProvider.GetObjects(architecture);
+                return methods.Any(method => type.CallsMethod(method));
+            }
+
+            var description = "call any " + objectProvider.Description;
+            return new ArchitecturePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> CallAnyMethod(IEnumerable<MethodMember> methods)
+        {
+            var methodList = methods.ToList();
+
+            bool Filter(T type)
+            {
+                return methodList.Any(method => type.CallsMethod(method));
+            }
+
+            string description;
+            if (methodList.IsNullOrEmpty())
+            {
+                description = "call one of no methods (impossible)";
+            }
+            else
+            {
+                var firstMethod = methodList.First();
+                description = methodList.Where(obj => !obj.Equals(firstMethod)).Distinct().Aggregate(
+                    "call \"" + firstMethod.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
+        }
+
         public static IPredicate<T> DependOnAny(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(obj => obj.DependsOn(pattern, useRegularExpressions),
@@ -456,6 +538,88 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new ArchitecturePredicate<T>(Filter, "are not " + objectProvider.Description);
+        }
+
+        public static IPredicate<T> DoNotCallAnyMethod(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimplePredicate<T>(obj => !obj.CallsMethod(pattern, useRegularExpressions),
+                "do not call any methods with full name " + (useRegularExpressions ? "matching" : "containing") +
+                " \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> DoNotCallAnyMethod(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+
+            bool Filter(T type)
+            {
+                return patternList.All(pattern => !type.CallsMethod(pattern, useRegularExpressions));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "do not call one of no methods (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "do not call any methods with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> DoNotCallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        {
+            bool Filter(T type)
+            {
+                return !type.CallsMethod(method) && moreMethods.All(m => !type.CallsMethod(m));
+            }
+
+            var description = moreMethods.Aggregate("do not call \"" + method.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new SimplePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> DoNotCallAnyMethod(IObjectProvider<MethodMember> objectProvider)
+        {
+            bool Filter(T type, Architecture architecture)
+            {
+                var methods = objectProvider.GetObjects(architecture);
+                return methods.All(method => !type.CallsMethod(method));
+            }
+
+            var description = "do not call " + objectProvider.Description;
+            return new ArchitecturePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> DoNotCallAnyMethod(IEnumerable<MethodMember> methods)
+        {
+            var methodList = methods.ToList();
+
+            bool Filter(T type)
+            {
+                return methodList.All(method => !type.CallsMethod(method));
+            }
+
+            string description;
+            if (methodList.IsNullOrEmpty())
+            {
+                description = "do not call one of no methods (always true)";
+            }
+            else
+            {
+                var firstMethod = methodList.First();
+                description = methodList.Where(obj => !obj.Equals(firstMethod)).Distinct().Aggregate(
+                    "do not call \"" + firstMethod.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DoNotDependOnAny(string pattern, bool useRegularExpressions = false)

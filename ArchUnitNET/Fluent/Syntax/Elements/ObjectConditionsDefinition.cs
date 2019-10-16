@@ -87,6 +87,106 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "be " + objectProvider.Description);
         }
 
+        public static ICondition<TRuleType> CallAnyMethod(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.CallsMethod(pattern, useRegularExpressions),
+                "calls any method with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                pattern + "\"",
+                "does not call any method with full name " + (useRegularExpressions ? "matching" : "containing") +
+                " \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> CallAnyMethod(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return patternList.Any(pattern => ruleType.CallsMethod(pattern, useRegularExpressions));
+            }
+
+            string description;
+            string failDescription;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "call one of no methods (impossible)";
+                failDescription = "does not call one of no methods (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "calls any method with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"",
+                    (current, pattern) => current + " or \"" + pattern + "\"");
+                failDescription = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "does not call any methods with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"",
+                    (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ICondition<TRuleType> CallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        {
+            bool Condition(TRuleType type)
+            {
+                return type.CallsMethod(method) || moreMethods.Any(m => type.CallsMethod(m));
+            }
+
+            var description = moreMethods.Aggregate("call \"" + method.FullName + "\"",
+                (current, methodMember) => current + " or \"" + methodMember.FullName + "\"");
+            var failDescription = moreMethods.Aggregate("call \"" + method.FullName + "\"",
+                (current, methodMember) => current + " or \"" + methodMember.FullName + "\"");
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ICondition<TRuleType> CallAnyMethod(IObjectProvider<MethodMember> objectProvider)
+        {
+            bool Condition(TRuleType ruleType, Architecture architecture)
+            {
+                var methods = objectProvider.GetObjects(architecture);
+                return methods.Any(method => ruleType.CallsMethod(method));
+            }
+
+            var description = "call any " + objectProvider.Description;
+            var failDescription = "call any " + objectProvider.Description;
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static ICondition<TRuleType> CallAnyMethod(IEnumerable<MethodMember> methods)
+        {
+            var methodList = methods.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return methodList.Any(method => ruleType.CallsMethod(method));
+            }
+
+            string description;
+            string failDescription;
+            if (methodList.IsNullOrEmpty())
+            {
+                description = "call one of no methods (impossible)";
+                failDescription = "does not call one of no methods (always true)";
+            }
+            else
+            {
+                var firstMethod = methodList.First();
+                description = methodList.Where(method => !method.Equals(firstMethod)).Distinct().Aggregate(
+                    "call \"" + firstMethod.FullName + "\"",
+                    (current, method) => current + " or \"" + method.FullName + "\"");
+                failDescription = methodList.Where(method => !method.Equals(firstMethod)).Distinct().Aggregate(
+                    "does not call \"" + firstMethod.FullName + "\"",
+                    (current, method) => current + " or \"" + method.FullName + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
         public static ICondition<TRuleType> DependOnAny(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(
@@ -668,6 +768,150 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitectureCondition<TRuleType>(Condition, (obj, architecture) => "is " + obj.FullName,
                 "not be " + objectProvider.Description);
+        }
+
+        public static ICondition<TRuleType> NotCallAnyMethod(string pattern, bool useRegularExpressions = false)
+        {
+            ConditionResult Condition(TRuleType ruleType)
+            {
+                var pass = true;
+                var dynamicFailDescription = "does call";
+                foreach (var dependency in ruleType.GetCalledMethods())
+                {
+                    if (dependency.FullNameMatches(pattern, useRegularExpressions))
+                    {
+                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
+                        pass = false;
+                    }
+                }
+
+                return new ConditionResult(pass, dynamicFailDescription);
+            }
+
+            return new SimpleCondition<TRuleType>(Condition,
+                "not call any method with full name " + (useRegularExpressions ? "matching" : "containing") +
+                " \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotCallAnyMethod(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+
+            ConditionResult Condition(TRuleType ruleType)
+            {
+                var pass = true;
+                var dynamicFailDescription = "does call";
+                foreach (var dependency in ruleType.GetCalledMethods())
+                {
+                    if (patternList.Any(pattern => dependency.FullNameMatches(pattern, useRegularExpressions)))
+                    {
+                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
+                        pass = false;
+                    }
+                }
+
+                return new ConditionResult(pass, dynamicFailDescription);
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "not call no methods (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "not call methods with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description);
+        }
+
+        public static ICondition<TRuleType> NotCallAnyMethod(MethodMember method, params MethodMember[] moreMethods)
+        {
+            ConditionResult Condition(TRuleType ruleType)
+            {
+                var methodList = new List<MethodMember> {method};
+                methodList.AddRange(moreMethods);
+                var pass = true;
+                var dynamicFailDescription = "does call";
+                foreach (var dependency in ruleType.GetCalledMethods())
+                {
+                    if (methodList.Contains(dependency))
+                    {
+                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
+                        pass = false;
+                    }
+                }
+
+                return new ConditionResult(pass, dynamicFailDescription);
+            }
+
+            var description = moreMethods.Aggregate("not call \"" + method.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            return new SimpleCondition<TRuleType>(Condition, description);
+        }
+
+        public static ICondition<TRuleType> NotCallAnyMethod(IObjectProvider<MethodMember> objectProvider)
+        {
+            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
+            {
+                var methodList = objectProvider.GetObjects(architecture).ToList();
+                var pass = true;
+                var dynamicFailDescription = "does depend on";
+                foreach (var dependency in ruleType.GetCalledMethods())
+                {
+                    if (methodList.Contains(dependency))
+                    {
+                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
+                        pass = false;
+                    }
+                }
+
+                return new ConditionResult(pass, dynamicFailDescription);
+            }
+
+            var description = "not call " + objectProvider.Description;
+            return new ArchitectureCondition<TRuleType>(Condition, description);
+        }
+
+        public static ICondition<TRuleType> NotCallAnyMethod(IEnumerable<MethodMember> methods)
+        {
+            var methodList = methods.ToList();
+
+            ConditionResult Condition(TRuleType ruleType)
+            {
+                var pass = true;
+                var dynamicFailDescription = "does call";
+                foreach (var dependency in ruleType.GetCalledMethods())
+                {
+                    if (methodList.Contains(dependency))
+                    {
+                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
+                        pass = false;
+                    }
+                }
+
+                return new ConditionResult(pass, dynamicFailDescription);
+            }
+
+            string description;
+            if (methodList.IsNullOrEmpty())
+            {
+                description = "not call no methods (always true)";
+            }
+            else
+            {
+                var firstMethod = methodList.First();
+                description = methodList.Where(obj => !obj.Equals(firstMethod)).Distinct().Aggregate(
+                    "not call \"" + firstMethod.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new SimpleCondition<TRuleType>(Condition, description);
         }
 
 
