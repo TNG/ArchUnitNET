@@ -5,6 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Fluent;
@@ -14,6 +15,7 @@ namespace ArchUnitNET.Domain
     public class Architecture
     {
         private readonly IEnumerable<Assembly> _allAssemblies;
+        private readonly ObjectProviderCache _objectProviderCache;
 
         public Architecture(IEnumerable<Assembly> allAssemblies, IEnumerable<Namespace> namespaces,
             IEnumerable<IType> types)
@@ -21,6 +23,7 @@ namespace ArchUnitNET.Domain
             _allAssemblies = allAssemblies;
             Namespaces = namespaces;
             Types = types;
+            _objectProviderCache = new ObjectProviderCache(this);
         }
 
         public IEnumerable<Assembly> Assemblies => _allAssemblies.Where(assembly => !assembly.IsOnlyReferenced);
@@ -40,6 +43,12 @@ namespace ArchUnitNET.Domain
         public bool FulfilsRule(IArchRule archRule)
         {
             return archRule.HasNoViolations(this);
+        }
+
+        public IEnumerable<T> GetOrCreateObjects<T>(IObjectProvider<T> objectProvider,
+            Func<Architecture, IEnumerable<T>> providingFunction) where T : ICanBeAnalyzed
+        {
+            return _objectProviderCache.GetOrCreateObjects(objectProvider, providingFunction);
         }
 
         public IEnumerable<EvaluationResult> EvaluateRule(IArchRule archRule)

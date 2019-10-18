@@ -126,7 +126,8 @@ namespace ArchUnitNET.Domain
 
         public IEnumerable<IType> GetObjects(Architecture architecture)
         {
-            return _typeProviderList.SelectMany(provider => provider.GetObjects(architecture)).Distinct();
+            return architecture.GetOrCreateObjects(this,
+                arch => _typeProviderList.SelectMany(provider => provider.GetObjects(arch)).Distinct());
         }
 
         public TypeList As(string description)
@@ -207,8 +208,10 @@ namespace ArchUnitNET.Domain
             unchecked
             {
                 var hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (_typeProviderList != null ? _typeProviderList.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (_customDescription != null ? _customDescription.GetHashCode() : 0);
+                _typeProviderList.Aggregate(hashCode,
+                    (current, predicateElement) =>
+                        (current * 397) ^ (predicateElement != null ? predicateElement.GetHashCode() : 0));
                 return hashCode;
             }
         }
@@ -283,7 +286,7 @@ namespace ArchUnitNET.Domain
 
             public override IEnumerable<IType> GetObjects(Architecture architecture)
             {
-                return Items.Select(architecture.GetITypeOfType).Distinct();
+                return architecture.GetOrCreateObjects(this, arch => Items.Select(arch.GetITypeOfType).Distinct());
             }
         }
 
@@ -331,14 +334,19 @@ namespace ArchUnitNET.Domain
 
             public override IEnumerable<IType> GetObjects(Architecture architecture)
             {
-                var types = new List<IType>();
-                foreach (var pattern in Items)
+                IEnumerable<IType> CreateFunction(Architecture arch)
                 {
-                    types.AddRange(architecture.Types.Where(type =>
-                        type.FullNameMatches(pattern, _useRegularExpressions)));
+                    var types = new List<IType>();
+                    foreach (var pattern in Items)
+                    {
+                        types.AddRange(arch.Types.Where(type =>
+                            type.FullNameMatches(pattern, _useRegularExpressions)));
+                    }
+
+                    return types.Distinct();
                 }
 
-                return types.Distinct();
+                return architecture.GetOrCreateObjects(this, CreateFunction);
             }
 
             private bool Equals(PatternCollection other)

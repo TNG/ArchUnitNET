@@ -27,5 +27,30 @@ namespace ArchUnitNET.Fluent
         {
             return Description;
         }
+
+        private bool Equals(ExistsCondition<TRuleType> other)
+        {
+            return _valueIfExists == other._valueIfExists;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((ExistsCondition<TRuleType>) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return _valueIfExists.GetHashCode();
+        }
     }
 }

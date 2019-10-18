@@ -39,35 +39,5 @@ namespace ArchUnitNET.Fluent
         {
             return new CombinedArchRule(_ruleCreator, LogicalConjunctionDefinition.Or, archRule);
         }
-
-        public override string ToString()
-        {
-            return Description;
-        }
-
-        private bool Equals(ArchRule<TRuleType> other)
-        {
-            return string.Equals(Description, other.Description);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            return obj.GetType() == GetType() && Equals((ArchRule<TRuleType>) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Description != null ? Description.GetHashCode() : 0;
-        }
     }
 }

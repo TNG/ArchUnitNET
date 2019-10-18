@@ -18,7 +18,7 @@ namespace ArchUnitNET.Fluent
 
         public IEnumerable<T> GetObjects(Architecture architecture)
         {
-            return _objects(architecture);
+            return architecture.GetOrCreateObjects(this, _objects);
         }
 
         public override string ToString()

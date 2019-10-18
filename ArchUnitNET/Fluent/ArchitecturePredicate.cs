@@ -24,5 +24,30 @@ namespace ArchUnitNET.Fluent
         {
             return Description;
         }
+
+        private bool Equals(ArchitecturePredicate<TRuleType> other)
+        {
+            return Description == other.Description;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((ArchitecturePredicate<TRuleType>) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Description != null ? Description.GetHashCode() : 0;
+        }
     }
 }

@@ -176,7 +176,7 @@ namespace ArchUnitNET.Fluent
             {
                 return _conditionElements.SequenceEqual(other._conditionElements) &&
                        _referenceTypeTemp == other._referenceTypeTemp &&
-                       _relationConditionTemp.Equals(other._relationConditionTemp);
+                       _relationConditionTemp == other._relationConditionTemp;
             }
 
 #pragma warning disable 693

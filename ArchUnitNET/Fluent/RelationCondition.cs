@@ -41,6 +41,39 @@ namespace ArchUnitNET.Fluent
                     throw new IndexOutOfRangeException("The ShouldBeTrueFor Operator does not have a valid value.");
             }
         }
+
+        private bool Equals(RelationCondition<TRuleType, TRelatedType> other)
+        {
+            return _shouldBeTrueFor == other._shouldBeTrueFor &&
+                   FailDescription == other.FailDescription &&
+                   Description == other.Description;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((RelationCondition<TRuleType, TRelatedType>) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (int) _shouldBeTrueFor;
+                hashCode = (hashCode * 397) ^ (FailDescription != null ? FailDescription.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
     }
 
     public enum EnumerableOperator

@@ -32,5 +32,34 @@ namespace ArchUnitNET.Fluent
         {
             return Description;
         }
+
+        private bool Equals(ComplexCondition<TRuleType, TReferenceType> other)
+        {
+            return Equals(_predicate, other._predicate) && Equals(_relation, other._relation);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((ComplexCondition<TRuleType, TReferenceType>) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((_predicate != null ? _predicate.GetHashCode() : 0) * 397) ^
+                       (_relation != null ? _relation.GetHashCode() : 0);
+            }
+        }
     }
 }
