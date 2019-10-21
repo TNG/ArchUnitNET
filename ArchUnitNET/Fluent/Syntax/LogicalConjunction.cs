@@ -4,16 +4,13 @@ using System.Linq;
 
 namespace ArchUnitNET.Fluent.Syntax
 {
-    public class LogicalConjunction : IHasDescription
+    public abstract class LogicalConjunction : IHasDescription
     {
-        private readonly Func<IEnumerable<object>, IEnumerable<object>, IEnumerable<object>> _enumerableFunction;
         private readonly Func<bool, bool, bool> _logicalConjunction;
 
-        public LogicalConjunction(Func<bool, bool, bool> logicalConjunction,
-            Func<IEnumerable<object>, IEnumerable<object>, IEnumerable<object>> enumerableFunction, string description)
+        protected LogicalConjunction(Func<bool, bool, bool> logicalConjunction, string description)
         {
             _logicalConjunction = logicalConjunction;
-            _enumerableFunction = enumerableFunction;
             Description = description;
         }
 
@@ -24,10 +21,7 @@ namespace ArchUnitNET.Fluent.Syntax
             return _logicalConjunction(value1, value2);
         }
 
-        public IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2)
-        {
-            return _enumerableFunction(enumerable1.Cast<object>(), enumerable2.Cast<object>()).Cast<T>();
-        }
+        public abstract IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2);
 
         public override string ToString()
         {
@@ -57,6 +51,42 @@ namespace ArchUnitNET.Fluent.Syntax
         public override int GetHashCode()
         {
             return Description != null ? Description.GetHashCode() : 0;
+        }
+    }
+
+    public class And : LogicalConjunction
+    {
+        public And() : base((b1, b2) => b1 && b2, "and")
+        {
+        }
+
+        public override IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2)
+        {
+            return enumerable1.Intersect(enumerable2);
+        }
+    }
+
+    public class Or : LogicalConjunction
+    {
+        public Or() : base((b1, b2) => b1 || b2, "or")
+        {
+        }
+
+        public override IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2)
+        {
+            return enumerable1.Union(enumerable2);
+        }
+    }
+
+    public class ForwardSecondValue : LogicalConjunction
+    {
+        public ForwardSecondValue() : base((b1, b2) => b2, "")
+        {
+        }
+
+        public override IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2)
+        {
+            return enumerable2;
         }
     }
 }
