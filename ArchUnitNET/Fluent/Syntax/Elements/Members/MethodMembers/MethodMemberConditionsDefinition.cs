@@ -71,7 +71,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     }
                 }
 
-                return new ConditionResult(pass, description);
+                return new ConditionResult(member, pass, description);
             }
 
             return new SimpleCondition<MethodMember>(Condition,
@@ -96,7 +96,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     }
                 }
 
-                return new ConditionResult(pass, description);
+                return new ConditionResult(member, pass, description);
             }
 
             return new SimpleCondition<MethodMember>(Condition,

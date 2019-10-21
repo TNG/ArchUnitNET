@@ -37,9 +37,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
+            var objects = new List<ICanBeAnalyzed> {firstObject}.Union(moreObjects).OfType<T>();
             var description = moreObjects.Aggregate("are \"" + firstObject.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimplePredicate<T>(o => o.Equals(firstObject) || moreObjects.Any(o.Equals), description);
+            return new EnumerablePredicate<T>(e => e.Intersect(objects), description);
         }
 
         public static IPredicate<T> Are(IEnumerable<ICanBeAnalyzed> objects)
@@ -58,14 +59,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimplePredicate<T>(obj => objectList.Any(o => o.Equals(obj)), description);
+            return new EnumerablePredicate<T>(e => e.Intersect(objectList.OfType<T>()), description);
         }
 
         public static IPredicate<T> Are(IObjectProvider<ICanBeAnalyzed> objectProvider)
         {
-            bool Filter(T obj, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return objectProvider.GetObjects(architecture).Contains(obj);
+                return objects.Intersect(objectProvider.GetObjects(architecture).OfType<T>());
             }
 
             return new ArchitecturePredicate<T>(Filter, "are " + objectProvider.Description);
@@ -106,22 +107,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> CallAny(MethodMember method, params MethodMember[] moreMethods)
         {
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return type.CallsMethod(method) || moreMethods.Any(m => type.CallsMethod(m));
+                var methods = moreMethods.Append(method);
+                return objects.Where(obj => obj.GetCalledMethods().Intersect(methods).Any());
             }
 
             var description = moreMethods.Aggregate("call \"" + method.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> CallAny(IObjectProvider<MethodMember> objectProvider)
         {
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
                 var methods = objectProvider.GetObjects(architecture);
-                return methods.Any(method => type.CallsMethod(method));
+                return objects.Where(obj => obj.GetCalledMethods().Intersect(methods).Any());
             }
 
             var description = "call any " + objectProvider.Description;
@@ -132,9 +134,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var methodList = methods.ToList();
 
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return methodList.Any(method => type.CallsMethod(method));
+                return objects.Where(obj => obj.GetCalledMethods().Intersect(methodList).Any());
             }
 
             string description;
@@ -150,7 +152,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DependOnAny(string pattern, bool useRegularExpressions = false)
@@ -189,23 +191,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DependOnAny(IType firstType, params IType[] moreTypes)
         {
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return type.GetTypeDependencies().Any(target => target.Equals(firstType) || moreTypes.Contains(target));
+                var types = moreTypes.Append(firstType);
+                return objects.Where(obj => obj.GetTypeDependencies().Intersect(types).Any());
             }
 
             var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DependOnAny(Type firstType, params Type[] moreTypes)
         {
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return type.GetTypeDependencies().Any(target =>
-                    target.Equals(architecture.GetITypeOfType(firstType)) ||
-                    moreTypes.Any(t => architecture.GetITypeOfType(t).Equals(target)));
+                var types = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
+                return objects.Where(obj => obj.GetTypeDependencies().Intersect(types).Any());
             }
 
             var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
@@ -215,10 +217,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DependOnAny(IObjectProvider<IType> objectProvider)
         {
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return type.GetTypeDependencies().Any(target => types.Contains(target));
+                return objects.Where(obj => obj.GetTypeDependencies().Intersect(types).Any());
             }
 
             var description = "depend on any " + objectProvider.Description;
@@ -229,9 +231,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return type.GetTypeDependencies().Any(target => typeList.Any(t => t.Equals(target)));
+                return objects.Where(obj => obj.GetTypeDependencies().Intersect(typeList).Any());
             }
 
             string description;
@@ -247,17 +249,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return type.GetTypeDependencies().Any(target =>
-                    typeList.Select(architecture.GetITypeOfType).Any(t => t.Equals(target)));
+                var tList = typeList.Select(architecture.GetITypeOfType);
+                return objects.Where(obj => obj.GetTypeDependencies().Intersect(tList).Any());
             }
 
             string description;
@@ -312,23 +314,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return type.GetTypeDependencies().All(target => target.Equals(firstType) || moreTypes.Contains(target));
+                var typeList = moreTypes.Append(firstType);
+                return objects.Where(obj => obj.GetTypeDependencies().Except(typeList).IsNullOrEmpty());
             }
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return type.GetTypeDependencies().All(target =>
-                    target.Equals(architecture.GetITypeOfType(firstType)) ||
-                    moreTypes.Any(t => architecture.GetITypeOfType(t).Equals(target)));
+                var typeList = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
+                return objects.Where(obj => obj.GetTypeDependencies().Except(typeList).IsNullOrEmpty());
             }
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
@@ -338,10 +340,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> OnlyDependOn(IObjectProvider<IType> objectProvider)
         {
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return type.GetTypeDependencies().All(target => types.Contains(target));
+                return objects.Where(obj => obj.GetTypeDependencies().Except(types).IsNullOrEmpty());
             }
 
             var description = "only depend on " + objectProvider.Description;
@@ -352,9 +354,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return type.GetTypeDependencies().All(target => typeList.Contains(target));
+                return objects.Where(obj => obj.GetTypeDependencies().Except(typeList).IsNullOrEmpty());
             }
 
             string description;
@@ -370,17 +372,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> OnlyDependOn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return type.GetTypeDependencies()
-                    .All(target => typeList.Select(architecture.GetITypeOfType).Contains(target));
+                var tList = typeList.Select(architecture.GetITypeOfType);
+                return objects.Where(obj => obj.GetTypeDependencies().Except(tList).IsNullOrEmpty());
             }
 
             string description;
@@ -506,9 +508,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
+            var objects = new List<ICanBeAnalyzed> {firstObject}.Concat(moreObjects).OfType<T>();
             var description = moreObjects.Aggregate("are not \"" + firstObject.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimplePredicate<T>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals), description);
+            return new EnumerablePredicate<T>(e => e.Except(objects), description);
         }
 
         public static IPredicate<T> AreNot(IEnumerable<ICanBeAnalyzed> objects)
@@ -527,14 +530,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimplePredicate<T>(obj => objectList.All(o => !o.Equals(obj)), description);
+            return new EnumerablePredicate<T>(e => e.Except(objectList.OfType<T>()), description);
         }
 
         public static IPredicate<T> AreNot(IObjectProvider<ICanBeAnalyzed> objectProvider)
         {
-            bool Filter(T obj, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return !objectProvider.GetObjects(architecture).Contains(obj);
+                return objects.Except(objectProvider.GetObjects(architecture).OfType<T>());
             }
 
             return new ArchitecturePredicate<T>(Filter, "are not " + objectProvider.Description);
@@ -575,22 +578,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotCallAny(MethodMember method, params MethodMember[] moreMethods)
         {
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return !type.CallsMethod(method) && moreMethods.All(m => !type.CallsMethod(m));
+                var methods = moreMethods.Append(method);
+                return objects.Where(obj => !obj.GetCalledMethods().Intersect(methods).Any());
             }
 
             var description = moreMethods.Aggregate("do not call \"" + method.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DoNotCallAny(IObjectProvider<MethodMember> objectProvider)
         {
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
                 var methods = objectProvider.GetObjects(architecture);
-                return methods.All(method => !type.CallsMethod(method));
+                return objects.Where(obj => !obj.GetCalledMethods().Intersect(methods).Any());
             }
 
             var description = "do not call " + objectProvider.Description;
@@ -601,9 +605,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var methodList = methods.ToList();
 
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return methodList.All(method => !type.CallsMethod(method));
+                return objects.Where(obj => !obj.GetCalledMethods().Intersect(methodList).Any());
             }
 
             string description;
@@ -619,7 +623,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DoNotDependOnAny(string pattern, bool useRegularExpressions = false)
@@ -658,24 +662,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotDependOnAny(IType firstType, params IType[] moreTypes)
         {
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return type.GetTypeDependencies()
-                    .All(target => !target.Equals(firstType) && !moreTypes.Contains(target));
+                var types = moreTypes.Append(firstType);
+                return objects.Where(obj => !obj.GetTypeDependencies().Intersect(types).Any());
             }
 
             var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
                 (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DoNotDependOnAny(Type firstType, params Type[] moreTypes)
         {
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return type.GetTypeDependencies().All(target =>
-                    !target.Equals(architecture.GetITypeOfType(firstType)) &&
-                    moreTypes.All(t => !architecture.GetITypeOfType(t).Equals(target)));
+                var types = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
+                return objects.Where(obj => !obj.GetTypeDependencies().Intersect(types).Any());
             }
 
             var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
@@ -685,10 +688,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotDependOnAny(IObjectProvider<IType> objectProvider)
         {
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return type.GetTypeDependencies().All(target => types.All(t => !t.Equals(target)));
+                return objects.Where(obj => !obj.GetTypeDependencies().Intersect(types).Any());
             }
 
             var description = "do not depend on any " + objectProvider.Description;
@@ -699,9 +702,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            bool Filter(T type)
+            IEnumerable<T> Filter(IEnumerable<T> objects)
             {
-                return type.GetTypeDependencies().All(target => typeList.All(t => !t.Equals(target)));
+                return objects.Where(obj => !obj.GetTypeDependencies().Intersect(typeList).Any());
             }
 
             string description;
@@ -717,17 +720,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimplePredicate<T>(Filter, description);
+            return new EnumerablePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> DoNotDependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            bool Filter(T type, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return type.GetTypeDependencies().All(target =>
-                    typeList.Select(architecture.GetITypeOfType).All(t => !t.Equals(target)));
+                var tList = typeList.Select(architecture.GetITypeOfType);
+                return objects.Where(obj => !obj.GetTypeDependencies().Intersect(tList).Any());
             }
 
             string description;

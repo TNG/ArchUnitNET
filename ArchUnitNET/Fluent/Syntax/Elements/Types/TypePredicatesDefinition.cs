@@ -11,10 +11,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         public static IPredicate<T> Are(Type firstType, params Type[] moreTypes)
         {
-            bool Filter(T ruleType, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return architecture.GetITypeOfType(firstType).Equals(ruleType) ||
-                       moreTypes.Any(type => architecture.GetITypeOfType(type).Equals(ruleType));
+                var typeList = moreTypes.Select(architecture.GetITypeOfType)
+                    .Append(architecture.GetITypeOfType(firstType)).OfType<T>();
+                return ruleTypes.Intersect(typeList);
             }
 
             var description = moreTypes.Aggregate("are \"" + firstType.FullName + "\"",
@@ -26,9 +27,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             var typeList = types.ToList();
 
-            bool Filter(T ruleType, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return typeList.Select(architecture.GetITypeOfType).Any(type => type.Equals(ruleType));
+                var tList = typeList.Select(architecture.GetITypeOfType).OfType<T>();
+                return ruleTypes.Intersect(tList);
             }
 
             string description;
@@ -80,22 +82,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> AreAssignableTo(IType firstType, params IType[] moreTypes)
         {
-            bool Condition(T ruleType)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                return ruleType.IsAssignableTo(firstType) || moreTypes.Any(ruleType.IsAssignableTo);
+                var types = moreTypes.Append(firstType);
+                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
             var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            return new SimplePredicate<T>(Condition, description);
+            return new EnumerablePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreAssignableTo(Type firstType, params Type[] moreTypes)
         {
-            bool Condition(T ruleType, Architecture architecture)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return ruleType.IsAssignableTo(architecture.GetITypeOfType(firstType)) ||
-                       moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetITypeOfType(type)));
+                var types = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
+                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
             var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
@@ -105,9 +108,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> AreAssignableTo(IObjectProvider<IType> objectProvider)
         {
-            bool Condition(T ruleType, Architecture architecture)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return objectProvider.GetObjects(architecture).Any(ruleType.IsAssignableTo);
+                var types = objectProvider.GetObjects(architecture);
+                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
             var description = "are assignable to " + objectProvider.Description;
@@ -118,9 +122,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             var typeList = types.ToList();
 
-            bool Condition(T ruleType)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                return typeList.Any(ruleType.IsAssignableTo);
+                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(typeList).Any());
             }
 
             string description;
@@ -136,16 +140,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new SimplePredicate<T>(Condition, description);
+            return new EnumerablePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreAssignableTo(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(T ruleType, Architecture architecture)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return typeList.Select(architecture.GetITypeOfType).Any(ruleType.IsAssignableTo);
+                var tList = typeList.Select(architecture.GetITypeOfType);
+                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(tList).Any());
             }
 
             string description;
@@ -187,10 +192,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
         {
-            bool Condition(T type, Architecture architecture)
+            IEnumerable<T> Condition(IEnumerable<T> types, Architecture architecture)
             {
-                return type.Assembly.Equals(architecture.GetAssemblyOfAssembly(assembly)) ||
-                       moreAssemblies.Any(asm => type.Assembly.Equals(architecture.GetAssemblyOfAssembly(asm)));
+                var assemblyList = moreAssemblies.Append(assembly).Select(architecture.GetAssemblyOfAssembly);
+                return types.Where(type => assemblyList.Contains(type.Assembly));
             }
 
             var description = moreAssemblies.Aggregate("reside in assembly \"" + assembly.FullName + "\"",
@@ -234,10 +239,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> AreNot(Type firstType, params Type[] moreTypes)
         {
-            bool Filter(T ruleType, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return !architecture.GetITypeOfType(firstType).Equals(ruleType) &&
-                       !moreTypes.Any(type => architecture.GetITypeOfType(type).Equals(ruleType));
+                var typeList = moreTypes.Select(architecture.GetITypeOfType)
+                    .Append(architecture.GetITypeOfType(firstType)).OfType<T>();
+                return ruleTypes.Except(typeList);
             }
 
             var description = moreTypes.Aggregate("are not \"" + firstType.FullName + "\"",
@@ -249,9 +255,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             var typeList = types.ToList();
 
-            bool Filter(T ruleType, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return typeList.Select(architecture.GetITypeOfType).All(type => !type.Equals(ruleType));
+                var tList = typeList.Select(architecture.GetITypeOfType).OfType<T>();
+                return ruleTypes.Except(tList);
             }
 
             string description;
@@ -305,22 +312,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> AreNotAssignableTo(IType firstType, params IType[] moreTypes)
         {
-            bool Condition(T ruleType)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                return !ruleType.IsAssignableTo(firstType) && !moreTypes.Any(ruleType.IsAssignableTo);
+                var types = moreTypes.Append(firstType);
+                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
             var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
                 (current, type) => current + " or \"" + type.FullName + "\"");
-            return new SimplePredicate<T>(Condition, description);
+            return new EnumerablePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreNotAssignableTo(Type firstType, params Type[] moreTypes)
         {
-            bool Condition(T ruleType, Architecture architecture)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return !ruleType.IsAssignableTo(architecture.GetITypeOfType(firstType)) &&
-                       !moreTypes.Any(type => ruleType.IsAssignableTo(architecture.GetITypeOfType(type)));
+                var types = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
+                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
             var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
@@ -330,9 +338,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> AreNotAssignableTo(IObjectProvider<IType> objectProvider)
         {
-            bool Condition(T ruleType, Architecture architecture)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return !objectProvider.GetObjects(architecture).Any(ruleType.IsAssignableTo);
+                var types = objectProvider.GetObjects(architecture);
+                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
             var description = "are not assignable to " + objectProvider.Description;
@@ -343,9 +352,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             var typeList = types.ToList();
 
-            bool Condition(T ruleType)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                return !typeList.Any(ruleType.IsAssignableTo);
+                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(typeList).Any());
             }
 
             string description;
@@ -361,16 +370,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new SimplePredicate<T>(Condition, description);
+            return new EnumerablePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreNotAssignableTo(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(T ruleType, Architecture architecture)
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return !typeList.Select(architecture.GetITypeOfType).Any(ruleType.IsAssignableTo);
+                var tList = typeList.Select(architecture.GetITypeOfType);
+                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(tList).Any());
             }
 
             string description;
@@ -413,10 +423,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
         {
-            bool Condition(T type, Architecture architecture)
+            IEnumerable<T> Condition(IEnumerable<T> types, Architecture architecture)
             {
-                return !type.Assembly.Equals(architecture.GetAssemblyOfAssembly(assembly)) &&
-                       !moreAssemblies.Any(asm => type.Assembly.Equals(architecture.GetAssemblyOfAssembly(asm)));
+                var assemblyList = moreAssemblies.Append(assembly).Select(architecture.GetAssemblyOfAssembly);
+                return types.Where(type => !assemblyList.Contains(type.Assembly));
             }
 
             var description = moreAssemblies.Aggregate("do not reside in assembly \"" + assembly.FullName + "\"",

@@ -1,38 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
     public class ArchitectureCondition<TRuleType> : ICondition<TRuleType> where TRuleType : ICanBeAnalyzed
     {
-        private readonly Func<TRuleType, Architecture, ConditionResult> _condition;
+        private readonly Func<IEnumerable<TRuleType>, Architecture, IEnumerable<ConditionResult>> _condition;
 
         public ArchitectureCondition(Func<TRuleType, Architecture, bool> condition, string description,
             string failDescription)
         {
-            _condition = (obj, architecture) => new ConditionResult(condition(obj, architecture), failDescription);
+            _condition = (ruleTypes, architecture) => ruleTypes.Select(type =>
+                new ConditionResult(type, condition(type, architecture), failDescription));
             Description = description;
         }
 
         public ArchitectureCondition(Func<TRuleType, Architecture, ConditionResult> condition, string description)
         {
-            _condition = condition;
+            _condition = (ruleTypes, architecture) => ruleTypes.Select(type => condition(type, architecture));
             Description = description;
         }
 
         public ArchitectureCondition(Func<TRuleType, Architecture, bool> condition,
             Func<TRuleType, Architecture, string> dynamicFailDescription, string description)
         {
-            _condition = (obj, architecture) =>
-                new ConditionResult(condition(obj, architecture), dynamicFailDescription(obj, architecture));
+            _condition = (ruleTypes, architecture) => ruleTypes.Select(type =>
+                new ConditionResult(type, condition(type, architecture), dynamicFailDescription(type, architecture)));
             Description = description;
         }
 
         public string Description { get; }
 
-        public ConditionResult Check(TRuleType obj, Architecture architecture)
+        public IEnumerable<ConditionResult> Check(IEnumerable<TRuleType> objects, Architecture architecture)
         {
-            return _condition(obj, architecture);
+            return _condition(objects, architecture);
         }
 
         public bool CheckEmpty()

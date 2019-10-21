@@ -27,16 +27,18 @@ namespace ArchUnitNET.Fluent
 
         public string Description { get; }
 
-        public bool CheckRelation(TRuleType obj, IPredicate<TRelatedType> filter, Architecture architecture)
+        public bool
+            CheckRelation(TRuleType obj, IPredicate<TRelatedType> predicate, Architecture architecture)
         {
             switch (_shouldBeTrueFor)
             {
                 case All:
-                    return _relation(obj).All(o => filter.CheckPredicate(o, architecture));
+                    return predicate.CheckPredicate(_relation(obj).Distinct(), architecture).Count() ==
+                           _relation(obj).Distinct().Count();
                 case Any:
-                    return _relation(obj).Any(o => filter.CheckPredicate(o, architecture));
+                    return predicate.CheckPredicate(_relation(obj), architecture).Any();
                 case None:
-                    return _relation(obj).All(o => !filter.CheckPredicate(o, architecture));
+                    return !predicate.CheckPredicate(_relation(obj), architecture).Any();
                 default:
                     throw new IndexOutOfRangeException("The ShouldBeTrueFor Operator does not have a valid value.");
             }

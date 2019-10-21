@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
@@ -15,9 +17,9 @@ namespace ArchUnitNET.Fluent
 
         public string Description { get; }
 
-        public bool CheckPredicate(TRuleType obj, Architecture architecture)
+        public IEnumerable<TRuleType> CheckPredicate(IEnumerable<TRuleType> objects, Architecture architecture)
         {
-            return _predicate(obj);
+            return objects.Where(_predicate);
         }
 
         public override string ToString()

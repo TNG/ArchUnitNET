@@ -1,4 +1,6 @@
-﻿using ArchUnitNET.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
@@ -13,9 +15,9 @@ namespace ArchUnitNET.Fluent
 
         public string Description => _valueIfExists ? "exist" : "not exist";
 
-        public ConditionResult Check(TRuleType obj, Architecture architecture)
+        public IEnumerable<ConditionResult> Check(IEnumerable<TRuleType> objects, Architecture architecture)
         {
-            return new ConditionResult(_valueIfExists, "does exist");
+            return objects.Select(obj => new ConditionResult(obj, _valueIfExists, "does exist"));
         }
 
         public bool CheckEmpty()

@@ -1,4 +1,6 @@
-﻿using ArchUnitNET.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
@@ -17,10 +19,11 @@ namespace ArchUnitNET.Fluent
 
         public string Description => _relation.Description + " " + _predicate.Description;
 
-        public ConditionResult Check(TRuleType obj, Architecture architecture)
+        public IEnumerable<ConditionResult> Check(IEnumerable<TRuleType> objects, Architecture architecture)
         {
-            return new ConditionResult(_relation.CheckRelation(obj, _predicate, architecture),
-                _relation.FailDescription + " " + _predicate.Description);
+            return objects.Select(obj => new ConditionResult(obj,
+                _relation.CheckRelation(obj, _predicate, architecture),
+                _relation.FailDescription + " " + _predicate.Description));
         }
 
         public bool CheckEmpty()

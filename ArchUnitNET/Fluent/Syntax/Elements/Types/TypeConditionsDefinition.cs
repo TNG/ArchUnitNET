@@ -329,7 +329,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = "not be assignable to types with full name " +
@@ -355,7 +355,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
@@ -388,7 +388,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     pass = false;
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = moreTypes.Aggregate("not be assignable to \"" + firstType.FullName + "\"",
@@ -410,7 +410,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     pass = false;
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = moreTypes.Aggregate("not be assignable to \"" + firstType.FullName + "\"",
@@ -431,7 +431,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     pass = false;
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = "not be assignable to " + objectProvider.Description;
@@ -452,7 +452,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     pass = false;
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
@@ -486,7 +486,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     pass = false;
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;

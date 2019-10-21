@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax;
 
@@ -87,7 +88,7 @@ namespace ArchUnitNET.Fluent
 
         private bool HasNoViolations(IEnumerable<TRuleType> filteredObjects, Architecture architecture)
         {
-            return _conditionManager.CheckConditions(filteredObjects, architecture);
+            return EvaluateConditions(filteredObjects, architecture).All(result => result.Passed);
         }
 
         private IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<TRuleType> filteredObjects,

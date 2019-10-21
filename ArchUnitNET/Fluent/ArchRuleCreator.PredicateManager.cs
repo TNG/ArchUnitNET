@@ -38,9 +38,10 @@ namespace ArchUnitNET.Fluent
 
             public IEnumerable<T> GetObjects(Architecture architecture)
             {
-                return _basicObjectProvider.GetObjects(architecture).Where(obj => _predicateElements.Aggregate(true,
-                    (currentResult, objectFilterElement) =>
-                        objectFilterElement.CheckPredicate(currentResult, obj, architecture)));
+                var objects = _basicObjectProvider.GetObjects(architecture).ToList();
+                IEnumerable<T> filteredObjects = new List<T>();
+                return _predicateElements.Aggregate(filteredObjects,
+                    (current, predicateElement) => predicateElement.CheckPredicate(current, objects, architecture));
             }
 
             public void AddPredicate(IPredicate<T> predicate)
@@ -150,7 +151,8 @@ namespace ArchUnitNET.Fluent
                 _predicate = predicate;
             }
 
-            public bool CheckPredicate(bool currentResult, T obj, Architecture architecture)
+            public IEnumerable<T> CheckPredicate(IEnumerable<T> currentObjects, IEnumerable<T> allObjects,
+                Architecture architecture)
             {
                 if (_predicate == null)
                 {
@@ -158,7 +160,8 @@ namespace ArchUnitNET.Fluent
                         "Can't check a PredicateElement before the predicate is set.");
                 }
 
-                return _logicalConjunction.Evaluate(currentResult, _predicate.CheckPredicate(obj, architecture));
+                return _logicalConjunction.Evaluate(currentObjects,
+                    _predicate.CheckPredicate(allObjects, architecture));
             }
 
             public override string ToString()

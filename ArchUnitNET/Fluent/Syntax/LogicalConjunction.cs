@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ArchUnitNET.Fluent.Syntax
 {
     public class LogicalConjunction : IHasDescription
     {
+        private readonly Func<IEnumerable<object>, IEnumerable<object>, IEnumerable<object>> _enumerableFunction;
         private readonly Func<bool, bool, bool> _logicalConjunction;
 
-        public LogicalConjunction(Func<bool, bool, bool> logicalConjunction, string description)
+        public LogicalConjunction(Func<bool, bool, bool> logicalConjunction,
+            Func<IEnumerable<object>, IEnumerable<object>, IEnumerable<object>> enumerableFunction, string description)
         {
             _logicalConjunction = logicalConjunction;
+            _enumerableFunction = enumerableFunction;
             Description = description;
         }
 
@@ -17,6 +22,11 @@ namespace ArchUnitNET.Fluent.Syntax
         public bool Evaluate(bool value1, bool value2)
         {
             return _logicalConjunction(value1, value2);
+        }
+
+        public IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2)
+        {
+            return _enumerableFunction(enumerable1.Cast<object>(), enumerable2.Cast<object>()).Cast<T>();
         }
 
         public override string ToString()

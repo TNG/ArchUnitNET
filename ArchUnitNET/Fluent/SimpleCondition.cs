@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
@@ -9,7 +11,7 @@ namespace ArchUnitNET.Fluent
 
         public SimpleCondition(Func<TRuleType, bool> condition, string description, string failDescription)
         {
-            _condition = obj => new ConditionResult(condition(obj), failDescription);
+            _condition = obj => new ConditionResult(obj, condition(obj), failDescription);
             Description = description;
         }
 
@@ -22,15 +24,15 @@ namespace ArchUnitNET.Fluent
         public SimpleCondition(Func<TRuleType, bool> condition, Func<TRuleType, string> dynamicFailDescription,
             string description)
         {
-            _condition = obj => new ConditionResult(condition(obj), dynamicFailDescription(obj));
+            _condition = obj => new ConditionResult(obj, condition(obj), dynamicFailDescription(obj));
             Description = description;
         }
 
         public string Description { get; }
 
-        public ConditionResult Check(TRuleType obj, Architecture architecture)
+        public IEnumerable<ConditionResult> Check(IEnumerable<TRuleType> objects, Architecture architecture)
         {
-            return _condition(obj);
+            return objects.Select(obj => _condition(obj));
         }
 
         public bool CheckEmpty()

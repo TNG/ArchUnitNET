@@ -71,20 +71,6 @@ namespace ArchUnitNET.Fluent
                 _conditionElements.Add(new ConditionElement<T>(logicalConjunction));
             }
 
-            public bool CheckConditions(IEnumerable<T> filteredObjects, Architecture architecture)
-            {
-                var filteredObjectsList = filteredObjects.ToList();
-                return filteredObjectsList.IsNullOrEmpty()
-                    ? CheckEmpty()
-                    : filteredObjectsList.All(obj => CheckConditions(obj, architecture));
-            }
-
-            private bool CheckConditions(T obj, Architecture architecture)
-            {
-                return _conditionElements.Aggregate(true,
-                    (currentResult, conditionElement) => conditionElement.Check(currentResult, obj, architecture));
-            }
-
             private bool CheckEmpty()
             {
                 return _conditionElements.Aggregate(true,
@@ -97,49 +83,57 @@ namespace ArchUnitNET.Fluent
                 var filteredObjectsList = filteredObjects.ToList();
                 if (filteredObjectsList.IsNullOrEmpty())
                 {
-                    return new List<EvaluationResult>
-                    {
-                        new EvaluationResult(null, CheckEmpty(), "There are no objects matching the criteria",
-                            archRuleCreator, architecture)
-                    };
+                    yield return new EvaluationResult(null, CheckEmpty(), "There are no objects matching the criteria",
+                        archRuleCreator, architecture);
+                    yield break;
                 }
 
-                return filteredObjectsList.Select(obj => EvaluateConditions(obj, architecture, archRuleCreator));
+                var conditionResults = _conditionElements.Select(conditionElement =>
+                    conditionElement.Check(filteredObjectsList, architecture).ToList()).ToList();
+
+                for (var i = 0; i < filteredObjectsList.Count; i++)
+                {
+                    yield return CreateEvaluationResult(conditionResults.Select(results => results[i]), architecture,
+                        archRuleCreator);
+                }
             }
 
-            private EvaluationResult EvaluateConditions(T obj, Architecture architecture,
-                ICanBeEvaluated archRuleCreator)
+            private static EvaluationResult CreateEvaluationResult(
+                IEnumerable<ConditionElementResult> conditionElementResults,
+                Architecture architecture, ICanBeEvaluated archRuleCreator)
             {
-                var passRule = CheckConditions(obj, architecture);
-                var description = obj.FullName;
+                var conditionElementResultsList = conditionElementResults.ToList();
+                var analyzedObject = conditionElementResultsList.First().ConditionResult.AnalyzedObject;
+                var passRule = conditionElementResultsList.Aggregate(true,
+                    (currentResult, conditionElementResult) =>
+                        conditionElementResult.LogicalConjunction.Evaluate(currentResult,
+                            conditionElementResult.ConditionResult.Pass));
+                var description = analyzedObject.FullName;
                 if (passRule)
                 {
-                    description += "passed";
+                    description += " passed";
                 }
                 else
                 {
                     var first = true;
                     var failDescriptionCache =
                         new List<string>(); //Prevent failDescriptions like "... failed because ... is public and is public"
-                    foreach (var conditionResult in _conditionElements
-                        .Select(conditionElement => conditionElement.Check(obj, architecture))
-                        .Where(conditionResult => !conditionResult.Pass))
+                    foreach (var conditionResult in conditionElementResultsList.Select(result => result.ConditionResult)
+                        .Where(condResult =>
+                            !condResult.Pass && !failDescriptionCache.Contains(condResult.FailDescription)))
                     {
-                        if (!failDescriptionCache.Contains(conditionResult.FailDescription))
+                        if (!first)
                         {
-                            if (!first)
-                            {
-                                description += " and";
-                            }
-
-                            description += " " + conditionResult.FailDescription;
-                            failDescriptionCache.Add(conditionResult.FailDescription);
-                            first = false;
+                            description += " and";
                         }
+
+                        description += " " + conditionResult.FailDescription;
+                        failDescriptionCache.Add(conditionResult.FailDescription);
+                        first = false;
                     }
                 }
 
-                return new EvaluationResult(obj, passRule, description, archRuleCreator, architecture);
+                return new EvaluationResult(analyzedObject, passRule, description, archRuleCreator, architecture);
             }
 
             public override string ToString()
@@ -226,12 +220,7 @@ namespace ArchUnitNET.Fluent
                 _customDescription = description;
             }
 
-            public bool Check(bool currentResult, T obj, Architecture architecture)
-            {
-                return _logicalConjunction.Evaluate(currentResult, Check(obj, architecture).Pass);
-            }
-
-            public ConditionResult Check(T obj, Architecture architecture)
+            public IEnumerable<ConditionElementResult> Check(IEnumerable<T> objects, Architecture architecture)
             {
                 if (_condition == null)
                 {
@@ -239,7 +228,8 @@ namespace ArchUnitNET.Fluent
                         "Can't check a ConditionElement before the condition is set.");
                 }
 
-                return _condition.Check(obj, architecture);
+                return _condition.Check(objects, architecture)
+                    .Select(result => new ConditionElementResult(result, _logicalConjunction));
             }
 
             public bool CheckEmpty(bool currentResult)

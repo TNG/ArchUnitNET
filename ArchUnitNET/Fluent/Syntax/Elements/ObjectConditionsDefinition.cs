@@ -355,7 +355,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             return new SimpleCondition<TRuleType>(Condition,
@@ -381,7 +381,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
@@ -417,7 +417,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
@@ -442,7 +442,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
@@ -466,7 +466,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = "only depend on " + objectProvider.Description;
@@ -490,7 +490,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
@@ -527,7 +527,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
@@ -785,7 +785,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             return new SimpleCondition<TRuleType>(Condition,
@@ -811,7 +811,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
@@ -847,7 +847,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = moreMethods.Aggregate("not call \"" + method.FullName + "\"",
@@ -871,7 +871,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = "not call " + objectProvider.Description;
@@ -895,7 +895,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
@@ -930,7 +930,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             return new SimpleCondition<TRuleType>(Condition,
@@ -956,7 +956,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
@@ -992,7 +992,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = moreTypes.Aggregate("not depend on \"" + firstType.FullName + "\"",
@@ -1017,7 +1017,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = moreTypes.Aggregate("not depend on \"" + firstType.FullName + "\"",
@@ -1041,7 +1041,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             var description = "not depend on " + objectProvider.Description;
@@ -1065,7 +1065,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
@@ -1102,7 +1102,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return new ConditionResult(pass, dynamicFailDescription);
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             string description;
