@@ -22,8 +22,8 @@ namespace ArchUnitNETTests.Core
                 "TestAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", false);
 
         private static readonly Assembly XunitExtensionAssembly =
-            new Assembly("XunitExtension, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "XunitExtension, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", false);
+            new Assembly("ArchUnitNET.xUnit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "ArchUnitNET.xUnit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", false);
 
         [Fact]
         public void LoadAssembliesCorrectly()

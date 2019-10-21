@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNETTests", "ArchUni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleTest", "ExampleTest\ExampleTest.csproj", "{180688C2-7917-4A23-89A7-F3D5317E54F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XunitExtension", "XunitExtension\XunitExtension.csproj", "{53DF58F8-0C82-4259-96A6-31974D0A503A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.xUnit", "ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj", "{53DF58F8-0C82-4259-96A6-31974D0A503A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,8 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj" />
       <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
-      <ProjectReference Include="..\XunitExtension\XunitExtension.csproj" />
     </ItemGroup>
 
     <ItemGroup>
