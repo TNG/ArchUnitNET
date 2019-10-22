@@ -1,12 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
-        <VersionPrefix>0.2.0</VersionPrefix>
+        <PackageVersion>0.2.0</PackageVersion>
         <RootNamespace>ArchUnitNET</RootNamespace>
-        <LangVersion>7.2</LangVersion>
-    </PropertyGroup>
-    <PropertyGroup>
         <PackageId>TngTech.ArchUnitNET</PackageId>
         <Title>ArchUnit C#</Title>
         <Authors>Florian Gather, Paula Ruiz, Fritz Brandhuber</Authors>
@@ -14,10 +12,11 @@
         <Description>C# Version of ArchUnit (see: archunit.org)</Description>
         <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
         <PackageReleaseNotes>Initial release of the fluent API</PackageReleaseNotes>
-        <PackageTags>test;arch;archunit</PackageTags>
+        <PackageTags>test;arch;archunit;xunit;nunit</PackageTags>
         <IncludeSource>False</IncludeSource>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
     </PropertyGroup>
+    
     <ItemGroup>
         <PackageReference Include="CycleDetection" Version="2.0.0" />
         <PackageReference Include="Equ" Version="2.2.0" />
@@ -25,7 +24,9 @@
         <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
         <PackageReference Include="Mono.Cecil" Version="0.11.0" />
     </ItemGroup>
+    
     <ItemGroup>
         <None Remove="License.md" />
     </ItemGroup>
+    
 </Project>

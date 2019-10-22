@@ -146,7 +146,7 @@ namespace ArchUnitNETTests.Core
         [Fact]
         public void NotAssignableToNull()
         {
-            Assert.False(_type.IsAssignableTo((IType) null));
+            Assert.False(_type.IsAssignableTo(null));
         }
     }
 

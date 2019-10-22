@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <RootNamespace>XunitExtension</RootNamespace>
         <IsPackable>true</IsPackable>
         <PackageVersion>1.0.0</PackageVersion>
         <Title>ArchUnit C# xUnit Extension</Title>
@@ -12,8 +11,9 @@
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
         <PackageTags>test;arch;archunit;xunit</PackageTags>
         <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+        <IncludeSource>False</IncludeSource>
         <Company>TNG Technology Consulting GmbH</Company>
-        <AssemblyVersion></AssemblyVersion>
+        <PackageId>TngTech.ArchUnitNET.xUnit</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
