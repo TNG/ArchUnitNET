@@ -15,6 +15,7 @@
         <PackageTags>test;arch;archunit;xunit;nunit</PackageTags>
         <IncludeSource>False</IncludeSource>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+        <AssemblyVersion>0.2.0.0</AssemblyVersion>
     </PropertyGroup>
     
     <ItemGroup>
