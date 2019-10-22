@@ -4,6 +4,8 @@
         <TargetFramework>netcoreapp2.2</TargetFramework>
 
         <IsPackable>false</IsPackable>
+
+        <Company>TNG Technology Consulting GmbH</Company>
     </PropertyGroup>
 
     <ItemGroup>

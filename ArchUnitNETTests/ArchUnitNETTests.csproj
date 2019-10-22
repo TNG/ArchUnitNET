@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>7.2</LangVersion>
+        <Company>TNG Technology Consulting GmbH</Company>
     </PropertyGroup>
 
     <ItemGroup>

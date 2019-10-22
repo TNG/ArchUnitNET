@@ -5,7 +5,7 @@
 
         <IsPackable>true</IsPackable>
 
-        <PackageVersion>0.2.0</PackageVersion>
+        <PackageVersion>1.0.0</PackageVersion>
 
         <Title>ArchUnit C# NUnit Extension</Title>
 
@@ -20,6 +20,10 @@
         <PackageTags>test;arch;archunit;nunit</PackageTags>
 
         <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+
+        <Company>TNG Technology Consulting GmbH</Company>
+
+        <AssemblyVersion></AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
