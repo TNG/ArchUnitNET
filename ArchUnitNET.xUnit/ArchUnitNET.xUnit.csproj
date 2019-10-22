@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>0.2.0</PackageVersion>
         <Title>ArchUnit C# xUnit Extension</Title>
         <Authors>Florian Gather, Fritz Brandhuber</Authors>
         <Description>xUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
@@ -14,6 +14,7 @@
         <IncludeSource>False</IncludeSource>
         <Company>TNG Technology Consulting GmbH</Company>
         <PackageId>TngTech.ArchUnitNET.xUnit</PackageId>
+        <AssemblyVersion>0.2.0.0</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
