@@ -3,7 +3,23 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
 
-        <IsPackable>false</IsPackable>
+        <IsPackable>true</IsPackable>
+
+        <PackageVersion>0.2.0</PackageVersion>
+
+        <Title>ArchUnit C# NUnit Extension</Title>
+
+        <Authors>Florian Gather, Fritz Brandhuber</Authors>
+
+        <Description>NUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
+
+        <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+
+        <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+
+        <PackageTags>test;arch;archunit;nunit</PackageTags>
+
+        <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
