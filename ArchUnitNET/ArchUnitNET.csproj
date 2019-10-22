@@ -9,7 +9,7 @@
     <PropertyGroup>
         <PackageId>TngTech.ArchUnitNET</PackageId>
         <Title>ArchUnit C#</Title>
-        <Authors>Florian Gather, Paula Ruiz</Authors>
+        <Authors>Florian Gather, Paula Ruiz, Fritz Brandhuber</Authors>
         <Company>TNG Technology Consulting GmbH</Company>
         <Description>C# Version of ArchUnit (see: archunit.org)</Description>
         <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
