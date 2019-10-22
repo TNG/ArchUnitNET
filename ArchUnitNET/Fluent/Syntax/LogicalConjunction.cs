@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ArchUnitNET.Fluent.Syntax
 {
@@ -51,42 +50,6 @@ namespace ArchUnitNET.Fluent.Syntax
         public override int GetHashCode()
         {
             return Description != null ? Description.GetHashCode() : 0;
-        }
-    }
-
-    public class And : LogicalConjunction
-    {
-        public And() : base((b1, b2) => b1 && b2, "and")
-        {
-        }
-
-        public override IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2)
-        {
-            return enumerable1.Intersect(enumerable2);
-        }
-    }
-
-    public class Or : LogicalConjunction
-    {
-        public Or() : base((b1, b2) => b1 || b2, "or")
-        {
-        }
-
-        public override IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2)
-        {
-            return enumerable1.Union(enumerable2);
-        }
-    }
-
-    public class ForwardSecondValue : LogicalConjunction
-    {
-        public ForwardSecondValue() : base((b1, b2) => b2, "")
-        {
-        }
-
-        public override IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2)
-        {
-            return enumerable2;
         }
     }
 }
