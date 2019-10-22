@@ -4,7 +4,7 @@ dotnet: 2.2.402
 solution: ArchUnit.sln
 script:
   - dotnet restore
-  - dotnet build -c Release --version-suffix "draft-9"
+  - dotnet build -c Release --version-suffix "draft-1"
   - dotnet pack -c Release --no-build --output nupkgs
   - dotnet test -c Release
     
