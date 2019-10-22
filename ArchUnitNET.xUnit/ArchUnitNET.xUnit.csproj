@@ -3,6 +3,15 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <RootNamespace>XunitExtension</RootNamespace>
+        <IsPackable>true</IsPackable>
+        <PackageVersion>0.2.0</PackageVersion>
+        <Title>ArchUnit C# xUnit Extension</Title>
+        <Authors>Florian Gather, Fritz Brandhuber</Authors>
+        <Description>xUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
+        <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+        <PackageTags>test;arch;archunit;xunit</PackageTags>
+        <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
