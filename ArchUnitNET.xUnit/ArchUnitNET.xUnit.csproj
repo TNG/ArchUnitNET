@@ -1,16 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
-        <RootNamespace>XunitExtension</RootNamespace>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <PackageVersion>1.0.0</PackageVersion>
+        <Title>ArchUnit C# xUnit Extension</Title>
+        <Authors>Florian Gather, Fritz Brandhuber</Authors>
+        <Description>xUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
+        <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+        <PackageTags>test;arch;archunit;xunit</PackageTags>
+        <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+        <IncludeSource>False</IncludeSource>
+        <Company>TNG Technology Consulting GmbH</Company>
+        <PackageId>TngTech.ArchUnitNET.xUnit</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
       <PackageReference Include="xunit.analyzers" Version="0.10.0" />
       <PackageReference Include="xunit.assert.source" Version="2.4.1" />
       <PackageReference Include="xunit.core" Version="2.4.1" />
-      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     </ItemGroup>
 
     <ItemGroup>

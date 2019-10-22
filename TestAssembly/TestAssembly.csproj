@@ -2,6 +2,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <LangVersion>7.2</LangVersion>
+    <IsPackable>false</IsPackable>
+    <Product>TestAssembly</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Domain" />

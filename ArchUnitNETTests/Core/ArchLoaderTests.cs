@@ -10,8 +10,8 @@ namespace ArchUnitNETTests.Core
     public class ArchLoaderTests
     {
         private static readonly Assembly ArchUnitNETAssembly =
-            new Assembly("ArchUnitNET, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null",
-                "ArchUnitNET, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null", false);
+            new Assembly("ArchUnitNET, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null",
+                "ArchUnitNET, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null", false);
 
         private static readonly Assembly ArchUnitNETTestsAssembly =
             new Assembly("ArchUnitNETTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
