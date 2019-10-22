@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleTest", "ExampleTest\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.xUnit", "ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj", "{53DF58F8-0C82-4259-96A6-31974D0A503A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.NUnit", "ArchUnitNET.NUnit\ArchUnitNET.NUnit.csproj", "{0BD564F3-D34F-4D39-94B3-EA2705EDF594}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{53DF58F8-0C82-4259-96A6-31974D0A503A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53DF58F8-0C82-4259-96A6-31974D0A503A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53DF58F8-0C82-4259-96A6-31974D0A503A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BD564F3-D34F-4D39-94B3-EA2705EDF594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BD564F3-D34F-4D39-94B3-EA2705EDF594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BD564F3-D34F-4D39-94B3-EA2705EDF594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BD564F3-D34F-4D39-94B3-EA2705EDF594}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
