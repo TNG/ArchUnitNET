@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
-        <VersionPrefix>0.1.0</VersionPrefix>
+        <VersionPrefix>0.2.0</VersionPrefix>
         <RootNamespace>ArchUnitNET</RootNamespace>
         <LangVersion>7.2</LangVersion>
     </PropertyGroup>
