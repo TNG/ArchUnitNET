@@ -605,38 +605,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public static ICondition<TRuleType> BePrivate()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility == Private,
-                obj => "is " + obj.Visibility.ToStringInLowerCase(), "be private");
+                obj => "is " + VisibilityStrings.ToString(obj.Visibility), "be private");
         }
 
         public static ICondition<TRuleType> BePublic()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility == Public,
-                obj => "is " + obj.Visibility.ToStringInLowerCase(), "be public");
+                obj => "is " + VisibilityStrings.ToString(obj.Visibility), "be public");
         }
 
         public static ICondition<TRuleType> BeProtected()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility == Protected,
-                obj => "is " + obj.Visibility.ToStringInLowerCase(), "be protected");
+                obj => "is " + VisibilityStrings.ToString(obj.Visibility), "be protected");
         }
 
         public static ICondition<TRuleType> BeInternal()
         {
             return new SimpleCondition<TRuleType>(obj => obj.Visibility == Internal,
-                obj => "is " + obj.Visibility.ToStringInLowerCase(), "be internal");
+                obj => "is " + VisibilityStrings.ToString(obj.Visibility), "be internal");
         }
 
         public static ICondition<TRuleType> BeProtectedInternal()
         {
             return new SimpleCondition<TRuleType>(
-                obj => obj.Visibility == ProtectedInternal, obj => "is " + obj.Visibility.ToStringInLowerCase(),
+                obj => obj.Visibility == ProtectedInternal, obj => "is " + VisibilityStrings.ToString(obj.Visibility),
                 "be protected internal");
         }
 
         public static ICondition<TRuleType> BePrivateProtected()
         {
             return new SimpleCondition<TRuleType>(
-                obj => obj.Visibility == PrivateProtected, obj => "is " + obj.Visibility.ToStringInLowerCase(),
+                obj => obj.Visibility == PrivateProtected, obj => "is " + VisibilityStrings.ToString(obj.Visibility),
                 "be private protected");
         }
 

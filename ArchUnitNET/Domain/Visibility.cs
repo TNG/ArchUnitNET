@@ -26,14 +26,9 @@ namespace ArchUnitNET.Domain
         private static readonly string[] LowerCase =
             {"public", "private", "protected", "internal", "protected internal", "private protected", "not accessible"};
 
-        public static string ToStringWithCapitalLetters(this Visibility visibility)
+        public static string ToString(this Visibility visibility, bool useCapitalLetters = false)
         {
-            return CapitalLetters[(int) visibility];
-        }
-
-        public static string ToStringInLowerCase(this Visibility visibility)
-        {
-            return LowerCase[(int) visibility];
+            return useCapitalLetters ? CapitalLetters[(int) visibility] : LowerCase[(int) visibility];
         }
     }
 }
