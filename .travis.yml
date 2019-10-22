@@ -2,16 +2,11 @@ language: csharp
 mono: none
 dotnet: 2.2.402
 solution: ArchUnit.sln
-script:
-  - dotnet restore
-  - dotnet build -c Release --version-suffix "draft-1"
-  - dotnet pack -c Release --no-build --output nupkgs
-  - dotnet test -c Release
-    
+script: chmod +x ./Travis/build.sh && ./Travis/build.sh
 deploy:
   skip_cleanup: true
   provider: script
-  script: chmod +x ./Deploy/deploy.sh && ./Deploy/deploy.sh $NUGET_API_KEY $NUGET_SOURCE
+  script: chmod +x ./Travis/deploy.sh && ./Travis/deploy.sh $NUGET_API_KEY $NUGET_SOURCE
   on:
     tags: true
     all_branches: true
