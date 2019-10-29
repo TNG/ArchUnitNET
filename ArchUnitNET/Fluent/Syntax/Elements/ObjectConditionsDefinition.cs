@@ -51,15 +51,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            var description = moreObjects.Aggregate("be \"" + firstObject.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimpleCondition<TRuleType>(o => o.Equals(firstObject) || moreObjects.Any(o.Equals),
-                o => "is " + o.FullName, description);
+            var objects = new List<ICanBeAnalyzed> {firstObject};
+            objects.AddRange(moreObjects);
+            return Be(objects);
         }
 
         public static ICondition<TRuleType> Be(IEnumerable<ICanBeAnalyzed> objects)
         {
             var objectList = objects.ToList();
+
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
+            {
+                var typeList = ruleTypes.ToList();
+                var passedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
+                foreach (var failedObject in typeList.Except(passedObjects))
+                {
+                    yield return new ConditionResult(failedObject, false, "is " + failedObject.FullName);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
+            }
+
             string description;
             if (objectList.IsNullOrEmpty())
             {
@@ -73,19 +88,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimpleCondition<TRuleType>(obj => objectList.Any(o => o.Equals(obj)), o => "is " + o.FullName,
-                description);
+            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> Be(IObjectProvider<ICanBeAnalyzed> objectProvider)
         {
-            bool Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
-                return objectProvider.GetObjects(architecture).Contains(ruleType);
+                var objectList = objectProvider.GetObjects(architecture).ToList();
+                var typeList = ruleTypes.ToList();
+                var passedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
+                foreach (var failedObject in typeList.Except(passedObjects))
+                {
+                    yield return new ConditionResult(failedObject, false, "is " + failedObject.FullName);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, (obj, architecture) => "is " + obj.FullName,
-                "be " + objectProvider.Description);
+            return new ArchitectureCondition<TRuleType>(Condition, "be " + objectProvider.Description);
         }
 
         public static ICondition<TRuleType> CallAny(string pattern, bool useRegularExpressions = false)
@@ -133,46 +157,74 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> CallAny(MethodMember method, params MethodMember[] moreMethods)
         {
-            bool Condition(TRuleType type)
-            {
-                return type.CallsMethod(method) || moreMethods.Any(m => type.CallsMethod(m));
-            }
-
-            var description = moreMethods.Aggregate("call \"" + method.FullName + "\"",
-                (current, methodMember) => current + " or \"" + methodMember.FullName + "\"");
-            var failDescription = moreMethods.Aggregate("call \"" + method.FullName + "\"",
-                (current, methodMember) => current + " or \"" + methodMember.FullName + "\"");
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+            var methods = new List<MethodMember> {method};
+            methods.AddRange(moreMethods);
+            return CallAny(methods);
         }
 
         public static ICondition<TRuleType> CallAny(IObjectProvider<MethodMember> objectProvider)
         {
-            bool Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
-                var methods = objectProvider.GetObjects(architecture);
-                return methods.Any(method => ruleType.CallsMethod(method));
+                var methodList = objectProvider.GetObjects(architecture).ToList();
+                var typeList = ruleTypes.ToList();
+                var passedObjects = typeList.Where(type => type.GetCalledMethods().Intersect(methodList).Any())
+                    .ToList();
+                foreach (var failedObject in typeList.Except(passedObjects))
+                {
+                    var dynamicFailDescription = "does call";
+                    var first = true;
+                    foreach (var method in failedObject.GetCalledMethods().Except(methodList))
+                    {
+                        dynamicFailDescription += first ? " " + method.FullName : " and " + method.FullName;
+                        first = false;
+                    }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             var description = "call any " + objectProvider.Description;
-            var failDescription = "call any " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> CallAny(IEnumerable<MethodMember> methods)
         {
             var methodList = methods.ToList();
 
-            bool Condition(TRuleType ruleType)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
             {
-                return methodList.Any(method => ruleType.CallsMethod(method));
+                var typeList = ruleTypes.ToList();
+                var passedObjects = typeList.Where(type => type.GetCalledMethods().Intersect(methodList).Any())
+                    .ToList();
+                foreach (var failedObject in typeList.Except(passedObjects))
+                {
+                    var dynamicFailDescription = "does call";
+                    var first = true;
+                    foreach (var method in failedObject.GetCalledMethods().Except(methodList))
+                    {
+                        dynamicFailDescription += first ? " " + method.FullName : " and " + method.FullName;
+                        first = false;
+                    }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
-            string failDescription;
             if (methodList.IsNullOrEmpty())
             {
                 description = "call one of no methods (impossible)";
-                failDescription = "does not call one of no methods (always true)";
             }
             else
             {
@@ -180,12 +232,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 description = methodList.Where(method => !method.Equals(firstMethod)).Distinct().Aggregate(
                     "call \"" + firstMethod.FullName + "\"",
                     (current, method) => current + " or \"" + method.FullName + "\"");
-                failDescription = methodList.Where(method => !method.Equals(firstMethod)).Distinct().Aggregate(
-                    "does not call \"" + firstMethod.FullName + "\"",
-                    (current, method) => current + " or \"" + method.FullName + "\"");
             }
 
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> DependOnAny(string pattern, bool useRegularExpressions = false)
@@ -235,65 +284,81 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> DependOnAny(IType firstType, params IType[] moreTypes)
         {
-            bool Condition(TRuleType type)
-            {
-                return type.GetTypeDependencies().Any(target => target.Equals(firstType) || moreTypes.Contains(target));
-            }
-
-            var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            var failDescription = moreTypes.Aggregate("does not depend on \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return DependOnAny(types);
         }
 
         public static ICondition<TRuleType> DependOnAny(Type firstType, params Type[] moreTypes)
         {
-            bool Condition(TRuleType type, Architecture architecture)
-            {
-                return type.GetTypeDependencies().Any(target =>
-                    target.Equals(architecture.GetITypeOfType(firstType)) ||
-                    moreTypes.Select(architecture.GetITypeOfType).Contains(target));
-            }
-
-            var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            var failDescription = moreTypes.Aggregate(
-                "does not depend on \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return DependOnAny(types);
         }
 
         public static ICondition<TRuleType> DependOnAny(IObjectProvider<IType> objectProvider)
         {
-            bool Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
-                var types = objectProvider.GetObjects(architecture);
-                return !ruleType.GetTypeDependencies().IsNullOrEmpty() &&
-                       ruleType.GetTypeDependencies().Any(target => types.Contains(target));
+                var typeList = objectProvider.GetObjects(architecture).ToList();
+                var ruleTypeList = ruleTypes.ToList();
+                var passedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Intersect(typeList).Any())
+                    .ToList();
+                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                {
+                    var dynamicFailDescription = "does depend on";
+                    var first = true;
+                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
+                    {
+                        dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
+                        first = false;
+                    }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             var description = "depend on any " + objectProvider.Description;
-            var failDescription = "does not depend on any " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> DependOnAny(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(TRuleType ruleType)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
             {
-                return !ruleType.GetTypeDependencies().IsNullOrEmpty() &&
-                       ruleType.GetTypeDependencies().Any(target => typeList.Contains(target));
+                var ruleTypeList = ruleTypes.ToList();
+                var passedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Intersect(typeList).Any())
+                    .ToList();
+                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                {
+                    var dynamicFailDescription = "does depend on";
+                    var first = true;
+                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
+                    {
+                        dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
+                        first = false;
+                    }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
-            string failDescription;
             if (typeList.IsNullOrEmpty())
             {
                 description = "depend on one of no types (impossible)";
-                failDescription = "does not depend on no types (always true)";
             }
             else
             {
@@ -301,31 +366,44 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
                     "depend on \"" + firstType.FullName + "\"",
                     (current, type) => current + " or \"" + type.FullName + "\"");
-                failDescription = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
-                    "does not depend on \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> DependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
-                return !ruleType.GetTypeDependencies().IsNullOrEmpty() &&
-                       ruleType.GetTypeDependencies().Any(target =>
-                           typeList.Select(architecture.GetITypeOfType).Contains(target));
+                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var ruleTypeList = ruleTypes.ToList();
+                var passedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Intersect(iTypeList).Any())
+                    .ToList();
+                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                {
+                    var dynamicFailDescription = "does depend on";
+                    var first = true;
+                    foreach (var type in failedObject.GetTypeDependencies().Except(iTypeList))
+                    {
+                        dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
+                        first = false;
+                    }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
-            string failDescription;
             if (typeList.IsNullOrEmpty())
             {
                 description = "depend on one of no types (impossible)";
-                failDescription = "does not depend on no types (always true)";
             }
             else
             {
@@ -333,12 +411,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 description = typeList.Where(type => type != firstType).Distinct().Aggregate(
                     "depend on \"" + firstType.FullName + "\"",
                     (current, type) => current + " or \"" + type.FullName + "\"");
-                failDescription = typeList.Where(type => type != firstType).Distinct().Aggregate(
-                    "does not depend on \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> OnlyDependOn(string pattern, bool useRegularExpressions = false)
@@ -403,71 +478,43 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var typeList = new List<IType> {firstType};
-                typeList.AddRange(moreTypes);
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
-                {
-                    if (!typeList.Contains(dependency))
-                    {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimpleCondition<TRuleType>(Condition, description);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return OnlyDependOn(types);
         }
 
         public static ICondition<TRuleType> OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
-            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
-            {
-                var typeList = new List<IType> {architecture.GetITypeOfType(firstType)};
-                typeList.AddRange(moreTypes.Select(architecture.GetITypeOfType));
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
-                {
-                    if (!typeList.Contains(dependency))
-                    {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return OnlyDependOn(types);
         }
 
         public static ICondition<TRuleType> OnlyDependOn(IObjectProvider<IType> objectProvider)
         {
-            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
+                var ruleTypeList = ruleTypes.ToList();
+                var failedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Except(typeList).Any())
+                    .ToList();
+                foreach (var failedObject in failedObjects)
                 {
-                    if (!typeList.Contains(dependency))
+                    var dynamicFailDescription = "does depend on";
+                    var first = true;
+                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
                     {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
+                        dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
+                        first = false;
                     }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
+                foreach (var passedObject in ruleTypeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             var description = "only depend on " + objectProvider.Description;
@@ -478,20 +525,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            ConditionResult Condition(TRuleType ruleType)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
             {
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
+                var ruleTypeList = ruleTypes.ToList();
+                var failedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Except(typeList).Any())
+                    .ToList();
+                foreach (var failedObject in failedObjects)
                 {
-                    if (!typeList.Contains(dependency))
+                    var dynamicFailDescription = "does depend on";
+                    var first = true;
+                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
                     {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
+                        dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
+                        first = false;
                     }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
+                foreach (var passedObject in ruleTypeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
@@ -507,28 +562,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new SimpleCondition<TRuleType>(Condition, description);
+            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> OnlyDependOn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
                 var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
+                var ruleTypeList = ruleTypes.ToList();
+                var failedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Except(iTypeList).Any())
+                    .ToList();
+                foreach (var failedObject in failedObjects)
                 {
-                    if (!iTypeList.Contains(dependency))
+                    var dynamicFailDescription = "does depend on";
+                    var first = true;
+                    foreach (var type in failedObject.GetTypeDependencies().Except(iTypeList))
                     {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
+                        dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
+                        first = false;
                     }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
+                foreach (var passedObject in ruleTypeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
@@ -734,15 +797,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
         {
-            var description = moreObjects.Aggregate("not be \"" + firstObject.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimpleCondition<TRuleType>(o => !o.Equals(firstObject) && !moreObjects.Any(o.Equals),
-                o => "is " + o.FullName, description);
+            var objects = new List<ICanBeAnalyzed> {firstObject};
+            objects.AddRange(moreObjects);
+            return NotBe(objects);
         }
 
         public static ICondition<TRuleType> NotBe(IEnumerable<ICanBeAnalyzed> objects)
         {
             var objectList = objects.ToList();
+
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
+            {
+                var typeList = ruleTypes.ToList();
+                var failedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
+                foreach (var failedObject in failedObjects)
+                {
+                    yield return new ConditionResult(failedObject, false, "is " + failedObject.FullName);
+                }
+
+                foreach (var passedObject in typeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
+            }
+
             string description;
             if (objectList.IsNullOrEmpty())
             {
@@ -756,19 +834,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimpleCondition<TRuleType>(obj => objectList.All(o => !o.Equals(obj)), o => "is " + o.FullName,
-                description);
+            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotBe(IObjectProvider<ICanBeAnalyzed> objectProvider)
         {
-            bool Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
-                return !objectProvider.GetObjects(architecture).Contains(ruleType);
+                var objectList = objectProvider.GetObjects(architecture).ToList();
+                var typeList = ruleTypes.ToList();
+                var failedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
+                foreach (var failedObject in failedObjects)
+                {
+                    yield return new ConditionResult(failedObject, false, "is " + failedObject.FullName);
+                }
+
+                foreach (var passedObject in typeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, (obj, architecture) => "is " + obj.FullName,
-                "not be " + objectProvider.Description);
+            return new ArchitectureCondition<TRuleType>(Condition, "not be " + objectProvider.Description);
         }
 
         public static ICondition<TRuleType> NotCallAny(string pattern, bool useRegularExpressions = false)
@@ -833,46 +920,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> NotCallAny(MethodMember method, params MethodMember[] moreMethods)
         {
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var methodList = new List<MethodMember> {method};
-                methodList.AddRange(moreMethods);
-                var pass = true;
-                var dynamicFailDescription = "does call";
-                foreach (var dependency in ruleType.GetCalledMethods())
-                {
-                    if (methodList.Contains(dependency))
-                    {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            var description = moreMethods.Aggregate("not call \"" + method.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimpleCondition<TRuleType>(Condition, description);
+            var methods = new List<MethodMember> {method};
+            methods.AddRange(moreMethods);
+            return NotCallAny(methods);
         }
 
         public static ICondition<TRuleType> NotCallAny(IObjectProvider<MethodMember> objectProvider)
         {
-            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
                 var methodList = objectProvider.GetObjects(architecture).ToList();
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetCalledMethods())
+                var typeList = ruleTypes.ToList();
+                var failedObjects = typeList.Where(type => type.GetCalledMethods().Intersect(methodList).Any())
+                    .ToList();
+                foreach (var failedObject in failedObjects)
                 {
-                    if (methodList.Contains(dependency))
+                    var dynamicFailDescription = "does call";
+                    var first = true;
+                    foreach (var method in failedObject.GetCalledMethods().Union(methodList))
                     {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
+                        dynamicFailDescription += first ? " " + method.FullName : " and " + method.FullName;
+                        first = false;
                     }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
+                foreach (var passedObject in typeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             var description = "not call " + objectProvider.Description;
@@ -883,20 +960,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var methodList = methods.ToList();
 
-            ConditionResult Condition(TRuleType ruleType)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
             {
-                var pass = true;
-                var dynamicFailDescription = "does call";
-                foreach (var dependency in ruleType.GetCalledMethods())
+                var typeList = ruleTypes.ToList();
+                var failedObjects = typeList.Where(type => type.GetCalledMethods().Intersect(methodList).Any())
+                    .ToList();
+                foreach (var failedObject in failedObjects)
                 {
-                    if (methodList.Contains(dependency))
+                    var dynamicFailDescription = "does call";
+                    var first = true;
+                    foreach (var method in failedObject.GetCalledMethods().Union(methodList))
                     {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
+                        dynamicFailDescription += first ? " " + method.FullName : " and " + method.FullName;
+                        first = false;
                     }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
+                foreach (var passedObject in typeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
@@ -912,7 +997,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimpleCondition<TRuleType>(Condition, description);
+            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
 
@@ -978,71 +1063,43 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> NotDependOnAny(IType firstType, params IType[] moreTypes)
         {
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var typeList = new List<IType> {firstType};
-                typeList.AddRange(moreTypes);
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
-                {
-                    if (typeList.Contains(dependency))
-                    {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            var description = moreTypes.Aggregate("not depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new SimpleCondition<TRuleType>(Condition, description);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return NotDependOnAny(types);
         }
 
         public static ICondition<TRuleType> NotDependOnAny(Type firstType, params Type[] moreTypes)
         {
-            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
-            {
-                var typeList = new List<IType> {architecture.GetITypeOfType(firstType)};
-                typeList.AddRange(moreTypes.Select(architecture.GetITypeOfType));
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
-                {
-                    if (typeList.Contains(dependency))
-                    {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            var description = moreTypes.Aggregate("not depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return NotDependOnAny(types);
         }
 
         public static ICondition<TRuleType> NotDependOnAny(IObjectProvider<IType> objectProvider)
         {
-            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
+                var ruleTypeList = ruleTypes.ToList();
+                var failedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Intersect(typeList).Any())
+                    .ToList();
+                foreach (var failedObject in failedObjects)
                 {
-                    if (typeList.Contains(dependency))
+                    var dynamicFailDescription = "does depend on";
+                    var first = true;
+                    foreach (var type in failedObject.GetTypeDependencies().Union(typeList))
                     {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
+                        dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
+                        first = false;
                     }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
+                foreach (var passedObject in ruleTypeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             var description = "not depend on " + objectProvider.Description;
@@ -1053,20 +1110,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            ConditionResult Condition(TRuleType ruleType)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
             {
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
+                var ruleTypeList = ruleTypes.ToList();
+                var failedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Intersect(typeList).Any())
+                    .ToList();
+                foreach (var failedObject in failedObjects)
                 {
-                    if (typeList.Contains(dependency))
+                    var dynamicFailDescription = "does depend on";
+                    var first = true;
+                    foreach (var type in failedObject.GetTypeDependencies().Union(typeList))
                     {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
+                        dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
+                        first = false;
                     }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
+                foreach (var passedObject in ruleTypeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
@@ -1082,28 +1147,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new SimpleCondition<TRuleType>(Condition, description);
+            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotDependOnAny(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
                 var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
+                var ruleTypeList = ruleTypes.ToList();
+                var failedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Intersect(iTypeList).Any())
+                    .ToList();
+                foreach (var failedObject in failedObjects)
                 {
-                    if (iTypeList.Contains(dependency))
+                    var dynamicFailDescription = "does depend on";
+                    var first = true;
+                    foreach (var type in failedObject.GetTypeDependencies().Union(iTypeList))
                     {
-                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                        pass = false;
+                        dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
+                        first = false;
                     }
+
+                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
+                foreach (var passedObject in ruleTypeList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;

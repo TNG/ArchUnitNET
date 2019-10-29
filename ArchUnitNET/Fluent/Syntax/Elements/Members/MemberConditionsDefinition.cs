@@ -47,50 +47,59 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static ICondition<TRuleType> BeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
-            bool Condition(TRuleType ruleType)
-            {
-                return ruleType.DeclaringType.Equals(firstType) || moreTypes.Contains(ruleType.DeclaringType);
-            }
-
-            var description = moreTypes.Aggregate("be declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new SimpleCondition<TRuleType>(Condition,
-                member => "is declared in " + member.DeclaringType.FullName, description);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return BeDeclaredIn(types);
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(Type firstType, params Type[] moreTypes)
         {
-            bool Condition(TRuleType ruleType, Architecture architecture)
-            {
-                return ruleType.DeclaringType.Equals(architecture.GetITypeOfType(firstType)) ||
-                       moreTypes.Select(architecture.GetITypeOfType).Contains(ruleType.DeclaringType);
-            }
-
-            var description = moreTypes.Aggregate("be declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return BeDeclaredIn(types);
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(IObjectProvider<IType> objectProvider)
         {
-            bool Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods, Architecture architecture)
             {
-                return objectProvider.GetObjects(architecture).Contains(ruleType.DeclaringType);
+                var typeList = objectProvider.GetObjects(architecture).ToList();
+                var methodList = methods.ToList();
+                var passedObjects = methodList.Where(method=>typeList.Contains(method.DeclaringType)).ToList();
+                foreach (var failedObject in methodList.Except(passedObjects))
+                {
+                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
+                    yield return new ConditionResult(failedObject, false, failDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             var description = "be declared in " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(TRuleType ruleType)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods)
             {
-                return typeList.Contains(ruleType.DeclaringType);
+                var methodList = methods.ToList();
+                var passedObjects = methodList.Where(method=>typeList.Contains(method.DeclaringType)).ToList();
+                foreach (var failedObject in methodList.Except(passedObjects))
+                {
+                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
+                    yield return new ConditionResult(failedObject, false, failDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
@@ -106,17 +115,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new SimpleCondition<TRuleType>(Condition,
-                member => "is declared in " + member.DeclaringType.FullName, description);
+            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> BeDeclaredIn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods,Architecture architecture)
             {
-                return typeList.Select(architecture.GetITypeOfType).Contains(ruleType.DeclaringType);
+                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var methodList = methods.ToList();
+                var passedObjects = methodList.Where(method=>iTypeList.Contains(method.DeclaringType)).ToList();
+                foreach (var failedObject in methodList.Except(passedObjects))
+                {
+                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
+                    yield return new ConditionResult(failedObject, false, failDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
@@ -132,8 +152,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
 
@@ -178,50 +197,59 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
-            bool Condition(TRuleType ruleType)
-            {
-                return !ruleType.DeclaringType.Equals(firstType) && !moreTypes.Contains(ruleType.DeclaringType);
-            }
-
-            var description = moreTypes.Aggregate("not be declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new SimpleCondition<TRuleType>(Condition,
-                member => "is declared in " + member.DeclaringType.FullName, description);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return NotBeDeclaredIn(types);
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(Type firstType, params Type[] moreTypes)
         {
-            bool Condition(TRuleType ruleType, Architecture architecture)
-            {
-                return !ruleType.DeclaringType.Equals(architecture.GetITypeOfType(firstType)) &&
-                       !moreTypes.Select(architecture.GetITypeOfType).Contains(ruleType.DeclaringType);
-            }
-
-            var description = moreTypes.Aggregate("not be declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return NotBeDeclaredIn(types);
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IObjectProvider<IType> objectProvider)
         {
-            bool Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods, Architecture architecture)
             {
-                return !objectProvider.GetObjects(architecture).Contains(ruleType.DeclaringType);
+                var typeList = objectProvider.GetObjects(architecture).ToList();
+                var methodList = methods.ToList();
+                var failedObjects = methodList.Where(method=>typeList.Contains(method.DeclaringType)).ToList();
+                foreach (var failedObject in failedObjects)
+                {
+                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
+                    yield return new ConditionResult(failedObject, false, failDescription);
+                }
+
+                foreach (var passedObject in methodList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             var description = "not be declared in " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(TRuleType ruleType)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods)
             {
-                return !typeList.Contains(ruleType.DeclaringType);
+                var methodList = methods.ToList();
+                var failedObjects = methodList.Where(method=>typeList.Contains(method.DeclaringType)).ToList();
+                foreach (var failedObject in failedObjects)
+                {
+                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
+                    yield return new ConditionResult(failedObject, false, failDescription);
+                }
+
+                foreach (var passedObject in methodList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
@@ -237,17 +265,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new SimpleCondition<TRuleType>(Condition,
-                member => "is declared in " + member.DeclaringType.FullName, description);
+            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
-            bool Condition(TRuleType ruleType, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods,Architecture architecture)
             {
-                return !typeList.Select(architecture.GetITypeOfType).Contains(ruleType.DeclaringType);
+                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var methodList = methods.ToList();
+                var failedObjects = methodList.Where(method=>iTypeList.Contains(method.DeclaringType)).ToList();
+                foreach (var failedObject in failedObjects)
+                {
+                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
+                    yield return new ConditionResult(failedObject, false, failDescription);
+                }
+
+                foreach (var passedObject in methodList.Except(failedObjects))
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
             }
 
             string description;
@@ -263,8 +302,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition,
-                (member, architecture) => "is declared in " + member.DeclaringType.FullName, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
     }
 }
