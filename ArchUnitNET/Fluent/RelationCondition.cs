@@ -33,12 +33,12 @@ namespace ArchUnitNET.Fluent
             switch (_shouldBeTrueFor)
             {
                 case All:
-                    return predicate.CheckPredicate(_relation(obj).Distinct(), architecture).Count() ==
+                    return predicate.GetMatchingObjects(_relation(obj).Distinct(), architecture).Count() ==
                            _relation(obj).Distinct().Count();
                 case Any:
-                    return predicate.CheckPredicate(_relation(obj), architecture).Any();
+                    return predicate.GetMatchingObjects(_relation(obj), architecture).Any();
                 case None:
-                    return !predicate.CheckPredicate(_relation(obj), architecture).Any();
+                    return !predicate.GetMatchingObjects(_relation(obj), architecture).Any();
                 default:
                     throw new IndexOutOfRangeException("The ShouldBeTrueFor Operator does not have a valid value.");
             }

@@ -161,7 +161,7 @@ namespace ArchUnitNET.Fluent
                 }
 
                 return _logicalConjunction.Evaluate(currentObjects,
-                    _predicate.CheckPredicate(allObjects, architecture));
+                    _predicate.GetMatchingObjects(allObjects, architecture));
             }
 
             public override string ToString()

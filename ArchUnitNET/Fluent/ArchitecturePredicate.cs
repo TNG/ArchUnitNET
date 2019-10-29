@@ -24,7 +24,7 @@ namespace ArchUnitNET.Fluent
 
         public string Description { get; }
 
-        public IEnumerable<TRuleType> CheckPredicate(IEnumerable<TRuleType> objects, Architecture architecture)
+        public IEnumerable<TRuleType> GetMatchingObjects(IEnumerable<TRuleType> objects, Architecture architecture)
         {
             return _predicate(objects, architecture);
         }

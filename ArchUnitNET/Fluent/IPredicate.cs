@@ -5,6 +5,6 @@ namespace ArchUnitNET.Fluent
 {
     public interface IPredicate<TRuleType> : IHasDescription where TRuleType : ICanBeAnalyzed
     {
-        IEnumerable<TRuleType> CheckPredicate(IEnumerable<TRuleType> objects, Architecture architecture);
+        IEnumerable<TRuleType> GetMatchingObjects(IEnumerable<TRuleType> objects, Architecture architecture);
     }
 }
