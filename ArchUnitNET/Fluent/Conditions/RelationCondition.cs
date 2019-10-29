@@ -28,18 +28,55 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public string Description { get; }
 
-        public bool
-            CheckRelation(TRuleType obj, IPredicate<TRelatedType> predicate, Architecture architecture)
+        public IEnumerable<ConditionResult>
+            CheckRelation(IEnumerable<TRuleType> objects, IPredicate<TRelatedType> predicate, Architecture architecture)
         {
+            var objectList = objects.ToList();
+            var failDescription = FailDescription + " " + predicate.Description;
             switch (_shouldBeTrueFor)
             {
                 case All:
-                    return predicate.GetMatchingObjects(_relation(obj).Distinct(), architecture).Count() ==
-                           _relation(obj).Distinct().Count();
+                    var failedObjects1 = objectList.Where(o =>
+                        _relation(o).Except(predicate.GetMatchingObjects(_relation(o), architecture)).Any()).ToList();
+                    foreach (var failedObject in failedObjects1)
+                    {
+                        yield return new ConditionResult(failedObject, false, failDescription);
+                    }
+
+                    foreach (var passedObject in objectList.Except(failedObjects1))
+                    {
+                        yield return new ConditionResult(passedObject, true);
+                    }
+
+                    yield break;
                 case Any:
-                    return predicate.GetMatchingObjects(_relation(obj), architecture).Any();
+                    var failedObjects2 = objectList
+                        .Where(o => !predicate.GetMatchingObjects(_relation(o), architecture).Any()).ToList();
+                    foreach (var failedObject in failedObjects2)
+                    {
+                        yield return new ConditionResult(failedObject, false, failDescription);
+                    }
+
+                    foreach (var passedObject in objectList.Except(failedObjects2))
+                    {
+                        yield return new ConditionResult(passedObject, true);
+                    }
+
+                    yield break;
                 case None:
-                    return !predicate.GetMatchingObjects(_relation(obj), architecture).Any();
+                    var failedObjects3 = objectList
+                        .Where(o => predicate.GetMatchingObjects(_relation(o), architecture).Any()).ToList();
+                    foreach (var failedObject in failedObjects3)
+                    {
+                        yield return new ConditionResult(failedObject, false, failDescription);
+                    }
+
+                    foreach (var passedObject in objectList.Except(failedObjects3))
+                    {
+                        yield return new ConditionResult(passedObject, true);
+                    }
+
+                    yield break;
                 default:
                     throw new IndexOutOfRangeException("The ShouldBeTrueFor Operator does not have a valid value.");
             }

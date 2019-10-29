@@ -22,9 +22,7 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public IEnumerable<ConditionResult> Check(IEnumerable<TRuleType> objects, Architecture architecture)
         {
-            return objects.Select(obj => new ConditionResult(obj,
-                _relation.CheckRelation(obj, _predicate, architecture),
-                _relation.FailDescription + " " + _predicate.Description));
+            return _relation.CheckRelation(objects, _predicate, architecture);
         }
 
         public bool CheckEmpty()
