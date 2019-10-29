@@ -37,7 +37,8 @@ namespace ExampleTest
     {
         // TIP: load your architecture once at the start to maximize performance of your tests
         private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssemblies(typeof(ExampleClass).Assembly, typeof(ForbiddenClass).Assembly).Build();
+            new ArchLoader().LoadAssemblies(typeof(ExampleClass).Assembly, typeof(ForbiddenClass).Assembly)
+            .Build();
         // replace <ExampleClass> and <ForbiddenClass> with classes from the assemblies you want to test
 
         //declare variables you'll use throughout your tests up here
@@ -78,7 +79,8 @@ namespace ExampleTest
         [Fact]
         public void ExampleLayerShouldNotAccessForbiddenLayer()
         {
-            //you can give your rules a custom reason, which is displayed when it fails (together with the types that failed the rule)
+            //you can give your rules a custom reason, which is displayed when it fails
+            //(together with the types that failed the rule)
             IArchRule exampleLayerShouldNotAccessForbiddenLayer = Types().That().Are(ExampleLayer).Should()
                 .NotDependOnAny(ForbiddenLayer).Because("it's forbidden");
             exampleLayerShouldNotAccessForbiddenLayer.Check(Architecture);
