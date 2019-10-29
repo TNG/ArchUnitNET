@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ArchUnitNET.Fluent.Syntax
+namespace ArchUnitNET.Fluent
 {
     public static class LogicalConjunctionDefinition
     {

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Domain.Visibility;
-using static ArchUnitNET.Fluent.EnumerableOperator;
+using static ArchUnitNET.Fluent.Conditions.EnumerableOperator;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements

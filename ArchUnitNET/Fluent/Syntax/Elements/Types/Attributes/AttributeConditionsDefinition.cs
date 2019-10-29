@@ -1,4 +1,5 @@
 ﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {

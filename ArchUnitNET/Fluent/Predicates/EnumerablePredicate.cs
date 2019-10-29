@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ArchUnitNET.Domain;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Predicates
 {
-    public class SimplePredicate<TRuleType> : IPredicate<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class EnumerablePredicate<TRuleType> : IPredicate<TRuleType> where TRuleType : ICanBeAnalyzed
     {
-        private readonly Func<TRuleType, bool> _predicate;
+        private readonly Func<IEnumerable<TRuleType>, IEnumerable<TRuleType>> _predicate;
 
-        public SimplePredicate(Func<TRuleType, bool> predicate, string description)
+        public EnumerablePredicate(Func<IEnumerable<TRuleType>, IEnumerable<TRuleType>> predicate,
+            string description)
         {
             _predicate = predicate;
             Description = description;
@@ -19,7 +19,7 @@ namespace ArchUnitNET.Fluent
 
         public IEnumerable<TRuleType> GetMatchingObjects(IEnumerable<TRuleType> objects, Architecture architecture)
         {
-            return objects.Where(_predicate);
+            return _predicate(objects);
         }
 
         public override string ToString()
@@ -27,7 +27,7 @@ namespace ArchUnitNET.Fluent
             return Description;
         }
 
-        private bool Equals(SimplePredicate<TRuleType> other)
+        private bool Equals(EnumerablePredicate<TRuleType> other)
         {
             return Description == other.Description;
         }
@@ -44,7 +44,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((SimplePredicate<TRuleType>) obj);
+            return obj.GetType() == GetType() && Equals((EnumerablePredicate<TRuleType>) obj);
         }
 
         public override int GetHashCode()

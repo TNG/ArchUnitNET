@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Conditions
 {
     public class ComplexCondition<TRuleType, TReferenceType> : ICondition<TRuleType>
         where TRuleType : ICanBeAnalyzed where TReferenceType : ICanBeAnalyzed

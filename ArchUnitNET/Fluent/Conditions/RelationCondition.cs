@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using static ArchUnitNET.Fluent.EnumerableOperator;
+using ArchUnitNET.Fluent.Predicates;
+using static ArchUnitNET.Fluent.Conditions.EnumerableOperator;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Conditions
 {
     public class RelationCondition<TRuleType, TRelatedType> : IHasDescription
         where TRuleType : ICanBeAnalyzed where TRelatedType : ICanBeAnalyzed

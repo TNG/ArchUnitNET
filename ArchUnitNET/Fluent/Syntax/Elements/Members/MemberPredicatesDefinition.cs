@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Fluent.Predicates;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {

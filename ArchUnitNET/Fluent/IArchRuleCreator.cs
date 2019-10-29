@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
+using ArchUnitNET.Fluent.Predicates;
 using ArchUnitNET.Fluent.Syntax;
 
 namespace ArchUnitNET.Fluent

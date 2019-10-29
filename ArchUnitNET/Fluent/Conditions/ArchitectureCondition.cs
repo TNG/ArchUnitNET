@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Conditions
 {
     public class ArchitectureCondition<TRuleType> : ICondition<TRuleType> where TRuleType : ICanBeAnalyzed
     {

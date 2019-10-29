@@ -1,7 +1,7 @@
 ﻿using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Conditions
 {
     public class ConditionResult
     {

@@ -1,4 +1,5 @@
 ﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers

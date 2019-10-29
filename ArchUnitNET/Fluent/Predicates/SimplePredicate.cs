@@ -3,20 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Predicates
 {
-    public class ArchitecturePredicate<TRuleType> : IPredicate<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class SimplePredicate<TRuleType> : IPredicate<TRuleType> where TRuleType : ICanBeAnalyzed
     {
-        private readonly Func<IEnumerable<TRuleType>, Architecture, IEnumerable<TRuleType>> _predicate;
+        private readonly Func<TRuleType, bool> _predicate;
 
-        public ArchitecturePredicate(Func<TRuleType, Architecture, bool> predicate, string description)
-        {
-            _predicate = (ruleTypes, architecture) => ruleTypes.Where(obj => predicate(obj, architecture));
-            Description = description;
-        }
-
-        public ArchitecturePredicate(Func<IEnumerable<TRuleType>, Architecture, IEnumerable<TRuleType>> predicate,
-            string description)
+        public SimplePredicate(Func<TRuleType, bool> predicate, string description)
         {
             _predicate = predicate;
             Description = description;
@@ -26,7 +19,7 @@ namespace ArchUnitNET.Fluent
 
         public IEnumerable<TRuleType> GetMatchingObjects(IEnumerable<TRuleType> objects, Architecture architecture)
         {
-            return _predicate(objects, architecture);
+            return objects.Where(_predicate);
         }
 
         public override string ToString()
@@ -34,7 +27,7 @@ namespace ArchUnitNET.Fluent
             return Description;
         }
 
-        private bool Equals(ArchitecturePredicate<TRuleType> other)
+        private bool Equals(SimplePredicate<TRuleType> other)
         {
             return Description == other.Description;
         }
@@ -51,7 +44,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ArchitecturePredicate<TRuleType>) obj);
+            return obj.GetType() == GetType() && Equals((SimplePredicate<TRuleType>) obj);
         }
 
         public override int GetHashCode()

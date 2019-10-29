@@ -2,7 +2,7 @@
 using System.Linq;
 using ArchUnitNET.Domain;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Conditions
 {
     public class ExistsCondition<TRuleType> : ICondition<TRuleType> where TRuleType : ICanBeAnalyzed
     {

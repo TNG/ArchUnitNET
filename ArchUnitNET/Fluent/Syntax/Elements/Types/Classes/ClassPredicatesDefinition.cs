@@ -1,4 +1,5 @@
 ﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {

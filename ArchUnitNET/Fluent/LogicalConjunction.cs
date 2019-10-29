@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ArchUnitNET.Fluent.Syntax
+namespace ArchUnitNET.Fluent
 {
     public abstract class LogicalConjunction : IHasDescription
     {

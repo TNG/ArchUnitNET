@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Fluent.Predicates;
 using ArchUnitNET.Fluent.Syntax;
 using JetBrains.Annotations;
 
@@ -282,6 +284,18 @@ namespace ArchUnitNET.Fluent
                     hashCode = (hashCode * 397) ^ (_reason != null ? _reason.GetHashCode() : 0);
                     return hashCode;
                 }
+            }
+        }
+
+        private class ConditionElementResult
+        {
+            public readonly ConditionResult ConditionResult;
+            public readonly LogicalConjunction LogicalConjunction;
+
+            public ConditionElementResult(ConditionResult conditionResult, LogicalConjunction logicalConjunction)
+            {
+                ConditionResult = conditionResult;
+                LogicalConjunction = logicalConjunction;
             }
         }
     }

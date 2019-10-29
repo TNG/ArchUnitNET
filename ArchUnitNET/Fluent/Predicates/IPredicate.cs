@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ArchUnitNET.Domain;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Fluent.Predicates
 {
     public interface IPredicate<TRuleType> : IHasDescription where TRuleType : ICanBeAnalyzed
     {
