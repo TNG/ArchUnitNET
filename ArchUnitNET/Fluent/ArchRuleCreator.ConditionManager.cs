@@ -5,7 +5,6 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Fluent.Predicates;
-using ArchUnitNET.Fluent.Syntax;
 using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent

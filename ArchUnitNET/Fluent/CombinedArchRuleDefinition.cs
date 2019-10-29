@@ -1,5 +1,4 @@
 ﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Syntax;
 using ArchUnitNET.Fluent.Syntax.Elements.Members;
 using ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers;
 using ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers;

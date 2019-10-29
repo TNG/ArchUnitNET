@@ -8,13 +8,15 @@ namespace ArchUnitNET.Fluent.Conditions
     {
         private readonly Func<IEnumerable<TRuleType>, IEnumerable<ConditionResult>> _condition;
 
-        public EnumerableCondition(Func<IEnumerable<TRuleType>, IEnumerable<ConditionResult>> condition, string description)
+        public EnumerableCondition(Func<IEnumerable<TRuleType>, IEnumerable<ConditionResult>> condition,
+            string description)
         {
             _condition = condition;
             Description = description;
         }
 
         public string Description { get; }
+
         public IEnumerable<ConditionResult> Check(IEnumerable<TRuleType> objects, Architecture architecture)
         {
             return _condition(objects);

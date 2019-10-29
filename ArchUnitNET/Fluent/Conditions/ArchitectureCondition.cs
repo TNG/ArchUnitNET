@@ -23,7 +23,8 @@ namespace ArchUnitNET.Fluent.Conditions
             Description = description;
         }
 
-        public ArchitectureCondition(Func<IEnumerable<TRuleType>, Architecture, IEnumerable<ConditionResult>> condition, string description)
+        public ArchitectureCondition(Func<IEnumerable<TRuleType>, Architecture, IEnumerable<ConditionResult>> condition,
+            string description)
         {
             _condition = condition;
             Description = description;

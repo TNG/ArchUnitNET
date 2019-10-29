@@ -4,7 +4,6 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Fluent.Predicates;
-using ArchUnitNET.Fluent.Syntax;
 using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent

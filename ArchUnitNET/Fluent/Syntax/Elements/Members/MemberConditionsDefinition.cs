@@ -65,7 +65,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
                 var methodList = methods.ToList();
-                var passedObjects = methodList.Where(method=>typeList.Contains(method.DeclaringType)).ToList();
+                var passedObjects = methodList.Where(method => typeList.Contains(method.DeclaringType)).ToList();
                 foreach (var failedObject in methodList.Except(passedObjects))
                 {
                     var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
@@ -89,7 +89,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods)
             {
                 var methodList = methods.ToList();
-                var passedObjects = methodList.Where(method=>typeList.Contains(method.DeclaringType)).ToList();
+                var passedObjects = methodList.Where(method => typeList.Contains(method.DeclaringType)).ToList();
                 foreach (var failedObject in methodList.Except(passedObjects))
                 {
                     var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
@@ -122,11 +122,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             var typeList = types.ToList();
 
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods,Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods, Architecture architecture)
             {
                 var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 var methodList = methods.ToList();
-                var passedObjects = methodList.Where(method=>iTypeList.Contains(method.DeclaringType)).ToList();
+                var passedObjects = methodList.Where(method => iTypeList.Contains(method.DeclaringType)).ToList();
                 foreach (var failedObject in methodList.Except(passedObjects))
                 {
                     var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
@@ -215,7 +215,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
                 var methodList = methods.ToList();
-                var failedObjects = methodList.Where(method=>typeList.Contains(method.DeclaringType)).ToList();
+                var failedObjects = methodList.Where(method => typeList.Contains(method.DeclaringType)).ToList();
                 foreach (var failedObject in failedObjects)
                 {
                     var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
@@ -239,7 +239,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods)
             {
                 var methodList = methods.ToList();
-                var failedObjects = methodList.Where(method=>typeList.Contains(method.DeclaringType)).ToList();
+                var failedObjects = methodList.Where(method => typeList.Contains(method.DeclaringType)).ToList();
                 foreach (var failedObject in failedObjects)
                 {
                     var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
@@ -272,11 +272,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             var typeList = types.ToList();
 
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods,Architecture architecture)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods, Architecture architecture)
             {
                 var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 var methodList = methods.ToList();
-                var failedObjects = methodList.Where(method=>iTypeList.Contains(method.DeclaringType)).ToList();
+                var failedObjects = methodList.Where(method => iTypeList.Contains(method.DeclaringType)).ToList();
                 foreach (var failedObject in failedObjects)
                 {
                     var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
