@@ -20,11 +20,12 @@ namespace ArchUnitNET.Fluent
         void AddConditionReason(string reason);
         void AddPredicateReason(string reason);
 
-        void BeginComplexCondition<TReferenceType>(RelationCondition<TRuleType, TReferenceType> relationCondition)
-            where TReferenceType : ICanBeAnalyzed;
+        void BeginComplexCondition<TRelatedType>(IObjectProvider<TRelatedType> relatedObjects,
+            RelationCondition<TRuleType, TRelatedType> relationCondition)
+            where TRelatedType : ICanBeAnalyzed;
 
-        void ContinueComplexCondition<TReferenceType>(IPredicate<TReferenceType> predicate)
-            where TReferenceType : ICanBeAnalyzed;
+        void ContinueComplexCondition<TRelatedType>(IPredicate<TRelatedType> predicate)
+            where TRelatedType : ICanBeAnalyzed;
 
         IEnumerable<TRuleType> GetAnalyzedObjects(Architecture architecture);
 

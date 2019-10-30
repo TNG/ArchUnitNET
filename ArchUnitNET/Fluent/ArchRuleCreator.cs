@@ -65,15 +65,15 @@ namespace ArchUnitNET.Fluent
             _predicateManager.AddReason(reason);
         }
 
-        public void BeginComplexCondition<TReferenceType>(
-            RelationCondition<TRuleType, TReferenceType> relationCondition)
-            where TReferenceType : ICanBeAnalyzed
+        public void BeginComplexCondition<TRelatedType>(IObjectProvider<TRelatedType> relatedObjects,
+            RelationCondition<TRuleType, TRelatedType> relationCondition)
+            where TRelatedType : ICanBeAnalyzed
         {
-            _conditionManager.BeginComplexCondition(relationCondition);
+            _conditionManager.BeginComplexCondition(relatedObjects, relationCondition);
         }
 
-        public void ContinueComplexCondition<TReferenceType>(IPredicate<TReferenceType> predicate)
-            where TReferenceType : ICanBeAnalyzed
+        public void ContinueComplexCondition<TRelatedType>(IPredicate<TRelatedType> predicate)
+            where TRelatedType : ICanBeAnalyzed
         {
             _conditionManager.ContinueComplexCondition(predicate);
         }

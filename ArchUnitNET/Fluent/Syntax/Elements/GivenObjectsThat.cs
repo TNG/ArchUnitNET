@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -167,6 +168,100 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction OnlyDependOn(IEnumerable<Type> types)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.OnlyDependOn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveAnyAttributes(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(pattern, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveAnyAttributes(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(patterns, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(firstAttribute, moreAttributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveAnyAttributes(Attribute firstAttribute, params Attribute[] moreAttributes)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(firstAttribute, moreAttributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveAnyAttributes(IObjectProvider<Attribute> attributes)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(attributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveAnyAttributes(IEnumerable<Attribute> attributes)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(attributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveAnyAttributes(IEnumerable<Type> attributes)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(attributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyHaveAttributes(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.OnlyHaveAttributes(pattern, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyHaveAttributes(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.OnlyHaveAttributes(patterns, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyHaveAttributes(Type firstAttribute, params Type[] moreAttributes)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.OnlyHaveAttributes(firstAttribute, moreAttributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyHaveAttributes(Attribute firstAttribute, params Attribute[] moreAttributes)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.OnlyHaveAttributes(firstAttribute, moreAttributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyHaveAttributes(IObjectProvider<Attribute> attributes)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.OnlyHaveAttributes(attributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyHaveAttributes(IEnumerable<Attribute> attributes)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.OnlyHaveAttributes(attributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction OnlyHaveAttributes(IEnumerable<Type> attributes)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.OnlyHaveAttributes(attributes));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -365,6 +460,54 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction DoNotDependOnAny(IEnumerable<Type> types)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotDependOnAny(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributes(pattern, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributes(patterns, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributes(firstAttribute, moreAttributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(Attribute firstAttribute,
+            params Attribute[] moreAttributes)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributes(firstAttribute, moreAttributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(IObjectProvider<Attribute> attributes)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributes(attributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(IEnumerable<Attribute> attributes)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributes(attributes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(IEnumerable<Type> attributes)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributes(attributes));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

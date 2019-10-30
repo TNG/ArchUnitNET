@@ -10,15 +10,18 @@ using ArchUnitNET.Fluent.Predicates;
 
 namespace ArchUnitNET.Fluent.Conditions
 {
-    public class ComplexCondition<TRuleType, TReferenceType> : ICondition<TRuleType>
-        where TRuleType : ICanBeAnalyzed where TReferenceType : ICanBeAnalyzed
+    public class ComplexCondition<TRuleType, TRelatedType> : ICondition<TRuleType>
+        where TRuleType : ICanBeAnalyzed where TRelatedType : ICanBeAnalyzed
     {
-        private readonly IPredicate<TReferenceType> _predicate;
-        private readonly RelationCondition<TRuleType, TReferenceType> _relation;
+        private readonly IPredicate<TRelatedType> _predicate;
+        private readonly IObjectProvider<TRelatedType> _relatedTypes;
+        private readonly RelationCondition<TRuleType, TRelatedType> _relation;
 
-        public ComplexCondition(RelationCondition<TRuleType, TReferenceType> relation,
-            IPredicate<TReferenceType> predicate)
+        public ComplexCondition(IObjectProvider<TRelatedType> relatedTypes,
+            RelationCondition<TRuleType, TRelatedType> relation,
+            IPredicate<TRelatedType> predicate)
         {
+            _relatedTypes = relatedTypes;
             _relation = relation;
             _predicate = predicate;
         }
@@ -27,7 +30,9 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public IEnumerable<ConditionResult> Check(IEnumerable<TRuleType> objects, Architecture architecture)
         {
-            return _relation.CheckRelation(objects, _predicate, architecture);
+            return _relation
+                .GetCondition(_predicate.GetMatchingObjects(_relatedTypes.GetObjects(architecture), architecture))
+                .Check(objects, architecture);
         }
 
         public bool CheckEmpty()
@@ -40,7 +45,7 @@ namespace ArchUnitNET.Fluent.Conditions
             return Description;
         }
 
-        private bool Equals(ComplexCondition<TRuleType, TReferenceType> other)
+        private bool Equals(ComplexCondition<TRuleType, TRelatedType> other)
         {
             return Equals(_predicate, other._predicate) && Equals(_relation, other._relation);
         }
@@ -57,7 +62,7 @@ namespace ArchUnitNET.Fluent.Conditions
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ComplexCondition<TRuleType, TReferenceType>) obj);
+            return obj.GetType() == GetType() && Equals((ComplexCondition<TRuleType, TRelatedType>) obj);
         }
 
         public override int GetHashCode()

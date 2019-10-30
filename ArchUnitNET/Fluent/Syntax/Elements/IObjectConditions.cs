@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -37,6 +38,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType OnlyDependOn(IObjectProvider<IType> types);
         TReturnType OnlyDependOn(IEnumerable<IType> types);
         TReturnType OnlyDependOn(IEnumerable<Type> types);
+        TReturnType HaveAnyAttributes(string pattern, bool useRegularExpressions = false);
+        TReturnType HaveAnyAttributes(IEnumerable<string> patterns, bool useRegularExpressions = false);
+        TReturnType HaveAnyAttributes(Attribute firstAttribute, params Attribute[] moreAttributes);
+        TReturnType HaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes);
+        TReturnType HaveAnyAttributes(IObjectProvider<Attribute> attributes);
+        TReturnType HaveAnyAttributes(IEnumerable<Attribute> attributes);
+        TReturnType HaveAnyAttributes(IEnumerable<Type> attributes);
+        TReturnType OnlyHaveAttributes(string pattern, bool useRegularExpressions = false);
+        TReturnType OnlyHaveAttributes(IEnumerable<string> patterns, bool useRegularExpressions = false);
+        TReturnType OnlyHaveAttributes(Attribute firstAttribute, params Attribute[] moreAttributes);
+        TReturnType OnlyHaveAttributes(Type firstAttribute, params Type[] moreAttributes);
+        TReturnType OnlyHaveAttributes(IObjectProvider<Attribute> attributes);
+        TReturnType OnlyHaveAttributes(IEnumerable<Attribute> attributes);
+        TReturnType OnlyHaveAttributes(IEnumerable<Type> attributes);
         TReturnType HaveName(string name);
         TReturnType HaveNameMatching(string pattern);
         TReturnType HaveFullName(string fullname);
@@ -74,6 +89,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType NotDependOnAny(IObjectProvider<IType> types);
         TReturnType NotDependOnAny(IEnumerable<IType> types);
         TReturnType NotDependOnAny(IEnumerable<Type> types);
+        TReturnType NotHaveAnyAttributes(string pattern, bool useRegularExpressions = false);
+        TReturnType NotHaveAnyAttributes(IEnumerable<string> patterns, bool useRegularExpressions = false);
+        TReturnType NotHaveAnyAttributes(Attribute firstAttribute, params Attribute[] moreAttributes);
+        TReturnType NotHaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes);
+        TReturnType NotHaveAnyAttributes(IObjectProvider<Attribute> attributes);
+        TReturnType NotHaveAnyAttributes(IEnumerable<Attribute> attributes);
+        TReturnType NotHaveAnyAttributes(IEnumerable<Type> attributes);
         TReturnType NotHaveName(string name);
         TReturnType NotHaveNameMatching(string pattern);
         TReturnType NotHaveFullName(string fullname);

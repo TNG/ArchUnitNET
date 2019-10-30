@@ -11,6 +11,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Domain.Visibility;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -114,15 +115,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> CallAny(MethodMember method, params MethodMember[] moreMethods)
         {
-            IEnumerable<T> Filter(IEnumerable<T> objects)
-            {
-                var methods = moreMethods.Append(method);
-                return objects.Where(obj => obj.GetCalledMethods().Intersect(methods).Any());
-            }
-
-            var description = moreMethods.Aggregate("call \"" + method.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new EnumerablePredicate<T>(Filter, description);
+            var methods = new List<MethodMember> {method};
+            methods.AddRange(moreMethods);
+            return CallAny(methods);
         }
 
         public static IPredicate<T> CallAny(IObjectProvider<MethodMember> objectProvider)
@@ -198,28 +193,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DependOnAny(IType firstType, params IType[] moreTypes)
         {
-            IEnumerable<T> Filter(IEnumerable<T> objects)
-            {
-                var types = moreTypes.Append(firstType);
-                return objects.Where(obj => obj.GetTypeDependencies().Intersect(types).Any());
-            }
-
-            var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new EnumerablePredicate<T>(Filter, description);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return DependOnAny(types);
         }
 
         public static IPredicate<T> DependOnAny(Type firstType, params Type[] moreTypes)
         {
-            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
-            {
-                var types = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
-                return objects.Where(obj => obj.GetTypeDependencies().Intersect(types).Any());
-            }
-
-            var description = moreTypes.Aggregate("depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitecturePredicate<T>(Filter, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return DependOnAny(types);
         }
 
         public static IPredicate<T> DependOnAny(IObjectProvider<IType> objectProvider)
@@ -321,28 +304,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
-            IEnumerable<T> Filter(IEnumerable<T> objects)
-            {
-                var typeList = moreTypes.Append(firstType);
-                return objects.Where(obj => obj.GetTypeDependencies().Except(typeList).IsNullOrEmpty());
-            }
-
-            var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new EnumerablePredicate<T>(Filter, description);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return OnlyDependOn(types);
         }
 
         public static IPredicate<T> OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
-            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
-            {
-                var typeList = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
-                return objects.Where(obj => obj.GetTypeDependencies().Except(typeList).IsNullOrEmpty());
-            }
-
-            var description = moreTypes.Aggregate("only depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitecturePredicate<T>(Filter, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return OnlyDependOn(types);
         }
 
         public static IPredicate<T> OnlyDependOn(IObjectProvider<IType> objectProvider)
@@ -402,6 +373,228 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 var firstType = typeList.First();
                 description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
                     "only depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new ArchitecturePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> HaveAnyAttributes(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimplePredicate<T>(obj => obj.HasAttribute(pattern, useRegularExpressions),
+                "have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                pattern + "\"");
+        }
+
+        public static IPredicate<T> HaveAnyAttributes(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+
+            bool Filter(T type)
+            {
+                return type.Attributes.Any(attribute =>
+                    patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "have one of no attributes (impossible)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> HaveAnyAttributes(Attribute firstAttribute, params Attribute[] moreAttributes)
+        {
+            var attributes = new List<Attribute> {firstAttribute};
+            attributes.AddRange(moreAttributes);
+            return HaveAnyAttributes(attributes);
+        }
+
+        public static IPredicate<T> HaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes)
+        {
+            var attributes = new List<Type> {firstAttribute};
+            attributes.AddRange(moreAttributes);
+            return HaveAnyAttributes(attributes);
+        }
+
+        public static IPredicate<T> HaveAnyAttributes(IObjectProvider<Attribute> objectProvider)
+        {
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
+            {
+                var attributes = objectProvider.GetObjects(architecture);
+                return objects.Where(obj => obj.Attributes.Intersect(attributes).Any());
+            }
+
+            var description = "have any " + objectProvider.Description;
+            return new ArchitecturePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> HaveAnyAttributes(IEnumerable<Attribute> attributes)
+        {
+            var attributeList = attributes.ToList();
+
+            IEnumerable<T> Filter(IEnumerable<T> objects)
+            {
+                return objects.Where(obj => obj.Attributes.Intersect(attributeList).Any());
+            }
+
+            string description;
+            if (attributeList.IsNullOrEmpty())
+            {
+                description = "have one of no attributes (impossible)";
+            }
+            else
+            {
+                var firstAttribute = attributeList.First();
+                description = attributeList.Where(obj => !obj.Equals(firstAttribute)).Distinct().Aggregate(
+                    "have attribute \"" + firstAttribute.FullName + "\"",
+                    (current, attribute) => current + " or \"" + attribute.FullName + "\"");
+            }
+
+            return new EnumerablePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> HaveAnyAttributes(IEnumerable<Type> attributes)
+        {
+            var attributeList = attributes.ToList();
+
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
+            {
+                var archAttributeList = attributeList.Select(architecture.GetAttributeOfType);
+                return objects.Where(obj => obj.Attributes.Intersect(archAttributeList).Any());
+            }
+
+            string description;
+            if (attributeList.IsNullOrEmpty())
+            {
+                description = "have one of no attributes (impossible)";
+            }
+            else
+            {
+                var firstType = attributeList.First();
+                description = attributeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "have attribute \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new ArchitecturePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> OnlyHaveAttributes(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimplePredicate<T>(obj => obj.OnlyHasAttributes(pattern, useRegularExpressions),
+                "only have attributes with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                pattern + "\"");
+        }
+
+        public static IPredicate<T> OnlyHaveAttributes(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+
+            bool Filter(T type)
+            {
+                return type.Attributes.IsNullOrEmpty() || type.Attributes.All(attribute =>
+                           patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "have no attributes";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "only have attributes with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> OnlyHaveAttributes(Attribute firstAttribute, params Attribute[] moreAttributes)
+        {
+            var attributes = new List<Attribute> {firstAttribute};
+            attributes.AddRange(moreAttributes);
+            return OnlyHaveAttributes(attributes);
+        }
+
+        public static IPredicate<T> OnlyHaveAttributes(Type firstAttribute, params Type[] moreAttributes)
+        {
+            var attributes = new List<Type> {firstAttribute};
+            attributes.AddRange(moreAttributes);
+            return OnlyHaveAttributes(attributes);
+        }
+
+        public static IPredicate<T> OnlyHaveAttributes(IObjectProvider<Attribute> objectProvider)
+        {
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
+            {
+                var attributes = objectProvider.GetObjects(architecture);
+                return objects.Where(obj => !obj.Attributes.Except(attributes).Any());
+            }
+
+            var description = "only have " + objectProvider.Description;
+            return new ArchitecturePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> OnlyHaveAttributes(IEnumerable<Attribute> attributes)
+        {
+            var attributeList = attributes.ToList();
+
+            IEnumerable<T> Filter(IEnumerable<T> objects)
+            {
+                return objects.Where(obj => !obj.Attributes.Except(attributeList).Any());
+            }
+
+            string description;
+            if (attributeList.IsNullOrEmpty())
+            {
+                description = "have no attributes";
+            }
+            else
+            {
+                var firstAttribute = attributeList.First();
+                description = attributeList.Where(obj => !obj.Equals(firstAttribute)).Distinct().Aggregate(
+                    "only have attribute \"" + firstAttribute.FullName + "\"",
+                    (current, attribute) => current + " or \"" + attribute.FullName + "\"");
+            }
+
+            return new EnumerablePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> OnlyHaveAttributes(IEnumerable<Type> attributes)
+        {
+            var attributeList = attributes.ToList();
+
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
+            {
+                var archAttributeList = attributeList.Select(architecture.GetAttributeOfType);
+                return objects.Where(obj => !obj.Attributes.Except(archAttributeList).Any());
+            }
+
+            string description;
+            if (attributeList.IsNullOrEmpty())
+            {
+                description = "have no attributes";
+            }
+            else
+            {
+                var firstType = attributeList.First();
+                description = attributeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "only have attribute \"" + firstType.FullName + "\"",
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
@@ -585,15 +778,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotCallAny(MethodMember method, params MethodMember[] moreMethods)
         {
-            IEnumerable<T> Filter(IEnumerable<T> objects)
-            {
-                var methods = moreMethods.Append(method);
-                return objects.Where(obj => !obj.GetCalledMethods().Intersect(methods).Any());
-            }
-
-            var description = moreMethods.Aggregate("do not call \"" + method.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new EnumerablePredicate<T>(Filter, description);
+            var methods = new List<MethodMember> {method};
+            methods.AddRange(moreMethods);
+            return DoNotCallAny(methods);
         }
 
         public static IPredicate<T> DoNotCallAny(IObjectProvider<MethodMember> objectProvider)
@@ -669,28 +856,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotDependOnAny(IType firstType, params IType[] moreTypes)
         {
-            IEnumerable<T> Filter(IEnumerable<T> objects)
-            {
-                var types = moreTypes.Append(firstType);
-                return objects.Where(obj => !obj.GetTypeDependencies().Intersect(types).Any());
-            }
-
-            var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new EnumerablePredicate<T>(Filter, description);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return DoNotDependOnAny(types);
         }
 
         public static IPredicate<T> DoNotDependOnAny(Type firstType, params Type[] moreTypes)
         {
-            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
-            {
-                var types = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
-                return objects.Where(obj => !obj.GetTypeDependencies().Intersect(types).Any());
-            }
-
-            var description = moreTypes.Aggregate("do not depend on \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitecturePredicate<T>(Filter, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return DoNotDependOnAny(types);
         }
 
         public static IPredicate<T> DoNotDependOnAny(IObjectProvider<IType> objectProvider)
@@ -750,6 +925,119 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 var firstType = typeList.First();
                 description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
                     "do not depend on \"" + firstType.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
+            return new ArchitecturePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> DoNotHaveAnyAttributes(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimplePredicate<T>(obj => !obj.HasAttribute(pattern, useRegularExpressions),
+                "do not have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") +
+                " \"" +
+                pattern + "\"");
+        }
+
+        public static IPredicate<T> DoNotHaveAnyAttributes(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+
+            bool Filter(T type)
+            {
+                return !type.Attributes.Any(attribute =>
+                    patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "do not have one of no attributes (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "do not have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" +
+                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> DoNotHaveAnyAttributes(Attribute firstAttribute, params Attribute[] moreAttributes)
+        {
+            var attributes = new List<Attribute> {firstAttribute};
+            attributes.AddRange(moreAttributes);
+            return DoNotHaveAnyAttributes(attributes);
+        }
+
+        public static IPredicate<T> DoNotHaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes)
+        {
+            var attributes = new List<Type> {firstAttribute};
+            attributes.AddRange(moreAttributes);
+            return DoNotHaveAnyAttributes(attributes);
+        }
+
+        public static IPredicate<T> DoNotHaveAnyAttributes(IObjectProvider<Attribute> objectProvider)
+        {
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
+            {
+                var types = objectProvider.GetObjects(architecture);
+                return objects.Where(obj => !obj.Attributes.Intersect(types).Any());
+            }
+
+            var description = "do not have any " + objectProvider.Description;
+            return new ArchitecturePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> DoNotHaveAnyAttributes(IEnumerable<Attribute> attributes)
+        {
+            var attributeList = attributes.ToList();
+
+            IEnumerable<T> Filter(IEnumerable<T> objects)
+            {
+                return objects.Where(obj => !obj.Attributes.Intersect(attributeList).Any());
+            }
+
+            string description;
+            if (attributeList.IsNullOrEmpty())
+            {
+                description = "do not have one of no attributes (always true)";
+            }
+            else
+            {
+                var firstAttribute = attributeList.First();
+                description = attributeList.Where(obj => !obj.Equals(firstAttribute)).Distinct().Aggregate(
+                    "do not have attribute \"" + firstAttribute.FullName + "\"",
+                    (current, attribute) => current + " or \"" + attribute.FullName + "\"");
+            }
+
+            return new EnumerablePredicate<T>(Filter, description);
+        }
+
+        public static IPredicate<T> DoNotHaveAnyAttributes(IEnumerable<Type> attributes)
+        {
+            var attributeList = attributes.ToList();
+
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
+            {
+                var archAttributeList = attributeList.Select(architecture.GetAttributeOfType);
+                return objects.Where(obj => !obj.Attributes.Intersect(archAttributeList).Any());
+            }
+
+            string description;
+            if (attributeList.IsNullOrEmpty())
+            {
+                description = "do not have one of no attributes (always true)";
+            }
+            else
+            {
+                var firstType = attributeList.First();
+                description = attributeList.Where(obj => obj != firstType).Distinct().Aggregate(
+                    "do not have attribute \"" + firstType.FullName + "\"",
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 

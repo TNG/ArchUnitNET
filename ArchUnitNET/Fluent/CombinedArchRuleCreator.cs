@@ -71,14 +71,14 @@ namespace ArchUnitNET.Fluent
             _currentArchRuleCreator.AddPredicateReason(reason);
         }
 
-        public void BeginComplexCondition<TReferenceType>(
-            RelationCondition<TRuleType, TReferenceType> relationCondition) where TReferenceType : ICanBeAnalyzed
+        public void BeginComplexCondition<TRelatedType>(IObjectProvider<TRelatedType> relatedObjects,
+            RelationCondition<TRuleType, TRelatedType> relationCondition) where TRelatedType : ICanBeAnalyzed
         {
-            _currentArchRuleCreator.BeginComplexCondition(relationCondition);
+            _currentArchRuleCreator.BeginComplexCondition(relatedObjects, relationCondition);
         }
 
-        public void ContinueComplexCondition<TReferenceType>(IPredicate<TReferenceType> predicate)
-            where TReferenceType : ICanBeAnalyzed
+        public void ContinueComplexCondition<TRelatedType>(IPredicate<TRelatedType> predicate)
+            where TRelatedType : ICanBeAnalyzed
         {
             _currentArchRuleCreator.ContinueComplexCondition(predicate);
         }

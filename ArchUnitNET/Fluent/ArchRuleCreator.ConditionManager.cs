@@ -21,6 +21,7 @@ namespace ArchUnitNET.Fluent
         {
             private readonly List<ConditionElement<T>> _conditionElements;
             private Type _referenceTypeTemp;
+            private object _relatedObjectsTemp;
             private object _relationConditionTemp;
 
             public ConditionManager()
@@ -34,21 +35,23 @@ namespace ArchUnitNET.Fluent
             public string Description => _conditionElements
                 .Aggregate("", (current, conditionElement) => current + " " + conditionElement.Description).Trim();
 
-            public void BeginComplexCondition<TReferenceType>(RelationCondition<T, TReferenceType> relationCondition)
-                where TReferenceType : ICanBeAnalyzed
+            public void BeginComplexCondition<TRelatedType>(IObjectProvider<TRelatedType> relatedObjects,
+                RelationCondition<T, TRelatedType> relationCondition)
+                where TRelatedType : ICanBeAnalyzed
             {
+                _relatedObjectsTemp = relatedObjects;
                 _relationConditionTemp = relationCondition;
-                _referenceTypeTemp = typeof(TReferenceType);
+                _referenceTypeTemp = typeof(TRelatedType);
             }
 
-            public void ContinueComplexCondition<TReferenceType>(IPredicate<TReferenceType> filter)
-                where TReferenceType : ICanBeAnalyzed
+            public void ContinueComplexCondition<TRelatedType>(IPredicate<TRelatedType> filter)
+                where TRelatedType : ICanBeAnalyzed
             {
-                if (typeof(TReferenceType) == _referenceTypeTemp)
+                if (typeof(TRelatedType) == _referenceTypeTemp)
                 {
                     AddCondition(
-                        new ComplexCondition<T, TReferenceType>(
-                            (RelationCondition<T, TReferenceType>) _relationConditionTemp, filter));
+                        new ComplexCondition<T, TRelatedType>((IObjectProvider<TRelatedType>) _relatedObjectsTemp,
+                            (RelationCondition<T, TRelatedType>) _relationConditionTemp, filter));
                 }
                 else
                 {
@@ -181,128 +184,128 @@ namespace ArchUnitNET.Fluent
             }
 
 #pragma warning disable 693
-            private class ConditionElement<T> : IHasDescription where T : ICanBeAnalyzed
+        private class ConditionElement<T> : IHasDescription where T : ICanBeAnalyzed
+        {
+            private readonly LogicalConjunction _logicalConjunction;
+            private ICondition<T> _condition;
+            [CanBeNull] private string _customDescription;
+            private string _reason;
+
+            public ConditionElement(LogicalConjunction logicalConjunction)
             {
-                private readonly LogicalConjunction _logicalConjunction;
-                private ICondition<T> _condition;
-                [CanBeNull] private string _customDescription;
-                private string _reason;
-
-                public ConditionElement(LogicalConjunction logicalConjunction)
-                {
-                    _condition = null;
-                    _logicalConjunction = logicalConjunction;
-                    _reason = "";
-                }
-
-                public string Description => _customDescription ?? (_condition == null
-                                                 ? ""
-                                                 : (_logicalConjunction.Description + " should " +
-                                                    _condition.GetShortDescription() + " " + _reason).Trim());
-
-                public void AddReason(string reason)
-                {
-                    if (_condition == null)
-                    {
-                        throw new InvalidOperationException(
-                            "Can't add a reason to a ConditionElement before the condition is set.");
-                    }
-
-                    if (_reason != "")
-                    {
-                        throw new InvalidOperationException(
-                            "Can't add a reason to a ConditionElement which already has a reason.");
-                    }
-
-                    _reason = "because " + reason;
-                }
-
-                public void SetCondition(ICondition<T> condition)
-                {
-                    _condition = condition;
-                }
-
-                public void SetCustomDescription(string description)
-                {
-                    _customDescription = description;
-                }
-
-                public IEnumerable<ConditionElementResult> Check(IEnumerable<T> objects, Architecture architecture)
-                {
-                    if (_condition == null)
-                    {
-                        throw new InvalidOperationException(
-                            "Can't check a ConditionElement before the condition is set.");
-                    }
-
-                    return _condition.Check(objects, architecture)
-                        .Select(result => new ConditionElementResult(result, _logicalConjunction));
-                }
-
-                public bool CheckEmpty(bool currentResult)
-                {
-                    if (_condition == null)
-                    {
-                        throw new InvalidOperationException(
-                            "Can't check a ConditionElement before the condition is set.");
-                    }
-
-                    return _logicalConjunction.Evaluate(currentResult, _condition.CheckEmpty());
-                }
-
-                public override string ToString()
-                {
-                    return Description;
-                }
-
-                public override bool Equals(object obj)
-                {
-                    if (ReferenceEquals(null, obj))
-                    {
-                        return false;
-                    }
-
-                    if (ReferenceEquals(this, obj))
-                    {
-                        return true;
-                    }
-
-                    return obj.GetType() == GetType() && Equals((ConditionElement<T>) obj);
-                }
-
-                private bool Equals(ConditionElement<T> other)
-                {
-                    return Equals(_logicalConjunction, other._logicalConjunction) &&
-                           Equals(_condition, other._condition) &&
-                           _customDescription == other._customDescription &&
-                           _reason == other._reason;
-                }
-
-                public override int GetHashCode()
-                {
-                    unchecked
-                    {
-                        var hashCode = _logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0;
-                        hashCode = (hashCode * 397) ^ (_condition != null ? _condition.GetHashCode() : 0);
-                        hashCode = (hashCode * 397) ^
-                                   (_customDescription != null ? _customDescription.GetHashCode() : 0);
-                        hashCode = (hashCode * 397) ^ (_reason != null ? _reason.GetHashCode() : 0);
-                        return hashCode;
-                    }
-                }
+                _condition = null;
+                _logicalConjunction = logicalConjunction;
+                _reason = "";
             }
 
-            private class ConditionElementResult
-            {
-                public readonly ConditionResult ConditionResult;
-                public readonly LogicalConjunction LogicalConjunction;
+            public string Description => _customDescription ?? (_condition == null
+                                             ? ""
+                                             : (_logicalConjunction.Description + " should " +
+                                                _condition.GetShortDescription() + " " + _reason).Trim());
 
-                public ConditionElementResult(ConditionResult conditionResult, LogicalConjunction logicalConjunction)
+            public void AddReason(string reason)
+            {
+                if (_condition == null)
                 {
-                    ConditionResult = conditionResult;
-                    LogicalConjunction = logicalConjunction;
+                    throw new InvalidOperationException(
+                        "Can't add a reason to a ConditionElement before the condition is set.");
+                }
+
+                if (_reason != "")
+                {
+                    throw new InvalidOperationException(
+                        "Can't add a reason to a ConditionElement which already has a reason.");
+                }
+
+                _reason = "because " + reason;
+            }
+
+            public void SetCondition(ICondition<T> condition)
+            {
+                _condition = condition;
+            }
+
+            public void SetCustomDescription(string description)
+            {
+                _customDescription = description;
+            }
+
+            public IEnumerable<ConditionElementResult> Check(IEnumerable<T> objects, Architecture architecture)
+            {
+                if (_condition == null)
+                {
+                    throw new InvalidOperationException(
+                        "Can't check a ConditionElement before the condition is set.");
+                }
+
+                return _condition.Check(objects, architecture)
+                    .Select(result => new ConditionElementResult(result, _logicalConjunction));
+            }
+
+            public bool CheckEmpty(bool currentResult)
+            {
+                if (_condition == null)
+                {
+                    throw new InvalidOperationException(
+                        "Can't check a ConditionElement before the condition is set.");
+                }
+
+                return _logicalConjunction.Evaluate(currentResult, _condition.CheckEmpty());
+            }
+
+            public override string ToString()
+            {
+                return Description;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType() && Equals((ConditionElement<T>) obj);
+            }
+
+            private bool Equals(ConditionElement<T> other)
+            {
+                return Equals(_logicalConjunction, other._logicalConjunction) &&
+                       Equals(_condition, other._condition) &&
+                       _customDescription == other._customDescription &&
+                       _reason == other._reason;
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = _logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0;
+                    hashCode = (hashCode * 397) ^ (_condition != null ? _condition.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^
+                               (_customDescription != null ? _customDescription.GetHashCode() : 0);
+                    hashCode = (hashCode * 397) ^ (_reason != null ? _reason.GetHashCode() : 0);
+                    return hashCode;
                 }
             }
         }
+
+        private class ConditionElementResult
+        {
+            public readonly ConditionResult ConditionResult;
+            public readonly LogicalConjunction LogicalConjunction;
+
+            public ConditionElementResult(ConditionResult conditionResult, LogicalConjunction logicalConjunction)
+            {
+                ConditionResult = conditionResult;
+                LogicalConjunction = logicalConjunction;
+            }
+        }
+    }
     }
 }
