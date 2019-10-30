@@ -1,4 +1,10 @@
-﻿using System;
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -105,106 +111,106 @@ namespace ArchUnitNET.Fluent
             }
 
 #pragma warning disable 693
-        private class PredicateElement<T> : IHasDescription where T : ICanBeAnalyzed
-        {
-            private readonly LogicalConjunction _logicalConjunction;
-            [CanBeNull] private string _customDescription;
-            private IPredicate<T> _predicate;
-            private string _reason;
-
-            public PredicateElement(LogicalConjunction logicalConjunction, IPredicate<T> predicate = null)
+            private class PredicateElement<T> : IHasDescription where T : ICanBeAnalyzed
             {
-                _predicate = predicate;
-                _logicalConjunction = logicalConjunction;
-                _reason = "";
-            }
+                private readonly LogicalConjunction _logicalConjunction;
+                [CanBeNull] private string _customDescription;
+                private IPredicate<T> _predicate;
+                private string _reason;
 
-            public string Description => _customDescription ?? (_predicate == null
-                                             ? _logicalConjunction.Description
-                                             : (_logicalConjunction.Description + " " +
-                                                _predicate.GetShortDescription() + " " + _reason).Trim());
-
-            public void AddReason(string reason)
-            {
-                if (_predicate == null)
+                public PredicateElement(LogicalConjunction logicalConjunction, IPredicate<T> predicate = null)
                 {
-                    throw new InvalidOperationException(
-                        "Can't add a reason to a PredicateElement before the predicate is set.");
+                    _predicate = predicate;
+                    _logicalConjunction = logicalConjunction;
+                    _reason = "";
                 }
 
-                if (_reason != "")
+                public string Description => _customDescription ?? (_predicate == null
+                                                 ? _logicalConjunction.Description
+                                                 : (_logicalConjunction.Description + " " +
+                                                    _predicate.GetShortDescription() + " " + _reason).Trim());
+
+                public void AddReason(string reason)
                 {
-                    throw new InvalidOperationException(
-                        "Can't add a reason to a PredicateElement which already has a reason.");
+                    if (_predicate == null)
+                    {
+                        throw new InvalidOperationException(
+                            "Can't add a reason to a PredicateElement before the predicate is set.");
+                    }
+
+                    if (_reason != "")
+                    {
+                        throw new InvalidOperationException(
+                            "Can't add a reason to a PredicateElement which already has a reason.");
+                    }
+
+                    _reason = "because " + reason;
                 }
 
-                _reason = "because " + reason;
-            }
-
-            public void SetCustomDescription(string description)
-            {
-                _customDescription = description;
-            }
-
-            public void SetPredicate(IPredicate<T> predicate)
-            {
-                _predicate = predicate;
-            }
-
-            public IEnumerable<T> CheckPredicate(IEnumerable<T> currentObjects, IEnumerable<T> allObjects,
-                Architecture architecture)
-            {
-                if (_predicate == null)
+                public void SetCustomDescription(string description)
                 {
-                    throw new InvalidOperationException(
-                        "Can't check a PredicateElement before the predicate is set.");
+                    _customDescription = description;
                 }
 
-                return _logicalConjunction.Evaluate(currentObjects,
-                    _predicate.GetMatchingObjects(allObjects, architecture));
-            }
-
-            public override string ToString()
-            {
-                return Description;
-            }
-
-            private bool Equals(PredicateElement<T> other)
-            {
-                return Equals(_logicalConjunction, other._logicalConjunction) &&
-                       _customDescription == other._customDescription &&
-                       Equals(_predicate, other._predicate) &&
-                       _reason == other._reason;
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj))
+                public void SetPredicate(IPredicate<T> predicate)
                 {
-                    return false;
+                    _predicate = predicate;
                 }
 
-                if (ReferenceEquals(this, obj))
+                public IEnumerable<T> CheckPredicate(IEnumerable<T> currentObjects, IEnumerable<T> allObjects,
+                    Architecture architecture)
                 {
-                    return true;
+                    if (_predicate == null)
+                    {
+                        throw new InvalidOperationException(
+                            "Can't check a PredicateElement before the predicate is set.");
+                    }
+
+                    return _logicalConjunction.Evaluate(currentObjects,
+                        _predicate.GetMatchingObjects(allObjects, architecture));
                 }
 
-                return obj.GetType() == GetType() && Equals((PredicateElement<T>) obj);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
+                public override string ToString()
                 {
-                    var hashCode = _logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0;
-                    hashCode = (hashCode * 397) ^
-                               (_customDescription != null ? _customDescription.GetHashCode() : 0);
-                    hashCode = (hashCode * 397) ^ (_predicate != null ? _predicate.GetHashCode() : 0);
-                    hashCode = (hashCode * 397) ^ (_reason != null ? _reason.GetHashCode() : 0);
-                    return hashCode;
+                    return Description;
+                }
+
+                private bool Equals(PredicateElement<T> other)
+                {
+                    return Equals(_logicalConjunction, other._logicalConjunction) &&
+                           _customDescription == other._customDescription &&
+                           Equals(_predicate, other._predicate) &&
+                           _reason == other._reason;
+                }
+
+                public override bool Equals(object obj)
+                {
+                    if (ReferenceEquals(null, obj))
+                    {
+                        return false;
+                    }
+
+                    if (ReferenceEquals(this, obj))
+                    {
+                        return true;
+                    }
+
+                    return obj.GetType() == GetType() && Equals((PredicateElement<T>) obj);
+                }
+
+                public override int GetHashCode()
+                {
+                    unchecked
+                    {
+                        var hashCode = _logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0;
+                        hashCode = (hashCode * 397) ^
+                                   (_customDescription != null ? _customDescription.GetHashCode() : 0);
+                        hashCode = (hashCode * 397) ^ (_predicate != null ? _predicate.GetHashCode() : 0);
+                        hashCode = (hashCode * 397) ^ (_reason != null ? _reason.GetHashCode() : 0);
+                        return hashCode;
+                    }
                 }
             }
         }
-    }
     }
 }
