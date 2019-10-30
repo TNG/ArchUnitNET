@@ -19,6 +19,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction HavePrivateGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HavePrivateGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HavePublicGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HavePublicGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveProtectedGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HaveProtectedGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveInternalGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HaveInternalGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveProtectedInternalGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HaveProtectedInternalGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HavePrivateProtectedGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HavePrivateProtectedGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HaveSetter()
         {
             _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HaveSetter());
@@ -74,6 +110,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public TRuleTypeShouldConjunction HaveNoGetter()
         {
             _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HaveNoGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHavePrivateGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.DoNotHavePrivateGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHavePublicGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.DoNotHavePublicGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveProtectedGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.DoNotHaveProtectedGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveInternalGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.DoNotHaveInternalGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveProtectedInternalGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.DoNotHaveProtectedInternalGetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHavePrivateProtectedGetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedGetter());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

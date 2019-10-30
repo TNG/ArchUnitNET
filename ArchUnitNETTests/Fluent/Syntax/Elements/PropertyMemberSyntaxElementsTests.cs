@@ -64,13 +64,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var propertyMembersWithoutGetterDoNotIncludeMember =
                     PropertyMembers().That().HaveNoGetter().Should().NotBe(propertyMember).AndShould().Exist();
 
-                Assert.Equal(propertyMember.Visibility != NotAccessible,
+                Assert.Equal(propertyMember.GetterVisibility != NotAccessible,
                     propertyMemberHasGetter.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.Visibility == NotAccessible,
+                Assert.Equal(propertyMember.GetterVisibility == NotAccessible,
                     propertyMemberHasNoGetter.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.Visibility == NotAccessible,
+                Assert.Equal(propertyMember.GetterVisibility == NotAccessible,
                     propertyMembersWithGetterDoNotIncludeMember.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.Visibility != NotAccessible,
+                Assert.Equal(propertyMember.GetterVisibility != NotAccessible,
                     propertyMembersWithoutGetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
@@ -86,6 +86,46 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(propertyMembersWithGetterHaveNoGetter.HasNoViolations(Architecture));
             Assert.False(propertyMembersWithoutGetterHaveGetter.HasNoViolations(Architecture));
             Assert.True(propertyMembersWithoutGetterHaveNoGetter.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void HaveInternalGetterTest()
+        {
+            foreach (var propertyMember in _propertyMembers)
+            {
+                var propertyMemberHasInternalGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().HaveInternalGetter();
+                var propertyMemberDoesNotHaveInternalGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().NotHaveInternalGetter();
+                var propertyMembersWithInternalGetterDoNotIncludeMember =
+                    PropertyMembers().That().HaveInternalGetter().Should().NotBe(propertyMember).OrShould().NotExist();
+                var propertyMembersWithoutInternalGetterDoNotIncludeMember =
+                    PropertyMembers().That().DoNotHaveInternalGetter().Should().NotBe(propertyMember).AndShould()
+                        .Exist();
+
+                Assert.Equal(propertyMember.GetterVisibility == Internal,
+                    propertyMemberHasInternalGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != Internal,
+                    propertyMemberDoesNotHaveInternalGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != Internal,
+                    propertyMembersWithInternalGetterDoNotIncludeMember.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility == Internal,
+                    propertyMembersWithoutInternalGetterDoNotIncludeMember.HasNoViolations(Architecture));
+            }
+
+            var propertyMembersWithInternalGetterHaveInternalGetter =
+                PropertyMembers().That().HaveInternalGetter().Should().HaveInternalGetter();
+            var propertyMembersWithInternalGetterDoNotHaveInternalGetter =
+                PropertyMembers().That().HaveInternalGetter().Should().NotHaveInternalGetter().AndShould().Exist();
+            var propertyMembersWithoutInternalGetterHaveInternalGetter =
+                PropertyMembers().That().DoNotHaveInternalGetter().Should().HaveInternalGetter().AndShould().Exist();
+            var propertyMembersWithoutInternalGetterDoNotHaveInternalGetter =
+                PropertyMembers().That().DoNotHaveInternalGetter().Should().NotHaveInternalGetter();
+
+            Assert.True(propertyMembersWithInternalGetterHaveInternalGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithInternalGetterDoNotHaveInternalGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutInternalGetterHaveInternalGetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutInternalGetterDoNotHaveInternalGetter.HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -126,6 +166,95 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(propertyMembersWithInternalSetterDoNotHaveInternalSetter.HasNoViolations(Architecture));
             Assert.False(propertyMembersWithoutInternalSetterHaveInternalSetter.HasNoViolations(Architecture));
             Assert.True(propertyMembersWithoutInternalSetterDoNotHaveInternalSetter.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void HavePrivateGetterTest()
+        {
+            foreach (var propertyMember in _propertyMembers)
+            {
+                var propertyMemberHasPrivateGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().HavePrivateGetter();
+                var propertyMemberDoesNotHavePrivateGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().NotHavePrivateGetter();
+                var propertyMembersWithPrivateGetterDoNotIncludeMember =
+                    PropertyMembers().That().HavePrivateGetter().Should().NotBe(propertyMember).OrShould().NotExist();
+                var propertyMembersWithoutPrivateGetterDoNotIncludeMember =
+                    PropertyMembers().That().DoNotHavePrivateGetter().Should().NotBe(propertyMember).AndShould()
+                        .Exist();
+
+                Assert.Equal(propertyMember.GetterVisibility == Private,
+                    propertyMemberHasPrivateGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != Private,
+                    propertyMemberDoesNotHavePrivateGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != Private,
+                    propertyMembersWithPrivateGetterDoNotIncludeMember.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility == Private,
+                    propertyMembersWithoutPrivateGetterDoNotIncludeMember.HasNoViolations(Architecture));
+            }
+
+            var propertyMembersWithPrivateGetterHavePrivateGetter =
+                PropertyMembers().That().HavePrivateGetter().Should().HavePrivateGetter();
+            var propertyMembersWithPrivateGetterDoNotHavePrivateGetter =
+                PropertyMembers().That().HavePrivateGetter().Should().NotHavePrivateGetter().AndShould().Exist();
+            var propertyMembersWithoutPrivateGetterHavePrivateGetter =
+                PropertyMembers().That().DoNotHavePrivateGetter().Should().HavePrivateGetter().AndShould().Exist();
+            var propertyMembersWithoutPrivateGetterDoNotHavePrivateGetter =
+                PropertyMembers().That().DoNotHavePrivateGetter().Should().NotHavePrivateGetter();
+
+            Assert.True(propertyMembersWithPrivateGetterHavePrivateGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithPrivateGetterDoNotHavePrivateGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutPrivateGetterHavePrivateGetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutPrivateGetterDoNotHavePrivateGetter.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void HavePrivateProtectedGetterTest()
+        {
+            foreach (var propertyMember in _propertyMembers)
+            {
+                var propertyMemberHasPrivateProtectedGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().HavePrivateProtectedGetter();
+                var propertyMemberDoesNotHavePrivateProtectedGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().NotHavePrivateProtectedGetter();
+                var propertyMembersWithPrivateProtectedGetterDoNotIncludeMember =
+                    PropertyMembers().That().HavePrivateProtectedGetter().Should().NotBe(propertyMember).OrShould()
+                        .NotExist();
+                var propertyMembersWithoutPrivateProtectedGetterDoNotIncludeMember =
+                    PropertyMembers().That().DoNotHavePrivateProtectedGetter().Should().NotBe(propertyMember)
+                        .AndShould()
+                        .Exist();
+
+                Assert.Equal(propertyMember.GetterVisibility == PrivateProtected,
+                    propertyMemberHasPrivateProtectedGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != PrivateProtected,
+                    propertyMemberDoesNotHavePrivateProtectedGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != PrivateProtected,
+                    propertyMembersWithPrivateProtectedGetterDoNotIncludeMember.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility == PrivateProtected,
+                    propertyMembersWithoutPrivateProtectedGetterDoNotIncludeMember.HasNoViolations(Architecture));
+            }
+
+            var propertyMembersWithPrivateProtectedGetterHavePrivateProtectedGetter =
+                PropertyMembers().That().HavePrivateProtectedGetter().Should().HavePrivateProtectedGetter();
+            var propertyMembersWithPrivateProtectedGetterDoNotHavePrivateProtectedGetter =
+                PropertyMembers().That().HavePrivateProtectedGetter().Should().NotHavePrivateProtectedGetter()
+                    .AndShould().Exist();
+            var propertyMembersWithoutPrivateProtectedGetterHavePrivateProtectedGetter =
+                PropertyMembers().That().DoNotHavePrivateProtectedGetter().Should().HavePrivateProtectedGetter()
+                    .AndShould().Exist();
+            var propertyMembersWithoutPrivateProtectedGetterDoNotHavePrivateProtectedGetter =
+                PropertyMembers().That().DoNotHavePrivateProtectedGetter().Should().NotHavePrivateProtectedGetter();
+
+            Assert.True(
+                propertyMembersWithPrivateProtectedGetterHavePrivateProtectedGetter.HasNoViolations(Architecture));
+            Assert.False(
+                propertyMembersWithPrivateProtectedGetterDoNotHavePrivateProtectedGetter.HasNoViolations(Architecture));
+            Assert.False(
+                propertyMembersWithoutPrivateProtectedGetterHavePrivateProtectedGetter.HasNoViolations(Architecture));
+            Assert.True(
+                propertyMembersWithoutPrivateProtectedGetterDoNotHavePrivateProtectedGetter
+                    .HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -218,6 +347,96 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         }
 
         [Fact]
+        public void HaveProtectedGetterTest()
+        {
+            foreach (var propertyMember in _propertyMembers)
+            {
+                var propertyMemberHasProtectedGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().HaveProtectedGetter();
+                var propertyMemberDoesNotHaveProtectedGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().NotHaveProtectedGetter();
+                var propertyMembersWithProtectedGetterDoNotIncludeMember =
+                    PropertyMembers().That().HaveProtectedGetter().Should().NotBe(propertyMember).OrShould().NotExist();
+                var propertyMembersWithoutProtectedGetterDoNotIncludeMember =
+                    PropertyMembers().That().DoNotHaveProtectedGetter().Should().NotBe(propertyMember).AndShould()
+                        .Exist();
+
+                Assert.Equal(propertyMember.GetterVisibility == Protected,
+                    propertyMemberHasProtectedGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != Protected,
+                    propertyMemberDoesNotHaveProtectedGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != Protected,
+                    propertyMembersWithProtectedGetterDoNotIncludeMember.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility == Protected,
+                    propertyMembersWithoutProtectedGetterDoNotIncludeMember.HasNoViolations(Architecture));
+            }
+
+            var propertyMembersWithProtectedGetterHaveProtectedGetter =
+                PropertyMembers().That().HaveProtectedGetter().Should().HaveProtectedGetter();
+            var propertyMembersWithProtectedGetterDoNotHaveProtectedGetter =
+                PropertyMembers().That().HaveProtectedGetter().Should().NotHaveProtectedGetter().AndShould().Exist();
+            var propertyMembersWithoutProtectedGetterHaveProtectedGetter =
+                PropertyMembers().That().DoNotHaveProtectedGetter().Should().HaveProtectedGetter().AndShould().Exist();
+            var propertyMembersWithoutProtectedGetterDoNotHaveProtectedGetter =
+                PropertyMembers().That().DoNotHaveProtectedGetter().Should().NotHaveProtectedGetter();
+
+            Assert.True(propertyMembersWithProtectedGetterHaveProtectedGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithProtectedGetterDoNotHaveProtectedGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutProtectedGetterHaveProtectedGetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutProtectedGetterDoNotHaveProtectedGetter.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void HaveProtectedInternalGetterTest()
+        {
+            foreach (var propertyMember in _propertyMembers)
+            {
+                var propertyMemberHasProtectedInternalGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().HaveProtectedInternalGetter();
+                var propertyMemberDoesNotHaveProtectedInternalGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().NotHaveProtectedInternalGetter();
+                var propertyMembersWithProtectedInternalGetterDoNotIncludeMember =
+                    PropertyMembers().That().HaveProtectedInternalGetter().Should().NotBe(propertyMember).OrShould()
+                        .NotExist();
+                var propertyMembersWithoutProtectedInternalGetterDoNotIncludeMember =
+                    PropertyMembers().That().DoNotHaveProtectedInternalGetter().Should().NotBe(propertyMember)
+                        .AndShould()
+                        .Exist();
+
+                Assert.Equal(propertyMember.GetterVisibility == ProtectedInternal,
+                    propertyMemberHasProtectedInternalGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != ProtectedInternal,
+                    propertyMemberDoesNotHaveProtectedInternalGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != ProtectedInternal,
+                    propertyMembersWithProtectedInternalGetterDoNotIncludeMember.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility == ProtectedInternal,
+                    propertyMembersWithoutProtectedInternalGetterDoNotIncludeMember.HasNoViolations(Architecture));
+            }
+
+            var propertyMembersWithProtectedInternalGetterHaveProtectedInternalGetter =
+                PropertyMembers().That().HaveProtectedInternalGetter().Should().HaveProtectedInternalGetter();
+            var propertyMembersWithProtectedInternalGetterDoNotHaveProtectedInternalGetter =
+                PropertyMembers().That().HaveProtectedInternalGetter().Should().NotHaveProtectedInternalGetter()
+                    .AndShould().Exist();
+            var propertyMembersWithoutProtectedInternalGetterHaveProtectedInternalGetter =
+                PropertyMembers().That().DoNotHaveProtectedInternalGetter().Should().HaveProtectedInternalGetter()
+                    .AndShould().Exist();
+            var propertyMembersWithoutProtectedInternalGetterDoNotHaveProtectedInternalGetter =
+                PropertyMembers().That().DoNotHaveProtectedInternalGetter().Should().NotHaveProtectedInternalGetter();
+
+            Assert.True(
+                propertyMembersWithProtectedInternalGetterHaveProtectedInternalGetter.HasNoViolations(Architecture));
+            Assert.False(
+                propertyMembersWithProtectedInternalGetterDoNotHaveProtectedInternalGetter
+                    .HasNoViolations(Architecture));
+            Assert.False(
+                propertyMembersWithoutProtectedInternalGetterHaveProtectedInternalGetter.HasNoViolations(Architecture));
+            Assert.True(
+                propertyMembersWithoutProtectedInternalGetterDoNotHaveProtectedInternalGetter.HasNoViolations(
+                    Architecture));
+        }
+
+        [Fact]
         public void HaveProtectedInternalSetterTest()
         {
             foreach (var propertyMember in _propertyMembers)
@@ -305,6 +524,46 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(propertyMembersWithProtectedSetterDoNotHaveProtectedSetter.HasNoViolations(Architecture));
             Assert.False(propertyMembersWithoutProtectedSetterHaveProtectedSetter.HasNoViolations(Architecture));
             Assert.True(propertyMembersWithoutProtectedSetterDoNotHaveProtectedSetter.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void HavePublicGetterTest()
+        {
+            foreach (var propertyMember in _propertyMembers)
+            {
+                var propertyMemberHasPublicGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().HavePublicGetter();
+                var propertyMemberDoesNotHavePublicGetter =
+                    PropertyMembers().That().Are(propertyMember).Should().NotHavePublicGetter();
+                var propertyMembersWithPublicGetterDoNotIncludeMember =
+                    PropertyMembers().That().HavePublicGetter().Should().NotBe(propertyMember).OrShould().NotExist();
+                var propertyMembersWithoutPublicGetterDoNotIncludeMember =
+                    PropertyMembers().That().DoNotHavePublicGetter().Should().NotBe(propertyMember).AndShould()
+                        .Exist();
+
+                Assert.Equal(propertyMember.GetterVisibility == Public,
+                    propertyMemberHasPublicGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != Public,
+                    propertyMemberDoesNotHavePublicGetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility != Public,
+                    propertyMembersWithPublicGetterDoNotIncludeMember.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.GetterVisibility == Public,
+                    propertyMembersWithoutPublicGetterDoNotIncludeMember.HasNoViolations(Architecture));
+            }
+
+            var propertyMembersWithPublicGetterHavePublicGetter =
+                PropertyMembers().That().HavePublicGetter().Should().HavePublicGetter();
+            var propertyMembersWithPublicGetterDoNotHavePublicGetter =
+                PropertyMembers().That().HavePublicGetter().Should().NotHavePublicGetter().AndShould().Exist();
+            var propertyMembersWithoutPublicGetterHavePublicGetter =
+                PropertyMembers().That().DoNotHavePublicGetter().Should().HavePublicGetter().AndShould().Exist();
+            var propertyMembersWithoutPublicGetterDoNotHavePublicGetter =
+                PropertyMembers().That().DoNotHavePublicGetter().Should().NotHavePublicGetter();
+
+            Assert.True(propertyMembersWithPublicGetterHavePublicGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithPublicGetterDoNotHavePublicGetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutPublicGetterHavePublicGetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutPublicGetterDoNotHavePublicGetter.HasNoViolations(Architecture));
         }
 
         [Fact]

@@ -15,6 +15,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
+        public PropertyMembersShouldConjunction HavePrivateGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HavePrivateGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction HavePublicGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HavePublicGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction HaveProtectedGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HaveProtectedGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction HaveInternalGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HaveInternalGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction HaveProtectedInternalGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HaveProtectedInternalGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction HavePrivateProtectedGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HavePrivateProtectedGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
         public PropertyMembersShouldConjunction HaveSetter()
         {
             _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HaveSetter());
@@ -70,6 +106,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public PropertyMembersShouldConjunction NotHaveGetter()
         {
             _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHaveGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction NotHavePrivateGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHavePrivateGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction NotHavePublicGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHavePublicGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction NotHaveProtectedGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHaveProtectedGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction NotHaveInternalGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHaveInternalGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction NotHaveProtectedInternalGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHaveProtectedInternalGetter());
+            return new PropertyMembersShouldConjunction(_ruleCreator);
+        }
+
+        public PropertyMembersShouldConjunction NotHavePrivateProtectedGetter()
+        {
+            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHavePrivateProtectedGetter());
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 

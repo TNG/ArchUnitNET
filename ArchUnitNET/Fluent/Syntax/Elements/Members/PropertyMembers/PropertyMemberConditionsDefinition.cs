@@ -8,8 +8,55 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
     {
         public static ICondition<PropertyMember> HaveGetter()
         {
-            return new SimpleCondition<PropertyMember>(member => member.Visibility != NotAccessible, "have a getter",
+            return new SimpleCondition<PropertyMember>(member => member.GetterVisibility != NotAccessible,
+                "have a getter",
                 "has no getter");
+        }
+
+        public static ICondition<PropertyMember> HavePrivateGetter()
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility == Private,
+                member => "does have a " + VisibilityStrings.ToString(member.GetterVisibility) + " getter",
+                "have a private getter");
+        }
+
+        public static ICondition<PropertyMember> HavePublicGetter()
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility == Public,
+                member => "does have a " + VisibilityStrings.ToString(member.GetterVisibility) + " getter",
+                "have a public getter");
+        }
+
+        public static ICondition<PropertyMember> HaveProtectedGetter()
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility == Protected,
+                member => "does have a " + VisibilityStrings.ToString(member.GetterVisibility) + " getter",
+                "have a protected getter");
+        }
+
+        public static ICondition<PropertyMember> HaveInternalGetter()
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility == Internal,
+                member => "does have a " + VisibilityStrings.ToString(member.GetterVisibility) + " getter",
+                "have an internal getter");
+        }
+
+        public static ICondition<PropertyMember> HaveProtectedInternalGetter()
+        {
+            return new SimpleCondition<PropertyMember>(member => member.GetterVisibility == ProtectedInternal,
+                member => "does have a " + VisibilityStrings.ToString(member.GetterVisibility) + " getter",
+                "have a protected internal getter");
+        }
+
+        public static ICondition<PropertyMember> HavePrivateProtectedGetter()
+        {
+            return new SimpleCondition<PropertyMember>(member => member.GetterVisibility == PrivateProtected,
+                member => "does have " + VisibilityStrings.ToString(member.GetterVisibility) + " getter",
+                "have a private protected getter");
         }
 
         public static ICondition<PropertyMember> HaveSetter()
@@ -77,7 +124,46 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public static ICondition<PropertyMember> NotHaveGetter()
         {
             return new SimpleCondition<PropertyMember>(
-                member => member.Visibility == NotAccessible, "have no getter", "does have a getter");
+                member => member.GetterVisibility == NotAccessible, "have no getter", "does have a getter");
+        }
+
+        public static ICondition<PropertyMember> NotHavePrivateGetter()
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility != Private, "not have a private getter",
+                "does have a private getter");
+        }
+
+        public static ICondition<PropertyMember> NotHavePublicGetter()
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility != Public, "not have a public getter", "does have a public getter");
+        }
+
+        public static ICondition<PropertyMember> NotHaveProtectedGetter()
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility != Protected, "not have a protected getter",
+                "does have a protected getter");
+        }
+
+        public static ICondition<PropertyMember> NotHaveInternalGetter()
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility != Internal, "not have an internal getter",
+                "does have an internal getter");
+        }
+
+        public static ICondition<PropertyMember> NotHaveProtectedInternalGetter()
+        {
+            return new SimpleCondition<PropertyMember>(member => member.GetterVisibility != ProtectedInternal,
+                "not have a protected internal getter", "does have a protected internal getter");
+        }
+
+        public static ICondition<PropertyMember> NotHavePrivateProtectedGetter()
+        {
+            return new SimpleCondition<PropertyMember>(member => member.GetterVisibility != PrivateProtected,
+                "not have a private protected getter", "does have a private protected getter");
         }
 
         public static ICondition<PropertyMember> NotHaveSetter()

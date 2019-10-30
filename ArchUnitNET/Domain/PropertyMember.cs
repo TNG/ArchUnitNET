@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using ArchUnitNET.Domain.Dependencies.Members;
 using ArchUnitNET.Domain.Dependencies.Types;
 using Equ;
+using JetBrains.Annotations;
 using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Domain
@@ -16,7 +17,7 @@ namespace ArchUnitNET.Domain
     public class PropertyMember : MemberwiseEquatable<PropertyMember>, IMember
     {
         public PropertyMember(IType declaringType, string name, string fullName, IType type,
-            bool isVirtual, MethodMember getter, MethodMember setter)
+            bool isVirtual, [CanBeNull] MethodMember getter, [CanBeNull] MethodMember setter)
         {
             Name = name;
             FullName = fullName;
@@ -30,11 +31,13 @@ namespace ArchUnitNET.Domain
         public IType Type { get; }
         public bool IsVirtual { get; }
         public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
+        public Visibility GetterVisibility => Getter?.Visibility ?? NotAccessible;
 
-        public MethodMember Getter { get; }
-        public MethodMember Setter { get; }
+        [CanBeNull] public MethodMember Getter { get; }
+        [CanBeNull] public MethodMember Setter { get; }
         public FieldMember BackingField { get; internal set; }
-        public Visibility Visibility => Getter?.Visibility ?? NotAccessible;
+
+        public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;
         public string Name { get; }
         public string FullName { get; }
         public IType DeclaringType { get; }

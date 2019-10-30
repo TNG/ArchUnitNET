@@ -10,21 +10,21 @@ namespace ArchUnitNET.Domain
     public enum Visibility
     {
         Public = 0,
-        Private = 1,
-        Protected = 2,
-        Internal = 3,
-        ProtectedInternal = 4,
-        PrivateProtected = 5,
+        ProtectedInternal = 1,
+        Internal = 2,
+        Protected = 3,
+        PrivateProtected = 4,
+        Private = 5,
         NotAccessible = 6 //should only be used for Getters/Setters or as default instead of null
     }
 
     public static class VisibilityStrings
     {
         private static readonly string[] CapitalLetters =
-            {"Public", "Private", "Protected", "Internal", "Protected Internal", "Private Protected", "Not Accessible"};
+            {"Public", "Protected Internal", "Internal", "Protected", "Private Protected", "Private", "Not Accessible"};
 
         private static readonly string[] LowerCase =
-            {"public", "private", "protected", "internal", "protected internal", "private protected", "not accessible"};
+            {"public", "protected internal", "internal", "protected", "private protected", "private", "not accessible"};
 
         public static string ToString(this Visibility visibility, bool useCapitalLetters = false)
         {

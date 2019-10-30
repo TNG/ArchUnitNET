@@ -136,7 +136,7 @@ namespace ArchUnitNETTests.Domain
         public void CorrectlyAssignNotAccessibleGetter()
         {
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs("FieldWithoutGetter"),
-                member => member.Visibility == NotAccessible);
+                member => member.GetterVisibility == NotAccessible);
         }
 
         [Fact]
