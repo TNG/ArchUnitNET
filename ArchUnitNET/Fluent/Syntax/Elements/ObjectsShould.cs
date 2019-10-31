@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
@@ -364,6 +365,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Conditions
 
+        public ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType> CallAnyMethodsThat()
+        {
+            _ruleCreator.BeginComplexCondition(MethodMembers(),
+                ObjectConditionsDefinition<TRuleType>.CallAnyMethodsThat());
+            return new ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> DependOnAnyTypesThat()
         {
             _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
@@ -644,6 +652,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         //Relation Condition Negations
+
+
+        public ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType> NotCallAnyMethodsThat()
+        {
+            _ruleCreator.BeginComplexCondition(MethodMembers(),
+                ObjectConditionsDefinition<TRuleType>.NotCallAnyMethodsThat());
+            return new ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotDependOnAnyTypesThat()
         {
