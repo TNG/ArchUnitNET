@@ -222,14 +222,30 @@ namespace ArchUnitNET.Fluent.Extensions
             return c.GetTypeDependencies().OfType<Class>();
         }
 
+        public static IEnumerable<Class> GetClassDependencies(this IHasDependencies c, Architecture architecture)
+        {
+            return c.GetTypeDependencies(architecture).OfType<Class>();
+        }
+
         public static IEnumerable<Interface> GetInterfaceDependencies(this IHasDependencies c)
         {
             return c.GetTypeDependencies().OfType<Interface>();
         }
 
+        public static IEnumerable<Interface> GetInterfaceDependencies(this IHasDependencies c,
+            Architecture architecture)
+        {
+            return c.GetTypeDependencies(architecture).OfType<Interface>();
+        }
+
         public static IEnumerable<IType> GetTypeDependencies(this IHasDependencies c)
         {
             return c.Dependencies.Select(dependency => dependency.Target);
+        }
+
+        public static IEnumerable<IType> GetTypeDependencies(this IHasDependencies c, Architecture architecture)
+        {
+            return c.Dependencies.Select(dependency => dependency.Target).Intersect(architecture.Types);
         }
 
         public static bool HasDependency(this IType type, ITypeDependency dependency)

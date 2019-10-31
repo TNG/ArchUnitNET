@@ -9,8 +9,6 @@ using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
-using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
-using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 using Attribute = ArchUnitNET.Domain.Attribute;
@@ -366,34 +364,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Conditions
 
-        public ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> DependOnAnyClassesThat()
-        {
-            _ruleCreator.BeginComplexCondition(Classes(),
-                ObjectConditionsDefinition<TRuleType>.DependOnAnyClassesThat());
-            return new ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnClassesThat()
-        {
-            _ruleCreator.BeginComplexCondition(Classes(),
-                ObjectConditionsDefinition<TRuleType>.OnlyDependOnClassesThat());
-            return new ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> DependOnAnyInterfacesThat()
-        {
-            _ruleCreator.BeginComplexCondition(Interfaces(),
-                ObjectConditionsDefinition<TRuleType>.DependOnAnyInterfacesThat());
-            return new ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnInterfacesThat()
-        {
-            _ruleCreator.BeginComplexCondition(Interfaces(),
-                ObjectConditionsDefinition<TRuleType>.OnlyDependOnInterfacesThat());
-            return new ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> DependOnAnyTypesThat()
         {
             _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
@@ -674,20 +644,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         //Relation Condition Negations
-
-        public ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnAnyClassesThat()
-        {
-            _ruleCreator.BeginComplexCondition(Classes(),
-                ObjectConditionsDefinition<TRuleType>.NotDependOnAnyClassesThat());
-            return new ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnAnyInterfacesThat()
-        {
-            _ruleCreator.BeginComplexCondition(Interfaces(),
-                ObjectConditionsDefinition<TRuleType>.NotDependOnAnyInterfacesThat());
-            return new ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
 
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotDependOnAnyTypesThat()
         {

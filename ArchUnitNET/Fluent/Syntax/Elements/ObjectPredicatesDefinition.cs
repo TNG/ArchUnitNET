@@ -321,7 +321,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return objects.Where(obj => obj.GetTypeDependencies().Except(types).IsNullOrEmpty());
+                return objects.Where(obj => obj.GetTypeDependencies(architecture).Except(types).IsNullOrEmpty());
             }
 
             var description = "only depend on " + objectProvider.Description;
@@ -332,9 +332,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            IEnumerable<T> Filter(IEnumerable<T> objects)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return objects.Where(obj => obj.GetTypeDependencies().Except(typeList).IsNullOrEmpty());
+                return objects.Where(obj => obj.GetTypeDependencies(architecture).Except(typeList).IsNullOrEmpty());
             }
 
             string description;
@@ -350,7 +350,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, obj) => current + " or \"" + obj.FullName + "\"");
             }
 
-            return new EnumerablePredicate<T>(Filter, description);
+            return new ArchitecturePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> OnlyDependOn(IEnumerable<Type> types)
@@ -360,7 +360,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
                 var tList = typeList.Select(architecture.GetITypeOfType);
-                return objects.Where(obj => obj.GetTypeDependencies().Except(tList).IsNullOrEmpty());
+                return objects.Where(obj => obj.GetTypeDependencies(architecture).Except(tList).IsNullOrEmpty());
             }
 
             string description;

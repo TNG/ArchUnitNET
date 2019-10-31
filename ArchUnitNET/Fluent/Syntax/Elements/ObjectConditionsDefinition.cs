@@ -501,7 +501,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
                 var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Except(typeList).Any())
+                var failedObjects = ruleTypeList
+                    .Where(type => type.GetTypeDependencies(architecture).Except(typeList).Any())
                     .ToList();
                 foreach (var failedObject in failedObjects)
                 {
@@ -530,10 +531,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
                 var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Except(typeList).Any())
+                var failedObjects = ruleTypeList
+                    .Where(type => type.GetTypeDependencies(architecture).Except(typeList).Any())
                     .ToList();
                 foreach (var failedObject in failedObjects)
                 {
@@ -567,7 +569,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
-            return new EnumerableCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> OnlyDependOn(IEnumerable<Type> types)
@@ -578,7 +580,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList.Where(type => type.GetTypeDependencies().Except(iTypeList).Any())
+                var failedObjects = ruleTypeList
+                    .Where(type => type.GetTypeDependencies(architecture).Except(iTypeList).Any())
                     .ToList();
                 foreach (var failedObject in failedObjects)
                 {
@@ -1062,29 +1065,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Conditions
 
-        public static RelationCondition<TRuleType, Class> DependOnAnyClassesThat()
-        {
-            return new RelationCondition<TRuleType, Class>(DependOnAny, "depend on any classes that",
-                "does not depend on any classes that");
-        }
-
-        public static RelationCondition<TRuleType, Class> OnlyDependOnClassesThat()
-        {
-            return new RelationCondition<TRuleType, Class>(OnlyDependOn, "only depend on classes that",
-                "does not only depend on classes that");
-        }
-
-        public static RelationCondition<TRuleType, Interface> DependOnAnyInterfacesThat()
-        {
-            return new RelationCondition<TRuleType, Interface>(DependOnAny, "depend on any interfaces that",
-                "does not depend on any interfaces that");
-        }
-
-        public static RelationCondition<TRuleType, Interface> OnlyDependOnInterfacesThat()
-        {
-            return new RelationCondition<TRuleType, Interface>(OnlyDependOn, "only depend on interfaces that",
-                "does not only depend on interfaces that");
-        }
 
         public static RelationCondition<TRuleType, IType> DependOnAnyTypesThat()
         {
@@ -1817,17 +1797,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Condition Negations
 
-        public static RelationCondition<TRuleType, Class> NotDependOnAnyClassesThat()
-        {
-            return new RelationCondition<TRuleType, Class>(NotDependOnAny, "not depend on any classes that",
-                "does depend on any classes that");
-        }
-
-        public static RelationCondition<TRuleType, Interface> NotDependOnAnyInterfacesThat()
-        {
-            return new RelationCondition<TRuleType, Interface>(NotDependOnAny, "not depend on any interfaces that",
-                "does depend on any interfaces that");
-        }
 
         public static RelationCondition<TRuleType, IType> NotDependOnAnyTypesThat()
         {
