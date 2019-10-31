@@ -27,23 +27,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullNameMatches(pattern, useRegularExpressions),
-                obj => "is " + obj.FullName,
-                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"",
+                "does not have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern +
+                "\"");
         }
 
         public static ICondition<TRuleType> Be(IEnumerable<string> patterns, bool useRegularExpressions = false)
         {
             var patternList = patterns.ToList();
             string description;
+            string failDescription;
             if (patternList.IsNullOrEmpty())
             {
                 description = "not exist";
+                failDescription = "does exist";
             }
             else
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
                     "have full name " + (useRegularExpressions ? "matching" : "containing") +
+                    " \"" + firstPattern + "\"",
+                    (current, pattern) => current + " or \"" + pattern + "\"");
+                failDescription = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
+                    "does not have full name " + (useRegularExpressions ? "matching" : "containing") +
                     " \"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
@@ -65,13 +72,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var objectList = objects.ToList();
 
+            string description;
+            string failDescription;
+            if (objectList.IsNullOrEmpty())
+            {
+                description = "not exist";
+                failDescription = "does exist";
+            }
+            else
+            {
+                var firstObject = objectList.First();
+                description = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
+                    "be \"" + firstObject.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                failDescription = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
+                    "is not \"" + firstObject.FullName + "\"",
+                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+            }
+
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
             {
                 var typeList = ruleTypes.ToList();
                 var passedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
                 foreach (var failedObject in typeList.Except(passedObjects))
                 {
-                    yield return new ConditionResult(failedObject, false, "is " + failedObject.FullName);
+                    yield return new ConditionResult(failedObject, false, failDescription);
                 }
 
                 foreach (var passedObject in passedObjects)
@@ -80,18 +105,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            string description;
-            if (objectList.IsNullOrEmpty())
-            {
-                description = "not exist";
-            }
-            else
-            {
-                var firstObject = objectList.First();
-                description = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
-                    "be \"" + firstObject.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
-            }
 
             return new EnumerableCondition<TRuleType>(Condition, description);
         }
@@ -105,7 +118,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 var passedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
                 foreach (var failedObject in typeList.Except(passedObjects))
                 {
-                    yield return new ConditionResult(failedObject, false, "is " + failedObject.FullName);
+                    yield return new ConditionResult(failedObject, false, "is not " + objectProvider.Description);
                 }
 
                 foreach (var passedObject in passedObjects)
@@ -1185,7 +1198,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 var failedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
                 foreach (var failedObject in failedObjects)
                 {
-                    yield return new ConditionResult(failedObject, false, "is " + failedObject.FullName);
+                    yield return new ConditionResult(failedObject, false, "is " + objectProvider.Description);
                 }
 
                 foreach (var passedObject in typeList.Except(failedObjects))
