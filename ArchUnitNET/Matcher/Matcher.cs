@@ -11,6 +11,7 @@ using ArchUnitNET.ArchitectureExceptions;
 
 namespace ArchUnitNET.Matcher
 {
+    [Obsolete]
     public static class Matcher
     {
         public static void ShouldAll<T>(this IEnumerable<T> enumerable, Func<T, bool> matcher)
