@@ -8,12 +8,12 @@
 // ReSharper disable SuggestVarOrType_SimpleTypes
 
 
-//add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
-
 using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using Xunit;
+
+//add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 
@@ -40,30 +40,6 @@ namespace ExampleTest
         private readonly IObjectProvider<Interface> ForbiddenInterfaces =
             Interfaces().That().HaveFullNameContaining("forbidden").As("Forbidden Interfaces");
 
-        [Fact]
-        public void ExampleClassesShouldNotCallForbiddenMethods()
-        {
-            Classes().That().Are(ExampleClasses).Should().NotCallAny(
-                    MethodMembers().That().AreDeclaredIn(ForbiddenLayer).Or().HaveNameContaining("forbidden"))
-                .Check(Architecture);
-        }
-
-        [Fact]
-        public void ExampleLayerShouldNotAccessForbiddenLayer()
-        {
-            //you can give your rules a custom reason, which is displayed when it fails (together with the types that failed the rule)
-            IArchRule exampleLayerShouldNotAccessForbiddenLayer = Types().That().Are(ExampleLayer).Should()
-                .NotDependOnAny(ForbiddenLayer).Because("it's forbidden");
-            exampleLayerShouldNotAccessForbiddenLayer.Check(Architecture);
-        }
-
-        [Fact]
-        public void ForbiddenClassesShouldHaveCorrectName()
-        {
-            Classes().That().AreAssignableTo(ForbiddenInterfaces).Should().HaveNameContaining("forbidden")
-                .Check(Architecture);
-        }
-
 
         //write some tests
         [Fact]
@@ -83,6 +59,30 @@ namespace ExampleTest
             IArchRule combinedArchRule =
                 exampleClassesShouldBeInExampleLayer.And(forbiddenInterfacesShouldBeInForbiddenLayer);
             combinedArchRule.Check(Architecture);
+        }
+
+        [Fact]
+        public void ExampleLayerShouldNotAccessForbiddenLayer()
+        {
+            //you can give your rules a custom reason, which is displayed when it fails (together with the types that failed the rule)
+            IArchRule exampleLayerShouldNotAccessForbiddenLayer = Types().That().Are(ExampleLayer).Should()
+                .NotDependOnAny(ForbiddenLayer).Because("it's forbidden");
+            exampleLayerShouldNotAccessForbiddenLayer.Check(Architecture);
+        }
+
+        [Fact]
+        public void ForbiddenClassesShouldHaveCorrectName()
+        {
+            Classes().That().AreAssignableTo(ForbiddenInterfaces).Should().HaveNameContaining("forbidden")
+                .Check(Architecture);
+        }
+
+        [Fact]
+        public void ExampleClassesShouldNotCallForbiddenMethods()
+        {
+            Classes().That().Are(ExampleClasses).Should().NotCallAny(
+                    MethodMembers().That().AreDeclaredIn(ForbiddenLayer).Or().HaveNameContaining("forbidden"))
+                .Check(Architecture);
         }
     }
 }
