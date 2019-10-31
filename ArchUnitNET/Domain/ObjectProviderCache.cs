@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ArchUnitNET.Fluent;
 
@@ -13,12 +14,12 @@ namespace ArchUnitNET.Domain
     public class ObjectProviderCache
     {
         private readonly Architecture _architecture;
-        private readonly Dictionary<int, object> _cache;
+        private readonly ConcurrentDictionary<int, object> _cache;
 
         public ObjectProviderCache(Architecture architecture)
         {
             _architecture = architecture;
-            _cache = new Dictionary<int, object>();
+            _cache = new ConcurrentDictionary<int, object>();
         }
 
         public IEnumerable<T> GetOrCreateObjects<T>(IObjectProvider<T> objectProvider,
@@ -27,12 +28,7 @@ namespace ArchUnitNET.Domain
             unchecked
             {
                 var key = (objectProvider.GetHashCode() * 397) ^ objectProvider.GetType().GetHashCode();
-                if (!_cache.ContainsKey(key))
-                {
-                    _cache.Add(key, providingFunction(_architecture));
-                }
-
-                return (IEnumerable<T>) _cache[key];
+                return (IEnumerable<T>) _cache.GetOrAdd(key, k => providingFunction(_architecture));
             }
         }
     }
