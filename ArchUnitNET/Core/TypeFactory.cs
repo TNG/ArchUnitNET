@@ -1,15 +1,17 @@
-/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
+using System;
 using System.Linq;
 using ArchUnitNET.Core.LoadTasks;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using static ArchUnitNET.Domain.Visibility;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Core
 {
@@ -49,10 +51,19 @@ namespace ArchUnitNET.Core
         {
             var type = SetupCreatedType(typeReference);
 
-            var typeDefinition = typeReference.Resolve();
+            TypeDefinition typeDefinition;
+            try
+            {
+                typeDefinition = typeReference.Resolve();
+            }
+            catch (AssemblyResolutionException)
+            {
+                typeDefinition = null;
+            }
+
             if (typeDefinition == null)
             {
-                return new Class(type, false);
+                return new Class(type);
             }
 
             IType createdType;
@@ -63,8 +74,10 @@ namespace ArchUnitNET.Core
             }
             else
             {
-                var cls = new Class(type, typeDefinition.IsAbstract);
-                createdType = cls;
+                createdType = IsAttribute(typeDefinition)
+                    ? new Attribute(type, typeDefinition.IsAbstract, typeDefinition.IsSealed)
+                    : new Class(type, typeDefinition.IsAbstract, typeDefinition.IsSealed,
+                        typeDefinition.IsValueType, typeDefinition.IsEnum);
             }
 
             if (isStub)
@@ -82,22 +95,84 @@ namespace ArchUnitNET.Core
             return createdType;
         }
 
+        private static bool IsAttribute([CanBeNull] TypeDefinition typeDefinition)
+        {
+            if (typeDefinition?.BaseType != null)
+            {
+                return typeDefinition.BaseType.FullName == "System.Attribute" ||
+                       IsAttribute(typeDefinition.BaseType.Resolve());
+            }
+
+            return false;
+        }
+
         [NotNull]
         private Type SetupCreatedType(TypeReference typeReference)
         {
             var typeNamespaceName = typeReference.Namespace;
             var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
-                typeReference.Module.Assembly.FullName);
+                typeReference.Module.Assembly.FullName, true);
             var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(typeNamespaceName);
-            var typeDefinition = typeReference.Resolve();
+            TypeDefinition typeDefinition;
+            try
+            {
+                typeDefinition = typeReference.Resolve();
+            }
+            catch (AssemblyResolutionException)
+            {
+                typeDefinition = null;
+            }
+
+            var visibility = GetVisibilityFromTypeDefinition(typeDefinition);
+            var isNested = typeReference.IsNested;
             var type = new Type(typeReference.FullName.Replace("/", "+"), typeReference.Name, currentAssembly,
-                currentNamespace);
+                currentNamespace, visibility, isNested);
             AssignGenericProperties(typeReference, type, typeDefinition);
             return type;
         }
 
+        private static Visibility GetVisibilityFromTypeDefinition([CanBeNull] TypeDefinition typeDefinition)
+        {
+            if (typeDefinition == null)
+            {
+                return NotAccessible;
+            }
+
+            if (typeDefinition.IsPublic || typeDefinition.IsNestedPublic)
+            {
+                return Public;
+            }
+
+            if (typeDefinition.IsNestedPrivate)
+            {
+                return Private;
+            }
+
+            if (typeDefinition.IsNestedFamily)
+            {
+                return Protected;
+            }
+
+            if (typeDefinition.IsNestedFamilyOrAssembly)
+            {
+                return ProtectedInternal;
+            }
+
+            if (typeDefinition.IsNestedFamilyAndAssembly)
+            {
+                return PrivateProtected;
+            }
+
+            if (typeDefinition.IsNestedAssembly || typeDefinition.IsNotPublic)
+            {
+                return Internal;
+            }
+
+            throw new ArgumentException("The provided type definition seems to have no visibility.");
+        }
+
         private void AssignGenericProperties(IGenericParameterProvider typeReference, Type type,
-            TypeDefinition typeDefinition)
+            [CanBeNull] TypeDefinition typeDefinition)
         {
             if (typeReference is GenericInstanceType genericInstanceType)
             {

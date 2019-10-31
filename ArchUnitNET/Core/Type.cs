@@ -1,25 +1,28 @@
-﻿/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Types;
+using ArchUnitNET.Fluent.Extensions;
 
 namespace ArchUnitNET.Core
 {
     public class Type : IType
     {
-        public Type(string fullname, string name, Assembly assembly, Namespace namespc)
+        public Type(string fullname, string name, Assembly assembly, Namespace namespc, Visibility visibility,
+            bool isNested)
         {
             FullName = fullname;
             Name = name;
             Assembly = assembly;
             Namespace = namespc;
+            Visibility = visibility;
+            IsNested = isNested;
         }
 
         public string Name { get; }
@@ -29,6 +32,10 @@ namespace ArchUnitNET.Core
         public Namespace Namespace { get; }
 
         public Assembly Assembly { get; }
+
+        public Visibility Visibility { get; }
+
+        public bool IsNested { get; }
 
         public MemberList Members { get; } = new MemberList();
         public List<IType> GenericTypeParameters { get; set; }
@@ -46,10 +53,23 @@ namespace ArchUnitNET.Core
             .OfType<ImplementsInterfaceDependency>()
             .Select(dependency => dependency.Target);
 
-        public bool Implements(IType @interface)
+        public bool ImplementsInterface(IType intf)
         {
             return ImplementedInterfaces.Any(implementedInterface =>
-                Equals(implementedInterface, @interface) || Equals(implementedInterface.GenericType, @interface));
+                Equals(implementedInterface, intf) || Equals(implementedInterface.GenericType, intf));
+        }
+
+        public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
+        {
+            if (pattern == null)
+            {
+                return false;
+            }
+
+            return ImplementedInterfaces.Any(implementedInterface =>
+                implementedInterface.FullNameMatches(pattern, useRegularExpressions) ||
+                implementedInterface.GenericType != null &&
+                implementedInterface.GenericType.FullNameMatches(pattern, useRegularExpressions));
         }
 
         public bool IsAssignableTo(IType assignableToType)
@@ -64,7 +84,18 @@ namespace ArchUnitNET.Core
                 return true;
             }
 
-            return assignableToType is Interface && Implements(assignableToType);
+            return assignableToType is Interface && ImplementsInterface(assignableToType);
+        }
+
+        public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
+        {
+            if (pattern == null)
+            {
+                return false;
+            }
+
+            return this.FullNameMatches(pattern, useRegularExpressions) ||
+                   ImplementsInterface(pattern, useRegularExpressions);
         }
 
         public override string ToString()

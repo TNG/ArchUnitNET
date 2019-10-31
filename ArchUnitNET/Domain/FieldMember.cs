@@ -1,9 +1,8 @@
-﻿/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
 using ArchUnitNET.Domain.Dependencies.Members;
@@ -13,20 +12,21 @@ namespace ArchUnitNET.Domain
 {
     public class FieldMember : IMember
     {
-        public FieldMember(IType declaringType, string name, string fullName, IType type, Visibility visibility)
+        public FieldMember(IType declaringType, string name, string fullName, Visibility visibility, IType type)
         {
             DeclaringType = declaringType;
             Name = name;
             FullName = fullName;
-            Type = type;
             Visibility = visibility;
+            Type = type;
         }
+
+        public IType Type { get; }
+        public Visibility Visibility { get; }
 
         public IType DeclaringType { get; }
         public string Name { get; }
         public string FullName { get; }
-        public IType Type { get; }
-        public Visibility Visibility { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
@@ -65,7 +65,7 @@ namespace ArchUnitNET.Domain
         {
             unchecked
             {
-                var hashCode = (DeclaringType != null ? DeclaringType.GetHashCode() : 0);
+                var hashCode = DeclaringType != null ? DeclaringType.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (FullName != null ? FullName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);

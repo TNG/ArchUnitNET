@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <PackageVersion>0.2.0</PackageVersion>
+        <Title>ArchUnit C# NUnit Extension</Title>
+        <Authors>Florian Gather, Fritz Brandhuber</Authors>
+        <Description>NUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
+        <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+        <PackageTags>test;arch;archunit;nunit</PackageTags>
+        <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+        <IncludeSource>False</IncludeSource>
+        <Company>TNG Technology Consulting GmbH</Company>
+        <PackageId>TngTech.ArchUnitNET.NUnit</PackageId>
+        <AssemblyVersion>0.2.0.0</AssemblyVersion>
+        <IsTestProject>false</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="nunit" Version="3.12.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+    </ItemGroup>
+
+</Project>

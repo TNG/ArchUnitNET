@@ -1,9 +1,8 @@
-﻿/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
 using ArchUnitNET.Domain.Dependencies.Members;
@@ -28,9 +27,9 @@ namespace ArchUnitNET.Domain
 
         public bool IsVirtual { get; }
         public MethodForm MethodForm { get; }
-        public Visibility Visibility { get; }
         public List<IType> Parameters { get; }
         public IType ReturnType { get; }
+        public Visibility Visibility { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
@@ -39,6 +38,11 @@ namespace ArchUnitNET.Domain
         public string Name { get; }
         public string FullName { get; }
         public IType DeclaringType { get; }
+
+        public override string ToString()
+        {
+            return $"{DeclaringType.FullName}::{Name}";
+        }
 
         public override bool Equals(object obj)
         {

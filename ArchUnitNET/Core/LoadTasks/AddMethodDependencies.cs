@@ -1,16 +1,15 @@
-/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -96,16 +95,17 @@ namespace ArchUnitNET.Core.LoadTasks
         {
             var matchFunction = GetMatchFunction(methodForm);
             matchFunction.RequiredNotNull();
-            
+
             var accessedProperty =
                 MatchToPropertyMember(methodMember.Name, methodMember.FullName, matchFunction);
             if (accessedProperty == null)
             {
                 return;
             }
+
             var memberDependenciesToAdd = CreateMethodCallDependenciesForProperty(accessedProperty, methodBody)
                 .ToList();
-            
+
             methodBody.Instructions
                 .Select(instruction => instruction.Operand)
                 .OfType<FieldDefinition>()
@@ -121,12 +121,13 @@ namespace ArchUnitNET.Core.LoadTasks
 
             if (methodForm == MethodForm.Getter)
             {
-                accessedProperty.Getter.MemberDependencies.AddRange(memberDependenciesToAdd);
+                accessedProperty.Getter?.MemberDependencies.AddRange(memberDependenciesToAdd);
             }
             else if (methodForm == MethodForm.Setter)
             {
-                accessedProperty.Setter.MemberDependencies.AddRange(memberDependenciesToAdd);
+                accessedProperty.Setter?.MemberDependencies.AddRange(memberDependenciesToAdd);
             }
+
             accessedProperty.MemberDependencies.AddRange(memberDependenciesToAdd);
         }
 
@@ -163,7 +164,8 @@ namespace ArchUnitNET.Core.LoadTasks
                 });
         }
 
-        private IEnumerable<MethodCallDependency> CreateMethodCallDependenciesFromBody(MethodMember methodMember, MethodBody methodBody)
+        private IEnumerable<MethodCallDependency> CreateMethodCallDependenciesFromBody(MethodMember methodMember,
+            MethodBody methodBody)
         {
             return methodBody.Instructions
                 .Select(instruction => instruction.Operand)
@@ -217,7 +219,6 @@ namespace ArchUnitNET.Core.LoadTasks
                     var calledType = _typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.DeclaringType);
 
                     return CreateStubMethodCallDependencyForProperty(calledType, methodReference, accessedProperty);
-
                 });
         }
 
@@ -243,16 +244,19 @@ namespace ArchUnitNET.Core.LoadTasks
             catch (InvalidOperationException)
             {
             }
+
             var accessedMemberFullName = matchFunction.MatchNameFunction(fullName);
-            return accessedMemberFullName != null 
+            return accessedMemberFullName != null
                 ? GetPropertyMemberWithFullNameEndingWith(_type, accessedMemberFullName)
                 : null;
         }
 
-        private MethodCallDependency CreateStubMethodCallDependencyForProperty(IType calledType, MethodReference methodReference,
+        private MethodCallDependency CreateStubMethodCallDependencyForProperty(IType calledType,
+            MethodReference methodReference,
             PropertyMember backedProperty)
         {
-            var calledMethodMember = _typeFactory.CreateStubMethodMemberFromMethodReference(calledType, methodReference);
+            var calledMethodMember =
+                _typeFactory.CreateStubMethodMemberFromMethodReference(calledType, methodReference);
             var dependency = new MethodCallDependency(backedProperty, calledMethodMember);
             return dependency;
         }

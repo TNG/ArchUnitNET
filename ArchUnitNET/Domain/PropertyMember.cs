@@ -1,21 +1,22 @@
-﻿/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
 using ArchUnitNET.Domain.Dependencies.Members;
 using ArchUnitNET.Domain.Dependencies.Types;
 using Equ;
+using JetBrains.Annotations;
+using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Domain
 {
     public class PropertyMember : MemberwiseEquatable<PropertyMember>, IMember
     {
         public PropertyMember(IType declaringType, string name, string fullName, IType type,
-            bool isVirtual, MethodMember getter, MethodMember setter)
+            bool isVirtual, [CanBeNull] MethodMember getter, [CanBeNull] MethodMember setter)
         {
             Name = name;
             FullName = fullName;
@@ -28,11 +29,14 @@ namespace ArchUnitNET.Domain
 
         public IType Type { get; }
         public bool IsVirtual { get; }
-        public Visibility? GetterVisibility => Getter?.Visibility;
-        public Visibility? SetterVisibility => Setter?.Visibility;
-        public MethodMember Getter { get; }
-        public MethodMember Setter { get; }
+        public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
+        public Visibility GetterVisibility => Getter?.Visibility ?? NotAccessible;
+
+        [CanBeNull] public MethodMember Getter { get; }
+        [CanBeNull] public MethodMember Setter { get; }
         public FieldMember BackingField { get; internal set; }
+
+        public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;
         public string Name { get; }
         public string FullName { get; }
         public IType DeclaringType { get; }
@@ -64,7 +68,7 @@ namespace ArchUnitNET.Domain
 
         private new bool Equals(PropertyMember other)
         {
-            return base.Equals(other) && Equals(Type, other.Type) && IsVirtual == other.IsVirtual 
+            return base.Equals(other) && Equals(Type, other.Type) && IsVirtual == other.IsVirtual
                    && Equals(Getter, other.Getter) && Equals(Setter, other.Setter)
                    && Equals(BackingField, other.BackingField) && string.Equals(Name, other.Name)
                    && string.Equals(FullName, other.FullName) && Equals(DeclaringType, other.DeclaringType);

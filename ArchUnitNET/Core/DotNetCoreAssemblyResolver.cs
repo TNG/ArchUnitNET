@@ -1,15 +1,14 @@
-﻿/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 
@@ -17,20 +16,14 @@ namespace ArchUnitNET.Core
 {
     internal class DotNetCoreAssemblyResolver : IAssemblyResolver
     {
+        private readonly DefaultAssemblyResolver _defaultAssemblyResolver;
         private readonly Dictionary<string, AssemblyDefinition> _libraries;
         public string AssemblyPath = "";
 
         public DotNetCoreAssemblyResolver()
         {
             _libraries = new Dictionary<string, AssemblyDefinition>();
-        }
-
-        public void AddLib(AssemblyDefinition moduleAssembly)
-        {
-            if (!_libraries.ContainsKey(moduleAssembly.FullName))
-            {
-                _libraries.Add(moduleAssembly.FullName, moduleAssembly);
-            }
+            _defaultAssemblyResolver = new DefaultAssemblyResolver();
         }
 
         [CanBeNull]
@@ -47,7 +40,7 @@ namespace ArchUnitNET.Core
                 throw new ArgumentNullException(nameof(name));
             }
 
-            if (_libraries.TryGetValue(name.Name, out var assemblyDefinition) || string.IsNullOrEmpty(AssemblyPath))
+            if (_libraries.TryGetValue(name.FullName, out var assemblyDefinition) || string.IsNullOrEmpty(AssemblyPath))
             {
                 return assemblyDefinition;
             }
@@ -61,7 +54,7 @@ namespace ArchUnitNET.Core
             }
 
             assemblyDefinition = AssemblyDefinition.ReadAssembly(file, parameters);
-            _libraries.Add(name.Name, assemblyDefinition);
+            _libraries.Add(name.FullName, assemblyDefinition);
 
             return assemblyDefinition;
         }
@@ -70,6 +63,28 @@ namespace ArchUnitNET.Core
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void AddLib([NotNull] AssemblyDefinition moduleAssembly)
+        {
+            if (!_libraries.ContainsKey(moduleAssembly.FullName))
+            {
+                _libraries.Add(moduleAssembly.FullName, moduleAssembly);
+            }
+        }
+
+        private void AddLib([NotNull] AssemblyNameReference name, [NotNull] AssemblyDefinition moduleAssembly)
+        {
+            if (!_libraries.ContainsKey(name.FullName))
+            {
+                _libraries.Add(name.FullName, moduleAssembly);
+            }
+        }
+
+        public void AddLib(AssemblyNameReference name)
+        {
+            var assembly = Resolve(name) ?? _defaultAssemblyResolver.Resolve(name);
+            AddLib(name, assembly ?? throw new AssemblyResolutionException(name));
         }
 
         private void Dispose(bool disposing)

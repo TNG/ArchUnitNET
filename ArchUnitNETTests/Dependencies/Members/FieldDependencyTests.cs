@@ -1,26 +1,21 @@
-/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
+using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNETTests.Dependencies.Members
 {
     public class FieldDependencyTests
     {
-        private readonly Class _classWithFieldA;
-        private readonly FieldMember _fieldAMember;
-        private readonly Class _fieldType;
-        private readonly FieldMember _privateFieldAMember;
-
         public FieldDependencyTests()
         {
             var architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
@@ -29,6 +24,11 @@ namespace ArchUnitNETTests.Dependencies.Members
             _fieldType = architecture.GetClassOfType(typeof(FieldType));
             _privateFieldAMember = _classWithFieldA.GetFieldMembersWithName("_privateFieldA").SingleOrDefault();
         }
+
+        private readonly Class _classWithFieldA;
+        private readonly FieldMember _fieldAMember;
+        private readonly Class _fieldType;
+        private readonly FieldMember _privateFieldAMember;
 
         [Fact]
         public void ClassDependencyForFieldMemberTypesAreCreated()
@@ -56,21 +56,21 @@ namespace ArchUnitNETTests.Dependencies.Members
         public void FieldMembersAreCreated()
         {
             Assert.Equal(_classWithFieldA, _fieldAMember?.DeclaringType);
-            Assert.Equal(Visibility.Public, _fieldAMember?.Visibility);
+            Assert.Equal(Public, _fieldAMember?.Visibility);
             Assert.Equal(_fieldType, _fieldAMember?.Type);
         }
 
         [Fact]
         public void PrivateFieldMembersAreCreatedWithCorrectVisibility()
         {
-            Assert.Equal(Visibility.Private, _privateFieldAMember?.Visibility);
+            Assert.Equal(Private, _privateFieldAMember?.Visibility);
         }
     }
 
     public class ClassWithFieldA
     {
-        public FieldType FieldA;
         private FieldType _privateFieldA;
+        public FieldType FieldA;
     }
 
     public class FieldType

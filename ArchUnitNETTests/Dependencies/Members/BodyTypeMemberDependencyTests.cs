@@ -1,27 +1,19 @@
-/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
-
-// ReSharper disable UnusedVariable
 
 namespace ArchUnitNETTests.Dependencies.Members
 {
     public class BodyTypeMemberDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly MethodMember _methodWithTypeA;
-        private readonly Class _typeA;
-
         public BodyTypeMemberDependencyTests()
         {
             var classWithBodyTypeA = _architecture.GetClassOfType(typeof(ClassWithBodyTypeA));
@@ -30,24 +22,33 @@ namespace ArchUnitNETTests.Dependencies.Members
             _typeA = _architecture.GetClassOfType(typeof(TypeA));
         }
 
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly MethodMember _methodWithTypeA;
+        private readonly Class _typeA;
+
         [Fact]
         public void BodyTypeDependenciesFound()
         {
             var bodyTypeDependencies =
                 _methodWithTypeA.GetBodyTypeMemberDependencies().ToList();
 
-            Assert.Equal(3, bodyTypeDependencies.Count);
+            var classWithBodyTypeA = new ClassWithBodyTypeA();
+            Assert.Equal("AABC", ClassWithBodyTypeA.MethodWithTypeA());
+            Assert.True(bodyTypeDependencies.Count >= 3);
             Assert.Contains(_typeA, bodyTypeDependencies.Select(dependency => (Class) dependency.Target));
         }
     }
 
     public class ClassWithBodyTypeA
     {
-        public void MethodWithTypeA()
+        public static string MethodWithTypeA()
         {
             var typeA = new TypeA();
+            var typeA2 = new TypeA();
             var typeB = new TypeB();
             var typeC = typeA.MethodReturnsTypeC();
+            return typeA.ToString() + typeA2 + typeB + typeC;
         }
     }
 
@@ -57,13 +58,26 @@ namespace ArchUnitNETTests.Dependencies.Members
         {
             return new TypeC();
         }
+
+        public override string ToString()
+        {
+            return "A";
+        }
     }
 
     public class TypeB
     {
+        public override string ToString()
+        {
+            return "B";
+        }
     }
 
     public class TypeC
     {
+        public override string ToString()
+        {
+            return "C";
+        }
     }
 }

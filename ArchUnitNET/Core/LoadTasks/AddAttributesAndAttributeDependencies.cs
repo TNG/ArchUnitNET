@@ -1,16 +1,15 @@
-/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
 using ArchUnitNET.Domain.Dependencies.Types;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 
@@ -34,7 +33,8 @@ namespace ArchUnitNET.Core.LoadTasks
             _typeDefinition.CustomAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
             var typeAttributes = CreateAttributesFromCustomAttributes(_typeDefinition.CustomAttributes).ToList();
             _type.Attributes.AddRange(typeAttributes);
-            var typeAttributeDependencies = typeAttributes.Select(attribute => new AttributeTypeDependency(_type, attribute));
+            var typeAttributeDependencies =
+                typeAttributes.Select(attribute => new AttributeTypeDependency(_type, attribute));
             _type.Dependencies.AddRange(typeAttributeDependencies);
             CollectAttributesForMembers();
         }
@@ -44,7 +44,7 @@ namespace ArchUnitNET.Core.LoadTasks
             _typeDefinition.Fields.Where(x => !x.IsBackingField()).ForEach(SetUpAttributesForFields);
 
             _typeDefinition.Properties.ForEach(SetUpAttributesForProperties);
-            
+
             _typeDefinition.Methods.ForEach(SetUpAttributesForMethods);
         }
 
@@ -70,7 +70,8 @@ namespace ArchUnitNET.Core.LoadTasks
             CollectMemberAttributesAndDependencies(methodMember, memberCustomAttributes);
         }
 
-        private void CollectMemberAttributesAndDependencies(IMember methodMember, List<CustomAttribute> memberCustomAttributes)
+        private void CollectMemberAttributesAndDependencies(IMember methodMember,
+            List<CustomAttribute> memberCustomAttributes)
         {
             memberCustomAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
             var memberAttributes = CreateAttributesFromCustomAttributes(memberCustomAttributes).ToList();
@@ -90,9 +91,10 @@ namespace ArchUnitNET.Core.LoadTasks
                 return new Attribute(attributeType as Class);
             });
         }
-        
+
         [NotNull]
-        private static IEnumerable<AttributeMemberDependency> CreateMemberAttributeDependencies(IMember member, IEnumerable<Attribute> attributes)
+        private static IEnumerable<AttributeMemberDependency> CreateMemberAttributeDependencies(IMember member,
+            IEnumerable<Attribute> attributes)
         {
             return attributes.Select(attribute => new AttributeMemberDependency(member, attribute));
         }
@@ -103,7 +105,7 @@ namespace ArchUnitNET.Core.LoadTasks
             {
                 return;
             }
-            
+
             var attributeConstructorArgs = customAttribute.ConstructorArguments;
             attributeConstructorArgs
                 .Where(attributeArgument => attributeArgument.Value is TypeReference)

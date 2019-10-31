@@ -1,15 +1,12 @@
 language: csharp
 mono: none
-dotnet: 2.2.301
+dotnet: 2.2.402
 solution: ArchUnit.sln
-script:
-  - dotnet restore
-  - dotnet build -c Release
-  - dotnet pack -c Release --output nupkgs
-  - dotnet test -c Release
-
+script: chmod +x ./Travis/build.sh && ./Travis/build.sh
 deploy:
+  skip_cleanup: true
   provider: script
-  script: dotnet nuget push ./ArchUnitNET/nupkgs/TngTech.ArchUnitNET.*.nupkg -k $NUGET_API_KEY -s $NUGET_SOURCE
+  script: chmod +x ./Travis/deploy.sh && ./Travis/deploy.sh $NUGET_API_KEY $NUGET_SOURCE
   on:
     tags: true
+    all_branches: true

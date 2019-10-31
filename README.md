@@ -1,6 +1,6 @@
 <img src="Logo/ArchUnit-Logo.png" height="64" alt="ArchUnit">
 
-# ArchUnitNET [![Build Status](https://travis-ci.com/TNG/ArchUnitNET.svg?branch=master)](https://travis-ci.com/TNG/ArchUnitNET) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/TNG/ArchUnitNET/blob/master/LICENSE)
+# ArchUnitNET [![Build Status](https://travis-ci.com/TNG/ArchUnitNET.svg?branch=master)](https://travis-ci.com/TNG/ArchUnitNET) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/TNG/ArchUnitNET/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/TngTech.ArchUnitNET)](https://www.nuget.org/packages/TngTech.ArchUnitNET/)
 
 license: Apache-2.0
 
@@ -13,112 +13,93 @@ To use ArchUnitNET, install the ArchUnitNET package from NuGet:
 ```
 PS> Install-Package ArchUnitNET
 ```
+If you want to use xUnit or NUnit for your unit tests, you can also install the corresponding ArchUnit extension:
+```
+PS> Install-Package ArchUnitNET.xUnit
+PS> Install-Package ArchUnitNET.NUnit
+```
 #### Create a Test
-Then you will want to create a class to start testing. We used XUnit for our unit tests here, but you can also use other
-testing tools, for example NUnit.
+Then you will want to create a class to start testing. We used xUnit with the ArchUnit extension here, but it works similarly with NUnit or other Unit Test Frameworks.
 ```cs
-
-using System.Collections.Generic;
-using System.Linq;
 
 using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
-
 using Xunit;
+
+//add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
+using static ArchUnitNET.Fluent.ArchRuleDefinition;
+
 
 namespace ExampleTest
 {
     public class ExampleArchUnitTest
     {
         // TIP: load your architecture once at the start to maximize performance of your tests
-        static readonly Architecture _architecture = new ArchLoader().LoadAssembly(typeof(FrenchChef).Assembly).Build();
-        // replace <FrenchChef> with a class from your architecture
+        private static readonly Architecture Architecture =
+            new ArchLoader().LoadAssemblies(typeof(ExampleClass).Assembly, typeof(ForbiddenClass).Assembly)
+            .Build();
+        // replace <ExampleClass> and <ForbiddenClass> with classes from the assemblies you want to test
 
-        // declare variables you'll use throughout your tests up here
-        private readonly IEnumerable<Class> _chefs;
-        private readonly Interface _cookInterface;
+        //declare variables you'll use throughout your tests up here
+        //use As() to give them a custom description
+        private readonly IObjectProvider<IType> ExampleLayer =
+            Types().That().ResideInAssembly("ExampleAssembly").As("Example Layer");
 
-        // initialize your test variables in the constructor
-        // TIP: access types of values from your architecture, then filter them using provided extension methods
-        public ExampleArchUnitTest()
+        private readonly IObjectProvider<Class> ExampleClasses =
+            Classes().That().ImplementInterface("IExampleInterface").As("Example Classes");
+
+        private readonly IObjectProvider<IType> ForbiddenLayer =
+            Types().That().ResideInNamespace("ForbiddenNamespace").As("Forbidden Layer");
+
+        private readonly IObjectProvider<Interface> ForbiddenInterfaces =
+            Interfaces().That().HaveFullNameContaining("forbidden").As("Forbidden Interfaces");
+
+
+        //write some tests
+        [Fact]
+        public void TypesShouldBeInCorrectLayer()
         {
-            _chefs = _architecture.Classes.Where(cls => cls.NameEndsWith("Chef"));
-            _cookInterface = _architecture.GetInterfaceOfType(typeof(ICook));
+            //you can use the fluent API to write your own rules
+            IArchRule exampleClassesShouldBeInExampleLayer =
+                Classes().That().Are(ExampleClasses).Should().Be(ExampleLayer);
+            IArchRule forbiddenInterfacesShouldBeInForbiddenLayer =
+                Interfaces().That().Are(ForbiddenInterfaces).Should().Be(ForbiddenLayer);
+
+            //check if your architecture fulfils your rules
+            exampleClassesShouldBeInExampleLayer.Check(Architecture);
+            forbiddenInterfacesShouldBeInForbiddenLayer.Check(Architecture);
+
+            //you can also combine your rules
+            IArchRule combinedArchRule =
+                exampleClassesShouldBeInExampleLayer.And(forbiddenInterfacesShouldBeInForbiddenLayer);
+            combinedArchRule.Check(Architecture);
         }
 
         [Fact]
-        public void AllChefsCook()
+        public void ExampleLayerShouldNotAccessForbiddenLayer()
         {
-            Assert.All(_chefs, chef => chef.Implements(_cookInterface));
-        }
-    }
-
-
-    public class FrenchChef : ICook
-    {
-        private string _name;
-        private int _age;
-
-        public FrenchChef(string name, int age)
-        {
-            _name = name;
-            _age = age;
+            //you can give your rules a custom reason, which is displayed when it fails
+            //(together with the types that failed the rule)
+            IArchRule exampleLayerShouldNotAccessForbiddenLayer = Types().That().Are(ExampleLayer).Should()
+                .NotDependOnAny(ForbiddenLayer).Because("it's forbidden");
+            exampleLayerShouldNotAccessForbiddenLayer.Check(Architecture);
         }
 
-        public void Cook()
+        [Fact]
+        public void ForbiddenClassesShouldHaveCorrectName()
         {
-            CremeBrulee();
-            Crepes();
-            Ratatouille();
+            Classes().That().AreAssignableTo(ForbiddenInterfaces).Should().HaveNameContaining("forbidden")
+                .Check(Architecture);
         }
 
-        private static void CremeBrulee()
+        [Fact]
+        public void ExampleClassesShouldNotCallForbiddenMethods()
         {
+            Classes().That().Are(ExampleClasses).Should().NotCallAny(
+                    MethodMembers().That().AreDeclaredIn(ForbiddenLayer).Or().HaveNameContaining("forbidden"))
+                .Check(Architecture);
         }
-
-        private static void Crepes()
-        {
-        }
-
-        private static void Ratatouille()
-        {
-        }
-    }
-
-    public class ItalianChef : ICook
-    {
-        private string _name;
-        private int _age;
-
-        public ItalianChef(string name, int age)
-        {
-            _name = name;
-            _age = age;
-        }
-
-        public void Cook()
-        {
-            PizzaMargherita();
-            Tiramisu();
-            Lasagna();
-        }
-        
-        private static void PizzaMargherita()
-        {
-        }
-
-        private static void Tiramisu()
-        {
-        }
-
-        private static void Lasagna()
-        {
-        }    }
-
-    public interface ICook
-    {
-        void Cook();
     }
 }
 ```

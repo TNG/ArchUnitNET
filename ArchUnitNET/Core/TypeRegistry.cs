@@ -1,9 +1,8 @@
-/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,8 @@ namespace ArchUnitNET.Core
     {
         private readonly Dictionary<string, IType> _allTypes = new Dictionary<string, IType>();
 
-        public IType GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference, [NotNull] Func<string, IType> createFunc)
+        public IType GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference,
+            [NotNull] Func<string, IType> createFunc)
         {
             return RegistryUtils.GetFromDictOrCreateAndAdd(typeReference.FullName, _allTypes,
                 createFunc);

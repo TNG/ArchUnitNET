@@ -1,28 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
-        <Version>0.1.0-draft</Version>
+        <PackageVersion>0.2.0</PackageVersion>
         <RootNamespace>ArchUnitNET</RootNamespace>
-    </PropertyGroup>
-    <PropertyGroup>
         <PackageId>TngTech.ArchUnitNET</PackageId>
         <Title>ArchUnit C#</Title>
-        <Authors>Florian Gather, Paula Ruiz</Authors>
+        <Authors>Florian Gather, Paula Ruiz, Fritz Brandhuber</Authors>
         <Company>TNG Technology Consulting GmbH</Company>
         <Description>C# Version of ArchUnit (see: archunit.org)</Description>
         <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
-        <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-        <PackageTags>test;arch;archunit</PackageTags>
+        <PackageReleaseNotes>Initial release of the fluent API</PackageReleaseNotes>
+        <PackageTags>test;arch;archunit;xunit;nunit</PackageTags>
         <IncludeSource>False</IncludeSource>
+        <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+        <AssemblyVersion>0.2.0.0</AssemblyVersion>
     </PropertyGroup>
+    
     <ItemGroup>
-        <PackageReference Include="CycleDetection" Version="2.0.0"/>
-        <PackageReference Include="Equ" Version="2.1.0"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2019.1.3"/>
-        <PackageReference Include="Mono.Cecil" Version="0.10.4"/>
+        <PackageReference Include="CycleDetection" Version="2.0.0" />
+        <PackageReference Include="Equ" Version="2.2.0" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
+        <PackageReference Include="Mono.Cecil" Version="0.11.0" />
     </ItemGroup>
+    
     <ItemGroup>
-        <None Remove="License.md"/>
+        <None Remove="License.md" />
     </ItemGroup>
+    
 </Project>

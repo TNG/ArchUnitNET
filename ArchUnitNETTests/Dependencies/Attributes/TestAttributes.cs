@@ -1,16 +1,21 @@
-/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System;
 using ArchUnitNETTests.Dependencies.Members;
 using TestAssembly;
+
+#pragma warning disable 169
+#pragma warning disable 649
+
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable NotAccessedField.Local
 // ReSharper disable UnassignedGetOnlyAutoProperty
 // ReSharper disable UnusedMember.Local
-
 // ReSharper disable UnassignedField.Global
 // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -92,13 +97,13 @@ namespace ArchUnitNETTests.Dependencies.Attributes
     public class ConstructorAttribute : Attribute
     {
         private FieldType _insideField;
-        
-        ConstructorAttribute()
+
+        private ConstructorAttribute()
         {
             _insideField = new FieldType();
         }
 
-        ConstructorAttribute(FieldType insideField)
+        private ConstructorAttribute(FieldType insideField)
         {
             _insideField = insideField;
         }
@@ -106,7 +111,6 @@ namespace ArchUnitNETTests.Dependencies.Attributes
 
     public class ForbiddenAttribute : Attribute
     {
-
     }
 
     public class InterfaceImplementingAttribute : Attribute, IAttribute
@@ -145,16 +149,13 @@ namespace ArchUnitNETTests.Dependencies.Attributes
 
         private string _parameterProperty;
 
-        [ExampleField]
-        public FieldType FieldA;
+        [ExampleField] public FieldType FieldA;
 
-        [ChildOfAbstract]
-        public string FieldWithAbstractAttributeImplemented;
+        [ChildOfAbstract] public string FieldWithAbstractAttributeImplemented;
 
         public string ParameterProperty;
 
-        [ExampleProperty]
-        public string PropertyA { get; private set; }
+        [ExampleProperty] public string PropertyA { get; private set; }
 
         public string get_ParameterProperty()
         {
@@ -226,6 +227,7 @@ namespace ArchUnitNETTests.Dependencies.Attributes
         private FieldType _fieldType;
 
         [TypeDependent(typeof(ClassWithBodyTypeA))]
+        // ReSharper disable once ConvertToAutoProperty
         public FieldType FieldType => _fieldType;
 
         [TypeDependent(typeof(Class1))]

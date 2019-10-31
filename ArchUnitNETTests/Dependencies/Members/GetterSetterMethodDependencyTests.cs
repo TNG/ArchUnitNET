@@ -1,15 +1,14 @@
-/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 
 // ReSharper disable UnusedMember.Local
@@ -20,9 +19,8 @@ namespace ArchUnitNETTests.Dependencies.Members
 {
     public class GetterSetterMethodDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
         private readonly PropertyMember _acceptedCaseProperty;
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly PropertyMember _firstUnacceptedCaseProperty;
         private readonly PropertyMember _secondUnacceptedCaseProperty;
 
@@ -47,11 +45,11 @@ namespace ArchUnitNETTests.Dependencies.Members
                     Assert.Contains(dependency, backedProperty.MemberDependencies);
                     Assert.Contains(dependency, backedProperty.Setter.MemberDependencies);
                 });
-            
+
             var backingFieldDependencyTargets = backingField.MemberDependencies.Select(dependency => dependency.Target);
             Assert.Contains(expectedTarget, backingFieldDependencyTargets);
         }
-        
+
         [Theory]
         [ClassData(typeof(GetterSetterTestsBuild.GetterTestData))]
         public void AssertGetterMethodDependencies(PropertyMember propertyMember, Class mockTargetClass,

@@ -1,31 +1,30 @@
-﻿/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Types;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNET.Matcher;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 
 namespace ArchUnitNETTests.Dependencies.Members
 {
     public class BaseClassTest
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly Class _baseClass;
-        private readonly Class _childClass;
-
         public BaseClassTest()
         {
             _baseClass = _architecture.GetClassOfType(typeof(BaseClass));
             _childClass = _architecture.GetClassOfType(typeof(ChildClass));
         }
+
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly Class _baseClass;
+        private readonly Class _childClass;
 
         [Fact]
         public void ChildClassHasAllMembers()

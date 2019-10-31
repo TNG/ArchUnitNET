@@ -1,16 +1,15 @@
-/*
- * Copyright 2019 Florian Gather <florian.gather@tngtech.com>
- * Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Types;
-using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Dependencies.Attributes;
-using ArchUnitNETTests.Fluent;
+using ArchUnitNETTests.Fluent.Extensions;
 using JetBrains.Annotations;
 using Xunit;
 
@@ -18,27 +17,27 @@ namespace ArchUnitNETTests.Core
 {
     public class TypeTests
     {
+        public TypeTests()
+        {
+            _type = _architecture.GetClassOfType(typeof(AssignClass)).CreateShallowStubType();
+            _type.RequiredNotNull();
+
+            _duplicateType = _architecture.GetClassOfType(typeof(AssignClass)).CreateShallowStubType();
+            _duplicateType.RequiredNotNull();
+
+            _duplicateReference = _type;
+
+            _exampleInterface = _architecture.GetInterfaceOfType(typeof(IExample));
+            _exampleInterface.RequiredNotNull();
+            _expectedAttributeClass = _architecture.GetClassOfType(typeof(ExampleAttribute));
+        }
+
         private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly Type _type;
         private readonly Type _duplicateType;
         private readonly object _duplicateReference;
         private readonly Interface _exampleInterface;
         private readonly Class _expectedAttributeClass;
-
-        public TypeTests()
-        {
-            _type = _architecture.GetClassOfType(typeof(AssignClass)).CreateShallowStubType();
-            _type.RequiredNotNull();
-            
-            _duplicateType = _architecture.GetClassOfType(typeof(AssignClass)).CreateShallowStubType();
-            _duplicateType.RequiredNotNull();
-            
-            _duplicateReference = _type;
-            
-            _exampleInterface = _architecture.GetInterfaceOfType(typeof(IExample));
-            _exampleInterface.RequiredNotNull();
-            _expectedAttributeClass = _architecture.GetClassOfType(typeof(ExampleAttribute));
-        }
 
         [Theory]
         [ClassData(typeof(TypeTestBuild.TypeModelingTestData))]
@@ -47,52 +46,6 @@ namespace ArchUnitNETTests.Core
             Assert.Equal(type.ToString(), type.FullName);
         }
 
-        [Fact]
-        public void IsAssignableToItself()
-        {
-            Assert.True(_type.IsAssignableTo(_type));
-        }
-        
-        [Fact]
-        public void IsAssignableToDuplicate()
-        {
-            Assert.True(_type.IsAssignableTo(_duplicateType));
-        }
-        
-        [Fact]
-        public void IsAssignableToReferenceCopy()
-        {
-            Assert.True(_type.IsAssignableTo(_duplicateReference as IType));
-        }
-
-        [Fact]
-        public void NotAssignableToNull()
-        {
-            Assert.False(_type.IsAssignableTo(null));
-        }
-
-        [Fact]
-        public void IsAssignableToImplementedInterface()
-        {
-            //Setup, Act
-            var interfaceDependency = new ImplementsInterfaceDependency(_type, _exampleInterface);
-            _type.Dependencies.Add(interfaceDependency);
-            
-            //Assert
-            Assert.True(_type.IsAssignableTo(_exampleInterface));
-        }
-
-        [Fact]
-        public void AccessAttributes()
-        {
-            //Setup, Act
-            var attribute = new Attribute(_expectedAttributeClass);
-            _type.Attributes.Add(attribute);
-            
-            //Assert
-            Assert.Contains(attribute, _type.Attributes);
-        }
-        
         [Theory]
         [ClassData(typeof(TypeTestBuild.TypeEquivalencyModelingTestData))]
         public void TypeEquivalencyTests(IType type, object duplicateType, IType typeCopy,
@@ -104,7 +57,7 @@ namespace ArchUnitNETTests.Core
             TypeDoesNotEqualNull(type);
             TypeHasConsistentHashCode(type, duplicateType);
         }
-        
+
         private static void DuplicateTypesAreEqual([NotNull] IType type, [NotNull] object duplicateType)
         {
             type.RequiredNotNull();
@@ -127,14 +80,14 @@ namespace ArchUnitNETTests.Core
         {
             type.RequiredNotNull();
             typeReferenceDuplicate.RequiredNotNull();
-            
+
             Assert.True(type.Equals(typeReferenceDuplicate));
         }
 
         private static void TypeDoesNotEqualNull([NotNull] IType type)
         {
             type.RequiredNotNull();
-            
+
             Assert.False(type.Equals(null));
         }
 
@@ -143,10 +96,56 @@ namespace ArchUnitNETTests.Core
         {
             type.RequiredNotNull();
             duplicateType.RequiredNotNull();
-            
+
             var hash = type.GetHashCode();
             var duplicateHash = duplicateType.GetHashCode();
             Assert.Equal(hash, duplicateHash);
+        }
+
+        [Fact]
+        public void AccessAttributes()
+        {
+            //Setup, Act
+            var attribute = new Attribute(_expectedAttributeClass);
+            _type.Attributes.Add(attribute);
+
+            //Assert
+            Assert.Contains(attribute, _type.Attributes);
+        }
+
+        [Fact]
+        public void IsAssignableToDuplicate()
+        {
+            Assert.True(_type.IsAssignableTo(_duplicateType));
+        }
+
+        [Fact]
+        public void IsAssignableToImplementedInterface()
+        {
+            //Setup, Act
+            var interfaceDependency = new ImplementsInterfaceDependency(_type, _exampleInterface);
+            _type.Dependencies.Add(interfaceDependency);
+
+            //Assert
+            Assert.True(_type.IsAssignableTo(_exampleInterface));
+        }
+
+        [Fact]
+        public void IsAssignableToItself()
+        {
+            Assert.True(_type.IsAssignableTo(_type));
+        }
+
+        [Fact]
+        public void IsAssignableToReferenceCopy()
+        {
+            Assert.True(_type.IsAssignableTo(_duplicateReference as IType));
+        }
+
+        [Fact]
+        public void NotAssignableToNull()
+        {
+            Assert.False(_type.IsAssignableTo(null));
         }
     }
 
