@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
@@ -66,6 +67,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        //Relation Conditions
+
+        public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeDeclaredInTypesThat()
+        {
+            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
+                MemberConditionsDefinition<TRuleType>.BeDeclaredInTypesThat());
+            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
+        }
+
+
         //Negations
 
 
@@ -113,6 +124,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        //Relation Condition Negations
+
+        public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotBeDeclaredInTypesThat()
+        {
+            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
+                MemberConditionsDefinition<TRuleType>.NotBeDeclaredInTypesThat());
+            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
         }
     }
 }

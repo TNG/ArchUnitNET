@@ -162,6 +162,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         }
 
 
+        //Relation Conditions
+
+
+        public static RelationCondition<TRuleType, IType> BeDeclaredInTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(BeDeclaredIn, "be declared in types that",
+                "is not declared in types that");
+        }
+
+
         //Negations
 
 
@@ -309,6 +319,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             return new ArchitectureCondition<TRuleType>(Condition, description);
+        }
+
+
+        //Relation Condition Negations
+
+
+        public static RelationCondition<TRuleType, IType> NotBeDeclaredInTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(NotBeDeclaredIn, "not be declared in types that",
+                "is declared in types that");
         }
     }
 }

@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Syntax.Elements.Types;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
@@ -15,5 +16,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         where TRuleType : IMember
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeDeclaredInTypesThat();
+
+
+        //Negations
+
+
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotBeDeclaredInTypesThat();
     }
 }
