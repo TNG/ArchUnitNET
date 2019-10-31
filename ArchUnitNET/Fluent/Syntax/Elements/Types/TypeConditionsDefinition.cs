@@ -314,6 +314,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
 
+        //Relation Conditions
+
+
+        public static RelationCondition<TRuleType, IType> BeAssignableToTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(BeAssignableTo, "be assignable to types that",
+                "is not assignable to types that");
+        }
+
+
         //Negations
 
 
@@ -644,6 +654,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static ICondition<TRuleType> NotBeNested()
         {
             return new SimpleCondition<TRuleType>(type => !type.IsNested, "not be nested", "is nested");
+        }
+
+
+        //Relation Condition Negations
+
+
+        public static RelationCondition<TRuleType, IType> NotBeAssignableToTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(NotBeAssignableTo, "not be assignable to types that",
+                "is assignable to types that");
         }
     }
 }

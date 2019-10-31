@@ -139,6 +139,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
 
+        //Relation Conditions
+
+        public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeAssignableToTypesThat()
+        {
+            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
+                TypeConditionsDefinition<TRuleType>.BeAssignableToTypesThat());
+            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
+        }
+
+
         //Negations
 
 
@@ -256,6 +266,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.NotBeNested());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+
+        //Relation Condition Negations
+
+        public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotBeAssignableToTypesThat()
+        {
+            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
+                TypeConditionsDefinition<TRuleType>.NotBeAssignableToTypesThat());
+            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
         }
     }
 }

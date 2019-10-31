@@ -14,5 +14,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         where TRuleType : IType
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeAssignableToTypesThat();
+
+
+        //Negations
+
+
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotBeAssignableToTypesThat();
     }
 }
