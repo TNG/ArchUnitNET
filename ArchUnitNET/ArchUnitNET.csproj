@@ -3,7 +3,6 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsPackable>true</IsPackable>
-        <PackageVersion>0.2.0</PackageVersion>
         <RootNamespace>ArchUnitNET</RootNamespace>
         <PackageId>TngTech.ArchUnitNET</PackageId>
         <Title>ArchUnit C#</Title>
@@ -15,7 +14,6 @@
         <PackageTags>test;arch;archunit;xunit;nunit</PackageTags>
         <IncludeSource>False</IncludeSource>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
-        <AssemblyVersion>0.2.0.0</AssemblyVersion>
     </PropertyGroup>
     
     <ItemGroup>
