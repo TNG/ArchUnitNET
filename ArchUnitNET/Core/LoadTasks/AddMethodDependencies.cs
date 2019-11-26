@@ -167,9 +167,10 @@ namespace ArchUnitNET.Core.LoadTasks
         private IEnumerable<MethodCallDependency> CreateMethodCallDependenciesFromBody(MethodMember methodMember,
             MethodBody methodBody)
         {
-            return methodBody.Instructions
-                .Select(instruction => instruction.Operand)
-                .OfType<MethodReference>()
+            var operands = methodBody.Instructions
+                .Select(instruction => instruction.Operand).ToList();
+
+            return operands.OfType<MethodReference>()
                 .Select(methodReference =>
                 {
                     var calledType =
@@ -177,6 +178,13 @@ namespace ArchUnitNET.Core.LoadTasks
 
                     return calledType.GetMethodMemberWithFullName(methodReference.FullName);
                 })
+                .Concat(operands.OfType<GenericInstanceMethod>()
+                    .Select(genericMethod =>
+                    {
+                        var calledType = _typeFactory.GetOrCreateStubTypeFromTypeReference(genericMethod.DeclaringType);
+
+                        return calledType.GetMethodMemberWithFullName(genericMethod.GetFullName());
+                    }))
                 .Where(calledMethodMember => calledMethodMember != null)
                 .Select(calledMethodMember => new MethodCallDependency(methodMember, calledMethodMember));
         }

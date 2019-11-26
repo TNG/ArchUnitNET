@@ -208,5 +208,12 @@ namespace ArchUnitNET.Fluent.Extensions
             return methodDefinition.FullName + methodDefinition.GenericParameters.Aggregate(string.Empty,
                        (current, newElement) => current + "<" + newElement.Name + ">");
         }
+
+        public static string GetFullName(this GenericInstanceMethod genericInstanceMethod)
+        {
+            return genericInstanceMethod.GetElementMethod().FullName + genericInstanceMethod.GetElementMethod()
+                       .GenericParameters.Aggregate(string.Empty,
+                           (current, newElement) => current + "<" + newElement.Name + ">");
+        }
     }
 }
