@@ -134,7 +134,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
             }
 
             return new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility, parameters,
-                returnType, methodBase.IsVirtual, methodForm);
+                returnType, methodBase.IsVirtual, methodForm, new List<GenericParameter>());
         }
 
         private static string BuildMockMethodName(this MethodBase methodBase)

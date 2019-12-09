@@ -13,6 +13,7 @@ using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
+using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Fluent.Extensions
 {
@@ -60,11 +61,13 @@ namespace ArchUnitNET.Fluent.Extensions
             var typeReference = methodReference.ReturnType;
             var returnType = typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
             var parameters = methodReference.GetParameters(typeFactory).ToList();
+            var genericParameters = methodReference.GenericParameters
+                .Select(parameter => new GenericParameter(parameter.Name)).ToList();
 
             var methodForm = methodReference.HasConstructorName() ? MethodForm.Constructor : MethodForm.Normal;
 
             return new MethodMember(methodReference.BuildMethodMemberName(), methodReference.FullName, type,
-                Public, parameters, returnType, false, methodForm);
+                Public, parameters, returnType, false, methodForm, genericParameters);
         }
 
         [NotNull]
@@ -203,17 +206,10 @@ namespace ArchUnitNET.Fluent.Extensions
             throw new ArgumentException("The method definition seems to have no visibility.");
         }
 
-        public static string GetFullName(this MethodDefinition methodDefinition)
+        public static string GetFullName(this MethodReference methodReference)
         {
-            return methodDefinition.FullName + methodDefinition.GenericParameters.Aggregate(string.Empty,
+            return methodReference.FullName + methodReference.GenericParameters.Aggregate(string.Empty,
                        (current, newElement) => current + "<" + newElement.Name + ">");
-        }
-
-        public static string GetFullName(this GenericInstanceMethod genericInstanceMethod)
-        {
-            return genericInstanceMethod.GetElementMethod().FullName + genericInstanceMethod.GetElementMethod()
-                       .GenericParameters.Aggregate(string.Empty,
-                           (current, newElement) => current + "<" + newElement.Name + ">");
         }
     }
 }
