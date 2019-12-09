@@ -7,9 +7,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ArchUnitNET.ArchitectureExceptions;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies.Members;
 using ArchUnitNET.Domain.Dependencies.Types;
+using JetBrains.Annotations;
+using Mono.Cecil;
+using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Fluent.Extensions
 {
@@ -103,6 +107,52 @@ namespace ArchUnitNET.Fluent.Extensions
         public static MethodMember GetMethodMemberWithFullName(this IType type, string fullName)
         {
             return type.GetMethodMembers().WhereFullNameIs(fullName);
+        }
+
+        [CanBeNull]
+        public static MethodMember GetMethodMemberWithMethodReference(this IType type, MethodReference methodReference)
+        {
+            var matchingMethods = type.GetMethodMembers().Where(member => member.MatchesGeneric(methodReference))
+                .ToList();
+            if (matchingMethods.Count > 1)
+            {
+                throw new MultipleOccurrencesInSequenceException(
+                    $"Multiple Methods matching {methodReference.FullName} found in provided type.");
+            }
+
+            return matchingMethods.FirstOrDefault();
+        }
+
+        private static bool MatchesGeneric(this MethodMember methodMember, MethodReference methodReference)
+        {
+            var referenceFullName = methodReference.GetElementMethod().GetFullName();
+            var memberFullName = methodMember.FullName;
+            var count = methodReference.GetElementMethod().GenericParameters.Count;
+            if (methodMember.GenericParameters.Count != count)
+            {
+                return false;
+            }
+
+            var parameters = new List<GenericParameter[]>();
+            for (var i = 0; i < count; i++)
+            {
+                parameters.Add(new[]
+                {
+                    new GenericParameter(methodReference.GetElementMethod().GenericParameters[i].Name),
+                    methodMember.GenericParameters[i]
+                });
+            }
+
+            parameters = parameters.OrderByDescending(genericParameters => genericParameters[0].Name.Length).ToList();
+
+            foreach (var genericParameters in parameters.Where(genericParameters => genericParameters[0] != null)
+            )
+            {
+                referenceFullName = referenceFullName.Replace(genericParameters[0].Name, genericParameters[1].Name);
+                memberFullName = memberFullName.Replace(genericParameters[0].Name, genericParameters[1].Name);
+            }
+
+            return memberFullName.Equals(referenceFullName);
         }
 
         public static bool HasMethodMemberWithFullName(this IType type, string fullname)
