@@ -13,7 +13,8 @@ namespace ArchUnitNET.Domain
     public class MethodMember : IMember
     {
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
-            List<IType> parameters, IType returnType, bool isVirtual, MethodForm methodForm)
+            List<IType> parameters, IType returnType, bool isVirtual, MethodForm methodForm,
+            List<GenericParameter> genericParameters)
         {
             Name = name;
             FullName = fullName;
@@ -23,12 +24,14 @@ namespace ArchUnitNET.Domain
             ReturnType = returnType;
             IsVirtual = isVirtual;
             MethodForm = methodForm;
+            GenericParameters = genericParameters;
         }
 
         public bool IsVirtual { get; }
         public MethodForm MethodForm { get; }
         public List<IType> Parameters { get; }
         public IType ReturnType { get; }
+        public List<GenericParameter> GenericParameters { get; }
         public Visibility Visibility { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();

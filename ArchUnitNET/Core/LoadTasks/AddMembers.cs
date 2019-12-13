@@ -12,6 +12,7 @@ using ArchUnitNET.Fluent.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
+using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Core.LoadTasks
 {
@@ -127,9 +128,11 @@ namespace ArchUnitNET.Core.LoadTasks
             var methodForm = methodDefinition.GetMethodForm();
             var methodName = methodDefinition.BuildMethodMemberName();
             var methodDefinitionFullName = methodDefinition.GetFullName();
+            var genericParameters =
+                methodDefinition.GenericParameters.Select(parameter => new GenericParameter(parameter.Name)).ToList();
 
             return new MethodMember(methodName, methodDefinitionFullName, _type, visibility,
-                parameters, returnType, methodDefinition.IsVirtual, methodForm);
+                parameters, returnType, methodDefinition.IsVirtual, methodForm, genericParameters);
         }
     }
 }
