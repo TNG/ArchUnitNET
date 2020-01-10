@@ -2,9 +2,7 @@
 
 # ArchUnitNET [![Build Status](https://travis-ci.com/TNG/ArchUnitNET.svg?branch=master)](https://travis-ci.com/TNG/ArchUnitNET) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/TNG/ArchUnitNET/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/TngTech.ArchUnitNET)](https://www.nuget.org/packages/TngTech.ArchUnitNET/)
 
-license: Apache-2.0
-
-ArchUnitNET is a free, simple library for checking the architecture of C# code. ArchUnitNET can check dependencies between
+ArchUnitNET is a free, simple library for checking the architecture of C# code. It is the C# fork of https://www.archunit.org/ for Java. ArchUnitNET can check dependencies between
 classes, members, interfaces, and more. This is done by analyzing C# bytecode and importing all classes into our C# code
 structure. The main focus of ArchUnitNET is to automatically test architecture and coding rules.
 
