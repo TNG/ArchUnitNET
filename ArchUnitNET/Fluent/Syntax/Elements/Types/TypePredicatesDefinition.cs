@@ -183,6 +183,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 pattern + "\"");
         }
 
+        public static IPredicate<T> ImplementInterface(Interface intf)
+        {
+            return new SimplePredicate<T>(type => type.ImplementsInterface(intf),
+                "implement interface \"" + intf.FullName + "\"");
+        }
+
+        public static IPredicate<T> ImplementInterface(Type intf)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
+            {
+                var interf = architecture.GetInterfaceOfType(intf);
+                return ruleTypes.Where(type => type.ImplementsInterface(interf));
+            }
+
+            return new ArchitecturePredicate<T>(Condition,
+                "implement interface \"" + intf.FullName + "\"");
+        }
+
         public static IPredicate<T> ResideInNamespace(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(type => type.ResidesInNamespace(pattern, useRegularExpressions),
@@ -412,6 +430,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimplePredicate<T>(type => !type.ImplementsInterface(pattern, useRegularExpressions),
                 "do not implement interface with full name " + (useRegularExpressions ? "matching" : "containing") +
                 " \"" + pattern + "\"");
+        }
+
+        public static IPredicate<T> DoNotImplementInterface(Interface intf)
+        {
+            return new SimplePredicate<T>(type => !type.ImplementsInterface(intf),
+                "do not implement interface \"" + intf.FullName + "\"");
+        }
+
+        public static IPredicate<T> DoNotImplementInterface(Type intf)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
+            {
+                var interf = architecture.GetInterfaceOfType(intf);
+                return ruleTypes.Where(type => !type.ImplementsInterface(interf));
+            }
+
+            return new ArchitecturePredicate<T>(Condition,
+                "do not implement interface \"" + intf.FullName + "\"");
         }
 
         public static IPredicate<T> DoNotResideInNamespace(string pattern, bool useRegularExpressions = false)
