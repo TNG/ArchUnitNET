@@ -247,6 +247,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 " \"" + pattern + "\"");
         }
 
+        public static ICondition<TRuleType> ImplementInterface(Interface intf)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ImplementsInterface(intf),
+                "implement interface \"" + intf.FullName + "\"",
+                "does not implement interface \"" + intf.FullName + "\"");
+        }
+
+        public static ICondition<TRuleType> ImplementInterface(Type intf)
+        {
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
+            {
+                var ruleTypeList = ruleTypes.ToList();
+                var interf = architecture.GetInterfaceOfType(intf);
+                var passedObjects = ruleTypeList.Where(type => type.ImplementsInterface(interf)).ToList();
+
+                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                {
+                    yield return new ConditionResult(failedObject, false,
+                        "does not implement interface \"" + intf.FullName + "\"");
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, "implement interface \"" + intf.FullName + "\"");
+        }
+
         public static ICondition<TRuleType> ResideInNamespace(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(
@@ -588,6 +619,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 " \"" + pattern + "\"",
                 "does implement interface with full name " + (useRegularExpressions ? "matching" : "containing") +
                 " \"" + pattern + "\"");
+        }
+
+        public static ICondition<TRuleType> NotImplementInterface(Interface intf)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ImplementsInterface(intf),
+                "not implement interface \"" + intf.FullName + "\"",
+                "does implement interface \"" + intf.FullName + "\"");
+        }
+
+        public static ICondition<TRuleType> NotImplementInterface(Type intf)
+        {
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
+            {
+                var ruleTypeList = ruleTypes.ToList();
+                var interf = architecture.GetInterfaceOfType(intf);
+                var passedObjects = ruleTypeList.Where(type => !type.ImplementsInterface(interf)).ToList();
+
+                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                {
+                    yield return new ConditionResult(failedObject, false,
+                        "does implement interface \"" + intf.FullName + "\"");
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, "not implement interface \"" + intf.FullName + "\"");
         }
 
         public static ICondition<TRuleType> NotResideInNamespace(string pattern, bool useRegularExpressions = false)

@@ -89,6 +89,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction ImplementInterface(Interface intf)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.ImplementInterface(intf));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction ImplementInterface(Type intf)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.ImplementInterface(intf));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         public TRuleTypeShouldConjunction ResideInNamespace(string pattern, bool useRegularExpressions = false)
         {
@@ -212,6 +226,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.ContinueComplexCondition(
                 TypePredicatesDefinition<TReferenceType>.DoNotImplementInterface(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotImplementInterface(Interface intf)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.DoNotImplementInterface(intf));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotImplementInterface(Type intf)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.DoNotImplementInterface(intf));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

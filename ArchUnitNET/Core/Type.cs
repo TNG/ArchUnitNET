@@ -53,7 +53,7 @@ namespace ArchUnitNET.Core
             .OfType<ImplementsInterfaceDependency>()
             .Select(dependency => dependency.Target);
 
-        public bool ImplementsInterface(IType intf)
+        public bool ImplementsInterface(Interface intf)
         {
             return ImplementedInterfaces.Any(implementedInterface =>
                 Equals(implementedInterface, intf) || Equals(implementedInterface.GenericType, intf));
@@ -84,7 +84,7 @@ namespace ArchUnitNET.Core
                 return true;
             }
 
-            return assignableToType is Interface && ImplementsInterface(assignableToType);
+            return assignableToType is Interface && ImplementsInterface((Interface) assignableToType);
         }
 
         public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
