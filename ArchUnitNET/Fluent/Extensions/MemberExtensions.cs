@@ -56,6 +56,12 @@ namespace ArchUnitNET.Fluent.Extensions
                 dependency.Origin.FullNameMatches(pattern, useRegularExpressions));
         }
 
+        public static IEnumerable<IType> GetCallingTypes(this MethodMember member)
+        {
+            return member.MemberBackwardsDependencies.OfType<MethodCallDependency>()
+                .Select(dependency => dependency.Origin).Distinct();
+        }
+
         public static bool HasDependencyInMethodBodyTo(this MethodMember member, string pattern,
             bool useRegularExpressions = false)
         {
