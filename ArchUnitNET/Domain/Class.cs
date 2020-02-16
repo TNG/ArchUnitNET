@@ -83,7 +83,7 @@ namespace ArchUnitNET.Domain
         public IType GenericType => Type.GenericType;
         public List<IType> GenericTypeArguments => Type.GenericTypeArguments;
 
-        public bool ImplementsInterface(IType intf)
+        public bool ImplementsInterface(Interface intf)
         {
             return Type.ImplementsInterface(intf);
         }

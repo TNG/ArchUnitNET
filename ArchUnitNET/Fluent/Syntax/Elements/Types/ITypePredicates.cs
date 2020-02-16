@@ -23,6 +23,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType AreAssignableTo(IEnumerable<IType> types);
         TReturnType AreAssignableTo(IEnumerable<Type> types);
         TReturnType ImplementInterface(string pattern, bool useRegularExpressions = false);
+        TReturnType ImplementInterface(Interface intf);
+        TReturnType ImplementInterface(Type intf);
         TReturnType ResideInNamespace(string pattern, bool useRegularExpressions = false);
         TReturnType ResideInAssembly(string pattern, bool useRegularExpressions = false);
         TReturnType ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
@@ -46,6 +48,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType AreNotAssignableTo(IEnumerable<IType> types);
         TReturnType AreNotAssignableTo(IEnumerable<Type> types);
         TReturnType DoNotImplementInterface(string pattern, bool useRegularExpressions = false);
+        TReturnType DoNotImplementInterface(Interface intf);
+        TReturnType DoNotImplementInterface(Type intf);
         TReturnType DoNotResideInNamespace(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotResideInAssembly(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);

@@ -86,6 +86,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction ImplementInterface(Interface intf)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ImplementInterface(intf));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction ImplementInterface(Type intf)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ImplementInterface(intf));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction ResideInNamespace(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
@@ -202,6 +216,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddPredicate(
                 TypePredicatesDefinition<TRuleType>.DoNotImplementInterface(pattern, useRegularExpressions));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotImplementInterface(Interface intf)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotImplementInterface(intf));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotImplementInterface(Type intf)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotImplementInterface(intf));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

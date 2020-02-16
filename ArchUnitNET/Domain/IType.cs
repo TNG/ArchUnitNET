@@ -19,7 +19,7 @@ namespace ArchUnitNET.Domain
         [CanBeNull] IType GenericType { get; }
         bool IsNested { get; }
         IEnumerable<IType> ImplementedInterfaces { get; }
-        bool ImplementsInterface(IType intf);
+        bool ImplementsInterface(Interface intf);
         bool ImplementsInterface(string pattern, bool useRegularExpressions = false);
         bool IsAssignableTo(IType assignableToType);
         bool IsAssignableTo(string pattern, bool useRegularExpressions = false);
