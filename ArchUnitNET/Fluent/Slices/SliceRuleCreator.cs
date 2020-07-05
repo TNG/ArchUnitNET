@@ -14,6 +14,7 @@ namespace ArchUnitNET.Fluent.Slices
 {
     public class SliceRuleCreator : ICanBeEvaluated
     {
+        private Func<IEnumerable<Slice>, ICanBeEvaluated, Architecture, IEnumerable<EvaluationResult>> _evaluationFunc;
         private SliceAssignment _sliceAssignment;
 
         public SliceRuleCreator()
@@ -30,7 +31,7 @@ namespace ArchUnitNET.Fluent.Slices
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
-            throw new NotImplementedException();
+            return _evaluationFunc(GetSlices(architecture), this, architecture);
         }
 
         public void SetSliceAssignment(SliceAssignment sliceAssignment)
@@ -39,9 +40,24 @@ namespace ArchUnitNET.Fluent.Slices
             AddToDescription(sliceAssignment.Description);
         }
 
+        public void SetEvaluationFunction(Func<IEnumerable<Slice>, ICanBeEvaluated, Architecture, IEnumerable<EvaluationResult>> evaluationFunc)
+        {
+            _evaluationFunc = evaluationFunc;
+        }
+
         public void AddToDescription(string description)
         {
-            Description += " " + description;
+            Description += " " + description.Trim();
+        }
+
+        public IEnumerable<Slice> GetSlices(Architecture architecture)
+        {
+            if (_sliceAssignment == null)
+            {
+                throw new InvalidOperationException("The Slice Assignment has to be set before GetSlices() can be called.");
+            }
+
+            return _sliceAssignment.Apply(architecture.Types).Where(slice => !slice.Identifier.Ignored);
         }
     }
 }
