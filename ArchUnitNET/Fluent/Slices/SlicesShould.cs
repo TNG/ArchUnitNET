@@ -6,6 +6,10 @@
 // 
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using ArchUnitNET.Domain;
+using StronglyConnectedComponents;
 
 namespace ArchUnitNET.Fluent.Slices
 {
@@ -20,7 +24,26 @@ namespace ArchUnitNET.Fluent.Slices
 
         public SliceRule BeFreeOfCycles()
         {
-            throw new NotImplementedException();
+            IEnumerable<EvaluationResult> Evaluate(IEnumerable<Slice> slices, ICanBeEvaluated archRule, Architecture architecture)
+            {
+                var slicesList = slices.ToList();
+
+                IEnumerable<Slice> FindDependencies(Slice slice)
+                {
+                    var typeDependencies = slice.Dependencies.Select(dependency => dependency.Target).Distinct();
+                    return typeDependencies.Select(type => slicesList.FirstOrDefault(slc => slc.Types.Contains(type))).Where(slc => slc != null);
+                }
+
+                var cycles = slicesList.DetectCycles(FindDependencies).Where(dependencyCycle => dependencyCycle.IsCyclic);
+
+                return from slice in slicesList
+                    let passed = cycles.SelectMany(cycle => cycle.Contents).Contains(slice)
+                    let description = slice.Description + (passed ? " does have" : " does not have") + " cyclic dependencies."
+                    select new EvaluationResult(slice, passed, description, archRule, architecture);
+            }
+
+            _ruleCreator.SetEvaluationFunction(Evaluate);
+            _ruleCreator.AddToDescription("be free of cycles");
             return new SliceRule(_ruleCreator);
         }
 
