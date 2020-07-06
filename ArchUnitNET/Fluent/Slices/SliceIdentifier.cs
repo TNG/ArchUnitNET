@@ -10,27 +10,26 @@ namespace ArchUnitNET.Fluent.Slices
     public class SliceIdentifier : IHasDescription
     {
         public static readonly SliceIdentifierComparer Comparer = new SliceIdentifierComparer();
-        public readonly int Identifier; //could use strings as identifiers to prevent collisions, but at cost of performance
+        public readonly string Identifier;
         public readonly bool Ignored;
 
 
-        private SliceIdentifier(int identifier, bool ignored, string description)
+        private SliceIdentifier(string identifier, bool ignored)
         {
             Identifier = identifier;
             Ignored = ignored;
-            Description = description;
         }
 
-        public string Description { get; }
+        public string Description => Identifier;
 
         public static SliceIdentifier Of(string identifier)
         {
-            return new SliceIdentifier(identifier.GetHashCode(), false, identifier);
+            return new SliceIdentifier(identifier, false);
         }
 
         public static SliceIdentifier Ignore()
         {
-            return new SliceIdentifier(0, true, "Ignored");
+            return new SliceIdentifier("Ignored", true);
         }
 
         /// <summary>
