@@ -23,21 +23,25 @@ namespace ArchUnitNET.Fluent.Slices
 
         public SliceRule BeFreeOfCycles()
         {
-            IEnumerable<EvaluationResult> Evaluate(IEnumerable<Slice> slices, ICanBeEvaluated archRule, Architecture architecture)
+            IEnumerable<EvaluationResult> Evaluate(IEnumerable<Slice> slices, ICanBeEvaluated archRule,
+                Architecture architecture)
             {
                 var slicesList = slices.ToList();
 
                 IEnumerable<Slice> FindDependencies(Slice slice)
                 {
                     var typeDependencies = slice.Dependencies.Select(dependency => dependency.Target).Distinct();
-                    return typeDependencies.Select(type => slicesList.FirstOrDefault(slc => slc.Types.Contains(type))).Where(slc => slc != null);
+                    return typeDependencies.Select(type => slicesList.FirstOrDefault(slc => slc.Types.Contains(type)))
+                        .Where(slc => slc != null);
                 }
 
-                var cycles = slicesList.DetectCycles(FindDependencies).Where(dependencyCycle => dependencyCycle.IsCyclic);
+                var cycles = slicesList.DetectCycles(FindDependencies)
+                    .Where(dependencyCycle => dependencyCycle.IsCyclic);
 
                 return from slice in slicesList
                     let passed = cycles.SelectMany(cycle => cycle.Contents).Contains(slice)
-                    let description = slice.Description + (passed ? " does not have" : " does have") + " cyclic dependencies."
+                    let description = slice.Description + (passed ? " does not have" : " does have") +
+                                      " cyclic dependencies."
                     select new EvaluationResult(slice, passed, description, archRule, architecture);
             }
 
@@ -48,14 +52,16 @@ namespace ArchUnitNET.Fluent.Slices
 
         public SliceRule NotDependOnEachOther()
         {
-            IEnumerable<EvaluationResult> Evaluate(IEnumerable<Slice> slices, ICanBeEvaluated archRule, Architecture architecture)
+            IEnumerable<EvaluationResult> Evaluate(IEnumerable<Slice> slices, ICanBeEvaluated archRule,
+                Architecture architecture)
             {
                 var slicesList = slices.ToList();
 
                 IEnumerable<Slice> FindDependencies(Slice slice)
                 {
                     var typeDependencies = slice.Dependencies.Select(dependency => dependency.Target).Distinct();
-                    return typeDependencies.Select(type => slicesList.FirstOrDefault(slc => slc.Types.Contains(type))).Where(slc => slc != null);
+                    return typeDependencies.Select(type => slicesList.FirstOrDefault(slc => slc.Types.Contains(type)))
+                        .Where(slc => slc != null);
                 }
 
                 return from slice in slicesList
@@ -63,7 +69,9 @@ namespace ArchUnitNET.Fluent.Slices
                     let passed = !dependencies.Any()
                     let description = slice.Description + (passed
                         ? " does not depend on another slice."
-                        : " does depend on " + dependencies.First().Description + dependencies.Skip(1).Aggregate("", (str, dependency) => str + " and " + dependency.Description)) + "."
+                        : " does depend on " + dependencies.First().Description + dependencies.Skip(1)
+                            .Aggregate("",
+                                (str, dependency) => str + " and " + dependency.Description)) + "."
                     select new EvaluationResult(slice, passed, description, archRule, architecture);
             }
 
