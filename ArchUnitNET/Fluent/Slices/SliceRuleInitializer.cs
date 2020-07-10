@@ -21,7 +21,10 @@ namespace ArchUnitNET.Fluent.Slices
 
         /// <summary>
         /// </summary>
-        /// <param name="pattern">check https://www.archunit.org/userguide/html/000_Index.html#_slices for examples for pattern usage</param>
+        /// <param name="pattern">
+        ///     check https://www.archunit.org/userguide/html/000_Index.html#_slices for examples for pattern
+        ///     usage
+        /// </param>
         /// <returns></returns>
         public GivenSlices Matching(string pattern)
         {
@@ -60,7 +63,8 @@ namespace ArchUnitNET.Fluent.Slices
                 if (secondPart.EndsWith("."))
                 {
                     secondPart = secondPart.Remove(secondPart.Length - 1);
-                    if (!namespc.Substring(namespc.IndexOf(firstPart, StringComparison.Ordinal) + firstPart.Length).Contains(secondPart))
+                    if (!namespc.Substring(namespc.IndexOf(firstPart, StringComparison.Ordinal) + firstPart.Length)
+                        .Contains(secondPart))
                     {
                         return SliceIdentifier.Ignore();
                     }
@@ -74,12 +78,16 @@ namespace ArchUnitNET.Fluent.Slices
 
                 if (firstPart != "")
                 {
-                    sliceString = namespc.Substring(namespc.IndexOf(firstPart, StringComparison.Ordinal) + firstPart.Length).TrimStart('.');
+                    sliceString = namespc
+                        .Substring(namespc.IndexOf(firstPart, StringComparison.Ordinal) + firstPart.Length)
+                        .TrimStart('.');
                 }
 
                 if (!sliceString.Contains(secondPart))
                 {
-                    throw new ArgumentException("\"" + type.FullName + "\" is not clearly assignable to a slice with the pattern: \"" + pattern + "\"");
+                    throw new ArgumentException("\"" + type.FullName +
+                                                "\" is not clearly assignable to a slice with the pattern: \"" +
+                                                pattern + "\"");
                 }
 
                 if (secondPart == "")

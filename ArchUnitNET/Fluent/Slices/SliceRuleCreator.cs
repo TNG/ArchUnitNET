@@ -40,7 +40,8 @@ namespace ArchUnitNET.Fluent.Slices
             AddToDescription(sliceAssignment.Description);
         }
 
-        public void SetEvaluationFunction(Func<IEnumerable<Slice>, ICanBeEvaluated, Architecture, IEnumerable<EvaluationResult>> evaluationFunc)
+        public void SetEvaluationFunction(
+            Func<IEnumerable<Slice>, ICanBeEvaluated, Architecture, IEnumerable<EvaluationResult>> evaluationFunc)
         {
             _evaluationFunc = evaluationFunc;
         }
@@ -54,7 +55,8 @@ namespace ArchUnitNET.Fluent.Slices
         {
             if (_sliceAssignment == null)
             {
-                throw new InvalidOperationException("The Slice Assignment has to be set before GetSlices() can be called.");
+                throw new InvalidOperationException(
+                    "The Slice Assignment has to be set before GetSlices() can be called.");
             }
 
             return _sliceAssignment.Apply(architecture.Types).Where(slice => !slice.Identifier.Ignored);
