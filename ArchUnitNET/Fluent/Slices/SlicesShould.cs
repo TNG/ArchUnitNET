@@ -61,6 +61,7 @@ namespace ArchUnitNET.Fluent.Slices
                             }
                         }
 
+                        description += "\n";
                         yield return new EvaluationResult(cycle, false, description, archRule, architecture);
                     }
                 }
@@ -92,7 +93,7 @@ namespace ArchUnitNET.Fluent.Slices
 
                 foreach (var slice in slicesList)
                 {
-                    var sliceDependencies = FindDependencies(slice).ToList();
+                    var sliceDependencies = FindDependencies(slice).Except(new[] {slice}).ToList();
                     var passed = !sliceDependencies.Any();
                     var description = slice.Description + " does not depend on another slice.";
                     if (!passed)
@@ -108,6 +109,8 @@ namespace ArchUnitNET.Fluent.Slices
                                 (current, dependency) =>
                                     current + ("\n\t" + dependency.Origin + " -> " + dependency.Target));
                         }
+
+                        description += "\n";
                     }
 
                     yield return new EvaluationResult(slice, passed, description, archRule, architecture);
