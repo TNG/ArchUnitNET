@@ -89,15 +89,27 @@ namespace ArchUnitNET.Fluent.Slices
                         .Where(slc => slc != null);
                 }
 
-                return from slice in slicesList
-                    let dependencies = FindDependencies(slice)
-                    let passed = !dependencies.Any()
-                    let description = slice.Description + (passed
-                        ? " does not depend on another slice."
-                        : " does depend on " + dependencies.First().Description + dependencies.Skip(1)
-                            .Aggregate("",
-                                (str, dependency) => str + " and " + dependency.Description)) + "."
-                    select new EvaluationResult(slice, passed, description, archRule, architecture);
+                foreach (var slice in slicesList)
+                {
+                    var sliceDependencies = FindDependencies(slice).ToList();
+                    var passed = !sliceDependencies.Any();
+                    var description = slice.Description + " does not depend on another slice.";
+                    if (!passed)
+                    {
+                        description = slice.Description + " does depend on other slices:";
+                        foreach (var sliceDependency in sliceDependencies)
+                        {
+                            var depsToSlice = slice.Dependencies.Where(dependency =>
+                                sliceDependency.Types.Contains(dependency.Target)).ToList();
+                            description += "\n" + slice.Description + " -> " + sliceDependency.Description;
+                            description = depsToSlice.Aggregate(description,
+                                (current, dependency) =>
+                                    current + ("\n\t" + dependency.Origin + " -> " + dependency.Target));
+                        }
+                    }
+
+                    yield return new EvaluationResult(slice, passed, description, archRule, architecture);
+                }
             }
 
             _ruleCreator.SetEvaluationFunction(Evaluate);
