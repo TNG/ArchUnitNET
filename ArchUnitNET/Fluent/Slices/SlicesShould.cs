@@ -49,7 +49,8 @@ namespace ArchUnitNET.Fluent.Slices
                             foreach (var otherSlice in cycle.Contents.Except(new[] {slice}))
                             {
                                 var depsToSlice = dependencies.Where(dependency =>
-                                    otherSlice.Types.Contains(dependency.Target)).ToList();
+                                        otherSlice.Types.Contains(dependency.Target))
+                                    .Distinct(new TypeDependencyComparer()).ToList();
                                 if (depsToSlice.Any())
                                 {
                                     description += "\n" + slice.Description + " -> " + otherSlice.Description;
@@ -100,7 +101,8 @@ namespace ArchUnitNET.Fluent.Slices
                         foreach (var sliceDependency in sliceDependencies)
                         {
                             var depsToSlice = slice.Dependencies.Where(dependency =>
-                                sliceDependency.Types.Contains(dependency.Target)).ToList();
+                                    sliceDependency.Types.Contains(dependency.Target))
+                                .Distinct(new TypeDependencyComparer()).ToList();
                             description += "\n" + slice.Description + " -> " + sliceDependency.Description;
                             description = depsToSlice.Aggregate(description,
                                 (current, dependency) =>
