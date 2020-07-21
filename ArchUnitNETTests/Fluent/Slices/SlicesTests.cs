@@ -18,18 +18,18 @@ namespace ArchUnitNETTests.Fluent.Slices
         [Fact]
         public void CycleDetectionTest()
         {
-            SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(*)").Should().BeFreeOfCycles()
+            SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(*).Service").Should().BeFreeOfCycles()
                 .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
-            Assert.True(SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(*)").Should().BeFreeOfCycles()
+            Assert.False(SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(*)").Should().BeFreeOfCycles()
                 .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture));
             Assert.Throws<FailedArchRuleException>(() =>
                 SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(**)").Should().BeFreeOfCycles()
                     .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture));
             Assert.False(SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(**)").Should().BeFreeOfCycles()
                 .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture));
-            Assert.False(SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(*)..").Should().BeFreeOfCycles()
+            Assert.True(SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(*)..").Should().BeFreeOfCycles()
                 .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture));
-            Assert.False(SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(**)..").Should().BeFreeOfCycles()
+            Assert.True(SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(**)..").Should().BeFreeOfCycles()
                 .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture));
         }
 
@@ -64,8 +64,6 @@ namespace ArchUnitNETTests.Fluent.Slices
                 .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
             Assert.True(SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.Slice1.(*)").Should()
                 .NotDependOnEachOther().HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture));
-            SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(**)").Should().NotDependOnEachOther()
-                .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
             Assert.Throws<FailedArchRuleException>(() =>
                 SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(**)").Should().NotDependOnEachOther()
                     .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture));

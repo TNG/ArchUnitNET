@@ -36,13 +36,38 @@ namespace ArchUnitNET.Fluent.Slices
                 }
 
                 var cycles = slicesList.DetectCycles(FindDependencies)
-                    .Where(dependencyCycle => dependencyCycle.IsCyclic);
+                    .Where(dependencyCycle => dependencyCycle.IsCyclic).ToList();
 
-                return from slice in slicesList
-                    let passed = cycles.SelectMany(cycle => cycle.Contents).Contains(slice)
-                    let description = slice.Description + (passed ? " does not have" : " does have") +
-                                      " cyclic dependencies."
-                    select new EvaluationResult(slice, passed, description, archRule, architecture);
+                if (cycles.Any())
+                {
+                    foreach (var cycle in cycles)
+                    {
+                        var description = "Cycle found:";
+                        foreach (var slice in cycle.Contents)
+                        {
+                            var dependencies = slice.Dependencies.ToList();
+                            foreach (var otherSlice in cycle.Contents.Except(new[] {slice}))
+                            {
+                                var depsToSlice = dependencies.Where(dependency =>
+                                    otherSlice.Types.Contains(dependency.Target)).ToList();
+                                if (depsToSlice.Any())
+                                {
+                                    description += "\n" + slice.Description + " -> " + otherSlice.Description;
+                                    description = depsToSlice.Aggregate(description,
+                                        (current, dependency) =>
+                                            current + ("\n\t" + dependency.Origin + " -> " + dependency.Target));
+                                }
+                            }
+                        }
+
+                        yield return new EvaluationResult(cycle, false, description, archRule, architecture);
+                    }
+                }
+                else
+                {
+                    yield return new EvaluationResult(slicesList, true, "All Slices are free of cycles.", archRule,
+                        architecture);
+                }
             }
 
             _ruleCreator.SetEvaluationFunction(Evaluate);
