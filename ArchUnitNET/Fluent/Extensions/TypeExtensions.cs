@@ -21,7 +21,7 @@ namespace ArchUnitNET.Fluent.Extensions
     {
         public static bool CallsMethod(this IHasDependencies type, MethodMember method)
         {
-            return type.GetCalledMethods().Contains(type);
+            return type.GetCalledMethods().Contains(method);
         }
 
         public static bool CallsMethod(this IHasDependencies type, string pattern, bool useRegularExpressions = false)
