@@ -44,7 +44,7 @@ namespace ArchUnitNET.Fluent.Slices
                 return false;
             }
 
-            return Ignored && Ignored || !Ignored && !other.Ignored && Identifier == other.Identifier;
+            return Ignored && other.Ignored || !Ignored && !other.Ignored && Identifier == other.Identifier;
         }
 
         private bool Equals(SliceIdentifier other)

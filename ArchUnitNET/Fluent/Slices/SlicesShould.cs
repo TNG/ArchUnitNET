@@ -21,57 +21,57 @@ namespace ArchUnitNET.Fluent.Slices
             _ruleCreator = ruleCreator;
         }
 
-        public SliceRule BeFreeOfCycles()
+        private static IEnumerable<Slice> FindDependencies(Slice slice, IEnumerable<Slice> otherSlices)
         {
-            IEnumerable<EvaluationResult> Evaluate(IEnumerable<Slice> slices, ICanBeEvaluated archRule,
-                Architecture architecture)
+            var typeDependencies = slice.Dependencies.Select(dependency => dependency.Target).Distinct();
+            return typeDependencies.Select(type => otherSlices.FirstOrDefault(slc => slc.Types.Contains(type)))
+                .Where(slc => slc != null);
+        }
+
+        private static IEnumerable<EvaluationResult> Evaluate(IEnumerable<Slice> slices, ICanBeEvaluated archRule,
+            Architecture architecture)
+        {
+            var slicesList = slices.ToList();
+
+            var cycles = slicesList.DetectCycles(slc => FindDependencies(slc, slicesList))
+                .Where(dependencyCycle => dependencyCycle.IsCyclic).ToList();
+
+            if (cycles.Any())
             {
-                var slicesList = slices.ToList();
-
-                IEnumerable<Slice> FindDependencies(Slice slice)
+                foreach (var cycle in cycles)
                 {
-                    var typeDependencies = slice.Dependencies.Select(dependency => dependency.Target).Distinct();
-                    return typeDependencies.Select(type => slicesList.FirstOrDefault(slc => slc.Types.Contains(type)))
-                        .Where(slc => slc != null);
-                }
-
-                var cycles = slicesList.DetectCycles(FindDependencies)
-                    .Where(dependencyCycle => dependencyCycle.IsCyclic).ToList();
-
-                if (cycles.Any())
-                {
-                    foreach (var cycle in cycles)
+                    var description = "Cycle found:";
+                    foreach (var slice in cycle.Contents)
                     {
-                        var description = "Cycle found:";
-                        foreach (var slice in cycle.Contents)
+                        var dependencies = slice.Dependencies.ToList();
+                        foreach (var otherSlice in cycle.Contents.Except(new[] {slice}))
                         {
-                            var dependencies = slice.Dependencies.ToList();
-                            foreach (var otherSlice in cycle.Contents.Except(new[] {slice}))
+                            var depsToSlice = dependencies.Where(dependency =>
+                                    otherSlice.Types.Contains(dependency.Target))
+                                .Distinct(new TypeDependencyComparer()).ToList();
+                            if (depsToSlice.Any())
                             {
-                                var depsToSlice = dependencies.Where(dependency =>
-                                        otherSlice.Types.Contains(dependency.Target))
-                                    .Distinct(new TypeDependencyComparer()).ToList();
-                                if (depsToSlice.Any())
-                                {
-                                    description += "\n" + slice.Description + " -> " + otherSlice.Description;
-                                    description = depsToSlice.Aggregate(description,
-                                        (current, dependency) =>
-                                            current + ("\n\t" + dependency.Origin + " -> " + dependency.Target));
-                                }
+                                description += "\n" + slice.Description + " -> " + otherSlice.Description;
+                                description = depsToSlice.Aggregate(description,
+                                    (current, dependency) =>
+                                        current + ("\n\t" + dependency.Origin + " -> " + dependency.Target));
                             }
                         }
-
-                        description += "\n";
-                        yield return new EvaluationResult(cycle, false, description, archRule, architecture);
                     }
-                }
-                else
-                {
-                    yield return new EvaluationResult(slicesList, true, "All Slices are free of cycles.", archRule,
-                        architecture);
+
+                    description += "\n";
+                    yield return new EvaluationResult(cycle, false, description, archRule, architecture);
                 }
             }
+            else
+            {
+                yield return new EvaluationResult(slicesList, true, "All Slices are free of cycles.", archRule,
+                    architecture);
+            }
+        }
 
+        public SliceRule BeFreeOfCycles()
+        {
             _ruleCreator.SetEvaluationFunction(Evaluate);
             _ruleCreator.AddToDescription("be free of cycles");
             return new SliceRule(_ruleCreator);
@@ -84,16 +84,9 @@ namespace ArchUnitNET.Fluent.Slices
             {
                 var slicesList = slices.ToList();
 
-                IEnumerable<Slice> FindDependencies(Slice slice)
-                {
-                    var typeDependencies = slice.Dependencies.Select(dependency => dependency.Target).Distinct();
-                    return typeDependencies.Select(type => slicesList.FirstOrDefault(slc => slc.Types.Contains(type)))
-                        .Where(slc => slc != null);
-                }
-
                 foreach (var slice in slicesList)
                 {
-                    var sliceDependencies = FindDependencies(slice).Except(new[] {slice}).ToList();
+                    var sliceDependencies = FindDependencies(slice, slicesList).Except(new[] {slice}).ToList();
                     var passed = !sliceDependencies.Any();
                     var description = slice.Description + " does not depend on another slice.";
                     if (!passed)
