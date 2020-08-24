@@ -9,9 +9,9 @@ using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent
 {
-    public class EvaluationResult
+    public class EvaluationResult : IHasDescription
     {
-        public EvaluationResult([CanBeNull] ICanBeAnalyzed obj, bool passed, string description,
+        public EvaluationResult([CanBeNull] object obj, bool passed, string description,
             ICanBeEvaluated archRule, Architecture architecture)
         {
             EvaluatedObject = obj;
@@ -22,10 +22,10 @@ namespace ArchUnitNET.Fluent
         }
 
         public ICanBeEvaluated ArchRule { get; }
-        [CanBeNull] public ICanBeAnalyzed EvaluatedObject { get; }
+        [CanBeNull] public object EvaluatedObject { get; }
         public bool Passed { get; }
-        public string Description { get; }
         public Architecture Architecture { get; }
+        public string Description { get; }
 
         public override string ToString()
         {
