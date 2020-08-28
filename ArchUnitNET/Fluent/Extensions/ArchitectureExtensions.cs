@@ -5,8 +5,8 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
-using ArchUnitNET.ArchitectureExceptions;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Exceptions;
 using JetBrains.Annotations;
 using Attribute = ArchUnitNET.Domain.Attribute;
 

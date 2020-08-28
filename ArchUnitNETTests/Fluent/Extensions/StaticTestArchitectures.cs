@@ -4,10 +4,10 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
-using ArchUnitNETTests.Dependencies.Attributes;
-using ArchUnitNETTests.Dependencies.Members;
+using ArchUnitNET.Loader;
+using ArchUnitNETTests.Domain.Dependencies.Attributes;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using TestAssembly;
 using Xunit.Sdk;
 

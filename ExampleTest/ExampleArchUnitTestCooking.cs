@@ -6,9 +6,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Loader;
 using Xunit;
 
 // ReSharper disable UnusedMember.Global

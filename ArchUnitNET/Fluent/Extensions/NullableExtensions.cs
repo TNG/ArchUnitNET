@@ -4,7 +4,7 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using ArchUnitNET.ArchitectureExceptions;
+using ArchUnitNET.Fluent.Exceptions;
 
 namespace ArchUnitNET.Fluent.Extensions
 {

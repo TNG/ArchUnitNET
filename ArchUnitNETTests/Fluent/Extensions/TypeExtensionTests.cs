@@ -8,8 +8,8 @@ using System;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Dependencies.Attributes;
-using ArchUnitNETTests.Dependencies.Members;
+using ArchUnitNETTests.Domain.Dependencies.Attributes;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using Xunit;
 
 namespace ArchUnitNETTests.Fluent.Extensions
@@ -40,12 +40,10 @@ namespace ArchUnitNETTests.Fluent.Extensions
         private readonly IMember _propertyMember;
 
         private readonly Class _exampleAttribute;
-
-        private const string ExpectedAttributeNamespace =
-            StaticConstants.ArchUnitNETTestsDependenciesAttributesNamespace;
+        private const string ExpectedAttributeNamespace = "ArchUnitNETTests.Domain.Dependencies.Attributes";
 
         private readonly Class _regexUtilsTests;
-        private const string ExpectedRegexUtilsTestNamespace = StaticConstants.ArchUnitNETTestsFluentNamespace;
+        private const string ExpectedRegexUtilsTestNamespace = "ArchUnitNETTests.Fluent";
 
         [Fact]
         public void FieldMemberFoundFromMembers()

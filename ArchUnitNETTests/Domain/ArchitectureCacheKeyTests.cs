@@ -5,8 +5,8 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
-using ArchUnitNETTests.Dependencies.Attributes;
-using ArchUnitNETTests.Dependencies.Members;
+using ArchUnitNETTests.Domain.Dependencies.Attributes;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using Mono.Cecil;
 using Xunit;
 

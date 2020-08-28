@@ -8,8 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Loader;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
@@ -209,7 +209,7 @@ namespace ArchUnitNET.Fluent.Extensions
         public static string GetFullName(this MethodReference methodReference)
         {
             return methodReference.FullName + methodReference.GenericParameters.Aggregate(string.Empty,
-                       (current, newElement) => current + "<" + newElement.Name + ">");
+                (current, newElement) => current + "<" + newElement.Name + ">");
         }
     }
 }
