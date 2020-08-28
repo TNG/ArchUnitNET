@@ -7,12 +7,14 @@
 using System;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNETTests.Domain.Dependencies.Attributes;
 using ArchUnitNETTests.Domain.Dependencies.Members;
+using ArchUnitNETTests.Fluent.Extensions;
+using ArchUnitNETTests.Loader;
 using Xunit;
 
-namespace ArchUnitNETTests.Fluent.Extensions
+namespace ArchUnitNETTests.Domain.Extensions
 {
     public class TypeExtensionTests
     {
@@ -43,7 +45,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
         private const string ExpectedAttributeNamespace = "ArchUnitNETTests.Domain.Dependencies.Attributes";
 
         private readonly Class _regexUtilsTests;
-        private const string ExpectedRegexUtilsTestNamespace = "ArchUnitNETTests.Fluent";
+        private const string ExpectedRegexUtilsTestNamespace = "ArchUnitNETTests.Loader";
 
         [Fact]
         public void FieldMemberFoundFromMembers()

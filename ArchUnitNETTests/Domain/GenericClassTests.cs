@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
 using Xunit;
 using static ArchUnitNET.Domain.Visibility;
@@ -18,13 +18,16 @@ namespace ArchUnitNETTests.Domain
 {
     public class GenericClassTests
     {
+        private const string GuidClassName = "Guid";
+        private const string SystemGuidFullName = StaticConstants.SystemNamespace + "." + GuidClassName;
+
         public GenericClassTests()
         {
             _classWithGenericParameters = Architecture.GetClassOfType(typeof(ClassWithGenericParameters<>));
             var invokesGenericClass = Architecture.GetClassOfType(typeof(InvokesGenericClass));
             _genericallyTypedField = invokesGenericClass
                 .GetFieldMembersWithName(nameof(InvokesGenericClass.GuidGenericArgument)).SingleOrDefault();
-            var guidMock = new Type(StaticConstants.SystemGuidFullName, StaticConstants.GuidClassName,
+            var guidMock = new Type(SystemGuidFullName, GuidClassName,
                 _classWithGenericParameters.Assembly,
                 new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false);
             _expectedGenericArgument = new Class(guidMock, false, true, true, false);

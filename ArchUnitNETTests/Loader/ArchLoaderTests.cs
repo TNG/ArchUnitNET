@@ -6,7 +6,7 @@
 
 using System.Linq;
 using Xunit;
-using static ArchUnitNETTests.Fluent.Extensions.StaticTestArchitectures;
+using static ArchUnitNETTests.StaticTestArchitectures;
 
 namespace ArchUnitNETTests.Loader
 {

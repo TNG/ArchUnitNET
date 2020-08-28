@@ -4,26 +4,25 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using ArchUnitNET.Fluent.Exceptions;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Exceptions;
+using ArchUnitNET.Domain.Extensions;
 using Xunit;
 
-namespace ArchUnitNETTests.Fluent.Extensions
+namespace ArchUnitNETTests.Domain.Extensions
 {
     public class NullableExtensionTests
     {
         [Fact]
         public void RequiredNotNullReturnsThisWhenNotNull()
         {
-            var nonNullObject = new NullableExtensionTests();
+            var nonNullObject = new object();
             Assert.Equal(nonNullObject, nonNullObject.RequiredNotNull());
         }
 
         [Fact]
         public void RequiredNotNullThrowsExceptionWhenNull()
         {
-            NullableExtensionTests nullObject = null;
-            Assert.Throws<InvalidStateException>(() => nullObject.RequiredNotNull());
+            Assert.Throws<InvalidStateException>(() => ((object) null).RequiredNotNull());
         }
     }
 }

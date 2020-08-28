@@ -9,7 +9,7 @@ using JetBrains.Annotations;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 
-namespace ArchUnitNET.Fluent.Extensions
+namespace ArchUnitNET.Loader
 {
     public static class InstructionExtensions
     {

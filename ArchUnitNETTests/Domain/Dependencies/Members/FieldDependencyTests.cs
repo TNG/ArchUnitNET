@@ -7,8 +7,7 @@
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using Xunit;
 using static ArchUnitNET.Domain.Visibility;
 
@@ -67,6 +66,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         }
     }
 
+#pragma warning disable 169
     public class ClassWithFieldA
     {
         private FieldType _privateFieldA;

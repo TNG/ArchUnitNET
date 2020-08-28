@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 
 namespace ArchUnitNET.Domain
 {

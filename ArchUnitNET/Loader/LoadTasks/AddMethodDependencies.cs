@@ -9,10 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Exceptions;
+using ArchUnitNET.Domain.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
+using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
@@ -175,7 +177,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                     var calledType =
                         _typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.DeclaringType);
 
-                    return calledType.GetMethodMemberWithMethodReference(methodReference);
+                    return GetMethodMemberWithMethodReference(calledType, methodReference);
                 })
                 .Where(calledMethodMember => calledMethodMember != null)
                 .Select(calledMethodMember => new MethodCallDependency(methodMember, calledMethodMember));
@@ -220,6 +222,51 @@ namespace ArchUnitNET.Loader.LoadTasks
 
                     return CreateStubMethodCallDependencyForProperty(calledType, methodReference, accessedProperty);
                 });
+        }
+
+        private MethodMember GetMethodMemberWithMethodReference(IType type, MethodReference methodReference)
+        {
+            var matchingMethods = type.GetMethodMembers().Where(member => MatchesGeneric(member, methodReference))
+                .ToList();
+            if (matchingMethods.Count > 1)
+            {
+                throw new MultipleOccurrencesInSequenceException(
+                    $"Multiple Methods matching {methodReference.FullName} found in provided type.");
+            }
+
+            return matchingMethods.FirstOrDefault();
+        }
+
+        private bool MatchesGeneric(MethodMember methodMember, MethodReference methodReference)
+        {
+            var referenceFullName = methodReference.GetElementMethod().GetFullName();
+            var memberFullName = methodMember.FullName;
+            var count = methodReference.GetElementMethod().GenericParameters.Count;
+            if (methodMember.GenericParameters.Count != count)
+            {
+                return false;
+            }
+
+            var parameters = new List<GenericParameter[]>();
+            for (var i = 0; i < count; i++)
+            {
+                parameters.Add(new[]
+                {
+                    new GenericParameter(methodReference.GetElementMethod().GenericParameters[i].Name),
+                    methodMember.GenericParameters[i]
+                });
+            }
+
+            parameters = parameters.OrderByDescending(genericParameters => genericParameters[0].Name.Length).ToList();
+
+            foreach (var genericParameters in parameters.Where(genericParameters => genericParameters[0] != null)
+            )
+            {
+                referenceFullName = referenceFullName.Replace(genericParameters[0].Name, genericParameters[1].Name);
+                memberFullName = memberFullName.Replace(genericParameters[0].Name, genericParameters[1].Name);
+            }
+
+            return memberFullName.Equals(referenceFullName);
         }
 
         private FieldMember FindMatchingField(FieldDefinition fieldDefinition)

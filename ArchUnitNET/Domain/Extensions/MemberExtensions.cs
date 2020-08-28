@@ -6,10 +6,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 
-namespace ArchUnitNET.Fluent.Extensions
+namespace ArchUnitNET.Domain.Extensions
 {
     public static class MemberExtensions
     {
@@ -68,14 +67,6 @@ namespace ArchUnitNET.Fluent.Extensions
                 dependency.Target.FullNameMatches(pattern, useRegularExpressions));
         }
 
-        public static IEnumerable<ITypeDependency> GetFieldTypeDependencies(this IHasDependencies type,
-            bool getBackwardsDependencies = false)
-        {
-            return getBackwardsDependencies
-                ? type.BackwardsDependencies.OfType<FieldTypeDependency>()
-                : type.Dependencies.OfType<FieldTypeDependency>();
-        }
-
         public static bool HasFieldTypeDependencies(this IMember member, bool getBackwardsDependencies = false)
         {
             return member.GetFieldTypeDependencies(getBackwardsDependencies).Any();
@@ -84,14 +75,6 @@ namespace ArchUnitNET.Fluent.Extensions
         public static Attribute GetAttributeFromMember(this IMember member, Class attributeClass)
         {
             return member.Attributes.Find(attribute => attribute.FullName.Equals(attributeClass.FullName));
-        }
-
-        public static IEnumerable<AttributeMemberDependency> GetAttributeMemberDependencies(
-            this IHasDependencies member, bool getBackwardsDependencies = false)
-        {
-            return getBackwardsDependencies
-                ? member.BackwardsDependencies.OfType<AttributeMemberDependency>()
-                : member.Dependencies.OfType<AttributeMemberDependency>();
         }
 
         public static bool HasMethodSignatureDependency(this IMember member,

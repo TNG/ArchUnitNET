@@ -8,7 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNETTests.Fluent.Extensions;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Attributes

@@ -22,7 +22,7 @@ namespace ArchUnitNETTests.ArchitectureTests
         private readonly Architecture _architecture =
             new ArchLoader().LoadAssembly(typeof(Architecture).Assembly).Build();
 
-        [Fact(Skip = "Need refactoring")]
+        [Fact(Skip = "Need more refactoring")]
         public void DomainHasNoDependencyOnFluentAndLoader()
         {
             Types().That().ResideInNamespace(DomainNamespace)
@@ -30,7 +30,7 @@ namespace ArchUnitNETTests.ArchitectureTests
                 .Check(_architecture);
         }
 
-        [Fact(Skip = "Need refactoring")]
+        [Fact]
         public void LoaderHasNoDependencyOnFluent()
         {
             Types().That().ResideInNamespace(LoaderNamespace)
@@ -38,7 +38,7 @@ namespace ArchUnitNETTests.ArchitectureTests
                 .Check(_architecture);
         }
 
-        [Fact(Skip = "Need refactoring")]
+        [Fact]
         public void FluentHasNoDependencyOnLoader()
         {
             Types().That().ResideInNamespace(FluentNamespace)

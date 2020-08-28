@@ -8,7 +8,6 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Domain;
-using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 using Xunit.Sdk;
 using static System.Environment;

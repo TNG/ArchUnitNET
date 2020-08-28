@@ -6,8 +6,7 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using Xunit;
 using static ArchUnitNETTests.Domain.StaticTestTypes;
 
@@ -21,8 +20,6 @@ namespace ArchUnitNETTests.Domain.Dependencies.Types
             _inheritedTestInterface = InheritedTestInterface;
             _inheritingType = StaticTestTypes.InheritingType;
         }
-
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Interface _implementingInterface;
         private readonly Interface _inheritedTestInterface;

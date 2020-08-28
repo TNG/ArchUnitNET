@@ -4,9 +4,9 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using ArchUnitNET.Fluent.Exceptions;
+using ArchUnitNET.Domain.Exceptions;
 
-namespace ArchUnitNET.Fluent.Extensions
+namespace ArchUnitNET.Domain.Extensions
 {
     public static class NullableExtensions
     {

@@ -6,16 +6,11 @@
 
 using System;
 
-namespace ArchUnitNET.Fluent.Exceptions
+namespace ArchUnitNET.Domain.Exceptions
 {
     public class MultipleOccurrencesInSequenceException : Exception
     {
         public MultipleOccurrencesInSequenceException(string message) : base(message)
-        {
-        }
-
-        public MultipleOccurrencesInSequenceException(string message, Exception innerException) : base(message,
-            innerException)
         {
         }
     }

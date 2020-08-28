@@ -7,12 +7,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
 using Xunit;
 
+// ReSharper disable NotAccessedField.Local
 // ReSharper disable UnusedMember.Global
-
 namespace ExampleTest
 {
     public class ExampleArchUnitTestCooking

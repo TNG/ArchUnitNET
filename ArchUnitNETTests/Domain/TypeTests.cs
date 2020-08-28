@@ -6,7 +6,6 @@
 
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 using static ArchUnitNET.Domain.Visibility;
 

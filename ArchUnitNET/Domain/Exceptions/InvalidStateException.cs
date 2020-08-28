@@ -6,7 +6,7 @@
 
 using System;
 
-namespace ArchUnitNET.Fluent.Exceptions
+namespace ArchUnitNET.Domain.Exceptions
 {
     public class InvalidStateException : Exception
     {
