@@ -34,8 +34,6 @@ namespace ArchUnitNETTests.Domain
         private readonly string _attributeDependencyTests;
         private readonly ArchitectureCacheKey _architectureCacheKey;
         private readonly ArchitectureCacheKey _duplicateArchitectureCacheKey;
-        private readonly object _objectReferenceDuplicateArchitectureCacheKey;
-        private readonly object _duplicateObjectArchitectureCacheKey;
 
         [Fact]
         public void ArchitectureCacheKeyContentEquivalentsAreEqual()

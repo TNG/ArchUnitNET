@@ -7,9 +7,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Dependencies;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNETTests.Domain.Dependencies.Members;
-using ArchUnitNETTests.Fluent.Extensions;
 using TestAssembly;
 using Xunit;
 using static ArchUnitNETTests.Domain.Dependencies.Attributes.AttributeAssertionRepository;
@@ -88,7 +88,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
         [Fact]
         public void OriginAsExpected()
         {
-            Assert.All(_originClass.GetAttributeTypeDependencies(),
+            Assert.All(((IHasDependencies) _originClass).Dependencies.OfType<AttributeTypeDependency>(),
                 dependency => Assert.True(dependency.Origin.Equals(_originClass)));
         }
     }

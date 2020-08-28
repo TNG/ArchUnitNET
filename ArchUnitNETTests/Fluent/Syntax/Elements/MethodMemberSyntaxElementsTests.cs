@@ -7,9 +7,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNETTests.Domain;
-using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 

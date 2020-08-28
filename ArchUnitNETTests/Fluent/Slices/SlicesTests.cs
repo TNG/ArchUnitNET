@@ -7,7 +7,6 @@
 
 using System.Linq;
 using ArchUnitNET.Fluent.Slices;
-using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 using Xunit.Sdk;
 

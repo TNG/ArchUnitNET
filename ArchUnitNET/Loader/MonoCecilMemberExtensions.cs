@@ -9,13 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Loader;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
 using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
-namespace ArchUnitNET.Fluent.Extensions
+namespace ArchUnitNET.Loader
 {
     public static class MonoCecilMemberExtensions
     {

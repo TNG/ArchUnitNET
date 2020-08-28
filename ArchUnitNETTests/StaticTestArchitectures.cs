@@ -13,7 +13,7 @@ using Xunit.Sdk;
 
 // ReSharper disable InconsistentNaming
 
-namespace ArchUnitNETTests.Fluent.Extensions
+namespace ArchUnitNETTests
 {
     public static class StaticTestArchitectures
     {

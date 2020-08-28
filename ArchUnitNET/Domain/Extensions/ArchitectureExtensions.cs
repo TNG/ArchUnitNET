@@ -5,12 +5,10 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
-using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Exceptions;
+using ArchUnitNET.Domain.Exceptions;
 using JetBrains.Annotations;
-using Attribute = ArchUnitNET.Domain.Attribute;
 
-namespace ArchUnitNET.Fluent.Extensions
+namespace ArchUnitNET.Domain.Extensions
 {
     public static class ArchitectureExtensions
     {

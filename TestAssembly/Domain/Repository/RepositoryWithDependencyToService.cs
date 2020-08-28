@@ -11,6 +11,7 @@ using TestAssembly.Domain.Services;
 
 namespace TestAssembly.Domain.Repository
 {
+#pragma warning disable 169
     public class RepositoryWithDependencyToService : IRepository
     {
         private TestService _badDependency;

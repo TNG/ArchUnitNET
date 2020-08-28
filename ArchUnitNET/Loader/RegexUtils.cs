@@ -5,8 +5,9 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Text.RegularExpressions;
+using ArchUnitNET.Domain;
 
-namespace ArchUnitNET.Fluent.Extensions
+namespace ArchUnitNET.Loader
 {
     public static class RegexUtils
     {

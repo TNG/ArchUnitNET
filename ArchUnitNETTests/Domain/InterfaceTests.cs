@@ -5,7 +5,6 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
-using ArchUnitNETTests.Fluent.Extensions;
 using JetBrains.Annotations;
 using Xunit;
 using static ArchUnitNET.Domain.Visibility;
@@ -23,7 +22,6 @@ namespace ArchUnitNETTests.Domain
             _interfaceImplementingClass = StaticTestTypes.InheritedType;
         }
 
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly InterfaceEquivalencyTestData _interfaceEquivalencyTestData;
         private readonly Interface _parentInterface;
         private readonly Interface _childInterface;
@@ -39,10 +37,17 @@ namespace ArchUnitNETTests.Domain
                 ObjectReferenceDuplicate = OriginInterface;
             }
 
-            [NotNull] public Interface OriginInterface { get; }
-            [NotNull] public object DuplicateInterface { get; }
-            [NotNull] public Interface InterfaceReferenceDuplicate { get; }
-            [NotNull] public object ObjectReferenceDuplicate { get; }
+            [NotNull]
+            public Interface OriginInterface { get; }
+
+            [NotNull]
+            public object DuplicateInterface { get; }
+
+            [NotNull]
+            public Interface InterfaceReferenceDuplicate { get; }
+
+            [NotNull]
+            public object ObjectReferenceDuplicate { get; }
         }
 
         [Fact]

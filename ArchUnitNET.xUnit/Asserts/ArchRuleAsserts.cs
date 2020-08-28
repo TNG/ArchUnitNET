@@ -22,7 +22,7 @@ namespace Xunit
         /// <exception cref="FailedArchRuleException">Thrown if the rule is violated</exception>
         public static void ArchRule(Architecture architecture, IArchRule archRule)
         {
-            if (!architecture.FulfilsRule(archRule))
+            if (!archRule.HasNoViolations(architecture))
             {
                 throw new FailedArchRuleException(architecture, archRule);
             }

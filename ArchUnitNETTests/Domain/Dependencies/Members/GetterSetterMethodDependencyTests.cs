@@ -7,8 +7,7 @@
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using Xunit;
 
 // ReSharper disable UnusedMember.Local
@@ -19,19 +18,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class GetterSetterMethodDependencyTests
     {
-        private readonly PropertyMember _acceptedCaseProperty;
         private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly PropertyMember _firstUnacceptedCaseProperty;
-        private readonly PropertyMember _secondUnacceptedCaseProperty;
 
         public GetterSetterMethodDependencyTests()
         {
             var getterExampleClass = _architecture.GetClassOfType(typeof(GetterMethodDependencyExamples));
             getterExampleClass.RequiredNotNull();
-            _acceptedCaseProperty = getterExampleClass.GetPropertyMembersWithName("AcceptedCase").First();
-            _firstUnacceptedCaseProperty = getterExampleClass.GetPropertyMembersWithName("FirstUnacceptedCase").First();
-            _secondUnacceptedCaseProperty = getterExampleClass.GetPropertyMembersWithName("SecondUnacceptedCase")
-                .First();
         }
 
         [Theory]

@@ -6,8 +6,7 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using Xunit;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Members

@@ -7,11 +7,12 @@
 using System.Linq;
 using System.Text;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Loader;
 using ArchUnitNETTests.Domain.Dependencies.Members;
 using Xunit;
 
-namespace ArchUnitNETTests.Fluent.Extensions
+namespace ArchUnitNETTests.Loader
 {
     public class RegexUtilsTest
     {

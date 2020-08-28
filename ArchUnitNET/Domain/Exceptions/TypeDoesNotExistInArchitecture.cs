@@ -6,15 +6,11 @@
 
 using System;
 
-namespace ArchUnitNET.Fluent.Exceptions
+namespace ArchUnitNET.Domain.Exceptions
 {
     public class TypeDoesNotExistInArchitecture : Exception
     {
         public TypeDoesNotExistInArchitecture(string message) : base(message)
-        {
-        }
-
-        public TypeDoesNotExistInArchitecture(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

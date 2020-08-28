@@ -11,7 +11,7 @@ using System.Linq;
 using System.Reflection;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
 using ArchUnitNETTests.Fluent.Extensions;
 using Type = System.Type;

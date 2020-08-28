@@ -8,10 +8,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNETTests.Domain.Dependencies.Attributes;
 using ArchUnitNETTests.Domain.Dependencies.Members;
-using ArchUnitNETTests.Fluent.Extensions;
 using ArchUnitType = ArchUnitNET.Loader.Type;
 
 namespace ArchUnitNETTests.Loader

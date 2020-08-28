@@ -7,13 +7,13 @@
 using System;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Exceptions;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Exceptions;
+using ArchUnitNET.Domain.Extensions;
 using TestAssembly;
 using TestAssembly.Domain.Marker;
 using Xunit;
 
-namespace ArchUnitNETTests.Fluent.Extensions
+namespace ArchUnitNETTests.Domain.Extensions
 {
     public class ArchitectureExtensionTests
     {

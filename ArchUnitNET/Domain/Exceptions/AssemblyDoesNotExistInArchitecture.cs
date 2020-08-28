@@ -6,16 +6,11 @@
 
 using System;
 
-namespace ArchUnitNET.Fluent.Exceptions
+namespace ArchUnitNET.Domain.Exceptions
 {
     public class AssemblyDoesNotExistInArchitecture : Exception
     {
         public AssemblyDoesNotExistInArchitecture(string message) : base(message)
-        {
-        }
-
-        public AssemblyDoesNotExistInArchitecture(string message, Exception innerException) : base(message,
-            innerException)
         {
         }
     }

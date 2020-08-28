@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNETTests.Fluent.Extensions;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Members

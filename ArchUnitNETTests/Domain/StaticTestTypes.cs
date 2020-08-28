@@ -6,8 +6,7 @@
 
 using System;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNETTests.Domain

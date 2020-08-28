@@ -8,10 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent;
-using ArchUnitNET.Fluent.Extensions;
 using ArchUnitNETTests.Domain;
-using ArchUnitNETTests.Fluent.Extensions;
 using Xunit;
 using static ArchUnitNETTests.Domain.StaticTestTypes;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
@@ -20,24 +19,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
     public class ObjectSyntaxElementsTests
     {
-        public ObjectSyntaxElementsTests()
-        {
-            _types = Architecture.Types;
-            _classes = Architecture.Classes;
-            _interfaces = Architecture.Interfaces;
-        }
-
         private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly IEnumerable<IType> _types;
-        private readonly IEnumerable<Class> _classes;
-        private readonly IEnumerable<Interface> _interfaces;
+        private readonly IEnumerable<IType> _types = Architecture.Types;
         private const string NoTypeName = "NotTheNameOfAnyType_58391351286";
 
         private readonly IEnumerable<Type> _falseDependencies = new List<Type>
             {typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2)};
-
-        private readonly IEnumerable<string> _falseDependenciesPattern = new List<string>
-            {typeof(ClassWithNoDependencies1).FullName, typeof(ClassWithNoDependencies2).FullName};
 
         [Fact]
         public void AreTest()

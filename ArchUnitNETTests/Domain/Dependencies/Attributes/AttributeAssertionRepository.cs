@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using Xunit;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
@@ -89,7 +89,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             Assert.Equal(expectedAttributeDependency,
                 targetMember.Dependencies.First());
 
-            Assert.True(targetMember.HasDependency(expectedAttributeDependency));
+            Assert.True(targetMember.Dependencies.Contains(expectedAttributeDependency));
         }
 
         public static void AttributeDependencyAsExpected(IType targetType, Class expectedAttributeClass)

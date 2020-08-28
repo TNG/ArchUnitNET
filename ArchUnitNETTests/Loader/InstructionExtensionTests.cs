@@ -8,12 +8,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Loader;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Xunit;
 
-namespace ArchUnitNETTests.Fluent.Extensions
+namespace ArchUnitNETTests.Loader
 {
     public class InstructionExtensionTests
     {
