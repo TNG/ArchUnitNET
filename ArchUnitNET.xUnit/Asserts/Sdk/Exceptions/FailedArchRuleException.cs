@@ -20,7 +20,7 @@ namespace Xunit.Sdk
         /// <param name="architecture">The architecture which was tested</param>
         /// <param name="archRule">The archrule that failed</param>
         public FailedArchRuleException(Architecture architecture, IArchRule archRule)
-            : this(architecture.EvaluateRule(archRule))
+            : this(archRule.Evaluate(architecture))
         {
         }
 

@@ -20,9 +20,9 @@ namespace ArchUnitNET.NUnit
         /// <param name="archRule">The rule to test the architecture with</param>
         public static void FulfilsRule(Architecture architecture, IArchRule archRule)
         {
-            if (!architecture.FulfilsRule(archRule))
+            if (!archRule.HasNoViolations(architecture))
             {
-                Assert.Fail(architecture.EvaluateRule(archRule).ToErrorMessage());
+                Assert.Fail(archRule.Evaluate(architecture).ToErrorMessage());
             }
         }
     }

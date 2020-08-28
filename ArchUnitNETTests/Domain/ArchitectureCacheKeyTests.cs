@@ -5,8 +5,8 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
-using ArchUnitNETTests.Dependencies.Attributes;
-using ArchUnitNETTests.Dependencies.Members;
+using ArchUnitNETTests.Domain.Dependencies.Attributes;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using Mono.Cecil;
 using Xunit;
 
@@ -34,8 +34,6 @@ namespace ArchUnitNETTests.Domain
         private readonly string _attributeDependencyTests;
         private readonly ArchitectureCacheKey _architectureCacheKey;
         private readonly ArchitectureCacheKey _duplicateArchitectureCacheKey;
-        private readonly object _objectReferenceDuplicateArchitectureCacheKey;
-        private readonly object _duplicateObjectArchitectureCacheKey;
 
         [Fact]
         public void ArchitectureCacheKeyContentEquivalentsAreEqual()

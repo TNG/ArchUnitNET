@@ -5,12 +5,11 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
-using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Dependencies.Attributes;
-using ArchUnitNETTests.Fluent.Extensions;
+using ArchUnitNET.Domain.Dependencies;
+using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Loader;
+using ArchUnitNETTests.Domain.Dependencies.Attributes;
 using JetBrains.Annotations;
 using Xunit;
 
@@ -66,8 +65,11 @@ namespace ArchUnitNETTests.Domain
                 Attribute = Architecture.GetAttributeOfType(originType);
             }
 
-            [NotNull] public Class OriginClass { get; }
-            [NotNull] public Attribute Attribute { get; }
+            [NotNull]
+            public Class OriginClass { get; }
+
+            [NotNull]
+            public Attribute Attribute { get; }
         }
 
         private class AttributeEquivalencyTestData
@@ -81,10 +83,17 @@ namespace ArchUnitNETTests.Domain
                 ObjectReferenceDuplicate = OriginAttribute;
             }
 
-            [NotNull] public Attribute OriginAttribute { get; }
-            [NotNull] public object DuplicateAttribute { get; }
-            [NotNull] public Attribute AttributeReferenceDuplicate { get; }
-            [NotNull] public object ObjectReferenceDuplicate { get; }
+            [NotNull]
+            public Attribute OriginAttribute { get; }
+
+            [NotNull]
+            public object DuplicateAttribute { get; }
+
+            [NotNull]
+            public Attribute AttributeReferenceDuplicate { get; }
+
+            [NotNull]
+            public object ObjectReferenceDuplicate { get; }
         }
 
         [Fact]

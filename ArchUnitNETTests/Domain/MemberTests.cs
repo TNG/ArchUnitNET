@@ -7,9 +7,9 @@
 using System;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Dependencies.Members;
+using ArchUnitNET.Domain.Dependencies;
+using ArchUnitNET.Domain.Extensions;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using ArchUnitNETTests.Fluent.Extensions;
 using JetBrains.Annotations;
 using Xunit;
