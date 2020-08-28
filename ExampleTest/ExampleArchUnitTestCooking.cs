@@ -37,7 +37,7 @@ namespace ExampleTest
         [Fact]
         public void AllChefsCook()
         {
-            Assert.All(_chefs, chef => chef.ImplementsInterface(_cookInterface));
+            Assert.All(_chefs, chef => Assert.True(chef.ImplementsInterface(_cookInterface)));
         }
     }
 
