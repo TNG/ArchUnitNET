@@ -48,7 +48,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
             //Assert
             Assert.All(fieldMembers, fieldMember =>
-                _classWithFieldA.HasDependencies(fieldMember.MemberDependencies));
+                Assert.True(_classWithFieldA.HasDependencies(fieldMember.MemberDependencies)));
         }
 
         [Fact]
