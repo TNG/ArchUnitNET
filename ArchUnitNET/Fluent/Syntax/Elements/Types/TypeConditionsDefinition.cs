@@ -10,7 +10,6 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Extensions;
-using Assembly = System.Reflection.Assembly;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -296,7 +295,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 pattern + "\"");
         }
 
-        public static ICondition<TRuleType> ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        public static ICondition<TRuleType> ResideInAssembly(System.Reflection.Assembly assembly,
+            params System.Reflection.Assembly[] moreAssemblies)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
@@ -670,7 +670,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 pattern + "\"");
         }
 
-        public static ICondition<TRuleType> NotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        public static ICondition<TRuleType> NotResideInAssembly(System.Reflection.Assembly assembly,
+            params System.Reflection.Assembly[] moreAssemblies)
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {

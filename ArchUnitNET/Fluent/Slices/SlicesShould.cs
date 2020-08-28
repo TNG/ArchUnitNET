@@ -28,7 +28,15 @@ namespace ArchUnitNET.Fluent.Slices
                 .Where(slc => slc != null);
         }
 
-        private static IEnumerable<EvaluationResult> Evaluate(IEnumerable<Slice> slices, ICanBeEvaluated archRule,
+        public SliceRule BeFreeOfCycles()
+        {
+            _ruleCreator.SetEvaluationFunction(EvaluateBeFreeOfCycles);
+            _ruleCreator.AddToDescription("be free of cycles");
+            return new SliceRule(_ruleCreator);
+        }
+
+        private static IEnumerable<EvaluationResult> EvaluateBeFreeOfCycles(IEnumerable<Slice> slices,
+            ICanBeEvaluated archRule,
             Architecture architecture)
         {
             var slicesList = slices.ToList();
@@ -70,49 +78,43 @@ namespace ArchUnitNET.Fluent.Slices
             }
         }
 
-        public SliceRule BeFreeOfCycles()
+        public SliceRule NotDependOnEachOther()
         {
-            _ruleCreator.SetEvaluationFunction(Evaluate);
-            _ruleCreator.AddToDescription("be free of cycles");
+            _ruleCreator.SetEvaluationFunction(EvaluateNotDependOnEachOther);
+            _ruleCreator.AddToDescription("not depend on each other");
             return new SliceRule(_ruleCreator);
         }
 
-        public SliceRule NotDependOnEachOther()
+        private static IEnumerable<EvaluationResult> EvaluateNotDependOnEachOther(IEnumerable<Slice> slices,
+            ICanBeEvaluated archRule,
+            Architecture architecture)
         {
-            IEnumerable<EvaluationResult> Evaluate(IEnumerable<Slice> slices, ICanBeEvaluated archRule,
-                Architecture architecture)
+            var slicesList = slices.ToList();
+
+            foreach (var slice in slicesList)
             {
-                var slicesList = slices.ToList();
-
-                foreach (var slice in slicesList)
+                var sliceDependencies = FindDependencies(slice, slicesList).Except(new[] {slice}).ToList();
+                var passed = !sliceDependencies.Any();
+                var description = slice.Description + " does not depend on another slice.";
+                if (!passed)
                 {
-                    var sliceDependencies = FindDependencies(slice, slicesList).Except(new[] {slice}).ToList();
-                    var passed = !sliceDependencies.Any();
-                    var description = slice.Description + " does not depend on another slice.";
-                    if (!passed)
+                    description = slice.Description + " does depend on other slices:";
+                    foreach (var sliceDependency in sliceDependencies)
                     {
-                        description = slice.Description + " does depend on other slices:";
-                        foreach (var sliceDependency in sliceDependencies)
-                        {
-                            var depsToSlice = slice.Dependencies.Where(dependency =>
-                                    sliceDependency.Types.Contains(dependency.Target))
-                                .Distinct(new TypeDependencyComparer()).ToList();
-                            description += "\n" + slice.Description + " -> " + sliceDependency.Description;
-                            description = depsToSlice.Aggregate(description,
-                                (current, dependency) =>
-                                    current + ("\n\t" + dependency.Origin + " -> " + dependency.Target));
-                        }
-
-                        description += "\n";
+                        var depsToSlice = slice.Dependencies.Where(dependency =>
+                                sliceDependency.Types.Contains(dependency.Target))
+                            .Distinct(new TypeDependencyComparer()).ToList();
+                        description += "\n" + slice.Description + " -> " + sliceDependency.Description;
+                        description = depsToSlice.Aggregate(description,
+                            (current, dependency) =>
+                                current + ("\n\t" + dependency.Origin + " -> " + dependency.Target));
                     }
 
-                    yield return new EvaluationResult(slice, passed, description, archRule, architecture);
+                    description += "\n";
                 }
-            }
 
-            _ruleCreator.SetEvaluationFunction(Evaluate);
-            _ruleCreator.AddToDescription("not depend on each other");
-            return new SliceRule(_ruleCreator);
+                yield return new EvaluationResult(slice, passed, description, archRule, architecture);
+            }
         }
     }
 }

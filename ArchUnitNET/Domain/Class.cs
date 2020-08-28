@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Domain.Dependencies.Types;
+using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Fluent.Extensions;
 using JetBrains.Annotations;
 
@@ -101,7 +101,7 @@ namespace ArchUnitNET.Domain
         public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
         {
             return pattern != null && this.GetAssignableTypes()
-                       .Any(type => type.FullNameMatches(pattern, useRegularExpressions));
+                .Any(type => type.FullNameMatches(pattern, useRegularExpressions));
         }
 
         public override string ToString()

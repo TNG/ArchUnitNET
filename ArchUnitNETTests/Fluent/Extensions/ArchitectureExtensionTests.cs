@@ -6,8 +6,8 @@
 
 using System;
 using System.Linq;
-using ArchUnitNET.ArchitectureExceptions;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Exceptions;
 using ArchUnitNET.Fluent.Extensions;
 using TestAssembly;
 using TestAssembly.Domain.Marker;

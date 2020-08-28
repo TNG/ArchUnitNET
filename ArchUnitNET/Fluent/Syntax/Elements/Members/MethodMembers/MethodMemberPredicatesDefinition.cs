@@ -207,7 +207,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes)
             {
                 return ruleTypes.Where(type =>
-                    type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(types)
+                    type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(typeList)
                         .Any());
             }
 
@@ -455,7 +455,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes)
             {
                 return ruleTypes.Where(type =>
-                    !type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(types)
+                    !type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(typeList)
                         .Any());
             }
 

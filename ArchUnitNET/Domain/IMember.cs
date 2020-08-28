@@ -5,7 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
-using ArchUnitNET.Domain.Dependencies.Members;
+using ArchUnitNET.Domain.Dependencies;
 
 namespace ArchUnitNET.Domain
 {

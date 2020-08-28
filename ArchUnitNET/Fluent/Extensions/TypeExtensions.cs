@@ -7,10 +7,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ArchUnitNET.ArchitectureExceptions;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Domain.Dependencies.Types;
+using ArchUnitNET.Domain.Dependencies;
+using ArchUnitNET.Fluent.Exceptions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using GenericParameter = ArchUnitNET.Domain.GenericParameter;

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Dependencies.Members;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using Xunit;
 
 namespace ArchUnitNETTests.Fluent.Extensions

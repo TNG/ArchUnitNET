@@ -8,8 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ArchUnitNET.ArchitectureExceptions;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Exceptions;
 using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Extensions
