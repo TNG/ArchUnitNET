@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Domain.Dependencies.Types;
+using ArchUnitNET.Domain.Dependencies;
 using Equ;
 
 namespace ArchUnitNET.Domain

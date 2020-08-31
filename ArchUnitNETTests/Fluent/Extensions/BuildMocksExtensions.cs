@@ -10,10 +10,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Dependencies.Members;
 using static ArchUnitNET.Domain.Visibility;
 using Assembly = ArchUnitNET.Domain.Assembly;
-using Type = ArchUnitNET.Core.Type;
+using Type = ArchUnitNET.Loader.Type;
 
 namespace ArchUnitNETTests.Fluent.Extensions
 {
@@ -236,14 +235,6 @@ namespace ArchUnitNETTests.Fluent.Extensions
             }
 
             return methodForm;
-        }
-
-        public static MethodCallDependency CreateStubMethodCallDependency(IMember originMember,
-            MethodMember targetMember)
-        {
-            var methodCallDependency = new MethodCallDependency(originMember, targetMember);
-            methodCallDependency.TargetMember.MemberBackwardsDependencies.Add(methodCallDependency);
-            return methodCallDependency;
         }
     }
 }

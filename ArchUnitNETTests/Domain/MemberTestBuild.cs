@@ -9,8 +9,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Dependencies.Members;
+using ArchUnitNET.Domain.Extensions;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using ArchUnitNETTests.Fluent.Extensions;
 
 namespace ArchUnitNETTests.Domain

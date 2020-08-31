@@ -8,8 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
-using ArchUnitNET.Fluent.Extensions;
 using static ArchUnitNET.Domain.Visibility;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
@@ -57,7 +57,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new SimpleCondition<TRuleType>(
                 obj => patternList.Any(pattern => obj.FullNameMatches(pattern, useRegularExpressions)),
-                obj => "is " + obj.FullName, description);
+                description, failDescription);
         }
 
 
@@ -818,7 +818,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Condition(TRuleType ruleType)
             {
                 return ruleType.Attributes.IsNullOrEmpty() || ruleType.Attributes.All(attribute =>
-                           patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
+                    patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
             }
 
             string description;

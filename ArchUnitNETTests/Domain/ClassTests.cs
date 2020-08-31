@@ -4,11 +4,10 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNETTests.Dependencies.Members;
-using ArchUnitNETTests.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Loader;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using JetBrains.Annotations;
 using Xunit;
 using static ArchUnitNET.Domain.Visibility;
@@ -58,10 +57,17 @@ namespace ArchUnitNETTests.Domain
                 ObjectReferenceDuplicate = OriginClass;
             }
 
-            [NotNull] public Class OriginClass { get; }
-            [NotNull] public object DuplicateClass { get; }
-            [NotNull] public Class ClassReferenceDuplicate { get; }
-            [NotNull] public object ObjectReferenceDuplicate { get; }
+            [NotNull]
+            public Class OriginClass { get; }
+
+            [NotNull]
+            public object DuplicateClass { get; }
+
+            [NotNull]
+            public Class ClassReferenceDuplicate { get; }
+
+            [NotNull]
+            public object ObjectReferenceDuplicate { get; }
         }
 
         [Fact]

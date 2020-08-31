@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
@@ -207,7 +207,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes)
             {
                 return ruleTypes.Where(type =>
-                    type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(types)
+                    type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(typeList)
                         .Any());
             }
 
@@ -455,7 +455,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes)
             {
                 return ruleTypes.Where(type =>
-                    !type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(types)
+                    !type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(typeList)
                         .Any());
             }
 

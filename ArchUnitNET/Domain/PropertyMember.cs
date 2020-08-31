@@ -5,8 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
-using ArchUnitNET.Domain.Dependencies.Members;
-using ArchUnitNET.Domain.Dependencies.Types;
+using ArchUnitNET.Domain.Dependencies;
 using Equ;
 using JetBrains.Annotations;
 using static ArchUnitNET.Domain.Visibility;
@@ -32,8 +31,12 @@ namespace ArchUnitNET.Domain
         public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
         public Visibility GetterVisibility => Getter?.Visibility ?? NotAccessible;
 
-        [CanBeNull] public MethodMember Getter { get; }
-        [CanBeNull] public MethodMember Setter { get; }
+        [CanBeNull]
+        public MethodMember Getter { get; }
+
+        [CanBeNull]
+        public MethodMember Setter { get; }
+
         public FieldMember BackingField { get; internal set; }
 
         public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;

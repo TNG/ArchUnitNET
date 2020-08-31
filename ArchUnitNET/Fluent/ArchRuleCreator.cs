@@ -12,7 +12,7 @@ using ArchUnitNET.Fluent.Predicates;
 
 namespace ArchUnitNET.Fluent
 {
-    public partial class ArchRuleCreator<TRuleType> : IArchRuleCreator<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class ArchRuleCreator<TRuleType> : IArchRuleCreator<TRuleType> where TRuleType : ICanBeAnalyzed
     {
         private readonly ConditionManager<TRuleType> _conditionManager;
         private readonly PredicateManager<TRuleType> _predicateManager;

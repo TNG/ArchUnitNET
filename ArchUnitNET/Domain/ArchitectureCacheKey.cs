@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 
 namespace ArchUnitNET.Domain
 {
