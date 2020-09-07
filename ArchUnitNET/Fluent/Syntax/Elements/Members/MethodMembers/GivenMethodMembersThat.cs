@@ -123,6 +123,56 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        public GivenMethodMembersConjunction HaveReturnType(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.HaveReturnType(pattern, useRegularExpressions));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction HaveReturnType(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.HaveReturnType(patterns, useRegularExpressions));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction HaveReturnType(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.HaveReturnType(firstType, moreTypes));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction HaveReturnType(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.HaveReturnType(types));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction HaveReturnType(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.HaveReturnType(types));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction HaveReturnType(Type type, params Type[] moreTypes)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.HaveReturnType(type, moreTypes));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction HaveReturnType(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.HaveReturnType(types));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
         //Negations
 
 
@@ -230,6 +280,56 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             _ruleCreator.AddPredicate(
                 MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction DoNotHaveReturnType(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(pattern, useRegularExpressions));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction DoNotHaveReturnType(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(patterns, useRegularExpressions));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction DoNotHaveReturnType(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(firstType, moreTypes));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction DoNotHaveReturnType(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction DoNotHaveReturnType(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction DoNotHaveReturnType(Type type, params Type[] moreTypes)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(type, moreTypes));
+            return new GivenMethodMembersConjunction(_ruleCreator);
+        }
+
+        public GivenMethodMembersConjunction DoNotHaveReturnType(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddPredicate(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
     }
