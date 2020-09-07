@@ -255,6 +255,75 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitecturePredicate<MethodMember>(Condition, description);
         }
 
+        public static IPredicate<MethodMember> HaveReturnType(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimplePredicate<MethodMember>(
+                member => member.ReturnType.FullNameMatches(pattern, useRegularExpressions),
+                "have return type with full name " +
+                (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+        }
+
+        public static IPredicate<MethodMember> HaveReturnType(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            var patternsArray = patterns.ToArray();
+            var description = "have return type with full name " +
+                              (useRegularExpressions ? "matching" : "containing") + " \"" +
+                              string.Join("\" or \"", patternsArray) + "\"";
+
+            return new SimplePredicate<MethodMember>(
+                member => patternsArray.Any(
+                    pattern => member.ReturnType.FullNameMatches(pattern, useRegularExpressions)), description);
+        }
+
+        public static IPredicate<MethodMember> HaveReturnType(IType firstType, params IType[] moreTypes)
+        {
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return HaveReturnType(types);
+        }
+
+        public static IPredicate<MethodMember> HaveReturnType(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+            var typeStringList = typeList.Select(type => type.FullName).ToList();
+            var description = "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+
+            return new SimplePredicate<MethodMember>(
+                member => typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName)), description);
+        }
+
+        public static IPredicate<MethodMember> HaveReturnType(IObjectProvider<IType> types)
+        {
+            IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            {
+                var typeList = types.GetObjects(architecture).ToList();
+                var methodMemberList = methodMembers.ToList();
+                return methodMemberList.Where(methodMember =>
+                    typeList.Any(type => methodMember.ReturnType.FullNameMatches(type.FullName)));
+            }
+
+            var description = "have return type " + types.Description;
+            return new ArchitecturePredicate<MethodMember>(Condition, description);
+        }
+
+        public static IPredicate<MethodMember> HaveReturnType(Type firstType, params Type[] moreTypes)
+        {
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return HaveReturnType(types);
+        }
+
+        public static IPredicate<MethodMember> HaveReturnType(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+            var typeStringList = typeList.Select(type => type.ToString()).ToList();
+            var description = "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+
+            return new SimplePredicate<MethodMember>(
+                member => typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName)), description);
+        }
+
 
         //Negations
 
@@ -501,6 +570,75 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             }
 
             return new ArchitecturePredicate<MethodMember>(Condition, description);
+        }
+
+        public static IPredicate<MethodMember> DoNotHaveReturnType(string pattern, bool useRegularExpressions = false)
+        {
+            return new SimplePredicate<MethodMember>(
+                member => !member.ReturnType.FullNameMatches(pattern, useRegularExpressions),
+                "do not have return type with full name " +
+                (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+        }
+
+        public static IPredicate<MethodMember> DoNotHaveReturnType(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            var patternsArray = patterns.ToArray();
+            var description = "do not have return type with full name " +
+                              (useRegularExpressions ? "matching" : "containing") + " \"" +
+                              string.Join("\" or \"", patternsArray) + "\"";
+
+            return new SimplePredicate<MethodMember>(
+                member => patternsArray.All(
+                    pattern => !member.ReturnType.FullNameMatches(pattern, useRegularExpressions)), description);
+        }
+
+        public static IPredicate<MethodMember> DoNotHaveReturnType(IType firstType, params IType[] moreTypes)
+        {
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return DoNotHaveReturnType(types);
+        }
+
+        public static IPredicate<MethodMember> DoNotHaveReturnType(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+            var typeStringList = typeList.Select(type => type.FullName).ToList();
+            var description = "do not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+
+            return new SimplePredicate<MethodMember>(
+                member => typeList.Any(type => !member.ReturnType.FullNameMatches(type.FullName)), description);
+        }
+
+        public static IPredicate<MethodMember> DoNotHaveReturnType(IObjectProvider<IType> types)
+        {
+            IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            {
+                var typeList = types.GetObjects(architecture).ToList();
+                var methodMemberList = methodMembers.ToList();
+                return methodMemberList.Where(methodMember =>
+                    typeList.All(type => !methodMember.ReturnType.FullNameMatches(type.FullName)));
+            }
+
+            var description = "do not have return type " + types.Description;
+            return new ArchitecturePredicate<MethodMember>(Condition, description);
+        }
+
+        public static IPredicate<MethodMember> DoNotHaveReturnType(Type firstType, params Type[] moreTypes)
+        {
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return DoNotHaveReturnType(types);
+        }
+
+        public static IPredicate<MethodMember> DoNotHaveReturnType(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+            var typeStringList = typeList.Select(type => type.ToString()).ToList();
+            var description = "do not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+
+            return new SimplePredicate<MethodMember>(
+                member => typeList.All(type => !member.ReturnType.FullNameMatches(type.FullName)), description);
         }
     }
 }
