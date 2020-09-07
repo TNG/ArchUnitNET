@@ -123,6 +123,49 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
+        public MethodMembersShouldConjunction HaveReturnType(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(pattern, useRegularExpressions));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction HaveReturnType(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(patterns, useRegularExpressions));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction HaveReturnType(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(firstType, moreTypes));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction HaveReturnType(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(types));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction HaveReturnType(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(types));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction HaveReturnType(Type type, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(type, moreTypes));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction HaveReturnType(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(types));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
         //Negations
 
 
