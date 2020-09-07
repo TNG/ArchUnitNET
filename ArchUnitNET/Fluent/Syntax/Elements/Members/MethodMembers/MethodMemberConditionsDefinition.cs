@@ -398,6 +398,110 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
+        public static ICondition<MethodMember> HaveReturnType(string pattern, bool useRegularExpressions = false)
+        {
+            var description = "have return type with full name " +
+                              (useRegularExpressions ? "matching" : "containing") + " \"" +
+                              pattern + "\"";
+
+            var failDescription = "does not have return type with full name " +
+                                  (useRegularExpressions ? "matching" : "containing") + " \"" +
+                                  pattern + "\"";
+
+            return new SimpleCondition<MethodMember>(
+                member => member.ReturnType.FullNameMatches(pattern, useRegularExpressions), description,
+                failDescription);
+        }
+
+        public static ICondition<MethodMember> HaveReturnType(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            var patternsArray = patterns.ToArray();
+            var description = "have return type with full name " +
+                              (useRegularExpressions ? "matching" : "containing") + " \"" +
+                              string.Join("\" or \"", patternsArray) + "\"";
+
+            var failDescription = "does not have return type with full name " +
+                                  (useRegularExpressions ? "matching" : "containing") + " \"" +
+                                  string.Join("\" or \"", patternsArray) + "\"";
+
+            bool Condition(MethodMember member)
+            {
+                return patternsArray.Any(pattern => member.ReturnType.FullNameMatches(pattern, useRegularExpressions));
+            }
+
+            return new SimpleCondition<MethodMember>(Condition, description, failDescription);
+        }
+
+        public static ICondition<MethodMember> HaveReturnType(IType firstType, params IType[] moreTypes)
+        {
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return HaveReturnType(types);
+        }
+
+        public static ICondition<MethodMember> HaveReturnType(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+            var typeStringList = typeList.Select(type => type.FullName).ToList();
+            var description = "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+
+            bool Condition(MethodMember member)
+            {
+                return typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName));
+            }
+
+            return new SimpleCondition<MethodMember>(Condition,
+                member => "has return type \"" + member.ReturnType.FullName + "\"", description);
+        }
+
+        public static ICondition<MethodMember> HaveReturnType(IObjectProvider<IType> types)
+        {
+            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            {
+                var typeList = types.GetObjects(architecture).ToList();
+                var methodMemberList = methodMembers.ToList();
+                var passedObjects = methodMemberList.Where(methodMember =>
+                        typeList.Any(type => methodMember.ReturnType.FullNameMatches(type.FullName)))
+                    .ToList();
+                foreach (var failedObject in methodMemberList.Except(passedObjects))
+                {
+                    yield return new ConditionResult(failedObject, false,
+                        "has return type \"" + failedObject.ReturnType.FullName + "\"");
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
+            }
+
+            var description = "have return type " + types.Description;
+            return new ArchitectureCondition<MethodMember>(Condition, description);
+        }
+
+        public static ICondition<MethodMember> HaveReturnType(Type firstType, params Type[] moreTypes)
+        {
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return HaveReturnType(types);
+        }
+
+        public static ICondition<MethodMember> HaveReturnType(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+            var typeStringList = typeList.Select(type => type.ToString()).ToList();
+            var description = "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+
+            bool Condition(MethodMember member)
+            {
+                return typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName));
+            }
+
+            return new SimpleCondition<MethodMember>(Condition,
+                member => "has return type \"" + member.ReturnType.FullName + "\"", description);
+        }
+
 
         //Negations
 
