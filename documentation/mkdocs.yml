@@ -1,0 +1,12 @@
+site_name: ArchUnitNET
+site_dir: site
+docs_dir: docs
+
+nav:
+    - Home: index.md
+    - Guide: guide.md
+    - About: about.md
+    - License: LICENSE
+    - Contribution: contributing.md
+
+theme: readthedocs
