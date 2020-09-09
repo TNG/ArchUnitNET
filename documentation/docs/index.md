@@ -118,35 +118,38 @@ The following section illustrates some typical checks you could do with ArchUnit
 Find this example code [here](https://github.com/TNG/ArchUnitNET).
 
 ### 3.1. Namespace Dependency Rule
-![MVC_Namespaces](http://www.plantuml.com/plantuml/png/9Owx2i9044Lxlq9_8DDRnK8i12kjPPozPXUoks4UY7wz4PjxuS21CvgpUjHviojDvaW8dRVPVR4zaV9hc8hdU8H1fJT7yq5wfHEwJcT5V2g_bGug-TQANuvNUe8z5AJWv1cfYz4wKLUNlVH6VrHuKgv6ZIjiOS6THM0sBB-S4Isj_mK0)
+![Namespace_Dependency](http://www.plantuml.com/plantuml/png/9OunZW8n34NxFSNk1SRzLhF5YWA92cfadCyaqiI975jeE3s3QFxNUzMRXxDvrFNhfwYiaH2sVcVtFdw9Z1_JKZp7BGPCcZhK9scL3cYs70tnhBmP_PdaYnO__P_f3lOma86JPwGcW_Q92dNsqfG-gl1YN0SfLupEWcj2XoQeR5D_9yqxxVy2)
 ```
 IArchRule rule = Types().That().ResideInNamespace("Model").Should()
                     .NotDependOnAny(Types().That().ResideInNamespace("Controller"));
 ```
 ### 3.2. Class Dependency Rule
+![Class_Dependency](http://www.plantuml.com/plantuml/png/9OuzhW8n30RxTuh71TOzrL8W2YGgg95np2PIugpy8xISdY2QxzDCDRCvgaUhVxiYL2DnQFtFxglj0HHVqr8ynoECbReuYq_K6vouwt9MZdV3JU6Wb6zI_7AymfFHGncKCNdcrCbWJ3GMHozTuASABehDW2gQtHElB8c5jcdzvio3ndy0)
 ````
-IArchRule rule = Classes().That().Are(typeof(BazClass)).Should()
-                    .NotDependOnAny(Classes().That().Are(typeof(FooClass)));
+IArchRule rule = Classes().That().AreAssignableTo(typeof(ICar)).Should()
+                    .NotDependOnAny(Classes().That().AreAssignableTo(typeof(ICanvas)));
 ````
-### 3.3. Class and Namespace Containment Rule
+### 3.3. Inheritance Naming Rule
+![Inheritance_Naming](http://www.plantuml.com/plantuml/png/9Own2a8n34Ltlq9_u6LtUWxY83ZfBB6DRU0bVQG9ebzlnULUE73WpDtHF6JPx5ZJ4fd2bcrrN_iUmF0r5VOQZ-XagQcJ-fIQm8cQbRDHV0JV1WTBzQRib-CLdeGUHc24sIlbbZgC2HakEZU5Fs8iXjA1jPAneoQwAmfhcTPVq4oQnty1)
 ````
-IArchRule rule = Classes().That().HaveNameContaining("Foo").Should()
-                    .ResideInNamespace("FooNamespace");
+IArchRule rule = Classes().That().AreAssignableTo(typeof(ICar)).Should()
+                    .HaveNameContaining("Car");
 ````
-
-### 3.4. Inheritance Rule
+### 3.4. Class Namespace Containment Rule
+![Class_Namespace_Containment](http://www.plantuml.com/plantuml/png/9Swz2i9040JWtgVG5yZsLh4G2y5Awx3UhRc3sxsmFuW-lGasCp3DDwCvgWUttQ5AQf4fjEsB-s970CNtC5SlyGmZJLsSn8VK6IxKTRugnPVnet3IL1vI_NQ-mulGGmcKC7kXt9F16i4aZbwxm7-gE2koGMfeDWaosOA9fet1AhnHo_Pi9Cbh_m00)
 ````
-IArchRule rule = Classes().That().AreAssignableTo(typeof(IConnection)).Should()
-                    .HaveNameContaining("Connection");
+IArchRule rule = Classes().That().HaveNameContaining("Canvas").Should()
+                     .ResideInNamespace(typeof(ICanvas).Namespace);
 ````
-
-### 3.5. Attribute Rule
+### 3.5. Attribute Access Rule
+![Attribute_Access](http://www.plantuml.com/plantuml/png/9Ownpi8m30Rt_ob-Ng3UcSg0692OO4PkOff8ZLFPduNWwIbYkPDkkj71XcZBtwvgMY9BsF9VWDNtHCRFOQueCOMBfQuGnP1wevDqcyycyMxyCZfOAZUjk1olz116c909PnJ9FJbjY2OAHkrAlrHvDcvE35YT0dBdbCHzMByxesZU_040)
 ````
-IArchRule rule = Classes().That().DoNotHaveAnyAttributes(typeof(Transactional)).Should()
-                    .NotDependOnAny(Classes().That().AreAssignableTo(typeof(IEntityManager)));
+IArchRule rule = Classes().That().DoNotHaveAnyAttributes(typeof(Display)).Should()
+                    .NotDependOnAny(Classes().That().AreAssignableTo(typeof(ICanvas)));
 ````
 
 ### 3.6. Cycle Rule
+![Cycle](http://www.plantuml.com/plantuml/png/9Own2a8n34Ltlq9_eDcTdeCu24xw0J6DRQ5D7sc2FB_UYikzSE30MOQXchUwEnIXwf5TwpwRhUC8eFWEgLZsfmzMwc8i5gWtk73NT5NsJyDDuQIK7rBiThx3Yz5S6PGnMkROQS0SRzD5ArtWZmecnJQ0DgeSrb_3mXBdVm40)
 ````
 IArchRule rule = Slices().Matching("Cycle.(*)").Should()
                     .BeFreeOfCycles();
