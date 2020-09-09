@@ -118,9 +118,10 @@ The following section illustrates some typical checks you could do with ArchUnit
 Find this example code [here](https://github.com/TNG/ArchUnitNET).
 
 ### 3.1. Namespace Dependency Rule
+![MVC_Namespaces](http://www.plantuml.com/plantuml/png/9Owx2i9044Lxlq9_8DDRnK8i12kjPPozPXUoks4UY7wz4PjxuS21CvgpUjHviojDvaW8dRVPVR4zaV9hc8hdU8H1fJT7yq5wfHEwJcT5V2g_bGug-TQANuvNUe8z5AJWv1cfYz4wKLUNlVH6VrHuKgv6ZIjiOS6THM0sBB-S4Isj_mK0)
 ```
-IArchRule rule = Types().That().ResideInNamespace("FooNamespace").Should()
-                     .NotDependOnAny(Types().That().ResideInNamespace("BarNamespace"));
+IArchRule rule = Types().That().ResideInNamespace("Model").Should()
+                    .NotDependOnAny(Types().That().ResideInNamespace("Controller"));
 ```
 ### 3.2. Class Dependency Rule
 ````

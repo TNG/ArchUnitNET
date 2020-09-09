@@ -1,0 +1,29 @@
+@startuml
+namespace Cycle.One{
+    class ClassOne{
+        void CycleOneMethod();
+    }
+    class ClassTwo{
+    }
+}
+Cycle.One.ClassOne --> Cycle.Two.ClassTwo
+namespace Cycle.Two{
+    class ClassOne{
+    }
+    class ClassTwo{
+        void CycleTwoMethod();
+    }
+}
+Cycle.Two.ClassTwo --> Cycle.Three.ClassTwo
+namespace Cycle.Three{
+    class ClassOne{
+        void CycleThreeMethod();
+    }
+    class ClassTwo{
+    }
+}
+Cycle.Three.ClassOne --> Cycle.One.ClassTwo
+note on link #red 
+    Combination of accesses forms cycle
+end note
+@enduml

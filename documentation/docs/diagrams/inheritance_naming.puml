@@ -1,0 +1,9 @@
+@startuml
+interface ICar{
+}
+class FastCar implements ICar{
+}
+class SlowRocket implements ICar{
+}
+note left of SlowRocket #red: Has wrong name
+@enduml

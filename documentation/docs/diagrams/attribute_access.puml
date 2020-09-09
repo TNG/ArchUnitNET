@@ -1,0 +1,15 @@
+@startuml
+namespace View{
+    interface ICanvas{}
+    class StartButton <<[Display]>>{
+    }
+    StartButton "startCanvas" -- ICanvas
+    class EndButton <<NoAttribute>>{
+    ICanvas endScreen
+    }
+    EndButton "endCanvas" -- ICanvas
+}
+note right of View.EndButton #red
+    Missing Attribute [Display]
+end note
+@enduml

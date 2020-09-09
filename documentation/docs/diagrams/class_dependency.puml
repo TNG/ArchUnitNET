@@ -1,0 +1,10 @@
+@startuml
+namespace Model{
+    interface ICar{}
+    }
+namespace View{
+    interface ICanvas{}
+    }
+Model.ICar --l--> View.ICanvas
+note on link #red: forbidden
+@enduml
