@@ -1,0 +1,9 @@
+@startuml
+[Model]
+[Controller] 
+[View]
+[Model] --> [Controller]
+note left on link #red: forbidden
+[Controller] --> [Model]
+note on link #green: allowed
+@enduml
