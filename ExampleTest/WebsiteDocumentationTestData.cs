@@ -6,10 +6,10 @@
 // 
 
 using System;
-using Cycle.One;
-using Cycle.Three;
-using Cycle.Two;
 using Model;
+using Module.One;
+using Module.Three;
+using Module.Two;
 using View;
 
 namespace Model
@@ -97,47 +97,38 @@ namespace Controller
     }
 }
 
-namespace Cycle.One
+namespace Module.One
 {
-    internal class CycleOneClassOne
+    internal class ModuleOneClassOne
     {
-        public void CycleOneMethod()
-        {
-            var a = new CycleTwoClassTwo();
-        }
+        private ModuleTwoClassTwo _a;
     }
 
-    internal class CycleOneClassTwo
+    internal class ModuleOneClassTwo
     {
     }
 }
 
-namespace Cycle.Two
+namespace Module.Two
 {
-    internal class CycleTwoClassOne
+    internal class ModuleTwoClassOne
     {
+        private ModuleThreeClassTwo _a;
     }
 
-    internal class CycleTwoClassTwo
+    internal class ModuleTwoClassTwo
     {
-        public void CycleTwoMethod()
-        {
-            var a = new CycleThreeClassTwo();
-        }
     }
 }
 
-namespace Cycle.Three
+namespace Module.Three
 {
-    internal class CycleThreeClassOne
+    internal class ModuleThreeClassOne
     {
-        public void CycleThreeMethod()
-        {
-            var a = new CycleOneClassOne();
-        }
+        private ModuleOneClassTwo _a;
     }
 
-    internal class CycleThreeClassTwo
+    internal class ModuleThreeClassTwo
     {
     }
 }
