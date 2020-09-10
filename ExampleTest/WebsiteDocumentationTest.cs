@@ -72,16 +72,16 @@ namespace ExampleTest
         {
             IArchRule rule = Classes().That().DoNotHaveAnyAttributes(typeof(Display)).Should()
                 .NotDependOnAny(Classes().That().AreAssignableTo(typeof(ICanvas)));
-            //Assert.False(rule.HasNoViolations(Architecture));
-            rule.Check(Architecture);
+            Assert.False(rule.HasNoViolations(Architecture));
+            //rule.Check(Architecture);
         }
 
         [Fact]
         public void Cycles()
         {
             IArchRule rule = Slices().Matching("Module.(*)").Should().BeFreeOfCycles();
-            //Assert.False(rule.HasNoViolations(Architecture));
-            rule.Check(Architecture);
+            Assert.False(rule.HasNoViolations(Architecture));
+            //rule.Check(Architecture);
         }
     }
 }
