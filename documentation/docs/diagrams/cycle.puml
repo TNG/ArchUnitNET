@@ -1,28 +1,25 @@
 @startuml
-namespace Cycle.One{
+namespace Module.One{
     class ClassOne{
-        void CycleOneMethod();
     }
     class ClassTwo{
     }
 }
-Cycle.One.ClassOne --> Cycle.Two.ClassTwo
-namespace Cycle.Two{
+Module.One.ClassOne --> Module.Two.ClassTwo
+namespace Module.Two{
     class ClassOne{
-    }
-    class ClassTwo{
-        void CycleTwoMethod();
-    }
-}
-Cycle.Two.ClassTwo --> Cycle.Three.ClassTwo
-namespace Cycle.Three{
-    class ClassOne{
-        void CycleThreeMethod();
     }
     class ClassTwo{
     }
 }
-Cycle.Three.ClassOne --> Cycle.One.ClassTwo
+Module.Two.ClassOne --> Module.Three.ClassTwo
+namespace Module.Three{
+    class ClassOne{
+    }
+    class ClassTwo{
+    }
+}
+Module.Three.ClassOne --> Module.One.ClassTwo
 note on link #red 
     Combination of accesses forms cycle
 end note
