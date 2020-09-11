@@ -1,12 +1,12 @@
 language: csharp
-mono: none
-dotnet: 2.2.402
+stages:
+  - test
+  - deploy
 solution: ArchUnit.sln
-script: chmod +x ./Travis/build.sh && ./Travis/build.sh
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: chmod +x ./Travis/deploy.sh && ./Travis/deploy.sh $NUGET_API_KEY $NUGET_SOURCE
-  on:
-    tags: true
-    all_branches: true
+jobs:
+  include:
+    - stage: test
+      dotnet: 2.2.402
+      mono: none
+      os: linux
+      script: chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
