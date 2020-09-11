@@ -28,6 +28,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         TReturnType HaveDependencyInMethodBodyTo(IObjectProvider<IType> types);
         TReturnType HaveDependencyInMethodBodyTo(IEnumerable<IType> types);
         TReturnType HaveDependencyInMethodBodyTo(IEnumerable<Type> types);
+        TReturnType HaveReturnType(string pattern, bool useRegularExpressions = false);
+        TReturnType HaveReturnType(IEnumerable<string> patterns, bool useRegularExpressions = false);
+        TReturnType HaveReturnType(IType firstType, params IType[] moreTypes);
+        TReturnType HaveReturnType(IEnumerable<IType> types);
+        TReturnType HaveReturnType(IObjectProvider<IType> types);
+        TReturnType HaveReturnType(Type type, params Type[] moreTypes);
+        TReturnType HaveReturnType(IEnumerable<Type> types);
 
 
         //Negations
@@ -49,5 +56,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         TReturnType NotHaveDependencyInMethodBodyTo(IObjectProvider<IType> types);
         TReturnType NotHaveDependencyInMethodBodyTo(IEnumerable<IType> types);
         TReturnType NotHaveDependencyInMethodBodyTo(IEnumerable<Type> types);
+        TReturnType NotHaveReturnType(string pattern, bool useRegularExpressions = false);
+        TReturnType NotHaveReturnType(IEnumerable<string> patterns, bool useRegularExpressions = false);
+        TReturnType NotHaveReturnType(IType firstType, params IType[] moreTypes);
+        TReturnType NotHaveReturnType(IEnumerable<IType> types);
+        TReturnType NotHaveReturnType(IObjectProvider<IType> types);
+        TReturnType NotHaveReturnType(Type type, params Type[] moreTypes);
+        TReturnType NotHaveReturnType(IEnumerable<Type> types);
     }
 }
