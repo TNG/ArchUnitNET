@@ -1,5 +1,6 @@
-![ArchUnit][logo]
-[logo]: ArchUnit-Logo.png
+![ArchUnitNET][archunit-logo]
+[archunit-logo]: img/ArchUnitNET-Logo.png
+
 # Contributing
 
 Contributions are very welcome. The following will provide some helpful guidelines.
