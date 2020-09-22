@@ -1,22 +1,11 @@
-![ArchUnit][logo]
-[logo]: ArchUnit-Logo.png
+![ArchUnitNET][archunit-logo]
+[archunit-logo]: img/ArchUnitNET-Logo.png
 
 # API
 
-To understand the ArchUnitNET Framework we first recommend reading about how we
-import C# files and save the corresponing information.
+Here you can find the full API of ArchUnitNET.
 
-### ArchUnitNET Taxonomy
-
-The analyzed C# bytecode is imported into the ARchUnitNET C# code structure.
-Our taxonomies are described [here](guide/taxonomies.md).
-
-
-### Architecture
-
-To load your Project into your Testingframework you first have to create an ArchLoader
-
-### Predicates
+## Predicates
 
 * [Object Predicates](guide/predicate/object.md)
 
@@ -31,7 +20,7 @@ To load your Project into your Testingframework you first have to create an Arch
 		* [PropertyMember Predicates](guide/predicate/propertymember.md) 
 
 
-### Conditions
+## Conditions
 
 * [Object Conditions](guide/condition/object.md)
 
@@ -44,8 +33,3 @@ To load your Project into your Testingframework you first have to create an Arch
 		* [FieldMember Conditions](guide/condition/fieldmember.md)
 		* [MethodMember Conditions](guide/condition/methodmember.md)
 		* [PropertyMember Conditions](guide/condition/propertymember.md) 
-
-
-## Further Examples
-Check out example code here
-[ArchUnitNET Examples](https://github.com/TNG/ArchUnitNET/tree/master/ExampleTest "ExampleTests").

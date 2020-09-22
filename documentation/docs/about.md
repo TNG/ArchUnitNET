@@ -1,5 +1,6 @@
-![ArchUnit][logo]
-[logo]: ArchUnit-Logo.png
+![ArchUnitNET][archunit-logo]
+[archunit-logo]: img/ArchUnitNET-Logo.png
+
 # ArchUnitNET
 
 ArchUnitNET is a free, simple library for checking the architecture of C# code. It is the C# fork of [ArchUnit Java](https://www.archunit.org/) for Java. ArchUnitNET can check dependencies between

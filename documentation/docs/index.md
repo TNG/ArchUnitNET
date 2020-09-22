@@ -1,6 +1,7 @@
-![ArchUnit][logo]
-[logo]: ArchUnit-Logo.png
-# ArchUnitNET User Guide
+![ArchUnitNET][archunit-logo]
+[archunit-logo]: img/ArchUnitNET-Logo.png
+
+# User Guide
 
 ## 1. Installation
 To use ArchUnitNET, install the ArchUnitNET package from [NuGet](https://www.nuget.org/packages/TngTech.ArchUnitNET/):
@@ -14,7 +15,7 @@ PS> Install-Package ArchUnitNET.NUnit
 ```
 ## 2. Quick Start
 
-After Installation you will want to create a class to start testing. We used xUnit with the ArchUnit extension here, but it works similarly with NUnit or other Unit Test Frameworks.
+Create a test class to start testing. We used xUnit with the ArchUnit extension here, but it works similarly with NUnit or other Unit Test Frameworks.
 
 Find this example code [here](https://github.com/TNG/ArchUnitNET/blob/master/ExampleTest/ExampleArchUnitTest.cs).
 #### 2.1. Directives
@@ -67,7 +68,7 @@ public void TypesShouldBeInCorrectLayer()
     IArchRule forbiddenInterfacesShouldBeInForbiddenLayer =
         Interfaces().That().Are(ForbiddenInterfaces).Should().Be(ForbiddenLayer);
 
-    //check if your architecture fulfils your rules
+    //check if your architecture fulfills your rules
     exampleClassesShouldBeInExampleLayer.Check(Architecture);
     forbiddenInterfacesShouldBeInForbiddenLayer.Check(Architecture);
 
@@ -101,7 +102,7 @@ public void ForbiddenClassesShouldHaveCorrectName()
         .Should().HaveNameContaining("forbidden").Check(Architecture);
 }
 ```
-Testing if "ExampleClasses" call any Method declared in "ForbiddenLayer" or with name containing "forbidden"
+Testing if "ExampleClasses" call any method declared in "ForbiddenLayer" or with name containing "forbidden"
 ```
 [Fact]
 public void ExampleClassesShouldNotCallForbiddenMethods()
@@ -115,7 +116,7 @@ public void ExampleClassesShouldNotCallForbiddenMethods()
 ## 3. What to Check
 The following section illustrates some typical checks you could do with ArchUnitNET.
 
-Find this example code [here](https://github.com/TNG/ArchUnitNET).
+Find this example code [here](https://github.com/TNG/ArchUnitNET/tree/master/ExampleTest).
 
 ### 3.1. Namespace Dependency Rule
 ![Namespace_Dependency](http://www.plantuml.com/plantuml/png/9OunZW8n34NxFSNk1SRzLhF5YWA92cfadCyaqiI975jeE3s3QFxNUzMRXxDvrFNhfwYiaH2sVcVtFdw9Z1_JKZp7BGPCcZhK9scL3cYs70tnhBmP_PdaYnO__P_f3lOma86JPwGcW_Q92dNsqfG-gl1YN0SfLupEWcj2XoQeR5D_9yqxxVy2)
@@ -151,16 +152,16 @@ IArchRule rule = Classes().That().DoNotHaveAnyAttributes(typeof(Display)).Should
 ### 3.6. Cycle Rule
 ![Cycle](http://www.plantuml.com/plantuml/png/9Own2a8n34Ltlq9_eDcTdeCu24xw0J6DRQ5D7sc2FB_UYikzSE30MOQXchUwEnIXwf5TwpwRhUC8eFWEgLZsfmzMwc8i5gWtk73NT5NsJyDDuQIK7rBiThx3Yz5S6PGnMkROQS0SRzD5ArtWZmecnJQ0DgeSrb_3mXBdVm40)
 ````
-IArchRule rule = Slices().Matching("Cycle.(*)").Should()
+IArchRule rule = Slices().Matching("Module.(*)").Should()
                     .BeFreeOfCycles();
 ````
 
 ## 4. How to check
 
 To get a meaningful error message we recommend using 
-the xUnit or nUnit extension.
+the xUnit or NUnit extension.
 
-### 4.1 ArchUnitNET xUnit/nUnit extension
+### 4.1 ArchUnitNET xUnit/NUnit extension
 
 ````
 IArchRule someRule = ...;
@@ -177,6 +178,4 @@ Assert.True(checkedRule);
 ## 5. Further Reading and Examples
 A complete overview of all available methods can be found [here](api.md).
 
-Check out example code on github
-[ArchUnitNET Examples](https://github.com/TNG/ArchUnitNET/tree/master/ExampleTest "ExampleTests").
-
+Check out example code on [Github](https://github.com/TNG/ArchUnitNET/tree/master/ExampleTest "ExampleTests").
