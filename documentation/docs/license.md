@@ -1,5 +1,5 @@
 ![ArchUnitNET][archunit-logo]
-[archunit-logo]: img/ArchUnitNET-Logo.png
+[archunit-logo]: img/ArchUnitNET-Logo.svg
 
 ArchUnitNET is published under the Apache License 2.0
 
