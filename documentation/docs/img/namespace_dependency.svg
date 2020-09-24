@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="81px" preserveAspectRatio="none" style="width:514px;height:81px;" version="1.1" viewBox="0 0 514 81" width="514px" zoomAndPan="magnify"><defs><filter height="300%" id="fspj7srt7jvum" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><polygon fill="#FFFFFF" filter="url(#fspj7srt7jvum)" points="193,16.5,247,16.5,254,38.7969,261,38.7969,261,69.0938,193,69.0938,193,16.5" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="193" x2="254" y1="38.7969" y2="38.7969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="48" x="197" y="31.4951">Model</text><polygon fill="#FFFFFF" filter="url(#fspj7srt7jvum)" points="391.5,16.5,478.5,16.5,485.5,38.7969,492.5,38.7969,492.5,69.0938,391.5,69.0938,391.5,16.5" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="391.5" x2="485.5" y1="38.7969" y2="38.7969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="81" x="395.5" y="31.4951">Controller</text><polygon fill="#FFFFFF" filter="url(#fspj7srt7jvum)" points="16,16.5,60,16.5,67,38.7969,74,38.7969,74,69.0938,16,69.0938,16,16.5" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="16" x2="67" y1="38.7969" y2="38.7969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="38" x="20" y="31.4951">View</text><!--MD5=[91e53317c615f02ff9ef06c1a3396f9d]
+reverse link View to Model--><path d="M79.3183,43 C111.8399,43 160.411,43 192.871,43 " fill="none" id="View-backto-Model" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="74.2414,43,83.2414,47,79.2414,43,83.2414,39,74.2414,43" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M96.5,6 L96.5,31 L166.5,31 L166.5,16 L156.5,6 L96.5,6 " fill="#008000" filter="url(#fspj7srt7jvum)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M156.5,6 L156.5,16 L166.5,16 L156.5,6 " fill="#008000" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="49" x="102.5" y="23.0669">allowed</text><!--MD5=[07aa7578b3f68a176666f6b88d04ae14]
+link Model to Controller--><path d="M261.067,43 C294.61,43 346.423,43 386.021,43 " fill="none" id="Model-to-Controller" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="391.278,43,382.278,39,386.278,43,382.278,47,391.278,43" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M283.25,6 L283.25,31 L365.25,31 L365.25,16 L355.25,6 L283.25,6 " fill="#FF0000" filter="url(#fspj7srt7jvum)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M355.25,6 L355.25,16 L365.25,16 L355.25,6 " fill="#FF0000" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="61" x="289.25" y="23.0669">forbidden</text><!--MD5=[4a608ca2433fd1b41f4959e8ae2f3783]
+@startuml
+namespace Model {}
+namespace Controller {}
+namespace View {}
+View <-l- Model
+note on link #green: allowed
+Model -r-> Controller
+note on link #red: forbidden
+@enduml
+
+PlantUML version 1.2020.18beta4(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
