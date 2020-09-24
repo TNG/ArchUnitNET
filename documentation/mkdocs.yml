@@ -3,9 +3,9 @@ site_dir: site
 docs_dir: docs
 
 nav:
-    - User Guide: index.md
+    - About: index.md
+    - User Guide: guide.md
     - API: api.md
-    - About: about.md
     - Contribution: contributing.md
     - License: license.md
 
