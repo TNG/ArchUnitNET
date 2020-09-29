@@ -3,13 +3,7 @@
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
 // 
 // 	SPDX-License-Identifier: Apache-2.0
-// 
-
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//  
-// 	SPDX-License-Identifier: Apache-2.0
+//
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable SuggestVarOrType_SimpleTypes
@@ -37,7 +31,8 @@ namespace ExampleTest
         {
             IArchRule rule = Types().That().ResideInNamespace("Model").Should()
                 .NotDependOnAny(Types().That().ResideInNamespace("Controller"));
-            rule.Check(Architecture);
+            Assert.False(rule.HasNoViolations(Architecture));
+            //rule.Check(Architecture);
         }
 
         [Fact]
