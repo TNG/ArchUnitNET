@@ -5,7 +5,11 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
+// ReSharper disable InconsistentNaming
+// ReSharper disable SuggestVarOrType_SimpleTypes
+
 using System;
+using Controller;
 using Model;
 using Module.One;
 using Module.Three;
@@ -20,6 +24,8 @@ namespace Model
 
     public class FastCar : ICar
     {
+        private Steering _steering;
+
         public void IllegalAccess(ICanvas canvas)
         {
         }
