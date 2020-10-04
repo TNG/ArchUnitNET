@@ -1,0 +1,26 @@
+@startuml
+namespace Module.One{
+    class ClassOne{
+    }
+    class ClassTwo{
+    }
+}
+Module.One.ClassOne --> Module.Two.ClassTwo
+namespace Module.Two{
+    class ClassOne{
+    }
+    class ClassTwo{
+    }
+}
+Module.Two.ClassOne --> Module.Three.ClassTwo
+namespace Module.Three{
+    class ClassOne{
+    }
+    class ClassTwo{
+    }
+}
+Module.Three.ClassOne --> Module.One.ClassTwo
+note on link #red 
+    Combination of accesses forms cycle
+end note
+@enduml
