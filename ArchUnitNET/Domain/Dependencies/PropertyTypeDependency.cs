@@ -4,11 +4,9 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using Equ;
-
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class PropertyTypeDependency : MemberwiseEquatable<PropertyTypeDependency>, IMemberTypeDependency
+    public class PropertyTypeDependency : IMemberTypeDependency
     {
         private readonly PropertyMember _originMember;
 
@@ -22,7 +20,7 @@ namespace ArchUnitNET.Domain.Dependencies
 
         public IType Origin => _originMember.DeclaringType;
 
-        public new bool Equals(PropertyTypeDependency other)
+        public bool Equals(PropertyTypeDependency other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -34,7 +32,7 @@ namespace ArchUnitNET.Domain.Dependencies
                 return true;
             }
 
-            return base.Equals(other) && Equals(_originMember, other._originMember);
+            return Equals(_originMember, other._originMember);
         }
 
         public override bool Equals(object obj)
@@ -59,10 +57,7 @@ namespace ArchUnitNET.Domain.Dependencies
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return (base.GetHashCode() * 397) ^ (_originMember != null ? _originMember.GetHashCode() : 0);
-            }
+            return _originMember != null ? _originMember.GetHashCode() : 0;
         }
     }
 }
