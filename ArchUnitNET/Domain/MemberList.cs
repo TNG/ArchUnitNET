@@ -8,11 +8,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Extensions;
-using Equ;
 
 namespace ArchUnitNET.Domain
 {
-    public class MemberList : MemberwiseEquatable<MemberList>, IList<IMember>
+    public class MemberList : IList<IMember>
     {
         private readonly IList<IMember> _list = new List<IMember>();
 
@@ -99,6 +98,54 @@ namespace ArchUnitNET.Domain
         public void AddRange(IEnumerable<IMember> memberCollection)
         {
             memberCollection.ForEach(member => _list.Add(member));
+        }
+
+        public bool Equals(MemberList other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+
+            return _list.SequenceEqual(other._list) && Equals(Count, other.Count) &&
+                   Equals(IsReadOnly, other.IsReadOnly);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((MemberList) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = _list != null ? _list.GetHashCode() : 0;
+                hashCode = (hashCode * 397) ^ Count.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsReadOnly.GetHashCode();
+                return hashCode;
+            }
         }
     }
 }

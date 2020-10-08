@@ -6,13 +6,12 @@
 
 using System.Collections.Generic;
 using ArchUnitNET.Domain.Dependencies;
-using Equ;
 using JetBrains.Annotations;
 using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Domain
 {
-    public class PropertyMember : MemberwiseEquatable<PropertyMember>, IMember
+    public class PropertyMember : IMember
     {
         public PropertyMember(IType declaringType, string name, string fullName, IType type,
             bool isVirtual, [CanBeNull] MethodMember getter, [CanBeNull] MethodMember setter)
@@ -31,11 +30,9 @@ namespace ArchUnitNET.Domain
         public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
         public Visibility GetterVisibility => Getter?.Visibility ?? NotAccessible;
 
-        [CanBeNull]
-        public MethodMember Getter { get; }
+        [CanBeNull] public MethodMember Getter { get; }
 
-        [CanBeNull]
-        public MethodMember Setter { get; }
+        [CanBeNull] public MethodMember Setter { get; }
 
         public FieldMember BackingField { get; internal set; }
 
@@ -69,12 +66,14 @@ namespace ArchUnitNET.Domain
             return obj.GetType() == GetType() && Equals((PropertyMember) obj);
         }
 
-        private new bool Equals(PropertyMember other)
+        private bool Equals(PropertyMember other)
         {
-            return base.Equals(other) && Equals(Type, other.Type) && IsVirtual == other.IsVirtual
-                   && Equals(Getter, other.Getter) && Equals(Setter, other.Setter)
-                   && Equals(BackingField, other.BackingField) && string.Equals(Name, other.Name)
-                   && string.Equals(FullName, other.FullName) && Equals(DeclaringType, other.DeclaringType);
+            return Equals(Type, other.Type) && IsVirtual == other.IsVirtual
+                                            && Equals(Getter, other.Getter) && Equals(Setter, other.Setter)
+                                            && Equals(BackingField, other.BackingField) &&
+                                            string.Equals(Name, other.Name)
+                                            && string.Equals(FullName, other.FullName) &&
+                                            Equals(DeclaringType, other.DeclaringType);
         }
 
         public override int GetHashCode()

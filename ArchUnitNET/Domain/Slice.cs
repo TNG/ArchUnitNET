@@ -7,11 +7,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
-using Equ;
 
 namespace ArchUnitNET.Domain
 {
-    public class Slice<TKey> : MemberwiseEquatable<Slice<TKey>>, IHasDependencies
+    public class Slice<TKey> : IHasDependencies
     {
         private readonly List<IType> _types;
 
@@ -31,5 +30,50 @@ namespace ArchUnitNET.Domain
 
         public List<ITypeDependency> BackwardsDependencies =>
             _types.SelectMany(type => type.BackwardsDependencies).ToList();
+
+        public bool Equals(Slice<TKey> other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return Equals(_types, other._types) && Equals(SliceKey, other.SliceKey);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((Slice<TKey>) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = _types != null ? _types.GetHashCode() : 0;
+                hashCode = (hashCode * 397) ^ (SliceKey != null ? SliceKey.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
     }
 }
