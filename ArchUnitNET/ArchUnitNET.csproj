@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net48</TargetFrameworks>
         <IsPackable>true</IsPackable>
         <RootNamespace>ArchUnitNET</RootNamespace>
         <PackageId>TngTech.ArchUnitNET</PackageId>

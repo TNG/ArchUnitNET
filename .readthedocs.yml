@@ -1,0 +1,5 @@
+version: 2
+
+mkdocs:
+  configuration: documentation/mkdocs.yml
+  fail_on_warning: false

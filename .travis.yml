@@ -1,12 +1,24 @@
 language: csharp
-mono: none
-dotnet: 2.2.402
 solution: ArchUnit.sln
-script: chmod +x ./Travis/build.sh && ./Travis/build.sh
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: chmod +x ./Travis/deploy.sh && ./Travis/deploy.sh $NUGET_API_KEY $NUGET_SOURCE
-  on:
-    tags: true
-    all_branches: true
+jobs:
+  include:
+    - stage: linux_build
+      dotnet: 2.2.402
+      mono: none
+      os: linux
+      script: chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
+    - stage: windows_build
+      mono: none
+      os: windows
+      before_script:
+        - choco install dotnetcore-sdk --version=2.2.402
+        - PowerShell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
+      script:
+        - PowerShell -File Travis/test_windows.ps1 -tag "$TRAVIS_TAG"
+      deploy:
+        skip_cleanup: true
+        provider: script
+        script: PowerShell -File Travis/deploy.ps1 -apiKey $NUGET_API_KEY -source $NUGET_SOURCE
+        on:
+          tags: true
+          all_branches: true

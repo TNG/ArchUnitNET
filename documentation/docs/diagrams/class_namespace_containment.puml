@@ -1,0 +1,7 @@
+@startuml
+namespace View{
+    interface ICanvas{
+    }
+}
+note right of Model.StartCanvas #red: resides in wrong namespace
+@enduml

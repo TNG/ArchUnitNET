@@ -133,6 +133,56 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction HaveReturnType(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.HaveReturnType(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveReturnType(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.HaveReturnType(patterns, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveReturnType(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.HaveReturnType(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveReturnType(IEnumerable<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.HaveReturnType(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveReturnType(IObjectProvider<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.HaveReturnType(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveReturnType(Type type, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.HaveReturnType(type, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveReturnType(IEnumerable<Type> types)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.HaveReturnType(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -247,6 +297,56 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             _ruleCreator.ContinueComplexCondition(
                 MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(patterns, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(IEnumerable<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(IObjectProvider<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(Type type, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(type, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(IEnumerable<Type> types)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
