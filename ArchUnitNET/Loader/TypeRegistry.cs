@@ -22,5 +22,10 @@ namespace ArchUnitNET.Loader
             return RegistryUtils.GetFromDictOrCreateAndAdd(typeReference.FullName, _allTypes,
                 createFunc);
         }
+
+        public IEnumerable<IType> GetAllTypes()
+        {
+            return _allTypes.Values;
+        }
     }
 }
