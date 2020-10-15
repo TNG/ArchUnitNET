@@ -50,7 +50,7 @@ namespace ArchUnitNETTests.Dependencies.Members
         }
 
         [Fact]
-        public void LambdaDependenciesNotLost()
+        public void LambdaMethodCallDependenciesNotLost()
         {
             var typeDependencies = _classWithLambda.GetTypeDependencies().ToList();
             var method = _classWithLambda.GetMethodMembers().First();
@@ -58,9 +58,20 @@ namespace ArchUnitNETTests.Dependencies.Members
 
             Assert.Contains(_returnedClass, typeDependencies);
             Assert.Contains(_argumentClass, typeDependencies);
-            Assert.Single(_classWithProperty.GetMethodMembers());
+            Assert.Single(_classWithLambda.GetMethodMembers());
             Assert.Contains(_returnedClass, methodTypeDependencies);
             Assert.Contains(_argumentClass, methodTypeDependencies);
+        }
+
+        [Fact]
+        public void LambdaTypeDependenciesNotLost()
+        {
+            var typeDependencies = _classWithLambda.GetTypeDependencies().ToList();
+            var method = _classWithLambda.GetMethodMembers().First();
+            var methodTypeDependencies = method.GetTypeDependencies(Architecture).ToList();
+
+            Assert.Contains("System.String", typeDependencies.Select(dep => dep.FullName));
+            Assert.Contains("System.String", methodTypeDependencies.Select(dep => dep.FullName));
         }
 
         [Fact]
@@ -101,7 +112,11 @@ namespace ArchUnitNETTests.Dependencies.Members
 
         public ClassWithLambdaDependency()
         {
-            _lambda = argumentClass => new ReturnedClass(argumentClass);
+            _lambda = argumentClass =>
+            {
+                Func<object, object> secondLambda = obj => "testString";
+                return new ReturnedClass(new ArgumentClass());
+            };
         }
     }
 
