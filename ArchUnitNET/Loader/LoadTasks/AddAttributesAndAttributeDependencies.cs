@@ -76,7 +76,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             var memberAttributes = CreateAttributesFromCustomAttributes(memberCustomAttributes).ToList();
             methodMember.Attributes.AddRange(memberAttributes);
             var methodAttributeDependencies = CreateMemberAttributeDependencies(methodMember, memberAttributes);
-            methodMember.Dependencies.AddRange(methodAttributeDependencies);
+            methodMember.MemberDependencies.AddRange(methodAttributeDependencies);
         }
 
         [NotNull]
