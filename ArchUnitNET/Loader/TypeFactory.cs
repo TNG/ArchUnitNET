@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader.LoadTasks;
@@ -30,6 +31,11 @@ namespace ArchUnitNET.Loader
             _assemblyRegistry = assemblyRegistry;
             _namespaceRegistry = namespaceRegistry;
             _typeRegistry = typeRegistry;
+        }
+
+        public IEnumerable<IType> GetAllTypes()
+        {
+            return _typeRegistry.GetAllTypes();
         }
 
         [NotNull]

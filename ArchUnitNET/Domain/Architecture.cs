@@ -17,20 +17,25 @@ namespace ArchUnitNET.Domain
         private readonly ObjectProviderCache _objectProviderCache;
 
         public Architecture(IEnumerable<Assembly> allAssemblies, IEnumerable<Namespace> namespaces,
-            IEnumerable<IType> types)
+            IEnumerable<IType> types, IEnumerable<IType> referencedTypes)
         {
             _allAssemblies = allAssemblies;
             Namespaces = namespaces;
             Types = types;
+            ReferencedTypes = referencedTypes;
             _objectProviderCache = new ObjectProviderCache(this);
         }
 
         public IEnumerable<Assembly> Assemblies => _allAssemblies.Where(assembly => !assembly.IsOnlyReferenced);
         public IEnumerable<Namespace> Namespaces { get; }
         public IEnumerable<IType> Types { get; }
+        public IEnumerable<IType> ReferencedTypes { get; }
         public IEnumerable<Class> Classes => Types.OfType<Class>();
         public IEnumerable<Interface> Interfaces => Types.OfType<Interface>();
         public IEnumerable<Attribute> Attributes => Types.OfType<Attribute>();
+        public IEnumerable<Class> ReferencedClasses => ReferencedTypes.OfType<Class>();
+        public IEnumerable<Interface> ReferencedInterfaces => ReferencedTypes.OfType<Interface>();
+        public IEnumerable<Attribute> ReferencedAttributes => ReferencedTypes.OfType<Attribute>();
         public IEnumerable<PropertyMember> PropertyMembers => Members.OfType<PropertyMember>();
         public IEnumerable<FieldMember> FieldMembers => Members.OfType<FieldMember>();
         public IEnumerable<MethodMember> MethodMembers => Members.OfType<MethodMember>();

@@ -98,7 +98,8 @@ namespace ArchUnitNET.Loader
 
             UpdateTypeDefinitions();
             var newArchitecture =
-                new Architecture(Assemblies, Namespaces, Types.Skip(1)); //Skip first Type to ignore <Module>
+                new Architecture(Assemblies, Namespaces, Types.Skip(1),
+                    _typeFactory.GetAllTypes().Except(Types)); //Skip first Type to ignore <Module>
             _architectureCache.Add(_architectureCacheKey, newArchitecture);
             return newArchitecture;
         }
