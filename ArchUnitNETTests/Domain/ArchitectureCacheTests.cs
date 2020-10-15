@@ -12,6 +12,10 @@ namespace ArchUnitNETTests.Domain
 {
     public class ArchitectureCacheTests
     {
+        private readonly TestArchitectureCache _testArchitectureCache;
+        private readonly ArchitectureCacheKey _testArchitectureCacheKey;
+        private readonly Architecture _testEmptyArchitecture;
+
         public ArchitectureCacheTests()
         {
             _testArchitectureCache = new TestArchitectureCache();
@@ -19,12 +23,9 @@ namespace ArchUnitNETTests.Domain
             _testArchitectureCacheKey = new ArchitectureCacheKey();
             _testArchitectureCacheKey.Add(typeof(ArchitectureCacheTests).Assembly.FullName, null);
 
-            _testEmptyArchitecture = new Architecture(new List<Assembly>(), new List<Namespace>(), new List<IType>());
+            _testEmptyArchitecture = new Architecture(new List<Assembly>(), new List<Namespace>(), new List<IType>(),
+                new List<IType>());
         }
-
-        private readonly TestArchitectureCache _testArchitectureCache;
-        private readonly ArchitectureCacheKey _testArchitectureCacheKey;
-        private readonly Architecture _testEmptyArchitecture;
 
         [Fact]
         public void DuplicateArchitectureDetected()
