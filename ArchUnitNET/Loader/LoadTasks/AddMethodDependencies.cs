@@ -41,8 +41,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 {
                     var (methodMember, methodDefinition) = tuple;
                     var dependencies = CreateMethodSignatureDependencies(methodDefinition, methodMember)
-                        .Concat(CreateMethodBodyTypeDependencies(methodDefinition, methodMember))
-                        .Concat(CreateMethodCallDependencies(methodDefinition, methodMember));
+                        .Concat(CreateMethodBodyDependencies(methodDefinition, methodMember));
                     return (methodMember, dependencies);
                 })
                 .ForEach(tuple =>
@@ -62,17 +61,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         }
 
         [NotNull]
-        private IEnumerable<IMemberTypeDependency> CreateMethodBodyTypeDependencies(
-            MethodDefinition methodDefinition,
-            MethodMember methodMember)
-        {
-            return methodDefinition
-                .GetBodyTypes(_typeFactory)
-                .Select(bodyType => new BodyTypeMemberDependency(methodMember, bodyType));
-        }
-
-        [NotNull]
-        private IEnumerable<IMemberTypeDependency> CreateMethodCallDependencies(MethodDefinition methodDefinition,
+        private IEnumerable<IMemberTypeDependency> CreateMethodBodyDependencies(MethodDefinition methodDefinition,
             MethodMember methodMember)
         {
             var methodBody = methodDefinition.Resolve().Body;
@@ -89,7 +78,10 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             HandlePropertyBackingFieldDependencies(methodBody);
 
-            return CreateMethodCallDependenciesFromBody(methodMember, methodBody, new List<MethodReference>());
+            var bodyTypes = methodDefinition.GetBodyTypes(_typeFactory).ToList();
+
+            return CreateMethodBodyDependenciesRecursive(methodMember, methodBody, new List<MethodReference>(),
+                bodyTypes);
         }
 
         private void AssignDependenciesToAccessedProperty(MethodMember methodMember,
@@ -166,8 +158,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                 });
         }
 
-        private IEnumerable<IMemberTypeDependency> CreateMethodCallDependenciesFromBody(MethodMember methodMember,
-            MethodBody methodBody, ICollection<MethodReference> visitedMethodReferences)
+        private IEnumerable<IMemberTypeDependency> CreateMethodBodyDependenciesRecursive(MethodMember methodMember,
+            MethodBody methodBody, ICollection<MethodReference> visitedMethodReferences, ICollection<IType> bodyTypes)
         {
             var calledMethodReferences = methodBody.Instructions.Select(instruction => instruction.Operand)
                 .OfType<MethodReference>();
@@ -190,8 +182,10 @@ namespace ArchUnitNET.Loader.LoadTasks
                         }
                     }
 
-                    foreach (var dep in CreateMethodCallDependenciesFromBody(methodMember, calledMethodDefinition.Body,
-                        visitedMethodReferences))
+                    bodyTypes = bodyTypes.Union(calledMethodDefinition.GetBodyTypes(_typeFactory)).ToList();
+
+                    foreach (var dep in CreateMethodBodyDependenciesRecursive(methodMember, calledMethodDefinition.Body,
+                        visitedMethodReferences, bodyTypes))
                     {
                         yield return dep;
                     }
@@ -201,6 +195,11 @@ namespace ArchUnitNET.Loader.LoadTasks
                     var calledMethodMember = GetMethodMemberWithMethodReference(calledType, calledMethodReference);
                     yield return new MethodCallDependency(methodMember, calledMethodMember);
                 }
+            }
+
+            foreach (var bodyType in bodyTypes)
+            {
+                yield return new BodyTypeMemberDependency(methodMember, bodyType);
             }
         }
 
