@@ -152,8 +152,9 @@ namespace ArchUnitNET.Loader.LoadTasks
                     var calledType =
                         _typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.DeclaringType);
 
-                    var dependency =
-                        CreateStubMethodCallDependencyForProperty(calledType, methodReference, backedProperty);
+                    var calledMember = GetMethodMemberWithMethodReference(calledType, methodReference);
+
+                    var dependency = new MethodCallDependency(backedProperty, calledMember);
                     backedProperty.MemberDependencies.Add(dependency);
                 });
         }
@@ -240,7 +241,9 @@ namespace ArchUnitNET.Loader.LoadTasks
                     var (methodReference, _) = tuple;
                     var calledType = _typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.DeclaringType);
 
-                    return CreateStubMethodCallDependencyForProperty(calledType, methodReference, accessedProperty);
+                    var calledMember = GetMethodMemberWithMethodReference(calledType, methodReference);
+
+                    return new MethodCallDependency(accessedProperty, calledMember);
                 });
         }
 
@@ -327,16 +330,6 @@ namespace ArchUnitNET.Loader.LoadTasks
             return accessedMemberFullName != null
                 ? GetPropertyMemberWithFullNameEndingWith(_type, accessedMemberFullName)
                 : null;
-        }
-
-        private MethodCallDependency CreateStubMethodCallDependencyForProperty([NotNull] IType calledType,
-            [NotNull] MethodReference methodReference,
-            PropertyMember backedProperty)
-        {
-            var calledMethodMember =
-                _typeFactory.CreateStubMethodMemberFromMethodReference(calledType, methodReference);
-            var dependency = new MethodCallDependency(backedProperty, calledMethodMember);
-            return dependency;
         }
 
         private PropertyMember GetPropertyMemberWithFullNameEndingWith(IType type, string detailedName)
