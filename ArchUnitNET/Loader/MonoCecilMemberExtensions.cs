@@ -49,14 +49,11 @@ namespace ArchUnitNET.Loader
             return builder.ToString();
         }
 
-        internal static MethodMember CreateStubMethodMemberFromMethodReference(this TypeFactory typeFactory, IType type,
-            MethodReference methodReference)
+        [NotNull]
+        internal static MethodMember CreateStubMethodMemberFromMethodReference(this TypeFactory typeFactory,
+            [NotNull] IType type,
+            [NotNull] MethodReference methodReference)
         {
-            if (type == null || methodReference == null)
-            {
-                return null;
-            }
-
             var typeReference = methodReference.ReturnType;
             var returnType = typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
             var parameters = methodReference.GetParameters(typeFactory).ToList();

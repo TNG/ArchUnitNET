@@ -41,7 +41,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 {
                     var (methodMember, methodDefinition) = tuple;
                     var dependencies = CreateMethodSignatureDependencies(methodDefinition, methodMember)
-                        .Concat<IMemberTypeDependency>(CreateMethodBodyTypeDependencies(methodDefinition, methodMember))
+                        .Concat(CreateMethodBodyTypeDependencies(methodDefinition, methodMember))
                         .Concat(CreateMethodCallDependencies(methodDefinition, methodMember));
                     return (methodMember, dependencies);
                 })
@@ -62,7 +62,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         }
 
         [NotNull]
-        private IEnumerable<BodyTypeMemberDependency> CreateMethodBodyTypeDependencies(
+        private IEnumerable<IMemberTypeDependency> CreateMethodBodyTypeDependencies(
             MethodDefinition methodDefinition,
             MethodMember methodMember)
         {
@@ -72,7 +72,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         }
 
         [NotNull]
-        private IEnumerable<MethodCallDependency> CreateMethodCallDependencies(MethodDefinition methodDefinition,
+        private IEnumerable<IMemberTypeDependency> CreateMethodCallDependencies(MethodDefinition methodDefinition,
             MethodMember methodMember)
         {
             var methodBody = methodDefinition.Resolve().Body;
@@ -89,7 +89,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             HandlePropertyBackingFieldDependencies(methodBody);
 
-            return CreateMethodCallDependenciesFromBody(methodMember, methodBody);
+            return CreateMethodCallDependenciesFromBody(methodMember, methodBody, new List<MethodReference>());
         }
 
         private void AssignDependenciesToAccessedProperty(MethodMember methodMember,
@@ -166,21 +166,42 @@ namespace ArchUnitNET.Loader.LoadTasks
                 });
         }
 
-        private IEnumerable<MethodCallDependency> CreateMethodCallDependenciesFromBody(MethodMember methodMember,
-            MethodBody methodBody)
+        private IEnumerable<IMemberTypeDependency> CreateMethodCallDependenciesFromBody(MethodMember methodMember,
+            MethodBody methodBody, ICollection<MethodReference> visitedMethodReferences)
         {
-            return methodBody.Instructions
-                .Select(instruction => instruction.Operand)
-                .OfType<MethodReference>()
-                .Select(methodReference =>
-                {
-                    var calledType =
-                        _typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.DeclaringType);
+            var calledMethodReferences = methodBody.Instructions.Select(instruction => instruction.Operand)
+                .OfType<MethodReference>();
 
-                    return GetMethodMemberWithMethodReference(calledType, methodReference);
-                })
-                .Where(calledMethodMember => calledMethodMember != null)
-                .Select(calledMethodMember => new MethodCallDependency(methodMember, calledMethodMember));
+            foreach (var calledMethodReference in calledMethodReferences.Except(visitedMethodReferences))
+            {
+                visitedMethodReferences.Add(calledMethodReference);
+                var calledType =
+                    _typeFactory.GetOrCreateStubTypeFromTypeReference(calledMethodReference.DeclaringType);
+
+                if (calledType.NameContains("<")) //compilerGenerated
+                {
+                    if (!(calledMethodReference is MethodDefinition calledMethodDefinition))
+                    {
+                        calledMethodDefinition = calledMethodReference.Resolve();
+                        if (calledMethodDefinition == null)
+                        {
+                            //MethodReference to compiler generated type not resolvable, skip
+                            continue;
+                        }
+                    }
+
+                    foreach (var dep in CreateMethodCallDependenciesFromBody(methodMember, calledMethodDefinition.Body,
+                        visitedMethodReferences))
+                    {
+                        yield return dep;
+                    }
+                }
+                else
+                {
+                    var calledMethodMember = GetMethodMemberWithMethodReference(calledType, calledMethodReference);
+                    yield return new MethodCallDependency(methodMember, calledMethodMember);
+                }
+            }
         }
 
         private static MatchFunction GetMatchFunction(MethodForm methodForm)
@@ -224,7 +245,9 @@ namespace ArchUnitNET.Loader.LoadTasks
                 });
         }
 
-        private MethodMember GetMethodMemberWithMethodReference(IType type, MethodReference methodReference)
+        [NotNull]
+        private MethodMember GetMethodMemberWithMethodReference([NotNull] IType type,
+            [NotNull] MethodReference methodReference)
         {
             var matchingMethods = type.GetMethodMembers().Where(member => MatchesGeneric(member, methodReference))
                 .ToList();
@@ -281,7 +304,9 @@ namespace ArchUnitNET.Loader.LoadTasks
             return _type.GetFieldMembersWithName(fieldDefinition.Name).SingleOrDefault();
         }
 
-        private PropertyMember MatchToPropertyMember(string name, string fullName, MatchFunction matchFunction)
+        private PropertyMember
+            MatchToPropertyMember(string name, string fullName,
+                MatchFunction matchFunction) //TODO get_Item for list enumerator func is not matched correctly
         {
             try
             {
@@ -305,8 +330,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                 : null;
         }
 
-        private MethodCallDependency CreateStubMethodCallDependencyForProperty(IType calledType,
-            MethodReference methodReference,
+        private MethodCallDependency CreateStubMethodCallDependencyForProperty([NotNull] IType calledType,
+            [NotNull] MethodReference methodReference,
             PropertyMember backedProperty)
         {
             var calledMethodMember =
