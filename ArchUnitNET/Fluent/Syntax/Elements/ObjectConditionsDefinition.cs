@@ -1439,7 +1439,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does depend on";
                     var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Union(typeList))
+                    foreach (var type in failedObject.GetTypeDependencies().Intersect(typeList))
                     {
                         dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
                         first = false;
@@ -1471,7 +1471,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does depend on";
                     var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Union(typeList))
+                    foreach (var type in failedObject.GetTypeDependencies().Intersect(typeList))
                     {
                         dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
                         first = false;
@@ -1516,7 +1516,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does depend on";
                     var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Union(iTypeList))
+                    foreach (var type in failedObject.GetTypeDependencies().Intersect(iTypeList))
                     {
                         dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
                         first = false;
