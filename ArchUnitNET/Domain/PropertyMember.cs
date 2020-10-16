@@ -31,9 +31,9 @@ namespace ArchUnitNET.Domain
         public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
         public Visibility GetterVisibility => Getter?.Visibility ?? NotAccessible;
 
-        [CanBeNull] public MethodMember Getter { get; }
+        [CanBeNull] public MethodMember Getter { get; internal set; }
 
-        [CanBeNull] public MethodMember Setter { get; }
+        [CanBeNull] public MethodMember Setter { get; internal set; }
 
         public FieldMember BackingField { get; internal set; }
 
@@ -42,9 +42,21 @@ namespace ArchUnitNET.Domain
         public string FullName { get; }
         public IType DeclaringType { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
-        public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
+
+        public List<IMemberTypeDependency> MemberDependencies
+        {
+            get
+            {
+                var setterDependencies = Setter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
+                var getterDependencies = Getter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
+                return setterDependencies.Concat(getterDependencies).ToList();
+            }
+        }
+
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
-        public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>().ToList();
+
+        public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>()
+            .Append(new PropertyTypeDependency(this)).ToList();
 
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
