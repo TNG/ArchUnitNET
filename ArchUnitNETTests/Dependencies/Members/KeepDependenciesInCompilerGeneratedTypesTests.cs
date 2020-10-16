@@ -39,7 +39,7 @@ namespace ArchUnitNETTests.Dependencies.Members
         {
             var typeDependencies = _classWithProperty.GetTypeDependencies().ToList();
             var property = _classWithProperty.GetPropertyMembers().First();
-            var propertyTypeDependencies = property.GetTypeDependencies(Architecture).ToList();
+            var propertyTypeDependencies = property.GetTypeDependencies().ToList();
 
 
             Assert.Contains(_returnedClass, typeDependencies);
@@ -54,13 +54,15 @@ namespace ArchUnitNETTests.Dependencies.Members
         {
             var typeDependencies = _classWithLambda.GetTypeDependencies().ToList();
             var method = _classWithLambda.GetMethodMembers().First();
-            var methodTypeDependencies = method.GetTypeDependencies(Architecture).ToList();
+            var methodTypeDependencies = method.GetTypeDependencies().ToList();
 
             Assert.Contains(_returnedClass, typeDependencies);
             Assert.Contains(_argumentClass, typeDependencies);
+            Assert.Contains(_classWithIndexing, typeDependencies);
             Assert.Single(_classWithLambda.GetMethodMembers());
             Assert.Contains(_returnedClass, methodTypeDependencies);
             Assert.Contains(_argumentClass, methodTypeDependencies);
+            Assert.Contains(_classWithIndexing, methodTypeDependencies);
         }
 
         [Fact]
@@ -68,7 +70,10 @@ namespace ArchUnitNETTests.Dependencies.Members
         {
             var typeDependencies = _classWithLambda.GetTypeDependencies().ToList();
             var method = _classWithLambda.GetMethodMembers().First();
-            var methodTypeDependencies = method.GetTypeDependencies(Architecture).ToList();
+            var methodTypeDependencies = method.GetTypeDependencies().ToList();
+
+            Assert.Contains(_classWithProperty, typeDependencies);
+            Assert.Contains(_classWithProperty, methodTypeDependencies);
 
             Assert.Contains("System.String", typeDependencies.Select(dep => dep.FullName));
             Assert.Contains("System.String", methodTypeDependencies.Select(dep => dep.FullName));
@@ -115,6 +120,8 @@ namespace ArchUnitNETTests.Dependencies.Members
             _lambda = argumentClass =>
             {
                 Func<object, object> secondLambda = obj => "testString";
+                Func<object, object> thirdLambda = obj => new ClassWithIndexingDependency();
+                ClassWithPropertyDependency var = null;
                 return new ReturnedClass(new ArgumentClass());
             };
         }

@@ -42,7 +42,7 @@ namespace ArchUnitNETTests.Dependencies
         }
     }
 
-    public class ClassWithCastDependency
+    internal class ClassWithCastDependency
     {
         public ClassWithCastDependency()
         {
@@ -51,15 +51,15 @@ namespace ArchUnitNETTests.Dependencies
         }
     }
 
-    public class CastClassA
+    internal class CastClassA
     {
     }
 
-    public interface ICastInterfaceA
+    internal interface ICastInterfaceA
     {
     }
 
-    public class CastClassB : CastClassA, ICastInterfaceA
+    internal class CastClassB : CastClassA, ICastInterfaceA
     {
     }
 }

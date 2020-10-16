@@ -20,23 +20,24 @@ namespace ArchUnitNETTests.Dependencies.DependencyAssignmentTests
             new ArchLoader().LoadAssembly(typeof(PropertyDependencyTests).Assembly).Build();
 
         private readonly Class _dependOnClass;
-        private readonly Class _propertyTestClass;
         private readonly PropertyMember _propertyMemberClassA;
+        private readonly Class _propertyTestClass;
 
         public PropertyDependencyTests()
         {
             _propertyTestClass = Architecture.GetClassOfType(typeof(PropertyTestDataClass));
             _dependOnClass = Architecture.GetClassOfType(typeof(PropertyDependOnClass));
-            _propertyMemberClassA = _propertyTestClass.GetPropertyMembersWithName("TestStringProperty").ToList().First();
+            _propertyMemberClassA =
+                _propertyTestClass.GetPropertyMembersWithName("TestStringProperty").ToList().First();
         }
 
-        [Fact(Skip = "Property does not contain correct Dependencies")]
+        [Fact]
         public void PropertyDependencyMethod()
         {
             Assert.Contains(_dependOnClass, _propertyMemberClassA.Dependencies.Select(d => d.Target));
         }
 
-        [Fact(Skip = "Getter does not contain Dependencies")]
+        [Fact]
         public void PropertyDependencyGetterFromProperty()
         {
             if (_propertyMemberClassA.Getter != null)
@@ -72,7 +73,7 @@ namespace ArchUnitNETTests.Dependencies.DependencyAssignmentTests
         {
             get
             {
-                var a  = new PropertyDependOnClass();
+                var a = new PropertyDependOnClass();
                 return "";
             }
         }
@@ -80,6 +81,5 @@ namespace ArchUnitNETTests.Dependencies.DependencyAssignmentTests
 
     public class PropertyDependOnClass
     {
-        
     }
 }
