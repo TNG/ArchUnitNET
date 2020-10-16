@@ -16,7 +16,7 @@ namespace ArchUnitNETTests.Fluent
     public class DependencyErrorMessageTests
     {
         private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(DependencyErrorMessageTests).Assembly).Build();
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         [Fact]
         public void ErrorMessageType()
