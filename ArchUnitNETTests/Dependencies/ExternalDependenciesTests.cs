@@ -35,7 +35,7 @@ namespace ArchUnitNETTests.Dependencies
             var notDependOnAnyRuleString = Classes().That()
                 .HaveFullNameMatching(typeof(PropertyDependency).FullName).Should()
                 .NotDependOnAny(typeof(Class2).FullName);
-            //Assert.False(notDependOnAnyRuleClass.HasNoViolations(Architecture));    //Class2 does not exist in Architecture
+            Assert.False(notDependOnAnyRuleClass.HasNoViolations(Architecture)); //Class2 does not exist in Architecture
             Assert.False(notDependOnAnyRuleString.HasNoViolations(Architecture));
             Assert.False(notDependOnAnyRuleClass.HasNoViolations(ArchitectureExternalDependency));
         }
@@ -49,7 +49,7 @@ namespace ArchUnitNETTests.Dependencies
             var notDependOnAnyRuleString = Classes().That()
                 .HaveFullNameMatching(typeof(MethodBodyDependency).FullName).Should()
                 .NotDependOnAny(typeof(Class3).FullName);
-            //Assert.False(notDependOnAnyRuleClass.HasNoViolations(Architecture));    //Class3 does not exist in Architecture
+            Assert.False(notDependOnAnyRuleClass.HasNoViolations(Architecture)); //Class3 does not exist in Architecture
             Assert.False(notDependOnAnyRuleString.HasNoViolations(Architecture));
             Assert.False(notDependOnAnyRuleClass.HasNoViolations(ArchitectureBothAssemblies));
         }
@@ -63,7 +63,7 @@ namespace ArchUnitNETTests.Dependencies
             var notDependOnAnyRuleString = Classes().That()
                 .HaveFullNameMatching(typeof(MethodArgumentDependency).FullName).Should()
                 .NotDependOnAny(typeof(Class2).FullName);
-            //Assert.False(notDependOnAnyRuleClass.HasNoViolations(Architecture));    //Class3 does not exist in Architecture
+            Assert.False(notDependOnAnyRuleClass.HasNoViolations(Architecture)); //Class3 does not exist in Architecture
             Assert.False(notDependOnAnyRuleString.HasNoViolations(Architecture));
         }
 
@@ -76,7 +76,7 @@ namespace ArchUnitNETTests.Dependencies
             var notDependOnAnyRuleString = Classes().That()
                 .HaveFullNameMatching(typeof(FieldDependency).FullName).Should()
                 .NotDependOnAny(typeof(Class2).FullName);
-            //Assert.False(notDependOnAnyRuleClass.HasNoViolations(Architecture));    //Class3 does not exist in Architecture
+            Assert.False(notDependOnAnyRuleClass.HasNoViolations(Architecture)); //Class3 does not exist in Architecture
             Assert.False(notDependOnAnyRuleString.HasNoViolations(Architecture));
         }
 
@@ -100,7 +100,7 @@ namespace ArchUnitNETTests.Dependencies
         {
             var notDependOnAnyRule = PropertyMembers().That()
                 .HaveFullNameContaining(typeof(PropertyDependency).FullName).Should()
-                .NotDependOnAny(typeof(Class2).FullName);
+                .NotDependOnAny(typeof(bool).FullName);
             notDependOnAnyRule.Check(Architecture);
         }
     }
@@ -111,6 +111,7 @@ namespace ArchUnitNETTests.Dependencies
         {
             get
             {
+                var b = true;
                 var a = new Class2();
                 return "";
             }
