@@ -79,30 +79,6 @@ namespace ArchUnitNETTests.Dependencies
             Assert.False(notDependOnAnyRuleClass.HasNoViolations(Architecture)); //Class3 does not exist in Architecture
             Assert.False(notDependOnAnyRuleString.HasNoViolations(Architecture));
         }
-
-        [Fact]
-        public void MethodMembersExternalDependencyTest()
-        {
-            var notHaveDependencyInMethodBodyRule = MethodMembers().That()
-                .HaveFullNameContaining(typeof(MethodBodyDependency).FullName).Should()
-                .NotHaveDependencyInMethodBodyTo(typeof(Class3).FullName);
-            var notDependOnAnyRule = MethodMembers().That()
-                .HaveFullNameContaining(typeof(MethodBodyDependency).FullName).Should()
-                .NotDependOnAny(typeof(Class3).FullName);
-            notHaveDependencyInMethodBodyRule.Check(Architecture);
-            notHaveDependencyInMethodBodyRule.Check(ArchitectureExternalDependency);
-            notDependOnAnyRule.Check(Architecture);
-            notDependOnAnyRule.Check(ArchitectureExternalDependency);
-        }
-
-        [Fact]
-        public void PropertyMembersExternalDependencyTest()
-        {
-            var notDependOnAnyRule = PropertyMembers().That()
-                .HaveFullNameContaining(typeof(PropertyDependency).FullName).Should()
-                .NotDependOnAny(typeof(bool).FullName);
-            notDependOnAnyRule.Check(Architecture);
-        }
     }
 
     public class PropertyDependency

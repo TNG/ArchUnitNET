@@ -44,7 +44,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                         .Concat(CreateMethodBodyDependencies(methodDefinition, methodMember));
                     if (methodDefinition.IsSetter || methodDefinition.IsGetter)
                     {
-                        AssignDependenciesToProperty(methodMember, methodDefinition, dependencies);
+                        AssignDependenciesToProperty(methodMember, methodDefinition);
                     }
 
                     return (methodMember, dependencies);
@@ -56,8 +56,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 });
         }
 
-        private void AssignDependenciesToProperty(MethodMember methodMember, MethodDefinition methodDefinition,
-            IEnumerable<IMemberTypeDependency> dependencies)
+        private void AssignDependenciesToProperty(MethodMember methodMember, MethodDefinition methodDefinition)
         {
             var methodForm = methodDefinition.GetMethodForm();
             var matchFunction = GetMatchFunction(methodForm);
@@ -70,7 +69,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                 return;
             }
 
-            //TODO add dependency to backing field
+            accessedProperty.IsVirtual = accessedProperty.IsVirtual || methodMember.IsVirtual;
+
             if (methodForm == MethodForm.Getter)
             {
                 accessedProperty.Getter = methodMember;
@@ -78,6 +78,20 @@ namespace ArchUnitNET.Loader.LoadTasks
             else if (methodForm == MethodForm.Setter)
             {
                 accessedProperty.Setter = methodMember;
+            }
+
+            var methodBody = methodDefinition.Body;
+
+            if (methodBody == null)
+            {
+                return;
+            }
+
+            if (!methodBody.Instructions
+                .Select(instruction => instruction.Operand).OfType<FieldDefinition>()
+                .Any(definition => definition.IsBackingField()))
+            {
+                accessedProperty.IsAutoProperty = false;
             }
         }
 
@@ -106,14 +120,6 @@ namespace ArchUnitNET.Loader.LoadTasks
                 new List<MethodReference>(),
                 bodyTypes);
 
-            //HandlePropertyBackingFieldDependencies(methodBody);
-
-            // if (methodDefinition.IsSetter || methodDefinition.IsGetter)
-            // {
-            //     AssignDependenciesToAccessedProperty(methodMember, methodBody, methodDefinition.GetMethodForm());
-            // }
-            // else
-            // {
             foreach (var calledMethodMember in calledMethodMembers)
             {
                 yield return new MethodCallDependency(methodMember, calledMethodMember);
@@ -123,84 +129,8 @@ namespace ArchUnitNET.Loader.LoadTasks
             {
                 yield return new BodyTypeMemberDependency(methodMember, bodyType);
             }
-
-            // }
         }
 
-        private void AssignDependenciesToAccessedProperty(MethodMember methodMember,
-            MethodBody methodBody, MethodForm methodForm)
-        {
-            var matchFunction = GetMatchFunction(methodForm);
-            matchFunction.RequiredNotNull();
-
-            var accessedProperty =
-                MatchToPropertyMember(methodMember.Name, methodMember.FullName, matchFunction);
-            if (accessedProperty == null)
-            {
-                return;
-            }
-
-            var memberDependenciesToAdd = CreateMethodCallDependenciesForProperty(accessedProperty, methodBody)
-                .ToList();
-
-            methodBody.Instructions
-                .Select(instruction => instruction.Operand)
-                .OfType<FieldDefinition>()
-                .ForEach(fieldDefinition =>
-                {
-                    var backingField = FindMatchingField(fieldDefinition);
-                    accessedProperty.BackingField = backingField;
-                });
-            if (accessedProperty.BackingField != null && accessedProperty.BackingField.MemberDependencies.Count != 0)
-            {
-                memberDependenciesToAdd.AddRange(accessedProperty.BackingField.MemberDependencies);
-            }
-
-            if (methodForm == MethodForm.Getter)
-            {
-                accessedProperty.Getter?.MemberDependencies.AddRange(memberDependenciesToAdd);
-            }
-            else if (methodForm == MethodForm.Setter)
-            {
-                accessedProperty.Setter?.MemberDependencies.AddRange(memberDependenciesToAdd);
-            }
-
-            accessedProperty.MemberDependencies.AddRange(memberDependenciesToAdd);
-        }
-
-        private void HandlePropertyBackingFieldDependencies(MethodBody methodBody)
-        {
-            methodBody.Instructions
-                .Where(instruction => instruction.Operand is MethodReference
-                                      && instruction.IsOperationForBackedProperty())
-                .Select(instruction => (methodReference: instruction.Operand as MethodReference,
-                    methodBodyInstruction: instruction))
-                .ForEach(tuple =>
-                {
-                    var (methodReference, methodBodyInstruction) = tuple;
-                    var fieldDefinitionOp = methodBodyInstruction.GetAssigneeFieldDefinition();
-                    if (fieldDefinitionOp == null)
-                    {
-                        return;
-                    }
-
-                    var backedProperty =
-                        MatchToPropertyMember(fieldDefinitionOp.Name, fieldDefinitionOp.FullName,
-                            GetFieldMatchFunctions());
-                    if (backedProperty == null)
-                    {
-                        return;
-                    }
-
-                    var calledType =
-                        _typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.DeclaringType);
-
-                    var calledMember = GetMethodMemberWithMethodReference(calledType, methodReference);
-
-                    var dependency = new MethodCallDependency(backedProperty, calledMember);
-                    backedProperty.MemberDependencies.Add(dependency);
-                });
-        }
 
         private IEnumerable<MethodMember> CreateMethodBodyDependenciesRecursive(MethodMember methodMember,
             MethodBody methodBody, ICollection<MethodReference> visitedMethodReferences, ICollection<IType> bodyTypes)
@@ -261,30 +191,6 @@ namespace ArchUnitNET.Loader.LoadTasks
             return matchFunction.RequiredNotNull();
         }
 
-        private static MatchFunction GetFieldMatchFunctions()
-        {
-            return new MatchFunction(RegexUtils.MatchFieldName);
-        }
-
-        private IEnumerable<IMemberTypeDependency> CreateMethodCallDependenciesForProperty(
-            PropertyMember accessedProperty, MethodBody methodBody)
-        {
-            return methodBody.Instructions
-                .Where(instruction => instruction.Operand is MethodReference)
-                .Where(instruction => instruction.IsMethodCallAssignment())
-                .Select(instruction => (methodReference: instruction.Operand as MethodReference,
-                    instruction))
-                .Select<(MethodReference, Instruction), IMemberTypeDependency>(tuple =>
-                {
-                    var (methodReference, _) = tuple;
-                    var calledType = _typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.DeclaringType);
-
-                    var calledMember = GetMethodMemberWithMethodReference(calledType, methodReference);
-
-                    return new MethodCallDependency(accessedProperty, calledMember);
-                });
-        }
-
         [NotNull]
         private MethodMember GetMethodMemberWithMethodReference([NotNull] IType type,
             [NotNull] MethodReference methodReference)
@@ -339,14 +245,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             return memberFullName.Equals(referenceFullName);
         }
 
-        private FieldMember FindMatchingField(FieldDefinition fieldDefinition)
-        {
-            return _type.GetFieldMembersWithName(fieldDefinition.Name).SingleOrDefault();
-        }
-
-        private PropertyMember
-            MatchToPropertyMember(string name, string fullName,
-                MatchFunction matchFunction) //TODO get_Item for list enumerator func is not matched correctly
+        private PropertyMember MatchToPropertyMember(string name, string fullName, MatchFunction matchFunction)
         {
             try
             {
