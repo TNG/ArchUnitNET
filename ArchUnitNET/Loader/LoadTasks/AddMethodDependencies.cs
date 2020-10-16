@@ -42,6 +42,11 @@ namespace ArchUnitNET.Loader.LoadTasks
                     var (methodMember, methodDefinition) = tuple;
                     var dependencies = CreateMethodSignatureDependencies(methodDefinition, methodMember)
                         .Concat(CreateMethodBodyDependencies(methodDefinition, methodMember));
+                    if (methodDefinition.IsSetter || methodDefinition.IsGetter)
+                    {
+                        AssignDependenciesToProperty(methodMember, methodDefinition, dependencies);
+                    }
+
                     return (methodMember, dependencies);
                 })
                 .ForEach(tuple =>
@@ -49,6 +54,31 @@ namespace ArchUnitNET.Loader.LoadTasks
                     var (methodMember, dependencies) = tuple;
                     methodMember.MemberDependencies.AddRange(dependencies);
                 });
+        }
+
+        private void AssignDependenciesToProperty(MethodMember methodMember, MethodDefinition methodDefinition,
+            IEnumerable<IMemberTypeDependency> dependencies)
+        {
+            var methodForm = methodDefinition.GetMethodForm();
+            var matchFunction = GetMatchFunction(methodForm);
+            matchFunction.RequiredNotNull();
+
+            var accessedProperty =
+                MatchToPropertyMember(methodMember.Name, methodMember.FullName, matchFunction);
+            if (accessedProperty == null)
+            {
+                return;
+            }
+
+            //TODO add dependency to backing field
+            if (methodForm == MethodForm.Getter)
+            {
+                accessedProperty.Getter = methodMember;
+            }
+            else if (methodForm == MethodForm.Setter)
+            {
+                accessedProperty.Setter = methodMember;
+            }
         }
 
         [NotNull]
@@ -67,21 +97,34 @@ namespace ArchUnitNET.Loader.LoadTasks
             var methodBody = methodDefinition.Resolve().Body;
             if (methodBody == null)
             {
-                return Enumerable.Empty<MethodCallDependency>();
+                yield break;
             }
-
-            if (methodDefinition.IsSetter || methodDefinition.IsGetter)
-            {
-                AssignDependenciesToAccessedProperty(methodMember, methodBody, methodDefinition.GetMethodForm());
-                return Enumerable.Empty<MethodCallDependency>();
-            }
-
-            HandlePropertyBackingFieldDependencies(methodBody);
 
             var bodyTypes = methodDefinition.GetBodyTypes(_typeFactory).ToList();
 
-            return CreateMethodBodyDependenciesRecursive(methodMember, methodBody, new List<MethodReference>(),
+            var calledMethodMembers = CreateMethodBodyDependenciesRecursive(methodMember, methodBody,
+                new List<MethodReference>(),
                 bodyTypes);
+
+            //HandlePropertyBackingFieldDependencies(methodBody);
+
+            // if (methodDefinition.IsSetter || methodDefinition.IsGetter)
+            // {
+            //     AssignDependenciesToAccessedProperty(methodMember, methodBody, methodDefinition.GetMethodForm());
+            // }
+            // else
+            // {
+            foreach (var calledMethodMember in calledMethodMembers)
+            {
+                yield return new MethodCallDependency(methodMember, calledMethodMember);
+            }
+
+            foreach (var bodyType in bodyTypes)
+            {
+                yield return new BodyTypeMemberDependency(methodMember, bodyType);
+            }
+
+            // }
         }
 
         private void AssignDependenciesToAccessedProperty(MethodMember methodMember,
@@ -159,7 +202,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 });
         }
 
-        private IEnumerable<IMemberTypeDependency> CreateMethodBodyDependenciesRecursive(MethodMember methodMember,
+        private IEnumerable<MethodMember> CreateMethodBodyDependenciesRecursive(MethodMember methodMember,
             MethodBody methodBody, ICollection<MethodReference> visitedMethodReferences, ICollection<IType> bodyTypes)
         {
             var calledMethodReferences = methodBody.Instructions.Select(instruction => instruction.Operand)
@@ -194,13 +237,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                 else
                 {
                     var calledMethodMember = GetMethodMemberWithMethodReference(calledType, calledMethodReference);
-                    yield return new MethodCallDependency(methodMember, calledMethodMember);
+                    yield return calledMethodMember;
                 }
-            }
-
-            foreach (var bodyType in bodyTypes)
-            {
-                yield return new BodyTypeMemberDependency(methodMember, bodyType);
             }
         }
 
