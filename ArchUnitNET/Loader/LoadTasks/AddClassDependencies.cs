@@ -37,11 +37,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private void AddMemberDependencies()
         {
-            _type.Members.ForEach(member =>
-            {
-                _dependencies.AddRange(member.MemberDependencies);
-                _dependencies.AddRange(member.Dependencies);
-            });
+            _type.Members.ForEach(member => { _dependencies.AddRange(member.Dependencies); });
         }
 
         private void AddInterfaceDependencies()
