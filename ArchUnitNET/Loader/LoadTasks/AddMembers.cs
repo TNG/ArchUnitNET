@@ -94,26 +94,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         {
             var typeReference = propertyDefinition.PropertyType;
             var propertyType = _typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
-
-            MethodMember getter = null;
-            var isVirtual = false;
-
-            if (propertyDefinition.GetMethod != null)
-            {
-                isVirtual = propertyDefinition.GetMethod.IsVirtual;
-                getter = CreateMethodMember(propertyDefinition.GetMethod);
-            }
-
-            MethodMember setter = null;
-
-            if (propertyDefinition.SetMethod != null)
-            {
-                isVirtual = isVirtual || propertyDefinition.SetMethod.IsVirtual;
-                setter = CreateMethodMember(propertyDefinition.SetMethod);
-            }
-
-            return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName,
-                propertyType, isVirtual, getter, setter);
+            return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType);
         }
 
         [NotNull]

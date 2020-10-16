@@ -14,28 +14,23 @@ namespace ArchUnitNET.Domain
 {
     public class PropertyMember : IMember
     {
-        public PropertyMember(IType declaringType, string name, string fullName, IType type,
-            bool isVirtual, [CanBeNull] MethodMember getter, [CanBeNull] MethodMember setter)
+        public PropertyMember(IType declaringType, string name, string fullName, IType type)
         {
             Name = name;
             FullName = fullName;
             Type = type;
             DeclaringType = declaringType;
-            IsVirtual = isVirtual;
-            Getter = getter;
-            Setter = setter;
         }
 
         public IType Type { get; }
-        public bool IsVirtual { get; }
+        public bool IsVirtual { get; internal set; }
+        public bool IsAutoProperty { get; internal set; } = true;
         public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
         public Visibility GetterVisibility => Getter?.Visibility ?? NotAccessible;
 
         [CanBeNull] public MethodMember Getter { get; internal set; }
 
         [CanBeNull] public MethodMember Setter { get; internal set; }
-
-        public FieldMember BackingField { get; internal set; }
 
         public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;
         public string Name { get; }
@@ -84,8 +79,7 @@ namespace ArchUnitNET.Domain
         private bool Equals(PropertyMember other)
         {
             return Equals(Type, other.Type) && IsVirtual == other.IsVirtual
-                                            && Equals(Getter, other.Getter) && Equals(Setter, other.Setter)
-                                            && Equals(BackingField, other.BackingField) &&
+                                            && Equals(Getter, other.Getter) && Equals(Setter, other.Setter) &&
                                             string.Equals(Name, other.Name)
                                             && string.Equals(FullName, other.FullName) &&
                                             Equals(DeclaringType, other.DeclaringType);

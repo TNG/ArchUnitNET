@@ -5,28 +5,13 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Text.RegularExpressions;
-using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Loader
 {
     public static class RegexUtils
     {
-        private static readonly Regex BackingFieldRegex = new Regex(@"<(.+)>" + StaticConstants.BackingField);
         private static readonly Regex GetMethodPropertyMemberRegex = new Regex(@"get_(.+)\(\)");
         private static readonly Regex SetMethodPropertyMemberRegex = new Regex(@"set_(.+)\((.+)\)");
-
-
-        public static string MatchFieldName(string fieldName)
-        {
-            var match = BackingFieldRegex.Match(fieldName);
-            if (!match.Success)
-            {
-                return null;
-            }
-
-            var matchingPropertyName = match.Groups[1].Value;
-            return matchingPropertyName;
-        }
 
         public static string MatchGetPropertyName(string methodName)
         {

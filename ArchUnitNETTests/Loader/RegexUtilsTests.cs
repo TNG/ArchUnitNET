@@ -16,29 +16,21 @@ namespace ArchUnitNETTests.Loader
 {
     public class RegexUtilsTest
     {
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly string _nonMatch = "Not expected to match.";
+        private readonly PropertyMember _autoPropertyMember;
+        private readonly string _expectedGetMethodFullName;
+        private readonly string _expectedGetMethodName;
+        private readonly string _expectedSetMethodName;
+        private readonly string _nonMatchEmpty = string.Empty;
+
         public RegexUtilsTest()
         {
             var propertyClass = Architecture.GetClassOfType(typeof(BackingFieldExamples));
             _autoPropertyMember = propertyClass.GetPropertyMembersWithName("AutoProperty").Single();
-            _expectedBackingFieldName = BuildExpectedBackingFieldName(_autoPropertyMember);
             _expectedGetMethodName = BuildExpectedGetMethodName(_autoPropertyMember);
             _expectedGetMethodFullName = BuildExpectedGetMethodFullName(_autoPropertyMember);
             _expectedSetMethodName = BuildExpectedSetMethodName(_autoPropertyMember, _autoPropertyMember.DeclaringType);
-        }
-
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly PropertyMember _autoPropertyMember;
-        private readonly string _expectedBackingFieldName;
-        private readonly string _expectedGetMethodName;
-        private readonly string _expectedGetMethodFullName;
-        private readonly string _expectedSetMethodName;
-        private readonly string _nonMatchEmpty = string.Empty;
-        private static readonly string _nonMatch = "Not expected to match.";
-
-        private static string BuildExpectedBackingFieldName(PropertyMember propertyMember)
-        {
-            return propertyMember.DeclaringType.FullName + " " + propertyMember.DeclaringType.Name + "::<"
-                   + propertyMember.Name + ">" + StaticConstants.BackingField;
         }
 
         private static string BuildExpectedGetMethodName(PropertyMember propertyMember,
@@ -93,20 +85,6 @@ namespace ArchUnitNETTests.Loader
         }
 
         [Fact]
-        public void BackingFieldRegexMatchAsExpected()
-        {
-            Assert.Equal(_autoPropertyMember.Name,
-                RegexUtils.MatchFieldName(_expectedBackingFieldName));
-        }
-
-        [Fact]
-        public void BackingFieldRegexRecognizesNonMatch()
-        {
-            Assert.Null(RegexUtils.MatchFieldName(_nonMatchEmpty));
-            Assert.Null(RegexUtils.MatchFieldName(_nonMatch));
-        }
-
-        [Fact]
         public void GetMethodFullNameRegexRecognizesNonMatch()
         {
             Assert.Null(RegexUtils.MatchGetPropertyName(_nonMatchEmpty));
@@ -155,5 +133,19 @@ namespace ArchUnitNETTests.Loader
             Assert.Equal(_autoPropertyMember.Name,
                 RegexUtils.MatchSetPropertyName(_expectedSetMethodName));
         }
+    }
+
+    public class BackingFieldExamples
+    {
+        private ChildField _fieldPropertyPair;
+        public PropertyType AutoProperty { get; set; }
+
+        public PropertyType FieldPropertyPair
+        {
+            get => _fieldPropertyPair;
+            set => _fieldPropertyPair = (ChildField) value;
+        }
+
+        public PropertyType LambdaFieldPropertyPair { get; set; }
     }
 }
