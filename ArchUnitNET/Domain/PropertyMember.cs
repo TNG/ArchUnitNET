@@ -44,7 +44,10 @@ namespace ArchUnitNET.Domain
             {
                 var setterDependencies = Setter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
                 var getterDependencies = Getter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
-                return setterDependencies.Concat(getterDependencies).Append(new PropertyTypeDependency(this)).ToList();
+                var attributeDependencies =
+                    Attributes.Select(attribute => new AttributeMemberDependency(this, attribute));
+                return setterDependencies.Concat(getterDependencies).Concat(attributeDependencies)
+                    .Append(new PropertyTypeDependency(this)).ToList();
             }
         }
 
