@@ -22,6 +22,7 @@ namespace ArchUnitNETTests.Dependencies
         private readonly Class _castClassB;
         private readonly Interface _castInterfaceA;
         private readonly Class _classWithCastDependency;
+        private readonly MethodMember _methodWithCastDependency;
 
         public CastDependenciesTest()
         {
@@ -29,6 +30,8 @@ namespace ArchUnitNETTests.Dependencies
             _castClassB = Architecture.GetClassOfType(typeof(CastClassB));
             _castInterfaceA = Architecture.GetInterfaceOfType(typeof(ICastInterfaceA));
             _classWithCastDependency = Architecture.GetClassOfType(typeof(ClassWithCastDependency));
+            _methodWithCastDependency = (MethodMember) _classWithCastDependency.Members
+                .WhereNameIs("MethodWithCastDependencies(ArchUnitNETTests.Dependencies.CastClassA)").ToList().First();
         }
 
         [Fact]
@@ -40,14 +43,26 @@ namespace ArchUnitNETTests.Dependencies
             Assert.Contains(_castClassB, typeDependencies);
             Assert.Contains(_castInterfaceA, typeDependencies);
         }
+
+        [Fact(Skip = "Casted Types are not found if accessed variable is not local")]
+        public void MethodCastTest()
+        {
+            var typeDependencies = _methodWithCastDependency.GetTypeDependencies(Architecture).ToList();
+            Assert.Contains(_castClassB, typeDependencies);
+        }
     }
 
     internal class ClassWithCastDependency
     {
+        private CastClassB target;
         public ClassWithCastDependency()
         {
             var type = (CastClassA) new CastClassB();
             var type2 = (ICastInterfaceA) new CastClassB();
+        }
+        public void MethodWithCastDependencies(CastClassA value)
+        {
+            target = (CastClassB) value;
         }
     }
 
