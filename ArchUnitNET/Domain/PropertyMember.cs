@@ -79,6 +79,7 @@ namespace ArchUnitNET.Domain
         private bool Equals(PropertyMember other)
         {
             return Equals(Type, other.Type) && IsVirtual == other.IsVirtual
+                                            && IsAutoProperty == other.IsAutoProperty
                                             && Equals(Getter, other.Getter) && Equals(Setter, other.Setter) &&
                                             string.Equals(Name, other.Name)
                                             && string.Equals(FullName, other.FullName) &&

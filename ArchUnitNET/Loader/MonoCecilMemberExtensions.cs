@@ -11,6 +11,7 @@ using System.Text;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using Mono.Cecil.Cil;
 using static ArchUnitNET.Domain.Visibility;
 using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
@@ -130,11 +131,24 @@ namespace ArchUnitNET.Loader
         [NotNull]
         internal static IEnumerable<IType> GetBodyTypes(this MethodDefinition methodDefinition, TypeFactory typeFactory)
         {
-            return methodDefinition.Body?.Variables.Select(variableDefinition =>
+            var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
+
+            var bodyTypes = instructions.Where(inst => inst.OpCode == OpCodes.Box && inst.Operand is TypeReference)
+                .Select(inst => typeFactory.GetOrCreateStubTypeFromTypeReference((TypeReference) inst.Operand));
+
+            if (instructions.Any(inst => inst.OpCode == OpCodes.Ldstr))
+            {
+                //TODO find typeReference to string and add to body types
+                //bodyTypes.Add(typeFactory.GetOrCreateStubTypeFromTypeReference();
+            }
+
+            bodyTypes = bodyTypes.Union(methodDefinition.Body?.Variables.Select(variableDefinition =>
             {
                 var variableTypeReference = variableDefinition.VariableType;
                 return typeFactory.GetOrCreateStubTypeFromTypeReference(variableTypeReference);
-            }).Distinct() ?? Enumerable.Empty<IType>();
+            }) ?? Enumerable.Empty<IType>()).Distinct();
+
+            return bodyTypes;
         }
 
         public static MethodForm GetMethodForm(this MethodDefinition methodDefinition)
