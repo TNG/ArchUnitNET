@@ -16,9 +16,21 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class GetterMethodDependencyExamples
     {
-        public Guid AcceptedCase { get; } = new Guid("35353");
+        public Guid AcceptedCase
+        {
+            get
+            {
+                return new Guid("35353");
+            }
+        }
 
-        public Guid FirstUnacceptedCase { get; } = Guid.NewGuid();
+        public Guid FirstUnacceptedCase
+        {
+            get
+            {
+                return Guid.NewGuid();
+            }
+        }
 
         public Guid SecondUnacceptedCase => Guid.NewGuid();
     }
