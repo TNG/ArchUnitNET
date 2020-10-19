@@ -28,18 +28,16 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
         [Theory]
         [ClassData(typeof(GetterSetterTestsBuild.SetterTestData))]
-        public void AssertSetterMethodDependencies(FieldMember backingField, PropertyMember backedProperty,
-            Class expectedTarget)
+        public void AssertSetterMethodDependencies(PropertyMember backedProperty, Class expectedTarget)
         {
-            backingField.MemberDependencies
-                .ForEach(dependency =>
+            if (backedProperty.Setter != null)
+            {
+                foreach (var dependency in backedProperty.Setter.Dependencies)
                 {
-                    Assert.Contains(dependency, backedProperty.MemberDependencies);
-                    Assert.Contains(dependency, backedProperty.Setter.MemberDependencies);
-                });
-
-            var backingFieldDependencyTargets = backingField.MemberDependencies.Select(dependency => dependency.Target);
-            Assert.Contains(expectedTarget, backingFieldDependencyTargets);
+                    Assert.Contains(dependency, backedProperty.Dependencies);
+                }
+            }
+            Assert.Contains(expectedTarget, backedProperty.Dependencies.Select(t => t.Target));
         }
 
         [Theory]

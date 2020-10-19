@@ -32,17 +32,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         private static readonly ConstructorInfo ConstructGuid = GuidType.GetConstructor(ExpectedParameters);
         private static readonly MethodMember MockConstructorMember = ConstructGuid.CreateStubMethodMember();
 
-        private static object[] BuildSetterTestData(Type classType, string backingFieldName,
-            string backedPropertyName, Type expectedFieldDependencyTarget)
+        private static object[] BuildSetterTestData(Type classType, string backedPropertyName, Type expectedFieldDependencyTarget)
         {
             if (classType == null)
             {
                 throw new ArgumentNullException(nameof(classType));
-            }
-
-            if (backingFieldName == null)
-            {
-                throw new ArgumentNullException(nameof(backingFieldName));
             }
 
             if (backedPropertyName == null)
@@ -56,11 +50,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             }
 
             var baseClass = Architecture.GetClassOfType(classType);
-            var backingField = baseClass.GetFieldMembersWithName(backingFieldName).First();
             var backedProperty = baseClass.GetPropertyMembersWithName(backedPropertyName).First();
             var expectedDependencyTargetClass = Architecture.GetClassOfType(expectedFieldDependencyTarget);
 
-            return new object[] {backingField, backedProperty, expectedDependencyTargetClass};
+            return new object[] {backedProperty, expectedDependencyTargetClass};
         }
 
         private static object[] BuildGetterTestData(Type classType, string propertyName,
@@ -124,29 +117,23 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             private readonly List<object[]> _setterTestData = new List<object[]>
             {
                 BuildSetterTestData(typeof(SetterMethodDependencyExamples),
-                    nameof(SetterMethodDependencyExamples._castingPairBacking),
-                    nameof(SetterMethodDependencyExamples.CastingPair),
+                    nameof(SetterMethodDependencyExamples.CustomProperty),
                     typeof(ChildField)),
                 BuildSetterTestData(typeof(SetterMethodDependencyExamples),
-                    nameof(SetterMethodDependencyExamples._castingLambdaPairBacking),
-                    nameof(SetterMethodDependencyExamples.CastingLambdaPair),
+                    nameof(SetterMethodDependencyExamples.LambdaPair),
                     typeof(ChildField)),
                 BuildSetterTestData(typeof(SetterMethodDependencyExamples),
-                    nameof(SetterMethodDependencyExamples._constructorPairBacking),
                     nameof(SetterMethodDependencyExamples.ConstructorPair),
-                    typeof(ChildField)),
+                    typeof(PropertyType)),
                 BuildSetterTestData(typeof(SetterMethodDependencyExamples),
-                    nameof(SetterMethodDependencyExamples._constructorLambdaPairBacking),
                     nameof(SetterMethodDependencyExamples.ConstructorLambdaPair),
-                    typeof(ChildField)),
+                    typeof(PropertyType)),
                 BuildSetterTestData(typeof(SetterMethodDependencyExamples),
-                    nameof(SetterMethodDependencyExamples._methodPairBacking),
                     nameof(SetterMethodDependencyExamples.MethodPair),
-                    typeof(ChildField)),
+                    typeof(PropertyType)),
                 BuildSetterTestData(typeof(SetterMethodDependencyExamples),
-                    nameof(SetterMethodDependencyExamples._methodLambdaPairBacking),
                     nameof(SetterMethodDependencyExamples.MethodLambdaPair),
-                    typeof(ChildField))
+                    typeof(PropertyType))
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -191,10 +178,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             private readonly List<object[]> _accessMethodTestData = new List<object[]>
             {
                 BuildAccessMethodTestData(typeof(SetterMethodDependencyExamples),
-                    nameof(SetterMethodDependencyExamples.CastingPair),
+                    nameof(SetterMethodDependencyExamples.CustomProperty),
                     MethodForm.Setter),
                 BuildAccessMethodTestData(typeof(SetterMethodDependencyExamples),
-                    nameof(SetterMethodDependencyExamples.CastingLambdaPair),
+                    nameof(SetterMethodDependencyExamples.LambdaPair),
                     MethodForm.Setter),
                 BuildAccessMethodTestData(typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.ConstructorPair),
