@@ -20,6 +20,7 @@ namespace ArchUnitNET.Domain
             FullName = fullName;
             Type = type;
             DeclaringType = declaringType;
+            PropertyTypeDependency = new PropertyTypeDependency(this);
         }
 
         public IType Type { get; }
@@ -31,6 +32,10 @@ namespace ArchUnitNET.Domain
         [CanBeNull] public MethodMember Getter { get; internal set; }
 
         [CanBeNull] public MethodMember Setter { get; internal set; }
+
+        public List<IMemberTypeDependency> AttributeDependencies { get; } = new List<IMemberTypeDependency>();
+
+        public IMemberTypeDependency PropertyTypeDependency { get; }
 
         public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;
         public string Name { get; }
@@ -44,10 +49,8 @@ namespace ArchUnitNET.Domain
             {
                 var setterDependencies = Setter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
                 var getterDependencies = Getter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
-                var attributeDependencies =
-                    Attributes.Select(attribute => new AttributeMemberDependency(this, attribute));
-                return setterDependencies.Concat(getterDependencies).Concat(attributeDependencies)
-                    .Append(new PropertyTypeDependency(this)).ToList();
+                return setterDependencies.Concat(getterDependencies).Concat(AttributeDependencies)
+                    .Append(PropertyTypeDependency).ToList();
             }
         }
 

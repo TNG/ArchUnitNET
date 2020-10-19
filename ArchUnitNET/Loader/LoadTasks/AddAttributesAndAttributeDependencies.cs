@@ -51,14 +51,16 @@ namespace ArchUnitNET.Loader.LoadTasks
         {
             var fieldMember = _type.GetFieldMembers().WhereFullNameIs(fieldDefinition.FullName)
                 .RequiredNotNull();
-            CollectMemberAttributesAndDependencies(fieldMember, fieldDefinition.CustomAttributes.ToList());
+            CollectMemberAttributesAndDependencies(fieldMember, fieldDefinition.CustomAttributes.ToList(),
+                fieldMember.MemberDependencies);
         }
 
         private void SetUpAttributesForProperties(PropertyDefinition propertyDefinition)
         {
             var propertyMember = _type.GetPropertyMembers().WhereFullNameIs(propertyDefinition.FullName)
                 .RequiredNotNull();
-            CollectMemberAttributesAndDependencies(propertyMember, propertyDefinition.CustomAttributes.ToList());
+            CollectMemberAttributesAndDependencies(propertyMember, propertyDefinition.CustomAttributes.ToList(),
+                propertyMember.AttributeDependencies);
         }
 
         private void SetUpAttributesForMethods(MethodDefinition methodDefinition)
@@ -66,17 +68,18 @@ namespace ArchUnitNET.Loader.LoadTasks
             var methodMember = _type.GetMethodMembers().WhereFullNameIs(methodDefinition.GetFullName())
                 .RequiredNotNull();
             var memberCustomAttributes = methodDefinition.GetAllMethodCustomAttributes().ToList();
-            CollectMemberAttributesAndDependencies(methodMember, memberCustomAttributes);
+            CollectMemberAttributesAndDependencies(methodMember, memberCustomAttributes,
+                methodMember.MemberDependencies);
         }
 
         private void CollectMemberAttributesAndDependencies(IMember methodMember,
-            List<CustomAttribute> memberCustomAttributes)
+            List<CustomAttribute> memberCustomAttributes, List<IMemberTypeDependency> attributeDependencies)
         {
             memberCustomAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
             var memberAttributes = CreateAttributesFromCustomAttributes(memberCustomAttributes).ToList();
             methodMember.Attributes.AddRange(memberAttributes);
             var methodAttributeDependencies = CreateMemberAttributeDependencies(methodMember, memberAttributes);
-            methodMember.MemberDependencies.AddRange(methodAttributeDependencies);
+            attributeDependencies.AddRange(methodAttributeDependencies);
         }
 
         [NotNull]
