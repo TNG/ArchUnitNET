@@ -86,10 +86,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
                 new AttributeMemberDependency(targetMember, expectedAttribute);
 
             //Assert
-            Assert.Equal(expectedAttributeDependency,
-                targetMember.Dependencies.First());
-
-            Assert.True(targetMember.Dependencies.Contains(expectedAttributeDependency));
+            Assert.Contains(expectedAttributeDependency, targetMember.Dependencies);
         }
 
         public static void AttributeDependencyAsExpected(IType targetType, Class expectedAttributeClass)
