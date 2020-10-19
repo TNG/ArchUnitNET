@@ -7,7 +7,6 @@
 
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
 using Xunit;
@@ -51,14 +50,6 @@ namespace ArchUnitNETTests.Dependencies.DependencyAssignmentTests
             }
         }
 
-        [Fact]
-        public void PropertyDependencyGetterFromClassDependenciesOriginMember()
-        {
-            var getterMethod = _propertyTestClass.Dependencies
-                .Where(t => t.Target.FullName.Contains("PropertyDependOnClass")).Cast<BodyTypeMemberDependency>()
-                .ToList().First().OriginMember;
-            Assert.Contains(_dependOnClass, getterMethod.Dependencies.Select(d => d.Target));
-        }
 
         [Fact]
         public void PropertyDependencyClass()
