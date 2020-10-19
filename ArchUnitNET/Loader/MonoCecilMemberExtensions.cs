@@ -151,6 +151,20 @@ namespace ArchUnitNET.Loader
             return bodyTypes;
         }
 
+        [NotNull]
+        internal static IEnumerable<IType> GetReferencedTypes(this MethodDefinition methodDefinition,
+            TypeFactory typeFactory)
+        {
+            var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
+
+            var codes = new List<OpCode>
+                {OpCodes.Castclass, OpCodes.Isinst, OpCodes.Ldtoken}; //TODO probably not all necessary OpCodes
+
+            return instructions.Where(inst =>
+                    codes.Contains(inst.OpCode) && inst.Operand is TypeReference)
+                .Select(inst => typeFactory.GetOrCreateStubTypeFromTypeReference((TypeReference) inst.Operand));
+        }
+
         public static MethodForm GetMethodForm(this MethodDefinition methodDefinition)
         {
             if (methodDefinition.IsConstructor)

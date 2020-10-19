@@ -116,24 +116,31 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             var bodyTypes = methodDefinition.GetBodyTypes(_typeFactory).ToList();
 
-            var calledMethodMembers = CreateMethodBodyDependenciesRecursive(methodMember, methodBody,
-                new List<MethodReference>(),
-                bodyTypes);
+            var referencedTypes = methodDefinition.GetReferencedTypes(_typeFactory).ToList();
 
-            foreach (var calledMethodMember in calledMethodMembers)
+            var calledMethodMembers = CreateMethodBodyDependenciesRecursive(methodBody, new List<MethodReference>(),
+                bodyTypes, referencedTypes);
+
+            foreach (var calledMethodMember in calledMethodMembers.Distinct())
             {
                 yield return new MethodCallDependency(methodMember, calledMethodMember);
             }
 
-            foreach (var bodyType in bodyTypes)
+            foreach (var bodyType in bodyTypes.Distinct())
             {
                 yield return new BodyTypeMemberDependency(methodMember, bodyType);
+            }
+
+            foreach (var referencedType in referencedTypes.Distinct())
+            {
+                yield return new MemberTypeDependency(methodMember, referencedType);
             }
         }
 
 
-        private IEnumerable<MethodMember> CreateMethodBodyDependenciesRecursive(MethodMember methodMember,
-            MethodBody methodBody, ICollection<MethodReference> visitedMethodReferences, ICollection<IType> bodyTypes)
+        private IEnumerable<MethodMember> CreateMethodBodyDependenciesRecursive(MethodBody methodBody,
+            ICollection<MethodReference> visitedMethodReferences, List<IType> bodyTypes,
+            List<IType> referencedTypes)
         {
             var calledMethodReferences = methodBody.Instructions.Select(instruction => instruction.Operand)
                 .OfType<MethodReference>();
@@ -156,10 +163,12 @@ namespace ArchUnitNET.Loader.LoadTasks
                         }
                     }
 
-                    bodyTypes = bodyTypes.Union(calledMethodDefinition.GetBodyTypes(_typeFactory)).ToList();
+                    bodyTypes.AddRange(calledMethodDefinition.GetBodyTypes(_typeFactory));
 
-                    foreach (var dep in CreateMethodBodyDependenciesRecursive(methodMember, calledMethodDefinition.Body,
-                        visitedMethodReferences, bodyTypes))
+                    referencedTypes.AddRange(calledMethodDefinition.GetReferencedTypes(_typeFactory));
+
+                    foreach (var dep in CreateMethodBodyDependenciesRecursive(calledMethodDefinition.Body,
+                        visitedMethodReferences, bodyTypes, referencedTypes))
                     {
                         yield return dep;
                     }

@@ -44,7 +44,7 @@ namespace ArchUnitNETTests.Dependencies
             Assert.Contains(_castInterfaceA, typeDependencies);
         }
 
-        [Fact(Skip = "Casted Types are not found if accessed variable is not local")]
+        [Fact]
         public void MethodCastTest()
         {
             var typeDependencies = _methodWithCastDependency.GetTypeDependencies(Architecture).ToList();
@@ -55,11 +55,13 @@ namespace ArchUnitNETTests.Dependencies
     internal class ClassWithCastDependency
     {
         private CastClassB target;
+
         public ClassWithCastDependency()
         {
             var type = (CastClassA) new CastClassB();
             var type2 = (ICastInterfaceA) new CastClassB();
         }
+
         public void MethodWithCastDependencies(CastClassA value)
         {
             target = (CastClassB) value;
