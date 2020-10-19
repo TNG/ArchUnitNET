@@ -44,14 +44,13 @@ namespace ArchUnitNET.Domain
             {
                 var setterDependencies = Setter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
                 var getterDependencies = Getter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
-                return setterDependencies.Concat(getterDependencies).ToList();
+                return setterDependencies.Concat(getterDependencies).Append(new PropertyTypeDependency(this)).ToList();
             }
         }
 
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
 
-        public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>()
-            .Append(new PropertyTypeDependency(this)).ToList();
+        public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>().ToList();
 
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
