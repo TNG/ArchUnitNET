@@ -55,7 +55,7 @@ namespace ArchUnitNET.Loader
         [NotNull]
         private IType CreateTypeFromTypeReference(TypeReference typeReference, bool isStub)
         {
-            var type = SetupCreatedType(typeReference);
+            var type = SetupCreatedType(typeReference, isStub);
 
             TypeDefinition typeDefinition;
             try
@@ -122,7 +122,7 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        private Type SetupCreatedType(TypeReference typeReference)
+        private Type SetupCreatedType(TypeReference typeReference, bool isStub)
         {
             var typeNamespaceName = typeReference.Namespace;
             var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
@@ -141,8 +141,16 @@ namespace ArchUnitNET.Loader
             var typeName = GetTypeNameForTypeReference(typeReference);
             var visibility = GetVisibilityFromTypeDefinition(typeDefinition);
             var isNested = typeReference.IsNested;
-            var type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested);
-            AssignGenericProperties(typeReference, type, typeDefinition);
+            var isGeneric = typeReference.IsGenericInstance;
+            var type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested,
+                isGeneric, isStub);
+
+            if (typeReference.HasGenericParameters)
+            {
+                type.GenericTypeParameters = typeDefinition?.GenericParameters?
+                    .Select(GetOrCreateStubTypeFromTypeReference).ToList();
+            }
+
             return type;
         }
 
@@ -184,16 +192,6 @@ namespace ArchUnitNET.Loader
             }
 
             throw new ArgumentException("The provided type definition seems to have no visibility.");
-        }
-
-        private void AssignGenericProperties(IGenericParameterProvider typeReference, Type type,
-            [CanBeNull] TypeDefinition typeDefinition)
-        {
-            if (typeReference.HasGenericParameters)
-            {
-                type.GenericTypeParameters = typeDefinition?.GenericParameters?
-                    .Select(GetOrCreateStubTypeFromTypeReference).ToList();
-            }
         }
 
         private void LoadBaseTask(Class cls, Type type, TypeDefinition typeDefinition)
