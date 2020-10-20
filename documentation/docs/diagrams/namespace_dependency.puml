@@ -1,0 +1,9 @@
+@startuml
+namespace Model {}
+namespace Controller {}
+namespace View {}
+View <-l- Model
+note on link #green: allowed
+Model -r-> Controller
+note on link #red: forbidden
+@enduml

@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Domain.Visibility;
 using Attribute = ArchUnitNET.Domain.Attribute;
@@ -504,7 +504,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool Filter(T type)
             {
                 return type.Attributes.IsNullOrEmpty() || type.Attributes.All(attribute =>
-                           patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
+                    patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
             }
 
             string description;

@@ -26,11 +26,8 @@ namespace ArchUnitNET.Domain
         }
 
         public IEnumerable<Assembly> Assemblies => _allAssemblies.Where(assembly => !assembly.IsOnlyReferenced);
-
         public IEnumerable<Namespace> Namespaces { get; }
-
         public IEnumerable<IType> Types { get; }
-
         public IEnumerable<Class> Classes => Types.OfType<Class>();
         public IEnumerable<Interface> Interfaces => Types.OfType<Interface>();
         public IEnumerable<Attribute> Attributes => Types.OfType<Attribute>();
@@ -39,20 +36,10 @@ namespace ArchUnitNET.Domain
         public IEnumerable<MethodMember> MethodMembers => Members.OfType<MethodMember>();
         public IEnumerable<IMember> Members => Types.SelectMany(type => type.Members);
 
-        public bool FulfilsRule(IArchRule archRule)
-        {
-            return archRule.HasNoViolations(this);
-        }
-
         public IEnumerable<T> GetOrCreateObjects<T>(IObjectProvider<T> objectProvider,
             Func<Architecture, IEnumerable<T>> providingFunction) where T : ICanBeAnalyzed
         {
             return _objectProviderCache.GetOrCreateObjects(objectProvider, providingFunction);
-        }
-
-        public IEnumerable<EvaluationResult> EvaluateRule(IArchRule archRule)
-        {
-            return archRule.Evaluate(this);
         }
 
         public override bool Equals(object obj)

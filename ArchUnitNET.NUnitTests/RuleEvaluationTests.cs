@@ -4,10 +4,10 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Loader;
 using ArchUnitNET.NUnit;
 using NUnit.Framework;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;

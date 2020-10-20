@@ -1,6 +1,8 @@
-<img src="Logo/ArchUnit-Logo.png" height="64" alt="ArchUnit">
+<img src="Logo/ArchUnitNET-Logo.png" height="64" alt="ArchUnit">
 
 # ArchUnitNET [![Build Status](https://travis-ci.com/TNG/ArchUnitNET.svg?branch=master)](https://travis-ci.com/TNG/ArchUnitNET) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/TNG/ArchUnitNET/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/TngTech.ArchUnitNET)](https://www.nuget.org/packages/TngTech.ArchUnitNET/)
+
+Visit our documentation at https://archunitnet.readthedocs.io/en/latest/.
 
 ArchUnitNET is a free, simple library for checking the architecture of C# code. It is the C# fork of https://www.archunit.org/ for Java. ArchUnitNET can check dependencies between
 classes, members, interfaces, and more. This is done by analyzing C# bytecode and importing all classes into our C# code
@@ -20,8 +22,8 @@ PS> Install-Package ArchUnitNET.NUnit
 Then you will want to create a class to start testing. We used xUnit with the ArchUnit extension here, but it works similarly with NUnit or other Unit Test Frameworks.
 ```cs
 
-using ArchUnitNET.Core;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Loader;
 using ArchUnitNET.Fluent;
 using Xunit;
 
