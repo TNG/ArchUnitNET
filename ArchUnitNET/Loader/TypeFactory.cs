@@ -141,7 +141,7 @@ namespace ArchUnitNET.Loader
             var typeName = GetTypeNameForTypeReference(typeReference);
             var visibility = GetVisibilityFromTypeDefinition(typeDefinition);
             var isNested = typeReference.IsNested;
-            var isGeneric = typeReference.IsGenericInstance;
+            var isGeneric = typeReference.IsGenericInstance || typeReference.HasGenericParameters;
             var type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested,
                 isGeneric, isStub);
 
