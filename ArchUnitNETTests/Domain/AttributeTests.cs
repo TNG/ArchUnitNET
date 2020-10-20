@@ -17,6 +17,26 @@ namespace ArchUnitNETTests.Domain
 {
     public class AttributeTests
     {
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly AttributeOriginClassPair _abstractAttributePair;
+        private readonly AttributeEquivalencyTestData _attributeEquivalencyTestData;
+
+        private readonly AttributeOriginClassPair _attributeWithAttributesPair;
+
+        private readonly AttributeOriginClassPair _constructorAttributePair;
+
+        private readonly AttributeOriginClassPair _developerAttributePair;
+        private readonly Interface _iAttribute;
+
+        private readonly Attribute _implementsAbstractAttribute;
+        private readonly FieldMember _inheritedFieldMember;
+
+        private readonly AttributeOriginClassPair _interfaceImplementingAttributePair;
+        private readonly PropertyMember _propertyMember;
+
+        private readonly Type _unrelatedType;
+
         public AttributeTests()
         {
             _developerAttributePair = new AttributeOriginClassPair(typeof(CountryAttributeWithParameters));
@@ -28,72 +48,14 @@ namespace ArchUnitNETTests.Domain
             _unrelatedType = new Type(_abstractAttributePair.OriginClass.Name,
                 _abstractAttributePair.OriginClass.FullName, _abstractAttributePair.OriginClass.Assembly,
                 _abstractAttributePair.OriginClass.Namespace, _abstractAttributePair.OriginClass.Visibility,
-                _abstractAttributePair.OriginClass.IsNested);
+                _abstractAttributePair.OriginClass.IsNested, _abstractAttributePair.OriginClass.IsGeneric,
+                _abstractAttributePair.OriginClass.IsStub);
             _propertyMember = _implementsAbstractAttribute
                 .GetPropertyMembersWithName(nameof(ChildOfAbstractAttribute.Property)).SingleOrDefault();
             _inheritedFieldMember = _abstractAttributePair.Attribute
                 .GetFieldMembersWithName("_fieldType").SingleOrDefault();
             _constructorAttributePair = new AttributeOriginClassPair(typeof(ConstructorAttribute));
             _attributeWithAttributesPair = new AttributeOriginClassPair(typeof(AttributeWithAttributes));
-        }
-
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly AttributeOriginClassPair _developerAttributePair;
-        private readonly AttributeEquivalencyTestData _attributeEquivalencyTestData;
-
-        private readonly AttributeOriginClassPair _abstractAttributePair;
-
-        private readonly Attribute _implementsAbstractAttribute;
-        private readonly Interface _iAttribute;
-
-        private readonly AttributeOriginClassPair _interfaceImplementingAttributePair;
-
-        private readonly Type _unrelatedType;
-        private readonly PropertyMember _propertyMember;
-        private readonly FieldMember _inheritedFieldMember;
-
-        private readonly AttributeOriginClassPair _constructorAttributePair;
-
-        private readonly AttributeOriginClassPair _attributeWithAttributesPair;
-
-        private class AttributeOriginClassPair
-        {
-            public AttributeOriginClassPair(System.Type originType)
-            {
-                OriginClass = Architecture.GetClassOfType(originType);
-                Attribute = Architecture.GetAttributeOfType(originType);
-            }
-
-            [NotNull]
-            public Class OriginClass { get; }
-
-            [NotNull]
-            public Attribute Attribute { get; }
-        }
-
-        private class AttributeEquivalencyTestData
-        {
-            public AttributeEquivalencyTestData([NotNull] System.Type originType)
-            {
-                OriginAttribute = new Attribute(Architecture.GetClassOfType(originType));
-                DuplicateAttribute =
-                    new Attribute(Architecture.GetClassOfType(originType));
-                AttributeReferenceDuplicate = OriginAttribute;
-                ObjectReferenceDuplicate = OriginAttribute;
-            }
-
-            [NotNull]
-            public Attribute OriginAttribute { get; }
-
-            [NotNull]
-            public object DuplicateAttribute { get; }
-
-            [NotNull]
-            public Attribute AttributeReferenceDuplicate { get; }
-
-            [NotNull]
-            public object ObjectReferenceDuplicate { get; }
         }
 
         [Fact]
@@ -269,6 +231,39 @@ namespace ArchUnitNETTests.Domain
         public void RecognizedAsNotAbstract()
         {
             Assert.False(_attributeEquivalencyTestData.OriginAttribute.IsAbstract);
+        }
+
+        private class AttributeOriginClassPair
+        {
+            public AttributeOriginClassPair(System.Type originType)
+            {
+                OriginClass = Architecture.GetClassOfType(originType);
+                Attribute = Architecture.GetAttributeOfType(originType);
+            }
+
+            [NotNull] public Class OriginClass { get; }
+
+            [NotNull] public Attribute Attribute { get; }
+        }
+
+        private class AttributeEquivalencyTestData
+        {
+            public AttributeEquivalencyTestData([NotNull] System.Type originType)
+            {
+                OriginAttribute = new Attribute(Architecture.GetClassOfType(originType));
+                DuplicateAttribute =
+                    new Attribute(Architecture.GetClassOfType(originType));
+                AttributeReferenceDuplicate = OriginAttribute;
+                ObjectReferenceDuplicate = OriginAttribute;
+            }
+
+            [NotNull] public Attribute OriginAttribute { get; }
+
+            [NotNull] public object DuplicateAttribute { get; }
+
+            [NotNull] public Attribute AttributeReferenceDuplicate { get; }
+
+            [NotNull] public object ObjectReferenceDuplicate { get; }
         }
     }
 }

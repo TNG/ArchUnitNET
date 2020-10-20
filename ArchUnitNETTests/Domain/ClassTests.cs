@@ -18,6 +18,18 @@ namespace ArchUnitNETTests.Domain
 {
     public class ClassTests
     {
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly Class _baseClass;
+        private readonly Interface _chainedInterface;
+        private readonly Class _childClass;
+
+        private readonly ClassEquivalencyTestData _classEquivalencyTestData;
+        private readonly Class _duplicateChildClass;
+        private readonly Interface _implementedInterface;
+
+        private readonly Class _implementsInterface;
+        private readonly Type _misMatchType;
+
         public ClassTests()
         {
             _baseClass = Architecture.GetClassOfType(typeof(BaseClass));
@@ -26,48 +38,13 @@ namespace ArchUnitNETTests.Domain
             var backingType = Architecture.GetITypeOfType(typeof(PropertyType));
             _misMatchType =
                 new Type(backingType.FullName, backingType.Name, backingType.Assembly, backingType.Namespace,
-                    backingType.Visibility, backingType.IsNested);
+                    backingType.Visibility, backingType.IsNested, backingType.IsGeneric, backingType.IsStub);
 
             _implementsInterface = Architecture.GetClassOfType(typeof(InheritingType));
             _implementedInterface = Architecture.GetInterfaceOfType(typeof(IInheritingInterface));
             _chainedInterface = Architecture.GetInterfaceOfType(typeof(IInheritedTestInterface));
 
             _classEquivalencyTestData = new ClassEquivalencyTestData(typeof(ClassWithConstructors));
-        }
-
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly Class _baseClass;
-        private readonly Class _childClass;
-        private readonly Class _duplicateChildClass;
-        private readonly Type _misMatchType;
-
-        private readonly Class _implementsInterface;
-        private readonly Interface _implementedInterface;
-        private readonly Interface _chainedInterface;
-
-        private readonly ClassEquivalencyTestData _classEquivalencyTestData;
-
-        private class ClassEquivalencyTestData
-        {
-            public ClassEquivalencyTestData([NotNull] System.Type originType)
-            {
-                OriginClass = Architecture.GetClassOfType(originType).RequiredNotNull();
-                DuplicateClass = Architecture.GetClassOfType(originType).RequiredNotNull();
-                ClassReferenceDuplicate = OriginClass;
-                ObjectReferenceDuplicate = OriginClass;
-            }
-
-            [NotNull]
-            public Class OriginClass { get; }
-
-            [NotNull]
-            public object DuplicateClass { get; }
-
-            [NotNull]
-            public Class ClassReferenceDuplicate { get; }
-
-            [NotNull]
-            public object ObjectReferenceDuplicate { get; }
         }
 
         [Fact]
@@ -199,6 +176,25 @@ namespace ArchUnitNETTests.Domain
             {
                 Assert.Contains(parentDependency, _childClass.DependenciesIncludingInherited);
             });
+        }
+
+        private class ClassEquivalencyTestData
+        {
+            public ClassEquivalencyTestData([NotNull] System.Type originType)
+            {
+                OriginClass = Architecture.GetClassOfType(originType).RequiredNotNull();
+                DuplicateClass = Architecture.GetClassOfType(originType).RequiredNotNull();
+                ClassReferenceDuplicate = OriginClass;
+                ObjectReferenceDuplicate = OriginClass;
+            }
+
+            [NotNull] public Class OriginClass { get; }
+
+            [NotNull] public object DuplicateClass { get; }
+
+            [NotNull] public Class ClassReferenceDuplicate { get; }
+
+            [NotNull] public object ObjectReferenceDuplicate { get; }
         }
     }
 }

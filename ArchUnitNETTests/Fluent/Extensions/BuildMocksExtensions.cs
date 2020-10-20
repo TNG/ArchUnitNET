@@ -23,7 +23,8 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var assembly = type.Assembly.CreateStubAssembly();
             var namespc = type.Namespace.CreateStubNamespace();
             var visibility = type.GetVisibility();
-            return new Type(type.FullName, type.Name, assembly, namespc, visibility, type.IsNested);
+            return new Type(type.FullName, type.Name, assembly, namespc, visibility, type.IsNested, type.IsGenericType,
+                true);
         }
 
         private static Visibility GetVisibility(this System.Type type)
@@ -75,7 +76,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
         public static Type CreateShallowStubType(this Class clazz)
         {
             return new Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace, clazz.Visibility,
-                clazz.IsNested);
+                clazz.IsNested, clazz.IsGeneric, clazz.IsStub);
         }
 
         private static Assembly CreateStubAssembly(this System.Reflection.Assembly assembly)
