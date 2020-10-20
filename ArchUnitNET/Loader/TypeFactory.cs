@@ -101,6 +101,15 @@ namespace ArchUnitNET.Loader
             return createdType;
         }
 
+        public static string GetTypeNameForTypeReference(TypeReference typeReference)
+        {
+            var typeName = typeReference.IsGenericInstance
+                ? typeReference.GetElementType().FullName
+                : typeReference.FullName;
+            typeName = typeName.Replace("/", "+");
+            return typeName;
+        }
+
         private static bool IsAttribute([CanBeNull] TypeDefinition typeDefinition)
         {
             if (typeDefinition?.BaseType != null)
@@ -129,10 +138,10 @@ namespace ArchUnitNET.Loader
                 typeDefinition = null;
             }
 
+            var typeName = GetTypeNameForTypeReference(typeReference);
             var visibility = GetVisibilityFromTypeDefinition(typeDefinition);
             var isNested = typeReference.IsNested;
-            var type = new Type(typeReference.FullName.Replace("/", "+"), typeReference.Name, currentAssembly,
-                currentNamespace, visibility, isNested);
+            var type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested);
             AssignGenericProperties(typeReference, type, typeDefinition);
             return type;
         }
@@ -180,15 +189,6 @@ namespace ArchUnitNET.Loader
         private void AssignGenericProperties(IGenericParameterProvider typeReference, Type type,
             [CanBeNull] TypeDefinition typeDefinition)
         {
-            if (typeReference is GenericInstanceType genericInstanceType)
-            {
-                var elementTypeReference = genericInstanceType.ElementType;
-                type.GenericType =
-                    GetOrCreateStubTypeFromTypeReference(elementTypeReference);
-                type.GenericTypeArguments = genericInstanceType.GenericArguments?
-                    .AsEnumerable().Select(GetOrCreateStubTypeFromTypeReference).ToList();
-            }
-
             if (typeReference.HasGenericParameters)
             {
                 type.GenericTypeParameters = typeDefinition?.GenericParameters?
@@ -222,9 +222,8 @@ namespace ArchUnitNET.Loader
                 new AddFieldAndPropertyDependencies(createdType));
             _loadTaskRegistry.Add(typeof(AddMethodDependencies),
                 new AddMethodDependencies(createdType, typeDefinition, this));
-            _loadTaskRegistry.Add(typeof(AddClassDependencies), new AddClassDependencies(createdType,
-                typeDefinition, this,
-                type.Dependencies));
+            _loadTaskRegistry.Add(typeof(AddClassDependencies),
+                new AddClassDependencies(createdType, typeDefinition, this, type.Dependencies));
             _loadTaskRegistry.Add(typeof(AddBackwardsDependencies), new AddBackwardsDependencies(createdType));
         }
     }
