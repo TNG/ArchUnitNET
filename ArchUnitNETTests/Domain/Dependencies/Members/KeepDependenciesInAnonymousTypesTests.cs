@@ -9,7 +9,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
-using ArchUnitNETTests.Dependencies.Members;
+using ArchUnitNETTests.Dependencies;
 using Xunit;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Members
