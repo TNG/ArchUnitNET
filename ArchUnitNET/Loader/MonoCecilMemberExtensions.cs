@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
+using ArchUnitNET.Domain.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -52,8 +54,7 @@ namespace ArchUnitNET.Loader
 
         [NotNull]
         internal static MethodMember CreateStubMethodMemberFromMethodReference(this TypeFactory typeFactory,
-            [NotNull] IType type,
-            [NotNull] MethodReference methodReference)
+            [NotNull] IType type, [NotNull] MethodReference methodReference)
         {
             var typeReference = methodReference.ReturnType;
             var returnType = typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
@@ -65,6 +66,16 @@ namespace ArchUnitNET.Loader
 
             return new MethodMember(methodReference.BuildMethodMemberName(), methodReference.FullName, type,
                 Public, parameters, returnType, false, methodForm, genericParameters);
+        }
+
+        [NotNull]
+        internal static FieldMember CreateStubFieldMemberFromFieldReference(this TypeFactory typeFactory,
+            [NotNull] IType type, [NotNull] FieldReference fieldReference)
+        {
+            var typeReference = fieldReference.FieldType;
+            var fieldType = typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
+
+            return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType);
         }
 
         [NotNull]
@@ -163,6 +174,40 @@ namespace ArchUnitNET.Loader
             return instructions.Where(inst =>
                     codes.Contains(inst.OpCode) && inst.Operand is TypeReference)
                 .Select(inst => typeFactory.GetOrCreateStubTypeFromTypeReference((TypeReference) inst.Operand));
+        }
+
+        [NotNull]
+        internal static IEnumerable<FieldMember> GetAccessedFieldMembers(this MethodDefinition methodDefinition,
+            TypeFactory typeFactory)
+        {
+            var accessedFieldMembers = new List<FieldMember>();
+            var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
+            var accessedFieldReferences =
+                instructions.Select(inst => inst.Operand).OfType<FieldReference>().Distinct();
+
+            foreach (var fieldReference in accessedFieldReferences)
+            {
+                var declaringType = typeFactory.GetOrCreateStubTypeFromTypeReference(fieldReference.DeclaringType);
+                var matchingFieldMembers = declaringType.GetFieldMembers()
+                    .Where(member => member.Name == fieldReference.Name).ToList();
+
+                switch (matchingFieldMembers.Count)
+                {
+                    case 0:
+                        var stubFieldMember =
+                            typeFactory.CreateStubFieldMemberFromFieldReference(declaringType, fieldReference);
+                        accessedFieldMembers.Add(stubFieldMember);
+                        break;
+                    case 1:
+                        accessedFieldMembers.Add(matchingFieldMembers.First());
+                        break;
+                    default:
+                        throw new MultipleOccurrencesInSequenceException(
+                            $"Multiple Fields matching {fieldReference.FullName} found in provided type.");
+                }
+            }
+
+            return accessedFieldMembers.Distinct();
         }
 
         public static MethodForm GetMethodForm(this MethodDefinition methodDefinition)

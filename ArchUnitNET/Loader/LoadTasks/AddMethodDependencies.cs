@@ -114,12 +114,16 @@ namespace ArchUnitNET.Loader.LoadTasks
                 yield break;
             }
 
+            var visitedMethodReferences = new List<MethodReference> {methodDefinition};
+
             var bodyTypes = methodDefinition.GetBodyTypes(_typeFactory).ToList();
 
             var referencedTypes = methodDefinition.GetReferencedTypes(_typeFactory).ToList();
 
-            var calledMethodMembers = CreateMethodBodyDependenciesRecursive(methodBody, new List<MethodReference>(),
-                bodyTypes, referencedTypes);
+            var accessedFieldMembers = methodDefinition.GetAccessedFieldMembers(_typeFactory).ToList();
+
+            var calledMethodMembers = CreateMethodBodyDependenciesRecursive(methodBody, visitedMethodReferences,
+                bodyTypes, referencedTypes, accessedFieldMembers);
 
             foreach (var calledMethodMember in calledMethodMembers.Distinct())
             {
@@ -135,12 +139,17 @@ namespace ArchUnitNET.Loader.LoadTasks
             {
                 yield return new MemberTypeDependency(methodMember, referencedType);
             }
+
+            foreach (var fieldMember in accessedFieldMembers.Distinct())
+            {
+                yield return new AccessFieldDependency(methodMember, fieldMember);
+            }
         }
 
 
         private IEnumerable<MethodMember> CreateMethodBodyDependenciesRecursive(MethodBody methodBody,
             ICollection<MethodReference> visitedMethodReferences, List<IType> bodyTypes,
-            List<IType> referencedTypes)
+            List<IType> referencedTypes, List<FieldMember> accessedFieldMembers)
         {
             var calledMethodReferences = methodBody.Instructions.Select(instruction => instruction.Operand)
                 .OfType<MethodReference>();
@@ -167,8 +176,10 @@ namespace ArchUnitNET.Loader.LoadTasks
 
                     referencedTypes.AddRange(calledMethodDefinition.GetReferencedTypes(_typeFactory));
 
+                    accessedFieldMembers.AddRange(calledMethodDefinition.GetAccessedFieldMembers(_typeFactory));
+
                     foreach (var dep in CreateMethodBodyDependenciesRecursive(calledMethodDefinition.Body,
-                        visitedMethodReferences, bodyTypes, referencedTypes))
+                        visitedMethodReferences, bodyTypes, referencedTypes, accessedFieldMembers))
                     {
                         yield return dep;
                     }

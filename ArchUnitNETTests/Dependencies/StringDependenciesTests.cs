@@ -16,7 +16,7 @@ namespace ArchUnitNETTests.Dependencies
     public class StringDependenciesTests
     {
         private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(KeepDependenciesInCompilerGeneratedTypesTests).Assembly).Build();
+            new ArchLoader().LoadAssembly(typeof(StringDependenciesTests).Assembly).Build();
 
         private readonly Class _classWithLocalString;
         private readonly Class _classWithPropertyString;
