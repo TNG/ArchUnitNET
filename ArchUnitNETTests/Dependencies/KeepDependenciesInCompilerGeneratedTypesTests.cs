@@ -13,7 +13,7 @@ using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
 using Xunit;
 
-namespace ArchUnitNETTests.Dependencies.Members
+namespace ArchUnitNETTests.Dependencies
 {
     public class KeepDependenciesInCompilerGeneratedTypesTests
     {
