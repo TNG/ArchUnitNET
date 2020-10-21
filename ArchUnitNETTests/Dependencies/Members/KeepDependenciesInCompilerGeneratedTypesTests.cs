@@ -7,6 +7,7 @@
 
 using System;
 using System.Linq;
+using System.Reflection.Metadata;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
@@ -75,6 +76,17 @@ namespace ArchUnitNETTests.Dependencies.Members
             Assert.Contains(_classWithProperty, typeDependencies);
             Assert.Contains(_classWithProperty, methodTypeDependencies);
         }
+        
+        [Fact(Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand")]
+        public void LambdaPrimitiveDependenciesNotLost()
+        {
+            var typeDependencies = _classWithLambda.GetTypeDependencies().ToList();
+            var method = _classWithLambda.GetMethodMembers().First();
+            var methodTypeDependencies = method.GetTypeDependencies().ToList();
+            
+            Assert.Contains(typeDependencies,dep=>dep.FullNameContains("System.String"));
+            Assert.Contains(methodTypeDependencies, dep=>dep.FullNameContains("System.String"));
+        }
 
         [Fact]
         public void IndexingDependenciesNotLost()
@@ -117,6 +129,7 @@ namespace ArchUnitNETTests.Dependencies.Members
             _lambda = argumentClass =>
             {
                 Func<object, object> secondLambda = obj => new ClassWithIndexingDependency();
+                Func<object, object> thirdLambda = obj => "testString";
                 ClassWithPropertyDependency var = null;
                 return new ReturnedClass(new ArgumentClass());
             };
