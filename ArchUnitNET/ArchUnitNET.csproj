@@ -19,7 +19,7 @@
     <ItemGroup>
         <PackageReference Include="CycleDetection" Version="2.0.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
-        <PackageReference Include="Mono.Cecil" Version="0.11.0" />
+        <PackageReference Include="Mono.Cecil" Version="0.11.3" />
     </ItemGroup>
     
     <ItemGroup>
