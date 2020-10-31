@@ -4,12 +4,9 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using Equ;
-
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class MethodSignatureDependency : MemberwiseEquatable<MethodSignatureDependency>,
-        IMemberTypeDependency
+    public class MethodSignatureDependency : IMemberTypeDependency
     {
         public MethodSignatureDependency(MethodMember method, IType target)
         {
@@ -22,7 +19,7 @@ namespace ArchUnitNET.Domain.Dependencies
         public IType Origin => OriginMember.DeclaringType;
         public IType Target { get; }
 
-        public new bool Equals(MethodSignatureDependency other)
+        public bool Equals(MethodSignatureDependency other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -34,7 +31,7 @@ namespace ArchUnitNET.Domain.Dependencies
                 return true;
             }
 
-            return base.Equals(other) && Equals(OriginMember, other.OriginMember) && Equals(Target, other.Target);
+            return Equals(OriginMember, other.OriginMember) && Equals(Target, other.Target);
         }
 
         public override bool Equals(object obj)
@@ -61,8 +58,7 @@ namespace ArchUnitNET.Domain.Dependencies
         {
             unchecked
             {
-                var hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (OriginMember != null ? OriginMember.GetHashCode() : 0);
+                var hashCode = OriginMember != null ? OriginMember.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Target != null ? Target.GetHashCode() : 0);
                 return hashCode;
             }
