@@ -36,7 +36,8 @@ namespace ArchUnitNETTests.Domain
                 .GetFieldMembersWithName(nameof(InvokesGenericClass.GuidGenericArgument)).SingleOrDefault();
             var guidMock = new Type(SystemGuidFullName, GuidClassName,
                 _classWithGenericParameters.Assembly,
-                new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false, false, true);
+                new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false, false,
+                Enumerable.Empty<GenericParameter>(), true);
             _expectedGenericArgument = new Class(guidMock, false, true, true, false);
         }
 
@@ -71,8 +72,8 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void GenericTypeParametersFound()
         {
-            Assert.NotEmpty(_classWithGenericParameters.GenericTypeParameters);
-            Assert.Single(_classWithGenericParameters.GenericTypeParameters);
+            Assert.NotEmpty(_classWithGenericParameters.GenericParameters);
+            Assert.Single(_classWithGenericParameters.GenericParameters);
         }
     }
 

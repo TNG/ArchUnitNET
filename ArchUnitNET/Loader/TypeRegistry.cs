@@ -19,7 +19,7 @@ namespace ArchUnitNET.Loader
         public IType GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference,
             [NotNull] Func<string, IType> createFunc)
         {
-            return RegistryUtils.GetFromDictOrCreateAndAdd(TypeFactory.GetTypeNameForTypeReference(typeReference),
+            return RegistryUtils.GetFromDictOrCreateAndAdd(TypeFactory.GetTypeFullNameForTypeReference(typeReference),
                 _allTypes, createFunc);
         }
 

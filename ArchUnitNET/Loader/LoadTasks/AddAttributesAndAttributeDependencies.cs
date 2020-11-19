@@ -35,7 +35,22 @@ namespace ArchUnitNET.Loader.LoadTasks
             var typeAttributeDependencies =
                 typeAttributes.Select(attribute => new AttributeTypeDependency(_type, attribute));
             _type.Dependencies.AddRange(typeAttributeDependencies);
+            SetUpAttributesForTypeGenericParameters();
             CollectAttributesForMembers();
+        }
+
+        private void SetUpAttributesForTypeGenericParameters()
+        {
+            foreach (var genericParameter in _typeDefinition.GenericParameters)
+            {
+                var param = _type.GenericParameters.First(parameter => parameter.Name == genericParameter.Name);
+                var attributes = CreateAttributesFromCustomAttributes(genericParameter.CustomAttributes).ToList();
+                _type.Attributes.AddRange(attributes);
+                param.Attributes.AddRange(attributes);
+                var genericParameterAttributeDependencies = attributes.Select(attribute =>
+                    new AttributeTypeGenericParameterDependency(_type, param, attribute));
+                _type.Dependencies.AddRange(genericParameterAttributeDependencies);
+            }
         }
 
         private void CollectAttributesForMembers()
@@ -68,8 +83,26 @@ namespace ArchUnitNET.Loader.LoadTasks
             var methodMember = _type.GetMethodMembers().WhereFullNameIs(methodDefinition.GetFullName())
                 .RequiredNotNull();
             var memberCustomAttributes = methodDefinition.GetAllMethodCustomAttributes().ToList();
+            SetUpAttributesForMethodGenericParameters(methodDefinition, methodMember);
             CollectMemberAttributesAndDependencies(methodMember, memberCustomAttributes,
                 methodMember.MemberDependencies);
+        }
+
+        private void SetUpAttributesForMethodGenericParameters(MethodDefinition methodDefinition,
+            MethodMember methodMember)
+        {
+            foreach (var genericParameter in methodDefinition.GenericParameters)
+            {
+                var param = methodMember.GenericParameters.First(parameter => parameter.Name == genericParameter.Name);
+                var customAttributes = genericParameter.CustomAttributes;
+                customAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
+                var attributes = CreateAttributesFromCustomAttributes(customAttributes).ToList();
+                methodMember.Attributes.AddRange(attributes);
+                param.Attributes.AddRange(attributes);
+                var genericParameterAttributeDependencies = attributes.Select(attribute =>
+                    new AttributeMemberGenericParameterDependency(methodMember, param, attribute));
+                methodMember.MemberDependencies.AddRange(genericParameterAttributeDependencies);
+            }
         }
 
         private void CollectMemberAttributesAndDependencies(IMember methodMember,

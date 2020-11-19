@@ -27,6 +27,10 @@ namespace ArchUnitNET.Domain
         public IType DeclaringType { get; }
         public string Name { get; }
         public string FullName { get; }
+
+        public bool IsGeneric => false;
+        public bool IsGenericInstance => false;
+        public IEnumerable<GenericParameter> GenericParameters => Enumerable.Empty<GenericParameter>();
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
@@ -34,6 +38,16 @@ namespace ArchUnitNET.Domain
 
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
+
+        public IMember GetElementMember()
+        {
+            return this;
+        }
+
+        public IEnumerable<IType> GetGenericArguments()
+        {
+            return Enumerable.Empty<IType>();
+        }
 
         public override string ToString()
         {

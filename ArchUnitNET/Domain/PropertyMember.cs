@@ -37,6 +37,10 @@ namespace ArchUnitNET.Domain
 
         public IMemberTypeDependency PropertyTypeDependency { get; }
 
+        public bool IsGeneric => false;
+        public bool IsGenericInstance => false;
+        public IEnumerable<GenericParameter> GenericParameters => Enumerable.Empty<GenericParameter>();
+
         public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;
         public string Name { get; }
         public string FullName { get; }
@@ -60,6 +64,16 @@ namespace ArchUnitNET.Domain
 
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
+
+        public IMember GetElementMember()
+        {
+            return this;
+        }
+
+        public IEnumerable<IType> GetGenericArguments()
+        {
+            return Enumerable.Empty<IType>();
+        }
 
         public override string ToString()
         {

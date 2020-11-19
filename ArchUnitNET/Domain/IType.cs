@@ -13,14 +13,13 @@ namespace ArchUnitNET.Domain
         Namespace Namespace { get; }
         Assembly Assembly { get; }
         MemberList Members { get; }
-        List<IType> GenericTypeParameters { get; }
         IEnumerable<IType> ImplementedInterfaces { get; }
         bool IsNested { get; }
-        bool IsGeneric { get; }
         bool IsStub { get; }
         bool ImplementsInterface(Interface intf);
         bool ImplementsInterface(string pattern, bool useRegularExpressions = false);
         bool IsAssignableTo(IType assignableToType);
         bool IsAssignableTo(string pattern, bool useRegularExpressions = false);
+        IType GetElementType();
     }
 }

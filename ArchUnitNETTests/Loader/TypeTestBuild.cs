@@ -25,7 +25,7 @@ namespace ArchUnitNETTests.Loader
             clazz.RequiredNotNull();
 
             var type = new ArchUnitType(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace,
-                clazz.Visibility, clazz.IsNested, clazz.IsGeneric, clazz.IsStub);
+                clazz.Visibility, clazz.IsNested, clazz.IsGeneric, clazz.GenericParameters, clazz.IsStub);
 
             return new object[] {type};
         }
@@ -35,9 +35,10 @@ namespace ArchUnitNETTests.Loader
             var clazz = Architecture.GetITypeOfType(originType);
             clazz.RequiredNotNull();
             var type = new ArchUnitType(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace,
-                clazz.Visibility, clazz.IsNested, clazz.IsGeneric, clazz.IsStub);
+                clazz.Visibility, clazz.IsNested, clazz.IsGeneric, clazz.GenericParameters, clazz.IsStub);
             object duplicateType = new ArchUnitType(clazz.FullName, clazz.Name, clazz.Assembly,
-                clazz.Namespace, clazz.Visibility, clazz.IsNested, clazz.IsGeneric, clazz.IsStub);
+                clazz.Namespace, clazz.Visibility, clazz.IsNested, clazz.IsGeneric, clazz.GenericParameters,
+                clazz.IsStub);
             var typeCopy = type;
             object referenceCopy = type;
 

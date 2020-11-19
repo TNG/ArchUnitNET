@@ -13,6 +13,7 @@ using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
 using Attribute = ArchUnitNET.Domain.Attribute;
+using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
 {
@@ -55,7 +56,10 @@ namespace ArchUnitNET.Loader
         [NotNull]
         private IType CreateTypeFromTypeReference(TypeReference typeReference, bool isStub)
         {
-            var type = SetupCreatedType(typeReference, isStub);
+            if (typeReference.IsGenericParameter)
+            {
+                //TODO let GenericParameter implement IType so that it can be returned here
+            }
 
             TypeDefinition typeDefinition;
             try
@@ -67,6 +71,26 @@ namespace ArchUnitNET.Loader
                 typeDefinition = null;
             }
 
+            if (typeReference.IsGenericInstance)
+            {
+                var genericType = SetupCreatedGenericType((GenericInstanceType) typeReference);
+                if (typeDefinition == null)
+                {
+                    return new GenericClassInstance(genericType);
+                }
+
+                if (typeDefinition.IsInterface)
+                {
+                    return new GenericInterfaceInstance(genericType);
+                }
+
+                return IsAttribute(typeDefinition)
+                    ? new GenericAttributeInstance(genericType, typeDefinition.IsAbstract, typeDefinition.IsSealed)
+                    : new GenericClassInstance(genericType, typeDefinition.IsAbstract, typeDefinition.IsSealed,
+                        typeDefinition.IsValueType, typeDefinition.IsEnum);
+            }
+
+            var type = SetupCreatedType(typeReference, isStub);
             if (typeDefinition == null)
             {
                 return new Class(type);
@@ -101,13 +125,48 @@ namespace ArchUnitNET.Loader
             return createdType;
         }
 
-        public static string GetTypeNameForTypeReference(TypeReference typeReference)
+        public IEnumerable<GenericParameter> GetGenericParameters(IGenericParameterProvider genericParameterProvider)
         {
-            var typeName = typeReference.IsGenericInstance
-                ? typeReference.GetElementType().FullName
-                : typeReference.FullName;
-            typeName = typeName.Replace("/", "+");
-            return typeName;
+            if (genericParameterProvider == null)
+            {
+                return Enumerable.Empty<GenericParameter>();
+            }
+
+            return
+                from genericParameter in genericParameterProvider.GenericParameters
+                let name = genericParameter.Name
+                let variance = GetVarianceFromGenericParameter(genericParameter)
+                let typeConstraints = genericParameter.Constraints.Select(con =>
+                    GetOrCreateStubTypeFromTypeReference(con.ConstraintType))
+                select new GenericParameter(name, variance, typeConstraints,
+                    genericParameter.HasReferenceTypeConstraint, genericParameter.HasNotNullableValueTypeConstraint,
+                    genericParameter.HasDefaultConstructorConstraint);
+        }
+
+        private static GenericParameterVariance GetVarianceFromGenericParameter(
+            Mono.Cecil.GenericParameter genericParameter)
+        {
+            if (genericParameter.IsCovariant)
+            {
+                return GenericParameterVariance.Covariant;
+            }
+
+            if (genericParameter.IsContravariant)
+            {
+                return GenericParameterVariance.Contravariant;
+            }
+
+            return GenericParameterVariance.NonVariant;
+        }
+
+        public IEnumerable<IType> GetGenericArguments(IGenericInstance genericInstance)
+        {
+            return genericInstance.GenericArguments.Select(GetOrCreateStubTypeFromTypeReference);
+        }
+
+        public static string GetTypeFullNameForTypeReference(TypeReference typeReference)
+        {
+            return typeReference.FullName.Replace("/", "+");
         }
 
         private static bool IsAttribute([CanBeNull] TypeDefinition typeDefinition)
@@ -119,6 +178,16 @@ namespace ArchUnitNET.Loader
             }
 
             return false;
+        }
+
+        [NotNull]
+        private GenericTypeInstance SetupCreatedGenericType(GenericInstanceType typeReference)
+        {
+            var fullName = GetTypeFullNameForTypeReference(typeReference);
+            var name = typeReference.Name;
+            var elementType = GetOrCreateStubTypeFromTypeReference(typeReference.GetElementType());
+            var genericArguments = GetGenericArguments(typeReference);
+            return new GenericTypeInstance(fullName, name, elementType, genericArguments);
         }
 
         [NotNull]
@@ -138,20 +207,14 @@ namespace ArchUnitNET.Loader
                 typeDefinition = null;
             }
 
-            var typeName = GetTypeNameForTypeReference(typeReference);
+            var typeName = GetTypeFullNameForTypeReference(typeReference);
             var visibility = GetVisibilityFromTypeDefinition(typeDefinition);
             var isNested = typeReference.IsNested;
-            var isGeneric = typeReference.IsGenericInstance || typeReference.HasGenericParameters;
-            var type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested,
-                isGeneric, isStub);
+            var isGeneric = typeReference.HasGenericParameters;
+            var genericParameters = GetGenericParameters(typeDefinition);
 
-            if (typeReference.HasGenericParameters)
-            {
-                type.GenericTypeParameters = typeDefinition?.GenericParameters?
-                    .Select(GetOrCreateStubTypeFromTypeReference).ToList();
-            }
-
-            return type;
+            return new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested,
+                isGeneric, genericParameters, isStub);
         }
 
         private static Visibility GetVisibilityFromTypeDefinition([CanBeNull] TypeDefinition typeDefinition)
