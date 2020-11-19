@@ -23,7 +23,10 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var assembly = type.Assembly.CreateStubAssembly();
             var namespc = type.Namespace.CreateStubNamespace();
             var visibility = type.GetVisibility();
+            var genericParameters =
+                Enumerable.Empty<GenericParameter>(); //TODO find generic parameters (not always empty)
             return new Type(type.FullName, type.Name, assembly, namespc, visibility, type.IsNested, type.IsGenericType,
+                genericParameters,
                 true);
         }
 
@@ -76,7 +79,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
         public static Type CreateShallowStubType(this Class clazz)
         {
             return new Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace, clazz.Visibility,
-                clazz.IsNested, clazz.IsGeneric, clazz.IsStub);
+                clazz.IsNested, clazz.IsGeneric, clazz.GenericParameters, clazz.IsStub);
         }
 
         private static Assembly CreateStubAssembly(this System.Reflection.Assembly assembly)
@@ -118,6 +121,8 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var parameters = methodBase.CreateStubParameters();
             var methodForm = methodBase.GetStubMethodForm();
 
+            var isGeneric = methodBase.IsGenericMethod;
+
             Class returnType = null;
             string fullName = null;
 
@@ -134,7 +139,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
             }
 
             return new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility, parameters,
-                returnType, methodBase.IsVirtual, methodForm, new List<GenericParameter>());
+                returnType, methodBase.IsVirtual, methodForm, isGeneric, Enumerable.Empty<GenericParameter>());
         }
 
         private static string BuildMockMethodName(this MethodBase methodBase)

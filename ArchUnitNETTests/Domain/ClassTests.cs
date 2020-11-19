@@ -38,7 +38,8 @@ namespace ArchUnitNETTests.Domain
             var backingType = Architecture.GetITypeOfType(typeof(PropertyType));
             _misMatchType =
                 new Type(backingType.FullName, backingType.Name, backingType.Assembly, backingType.Namespace,
-                    backingType.Visibility, backingType.IsNested, backingType.IsGeneric, backingType.IsStub);
+                    backingType.Visibility, backingType.IsNested, backingType.IsGeneric, backingType.GenericParameters,
+                    backingType.IsStub);
 
             _implementsInterface = Architecture.GetClassOfType(typeof(InheritingType));
             _implementedInterface = Architecture.GetInterfaceOfType(typeof(IInheritingInterface));

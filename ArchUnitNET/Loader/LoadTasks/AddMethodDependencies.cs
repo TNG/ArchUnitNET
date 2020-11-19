@@ -14,7 +14,6 @@ using ArchUnitNET.Domain.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
-using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
@@ -237,21 +236,14 @@ namespace ArchUnitNET.Loader.LoadTasks
         {
             var referenceFullName = methodReference.GetElementMethod().GetFullName();
             var memberFullName = methodMember.FullName;
-            var count = methodReference.GetElementMethod().GenericParameters.Count;
-            if (methodMember.GenericParameters.Count != count)
+            var methodReferenceGenericParameters = _typeFactory.GetGenericParameters(methodReference).ToList();
+            if (methodMember.GenericParameters.Count() != methodReferenceGenericParameters.Count)
             {
                 return false;
             }
 
-            var parameters = new List<GenericParameter[]>();
-            for (var i = 0; i < count; i++)
-            {
-                parameters.Add(new[]
-                {
-                    new GenericParameter(methodReference.GetElementMethod().GenericParameters[i].Name),
-                    methodMember.GenericParameters[i]
-                });
-            }
+            var parameters = methodReferenceGenericParameters
+                .Select((t, i) => new[] {t, methodMember.GenericParameters.ElementAt(i)}).ToList();
 
             parameters = parameters.OrderByDescending(genericParameters => genericParameters[0].Name.Length).ToList();
 

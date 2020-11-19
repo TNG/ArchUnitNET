@@ -15,7 +15,6 @@ using JetBrains.Annotations;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using static ArchUnitNET.Domain.Visibility;
-using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
 {
@@ -56,16 +55,27 @@ namespace ArchUnitNET.Loader
         internal static MethodMember CreateStubMethodMemberFromMethodReference(this TypeFactory typeFactory,
             [NotNull] IType type, [NotNull] MethodReference methodReference)
         {
+            var name = methodReference.BuildMethodMemberName();
             var typeReference = methodReference.ReturnType;
             var returnType = typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
             var parameters = methodReference.GetParameters(typeFactory).ToList();
-            var genericParameters = methodReference.GenericParameters
-                .Select(parameter => new GenericParameter(parameter.Name)).ToList();
+            var isGenericInstance = methodReference.IsGenericInstance;
+            var isGeneric = isGenericInstance || methodReference.HasGenericParameters;
+            var genericParameters = typeFactory.GetGenericParameters(methodReference);
 
             var methodForm = methodReference.HasConstructorName() ? MethodForm.Constructor : MethodForm.Normal;
 
-            return new MethodMember(methodReference.BuildMethodMemberName(), methodReference.FullName, type,
-                Public, parameters, returnType, false, methodForm, genericParameters);
+            if (isGenericInstance)
+            {
+                var elementMethod =
+                    typeFactory.CreateStubMethodMemberFromMethodReference(type, methodReference.GetElementMethod());
+                var genericArguments = typeFactory.GetGenericArguments((IGenericInstance) methodReference);
+                return new GenericMethodMemberInstance(name, methodReference.FullName, parameters, returnType,
+                    genericParameters, elementMethod, genericArguments);
+            }
+
+            return new MethodMember(name, methodReference.FullName, type, Public, parameters, returnType, false,
+                methodForm, isGeneric, genericParameters);
         }
 
         [NotNull]
@@ -149,7 +159,7 @@ namespace ArchUnitNET.Loader
 
             if (instructions.Any(inst => inst.OpCode == OpCodes.Ldstr))
             {
-                //TODO find typeReference to string and add to body types
+                //TODO find typeReference to string and add to body types (could be done like CreateStubType() in BuildMocksExtensions)
                 //bodyTypes.Add(typeFactory.GetOrCreateStubTypeFromTypeReference();
             }
 

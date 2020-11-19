@@ -13,8 +13,8 @@ namespace ArchUnitNET.Domain
     public class MethodMember : IMember
     {
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
-            List<IType> parameters, IType returnType, bool isVirtual, MethodForm methodForm,
-            List<GenericParameter> genericParameters)
+            List<IType> parameters, IType returnType, bool isVirtual, MethodForm methodForm, bool isGeneric,
+            IEnumerable<GenericParameter> genericParameters)
         {
             Name = name;
             FullName = fullName;
@@ -24,6 +24,8 @@ namespace ArchUnitNET.Domain
             ReturnType = returnType;
             IsVirtual = isVirtual;
             MethodForm = methodForm;
+            IsGeneric = isGeneric;
+            IsGenericInstance = false;
             GenericParameters = genericParameters;
         }
 
@@ -31,7 +33,9 @@ namespace ArchUnitNET.Domain
         public MethodForm MethodForm { get; }
         public List<IType> Parameters { get; }
         public IType ReturnType { get; }
-        public List<GenericParameter> GenericParameters { get; }
+        public bool IsGeneric { get; }
+        public bool IsGenericInstance { get; protected set; }
+        public IEnumerable<GenericParameter> GenericParameters { get; }
         public Visibility Visibility { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
@@ -44,6 +48,16 @@ namespace ArchUnitNET.Domain
         public string Name { get; }
         public string FullName { get; }
         public IType DeclaringType { get; }
+
+        public virtual IMember GetElementMember()
+        {
+            return this;
+        }
+
+        public virtual IEnumerable<IType> GetGenericArguments()
+        {
+            return Enumerable.Empty<IType>();
+        }
 
         public override string ToString()
         {
@@ -70,7 +84,8 @@ namespace ArchUnitNET.Domain
             return IsVirtual == other.IsVirtual && MethodForm == other.MethodForm && Visibility == other.Visibility
                    && Equals(Parameters, other.Parameters) && Equals(ReturnType, other.ReturnType)
                    && string.Equals(Name, other.Name) && string.Equals(FullName, other.FullName)
-                   && Equals(DeclaringType, other.DeclaringType);
+                   && Equals(DeclaringType, other.DeclaringType) && Equals(IsGeneric, other.IsGeneric) &&
+                   Equals(IsGenericInstance, other.IsGenericInstance);
         }
 
         public override int GetHashCode()
@@ -85,6 +100,8 @@ namespace ArchUnitNET.Domain
                 hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (FullName != null ? FullName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (DeclaringType != null ? DeclaringType.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ IsGenericInstance.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsGeneric.GetHashCode();
                 return hashCode;
             }
         }
