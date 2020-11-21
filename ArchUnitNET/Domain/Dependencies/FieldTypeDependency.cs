@@ -4,6 +4,8 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Collections.Generic;
+
 namespace ArchUnitNET.Domain.Dependencies
 {
     public class FieldTypeDependency : IMemberTypeDependency
@@ -16,6 +18,7 @@ namespace ArchUnitNET.Domain.Dependencies
         }
 
         public IType Target => _originMember.Type;
+        public IEnumerable<GenericArgument> TargetGenericArguments => _originMember.GenericArguments;
         public IMember OriginMember => _originMember;
 
         public IType Origin => OriginMember.DeclaringType;

@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
+using ArchUnitNET.Loader;
 using JetBrains.Annotations;
 using static ArchUnitNET.Domain.Visibility;
 
@@ -14,16 +15,19 @@ namespace ArchUnitNET.Domain
 {
     public class PropertyMember : IMember
     {
-        public PropertyMember(IType declaringType, string name, string fullName, IType type)
+        private readonly TypeInstance<IType> _typeInstance;
+
+        public PropertyMember(IType declaringType, string name, string fullName, TypeInstance<IType> type)
         {
             Name = name;
             FullName = fullName;
-            Type = type;
+            _typeInstance = type;
             DeclaringType = declaringType;
             PropertyTypeDependency = new PropertyTypeDependency(this);
         }
 
-        public IType Type { get; }
+        public IType Type => _typeInstance.Type;
+        public IEnumerable<GenericArgument> TypeGenericArguments => _typeInstance.GenericArguments;
         public bool IsVirtual { get; internal set; }
         public bool IsAutoProperty { get; internal set; } = true;
         public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
@@ -38,8 +42,7 @@ namespace ArchUnitNET.Domain
         public IMemberTypeDependency PropertyTypeDependency { get; }
 
         public bool IsGeneric => false;
-        public bool IsGenericInstance => false;
-        public IEnumerable<GenericParameter> GenericParameters => Enumerable.Empty<GenericParameter>();
+        public List<GenericParameter> GenericParameters => new List<GenericParameter>();
 
         public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;
         public string Name { get; }
@@ -64,16 +67,6 @@ namespace ArchUnitNET.Domain
 
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
-
-        public IMember GetElementMember()
-        {
-            return this;
-        }
-
-        public IEnumerable<IType> GetGenericArguments()
-        {
-            return Enumerable.Empty<IType>();
-        }
 
         public override string ToString()
         {

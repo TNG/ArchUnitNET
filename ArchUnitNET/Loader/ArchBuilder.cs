@@ -79,10 +79,12 @@ namespace ArchUnitNET.Loader
             _loadTaskRegistry.ExecuteTasks(new List<System.Type>
             {
                 typeof(AddMembers),
+                typeof(AddGenericParameterDependencies),
                 typeof(AddAttributesAndAttributeDependencies),
                 typeof(AddFieldAndPropertyDependencies),
                 typeof(AddMethodDependencies),
                 typeof(AddClassDependencies),
+                typeof(AddGenericArgumentDependencies),
                 typeof(AddBackwardsDependencies),
                 typeof(AddTypesToNamespace)
             });

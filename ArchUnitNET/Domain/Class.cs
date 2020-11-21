@@ -65,7 +65,7 @@ namespace ArchUnitNET.Domain
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;
         public bool IsGeneric => Type.IsGeneric;
-        public bool IsGenericInstance => Type.IsGenericInstance;
+        public bool IsGenericParameter => Type.IsGenericParameter;
         public bool IsStub => Type.IsStub;
         public string Name => Type.Name;
         public string FullName => Type.FullName;
@@ -81,8 +81,7 @@ namespace ArchUnitNET.Domain
         public IEnumerable<IType> ImplementedInterfaces => Type.ImplementedInterfaces;
         public MemberList Members => Type.Members;
 
-
-        public IEnumerable<GenericParameter> GenericParameters => Type.GenericParameters;
+        public List<GenericParameter> GenericParameters => Type.GenericParameters;
 
         public bool ImplementsInterface(Interface intf)
         {
@@ -103,16 +102,6 @@ namespace ArchUnitNET.Domain
         {
             return pattern != null && this.GetAssignableTypes()
                 .Any(type => type.FullNameMatches(pattern, useRegularExpressions));
-        }
-
-        public IType GetElementType()
-        {
-            return Type.GetElementType();
-        }
-
-        public IEnumerable<IType> GetGenericArguments()
-        {
-            return Type.GetGenericArguments();
         }
 
         public override string ToString()

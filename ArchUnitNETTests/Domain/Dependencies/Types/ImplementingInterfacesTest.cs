@@ -4,6 +4,7 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
@@ -14,6 +15,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Types
 {
     public class ImplementingInterfacesTest
     {
+        private readonly Interface _implementingInterface;
+        private readonly Interface _inheritedTestInterface;
+        private readonly Class _inheritingType;
+
         public ImplementingInterfacesTest()
         {
             _implementingInterface = InheritingInterface;
@@ -21,14 +26,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Types
             _inheritingType = StaticTestTypes.InheritingType;
         }
 
-        private readonly Interface _implementingInterface;
-        private readonly Interface _inheritedTestInterface;
-        private readonly Class _inheritingType;
-
         [Fact]
         public void InheritingTypeImplementsInheritedInterface()
         {
-            var expectedDependency = new ImplementsInterfaceDependency(_inheritingType, _implementingInterface);
+            var expectedDependency = new ImplementsInterfaceDependency(_inheritingType, _implementingInterface,
+                Enumerable.Empty<GenericArgument>());
 
             Assert.True(_inheritingType.HasDependency(expectedDependency));
             Assert.True(_inheritingType.ImplementsInterface(_implementingInterface));

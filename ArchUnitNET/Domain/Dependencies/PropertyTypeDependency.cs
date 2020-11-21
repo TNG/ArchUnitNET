@@ -4,6 +4,8 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Collections.Generic;
+
 namespace ArchUnitNET.Domain.Dependencies
 {
     public class PropertyTypeDependency : IMemberTypeDependency
@@ -19,6 +21,7 @@ namespace ArchUnitNET.Domain.Dependencies
         public IMember OriginMember => _originMember;
 
         public IType Origin => _originMember.DeclaringType;
+        public IEnumerable<GenericArgument> TargetGenericArguments => _originMember.TypeGenericArguments;
 
         public bool Equals(PropertyTypeDependency other)
         {

@@ -30,9 +30,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 return new object[] {null, null, null, null};
             }
 
-            var memberTypeDependency = new BodyTypeMemberDependency(originMember, classMemberInfo.TargetClass);
+            var memberTypeDependency = new BodyTypeMemberDependency(originMember, classMemberInfo.TargetClass,
+                Enumerable.Empty<GenericArgument>());
             object duplicateMemberTypeDependency =
-                new BodyTypeMemberDependency(originMember, classMemberInfo.TargetClass);
+                new BodyTypeMemberDependency(originMember, classMemberInfo.TargetClass,
+                    Enumerable.Empty<GenericArgument>());
             var dependencyReferenceDuplicate = memberTypeDependency;
             object objectReferenceDuplicate = memberTypeDependency;
 
@@ -75,8 +77,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 return new object[] {null, null, null, null};
             }
 
-            var memberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember, targetMember);
-            object duplicateMemberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember, targetMember);
+            var memberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember, targetMember,
+                Enumerable.Empty<GenericArgument>(), Enumerable.Empty<GenericArgument>());
+            object duplicateMemberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember, targetMember,
+                Enumerable.Empty<GenericArgument>(), Enumerable.Empty<GenericArgument>());
             var dependencyReferenceDuplicate = memberTypeDependency;
             object objectReferenceDuplicate = memberTypeDependency;
 
@@ -96,9 +100,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 return new object[] {null, null, null, null};
             }
 
-            var memberTypeDependency = new MethodSignatureDependency(originMember, classMemberInfo.TargetClass);
+            var memberTypeDependency = new MethodSignatureDependency(originMember, classMemberInfo.TargetClass,
+                Enumerable.Empty<GenericArgument>());
             object duplicateMemberTypeDependency =
-                new MethodSignatureDependency(originMember, classMemberInfo.TargetClass);
+                new MethodSignatureDependency(originMember, classMemberInfo.TargetClass,
+                    Enumerable.Empty<GenericArgument>());
             var dependencyReferenceDuplicate = memberTypeDependency;
             object objectReferenceDuplicate = memberTypeDependency;
 

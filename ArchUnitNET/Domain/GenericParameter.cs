@@ -6,34 +6,80 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using ArchUnitNET.Domain.Dependencies;
+using ArchUnitNET.Loader;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
-    public class GenericParameter
+    public class GenericParameter : IType
     {
+        internal readonly IEnumerable<TypeInstance<IType>> TypeInstanceConstraints;
+
         public GenericParameter(string name, GenericParameterVariance variance,
-            IEnumerable<IType> typeConstraints, bool hasReferenceTypeConstraint, bool hasNotNullableValueTypeConstraint,
-            bool hasDefaultConstructorConstraint)
+            IEnumerable<TypeInstance<IType>> typeConstraints, bool hasReferenceTypeConstraint,
+            bool hasNotNullableValueTypeConstraint, bool hasDefaultConstructorConstraint)
         {
             Name = name;
             Attributes = new List<Attribute>();
             Variance = variance;
-            TypeConstraints = typeConstraints;
+            TypeInstanceConstraints = typeConstraints;
             HasReferenceTypeConstraint = hasReferenceTypeConstraint;
             HasNotNullableValueTypeConstraint = hasNotNullableValueTypeConstraint;
             HasDefaultConstructorConstraint = hasDefaultConstructorConstraint;
         }
 
-        public string Name { get; }
-        public List<Attribute> Attributes { get; }
+        public IType DeclaringType { get; internal set; }
+        [CanBeNull] public IMember DeclaringMember { get; internal set; }
         public GenericParameterVariance Variance { get; }
-        public IEnumerable<IType> TypeConstraints { get; }
+        public IEnumerable<IType> TypeConstraints => TypeInstanceConstraints.Select(instance => instance.Type);
         public bool HasReferenceTypeConstraint { get; }
         public bool HasNotNullableValueTypeConstraint { get; }
         public bool HasDefaultConstructorConstraint { get; }
 
         public bool HasConstraints => HasReferenceTypeConstraint || HasNotNullableValueTypeConstraint ||
                                       HasDefaultConstructorConstraint || TypeConstraints.Any();
+
+        public string Name { get; }
+        public List<Attribute> Attributes { get; }
+
+        public string FullName => DeclaringType == null
+            ? Name
+            : (DeclaringMember == null ? DeclaringType.FullName : DeclaringMember.FullName) + "+<" + Name + ">";
+
+        public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
+        public List<ITypeDependency> BackwardsDependencies { get; } = new List<ITypeDependency>();
+        public Visibility Visibility => Visibility.NotAccessible;
+        public bool IsGeneric => false;
+        public bool IsGenericParameter => true;
+        public List<GenericParameter> GenericParameters => new List<GenericParameter>();
+        public Namespace Namespace => DeclaringType.Namespace;
+        public Assembly Assembly => DeclaringType.Assembly;
+        public MemberList Members => new MemberList();
+        public IEnumerable<IType> ImplementedInterfaces => Enumerable.Empty<IType>();
+
+        public bool IsNested => true;
+        public bool IsStub => true;
+
+        public bool ImplementsInterface(Interface intf)
+        {
+            return false;
+        }
+
+        public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
+        {
+            return false;
+        }
+
+        public bool IsAssignableTo(IType assignableToType)
+        {
+            return TypeConstraints.All(type => type.IsAssignableTo(assignableToType));
+        }
+
+        public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
+        {
+            return pattern != null && TypeConstraints.All(type => type.IsAssignableTo(pattern, useRegularExpressions));
+        }
 
         public bool Equals(GenericParameter other)
         {
@@ -93,7 +139,7 @@ namespace ArchUnitNET.Domain
 
         public override string ToString()
         {
-            return Name;
+            return FullName;
         }
     }
 

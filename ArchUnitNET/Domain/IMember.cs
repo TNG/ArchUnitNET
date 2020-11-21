@@ -14,6 +14,5 @@ namespace ArchUnitNET.Domain
         IType DeclaringType { get; }
         List<IMemberTypeDependency> MemberDependencies { get; }
         List<IMemberTypeDependency> MemberBackwardsDependencies { get; }
-        IMember GetElementMember();
     }
 }

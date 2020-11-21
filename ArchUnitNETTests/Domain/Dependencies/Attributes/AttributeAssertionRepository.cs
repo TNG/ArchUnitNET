@@ -83,7 +83,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             var expectedAttribute = new Attribute(expectedAttributeClass);
 
             var expectedAttributeDependency =
-                new AttributeMemberDependency(targetMember, expectedAttribute);
+                new AttributeMemberDependency(targetMember, expectedAttribute, Enumerable.Empty<GenericArgument>());
 
             //Assert
             Assert.Contains(expectedAttributeDependency, targetMember.Dependencies);
@@ -106,7 +106,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             var expectedAttribute = new Attribute(expectedAttributeClass);
 
             var expectedAttributeDependency =
-                new AttributeTypeDependency(targetType, expectedAttribute);
+                new AttributeTypeDependency(targetType, expectedAttribute, Enumerable.Empty<GenericArgument>());
 
             //Assert
             Assert.True(targetType.HasDependency(expectedAttributeDependency));

@@ -43,22 +43,23 @@ namespace ArchUnitNET.Loader
         internal IType GetOrCreateTypeFromTypeReference(TypeReference typeReference)
         {
             return _typeRegistry.GetOrCreateTypeFromTypeReference(typeReference,
-                s => CreateTypeFromTypeReference(typeReference, false));
+                s => CreateTypeFromTypeReference(typeReference, false)).Type;
         }
 
         [NotNull]
-        internal IType GetOrCreateStubTypeFromTypeReference(TypeReference typeReference)
+        internal TypeInstance<IType> GetOrCreateStubTypeInstanceFromTypeReference(TypeReference typeReference)
         {
             return _typeRegistry.GetOrCreateTypeFromTypeReference(typeReference,
                 f => CreateTypeFromTypeReference(typeReference, true));
         }
 
         [NotNull]
-        private IType CreateTypeFromTypeReference(TypeReference typeReference, bool isStub)
+        private TypeInstance<IType> CreateTypeFromTypeReference(TypeReference typeReference, bool isStub)
         {
             if (typeReference.IsGenericParameter)
             {
-                //TODO let GenericParameter implement IType so that it can be returned here
+                var genericParameter = (Mono.Cecil.GenericParameter) typeReference;
+                return new TypeInstance<IType>(CreateGenericParameter(genericParameter));
             }
 
             TypeDefinition typeDefinition;
@@ -73,27 +74,18 @@ namespace ArchUnitNET.Loader
 
             if (typeReference.IsGenericInstance)
             {
-                var genericType = SetupCreatedGenericType((GenericInstanceType) typeReference);
-                if (typeDefinition == null)
-                {
-                    return new GenericClassInstance(genericType);
-                }
-
-                if (typeDefinition.IsInterface)
-                {
-                    return new GenericInterfaceInstance(genericType);
-                }
-
-                return IsAttribute(typeDefinition)
-                    ? new GenericAttributeInstance(genericType, typeDefinition.IsAbstract, typeDefinition.IsSealed)
-                    : new GenericClassInstance(genericType, typeDefinition.IsAbstract, typeDefinition.IsSealed,
-                        typeDefinition.IsValueType, typeDefinition.IsEnum);
+                var elementType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference.GetElementType()).Type;
+                var genericInstance = (GenericInstanceType) typeReference;
+                var genericArguments = genericInstance.GenericArguments
+                    .Select(CreateGenericArgumentFromTypeReference);
+                return new TypeInstance<IType>(elementType, genericArguments);
             }
+
 
             var type = SetupCreatedType(typeReference, isStub);
             if (typeDefinition == null)
             {
-                return new Class(type);
+                return new TypeInstance<IType>(new Class(type));
             }
 
             IType createdType;
@@ -112,7 +104,7 @@ namespace ArchUnitNET.Loader
 
             if (isStub)
             {
-                return createdType;
+                return new TypeInstance<IType>(createdType);
             }
 
             if (createdType is Class @class)
@@ -122,25 +114,30 @@ namespace ArchUnitNET.Loader
 
             LoadNonBaseTasks(createdType, type, typeDefinition);
 
-            return createdType;
+            return new TypeInstance<IType>(createdType);
         }
 
         public IEnumerable<GenericParameter> GetGenericParameters(IGenericParameterProvider genericParameterProvider)
         {
-            if (genericParameterProvider == null)
-            {
-                return Enumerable.Empty<GenericParameter>();
-            }
+            return genericParameterProvider == null
+                ? Enumerable.Empty<GenericParameter>()
+                : genericParameterProvider.GenericParameters.Select(CreateGenericParameter);
+        }
 
-            return
-                from genericParameter in genericParameterProvider.GenericParameters
-                let name = genericParameter.Name
-                let variance = GetVarianceFromGenericParameter(genericParameter)
-                let typeConstraints = genericParameter.Constraints.Select(con =>
-                    GetOrCreateStubTypeFromTypeReference(con.ConstraintType))
-                select new GenericParameter(name, variance, typeConstraints,
-                    genericParameter.HasReferenceTypeConstraint, genericParameter.HasNotNullableValueTypeConstraint,
-                    genericParameter.HasDefaultConstructorConstraint);
+        private GenericParameter CreateGenericParameter(Mono.Cecil.GenericParameter genericParameter)
+        {
+            var variance = GetVarianceFromGenericParameter(genericParameter);
+            var typeConstraints = GetTypeConstraintsFromGenericParameter(genericParameter);
+            return new GenericParameter(genericParameter.Name, variance, typeConstraints,
+                genericParameter.HasReferenceTypeConstraint, genericParameter.HasNotNullableValueTypeConstraint,
+                genericParameter.HasDefaultConstructorConstraint);
+        }
+
+        private IEnumerable<TypeInstance<IType>> GetTypeConstraintsFromGenericParameter(
+            Mono.Cecil.GenericParameter genericParameter)
+        {
+            return genericParameter.Constraints.Select(con =>
+                GetOrCreateStubTypeInstanceFromTypeReference(con.ConstraintType));
         }
 
         private static GenericParameterVariance GetVarianceFromGenericParameter(
@@ -159,11 +156,6 @@ namespace ArchUnitNET.Loader
             return GenericParameterVariance.NonVariant;
         }
 
-        public IEnumerable<IType> GetGenericArguments(IGenericInstance genericInstance)
-        {
-            return genericInstance.GenericArguments.Select(GetOrCreateStubTypeFromTypeReference);
-        }
-
         public static string GetTypeFullNameForTypeReference(TypeReference typeReference)
         {
             return typeReference.FullName.Replace("/", "+");
@@ -178,16 +170,6 @@ namespace ArchUnitNET.Loader
             }
 
             return false;
-        }
-
-        [NotNull]
-        private GenericTypeInstance SetupCreatedGenericType(GenericInstanceType typeReference)
-        {
-            var fullName = GetTypeFullNameForTypeReference(typeReference);
-            var name = typeReference.Name;
-            var elementType = GetOrCreateStubTypeFromTypeReference(typeReference.GetElementType());
-            var genericArguments = GetGenericArguments(typeReference);
-            return new GenericTypeInstance(fullName, name, elementType, genericArguments);
         }
 
         [NotNull]
@@ -211,10 +193,19 @@ namespace ArchUnitNET.Loader
             var visibility = GetVisibilityFromTypeDefinition(typeDefinition);
             var isNested = typeReference.IsNested;
             var isGeneric = typeReference.HasGenericParameters;
-            var genericParameters = GetGenericParameters(typeDefinition);
 
-            return new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested,
-                isGeneric, genericParameters, isStub);
+            var type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested,
+                isGeneric, isStub);
+
+            var genericParameters = GetGenericParameters(typeDefinition);
+            type.GenericParameters.AddRange(genericParameters);
+
+            return type;
+        }
+
+        internal GenericArgument CreateGenericArgumentFromTypeReference(TypeReference typeReference)
+        {
+            return new GenericArgument(GetOrCreateStubTypeInstanceFromTypeReference(typeReference));
         }
 
         private static Visibility GetVisibilityFromTypeDefinition([CanBeNull] TypeDefinition typeDefinition)
@@ -266,6 +257,8 @@ namespace ArchUnitNET.Loader
 
             _loadTaskRegistry.Add(typeof(AddBaseClassDependency),
                 new AddBaseClassDependency(cls, type, typeDefinition, this));
+            _loadTaskRegistry.Add(typeof(AddGenericParameterDependencies),
+                new AddGenericParameterDependencies(type));
         }
 
         private void LoadNonBaseTasks(IType createdType, Type type, TypeDefinition typeDefinition)
@@ -285,6 +278,8 @@ namespace ArchUnitNET.Loader
                 new AddMethodDependencies(createdType, typeDefinition, this));
             _loadTaskRegistry.Add(typeof(AddClassDependencies),
                 new AddClassDependencies(createdType, typeDefinition, this, type.Dependencies));
+            _loadTaskRegistry.Add(typeof(AddGenericArgumentDependencies),
+                new AddGenericArgumentDependencies(type));
             _loadTaskRegistry.Add(typeof(AddBackwardsDependencies), new AddBackwardsDependencies(createdType));
         }
     }

@@ -4,14 +4,29 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Collections.Generic;
+using System.Linq;
+using ArchUnitNET.Loader;
+
 namespace ArchUnitNET.Domain.Dependencies
 {
     public class MethodCallDependency : IMemberMemberDependency
     {
-        public MethodCallDependency(IMember originMember, MethodMember calledMethod)
+        // ReSharper disable once SuggestBaseTypeForParameter
+        public MethodCallDependency(IMember originMember, MethodMember calledMethod,
+            IEnumerable<GenericArgument> declaringTypeGenericArguments,
+            IEnumerable<GenericArgument> calledMethodGenericArguments)
         {
             OriginMember = originMember;
             TargetMember = calledMethod;
+            TargetGenericArguments = declaringTypeGenericArguments;
+            TargetMemberGenericArguments = calledMethodGenericArguments;
+        }
+
+        public MethodCallDependency(IMember originMember, MethodMemberInstance calledMethodInstance)
+            : this(originMember, calledMethodInstance.Member, calledMethodInstance.DeclaringTypeGenericArguments,
+                calledMethodInstance.MemberGenericArguments)
+        {
         }
 
         public IMember TargetMember { get; }
@@ -19,6 +34,26 @@ namespace ArchUnitNET.Domain.Dependencies
 
         public IType Origin => OriginMember.DeclaringType;
         public IType Target => TargetMember.DeclaringType;
+
+        public IEnumerable<GenericArgument> TargetGenericArguments { get; }
+        public IEnumerable<GenericArgument> TargetMemberGenericArguments { get; }
+
+        public bool Equals(MethodCallDependency other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return Equals(TargetMember, other.TargetMember) && Equals(OriginMember, other.OriginMember) &&
+                   TargetGenericArguments.SequenceEqual(other.TargetGenericArguments) &&
+                   TargetMemberGenericArguments.SequenceEqual(other.TargetMemberGenericArguments);
+        }
 
         public override bool Equals(object obj)
         {
@@ -32,20 +67,25 @@ namespace ArchUnitNET.Domain.Dependencies
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((MethodCallDependency) obj);
-        }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
 
-        private bool Equals(IMemberMemberDependency other)
-        {
-            return Equals(TargetMember, other.TargetMember) && Equals(OriginMember, other.OriginMember);
+            return Equals((MethodCallDependency) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return ((TargetMember != null ? TargetMember.GetHashCode() : 0) * 397) ^
-                       (OriginMember != null ? OriginMember.GetHashCode() : 0);
+                var hashCode = TargetMember != null ? TargetMember.GetHashCode() : 0;
+                hashCode = (hashCode * 397) ^ (OriginMember != null ? OriginMember.GetHashCode() : 0);
+                hashCode = TargetGenericArguments.Aggregate(hashCode,
+                    (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));
+                hashCode = TargetMemberGenericArguments.Aggregate(hashCode,
+                    (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));
+                return hashCode;
             }
         }
     }

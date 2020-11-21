@@ -34,13 +34,14 @@ namespace ArchUnitNET.Loader.LoadTasks
                 return;
             }
 
-            var baseType = _typeFactory.GetOrCreateStubTypeFromTypeReference(typeDefinitionBaseType);
-            if (!(baseType is Class baseClass))
+            var baseType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeDefinitionBaseType);
+            if (!(baseType.Type is Class baseClass))
             {
                 return;
             }
 
-            var dependency = new InheritsBaseClassDependency(_cls, baseClass);
+            var dependency =
+                new InheritsBaseClassDependency(_cls, new TypeInstance<Class>(baseClass, baseType.GenericArguments));
             _type.Dependencies.Add(dependency);
         }
     }
