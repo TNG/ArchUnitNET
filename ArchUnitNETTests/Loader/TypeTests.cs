@@ -17,6 +17,13 @@ namespace ArchUnitNETTests.Loader
 {
     public class TypeTests
     {
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly object _duplicateReference;
+        private readonly Type _duplicateType;
+        private readonly Interface _exampleInterface;
+        private readonly Class _expectedAttributeClass;
+        private readonly Type _type;
+
         public TypeTests()
         {
             _type = _architecture.GetClassOfType(typeof(AssignClass)).CreateShallowStubType();
@@ -31,13 +38,6 @@ namespace ArchUnitNETTests.Loader
             _exampleInterface.RequiredNotNull();
             _expectedAttributeClass = _architecture.GetClassOfType(typeof(ExampleAttribute));
         }
-
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly Type _type;
-        private readonly Type _duplicateType;
-        private readonly object _duplicateReference;
-        private readonly Interface _exampleInterface;
-        private readonly Class _expectedAttributeClass;
 
         [Theory]
         [ClassData(typeof(TypeTestBuild.TypeModelingTestData))]
@@ -123,7 +123,8 @@ namespace ArchUnitNETTests.Loader
         public void IsAssignableToImplementedInterface()
         {
             //Setup, Act
-            var interfaceDependency = new ImplementsInterfaceDependency(_type, _exampleInterface);
+            var interfaceDependency =
+                new ImplementsInterfaceDependency(_type, new TypeInstance<Interface>(_exampleInterface));
             _type.Dependencies.Add(interfaceDependency);
 
             //Assert

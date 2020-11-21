@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
@@ -146,9 +145,9 @@ namespace ArchUnitNET.Loader.LoadTasks
         }
 
 
-        private IEnumerable<MethodMember> CreateMethodBodyDependenciesRecursive(MethodBody methodBody,
-            ICollection<MethodReference> visitedMethodReferences, List<IType> bodyTypes,
-            List<IType> referencedTypes, List<FieldMember> accessedFieldMembers)
+        private IEnumerable<MethodMemberInstance> CreateMethodBodyDependenciesRecursive(MethodBody methodBody,
+            ICollection<MethodReference> visitedMethodReferences, List<TypeInstance<IType>> bodyTypes,
+            List<TypeInstance<IType>> referencedTypes, List<FieldMember> accessedFieldMembers)
         {
             var calledMethodReferences = methodBody.Instructions.Select(instruction => instruction.Operand)
                 .OfType<MethodReference>();
@@ -157,9 +156,9 @@ namespace ArchUnitNET.Loader.LoadTasks
             {
                 visitedMethodReferences.Add(calledMethodReference);
                 var calledType =
-                    _typeFactory.GetOrCreateStubTypeFromTypeReference(calledMethodReference.DeclaringType);
+                    _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(calledMethodReference.DeclaringType);
 
-                if (calledType.NameContains("<")) //compilerGenerated
+                if (calledType.Type.NameContains("<")) //compilerGenerated
                 {
                     if (!(calledMethodReference is MethodDefinition calledMethodDefinition))
                     {
@@ -185,7 +184,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                 }
                 else
                 {
-                    var calledMethodMember = GetMethodMemberWithMethodReference(calledType, calledMethodReference);
+                    var calledMethodMember =
+                        _typeFactory.GetMethodMemberInstanceWithMethodReference(calledType, calledMethodReference);
                     yield return calledMethodMember;
                 }
             }
@@ -208,53 +208,6 @@ namespace ArchUnitNET.Loader.LoadTasks
             }
 
             return matchFunction.RequiredNotNull();
-        }
-
-        [NotNull]
-        private MethodMember GetMethodMemberWithMethodReference([NotNull] IType type,
-            [NotNull] MethodReference methodReference)
-        {
-            var matchingMethods = type.GetMethodMembers().Where(member => MatchesGeneric(member, methodReference))
-                .ToList();
-
-            if (!matchingMethods.Any())
-            {
-                var stubMethod = _typeFactory.CreateStubMethodMemberFromMethodReference(type, methodReference);
-                return stubMethod;
-            }
-
-            if (matchingMethods.Count > 1)
-            {
-                throw new MultipleOccurrencesInSequenceException(
-                    $"Multiple Methods matching {methodReference.FullName} found in provided type.");
-            }
-
-            return matchingMethods.First();
-        }
-
-        private bool MatchesGeneric(MethodMember methodMember, MethodReference methodReference)
-        {
-            var referenceFullName = methodReference.GetElementMethod().GetFullName();
-            var memberFullName = methodMember.FullName;
-            var methodReferenceGenericParameters = _typeFactory.GetGenericParameters(methodReference).ToList();
-            if (methodMember.GenericParameters.Count() != methodReferenceGenericParameters.Count)
-            {
-                return false;
-            }
-
-            var parameters = methodReferenceGenericParameters
-                .Select((t, i) => new[] {t, methodMember.GenericParameters.ElementAt(i)}).ToList();
-
-            parameters = parameters.OrderByDescending(genericParameters => genericParameters[0].Name.Length).ToList();
-
-            foreach (var genericParameters in parameters.Where(genericParameters => genericParameters[0] != null)
-            )
-            {
-                referenceFullName = referenceFullName.Replace(genericParameters[0].Name, genericParameters[1].Name);
-                memberFullName = memberFullName.Replace(genericParameters[0].Name, genericParameters[1].Name);
-            }
-
-            return memberFullName.Equals(referenceFullName);
         }
 
         private PropertyMember MatchToPropertyMember(string name, string fullName, MatchFunction matchFunction)

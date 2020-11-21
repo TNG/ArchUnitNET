@@ -15,7 +15,7 @@ namespace ArchUnitNET.Loader
     public class Type : IType
     {
         public Type(string fullname, string name, Assembly assembly, Namespace namespc, Visibility visibility,
-            bool isNested, bool isGeneric, IEnumerable<GenericParameter> genericParameters, bool isStub)
+            bool isNested, bool isGeneric, bool isStub)
         {
             FullName = fullname;
             Name = name;
@@ -24,8 +24,6 @@ namespace ArchUnitNET.Loader
             Visibility = visibility;
             IsNested = isNested;
             IsGeneric = isGeneric;
-            GenericParameters = genericParameters;
-            IsGenericInstance = false;
             IsStub = isStub;
         }
 
@@ -42,8 +40,8 @@ namespace ArchUnitNET.Loader
         public bool IsNested { get; }
 
         public bool IsGeneric { get; }
-        public IEnumerable<GenericParameter> GenericParameters { get; }
-        public bool IsGenericInstance { get; protected set; }
+        public bool IsGenericParameter => false;
+        public List<GenericParameter> GenericParameters { get; } = new List<GenericParameter>();
 
         public bool IsStub { get; }
         public MemberList Members { get; } = new MemberList();
@@ -98,16 +96,6 @@ namespace ArchUnitNET.Loader
 
             return this.FullNameMatches(pattern, useRegularExpressions) ||
                    ImplementsInterface(pattern, useRegularExpressions);
-        }
-
-        public virtual IType GetElementType()
-        {
-            return this;
-        }
-
-        public virtual IEnumerable<IType> GetGenericArguments()
-        {
-            return Enumerable.Empty<IType>();
         }
 
         public override string ToString()

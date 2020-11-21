@@ -7,21 +7,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
+using ArchUnitNET.Loader;
 
 namespace ArchUnitNET.Domain
 {
     public class FieldMember : IMember
     {
-        public FieldMember(IType declaringType, string name, string fullName, Visibility visibility, IType type)
+        private readonly TypeInstance<IType> _typeInstance;
+
+        public FieldMember(IType declaringType, string name, string fullName, Visibility visibility,
+            TypeInstance<IType> typeInstance)
         {
             DeclaringType = declaringType;
             Name = name;
             FullName = fullName;
             Visibility = visibility;
-            Type = type;
+            _typeInstance = typeInstance;
         }
 
-        public IType Type { get; }
+        public IType Type => _typeInstance.Type;
+        public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;
         public Visibility Visibility { get; }
 
         public IType DeclaringType { get; }
@@ -29,8 +34,7 @@ namespace ArchUnitNET.Domain
         public string FullName { get; }
 
         public bool IsGeneric => false;
-        public bool IsGenericInstance => false;
-        public IEnumerable<GenericParameter> GenericParameters => Enumerable.Empty<GenericParameter>();
+        public List<GenericParameter> GenericParameters => new List<GenericParameter>();
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
@@ -38,16 +42,6 @@ namespace ArchUnitNET.Domain
 
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
-
-        public IMember GetElementMember()
-        {
-            return this;
-        }
-
-        public IEnumerable<IType> GetGenericArguments()
-        {
-            return Enumerable.Empty<IType>();
-        }
 
         public override string ToString()
         {
@@ -74,7 +68,8 @@ namespace ArchUnitNET.Domain
             return Equals(DeclaringType, other.DeclaringType) && string.Equals(Name, other.Name)
                                                               && string.Equals(FullName, other.FullName)
                                                               && Equals(Type, other.Type)
-                                                              && Visibility == other.Visibility;
+                                                              && Visibility == other.Visibility
+                                                              && GenericArguments.SequenceEqual(other.GenericArguments);
         }
 
         public override int GetHashCode()
@@ -86,6 +81,8 @@ namespace ArchUnitNET.Domain
                 hashCode = (hashCode * 397) ^ (FullName != null ? FullName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (int) Visibility;
+                hashCode = GenericArguments.Aggregate(hashCode,
+                    (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));
                 return hashCode;
             }
         }

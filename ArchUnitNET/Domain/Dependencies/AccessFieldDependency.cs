@@ -5,10 +5,14 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace ArchUnitNET.Domain.Dependencies
 {
     public class AccessFieldDependency : IMemberMemberDependency
     {
+        // ReSharper disable once SuggestBaseTypeForParameter
         public AccessFieldDependency(IMember originMember, FieldMember accessedField)
         {
             OriginMember = originMember;
@@ -17,6 +21,9 @@ namespace ArchUnitNET.Domain.Dependencies
 
         public IMember OriginMember { get; }
         public IMember TargetMember { get; }
+
+        public IEnumerable<GenericArgument> TargetGenericArguments => Enumerable.Empty<GenericArgument>();
+        public IEnumerable<GenericArgument> TargetMemberGenericArguments => Enumerable.Empty<GenericArgument>();
 
         public IType Origin => OriginMember.DeclaringType;
         public IType Target => TargetMember.DeclaringType;

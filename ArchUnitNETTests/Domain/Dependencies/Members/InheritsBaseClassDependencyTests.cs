@@ -4,6 +4,7 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
@@ -13,16 +14,16 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class BaseClassTest
     {
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly Class _baseClass;
+        private readonly Class _childClass;
+
         public BaseClassTest()
         {
             _baseClass = _architecture.GetClassOfType(typeof(BaseClass));
             _childClass = _architecture.GetClassOfType(typeof(ChildClass));
         }
-
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly Class _baseClass;
-        private readonly Class _childClass;
 
         [Fact]
         public void ChildClassHasAllMembers()
@@ -42,7 +43,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         [Fact]
         public void ChildClassHasBaseClassDependency()
         {
-            var expectedDependency = new InheritsBaseClassDependency(_childClass, _baseClass);
+            var expectedDependency =
+                new InheritsBaseClassDependency(_childClass, _baseClass, Enumerable.Empty<GenericArgument>());
 
             Assert.True(_childClass.HasDependency(expectedDependency));
         }

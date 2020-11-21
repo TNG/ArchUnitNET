@@ -47,7 +47,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         private IMember CreateFieldMember([NotNull] FieldDefinition fieldDefinition)
         {
             var typeReference = fieldDefinition.FieldType;
-            var fieldType = _typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
+            var fieldType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
 
             return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, visibility, fieldType);
@@ -92,7 +92,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         private IMember CreatePropertyMember(PropertyDefinition propertyDefinition)
         {
             var typeReference = propertyDefinition.PropertyType;
-            var propertyType = _typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
+            var propertyType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType);
         }
 
@@ -100,7 +100,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         private MethodMember CreateMethodMember(MethodDefinition methodDefinition)
         {
             var typeReference = methodDefinition.ReturnType;
-            var returnType = _typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
+            var returnType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var parameters = methodDefinition.GetParameters(_typeFactory).ToList();
 
             var visibility = methodDefinition.GetVisibility();
@@ -108,10 +108,14 @@ namespace ArchUnitNET.Loader.LoadTasks
             var methodName = methodDefinition.BuildMethodMemberName();
             var methodDefinitionFullName = methodDefinition.GetFullName();
             var isGeneric = methodDefinition.HasGenericParameters;
-            var genericParameters = _typeFactory.GetGenericParameters(methodDefinition);
 
-            return new MethodMember(methodName, methodDefinitionFullName, _type, visibility,
-                parameters, returnType, methodDefinition.IsVirtual, methodForm, isGeneric, genericParameters);
+            var methodMember = new MethodMember(methodName, methodDefinitionFullName, _type, visibility,
+                parameters, returnType, methodDefinition.IsVirtual, methodForm, isGeneric);
+
+            var genericParameters = _typeFactory.GetGenericParameters(methodDefinition);
+            methodMember.GenericParameters.AddRange(genericParameters);
+
+            return methodMember;
         }
     }
 }

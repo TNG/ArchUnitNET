@@ -52,30 +52,69 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static MethodMember CreateStubMethodMemberFromMethodReference(this TypeFactory typeFactory,
-            [NotNull] IType type, [NotNull] MethodReference methodReference)
+        internal static MethodMemberInstance GetMethodMemberInstanceWithMethodReference(this TypeFactory typeFactory,
+            [NotNull] TypeInstance<IType> type, [NotNull] MethodReference methodReference)
         {
-            var name = methodReference.BuildMethodMemberName();
-            var typeReference = methodReference.ReturnType;
-            var returnType = typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
-            var parameters = methodReference.GetParameters(typeFactory).ToList();
-            var isGenericInstance = methodReference.IsGenericInstance;
-            var isGeneric = isGenericInstance || methodReference.HasGenericParameters;
-            var genericParameters = typeFactory.GetGenericParameters(methodReference);
+            var matchingMethods = type.Type.GetMethodMembers()
+                .Where(member => member.FullName == methodReference.GetElementMethod().FullName).ToList();
 
-            var methodForm = methodReference.HasConstructorName() ? MethodForm.Constructor : MethodForm.Normal;
-
-            if (isGenericInstance)
+            if (!matchingMethods.Any())
             {
-                var elementMethod =
-                    typeFactory.CreateStubMethodMemberFromMethodReference(type, methodReference.GetElementMethod());
-                var genericArguments = typeFactory.GetGenericArguments((IGenericInstance) methodReference);
-                return new GenericMethodMemberInstance(name, methodReference.FullName, parameters, returnType,
-                    genericParameters, elementMethod, genericArguments);
+                var stubMethod = typeFactory.CreateStubMethodMemberInstanceFromMethodReference(type, methodReference);
+                return stubMethod;
             }
 
-            return new MethodMember(name, methodReference.FullName, type, Public, parameters, returnType, false,
-                methodForm, isGeneric, genericParameters);
+            if (matchingMethods.Count > 1)
+            {
+                throw new MultipleOccurrencesInSequenceException(
+                    $"Multiple Methods matching {methodReference.FullName} found in provided type.");
+            }
+
+            var methodGenericArguments = new List<GenericArgument>();
+
+            if (methodReference.IsGenericInstance)
+            {
+                var methodInstance = (GenericInstanceMethod) methodReference;
+                methodGenericArguments.AddRange(
+                    methodInstance.GenericArguments.Select(typeFactory.CreateGenericArgumentFromTypeReference));
+            }
+
+            return new MethodMemberInstance(matchingMethods.First(), type.GenericArguments, methodGenericArguments);
+        }
+
+        [NotNull]
+        internal static MethodMemberInstance CreateStubMethodMemberInstanceFromMethodReference(
+            this TypeFactory typeFactory, [NotNull] TypeInstance<IType> typeInstance,
+            [NotNull] MethodReference methodReference)
+        {
+            if (methodReference.IsGenericInstance)
+            {
+                var elementMethod = typeFactory
+                    .CreateStubMethodMemberInstanceFromMethodReference(typeInstance, methodReference.GetElementMethod())
+                    .Member;
+
+                var genericInstanceMethod = (GenericInstanceMethod) methodReference;
+                var genericArguments = genericInstanceMethod.GenericArguments
+                    .Select(typeFactory.CreateGenericArgumentFromTypeReference);
+
+                return new MethodMemberInstance(elementMethod, typeInstance.GenericArguments, genericArguments);
+            }
+
+            var name = methodReference.BuildMethodMemberName();
+            var typeReference = methodReference.ReturnType;
+            var returnType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
+            var parameters = methodReference.GetParameters(typeFactory);
+            var isGeneric = methodReference.HasGenericParameters;
+            var methodForm = methodReference.HasConstructorName() ? MethodForm.Constructor : MethodForm.Normal;
+
+            var methodMember = new MethodMember(name, methodReference.FullName, typeInstance.Type, Public, parameters,
+                returnType, false, methodForm, isGeneric);
+
+            var genericParameters = typeFactory.GetGenericParameters(methodReference);
+            methodMember.GenericParameters.AddRange(genericParameters);
+
+            return new MethodMemberInstance(methodMember, typeInstance.GenericArguments,
+                Enumerable.Empty<GenericArgument>());
         }
 
         [NotNull]
@@ -83,7 +122,7 @@ namespace ArchUnitNET.Loader
             [NotNull] IType type, [NotNull] FieldReference fieldReference)
         {
             var typeReference = fieldReference.FieldType;
-            var fieldType = typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
+            var fieldType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
 
             return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType);
         }
@@ -99,7 +138,7 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static IEnumerable<IType> GetSignatureTypes(this MethodReference methodReference,
+        internal static IEnumerable<TypeInstance<IType>> GetSignatureTypes(this MethodReference methodReference,
             TypeFactory typeFactory)
         {
             var parameters = GetAllParameters(methodReference, typeFactory).ToList();
@@ -112,15 +151,15 @@ namespace ArchUnitNET.Loader
             return parameters;
         }
 
-        private static IType GetReturnType(this MethodReference methodReference, TypeFactory typeFactory)
+        private static TypeInstance<IType> GetReturnType(this MethodReference methodReference, TypeFactory typeFactory)
         {
             return ReturnsVoid(methodReference)
                 ? null
-                : typeFactory.GetOrCreateStubTypeFromTypeReference(methodReference.MethodReturnType.ReturnType);
+                : typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(methodReference.MethodReturnType.ReturnType);
         }
 
         [NotNull]
-        private static IEnumerable<IType> GetAllParameters(this MethodReference methodReference,
+        private static IEnumerable<TypeInstance<IType>> GetAllParameters(this MethodReference methodReference,
             TypeFactory typeFactory)
         {
             var parameters = methodReference.GetParameters(typeFactory).ToList();
@@ -130,32 +169,35 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static IEnumerable<IType> GetParameters(this MethodReference method, TypeFactory typeFactory)
+        internal static IEnumerable<TypeInstance<IType>> GetParameters(this MethodReference method,
+            TypeFactory typeFactory)
         {
             return method.Parameters.Select(parameter =>
             {
                 var typeReference = parameter.ParameterType;
-                return typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
+                return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             }).Distinct();
         }
 
         [NotNull]
-        private static IEnumerable<IType> GetGenericParameters(this MethodReference method, TypeFactory typeFactory)
+        private static IEnumerable<TypeInstance<IType>> GetGenericParameters(this MethodReference method,
+            TypeFactory typeFactory)
         {
             return method.GenericParameters.Select(parameter =>
             {
                 var typeReference = parameter.GetElementType();
-                return typeFactory.GetOrCreateStubTypeFromTypeReference(typeReference);
+                return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             }).Distinct();
         }
 
         [NotNull]
-        internal static IEnumerable<IType> GetBodyTypes(this MethodDefinition methodDefinition, TypeFactory typeFactory)
+        internal static IEnumerable<TypeInstance<IType>> GetBodyTypes(this MethodDefinition methodDefinition,
+            TypeFactory typeFactory)
         {
             var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
 
             var bodyTypes = instructions.Where(inst => inst.OpCode == OpCodes.Box && inst.Operand is TypeReference)
-                .Select(inst => typeFactory.GetOrCreateStubTypeFromTypeReference((TypeReference) inst.Operand));
+                .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
 
             if (instructions.Any(inst => inst.OpCode == OpCodes.Ldstr))
             {
@@ -166,14 +208,14 @@ namespace ArchUnitNET.Loader
             bodyTypes = bodyTypes.Union(methodDefinition.Body?.Variables.Select(variableDefinition =>
             {
                 var variableTypeReference = variableDefinition.VariableType;
-                return typeFactory.GetOrCreateStubTypeFromTypeReference(variableTypeReference);
-            }) ?? Enumerable.Empty<IType>()).Distinct();
+                return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(variableTypeReference);
+            }) ?? Enumerable.Empty<TypeInstance<IType>>()).Distinct();
 
             return bodyTypes;
         }
 
         [NotNull]
-        internal static IEnumerable<IType> GetReferencedTypes(this MethodDefinition methodDefinition,
+        internal static IEnumerable<TypeInstance<IType>> GetReferencedTypes(this MethodDefinition methodDefinition,
             TypeFactory typeFactory)
         {
             var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
@@ -183,7 +225,7 @@ namespace ArchUnitNET.Loader
 
             return instructions.Where(inst =>
                     codes.Contains(inst.OpCode) && inst.Operand is TypeReference)
-                .Select(inst => typeFactory.GetOrCreateStubTypeFromTypeReference((TypeReference) inst.Operand));
+                .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
         }
 
         [NotNull]
@@ -197,15 +239,16 @@ namespace ArchUnitNET.Loader
 
             foreach (var fieldReference in accessedFieldReferences)
             {
-                var declaringType = typeFactory.GetOrCreateStubTypeFromTypeReference(fieldReference.DeclaringType);
-                var matchingFieldMembers = declaringType.GetFieldMembers()
+                var declaringType =
+                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(fieldReference.DeclaringType);
+                var matchingFieldMembers = declaringType.Type.GetFieldMembers()
                     .Where(member => member.Name == fieldReference.Name).ToList();
 
                 switch (matchingFieldMembers.Count)
                 {
                     case 0:
                         var stubFieldMember =
-                            typeFactory.CreateStubFieldMemberFromFieldReference(declaringType, fieldReference);
+                            typeFactory.CreateStubFieldMemberFromFieldReference(declaringType.Type, fieldReference);
                         accessedFieldMembers.Add(stubFieldMember);
                         break;
                     case 1:

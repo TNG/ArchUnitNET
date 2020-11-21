@@ -1,38 +1,35 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
 // 
 // 	SPDX-License-Identifier: Apache-2.0
+// 
 
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Loader;
 
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class BodyTypeMemberDependency : IMemberTypeDependency
+    public class GenericArgumentTypeDependency : ITypeDependency
     {
-        // ReSharper disable once SuggestBaseTypeForParameter
-        public BodyTypeMemberDependency(MethodMember method, IType target,
+        public GenericArgumentTypeDependency(IType origin, IType target,
             IEnumerable<GenericArgument> targetGenericArguments)
         {
-            OriginMember = method;
+            Origin = origin;
             Target = target;
             TargetGenericArguments = targetGenericArguments;
         }
 
-        public BodyTypeMemberDependency(MethodMember method, TypeInstance<IType> targetInstance)
-            : this(method, targetInstance.Type, targetInstance.GenericArguments)
+        public GenericArgumentTypeDependency(IType origin, GenericArgument targetInstance)
+            : this(origin, targetInstance.Type, targetInstance.GenericArguments)
         {
         }
 
-        public IMember OriginMember { get; }
-
-        public IType Origin => OriginMember.DeclaringType;
+        public IType Origin { get; }
         public IType Target { get; }
         public IEnumerable<GenericArgument> TargetGenericArguments { get; }
 
-        public bool Equals(BodyTypeMemberDependency other)
+        public bool Equals(GenericArgumentTypeDependency other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -44,7 +41,7 @@ namespace ArchUnitNET.Domain.Dependencies
                 return true;
             }
 
-            return Equals(OriginMember, other.OriginMember) && Equals(Target, other.Target) &&
+            return Equals(Origin, other.Origin) && Equals(Target, other.Target) &&
                    TargetGenericArguments.SequenceEqual(other.TargetGenericArguments);
         }
 
@@ -65,14 +62,14 @@ namespace ArchUnitNET.Domain.Dependencies
                 return false;
             }
 
-            return Equals((BodyTypeMemberDependency) obj);
+            return Equals((GenericArgumentTypeDependency) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = OriginMember != null ? OriginMember.GetHashCode() : 0;
+                var hashCode = Origin != null ? Origin.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Target != null ? Target.GetHashCode() : 0);
                 hashCode = TargetGenericArguments.Aggregate(hashCode,
                     (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));

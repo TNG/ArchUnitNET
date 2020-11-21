@@ -12,8 +12,6 @@ namespace ArchUnitNET.Domain
     public interface ICanBeGeneric
     {
         bool IsGeneric { get; }
-        bool IsGenericInstance { get; }
-        IEnumerable<GenericParameter> GenericParameters { get; }
-        IEnumerable<IType> GetGenericArguments();
+        List<GenericParameter> GenericParameters { get; }
     }
 }

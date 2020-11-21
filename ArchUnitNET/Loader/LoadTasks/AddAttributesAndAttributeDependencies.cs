@@ -30,10 +30,11 @@ namespace ArchUnitNET.Loader.LoadTasks
         public void Execute()
         {
             _typeDefinition.CustomAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
-            var typeAttributes = CreateAttributesFromCustomAttributes(_typeDefinition.CustomAttributes).ToList();
-            _type.Attributes.AddRange(typeAttributes);
+            var typeAttributeInstances =
+                CreateAttributesFromCustomAttributes(_typeDefinition.CustomAttributes).ToList();
+            _type.Attributes.AddRange(typeAttributeInstances.Select(instance => instance.Type));
             var typeAttributeDependencies =
-                typeAttributes.Select(attribute => new AttributeTypeDependency(_type, attribute));
+                typeAttributeInstances.Select(attribute => new AttributeTypeDependency(_type, attribute));
             _type.Dependencies.AddRange(typeAttributeDependencies);
             SetUpAttributesForTypeGenericParameters();
             CollectAttributesForMembers();
@@ -44,11 +45,13 @@ namespace ArchUnitNET.Loader.LoadTasks
             foreach (var genericParameter in _typeDefinition.GenericParameters)
             {
                 var param = _type.GenericParameters.First(parameter => parameter.Name == genericParameter.Name);
-                var attributes = CreateAttributesFromCustomAttributes(genericParameter.CustomAttributes).ToList();
+                var attributeInstances =
+                    CreateAttributesFromCustomAttributes(genericParameter.CustomAttributes).ToList();
+                var attributes = attributeInstances.Select(instance => instance.Type).ToList();
                 _type.Attributes.AddRange(attributes);
                 param.Attributes.AddRange(attributes);
-                var genericParameterAttributeDependencies = attributes.Select(attribute =>
-                    new AttributeTypeGenericParameterDependency(_type, param, attribute));
+                var genericParameterAttributeDependencies = attributeInstances.Select(attribute =>
+                    new AttributeTypeDependency(_type, attribute));
                 _type.Dependencies.AddRange(genericParameterAttributeDependencies);
             }
         }
@@ -96,11 +99,12 @@ namespace ArchUnitNET.Loader.LoadTasks
                 var param = methodMember.GenericParameters.First(parameter => parameter.Name == genericParameter.Name);
                 var customAttributes = genericParameter.CustomAttributes;
                 customAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
-                var attributes = CreateAttributesFromCustomAttributes(customAttributes).ToList();
+                var attributeInstances = CreateAttributesFromCustomAttributes(customAttributes).ToList();
+                var attributes = attributeInstances.Select(instance => instance.Type).ToList();
                 methodMember.Attributes.AddRange(attributes);
                 param.Attributes.AddRange(attributes);
-                var genericParameterAttributeDependencies = attributes.Select(attribute =>
-                    new AttributeMemberGenericParameterDependency(methodMember, param, attribute));
+                var genericParameterAttributeDependencies = attributeInstances.Select(attribute =>
+                    new AttributeMemberDependency(methodMember, attribute));
                 methodMember.MemberDependencies.AddRange(genericParameterAttributeDependencies);
             }
         }
@@ -109,27 +113,28 @@ namespace ArchUnitNET.Loader.LoadTasks
             List<CustomAttribute> memberCustomAttributes, List<IMemberTypeDependency> attributeDependencies)
         {
             memberCustomAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
-            var memberAttributes = CreateAttributesFromCustomAttributes(memberCustomAttributes).ToList();
-            methodMember.Attributes.AddRange(memberAttributes);
-            var methodAttributeDependencies = CreateMemberAttributeDependencies(methodMember, memberAttributes);
+            var memberAttributeInstances = CreateAttributesFromCustomAttributes(memberCustomAttributes).ToList();
+            methodMember.Attributes.AddRange(memberAttributeInstances.Select(instance => instance.Type));
+            var methodAttributeDependencies = CreateMemberAttributeDependencies(methodMember, memberAttributeInstances);
             attributeDependencies.AddRange(methodAttributeDependencies);
         }
 
         [NotNull]
-        private IEnumerable<Attribute> CreateAttributesFromCustomAttributes(
+        private IEnumerable<TypeInstance<Attribute>> CreateAttributesFromCustomAttributes(
             IEnumerable<CustomAttribute> customAttributes)
         {
             return customAttributes.Select(customAttribute =>
             {
                 var attributeTypeReference = customAttribute.AttributeType;
-                var attributeType = _typeFactory.GetOrCreateStubTypeFromTypeReference(attributeTypeReference);
-                return new Attribute(attributeType as Class);
+                var attributeType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(attributeTypeReference);
+                return new TypeInstance<Attribute>(new Attribute(attributeType.Type as Class),
+                    attributeType.GenericArguments);
             });
         }
 
         [NotNull]
         private static IEnumerable<AttributeMemberDependency> CreateMemberAttributeDependencies(IMember member,
-            IEnumerable<Attribute> attributes)
+            IEnumerable<TypeInstance<Attribute>> attributes)
         {
             return attributes.Select(attribute => new AttributeMemberDependency(member, attribute));
         }
@@ -148,7 +153,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                     attributeArgument))
                 .ForEach(tuple =>
                 {
-                    var argumentType = _typeFactory.GetOrCreateStubTypeFromTypeReference(tuple.typeReference);
+                    var argumentType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tuple.typeReference);
                     var dependency = new TypeReferenceDependency(_type, argumentType);
                     _type.Dependencies.Add(dependency);
                 });

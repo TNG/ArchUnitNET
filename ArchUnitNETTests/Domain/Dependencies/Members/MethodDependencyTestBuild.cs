@@ -26,7 +26,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             var originMember = originClass.GetMembersWithName(nameOfOriginMember).Single();
             var targetClass = Architecture.GetClassOfType(targetType);
             var targetMember = targetClass.GetMethodMembersWithName(nameOfTargetMember).Single();
-            var expectedDependency = new MethodCallDependency(originMember, targetMember);
+            var expectedDependency = new MethodCallDependency(originMember, targetMember,
+                Enumerable.Empty<GenericArgument>(), Enumerable.Empty<GenericArgument>());
             return new object[] {originMember, expectedDependency};
         }
 
@@ -36,7 +37,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             var originClass = Architecture.GetClassOfType(originType);
             var originMember = originClass.GetMethodMembersWithName(nameOfOriginMember).Single();
             var target = Architecture.GetITypeOfType(targetType);
-            var expectedDependency = new MethodSignatureDependency(originMember, target);
+            var expectedDependency =
+                new MethodSignatureDependency(originMember, target, Enumerable.Empty<GenericArgument>());
             return new object[] {originMember, expectedDependency};
         }
 

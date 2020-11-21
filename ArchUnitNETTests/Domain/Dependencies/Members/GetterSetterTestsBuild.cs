@@ -32,7 +32,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         private static readonly ConstructorInfo ConstructGuid = GuidType.GetConstructor(ExpectedParameters);
         private static readonly MethodMember MockConstructorMember = ConstructGuid.CreateStubMethodMember();
 
-        private static object[] BuildSetterTestData(Type classType, string backedPropertyName, Type expectedFieldDependencyTarget)
+        private static object[] BuildSetterTestData(Type classType, string backedPropertyName,
+            Type expectedFieldDependencyTarget)
         {
             if (classType == null)
             {
@@ -107,7 +108,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         private static MethodCallDependency CreateStubMethodCallDependency(IMember originMember,
             MethodMember targetMember)
         {
-            var methodCallDependency = new MethodCallDependency(originMember, targetMember);
+            var methodCallDependency = new MethodCallDependency(originMember, targetMember,
+                Enumerable.Empty<GenericArgument>(), Enumerable.Empty<GenericArgument>());
             methodCallDependency.TargetMember.MemberBackwardsDependencies.Add(methodCallDependency);
             return methodCallDependency;
         }

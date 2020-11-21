@@ -7,35 +7,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
+using ArchUnitNET.Loader;
 
 namespace ArchUnitNET.Domain
 {
     public class MethodMember : IMember
     {
+        private readonly IEnumerable<TypeInstance<IType>> _parameterInstances;
+        private readonly TypeInstance<IType> _returnTypeInstance;
+
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
-            List<IType> parameters, IType returnType, bool isVirtual, MethodForm methodForm, bool isGeneric,
-            IEnumerable<GenericParameter> genericParameters)
+            IEnumerable<TypeInstance<IType>> parameters, TypeInstance<IType> returnType, bool isVirtual,
+            MethodForm methodForm,
+            bool isGeneric)
         {
             Name = name;
             FullName = fullName;
             DeclaringType = declaringType;
             Visibility = visibility;
-            Parameters = parameters;
-            ReturnType = returnType;
+            _parameterInstances = parameters;
+            _returnTypeInstance = returnType;
             IsVirtual = isVirtual;
             MethodForm = methodForm;
             IsGeneric = isGeneric;
-            IsGenericInstance = false;
-            GenericParameters = genericParameters;
+            GenericParameters = new List<GenericParameter>();
         }
 
         public bool IsVirtual { get; }
         public MethodForm MethodForm { get; }
-        public List<IType> Parameters { get; }
-        public IType ReturnType { get; }
+        public IEnumerable<IType> Parameters => _parameterInstances.Select(instance => instance.Type);
+        public IType ReturnType => _returnTypeInstance.Type;
         public bool IsGeneric { get; }
-        public bool IsGenericInstance { get; protected set; }
-        public IEnumerable<GenericParameter> GenericParameters { get; }
+        public List<GenericParameter> GenericParameters { get; }
         public Visibility Visibility { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
@@ -48,16 +51,6 @@ namespace ArchUnitNET.Domain
         public string Name { get; }
         public string FullName { get; }
         public IType DeclaringType { get; }
-
-        public virtual IMember GetElementMember()
-        {
-            return this;
-        }
-
-        public virtual IEnumerable<IType> GetGenericArguments()
-        {
-            return Enumerable.Empty<IType>();
-        }
 
         public override string ToString()
         {
@@ -84,8 +77,7 @@ namespace ArchUnitNET.Domain
             return IsVirtual == other.IsVirtual && MethodForm == other.MethodForm && Visibility == other.Visibility
                    && Equals(Parameters, other.Parameters) && Equals(ReturnType, other.ReturnType)
                    && string.Equals(Name, other.Name) && string.Equals(FullName, other.FullName)
-                   && Equals(DeclaringType, other.DeclaringType) && Equals(IsGeneric, other.IsGeneric) &&
-                   Equals(IsGenericInstance, other.IsGenericInstance);
+                   && Equals(DeclaringType, other.DeclaringType) && Equals(IsGeneric, other.IsGeneric);
         }
 
         public override int GetHashCode()
@@ -100,7 +92,6 @@ namespace ArchUnitNET.Domain
                 hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (FullName != null ? FullName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (DeclaringType != null ? DeclaringType.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ IsGenericInstance.GetHashCode();
                 hashCode = (hashCode * 397) ^ IsGeneric.GetHashCode();
                 return hashCode;
             }
