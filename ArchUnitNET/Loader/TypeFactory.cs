@@ -276,10 +276,10 @@ namespace ArchUnitNET.Loader
                 new AddFieldAndPropertyDependencies(createdType));
             _loadTaskRegistry.Add(typeof(AddMethodDependencies),
                 new AddMethodDependencies(createdType, typeDefinition, this));
-            _loadTaskRegistry.Add(typeof(AddClassDependencies),
-                new AddClassDependencies(createdType, typeDefinition, this, type.Dependencies));
             _loadTaskRegistry.Add(typeof(AddGenericArgumentDependencies),
                 new AddGenericArgumentDependencies(type));
+            _loadTaskRegistry.Add(typeof(AddClassDependencies),
+                new AddClassDependencies(createdType, typeDefinition, this, type.Dependencies));
             _loadTaskRegistry.Add(typeof(AddBackwardsDependencies), new AddBackwardsDependencies(createdType));
         }
     }

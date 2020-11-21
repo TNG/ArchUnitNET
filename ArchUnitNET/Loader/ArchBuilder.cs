@@ -83,8 +83,8 @@ namespace ArchUnitNET.Loader
                 typeof(AddAttributesAndAttributeDependencies),
                 typeof(AddFieldAndPropertyDependencies),
                 typeof(AddMethodDependencies),
-                typeof(AddClassDependencies),
                 typeof(AddGenericArgumentDependencies),
+                typeof(AddClassDependencies),
                 typeof(AddBackwardsDependencies),
                 typeof(AddTypesToNamespace)
             });

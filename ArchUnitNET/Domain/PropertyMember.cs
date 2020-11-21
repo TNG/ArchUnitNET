@@ -90,27 +90,12 @@ namespace ArchUnitNET.Domain
 
         private bool Equals(PropertyMember other)
         {
-            return Equals(Type, other.Type) && IsVirtual == other.IsVirtual
-                                            && IsAutoProperty == other.IsAutoProperty
-                                            && Equals(Getter, other.Getter) && Equals(Setter, other.Setter) &&
-                                            string.Equals(Name, other.Name)
-                                            && string.Equals(FullName, other.FullName) &&
-                                            Equals(DeclaringType, other.DeclaringType);
+            return Equals(FullName, other.FullName);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = IsVirtual.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Getter != null ? Getter.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Setter != null ? Setter.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (FullName != null ? FullName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (DeclaringType != null ? DeclaringType.GetHashCode() : 0);
-                return hashCode;
-            }
+            return FullName.GetHashCode();
         }
     }
 }
