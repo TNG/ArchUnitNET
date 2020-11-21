@@ -45,7 +45,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                         memberDependencies);
                 }
 
-                member.Dependencies.AddRange(memberDependencies);
+                member.MemberDependencies.AddRange(memberDependencies);
             }
         }
 
@@ -74,7 +74,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             {
                 foreach (var parameter in member.GenericParameters)
                 {
-                    member.Dependencies.AddRange(parameter.Dependencies);
+                    member.MemberDependencies.AddRange(parameter.Dependencies.Cast<IMemberTypeDependency>());
                 }
             }
         }

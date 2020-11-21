@@ -29,7 +29,7 @@ namespace ArchUnitNET.Domain
             HasDefaultConstructorConstraint = hasDefaultConstructorConstraint;
         }
 
-        public IType DeclaringType { get; internal set; }
+        [CanBeNull] public IType DeclaringType { get; internal set; }
         [CanBeNull] public IMember DeclaringMember { get; internal set; }
         public GenericParameterVariance Variance { get; }
         public IEnumerable<IType> TypeConstraints => TypeInstanceConstraints.Select(instance => instance.Type);
@@ -53,8 +53,8 @@ namespace ArchUnitNET.Domain
         public bool IsGeneric => false;
         public bool IsGenericParameter => true;
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
-        public Namespace Namespace => DeclaringType.Namespace;
-        public Assembly Assembly => DeclaringType.Assembly;
+        public Namespace Namespace => DeclaringType?.Namespace;
+        public Assembly Assembly => DeclaringType?.Assembly;
         public MemberList Members => new MemberList();
         public IEnumerable<IType> ImplementedInterfaces => Enumerable.Empty<IType>();
 
