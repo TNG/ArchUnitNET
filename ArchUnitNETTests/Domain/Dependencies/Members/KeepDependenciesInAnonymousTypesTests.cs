@@ -45,7 +45,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             Assert.Contains(_instantiatedType, ctorTypeDependencies);
         }
 
-        [Fact(Skip = "Need to fix generics first")]
+        [Fact]
         public void CastDependenciesInAnonymousTypesNotLost()
         {
             var typeDependencies = _class2WithAnonymous.GetTypeDependencies().ToList();
@@ -59,7 +59,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             Assert.Contains(_castType, ctorTypeDependencies);
         }
 
-        [Fact(Skip = "Need to fix generics first")]
+        [Fact]
         public void BackwardDependenciesAssignedCorrectly()
         {
             var instantiatedTypeBackwardDependencies =
@@ -70,7 +70,6 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             Assert.Contains(_class1WithAnonymous, instantiatedTypeBackwardDependencies);
             Assert.Contains(_class2WithAnonymous, instantiatedTypeBackwardDependencies);
 
-            Assert.Contains(_class1WithAnonymous, castTypeBackwardDependencies);
             Assert.Contains(_class2WithAnonymous, castTypeBackwardDependencies);
         }
     }
