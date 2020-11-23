@@ -22,10 +22,10 @@ namespace ArchUnitNET.Loader
         public MethodMemberInstance GetOrCreateMethodFromMethodReference([NotNull] MethodReference methodReference,
             [NotNull] Func<string, MethodMemberInstance> createFunc)
         {
-            return RegistryUtils.GetFromDictOrCreateAndAdd(methodReference.GetFullName(), _allMethods, createFunc);
+            return RegistryUtils.GetFromDictOrCreateAndAdd(methodReference.BuildFullName(), _allMethods, createFunc);
         }
 
-        public IEnumerable<IMember> GetAllMethodMembers()
+        public IEnumerable<MethodMember> GetAllMethodMembers()
         {
             return _allMethods.Values.Select(instance => instance.Member).Distinct();
         }

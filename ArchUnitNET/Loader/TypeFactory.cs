@@ -4,16 +4,13 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
-using Attribute = ArchUnitNET.Domain.Attribute;
 using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
@@ -38,7 +35,7 @@ namespace ArchUnitNET.Loader
 
         public IEnumerable<IType> GetAllNonCompilerGeneratedTypes()
         {
-            return _typeRegistry.GetAllTypes().Where(type => !type.NameContains("<"));
+            return _typeRegistry.GetAllTypes().Where(type => !type.IsCompilerGenerated());
         }
 
         [NotNull]
@@ -78,8 +75,8 @@ namespace ArchUnitNET.Loader
             {
                 var genericParameter = (Mono.Cecil.GenericParameter) typeReference;
                 var declaringTypeFullName = genericParameter.Type == GenericParameterType.Type
-                    ? GetTypeFullNameForTypeReference(genericParameter.DeclaringType)
-                    : genericParameter.DeclaringMethod.GetFullName();
+                    ? genericParameter.DeclaringType.BuildFullName()
+                    : genericParameter.DeclaringMethod.BuildFullName();
 
                 return new TypeInstance<IType>(CreateGenericParameter(genericParameter, declaringTypeFullName));
             }
@@ -109,8 +106,8 @@ namespace ArchUnitNET.Loader
                 typeDefinition = null;
             }
 
-            var typeName = GetTypeFullNameForTypeReference(typeReference);
-            var visibility = GetVisibilityFromTypeDefinition(typeDefinition);
+            var typeName = typeReference.BuildFullName();
+            var visibility = typeDefinition.GetVisibility();
             var isNested = typeReference.IsNested;
             var isGeneric = typeReference.HasGenericParameters;
 
@@ -133,7 +130,7 @@ namespace ArchUnitNET.Loader
             }
             else
             {
-                createdType = IsAttribute(typeDefinition)
+                createdType = typeDefinition.IsAttribute()
                     ? new Attribute(type, typeDefinition.IsAbstract, typeDefinition.IsSealed)
                     : new Class(type, typeDefinition.IsAbstract, typeDefinition.IsSealed,
                         typeDefinition.IsValueType, typeDefinition.IsEnum);
@@ -172,7 +169,7 @@ namespace ArchUnitNET.Loader
             var returnType = GetOrCreateStubTypeInstanceFromTypeReference(returnTypeReference);
 
             var name = methodReference.BuildMethodMemberName();
-            var fullName = methodReference.GetFullName();
+            var fullName = methodReference.BuildFullName();
             var isGeneric = methodReference.HasGenericParameters;
             MethodForm methodForm;
             Visibility visibility;
@@ -214,6 +211,16 @@ namespace ArchUnitNET.Loader
                 Enumerable.Empty<GenericArgument>());
         }
 
+        [NotNull]
+        internal FieldMember CreateStubFieldMemberFromFieldReference([NotNull] IType type,
+            [NotNull] FieldReference fieldReference)
+        {
+            var typeReference = fieldReference.FieldType;
+            var fieldType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
+
+            return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType);
+        }
+
         public IEnumerable<GenericParameter> GetGenericParameters(IGenericParameterProvider genericParameterProvider)
         {
             return genericParameterProvider == null
@@ -226,105 +233,17 @@ namespace ArchUnitNET.Loader
         private GenericParameter CreateGenericParameter(Mono.Cecil.GenericParameter genericParameter,
             [NotNull] string declarerFullName)
         {
-            var variance = GetVarianceFromGenericParameter(genericParameter);
-            var typeConstraints = GetTypeConstraintsFromGenericParameter(genericParameter);
+            var variance = genericParameter.GetVariance();
+            var typeConstraints = genericParameter.Constraints.Select(con =>
+                GetOrCreateStubTypeInstanceFromTypeReference(con.ConstraintType));
             return new GenericParameter(declarerFullName, genericParameter.Name, variance, typeConstraints,
                 genericParameter.HasReferenceTypeConstraint, genericParameter.HasNotNullableValueTypeConstraint,
                 genericParameter.HasDefaultConstructorConstraint);
         }
 
-        private IEnumerable<TypeInstance<IType>> GetTypeConstraintsFromGenericParameter(
-            Mono.Cecil.GenericParameter genericParameter)
-        {
-            return genericParameter.Constraints.Select(con =>
-                GetOrCreateStubTypeInstanceFromTypeReference(con.ConstraintType));
-        }
-
-        private static GenericParameterVariance GetVarianceFromGenericParameter(
-            Mono.Cecil.GenericParameter genericParameter)
-        {
-            if (genericParameter.IsCovariant)
-            {
-                return GenericParameterVariance.Covariant;
-            }
-
-            if (genericParameter.IsContravariant)
-            {
-                return GenericParameterVariance.Contravariant;
-            }
-
-            return GenericParameterVariance.NonVariant;
-        }
-
-        public static string GetTypeFullNameForTypeReference(TypeReference typeReference)
-        {
-            if (typeReference.IsGenericParameter)
-            {
-                var genericParameter = (Mono.Cecil.GenericParameter) typeReference;
-
-                return (genericParameter.Type == GenericParameterType.Type
-                           ? genericParameter.DeclaringType.FullName
-                           : genericParameter.DeclaringMethod.FullName)
-                       + "+<" + genericParameter.Name + ">";
-            }
-
-            return typeReference.FullName.Replace("/", "+");
-        }
-
-        private static bool IsAttribute([CanBeNull] TypeDefinition typeDefinition)
-        {
-            if (typeDefinition?.BaseType != null)
-            {
-                return typeDefinition.BaseType.FullName == "System.Attribute" ||
-                       IsAttribute(typeDefinition.BaseType.Resolve());
-            }
-
-            return false;
-        }
-
         internal GenericArgument CreateGenericArgumentFromTypeReference(TypeReference typeReference)
         {
             return new GenericArgument(GetOrCreateStubTypeInstanceFromTypeReference(typeReference));
-        }
-
-        private static Visibility GetVisibilityFromTypeDefinition([CanBeNull] TypeDefinition typeDefinition)
-        {
-            if (typeDefinition == null)
-            {
-                return NotAccessible;
-            }
-
-            if (typeDefinition.IsPublic || typeDefinition.IsNestedPublic)
-            {
-                return Public;
-            }
-
-            if (typeDefinition.IsNestedPrivate)
-            {
-                return Private;
-            }
-
-            if (typeDefinition.IsNestedFamily)
-            {
-                return Protected;
-            }
-
-            if (typeDefinition.IsNestedFamilyOrAssembly)
-            {
-                return ProtectedInternal;
-            }
-
-            if (typeDefinition.IsNestedFamilyAndAssembly)
-            {
-                return PrivateProtected;
-            }
-
-            if (typeDefinition.IsNestedAssembly || typeDefinition.IsNotPublic)
-            {
-                return Internal;
-            }
-
-            throw new ArgumentException("The provided type definition seems to have no visibility.");
         }
 
         private void LoadBaseTask(Class cls, Type type, TypeDefinition typeDefinition)

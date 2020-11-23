@@ -123,23 +123,24 @@ namespace ArchUnitNET.Loader.LoadTasks
             var calledMethodMembers = CreateMethodBodyDependenciesRecursive(methodBody, visitedMethodReferences,
                 bodyTypes, referencedTypes, accessedFieldMembers);
 
-            foreach (var calledMethodMember in calledMethodMembers.Where(method => !IsCompilerGenerated(method))
+            foreach (var calledMethodMember in calledMethodMembers.Where(method => !method.IsCompilerGenerated())
                 .Distinct())
             {
                 yield return new MethodCallDependency(methodMember, calledMethodMember);
             }
 
-            foreach (var bodyType in bodyTypes.Where(instance => !IsCompilerGenerated(instance)).Distinct())
+            foreach (var bodyType in bodyTypes.Where(instance => !instance.IsCompilerGenerated()).Distinct())
             {
                 yield return new BodyTypeMemberDependency(methodMember, bodyType);
             }
 
-            foreach (var referencedType in referencedTypes.Where(instance => !IsCompilerGenerated(instance)).Distinct())
+            foreach (var referencedType in referencedTypes.Where(instance => !instance.IsCompilerGenerated())
+                .Distinct())
             {
                 yield return new MemberTypeDependency(methodMember, referencedType);
             }
 
-            foreach (var fieldMember in accessedFieldMembers.Where(field => !IsCompilerGenerated(field)).Distinct())
+            foreach (var fieldMember in accessedFieldMembers.Where(field => !field.IsCompilerGenerated()).Distinct())
             {
                 yield return new AccessFieldDependency(methodMember, fieldMember);
             }
@@ -197,29 +198,6 @@ namespace ArchUnitNET.Loader.LoadTasks
                     yield return calledMethodMember;
                 }
             }
-        }
-
-        private static bool IsCompilerGenerated(MethodMemberInstance instance)
-        {
-            return IsCompilerGenerated(instance.Member) ||
-                   instance.DeclaringTypeGenericArguments.Any(IsCompilerGenerated) ||
-                   instance.MemberGenericArguments.Any(IsCompilerGenerated);
-        }
-
-        private static bool IsCompilerGenerated(IMember member)
-        {
-            return member.DeclaringType.NameContains("<") || member.NameContains("<");
-        }
-
-        private static bool IsCompilerGenerated<T>(TypeInstance<T> type) where T : IType
-        {
-            return type.Type.NameContains("<") || type.GenericArguments.Any(IsCompilerGenerated);
-        }
-
-        private static bool IsCompilerGenerated(GenericArgument genericArgument)
-        {
-            return genericArgument.Type.NameContains("<") ||
-                   genericArgument.GenericArguments.Any(IsCompilerGenerated);
         }
 
         private static MatchFunction GetMatchFunction(MethodForm methodForm)

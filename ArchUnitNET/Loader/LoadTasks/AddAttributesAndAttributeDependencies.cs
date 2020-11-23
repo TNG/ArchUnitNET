@@ -83,7 +83,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private void SetUpAttributesForMethods(MethodDefinition methodDefinition)
         {
-            var methodMember = _type.GetMethodMembers().WhereFullNameIs(methodDefinition.GetFullName())
+            var methodMember = _type.GetMethodMembers().WhereFullNameIs(methodDefinition.BuildFullName())
                 .RequiredNotNull();
             var memberCustomAttributes = methodDefinition.GetAllMethodCustomAttributes().ToList();
             SetUpAttributesForMethodGenericParameters(methodDefinition, methodMember);
