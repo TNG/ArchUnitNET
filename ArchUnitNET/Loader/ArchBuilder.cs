@@ -72,7 +72,7 @@ namespace ArchUnitNET.Loader
                 .ForEach(typeDefinition =>
                 {
                     var type = _typeFactory.GetOrCreateTypeFromTypeReference(typeDefinition);
-                    if (!_architectureTypes.Contains(type))
+                    if (!_architectureTypes.Contains(type) && !type.IsCompilerGenerated)
                     {
                         _architectureTypes.Add(type);
                     }

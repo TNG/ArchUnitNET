@@ -16,12 +16,13 @@ namespace ArchUnitNET.Domain
         private readonly TypeInstance<IType> _typeInstance;
 
         public FieldMember(IType declaringType, string name, string fullName, Visibility visibility,
-            TypeInstance<IType> typeInstance)
+            TypeInstance<IType> typeInstance, bool isCompilerGenerated)
         {
             DeclaringType = declaringType;
             Name = name;
             FullName = fullName;
             Visibility = visibility;
+            IsCompilerGenerated = isCompilerGenerated;
             _typeInstance = typeInstance;
         }
 
@@ -33,6 +34,7 @@ namespace ArchUnitNET.Domain
         public string Name { get; }
         public string FullName { get; }
 
+        public bool IsCompilerGenerated { get; }
         public bool IsGeneric => false;
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
         public List<Attribute> Attributes { get; } = new List<Attribute>();

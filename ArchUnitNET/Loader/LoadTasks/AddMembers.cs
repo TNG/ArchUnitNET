@@ -50,8 +50,21 @@ namespace ArchUnitNET.Loader.LoadTasks
             var typeReference = fieldDefinition.FieldType;
             var fieldType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
+            var isCompilerGenerated = fieldDefinition.IsCompilerGenerated();
 
-            return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, visibility, fieldType);
+            return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, visibility, fieldType,
+                isCompilerGenerated);
+        }
+
+        [NotNull]
+        private IMember CreatePropertyMember(PropertyDefinition propertyDefinition)
+        {
+            var typeReference = propertyDefinition.PropertyType;
+            var propertyType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
+            var isCompilerGenerated = propertyDefinition.IsCompilerGenerated();
+
+            return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType,
+                isCompilerGenerated);
         }
 
         private static Visibility GetVisibilityFromFieldDefinition([NotNull] FieldDefinition fieldDefinition)
@@ -87,14 +100,6 @@ namespace ArchUnitNET.Loader.LoadTasks
             }
 
             throw new ArgumentException("The field definition seems to have no visibility.");
-        }
-
-        [NotNull]
-        private IMember CreatePropertyMember(PropertyDefinition propertyDefinition)
-        {
-            var typeReference = propertyDefinition.PropertyType;
-            var propertyType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
-            return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType);
         }
     }
 }

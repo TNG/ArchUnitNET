@@ -17,12 +17,14 @@ namespace ArchUnitNET.Domain
     {
         private readonly TypeInstance<IType> _typeInstance;
 
-        public PropertyMember(IType declaringType, string name, string fullName, TypeInstance<IType> type)
+        public PropertyMember(IType declaringType, string name, string fullName, TypeInstance<IType> type,
+            bool isCompilerGenerated)
         {
             Name = name;
             FullName = fullName;
             _typeInstance = type;
             DeclaringType = declaringType;
+            IsCompilerGenerated = isCompilerGenerated;
             PropertyTypeDependency = new PropertyTypeDependency(this);
         }
 
@@ -40,6 +42,7 @@ namespace ArchUnitNET.Domain
         public List<IMemberTypeDependency> AttributeDependencies { get; } = new List<IMemberTypeDependency>();
 
         public IMemberTypeDependency PropertyTypeDependency { get; }
+        public bool IsCompilerGenerated { get; }
 
         public bool IsGeneric => false;
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
