@@ -40,7 +40,8 @@ namespace ArchUnitNET.Loader.LoadTasks
         {
             return typeDefinition.Fields.Where(fieldDefinition => !fieldDefinition.IsBackingField())
                 .Select(CreateFieldMember).Concat(typeDefinition.Properties.Select(CreatePropertyMember)
-                    .Concat(typeDefinition.Methods.Select(CreateMethodMember)));
+                    .Concat(typeDefinition.Methods.Select(method =>
+                        _typeFactory.GetOrCreateMethodMemberFromMethodReference(_type, method).Member)));
         }
 
         [NotNull]
@@ -94,28 +95,6 @@ namespace ArchUnitNET.Loader.LoadTasks
             var typeReference = propertyDefinition.PropertyType;
             var propertyType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType);
-        }
-
-        [NotNull]
-        private MethodMember CreateMethodMember(MethodDefinition methodDefinition)
-        {
-            var typeReference = methodDefinition.ReturnType;
-            var returnType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
-            var parameters = methodDefinition.GetParameters(_typeFactory).ToList();
-
-            var visibility = methodDefinition.GetVisibility();
-            var methodForm = methodDefinition.GetMethodForm();
-            var methodName = methodDefinition.BuildMethodMemberName();
-            var methodDefinitionFullName = methodDefinition.GetFullName();
-            var isGeneric = methodDefinition.HasGenericParameters;
-
-            var methodMember = new MethodMember(methodName, methodDefinitionFullName, _type, visibility,
-                parameters, returnType, methodDefinition.IsVirtual, methodForm, isGeneric);
-
-            var genericParameters = _typeFactory.GetGenericParameters(methodDefinition);
-            methodMember.GenericParameters.AddRange(genericParameters);
-
-            return methodMember;
         }
     }
 }

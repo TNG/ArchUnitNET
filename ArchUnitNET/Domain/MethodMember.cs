@@ -13,32 +13,48 @@ namespace ArchUnitNET.Domain
 {
     public class MethodMember : IMember
     {
-        private readonly IEnumerable<TypeInstance<IType>> _parameterInstances;
         private readonly TypeInstance<IType> _returnTypeInstance;
 
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
-            IEnumerable<TypeInstance<IType>> parameters, TypeInstance<IType> returnType, bool isVirtual,
-            MethodForm methodForm,
-            bool isGeneric)
+            TypeInstance<IType> returnType, bool isVirtual,
+            MethodForm methodForm, bool isGeneric, bool isStub)
         {
             Name = name;
             FullName = fullName;
             DeclaringType = declaringType;
             Visibility = visibility;
-            _parameterInstances = parameters;
             _returnTypeInstance = returnType;
             IsVirtual = isVirtual;
             MethodForm = methodForm;
             IsGeneric = isGeneric;
-            GenericParameters = new List<GenericParameter>();
+            IsStub = isStub;
+        }
+
+        public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
+            List<TypeInstance<IType>> parameters, TypeInstance<IType> returnType, bool isVirtual,
+            MethodForm methodForm, bool isGeneric, bool isStub)
+        {
+            Name = name;
+            FullName = fullName;
+            DeclaringType = declaringType;
+            Visibility = visibility;
+            ParameterInstances = parameters;
+            _returnTypeInstance = returnType;
+            IsVirtual = isVirtual;
+            MethodForm = methodForm;
+            IsGeneric = isGeneric;
+            IsStub = isStub;
         }
 
         public bool IsVirtual { get; }
         public MethodForm MethodForm { get; }
-        public IEnumerable<IType> Parameters => _parameterInstances.Select(instance => instance.Type);
+
+        internal List<TypeInstance<IType>> ParameterInstances { get; } = new List<TypeInstance<IType>>();
+        public IEnumerable<IType> Parameters => ParameterInstances.Select(instance => instance.Type);
         public IType ReturnType => _returnTypeInstance.Type;
+        public bool IsStub { get; }
         public bool IsGeneric { get; }
-        public List<GenericParameter> GenericParameters { get; }
+        public List<GenericParameter> GenericParameters { get; } = new List<GenericParameter>();
         public Visibility Visibility { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();

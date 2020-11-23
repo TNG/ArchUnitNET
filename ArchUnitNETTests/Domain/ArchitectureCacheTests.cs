@@ -24,7 +24,7 @@ namespace ArchUnitNETTests.Domain
             _testArchitectureCacheKey.Add(typeof(ArchitectureCacheTests).Assembly.FullName, null);
 
             _testEmptyArchitecture = new Architecture(new List<Assembly>(), new List<Namespace>(), new List<IType>(),
-                new List<IType>());
+                new List<GenericParameter>(), new List<IType>());
         }
 
         [Fact]

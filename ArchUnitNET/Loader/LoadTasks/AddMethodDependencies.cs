@@ -159,15 +159,22 @@ namespace ArchUnitNET.Loader.LoadTasks
 
                 if (calledMethodReference.IsCompilerGenerated())
                 {
-                    if (!(calledMethodReference is MethodDefinition calledMethodDefinition))
+                    MethodDefinition calledMethodDefinition;
+                    try
                     {
                         calledMethodDefinition = calledMethodReference.Resolve();
-                        if (calledMethodDefinition == null)
-                        {
-                            //MethodReference to compiler generated type not resolvable, skip
-                            continue;
-                        }
                     }
+                    catch (AssemblyResolutionException)
+                    {
+                        calledMethodDefinition = null;
+                    }
+
+                    if (calledMethodDefinition == null)
+                    {
+                        //MethodReference to compiler generated type not resolvable, skip
+                        continue;
+                    }
+
 
                     bodyTypes.AddRange(calledMethodDefinition.GetBodyTypes(_typeFactory));
 
@@ -186,7 +193,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                     var calledType =
                         _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(calledMethodReference.DeclaringType);
                     var calledMethodMember =
-                        _typeFactory.GetMethodMemberInstanceWithMethodReference(calledType, calledMethodReference);
+                        _typeFactory.GetOrCreateMethodMemberFromMethodReference(calledType, calledMethodReference);
                     yield return calledMethodMember;
                 }
             }
