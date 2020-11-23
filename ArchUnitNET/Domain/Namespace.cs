@@ -17,5 +17,10 @@ namespace ArchUnitNET.Domain
         public string Name => SliceKey;
 
         public string FullName => Name;
+
+        public override string ToString()
+        {
+            return FullName;
+        }
     }
 }
