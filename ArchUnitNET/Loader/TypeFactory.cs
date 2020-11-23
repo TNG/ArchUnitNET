@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
@@ -34,9 +35,9 @@ namespace ArchUnitNET.Loader
             _typeRegistry = typeRegistry;
         }
 
-        public IEnumerable<IType> GetAllTypes()
+        public IEnumerable<IType> GetAllNonCompilerGeneratedTypes()
         {
-            return _typeRegistry.GetAllTypes();
+            return _typeRegistry.GetAllTypes().Where(type => !type.NameContains("<"));
         }
 
         [NotNull]

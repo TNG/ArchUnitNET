@@ -148,7 +148,8 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             var attributeConstructorArgs = customAttribute.ConstructorArguments;
             attributeConstructorArgs
-                .Where(attributeArgument => attributeArgument.Value is TypeReference)
+                .Where(attributeArgument => attributeArgument.Value is TypeReference typeReference &&
+                                            !typeReference.IsCompilerGenerated())
                 .Select(attributeArgument => (typeReference: attributeArgument.Value as TypeReference,
                     attributeArgument))
                 .ForEach(tuple =>

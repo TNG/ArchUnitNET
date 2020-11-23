@@ -123,22 +123,23 @@ namespace ArchUnitNET.Loader.LoadTasks
             var calledMethodMembers = CreateMethodBodyDependenciesRecursive(methodBody, visitedMethodReferences,
                 bodyTypes, referencedTypes, accessedFieldMembers);
 
-            foreach (var calledMethodMember in calledMethodMembers.Distinct())
+            foreach (var calledMethodMember in calledMethodMembers.Where(method => !IsCompilerGenerated(method))
+                .Distinct())
             {
                 yield return new MethodCallDependency(methodMember, calledMethodMember);
             }
 
-            foreach (var bodyType in bodyTypes.Distinct())
+            foreach (var bodyType in bodyTypes.Where(instance => !IsCompilerGenerated(instance)).Distinct())
             {
                 yield return new BodyTypeMemberDependency(methodMember, bodyType);
             }
 
-            foreach (var referencedType in referencedTypes.Distinct())
+            foreach (var referencedType in referencedTypes.Where(instance => !IsCompilerGenerated(instance)).Distinct())
             {
                 yield return new MemberTypeDependency(methodMember, referencedType);
             }
 
-            foreach (var fieldMember in accessedFieldMembers.Distinct())
+            foreach (var fieldMember in accessedFieldMembers.Where(field => !IsCompilerGenerated(field)).Distinct())
             {
                 yield return new AccessFieldDependency(methodMember, fieldMember);
             }
@@ -155,10 +156,8 @@ namespace ArchUnitNET.Loader.LoadTasks
             foreach (var calledMethodReference in calledMethodReferences.Except(visitedMethodReferences))
             {
                 visitedMethodReferences.Add(calledMethodReference);
-                var calledType =
-                    _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(calledMethodReference.DeclaringType);
 
-                if (calledType.Type.NameContains("<")) //compilerGenerated
+                if (calledMethodReference.IsCompilerGenerated())
                 {
                     if (!(calledMethodReference is MethodDefinition calledMethodDefinition))
                     {
@@ -184,11 +183,36 @@ namespace ArchUnitNET.Loader.LoadTasks
                 }
                 else
                 {
+                    var calledType =
+                        _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(calledMethodReference.DeclaringType);
                     var calledMethodMember =
                         _typeFactory.GetMethodMemberInstanceWithMethodReference(calledType, calledMethodReference);
                     yield return calledMethodMember;
                 }
             }
+        }
+
+        private static bool IsCompilerGenerated(MethodMemberInstance instance)
+        {
+            return IsCompilerGenerated(instance.Member) ||
+                   instance.DeclaringTypeGenericArguments.Any(IsCompilerGenerated) ||
+                   instance.MemberGenericArguments.Any(IsCompilerGenerated);
+        }
+
+        private static bool IsCompilerGenerated(IMember member)
+        {
+            return member.DeclaringType.NameContains("<") || member.NameContains("<");
+        }
+
+        private static bool IsCompilerGenerated<T>(TypeInstance<T> type) where T : IType
+        {
+            return type.Type.NameContains("<") || type.GenericArguments.Any(IsCompilerGenerated);
+        }
+
+        private static bool IsCompilerGenerated(GenericArgument genericArgument)
+        {
+            return genericArgument.Type.NameContains("<") ||
+                   genericArgument.GenericArguments.Any(IsCompilerGenerated);
         }
 
         private static MatchFunction GetMatchFunction(MethodForm methodForm)

@@ -50,9 +50,20 @@ namespace ArchUnitNET.Loader
         {
             _architectureCacheKey.Add(module.Name, namespaceFilter);
 
-            var types = module.Types;
+            ICollection<TypeDefinition> types;
 
-            var allTypes = types.Concat(types.SelectMany(typeDefinition => typeDefinition.NestedTypes));
+            if (module.Types.First().FullName.Contains("<Module>"))
+            {
+                types = module.Types.Skip(1).ToList();
+            }
+            else
+            {
+                types = module.Types;
+            }
+
+
+            var allTypes = types.Concat(types.SelectMany(typeDefinition =>
+                typeDefinition.NestedTypes.Where(type => !type.IsCompilerGenerated())));
             allTypes
                 .Where(typeDefinition => RegexUtils.MatchNamespaces(namespaceFilter,
                     typeDefinition.Namespace))
@@ -100,8 +111,8 @@ namespace ArchUnitNET.Loader
 
             UpdateTypeDefinitions();
             var newArchitecture =
-                new Architecture(Assemblies, Namespaces, Types.Skip(1),
-                    _typeFactory.GetAllTypes().Except(Types)); //Skip first Type to ignore <Module>
+                new Architecture(Assemblies, Namespaces, Types,
+                    _typeFactory.GetAllNonCompilerGeneratedTypes().Except(Types));
             _architectureCache.Add(_architectureCacheKey, newArchitecture);
             return newArchitecture;
         }
