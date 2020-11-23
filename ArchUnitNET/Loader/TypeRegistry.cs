@@ -21,8 +21,7 @@ namespace ArchUnitNET.Loader
         public TypeInstance<IType> GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference,
             [NotNull] Func<string, TypeInstance<IType>> createFunc)
         {
-            return RegistryUtils.GetFromDictOrCreateAndAdd(TypeFactory.GetTypeFullNameForTypeReference(typeReference),
-                _allTypes, createFunc);
+            return RegistryUtils.GetFromDictOrCreateAndAdd(typeReference.BuildFullName(), _allTypes, createFunc);
         }
 
         public IEnumerable<IType> GetAllTypes()

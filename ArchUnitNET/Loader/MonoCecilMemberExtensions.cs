@@ -18,8 +18,14 @@ using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Loader
 {
-    public static class MonoCecilMemberExtensions
+    internal static class MonoCecilMemberExtensions
     {
+        internal static string BuildFullName(this MethodReference methodReference)
+        {
+            return methodReference.FullName + methodReference.GenericParameters.Aggregate(string.Empty,
+                (current, newElement) => current + "<" + newElement.Name + ">");
+        }
+
         [NotNull]
         internal static string BuildMethodMemberName(this MethodReference methodReference)
         {
@@ -49,16 +55,6 @@ namespace ArchUnitNET.Loader
 
             builder.Append(")");
             return builder.ToString();
-        }
-
-        [NotNull]
-        internal static FieldMember CreateStubFieldMemberFromFieldReference(this TypeFactory typeFactory,
-            [NotNull] IType type, [NotNull] FieldReference fieldReference)
-        {
-            var typeReference = fieldReference.FieldType;
-            var fieldType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
-
-            return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType);
         }
 
         [NotNull]
@@ -197,12 +193,12 @@ namespace ArchUnitNET.Loader
             return accessedFieldMembers.Distinct();
         }
 
-        public static bool IsCompilerGenerated(this MemberReference memberReference)
+        internal static bool IsCompilerGenerated(this MemberReference memberReference)
         {
             return memberReference.Name.Contains("<") || (memberReference.DeclaringType?.Name.Contains("<") ?? false);
         }
 
-        public static MethodForm GetMethodForm(this MethodDefinition methodDefinition)
+        internal static MethodForm GetMethodForm(this MethodDefinition methodDefinition)
         {
             if (methodDefinition.IsConstructor)
             {
@@ -222,18 +218,23 @@ namespace ArchUnitNET.Loader
             return methodSignature.MethodReturnType.ReturnType.FullName.Equals("System.Void");
         }
 
-        public static bool HasConstructorName(this MethodReference methodReference)
+        internal static bool HasConstructorName(this MethodReference methodReference)
         {
             return methodReference.Name == ".ctor" || methodReference.Name == ".cctor";
         }
 
-        public static bool IsBackingField(this FieldReference fieldReference)
+        internal static bool IsBackingField(this FieldReference fieldReference)
         {
             return fieldReference.FullName.Contains(StaticConstants.BackingField);
         }
 
-        public static Visibility GetVisibility(this MethodDefinition methodDefinition)
+        internal static Visibility GetVisibility([CanBeNull] this MethodDefinition methodDefinition)
         {
+            if (methodDefinition == null)
+            {
+                return NotAccessible;
+            }
+
             if (methodDefinition.IsPublic)
             {
                 return Public;
@@ -265,12 +266,6 @@ namespace ArchUnitNET.Loader
             }
 
             throw new ArgumentException("The method definition seems to have no visibility.");
-        }
-
-        public static string GetFullName(this MethodReference methodReference)
-        {
-            return methodReference.FullName + methodReference.GenericParameters.Aggregate(string.Empty,
-                (current, newElement) => current + "<" + newElement.Name + ">");
         }
     }
 }
