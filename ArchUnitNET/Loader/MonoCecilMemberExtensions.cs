@@ -263,6 +263,11 @@ namespace ArchUnitNET.Loader
             return accessedFieldMembers.Distinct();
         }
 
+        public static bool IsCompilerGenerated(this MemberReference memberReference)
+        {
+            return memberReference.Name.Contains("<") || (memberReference.DeclaringType?.Name.Contains("<") ?? false);
+        }
+
         public static MethodForm GetMethodForm(this MethodDefinition methodDefinition)
         {
             if (methodDefinition.IsConstructor)

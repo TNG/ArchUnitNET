@@ -24,8 +24,6 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var assembly = type.Assembly.CreateStubAssembly();
             var namespc = type.Namespace.CreateStubNamespace();
             var visibility = type.GetVisibility();
-            var genericParameters =
-                Enumerable.Empty<GenericParameter>(); //TODO find generic parameters (not always empty)
             return new Type(type.FullName, type.Name, assembly, namespc, visibility, type.IsNested, type.IsGenericType,
                 true);
         }
