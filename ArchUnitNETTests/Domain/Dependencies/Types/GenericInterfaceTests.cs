@@ -4,8 +4,11 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
+using Xunit;
 
 // ReSharper disable UnusedTypeParameter
 
@@ -26,22 +29,18 @@ namespace ArchUnitNETTests.Domain.Dependencies.Types
             _genericType = _architecture.GetClassOfType(typeof(GenericType));
         }
 
+        [Fact]
+        public void ClassImplementsGenericInterface()
+        {
+            var implementsInterfaceDependency = _genericInterfaceImplementation.Dependencies
+                .OfType<ImplementsInterfaceDependency>().First();
+            var genericArgumentsOfImplementedInterface = implementsInterfaceDependency.TargetGenericArguments
+                .Select(argument => argument.Type).ToList();
 
-//TODO update test
-        // [Fact]
-        // public void ClassImplementsGenericInterface()
-        // {
-        //     // Setup, Act
-        //     var implementedGenericInterface = _genericInterfaceImplementation.ImplementedInterfaces.FirstOrDefault();
-        //     var genericArgumentsOfImplementedInterface = implementedGenericInterface?.GenericTypeArguments;
-        //
-        //     // Assert
-        //     Assert.True(_genericInterfaceImplementation.ImplementsInterface(_genericInterface));
-        //     Assert.Single(genericArgumentsOfImplementedInterface ??
-        //                   throw new NullException("No generic arguments from inherited " +
-        //                                           "generic interface implementation."));
-        //     Assert.Contains(_genericType, genericArgumentsOfImplementedInterface);
-        // }
+            Assert.True(_genericInterfaceImplementation.ImplementsInterface(_genericInterface));
+            Assert.Single(genericArgumentsOfImplementedInterface);
+            Assert.Contains(_genericType, genericArgumentsOfImplementedInterface);
+        }
     }
 
     public interface IGenericInterface<TGenericType>
