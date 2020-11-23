@@ -93,7 +93,9 @@ namespace ArchUnitNET.Loader
                 return new TypeInstance<IType>(elementType, genericArguments);
             }
 
-            var typeNamespaceName = typeReference.Namespace;
+            var typeNamespaceName = typeReference.IsNested
+                ? typeReference.DeclaringType.Namespace
+                : typeReference.Namespace;
             var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
                 typeReference.Module.Assembly.FullName, true);
             var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(typeNamespaceName);
