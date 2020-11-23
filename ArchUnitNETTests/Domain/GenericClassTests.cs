@@ -40,33 +40,28 @@ namespace ArchUnitNETTests.Domain
             _expectedGenericArgument = new Class(guidMock, false, true, true, false);
         }
 
-        //TODO update tests
-        // [Fact]
-        // public void GenericTypeArgumentsAsExpected()
-        // {
-        //     //Setup
-        //     var genericTypeArgumentClass = _genericallyTypedField.Type.GenericTypeArguments.First() as Class;
-        //
-        //     //Assert
-        //     Assert.NotNull(genericTypeArgumentClass);
-        //     Assert.Equal(_expectedGenericArgument, genericTypeArgumentClass);
-        // }
-        //
-        // [Fact]
-        // public void GenericTypeArgumentsFound()
-        // {
-        //     Assert.Single(_genericallyTypedField.Type.GenericTypeArguments);
-        // }
-        //
-        // [Fact]
-        // public void GenericTypeAsExpected()
-        // {
-        //     //Setup
-        //     var invokedGenericType = _genericallyTypedField.Type;
-        //
-        //     //Assert
-        //     Assert.Equal(_classWithGenericParameters, invokedGenericType.GenericType);
-        // }
+        [Fact]
+        public void GenericTypeArgumentsAsExpected()
+        {
+            var genericTypeArgumentClass = _genericallyTypedField.GenericArguments.First().Type as Class;
+
+            Assert.NotNull(genericTypeArgumentClass);
+            Assert.Equal(_expectedGenericArgument, genericTypeArgumentClass);
+        }
+
+        [Fact]
+        public void GenericTypeArgumentsFound()
+        {
+            Assert.Single(_genericallyTypedField.GenericArguments);
+        }
+
+        [Fact]
+        public void GenericTypeAsExpected()
+        {
+            var invokedGenericType = _genericallyTypedField.Type;
+
+            Assert.Equal(_classWithGenericParameters, invokedGenericType);
+        }
 
         [Fact]
         public void GenericTypeParametersFound()
