@@ -15,7 +15,7 @@ namespace ArchUnitNET.Loader
     public class Type : IType
     {
         public Type(string fullname, string name, Assembly assembly, Namespace namespc, Visibility visibility,
-            bool isNested, bool isGeneric, bool isStub)
+            bool isNested, bool isGeneric, bool isStub, bool isCompilerGenerated)
         {
             FullName = fullname;
             Name = name;
@@ -25,6 +25,7 @@ namespace ArchUnitNET.Loader
             IsNested = isNested;
             IsGeneric = isGeneric;
             IsStub = isStub;
+            IsCompilerGenerated = isCompilerGenerated;
         }
 
         public string Name { get; }
@@ -41,6 +42,7 @@ namespace ArchUnitNET.Loader
 
         public bool IsGeneric { get; }
         public bool IsGenericParameter => false;
+        public bool IsCompilerGenerated { get; }
         public List<GenericParameter> GenericParameters { get; } = new List<GenericParameter>();
 
         public bool IsStub { get; }

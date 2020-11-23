@@ -35,7 +35,7 @@ namespace ArchUnitNET.Loader
 
         public IEnumerable<IType> GetAllNonCompilerGeneratedTypes()
         {
-            return _typeRegistry.GetAllTypes().Where(type => !type.IsCompilerGenerated());
+            return _typeRegistry.GetAllTypes().Where(type => !type.IsCompilerGenerated);
         }
 
         [NotNull]
@@ -106,13 +106,14 @@ namespace ArchUnitNET.Loader
                 typeDefinition = null;
             }
 
+            var isCompilerGenerated = typeReference.IsCompilerGenerated();
             var typeName = typeReference.BuildFullName();
             var visibility = typeDefinition.GetVisibility();
             var isNested = typeReference.IsNested;
             var isGeneric = typeReference.HasGenericParameters;
 
             var type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested,
-                isGeneric, isStub);
+                isGeneric, isStub, isCompilerGenerated);
 
             var genericParameters = GetGenericParameters(typeDefinition);
             type.GenericParameters.AddRange(genericParameters);
@@ -136,11 +137,11 @@ namespace ArchUnitNET.Loader
                         typeDefinition.IsValueType, typeDefinition.IsEnum);
             }
 
-            if (!isStub)
+            if (!isStub && !isCompilerGenerated)
             {
-                if (createdType is Class @class)
+                if (createdType is Class cls)
                 {
-                    LoadBaseTask(@class, type, typeDefinition);
+                    LoadBaseTask(cls, type, typeDefinition);
                 }
 
                 LoadNonBaseTasks(createdType, type, typeDefinition);
@@ -171,6 +172,7 @@ namespace ArchUnitNET.Loader
             var name = methodReference.BuildMethodMemberName();
             var fullName = methodReference.BuildFullName();
             var isGeneric = methodReference.HasGenericParameters;
+            var isCompilerGenerated = methodReference.IsCompilerGenerated();
             MethodForm methodForm;
             Visibility visibility;
             bool isStub;
@@ -199,7 +201,7 @@ namespace ArchUnitNET.Loader
             }
 
             var methodMember = new MethodMember(name, fullName, typeInstance.Type, visibility, returnType,
-                false, methodForm, isGeneric, isStub);
+                false, methodForm, isGeneric, isStub, isCompilerGenerated);
 
             var parameters = methodReference.GetParameters(this).ToList();
             methodMember.ParameterInstances.AddRange(parameters);
@@ -217,8 +219,10 @@ namespace ArchUnitNET.Loader
         {
             var typeReference = fieldReference.FieldType;
             var fieldType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
+            var isCompilerGenerated = fieldReference.IsCompilerGenerated();
 
-            return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType);
+            return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType,
+                isCompilerGenerated);
         }
 
         public IEnumerable<GenericParameter> GetGenericParameters(IGenericParameterProvider genericParameterProvider)
@@ -233,12 +237,13 @@ namespace ArchUnitNET.Loader
         private GenericParameter CreateGenericParameter(Mono.Cecil.GenericParameter genericParameter,
             [NotNull] string declarerFullName)
         {
+            var isCompilerGenerated = genericParameter.IsCompilerGenerated();
             var variance = genericParameter.GetVariance();
             var typeConstraints = genericParameter.Constraints.Select(con =>
                 GetOrCreateStubTypeInstanceFromTypeReference(con.ConstraintType));
             return new GenericParameter(declarerFullName, genericParameter.Name, variance, typeConstraints,
                 genericParameter.HasReferenceTypeConstraint, genericParameter.HasNotNullableValueTypeConstraint,
-                genericParameter.HasDefaultConstructorConstraint);
+                genericParameter.HasDefaultConstructorConstraint, isCompilerGenerated);
         }
 
         internal GenericArgument CreateGenericArgumentFromTypeReference(TypeReference typeReference)

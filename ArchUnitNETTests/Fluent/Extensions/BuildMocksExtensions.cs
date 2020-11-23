@@ -25,7 +25,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var namespc = type.Namespace.CreateStubNamespace();
             var visibility = type.GetVisibility();
             return new Type(type.FullName, type.Name, assembly, namespc, visibility, type.IsNested, type.IsGenericType,
-                true);
+                true, false);
         }
 
         private static Visibility GetVisibility(this System.Type type)
@@ -77,7 +77,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
         public static Type CreateShallowStubType(this Class clazz)
         {
             var type = new Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace, clazz.Visibility,
-                clazz.IsNested, clazz.IsGeneric, clazz.IsStub);
+                clazz.IsNested, clazz.IsGeneric, clazz.IsStub, clazz.IsCompilerGenerated);
             type.GenericParameters.AddRange(clazz.GenericParameters);
             return type;
         }
@@ -141,8 +141,8 @@ namespace ArchUnitNETTests.Fluent.Extensions
                 fullName = methodInfo.CreateStubFullName();
             }
 
-            return new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility, parameters,
-                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false);
+            return new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility,
+                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false, false, parameters);
         }
 
         private static string BuildMockMethodName(this MethodBase methodBase)

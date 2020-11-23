@@ -16,8 +16,8 @@ namespace ArchUnitNET.Domain
         private readonly TypeInstance<IType> _returnTypeInstance;
 
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
-            TypeInstance<IType> returnType, bool isVirtual,
-            MethodForm methodForm, bool isGeneric, bool isStub)
+            TypeInstance<IType> returnType, bool isVirtual, MethodForm methodForm, bool isGeneric, bool isStub,
+            bool isCompilerGenerated)
         {
             Name = name;
             FullName = fullName;
@@ -28,11 +28,13 @@ namespace ArchUnitNET.Domain
             MethodForm = methodForm;
             IsGeneric = isGeneric;
             IsStub = isStub;
+            IsCompilerGenerated = isCompilerGenerated;
         }
 
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
-            List<TypeInstance<IType>> parameters, TypeInstance<IType> returnType, bool isVirtual,
-            MethodForm methodForm, bool isGeneric, bool isStub)
+            TypeInstance<IType> returnType, bool isVirtual,
+            MethodForm methodForm, bool isGeneric, bool isStub, bool isCompilerGenerated,
+            List<TypeInstance<IType>> parameters)
         {
             Name = name;
             FullName = fullName;
@@ -44,6 +46,7 @@ namespace ArchUnitNET.Domain
             MethodForm = methodForm;
             IsGeneric = isGeneric;
             IsStub = isStub;
+            IsCompilerGenerated = isCompilerGenerated;
         }
 
         public bool IsVirtual { get; }
@@ -53,6 +56,7 @@ namespace ArchUnitNET.Domain
         public IEnumerable<IType> Parameters => ParameterInstances.Select(instance => instance.Type);
         public IType ReturnType => _returnTypeInstance.Type;
         public bool IsStub { get; }
+        public bool IsCompilerGenerated { get; }
         public bool IsGeneric { get; }
         public List<GenericParameter> GenericParameters { get; } = new List<GenericParameter>();
         public Visibility Visibility { get; }

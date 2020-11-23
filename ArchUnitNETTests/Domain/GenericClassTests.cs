@@ -36,7 +36,7 @@ namespace ArchUnitNETTests.Domain
                 .GetFieldMembersWithName(nameof(InvokesGenericClass.GuidGenericArgument)).SingleOrDefault();
             var guidMock = new Type(SystemGuidFullName, GuidClassName,
                 _classWithGenericParameters.Assembly,
-                new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false, false, true);
+                new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false, false, true, false);
             _expectedGenericArgument = new Class(guidMock, false, true, true, false);
         }
 

@@ -67,6 +67,7 @@ namespace ArchUnitNET.Domain
         public bool IsGeneric => Type.IsGeneric;
         public bool IsGenericParameter => Type.IsGenericParameter;
         public bool IsStub => Type.IsStub;
+        public bool IsCompilerGenerated => Type.IsCompilerGenerated;
         public string Name => Type.Name;
         public string FullName => Type.FullName;
 

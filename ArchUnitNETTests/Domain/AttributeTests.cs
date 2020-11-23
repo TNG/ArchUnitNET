@@ -49,7 +49,7 @@ namespace ArchUnitNETTests.Domain
                 _abstractAttributePair.OriginClass.FullName, _abstractAttributePair.OriginClass.Assembly,
                 _abstractAttributePair.OriginClass.Namespace, _abstractAttributePair.OriginClass.Visibility,
                 _abstractAttributePair.OriginClass.IsNested, _abstractAttributePair.OriginClass.IsGeneric,
-                _abstractAttributePair.OriginClass.IsStub);
+                _abstractAttributePair.OriginClass.IsStub, false);
             _unrelatedType.GenericParameters.AddRange(_abstractAttributePair.OriginClass.GenericParameters);
             _propertyMember = _implementsAbstractAttribute
                 .GetPropertyMembersWithName(nameof(ChildOfAbstractAttribute.Property)).SingleOrDefault();

@@ -20,7 +20,7 @@ namespace ArchUnitNET.Domain
 
         public GenericParameter(string declarerFullName, string name, GenericParameterVariance variance,
             IEnumerable<TypeInstance<IType>> typeConstraints, bool hasReferenceTypeConstraint,
-            bool hasNotNullableValueTypeConstraint, bool hasDefaultConstructorConstraint)
+            bool hasNotNullableValueTypeConstraint, bool hasDefaultConstructorConstraint, bool isCompilerGenerated)
         {
             _declarerFullName = declarerFullName;
             Name = name;
@@ -29,6 +29,7 @@ namespace ArchUnitNET.Domain
             HasReferenceTypeConstraint = hasReferenceTypeConstraint;
             HasNotNullableValueTypeConstraint = hasNotNullableValueTypeConstraint;
             HasDefaultConstructorConstraint = hasDefaultConstructorConstraint;
+            IsCompilerGenerated = isCompilerGenerated;
         }
 
         public IType DeclaringType { get; private set; }
@@ -44,6 +45,7 @@ namespace ArchUnitNET.Domain
 
         public string Name { get; }
         public string FullName => _declarerFullName + "+<" + Name + ">";
+        public bool IsCompilerGenerated { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
 
         public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();

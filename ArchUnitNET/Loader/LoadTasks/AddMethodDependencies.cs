@@ -123,24 +123,24 @@ namespace ArchUnitNET.Loader.LoadTasks
             var calledMethodMembers = CreateMethodBodyDependenciesRecursive(methodBody, visitedMethodReferences,
                 bodyTypes, referencedTypes, accessedFieldMembers);
 
-            foreach (var calledMethodMember in calledMethodMembers.Where(method => !method.IsCompilerGenerated())
+            foreach (var calledMethodMember in calledMethodMembers.Where(method => !method.Member.IsCompilerGenerated)
                 .Distinct())
             {
                 yield return new MethodCallDependency(methodMember, calledMethodMember);
             }
 
-            foreach (var bodyType in bodyTypes.Where(instance => !instance.IsCompilerGenerated()).Distinct())
+            foreach (var bodyType in bodyTypes.Where(instance => !instance.Type.IsCompilerGenerated).Distinct())
             {
                 yield return new BodyTypeMemberDependency(methodMember, bodyType);
             }
 
-            foreach (var referencedType in referencedTypes.Where(instance => !instance.IsCompilerGenerated())
+            foreach (var referencedType in referencedTypes.Where(instance => !instance.Type.IsCompilerGenerated)
                 .Distinct())
             {
                 yield return new MemberTypeDependency(methodMember, referencedType);
             }
 
-            foreach (var fieldMember in accessedFieldMembers.Where(field => !field.IsCompilerGenerated()).Distinct())
+            foreach (var fieldMember in accessedFieldMembers.Where(field => !field.Type.IsCompilerGenerated).Distinct())
             {
                 yield return new AccessFieldDependency(methodMember, fieldMember);
             }
