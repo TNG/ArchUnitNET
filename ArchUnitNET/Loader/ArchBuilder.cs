@@ -11,6 +11,7 @@ using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
 {
@@ -30,9 +31,10 @@ namespace ArchUnitNET.Loader
             _namespaceRegistry = new NamespaceRegistry();
             _loadTaskRegistry = new LoadTaskRegistry();
             var typeRegistry = new TypeRegistry();
-            _typeFactory = new TypeFactory(typeRegistry, _loadTaskRegistry, _assemblyRegistry, _namespaceRegistry);
+            var methodMemberRegistry = new MethodMemberRegistry();
+            _typeFactory = new TypeFactory(typeRegistry, methodMemberRegistry, _loadTaskRegistry, _assemblyRegistry,
+                _namespaceRegistry);
             _architectureCacheKey = new ArchitectureCacheKey();
-
             _architectureCache = ArchitectureCache.Instance;
         }
 
@@ -110,9 +112,10 @@ namespace ArchUnitNET.Loader
             }
 
             UpdateTypeDefinitions();
-            var newArchitecture =
-                new Architecture(Assemblies, Namespaces, Types,
-                    _typeFactory.GetAllNonCompilerGeneratedTypes().Except(Types));
+            var allTypes = _typeFactory.GetAllNonCompilerGeneratedTypes().ToList();
+            var genericParameters = allTypes.OfType<GenericParameter>().ToList();
+            var referencedTypes = allTypes.Except(Types).Except(genericParameters);
+            var newArchitecture = new Architecture(Assemblies, Namespaces, Types, genericParameters, referencedTypes);
             _architectureCache.Add(_architectureCacheKey, newArchitecture);
             return newArchitecture;
         }

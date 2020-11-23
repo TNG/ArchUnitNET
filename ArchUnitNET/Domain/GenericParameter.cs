@@ -4,6 +4,7 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
@@ -14,14 +15,15 @@ namespace ArchUnitNET.Domain
 {
     public class GenericParameter : IType
     {
+        private readonly string _declarerFullName;
         internal readonly IEnumerable<TypeInstance<IType>> TypeInstanceConstraints;
 
-        public GenericParameter(string name, GenericParameterVariance variance,
+        public GenericParameter(string declarerFullName, string name, GenericParameterVariance variance,
             IEnumerable<TypeInstance<IType>> typeConstraints, bool hasReferenceTypeConstraint,
             bool hasNotNullableValueTypeConstraint, bool hasDefaultConstructorConstraint)
         {
+            _declarerFullName = declarerFullName;
             Name = name;
-            Attributes = new List<Attribute>();
             Variance = variance;
             TypeInstanceConstraints = typeConstraints;
             HasReferenceTypeConstraint = hasReferenceTypeConstraint;
@@ -29,8 +31,8 @@ namespace ArchUnitNET.Domain
             HasDefaultConstructorConstraint = hasDefaultConstructorConstraint;
         }
 
-        [CanBeNull] public IType DeclaringType { get; internal set; }
-        [CanBeNull] public IMember DeclaringMember { get; internal set; }
+        public IType DeclaringType { get; private set; }
+        [CanBeNull] public IMember DeclaringMember { get; private set; }
         public GenericParameterVariance Variance { get; }
         public IEnumerable<IType> TypeConstraints => TypeInstanceConstraints.Select(instance => instance.Type);
         public bool HasReferenceTypeConstraint { get; }
@@ -41,11 +43,8 @@ namespace ArchUnitNET.Domain
                                       HasDefaultConstructorConstraint || TypeConstraints.Any();
 
         public string Name { get; }
-        public List<Attribute> Attributes { get; }
-
-        public string FullName => DeclaringType == null
-            ? Name
-            : (DeclaringMember == null ? DeclaringType.FullName : DeclaringMember.FullName) + "+<" + Name + ">";
+        public string FullName => _declarerFullName + "+<" + Name + ">";
+        public List<Attribute> Attributes { get; } = new List<Attribute>();
 
         public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
         public List<ITypeDependency> BackwardsDependencies { get; } = new List<ITypeDependency>();
@@ -81,6 +80,27 @@ namespace ArchUnitNET.Domain
             return pattern != null && TypeConstraints.All(type => type.IsAssignableTo(pattern, useRegularExpressions));
         }
 
+        internal void AssignDeclarer(IMember declaringMember)
+        {
+            if (!declaringMember.FullName.Equals(_declarerFullName))
+            {
+                throw new InvalidOperationException("Full name of declaring member doesn't match.");
+            }
+
+            DeclaringType = declaringMember.DeclaringType;
+            DeclaringMember = declaringMember;
+        }
+
+        internal void AssignDeclarer(IType declaringType)
+        {
+            if (!declaringType.FullName.Equals(_declarerFullName))
+            {
+                throw new InvalidOperationException("Full name of declaring type doesn't match.");
+            }
+
+            DeclaringType = declaringType;
+        }
+
         public bool Equals(GenericParameter other)
         {
             if (ReferenceEquals(null, other))
@@ -93,11 +113,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return Equals(Name, other.Name) && Attributes.SequenceEqual(other.Attributes) &&
-                   Equals(Variance, other.Variance) && TypeConstraints.SequenceEqual(other.TypeConstraints) &&
-                   Equals(HasReferenceTypeConstraint, other.HasReferenceTypeConstraint) &&
-                   Equals(HasNotNullableValueTypeConstraint, other.HasNotNullableValueTypeConstraint) &&
-                   Equals(HasDefaultConstructorConstraint, other.HasDefaultConstructorConstraint);
+            return Equals(FullName, other.FullName);
         }
 
         public override bool Equals(object obj)
@@ -122,19 +138,7 @@ namespace ArchUnitNET.Domain
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = Name != null ? Name.GetHashCode() : 0;
-                hashCode = Attributes.Aggregate(hashCode,
-                    (current, attribute) => (current * 397) ^ (attribute != null ? attribute.GetHashCode() : 0));
-                hashCode = (hashCode * 397) ^ Variance.GetHashCode();
-                hashCode = TypeConstraints.Aggregate(hashCode,
-                    (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));
-                hashCode = (hashCode * 397) ^ HasReferenceTypeConstraint.GetHashCode();
-                hashCode = (hashCode * 397) ^ HasNotNullableValueTypeConstraint.GetHashCode();
-                hashCode = (hashCode * 397) ^ HasDefaultConstructorConstraint.GetHashCode();
-                return hashCode;
-            }
+            return FullName.GetHashCode();
         }
 
         public override string ToString()
