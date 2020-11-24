@@ -7,7 +7,6 @@
 
 using System;
 using System.Linq;
-using System.Reflection.Metadata;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
@@ -24,6 +23,7 @@ namespace ArchUnitNETTests.Dependencies
         private readonly Class _classWithIndexing;
         private readonly Class _classWithLambda;
         private readonly Class _classWithProperty;
+        private readonly Class _genericArgumentClass;
         private readonly Class _returnedClass;
 
         public KeepDependenciesInCompilerGeneratedTypesTests()
@@ -33,6 +33,7 @@ namespace ArchUnitNETTests.Dependencies
             _classWithIndexing = Architecture.GetClassOfType(typeof(ClassWithIndexingDependency));
             _returnedClass = Architecture.GetClassOfType(typeof(ReturnedClass));
             _argumentClass = Architecture.GetClassOfType(typeof(ArgumentClass));
+            _genericArgumentClass = Architecture.GetClassOfType(typeof(GenericArgumentClass));
         }
 
         [Fact]
@@ -76,16 +77,27 @@ namespace ArchUnitNETTests.Dependencies
             Assert.Contains(_classWithProperty, typeDependencies);
             Assert.Contains(_classWithProperty, methodTypeDependencies);
         }
-        
+
+        [Fact]
+        public void LambdaGenericArgumentDependenciesNotLost()
+        {
+            var typeDependencies = _classWithLambda.GetTypeDependencies().ToList();
+            var method = _classWithLambda.GetMethodMembers().First();
+            var methodTypeDependencies = method.GetTypeDependencies().ToList();
+
+            Assert.Contains(_genericArgumentClass, typeDependencies);
+            Assert.Contains(_genericArgumentClass, methodTypeDependencies);
+        }
+
         [Fact(Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand")]
         public void LambdaPrimitiveDependenciesNotLost()
         {
             var typeDependencies = _classWithLambda.GetTypeDependencies().ToList();
             var method = _classWithLambda.GetMethodMembers().First();
             var methodTypeDependencies = method.GetTypeDependencies().ToList();
-            
-            Assert.Contains(typeDependencies,dep=>dep.FullNameContains("System.String"));
-            Assert.Contains(methodTypeDependencies, dep=>dep.FullNameContains("System.String"));
+
+            Assert.Contains(typeDependencies, dep => dep.FullNameContains("System.String"));
+            Assert.Contains(methodTypeDependencies, dep => dep.FullNameContains("System.String"));
         }
 
         [Fact]
@@ -130,10 +142,15 @@ namespace ArchUnitNETTests.Dependencies
             {
                 Func<object, object> secondLambda = obj => new ClassWithIndexingDependency();
                 Func<object, object> thirdLambda = obj => "testString";
+                Func<GenericArgumentClass, bool> fourthLambda = genericArgumentClass => true;
                 ClassWithPropertyDependency var = null;
                 return new ReturnedClass(new ArgumentClass());
             };
         }
+    }
+
+    internal class GenericArgumentClass
+    {
     }
 
     internal class ClassWithIndexingDependency
