@@ -140,7 +140,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 yield return new MemberTypeDependency(methodMember, referencedType);
             }
 
-            foreach (var fieldMember in accessedFieldMembers.Where(field => !field.Type.IsCompilerGenerated).Distinct())
+            foreach (var fieldMember in accessedFieldMembers.Where(field => !field.IsCompilerGenerated).Distinct())
             {
                 yield return new AccessFieldDependency(methodMember, fieldMember);
             }
