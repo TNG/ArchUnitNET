@@ -34,7 +34,7 @@ namespace ArchUnitNETTests.Dependencies
                 .WhereNameIs("MethodWithCastDependencies(ArchUnitNETTests.Dependencies.CastClassA)").ToList().First();
         }
 
-        [Fact]
+        [SkipInReleaseBuild]
         public void CastTest()
         {
             var typeDependencies = _classWithCastDependency.GetTypeDependencies(Architecture).ToList();
