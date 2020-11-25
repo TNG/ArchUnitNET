@@ -58,11 +58,12 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private void CollectAttributesForMembers()
         {
-            _typeDefinition.Fields.Where(x => !x.IsBackingField()).ForEach(SetUpAttributesForFields);
+            _typeDefinition.Fields.Where(x => !x.IsBackingField() && !x.IsCompilerGenerated())
+                .ForEach(SetUpAttributesForFields);
 
-            _typeDefinition.Properties.ForEach(SetUpAttributesForProperties);
+            _typeDefinition.Properties.Where(x => !x.IsCompilerGenerated()).ForEach(SetUpAttributesForProperties);
 
-            _typeDefinition.Methods.ForEach(SetUpAttributesForMethods);
+            _typeDefinition.Methods.Where(x => !x.IsCompilerGenerated()).ForEach(SetUpAttributesForMethods);
         }
 
         private void SetUpAttributesForFields(FieldDefinition fieldDefinition)

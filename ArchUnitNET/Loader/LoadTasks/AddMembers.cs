@@ -41,7 +41,8 @@ namespace ArchUnitNET.Loader.LoadTasks
             return typeDefinition.Fields.Where(fieldDefinition => !fieldDefinition.IsBackingField())
                 .Select(CreateFieldMember).Concat(typeDefinition.Properties.Select(CreatePropertyMember)
                     .Concat(typeDefinition.Methods.Select(method =>
-                        _typeFactory.GetOrCreateMethodMemberFromMethodReference(_type, method).Member)));
+                        _typeFactory.GetOrCreateMethodMemberFromMethodReference(_type, method).Member)))
+                .Where(member => !member.IsCompilerGenerated);
         }
 
         [NotNull]

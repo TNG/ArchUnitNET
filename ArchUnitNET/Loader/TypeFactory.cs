@@ -86,16 +86,11 @@ namespace ArchUnitNET.Loader
                 var elementType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference.GetElementType()).Type;
                 var genericInstance = (GenericInstanceType) typeReference;
                 var genericArguments = genericInstance.GenericArguments
-                    .Select(CreateGenericArgumentFromTypeReference);
+                    .Select(CreateGenericArgumentFromTypeReference)
+                    .Where(argument => !argument.Type.IsCompilerGenerated);
                 return new TypeInstance<IType>(elementType, genericArguments);
             }
 
-            var typeNamespaceName = typeReference.IsNested
-                ? typeReference.DeclaringType.Namespace
-                : typeReference.Namespace;
-            var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
-                typeReference.Module.Assembly.FullName, true);
-            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(typeNamespaceName);
             TypeDefinition typeDefinition;
             try
             {
@@ -106,22 +101,36 @@ namespace ArchUnitNET.Loader
                 typeDefinition = null;
             }
 
-            var isCompilerGenerated = typeReference.IsCompilerGenerated();
             var typeName = typeReference.BuildFullName();
-            var visibility = typeDefinition.GetVisibility();
-            var isNested = typeReference.IsNested;
-            var isGeneric = typeReference.HasGenericParameters;
+            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(typeReference.IsNested
+                ? typeReference.DeclaringType.Namespace
+                : typeReference.Namespace);
+            var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
+                typeReference.Module.Assembly.FullName, true);
 
-            var type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested,
+            Type type;
+            bool isCompilerGenerated, isNested, isGeneric;
+
+            if (typeDefinition == null)
+            {
+                isCompilerGenerated = typeReference.IsCompilerGenerated();
+                isNested = typeReference.IsNested;
+                isGeneric = typeReference.HasGenericParameters;
+                type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, NotAccessible,
+                    isNested, isGeneric, true, isCompilerGenerated);
+
+                return new TypeInstance<IType>(new Class(type));
+            }
+
+            var visibility = typeDefinition.GetVisibility();
+            isCompilerGenerated = typeDefinition.IsCompilerGenerated();
+            isNested = typeDefinition.IsNested;
+            isGeneric = typeDefinition.HasGenericParameters;
+            type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, visibility, isNested,
                 isGeneric, isStub, isCompilerGenerated);
 
             var genericParameters = GetGenericParameters(typeDefinition);
             type.GenericParameters.AddRange(genericParameters);
-
-            if (typeDefinition == null)
-            {
-                return new TypeInstance<IType>(new Class(type));
-            }
 
             IType createdType;
 
@@ -161,7 +170,8 @@ namespace ArchUnitNET.Loader
 
                 var genericInstanceMethod = (GenericInstanceMethod) methodReference;
                 var genericArguments = genericInstanceMethod.GenericArguments
-                    .Select(CreateGenericArgumentFromTypeReference);
+                    .Select(CreateGenericArgumentFromTypeReference)
+                    .Where(argument => !argument.Type.IsCompilerGenerated);
 
                 return new MethodMemberInstance(elementMethod, typeInstance.GenericArguments, genericArguments);
             }
