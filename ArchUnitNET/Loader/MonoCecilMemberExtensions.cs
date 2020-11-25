@@ -20,6 +20,12 @@ namespace ArchUnitNET.Loader
 {
     internal static class MonoCecilMemberExtensions
     {
+        private static readonly OpCode[] BodyTypeOpCodes =
+        {
+            OpCodes.Box, OpCodes.Newarr, OpCodes.Initobj, OpCodes.Unbox, OpCodes.Unbox_Any, OpCodes.Ldelem_Any,
+            OpCodes.Ldobj, OpCodes.Stelem_Any, OpCodes.Ldelema, OpCodes.Stobj
+        }; //maybe not complete
+
         internal static string BuildFullName(this MethodReference methodReference)
         {
             return methodReference.FullName + methodReference.GenericParameters.Aggregate(string.Empty,
@@ -124,16 +130,13 @@ namespace ArchUnitNET.Loader
         internal static IEnumerable<ITypeInstance<IType>> GetBodyTypes(this MethodDefinition methodDefinition,
             TypeFactory typeFactory)
         {
-            var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
+            var instructions = methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
 
-            var bodyTypes = instructions.Where(inst => inst.OpCode == OpCodes.Box && inst.Operand is TypeReference)
+            var bodyTypes = instructions
+                .Where(inst => BodyTypeOpCodes.Contains(inst.OpCode) && inst.Operand is TypeReference)
                 .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
 
-            if (instructions.Any(inst => inst.OpCode == OpCodes.Ldstr))
-            {
-                //TODO find typeReference to string and add to body types (could be done like CreateStubType() in BuildMocksExtensions)
-                //bodyTypes.Add(typeFactory.GetOrCreateStubTypeFromTypeReference();
-            }
+            //OpCodes.Ldstr should create a dependency to string, but it does not have a TypeReference as Operand so no Type can be created
 
             bodyTypes = bodyTypes.Union(methodDefinition.Body?.Variables.Select(variableDefinition =>
             {
@@ -145,16 +148,32 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetReferencedTypes(this MethodDefinition methodDefinition,
+        internal static IEnumerable<ITypeInstance<IType>> GetCastTypes(this MethodDefinition methodDefinition,
             TypeFactory typeFactory)
         {
-            var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
+            var instructions = methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
 
-            var codes = new List<OpCode>
-                {OpCodes.Castclass, OpCodes.Isinst, OpCodes.Ldtoken}; //TODO probably not all necessary OpCodes
+            return instructions.Where(inst => inst.OpCode == OpCodes.Castclass && inst.Operand is TypeReference)
+                .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
+        }
 
-            return instructions.Where(inst =>
-                    codes.Contains(inst.OpCode) && inst.Operand is TypeReference)
+        [NotNull]
+        internal static IEnumerable<ITypeInstance<IType>> GetMetaDataTypes(this MethodDefinition methodDefinition,
+            TypeFactory typeFactory)
+        {
+            var instructions = methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
+
+            return instructions.Where(inst => inst.OpCode == OpCodes.Ldtoken && inst.Operand is TypeReference)
+                .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
+        }
+
+        [NotNull]
+        internal static IEnumerable<ITypeInstance<IType>> GetTypeCheckTypes(this MethodDefinition methodDefinition,
+            TypeFactory typeFactory)
+        {
+            var instructions = methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
+
+            return instructions.Where(inst => inst.OpCode == OpCodes.Isinst && inst.Operand is TypeReference)
                 .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
         }
 

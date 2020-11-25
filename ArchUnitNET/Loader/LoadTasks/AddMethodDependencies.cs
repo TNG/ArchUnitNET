@@ -71,13 +71,14 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             accessedProperty.IsVirtual = accessedProperty.IsVirtual || methodMember.IsVirtual;
 
-            if (methodForm == MethodForm.Getter)
+            switch (methodForm)
             {
-                accessedProperty.Getter = methodMember;
-            }
-            else if (methodForm == MethodForm.Setter)
-            {
-                accessedProperty.Setter = methodMember;
+                case MethodForm.Getter:
+                    accessedProperty.Getter = methodMember;
+                    break;
+                case MethodForm.Setter:
+                    accessedProperty.Setter = methodMember;
+                    break;
             }
 
             var methodBody = methodDefinition.Body;
@@ -118,12 +119,16 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             var bodyTypes = methodDefinition.GetBodyTypes(_typeFactory).ToList();
 
-            var referencedTypes = methodDefinition.GetReferencedTypes(_typeFactory).ToList();
+            var castTypes = methodDefinition.GetCastTypes(_typeFactory).ToList();
+
+            var typeCheckTypes = methodDefinition.GetTypeCheckTypes(_typeFactory).ToList();
+
+            var metaDataTypes = methodDefinition.GetMetaDataTypes(_typeFactory).ToList();
 
             var accessedFieldMembers = methodDefinition.GetAccessedFieldMembers(_typeFactory).ToList();
 
             var calledMethodMembers = CreateMethodBodyDependenciesRecursive(methodBody, visitedMethodReferences,
-                bodyTypes, referencedTypes, accessedFieldMembers);
+                bodyTypes, castTypes, typeCheckTypes, metaDataTypes, accessedFieldMembers);
 
             foreach (var calledMethodMember in calledMethodMembers.Where(method => !method.Member.IsCompilerGenerated)
                 .Distinct())
@@ -136,10 +141,20 @@ namespace ArchUnitNET.Loader.LoadTasks
                 yield return new BodyTypeMemberDependency(methodMember, bodyType);
             }
 
-            foreach (var referencedType in referencedTypes.Where(instance => !instance.Type.IsCompilerGenerated)
+            foreach (var castType in castTypes.Where(instance => !instance.Type.IsCompilerGenerated).Distinct())
+            {
+                yield return new CastTypeDependency(methodMember, castType);
+            }
+
+            foreach (var typeCheckType in typeCheckTypes.Where(instance => !instance.Type.IsCompilerGenerated)
                 .Distinct())
             {
-                yield return new ReferencedTypeDependency(methodMember, referencedType);
+                yield return new TypeCheckDependency(methodMember, typeCheckType);
+            }
+
+            foreach (var metaDataType in metaDataTypes.Where(instance => !instance.Type.IsCompilerGenerated).Distinct())
+            {
+                yield return new MetaDataDependency(methodMember, metaDataType);
             }
 
             foreach (var fieldMember in accessedFieldMembers.Where(field => !field.IsCompilerGenerated).Distinct())
@@ -151,7 +166,8 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private IEnumerable<MethodMemberInstance> CreateMethodBodyDependenciesRecursive(MethodBody methodBody,
             ICollection<MethodReference> visitedMethodReferences, List<ITypeInstance<IType>> bodyTypes,
-            List<ITypeInstance<IType>> referencedTypes, List<FieldMember> accessedFieldMembers)
+            List<ITypeInstance<IType>> castTypes, List<ITypeInstance<IType>> typeCheckTypes,
+            List<ITypeInstance<IType>> metaDataTypes, List<FieldMember> accessedFieldMembers)
         {
             var calledMethodReferences = methodBody.Instructions.Select(instruction => instruction.Operand)
                 .OfType<MethodReference>();
@@ -178,15 +194,15 @@ namespace ArchUnitNET.Loader.LoadTasks
                         continue;
                     }
 
-
                     bodyTypes.AddRange(calledMethodDefinition.GetBodyTypes(_typeFactory));
-
-                    referencedTypes.AddRange(calledMethodDefinition.GetReferencedTypes(_typeFactory));
-
+                    castTypes.AddRange(calledMethodDefinition.GetCastTypes(_typeFactory));
+                    typeCheckTypes.AddRange(calledMethodDefinition.GetTypeCheckTypes(_typeFactory));
+                    metaDataTypes.AddRange(calledMethodDefinition.GetMetaDataTypes(_typeFactory));
                     accessedFieldMembers.AddRange(calledMethodDefinition.GetAccessedFieldMembers(_typeFactory));
 
                     foreach (var dep in CreateMethodBodyDependenciesRecursive(calledMethodDefinition.Body,
-                        visitedMethodReferences, bodyTypes, referencedTypes, accessedFieldMembers))
+                        visitedMethodReferences, bodyTypes, castTypes, typeCheckTypes, metaDataTypes,
+                        accessedFieldMembers))
                     {
                         yield return dep;
                     }

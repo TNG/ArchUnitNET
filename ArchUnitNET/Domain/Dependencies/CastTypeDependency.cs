@@ -7,10 +7,10 @@
 
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class ReferencedTypeDependency : MemberTypeInstanceDependency
+    public class CastTypeDependency : MemberTypeInstanceDependency
     {
-        public ReferencedTypeDependency(IMember originMember, ITypeInstance<IType> referencedTypeInstance)
-            : base(originMember, referencedTypeInstance)
+        public CastTypeDependency(IMember originMember, ITypeInstance<IType> castTypeInstance)
+            : base(originMember, castTypeInstance)
         {
         }
     }
