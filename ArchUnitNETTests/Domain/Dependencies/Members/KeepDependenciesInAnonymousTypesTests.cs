@@ -86,7 +86,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
     {
         public Class2WithAnonymousType()
         {
-            var anonymousType = new {castType = (CastType) new InstantiatedType()};
+            var anonymousType = new {castType = (CastType) new InstantiatedType(), i = 3};
         }
     }
 

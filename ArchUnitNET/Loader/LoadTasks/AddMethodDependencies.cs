@@ -32,8 +32,10 @@ namespace ArchUnitNET.Loader.LoadTasks
         public void Execute()
         {
             _typeDefinition.Methods
-                .Where(methodDefinition => _type.GetMemberWithFullName(methodDefinition.FullName) is MethodMember)
-                .Select(definition => (methodMember: _type.GetMemberWithFullName(definition.FullName) as MethodMember,
+                .Where(methodDefinition =>
+                    _type.GetMemberWithFullName(methodDefinition.BuildFullName()) is MethodMember)
+                .Select(definition => (
+                    methodMember: _type.GetMemberWithFullName(definition.BuildFullName()) as MethodMember,
                     methodDefinition: definition))
                 .Select(tuple =>
                 {

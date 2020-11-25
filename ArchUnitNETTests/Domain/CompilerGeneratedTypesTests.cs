@@ -51,8 +51,9 @@ namespace ArchUnitNETTests.Domain
         public void NoCompilerGeneratedTypesAsDependencyTarget()
         {
             var dependencyTargets = _dependencies.Select(dep => dep.Target);
+            var compilerGeneratedDependencyTargets = dependencyTargets.Where(type => type.IsCompilerGenerated);
 
-            Assert.DoesNotContain(dependencyTargets, type => type.IsCompilerGenerated);
+            Assert.Empty(compilerGeneratedDependencyTargets);
         }
 
         [Fact]
@@ -60,8 +61,9 @@ namespace ArchUnitNETTests.Domain
         {
             var genericArgumentTypes =
                 _dependencies.SelectMany(dep => dep.TargetGenericArguments.Select(argument => argument.Type));
+            var compilerGeneratedGenericArgumentTypes = genericArgumentTypes.Where(type => type.IsCompilerGenerated);
 
-            Assert.DoesNotContain(genericArgumentTypes, type => type.IsCompilerGenerated);
+            Assert.Empty(compilerGeneratedGenericArgumentTypes);
         }
     }
 }

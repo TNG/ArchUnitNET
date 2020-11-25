@@ -12,6 +12,11 @@ namespace ArchUnitNET.Domain.Extensions
 {
     public static class TypeExtensions
     {
+        public static bool IsAnonymousType(this IType type)
+        {
+            return type.NameStartsWith("<>f__AnonymousType");
+        }
+
         public static IEnumerable<Slice<string>> SlicedBy(this IEnumerable<IType> source, string fullName)
         {
             return source.GroupBy(type => type.FullName)

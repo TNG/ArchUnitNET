@@ -28,6 +28,8 @@ namespace ArchUnitNET.Loader
             IsCompilerGenerated = isCompilerGenerated;
         }
 
+        public bool IsAnonymousType { get; }
+
         public string Name { get; }
 
         public string FullName { get; }
