@@ -4,63 +4,13 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using System.Collections.Generic;
-
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class FieldTypeDependency : IMemberTypeDependency
+    public class FieldTypeDependency : MemberTypeInstanceDependency
     {
-        private readonly FieldMember _originMember;
-
         public FieldTypeDependency(FieldMember field)
+            : base(field, field)
         {
-            _originMember = field;
-        }
-
-        public IType Target => _originMember.Type;
-        public IEnumerable<GenericArgument> TargetGenericArguments => _originMember.GenericArguments;
-        public IMember OriginMember => _originMember;
-
-        public IType Origin => OriginMember.DeclaringType;
-
-        public bool Equals(FieldTypeDependency other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Equals(_originMember, other._originMember);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((FieldTypeDependency) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return _originMember != null ? _originMember.GetHashCode() : 0;
         }
     }
 }

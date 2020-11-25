@@ -7,25 +7,12 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Loader;
 
 namespace ArchUnitNET.Domain
 {
-    public class GenericArgument
+    public class GenericArgument : ITypeInstance<IType>
     {
-        public GenericArgument(IType type)
-        {
-            Type = type;
-            GenericArguments = Enumerable.Empty<GenericArgument>();
-        }
-
-        public GenericArgument(IType type, IEnumerable<GenericArgument> genericArguments)
-        {
-            Type = type;
-            GenericArguments = genericArguments;
-        }
-
-        public GenericArgument(TypeInstance<IType> typeInstance)
+        public GenericArgument(ITypeInstance<IType> typeInstance)
         {
             Type = typeInstance.Type;
             GenericArguments = typeInstance.GenericArguments;
@@ -33,6 +20,8 @@ namespace ArchUnitNET.Domain
 
         public IType Type { get; }
         public IEnumerable<GenericArgument> GenericArguments { get; }
+        public bool IsArray { get; }
+        public IEnumerable<int> ArrayDimensions { get; }
 
         public override bool Equals(object obj)
         {

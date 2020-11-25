@@ -7,16 +7,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Loader;
 
 namespace ArchUnitNET.Domain
 {
     public class MethodMember : IMember
     {
-        private readonly TypeInstance<IType> _returnTypeInstance;
+        private readonly ITypeInstance<IType> _returnTypeInstance;
 
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
-            TypeInstance<IType> returnType, bool isVirtual, MethodForm methodForm, bool isGeneric, bool isStub,
+            ITypeInstance<IType> returnType, bool isVirtual, MethodForm methodForm, bool isGeneric, bool isStub,
             bool isCompilerGenerated)
         {
             Name = name;
@@ -31,28 +30,10 @@ namespace ArchUnitNET.Domain
             IsCompilerGenerated = isCompilerGenerated;
         }
 
-        public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
-            TypeInstance<IType> returnType, bool isVirtual,
-            MethodForm methodForm, bool isGeneric, bool isStub, bool isCompilerGenerated,
-            List<TypeInstance<IType>> parameters)
-        {
-            Name = name;
-            FullName = fullName;
-            DeclaringType = declaringType;
-            Visibility = visibility;
-            ParameterInstances = parameters;
-            _returnTypeInstance = returnType;
-            IsVirtual = isVirtual;
-            MethodForm = methodForm;
-            IsGeneric = isGeneric;
-            IsStub = isStub;
-            IsCompilerGenerated = isCompilerGenerated;
-        }
-
         public bool IsVirtual { get; }
         public MethodForm MethodForm { get; }
 
-        internal List<TypeInstance<IType>> ParameterInstances { get; } = new List<TypeInstance<IType>>();
+        public List<ITypeInstance<IType>> ParameterInstances { get; } = new List<ITypeInstance<IType>>();
         public IEnumerable<IType> Parameters => ParameterInstances.Select(instance => instance.Type);
         public IType ReturnType => _returnTypeInstance.Type;
         public bool IsStub { get; }

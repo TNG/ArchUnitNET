@@ -6,61 +6,25 @@
 // 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using ArchUnitNET.Loader;
-using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class MemberGenericParameterTypeConstraintDependency : IMemberTypeDependency
+    public class MemberGenericParameterTypeConstraintDependency : MemberTypeInstanceDependency
     {
         public MemberGenericParameterTypeConstraintDependency(GenericParameter originGenericParameter,
-            IType typeConstraint, IEnumerable<GenericArgument> typeConstraintGenericArguments)
+            ITypeInstance<IType> typeConstraintInstance)
+            : base(originGenericParameter.DeclaringMethod, typeConstraintInstance)
         {
-            if (originGenericParameter.DeclaringMember == null)
+            if (!originGenericParameter.DeclarerIsMethod)
             {
                 throw new ArgumentException(
                     "Use TypeGenericParameterTypeConstraintDependency for Generic Parameters of Types.");
             }
 
             OriginGenericParameter = originGenericParameter;
-            Target = typeConstraint;
-            TargetGenericArguments = typeConstraintGenericArguments;
-        }
-
-        public MemberGenericParameterTypeConstraintDependency(GenericParameter originGenericParameter,
-            TypeInstance<IType> typeConstraintInstance)
-            : this(originGenericParameter, typeConstraintInstance.Type, typeConstraintInstance.GenericArguments)
-        {
         }
 
         public GenericParameter OriginGenericParameter { get; }
-
-        public IType Target { get; }
-
-        public IEnumerable<GenericArgument> TargetGenericArguments { get; }
-
-        // ReSharper disable once AssignNullToNotNullAttribute
-        [NotNull] public IMember OriginMember => OriginGenericParameter.DeclaringMember;
-
-        public IType Origin => OriginMember.DeclaringType;
-
-        public bool Equals(MemberGenericParameterTypeConstraintDependency other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Equals(Target, other.Target) && Equals(OriginGenericParameter, other.OriginGenericParameter) &&
-                   TargetGenericArguments.SequenceEqual(other.TargetGenericArguments);
-        }
 
         public override bool Equals(object obj)
         {
@@ -74,23 +38,21 @@ namespace ArchUnitNET.Domain.Dependencies
                 return true;
             }
 
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
+            return obj.GetType() == GetType() && Equals((MemberGenericParameterTypeConstraintDependency) obj);
+        }
 
-            return Equals((MemberGenericParameterTypeConstraintDependency) obj);
+        private bool Equals(MemberGenericParameterTypeConstraintDependency other)
+        {
+            return Equals(OriginGenericParameter, other.OriginGenericParameter) &&
+                   Equals(TargetInstance, other.TargetInstance);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = Target != null ? Target.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^
-                           (OriginGenericParameter != null ? OriginGenericParameter.GetHashCode() : 0);
-                hashCode = TargetGenericArguments.Aggregate(hashCode,
-                    (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));
+                var hashCode = OriginGenericParameter != null ? OriginGenericParameter.GetHashCode() : 0;
+                hashCode = (hashCode * 397) ^ (TargetInstance != null ? TargetInstance.GetHashCode() : 0);
                 return hashCode;
             }
         }

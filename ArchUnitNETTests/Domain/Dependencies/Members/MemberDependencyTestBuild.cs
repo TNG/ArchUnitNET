@@ -4,14 +4,15 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Loader;
 using ArchUnitNETTests.Fluent.Extensions;
+using Type = System.Type;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
@@ -30,11 +31,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 return new object[] {null, null, null, null};
             }
 
-            var memberTypeDependency = new BodyTypeMemberDependency(originMember, classMemberInfo.TargetClass,
-                Enumerable.Empty<GenericArgument>());
+            var memberTypeDependency =
+                new BodyTypeMemberDependency(originMember, new TypeInstance<IType>(classMemberInfo.TargetClass));
             object duplicateMemberTypeDependency =
-                new BodyTypeMemberDependency(originMember, classMemberInfo.TargetClass,
-                    Enumerable.Empty<GenericArgument>());
+                new BodyTypeMemberDependency(originMember, new TypeInstance<IType>(classMemberInfo.TargetClass));
             var dependencyReferenceDuplicate = memberTypeDependency;
             object objectReferenceDuplicate = memberTypeDependency;
 
@@ -77,10 +77,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 return new object[] {null, null, null, null};
             }
 
-            var memberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember, targetMember,
-                Enumerable.Empty<GenericArgument>(), Enumerable.Empty<GenericArgument>());
-            object duplicateMemberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember, targetMember,
-                Enumerable.Empty<GenericArgument>(), Enumerable.Empty<GenericArgument>());
+            var memberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember,
+                new MethodMemberInstance(targetMember, Enumerable.Empty<GenericArgument>(),
+                    Enumerable.Empty<GenericArgument>()));
+            object duplicateMemberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember,
+                new MethodMemberInstance(targetMember, Enumerable.Empty<GenericArgument>(),
+                    Enumerable.Empty<GenericArgument>()));
             var dependencyReferenceDuplicate = memberTypeDependency;
             object objectReferenceDuplicate = memberTypeDependency;
 
@@ -100,11 +102,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 return new object[] {null, null, null, null};
             }
 
-            var memberTypeDependency = new MethodSignatureDependency(originMember, classMemberInfo.TargetClass,
-                Enumerable.Empty<GenericArgument>());
+            var memberTypeDependency =
+                new MethodSignatureDependency(originMember, new TypeInstance<IType>(classMemberInfo.TargetClass));
             object duplicateMemberTypeDependency =
-                new MethodSignatureDependency(originMember, classMemberInfo.TargetClass,
-                    Enumerable.Empty<GenericArgument>());
+                new MethodSignatureDependency(originMember, new TypeInstance<IType>(classMemberInfo.TargetClass));
             var dependencyReferenceDuplicate = memberTypeDependency;
             object objectReferenceDuplicate = memberTypeDependency;
 

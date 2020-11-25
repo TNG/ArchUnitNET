@@ -4,14 +4,15 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Loader;
 using ArchUnitNETTests.Fluent.Extensions;
+using Type = System.Type;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
@@ -26,8 +27,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             var originMember = originClass.GetMembersWithName(nameOfOriginMember).Single();
             var targetClass = Architecture.GetClassOfType(targetType);
             var targetMember = targetClass.GetMethodMembersWithName(nameOfTargetMember).Single();
-            var expectedDependency = new MethodCallDependency(originMember, targetMember,
-                Enumerable.Empty<GenericArgument>(), Enumerable.Empty<GenericArgument>());
+            var expectedDependency = new MethodCallDependency(originMember, new MethodMemberInstance(targetMember,
+                Enumerable.Empty<GenericArgument>(), Enumerable.Empty<GenericArgument>()));
             return new object[] {originMember, expectedDependency};
         }
 
@@ -36,9 +37,9 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             var originClass = Architecture.GetClassOfType(originType);
             var originMember = originClass.GetMethodMembersWithName(nameOfOriginMember).Single();
-            var target = Architecture.GetITypeOfType(targetType);
+            var target = Architecture.GetClassOfType(targetType);
             var expectedDependency =
-                new MethodSignatureDependency(originMember, target, Enumerable.Empty<GenericArgument>());
+                new MethodSignatureDependency(originMember, new TypeInstance<Class>(target));
             return new object[] {originMember, expectedDependency};
         }
 

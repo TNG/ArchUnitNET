@@ -7,17 +7,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Loader;
 using JetBrains.Annotations;
 using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Domain
 {
-    public class PropertyMember : IMember
+    public class PropertyMember : IMember, ITypeInstance<IType>
     {
-        private readonly TypeInstance<IType> _typeInstance;
+        private readonly ITypeInstance<IType> _typeInstance;
 
-        public PropertyMember(IType declaringType, string name, string fullName, TypeInstance<IType> type,
+        public PropertyMember(IType declaringType, string name, string fullName, ITypeInstance<IType> type,
             bool isCompilerGenerated)
         {
             Name = name;
@@ -28,8 +27,6 @@ namespace ArchUnitNET.Domain
             PropertyTypeDependency = new PropertyTypeDependency(this);
         }
 
-        public IType Type => _typeInstance.Type;
-        public IEnumerable<GenericArgument> TypeGenericArguments => _typeInstance.GenericArguments;
         public bool IsVirtual { get; internal set; }
         public bool IsAutoProperty { get; internal set; } = true;
         public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
@@ -70,6 +67,11 @@ namespace ArchUnitNET.Domain
 
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
+
+        public IType Type => _typeInstance.Type;
+        public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;
+        public IEnumerable<int> ArrayDimensions => _typeInstance.ArrayDimensions;
+        public bool IsArray => _typeInstance.IsArray;
 
         public override string ToString()
         {

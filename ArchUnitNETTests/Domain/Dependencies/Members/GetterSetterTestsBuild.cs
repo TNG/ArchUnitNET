@@ -108,8 +108,9 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         private static MethodCallDependency CreateStubMethodCallDependency(IMember originMember,
             MethodMember targetMember)
         {
-            var methodCallDependency = new MethodCallDependency(originMember, targetMember,
-                Enumerable.Empty<GenericArgument>(), Enumerable.Empty<GenericArgument>());
+            var methodCallDependency = new MethodCallDependency(originMember,
+                new MethodMemberInstance(targetMember, Enumerable.Empty<GenericArgument>(),
+                    Enumerable.Empty<GenericArgument>()));
             methodCallDependency.TargetMember.MemberBackwardsDependencies.Add(methodCallDependency);
             return methodCallDependency;
         }

@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Loader;
 using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
@@ -16,11 +15,12 @@ namespace ArchUnitNET.Domain
     public class GenericParameter : IType
     {
         private readonly string _declarerFullName;
-        internal readonly IEnumerable<TypeInstance<IType>> TypeInstanceConstraints;
+        internal readonly IEnumerable<ITypeInstance<IType>> TypeInstanceConstraints;
 
         public GenericParameter(string declarerFullName, string name, GenericParameterVariance variance,
-            IEnumerable<TypeInstance<IType>> typeConstraints, bool hasReferenceTypeConstraint,
-            bool hasNotNullableValueTypeConstraint, bool hasDefaultConstructorConstraint, bool isCompilerGenerated)
+            IEnumerable<ITypeInstance<IType>> typeConstraints, bool hasReferenceTypeConstraint,
+            bool hasNotNullableValueTypeConstraint, bool hasDefaultConstructorConstraint, bool isCompilerGenerated,
+            bool declarerIsMethod)
         {
             _declarerFullName = declarerFullName;
             Name = name;
@@ -30,10 +30,12 @@ namespace ArchUnitNET.Domain
             HasNotNullableValueTypeConstraint = hasNotNullableValueTypeConstraint;
             HasDefaultConstructorConstraint = hasDefaultConstructorConstraint;
             IsCompilerGenerated = isCompilerGenerated;
+            DeclarerIsMethod = declarerIsMethod;
         }
 
         public IType DeclaringType { get; private set; }
-        [CanBeNull] public IMember DeclaringMember { get; private set; }
+        [CanBeNull] public IMember DeclaringMethod { get; private set; }
+        public bool DeclarerIsMethod { get; }
         public GenericParameterVariance Variance { get; }
         public IEnumerable<IType> TypeConstraints => TypeInstanceConstraints.Select(instance => instance.Type);
         public bool HasReferenceTypeConstraint { get; }
@@ -82,15 +84,15 @@ namespace ArchUnitNET.Domain
             return pattern != null && TypeConstraints.All(type => type.IsAssignableTo(pattern, useRegularExpressions));
         }
 
-        internal void AssignDeclarer(IMember declaringMember)
+        internal void AssignDeclarer(IMember declaringMethod)
         {
-            if (!declaringMember.FullName.Equals(_declarerFullName))
+            if (!declaringMethod.FullName.Equals(_declarerFullName))
             {
                 throw new InvalidOperationException("Full name of declaring member doesn't match.");
             }
 
-            DeclaringType = declaringMember.DeclaringType;
-            DeclaringMember = declaringMember;
+            DeclaringType = declaringMethod.DeclaringType;
+            DeclaringMethod = declaringMethod;
         }
 
         internal void AssignDeclarer(IType declaringType)

@@ -139,7 +139,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             foreach (var referencedType in referencedTypes.Where(instance => !instance.Type.IsCompilerGenerated)
                 .Distinct())
             {
-                yield return new MemberTypeDependency(methodMember, referencedType);
+                yield return new ReferencedTypeDependency(methodMember, referencedType);
             }
 
             foreach (var fieldMember in accessedFieldMembers.Where(field => !field.IsCompilerGenerated).Distinct())
@@ -150,8 +150,8 @@ namespace ArchUnitNET.Loader.LoadTasks
 
 
         private IEnumerable<MethodMemberInstance> CreateMethodBodyDependenciesRecursive(MethodBody methodBody,
-            ICollection<MethodReference> visitedMethodReferences, List<TypeInstance<IType>> bodyTypes,
-            List<TypeInstance<IType>> referencedTypes, List<FieldMember> accessedFieldMembers)
+            ICollection<MethodReference> visitedMethodReferences, List<ITypeInstance<IType>> bodyTypes,
+            List<ITypeInstance<IType>> referencedTypes, List<FieldMember> accessedFieldMembers)
         {
             var calledMethodReferences = methodBody.Instructions.Select(instruction => instruction.Operand)
                 .OfType<MethodReference>();

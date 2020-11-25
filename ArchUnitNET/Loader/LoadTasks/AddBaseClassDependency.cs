@@ -41,7 +41,8 @@ namespace ArchUnitNET.Loader.LoadTasks
             }
 
             var dependency =
-                new InheritsBaseClassDependency(_cls, new TypeInstance<Class>(baseClass, baseType.GenericArguments));
+                new InheritsBaseClassDependency(_cls,
+                    new TypeInstance<Class>(baseClass, baseType.GenericArguments, baseType.ArrayDimensions));
             _type.Dependencies.Add(dependency);
         }
     }

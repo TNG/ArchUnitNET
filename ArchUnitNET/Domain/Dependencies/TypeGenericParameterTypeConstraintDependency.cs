@@ -5,50 +5,26 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
-using System.Collections.Generic;
-using System.Linq;
-using ArchUnitNET.Loader;
+using System;
 
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class TypeGenericParameterTypeConstraintDependency : ITypeDependency
+    public class TypeGenericParameterTypeConstraintDependency : TypeInstanceDependency
     {
         public TypeGenericParameterTypeConstraintDependency(GenericParameter originGenericParameter,
-            IType typeConstraint, IEnumerable<GenericArgument> typeConstraintGenericArguments)
+            ITypeInstance<IType> typeConstraintInstance)
+            : base(originGenericParameter, typeConstraintInstance)
         {
-            OriginGenericParameter = originGenericParameter;
-            Target = typeConstraint;
-            TargetGenericArguments = typeConstraintGenericArguments;
-        }
+            if (originGenericParameter.DeclarerIsMethod)
+            {
+                throw new ArgumentException(
+                    "Use MemberGenericParameterTypeConstraintDependency for Generic Parameters of Methods.");
+            }
 
-        public TypeGenericParameterTypeConstraintDependency(GenericParameter originGenericParameter,
-            TypeInstance<IType> typeConstraintInstance)
-            : this(originGenericParameter, typeConstraintInstance.Type, typeConstraintInstance.GenericArguments)
-        {
+            OriginGenericParameter = originGenericParameter;
         }
 
         public GenericParameter OriginGenericParameter { get; }
-
-        public IType Origin => OriginGenericParameter.DeclaringType;
-        public IType Target { get; }
-
-        public IEnumerable<GenericArgument> TargetGenericArguments { get; }
-
-        public bool Equals(TypeGenericParameterTypeConstraintDependency other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Equals(Target, other.Target) && Equals(OriginGenericParameter, other.OriginGenericParameter) &&
-                   TargetGenericArguments.SequenceEqual(other.TargetGenericArguments);
-        }
 
         public override bool Equals(object obj)
         {
@@ -62,23 +38,21 @@ namespace ArchUnitNET.Domain.Dependencies
                 return true;
             }
 
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
+            return obj.GetType() == GetType() && Equals((TypeGenericParameterTypeConstraintDependency) obj);
+        }
 
-            return Equals((TypeGenericParameterTypeConstraintDependency) obj);
+        private bool Equals(TypeGenericParameterTypeConstraintDependency other)
+        {
+            return Equals(OriginGenericParameter, other.OriginGenericParameter) &&
+                   Equals(TargetInstance, other.TargetInstance);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = Target != null ? Target.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^
-                           (OriginGenericParameter != null ? OriginGenericParameter.GetHashCode() : 0);
-                hashCode = TargetGenericArguments.Aggregate(hashCode,
-                    (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));
+                var hashCode = OriginGenericParameter != null ? OriginGenericParameter.GetHashCode() : 0;
+                hashCode = (hashCode * 397) ^ (TargetInstance != null ? TargetInstance.GetHashCode() : 0);
                 return hashCode;
             }
         }
