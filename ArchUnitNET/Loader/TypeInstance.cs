@@ -11,22 +11,30 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Loader
 {
-    public class TypeInstance<T> where T : IType
+    public class TypeInstance<T> : ITypeInstance<T> where T : IType
     {
-        public TypeInstance(T type, IEnumerable<GenericArgument> genericArguments)
+        public TypeInstance(T type, IEnumerable<GenericArgument> genericArguments, IEnumerable<int> arrayDimensions)
         {
             Type = type;
             GenericArguments = genericArguments;
+            ArrayDimensions = arrayDimensions;
+            IsArray = ArrayDimensions.Any();
+        }
+
+        public TypeInstance(T type, IEnumerable<GenericArgument> genericArguments)
+            : this(type, genericArguments, Enumerable.Empty<int>())
+        {
         }
 
         public TypeInstance(T type)
+            : this(type, Enumerable.Empty<GenericArgument>())
         {
-            Type = type;
-            GenericArguments = Enumerable.Empty<GenericArgument>();
         }
 
         public T Type { get; }
         public IEnumerable<GenericArgument> GenericArguments { get; }
+        public bool IsArray { get; }
+        public IEnumerable<int> ArrayDimensions { get; }
 
         public override bool Equals(object obj)
         {
@@ -55,7 +63,8 @@ namespace ArchUnitNET.Loader
                 return true;
             }
 
-            return Equals(Type, other.Type) && GenericArguments.SequenceEqual(other.GenericArguments);
+            return Equals(Type, other.Type) && GenericArguments.SequenceEqual(other.GenericArguments) &&
+                   Equals(IsArray, other.IsArray) && ArrayDimensions.SequenceEqual(other.ArrayDimensions);
         }
 
         public override int GetHashCode()
@@ -65,6 +74,8 @@ namespace ArchUnitNET.Loader
                 var hashCode = Type != null ? Type.GetHashCode() : 0;
                 hashCode = GenericArguments.Aggregate(hashCode,
                     (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));
+                hashCode = (hashCode * 397) ^ IsArray.GetHashCode();
+                hashCode = ArrayDimensions.Aggregate(hashCode, (current, dim) => (current * 397) ^ dim.GetHashCode());
                 return hashCode;
             }
         }

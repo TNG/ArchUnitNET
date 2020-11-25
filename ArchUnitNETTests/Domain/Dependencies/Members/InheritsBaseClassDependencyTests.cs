@@ -4,10 +4,10 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Loader;
 using Xunit;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Members
@@ -44,7 +44,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         public void ChildClassHasBaseClassDependency()
         {
             var expectedDependency =
-                new InheritsBaseClassDependency(_childClass, _baseClass, Enumerable.Empty<GenericArgument>());
+                new InheritsBaseClassDependency(_childClass, new TypeInstance<Class>(_baseClass));
 
             Assert.True(_childClass.HasDependency(expectedDependency));
         }

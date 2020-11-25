@@ -129,7 +129,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 var attributeTypeReference = customAttribute.AttributeType;
                 var attributeType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(attributeTypeReference);
                 return new TypeInstance<Attribute>(new Attribute(attributeType.Type as Class),
-                    attributeType.GenericArguments);
+                    attributeType.GenericArguments, attributeType.ArrayDimensions);
             });
         }
 

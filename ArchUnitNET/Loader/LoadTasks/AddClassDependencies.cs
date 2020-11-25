@@ -45,8 +45,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             GetInterfacesImplementedByClass(_typeDefinition).ForEach(target =>
             {
                 var targetType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(target);
-                _dependencies.Add(new ImplementsInterfaceDependency(_type,
-                    new TypeInstance<Interface>((Interface) targetType.Type, targetType.GenericArguments)));
+                _dependencies.Add(new ImplementsInterfaceDependency(_type, (ITypeInstance<Interface>) targetType));
             });
         }
 

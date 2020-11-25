@@ -7,10 +7,10 @@
 
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class GenericArgumentMemberDependency : MemberTypeInstanceDependency
+    public class ReferencedTypeDependency : MemberTypeInstanceDependency
     {
-        public GenericArgumentMemberDependency(IMember originMember, GenericArgument genericArgument)
-            : base(originMember, genericArgument)
+        public ReferencedTypeDependency(IMember originMember, ITypeInstance<IType> referencedTypeInstance)
+            : base(originMember, referencedTypeInstance)
         {
         }
     }

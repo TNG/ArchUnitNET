@@ -11,19 +11,22 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Loader
 {
-    public class MethodMemberInstance
+    public class MethodMemberInstance : ITypeInstance<IType>
     {
         public MethodMemberInstance(MethodMember member, IEnumerable<GenericArgument> declaringTypeGenericArguments,
             IEnumerable<GenericArgument> memberGenericArguments)
         {
             Member = member;
-            DeclaringTypeGenericArguments = declaringTypeGenericArguments;
+            GenericArguments = declaringTypeGenericArguments;
             MemberGenericArguments = memberGenericArguments;
         }
 
         public MethodMember Member { get; }
-        public IEnumerable<GenericArgument> DeclaringTypeGenericArguments { get; }
         public IEnumerable<GenericArgument> MemberGenericArguments { get; }
+        public IType Type => Member.DeclaringType;
+        public IEnumerable<GenericArgument> GenericArguments { get; }
+        public bool IsArray => false;
+        public IEnumerable<int> ArrayDimensions => Enumerable.Empty<int>();
 
         public bool Equals(MethodMemberInstance other)
         {
@@ -38,7 +41,7 @@ namespace ArchUnitNET.Loader
             }
 
             return Equals(Member, other.Member) &&
-                   DeclaringTypeGenericArguments.SequenceEqual(other.DeclaringTypeGenericArguments) &&
+                   GenericArguments.SequenceEqual(other.GenericArguments) &&
                    MemberGenericArguments.SequenceEqual(other.MemberGenericArguments);
         }
 
@@ -67,7 +70,7 @@ namespace ArchUnitNET.Loader
             unchecked
             {
                 var hashCode = Member != null ? Member.GetHashCode() : 0;
-                hashCode = DeclaringTypeGenericArguments.Aggregate(hashCode,
+                hashCode = GenericArguments.Aggregate(hashCode,
                     (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));
                 hashCode = MemberGenericArguments.Aggregate(hashCode,
                     (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));

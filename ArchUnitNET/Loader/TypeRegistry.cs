@@ -15,11 +15,11 @@ namespace ArchUnitNET.Loader
 {
     internal class TypeRegistry
     {
-        private readonly Dictionary<string, TypeInstance<IType>> _allTypes =
-            new Dictionary<string, TypeInstance<IType>>();
+        private readonly Dictionary<string, ITypeInstance<IType>> _allTypes =
+            new Dictionary<string, ITypeInstance<IType>>();
 
-        public TypeInstance<IType> GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference,
-            [NotNull] Func<string, TypeInstance<IType>> createFunc)
+        public ITypeInstance<IType> GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference,
+            [NotNull] Func<string, ITypeInstance<IType>> createFunc)
         {
             return RegistryUtils.GetFromDictOrCreateAndAdd(typeReference.BuildFullName(), _allTypes, createFunc);
         }

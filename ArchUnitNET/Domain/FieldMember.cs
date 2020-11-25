@@ -7,16 +7,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Loader;
 
 namespace ArchUnitNET.Domain
 {
-    public class FieldMember : IMember
+    public class FieldMember : IMember, ITypeInstance<IType>
     {
-        private readonly TypeInstance<IType> _typeInstance;
+        private readonly ITypeInstance<IType> _typeInstance;
 
         public FieldMember(IType declaringType, string name, string fullName, Visibility visibility,
-            TypeInstance<IType> typeInstance, bool isCompilerGenerated)
+            ITypeInstance<IType> typeInstance, bool isCompilerGenerated)
         {
             DeclaringType = declaringType;
             Name = name;
@@ -26,8 +25,6 @@ namespace ArchUnitNET.Domain
             _typeInstance = typeInstance;
         }
 
-        public IType Type => _typeInstance.Type;
-        public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;
         public Visibility Visibility { get; }
 
         public IType DeclaringType { get; }
@@ -44,6 +41,11 @@ namespace ArchUnitNET.Domain
 
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
+
+        public IType Type => _typeInstance.Type;
+        public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;
+        public IEnumerable<int> ArrayDimensions => _typeInstance.ArrayDimensions;
+        public bool IsArray => _typeInstance.IsArray;
 
         public override string ToString()
         {

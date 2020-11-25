@@ -68,7 +68,7 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static IEnumerable<TypeInstance<IType>> GetSignatureTypes(this MethodReference methodReference,
+        internal static IEnumerable<ITypeInstance<IType>> GetSignatureTypes(this MethodReference methodReference,
             TypeFactory typeFactory)
         {
             var parameters = GetAllParameters(methodReference, typeFactory).ToList();
@@ -81,7 +81,7 @@ namespace ArchUnitNET.Loader
             return parameters;
         }
 
-        private static TypeInstance<IType> GetReturnType(this MethodReference methodReference, TypeFactory typeFactory)
+        private static ITypeInstance<IType> GetReturnType(this MethodReference methodReference, TypeFactory typeFactory)
         {
             return ReturnsVoid(methodReference)
                 ? null
@@ -89,7 +89,7 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        private static IEnumerable<TypeInstance<IType>> GetAllParameters(this MethodReference methodReference,
+        private static IEnumerable<ITypeInstance<IType>> GetAllParameters(this MethodReference methodReference,
             TypeFactory typeFactory)
         {
             var parameters = methodReference.GetParameters(typeFactory).ToList();
@@ -99,7 +99,7 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static IEnumerable<TypeInstance<IType>> GetParameters(this MethodReference method,
+        internal static IEnumerable<ITypeInstance<IType>> GetParameters(this MethodReference method,
             TypeFactory typeFactory)
         {
             return method.Parameters.Select(parameter =>
@@ -110,7 +110,7 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        private static IEnumerable<TypeInstance<IType>> GetGenericParameters(this MethodReference method,
+        private static IEnumerable<ITypeInstance<IType>> GetGenericParameters(this MethodReference method,
             TypeFactory typeFactory)
         {
             return method.GenericParameters.Select(parameter =>
@@ -121,7 +121,7 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static IEnumerable<TypeInstance<IType>> GetBodyTypes(this MethodDefinition methodDefinition,
+        internal static IEnumerable<ITypeInstance<IType>> GetBodyTypes(this MethodDefinition methodDefinition,
             TypeFactory typeFactory)
         {
             var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
@@ -145,7 +145,7 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static IEnumerable<TypeInstance<IType>> GetReferencedTypes(this MethodDefinition methodDefinition,
+        internal static IEnumerable<ITypeInstance<IType>> GetReferencedTypes(this MethodDefinition methodDefinition,
             TypeFactory typeFactory)
         {
             var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();

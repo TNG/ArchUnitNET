@@ -28,6 +28,9 @@ namespace ArchUnitNET.Domain.Dependencies
         public IType Origin => OriginMember.DeclaringType;
         public IType Target => TargetMember.DeclaringType;
 
+        public bool TargetIsArray => false;
+        public IEnumerable<int> TargetArrayDimensions => Enumerable.Empty<int>();
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))

@@ -118,8 +118,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var visibility = methodBase.GetVisibility();
 
             var declaringType = methodBase.DeclaringType.CreateStubClass();
-            var parameters = methodBase.CreateStubParameters().Select(parameter => new TypeInstance<IType>(parameter))
-                .ToList();
+            var parameters = methodBase.CreateStubParameters().Select(parameter => new TypeInstance<IType>(parameter));
             var methodForm = methodBase.GetStubMethodForm();
 
             var isGeneric = methodBase.IsGenericMethod;
@@ -141,8 +140,11 @@ namespace ArchUnitNETTests.Fluent.Extensions
                 fullName = methodInfo.CreateStubFullName();
             }
 
-            return new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility,
-                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false, false, parameters);
+            var methodMember = new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility,
+                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false, false);
+
+            methodMember.ParameterInstances.AddRange(parameters);
+            return methodMember;
         }
 
         private static string BuildMockMethodName(this MethodBase methodBase)

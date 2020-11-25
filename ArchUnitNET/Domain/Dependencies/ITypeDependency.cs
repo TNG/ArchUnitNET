@@ -12,6 +12,9 @@ namespace ArchUnitNET.Domain.Dependencies
     {
         IType Origin { get; }
         IType Target { get; }
+
         IEnumerable<GenericArgument> TargetGenericArguments { get; }
+        bool TargetIsArray { get; }
+        IEnumerable<int> TargetArrayDimensions { get; }
     }
 }
