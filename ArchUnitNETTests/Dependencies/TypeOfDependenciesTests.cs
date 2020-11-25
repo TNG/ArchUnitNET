@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Dependencies
             _dependingTypeOfClass = Architecture.GetClassOfType(typeof(DependingTypeOfClass));
         }
 
-        [Fact]
+        [SkipInReleaseBuild]
         public void TypeOfDependencyTest()
         {
             var methodMember =

@@ -67,7 +67,7 @@ namespace ArchUnitNETTests.Dependencies
             Assert.Contains(_classWithIndexing, methodTypeDependencies);
         }
 
-        [Fact]
+        [SkipInReleaseBuild]
         public void LambdaTypeDependenciesNotLost()
         {
             var typeDependencies = _classWithLambda.GetTypeDependencies().ToList();
