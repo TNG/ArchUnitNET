@@ -228,13 +228,20 @@ namespace ArchUnitNET.Loader.LoadTasks
         {
             var matchingMethods = type.GetMethodMembers().Where(member => MatchesGeneric(member, methodReference))
                 .ToList();
+
+            if (!matchingMethods.Any())
+            {
+                var stubMethod = _typeFactory.CreateStubMethodMemberFromMethodReference(type, methodReference);
+                return stubMethod;
+            }
+
             if (matchingMethods.Count > 1)
             {
                 throw new MultipleOccurrencesInSequenceException(
                     $"Multiple Methods matching {methodReference.FullName} found in provided type.");
             }
 
-            return matchingMethods.FirstOrDefault();
+            return matchingMethods.First();
         }
 
         private bool MatchesGeneric(MethodMember methodMember, MethodReference methodReference)
