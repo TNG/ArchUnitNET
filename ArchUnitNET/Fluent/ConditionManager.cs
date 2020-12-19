@@ -100,11 +100,11 @@ namespace ArchUnitNET.Fluent
             var conditionResults = _conditionElements.Select(conditionElement =>
                 conditionElement.Check(filteredObjectsList, architecture).ToList()).ToList();
 
-            for (var i = 0; i < filteredObjectsList.Count; i++)
+            foreach (var t in filteredObjectsList)
             {
-                var index = i;
-                yield return CreateEvaluationResult(conditionResults.Select(results => results[index]), architecture,
-                    archRuleCreator);
+                yield return CreateEvaluationResult(
+                    conditionResults.Select(results => results.Find(x => x.ConditionResult.AnalyzedObject.Equals(t))),
+                    architecture, archRuleCreator);
             }
         }
 
