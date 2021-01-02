@@ -11,7 +11,10 @@ namespace ArchUnitNET.PlantUml
 
         public PlantUmlComponents(ISet<PlantUmlComponent> components)
         {
-            _componentsByName = components.ToDictionary(c => c.ComponentName);
+            _componentsByName = components
+                .GroupBy(c => c.ComponentName)
+                .Select(group => group.First())
+                .ToDictionary(c => c.ComponentName);
             _componentsByAlias = components.Where(c => c.Alias != null).ToDictionary(c => c.Alias);
         }
 
@@ -35,7 +38,15 @@ namespace ArchUnitNET.PlantUml
         {
             ComponentName componentName = new ComponentName(nameOrAlias);
             Alias alias = new Alias(nameOrAlias);
-            PlantUmlComponent result = _componentsByAlias.ContainsKey(alias) ? _componentsByAlias[alias] : _componentsByName[componentName];
+            PlantUmlComponent result = null;
+            if (_componentsByAlias.ContainsKey(alias))
+            {
+                result = _componentsByAlias[alias];
+            }
+            else if (_componentsByName.ContainsKey(componentName))
+            {
+                result = _componentsByName[componentName];
+            }
             if (result == null)
             {
                 throw new IllegalDiagramException(string.Format("There is no Component with name or alias = '{0}'. {1}", nameOrAlias,

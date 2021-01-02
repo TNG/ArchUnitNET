@@ -22,7 +22,7 @@ namespace ArchUnitNET.PlantUml
             ComponentNameFormat = "\\[" + Capture(AnythingBut("\\[\\]"), ComponentNameGroupName) + "]";
             StereotypePattern = new Regex(StereotypeFormat);
             AliasFormat = "\\s*(?:as \"?" + Capture("[^\"]+", AliasGroupName) + "\"?)?";
-            PlantUmlComponentPattern = new Regex("^\\s*" + ComponentNameFormat + "\\s*" + StereotypeFormat + "*" + AliasFormat + "\\s*");
+            PlantUmlComponentPattern = new Regex(@"\A(?:^\s*" + ComponentNameFormat + @"\s*" + StereotypeFormat + "*" + AliasFormat + @"\s*)\z");
         }
 
         private static string Capture(string pattern)
@@ -42,7 +42,7 @@ namespace ArchUnitNET.PlantUml
 
         internal IEnumerable<string> FilterComponents(IEnumerable<string> plantUmlDiagramLines)
         {
-            return plantUmlDiagramLines.Where(l => PlantUmlComponentPattern.IsMatch(l));
+            return plantUmlDiagramLines.Where(l => PlantUmlComponentPattern.Match(l).Success);
         }
 
         internal IEnumerable<PlantUmlDependencyMatcher> MatchDependencies(IEnumerable<string> diagramLines)
@@ -130,7 +130,7 @@ namespace ArchUnitNET.PlantUml
 
             private static string RemoveOptionalDescription(string line)
             {
-                return line.Replace(":.*", "");
+                return Regex.Replace(line, ":.*", "");
             }
         }
 
@@ -150,8 +150,11 @@ namespace ArchUnitNET.PlantUml
 
             internal string MatchAlias()
             {
-                //TODO what if not matched?
-                return _componentMatch.Groups[AliasGroupName].Value;
+                if (_componentMatch.Groups[AliasGroupName].Success)
+                {
+                    return _componentMatch.Groups[AliasGroupName].Value;
+                }
+                return null;
             }
 
             internal string MatchComponentName()
