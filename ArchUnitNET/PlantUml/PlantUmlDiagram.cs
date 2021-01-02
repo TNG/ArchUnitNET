@@ -15,7 +15,7 @@ namespace ArchUnitNET.PlantUml
             _plantUmlComponents = plantUmlComponents ?? throw new System.ArgumentNullException(nameof(plantUmlComponents));
         }
 
-        public ISet<PlantUmlComponent> PlantUmlComponents
+        public ISet<PlantUmlComponent> AllComponents
         {
             get
             {

@@ -23,7 +23,7 @@ namespace ArchUnitNET.PlantUml
                           select (Origin: g.Key, Dependencies: g);
            foreach(var g in groupedByOrigin)
             {
-                _originToParsedDependency.Add(g.Origin, g.Dependencies.ToList());
+                _originToParsedDependency.Add(g.Origin, g.Dependencies.Distinct().ToList());
             }
             return this;
 

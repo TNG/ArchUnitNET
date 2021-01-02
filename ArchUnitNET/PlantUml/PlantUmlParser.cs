@@ -61,9 +61,8 @@ namespace ArchUnitNET.PlantUml
 
         private PlantUmlComponent FindComponentMatching(PlantUmlComponents plantUmlComponents, string originOrTargetString)
         {
-            originOrTargetString = originOrTargetString.Trim()
-                    .Replace("^\\[", "")
-                    .Replace("]$", "");
+            originOrTargetString = Regex.Replace(originOrTargetString.Trim(), "^\\[", "");
+            originOrTargetString = Regex.Replace(originOrTargetString, "]$", "");
 
             return plantUmlComponents.FindComponentWith(originOrTargetString);
         }
@@ -71,7 +70,8 @@ namespace ArchUnitNET.PlantUml
         private ISet<PlantUmlComponent> ParseComponents(IEnumerable<string> plantUmlDiagramLines)
         {
             return new HashSet<PlantUmlComponent>(_plantUmlPatterns.FilterComponents(plantUmlDiagramLines)
-                    .Select(p => CreateNewComponent(p)));
+                    .Select(p => CreateNewComponent(p))
+                    .Distinct());
         }
 
         private PlantUmlComponent CreateNewComponent(string input)
