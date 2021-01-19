@@ -6,62 +6,12 @@
 
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class MethodSignatureDependency : IMemberTypeDependency
+    public class MethodSignatureDependency : MemberTypeInstanceDependency
     {
-        public MethodSignatureDependency(MethodMember method, IType target)
+        // ReSharper disable once SuggestBaseTypeForParameter
+        public MethodSignatureDependency(MethodMember method, ITypeInstance<IType> signatureTypeInstance) : base(method,
+            signatureTypeInstance)
         {
-            OriginMember = method;
-            Target = target;
-        }
-
-        public IMember OriginMember { get; }
-
-        public IType Origin => OriginMember.DeclaringType;
-        public IType Target { get; }
-
-        public bool Equals(MethodSignatureDependency other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Equals(OriginMember, other.OriginMember) && Equals(Target, other.Target);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((MethodSignatureDependency) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = OriginMember != null ? OriginMember.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (Target != null ? Target.GetHashCode() : 0);
-                return hashCode;
-            }
         }
     }
 }

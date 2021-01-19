@@ -24,6 +24,12 @@ namespace ArchUnitNET.Domain.Extensions
                 .Select(dependency => (MethodMember) dependency.TargetMember);
         }
 
+        public static IEnumerable<FieldMember> GetAccessedFieldMembers(this IHasDependencies type)
+        {
+            return type.Dependencies.OfType<AccessFieldDependency>()
+                .Select(dependency => (FieldMember) dependency.TargetMember);
+        }
+
         public static bool DependsOn(this IHasDependencies c, string pattern, bool useRegularExpressions = false)
         {
             return c.GetTypeDependencies().Any(d => d.FullNameMatches(pattern, useRegularExpressions));

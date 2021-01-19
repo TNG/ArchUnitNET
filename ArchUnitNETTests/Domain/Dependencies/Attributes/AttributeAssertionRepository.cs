@@ -5,10 +5,10 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
-using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Loader;
 using Xunit;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
@@ -83,13 +83,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             var expectedAttribute = new Attribute(expectedAttributeClass);
 
             var expectedAttributeDependency =
-                new AttributeMemberDependency(targetMember, expectedAttribute);
+                new AttributeMemberDependency(targetMember, new TypeInstance<Attribute>(expectedAttribute));
 
             //Assert
-            Assert.Equal(expectedAttributeDependency,
-                targetMember.Dependencies.First());
-
-            Assert.True(targetMember.Dependencies.Contains(expectedAttributeDependency));
+            Assert.Contains(expectedAttributeDependency, targetMember.Dependencies);
         }
 
         public static void AttributeDependencyAsExpected(IType targetType, Class expectedAttributeClass)
@@ -109,7 +106,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             var expectedAttribute = new Attribute(expectedAttributeClass);
 
             var expectedAttributeDependency =
-                new AttributeTypeDependency(targetType, expectedAttribute);
+                new AttributeTypeDependency(targetType, new TypeInstance<Attribute>(expectedAttribute));
 
             //Assert
             Assert.True(targetType.HasDependency(expectedAttributeDependency));

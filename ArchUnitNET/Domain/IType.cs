@@ -5,7 +5,6 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -14,11 +13,10 @@ namespace ArchUnitNET.Domain
         Namespace Namespace { get; }
         Assembly Assembly { get; }
         MemberList Members { get; }
-        List<IType> GenericTypeParameters { get; }
-        List<IType> GenericTypeArguments { get; }
-        [CanBeNull] IType GenericType { get; }
-        bool IsNested { get; }
         IEnumerable<IType> ImplementedInterfaces { get; }
+        bool IsNested { get; }
+        bool IsStub { get; }
+        bool IsGenericParameter { get; }
         bool ImplementsInterface(Interface intf);
         bool ImplementsInterface(string pattern, bool useRegularExpressions = false);
         bool IsAssignableTo(IType assignableToType);

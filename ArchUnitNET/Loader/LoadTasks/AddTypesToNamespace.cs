@@ -23,7 +23,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         public void Execute()
         {
-            ((List<IType>) _ns.Types).AddRange(_types.Where(type => type.Namespace == _ns));
+            ((List<IType>) _ns.Types).AddRange(_types.Where(type => type.Namespace.Equals(_ns)));
         }
     }
 }

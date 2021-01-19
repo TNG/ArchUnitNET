@@ -37,19 +37,15 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private void AddMemberDependencies()
         {
-            _type.Members.ForEach(member =>
-            {
-                _dependencies.AddRange(member.MemberDependencies);
-                _dependencies.AddRange(member.Dependencies);
-            });
+            _type.Members.ForEach(member => { _dependencies.AddRange(member.Dependencies); });
         }
 
         private void AddInterfaceDependencies()
         {
             GetInterfacesImplementedByClass(_typeDefinition).ForEach(target =>
             {
-                var targetType = _typeFactory.GetOrCreateStubTypeFromTypeReference(target);
-                _dependencies.Add(new ImplementsInterfaceDependency(_type, targetType));
+                var targetType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(target);
+                _dependencies.Add(new ImplementsInterfaceDependency(_type, (ITypeInstance<Interface>) targetType));
             });
         }
 

@@ -7,22 +7,23 @@
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Loader;
 using Xunit;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class BaseClassTest
     {
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly Class _baseClass;
+        private readonly Class _childClass;
+
         public BaseClassTest()
         {
             _baseClass = _architecture.GetClassOfType(typeof(BaseClass));
             _childClass = _architecture.GetClassOfType(typeof(ChildClass));
         }
-
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly Class _baseClass;
-        private readonly Class _childClass;
 
         [Fact]
         public void ChildClassHasAllMembers()
@@ -42,7 +43,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         [Fact]
         public void ChildClassHasBaseClassDependency()
         {
-            var expectedDependency = new InheritsBaseClassDependency(_childClass, _baseClass);
+            var expectedDependency =
+                new InheritsBaseClassDependency(_childClass, new TypeInstance<Class>(_baseClass));
 
             Assert.True(_childClass.HasDependency(expectedDependency));
         }

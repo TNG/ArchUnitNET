@@ -64,6 +64,10 @@ namespace ArchUnitNET.Domain
 
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;
+        public bool IsGeneric => Type.IsGeneric;
+        public bool IsGenericParameter => Type.IsGenericParameter;
+        public bool IsStub => Type.IsStub;
+        public bool IsCompilerGenerated => Type.IsCompilerGenerated;
         public string Name => Type.Name;
         public string FullName => Type.FullName;
 
@@ -78,10 +82,7 @@ namespace ArchUnitNET.Domain
         public IEnumerable<IType> ImplementedInterfaces => Type.ImplementedInterfaces;
         public MemberList Members => Type.Members;
 
-
-        public List<IType> GenericTypeParameters => Type.GenericTypeParameters;
-        public IType GenericType => Type.GenericType;
-        public List<IType> GenericTypeArguments => Type.GenericTypeArguments;
+        public List<GenericParameter> GenericParameters => Type.GenericParameters;
 
         public bool ImplementsInterface(Interface intf)
         {

@@ -19,12 +19,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
     public class ObjectSyntaxElementsTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly IEnumerable<IType> _types = Architecture.Types;
         private const string NoTypeName = "NotTheNameOfAnyType_58391351286";
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly IEnumerable<Type> _falseDependencies = new List<Type>
             {typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2)};
+
+        private readonly IEnumerable<IType> _types = Architecture.Types;
 
         [Fact]
         public void AreTest()
@@ -186,6 +187,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             foreach (var type in _types)
             {
+                if (type.FullNameContains("ObjectSyntaxElementsTests"))
+                {
+                    continue;
+                }
+
                 //One Argument
                 var typeDependencies = type.GetTypeDependencies(Architecture).ToList();
                 var typesDependOnOwnDependencies =
@@ -198,6 +204,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     Types().That().Are(type).Should().OnlyDependOnTypesThat().Are(typeof(ClassWithNoDependencies1));
 
                 Assert.True(typesDependOnOwnDependencies.HasNoViolations(Architecture));
+                typeDoesNotDependOnOneFalseDependency.Check(Architecture);
                 Assert.True(typeDoesNotDependOnOneFalseDependency.HasNoViolations(Architecture));
                 Assert.False(typeDependsOnOneFalseDependency.HasNoViolations(Architecture));
                 Assert.Equal(typeDependencies.IsNullOrEmpty(),
@@ -242,6 +249,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             foreach (var type in _types)
             {
+                if (type.FullNameContains("ObjectSyntaxElementsTests"))
+                {
+                    continue;
+                }
+
                 // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
                 foreach (var dependency in type.Dependencies)
                 {
@@ -303,12 +315,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var noTypeDependsOnFalseDependency =
-                Types().That().DependOnAny(typeof(ClassWithNoDependencies1)).Should().NotExist();
+                Types().That().DependOnAny(typeof(ClassWithNoDependencies1)).Should()
+                    .Be(typeof(ObjectSyntaxElementsTests));
             var noTypeDependsOnMultipleFalseDependencies =
                 Types().That().DependOnAny(typeof(ClassWithNoDependencies1), typeof(ClassWithNoDependencies2)).Should()
-                    .NotExist();
+                    .Be(typeof(ObjectSyntaxElementsTests));
             var noTypeDependsOnListOfMultipleFalseDependencies =
-                Types().That().DependOnAny(_falseDependencies).Should().NotExist();
+                Types().That().DependOnAny(_falseDependencies).Should().Be(typeof(ObjectSyntaxElementsTests));
             var typesDoNotDependOnFalseDependency =
                 Types().That().DoNotDependOnAny(typeof(ClassWithNoDependencies1)).Should().Exist();
             var typesDoNotDependOnMultipleFalseDependencies =

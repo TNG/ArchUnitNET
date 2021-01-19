@@ -5,46 +5,73 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
 using JetBrains.Annotations;
 using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Domain
 {
-    public class PropertyMember : IMember
+    public class PropertyMember : IMember, ITypeInstance<IType>
     {
-        public PropertyMember(IType declaringType, string name, string fullName, IType type,
-            bool isVirtual, [CanBeNull] MethodMember getter, [CanBeNull] MethodMember setter)
+        private readonly ITypeInstance<IType> _typeInstance;
+
+        public PropertyMember(IType declaringType, string name, string fullName, ITypeInstance<IType> type,
+            bool isCompilerGenerated)
         {
             Name = name;
             FullName = fullName;
-            Type = type;
+            _typeInstance = type;
             DeclaringType = declaringType;
-            IsVirtual = isVirtual;
-            Getter = getter;
-            Setter = setter;
+            IsCompilerGenerated = isCompilerGenerated;
+            PropertyTypeDependency = new PropertyTypeDependency(this);
         }
 
-        public IType Type { get; }
-        public bool IsVirtual { get; }
+        public bool IsVirtual { get; internal set; }
+        public bool IsAutoProperty { get; internal set; } = true;
         public Visibility SetterVisibility => Setter?.Visibility ?? NotAccessible;
         public Visibility GetterVisibility => Getter?.Visibility ?? NotAccessible;
 
-        [CanBeNull] public MethodMember Getter { get; }
+        [CanBeNull] public MethodMember Getter { get; internal set; }
 
-        [CanBeNull] public MethodMember Setter { get; }
+        [CanBeNull] public MethodMember Setter { get; internal set; }
 
-        public FieldMember BackingField { get; internal set; }
+        public List<IMemberTypeDependency> AttributeDependencies { get; } = new List<IMemberTypeDependency>();
+
+        public IMemberTypeDependency PropertyTypeDependency { get; }
+        public bool IsCompilerGenerated { get; }
+
+        public bool IsGeneric => false;
+        public List<GenericParameter> GenericParameters => new List<GenericParameter>();
 
         public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;
         public string Name { get; }
         public string FullName { get; }
         public IType DeclaringType { get; }
         public List<Attribute> Attributes { get; } = new List<Attribute>();
-        public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
+
+        public List<IMemberTypeDependency> MemberDependencies
+        {
+            get
+            {
+                var setterDependencies = Setter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
+                var getterDependencies = Getter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
+                return setterDependencies.Concat(getterDependencies).Concat(AttributeDependencies)
+                    .Append(PropertyTypeDependency).ToList();
+            }
+        }
+
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
-        public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
-        public List<ITypeDependency> BackwardsDependencies { get; } = new List<ITypeDependency>();
+
+        public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>().ToList();
+
+        public List<ITypeDependency> BackwardsDependencies =>
+            MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
+
+        public IType Type => _typeInstance.Type;
+        public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;
+        public IEnumerable<int> ArrayDimensions => _typeInstance.ArrayDimensions;
+        public bool IsArray => _typeInstance.IsArray;
 
         public override string ToString()
         {
@@ -68,27 +95,12 @@ namespace ArchUnitNET.Domain
 
         private bool Equals(PropertyMember other)
         {
-            return Equals(Type, other.Type) && IsVirtual == other.IsVirtual
-                                            && Equals(Getter, other.Getter) && Equals(Setter, other.Setter)
-                                            && Equals(BackingField, other.BackingField) &&
-                                            string.Equals(Name, other.Name)
-                                            && string.Equals(FullName, other.FullName) &&
-                                            Equals(DeclaringType, other.DeclaringType);
+            return Equals(FullName, other.FullName);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = IsVirtual.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Getter != null ? Getter.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Setter != null ? Setter.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (FullName != null ? FullName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (DeclaringType != null ? DeclaringType.GetHashCode() : 0);
-                return hashCode;
-            }
+            return FullName.GetHashCode();
         }
     }
 }

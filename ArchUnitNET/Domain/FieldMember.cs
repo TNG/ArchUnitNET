@@ -5,32 +5,47 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
 
 namespace ArchUnitNET.Domain
 {
-    public class FieldMember : IMember
+    public class FieldMember : IMember, ITypeInstance<IType>
     {
-        public FieldMember(IType declaringType, string name, string fullName, Visibility visibility, IType type)
+        private readonly ITypeInstance<IType> _typeInstance;
+
+        public FieldMember(IType declaringType, string name, string fullName, Visibility visibility,
+            ITypeInstance<IType> typeInstance, bool isCompilerGenerated)
         {
             DeclaringType = declaringType;
             Name = name;
             FullName = fullName;
             Visibility = visibility;
-            Type = type;
+            IsCompilerGenerated = isCompilerGenerated;
+            _typeInstance = typeInstance;
         }
 
-        public IType Type { get; }
         public Visibility Visibility { get; }
 
         public IType DeclaringType { get; }
         public string Name { get; }
         public string FullName { get; }
+
+        public bool IsCompilerGenerated { get; }
+        public bool IsGeneric => false;
+        public List<GenericParameter> GenericParameters => new List<GenericParameter>();
         public List<Attribute> Attributes { get; } = new List<Attribute>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
-        public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
-        public List<ITypeDependency> BackwardsDependencies { get; } = new List<ITypeDependency>();
+        public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>().ToList();
+
+        public List<ITypeDependency> BackwardsDependencies =>
+            MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
+
+        public IType Type => _typeInstance.Type;
+        public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;
+        public IEnumerable<int> ArrayDimensions => _typeInstance.ArrayDimensions;
+        public bool IsArray => _typeInstance.IsArray;
 
         public override string ToString()
         {
@@ -54,23 +69,12 @@ namespace ArchUnitNET.Domain
 
         private bool Equals(FieldMember other)
         {
-            return Equals(DeclaringType, other.DeclaringType) && string.Equals(Name, other.Name)
-                                                              && string.Equals(FullName, other.FullName)
-                                                              && Equals(Type, other.Type)
-                                                              && Visibility == other.Visibility;
+            return FullName.Equals(other.FullName);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = DeclaringType != null ? DeclaringType.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (FullName != null ? FullName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (int) Visibility;
-                return hashCode;
-            }
+            return FullName.GetHashCode();
         }
     }
 }
