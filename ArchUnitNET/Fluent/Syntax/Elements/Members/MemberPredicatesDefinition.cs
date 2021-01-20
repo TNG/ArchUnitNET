@@ -51,7 +51,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             IEnumerable<T> Condition(IEnumerable<T> members)
             {
-                var types = moreTypes.Append(firstType);
+                var types = moreTypes.Concat(new[] {firstType});
                 return members.Intersect(types.SelectMany(type => type.Members).OfType<T>());
             }
 
@@ -64,7 +64,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             IEnumerable<T> Condition(IEnumerable<T> members, Architecture architecture)
             {
-                var types = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
+                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
                 return members.Intersect(types.SelectMany(type => type.Members).OfType<T>());
             }
 
@@ -176,7 +176,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             IEnumerable<T> Condition(IEnumerable<T> members)
             {
-                var types = moreTypes.Append(firstType);
+                var types = moreTypes.Concat(new[] {firstType});
                 return members.Except(types.SelectMany(type => type.Members).OfType<T>());
             }
 
@@ -189,7 +189,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             IEnumerable<T> Condition(IEnumerable<T> members, Architecture architecture)
             {
-                var types = moreTypes.Append(firstType).Select(architecture.GetITypeOfType);
+                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
                 return members.Except(types.SelectMany(type => type.Members).OfType<T>());
             }
 
