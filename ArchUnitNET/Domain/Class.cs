@@ -60,7 +60,7 @@ namespace ArchUnitNET.Domain
 
         public IEnumerable<Class> InheritedClasses => BaseClass == null
             ? Enumerable.Empty<Class>()
-            : BaseClass.InheritedClasses.Append(BaseClass);
+            : BaseClass.InheritedClasses.Concat(new[] {BaseClass});
 
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;
