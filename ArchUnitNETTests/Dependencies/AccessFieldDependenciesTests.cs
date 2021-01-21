@@ -39,19 +39,6 @@ namespace ArchUnitNETTests.Dependencies
             _staticFieldMember = _classWithStaticFields.GetFieldMembersWithName("StaticField").First();
         }
 
-        [Fact(Skip =
-            "Can't find dependency, because only OpCode Ldstr is used and no Reference to the type which declares the const field can be found")]
-        public void PropertyAccessToConstFieldFound()
-        {
-            var property = _accessingClass.GetPropertyMembers()
-                .First(member => member.FullNameContains("PropertyAccessingConstField"));
-            var propertyTypeDependencies = property.GetTypeDependencies().ToList();
-            var propertyFieldDependencies = property.GetAccessedFieldMembers().ToList();
-
-            Assert.Contains(_classWithStaticFields, propertyTypeDependencies);
-            Assert.Contains(_constFieldMember, propertyFieldDependencies);
-        }
-
         [Fact]
         public void PropertyAccessToStaticFieldFound()
         {
@@ -74,19 +61,6 @@ namespace ArchUnitNETTests.Dependencies
 
             Assert.Contains(_classWithNonStaticFields, propertyTypeDependencies);
             Assert.Contains(_nonStaticFieldMember, propertyFieldDependencies);
-        }
-
-        [Fact(Skip =
-            "Can't find dependency, because only OpCode Ldstr is used and no Reference to the type which declares the const field can be found")]
-        public void MethodAccessToConstFieldFound()
-        {
-            var method = _accessingClass.GetMethodMembers()
-                .First(member => member.FullNameContains("MethodAccessingConstField"));
-            var methodTypeDependencies = method.GetTypeDependencies().ToList();
-            var methodFieldDependencies = method.GetAccessedFieldMembers().ToList();
-
-            Assert.Contains(_classWithStaticFields, methodTypeDependencies);
-            Assert.Contains(_constFieldMember, methodFieldDependencies);
         }
 
         [Fact]
@@ -145,20 +119,13 @@ namespace ArchUnitNETTests.Dependencies
 
     internal static class ClassWithStaticFields
     {
-        public const string ConstField = "ConstField";
         public static ClassAccessingFields StaticField;
     }
 
     internal class ClassAccessingFields
     {
-        public string PropertyAccessingConstField => ClassWithStaticFields.ConstField;
         public ClassAccessingFields PropertyAccessingStaticField => ClassWithStaticFields.StaticField;
         public ClassAccessingFields PropertyAccessingNonStaticField => new ClassWithNonStaticFields().NonStaticField;
-
-        public void MethodAccessingConstField()
-        {
-            var a = ClassWithStaticFields.ConstField;
-        }
 
         public void MethodGettingStaticField()
         {
