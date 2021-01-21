@@ -14,6 +14,8 @@
         <PackageTags>test;arch;archunit;xunit;nunit</PackageTags>
         <IncludeSource>False</IncludeSource>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
     
     <ItemGroup>
