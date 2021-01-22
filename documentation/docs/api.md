@@ -33,3 +33,7 @@ Here you can find the full API of ArchUnitNET.
 		* [FieldMember Conditions](guide/condition/fieldmember.md)
 		* [MethodMember Conditions](guide/condition/methodmember.md)
 		* [PropertyMember Conditions](guide/condition/propertymember.md) 
+
+## Limitations
+
+* [Constant Fields] (limitations/constant_fields.md)
