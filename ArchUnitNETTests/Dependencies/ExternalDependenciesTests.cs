@@ -81,6 +81,7 @@ namespace ArchUnitNETTests.Dependencies
         }
     }
 
+#pragma warning disable 219
     public class PropertyDependency
     {
         public string Prop
@@ -114,3 +115,4 @@ namespace ArchUnitNETTests.Dependencies
         private Class2 _class2 = new Class2();
     }
 }
+#pragma warning restore 219

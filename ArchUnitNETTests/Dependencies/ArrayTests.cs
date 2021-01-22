@@ -83,6 +83,7 @@ namespace ArchUnitNETTests.Dependencies
         }
     }
 
+#pragma warning disable 169
     internal class ClassWithBoolArrayFields
     {
         private bool[][] _bool11Array;
@@ -100,3 +101,4 @@ namespace ArchUnitNETTests.Dependencies
         }
     }
 }
+#pragma warning restore 169

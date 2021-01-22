@@ -127,6 +127,7 @@ namespace ArchUnitNETTests.Dependencies
         }
     }
 
+#pragma warning disable 219
     internal class ClassWithPropertyDependency
     {
         public object Property => new ReturnedClass(new ArgumentClass());
@@ -169,3 +170,4 @@ namespace ArchUnitNETTests.Dependencies
     {
     }
 }
+#pragma warning restore 219
