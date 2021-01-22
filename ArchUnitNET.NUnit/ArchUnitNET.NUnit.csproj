@@ -6,7 +6,7 @@
         <Title>ArchUnit C# NUnit Extension</Title>
         <Authors>Florian Gather, Fritz Brandhuber</Authors>
         <Description>NUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
-        <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
         <PackageTags>test;arch;archunit;nunit</PackageTags>
         <PackageReleaseNotes>Initial release</PackageReleaseNotes>
