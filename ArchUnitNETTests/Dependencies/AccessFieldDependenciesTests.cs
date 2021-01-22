@@ -22,7 +22,6 @@ namespace ArchUnitNETTests.Dependencies
 
         private readonly Class _classWithNonStaticFields;
         private readonly Class _classWithStaticFields;
-        private readonly FieldMember _constFieldMember;
 
         private readonly FieldMember _nonStaticFieldMember;
         private readonly FieldMember _staticFieldMember;
@@ -35,7 +34,6 @@ namespace ArchUnitNETTests.Dependencies
 
 
             _nonStaticFieldMember = _classWithNonStaticFields.GetFieldMembersWithName("NonStaticField").First();
-            _constFieldMember = _classWithStaticFields.GetFieldMembersWithName("ConstField").First();
             _staticFieldMember = _classWithStaticFields.GetFieldMembersWithName("StaticField").First();
         }
 
