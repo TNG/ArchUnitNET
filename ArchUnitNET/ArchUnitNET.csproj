@@ -9,7 +9,7 @@
         <Authors>Florian Gather, Paula Ruiz, Fritz Brandhuber, Pavel Fischer</Authors>
         <Company>TNG Technology Consulting GmbH</Company>
         <Description>C# Version of ArchUnit (see: archunit.org)</Description>
-        <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <PackageReleaseNotes>Initial release of the fluent API</PackageReleaseNotes>
         <PackageTags>test;arch;archunit;xunit;nunit</PackageTags>
         <IncludeSource>False</IncludeSource>
