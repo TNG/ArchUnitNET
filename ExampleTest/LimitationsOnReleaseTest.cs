@@ -52,6 +52,7 @@ namespace ExampleTest
         }
     }
 
+#pragma warning disable 219
     internal class EdgeCaseData
     {
         public void MethodWithTypeOfDependency()
@@ -75,3 +76,4 @@ namespace ExampleTest
     {
     }
 }
+#pragma warning restore 219
