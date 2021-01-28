@@ -5,6 +5,11 @@ New-Variable -Name "VERSION_PATTERN" -Value "^[0-9]+\.[0-9]+\.[0-9]"
 
 dotnet build -c Release
 
+if ($LASTEXITCODE -eq 1){
+    Write-Output "dotnet build failed"
+    exit 1
+}
+
 if("$tag" -eq "")
 {
     dotnet pack -c Release --output nupkgs -p:PackageVersion="0.0.0" -p:AssemblyVersion="0.0.0.0"
@@ -18,4 +23,4 @@ else
     Write-Output "Git Tag has to resemble a package version (e.g. 1.0.0)."
     exit 1
 }
-dotnet test -c Release
+dotnet test -c Debug
