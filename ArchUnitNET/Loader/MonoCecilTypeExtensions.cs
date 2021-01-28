@@ -23,8 +23,8 @@ namespace ArchUnitNET.Loader
                 var genericParameter = (GenericParameter) typeReference;
 
                 return (genericParameter.Type == GenericParameterType.Type
-                           ? genericParameter.DeclaringType.FullName
-                           : genericParameter.DeclaringMethod.FullName)
+                           ? genericParameter.DeclaringType.BuildFullName()
+                           : genericParameter.DeclaringMethod.BuildFullName())
                        + "+<" + genericParameter.Name + ">";
             }
 
