@@ -7,6 +7,8 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
+using ArchUnitNET.PlantUml;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Assembly = System.Reflection.Assembly;
 
@@ -296,6 +298,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+
+        public TRuleTypeShouldConjunction AdhereToPlantUmlDiagram(string file)
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.AdhereToPlantUmlDiagram(file));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         //Relation Condition Negations
 

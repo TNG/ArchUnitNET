@@ -2,7 +2,7 @@
 
 namespace ArchUnitNET.PlantUml
 {
-    public class Stereotype
+    internal class Stereotype
     {
         private readonly string _value;
         public Stereotype(string stereotype)

@@ -10,6 +10,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
+using ArchUnitNET.PlantUml;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -316,6 +317,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(type => type.HasPropertyMemberWithName(name),
                 "have a property member with name \"" + name + "\"",
                 "does not have a property member with name \"" + name + "\"");
+        }
+
+        public static ICondition<TRuleType> AdhereToPlantUmlDiagram(string file)
+        {
+            PlantUmlDiagram diagram = new PlantUmlParser().Parse(file);
+            ClassDiagramAssociation classDiagramAssociation = new ClassDiagramAssociation(diagram);
+
+            ConditionResult Condition(TRuleType ruleType)
+            {
+                if (ruleType.Dependencies.All(d => !classDiagramAssociation.Contains(d.Target))){
+                    return new ConditionResult(ruleType, true);
+                }
+                List<string> allAllowedTargets = new List<string>();
+
+                allAllowedTargets.AddRange(classDiagramAssociation.GetNamespaceIdentifiersFromComponentOf(ruleType)
+                    .Concat(classDiagramAssociation.GetTargetPackageIdentifiers(ruleType))
+                    .ToList());
+
+                var pass = true;
+                var dynamicFailDescription = "does depend on";
+                foreach (var dependency in ruleType.GetTypeDependencies())
+                {
+                    if (classDiagramAssociation.Contains(dependency) && !allAllowedTargets.Any(pattern => dependency.FullNameMatches(pattern, true)))
+                    {
+                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
+                        pass = false;
+                    }
+                }
+                return new ConditionResult(ruleType, pass, dynamicFailDescription);
+            }
+            
+            return new SimpleCondition<TRuleType>(Condition, "adhere to PlantUML diagram.");
         }
 
         public static ICondition<TRuleType> HaveFieldMemberWithName(string name)
