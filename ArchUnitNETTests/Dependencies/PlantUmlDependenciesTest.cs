@@ -1,6 +1,7 @@
 ﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Loader;
+using ArchUnitNETTests.Domain.PlantUml;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,9 +11,9 @@ using TestAssembly.Diagram.NoDependencies.Independent;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
-namespace ArchUnitNETTests.PlantUml
+namespace ArchUnitNETTests.Dependencies
 {
-    public class PlantUmlArchConditionTest
+    public class PlantUmlDependenciesTest
     {
         [Fact]
         public void DiagramWithNoDependencies()
@@ -56,5 +57,5 @@ namespace ArchUnitNETTests.PlantUml
         }
     }
 
-    
+
 }

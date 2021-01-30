@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
@@ -7,9 +6,9 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
-using static ArchUnitNET.PlantUml.PlantUmlPatterns;
+using static ArchUnitNET.Domain.PlantUml.PlantUmlPatterns;
 
-namespace ArchUnitNET.PlantUml
+namespace ArchUnitNET.Domain.PlantUml
 {
     internal class PlantUmlParser
     {
@@ -27,9 +26,10 @@ namespace ArchUnitNET.PlantUml
         {
             try
             {
-            return File.ReadAllLines(filename, Encoding.UTF8);
+                return File.ReadAllLines(filename, Encoding.UTF8);
 
-            }catch(Exception ex) when (ex is IOException ||ex is UnauthorizedAccessException || ex is SecurityException)
+            }
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is SecurityException)
             {
                 throw new PlantUmlParseException("Could not parse diagram from " + filename, ex);
             }
@@ -81,14 +81,14 @@ namespace ArchUnitNET.PlantUml
             var componentName = new ComponentName(matcher.MatchComponentName());
             ImmutableHashSet<Stereotype> immutableStereotypes = IdentifyStereotypes(matcher, componentName);
             string alias = matcher.MatchAlias();
-            return new PlantUmlComponent(componentName, immutableStereotypes, alias != null ? new Alias(alias): null);
+            return new PlantUmlComponent(componentName, immutableStereotypes, alias != null ? new Alias(alias) : null);
         }
 
 
         private ImmutableHashSet<Stereotype> IdentifyStereotypes(PlantUmlComponentMatcher matcher, ComponentName componentName)
         {
-            var stereotypes = ImmutableHashSet.CreateBuilder<Stereotype>();            
-            foreach(string stereotype in matcher.MatchStereoTypes())
+            var stereotypes = ImmutableHashSet.CreateBuilder<Stereotype>();
+            foreach (string stereotype in matcher.MatchStereoTypes())
             {
                 stereotypes.Add(new Stereotype(stereotype));
             }

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace ArchUnitNET.PlantUml
+namespace ArchUnitNET.Domain.PlantUml
 {
-    internal class ComponentName
+    internal class Stereotype
     {
         private readonly string _value;
-
-        public ComponentName(string value)
+        public Stereotype(string stereotype)
         {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
+            _value = stereotype ?? throw new System.ArgumentNullException(nameof(stereotype));
         }
-
         public string AsString()
         {
             return _value;
@@ -19,8 +16,8 @@ namespace ArchUnitNET.PlantUml
 
         public override bool Equals(object obj)
         {
-            return obj is ComponentName name &&
-                   _value == name._value;
+            return obj is Stereotype stereotype &&
+                   _value == stereotype._value;
         }
 
         public override int GetHashCode()

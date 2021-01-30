@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace ArchUnitNETTests.PlantUml
+namespace ArchUnitNETTests.Domain.PlantUml
 {
     internal class TestDiagram
     {
@@ -97,7 +97,7 @@ namespace ArchUnitNETTests.PlantUml
                 return _testDiagram.AddComponent(this);
             }
 
-            
+
         }
 
         internal class DependencyFromCreator

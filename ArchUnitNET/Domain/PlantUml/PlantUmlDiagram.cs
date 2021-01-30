@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ArchUnitNETTests")]
-namespace ArchUnitNET.PlantUml
+namespace ArchUnitNET.Domain.PlantUml
 {
     internal class PlantUmlDiagram
     {
@@ -12,14 +12,14 @@ namespace ArchUnitNET.PlantUml
 
         public PlantUmlDiagram(PlantUmlComponents plantUmlComponents)
         {
-            _plantUmlComponents = plantUmlComponents ?? throw new System.ArgumentNullException(nameof(plantUmlComponents));
+            _plantUmlComponents = plantUmlComponents ?? throw new ArgumentNullException(nameof(plantUmlComponents));
         }
 
         public ISet<PlantUmlComponent> AllComponents
         {
             get
             {
-                return ImmutableHashSet.ToImmutableHashSet(_plantUmlComponents.AllComponents);
+                return _plantUmlComponents.AllComponents.ToImmutableHashSet();
             }
         }
 
@@ -27,7 +27,7 @@ namespace ArchUnitNET.PlantUml
         {
             get
             {
-                return ImmutableHashSet.ToImmutableHashSet(_plantUmlComponents.CompomenentsWithAlias);
+                return _plantUmlComponents.CompomenentsWithAlias.ToImmutableHashSet();
             }
         }
     }

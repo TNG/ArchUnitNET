@@ -1,12 +1,12 @@
 ﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
-using ArchUnitNET.PlantUml;
+using ArchUnitNET.Fluent.Conditions;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace ArchUnitNET.Fluent.Conditions
+namespace ArchUnitNET.Domain.PlantUml
 {
     internal class ClassDiagramAssociation
     {
@@ -16,7 +16,7 @@ namespace ArchUnitNET.Fluent.Conditions
         {
             var components = ImmutableHashSet.CreateBuilder<AssociatedComponent>();
             ValidateStereotypes(diagram);
-            foreach(var component in diagram.AllComponents)
+            foreach (var component in diagram.AllComponents)
             {
                 components.Add(new AssociatedComponent(component));
             }
@@ -42,9 +42,9 @@ namespace ArchUnitNET.Fluent.Conditions
         public ISet<string> GetTargetPackageIdentifiers(IType clazz)
         {
             var result = ImmutableHashSet.CreateBuilder<string>();
-            foreach(PlantUmlComponent target in GetComponentOf(clazz).Dependencies)
+            foreach (PlantUmlComponent target in GetComponentOf(clazz).Dependencies)
             {
-                foreach(string identifier in GetNamespaceIdentifiersFromComponentOf(target))
+                foreach (string identifier in GetNamespaceIdentifiersFromComponentOf(target))
                 {
                     result.Add(identifier);
                 }
@@ -56,7 +56,7 @@ namespace ArchUnitNET.Fluent.Conditions
         {
             return GetAssociatedComponents(clazz).Count > 0;
         }
-        
+
         public ISet<string> GetNamespaceIdentifiersFromComponentOf(IType javaIType)
         {
             return GetNamespaceIdentifiersFromComponentOf(GetComponentOf(javaIType));
@@ -140,7 +140,7 @@ namespace ArchUnitNET.Fluent.Conditions
                 return false;
             }
 
-         
+
         }
     }
 }

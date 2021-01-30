@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace ArchUnitNET.Fluent.Conditions
+namespace ArchUnitNET.Domain.PlantUml
 {
     [Serializable]
     internal class ComponentIntersectionException : Exception

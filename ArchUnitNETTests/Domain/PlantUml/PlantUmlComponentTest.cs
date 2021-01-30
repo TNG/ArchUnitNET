@@ -1,10 +1,10 @@
-﻿using ArchUnitNET.PlantUml;
+﻿using ArchUnitNET.Domain.PlantUml;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace ArchUnitNETTests.PlantUml
+namespace ArchUnitNETTests.Domain.PlantUml
 {
     public class PlantUmlComponentTest
     {

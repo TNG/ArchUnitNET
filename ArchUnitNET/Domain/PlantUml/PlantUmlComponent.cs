@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace ArchUnitNET.PlantUml
+namespace ArchUnitNET.Domain.PlantUml
 {
     internal class PlantUmlComponent
     {
@@ -42,7 +42,7 @@ namespace ArchUnitNET.PlantUml
         public override bool Equals(object obj)
         {
             return obj is PlantUmlComponent component &&
-                   Enumerable.SequenceEqual(Stereotypes, component.Stereotypes) &&
+                   Stereotypes.SequenceEqual(component.Stereotypes) &&
                    EqualityComparer<Alias>.Default.Equals(Alias, component.Alias) &&
                    EqualityComparer<ComponentName>.Default.Equals(ComponentName, component.ComponentName);
         }
