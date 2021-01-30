@@ -7,6 +7,7 @@
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable SuggestVarOrType_SimpleTypes
+#pragma warning disable 169
 
 using System;
 using Controller;
@@ -138,3 +139,4 @@ namespace Module.Three
     {
     }
 }
+#pragma warning restore 169

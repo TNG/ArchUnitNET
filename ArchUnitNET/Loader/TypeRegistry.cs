@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
@@ -14,13 +15,18 @@ namespace ArchUnitNET.Loader
 {
     internal class TypeRegistry
     {
-        private readonly Dictionary<string, IType> _allTypes = new Dictionary<string, IType>();
+        private readonly Dictionary<string, ITypeInstance<IType>> _allTypes =
+            new Dictionary<string, ITypeInstance<IType>>();
 
-        public IType GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference,
-            [NotNull] Func<string, IType> createFunc)
+        public ITypeInstance<IType> GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference,
+            [NotNull] Func<string, ITypeInstance<IType>> createFunc)
         {
-            return RegistryUtils.GetFromDictOrCreateAndAdd(typeReference.FullName, _allTypes,
-                createFunc);
+            return RegistryUtils.GetFromDictOrCreateAndAdd(typeReference.BuildFullName(), _allTypes, createFunc);
+        }
+
+        public IEnumerable<IType> GetAllTypes()
+        {
+            return _allTypes.Values.Select(instance => instance.Type).Distinct();
         }
     }
 }

@@ -9,17 +9,20 @@
         <Authors>Florian Gather, Paula Ruiz, Fritz Brandhuber, Pavel Fischer</Authors>
         <Company>TNG Technology Consulting GmbH</Company>
         <Description>C# Version of ArchUnit (see: archunit.org)</Description>
-        <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <PackageReleaseNotes>Initial release of the fluent API</PackageReleaseNotes>
         <PackageTags>test;arch;archunit;xunit;nunit</PackageTags>
         <IncludeSource>False</IncludeSource>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
     
     <ItemGroup>
         <PackageReference Include="CycleDetection" Version="2.0.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
         <PackageReference Include="Mono.Cecil" Version="0.11.3" />
+        <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     </ItemGroup>
     
     <ItemGroup>

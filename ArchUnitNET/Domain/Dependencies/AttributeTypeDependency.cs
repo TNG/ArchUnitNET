@@ -6,60 +6,11 @@
 
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class AttributeTypeDependency : ITypeDependency
+    public class AttributeTypeDependency : TypeInstanceDependency
     {
-        public AttributeTypeDependency(IType origin, Attribute target)
+        public AttributeTypeDependency(IType origin, ITypeInstance<Attribute> attributeInstance)
+            : base(origin, attributeInstance)
         {
-            Origin = origin;
-            Target = target;
-        }
-
-        public IType Origin { get; }
-        public IType Target { get; }
-
-        public bool Equals(AttributeTypeDependency other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Equals(Target, other.Target) && Equals(Origin, other.Origin);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((AttributeTypeDependency) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = Target != null ? Target.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (Origin != null ? Origin.GetHashCode() : 0);
-                return hashCode;
-            }
         }
     }
 }

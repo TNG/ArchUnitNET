@@ -4,49 +4,21 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Collections.Generic;
+using ArchUnitNET.Loader;
+
 namespace ArchUnitNET.Domain.Dependencies
 {
-    public class MethodCallDependency : IMemberMemberDependency
+    public class MethodCallDependency : MemberTypeInstanceDependency, IMemberMemberDependency
     {
-        public MethodCallDependency(IMember originMember, MethodMember calledMethod)
+        public MethodCallDependency(IMember originMember, MethodMemberInstance calledMethodInstance)
+            : base(originMember, calledMethodInstance)
         {
-            OriginMember = originMember;
-            TargetMember = calledMethod;
+            TargetMember = calledMethodInstance.Member;
+            TargetMemberGenericArguments = calledMethodInstance.GenericArguments;
         }
 
         public IMember TargetMember { get; }
-        public IMember OriginMember { get; }
-
-        public IType Origin => OriginMember.DeclaringType;
-        public IType Target => TargetMember.DeclaringType;
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            return obj.GetType() == GetType() && Equals((MethodCallDependency) obj);
-        }
-
-        private bool Equals(IMemberMemberDependency other)
-        {
-            return Equals(TargetMember, other.TargetMember) && Equals(OriginMember, other.OriginMember);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((TargetMember != null ? TargetMember.GetHashCode() : 0) * 397) ^
-                       (OriginMember != null ? OriginMember.GetHashCode() : 0);
-            }
-        }
+        public IEnumerable<GenericArgument> TargetMemberGenericArguments { get; }
     }
 }

@@ -6,7 +6,7 @@
         <Title>ArchUnit C# NUnit Extension</Title>
         <Authors>Florian Gather, Fritz Brandhuber</Authors>
         <Description>NUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
-        <PackageLicenseUrl>https://apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
         <PackageTags>test;arch;archunit;nunit</PackageTags>
         <PackageReleaseNotes>Initial release</PackageReleaseNotes>
@@ -14,10 +14,12 @@
         <Company>TNG Technology Consulting GmbH</Company>
         <PackageId>TngTech.ArchUnitNET.NUnit</PackageId>
         <IsTestProject>false</IsTestProject>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="nunit" Version="3.12.0" />
+        <PackageReference Include="nunit" Version="3.13.0" />
     </ItemGroup>
 
     <ItemGroup>

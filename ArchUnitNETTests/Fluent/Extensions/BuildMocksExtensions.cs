@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Loader;
 using static ArchUnitNET.Domain.Visibility;
 using Assembly = ArchUnitNET.Domain.Assembly;
 using Type = ArchUnitNET.Loader.Type;
@@ -23,7 +24,8 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var assembly = type.Assembly.CreateStubAssembly();
             var namespc = type.Namespace.CreateStubNamespace();
             var visibility = type.GetVisibility();
-            return new Type(type.FullName, type.Name, assembly, namespc, visibility, type.IsNested);
+            return new Type(type.FullName, type.Name, assembly, namespc, visibility, type.IsNested, type.IsGenericType,
+                true, false);
         }
 
         private static Visibility GetVisibility(this System.Type type)
@@ -74,8 +76,10 @@ namespace ArchUnitNETTests.Fluent.Extensions
 
         public static Type CreateShallowStubType(this Class clazz)
         {
-            return new Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace, clazz.Visibility,
-                clazz.IsNested);
+            var type = new Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace, clazz.Visibility,
+                clazz.IsNested, clazz.IsGeneric, clazz.IsStub, clazz.IsCompilerGenerated);
+            type.GenericParameters.AddRange(clazz.GenericParameters);
+            return type;
         }
 
         private static Assembly CreateStubAssembly(this System.Reflection.Assembly assembly)
@@ -114,26 +118,33 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var visibility = methodBase.GetVisibility();
 
             var declaringType = methodBase.DeclaringType.CreateStubClass();
-            var parameters = methodBase.CreateStubParameters();
+            var parameters = methodBase.CreateStubParameters().Select(parameter => new TypeInstance<IType>(parameter));
             var methodForm = methodBase.GetStubMethodForm();
 
-            Class returnType = null;
+            var isGeneric = methodBase.IsGenericMethod;
+
+            TypeInstance<IType> returnTypeInstance = null;
             string fullName = null;
 
             if (methodBase is ConstructorInfo constructor)
             {
-                returnType = typeof(void).CreateStubClass();
-                fullName = constructor.CreateStubFullName(returnType);
+                var voi = typeof(void).CreateStubClass();
+                returnTypeInstance = new TypeInstance<IType>(voi);
+                fullName = constructor.CreateStubFullName(voi);
             }
 
             if (methodBase is MethodInfo methodInfo)
             {
-                returnType = methodInfo.ReturnType.CreateStubClass();
+                var returnType = methodInfo.ReturnType.CreateStubClass();
+                returnTypeInstance = new TypeInstance<IType>(returnType);
                 fullName = methodInfo.CreateStubFullName();
             }
 
-            return new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility, parameters,
-                returnType, methodBase.IsVirtual, methodForm, new List<GenericParameter>());
+            var methodMember = new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility,
+                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false, false);
+
+            methodMember.ParameterInstances.AddRange(parameters);
+            return methodMember;
         }
 
         private static string BuildMockMethodName(this MethodBase methodBase)

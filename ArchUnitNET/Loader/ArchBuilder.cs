@@ -11,6 +11,7 @@ using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
 {
@@ -30,9 +31,10 @@ namespace ArchUnitNET.Loader
             _namespaceRegistry = new NamespaceRegistry();
             _loadTaskRegistry = new LoadTaskRegistry();
             var typeRegistry = new TypeRegistry();
-            _typeFactory = new TypeFactory(typeRegistry, _loadTaskRegistry, _assemblyRegistry, _namespaceRegistry);
+            var methodMemberRegistry = new MethodMemberRegistry();
+            _typeFactory = new TypeFactory(typeRegistry, methodMemberRegistry, _loadTaskRegistry, _assemblyRegistry,
+                _namespaceRegistry);
             _architectureCacheKey = new ArchitectureCacheKey();
-
             _architectureCache = ArchitectureCache.Instance;
         }
 
@@ -50,16 +52,27 @@ namespace ArchUnitNET.Loader
         {
             _architectureCacheKey.Add(module.Name, namespaceFilter);
 
-            var types = module.Types;
+            ICollection<TypeDefinition> types;
 
-            var allTypes = types.Concat(types.SelectMany(typeDefinition => typeDefinition.NestedTypes));
+            if (module.Types.First().FullName.Contains("<Module>"))
+            {
+                types = module.Types.Skip(1).ToList();
+            }
+            else
+            {
+                types = module.Types;
+            }
+
+
+            var allTypes = types.Concat(types.SelectMany(typeDefinition =>
+                typeDefinition.NestedTypes.Where(type => !type.IsCompilerGenerated())));
             allTypes
                 .Where(typeDefinition => RegexUtils.MatchNamespaces(namespaceFilter,
                     typeDefinition.Namespace))
                 .ForEach(typeDefinition =>
                 {
                     var type = _typeFactory.GetOrCreateTypeFromTypeReference(typeDefinition);
-                    if (!_architectureTypes.Contains(type))
+                    if (!_architectureTypes.Contains(type) && !type.IsCompilerGenerated)
                     {
                         _architectureTypes.Add(type);
                     }
@@ -79,9 +92,11 @@ namespace ArchUnitNET.Loader
             _loadTaskRegistry.ExecuteTasks(new List<System.Type>
             {
                 typeof(AddMembers),
+                typeof(AddGenericParameterDependencies),
                 typeof(AddAttributesAndAttributeDependencies),
                 typeof(AddFieldAndPropertyDependencies),
                 typeof(AddMethodDependencies),
+                typeof(AddGenericArgumentDependencies),
                 typeof(AddClassDependencies),
                 typeof(AddBackwardsDependencies),
                 typeof(AddTypesToNamespace)
@@ -97,8 +112,10 @@ namespace ArchUnitNET.Loader
             }
 
             UpdateTypeDefinitions();
-            var newArchitecture =
-                new Architecture(Assemblies, Namespaces, Types.Skip(1)); //Skip first Type to ignore <Module>
+            var allTypes = _typeFactory.GetAllNonCompilerGeneratedTypes().ToList();
+            var genericParameters = allTypes.OfType<GenericParameter>().ToList();
+            var referencedTypes = allTypes.Except(Types).Except(genericParameters);
+            var newArchitecture = new Architecture(Assemblies, Namespaces, Types, genericParameters, referencedTypes);
             _architectureCache.Add(_architectureCacheKey, newArchitecture);
             return newArchitecture;
         }

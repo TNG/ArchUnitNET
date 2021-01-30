@@ -16,50 +16,69 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class GetterMethodDependencyExamples
     {
-        public Guid AcceptedCase { get; } = new Guid("35353");
+        public Guid AcceptedCase
+        {
+            get
+            {
+                return new Guid("35353");
+            }
+        }
 
-        public Guid FirstUnacceptedCase { get; } = Guid.NewGuid();
+        public Guid FirstUnacceptedCase
+        {
+            get
+            {
+                return Guid.NewGuid();
+            }
+        }
 
         public Guid SecondUnacceptedCase => Guid.NewGuid();
     }
 
     public class SetterMethodDependencyExamples
     {
-        internal ChildField _castingLambdaPairBacking;
-        internal ChildField _castingPairBacking;
-        internal ChildField _constructorLambdaPairBacking;
-        internal ChildField _constructorPairBacking;
-        internal ChildField _methodLambdaPairBacking;
-        internal ChildField _methodPairBacking;
+        internal ChildField _customPropertyBacking;
+        internal ChildField _lambdaPairBacking;
+        internal PropertyType _constructorLambdaPairBacking;
+        internal PropertyType _methodPairBacking;
+        internal PropertyType _constructorPairBacking;
+        internal PropertyType _methodLambdaPairBacking;
 
-        public PropertyType CastingPair
+        public ChildField CustomProperty
         {
-            set { _castingPairBacking = (ChildField) value; }
+            set
+            {
+                _customPropertyBacking = value;
+            }
+            get
+            {
+                return _customPropertyBacking;
+            }
         }
 
-        public PropertyType CastingLambdaPair
+        public ChildField LambdaPair
         {
-            set => _castingLambdaPairBacking = (ChildField) value;
+            set => _lambdaPairBacking = value;
         }
 
         public PropertyType ConstructorPair
         {
-            set { _constructorPairBacking = new PropertyType(value) as ChildField; }
+            set {_constructorPairBacking = new PropertyType(value);}
         }
 
         public PropertyType ConstructorLambdaPair
         {
-            set => _constructorLambdaPairBacking = new PropertyType(value) as ChildField;
+            set => _constructorLambdaPairBacking = new PropertyType(value);
         }
 
         public PropertyType MethodPair
         {
-            set { _methodPairBacking = ChildField.NewPropertyType(value) as ChildField; }
+            set { _methodPairBacking = ChildField.NewPropertyType(value); }
         }
 
         public PropertyType MethodLambdaPair
         {
-            set { _methodLambdaPairBacking = ChildField.NewPropertyType(value) as ChildField; }
+            set { _methodLambdaPairBacking = ChildField.NewPropertyType(value); }
         }
     }
 

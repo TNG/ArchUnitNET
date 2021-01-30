@@ -12,6 +12,11 @@ namespace ArchUnitNET.Domain.Extensions
 {
     public static class TypeExtensions
     {
+        public static bool IsAnonymousType(this IType type)
+        {
+            return type.NameStartsWith("<>f__AnonymousType");
+        }
+
         public static IEnumerable<Slice<string>> SlicedBy(this IEnumerable<IType> source, string fullName)
         {
             return source.GroupBy(type => type.FullName)
@@ -23,9 +28,9 @@ namespace ArchUnitNET.Domain.Extensions
             switch (type)
             {
                 case Interface intf:
-                    return intf.ImplementedInterfaces.Append(intf);
+                    return intf.ImplementedInterfaces.Concat(new[] {intf});
                 case Class cls:
-                    return cls.InheritedClasses.Append(cls).Concat(cls.ImplementedInterfaces);
+                    return cls.InheritedClasses.Concat(new[] {cls}).Concat(cls.ImplementedInterfaces);
                 default:
                     return Enumerable.Empty<IType>();
             }

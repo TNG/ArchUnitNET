@@ -15,7 +15,7 @@ namespace ArchUnitNET.Loader
     public class Type : IType
     {
         public Type(string fullname, string name, Assembly assembly, Namespace namespc, Visibility visibility,
-            bool isNested)
+            bool isNested, bool isGeneric, bool isStub, bool isCompilerGenerated)
         {
             FullName = fullname;
             Name = name;
@@ -23,7 +23,12 @@ namespace ArchUnitNET.Loader
             Namespace = namespc;
             Visibility = visibility;
             IsNested = isNested;
+            IsGeneric = isGeneric;
+            IsStub = isStub;
+            IsCompilerGenerated = isCompilerGenerated;
         }
+
+        public bool IsAnonymousType { get; }
 
         public string Name { get; }
 
@@ -37,12 +42,13 @@ namespace ArchUnitNET.Loader
 
         public bool IsNested { get; }
 
+        public bool IsGeneric { get; }
+        public bool IsGenericParameter => false;
+        public bool IsCompilerGenerated { get; }
+        public List<GenericParameter> GenericParameters { get; } = new List<GenericParameter>();
+
+        public bool IsStub { get; }
         public MemberList Members { get; } = new MemberList();
-        public List<IType> GenericTypeParameters { get; set; }
-        public IType GenericType { get; set; }
-
-        public List<IType> GenericTypeArguments { get; set; }
-
         public List<Attribute> Attributes { get; } = new List<Attribute>();
 
         public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
@@ -56,7 +62,7 @@ namespace ArchUnitNET.Loader
         public bool ImplementsInterface(Interface intf)
         {
             return ImplementedInterfaces.Any(implementedInterface =>
-                Equals(implementedInterface, intf) || Equals(implementedInterface.GenericType, intf));
+                Equals(implementedInterface, intf));
         }
 
         public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
@@ -67,9 +73,7 @@ namespace ArchUnitNET.Loader
             }
 
             return ImplementedInterfaces.Any(implementedInterface =>
-                implementedInterface.FullNameMatches(pattern, useRegularExpressions) ||
-                implementedInterface.GenericType != null &&
-                implementedInterface.GenericType.FullNameMatches(pattern, useRegularExpressions));
+                implementedInterface.FullNameMatches(pattern, useRegularExpressions));
         }
 
         public bool IsAssignableTo(IType assignableToType)

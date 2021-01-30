@@ -6,9 +6,9 @@
 
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
 using Xunit;
-using Xunit.Sdk;
 
 // ReSharper disable UnusedTypeParameter
 
@@ -16,6 +16,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Types
 {
     public class GenericInterfaceTests
     {
+        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+
+        private readonly Interface _genericInterface;
+        private readonly Class _genericInterfaceImplementation;
+        private readonly Class _genericType;
+
         public GenericInterfaceTests()
         {
             _genericInterface = _architecture.GetInterfaceOfType(typeof(IGenericInterface<>));
@@ -23,24 +29,16 @@ namespace ArchUnitNETTests.Domain.Dependencies.Types
             _genericType = _architecture.GetClassOfType(typeof(GenericType));
         }
 
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
-
-        private readonly Interface _genericInterface;
-        private readonly Class _genericInterfaceImplementation;
-        private readonly Class _genericType;
-
         [Fact]
         public void ClassImplementsGenericInterface()
         {
-            // Setup, Act
-            var implementedGenericInterface = _genericInterfaceImplementation.ImplementedInterfaces.FirstOrDefault();
-            var genericArgumentsOfImplementedInterface = implementedGenericInterface?.GenericTypeArguments;
+            var implementsInterfaceDependency = _genericInterfaceImplementation.Dependencies
+                .OfType<ImplementsInterfaceDependency>().First();
+            var genericArgumentsOfImplementedInterface = implementsInterfaceDependency.TargetGenericArguments
+                .Select(argument => argument.Type).ToList();
 
-            // Assert
             Assert.True(_genericInterfaceImplementation.ImplementsInterface(_genericInterface));
-            Assert.Single(genericArgumentsOfImplementedInterface ??
-                          throw new NullException("No generic arguments from inherited " +
-                                                  "generic interface implementation."));
+            Assert.Single(genericArgumentsOfImplementedInterface);
             Assert.Contains(_genericType, genericArgumentsOfImplementedInterface);
         }
     }

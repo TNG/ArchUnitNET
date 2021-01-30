@@ -21,6 +21,13 @@ namespace ArchUnitNETTests.Domain
         private const string GuidClassName = "Guid";
         private const string SystemGuidFullName = StaticConstants.SystemNamespace + "." + GuidClassName;
 
+        private static readonly Architecture Architecture =
+            new ArchLoader().LoadAssembly(typeof(GenericClassTests).Assembly).Build();
+
+        private readonly Class _classWithGenericParameters;
+        private readonly Class _expectedGenericArgument;
+        private readonly FieldMember _genericallyTypedField;
+
         public GenericClassTests()
         {
             _classWithGenericParameters = Architecture.GetClassOfType(typeof(ClassWithGenericParameters<>));
@@ -29,24 +36,15 @@ namespace ArchUnitNETTests.Domain
                 .GetFieldMembersWithName(nameof(InvokesGenericClass.GuidGenericArgument)).SingleOrDefault();
             var guidMock = new Type(SystemGuidFullName, GuidClassName,
                 _classWithGenericParameters.Assembly,
-                new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false);
+                new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false, false, true, false);
             _expectedGenericArgument = new Class(guidMock, false, true, true, false);
         }
-
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(GenericClassTests).Assembly).Build();
-
-        private readonly Class _classWithGenericParameters;
-        private readonly FieldMember _genericallyTypedField;
-        private readonly Class _expectedGenericArgument;
 
         [Fact]
         public void GenericTypeArgumentsAsExpected()
         {
-            //Setup
-            var genericTypeArgumentClass = _genericallyTypedField.Type.GenericTypeArguments.First() as Class;
+            var genericTypeArgumentClass = _genericallyTypedField.GenericArguments.First().Type as Class;
 
-            //Assert
             Assert.NotNull(genericTypeArgumentClass);
             Assert.Equal(_expectedGenericArgument, genericTypeArgumentClass);
         }
@@ -54,24 +52,22 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void GenericTypeArgumentsFound()
         {
-            Assert.Single(_genericallyTypedField.Type.GenericTypeArguments);
+            Assert.Single(_genericallyTypedField.GenericArguments);
         }
 
         [Fact]
         public void GenericTypeAsExpected()
         {
-            //Setup
             var invokedGenericType = _genericallyTypedField.Type;
 
-            //Assert
-            Assert.Equal(_classWithGenericParameters, invokedGenericType.GenericType);
+            Assert.Equal(_classWithGenericParameters, invokedGenericType);
         }
 
         [Fact]
         public void GenericTypeParametersFound()
         {
-            Assert.NotEmpty(_classWithGenericParameters.GenericTypeParameters);
-            Assert.Single(_classWithGenericParameters.GenericTypeParameters);
+            Assert.NotEmpty(_classWithGenericParameters.GenericParameters);
+            Assert.Single(_classWithGenericParameters.GenericParameters);
         }
     }
 
