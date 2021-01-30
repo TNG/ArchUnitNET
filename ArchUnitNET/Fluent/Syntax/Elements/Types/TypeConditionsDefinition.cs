@@ -9,8 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Domain.PlantUml;
 using ArchUnitNET.Fluent.Conditions;
-using ArchUnitNET.PlantUml;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {

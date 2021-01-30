@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 
-namespace ArchUnitNET.PlantUml
+namespace ArchUnitNET.Domain.PlantUml
 {
     internal class PlantUmlDiagramBuilder
     {
@@ -19,9 +19,9 @@ namespace ArchUnitNET.PlantUml
         public PlantUmlDiagramBuilder WithDependencies(IEnumerable<ParsedDependency> dependencies)
         {
             var groupedByOrigin = from d in dependencies
-                          group d by d.Origin into g
-                          select (Origin: g.Key, Dependencies: g);
-           foreach(var g in groupedByOrigin)
+                                  group d by d.Origin into g
+                                  select (Origin: g.Key, Dependencies: g);
+            foreach (var g in groupedByOrigin)
             {
                 _originToParsedDependency.Add(g.Origin, g.Dependencies.Distinct().ToList());
             }
@@ -42,7 +42,8 @@ namespace ArchUnitNET.PlantUml
         {
             var dependencies = ImmutableList.CreateBuilder<PlantUmlComponentDependency>();
 
-            if (_originToParsedDependency.ContainsKey(component.Identifier)){
+            if (_originToParsedDependency.ContainsKey(component.Identifier))
+            {
                 foreach (ParsedDependency dependencyOriginatingFromComponent in _originToParsedDependency[component.Identifier])
                 {
                     PlantUmlComponent target = _plantUmlComponents.findComponentWith(dependencyOriginatingFromComponent.Target);

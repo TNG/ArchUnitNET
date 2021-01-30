@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
-using ArchUnitNET.PlantUml;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Assembly = System.Reflection.Assembly;
 

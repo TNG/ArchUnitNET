@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ArchUnitNET.PlantUml
+namespace ArchUnitNET.Domain.PlantUml
 {
     internal class ComponentIdentifier
     {

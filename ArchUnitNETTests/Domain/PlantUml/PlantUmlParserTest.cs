@@ -1,5 +1,4 @@
-﻿using ArchUnitNET.PlantUml;
-using ArchUnitNETTests.PlantUml;
+﻿using ArchUnitNET.Domain.PlantUml;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Xunit;
 
-namespace ArchUnitNETTests.PlantUml
+namespace ArchUnitNETTests.Domain.PlantUml
 {
     public class PlantUmlParserTest
     {

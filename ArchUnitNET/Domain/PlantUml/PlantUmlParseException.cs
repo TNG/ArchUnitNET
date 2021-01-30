@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace ArchUnitNET.PlantUml
+namespace ArchUnitNET.Domain.PlantUml
 {
     [Serializable]
     internal class PlantUmlParseException : Exception

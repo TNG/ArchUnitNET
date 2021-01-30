@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ArchUnitNET.PlantUml
+namespace ArchUnitNET.Domain.PlantUml
 {
     internal class PlantUmlPatterns
     {
@@ -89,7 +89,7 @@ namespace ArchUnitNET.PlantUml
             internal static IEnumerable<PlantUmlDependencyMatcher> TryParseFromLeftToRight(string line)
             {
                 return IsDependencyFromLeftToRight(line)
-                    ? ImmutableList.CreateRange(new List<PlantUmlDependencyMatcher> { ParseDependencyFromLeftToRight(line)})
+                    ? ImmutableList.CreateRange(new List<PlantUmlDependencyMatcher> { ParseDependencyFromLeftToRight(line) })
                     : Enumerable.Empty<PlantUmlDependencyMatcher>();
             }
 
