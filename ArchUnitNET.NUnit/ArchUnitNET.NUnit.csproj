@@ -19,7 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="nunit" Version="3.13.0" />
+        <PackageReference Include="nunit" Version="3.13.1" />
     </ItemGroup>
 
     <ItemGroup>
