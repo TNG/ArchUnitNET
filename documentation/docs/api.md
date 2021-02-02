@@ -36,4 +36,5 @@ Here you can find the full API of ArchUnitNET.
 
 ## Limitations
 
-* [Constant Fields] (limitations/constant_fields.md)
+* [Debug Artifacts](limitations/debug_artifacts.md)
+* [Constant Fields](limitations/constant_fields.md)
