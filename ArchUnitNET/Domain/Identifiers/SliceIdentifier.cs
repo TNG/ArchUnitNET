@@ -5,18 +5,19 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
-namespace ArchUnitNET.Fluent.Slices
+using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Slices;
+
+namespace ArchUnitNET.Domain.Identifiers
 {
-    public class SliceIdentifier : IHasDescription
+    public class SliceIdentifier : StringIdentifier, IHasDescription
     {
         public static readonly SliceIdentifierComparer Comparer = new SliceIdentifierComparer();
-        public readonly string Identifier;
         public readonly bool Ignored;
 
 
-        private SliceIdentifier(string identifier, bool ignored)
+        private SliceIdentifier(string identifier, bool ignored) : base(identifier)
         {
-            Identifier = identifier;
             Ignored = ignored;
         }
 
