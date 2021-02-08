@@ -7,6 +7,7 @@
 
 using System;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Identifiers;
 
 namespace ArchUnitNET.Fluent.Slices
 {
