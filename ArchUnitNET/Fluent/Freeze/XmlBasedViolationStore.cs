@@ -1,0 +1,95 @@
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
+// 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
+// 
+// 	SPDX-License-Identifier: Apache-2.0
+// 
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Xml;
+using System.Xml.Linq;
+using ArchUnitNET.Domain.Identifiers;
+using JetBrains.Annotations;
+
+namespace ArchUnitNET.Fluent.Freeze
+{
+    public static class XmlBasedViolationStore
+    {
+        private const string DefaultStoragePath = "..\\..\\..\\ArchUnitNET\\Storage\\FrozenRules.xml";
+        private const string DefaultStorageDirectory = "..\\..\\..\\ArchUnitNET\\Storage";
+
+        private static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
+            {Indent = true, Encoding = Encoding.UTF8};
+
+        public static bool RuleAlreadyFrozen(IArchRule rule)
+        {
+            var storageDoc = LoadStorage();
+            var storedRule = FindStoredRule(storageDoc, rule);
+            return storedRule != null;
+        }
+
+        public static IEnumerable<StringIdentifier> GetFrozenViolations(IArchRule rule)
+        {
+            var storageDoc = LoadStorage();
+            var storedRule = FindStoredRule(storageDoc, rule);
+
+            if (storedRule == null) //rule not stored
+            {
+                yield break;
+            }
+
+            foreach (var xElement in storedRule.Elements())
+            {
+                yield return new StringIdentifier(xElement.Value);
+            }
+        }
+
+        public static void StoreCurrentViolations(IArchRule rule, IEnumerable<StringIdentifier> violations)
+        {
+            if (!Directory.Exists(DefaultStorageDirectory))
+            {
+                Directory.CreateDirectory(DefaultStorageDirectory);
+            }
+
+            var violationElements =
+                violations.Select(violation =>
+                    new XElement("Violation", violation.Identifier)); //violation.Identifier instead of violationTest
+            var ruleElement = new XElement("FrozenRule", violationElements);
+            ruleElement.SetAttributeValue("ArchRule", rule.Description);
+
+            var storageDoc = LoadStorage();
+            var storedRule = FindStoredRule(storageDoc, rule);
+            storedRule?.Remove(); //remove previous violations
+            storageDoc.Root.Add(ruleElement);
+
+            using (var writer = XmlWriter.Create(DefaultStoragePath, WriterSettings))
+            {
+                storageDoc.WriteTo(writer);
+            }
+        }
+
+        [CanBeNull]
+        private static XElement FindStoredRule(XDocument xDocument, IArchRule rule)
+        {
+            return xDocument.Root?.Elements().FirstOrDefault(element =>
+                element.Attribute("ArchRule")?.Value.ToString() == rule.Description);
+        }
+
+        private static XDocument LoadStorage()
+        {
+            try
+            {
+                var doc = XDocument.Load(DefaultStoragePath);
+                return doc.Root?.Name == "FrozenRules" ? doc : new XDocument(new XElement("FrozenRules"));
+            }
+            catch (Exception) //file not found or invalid xml document
+            {
+                return new XDocument(new XElement("FrozenRules"));
+            }
+        }
+    }
+}
