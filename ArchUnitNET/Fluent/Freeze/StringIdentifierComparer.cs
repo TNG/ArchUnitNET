@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace ArchUnitNET.Domain.Identifiers
+namespace ArchUnitNET.Fluent.Freeze
 {
     public class StringIdentifierComparer : EqualityComparer<StringIdentifier>
     {

@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
-using ArchUnitNET.Domain.Identifiers;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Fluent.Freeze;
 using ArchUnitNET.Fluent.Predicates;
 using JetBrains.Annotations;
 

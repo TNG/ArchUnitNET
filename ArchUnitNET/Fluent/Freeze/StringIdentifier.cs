@@ -5,7 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
-namespace ArchUnitNET.Domain.Identifiers
+namespace ArchUnitNET.Fluent.Freeze
 {
     public class StringIdentifier
     {

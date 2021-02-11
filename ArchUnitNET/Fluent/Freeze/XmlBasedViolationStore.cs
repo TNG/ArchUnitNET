@@ -12,7 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using ArchUnitNET.Domain.Identifiers;
 using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Freeze

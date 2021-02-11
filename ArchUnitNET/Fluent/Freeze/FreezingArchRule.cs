@@ -8,7 +8,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Identifiers;
 
 namespace ArchUnitNET.Fluent.Freeze
 {
