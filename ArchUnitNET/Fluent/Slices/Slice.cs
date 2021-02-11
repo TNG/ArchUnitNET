@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Domain.Identifiers;
 
 namespace ArchUnitNET.Fluent.Slices
 {

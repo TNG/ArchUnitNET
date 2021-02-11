@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ArchUnitNET.Domain.Identifiers
+namespace ArchUnitNET.Fluent.Freeze
 {
     public class EnumerableIdentifier : StringIdentifier
     {

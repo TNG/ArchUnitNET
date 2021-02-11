@@ -5,7 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Identifiers;
+using ArchUnitNET.Fluent.Freeze;
 using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent

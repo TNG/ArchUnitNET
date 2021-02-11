@@ -6,7 +6,6 @@
 // 
 
 using System.Collections.Generic;
-using ArchUnitNET.Domain.Identifiers;
 
 namespace ArchUnitNET.Fluent.Slices
 {
