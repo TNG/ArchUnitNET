@@ -61,7 +61,7 @@ namespace ArchUnitNET.Domain.PlantUml
 
         private PlantUmlComponent FindComponentMatching(PlantUmlComponents plantUmlComponents, string originOrTargetString)
         {
-            originOrTargetString = Regex.Replace(originOrTargetString.Trim(), "^\\[", "");
+            originOrTargetString = Regex.Replace(originOrTargetString.Trim(), @"^\[", "");
             originOrTargetString = Regex.Replace(originOrTargetString, "]$", "");
 
             return plantUmlComponents.FindComponentWith(originOrTargetString);
