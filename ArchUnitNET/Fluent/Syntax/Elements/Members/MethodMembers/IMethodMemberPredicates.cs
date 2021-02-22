@@ -10,7 +10,9 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public interface IMethodMemberPredicates<out TRuleTypeConjunction> : IMemberPredicates<TRuleTypeConjunction>
+    public interface
+        IMethodMemberPredicates<out TRuleTypeConjunction, TRuleType> : IMemberPredicates<TRuleTypeConjunction, TRuleType
+        > where TRuleType : ICanBeAnalyzed
     {
         TRuleTypeConjunction AreConstructors();
         TRuleTypeConjunction AreVirtual();

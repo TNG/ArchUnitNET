@@ -12,7 +12,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
     public interface
         IComplexMemberConditions<TRuleTypeShouldConjunction, TRuleType> :
             IComplexObjectConditions<TRuleTypeShouldConjunction, TRuleType>,
-            IMemberConditions<TRuleTypeShouldConjunction>
+            IMemberConditions<TRuleTypeShouldConjunction, TRuleType>
         where TRuleType : IMember
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {

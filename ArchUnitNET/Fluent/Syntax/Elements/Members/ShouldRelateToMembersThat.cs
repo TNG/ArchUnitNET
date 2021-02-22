@@ -13,7 +13,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
     public class ShouldRelateToMembersThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType> :
         ShouldRelateToObjectsThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType>,
-        IMemberPredicates<TRuleTypeShouldConjunction>
+        IMemberPredicates<TRuleTypeShouldConjunction, TReferenceType>
         where TReferenceType : IMember
         where TRuleType : ICanBeAnalyzed
     {
