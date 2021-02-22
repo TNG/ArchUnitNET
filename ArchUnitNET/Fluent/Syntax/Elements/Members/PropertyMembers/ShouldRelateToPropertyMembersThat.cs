@@ -11,7 +11,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
     public class ShouldRelateToPropertyMembersThat<TRuleTypeShouldConjunction, TRuleType> :
         ShouldRelateToMembersThat<TRuleTypeShouldConjunction, PropertyMember, TRuleType>,
-        IPropertyMemberPredicates<TRuleTypeShouldConjunction>
+        IPropertyMemberPredicates<TRuleTypeShouldConjunction, PropertyMember>
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {

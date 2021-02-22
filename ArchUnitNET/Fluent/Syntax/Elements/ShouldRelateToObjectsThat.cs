@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
@@ -14,7 +15,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public class ShouldRelateToObjectsThat<TRuleTypeShouldConjunction, TReferenceType, TRuleType> :
         SyntaxElement<TRuleType>,
-        IObjectPredicates<TRuleTypeShouldConjunction>
+        IObjectPredicates<TRuleTypeShouldConjunction, TReferenceType>
         where TReferenceType : ICanBeAnalyzed
         where TRuleType : ICanBeAnalyzed
     {
@@ -137,6 +138,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction DependOnAny(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(ObjectPredicatesDefinition<TReferenceType>.DependOnAny(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction FollowCustomPredicate(IPredicate<TReferenceType> predicate)
+        {
+            _ruleCreator.ContinueComplexCondition(predicate);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction FollowCustomPredicate(Func<TReferenceType, bool> predicate,
+            string description)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.FollowCustomPredicate(predicate, description));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

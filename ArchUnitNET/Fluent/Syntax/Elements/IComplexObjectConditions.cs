@@ -12,7 +12,8 @@ using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public interface
-        IComplexObjectConditions<TRuleTypeShouldConjunction, TRuleType> : IObjectConditions<TRuleTypeShouldConjunction>
+        IComplexObjectConditions<TRuleTypeShouldConjunction, TRuleType> : IObjectConditions<TRuleTypeShouldConjunction,
+            TRuleType>
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {

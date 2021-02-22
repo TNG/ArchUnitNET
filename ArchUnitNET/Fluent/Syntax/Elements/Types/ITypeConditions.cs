@@ -11,7 +11,8 @@ using Assembly = System.Reflection.Assembly;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public interface ITypeConditions<out TReturnType> : IObjectConditions<TReturnType>
+    public interface ITypeConditions<out TReturnType, out TRuleType> : IObjectConditions<TReturnType, TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         TReturnType Be(Type firstType, params Type[] moreTypes);
         TReturnType Be(IEnumerable<Type> types);
