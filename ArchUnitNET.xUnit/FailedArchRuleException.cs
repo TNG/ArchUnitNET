@@ -8,9 +8,10 @@ using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Extensions;
+using Xunit.Sdk;
 
 // ReSharper disable once CheckNamespace
-namespace Xunit.Sdk
+namespace ArchUnitNET.xUnit
 {
     public class FailedArchRuleException : XunitException
     {

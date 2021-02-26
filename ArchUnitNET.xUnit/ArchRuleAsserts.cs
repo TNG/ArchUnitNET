@@ -6,13 +6,11 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
-using Xunit.Sdk;
-
 
 // ReSharper disable once CheckNamespace
-namespace Xunit
+namespace ArchUnitNET.xUnit
 {
-    partial class Assert
+    public class ArchRuleAssert
     {
         /// <summary>
         ///     Verifies that the architecture meets the criteria of the archrule.
