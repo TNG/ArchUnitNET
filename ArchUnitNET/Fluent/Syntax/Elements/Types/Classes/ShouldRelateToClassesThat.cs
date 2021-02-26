@@ -11,7 +11,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
     public class ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType> :
         ShouldRelateToTypesThat<TRuleTypeShouldConjunction, Class, TRuleType>,
-        IClassPredicates<TRuleTypeShouldConjunction> where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
+        IClassPredicates<TRuleTypeShouldConjunction, Class> where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
         public ShouldRelateToClassesThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)

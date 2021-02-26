@@ -7,11 +7,12 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public interface IObjectConditions<out TReturnType>
+    public interface IObjectConditions<out TReturnType, out TRuleType> where TRuleType : ICanBeAnalyzed
     {
         TReturnType Exist();
         TReturnType Be(string pattern, bool useRegularExpressions = false);
@@ -31,6 +32,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType DependOnAny(IObjectProvider<IType> types);
         TReturnType DependOnAny(IEnumerable<IType> types);
         TReturnType DependOnAny(IEnumerable<Type> types);
+        TReturnType FollowCustomCondition(ICondition<TRuleType> condition);
+        TReturnType FollowCustomCondition(Func<TRuleType, ConditionResult> condition, string description);
+        TReturnType FollowCustomCondition(Func<TRuleType, bool> condition, string description, string failDescription);
         TReturnType OnlyDependOn(string pattern, bool useRegularExpressions = false);
         TReturnType OnlyDependOn(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType OnlyDependOn(IType firstType, params IType[] moreTypes);

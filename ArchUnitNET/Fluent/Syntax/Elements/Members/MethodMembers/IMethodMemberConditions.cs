@@ -10,7 +10,8 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public interface IMethodMemberConditions<out TReturnType> : IMemberConditions<TReturnType>
+    public interface IMethodMemberConditions<out TReturnType, out TRuleType> : IMemberConditions<TReturnType, TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         TReturnType BeConstructor();
         TReturnType BeVirtual();

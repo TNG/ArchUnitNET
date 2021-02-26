@@ -4,9 +4,12 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using ArchUnitNET.Domain;
+
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
 {
-    public interface IFieldMemberConditions<out TReturnType> : IMemberConditions<TReturnType>
+    public interface IFieldMemberConditions<out TReturnType, out TRuleType> : IMemberConditions<TReturnType, TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
     }
 }

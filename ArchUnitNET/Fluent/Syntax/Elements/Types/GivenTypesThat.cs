@@ -14,7 +14,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
 {
     public class GivenTypesThat<TGivenRuleTypeConjunction, TRuleType> :
-        GivenObjectsThat<TGivenRuleTypeConjunction, TRuleType>, ITypePredicates<TGivenRuleTypeConjunction>
+        GivenObjectsThat<TGivenRuleTypeConjunction, TRuleType>, ITypePredicates<TGivenRuleTypeConjunction, TRuleType>
         where TRuleType : IType
     {
         // ReSharper disable once MemberCanBeProtected.Global

@@ -7,11 +7,12 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public interface IObjectPredicates<out TReturnType>
+    public interface IObjectPredicates<out TReturnType, TRuleType> where TRuleType : ICanBeAnalyzed
     {
         TReturnType Are(string pattern, bool useRegularExpressions = false);
         TReturnType Are(IEnumerable<string> patterns, bool useRegularExpressions = false);
@@ -30,6 +31,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType DependOnAny(IObjectProvider<IType> types);
         TReturnType DependOnAny(IEnumerable<IType> types);
         TReturnType DependOnAny(IEnumerable<Type> types);
+        TReturnType FollowCustomPredicate(IPredicate<TRuleType> predicate);
+        TReturnType FollowCustomPredicate(Func<TRuleType, bool> predicate, string description);
         TReturnType OnlyDependOn(string pattern, bool useRegularExpressions = false);
         TReturnType OnlyDependOn(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType OnlyDependOn(Type firstType, params Type[] moreTypes);

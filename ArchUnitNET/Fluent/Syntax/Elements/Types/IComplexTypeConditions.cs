@@ -10,7 +10,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public interface
         IComplexTypeConditions<TRuleTypeShouldConjunction, TRuleType> :
-            IComplexObjectConditions<TRuleTypeShouldConjunction, TRuleType>, ITypeConditions<TRuleTypeShouldConjunction>
+            IComplexObjectConditions<TRuleTypeShouldConjunction, TRuleType>,
+            ITypeConditions<TRuleTypeShouldConjunction, TRuleType>
         where TRuleType : IType
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {

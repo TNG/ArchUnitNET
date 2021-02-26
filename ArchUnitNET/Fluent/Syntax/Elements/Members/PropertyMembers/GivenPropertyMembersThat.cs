@@ -9,7 +9,7 @@ using ArchUnitNET.Domain;
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
     public class GivenPropertyMembersThat : GivenMembersThat<GivenPropertyMembersConjunction, PropertyMember>,
-        IPropertyMemberPredicates<GivenPropertyMembersConjunction>
+        IPropertyMemberPredicates<GivenPropertyMembersConjunction, PropertyMember>
     {
         public GivenPropertyMembersThat(IArchRuleCreator<PropertyMember> ruleCreator) : base(ruleCreator)
         {
