@@ -434,6 +434,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        public static ICondition<TRuleType> FollowCustomCondition(Func<TRuleType, ConditionResult> condition,
+            string description)
+        {
+            return new SimpleCondition<TRuleType>(condition, description);
+        }
+
+        public static ICondition<TRuleType> FollowCustomCondition(Func<TRuleType, bool> condition, string description,
+            string failDescription)
+        {
+            return new SimpleCondition<TRuleType>(condition, description, failDescription);
+        }
+
         public static ICondition<TRuleType> OnlyDependOn(string pattern, bool useRegularExpressions = false)
         {
             ConditionResult Condition(TRuleType ruleType)

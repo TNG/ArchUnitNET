@@ -7,13 +7,14 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public abstract class GivenObjectsThat<TGivenRuleTypeConjunction, TRuleType> : SyntaxElement<TRuleType>,
-        IObjectPredicates<TGivenRuleTypeConjunction> where TRuleType : ICanBeAnalyzed
+        IObjectPredicates<TGivenRuleTypeConjunction, TRuleType> where TRuleType : ICanBeAnalyzed
     {
         protected GivenObjectsThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
         {
@@ -124,6 +125,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction DependOnAny(IEnumerable<Type> types)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DependOnAny(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction FollowCustomPredicate(IPredicate<TRuleType> predicate)
+        {
+            _ruleCreator.AddPredicate(predicate);
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction FollowCustomPredicate(Func<TRuleType, bool> predicate, string description)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.FollowCustomPredicate(predicate, description));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

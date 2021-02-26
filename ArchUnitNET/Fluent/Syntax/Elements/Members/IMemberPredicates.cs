@@ -10,7 +10,9 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public interface IMemberPredicates<out TRuleTypeConjunction> : IObjectPredicates<TRuleTypeConjunction>
+    public interface
+        IMemberPredicates<out TRuleTypeConjunction, TRuleType> : IObjectPredicates<TRuleTypeConjunction, TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         TRuleTypeConjunction AreDeclaredIn(string pattern, bool useRegularExpressions = false);
         TRuleTypeConjunction AreDeclaredIn(IEnumerable<string> patterns, bool useRegularExpressions = false);
