@@ -7,9 +7,9 @@
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.xUnit;
 using ArchUnitNETTests.Domain;
 using Xunit;
-using Xunit.Sdk;
 using static System.Environment;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
@@ -17,8 +17,10 @@ namespace ArchUnitNETTests.Fluent
 {
     public class RuleEvaluationTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private const string NoClassName = "NotTheNameOfAnyClass_1592479214";
+
+        private const string ExpectedTrueArchRuleErrorMessage = "All Evaluations passed";
+        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private static readonly IArchRule TrueArchRule1 = Classes().That().ArePrivate().Should().BePrivate();
         private static readonly IArchRule TrueArchRule2 = Members().Should().Exist();
@@ -49,7 +51,13 @@ namespace ArchUnitNETTests.Fluent
         private static readonly IArchRule WrongArchRule1AndWrongArchRule3 = WrongArchRule1.And(WrongArchRule3);
         private static readonly IArchRule WrongArchRule4AndWrongArchRule8 = WrongArchRule4.And(WrongArchRule8);
 
-        private const string ExpectedTrueArchRuleErrorMessage = "All Evaluations passed";
+        private readonly string _expectedWrongArchRule1AndWrongArchRule3ErrorMessage =
+            "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private\" failed:" +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" + NewLine +
+            NewLine +
+            "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private and should be public or should be protected\" failed:" +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" +
+            NewLine + NewLine;
 
         private readonly string _expectedWrongArchRule1ErrorMessage =
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private\" failed:" +
@@ -65,6 +73,14 @@ namespace ArchUnitNETTests.Fluent
         private readonly string _expectedWrongArchRule3ErrorMessage =
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private and should be public or should be protected\" failed:" +
             NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" +
+            NewLine + NewLine;
+
+        private readonly string _expectedWrongArchRule4AndWrongArchRule8ErrorMessage =
+            "\"Classes that have name \"NotTheNameOfAnyClass_1592479214\" should exist\" failed:" +
+            NewLine + "\tThere are no objects matching the criteria" + NewLine +
+            NewLine +
+            "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should not exist or should be private\" failed:" +
+            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass does exist and is public" +
             NewLine + NewLine;
 
         private readonly string _expectedWrongArchRule4ErrorMessage =
@@ -92,47 +108,31 @@ namespace ArchUnitNETTests.Fluent
             NewLine + "\tArchUnitNETTests.Domain.PublicTestClass does exist and is public" +
             NewLine + NewLine;
 
-        private readonly string _expectedWrongArchRule1AndWrongArchRule3ErrorMessage =
-            "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" + NewLine +
-            NewLine +
-            "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private and should be public or should be protected\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" +
-            NewLine + NewLine;
-
-        private readonly string _expectedWrongArchRule4AndWrongArchRule8ErrorMessage =
-            "\"Classes that have name \"NotTheNameOfAnyClass_1592479214\" should exist\" failed:" +
-            NewLine + "\tThere are no objects matching the criteria" + NewLine +
-            NewLine +
-            "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should not exist or should be private\" failed:" +
-            NewLine + "\tArchUnitNETTests.Domain.PublicTestClass does exist and is public" +
-            NewLine + NewLine;
-
         [Fact]
         public void AssertArchRuleTest()
         {
-            Assert.ArchRule(Architecture, TrueArchRule1);
-            Assert.ArchRule(Architecture, TrueArchRule2);
+            ArchRuleAssert.CheckRule(Architecture, TrueArchRule1);
+            ArchRuleAssert.CheckRule(Architecture, TrueArchRule2);
             var exception1 =
-                Assert.Throws<FailedArchRuleException>(() => Assert.ArchRule(Architecture, WrongArchRule1));
+                Assert.Throws<FailedArchRuleException>(() => ArchRuleAssert.CheckRule(Architecture, WrongArchRule1));
             var exception2 =
-                Assert.Throws<FailedArchRuleException>(() => Assert.ArchRule(Architecture, WrongArchRule2));
+                Assert.Throws<FailedArchRuleException>(() => ArchRuleAssert.CheckRule(Architecture, WrongArchRule2));
             var exception3 =
-                Assert.Throws<FailedArchRuleException>(() => Assert.ArchRule(Architecture, WrongArchRule3));
+                Assert.Throws<FailedArchRuleException>(() => ArchRuleAssert.CheckRule(Architecture, WrongArchRule3));
             var exception4 =
-                Assert.Throws<FailedArchRuleException>(() => Assert.ArchRule(Architecture, WrongArchRule4));
+                Assert.Throws<FailedArchRuleException>(() => ArchRuleAssert.CheckRule(Architecture, WrongArchRule4));
             var exception5 =
-                Assert.Throws<FailedArchRuleException>(() => Assert.ArchRule(Architecture, WrongArchRule5));
+                Assert.Throws<FailedArchRuleException>(() => ArchRuleAssert.CheckRule(Architecture, WrongArchRule5));
             var exception6 =
-                Assert.Throws<FailedArchRuleException>(() => Assert.ArchRule(Architecture, WrongArchRule6));
+                Assert.Throws<FailedArchRuleException>(() => ArchRuleAssert.CheckRule(Architecture, WrongArchRule6));
             var exception7 =
-                Assert.Throws<FailedArchRuleException>(() => Assert.ArchRule(Architecture, WrongArchRule7));
+                Assert.Throws<FailedArchRuleException>(() => ArchRuleAssert.CheckRule(Architecture, WrongArchRule7));
             var exception8 =
-                Assert.Throws<FailedArchRuleException>(() => Assert.ArchRule(Architecture, WrongArchRule8));
+                Assert.Throws<FailedArchRuleException>(() => ArchRuleAssert.CheckRule(Architecture, WrongArchRule8));
             var exception1And3 = Assert.Throws<FailedArchRuleException>(() =>
-                Assert.ArchRule(Architecture, WrongArchRule1AndWrongArchRule3));
+                ArchRuleAssert.CheckRule(Architecture, WrongArchRule1AndWrongArchRule3));
             var exception4And8 = Assert.Throws<FailedArchRuleException>(() =>
-                Assert.ArchRule(Architecture, WrongArchRule4AndWrongArchRule8));
+                ArchRuleAssert.CheckRule(Architecture, WrongArchRule4AndWrongArchRule8));
 
             Assert.Equal(_expectedWrongArchRule1ErrorMessage, exception1.Message);
             Assert.Equal(_expectedWrongArchRule2ErrorMessage, exception2.Message);

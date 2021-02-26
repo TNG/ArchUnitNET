@@ -7,8 +7,8 @@
 
 using System.Linq;
 using ArchUnitNET.Fluent.Slices;
+using ArchUnitNET.xUnit;
 using Xunit;
-using Xunit.Sdk;
 
 namespace ArchUnitNETTests.Fluent.Slices
 {
