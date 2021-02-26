@@ -10,7 +10,7 @@ using ArchUnitNET.Fluent;
 // ReSharper disable once CheckNamespace
 namespace ArchUnitNET.xUnit
 {
-    public class ArchRuleAssert
+    public static class ArchRuleAssert
     {
         /// <summary>
         ///     Verifies that the architecture meets the criteria of the archrule.
