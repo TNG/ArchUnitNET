@@ -19,7 +19,7 @@ namespace ArchUnitNET.xUnit
         /// <param name="architecture">The architecture to be tested</param>
         public static void Check(this IArchRule archRule, Architecture architecture)
         {
-            ArchRuleAssert.ArchRule(architecture, archRule);
+            ArchRuleAssert.CheckRule(architecture, archRule);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace ArchUnitNET.xUnit
         /// <param name="archRule">The rule to test the architecture with</param>
         public static void CheckRule(this Architecture architecture, IArchRule archRule)
         {
-            ArchRuleAssert.ArchRule(architecture, archRule);
+            ArchRuleAssert.CheckRule(architecture, archRule);
         }
     }
 }
