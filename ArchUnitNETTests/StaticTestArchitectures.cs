@@ -6,10 +6,10 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader;
+using ArchUnitNET.xUnit;
 using ArchUnitNETTests.Domain.Dependencies.Attributes;
 using ArchUnitNETTests.Domain.Dependencies.Members;
 using TestAssembly;
-using Xunit.Sdk;
 
 // ReSharper disable InconsistentNaming
 

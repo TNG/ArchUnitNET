@@ -19,13 +19,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="xunit.analyzers" Version="0.10.0" />
-      <PackageReference Include="xunit.assert.source" Version="2.4.1" />
-      <PackageReference Include="xunit.core" Version="2.4.1" />
+      <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+      <PackageReference Include="xunit.assert" Version="2.4.1" />
     </ItemGroup>
 
 </Project>
