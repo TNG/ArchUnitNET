@@ -4,9 +4,12 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using ArchUnitNET.Domain;
+
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
-    public interface IClassConditions<out TReturnType> : ITypeConditions<TReturnType>
+    public interface IClassConditions<out TReturnType, out TRuleType> : ITypeConditions<TReturnType, TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         TReturnType BeAbstract();
         TReturnType BeSealed();

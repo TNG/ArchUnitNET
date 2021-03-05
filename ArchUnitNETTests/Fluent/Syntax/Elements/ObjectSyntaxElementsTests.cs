@@ -10,6 +10,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent;
+using ArchUnitNET.xUnit;
 using ArchUnitNETTests.Domain;
 using Xunit;
 using static ArchUnitNETTests.Domain.StaticTestTypes;

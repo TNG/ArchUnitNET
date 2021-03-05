@@ -268,6 +268,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
+        public static IPredicate<T> FollowCustomPredicate(Func<T, bool> predicate, string description)
+        {
+            return new SimplePredicate<T>(predicate, description);
+        }
+
         public static IPredicate<T> OnlyDependOn(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(obj => obj.OnlyDependsOn(pattern, useRegularExpressions),

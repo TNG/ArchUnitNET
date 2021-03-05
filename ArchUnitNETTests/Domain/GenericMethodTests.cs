@@ -11,19 +11,19 @@ using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
 using Xunit;
 
-namespace ArchUnitNETTests.GithubIssuesTests
+namespace ArchUnitNETTests.Domain
 {
-    public class GithubIssue46Test
+    public class GenericMethodTests
     {
         private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(GithubIssue46Test).Assembly).Build();
+            new ArchLoader().LoadAssembly(typeof(GenericMethodTests).Assembly).Build();
 
         private readonly MethodMember _oneGenericArgumentMethod;
         private readonly MethodMember _twoGenericArgumentsMethod;
 
-        public GithubIssue46Test()
+        public GenericMethodTests()
         {
-            var intf = Architecture.GetInterfaceOfType(typeof(ITestGenericMethods));
+            var intf = Architecture.GetInterfaceOfType(typeof(IInterfaceWithGenericMethodsWithSameName));
             _oneGenericArgumentMethod = intf.GetMethodMembers()
                 .First(member => member.GenericParameters.Count == 1);
             _twoGenericArgumentsMethod = intf.GetMethodMembers()
@@ -42,7 +42,7 @@ namespace ArchUnitNETTests.GithubIssuesTests
         }
     }
 
-    internal interface ITestGenericMethods
+    internal interface IInterfaceWithGenericMethodsWithSameName
     {
         void Method<T, K>();
         void Method<T>();

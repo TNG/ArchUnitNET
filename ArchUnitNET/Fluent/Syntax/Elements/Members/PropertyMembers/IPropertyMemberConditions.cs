@@ -4,9 +4,13 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using ArchUnitNET.Domain;
+
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public interface IPropertyMemberConditions<out TReturnType> : IMemberConditions<TReturnType>
+    public interface
+        IPropertyMemberConditions<out TReturnType, out TRuleType> : IMemberConditions<TReturnType, TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         TReturnType HaveGetter();
         TReturnType HavePrivateGetter();

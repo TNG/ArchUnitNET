@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
@@ -137,6 +138,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction DependOnAny(IEnumerable<Type> types)
         {
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.DependOnAny(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction FollowCustomCondition(ICondition<TRuleType> condition)
+        {
+            _ruleCreator.AddCondition(condition);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction FollowCustomCondition(Func<TRuleType, ConditionResult> condition,
+            string description)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.FollowCustomCondition(condition, description));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction FollowCustomCondition(Func<TRuleType, bool> condition, string description,
+            string failDescription)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.FollowCustomCondition(condition, description, failDescription));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

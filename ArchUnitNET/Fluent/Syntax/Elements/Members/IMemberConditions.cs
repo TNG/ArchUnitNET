@@ -10,7 +10,8 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public interface IMemberConditions<out TReturnType> : IObjectConditions<TReturnType>
+    public interface IMemberConditions<out TReturnType, out TRuleType> : IObjectConditions<TReturnType, TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         TReturnType BeDeclaredIn(string pattern, bool useRegularExpressions = false);
         TReturnType BeDeclaredIn(IEnumerable<string> patterns, bool useRegularExpressions = false);

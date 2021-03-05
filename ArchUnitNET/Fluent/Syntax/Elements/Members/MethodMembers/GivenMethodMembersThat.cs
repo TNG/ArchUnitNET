@@ -11,7 +11,7 @@ using ArchUnitNET.Domain;
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
     public class GivenMethodMembersThat : GivenMembersThat<GivenMethodMembersConjunction, MethodMember>,
-        IMethodMemberPredicates<GivenMethodMembersConjunction>
+        IMethodMemberPredicates<GivenMethodMembersConjunction, MethodMember>
     {
         public GivenMethodMembersThat(IArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
         {

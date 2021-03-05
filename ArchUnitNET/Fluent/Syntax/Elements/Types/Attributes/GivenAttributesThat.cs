@@ -9,7 +9,7 @@ using ArchUnitNET.Domain;
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
     public class GivenAttributesThat : GivenTypesThat<GivenAttributesConjunction, Attribute>,
-        IAttributePredicates<GivenAttributesConjunction>
+        IAttributePredicates<GivenAttributesConjunction, Attribute>
     {
         public GivenAttributesThat(IArchRuleCreator<Attribute> ruleCreator) : base(ruleCreator)
         {
