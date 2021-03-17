@@ -158,7 +158,7 @@ namespace ArchUnitNET.Loader
                 type = new Type(typeName, typeReference.Name, currentAssembly, currentNamespace, NotAccessible,
                     isNested, isGeneric, true, isCompilerGenerated);
 
-                return new TypeInstance<Class>(new Class(type));
+                return new TypeInstance<IType>(type);
             }
 
             var visibility = typeDefinition.GetVisibility();
