@@ -1,6 +1,6 @@
 #!/bin/sh
 ################################################################################
-# Title         : generateDocumentation.sh
+# Title         : generate_documentation.sh
 # Date created  : 2017
 # Notes         : original script from Jeroen de Bruijn
 __AUTHOR__="Francesco Romano"
