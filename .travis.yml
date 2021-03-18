@@ -6,10 +6,11 @@ jobs:
       dotnet: 2.2.402
       mono: none
       os: linux
-      before_script:
-        - sudo apt-get install doxygen doxygen-doc graphviz
       script: chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
+      before_deploy:
+        - sudo apt-get install doxygen doxygen-doc graphviz
       deploy:
+        skip_cleanup: true
         provider: script
         script: chmod +x ./Travis/deploy_documentation.sh && ./Travis/deploy_documentation.sh
         on:
