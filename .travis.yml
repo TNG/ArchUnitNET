@@ -7,6 +7,15 @@ jobs:
       mono: none
       os: linux
       script: chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
+      before_deploy:
+        - sudo apt-get install doxygen doxygen-doc graphviz
+      deploy:
+        skip_cleanup: true
+        provider: script
+        script: chmod +x ./Travis/deploy_documentation.sh && ./Travis/deploy_documentation.sh
+        on:
+          tags: true
+          all_branches: true
     - stage: windows_build
       mono: none
       os: windows
