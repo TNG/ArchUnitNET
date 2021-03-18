@@ -17,4 +17,4 @@ chmod 600 "$SSH_FILE" \
 ssh-keyscan github.com >> "$HOME/.ssh/known_hosts"
 
 chmod +x "$TRAVIS_BUILD_DIR/Travis/generate_documentation.sh"
-"$TRAVIS_BUILD_DIR/Travis/generate_documentation.sh" || travis_terminate 1
+"$TRAVIS_BUILD_DIR/Travis/generate_documentation.sh" || exit 1
