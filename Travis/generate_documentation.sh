@@ -78,7 +78,7 @@ doxygen $DOXYFILE 2>&1 | tee doxygen.log
 # Only upload if Doxygen successfully created the documentation.
 # Check this by verifying that the html directory and the file html/index.html
 # both exist. This is a good indication that Doxygen did it's work.
-if [ -d "html" ] && [ -f "html/index.html" ]; then
+if [ -f "index.html" ]; then
     echo 'Uploading documentation to the gh-pages branch...'
     # Add everything in this directory (the Doxygen code documentation) to the
     # gh-pages branch.
