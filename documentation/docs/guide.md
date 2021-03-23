@@ -176,6 +176,6 @@ Assert.True(checkedRule);
 ```
 
 ## 5. Further Reading and Examples
-A complete overview of all available methods can be found [here](api.md).
+A complete overview of all available methods can be found [here](additional.md).
 
 Check out example code on [Github](https://github.com/TNG/ArchUnitNET/tree/master/ExampleTest "ExampleTests").
