@@ -8,7 +8,7 @@ namespace ArchUnitNET.Domain
 {
     public class Attribute : Class
     {
-        public Attribute(IType type, bool isAbstract, bool isSealed) : base(type, isAbstract,
+        public Attribute(IType type, bool? isAbstract, bool? isSealed) : base(type, isAbstract,
             isSealed, false, false)
         {
         }
