@@ -332,7 +332,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 List<string> allAllowedTargets = new List<string>();
 
                 allAllowedTargets.AddRange(classDiagramAssociation.GetNamespaceIdentifiersFromComponentOf(ruleType)
-                    .Concat(classDiagramAssociation.GetTargetPackageIdentifiers(ruleType))
+                    .Concat(classDiagramAssociation.GetTargetNamespaceIdentifiers(ruleType))
                     .ToList());
 
                 var pass = true;

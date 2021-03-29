@@ -32,14 +32,14 @@ namespace ArchUnitNET.Domain.PlantUml
                 {
                     if (visited.Contains(stereotype))
                     {
-                        throw new IllegalDiagramException(string.Format("Stereotype '{}' should be unique", stereotype.AsString()));
+                        throw new IllegalDiagramException(string.Format("Stereotype '{0}' should be unique", stereotype.AsString()));
                     }
                     visited.Add(stereotype);
                 }
             }
         }
 
-        public ISet<string> GetTargetPackageIdentifiers(IType clazz)
+        public ISet<string> GetTargetNamespaceIdentifiers(IType clazz)
         {
             var result = ImmutableHashSet.CreateBuilder<string>();
             foreach (PlantUmlComponent target in GetComponentOf(clazz).Dependencies)
