@@ -19,21 +19,21 @@ namespace ArchUnitNET.Fluent.Freeze
     public static class XmlBasedViolationStore
     {
         private const string DefaultStoragePath = "..\\..\\..\\ArchUnitNET\\Storage\\FrozenRules.xml";
-        private const string DefaultStorageDirectory = "..\\..\\..\\ArchUnitNET\\Storage";
 
         private static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
             {Indent = true, Encoding = Encoding.UTF8};
 
-        public static bool RuleAlreadyFrozen(IArchRule rule)
+        public static bool RuleAlreadyFrozen(IArchRule rule, string storagePath = DefaultStoragePath)
         {
-            var storageDoc = LoadStorage();
+            var storageDoc = LoadStorage(storagePath);
             var storedRule = FindStoredRule(storageDoc, rule);
             return storedRule != null;
         }
 
-        public static IEnumerable<StringIdentifier> GetFrozenViolations(IArchRule rule)
+        public static IEnumerable<StringIdentifier> GetFrozenViolations(IArchRule rule,
+            string storagePath = DefaultStoragePath)
         {
-            var storageDoc = LoadStorage();
+            var storageDoc = LoadStorage(storagePath);
             var storedRule = FindStoredRule(storageDoc, rule);
 
             if (storedRule == null) //rule not stored
@@ -47,11 +47,19 @@ namespace ArchUnitNET.Fluent.Freeze
             }
         }
 
-        public static void StoreCurrentViolations(IArchRule rule, IEnumerable<StringIdentifier> violations)
+        public static void StoreCurrentViolations(IArchRule rule, IEnumerable<StringIdentifier> violations,
+            string storagePath = DefaultStoragePath)
         {
-            if (!Directory.Exists(DefaultStorageDirectory))
+            var directory = Path.GetDirectoryName(storagePath);
+
+            if (directory == null)
             {
-                Directory.CreateDirectory(DefaultStorageDirectory);
+                throw new ArgumentException("Invalid Path");
+            }
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
             }
 
             var violationElements =
@@ -78,11 +86,11 @@ namespace ArchUnitNET.Fluent.Freeze
                 element.Attribute("ArchRule")?.Value.ToString() == rule.Description);
         }
 
-        private static XDocument LoadStorage()
+        private static XDocument LoadStorage(string storagePath = DefaultStoragePath)
         {
             try
             {
-                var doc = XDocument.Load(DefaultStoragePath);
+                var doc = XDocument.Load(storagePath);
                 return doc.Root?.Name == "FrozenRules" ? doc : new XDocument(new XElement("FrozenRules"));
             }
             catch (Exception) //file not found or invalid xml document
