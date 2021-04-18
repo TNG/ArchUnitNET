@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ArchUnitNETTests.Domain.PlantUml
 {
-    internal class TestDiagram
+    public class TestDiagram
     {
         private string _path;
         private IList<string> _lines = new List<string>();
@@ -30,6 +30,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public DependencyFromCreator DependencyFrom(string origin)
         {
             return new DependencyFromCreator(origin, this);
+        }
+
+        public DependencyToCreator DependencyTo(string target)
+        {
+            return new DependencyToCreator(target, this);
         }
 
         private TestDiagram AddComponent(ComponentCreator creator)
@@ -70,7 +75,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return File.CreateText(path);
         }
 
-        internal class ComponentCreator
+        public class ComponentCreator
         {
             private readonly TestDiagram _testDiagram;
 
@@ -100,7 +105,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
         }
 
-        internal class DependencyFromCreator
+        public class DependencyFromCreator
         {
             private readonly string _origin;
             private readonly TestDiagram _testDiagram;
@@ -114,6 +119,24 @@ namespace ArchUnitNETTests.Domain.PlantUml
             public TestDiagram To(string target)
             {
                 string dependency = _origin + " --> " + target;
+                return _testDiagram.RawLine(dependency);
+            }
+        }
+
+        public class DependencyToCreator
+        {
+            private readonly string _target;
+            private readonly TestDiagram _testDiagram;
+
+            public DependencyToCreator(string target, TestDiagram testDiagram)
+            {
+                _target = target;
+                _testDiagram = testDiagram;
+            }
+
+            public TestDiagram From(string origin)
+            {
+                string dependency = _target + " <-- " + origin;
                 return _testDiagram.RawLine(dependency);
             }
         }

@@ -1,5 +1,6 @@
 ﻿using ArchUnitNET.Domain.PlantUml;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,6 +35,40 @@ namespace ArchUnitNETTests.Domain.PlantUml
             PlantUmlComponent origin = GetComponentWithName("SomeOrigin", diagram);
             Assert.Equal(origin.Stereotypes.SingleOrDefault(), new Stereotype("..origin.."));
             Assert.Null(origin.Alias);
+        }
+
+        [Theory]
+        [ClassData(typeof(SimpleDiagramTestData))]
+        public void ParsesDependencyOfSimpleComponentDiagram(Func<TestDiagram, TestDiagram> testCaseFunc)
+        {
+            TestDiagram initialDiagram = TestDiagram.In(Path.GetTempPath())
+                    .Component("SomeOrigin").WithStereoTypes("..origin..")
+                    .Component("SomeTarget").WithStereoTypes("..target..");
+            PlantUmlDiagram diagram = CreateDiagram(testCaseFunc(initialDiagram).Write());
+
+            PlantUmlComponent origin = GetComponentWithName("SomeOrigin", diagram);
+            PlantUmlComponent target = origin.Dependencies.Single();
+
+            Assert.Equal(target.ComponentName, new ComponentName("SomeTarget"));
+            Assert.Empty(target.Dependencies);
+            Assert.Equal(new Stereotype("..target.."), target.Stereotypes.Single());
+            Assert.Null(target.Alias);
+        }
+
+        [Theory]
+        [ClassData(typeof(DependencyArrowTestData))]
+        public void ParsesVariousTypesOfDependencyArrows(string dependency)
+        {
+            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
+                    .Component("SomeOrigin").WithStereoTypes("..origin..")
+                    .Component("SomeTarget").WithStereoTypes("..target..")
+                    .RawLine(dependency)
+                    .Write());
+
+            PlantUmlComponent component = GetComponentWithName("SomeOrigin", diagram);
+            PlantUmlComponent target = component.Dependencies.Single();
+
+            Assert.Equal(target.ComponentName, new ComponentName("SomeTarget"));
         }
 
         [Fact]
@@ -305,5 +340,45 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             return parser.Parse(path);
         }
+    }
+
+    public class DependencyArrowTestData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            List<string> arrowCenters = new List<string>();
+            for (int i = 1; i <= 10; i++)
+            {
+                arrowCenters.Add(new string('-', i));
+            }
+            for (int i = 2; i <= 10; i++)
+            {
+                foreach (string infix in new string[] { "left", "right", "up", "down", "[#green]" })
+                {
+                    arrowCenters.Add(new string('-', i - 1) + infix + "-");
+                }
+            }
+            IList<string> testCase = new List<string>();
+            foreach (string arrowCenter in arrowCenters)
+            {
+                yield return new object[] { "[SomeOrigin] " + arrowCenter + "> [SomeTarget]" };
+                yield return new object[] { "[SomeTarget] <" + arrowCenter + " [SomeOrigin]" };
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    public class SimpleDiagramTestData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            Func<TestDiagram, TestDiagram> func1 = (diagram) => diagram.DependencyFrom("[SomeOrigin]").To("[SomeTarget]");
+            yield return new object[] { func1 };
+            Func<TestDiagram, TestDiagram> func2 = (diagram) => diagram.DependencyTo("[SomeTarget]").From("[SomeOrigin]");
+            yield return new object[] { func2 };
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
