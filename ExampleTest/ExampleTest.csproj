@@ -16,4 +16,10 @@
       <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Resources\shopping_example.puml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

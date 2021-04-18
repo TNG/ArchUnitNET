@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExampleTest
+namespace ExampleTest.PlantUml.Xml.Utils
 {
-    public class ExampleArchitectureTestPlantUml
+    public class XmlUtils
     {
     }
 }
