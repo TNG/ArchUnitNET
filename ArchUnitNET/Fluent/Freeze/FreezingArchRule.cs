@@ -14,10 +14,12 @@ namespace ArchUnitNET.Fluent.Freeze
     public class FreezingArchRule : IArchRule
     {
         private readonly IArchRule _frozenRule;
+        private readonly IViolationStore _violationStore;
 
-        private FreezingArchRule(IArchRule rule)
+        private FreezingArchRule(IArchRule rule, IViolationStore violationStore)
         {
             _frozenRule = rule;
+            _violationStore = violationStore;
         }
 
         public string Description => "Freeze(" + _frozenRule.Description + ")";
@@ -34,14 +36,14 @@ namespace ArchUnitNET.Fluent.Freeze
             var identifiersOfFailedResults = evalResults.Where(result => !result.Passed)
                 .Select(result => result.EvaluatedObjectIdentifier);
 
-            if (!XmlBasedViolationStore.RuleAlreadyFrozen(_frozenRule))
+            if (!_violationStore.RuleAlreadyFrozen(_frozenRule))
             {
-                XmlBasedViolationStore.StoreCurrentViolations(_frozenRule, identifiersOfFailedResults);
+                _violationStore.StoreCurrentViolations(_frozenRule, identifiersOfFailedResults);
                 evalResultsIgnoringFrozen.AddRange(evalResults.Select(MarkAsPassed));
             }
             else
             {
-                var frozenViolations = XmlBasedViolationStore.GetFrozenViolations(_frozenRule).ToList();
+                var frozenViolations = _violationStore.GetFrozenViolations(_frozenRule).ToList();
                 var stillUnresolvedViolations = new List<StringIdentifier>();
                 foreach (var evalResult in evalResults)
                 {
@@ -57,7 +59,7 @@ namespace ArchUnitNET.Fluent.Freeze
                     }
                 }
 
-                XmlBasedViolationStore.StoreCurrentViolations(_frozenRule, stillUnresolvedViolations);
+                _violationStore.StoreCurrentViolations(_frozenRule, stillUnresolvedViolations);
             }
 
             return evalResultsIgnoringFrozen;
@@ -83,9 +85,19 @@ namespace ArchUnitNET.Fluent.Freeze
             return new CombinedArchRule(this, LogicalConjunctionDefinition.Or, archRule);
         }
 
+        public static FreezingArchRule Freeze(IArchRule rule, IViolationStore violationStore)
+        {
+            return new FreezingArchRule(rule, violationStore);
+        }
+
+        public static FreezingArchRule Freeze(IArchRule rule, string storagePath)
+        {
+            return new FreezingArchRule(rule, new JsonViolationStore(storagePath));
+        }
+
         public static FreezingArchRule Freeze(IArchRule rule)
         {
-            return new FreezingArchRule(rule);
+            return new FreezingArchRule(rule, new JsonViolationStore());
         }
 
         private static EvaluationResult MarkAsPassed(EvaluationResult evaluationResult)
