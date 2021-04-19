@@ -1,6 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FrozenRules>
-  <FrozenRule ArchRule="Types that are &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation&quot; should not be private">
+  <FrozenRule ArchRule="Types that are &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation&quot; or &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation2&quot; should be public">
     <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation</Violation>
+  </FrozenRule>
+  <FrozenRule ArchRule="Slices matching &quot;TestAssembly.Slices.(*)..&quot; should not depend on each other" />
+  <FrozenRule ArchRule="Types that are &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation&quot; or &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation2&quot; should not be private">
+    <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation</Violation>
+    <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation2</Violation>
+  </FrozenRule>
+  <FrozenRule ArchRule="Types that are &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation&quot; should be protected">
+    <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation</Violation>
+  </FrozenRule>
+  <FrozenRule ArchRule="Slices matching &quot;TestAssembly.Slices.(**)&quot; should not depend on each other">
+    <Violation>Slice3</Violation>
+    <Violation>Slice3.Group1</Violation>
+    <Violation>Slice2</Violation>
+    <Violation>Slice2.Service</Violation>
+    <Violation>Slice1</Violation>
+    <Violation>Slice1.Service</Violation>
   </FrozenRule>
 </FrozenRules>

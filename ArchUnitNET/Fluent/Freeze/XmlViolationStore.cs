@@ -16,24 +16,29 @@ using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Freeze
 {
-    public static class XmlBasedViolationStore
+    public class XmlViolationStore : IViolationStore
     {
         private const string DefaultStoragePath = "..\\..\\..\\ArchUnitNET\\Storage\\FrozenRules.xml";
+        private readonly string _storagePath;
 
         private static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
             {Indent = true, Encoding = Encoding.UTF8};
 
-        public static bool RuleAlreadyFrozen(IArchRule rule, string storagePath = DefaultStoragePath)
+        public XmlViolationStore(string storagePath = DefaultStoragePath)
         {
-            var storageDoc = LoadStorage(storagePath);
+            _storagePath = storagePath;
+        }
+
+        public bool RuleAlreadyFrozen(IArchRule rule)
+        {
+            var storageDoc = LoadStorage();
             var storedRule = FindStoredRule(storageDoc, rule);
             return storedRule != null;
         }
 
-        public static IEnumerable<StringIdentifier> GetFrozenViolations(IArchRule rule,
-            string storagePath = DefaultStoragePath)
+        public IEnumerable<StringIdentifier> GetFrozenViolations(IArchRule rule)
         {
-            var storageDoc = LoadStorage(storagePath);
+            var storageDoc = LoadStorage();
             var storedRule = FindStoredRule(storageDoc, rule);
 
             if (storedRule == null) //rule not stored
@@ -47,10 +52,9 @@ namespace ArchUnitNET.Fluent.Freeze
             }
         }
 
-        public static void StoreCurrentViolations(IArchRule rule, IEnumerable<StringIdentifier> violations,
-            string storagePath = DefaultStoragePath)
+        public void StoreCurrentViolations(IArchRule rule, IEnumerable<StringIdentifier> violations)
         {
-            var directory = Path.GetDirectoryName(storagePath);
+            var directory = Path.GetDirectoryName(_storagePath);
 
             if (directory == null)
             {
@@ -64,13 +68,13 @@ namespace ArchUnitNET.Fluent.Freeze
 
             var violationElements =
                 violations.Select(violation =>
-                    new XElement("Violation", violation.Identifier)); //violation.Identifier instead of violationTest
+                    new XElement("Violation", violation.Identifier));
             var ruleElement = new XElement("FrozenRule", violationElements);
             ruleElement.SetAttributeValue("ArchRule", rule.Description);
 
             var storageDoc = LoadStorage();
             var storedRule = FindStoredRule(storageDoc, rule);
-            storedRule?.Remove(); //remove previous violations
+            storedRule?.Remove();
             storageDoc.Root.Add(ruleElement);
 
             using (var writer = XmlWriter.Create(DefaultStoragePath, WriterSettings))
@@ -86,11 +90,11 @@ namespace ArchUnitNET.Fluent.Freeze
                 element.Attribute("ArchRule")?.Value.ToString() == rule.Description);
         }
 
-        private static XDocument LoadStorage(string storagePath = DefaultStoragePath)
+        private XDocument LoadStorage()
         {
             try
             {
-                var doc = XDocument.Load(storagePath);
+                var doc = XDocument.Load(_storagePath);
                 return doc.Root?.Name == "FrozenRules" ? doc : new XDocument(new XElement("FrozenRules"));
             }
             catch (Exception) //file not found or invalid xml document
