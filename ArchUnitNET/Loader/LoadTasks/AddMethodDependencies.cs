@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -109,15 +110,34 @@ namespace ArchUnitNET.Loader.LoadTasks
         private IEnumerable<IMemberTypeDependency> CreateMethodBodyDependencies(MethodDefinition methodDefinition,
             MethodMember methodMember)
         {
-            var methodBody = methodDefinition.Resolve().Body;
+            var methodBody = methodDefinition.Body;
             if (methodBody == null)
             {
                 yield break;
             }
 
             var visitedMethodReferences = new List<MethodReference> {methodDefinition};
+            var bodyTypes = new List<ITypeInstance<IType>>();
 
-            var bodyTypes = methodDefinition.GetBodyTypes(_typeFactory).ToList();
+            if (methodDefinition.IsIterator())
+            {
+                var compilerGeneratedGeneratorObject =
+                    ((MethodReference) methodBody.Instructions.First(inst => inst.IsNewObjectOp()).Operand)
+                    .DeclaringType.Resolve();
+                methodDefinition = compilerGeneratedGeneratorObject.Methods
+                    .First(method => method.Name == nameof(IEnumerator.MoveNext));
+                methodBody = methodDefinition.Body;
+                visitedMethodReferences.Add(methodDefinition);
+
+                var fieldsExceptGeneratorStateInfo = compilerGeneratedGeneratorObject.Fields.Where(field => !
+                    (field.Name.EndsWith("__state") || field.Name.EndsWith("__current") ||
+                     field.Name.EndsWith("__initialThreadId") || field.Name.EndsWith("__this")));
+
+                bodyTypes.AddRange(fieldsExceptGeneratorStateInfo.Select(bodyField =>
+                    _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)));
+            }
+
+            bodyTypes.AddRange(methodDefinition.GetBodyTypes(_typeFactory).ToList());
 
             var castTypes = methodDefinition.GetCastTypes(_typeFactory).ToList();
 
