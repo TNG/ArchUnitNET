@@ -121,20 +121,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             if (methodDefinition.IsIterator())
             {
-                var compilerGeneratedGeneratorObject =
-                    ((MethodReference) methodBody.Instructions.First(inst => inst.IsNewObjectOp()).Operand)
-                    .DeclaringType.Resolve();
-                methodDefinition = compilerGeneratedGeneratorObject.Methods
-                    .First(method => method.Name == nameof(IEnumerator.MoveNext));
-                methodBody = methodDefinition.Body;
-                visitedMethodReferences.Add(methodDefinition);
-
-                var fieldsExceptGeneratorStateInfo = compilerGeneratedGeneratorObject.Fields.Where(field => !
-                    (field.Name.EndsWith("__state") || field.Name.EndsWith("__current") ||
-                     field.Name.EndsWith("__initialThreadId") || field.Name.EndsWith("__this")));
-
-                bodyTypes.AddRange(fieldsExceptGeneratorStateInfo.Select(bodyField =>
-                    _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)));
+                HandleIterator(out methodDefinition, ref methodBody, bodyTypes, visitedMethodReferences);
             }
 
             bodyTypes.AddRange(methodDefinition.GetBodyTypes(_typeFactory).ToList());
@@ -214,13 +201,21 @@ namespace ArchUnitNET.Loader.LoadTasks
                         continue;
                     }
 
+                    var calledMethodBody = calledMethodDefinition.Body;
+
+                    if (calledMethodDefinition.IsIterator())
+                    {
+                        HandleIterator(out calledMethodDefinition, ref calledMethodBody, bodyTypes,
+                            visitedMethodReferences);
+                    }
+
                     bodyTypes.AddRange(calledMethodDefinition.GetBodyTypes(_typeFactory));
                     castTypes.AddRange(calledMethodDefinition.GetCastTypes(_typeFactory));
                     typeCheckTypes.AddRange(calledMethodDefinition.GetTypeCheckTypes(_typeFactory));
                     metaDataTypes.AddRange(calledMethodDefinition.GetMetaDataTypes(_typeFactory));
                     accessedFieldMembers.AddRange(calledMethodDefinition.GetAccessedFieldMembers(_typeFactory));
 
-                    foreach (var dep in CreateMethodBodyDependenciesRecursive(calledMethodDefinition.Body,
+                    foreach (var dep in CreateMethodBodyDependenciesRecursive(calledMethodBody,
                         visitedMethodReferences, bodyTypes, castTypes, typeCheckTypes, metaDataTypes,
                         accessedFieldMembers))
                     {
@@ -236,6 +231,25 @@ namespace ArchUnitNET.Loader.LoadTasks
                     yield return calledMethodMember;
                 }
             }
+        }
+
+        private void HandleIterator(out MethodDefinition methodDefinition, ref MethodBody methodBody,
+            List<ITypeInstance<IType>> bodyTypes, ICollection<MethodReference> visitedMethodReferences)
+        {
+            var compilerGeneratedGeneratorObject =
+                ((MethodReference) methodBody.Instructions.First(inst => inst.IsNewObjectOp()).Operand)
+                .DeclaringType.Resolve();
+            methodDefinition = compilerGeneratedGeneratorObject.Methods
+                .First(method => method.Name == nameof(IEnumerator.MoveNext));
+            visitedMethodReferences.Add(methodDefinition);
+            methodBody = methodDefinition.Body;
+
+            var fieldsExceptGeneratorStateInfo = compilerGeneratedGeneratorObject.Fields.Where(field => !
+                (field.Name.EndsWith("__state") || field.Name.EndsWith("__current") ||
+                 field.Name.EndsWith("__initialThreadId") || field.Name.EndsWith("__this")));
+
+            bodyTypes.AddRange(fieldsExceptGeneratorStateInfo.Select(bodyField =>
+                _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)));
         }
 
         private static MatchFunction GetMatchFunction(MethodForm methodForm)

@@ -46,9 +46,12 @@ namespace ArchUnitNETTests.Dependencies
                 .GetMethodMembersWithName(nameof(ClassWithGenerators.SimpleGenerator) + "()").First();
             var complexGenerator = classWithGenerators
                 .GetMethodMembersWithName(nameof(ClassWithGenerators.ComplexGenerator) + "()").First();
+            var nestedGenerator = classWithGenerators
+                .GetMethodMembersWithName(nameof(ClassWithGenerators.ContainingGenerator) + "()").First();
 
             yield return new object[] {simpleGenerator};
             yield return new object[] {complexGenerator};
+            yield return new object[] {nestedGenerator};
         }
 
         [Theory]
@@ -101,6 +104,20 @@ namespace ArchUnitNETTests.Dependencies
                     yield return e(i).ToString();
                 }
             }
+        }
+
+        public IEnumerable<int> ContainingGenerator()
+        {
+            IEnumerable<int> NestedGenerator()
+            {
+                var a = new AccessedClass();
+                var b = AccessedClass.StringField;
+                var c = a.BoolField;
+                var d = c ? AccessedClass.StaticMethodAsField : AccessedClass.StaticMethodWithBody;
+                yield return 0;
+            }
+
+            return NestedGenerator();
         }
     }
 
