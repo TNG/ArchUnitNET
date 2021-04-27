@@ -16,7 +16,7 @@ namespace ArchUnitNET.Fluent.Freeze
 {
     public class JsonViolationStore : IViolationStore
     {
-        private const string DefaultStoragePath = "..\\..\\..\\ArchUnitNET\\Storage\\FrozenRules.json";
+        private const string DefaultStoragePath = "../../../ArchUnitNET/Storage/FrozenRules.json";
         private readonly string _storagePath;
 
         public JsonViolationStore(string storagePath = DefaultStoragePath)

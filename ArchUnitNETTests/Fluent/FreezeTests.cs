@@ -73,9 +73,9 @@ namespace ArchUnitNETTests.Fluent
         [Fact]
         public void PassFrozenRulesWithCustomViolationStorePath()
         {
-            Freeze(_frozenRule,"..\\..\\..\\ArchUnitNET\\Storage\\CustomPathFrozenRules.json").Check(Architecture);
-            Freeze(_frozenRule2,"..\\..\\..\\ArchUnitNET\\Storage\\CustomPathFrozenRules.json").Check(Architecture);
-            Freeze(_frozenSliceRule,"..\\..\\..\\ArchUnitNET\\Storage\\CustomPathFrozenRules.json").Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
+            Freeze(_frozenRule,"../../../ArchUnitNET/Storage/CustomPathFrozenRules.json").Check(Architecture);
+            Freeze(_frozenRule2,"../../../ArchUnitNET/Storage/CustomPathFrozenRules.json").Check(Architecture);
+            Freeze(_frozenSliceRule,"../../../ArchUnitNET/Storage/CustomPathFrozenRules.json").Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
         }
 
         private class Violation
