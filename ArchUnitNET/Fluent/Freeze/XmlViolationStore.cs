@@ -18,7 +18,7 @@ namespace ArchUnitNET.Fluent.Freeze
 {
     public class XmlViolationStore : IViolationStore
     {
-        private const string DefaultStoragePath = "..\\..\\..\\ArchUnitNET\\Storage\\FrozenRules.xml";
+        private const string DefaultStoragePath = "../../../ArchUnitNET/Storage/FrozenRules.xml";
         private readonly string _storagePath;
 
         private static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
