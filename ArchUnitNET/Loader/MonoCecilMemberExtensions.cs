@@ -177,6 +177,12 @@ namespace ArchUnitNET.Loader
                 .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
         }
 
+        internal static bool IsIterator(this MethodDefinition methodDefinition)
+        {
+            return methodDefinition.CustomAttributes.Any(att => att.AttributeType.FullName == typeof(System.Runtime
+                .CompilerServices.IteratorStateMachineAttribute).FullName);
+        }
+
         [NotNull]
         internal static IEnumerable<FieldMember> GetAccessedFieldMembers(this MethodDefinition methodDefinition,
             TypeFactory typeFactory)
