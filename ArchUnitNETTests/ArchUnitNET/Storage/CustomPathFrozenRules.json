@@ -1,0 +1,26 @@
+[
+  {
+    "ArchRuleDescription": "Types that are \"ArchUnitNETTests.Fluent.FreezeTests+Violation\" or \"ArchUnitNETTests.Fluent.FreezeTests+Violation2\" should not be private",
+    "Violations": [
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation",
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation2"
+    ]
+  },
+  {
+    "ArchRuleDescription": "Types that are \"ArchUnitNETTests.Fluent.FreezeTests+Violation\" should be protected",
+    "Violations": [
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation"
+    ]
+  },
+  {
+    "ArchRuleDescription": "Slices matching \"TestAssembly.Slices.(**)\" should not depend on each other",
+    "Violations": [
+      "Slice3",
+      "Slice3.Group1",
+      "Slice2",
+      "Slice2.Service",
+      "Slice1",
+      "Slice1.Service"
+    ]
+  }
+]
