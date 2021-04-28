@@ -233,6 +233,7 @@ namespace ArchUnitNET.Loader
             MethodForm methodForm;
             Visibility visibility;
             bool isStub;
+            bool? isIterator;
 
             MethodDefinition methodDefinition;
             try
@@ -248,17 +249,19 @@ namespace ArchUnitNET.Loader
             {
                 visibility = Public;
                 methodForm = methodReference.HasConstructorName() ? MethodForm.Constructor : MethodForm.Normal;
+                isIterator = null;
                 isStub = true;
             }
             else
             {
                 visibility = methodDefinition.GetVisibility();
                 methodForm = methodDefinition.GetMethodForm();
+                isIterator = methodDefinition.IsIterator();
                 isStub = false;
             }
 
             var methodMember = new MethodMember(name, fullName, typeInstance.Type, visibility, returnType,
-                false, methodForm, isGeneric, isStub, isCompilerGenerated);
+                false, methodForm, isGeneric, isStub, isCompilerGenerated, isIterator);
 
             var parameters = methodReference.GetParameters(this).ToList();
             methodMember.ParameterInstances.AddRange(parameters);
