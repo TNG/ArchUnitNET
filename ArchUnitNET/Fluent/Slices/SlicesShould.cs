@@ -8,7 +8,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Freeze;
 using StronglyConnectedComponents;
 
 namespace ArchUnitNET.Fluent.Slices
@@ -69,16 +68,12 @@ namespace ArchUnitNET.Fluent.Slices
                     }
 
                     description += "\n";
-                    var cycleIdentifier = new EnumerableIdentifier(cycle.Contents.Select(slice => slice.Identifier));
-                    yield return new EvaluationResult(cycle, cycleIdentifier, false, description, archRule,
-                        architecture);
+                    yield return new EvaluationResult(cycle, false, description, archRule, architecture);
                 }
             }
             else
             {
-                var slicesIdentifier = new EnumerableIdentifier(slicesList.Select(slice => slice.Identifier));
-                yield return new EvaluationResult(slicesList, slicesIdentifier, true, "All Slices are free of cycles.",
-                    archRule,
+                yield return new EvaluationResult(slicesList, true, "All Slices are free of cycles.", archRule,
                     architecture);
             }
         }
@@ -118,7 +113,7 @@ namespace ArchUnitNET.Fluent.Slices
                     description += "\n";
                 }
 
-                yield return new EvaluationResult(slice, slice.Identifier, passed, description, archRule, architecture);
+                yield return new EvaluationResult(slice, passed, description, archRule, architecture);
             }
         }
     }

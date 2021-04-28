@@ -22,7 +22,6 @@
         <PackageReference Include="CycleDetection" Version="2.0.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
         <PackageReference Include="Mono.Cecil" Version="0.11.3" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     </ItemGroup>
     
