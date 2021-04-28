@@ -107,7 +107,8 @@ namespace ArchUnitNETTests.Loader
         {
             //Setup, Act
             var attribute = new Attribute(_expectedAttributeClass);
-            _type.Attributes.Add(attribute);
+            var instance = new AttributeInstance(attribute);
+            _type.AttributeInstances.Add(instance);
 
             //Assert
             Assert.Contains(attribute, _type.Attributes);

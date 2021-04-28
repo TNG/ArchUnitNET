@@ -10,6 +10,7 @@ namespace ArchUnitNET.Domain
 {
     public interface IHasAttributes
     {
-        List<Attribute> Attributes { get; }
+        IEnumerable<Attribute> Attributes { get; }
+        List<AttributeInstance> AttributeInstances { get; }
     }
 }

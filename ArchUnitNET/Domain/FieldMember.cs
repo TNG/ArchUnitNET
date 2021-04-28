@@ -34,7 +34,8 @@ namespace ArchUnitNET.Domain
         public bool IsCompilerGenerated { get; }
         public bool IsGeneric => false;
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
-        public List<Attribute> Attributes { get; } = new List<Attribute>();
+        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public List<AttributeInstance> AttributeInstances { get; } =  new List<AttributeInstance>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
         public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>().ToList();

@@ -13,13 +13,13 @@ namespace ArchUnitNET.Domain.Extensions
     {
         public static bool HasAttribute(this IHasAttributes a, string pattern, bool useRegularExpressions = false)
         {
-            return a.Attributes.Any(attribute => attribute.FullNameMatches(pattern, useRegularExpressions));
+            return a.Attributes.Any(attribute => attribute.Type.FullNameMatches(pattern, useRegularExpressions));
         }
 
         public static bool OnlyHasAttributes(this IHasAttributes a, string pattern, bool useRegularExpressions = false)
         {
             return a.Attributes.IsNullOrEmpty() ||
-                   a.Attributes.All(attribute => attribute.FullNameMatches(pattern, useRegularExpressions));
+                   a.Attributes.All(attribute => attribute.Type.FullNameMatches(pattern, useRegularExpressions));
         }
     }
 }

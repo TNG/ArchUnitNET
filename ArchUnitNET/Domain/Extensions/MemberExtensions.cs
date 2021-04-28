@@ -74,7 +74,7 @@ namespace ArchUnitNET.Domain.Extensions
 
         public static Attribute GetAttributeFromMember(this IMember member, Class attributeClass)
         {
-            return member.Attributes.Find(attribute => attribute.FullName.Equals(attributeClass.FullName));
+            return member.Attributes.FirstOrDefault(attribute => attribute.FullName.Equals(attributeClass.FullName));
         }
 
         public static bool HasMethodSignatureDependency(this IMember member,

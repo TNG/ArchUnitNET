@@ -43,7 +43,8 @@ namespace ArchUnitNET.Domain
         public bool IsGeneric { get; }
         public List<GenericParameter> GenericParameters { get; } = new List<GenericParameter>();
         public Visibility Visibility { get; }
-        public List<Attribute> Attributes { get; } = new List<Attribute>();
+        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public List<AttributeInstance> AttributeInstances { get; } =  new List<AttributeInstance>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
         public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>().ToList();
