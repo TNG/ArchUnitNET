@@ -58,3 +58,6 @@ list_license.ps1
 **/LicenseSources/
 
 *.user
+
+# Visual Studio cache/options directory
+.vs/
