@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>Latest</LangVersion>
     <IsPackable>false</IsPackable>
     <Product>TestAssembly</Product>
   </PropertyGroup>
