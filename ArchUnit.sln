@@ -5,17 +5,21 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAssembly", "TestAssembly\TestAssembly.csproj", "{7DEF5F34-AB86-457B-819D-5E7387B3FF87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET", "ArchUnitNET\ArchUnitNET.csproj", "{2855911F-6AE2-4BE1-BA88-9A0B2A03BFA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET", "ArchUnitNET\ArchUnitNET.csproj", "{2855911F-6AE2-4BE1-BA88-9A0B2A03BFA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNETTests", "ArchUnitNETTests\ArchUnitNETTests.csproj", "{F38CBB2C-BDD0-4195-82CB-8B76332B0890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNETTests", "ArchUnitNETTests\ArchUnitNETTests.csproj", "{F38CBB2C-BDD0-4195-82CB-8B76332B0890}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleTest", "ExampleTest\ExampleTest.csproj", "{180688C2-7917-4A23-89A7-F3D5317E54F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleTest", "ExampleTest\ExampleTest.csproj", "{180688C2-7917-4A23-89A7-F3D5317E54F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.xUnit", "ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj", "{53DF58F8-0C82-4259-96A6-31974D0A503A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET.xUnit", "ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj", "{53DF58F8-0C82-4259-96A6-31974D0A503A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.NUnit", "ArchUnitNET.NUnit\ArchUnitNET.NUnit.csproj", "{0BD564F3-D34F-4D39-94B3-EA2705EDF594}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET.NUnit", "ArchUnitNET.NUnit\ArchUnitNET.NUnit.csproj", "{0BD564F3-D34F-4D39-94B3-EA2705EDF594}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.NUnitTests", "ArchUnitNET.NUnitTests\ArchUnitNET.NUnitTests.csproj", "{D2AB683F-0A64-491E-9C56-EE98588C493C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET.NUnitTests", "ArchUnitNET.NUnitTests\ArchUnitNET.NUnitTests.csproj", "{D2AB683F-0A64-491E-9C56-EE98588C493C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.MSTestV2", "ArchUnitNET.MSTestV2\ArchUnitNET.MSTestV2.csproj", "{3D057987-358A-41C6-AF55-6490FCA5875F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.MSTestV2Tests", "ArchUnitNET.MSTestV2Tests\ArchUnitNET.MSTestV2Tests.csproj", "{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{D2AB683F-0A64-491E-9C56-EE98588C493C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2AB683F-0A64-491E-9C56-EE98588C493C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2AB683F-0A64-491E-9C56-EE98588C493C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D057987-358A-41C6-AF55-6490FCA5875F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D057987-358A-41C6-AF55-6490FCA5875F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D057987-358A-41C6-AF55-6490FCA5875F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D057987-358A-41C6-AF55-6490FCA5875F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

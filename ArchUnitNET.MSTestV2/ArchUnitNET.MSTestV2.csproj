@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <IsPackable>true</IsPackable>
+    <Title>ArchUnit C# MSTestV2 Extension</Title>
+    <Authors>Florian Gather, Fritz Brandhuber</Authors>
+    <Description>MSTestV2 Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+    <PackageTags>test;arch;archunit;mstest;mstestv2</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <IncludeSource>False</IncludeSource>
+    <Company>TNG Technology Consulting GmbH</Company>
+    <PackageId>TngTech.ArchUnitNET.MSTestV2</PackageId>
+    <IsTestProject>false</IsTestProject>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+  </ItemGroup>
+
+</Project>

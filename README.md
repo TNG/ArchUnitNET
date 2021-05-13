@@ -17,6 +17,7 @@ If you want to use xUnit or NUnit for your unit tests, you should instead instal
 ```
 PS> Install-Package ArchUnitNET.xUnit
 PS> Install-Package ArchUnitNET.NUnit
+PS> Install-Package ArchUnitNET.MSTestV2
 ```
 #### Create a Test
 Then you will want to create a class to start testing. We used xUnit with the ArchUnit extension here, but it works similarly with NUnit or other Unit Test Frameworks.

@@ -11,6 +11,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Extensions;
+using ArchUnitNET.Fluent.Freeze;
 using ArchUnitNET.Fluent.Predicates;
 using JetBrains.Annotations;
 
@@ -92,8 +93,8 @@ namespace ArchUnitNET.Fluent
             var filteredObjectsList = filteredObjects.ToList();
             if (filteredObjectsList.IsNullOrEmpty())
             {
-                yield return new EvaluationResult(null, CheckEmpty(), "There are no objects matching the criteria",
-                    archRuleCreator, architecture);
+                yield return new EvaluationResult(null, new StringIdentifier(""), CheckEmpty(),
+                    "There are no objects matching the criteria", archRuleCreator, architecture);
                 yield break;
             }
 
@@ -143,7 +144,9 @@ namespace ArchUnitNET.Fluent
                 }
             }
 
-            return new EvaluationResult(analyzedObject, passRule, description, archRuleCreator, architecture);
+            var identifier = new StringIdentifier(analyzedObject.FullName);
+            return new EvaluationResult(analyzedObject, identifier, passRule, description, archRuleCreator,
+                architecture);
         }
 
         public override string ToString()
@@ -182,15 +185,13 @@ namespace ArchUnitNET.Fluent
                    _referenceTypeTemp == other._referenceTypeTemp &&
                    _relationConditionTemp == other._relationConditionTemp;
         }
-
 #pragma warning disable 693
         private class ConditionElement<T> : IHasDescription where T : ICanBeAnalyzed
         {
             private readonly LogicalConjunction _logicalConjunction;
             private ICondition<T> _condition;
 
-            [CanBeNull]
-            private string _customDescription;
+            [CanBeNull] private string _customDescription;
 
             private string _reason;
 
