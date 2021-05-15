@@ -358,7 +358,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
                     arrowCenters.Add(new string('-', i - 1) + infix + "-");
                 }
             }
-            IList<string> testCase = new List<string>();
             foreach (string arrowCenter in arrowCenters)
             {
                 yield return new object[] { "[SomeOrigin] " + arrowCenter + "> [SomeTarget]" };

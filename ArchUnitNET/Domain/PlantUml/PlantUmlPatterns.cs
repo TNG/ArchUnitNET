@@ -63,10 +63,10 @@ namespace ArchUnitNET.Domain.PlantUml
 
         internal class PlantUmlDependencyMatcher
         {
-            private static readonly string ColorRegex = "\\[[^]]+]"; // for arrows like '--[#green]->'
-            private static readonly string DeppendencyArrowCenterRegex = "(left|right|up|down|" + ColorRegex + ")?";
-            private static readonly Regex DependencyRightArrowPattern = new Regex("\\s-+" + DeppendencyArrowCenterRegex + "-*>\\s");
-            private static readonly Regex DependencyLeftArrowPattern = new Regex("\\s<-*" + DeppendencyArrowCenterRegex + "-+\\s");
+            private static readonly string ColorRegex = @"\[[^]]+]"; // for arrows like '--[#green]->'
+            private static readonly string DeppendencyArrowCenterRegex = @"(left|right|up|down|" + ColorRegex + ")?";
+            private static readonly Regex DependencyRightArrowPattern = new Regex(@"\s-+" + DeppendencyArrowCenterRegex + @"-*>\s");
+            private static readonly Regex DependencyLeftArrowPattern = new Regex(@"\s<-*" + DeppendencyArrowCenterRegex + @"-+\s");
             public PlantUmlDependencyMatcher(string origin, string target)
             {
                 if (origin is null)
@@ -125,7 +125,7 @@ namespace ArchUnitNET.Domain.PlantUml
             private static IList<string> ParseParts(string line, Regex dependencyRightArrowPattern)
             {
                 line = RemoveOptionalDescription(line);
-                return dependencyRightArrowPattern.Split(line).Select(l => l.Trim()).Take(2).ToList();
+                return dependencyRightArrowPattern.Replace(line, " ").Split(' ').Select(l => l.Trim()).Take(2).ToList();
             }
 
             private static string RemoveOptionalDescription(string line)
