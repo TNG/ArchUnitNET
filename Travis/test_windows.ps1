@@ -3,6 +3,8 @@ param(
 )
 New-Variable -Name "VERSION_PATTERN" -Value "^[0-9]+\.[0-9]+\.[0-9]"
 
+dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+
 dotnet build -c Release
 
 if ($LASTEXITCODE -eq 1){
