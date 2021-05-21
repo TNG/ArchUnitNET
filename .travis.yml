@@ -3,7 +3,7 @@ solution: ArchUnit.sln
 jobs:
   include:
     - stage: linux_build
-      dotnet: 5.0.202
+      dotnet: 5.0.203
       mono: none
       os: linux
       script: chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
@@ -20,7 +20,7 @@ jobs:
       mono: none
       os: windows
       before_script:
-        - choco install dotnet-5.0-sdk --version=5.0.202
+        - choco install dotnet-5.0-sdk --version=5.0.203
         - PowerShell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
       script:
         - PowerShell -File Travis/test_windows.ps1 -tag "$TRAVIS_TAG"
