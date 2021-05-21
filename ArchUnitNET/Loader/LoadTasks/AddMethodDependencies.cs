@@ -195,7 +195,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                         calledMethodDefinition = null;
                     }
 
-                    if (calledMethodDefinition == null)
+                    if (calledMethodDefinition?.Body == null)
                     {
                         //MethodReference to compiler generated type not resolvable, skip
                         continue;
