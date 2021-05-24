@@ -16,14 +16,23 @@ skinparam component {
 ' Could be some random comment
 [XML] <<ExampleTest.PlantUml.XML.Processor.*>> <<xampleTest.PlantUml.XML.Types.*>> as xml
 
+[Addresses] --> catalog
+
 [Orders] ---> [Customers] : is placed by
 [Orders] --> [Products]
+[Orders] --> [Addresses]
 
 [Customers] --> [Addresses]
+[Customers] --> [Products]
+[Customers] --> [Orders]
 
 [Products] <--[#green]- catalog
+[Products] --> [Customers]
+[Products] --> [Orders]
+catalog --> [Orders]
 import -left-> catalog : parse products
 import --> xml
+import --> [Customers]
 note top on link #lightgreen: is responsible for translating XML to java classes
 
 
