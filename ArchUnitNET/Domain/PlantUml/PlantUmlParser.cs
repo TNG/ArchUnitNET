@@ -97,7 +97,7 @@ namespace ArchUnitNET.Domain.PlantUml
             if (result.IsEmpty)
             {
                 throw new IllegalDiagramException(string.Format("Components must include at least one stereotype"
-                        + " specifying the package identifier(<<..>>), but component '{0}' does not", componentName.AsString()));
+                        + " specifying the namespace identifier (<<.*>>), but component '{0}' does not", componentName.AsString()));
             }
             return result;
         }

@@ -18,8 +18,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesCorrectNumberOfComponents()
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
-             .Component("SomeOrigin").WithStereoTypes("..origin..")
-             .Component("SomeTarget").WithStereoTypes("..target..")
+             .Component("SomeOrigin").WithStereoTypes("Origin.*")
+             .Component("SomeTarget").WithStereoTypes("Target.*")
              .Write());
 
             Assert.Equal(2, diagram.AllComponents.Count);
@@ -29,11 +29,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesASimpleComponent()
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
-                    .Component("SomeOrigin").WithStereoTypes("..origin..")
+                    .Component("SomeOrigin").WithStereoTypes("Origin.*")
                     .Write());
 
             PlantUmlComponent origin = GetComponentWithName("SomeOrigin", diagram);
-            Assert.Equal(origin.Stereotypes.SingleOrDefault(), new Stereotype("..origin.."));
+            Assert.Equal(origin.Stereotypes.SingleOrDefault(), new Stereotype("Origin.*"));
             Assert.Null(origin.Alias);
         }
 
@@ -42,8 +42,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesDependencyOfSimpleComponentDiagram(Func<TestDiagram, TestDiagram> testCaseFunc)
         {
             TestDiagram initialDiagram = TestDiagram.In(Path.GetTempPath())
-                    .Component("SomeOrigin").WithStereoTypes("..origin..")
-                    .Component("SomeTarget").WithStereoTypes("..target..");
+                    .Component("SomeOrigin").WithStereoTypes("Origin.*")
+                    .Component("SomeTarget").WithStereoTypes("Target.*");
             PlantUmlDiagram diagram = CreateDiagram(testCaseFunc(initialDiagram).Write());
 
             PlantUmlComponent origin = GetComponentWithName("SomeOrigin", diagram);
@@ -51,7 +51,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
             Assert.Equal(target.ComponentName, new ComponentName("SomeTarget"));
             Assert.Empty(target.Dependencies);
-            Assert.Equal(new Stereotype("..target.."), target.Stereotypes.Single());
+            Assert.Equal(new Stereotype("Target.*"), target.Stereotypes.Single());
             Assert.Null(target.Alias);
         }
 
@@ -60,8 +60,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesVariousTypesOfDependencyArrows(string dependency)
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
-                    .Component("SomeOrigin").WithStereoTypes("..origin..")
-                    .Component("SomeTarget").WithStereoTypes("..target..")
+                    .Component("SomeOrigin").WithStereoTypes("Origin.*")
+                    .Component("SomeTarget").WithStereoTypes("Target.*")
                     .RawLine(dependency)
                     .Write());
 
@@ -75,8 +75,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void DoesNotIncludeCommentedOutLines()
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
-                    .Component("uncommentedComponent").WithAlias("uncommentedAlias").WithStereoTypes("..uncommentedPackage..")
-                    .RawLine("  '  [commentedComponent] <<..commentedPackage..>> as commentedAlias")
+                    .Component("uncommentedComponent").WithAlias("uncommentedAlias").WithStereoTypes("UncommentedNamespace.*")
+                    .RawLine("  '  [commentedComponent] <<CommentedNamespace.*>> as commentedAlias")
                     .RawLine("")
                     .RawLine(" ' [uncommentedComponent] --> [commentedComponent]")
                     .Write());
@@ -91,8 +91,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void DoesNotIncludeDependencyDescriptions()
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
-                    .Component("component").WithStereoTypes("..somePackage..")
-                    .Component("otherComponent").WithStereoTypes("..somePackage2..")
+                    .Component("component").WithStereoTypes("SomeNamespace.*")
+                    .Component("otherComponent").WithStereoTypes("SomeNamespace2.*")
                     .RawLine("[component] --> [otherComponent] : this part should be ignored, no matter the comment tick ' ")
                     .Write());
 
@@ -122,7 +122,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
             IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() => CreateDiagram(file));
             Assert.Contains("componentWithoutStereotype", exception.Message);
-            Assert.Contains("at least one stereotype specifying the package identifier(<<..>>)", exception.Message);
+            Assert.Contains("at least one stereotype specifying the namespace identifier (<<.*>>)", exception.Message);
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void RejectsAComponentWithAnIllegalAlias()
         {
             string file = TestDiagram.In(Path.GetTempPath())
-                    .Component("irrelevant").WithAlias("ill[]egal").WithStereoTypes("..irrelevant..")
+                    .Component("irrelevant").WithAlias("ill[]egal").WithStereoTypes("Irrelevant.*")
                     .Write();
 
             IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() => CreateDiagram(file));
@@ -151,8 +151,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesATrickyAlias()
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
-                    .Component("tricky").WithAlias("because it's quoted").WithStereoTypes("..tricky..")
-                    .Component("tricky as hell cause of as keyword").WithAlias("other").WithStereoTypes("..other..")
+                    .Component("tricky").WithAlias("because it's quoted").WithStereoTypes("Tricky.*")
+                    .Component("tricky as hell cause of as keyword").WithAlias("other").WithStereoTypes("Other.*")
                     .Write());
 
             PlantUmlComponent trickyAsHell = GetComponentWithName("tricky as hell cause of as keyword", diagram);
@@ -167,11 +167,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
                     .Component("someComponent")
-                    .WithStereoTypes("..firstPackage..", "..secondPackage..", "..thirdPackage..")
+                    .WithStereoTypes("FirstNamespace.*", "SecondNamespace.*", "ThirdNamespace.*")
                     .Write());
 
             PlantUmlComponent component = diagram.AllComponents.Single();
-            Assert.Equal(new[] { new Stereotype("..firstPackage.."), new Stereotype("..secondPackage.."), new Stereotype("..thirdPackage..") }, component.Stereotypes.OrderBy(st => st.AsString()));
+            Assert.Equal(new[] { new Stereotype("FirstNamespace.*"), new Stereotype("SecondNamespace.*"), new Stereotype("ThirdNamespace.*") }, component.Stereotypes.OrderBy(st => st.AsString()));
         }
 
         [Fact]
@@ -179,7 +179,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
                     .Component("someComponent").WithAlias("someAlias")
-                    .WithStereoTypes("..firstPackage..", "..secondPackage..", "..thirdPackage..")
+                    .WithStereoTypes("FirstNamespace.*", "SecondNamespace.*", "ThirdNamespace.*")
                     .Write());
 
             PlantUmlComponent component = diagram.AllComponents.Single();
@@ -191,8 +191,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesDiagramWithDependenciesThatUseAlias()
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
-                    .Component("A").WithAlias("aliasForA").WithStereoTypes("..controller..")
-                    .Component("B").WithAlias("aliasForB").WithStereoTypes("..service..")
+                    .Component("A").WithAlias("aliasForA").WithStereoTypes("Controller.*")
+                    .Component("B").WithAlias("aliasForB").WithStereoTypes("Service.*")
                     .DependencyFrom("aliasForA").To("aliasForB")
                     .Write());
 
@@ -208,8 +208,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesDependenciesBetweenComponentsWithoutBrackets()
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
-                    .Component("A").WithStereoTypes("..origin..")
-                    .Component("B").WithStereoTypes("..target..")
+                    .Component("A").WithStereoTypes("Origin.*")
+                    .Component("B").WithStereoTypes("Target.*")
                     .DependencyFrom("A").To("B")
                     .Write());
 
@@ -223,10 +223,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesMultipleComponentsAndDependencies()
         {
             string file = TestDiagram.In(Path.GetTempPath())
-                    .Component("Component1").WithStereoTypes("..origin1..")
-                    .Component("Component2").WithStereoTypes("..target1..")
-                    .Component("Component3").WithStereoTypes("..origin2..")
-                    .Component("Component4").WithStereoTypes("..target2..")
+                    .Component("Component1").WithStereoTypes("Origin1.*")
+                    .Component("Component2").WithStereoTypes("Target1.*")
+                    .Component("Component3").WithStereoTypes("Origin2.*")
+                    .Component("Component4").WithStereoTypes("Target2.*")
                     .DependencyFrom("Component1").To("Component2")
                     .DependencyFrom("Component3").To("Component4")
                     .Write();
@@ -249,9 +249,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesADiagramWithNoUniqueOrigins()
         {
             string file = TestDiagram.In(Path.GetTempPath())
-                    .Component("Component1").WithStereoTypes("..origin..")
-                    .Component("Component2").WithStereoTypes("..target1..")
-                    .Component("Component3").WithStereoTypes("..target2..")
+                    .Component("Component1").WithStereoTypes("Origin.*")
+                    .Component("Component2").WithStereoTypes("Target1.*")
+                    .Component("Component3").WithStereoTypes("Target2.*")
                     .DependencyFrom("[Component1]").To("[Component2]")
                     .DependencyFrom("[Component1]").To("[Component3]")
                     .Write();
@@ -269,9 +269,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParseADiagramWithNonUniqueTargets()
         {
             string file = TestDiagram.In(Path.GetTempPath())
-                    .Component("Component1").WithStereoTypes("..origin1..")
-                    .Component("Component2").WithStereoTypes("..origin2..")
-                    .Component("Component3").WithStereoTypes("..target..")
+                    .Component("Component1").WithStereoTypes("Origin1.*")
+                    .Component("Component2").WithStereoTypes("Origin2.*")
+                    .Component("Component3").WithStereoTypes("Target.*")
                     .DependencyFrom("[Component1]").To("[Component3]")
                     .DependencyFrom("[Component2]").To("[Component3]")
                     .Write();
@@ -290,8 +290,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParseAComponentDiagramWithBothAliasAndNamesUsed()
         {
             PlantUmlDiagram diagram = CreateDiagram(TestDiagram.In(Path.GetTempPath())
-                    .Component("A").WithAlias("foo").WithStereoTypes("..service..")
-                    .Component("B").WithStereoTypes("..controller..")
+                    .Component("A").WithAlias("foo").WithStereoTypes(".Service.*")
+                    .Component("B").WithStereoTypes("Controller.*")
                     .DependencyFrom("[B]").To("foo")
                     .DependencyFrom("foo").To("[B]")
                     .Write());
@@ -307,8 +307,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void ParsesAComponentDiagramThatUsesAliasWithAndWithoutBrackets()
         {
             string file = TestDiagram.In(Path.GetTempPath())
-                    .Component("A").WithAlias("foo").WithStereoTypes("..origin..")
-                    .Component("B").WithAlias("bar").WithStereoTypes("..target..")
+                    .Component("A").WithAlias("foo").WithStereoTypes("Origin.*")
+                    .Component("B").WithAlias("bar").WithStereoTypes("Target.*")
                     .DependencyFrom("foo").To("bar")
                     .DependencyFrom("[foo]").To("[bar]")
                     .Write();
