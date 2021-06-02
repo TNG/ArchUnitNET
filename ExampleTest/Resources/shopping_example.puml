@@ -33,7 +33,7 @@ catalog --> [Orders]
 import -left-> catalog : parse products
 import --> xml
 import --> [Customers]
-note top on link #lightgreen: is responsible for translating XML to java classes
+note top on link #lightgreen: is responsible for translating XML to csharp classes
 
 
 @enduml

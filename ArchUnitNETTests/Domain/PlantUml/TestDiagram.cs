@@ -22,9 +22,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return new TestDiagram(path);
         }
 
-        public ComponentCreator Component(string componentName)
+        public ComponentBuilder Component(string componentName)
         {
-            return new ComponentCreator(componentName, this);
+            return new ComponentBuilder(componentName, this);
         }
 
         public DependencyFromCreator DependencyFrom(string origin)
@@ -37,7 +37,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return new DependencyToCreator(target, this);
         }
 
-        private TestDiagram AddComponent(ComponentCreator creator)
+        private TestDiagram AddComponent(ComponentBuilder creator)
         {
             string stereotypes = string.Join(" ", creator.Stereotypes.Select(input => "<<" + input + ">>"));
             string line = string.Format("[{0}] {1}", creator.ComponentName, stereotypes);
@@ -75,11 +75,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return File.CreateText(path);
         }
 
-        public class ComponentCreator
+        public class ComponentBuilder
         {
             private readonly TestDiagram _testDiagram;
 
-            public ComponentCreator(string componentName, TestDiagram testDiagram)
+            public ComponentBuilder(string componentName, TestDiagram testDiagram)
             {
                 ComponentName = componentName;
                 _testDiagram = testDiagram;
@@ -90,7 +90,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
             public List<string> Stereotypes { get; } = new List<string>();
 
-            public ComponentCreator WithAlias(string alias)
+            public ComponentBuilder WithAlias(string alias)
             {
                 Alias = alias;
                 return this;
