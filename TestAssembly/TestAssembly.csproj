@@ -5,7 +5,4 @@
     <IsPackable>false</IsPackable>
     <Product>TestAssembly</Product>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Domain" />
-  </ItemGroup>
 </Project>
