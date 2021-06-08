@@ -21,14 +21,17 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void GetNamespaceIdentifierAssociatedWithClass()
         {
-            string expectedNamespaceIdentifier = typeof(SomeOriginClass).Namespace;
-            ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.In(Path.GetTempPath())
-                    .Component("A").WithStereoTypes(expectedNamespaceIdentifier)
-                    .Component("B").WithStereoTypes(".*.Noclasshere")
-                    .Write());
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                string expectedNamespaceIdentifier = typeof(SomeOriginClass).Namespace;
+                ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.From(memoryStream)
+                        .Component("A").WithStereoTypes(expectedNamespaceIdentifier)
+                        .Component("B").WithStereoTypes(".*.Noclasshere")
+                        .Write());
 
-            Class clazz = Architecture.GetClassOfType(typeof(SomeOriginClass));
-            Assert.Equal(expectedNamespaceIdentifier, classDiagramAssociation.GetNamespaceIdentifiersFromComponentOf(clazz).Single());
+                Class clazz = Architecture.GetClassOfType(typeof(SomeOriginClass));
+                Assert.Equal(expectedNamespaceIdentifier, classDiagramAssociation.GetNamespaceIdentifiersFromComponentOf(clazz).Single());
+            }
         }
 
         [Fact]
@@ -36,8 +39,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             string expectedTarget1 = ".*.Target1";
             string expectedTarget2 = ".*.Target2";
-            
-            ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.In(Path.GetTempPath())
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.From(memoryStream)
                     .Component("A").WithStereoTypes(Regex.Replace(typeof(SomeOriginClass).Namespace, @".*\.", ".*."))
                     .Component("B").WithStereoTypes(expectedTarget1)
                     .Component("C").WithStereoTypes(expectedTarget2)
@@ -45,66 +50,79 @@ namespace ArchUnitNETTests.Domain.PlantUml
                     .DependencyFrom("[A]").To("[C]")
                     .Write());
 
-            Class clazz = Architecture.GetClassOfType(typeof(SomeOriginClass));
+                Class clazz = Architecture.GetClassOfType(typeof(SomeOriginClass));
 
-            Assert.Equal(new[] { expectedTarget1, expectedTarget2 }, classDiagramAssociation.GetTargetNamespaceIdentifiers(clazz).OrderBy(s => s).ToList());
+                Assert.Equal(new[] { expectedTarget1, expectedTarget2 }, classDiagramAssociation.GetTargetNamespaceIdentifiers(clazz).OrderBy(s => s).ToList());
+            }
         }
 
         [Fact]
         public void RejectsClassNotContainedInAnyComponent()
         {
-            ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.In(Path.GetTempPath())
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.From(memoryStream)
                     .Component("SomeComponent").WithStereoTypes(".*.SomeStereotype.")
                     .Write());
 
-            Class classNotContained = Architecture.GetClassOfType(typeof(object));
+                Class classNotContained = Architecture.GetClassOfType(typeof(object));
 
-            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => classDiagramAssociation.GetTargetNamespaceIdentifiers(classNotContained));
-            Assert.Equal(string.Format("Class {0} is not contained in any component", typeof(object).Name), exception.Message);
+                InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => classDiagramAssociation.GetTargetNamespaceIdentifiers(classNotContained));
+                Assert.Equal(string.Format("Class {0} is not contained in any component", typeof(object).Name), exception.Message);
+            }
         }
 
         [Fact]
         public void ReportsIfClassIsContainedInAnyComponent()
         {
-            ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.In(Path.GetTempPath())
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.From(memoryStream)
                     .Component("Object").WithStereoTypes(typeof(object).Namespace)
                     .Write());
 
-            Assert.True(classDiagramAssociation.Contains(Architecture.GetClassOfType(typeof(object))), "association contains " + typeof(object).Name);
-            Assert.False(classDiagramAssociation.Contains(Architecture.GetClassOfType(typeof(Class2))), "association contains " + typeof(Class2).Name);
+                Assert.True(classDiagramAssociation.Contains(Architecture.GetClassOfType(typeof(object))), "association contains " + typeof(object).Name);
+                Assert.False(classDiagramAssociation.Contains(Architecture.GetClassOfType(typeof(Class2))), "association contains " + typeof(Class2).Name);
+            }
         }
 
         [Fact]
         public void ClassResidesInMultipleNamespaces()
         {
-            ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.In(Path.GetTempPath())
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.From(memoryStream)
                     .Component("A").WithStereoTypes(".*.FooNamespace.*")
                     .Component("B").WithStereoTypes(".*.BarNamespace.*")
                     .Write());
 
-            Class classContainedInTwoComponents = Architecture.GetClassOfType(typeof(ClassInFooAndBarNamespace));
+                Class classContainedInTwoComponents = Architecture.GetClassOfType(typeof(ClassInFooAndBarNamespace));
 
-            ComponentIntersectionException exception = Assert.Throws<ComponentIntersectionException>(() => classDiagramAssociation.GetTargetNamespaceIdentifiers(classContainedInTwoComponents));
-            Assert.Equal(string.Format("Class {0} may not be contained in more than one component, but is contained in [A, B]", typeof(ClassInFooAndBarNamespace).Name), exception.Message);
+                ComponentIntersectionException exception = Assert.Throws<ComponentIntersectionException>(() => classDiagramAssociation.GetTargetNamespaceIdentifiers(classContainedInTwoComponents));
+                Assert.Equal(string.Format("Class {0} may not be contained in more than one component, but is contained in [B, A]", typeof(ClassInFooAndBarNamespace).Name), exception.Message);
+            }
         }
 
         [Fact]
         public void RejectsDuplicateStereotype()
         {
-            string file = TestDiagram.In(Path.GetTempPath())
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                TestDiagram.From(memoryStream)
                     .Component("first").WithStereoTypes(".*.Identical.*")
                     .Component("second").WithStereoTypes(".*.Identical.*")
                     .Write();
 
-            Class classContainedInTwoComponents = Architecture.GetClassOfType(typeof(ClassInFooAndBarNamespace));
+                Class classContainedInTwoComponents = Architecture.GetClassOfType(typeof(ClassInFooAndBarNamespace));
 
-            IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() => CreateAssociation(file));
-            Assert.Equal("Stereotype '.*.Identical.*' should be unique", exception.Message);
+                IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() => CreateAssociation(memoryStream));
+                Assert.Equal("Stereotype '.*.Identical.*' should be unique", exception.Message);
+            }
         }
 
-        private ClassDiagramAssociation CreateAssociation(string file)
+        private ClassDiagramAssociation CreateAssociation(Stream stream)
         {
-            PlantUmlDiagram diagram = new PlantUmlParser().Parse(file);
+            PlantUmlDiagram diagram = new PlantUmlParser().Parse(stream);
             return new ClassDiagramAssociation(diagram);
         }
     }

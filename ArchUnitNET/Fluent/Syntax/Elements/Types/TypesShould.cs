@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
@@ -301,6 +302,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction AdhereToPlantUmlDiagram(string file)
         {
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.AdhereToPlantUmlDiagram(file));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AdhereToPlantUmlDiagram(Stream stream)
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.AdhereToPlantUmlDiagram(stream));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

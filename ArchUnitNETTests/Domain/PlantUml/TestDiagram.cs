@@ -9,23 +9,12 @@ namespace ArchUnitNETTests.Domain.PlantUml
 {
     public class TestDiagram
     {
-        private string _path;
         private Stream _stream;
         private IList<string> _lines = new List<string>();
-
-        public TestDiagram(string path)
-        {
-            _path = path;
-        }
 
         public TestDiagram(Stream stream)
         {
             _stream = stream;
-        }
-
-        public static TestDiagram In(string path)
-        {
-            return new TestDiagram(path);
         }
 
         internal static TestDiagram From(Stream stream)
@@ -65,32 +54,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
             _lines.Add(line);
             return this;
         }
-
-        internal string Write()
+        
+        internal Stream Write()
         {
-            if(_path == null)
-            {
-                throw new InvalidOperationException("Path must be provided to call this method. Try with Stream()");
-            }
-            string path = Path.Combine(_path, "plantuml_diagram_" + Guid.NewGuid() + ".puml");
-            using (StreamWriter file = CreateTempFile(path))
-            {
-                file.WriteLine("@startuml");
-                foreach (var line in _lines)
-                {
-                    file.WriteLine(line);
-                }
-                file.WriteLine("@enduml");
-                return path;
-            }
-        }
-
-        internal Stream Stream()
-        {
-            if (_stream == null)
-            {
-                throw new InvalidOperationException("Stream must be provided to call this method. Try with Write()");
-            }
             using (StreamWriter file = new StreamWriter(_stream, leaveOpen:true))
             {
                 file.WriteLine("@startuml");
@@ -103,11 +69,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 _stream.Seek(0, SeekOrigin.Begin);
                 return _stream;
             }
-        }
-
-        private StreamWriter CreateTempFile(string path)
-        {
-            return File.CreateText(path);
         }
 
         public class ComponentBuilder

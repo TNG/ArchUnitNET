@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
@@ -319,14 +320,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "does not have a property member with name \"" + name + "\"");
         }
 
+        public static ICondition<TRuleType> AdhereToPlantUmlDiagram(Stream stream)
+        {
+            PlantUmlDiagram diagram = new PlantUmlParser().Parse(stream);
+            return createPlantUmlCondition(diagram);
+        }
+        
         public static ICondition<TRuleType> AdhereToPlantUmlDiagram(string file)
         {
             PlantUmlDiagram diagram = new PlantUmlParser().Parse(file);
+            return createPlantUmlCondition(diagram);
+        }
+
+        private static ICondition<TRuleType> createPlantUmlCondition(PlantUmlDiagram diagram)
+        {
             ClassDiagramAssociation classDiagramAssociation = new ClassDiagramAssociation(diagram);
 
             ConditionResult Condition(TRuleType ruleType)
             {
-                if (ruleType.Dependencies.All(d => !classDiagramAssociation.Contains(d.Target))){
+                if (ruleType.Dependencies.All(d => !classDiagramAssociation.Contains(d.Target)))
+                {
                     return new ConditionResult(ruleType, true);
                 }
                 List<string> allAllowedTargets = new List<string>();
@@ -347,11 +360,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 }
                 return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
-            
+
             return new SimpleCondition<TRuleType>(Condition, "adhere to PlantUML diagram.");
         }
 
-        public static ICondition<TRuleType> HaveFieldMemberWithName(string name)
+            public static ICondition<TRuleType> HaveFieldMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.HasFieldMemberWithName(name), "have a field member with name \"" + name + "\"",
