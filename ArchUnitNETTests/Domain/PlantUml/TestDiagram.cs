@@ -10,6 +10,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
     public class TestDiagram
     {
         private string _path;
+        private Stream _stream;
         private IList<string> _lines = new List<string>();
 
         public TestDiagram(string path)
@@ -17,9 +18,19 @@ namespace ArchUnitNETTests.Domain.PlantUml
             _path = path;
         }
 
+        public TestDiagram(Stream stream)
+        {
+            _stream = stream;
+        }
+
         public static TestDiagram In(string path)
         {
             return new TestDiagram(path);
+        }
+
+        internal static TestDiagram From(Stream stream)
+        {
+            return new TestDiagram(stream);
         }
 
         public ComponentBuilder Component(string componentName)
@@ -57,6 +68,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
         internal string Write()
         {
+            if(_path == null)
+            {
+                throw new InvalidOperationException("Path must be provided to call this method. Try with Stream()");
+            }
             string path = Path.Combine(_path, "plantuml_diagram_" + Guid.NewGuid() + ".puml");
             using (StreamWriter file = CreateTempFile(path))
             {
@@ -67,6 +82,26 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 }
                 file.WriteLine("@enduml");
                 return path;
+            }
+        }
+
+        internal Stream Stream()
+        {
+            if (_stream == null)
+            {
+                throw new InvalidOperationException("Stream must be provided to call this method. Try with Write()");
+            }
+            using (StreamWriter file = new StreamWriter(_stream, leaveOpen:true))
+            {
+                file.WriteLine("@startuml");
+                foreach (var line in _lines)
+                {
+                    file.WriteLine(line);
+                }
+                file.WriteLine("@enduml");
+                file.Flush();
+                _stream.Seek(0, SeekOrigin.Begin);
+                return _stream;
             }
         }
 
@@ -140,5 +175,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 return _testDiagram.RawLine(dependency);
             }
         }
+
+        
     }
 }

@@ -37,6 +37,21 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.Null(origin.Alias);
         }
 
+        [Fact]
+        public void ParsesASimpleComponentWithStream()
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(memoryStream)
+                       .Component("SomeOrigin").WithStereoTypes("Origin.*")
+                       .Stream());
+
+                PlantUmlComponent origin = GetComponentWithName("SomeOrigin", diagram);
+                Assert.Equal(origin.Stereotypes.SingleOrDefault(), new Stereotype("Origin.*"));
+                Assert.Null(origin.Alias);
+            }
+        }
+
         [Theory]
         [ClassData(typeof(SimpleDiagramTestData))]
         public void ParsesDependencyOfSimpleComponentDiagram(Func<TestDiagram, TestDiagram> testCaseFunc)
@@ -322,7 +337,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.Empty(bar.Dependencies);
         }
 
-
         private PlantUmlComponent GetComponentWithName(string componentName, PlantUmlDiagram diagram)
         {
             PlantUmlComponent component = diagram.AllComponents
@@ -339,6 +353,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
         private PlantUmlDiagram CreateDiagram(string path)
         {
             return parser.Parse(path);
+        }
+
+        private PlantUmlDiagram CreateDiagram(Stream stream)
+        {
+            return parser.Parse(stream);
         }
     }
 

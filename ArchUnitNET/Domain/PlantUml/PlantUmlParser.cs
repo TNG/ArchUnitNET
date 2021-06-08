@@ -22,6 +22,15 @@ namespace ArchUnitNET.Domain.PlantUml
             return CreateDiagram(ReadLines(filename));
         }
 
+        public PlantUmlDiagram Parse(Stream stream)
+        {
+            if (stream is null)
+            {
+                throw new ArgumentNullException("stream");
+            }
+            return CreateDiagram(ReadLines(stream));
+        }
+
         private IEnumerable<string> ReadLines(string filename)
         {
             try
@@ -32,6 +41,27 @@ namespace ArchUnitNET.Domain.PlantUml
             catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is SecurityException)
             {
                 throw new PlantUmlParseException("Could not parse diagram from " + filename, ex);
+            }
+        }
+
+        private IEnumerable<string> ReadLines(Stream stream)
+        {
+            try
+            {
+                var lines = new List<string>();
+                using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        lines.Add(line);
+                    }
+                }
+                return lines;
+            }
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is SecurityException)
+            {
+                throw new PlantUmlParseException("Could not parse diagram from stream", ex);
             }
         }
 
