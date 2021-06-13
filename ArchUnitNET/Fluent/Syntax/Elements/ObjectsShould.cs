@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
-using ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
@@ -388,37 +387,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Conditions
 
-        public ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType> CallAnyMethodsThat()
-        {
-            _ruleCreator.BeginComplexCondition(MethodMembers(),
-                ObjectConditionsDefinition<TRuleType>.CallAnyMethodsThat());
-            return new ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> DependOnAnyTypesThat()
         {
-            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
+            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(true),
                 ObjectConditionsDefinition<TRuleType>.DependOnAnyTypesThat());
             return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
         }
 
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> OnlyDependOnTypesThat()
         {
-            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
+            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(true),
                 ObjectConditionsDefinition<TRuleType>.OnlyDependOnTypesThat());
             return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
         }
 
         public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> HaveAnyAttributesThat()
         {
-            _ruleCreator.BeginComplexCondition(Attributes(),
+            _ruleCreator.BeginComplexCondition(Attributes(true),
                 ObjectConditionsDefinition<TRuleType>.HaveAnyAttributesThat());
             return new ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat()
         {
-            _ruleCreator.BeginComplexCondition(Attributes(),
+            _ruleCreator.BeginComplexCondition(Attributes(true),
                 ObjectConditionsDefinition<TRuleType>.OnlyHaveAttributesThat());
             return new ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -675,25 +667,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         //Relation Condition Negations
-
-
-        public ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType> NotCallAnyMethodsThat()
-        {
-            _ruleCreator.BeginComplexCondition(MethodMembers(),
-                ObjectConditionsDefinition<TRuleType>.NotCallAnyMethodsThat());
-            return new ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
+        
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotDependOnAnyTypesThat()
         {
-            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
+            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(true),
                 ObjectConditionsDefinition<TRuleType>.NotDependOnAnyTypesThat());
             return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
         }
 
         public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAnyAttributesThat()
         {
-            _ruleCreator.BeginComplexCondition(Attributes(),
+            _ruleCreator.BeginComplexCondition(Attributes(true),
                 ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributesThat());
             return new ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }

@@ -18,27 +18,35 @@ namespace ArchUnitNET.Fluent
 {
     public static class ArchRuleDefinition
     {
-        public static GivenTypes Types()
+        public static GivenTypes Types(bool includeReferenced = false)
         {
-            var ruleCreator = new ArchRuleCreator<IType>(BasicObjectProviderDefinition.Types);
+            var ruleCreator = includeReferenced
+                ? new ArchRuleCreator<IType>(BasicObjectProviderDefinition.TypesIncludingReferenced)
+                : new ArchRuleCreator<IType>(BasicObjectProviderDefinition.Types);
             return new GivenTypes(ruleCreator);
         }
 
-        public static GivenAttributes Attributes()
+        public static GivenAttributes Attributes(bool includeReferenced = false)
         {
-            var ruleCreator = new ArchRuleCreator<Attribute>(BasicObjectProviderDefinition.Attributes);
+            var ruleCreator = includeReferenced
+                ? new ArchRuleCreator<Attribute>(BasicObjectProviderDefinition.AttributesIncludingReferenced)
+                : new ArchRuleCreator<Attribute>(BasicObjectProviderDefinition.Attributes);
             return new GivenAttributes(ruleCreator);
         }
 
-        public static GivenClasses Classes()
+        public static GivenClasses Classes(bool includeReferenced = false)
         {
-            var ruleCreator = new ArchRuleCreator<Class>(BasicObjectProviderDefinition.Classes);
+            var ruleCreator = includeReferenced
+                ? new ArchRuleCreator<Class>(BasicObjectProviderDefinition.ClassesIncludingReferenced)
+                : new ArchRuleCreator<Class>(BasicObjectProviderDefinition.Classes);
             return new GivenClasses(ruleCreator);
         }
 
-        public static GivenInterfaces Interfaces()
+        public static GivenInterfaces Interfaces(bool includeReferenced = false)
         {
-            var ruleCreator = new ArchRuleCreator<Interface>(BasicObjectProviderDefinition.Interfaces);
+            var ruleCreator = includeReferenced
+                ? new ArchRuleCreator<Interface>(BasicObjectProviderDefinition.InterfacesIncludingReferenced)
+                : new ArchRuleCreator<Interface>(BasicObjectProviderDefinition.Interfaces);
             return new GivenInterfaces(ruleCreator);
         }
 

@@ -5,7 +5,6 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 
@@ -17,7 +16,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
-        ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType> CallAnyMethodsThat();
         ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> DependOnAnyTypesThat();
         ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> OnlyDependOnTypesThat();
         ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> HaveAnyAttributesThat();
@@ -26,7 +24,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
-        ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType> NotCallAnyMethodsThat();
         ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotDependOnAnyTypesThat();
         ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAnyAttributesThat();
     }

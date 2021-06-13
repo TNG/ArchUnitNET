@@ -1089,13 +1089,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
 
         //Relation Conditions
-
-
-        public static RelationCondition<TRuleType, MethodMember> CallAnyMethodsThat()
-        {
-            return new RelationCondition<TRuleType, MethodMember>(CallAny, "call any methods that",
-                "does not call any methods that");
-        }
+        
 
         public static RelationCondition<TRuleType, IType> DependOnAnyTypesThat()
         {
@@ -1827,13 +1821,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
 
         //Relation Condition Negations
-
-
-        public static RelationCondition<TRuleType, MethodMember> NotCallAnyMethodsThat()
-        {
-            return new RelationCondition<TRuleType, MethodMember>(NotCallAny, "not call any methods that",
-                "does call any methods that");
-        }
 
         public static RelationCondition<TRuleType, IType> NotDependOnAnyTypesThat()
         {
