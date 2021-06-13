@@ -157,7 +157,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeAssignableToTypesThat()
         {
-            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
+            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(true),
                 TypeConditionsDefinition<TRuleType>.BeAssignableToTypesThat());
             return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
         }
@@ -301,7 +301,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotBeAssignableToTypesThat()
         {
-            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(),
+            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(true),
                 TypeConditionsDefinition<TRuleType>.NotBeAssignableToTypesThat());
             return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
         }
