@@ -89,18 +89,20 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ClassResidesInMultipleNamespaces()
         {
-            using (MemoryStream memoryStream = new MemoryStream())
+            string path = Path.Combine(Path.GetTempPath(), "plantuml_diagram_" + Guid.NewGuid() + ".puml");
+            using (FileStream fileStream = File.Create(path))
             {
-                ClassDiagramAssociation classDiagramAssociation = CreateAssociation(TestDiagram.From(memoryStream)
+                TestDiagram.From(fileStream)
                     .Component("A").WithStereoTypes(".*.FooNamespace.*")
                     .Component("B").WithStereoTypes(".*.BarNamespace.*")
-                    .Write());
-
-                Class classContainedInTwoComponents = Architecture.GetClassOfType(typeof(ClassInFooAndBarNamespace));
-
-                ComponentIntersectionException exception = Assert.Throws<ComponentIntersectionException>(() => classDiagramAssociation.GetTargetNamespaceIdentifiers(classContainedInTwoComponents));
-                Assert.Equal(string.Format("Class {0} may not be contained in more than one component, but is contained in [B, A]", typeof(ClassInFooAndBarNamespace).Name), exception.Message);
+                    .Write();
             }
+
+            ClassDiagramAssociation classDiagramAssociation = CreateAssociation(path);
+            Class classContainedInTwoComponents = Architecture.GetClassOfType(typeof(ClassInFooAndBarNamespace));
+
+            ComponentIntersectionException exception = Assert.Throws<ComponentIntersectionException>(() => classDiagramAssociation.GetTargetNamespaceIdentifiers(classContainedInTwoComponents));
+            Assert.Equal(string.Format("Class {0} may not be contained in more than one component, but is contained in [A, B]", typeof(ClassInFooAndBarNamespace).Name), exception.Message);
         }
 
         [Fact]
@@ -123,6 +125,12 @@ namespace ArchUnitNETTests.Domain.PlantUml
         private ClassDiagramAssociation CreateAssociation(Stream stream)
         {
             PlantUmlDiagram diagram = new PlantUmlParser().Parse(stream);
+            return new ClassDiagramAssociation(diagram);
+        }
+
+        private ClassDiagramAssociation CreateAssociation(String file)
+        {
+            PlantUmlDiagram diagram = new PlantUmlParser().Parse(file);
             return new ClassDiagramAssociation(diagram);
         }
     }
