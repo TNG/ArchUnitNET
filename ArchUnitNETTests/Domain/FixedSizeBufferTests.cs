@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
@@ -18,7 +19,7 @@ namespace ArchUnitNETTests.Domain
         private static readonly Architecture Architecture =
             new ArchLoader().LoadAssembly(typeof(FixedSizeBufferTests).Assembly).Build();
 
-        private Class _structWithUnsafeContent;
+        private readonly Class _structWithUnsafeContent;
 
         public FixedSizeBufferTests()
         {
@@ -26,11 +27,15 @@ namespace ArchUnitNETTests.Domain
         }
 
         [Fact]
-        public void NoCompilerGeneratedFieldTest()
+        public void HandleFixedSizeBuffersCorrectly()
         {
             var fieldMembers = _structWithUnsafeContent.GetFieldMembers().ToList();
             Assert.Single(fieldMembers);
             Assert.False(fieldMembers[0].Type.IsCompilerGenerated);
+            var fieldTypeDependency = _structWithUnsafeContent.GetFieldTypeDependencies().First();
+            Assert.Equal(typeof(char).FullName,fieldTypeDependency.Target.FullName);
+            Assert.Equal(new List<int>{1},fieldTypeDependency.TargetArrayDimensions);
+            Assert.True(fieldTypeDependency.TargetIsArray);
         }
     }
 
