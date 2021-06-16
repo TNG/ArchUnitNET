@@ -6,6 +6,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
@@ -159,6 +160,27 @@ namespace ArchUnitNET.Loader
                     isNested, isGeneric, true, isCompilerGenerated);
 
                 return new TypeInstance<IType>(type);
+            }
+
+            if (typeDefinition.CustomAttributes.Any(att =>
+                att.AttributeType.FullName == typeof(UnsafeValueTypeAttribute).FullName))
+            {
+                var arrayType = typeDefinition.Fields.First(field => field.Name == "FixedElementField").FieldType;
+                var arrayTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(arrayType);
+                var dimensions = new List<int> {1};
+                
+                switch (arrayTypeInstance.Type)
+                {
+                    case Interface intf:
+                        return new TypeInstance<Interface>(intf, arrayTypeInstance.GenericArguments, dimensions);
+                    case Attribute att:
+                        return new TypeInstance<Attribute>(att, arrayTypeInstance.GenericArguments, dimensions);
+                    case Class cls:
+                        return new TypeInstance<Class>(cls, arrayTypeInstance.GenericArguments, dimensions);
+                    default:
+                        return new TypeInstance<IType>(arrayTypeInstance.Type, arrayTypeInstance.GenericArguments,
+                            dimensions);
+                }
             }
 
             var visibility = typeDefinition.GetVisibility();
