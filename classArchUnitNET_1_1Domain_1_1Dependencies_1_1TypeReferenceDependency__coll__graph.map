@@ -1,0 +1,13 @@
+<map id="ArchUnitNET.Domain.Dependencies.TypeReferenceDependency" name="ArchUnitNET.Domain.Dependencies.TypeReferenceDependency">
+<area shape="rect" id="node2" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html" title="TypeInstanceDependency" alt="" coords="793,132,977,159"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title="ITypeDependency" alt="" coords="468,81,601,108"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Domain_1_1IType.html" title="ArchUnitNET.Domain.IType" alt="" coords="440,132,629,159"/>
+<area shape="rect" id="node5" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html" title="ICanBeAnalyzed" alt="" coords="247,132,372,159"/>
+<area shape="rect" id="node6" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title="IHasName" alt="" coords="57,5,146,32"/>
+<area shape="rect" id="node7" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html" title="IHasDependencies" alt="" coords="31,56,172,83"/>
+<area shape="rect" id="node8" href="$interfaceArchUnitNET_1_1Domain_1_1IHasAttributes.html" title="IHasAttributes" alt="" coords="45,107,158,133"/>
+<area shape="rect" id="node9" href="$interfaceArchUnitNET_1_1Domain_1_1IHasVisibility.html" title="IHasVisibility" alt="" coords="51,157,152,184"/>
+<area shape="rect" id="node10" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeGeneric.html" title="ICanBeGeneric" alt="" coords="43,208,159,235"/>
+<area shape="rect" id="node11" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeCompilerGenerated.html" title="ICanBeCompilerGenerated" alt="" coords="5,259,197,285"/>
+<area shape="rect" id="node12" href="$interfaceArchUnitNET_1_1Domain_1_1ITypeInstance.html" title="ArchUnitNET.Domain.IType\lInstance\&lt; ArchUnitNET.Domain.\lIType \&gt;" alt="" coords="421,183,648,239"/>
+</map>

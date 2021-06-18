@@ -1,0 +1,7 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.ShouldRelateToObjectsThat&lt; TRuleTypeShouldConjunction, TReferenceType, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.ShouldRelateToObjectsThat&lt; TRuleTypeShouldConjunction, TReferenceType, TRuleType &gt;">
+<area shape="rect" id="node5" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat.html" title="ArchUnitNET::Fluent\l::Syntax::Elements::\lMembers::ShouldRelateToMembers\lThat\&lt; TRuleTypeShouldConjunction,\l TReferenceType, TRuleType \&gt;" alt="" coords="732,5,981,91"/>
+<area shape="rect" id="node6" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat.html" title="ArchUnitNET::Fluent\l::Syntax::Elements::\lTypes::ShouldRelateToTypesThat\l\&lt; TRuleTypeShouldConjunction,\l TReferenceType, TRuleType \&gt;" alt="" coords="745,115,969,200"/>
+<area shape="rect" id="node2" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title="SyntaxElement\&lt; TRuleType \&gt;" alt="" coords="176,56,387,83"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Fluent_1_1IHasDescription.html" title="IHasDescription" alt="" coords="5,56,128,83"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectPredicates.html" title="IObjectPredicates\&lt;\l TRuleTypeShouldConjunction,\l TReferenceType \&gt;" alt="" coords="176,107,387,163"/>
+</map>

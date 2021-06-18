@@ -1,0 +1,5 @@
+var classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleCreatorException =
+[
+    [ "CannotGetObjectsOfCombinedArchRuleCreatorException", "classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleCreatorException.html#afea4732a3ef44944d1e006c69e24e3b8", null ],
+    [ "CannotGetObjectsOfCombinedArchRuleCreatorException", "classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleCreatorException.html#a50147f7abbbe7ee9ffe3c2928098cfd9", null ]
+];

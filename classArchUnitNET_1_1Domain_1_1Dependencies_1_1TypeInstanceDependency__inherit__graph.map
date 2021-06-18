@@ -1,0 +1,21 @@
+<map id="ArchUnitNET.Domain.Dependencies.TypeInstanceDependency" name="ArchUnitNET.Domain.Dependencies.TypeInstanceDependency">
+<area shape="rect" id="node3" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1AttributeTypeDependency.html" title="ArchUnitNET.Domain.Dependencies.\lAttributeTypeDependency" alt="" coords="491,77,745,119"/>
+<area shape="rect" id="node4" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1GenericArgumentTypeDependency.html" title="ArchUnitNET.Domain.Dependencies.\lGenericArgumentTypeDependency" alt="" coords="491,143,745,184"/>
+<area shape="rect" id="node5" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1ImplementsInterfaceDependency.html" title="ArchUnitNET.Domain.Dependencies.\lImplementsInterfaceDependency" alt="" coords="491,208,745,249"/>
+<area shape="rect" id="node6" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1InheritsBaseClassDependency.html" title="ArchUnitNET.Domain.Dependencies.\lInheritsBaseClassDependency" alt="" coords="491,273,745,315"/>
+<area shape="rect" id="node7" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html" title="ArchUnitNET.Domain.Dependencies.\lMemberTypeInstanceDependency" alt="" coords="491,339,745,380"/>
+<area shape="rect" id="node19" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeGenericParameterTypeConstraintDependency.html" title="ArchUnitNET.Domain.Dependencies.\lTypeGenericParameterTypeConstraint\lDependency" alt="" coords="488,403,748,459"/>
+<area shape="rect" id="node20" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeReferenceDependency.html" title="ArchUnitNET.Domain.Dependencies.\lTypeReferenceDependency" alt="" coords="491,483,745,524"/>
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title="ITypeDependency" alt="" coords="5,281,139,307"/>
+<area shape="rect" id="node8" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1AttributeMemberDependency.html" title="ArchUnitNET.Domain.Dependencies.\lAttributeMemberDependency" alt="" coords="812,5,1065,47"/>
+<area shape="rect" id="node9" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1BodyTypeMemberDependency.html" title="ArchUnitNET.Domain.Dependencies.\lBodyTypeMemberDependency" alt="" coords="812,71,1065,112"/>
+<area shape="rect" id="node10" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1CastTypeDependency.html" title="ArchUnitNET.Domain.Dependencies.\lCastTypeDependency" alt="" coords="812,136,1065,177"/>
+<area shape="rect" id="node11" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1FieldTypeDependency.html" title="ArchUnitNET.Domain.Dependencies.\lFieldTypeDependency" alt="" coords="812,201,1065,243"/>
+<area shape="rect" id="node12" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1GenericArgumentMemberDependency.html" title="ArchUnitNET.Domain.Dependencies.\lGenericArgumentMemberDependency" alt="" coords="805,267,1073,308"/>
+<area shape="rect" id="node13" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberGenericParameterTypeConstraintDependency.html" title="ArchUnitNET.Domain.Dependencies.\lMemberGenericParameterTypeConstraint\lDependency" alt="" coords="796,331,1081,387"/>
+<area shape="rect" id="node14" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MetaDataDependency.html" title="ArchUnitNET.Domain.Dependencies.\lMetaDataDependency" alt="" coords="812,411,1065,452"/>
+<area shape="rect" id="node15" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodCallDependency.html" title="ArchUnitNET.Domain.Dependencies.\lMethodCallDependency" alt="" coords="812,476,1065,517"/>
+<area shape="rect" id="node16" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodSignatureDependency.html" title="ArchUnitNET.Domain.Dependencies.\lMethodSignatureDependency" alt="" coords="812,541,1065,583"/>
+<area shape="rect" id="node17" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1PropertyTypeDependency.html" title="ArchUnitNET.Domain.Dependencies.\lPropertyTypeDependency" alt="" coords="812,607,1065,648"/>
+<area shape="rect" id="node18" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeCheckDependency.html" title="ArchUnitNET.Domain.Dependencies.\lTypeCheckDependency" alt="" coords="812,672,1065,713"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription&lt; TGivenRuleTypeThat, TRuleTypeShould, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription&lt; TGivenRuleTypeThat, TRuleTypeShould, TRuleType &gt;">
+<area shape="rect" id="node5" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html" title="ArchUnitNET::Fluent\l::Syntax::Elements::\lGivenObjectsConjunction\l\&lt; TGivenRuleTypeThat, TRuleType\lShould, TRuleType \&gt;" alt="" coords="748,5,979,91"/>
+<area shape="rect" id="node2" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title="SyntaxElement\&lt; TRuleType \&gt;" alt="" coords="176,9,387,36"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Fluent_1_1IHasDescription.html" title="IHasDescription" alt="" coords="5,9,128,36"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Fluent_1_1IObjectProvider.html" title="IObjectProvider\&lt; TRuleType \&gt;" alt="" coords="177,60,386,87"/>
+</map>

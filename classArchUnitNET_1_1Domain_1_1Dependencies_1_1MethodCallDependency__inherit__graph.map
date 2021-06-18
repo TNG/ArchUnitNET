@@ -1,0 +1,7 @@
+<map id="ArchUnitNET.Domain.Dependencies.MethodCallDependency" name="ArchUnitNET.Domain.Dependencies.MethodCallDependency">
+<area shape="rect" id="node2" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html" title="MemberTypeInstanceDependency" alt="" coords="5,155,243,181"/>
+<area shape="rect" id="node3" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html" title="TypeInstanceDependency" alt="" coords="32,80,216,107"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title="ITypeDependency" alt="" coords="161,5,295,32"/>
+<area shape="rect" id="node5" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html" title="IMemberTypeDependency" alt="" coords="240,80,427,107"/>
+<area shape="rect" id="node6" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberMemberDependency.html" title="IMemberMemberDependency" alt="" coords="267,155,477,181"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberConditions.html" title="ArchUnitNET.Fluent.Syntax.\lElements.Members.IMemberConditions\l\&lt; TReturnType, TRuleType \&gt;" alt="" coords="5,107,279,163"/>
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IFieldMemberConditions.html" title="ArchUnitNET.Fluent.Syntax.\lElements.Members.FieldMembers.\lIFieldMemberConditions\&lt; out\l out TReturnType, out out TRuleType \&gt;" alt="" coords="330,5,591,76"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IMethodMemberConditions.html" title="ArchUnitNET.Fluent.Syntax.\lElements.Members.MethodMembers.\lIMethodMemberConditions\&lt; out\l out TReturnType, out out TRuleType \&gt;" alt="" coords="329,100,592,171"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IPropertyMemberConditions.html" title="ArchUnitNET.Fluent.Syntax.\lElements.Members.PropertyMembers.\lIPropertyMemberConditions\&lt; out\l out TReturnType, out out TRuleType \&gt;" alt="" coords="327,195,595,265"/>
+</map>

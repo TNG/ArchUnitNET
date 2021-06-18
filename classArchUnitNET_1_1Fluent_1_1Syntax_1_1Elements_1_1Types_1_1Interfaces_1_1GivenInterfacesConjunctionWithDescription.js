@@ -1,0 +1,4 @@
+var classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesConjunctionWithDescription =
+[
+    [ "GivenInterfacesConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesConjunctionWithDescription.html#a8b6610f9e0aa7cd600243d952371249c", null ]
+];

@@ -1,0 +1,8 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition.html" title="ArchUnitNET.Fluent.Conditions.\lICondition\&lt; TRuleType \&gt;" alt="" coords="5,149,224,191"/>
+<area shape="rect" id="node2" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1ArchitectureCondition.html" title="ArchUnitNET.Fluent.Conditions.\lArchitectureCondition\&lt; TRuleType \&gt;" alt="" coords="272,5,523,47"/>
+<area shape="rect" id="node3" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition.html" title="ArchUnitNET.Fluent.Conditions.\lComplexCondition\&lt; TRuleType,\l TRelatedType \&gt;" alt="" coords="288,70,507,126"/>
+<area shape="rect" id="node4" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1EnumerableCondition.html" title="ArchUnitNET.Fluent.Conditions.\lEnumerableCondition\&lt; TRuleType \&gt;" alt="" coords="272,149,523,191"/>
+<area shape="rect" id="node5" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1ExistsCondition.html" title="ArchUnitNET.Fluent.Conditions.\lExistsCondition\&lt; TRuleType \&gt;" alt="" coords="288,215,507,256"/>
+<area shape="rect" id="node6" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition.html" title="ArchUnitNET.Fluent.Conditions.\lSimpleCondition\&lt; TRuleType \&gt;" alt="" coords="288,280,507,321"/>
+</map>

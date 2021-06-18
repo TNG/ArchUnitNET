@@ -1,0 +1,9 @@
+<map id="ArchUnitNET.Domain.IMember" name="ArchUnitNET.Domain.IMember">
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html" title="ICanBeAnalyzed" alt="" coords="245,132,371,159"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title="IHasName" alt="" coords="57,5,146,32"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html" title="IHasDependencies" alt="" coords="31,56,172,83"/>
+<area shape="rect" id="node5" href="$interfaceArchUnitNET_1_1Domain_1_1IHasAttributes.html" title="IHasAttributes" alt="" coords="45,107,158,133"/>
+<area shape="rect" id="node6" href="$interfaceArchUnitNET_1_1Domain_1_1IHasVisibility.html" title="IHasVisibility" alt="" coords="51,157,152,184"/>
+<area shape="rect" id="node7" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeGeneric.html" title="ICanBeGeneric" alt="" coords="43,208,159,235"/>
+<area shape="rect" id="node8" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeCompilerGenerated.html" title="ICanBeCompilerGenerated" alt="" coords="5,259,197,285"/>
+</map>

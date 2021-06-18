@@ -1,0 +1,14 @@
+<map id="ArchUnitNET.Domain.IHasDependencies" name="ArchUnitNET.Domain.IHasDependencies">
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html" title="ArchUnitNET.Domain.ICanBe\lAnalyzed" alt="" coords="331,163,533,204"/>
+<area shape="rect" id="node13" href="$classArchUnitNET_1_1Domain_1_1Slice.html" title="ArchUnitNET.Domain.Slice\l\&lt; TKey \&gt;" alt="" coords="338,228,526,269"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1IMember.html" title="ArchUnitNET.Domain.IMember" alt="" coords="581,111,796,138"/>
+<area shape="rect" id="node7" href="$interfaceArchUnitNET_1_1Domain_1_1IType.html" title="ArchUnitNET.Domain.IType" alt="" coords="594,261,783,287"/>
+<area shape="rect" id="node4" href="$classArchUnitNET_1_1Domain_1_1FieldMember.html" title="ArchUnitNET.Domain.Field\lMember" alt="" coords="858,5,1045,47"/>
+<area shape="rect" id="node5" href="$classArchUnitNET_1_1Domain_1_1MethodMember.html" title="ArchUnitNET.Domain.Method\lMember" alt="" coords="848,71,1055,112"/>
+<area shape="rect" id="node6" href="$classArchUnitNET_1_1Domain_1_1PropertyMember.html" title="ArchUnitNET.Domain.Property\lMember" alt="" coords="845,136,1057,177"/>
+<area shape="rect" id="node8" href="$classArchUnitNET_1_1Domain_1_1Class.html" title="ArchUnitNET.Domain.Class" alt="" coords="855,202,1047,229"/>
+<area shape="rect" id="node10" href="$classArchUnitNET_1_1Domain_1_1GenericParameter.html" title="ArchUnitNET.Domain.Generic\lParameter" alt="" coords="848,253,1055,295"/>
+<area shape="rect" id="node11" href="$classArchUnitNET_1_1Domain_1_1Interface.html" title="ArchUnitNET.Domain.Interface" alt="" coords="844,319,1059,346"/>
+<area shape="rect" id="node12" href="$classArchUnitNET_1_1Loader_1_1Type.html" title="ArchUnitNET.Loader.Type" alt="" coords="862,370,1041,397"/>
+<area shape="rect" id="node9" href="$classArchUnitNET_1_1Domain_1_1Attribute.html" title="ArchUnitNET.Domain.Attribute" alt="" coords="1107,202,1321,229"/>
+</map>

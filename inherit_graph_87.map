@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypePredicates.html" title="ArchUnitNET.Fluent.Syntax.\lElements.Types.ITypePredicates\l\&lt; TReturnType, TRuleType \&gt;" alt="" coords="5,101,228,157"/>
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributePredicates.html" title="ArchUnitNET.Fluent.Syntax.\lElements.Types.Attributes.IAttribute\lPredicates\&lt; out out TReturnType,\l TRuleType \&gt;" alt="" coords="292,5,543,76"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassPredicates.html" title="ArchUnitNET.Fluent.Syntax.\lElements.Types.Classes.IClassPredicates\l\&lt; out out TReturnType, TRuleType \&gt;" alt="" coords="276,101,559,157"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfacePredicates.html" title="ArchUnitNET.Fluent.Syntax.\lElements.Types.Interfaces.IInterface\lPredicates\&lt; out out TReturnType,\l TRuleType \&gt;" alt="" coords="292,181,543,252"/>
+</map>

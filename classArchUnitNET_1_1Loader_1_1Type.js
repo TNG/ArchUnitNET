@@ -1,0 +1,28 @@
+var classArchUnitNET_1_1Loader_1_1Type =
+[
+    [ "Type", "classArchUnitNET_1_1Loader_1_1Type.html#a0439fa6595cf78a2d014f553c979a7f2", null ],
+    [ "Equals", "classArchUnitNET_1_1Loader_1_1Type.html#a6a5232d41462e52c033d1dc99383b2b7", null ],
+    [ "GetHashCode", "classArchUnitNET_1_1Loader_1_1Type.html#aa90cad9269ed12340df09909fb4de71d", null ],
+    [ "ImplementsInterface", "classArchUnitNET_1_1Loader_1_1Type.html#a4af26a506a279c652180206d5776f1fd", null ],
+    [ "ImplementsInterface", "classArchUnitNET_1_1Loader_1_1Type.html#a7dacb618088369cce632b49030fabd6e", null ],
+    [ "IsAssignableTo", "classArchUnitNET_1_1Loader_1_1Type.html#a2b38609fdda82e8bc17495625030293f", null ],
+    [ "IsAssignableTo", "classArchUnitNET_1_1Loader_1_1Type.html#a26187098b6b2effa76db83b9af8ec35c", null ],
+    [ "ToString", "classArchUnitNET_1_1Loader_1_1Type.html#a021c41bace0a34bf8be15a4960673677", null ],
+    [ "ImplementedInterfaces", "classArchUnitNET_1_1Loader_1_1Type.html#acfe6748babfa634068860cd62a16f3c8", null ],
+    [ "IsGenericParameter", "classArchUnitNET_1_1Loader_1_1Type.html#a4f0796e34fb721d987d7a3e8075c3a05", null ],
+    [ "Assembly", "classArchUnitNET_1_1Loader_1_1Type.html#a74589c32e37cf13a8f73f7526a08a841", null ],
+    [ "Attributes", "classArchUnitNET_1_1Loader_1_1Type.html#a1077b294f4ece7b8ba96ef25d40cca21", null ],
+    [ "BackwardsDependencies", "classArchUnitNET_1_1Loader_1_1Type.html#ad7764b2fa3002ace54c279ab222407af", null ],
+    [ "Dependencies", "classArchUnitNET_1_1Loader_1_1Type.html#a607366116f79ba040631c85cd8df5c39", null ],
+    [ "FullName", "classArchUnitNET_1_1Loader_1_1Type.html#a17fd020f024cccea626456f2decc5968", null ],
+    [ "GenericParameters", "classArchUnitNET_1_1Loader_1_1Type.html#abf4b5d08d78ee7e13de0772ab35d317c", null ],
+    [ "IsAnonymousType", "classArchUnitNET_1_1Loader_1_1Type.html#ae9710abd1273a8fcc7ff363d4f567686", null ],
+    [ "IsCompilerGenerated", "classArchUnitNET_1_1Loader_1_1Type.html#a8b4ac9836a5c1a52fb3df66a2efbc842", null ],
+    [ "IsGeneric", "classArchUnitNET_1_1Loader_1_1Type.html#abeef51332d928cf72c32fe502e130727", null ],
+    [ "IsNested", "classArchUnitNET_1_1Loader_1_1Type.html#a3f5cec9fccebd2570896d04bc6002515", null ],
+    [ "IsStub", "classArchUnitNET_1_1Loader_1_1Type.html#a5a42e685be6d734c2fb700794cb6d2d0", null ],
+    [ "Members", "classArchUnitNET_1_1Loader_1_1Type.html#a9d5a02c6196714ff2872eca2bec7ada3", null ],
+    [ "Name", "classArchUnitNET_1_1Loader_1_1Type.html#a1e07bf7ecf60c48c15e8f8e2ca56d308", null ],
+    [ "Namespace", "classArchUnitNET_1_1Loader_1_1Type.html#aab2a76f51a572e78a378ee5e5c339250", null ],
+    [ "Visibility", "classArchUnitNET_1_1Loader_1_1Type.html#a6d0d01a5ad63f43e48b1fb40903e7a0e", null ]
+];

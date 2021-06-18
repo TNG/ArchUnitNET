@@ -1,0 +1,4 @@
+var classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembersConjunctionWithDescription =
+[
+    [ "GivenFieldMembersConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembersConjunctionWithDescription.html#ab968f752a7f062f33ec17f18ce3121a8", null ]
+];

@@ -1,0 +1,14 @@
+<map id="ArchUnitNET.Fluent.ICanBeEvaluated" name="ArchUnitNET.Fluent.ICanBeEvaluated">
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Fluent_1_1IArchRule.html" title="ArchUnitNET.Fluent.IArchRule" alt="" coords="416,158,621,185"/>
+<area shape="rect" id="node10" href="$interfaceArchUnitNET_1_1Fluent_1_1IArchRuleCreator.html" title="ArchUnitNET.Fluent.IArch\lRuleCreator\&lt; TRuleType \&gt;" alt="" coords="425,281,612,323"/>
+<area shape="rect" id="node13" href="$classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRuleCreator.html" title="ArchUnitNET.Fluent.Slices.\lSliceRuleCreator" alt="" coords="425,347,613,388"/>
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Fluent_1_1IHasDescription.html" title="IHasDescription" alt="" coords="5,289,128,315"/>
+<area shape="rect" id="node4" href="$classArchUnitNET_1_1Fluent_1_1ArchRule.html" title="ArchUnitNET.Fluent.ArchRule\l\&lt; TRuleType \&gt;" alt="" coords="680,20,883,61"/>
+<area shape="rect" id="node7" href="$classArchUnitNET_1_1Fluent_1_1CombinedArchRule.html" title="ArchUnitNET.Fluent.Combined\lArchRule" alt="" coords="675,85,887,127"/>
+<area shape="rect" id="node8" href="$classArchUnitNET_1_1Fluent_1_1Freeze_1_1FreezingArchRule.html" title="ArchUnitNET.Fluent.Freeze.\lFreezingArchRule" alt="" coords="685,151,878,192"/>
+<area shape="rect" id="node9" href="$classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRule.html" title="ArchUnitNET.Fluent.Slices.\lSliceRule" alt="" coords="687,216,875,257"/>
+<area shape="rect" id="node5" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html" title="ArchUnitNET::Fluent\l::Syntax::Elements::\lObjectsShouldConjunctionWith\lDescription\&lt; TRuleType \&gt;" alt="" coords="941,5,1157,76"/>
+<area shape="rect" id="node6" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html" title="ArchUnitNET::Fluent\l::Syntax::Elements::\lObjectsShouldConjunction\l\&lt; TRuleTypeShould, TRuleType \&gt;" alt="" coords="1205,5,1432,76"/>
+<area shape="rect" id="node11" href="$classArchUnitNET_1_1Fluent_1_1ArchRuleCreator.html" title="ArchUnitNET::Fluent\l::ArchRuleCreator\&lt; TRuleType \&gt;" alt="" coords="669,281,893,323"/>
+<area shape="rect" id="node12" href="$classArchUnitNET_1_1Fluent_1_1CombinedArchRuleCreator.html" title="ArchUnitNET::Fluent\l::CombinedArchRuleCreator\l\&lt; TRuleType \&gt;" alt="" coords="682,346,881,402"/>
+</map>

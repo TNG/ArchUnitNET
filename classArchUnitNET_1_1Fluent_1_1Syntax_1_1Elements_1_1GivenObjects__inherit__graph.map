@@ -1,0 +1,5 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.GivenObjects&lt; TRuleTypeThat, TRuleTypeShould, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.GivenObjects&lt; TRuleTypeThat, TRuleTypeShould, TRuleType &gt;">
+<area shape="rect" id="node2" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title="SyntaxElement\&lt; TRuleType \&gt;" alt="" coords="5,80,216,107"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Fluent_1_1IHasDescription.html" title="IHasDescription" alt="" coords="49,5,172,32"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Fluent_1_1IObjectProvider.html" title="IObjectProvider\&lt; TRuleType \&gt;" alt="" coords="241,80,450,107"/>
+</map>

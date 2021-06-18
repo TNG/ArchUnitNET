@@ -1,0 +1,5 @@
+<map id="ArchUnitNET.Domain.Dependencies.AccessFieldDependency" name="ArchUnitNET.Domain.Dependencies.AccessFieldDependency">
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberMemberDependency.html" title="IMemberMemberDependency" alt="" coords="27,155,237,181"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html" title="IMemberTypeDependency" alt="" coords="39,80,225,107"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title="ITypeDependency" alt="" coords="65,5,199,32"/>
+</map>

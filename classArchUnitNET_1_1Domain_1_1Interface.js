@@ -1,0 +1,28 @@
+var classArchUnitNET_1_1Domain_1_1Interface =
+[
+    [ "Interface", "classArchUnitNET_1_1Domain_1_1Interface.html#a91f70f10ff3e3f4a69449e4c614e5c89", null ],
+    [ "Equals", "classArchUnitNET_1_1Domain_1_1Interface.html#af6687a56731c6e446e6c4d08ac986e0b", null ],
+    [ "GetHashCode", "classArchUnitNET_1_1Domain_1_1Interface.html#ad55176dedf44eebd297100a7fe663e13", null ],
+    [ "ImplementsInterface", "classArchUnitNET_1_1Domain_1_1Interface.html#a327a83480f5c51dc4e3d97e19009f5b9", null ],
+    [ "ImplementsInterface", "classArchUnitNET_1_1Domain_1_1Interface.html#a9d828e66f08d8625de0ddb7398d1d1fe", null ],
+    [ "IsAssignableTo", "classArchUnitNET_1_1Domain_1_1Interface.html#a17e0ff30e905b3968087ca02ed1d8617", null ],
+    [ "IsAssignableTo", "classArchUnitNET_1_1Domain_1_1Interface.html#a659a7eba83b06ca6afbbad353fef5156", null ],
+    [ "ToString", "classArchUnitNET_1_1Domain_1_1Interface.html#a5d242b9a8c786b1ccf12358d056903c6", null ],
+    [ "Assembly", "classArchUnitNET_1_1Domain_1_1Interface.html#a6615bfd67a93e01337bd7b924378385e", null ],
+    [ "BackwardsDependencies", "classArchUnitNET_1_1Domain_1_1Interface.html#af92d4e08ef5437943c3b633eaef7724e", null ],
+    [ "Dependencies", "classArchUnitNET_1_1Domain_1_1Interface.html#a31d3e39329d03051c8d4c5b2e25e95f6", null ],
+    [ "FullName", "classArchUnitNET_1_1Domain_1_1Interface.html#a71734dfa566e95852d810d453b3af452", null ],
+    [ "GenericParameters", "classArchUnitNET_1_1Domain_1_1Interface.html#a5f7d36412c5d4ee47b1a964efe67c4ed", null ],
+    [ "ImplementedInterfaces", "classArchUnitNET_1_1Domain_1_1Interface.html#aebad6a73e4ab9ce3421ec999956735ec", null ],
+    [ "IsCompilerGenerated", "classArchUnitNET_1_1Domain_1_1Interface.html#a450e8b6fac8a7a502dfc00d9de847a89", null ],
+    [ "IsGeneric", "classArchUnitNET_1_1Domain_1_1Interface.html#ae03617a717039b87c3cec83c54bc2b64", null ],
+    [ "IsGenericParameter", "classArchUnitNET_1_1Domain_1_1Interface.html#a931619eeaf9fa5040dfee133643f3176", null ],
+    [ "IsNested", "classArchUnitNET_1_1Domain_1_1Interface.html#a2674264d791e3f756d563ee831904cf9", null ],
+    [ "IsStub", "classArchUnitNET_1_1Domain_1_1Interface.html#aacb6f2091e9e67ad37628d9cb3e1a888", null ],
+    [ "Members", "classArchUnitNET_1_1Domain_1_1Interface.html#a9ebe5d58a30b2ef8e61e209a200959bb", null ],
+    [ "Name", "classArchUnitNET_1_1Domain_1_1Interface.html#a9c890e1ffd7a37af99749f9bf1367e09", null ],
+    [ "Namespace", "classArchUnitNET_1_1Domain_1_1Interface.html#afad96ddcdc5c1b911f460b3ff0961986", null ],
+    [ "Visibility", "classArchUnitNET_1_1Domain_1_1Interface.html#a343d86c0711c18f5694120d631e231a8", null ],
+    [ "Attributes", "classArchUnitNET_1_1Domain_1_1Interface.html#af490f5b8853fc3dc68f324ac19c6a6b3", null ],
+    [ "Type", "classArchUnitNET_1_1Domain_1_1Interface.html#a4d041255a8fa5e43e84a60a5d0fd1f09", null ]
+];
