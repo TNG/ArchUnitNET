@@ -57,6 +57,8 @@ fabric.properties
 list_license.ps1
 **/LicenseSources/
 
+.vs/
+
 *.user
 
 # Visual Studio cache/options directory
