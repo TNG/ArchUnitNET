@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ArchUnitNET.Domain.PlantUml
 {
@@ -11,8 +10,10 @@ namespace ArchUnitNET.Domain.PlantUml
         {
             if (value.Contains("[") || value.Contains("]") || value.Contains(@""""))
             {
-                throw new IllegalDiagramException(string.Format(@"Alias '{0}' should not contain character(s): '[' or ']' or '""'", value));
+                throw new IllegalDiagramException(
+                    string.Format(@"Alias '{0}' should not contain character(s): '[' or ']' or '""'", value));
             }
+
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
@@ -24,7 +25,8 @@ namespace ArchUnitNET.Domain.PlantUml
 
         public override int GetHashCode()
         {
-            return -1939223833 + EqualityComparer<string>.Default.GetHashCode(_value);
+            var hashCode = 397 ^ (_value != null ? _value.GetHashCode() : 0);
+            return hashCode;
         }
 
         internal string asString()

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ArchUnitNET.Domain.PlantUml
+﻿namespace ArchUnitNET.Domain.PlantUml
 {
     internal class Stereotype
     {
@@ -22,7 +20,8 @@ namespace ArchUnitNET.Domain.PlantUml
 
         public override int GetHashCode()
         {
-            return -1939223833 + EqualityComparer<string>.Default.GetHashCode(_value);
+            var hashCode = 397 ^ (_value != null ? _value.GetHashCode() : 0);
+            return hashCode;
         }
     }
 }

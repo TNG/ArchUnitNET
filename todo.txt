@@ -1,3 +1,2 @@
-- simplify Equals/GetHashCode
 - port parametrized parser tests
 - add examples with puml file

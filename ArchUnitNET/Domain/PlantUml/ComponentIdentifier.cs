@@ -5,7 +5,8 @@ namespace ArchUnitNET.Domain.PlantUml
     internal class ComponentIdentifier
     {
         public ComponentIdentifier(ComponentName componentName) : this(componentName, null)
-        { }
+        {
+        }
 
         public ComponentIdentifier(ComponentName componentName, Alias alias)
         {
@@ -26,13 +27,12 @@ namespace ArchUnitNET.Domain.PlantUml
 
         public override int GetHashCode()
         {
-            int hashCode = -1327966062;
-            hashCode = hashCode * -1521134295 + EqualityComparer<ComponentName>.Default.GetHashCode(ComponentName);
-            if (Alias != null)
+            unchecked
             {
-                hashCode = hashCode * -1521134295 + EqualityComparer<Alias>.Default.GetHashCode(Alias);
+                var hashCode = 397 ^ (ComponentName != null ? ComponentName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Alias != null ? Alias.GetHashCode() : 0);
+                return hashCode;
             }
-            return hashCode;
         }
     }
 }
