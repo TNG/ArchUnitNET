@@ -22,10 +22,12 @@ namespace ArchUnitNET.Domain.PlantUml
 
         public override int GetHashCode()
         {
-            int hashCode = -878893848;
-            hashCode = hashCode * -1521134295 + EqualityComparer<PlantUmlComponent>.Default.GetHashCode(Component);
-            hashCode = hashCode * -1521134295 + EqualityComparer<PlantUmlComponent>.Default.GetHashCode(Target);
-            return hashCode;
+            unchecked
+            {
+                var hashCode = 397 ^ (Component != null ? Component.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Target != null ? Target.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

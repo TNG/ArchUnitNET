@@ -15,6 +15,7 @@ namespace ArchUnitNET.Domain.PlantUml
             Stereotypes = stereotypes ?? throw new ArgumentNullException(nameof(stereotypes));
             Alias = alias;
         }
+
         public ISet<Stereotype> Stereotypes { get; private set; }
 
         public Alias Alias { get; private set; }
@@ -26,17 +27,14 @@ namespace ArchUnitNET.Domain.PlantUml
             get
             {
                 return Alias != null
-                        ? new ComponentIdentifier(ComponentName, Alias)
-                        : new ComponentIdentifier(ComponentName);
+                    ? new ComponentIdentifier(ComponentName, Alias)
+                    : new ComponentIdentifier(ComponentName);
             }
         }
 
         public IList<PlantUmlComponent> Dependencies
         {
-            get
-            {
-                return _dependencies.Select(d => d.Target).ToList();
-            }
+            get { return _dependencies.Select(d => d.Target).ToList(); }
         }
 
         public override bool Equals(object obj)
@@ -49,14 +47,14 @@ namespace ArchUnitNET.Domain.PlantUml
 
         public override int GetHashCode()
         {
-            int hashCode = -940941964;
-            foreach (var element in Stereotypes)
+            unchecked
             {
-                hashCode = hashCode * -1521134295 + EqualityComparer<Stereotype>.Default.GetHashCode(element);
+                var hashCode = 397 ^ (Alias != null ? Alias.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ComponentName != null ? ComponentName.GetHashCode() : 0);
+
+                return Stereotypes.Aggregate(hashCode,
+                    (current, element) => (current * 397) ^ (element != null ? element.GetHashCode() : 0));
             }
-            hashCode = hashCode * -1521134295 + EqualityComparer<Alias>.Default.GetHashCode(Alias);
-            hashCode = hashCode * -1521134295 + EqualityComparer<ComponentName>.Default.GetHashCode(ComponentName);
-            return hashCode;
         }
 
         internal void Finish(IList<PlantUmlComponentDependency> dependencies)
