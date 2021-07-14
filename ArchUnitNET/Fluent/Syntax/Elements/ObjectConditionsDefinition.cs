@@ -10,6 +10,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
+using JetBrains.Annotations;
 using static ArchUnitNET.Domain.Visibility;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
@@ -992,6 +993,575 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        public static ICondition<TRuleType> HaveAnyAttributesWithArguments(object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            var argumentValues = new List<object> {firstArgumentValue};
+            argumentValues.AddRange(moreArgumentValues);
+            return HaveAnyAttributesWithArguments(argumentValues);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithArguments(string attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            var argumentValues = new List<object> {firstArgumentValue};
+            argumentValues.AddRange(moreArgumentValues);
+            return HaveAttributeWithArguments(attribute, argumentValues);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithArguments(Attribute attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            var argumentValues = new List<object> {firstArgumentValue};
+            argumentValues.AddRange(moreArgumentValues);
+            return HaveAttributeWithArguments(attribute, argumentValues);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithArguments(Type attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            var argumentValues = new List<object> {firstArgumentValue};
+            argumentValues.AddRange(moreArgumentValues);
+            return HaveAttributeWithArguments(attribute, argumentValues);
+        }
+
+        public static ICondition<TRuleType> HaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments)
+        {
+            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            attributeArguments.AddRange(moreAttributeArguments);
+            return HaveAnyAttributesWithNamedArguments(attributeArguments);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithNamedArguments(string attribute,
+            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        {
+            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            attributeArguments.AddRange(moreAttributeArguments);
+            return HaveAttributeWithNamedArguments(attribute, attributeArguments);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithNamedArguments(Attribute attribute,
+            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        {
+            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            attributeArguments.AddRange(moreAttributeArguments);
+            return HaveAttributeWithNamedArguments(attribute, attributeArguments);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithNamedArguments(Type attribute,
+            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        {
+            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            attributeArguments.AddRange(moreAttributeArguments);
+            return HaveAttributeWithNamedArguments(attribute, attributeArguments);
+        }
+
+        public static ICondition<TRuleType> HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
+        {
+            var argumentValueList = argumentValues.ToList();
+            string description;
+            Func<TRuleType, Architecture, string> failDescription;
+            if (argumentValueList.IsNullOrEmpty())
+            {
+                description = "have no or any attributes with arguments (always true)";
+                failDescription = (ruleType, architecture) =>
+                    "not have no or any attributes with arguments (impossible)";
+            }
+            else
+            {
+                var firstArgument = argumentValueList.First();
+                description = argumentValueList.Where(attribute => attribute != firstArgument).Aggregate(
+                    "have any attributes with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+
+
+                failDescription = (ruleType, architecture) =>
+                {
+                    var actualArgumentValues = ruleType.AttributeInstances
+                        .SelectMany(instance =>
+                            instance.AttributeArguments.Select(argument => argument.Value)).ToList();
+                    if (!actualArgumentValues.Any())
+                    {
+                        return "does have no attribute with an argument";
+                    }
+
+                    var firstActualArgumentValue = actualArgumentValues.First();
+                    return actualArgumentValues.Aggregate(
+                        "does have attributes with argument values \"" + firstActualArgumentValue + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                };
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                var attributeArguments = obj.AttributeInstances
+                    .SelectMany(instance => instance.AttributeArguments.Select(arg => arg.Value)).ToList();
+                var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
+                    .Union(attributeArguments.OfType<IType>()).ToList();
+                foreach (var arg in argumentValueList)
+                {
+                    if (arg is Type argType)
+                    {
+                        if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
+                        {
+                            return false;
+                        }
+                    }
+                    else if (!attributeArguments.Contains(arg))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithArguments([NotNull] string attribute,
+            IEnumerable<object> argumentValues)
+        {
+            string description, failDescription;
+            var argumentValueList = argumentValues.ToList();
+            if (argumentValueList.IsNullOrEmpty())
+            {
+                description = "have attribute \"" + attribute + "\"";
+                failDescription = "does not have attribute \"" + attribute + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentValueList.First();
+                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "have attribute \"" + attribute + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                failDescription = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "does not have attribute \"" + attribute + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.FullNameMatches(attribute))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
+                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    foreach (var arg in argumentValueList)
+                    {
+                        if (arg is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!attributeArguments.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return true;
+                    NextAttribute: ;
+                }
+
+                return false;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithArguments([NotNull] Attribute attribute,
+            IEnumerable<object> argumentValues)
+        {
+            string description, failDescription;
+            var argumentValueList = argumentValues.ToList();
+            if (argumentValueList.IsNullOrEmpty())
+            {
+                description = "have attribute \"" + attribute.FullName + "\"";
+                failDescription = "does not have attribute \"" + attribute.FullName + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentValueList.First();
+                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                failDescription = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "does not have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.Equals(attribute))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
+                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    foreach (var arg in argumentValueList)
+                    {
+                        if (arg is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!attributeArguments.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return true;
+                    NextAttribute: ;
+                }
+
+                return false;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithArguments([NotNull] Type attribute,
+            IEnumerable<object> argumentValues)
+        {
+            string description, failDescription;
+            var argumentValueList = argumentValues.ToList();
+            if (argumentValueList.IsNullOrEmpty())
+            {
+                description = "have attribute \"" + attribute.FullName + "\"";
+                failDescription = "does not have attribute \"" + attribute.FullName + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentValueList.First();
+                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                failDescription = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "does not have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.Equals(architecture.GetAttributeOfType(attribute)))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
+                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    foreach (var arg in argumentValueList)
+                    {
+                        if (arg is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!attributeArguments.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return true;
+                    NextAttribute: ;
+                }
+
+                return false;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> HaveAnyAttributesWithNamedArguments(
+            IEnumerable<(string, object)> attributeArguments)
+        {
+            var argumentList = attributeArguments.ToList();
+            string description;
+            Func<TRuleType, Architecture, string> failDescription;
+            if (argumentList.IsNullOrEmpty())
+            {
+                description = "have no or any attributes with named arguments (always true)";
+                failDescription = (ruleType, architecture) =>
+                    "not have no or any attributes with named arguments (impossible)";
+            }
+            else
+            {
+                var firstArgument = argumentList.First();
+                description = argumentList.Where(attribute => attribute != firstArgument).Aggregate(
+                    "have any attributes with named arguments \"" + firstArgument.Item1 + "=" + firstArgument.Item2 +
+                    "\"",
+                    (current, arg) =>
+                        current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+
+
+                failDescription = (ruleType, architecture) =>
+                {
+                    var actualNamedArguments = ruleType.AttributeInstances
+                        .SelectMany(instance =>
+                            instance.AttributeArguments.OfType<AttributeNamedArgument>()).ToList();
+                    if (!actualNamedArguments.Any())
+                    {
+                        return "does have no attribute with a named argument";
+                    }
+
+                    var firstActualNamedArgument = actualNamedArguments.First();
+                    return actualNamedArguments.Aggregate(
+                        "does have attributes with named arguments \"" + firstActualNamedArgument.Name + "=" +
+                        firstActualNamedArgument.Value + "\"",
+                        (current, arg) =>
+                            current + " and \"" + arg.Name + "=" + arg.Value + "\"");
+                };
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                var attArguments = obj.AttributeInstances.SelectMany(instance =>
+                        instance.AttributeArguments.OfType<AttributeNamedArgument>()
+                            .Select(arg => (arg.Name, arg.Value)))
+                    .ToList();
+                var typeAttributeArguments = attArguments
+                    .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                foreach (var arg in argumentList)
+                {
+                    if (arg.Item2 is Type argType)
+                    {
+                        if (typeAttributeArguments.All(t =>
+                            t.Name != arg.Item1 ||
+                            t.Value is ITypeInstance<IType> typeInstance &&
+                            typeInstance.Type.FullName != argType.FullName ||
+                            t.Value is IType type && type.FullName != argType.FullName))
+                        {
+                            return false;
+                        }
+                    }
+                    else if (!attArguments.Contains(arg))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithNamedArguments([NotNull] string attribute,
+            IEnumerable<(string, object)> attributeArguments)
+        {
+            string description, failDescription;
+            var argumentList = attributeArguments.ToList();
+            if (argumentList.IsNullOrEmpty())
+            {
+                description = "have attribute \"" + attribute + "\"";
+                failDescription = "does not have attribute \"" + attribute + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentList.First();
+                description = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "have attribute \"" + attribute + "\" with named arguments \"" + firstArgument.Item1 +
+                    "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                failDescription = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "does not have attribute \"" + attribute + "\" with named arguments \"" +
+                    firstArgument.Item1 + "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.FullNameMatches(attribute))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var typeAttributeArguments = attributeArgs
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                    foreach (var arg in argumentList)
+                    {
+                        if (arg.Item2 is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t =>
+                                t.Name != arg.Item1 ||
+                                t.Value is ITypeInstance<IType> typeInstance &&
+                                typeInstance.Type.FullName != argType.FullName ||
+                                t.Value is IType type && type.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!argumentList.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return true;
+                    NextAttribute: ;
+                }
+
+                return false;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithNamedArguments([NotNull] Attribute attribute,
+            IEnumerable<(string, object)> attributeArguments)
+        {
+            string description, failDescription;
+            var argumentList = attributeArguments.ToList();
+            if (argumentList.IsNullOrEmpty())
+            {
+                description = "have attribute \"" + attribute.FullName + "\"";
+                failDescription = "does not have attribute \"" + attribute.FullName + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentList.First();
+                description = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "have attribute \"" + attribute.FullName + "\" with named arguments \"" + firstArgument.Item1 +
+                    "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                failDescription = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "does not have attribute \"" + attribute.FullName + "\" with named arguments \"" +
+                    firstArgument.Item1 + "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.Equals(attribute))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var typeAttributeArguments = attributeArgs
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                    foreach (var arg in argumentList)
+                    {
+                        if (arg.Item2 is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t =>
+                                t.Name != arg.Item1 ||
+                                t.Value is ITypeInstance<IType> typeInstance &&
+                                typeInstance.Type.FullName != argType.FullName ||
+                                t.Value is IType type && type.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!argumentList.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return true;
+                    NextAttribute: ;
+                }
+
+                return false;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> HaveAttributeWithNamedArguments([NotNull] Type attribute,
+            IEnumerable<(string, object)> attributeArguments)
+        {
+            string description, failDescription;
+            var argumentList = attributeArguments.ToList();
+            if (argumentList.IsNullOrEmpty())
+            {
+                description = "have attribute \"" + attribute.FullName + "\"";
+                failDescription = "does not have attribute \"" + attribute.FullName + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentList.First();
+                description = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "have attribute \"" + attribute.FullName + "\" with named arguments \"" + firstArgument.Item1 +
+                    "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                failDescription = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "does not have attribute \"" + attribute.FullName + "\" with named arguments \"" +
+                    firstArgument.Item1 + "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.Equals(architecture.GetAttributeOfType(attribute)))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var typeAttributeArguments = attributeArgs
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                    foreach (var arg in argumentList)
+                    {
+                        if (arg.Item2 is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t =>
+                                t.Name != arg.Item1 ||
+                                t.Value is ITypeInstance<IType> typeInstance &&
+                                typeInstance.Type.FullName != argType.FullName ||
+                                t.Value is IType type && type.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!argumentList.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return true;
+                    NextAttribute: ;
+                }
+
+                return false;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
 
         public static ICondition<TRuleType> HaveName(string name)
         {
@@ -1089,7 +1659,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
 
         //Relation Conditions
-        
+
 
         public static RelationCondition<TRuleType, IType> DependOnAnyTypesThat()
         {
@@ -1731,6 +2301,578 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new ArchitectureCondition<TRuleType>(Condition, description);
+        }
+
+        public static ICondition<TRuleType> NotHaveAnyAttributesWithArguments(object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            var argumentValues = new List<object> {firstArgumentValue};
+            argumentValues.AddRange(moreArgumentValues);
+            return NotHaveAnyAttributesWithArguments(argumentValues);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithArguments(string attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            var argumentValues = new List<object> {firstArgumentValue};
+            argumentValues.AddRange(moreArgumentValues);
+            return NotHaveAttributeWithArguments(attribute, argumentValues);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithArguments(Attribute attribute,
+            object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            var argumentValues = new List<object> {firstArgumentValue};
+            argumentValues.AddRange(moreArgumentValues);
+            return NotHaveAttributeWithArguments(attribute, argumentValues);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithArguments(Type attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            var argumentValues = new List<object> {firstArgumentValue};
+            argumentValues.AddRange(moreArgumentValues);
+            return NotHaveAttributeWithArguments(attribute, argumentValues);
+        }
+
+        public static ICondition<TRuleType> NotHaveAnyAttributesWithNamedArguments(
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments)
+        {
+            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            attributeArguments.AddRange(moreAttributeArguments);
+            return NotHaveAnyAttributesWithNamedArguments(attributeArguments);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(string attribute,
+            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        {
+            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            attributeArguments.AddRange(moreAttributeArguments);
+            return NotHaveAttributeWithNamedArguments(attribute, attributeArguments);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(Attribute attribute,
+            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        {
+            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            attributeArguments.AddRange(moreAttributeArguments);
+            return NotHaveAttributeWithNamedArguments(attribute, attributeArguments);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(Type attribute,
+            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        {
+            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            attributeArguments.AddRange(moreAttributeArguments);
+            return NotHaveAttributeWithNamedArguments(attribute, attributeArguments);
+        }
+
+        public static ICondition<TRuleType> NotHaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
+        {
+            var argumentValueList = argumentValues.ToList();
+            string description;
+            Func<TRuleType, Architecture, string> failDescription;
+            if (argumentValueList.IsNullOrEmpty())
+            {
+                description = "not have no or any attributes with arguments (impossible)";
+                failDescription = (ruleType, architecture) => "have no or any attributes with arguments (always)";
+            }
+            else
+            {
+                var firstArgument = argumentValueList.First();
+                description = argumentValueList.Where(attribute => attribute != firstArgument).Aggregate(
+                    "not have any attributes with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+
+
+                failDescription = (ruleType, architecture) =>
+                {
+                    var actualArgumentValues = ruleType.AttributeInstances
+                        .SelectMany(instance =>
+                            instance.AttributeArguments.Select(argument => argument.Value)).ToList();
+                    if (!actualArgumentValues.Any())
+                    {
+                        return "does have no attribute with an argument";
+                    }
+
+                    var firstActualArgumentValue = actualArgumentValues.First();
+                    return actualArgumentValues.Aggregate(
+                        "does have attributes with argument values \"" + firstActualArgumentValue + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                };
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                var attributeArguments = obj.AttributeInstances
+                    .SelectMany(instance => instance.AttributeArguments.Select(arg => arg.Value)).ToList();
+                var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
+                    .Union(attributeArguments.OfType<IType>()).ToList();
+                foreach (var arg in argumentValueList)
+                {
+                    if (arg is Type argType)
+                    {
+                        if (typeAttributeArguments.Any(t => t.FullName == argType.FullName))
+                        {
+                            return false;
+                        }
+                    }
+                    else if (attributeArguments.Contains(arg))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithArguments([NotNull] string attribute,
+            IEnumerable<object> argumentValues)
+        {
+            string description, failDescription;
+            var argumentValueList = argumentValues.ToList();
+            if (argumentValueList.IsNullOrEmpty())
+            {
+                description = "not have attribute \"" + attribute + "\"";
+                failDescription = "does have attribute \"" + attribute + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentValueList.First();
+                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "not have attribute \"" + attribute + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                failDescription = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "does have attribute \"" + attribute + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.FullNameMatches(attribute))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
+                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    foreach (var arg in argumentValueList)
+                    {
+                        if (arg is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!attributeArguments.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return false;
+                    NextAttribute: ;
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithArguments([NotNull] Attribute attribute,
+            IEnumerable<object> argumentValues)
+        {
+            string description, failDescription;
+            var argumentValueList = argumentValues.ToList();
+            if (argumentValueList.IsNullOrEmpty())
+            {
+                description = "not have attribute \"" + attribute.FullName + "\"";
+                failDescription = "does have attribute \"" + attribute.FullName + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentValueList.First();
+                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "not have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                failDescription = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "does have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.Equals(attribute))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
+                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    foreach (var arg in argumentValueList)
+                    {
+                        if (arg is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!attributeArguments.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return false;
+                    NextAttribute: ;
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithArguments([NotNull] Type attribute,
+            IEnumerable<object> argumentValues)
+        {
+            string description, failDescription;
+            var argumentValueList = argumentValues.ToList();
+            if (argumentValueList.IsNullOrEmpty())
+            {
+                description = "not have attribute \"" + attribute.FullName + "\"";
+                failDescription = "does have attribute \"" + attribute.FullName + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentValueList.First();
+                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "not have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                failDescription = argumentValueList.Where(att => att != firstArgument).Aggregate(
+                    "does have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
+                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.Equals(architecture.GetAttributeOfType(attribute)))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
+                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    foreach (var arg in argumentValueList)
+                    {
+                        if (arg is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!attributeArguments.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return false;
+                    NextAttribute: ;
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> NotHaveAnyAttributesWithNamedArguments(
+            IEnumerable<(string, object)> attributeArguments)
+        {
+            var argumentList = attributeArguments.ToList();
+            string description;
+            Func<TRuleType, Architecture, string> failDescription;
+            if (argumentList.IsNullOrEmpty())
+            {
+                description = "not have no or any attributes with named arguments (impossible)";
+                failDescription = (ruleType, architecture) =>
+                    "have no or any attributes with named arguments (always true)";
+            }
+            else
+            {
+                var firstArgument = argumentList.First();
+                description = argumentList.Where(attribute => attribute != firstArgument).Aggregate(
+                    "not have any attributes with named arguments \"" + firstArgument.Item1 + "=" +
+                    firstArgument.Item2 +
+                    "\"",
+                    (current, arg) =>
+                        current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+
+
+                failDescription = (ruleType, architecture) =>
+                {
+                    var actualNamedArguments = ruleType.AttributeInstances
+                        .SelectMany(instance =>
+                            instance.AttributeArguments.OfType<AttributeNamedArgument>()).ToList();
+                    if (!actualNamedArguments.Any())
+                    {
+                        return "does have no attribute with a named argument";
+                    }
+
+                    var firstActualNamedArgument = actualNamedArguments.First();
+                    return actualNamedArguments.Aggregate(
+                        "does have attributes with named arguments \"" + firstActualNamedArgument.Name + "=" +
+                        firstActualNamedArgument.Value + "\"",
+                        (current, arg) =>
+                            current + " and \"" + arg.Name + "=" + arg.Value + "\"");
+                };
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                var attArguments = obj.AttributeInstances.SelectMany(instance =>
+                        instance.AttributeArguments.OfType<AttributeNamedArgument>()
+                            .Select(arg => (arg.Name, arg.Value)))
+                    .ToList();
+                var typeAttributeArguments = attArguments
+                    .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                foreach (var arg in argumentList)
+                {
+                    if (arg.Item2 is Type argType)
+                    {
+                        if (typeAttributeArguments.Any(t =>
+                            t.Name == arg.Item1 &&
+                            (t.Value is ITypeInstance<IType> typeInstance &&
+                             typeInstance.Type.FullName == argType.FullName ||
+                             t.Value is IType type && type.FullName == argType.FullName)))
+                        {
+                            return false;
+                        }
+                    }
+                    else if (attArguments.Contains(arg))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments([NotNull] string attribute,
+            IEnumerable<(string, object)> attributeArguments)
+        {
+            string description, failDescription;
+            var argumentList = attributeArguments.ToList();
+            if (argumentList.IsNullOrEmpty())
+            {
+                description = "not have attribute \"" + attribute + "\"";
+                failDescription = "does have attribute \"" + attribute + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentList.First();
+                description = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "not have attribute \"" + attribute + "\" with named arguments \"" + firstArgument.Item1 +
+                    "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                failDescription = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "does have attribute \"" + attribute + "\" with named arguments \"" +
+                    firstArgument.Item1 + "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.FullNameMatches(attribute))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var typeAttributeArguments = attributeArgs
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                    foreach (var arg in argumentList)
+                    {
+                        if (arg.Item2 is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t => t.Name != arg.Item1 ||
+                                                                t.Value is ITypeInstance<IType> typeInstance &&
+                                                                typeInstance.Type.FullName != argType.FullName ||
+                                                                t.Value is IType type &&
+                                                                type.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!argumentList.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return false;
+                    NextAttribute: ;
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments([NotNull] Attribute attribute,
+            IEnumerable<(string, object)> attributeArguments)
+        {
+            string description, failDescription;
+            var argumentList = attributeArguments.ToList();
+            if (argumentList.IsNullOrEmpty())
+            {
+                description = "not have attribute \"" + attribute.FullName + "\"";
+                failDescription = "does have attribute \"" + attribute.FullName + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentList.First();
+                description = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "not have attribute \"" + attribute.FullName + "\" with named arguments \"" + firstArgument.Item1 +
+                    "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                failDescription = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "does have attribute \"" + attribute.FullName + "\" with named arguments \"" +
+                    firstArgument.Item1 + "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.Equals(attribute))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var typeAttributeArguments = attributeArgs
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                    foreach (var arg in argumentList)
+                    {
+                        if (arg.Item2 is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t => t.Name != arg.Item1 ||
+                                                                t.Value is ITypeInstance<IType> typeInstance &&
+                                                                typeInstance.Type.FullName != argType.FullName ||
+                                                                t.Value is IType type &&
+                                                                type.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!argumentList.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return false;
+                    NextAttribute: ;
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+        }
+
+        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments([NotNull] Type attribute,
+            IEnumerable<(string, object)> attributeArguments)
+        {
+            string description, failDescription;
+            var argumentList = attributeArguments.ToList();
+            if (argumentList.IsNullOrEmpty())
+            {
+                description = "not have attribute \"" + attribute.FullName + "\"";
+                failDescription = "does have attribute \"" + attribute.FullName + "\"";
+            }
+            else
+            {
+                var firstArgument = argumentList.First();
+                description = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "not have attribute \"" + attribute.FullName + "\" with named arguments \"" + firstArgument.Item1 +
+                    "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                failDescription = argumentList.Where(att => att != firstArgument).Aggregate(
+                    "does have attribute \"" + attribute.FullName + "\" with named arguments \"" +
+                    firstArgument.Item1 + "=" + firstArgument.Item2 + "\"",
+                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+            }
+
+            bool Condition(TRuleType obj, Architecture architecture)
+            {
+                foreach (var attributeInstance in obj.AttributeInstances)
+                {
+                    if (!attributeInstance.Type.Equals(architecture.GetAttributeOfType(attribute)))
+                    {
+                        goto NextAttribute;
+                    }
+
+                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var typeAttributeArguments = attributeArgs
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                    foreach (var arg in argumentList)
+                    {
+                        if (arg.Item2 is Type argType)
+                        {
+                            if (typeAttributeArguments.All(t => t.Name != arg.Item1 ||
+                                                                t.Value is ITypeInstance<IType> typeInstance &&
+                                                                typeInstance.Type.FullName != argType.FullName ||
+                                                                t.Value is IType type &&
+                                                                type.FullName != argType.FullName))
+                            {
+                                goto NextAttribute;
+                            }
+                        }
+                        else if (!argumentList.Contains(arg))
+                        {
+                            goto NextAttribute;
+                        }
+                    }
+
+                    return false;
+                    NextAttribute: ;
+                }
+
+                return true;
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
         public static ICondition<TRuleType> NotHaveName(string name)

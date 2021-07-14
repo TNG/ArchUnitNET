@@ -302,6 +302,126 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAnyAttributesWithArguments(argumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction
+            HaveAnyAttributesWithArguments(object firstArgumentValue, params object[] moreArgumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAnyAttributesWithArguments(firstArgumentValue,moreArgumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(string attribute, IEnumerable<object> argumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithArguments(attribute,argumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(string attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithArguments(attribute,firstArgumentValue,moreArgumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithArguments(attribute,argumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Attribute attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithArguments(attribute,firstArgumentValue,moreArgumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithArguments(attribute,argumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Type attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithArguments(attribute,firstArgumentValue,moreArgumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAnyAttributesWithNamedArguments(IEnumerable<(string, object)> attributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAnyAttributesWithNamedArguments(attributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAnyAttributesWithNamedArguments(firstAttributeArgument,moreAttributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(string attribute, IEnumerable<(string, object)> attributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithNamedArguments(attribute,attributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(string attribute, (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithNamedArguments(attribute,firstAttributeArgument,moreAttributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithNamedArguments(attribute,attributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Attribute attribute, (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithNamedArguments(attribute,firstAttributeArgument,moreAttributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithNamedArguments(attribute,attributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Type attribute, (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithNamedArguments(attribute,firstAttributeArgument,moreAttributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HaveName(string name)
         {
             _ruleCreator.ContinueComplexCondition(ObjectPredicatesDefinition<TReferenceType>.HaveName(name));
@@ -562,6 +682,126 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAnyAttributes(attributes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAnyAttributesWithArguments(argumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAnyAttributesWithArguments(object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAnyAttributesWithArguments(firstArgumentValue,moreArgumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAnyAttributesWithArguments(attribute,argumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithArguments(Attribute attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithArguments(attribute,firstArgumentValue,moreArgumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithArguments(attribute,argumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithArguments(Type attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithArguments(attribute,firstArgumentValue,moreArgumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAnyAttributesWithNamedArguments(IEnumerable<(string, object)> attributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAnyAttributesWithNamedArguments(attributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAnyAttributesWithNamedArguments(firstAttributeArgument,moreAttributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithArguments(string attribute, IEnumerable<object> argumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithArguments(attribute,argumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithArguments(string attribute, object firstArgumentValue,
+            params object[] moreArgumentValues)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithArguments(attribute,firstArgumentValue,moreArgumentValues));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithNamedArguments(string attribute, IEnumerable<(string, object)> attributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithNamedArguments(attribute,attributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithNamedArguments(string attribute,
+            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithNamedArguments(attribute,firstAttributeArgument,moreAttributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithNamedArguments(attribute,attributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithNamedArguments(Attribute attribute,
+            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithNamedArguments(attribute,firstAttributeArgument,moreAttributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithNamedArguments(attribute,attributeArguments));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithNamedArguments(Type attribute, (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithNamedArguments(attribute,firstAttributeArgument,moreAttributeArguments));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
