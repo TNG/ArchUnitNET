@@ -94,7 +94,7 @@ namespace ArchUnitNET.Domain.PlantUml
         private ISet<string> GetComponentNames(ISet<PlantUmlComponent> associatedComponents)
         {
             ISet<string> associatedComponentNames = new HashSet<string>();
-            foreach (PlantUmlComponent associatedComponent in associatedComponents.OrderBy(component => component.ComponentName))
+            foreach (PlantUmlComponent associatedComponent in associatedComponents.OrderBy(component => component.ComponentName.AsString()))
             {
                 associatedComponentNames.Add(associatedComponent.ComponentName.AsString());
             }
