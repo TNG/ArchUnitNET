@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
 
@@ -31,7 +32,8 @@ namespace ArchUnitNET.Domain
         public Namespace Namespace => Type.Namespace;
         public Assembly Assembly => Type.Assembly;
 
-        public List<Attribute> Attributes { get; } = new List<Attribute>();
+        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public List<AttributeInstance> AttributeInstances => Type.AttributeInstances;
 
         public List<ITypeDependency> Dependencies => Type.Dependencies;
         public List<ITypeDependency> BackwardsDependencies => Type.BackwardsDependencies;

@@ -118,7 +118,7 @@ namespace ArchUnitNET.Domain.Extensions
 
         public static Attribute GetAttributeOfType(this IType type, Class attributeClass)
         {
-            return type.Attributes.Find(attribute => attribute.FullName.Equals(attributeClass.FullName));
+            return type.Attributes.FirstOrDefault(attribute => attribute.FullName.Equals(attributeClass.FullName));
         }
 
         public static bool ResidesInNamespace(this IType e, string pattern, bool useRegularExpressions = false)

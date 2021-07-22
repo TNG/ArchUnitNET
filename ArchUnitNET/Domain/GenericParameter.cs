@@ -48,7 +48,8 @@ namespace ArchUnitNET.Domain
         public string Name { get; }
         public string FullName => _declarerFullName + "+<" + Name + ">";
         public bool IsCompilerGenerated { get; }
-        public List<Attribute> Attributes { get; } = new List<Attribute>();
+        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public List<AttributeInstance> AttributeInstances { get; } =  new List<AttributeInstance>();
 
         public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
         public List<ITypeDependency> BackwardsDependencies { get; } = new List<ITypeDependency>();

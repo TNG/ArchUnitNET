@@ -49,7 +49,8 @@ namespace ArchUnitNET.Loader
 
         public bool IsStub { get; }
         public MemberList Members { get; } = new MemberList();
-        public List<Attribute> Attributes { get; } = new List<Attribute>();
+        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public List<AttributeInstance> AttributeInstances { get; } =  new List<AttributeInstance>();
 
         public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
 

@@ -77,7 +77,8 @@ namespace ArchUnitNET.Domain
         public List<ITypeDependency> Dependencies => Type.Dependencies;
         public List<ITypeDependency> BackwardsDependencies => Type.BackwardsDependencies;
 
-        public List<Attribute> Attributes { get; } = new List<Attribute>();
+        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public List<AttributeInstance> AttributeInstances => Type.AttributeInstances;
 
         public IEnumerable<IType> ImplementedInterfaces => Type.ImplementedInterfaces;
         public MemberList Members => Type.Members;

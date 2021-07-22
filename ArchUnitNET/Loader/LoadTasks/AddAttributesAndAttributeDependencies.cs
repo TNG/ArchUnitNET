@@ -32,9 +32,10 @@ namespace ArchUnitNET.Loader.LoadTasks
             _typeDefinition.CustomAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
             var typeAttributeInstances =
                 CreateAttributesFromCustomAttributes(_typeDefinition.CustomAttributes).ToList();
-            _type.Attributes.AddRange(typeAttributeInstances.Select(instance => instance.Type));
+            _type.AttributeInstances.AddRange(typeAttributeInstances);
             var typeAttributeDependencies =
-                typeAttributeInstances.Select(attribute => new AttributeTypeDependency(_type, attribute));
+                typeAttributeInstances.Select(
+                    attributeInstance => new AttributeTypeDependency(_type, attributeInstance));
             _type.Dependencies.AddRange(typeAttributeDependencies);
             SetUpAttributesForTypeGenericParameters();
             CollectAttributesForMembers();
@@ -47,11 +48,10 @@ namespace ArchUnitNET.Loader.LoadTasks
                 var param = _type.GenericParameters.First(parameter => parameter.Name == genericParameter.Name);
                 var attributeInstances =
                     CreateAttributesFromCustomAttributes(genericParameter.CustomAttributes).ToList();
-                var attributes = attributeInstances.Select(instance => instance.Type).ToList();
-                _type.Attributes.AddRange(attributes);
-                param.Attributes.AddRange(attributes);
-                var genericParameterAttributeDependencies = attributeInstances.Select(attribute =>
-                    new AttributeTypeDependency(_type, attribute));
+                _type.AttributeInstances.AddRange(attributeInstances);
+                param.AttributeInstances.AddRange(attributeInstances);
+                var genericParameterAttributeDependencies = attributeInstances.Select(attributeInstance =>
+                    new AttributeTypeDependency(_type, attributeInstance));
                 _type.Dependencies.AddRange(genericParameterAttributeDependencies);
             }
         }
@@ -101,11 +101,10 @@ namespace ArchUnitNET.Loader.LoadTasks
                 var customAttributes = genericParameter.CustomAttributes;
                 customAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
                 var attributeInstances = CreateAttributesFromCustomAttributes(customAttributes).ToList();
-                var attributes = attributeInstances.Select(instance => instance.Type).ToList();
-                methodMember.Attributes.AddRange(attributes);
-                param.Attributes.AddRange(attributes);
-                var genericParameterAttributeDependencies = attributeInstances.Select(attribute =>
-                    new AttributeMemberDependency(methodMember, attribute));
+                methodMember.AttributeInstances.AddRange(attributeInstances);
+                param.AttributeInstances.AddRange(attributeInstances);
+                var genericParameterAttributeDependencies = attributeInstances.Select(attributeInstance =>
+                    new AttributeMemberDependency(methodMember, attributeInstance));
                 methodMember.MemberDependencies.AddRange(genericParameterAttributeDependencies);
             }
         }
@@ -115,35 +114,73 @@ namespace ArchUnitNET.Loader.LoadTasks
         {
             memberCustomAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
             var memberAttributeInstances = CreateAttributesFromCustomAttributes(memberCustomAttributes).ToList();
-            methodMember.Attributes.AddRange(memberAttributeInstances.Select(instance => instance.Type));
+            methodMember.AttributeInstances.AddRange(memberAttributeInstances);
             var methodAttributeDependencies = CreateMemberAttributeDependencies(methodMember, memberAttributeInstances);
             attributeDependencies.AddRange(methodAttributeDependencies);
         }
 
         [NotNull]
-        private IEnumerable<TypeInstance<Attribute>> CreateAttributesFromCustomAttributes(
+        private IEnumerable<AttributeInstance> CreateAttributesFromCustomAttributes(
             IEnumerable<CustomAttribute> customAttributes)
         {
             return customAttributes.Select(customAttribute =>
             {
                 var attributeTypeReference = customAttribute.AttributeType;
                 var attributeType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(attributeTypeReference);
-                if (attributeType.Type is Class cls)
+                var attribute = attributeType.Type is Class cls
+                    ? new Attribute(cls)
+                    : new Attribute(attributeType.Type, null, null);
+
+                var attributeArguments = new List<AttributeArgument>();
+
+                foreach (var constructorArgument in customAttribute.ConstructorArguments)
                 {
-                    return new TypeInstance<Attribute>(new Attribute(cls),
-                        attributeType.GenericArguments, attributeType.ArrayDimensions);
+                    HandleAttributeArgument(constructorArgument, out var value, out var type);
+                    attributeArguments.Add(new AttributeArgument(value, type));
                 }
 
-                return new TypeInstance<Attribute>(new Attribute(attributeType.Type, null, null),
-                    attributeType.GenericArguments, attributeType.ArrayDimensions);
+                foreach (var namedArgument in customAttribute.Fields.Concat(customAttribute.Properties))
+                {
+                    var name = namedArgument.Name;
+                    HandleAttributeArgument(namedArgument.Argument, out var value, out var type);
+                    attributeArguments.Add(new AttributeNamedArgument(name, value, type));
+                }
+
+                return new AttributeInstance(attribute, attributeArguments);
             });
+        }
+
+        private void HandleAttributeArgument(CustomAttributeArgument argument, out object value,
+            out ITypeInstance<IType> type)
+        {
+            while (argument.Value is CustomAttributeArgument arg) //if would work too
+            {
+                argument = arg;
+            }
+
+            type = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(argument.Type);
+
+            if (type.IsArray)
+            {
+                value = (from arrayMember in (CustomAttributeArgument[]) argument.Value
+                        select arrayMember.Value is TypeReference tr
+                            ? _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
+                            : arrayMember.Value)
+                    .ToArray();
+            }
+            else
+            {
+                value = argument.Value is TypeReference tr
+                    ? _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
+                    : argument.Value;
+            }
         }
 
         [NotNull]
         private static IEnumerable<AttributeMemberDependency> CreateMemberAttributeDependencies(IMember member,
-            IEnumerable<TypeInstance<Attribute>> attributes)
+            IEnumerable<AttributeInstance> attributes)
         {
-            return attributes.Select(attribute => new AttributeMemberDependency(member, attribute));
+            return attributes.Select(attributeInstance => new AttributeMemberDependency(member, attributeInstance));
         }
 
         private void AddAttributeArgumentReferenceDependenciesToOriginType(ICustomAttribute customAttribute)
