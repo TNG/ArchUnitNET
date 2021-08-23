@@ -161,6 +161,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        public static ICondition<TRuleType> BeStatic()
+        {
+            return new SimpleCondition<TRuleType>(member => !member.IsStatic.HasValue || member.IsStatic.Value,
+                "be static", "is not static");
+        }
+
 
         //Relation Conditions
 
@@ -319,6 +325,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             return new ArchitectureCondition<TRuleType>(Condition, description);
+        }
+
+        public static ICondition<TRuleType> NotBeStatic()
+        {
+            return new SimpleCondition<TRuleType>(member => !member.IsStatic.HasValue || !member.IsStatic.Value,
+                "not be static", "is static");
         }
 
 

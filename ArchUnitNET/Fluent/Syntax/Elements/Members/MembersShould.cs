@@ -67,6 +67,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction BeStatic()
+        {
+            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.BeStatic());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         //Relation Conditions
 
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeDeclaredInTypesThat()
@@ -123,6 +129,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction NotBeDeclaredIn(IEnumerable<Type> types)
         {
             _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeStatic()
+        {
+            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeStatic());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

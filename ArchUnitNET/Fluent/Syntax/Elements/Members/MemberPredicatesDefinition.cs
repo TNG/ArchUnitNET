@@ -136,6 +136,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
+        public static IPredicate<T> AreStatic()
+        {
+            return new SimplePredicate<T>(member => member.IsStatic.HasValue && member.IsStatic.Value, "are static");
+        }
+
 
         //Negations
 
@@ -259,6 +264,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             return new ArchitecturePredicate<T>(Condition, description);
+        }
+
+        public static IPredicate<T> AreNotStatic()
+        {
+            return new SimplePredicate<T>(member => member.IsStatic.HasValue && !member.IsStatic.Value,
+                "are not static");
         }
     }
 }

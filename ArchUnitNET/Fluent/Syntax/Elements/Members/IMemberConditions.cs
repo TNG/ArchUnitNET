@@ -20,6 +20,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         TReturnType BeDeclaredIn(IObjectProvider<IType> types);
         TReturnType BeDeclaredIn(IEnumerable<IType> types);
         TReturnType BeDeclaredIn(IEnumerable<Type> types);
+        TReturnType BeStatic();
 
 
         //Negations
@@ -31,5 +32,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         TReturnType NotBeDeclaredIn(IObjectProvider<IType> types);
         TReturnType NotBeDeclaredIn(IEnumerable<IType> types);
         TReturnType NotBeDeclaredIn(IEnumerable<Type> types);
+        TReturnType NotBeStatic();
     }
 }
