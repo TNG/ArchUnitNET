@@ -160,5 +160,19 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.True(allMembersAreNotDeclaredInEmptyTypeMultiple2.HasNoViolations(Architecture));
             Assert.True(allMembersAreNotDeclaredInEmptyTypeMultiplePattern.HasNoViolations(Architecture));
         }
+
+        [Fact]
+        public void IsStaticTest()
+        {
+            var correctIsStatic = Members().That().AreStatic().Should().BeStatic();
+            var correctIsStatic2 = Members().That().AreNotStatic().Should().NotBeStatic();
+            var wrongStatic = Members().That().AreStatic().Should().NotBeStatic();
+            var wrongStatic2 = Members().That().AreNotStatic().Should().BeStatic();
+
+            Assert.True(correctIsStatic.HasNoViolations(Architecture));
+            Assert.True(correctIsStatic2.HasNoViolations(Architecture));
+            Assert.False(wrongStatic.HasNoViolations(Architecture));
+            Assert.False(wrongStatic2.HasNoViolations(Architecture));
+        }
     }
 }
