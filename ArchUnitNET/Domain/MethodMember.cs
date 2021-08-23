@@ -16,7 +16,7 @@ namespace ArchUnitNET.Domain
 
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
             ITypeInstance<IType> returnType, bool isVirtual, MethodForm methodForm, bool isGeneric, bool isStub,
-            bool isCompilerGenerated, bool? isIterator)
+            bool isCompilerGenerated, bool? isIterator, bool? isStatic)
         {
             Name = name;
             FullName = fullName;
@@ -29,6 +29,7 @@ namespace ArchUnitNET.Domain
             IsStub = isStub;
             IsCompilerGenerated = isCompilerGenerated;
             IsIterator = isIterator;
+            IsStatic = isStatic;
         }
 
         public bool IsVirtual { get; }
@@ -41,10 +42,11 @@ namespace ArchUnitNET.Domain
         public bool IsCompilerGenerated { get; }
         public bool? IsIterator { get; }
         public bool IsGeneric { get; }
+        public bool? IsStatic { get; }
         public List<GenericParameter> GenericParameters { get; } = new List<GenericParameter>();
         public Visibility Visibility { get; }
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
-        public List<AttributeInstance> AttributeInstances { get; } =  new List<AttributeInstance>();
+        public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
         public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>().ToList();

@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Loader;
 using static ArchUnitNET.Domain.Visibility;
 using Assembly = ArchUnitNET.Domain.Assembly;
 using Type = ArchUnitNET.Loader.Type;
@@ -120,6 +119,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var declaringType = methodBase.DeclaringType.CreateStubClass();
             var parameters = methodBase.CreateStubParameters().Select(parameter => new TypeInstance<IType>(parameter));
             var methodForm = methodBase.GetStubMethodForm();
+            var isStatic = methodBase.IsStatic;
 
             var isGeneric = methodBase.IsGenericMethod;
 
@@ -141,7 +141,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
             }
 
             var methodMember = new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility,
-                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false, false,false);
+                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false, false, false, isStatic);
 
             methodMember.ParameterInstances.AddRange(parameters);
             return methodMember;

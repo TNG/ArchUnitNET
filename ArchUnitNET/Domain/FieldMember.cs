@@ -15,7 +15,7 @@ namespace ArchUnitNET.Domain
         private readonly ITypeInstance<IType> _typeInstance;
 
         public FieldMember(IType declaringType, string name, string fullName, Visibility visibility,
-            ITypeInstance<IType> typeInstance, bool isCompilerGenerated)
+            ITypeInstance<IType> typeInstance, bool isCompilerGenerated, bool? isStatic)
         {
             DeclaringType = declaringType;
             Name = name;
@@ -23,6 +23,7 @@ namespace ArchUnitNET.Domain
             Visibility = visibility;
             IsCompilerGenerated = isCompilerGenerated;
             _typeInstance = typeInstance;
+            IsStatic = isStatic;
         }
 
         public Visibility Visibility { get; }
@@ -32,10 +33,11 @@ namespace ArchUnitNET.Domain
         public string FullName { get; }
 
         public bool IsCompilerGenerated { get; }
+        public bool? IsStatic { get; }
         public bool IsGeneric => false;
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
-        public List<AttributeInstance> AttributeInstances { get; } =  new List<AttributeInstance>();
+        public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
         public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
         public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
         public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>().ToList();

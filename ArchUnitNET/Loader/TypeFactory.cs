@@ -168,7 +168,7 @@ namespace ArchUnitNET.Loader
                 var arrayType = typeDefinition.Fields.First(field => field.Name == "FixedElementField").FieldType;
                 var arrayTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(arrayType);
                 var dimensions = new List<int> {1};
-                
+
                 switch (arrayTypeInstance.Type)
                 {
                     case Interface intf:
@@ -256,6 +256,7 @@ namespace ArchUnitNET.Loader
             Visibility visibility;
             bool isStub;
             bool? isIterator;
+            bool? isStatic;
 
             MethodDefinition methodDefinition;
             try
@@ -272,6 +273,7 @@ namespace ArchUnitNET.Loader
                 visibility = Public;
                 methodForm = methodReference.HasConstructorName() ? MethodForm.Constructor : MethodForm.Normal;
                 isIterator = null;
+                isStatic = null;
                 isStub = true;
             }
             else
@@ -279,11 +281,12 @@ namespace ArchUnitNET.Loader
                 visibility = methodDefinition.GetVisibility();
                 methodForm = methodDefinition.GetMethodForm();
                 isIterator = methodDefinition.IsIterator();
+                isStatic = methodDefinition.IsStatic;
                 isStub = false;
             }
 
             var methodMember = new MethodMember(name, fullName, typeInstance.Type, visibility, returnType,
-                false, methodForm, isGeneric, isStub, isCompilerGenerated, isIterator);
+                false, methodForm, isGeneric, isStub, isCompilerGenerated, isIterator, isStatic);
 
             var parameters = methodReference.GetParameters(this).ToList();
             methodMember.ParameterInstances.AddRange(parameters);
@@ -302,9 +305,14 @@ namespace ArchUnitNET.Loader
             var typeReference = fieldReference.FieldType;
             var fieldType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var isCompilerGenerated = fieldReference.IsCompilerGenerated();
+            bool? isStatic = null;
+            if (fieldReference is FieldDefinition fieldDefinition)
+            {
+                isStatic = fieldDefinition.IsStatic;
+            }
 
             return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType,
-                isCompilerGenerated);
+                isCompilerGenerated, isStatic);
         }
 
         public IEnumerable<GenericParameter> GetGenericParameters(IGenericParameterProvider genericParameterProvider)

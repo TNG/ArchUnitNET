@@ -54,7 +54,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             var isCompilerGenerated = fieldDefinition.IsCompilerGenerated();
 
             return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, visibility, fieldType,
-                isCompilerGenerated);
+                isCompilerGenerated, fieldDefinition.IsStatic);
         }
 
         [NotNull]
@@ -63,9 +63,11 @@ namespace ArchUnitNET.Loader.LoadTasks
             var typeReference = propertyDefinition.PropertyType;
             var propertyType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var isCompilerGenerated = propertyDefinition.IsCompilerGenerated();
+            var isStatic = (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic) ||
+                           (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
 
             return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType,
-                isCompilerGenerated);
+                isCompilerGenerated, isStatic);
         }
 
         private static Visibility GetVisibilityFromFieldDefinition([NotNull] FieldDefinition fieldDefinition)
