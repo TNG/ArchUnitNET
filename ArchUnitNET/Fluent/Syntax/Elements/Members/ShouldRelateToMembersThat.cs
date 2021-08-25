@@ -69,6 +69,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction AreStatic()
+        {
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreStatic());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         //Negations
 
@@ -117,6 +123,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction AreNotDeclaredIn(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotDeclaredIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotStatic()
+        {
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotStatic());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

@@ -14,5 +14,6 @@ namespace ArchUnitNET.Domain
         IType DeclaringType { get; }
         List<IMemberTypeDependency> MemberDependencies { get; }
         List<IMemberTypeDependency> MemberBackwardsDependencies { get; }
+        bool? IsStatic { get; }
     }
 }

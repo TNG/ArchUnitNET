@@ -17,7 +17,7 @@ namespace ArchUnitNET.Domain
         private readonly ITypeInstance<IType> _typeInstance;
 
         public PropertyMember(IType declaringType, string name, string fullName, ITypeInstance<IType> type,
-            bool isCompilerGenerated)
+            bool isCompilerGenerated, bool? isStatic)
         {
             Name = name;
             FullName = fullName;
@@ -25,6 +25,7 @@ namespace ArchUnitNET.Domain
             DeclaringType = declaringType;
             IsCompilerGenerated = isCompilerGenerated;
             PropertyTypeDependency = new PropertyTypeDependency(this);
+            IsStatic = isStatic;
         }
 
         public bool IsVirtual { get; internal set; }
@@ -42,6 +43,7 @@ namespace ArchUnitNET.Domain
         public bool IsCompilerGenerated { get; }
 
         public bool IsGeneric => false;
+        public bool? IsStatic { get; }
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
 
         public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;
@@ -49,7 +51,7 @@ namespace ArchUnitNET.Domain
         public string FullName { get; }
         public IType DeclaringType { get; }
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
-        public List<AttributeInstance> AttributeInstances { get; } =  new List<AttributeInstance>();
+        public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
 
         public List<IMemberTypeDependency> MemberDependencies
         {

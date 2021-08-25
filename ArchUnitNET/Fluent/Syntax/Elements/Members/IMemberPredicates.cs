@@ -21,6 +21,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         TRuleTypeConjunction AreDeclaredIn(IObjectProvider<IType> types);
         TRuleTypeConjunction AreDeclaredIn(IEnumerable<IType> types);
         TRuleTypeConjunction AreDeclaredIn(IEnumerable<Type> types);
+        TRuleTypeConjunction AreStatic();
 
         //Negations
 
@@ -32,5 +33,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         TRuleTypeConjunction AreNotDeclaredIn(IObjectProvider<IType> types);
         TRuleTypeConjunction AreNotDeclaredIn(IEnumerable<IType> types);
         TRuleTypeConjunction AreNotDeclaredIn(IEnumerable<Type> types);
+        TRuleTypeConjunction AreNotStatic();
     }
 }
