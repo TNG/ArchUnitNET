@@ -20,5 +20,10 @@ namespace ArchUnitNET.Loader
             return RegistryUtils.GetFromDictOrCreateAndAdd(assemblyName, _assemblies,
                 s => new Assembly(assemblyName, assemblyFullName, isOnlyReferenced));
         }
+
+        public bool ContainsAssembly(string assemblyName)
+        {
+            return _assemblies.ContainsKey(assemblyName);
+        }
     }
 }

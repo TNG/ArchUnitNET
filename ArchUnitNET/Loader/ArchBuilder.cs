@@ -44,8 +44,13 @@ namespace ArchUnitNET.Loader
 
         public void AddAssembly([NotNull] AssemblyDefinition moduleAssembly, bool isOnlyReferenced)
         {
-            _assemblyRegistry.GetOrCreateAssembly(moduleAssembly.Name.FullName, moduleAssembly.FullName,
-                isOnlyReferenced);
+            if (!_assemblyRegistry.ContainsAssembly(moduleAssembly.Name.FullName))
+            {
+                var assembly = _assemblyRegistry.GetOrCreateAssembly(moduleAssembly.Name.FullName,
+                    moduleAssembly.FullName, isOnlyReferenced);
+                _loadTaskRegistry.Add(typeof(CollectAssemblyAttributes),
+                    new CollectAssemblyAttributes(assembly, moduleAssembly, _typeFactory));
+            }
         }
 
         public void LoadTypesForModule(ModuleDefinition module, string namespaceFilter)
@@ -94,6 +99,7 @@ namespace ArchUnitNET.Loader
                 typeof(AddMembers),
                 typeof(AddGenericParameterDependencies),
                 typeof(AddAttributesAndAttributeDependencies),
+                typeof(CollectAssemblyAttributes),
                 typeof(AddFieldAndPropertyDependencies),
                 typeof(AddMethodDependencies),
                 typeof(AddGenericArgumentDependencies),
