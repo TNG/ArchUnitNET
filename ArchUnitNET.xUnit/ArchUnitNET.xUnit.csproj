@@ -15,14 +15,20 @@
         <IsTestProject>false</IsTestProject>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+        <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="xunit.assert" Version="2.4.1" />
+        <PackageReference Include="xunit.assert" Version="2.4.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../README.md" Pack="true" PackagePath=""/>
+        <None Include="../Logo/ArchUnitNET-Logo.png" Pack="true" PackagePath="/Logo/"/>
     </ItemGroup>
 
 </Project>

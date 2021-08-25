@@ -15,14 +15,20 @@
         <IsTestProject>false</IsTestProject>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="nunit" Version="3.13.2" />
+        <PackageReference Include="nunit" Version="3.13.2"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+        <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../README.md" Pack="true" PackagePath=""/>
+        <None Include="../Logo/ArchUnitNET-Logo.png" Pack="true" PackagePath="/Logo/"/>
     </ItemGroup>
 
 </Project>
