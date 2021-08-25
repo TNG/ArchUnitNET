@@ -1,8 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>Latest</LangVersion>
-    <IsPackable>false</IsPackable>
-    <Product>TestAssembly</Product>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>Latest</LangVersion>
+        <IsPackable>false</IsPackable>
+        <Product>TestAssembly</Product>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="TestAssembly.AssemblyTestAttribute">
+            <_Parameter1>TestParameter</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
 </Project>

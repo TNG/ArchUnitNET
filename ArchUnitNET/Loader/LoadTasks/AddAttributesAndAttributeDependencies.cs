@@ -120,60 +120,10 @@ namespace ArchUnitNET.Loader.LoadTasks
         }
 
         [NotNull]
-        private IEnumerable<AttributeInstance> CreateAttributesFromCustomAttributes(
+        public IEnumerable<AttributeInstance> CreateAttributesFromCustomAttributes(
             IEnumerable<CustomAttribute> customAttributes)
         {
-            return customAttributes.Select(customAttribute =>
-            {
-                var attributeTypeReference = customAttribute.AttributeType;
-                var attributeType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(attributeTypeReference);
-                var attribute = attributeType.Type is Class cls
-                    ? new Attribute(cls)
-                    : new Attribute(attributeType.Type, null, null);
-
-                var attributeArguments = new List<AttributeArgument>();
-
-                foreach (var constructorArgument in customAttribute.ConstructorArguments)
-                {
-                    HandleAttributeArgument(constructorArgument, out var value, out var type);
-                    attributeArguments.Add(new AttributeArgument(value, type));
-                }
-
-                foreach (var namedArgument in customAttribute.Fields.Concat(customAttribute.Properties))
-                {
-                    var name = namedArgument.Name;
-                    HandleAttributeArgument(namedArgument.Argument, out var value, out var type);
-                    attributeArguments.Add(new AttributeNamedArgument(name, value, type));
-                }
-
-                return new AttributeInstance(attribute, attributeArguments);
-            });
-        }
-
-        private void HandleAttributeArgument(CustomAttributeArgument argument, out object value,
-            out ITypeInstance<IType> type)
-        {
-            while (argument.Value is CustomAttributeArgument arg) //if would work too
-            {
-                argument = arg;
-            }
-
-            type = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(argument.Type);
-
-            if (type.IsArray)
-            {
-                value = (from arrayMember in (CustomAttributeArgument[]) argument.Value
-                        select arrayMember.Value is TypeReference tr
-                            ? _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
-                            : arrayMember.Value)
-                    .ToArray();
-            }
-            else
-            {
-                value = argument.Value is TypeReference tr
-                    ? _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
-                    : argument.Value;
-            }
+            return customAttributes.Select(attr => attr.CreateAttributeFromCustomAttribute(_typeFactory));
         }
 
         [NotNull]

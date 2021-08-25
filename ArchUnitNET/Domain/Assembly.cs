@@ -4,9 +4,12 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace ArchUnitNET.Domain
 {
-    public class Assembly : IHasName
+    public class Assembly : IHasName, IHasAttributes
     {
         public Assembly(string name, string fullName, bool isOnlyReferenced)
         {
@@ -19,6 +22,9 @@ namespace ArchUnitNET.Domain
 
         public string Name { get; }
         public string FullName { get; }
+
+        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
 
         public bool Equals(Assembly other)
         {
