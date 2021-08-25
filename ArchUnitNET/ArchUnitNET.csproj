@@ -10,12 +10,12 @@
         <Company>TNG Technology Consulting GmbH</Company>
         <Description>C# Version of ArchUnit (see: archunit.org)</Description>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <PackageReleaseNotes>Initial release of the fluent API</PackageReleaseNotes>
         <PackageTags>test;arch;archunit;xunit;nunit</PackageTags>
         <IncludeSource>False</IncludeSource>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
     
     <ItemGroup>
@@ -27,6 +27,7 @@
     </ItemGroup>
     
     <ItemGroup>
+        <None Include="../README.md" Pack="true" PackagePath=""/>
         <None Remove="License.md" />
     </ItemGroup>
     

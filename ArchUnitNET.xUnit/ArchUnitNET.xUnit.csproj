@@ -9,7 +9,6 @@
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
         <PackageTags>test;arch;archunit;xunit</PackageTags>
-        <PackageReleaseNotes>Initial release</PackageReleaseNotes>
         <IncludeSource>False</IncludeSource>
         <Company>TNG Technology Consulting GmbH</Company>
         <PackageId>TngTech.ArchUnitNET.xUnit</PackageId>
