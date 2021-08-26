@@ -428,10 +428,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveNameMatching(string pattern)
+        public TRuleTypeShouldConjunction HaveNameMatching(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.HaveNameMatching(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.HaveNameMatching(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -441,10 +441,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction HaveFullNameMatching(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.HaveFullNameMatching(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.HaveFullNameMatching(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -811,10 +811,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveNameMatching(string pattern)
+        public TRuleTypeShouldConjunction DoNotHaveNameMatching(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveNameMatching(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveNameMatching(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -825,10 +825,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveFullNameMatching(string pattern)
+        public TRuleTypeShouldConjunction DoNotHaveFullNameMatching(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveFullNameMatching(pattern));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveFullNameMatching(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

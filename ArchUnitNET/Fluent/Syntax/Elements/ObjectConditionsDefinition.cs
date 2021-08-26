@@ -1569,11 +1569,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 obj => obj.Name.Equals(name), obj => "does have name " + obj.Name, "have name \"" + name + "\"");
         }
 
-        public static SimpleCondition<TRuleType> HaveNameMatching(string pattern)
+        public static SimpleCondition<TRuleType> HaveNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            return new SimpleCondition<TRuleType>(obj => obj.NameMatches(pattern),
+            return new SimpleCondition<TRuleType>(obj => obj.NameMatches(pattern, useRegularExpressions),
                 obj => "does have name " + obj.Name,
-                "have full name matching \"" + pattern + "\"");
+                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
         }
 
 
@@ -1584,11 +1584,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "have full name \"" + fullname + "\"");
         }
 
-        public static ICondition<TRuleType> HaveFullNameMatching(string pattern)
+        public static ICondition<TRuleType> HaveFullNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            return new SimpleCondition<TRuleType>(obj => obj.FullNameMatches(pattern),
+            return new SimpleCondition<TRuleType>(obj => obj.FullNameMatches(pattern, useRegularExpressions),
                 obj => "does have full name " + obj.FullName,
-                "have full name matching \"" + pattern + "\"");
+                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> HaveNameStartingWith(string pattern)
@@ -2881,10 +2881,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "not have name \"" + name + "\"");
         }
 
-        public static ICondition<TRuleType> NotHaveNameMatching(string pattern)
+        public static ICondition<TRuleType> NotHaveNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            return new SimpleCondition<TRuleType>(obj => !obj.NameMatches(pattern), obj => "does have name " + obj.Name,
-                "not have name matching \"" + pattern + "\"");
+            return new SimpleCondition<TRuleType>(obj => !obj.NameMatches(pattern, useRegularExpressions), obj => "does have name " + obj.Name,
+                "not have name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotHaveFullName(string fullname)
@@ -2893,11 +2893,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 obj => "does have full name " + obj.FullName, "not have full name \"" + fullname + "\"");
         }
 
-        public static ICondition<TRuleType> NotHaveFullNameMatching(string pattern)
+        public static ICondition<TRuleType> NotHaveFullNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            return new SimpleCondition<TRuleType>(obj => !obj.FullNameMatches(pattern),
+            return new SimpleCondition<TRuleType>(obj => !obj.FullNameMatches(pattern, useRegularExpressions),
                 obj => "does have full name " + obj.FullName,
-                "not have full name matching \"" + pattern + "\"");
+                "not have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotHaveNameStartingWith(string pattern)

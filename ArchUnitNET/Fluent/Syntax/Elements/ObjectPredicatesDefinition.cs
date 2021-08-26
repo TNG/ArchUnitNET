@@ -1113,9 +1113,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimplePredicate<T>(obj => obj.Name.Equals(name), "have name \"" + name + "\"");
         }
 
-        public static IPredicate<T> HaveNameMatching(string pattern)
+        public static IPredicate<T> HaveNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.NameMatches(pattern), "have name matching \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => obj.NameMatches(pattern, useRegularExpressions),
+                "have name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
         }
 
         public static IPredicate<T> HaveFullName(string fullname)
@@ -1123,10 +1124,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimplePredicate<T>(obj => obj.FullName.Equals(fullname), "have full name \"" + fullname + "\"");
         }
 
-        public static IPredicate<T> HaveFullNameMatching(string pattern)
+        public static IPredicate<T> HaveFullNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.FullNameMatches(pattern),
-                "have full name matching \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => obj.FullNameMatches(pattern, useRegularExpressions),
+                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
         }
 
         public static IPredicate<T> HaveNameStartingWith(string pattern)
@@ -2062,10 +2063,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimplePredicate<T>(obj => !obj.Name.Equals(name), "do not have name \"" + name + "\"");
         }
 
-        public static IPredicate<T> DoNotHaveNameMatching(string pattern)
+        public static IPredicate<T> DoNotHaveNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => !obj.NameMatches(pattern),
-                "do not have name matching \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => !obj.NameMatches(pattern, useRegularExpressions),
+                "do not have name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotHaveFullName(string fullname)
@@ -2074,10 +2075,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "do not have full name \"" + fullname + "\"");
         }
 
-        public static IPredicate<T> DoNotHaveFullNameMatching(string pattern)
+        public static IPredicate<T> DoNotHaveFullNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => !obj.FullNameMatches(pattern),
-                "do not have full name matching \"" + pattern + "\"");
+            return new SimplePredicate<T>(obj => !obj.FullNameMatches(pattern, useRegularExpressions),
+                "do not have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotHaveNameStartingWith(string pattern)
