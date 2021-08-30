@@ -388,9 +388,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveNameMatching(string pattern)
+        public TGivenRuleTypeConjunction HaveNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveNameMatching(pattern));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveNameMatching(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -400,9 +400,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveFullNameMatching(string pattern)
+        public TGivenRuleTypeConjunction HaveFullNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveFullNameMatching(pattern));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveFullNameMatching(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -738,9 +738,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotHaveNameMatching(string pattern)
+        public TGivenRuleTypeConjunction DoNotHaveNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveNameMatching(pattern));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveNameMatching(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -750,9 +750,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotHaveFullNameMatching(string pattern)
+        public TGivenRuleTypeConjunction DoNotHaveFullNameMatching(string pattern, bool useRegularExpressions = false)
         {
-            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveFullNameMatching(pattern));
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveFullNameMatching(pattern, useRegularExpressions));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
