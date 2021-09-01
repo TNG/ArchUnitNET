@@ -2,9 +2,10 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <LangVersion>7.2</LangVersion>
         <Company>TNG Technology Consulting GmbH</Company>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>8</LangVersion>
+        <Features>strict</Features>
     </PropertyGroup>
 
     <ItemGroup>

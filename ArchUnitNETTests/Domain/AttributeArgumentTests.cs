@@ -270,10 +270,11 @@ namespace ArchUnitNETTests.Domain
 
     internal class AttributeWithObjectParameter : Attribute
     {
-        public AttributeWithObjectParameter(object type)
-        {
-            Type = type;
-        }
+        public AttributeWithObjectParameter(params object?[]? arguments)
+        {}
+
+        public AttributeWithObjectParameter(object? arg)
+        {}
 
         public object Type { get; }
         public object Type2;
@@ -283,7 +284,7 @@ namespace ArchUnitNETTests.Domain
     [AttributeWithStringParameters("param1_0")]
     [AttributeWithStringParameters("param1_1", Parameter2 = "param2_1")]
     [AttributeWithStringParameters("param1_2", "param2_2", Parameter3 = "param3_2")]
-    [AttributeWithObjectParameter(1)]
+    [AttributeWithObjectParameter(null)]
     internal class ClassWithMultipleAttributesWithParameters
     {
     }
