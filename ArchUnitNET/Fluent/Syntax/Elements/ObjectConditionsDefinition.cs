@@ -1059,7 +1059,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
         {
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             string description;
             Func<TRuleType, Architecture, string> failDescription;
             if (argumentValueList.IsNullOrEmpty())
@@ -1124,7 +1124,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description, failDescription;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "have attribute \"" + attribute + "\"";
@@ -1182,7 +1182,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description, failDescription;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "have attribute \"" + attribute.FullName + "\"";
@@ -1240,7 +1240,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description, failDescription;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "have attribute \"" + attribute.FullName + "\"";
@@ -2371,7 +2371,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static ICondition<TRuleType> NotHaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
         {
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             string description;
             Func<TRuleType, Architecture, string> failDescription;
             if (argumentValueList.IsNullOrEmpty())
@@ -2435,7 +2435,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description, failDescription;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "not have attribute \"" + attribute + "\"";
@@ -2493,7 +2493,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description, failDescription;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "not have attribute \"" + attribute.FullName + "\"";
@@ -2551,7 +2551,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description, failDescription;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "not have attribute \"" + attribute.FullName + "\"";
