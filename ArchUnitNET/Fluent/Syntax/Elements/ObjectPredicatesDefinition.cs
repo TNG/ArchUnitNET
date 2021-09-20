@@ -673,7 +673,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
         {
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             string description;
             if (argumentValueList.IsNullOrEmpty())
             {
@@ -718,7 +718,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "have attribute \"" + attribute + "\"";
@@ -772,7 +772,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "have attribute \"" + attribute.FullName + "\"";
@@ -826,7 +826,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "have attribute \"" + attribute.FullName + "\"";
@@ -1620,7 +1620,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotHaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
         {
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             string description;
             if (argumentValueList.IsNullOrEmpty())
             {
@@ -1665,7 +1665,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "do not have attribute \"" + attribute + "\"";
@@ -1719,7 +1719,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "do not have attribute \"" + attribute.FullName + "\"";
@@ -1773,7 +1773,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues)
         {
             string description;
-            var argumentValueList = argumentValues.ToList();
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "do not have attribute \"" + attribute.FullName + "\"";

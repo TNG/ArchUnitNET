@@ -112,7 +112,7 @@ namespace ArchUnitNETTests.Domain
                 .HaveAnyAttributesWithNamedArguments(("Parameter2", "param2_1"), ("Parameter3", "param3_2")).Should()
                 .Exist().Check(Architecture);
             Types().That().Are(typeof(ClassWithMultipleAttributesWithParameters)).And()
-                .HaveAnyAttributesWithArguments(1).Should()
+                .HaveAnyAttributesWithArguments(null).Should()
                 .Exist().Check(Architecture);
             Types().That().Are(typeof(ClassWithTypeParameterAttribute)).And()
                 .HaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute)).Should()
@@ -151,7 +151,7 @@ namespace ArchUnitNETTests.Domain
                 .Should()
                 .NotExist().Check(Architecture);
             Types().That().Are(typeof(ClassWithMultipleAttributesWithParameters)).And()
-                .DoNotHaveAnyAttributesWithArguments(1).Should()
+                .DoNotHaveAnyAttributesWithArguments(null).Should()
                 .NotExist().Check(Architecture);
             Types().That().Are(typeof(ClassWithTypeParameterAttribute)).And()
                 .DoNotHaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute)).Should()
@@ -188,7 +188,7 @@ namespace ArchUnitNETTests.Domain
                 .HaveAnyAttributesWithNamedArguments(("Parameter2", "param2_1"), ("Parameter3", "param3_2"))
                 .Check(Architecture);
             Types().That().Are(typeof(ClassWithMultipleAttributesWithParameters)).Should()
-                .HaveAnyAttributesWithArguments(1).Check(Architecture);
+                .HaveAnyAttributesWithArguments(null).Check(Architecture);
             Types().That().Are(typeof(ClassWithTypeParameterAttribute)).Should()
                 .HaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute)).Check(Architecture);
             Types().That().Are(typeof(ClassWithTypeParameterAttribute)).Should()
@@ -227,7 +227,7 @@ namespace ArchUnitNETTests.Domain
                 .Check(Architecture));
             Assert.Throws<FailedArchRuleException>(() => Types().That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters)).Should()
-                .NotHaveAnyAttributesWithArguments(1).Check(Architecture));
+                .NotHaveAnyAttributesWithArguments(null).Check(Architecture));
             Assert.Throws<FailedArchRuleException>(() => Types().That().Are(typeof(ClassWithTypeParameterAttribute))
                 .Should()
                 .NotHaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute)).Check(Architecture));
@@ -270,9 +270,12 @@ namespace ArchUnitNETTests.Domain
 
     internal class AttributeWithObjectParameter : Attribute
     {
-        public AttributeWithObjectParameter(object type)
+        public AttributeWithObjectParameter(params object[] arguments)
         {
-            Type = type;
+        }
+
+        public AttributeWithObjectParameter(object arg)
+        {
         }
 
         public object Type { get; }
@@ -283,7 +286,7 @@ namespace ArchUnitNETTests.Domain
     [AttributeWithStringParameters("param1_0")]
     [AttributeWithStringParameters("param1_1", Parameter2 = "param2_1")]
     [AttributeWithStringParameters("param1_2", "param2_2", Parameter3 = "param3_2")]
-    [AttributeWithObjectParameter(1)]
+    [AttributeWithObjectParameter(null)]
     internal class ClassWithMultipleAttributesWithParameters
     {
     }
