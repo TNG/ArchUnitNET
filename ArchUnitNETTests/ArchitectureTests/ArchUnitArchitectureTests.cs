@@ -7,6 +7,7 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
 using Xunit;
@@ -23,11 +24,19 @@ namespace ArchUnitNETTests.ArchitectureTests
         private readonly Architecture _architecture =
             new ArchLoader().LoadAssembly(typeof(Architecture).Assembly).Build();
 
-        [Fact(Skip = "Need more refactoring")]
-        public void DomainHasNoDependencyOnFluentAndLoader()
+        [Fact]
+        public void DomainHasNoDependencyOnFluent()
         {
             Types().That().ResideInNamespace(DomainNamespace)
-                .Should().NotDependOnAny(new[] {LoaderNamespace, FluentNamespace})
+                .Should().NotDependOnAny(FluentNamespace)
+                .Check(_architecture);
+        }
+
+        [Fact]
+        public void DomainHasNoDependencyOnLoader()
+        {
+            Types().That().ResideInNamespace(DomainNamespace)
+                .Should().NotDependOnAny(LoaderNamespace)
                 .Check(_architecture);
         }
 
@@ -45,6 +54,12 @@ namespace ArchUnitNETTests.ArchitectureTests
             Types().That().ResideInNamespace(FluentNamespace)
                 .Should().NotDependOnAny(LoaderNamespace)
                 .Check(_architecture);
+        }
+
+        [Fact]
+        public void NoCircularDependencies()
+        {
+            SliceRuleDefinition.Slices().Matching("ArchUnitNET.(*)").Should().BeFreeOfCycles().Check(_architecture);
         }
     }
 }

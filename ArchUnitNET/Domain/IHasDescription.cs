@@ -4,7 +4,7 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Domain
 {
     public interface IHasDescription
     {

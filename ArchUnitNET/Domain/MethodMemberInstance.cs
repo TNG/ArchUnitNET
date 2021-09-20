@@ -7,9 +7,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Domain;
 
-namespace ArchUnitNET.Loader
+namespace ArchUnitNET.Domain
 {
     public class MethodMemberInstance : ITypeInstance<IType>
     {

@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
