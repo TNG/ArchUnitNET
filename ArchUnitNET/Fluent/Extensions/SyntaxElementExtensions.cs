@@ -4,6 +4,8 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using ArchUnitNET.Domain;
+
 namespace ArchUnitNET.Fluent.Extensions
 {
     public static class SyntaxElementExtensions

@@ -5,9 +5,8 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
-using ArchUnitNET.Domain;
 
-namespace ArchUnitNET.Fluent
+namespace ArchUnitNET.Domain
 {
     public interface IObjectProvider<out T> : IHasDescription where T : ICanBeAnalyzed
     {
