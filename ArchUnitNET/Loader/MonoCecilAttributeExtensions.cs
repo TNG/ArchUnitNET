@@ -53,12 +53,12 @@ namespace ArchUnitNET.Loader
 
             type = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(argument.Type);
 
-            if (type.IsArray)
+            if (argument.Value is IEnumerable<CustomAttributeArgument> attArgEnumerable)
             {
-                value = (from arrayMember in (CustomAttributeArgument[]) argument.Value
-                        select arrayMember.Value is TypeReference tr
+                value = (from attArg in attArgEnumerable
+                        select attArg.Value is TypeReference tr
                             ? typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
-                            : arrayMember.Value)
+                            : attArg.Value)
                     .ToArray();
             }
             else
