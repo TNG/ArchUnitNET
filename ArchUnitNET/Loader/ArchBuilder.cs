@@ -57,22 +57,21 @@ namespace ArchUnitNET.Loader
         {
             _architectureCacheKey.Add(module.Name, namespaceFilter);
 
-            ICollection<TypeDefinition> types;
+            var types = module.Types.First().FullName.Contains("<Module>")
+                ? module.Types.Skip(1).ToList()
+                : module.Types.ToList();
 
-            if (module.Types.First().FullName.Contains("<Module>"))
+            var nestedTypes = types;
+            var depth = 0;
+            do
             {
-                types = module.Types.Skip(1).ToList();
-            }
-            else
-            {
-                types = module.Types;
-            }
+                depth++;
+                nestedTypes = nestedTypes.SelectMany(typeDefinition =>
+                    typeDefinition.NestedTypes.Where(type => !type.IsCompilerGenerated())).ToList();
+                types.AddRange(nestedTypes);
+            } while (nestedTypes.Any() && depth < 10);
 
-
-            var allTypes = types.Concat(types.SelectMany(typeDefinition =>
-                typeDefinition.NestedTypes.Where(type => !type.IsCompilerGenerated())));
-            allTypes
-                .Where(typeDefinition => RegexUtils.MatchNamespaces(namespaceFilter,
+            types.Where(typeDefinition => RegexUtils.MatchNamespaces(namespaceFilter,
                     typeDefinition.Namespace))
                 .ForEach(typeDefinition =>
                 {
