@@ -62,14 +62,12 @@ namespace ArchUnitNET.Loader
                 : module.Types.ToList();
 
             var nestedTypes = types;
-            var depth = 0;
-            do
+            while (nestedTypes.Any())
             {
-                depth++;
                 nestedTypes = nestedTypes.SelectMany(typeDefinition =>
                     typeDefinition.NestedTypes.Where(type => !type.IsCompilerGenerated())).ToList();
                 types.AddRange(nestedTypes);
-            } while (nestedTypes.Any() && depth < 10);
+            }
 
             types.Where(typeDefinition => RegexUtils.MatchNamespaces(namespaceFilter,
                     typeDefinition.Namespace))
