@@ -61,6 +61,10 @@ namespace ArchUnitNET.Loader
                 ? module.Types.Skip(1).ToList()
                 : module.Types.ToList();
 
+            types = types.Where(t => t.FullName != "Microsoft.CodeAnalysis.EmbeddedAttribute" &&
+                                     t.FullName != "System.Runtime.CompilerServices.NullableAttribute" &&
+                                     t.FullName != "System.Runtime.CompilerServices.NullableContextAttribute").ToList();
+
             var nestedTypes = types;
             while (nestedTypes.Any())
             {
