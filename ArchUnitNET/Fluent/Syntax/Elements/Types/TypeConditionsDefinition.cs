@@ -353,18 +353,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 var dynamicFailDescription = "does depend on";
 
                 //Prevent failDescriptions like "does depend on X and does depend on X and does depend on Y and does depend on Y
-                var failDescriptionCache = new List<string>();
-
-                foreach (var dependency in ruleType.GetTypeDependencies())
+                var ruleTypeDependencies = ruleType.GetTypeDependencies().GroupBy(p => p.FullName).Select(g => g.First());
+                foreach (var dependency in ruleTypeDependencies)
                 {
                     if (classDiagramAssociation.Contains(dependency)
                         && !allAllowedTargets.Any(pattern => dependency.FullNameMatches(pattern, true)))
                     {
-                        if (!failDescriptionCache.Contains(dependency.FullName))
-                        {
-                            dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
-                            failDescriptionCache.Add(dependency.FullName);
-                        }
+                        dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
 
                         pass = false;
                     }
