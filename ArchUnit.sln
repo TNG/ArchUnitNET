@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAssembly", "TestAssembly\TestAssembly.csproj", "{7DEF5F34-AB86-457B-819D-5E7387B3FF87}"
 EndProject
@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET.NUnit", "ArchUn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET.NUnitTests", "ArchUnitNET.NUnitTests\ArchUnitNET.NUnitTests.csproj", "{D2AB683F-0A64-491E-9C56-EE98588C493C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.MSTestV2", "ArchUnitNET.MSTestV2\ArchUnitNET.MSTestV2.csproj", "{3D057987-358A-41C6-AF55-6490FCA5875F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET.MSTestV2", "ArchUnitNET.MSTestV2\ArchUnitNET.MSTestV2.csproj", "{3D057987-358A-41C6-AF55-6490FCA5875F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.MSTestV2Tests", "ArchUnitNET.MSTestV2Tests\ArchUnitNET.MSTestV2Tests.csproj", "{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET.MSTestV2Tests", "ArchUnitNET.MSTestV2Tests\ArchUnitNET.MSTestV2Tests.csproj", "{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNet.MSTest.CheckErrormessages", "ArchUnitNet.MSTest.CheckErrormessages\ArchUnitNet.MSTest.CheckErrormessages.csproj", "{1AB84ED6-92CD-4B03-ACB1-BD04E6CABAED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,8 +65,15 @@ Global
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AB84ED6-92CD-4B03-ACB1-BD04E6CABAED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB84ED6-92CD-4B03-ACB1-BD04E6CABAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB84ED6-92CD-4B03-ACB1-BD04E6CABAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB84ED6-92CD-4B03-ACB1-BD04E6CABAED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D8045DD-06E3-4ACF-BB1F-54AED4F124E0}
 	EndGlobalSection
 EndGlobal
