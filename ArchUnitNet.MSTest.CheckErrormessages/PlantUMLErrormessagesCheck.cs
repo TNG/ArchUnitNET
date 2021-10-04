@@ -111,9 +111,9 @@ namespace ArchUnitNet.MSTest.CheckErrormessages
             errormessage = null;
 
             var groups = splittedMessages.GroupBy(x => x.Trim().Trim('\t'));
-            var duplications = groups.Where(x => (x.Count() > 1 
-            && !String.IsNullOrWhiteSpace(x.FirstOrDefault()))
-            || firstError.Contains(x.FirstOrDefault()));
+            var duplications = groups.Where(x => !String.IsNullOrWhiteSpace(x.FirstOrDefault()) 
+            && (x.Count() > 1 || firstError.Contains(x.First())));
+            
 
             //Checks if any group contains multiple elements
             //true if it contains any duplications
