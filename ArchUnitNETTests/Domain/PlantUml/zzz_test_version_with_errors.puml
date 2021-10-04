@@ -12,15 +12,15 @@ skinparam component {
   BackgroundColor #white
 }
 
-[Addresses] <<ExampleTest.PlantUml.Addresses.*>>
-[Customers] <<ExampleTest.PlantUml.Customers.*>>
-[Orders] <<ExampleTest.PlantUml.Orders.*>>
-[Products] <<ExampleTest.PlantUml.Product.*>>
-[Product Catalog] <<ExampleTest.PlantUml.Catalog.*>> as catalog
-[Product Import] <<ExampleTest.PlantUml.Importer.*>> as import
+[Addresses] <<TestAssembly.PlantUml.Addresses.*>>
+[Customers] <<TestAssembly.PlantUml.Customers.*>>
+[Orders] <<TestAssembly.PlantUml.Orders.*>>
+[Products] <<TestAssembly.PlantUml.Product.*>>
+[Product Catalog] <<TestAssembly.PlantUml.Catalog.*>> as catalog
+[Product Import] <<TestAssembly.PlantUml.Importer.*>> as import
 
 ' Could be some random comment
-[XML] <<ExampleTest.PlantUml.XML.Processor.*>> <<xampleTest.PlantUml.XML.Types.*>> as xml
+[XML] <<TestAssembly.PlantUml.XML.Processor.*>> <<TestAssembly.PlantUml.XML.Types.*>> as xml
 
 'Causes Error
 [Addresses] <-[#blue]- catalog
