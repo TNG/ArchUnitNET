@@ -348,13 +348,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     .Concat(classDiagramAssociation.GetTargetNamespaceIdentifiers(ruleType))
                     .ToList());
 
+
                 var pass = true;
                 var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
+
+                //Prevent failDescriptions like "does depend on X and does depend on X and does depend on Y and does depend on Y
+                var ruleTypeDependencies = ruleType.GetTypeDependencies().GroupBy(p => p.FullName).Select(g => g.First());
+                foreach (var dependency in ruleTypeDependencies)
                 {
-                    if (classDiagramAssociation.Contains(dependency) && !allAllowedTargets.Any(pattern => dependency.FullNameMatches(pattern, true)))
+                    if (classDiagramAssociation.Contains(dependency)
+                        && !allAllowedTargets.Any(pattern => dependency.FullNameMatches(pattern, true)))
                     {
                         dynamicFailDescription += pass ? " " + dependency.FullName : " and " + dependency.FullName;
+
                         pass = false;
                     }
                 }

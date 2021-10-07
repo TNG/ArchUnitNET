@@ -1,0 +1,50 @@
+﻿@startuml
+
+
+' !!! Test Version !!!
+' This PlantUML Diagram will cause errors when you run the ArchUnitNet PLantUML Test
+' It is made to check the errormessages that you will get when the codebase architecture does not match the architecture of the PUML
+' Unlogical or wrong dependencies are made on purpose
+
+skinparam componentStyle uml2
+skinparam component {
+  BorderColor #grey
+  BackgroundColor #white
+}
+
+[Addresses] <<TestAssembly.PlantUml.Addresses.*>>
+[Customers] <<TestAssembly.PlantUml.Customers.*>>
+[Orders] <<TestAssembly.PlantUml.Orders.*>>
+[Products] <<TestAssembly.PlantUml.Product.*>>
+[Product Catalog] <<TestAssembly.PlantUml.Catalog.*>> as catalog
+[Product Import] <<TestAssembly.PlantUml.Importer.*>> as import
+
+' Could be some random comment
+[XML] <<TestAssembly.PlantUml.XML.Processor.*>> <<TestAssembly.PlantUml.XML.Types.*>> as xml
+
+'Causes Error
+[Addresses] <-[#blue]- catalog
+
+'Causes Error
+[Orders] <-[#blue]- [Customers] : is placed by
+[Orders] --> [Products]
+[Orders] --> [Addresses]
+
+'Causes Error
+[Customers] <-[#blue]- [Addresses]
+[Customers] --> [Products]
+
+
+[Products] <--[#green]- catalog
+
+'Causes Error
+catalog <-[#blue]- [Orders]
+
+import -left-> catalog : parse products
+import --> xml
+'Causes Error
+import <-[#blue]- [Customers]
+
+note top on link #lightgreen: is responsible for translating XML to csharp classes
+
+@enduml

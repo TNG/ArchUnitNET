@@ -8,14 +8,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj" />
-      <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
+        <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj"/>
+        <ProjectReference Include="..\TestAssembly\TestAssembly.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
-      <PackageReference Include="xunit" Version="2.4.1" />
-      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4"/>
+        <PackageReference Include="xunit" Version="2.4.1"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Domain\PlantUml\zzz_test_version_with_errors.puml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
