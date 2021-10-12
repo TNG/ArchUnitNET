@@ -174,6 +174,28 @@ IArchRule someRule = ...;
 bool checkedRule = someRule.HasNoViolations(Architecture);
 Assert.True(checkedRule);
 ```
+### 4.3 PlantUML Component Diagrams as rules
+ArchUnitNET can derive dependency rules from PlantUML diagrams. The rule can be created in the following way:
+```
+String myDiagram = "./Resources/my-diagram.puml";
+IArchRule someRule = Types().Should().AdhereToPlantUmlDiagram(myDiagram);
+someRule.Check(Architecture);
+```
+The diagrams must be component diagrams and associate types to components via stereotypes. 
+```
+@startuml
+[Model] <<Model.*>>
+[Controller] <<Controller.*>>
+
+[Controller] --> [Model]
+@enduml
+``` 
+Consider this diagram applied as a rule via AdhereToPlantUmlDiagram(..), then a class that resides in the namespace Model accessing a class in the namepace Controller would be reported as a violation.
+
+Only dependencies specified in the PlantUML diagram are considered. So any unknown dependency (e.g.  View.*) will be ignored.
+#### 4.3.1 PlantUML Diagram rules
+The rules that a PlantUML diagram used with ArchUnitNet must abide can be found in the [ArchUnit documentation](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2). In contrast to ArchUnit ArchUnitNet uses a regex as the namespace identifier instead of the two dots syntax.
+
 
 ## 5. Further Reading and Examples
 A complete overview of all available methods can be found [here](additional.md).
