@@ -5,6 +5,8 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
+using ArchUnitNET.Loader;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using Xunit;
 using static ArchUnitNETTests.StaticTestArchitectures;
 
@@ -21,6 +23,16 @@ namespace ArchUnitNETTests.Loader
             Assert.NotEmpty(FullArchUnitNETArchitectureWithDependencies.Assemblies);
             Assert.NotEmpty(ArchUnitNETTestArchitectureWithDependencies.Assemblies);
             Assert.NotEmpty(ArchUnitNETTestAssemblyArchitectureWithDependencies.Assemblies);
+        }
+
+        [Fact(Skip = "This takes very long.")]
+        public void LoadAssembliesIncludingRecursiveDependencies()
+        {
+            var archUnitNetTestArchitectureWithRecursiveDependencies =
+                new ArchLoader().LoadAssembliesIncludingDependencies(new[] { typeof(BaseClass).Assembly }, true)
+                    .Build();
+
+            Assert.True(archUnitNetTestArchitectureWithRecursiveDependencies.Assemblies.Count() > 100);
         }
     }
 }
