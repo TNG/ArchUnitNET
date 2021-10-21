@@ -5,18 +5,18 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
+using ArchUnitNET.Fluent.Slices;
 
 namespace ArchUnitNET.Domain
 {
-    public class Namespace : Slice<string>, IHasName
+    public class Namespace : Slice, IHasName
     {
-        public Namespace(string name, List<IType> types) : base(name, types)
+        public Namespace(string name, IEnumerable<IType> types) : base(SliceIdentifier.Of(name), types)
         {
         }
 
-        public string Name => SliceKey;
-
-        public string FullName => Name;
+        public string Name => Description;
+        public string FullName => Description;
 
         public override string ToString()
         {

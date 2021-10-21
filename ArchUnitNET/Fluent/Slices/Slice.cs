@@ -23,11 +23,48 @@ namespace ArchUnitNET.Fluent.Slices
             Types = types;
         }
 
+        public IEnumerable<Class> Classes => Types.OfType<Class>();
+        public IEnumerable<Interface> Interfaces => Types.OfType<Interface>();
+
         public List<ITypeDependency> Dependencies => Types.SelectMany(type => type.Dependencies).ToList();
 
         public List<ITypeDependency> BackwardsDependencies =>
             Types.SelectMany(type => type.BackwardsDependencies).ToList();
 
         public string Description => Identifier.Description;
+
+        protected bool Equals(Slice other)
+        {
+            return Equals(Identifier, other.Identifier) && Equals(Types, other.Types);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((Slice)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Identifier != null ? Identifier.GetHashCode() : 0) * 397) ^
+                       (Types != null ? Types.GetHashCode() : 0);
+            }
+        }
     }
 }

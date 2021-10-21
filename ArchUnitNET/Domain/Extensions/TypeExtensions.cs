@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
+using ArchUnitNET.Fluent.Slices;
 
 namespace ArchUnitNET.Domain.Extensions
 {
@@ -17,10 +18,10 @@ namespace ArchUnitNET.Domain.Extensions
             return type.NameStartsWith("<>f__AnonymousType");
         }
 
-        public static IEnumerable<Slice<string>> SlicedBy(this IEnumerable<IType> source, string fullName)
+        public static IEnumerable<Slice> SlicedBy(this IEnumerable<IType> source, string fullName)
         {
             return source.GroupBy(type => type.FullName)
-                .Select(sliceItems => new Slice<string>(sliceItems.Key, sliceItems.ToList()));
+                .Select(sliceItems => new Slice(SliceIdentifier.Of(sliceItems.Key), sliceItems.ToList()));
         }
 
         public static IEnumerable<IType> GetAssignableTypes(this IType type)
@@ -28,9 +29,9 @@ namespace ArchUnitNET.Domain.Extensions
             switch (type)
             {
                 case Interface intf:
-                    return intf.ImplementedInterfaces.Concat(new[] {intf});
+                    return intf.ImplementedInterfaces.Concat(new[] { intf });
                 case Class cls:
-                    return cls.InheritedClasses.Concat(new[] {cls}).Concat(cls.ImplementedInterfaces);
+                    return cls.InheritedClasses.Concat(new[] { cls }).Concat(cls.ImplementedInterfaces);
                 default:
                     return Enumerable.Empty<IType>();
             }
