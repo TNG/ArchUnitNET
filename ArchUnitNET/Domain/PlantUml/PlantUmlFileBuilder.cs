@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ArchUnitNET.Fluent.Slices;
 
 namespace ArchUnitNET.Domain.PlantUml
 {
@@ -66,13 +65,6 @@ namespace ArchUnitNET.Domain.PlantUml
             return WithDependenciesFrom(slices, slice => slice.Description,
                 type =>
                     (from slice in slices where slice.Types.Contains(type) select slice.Description).FirstOrDefault());
-        }
-
-        public PlantUmlFileBuilder WithDependenciesFrom(IEnumerable<Namespace> namespaces)
-        {
-            return WithDependenciesFrom(namespaces, ns => ns.FullName,
-                type =>
-                    (from ns in namespaces where ns.Types.Contains(type) select ns.FullName).FirstOrDefault());
         }
 
         public PlantUmlFileBuilder WithDependenciesFrom<T>(IEnumerable<T> objects,
