@@ -12,7 +12,7 @@ using ArchUnitNET.Domain.Dependencies;
 
 namespace ArchUnitNET.Fluent.Slices
 {
-    public class Slice : IHasDescription
+    public class Slice : IHasDescription, IHasDependencies
     {
         public readonly SliceIdentifier Identifier;
         public readonly IEnumerable<IType> Types;
@@ -23,7 +23,11 @@ namespace ArchUnitNET.Fluent.Slices
             Types = types;
         }
 
-        public IEnumerable<ITypeDependency> Dependencies => Types.SelectMany(type => type.Dependencies);
+        public List<ITypeDependency> Dependencies => Types.SelectMany(type => type.Dependencies).ToList();
+
+        public List<ITypeDependency> BackwardsDependencies =>
+            Types.SelectMany(type => type.BackwardsDependencies).ToList();
+
         public string Description => Identifier.Description;
     }
 }
