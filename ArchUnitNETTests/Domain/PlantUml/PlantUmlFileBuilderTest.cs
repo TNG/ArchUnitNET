@@ -74,6 +74,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies, "d", "");
             var uml = builder.Build();
             Assert.NotEmpty(uml);
+
+            const string expectedUml = "@startuml\r\n[d]\r\n[a] --> [b]\r\n[b] --> [c]\r\n[c] --> [a]\r\n@enduml\r\n";
+            Assert.Equal(expectedUml, uml);
         }
     }
 }
