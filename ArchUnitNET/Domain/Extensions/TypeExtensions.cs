@@ -7,7 +7,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
-using ArchUnitNET.Fluent.Slices;
 
 namespace ArchUnitNET.Domain.Extensions
 {

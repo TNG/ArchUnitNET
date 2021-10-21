@@ -5,7 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
-namespace ArchUnitNET.Fluent.Freeze
+namespace ArchUnitNET.Domain
 {
     public class StringIdentifier
     {
@@ -24,7 +24,7 @@ namespace ArchUnitNET.Fluent.Freeze
         public override bool Equals(object obj)
         {
             return obj != null && obj.GetType() == GetType() &&
-                   Identifier == ((StringIdentifier) obj).Identifier;
+                   Identifier == ((StringIdentifier)obj).Identifier;
         }
 
         public override int GetHashCode()

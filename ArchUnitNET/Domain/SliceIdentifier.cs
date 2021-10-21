@@ -5,10 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
-using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Freeze;
-
-namespace ArchUnitNET.Fluent.Slices
+namespace ArchUnitNET.Domain
 {
     public class SliceIdentifier : StringIdentifier, IHasDescription
     {
@@ -65,7 +62,7 @@ namespace ArchUnitNET.Fluent.Slices
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((SliceIdentifier) obj);
+            return obj.GetType() == GetType() && Equals((SliceIdentifier)obj);
         }
 
         public override int GetHashCode()

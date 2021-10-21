@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace ArchUnitNET.Fluent.Slices
+namespace ArchUnitNET.Domain
 {
     public class SliceIdentifierComparer : IEqualityComparer<SliceIdentifier>
     {

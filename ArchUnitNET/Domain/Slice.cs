@@ -7,10 +7,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 
-namespace ArchUnitNET.Fluent.Slices
+namespace ArchUnitNET.Domain
 {
     public class Slice : IHasDescription, IHasDependencies
     {
