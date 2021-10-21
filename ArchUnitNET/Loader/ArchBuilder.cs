@@ -123,7 +123,8 @@ namespace ArchUnitNET.Loader
             var allTypes = _typeFactory.GetAllNonCompilerGeneratedTypes().ToList();
             var genericParameters = allTypes.OfType<GenericParameter>().ToList();
             var referencedTypes = allTypes.Except(Types).Except(genericParameters);
-            var newArchitecture = new Architecture(Assemblies, Namespaces, Types, genericParameters, referencedTypes);
+            var namespaces = Namespaces.Where(ns => ns.Types.Any());
+            var newArchitecture = new Architecture(Assemblies, namespaces, Types, genericParameters, referencedTypes);
             _architectureCache.Add(_architectureCacheKey, newArchitecture);
             return newArchitecture;
         }
