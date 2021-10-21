@@ -65,5 +65,10 @@ namespace ArchUnitNET.Domain
                        (Types != null ? Types.GetHashCode() : 0);
             }
         }
+
+        public override string ToString()
+        {
+            return Description;
+        }
     }
 }

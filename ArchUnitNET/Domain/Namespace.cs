@@ -16,10 +16,5 @@ namespace ArchUnitNET.Domain
 
         public string Name => Description;
         public string FullName => Description;
-
-        public override string ToString()
-        {
-            return FullName;
-        }
     }
 }
