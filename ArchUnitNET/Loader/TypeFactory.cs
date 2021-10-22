@@ -74,7 +74,7 @@ namespace ArchUnitNET.Loader
         {
             if (typeReference.IsGenericParameter)
             {
-                var genericParameter = (Mono.Cecil.GenericParameter) typeReference;
+                var genericParameter = (Mono.Cecil.GenericParameter)typeReference;
                 var declarerIsMethod = genericParameter.Type == GenericParameterType.Method;
                 var declaringTypeFullName = declarerIsMethod
                     ? genericParameter.DeclaringMethod.BuildFullName()
@@ -90,7 +90,7 @@ namespace ArchUnitNET.Loader
                 var dimensions = new List<int>();
                 do
                 {
-                    var arrayType = (ArrayType) typeReference;
+                    var arrayType = (ArrayType)typeReference;
                     dimensions.Add(arrayType.Rank);
                     typeReference = arrayType.ElementType;
                 } while (typeReference.IsArray);
@@ -113,7 +113,7 @@ namespace ArchUnitNET.Loader
             if (typeReference.IsGenericInstance)
             {
                 var elementType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference.GetElementType()).Type;
-                var genericInstance = (GenericInstanceType) typeReference;
+                var genericInstance = (GenericInstanceType)typeReference;
                 var genericArguments = genericInstance.GenericArguments
                     .Select(CreateGenericArgumentFromTypeReference)
                     .Where(argument => !argument.Type.IsCompilerGenerated);
@@ -142,9 +142,13 @@ namespace ArchUnitNET.Loader
             }
 
             var typeName = typeReference.BuildFullName();
-            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(typeReference.IsNested
-                ? typeReference.DeclaringType.Namespace
-                : typeReference.Namespace);
+            var declaringTypeReference = typeReference;
+            while (declaringTypeReference.IsNested)
+            {
+                declaringTypeReference = declaringTypeReference.DeclaringType;
+            }
+
+            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(declaringTypeReference.Namespace);
             var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
                 typeReference.Module.Assembly.FullName, true);
 
@@ -167,7 +171,7 @@ namespace ArchUnitNET.Loader
             {
                 var arrayType = typeDefinition.Fields.First(field => field.Name == "FixedElementField").FieldType;
                 var arrayTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(arrayType);
-                var dimensions = new List<int> {1};
+                var dimensions = new List<int> { 1 };
 
                 switch (arrayTypeInstance.Type)
                 {
@@ -219,7 +223,7 @@ namespace ArchUnitNET.Loader
             {
                 if (!isInterface)
                 {
-                    LoadBaseTask((Class) createdTypeInstance.Type, type, typeDefinition);
+                    LoadBaseTask((Class)createdTypeInstance.Type, type, typeDefinition);
                 }
 
                 LoadNonBaseTasks(createdTypeInstance.Type, type, typeDefinition);
@@ -237,7 +241,7 @@ namespace ArchUnitNET.Loader
                 var elementMethod =
                     CreateMethodMemberFromMethodReference(typeInstance, methodReference.GetElementMethod()).Member;
 
-                var genericInstanceMethod = (GenericInstanceMethod) methodReference;
+                var genericInstanceMethod = (GenericInstanceMethod)methodReference;
                 var genericArguments = genericInstanceMethod.GenericArguments
                     .Select(CreateGenericArgumentFromTypeReference)
                     .Where(argument => !argument.Type.IsCompilerGenerated);
