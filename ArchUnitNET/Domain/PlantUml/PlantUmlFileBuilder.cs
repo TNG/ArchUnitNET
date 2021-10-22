@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ArchUnitNET.Domain.PlantUml
 {
@@ -17,24 +16,19 @@ namespace ArchUnitNET.Domain.PlantUml
         private IEnumerable<PlantUmlDependency> _dependencies;
         private IEnumerable<string> _objectsWithoutDependencies = Enumerable.Empty<string>();
 
-        public string Build()
+        public List<string> Build()
         {
-            var uml = new StringBuilder();
-            uml.AppendLine("@startuml");
+            var uml = new List<string> { "@startuml" };
 
-            foreach (var obj in _objectsWithoutDependencies.Where(o => !string.IsNullOrEmpty(o)))
-            {
-                uml.AppendLine("[" + obj + "]");
-            }
+            uml.AddRange(
+                _objectsWithoutDependencies.Where(o => !string.IsNullOrEmpty(o)).Select(obj => "[" + obj + "]"));
 
-            foreach (var dependency in _dependencies.Where(dep =>
-                !string.IsNullOrEmpty(dep.Origin) && !string.IsNullOrEmpty(dep.Target)))
-            {
-                uml.AppendLine("[" + dependency.Origin + "] --> [" + dependency.Target + "]");
-            }
+            uml.AddRange(_dependencies
+                .Where(dep => !string.IsNullOrEmpty(dep.Origin) && !string.IsNullOrEmpty(dep.Target))
+                .Select(dependency => "[" + dependency.Origin + "] --> [" + dependency.Target + "]"));
 
-            uml.AppendLine("@enduml");
-            return uml.ToString();
+            uml.Add("@enduml");
+            return uml;
         }
 
         public PlantUmlFileBuilder WithDependenciesFrom(IEnumerable<PlantUmlDependency> dependencies,

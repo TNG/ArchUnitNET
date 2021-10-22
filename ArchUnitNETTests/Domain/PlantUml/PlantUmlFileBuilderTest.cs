@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.PlantUml;
 using ArchUnitNET.Fluent.Slices;
@@ -54,7 +55,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void BuildUmlBySlicesTest()
         {
-            var slices = SliceRuleDefinition.Slices().Matching("ArchUnitNETTests.(*).").GetSlices(Architecture);
+            var slices = SliceRuleDefinition.Slices().Matching("ArchUnitNETTests.(*).").GetObjects(Architecture);
             var builder = new PlantUmlFileBuilder().WithDependenciesFrom(slices);
             var uml = builder.Build();
             Assert.NotEmpty(uml);
@@ -75,8 +76,14 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var uml = builder.Build();
             Assert.NotEmpty(uml);
 
+            var umlSb = new StringBuilder();
+            foreach (var line in uml)
+            {
+                umlSb.AppendLine(line);
+            }
+
             const string expectedUml = "@startuml\r\n[d]\r\n[a] --> [b]\r\n[b] --> [c]\r\n[c] --> [a]\r\n@enduml\r\n";
-            Assert.Equal(expectedUml, uml);
+            Assert.Equal(expectedUml, umlSb.ToString());
         }
     }
 }
