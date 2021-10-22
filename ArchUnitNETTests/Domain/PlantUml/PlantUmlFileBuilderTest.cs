@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -82,7 +83,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 umlSb.AppendLine(line);
             }
 
-            const string expectedUml = "@startuml\r\n[d]\r\n[a] --> [b]\r\n[b] --> [c]\r\n[c] --> [a]\r\n@enduml\r\n";
+            var expectedUml = "@startuml" + Environment.NewLine + "[d]" + Environment.NewLine + "[a] --> [b]" +
+                              Environment.NewLine + "[b] --> [c]" + Environment.NewLine + "[c] --> [a]" +
+                              Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, umlSb.ToString());
         }
     }

@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -56,8 +57,9 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             Assert.NotEmpty(uml3);
             Assert.NotEmpty(uml4);
 
-            var expectedUml = "@startuml\r\n[" + typeof(PlantUmlFluentComponentDiagramTests).FullName +
-                              "]\r\n@enduml\r\n";
+            var expectedUml = "@startuml" + Environment.NewLine + "[" +
+                              typeof(PlantUmlFluentComponentDiagramTests).FullName +
+                              "]" + Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml1);
             Assert.Equal(expectedUml, uml2);
         }
@@ -66,11 +68,13 @@ namespace ArchUnitNETTests.Fluent.PlantUml
         public void ComponentDiagramFromCustomDependenciesTest()
         {
             var uml1 = ComponentDiagram().WithCustomDependencies(Dependencies, "d", "").Build().AsString();
-            var uml2 = ComponentDiagram().WithCustomDependencies(Dependencies, "", "d").Build().AsString();
+            var uml2 = ComponentDiagram().WithCustomDependencies(Dependencies, new[] { "", "d" }).Build().AsString();
             Assert.NotEmpty(uml1);
             Assert.NotEmpty(uml2);
 
-            const string expectedUml = "@startuml\r\n[d]\r\n[a] --> [b]\r\n[b] --> [c]\r\n[c] --> [a]\r\n@enduml\r\n";
+            var expectedUml = "@startuml" + Environment.NewLine + "[d]" + Environment.NewLine + "[a] --> [b]" +
+                              Environment.NewLine + "[b] --> [c]" + Environment.NewLine + "[c] --> [a]" +
+                              Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml1);
             Assert.Equal(expectedUml, uml2);
         }
@@ -83,7 +87,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var expectedUml = new[]
                 { "@startuml", "[d]", "[a] --> [b]", "[b] --> [c]", "[c] --> [a]", "@enduml" };
             ComponentDiagram().WithCustomDependencies(Dependencies, "d", "").Build().WriteToFile(path1);
-            ComponentDiagram().WithCustomDependencies(Dependencies, "", "d").Build().WriteToFile(path2);
+            ComponentDiagram().WithCustomDependencies(Dependencies, new[] { "", "d" }).Build().WriteToFile(path2);
             Assert.True(File.Exists(path1));
             Assert.True(File.Exists(path2));
 
