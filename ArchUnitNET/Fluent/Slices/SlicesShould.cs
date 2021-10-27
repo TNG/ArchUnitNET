@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Freeze;
 using StronglyConnectedComponents;
@@ -49,28 +50,39 @@ namespace ArchUnitNET.Fluent.Slices
             {
                 foreach (var cycle in cycles)
                 {
-                    var description = "Cycle found:";
+                    var depsBetweenSlices = new List<List<string>>();
                     foreach (var slice in cycle.Contents)
                     {
                         var dependencies = slice.Dependencies.ToList();
-                        foreach (var otherSlice in cycle.Contents.Except(new[] {slice}))
+                        foreach (var otherSlice in cycle.Contents.Except(new[] { slice }))
                         {
                             var depsToSlice = dependencies.Where(dependency =>
                                     otherSlice.Types.Contains(dependency.Target))
                                 .Distinct(new TypeDependencyComparer()).ToList();
                             if (depsToSlice.Any())
                             {
-                                description += "\n" + slice.Description + " -> " + otherSlice.Description;
-                                description = depsToSlice.Aggregate(description,
-                                    (current, dependency) =>
-                                        current + ("\n\t" + dependency.Origin + " -> " + dependency.Target));
+                                var depsFromThisSliceToOtherSlice = new List<string>
+                                    { slice.Description + " -> " + otherSlice.Description };
+                                depsFromThisSliceToOtherSlice.AddRange(depsToSlice.Select(dependency =>
+                                    "\t" + dependency.Origin + " -> " + dependency.Target));
+                                depsBetweenSlices.Add(depsFromThisSliceToOtherSlice);
                             }
                         }
                     }
 
-                    description += "\n";
+                    var description = new StringBuilder();
+                    description.AppendLine("Cycle found:");
+                    var orderedDeps = depsBetweenSlices.OrderBy(l => l.Count);
+                    foreach (var lines in orderedDeps)
+                    {
+                        foreach (var line in lines)
+                        {
+                            description.AppendLine(line);
+                        }
+                    }
+
                     var cycleIdentifier = new EnumerableIdentifier(cycle.Contents.Select(slice => slice.Identifier));
-                    yield return new EvaluationResult(cycle, cycleIdentifier, false, description, archRule,
+                    yield return new EvaluationResult(cycle, cycleIdentifier, false, description.ToString(), archRule,
                         architecture);
                 }
             }
@@ -98,7 +110,7 @@ namespace ArchUnitNET.Fluent.Slices
 
             foreach (var slice in slicesList)
             {
-                var sliceDependencies = FindDependencies(slice, slicesList).Except(new[] {slice}).ToList();
+                var sliceDependencies = FindDependencies(slice, slicesList).Except(new[] { slice }).ToList();
                 var passed = !sliceDependencies.Any();
                 var description = slice.Description + " does not depend on another slice.";
                 if (!passed)
