@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.PlantUml;
+using ArchUnitNET.Domain.PlantUml.Exceptions;
 using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
 using Xunit;
@@ -68,7 +69,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies);
             var uml = builder.Build();
             Assert.NotEmpty(uml);
-            
+
             var umlSb = new StringBuilder();
             foreach (var line in uml)
             {
@@ -98,6 +99,28 @@ namespace ArchUnitNETTests.Domain.PlantUml
                               Environment.NewLine + "[b] --> [c]" + Environment.NewLine + "[c] --> [a]" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, umlSb.ToString());
+        }
+
+        [Fact]
+        public void HandleIllegalComponentNamesTest()
+        {
+            var illegalDependencies1 = new List<PlantUmlDependency>
+            {
+                new PlantUmlDependency("a[", "b"),
+            };
+            var illegalDependencies2 = new List<PlantUmlDependency>
+            {
+                new PlantUmlDependency("a", "]b"),
+            };
+            var builder1 = new PlantUmlFileBuilder().WithDependenciesFrom(illegalDependencies1);
+            var builder2 = new PlantUmlFileBuilder().WithDependenciesFrom(illegalDependencies2);
+            var builder3 = new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies, "d", "e]");
+            var builder4 = new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies, "[");
+            
+            Assert.Throws<IllegalComponentNameException>(() => builder1.Build());
+            Assert.Throws<IllegalComponentNameException>(() => builder2.Build());
+            Assert.Throws<IllegalComponentNameException>(() => builder3.Build());
+            Assert.Throws<IllegalComponentNameException>(() => builder4.Build());
         }
     }
 }
