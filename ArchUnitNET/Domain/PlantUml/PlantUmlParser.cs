@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
+using ArchUnitNET.Domain.PlantUml.Exceptions;
 using static ArchUnitNET.Domain.PlantUml.PlantUmlPatterns;
 
 namespace ArchUnitNET.Domain.PlantUml

@@ -68,6 +68,17 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies);
             var uml = builder.Build();
             Assert.NotEmpty(uml);
+            
+            var umlSb = new StringBuilder();
+            foreach (var line in uml)
+            {
+                umlSb.AppendLine(line);
+            }
+
+            var expectedUml = "@startuml" + Environment.NewLine + "[a] --> [b]" +
+                              Environment.NewLine + "[b] --> [c]" + Environment.NewLine + "[c] --> [a]" +
+                              Environment.NewLine + "@enduml" + Environment.NewLine;
+            Assert.Equal(expectedUml, umlSb.ToString());
         }
 
         [Fact]

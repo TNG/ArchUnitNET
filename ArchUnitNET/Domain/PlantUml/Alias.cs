@@ -1,4 +1,5 @@
 ﻿using System;
+using ArchUnitNET.Domain.PlantUml.Exceptions;
 
 namespace ArchUnitNET.Domain.PlantUml
 {

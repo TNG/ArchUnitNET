@@ -8,6 +8,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Domain.PlantUml.Exceptions;
 
 namespace ArchUnitNET.Domain.PlantUml
 {
@@ -15,20 +17,32 @@ namespace ArchUnitNET.Domain.PlantUml
     {
         private IEnumerable<PlantUmlDependency> _dependencies;
         private IEnumerable<string> _objectsWithoutDependencies = Enumerable.Empty<string>();
+        private static readonly string[] ForbiddenCharacters = { "[", "]" };
 
         public List<string> Build()
         {
             var uml = new List<string> { "@startuml" };
+            var objectsWithoutDependencies = _objectsWithoutDependencies.Where(o => !string.IsNullOrEmpty(o)).ToList();
+            objectsWithoutDependencies.ForEach(CheckComponentName);
+            var dependencies = _dependencies
+                .Where(dep => !string.IsNullOrEmpty(dep.Origin) && !string.IsNullOrEmpty(dep.Target)).ToList();
+            dependencies.ForEach(d => CheckComponentName(d.Origin), d => CheckComponentName(d.Target));
+
+            uml.AddRange(objectsWithoutDependencies.Select(obj => "[" + obj + "]"));
 
             uml.AddRange(
-                _objectsWithoutDependencies.Where(o => !string.IsNullOrEmpty(o)).Select(obj => "[" + obj + "]"));
-
-            uml.AddRange(_dependencies
-                .Where(dep => !string.IsNullOrEmpty(dep.Origin) && !string.IsNullOrEmpty(dep.Target))
-                .Select(dependency => "[" + dependency.Origin + "] --> [" + dependency.Target + "]"));
+                dependencies.Select(dependency => "[" + dependency.Origin + "] --> [" + dependency.Target + "]"));
 
             uml.Add("@enduml");
             return uml;
+        }
+
+        private static void CheckComponentName(string name)
+        {
+            if (ForbiddenCharacters.Any(name.Contains))
+            {
+                throw new IllegalComponentNameException("PlantUml component names must not contain \"[\" or \"]\".");
+            }
         }
 
         public PlantUmlFileBuilder WithDependenciesFrom(IEnumerable<PlantUmlDependency> dependencies,

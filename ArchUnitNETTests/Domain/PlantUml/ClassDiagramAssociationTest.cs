@@ -1,16 +1,15 @@
-﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.PlantUml;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using TestAssembly.Diagram.SimpleDependency.Origin;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
-using Xunit;
+using ArchUnitNET.Domain.PlantUml;
+using ArchUnitNET.Domain.PlantUml.Exceptions;
 using TestAssembly;
 using TestAssembly.Diagram.ConfusingNamespaceNames.FooNamespace.BarNamespace;
+using TestAssembly.Diagram.SimpleDependency.Origin;
+using Xunit;
 
 namespace ArchUnitNETTests.Domain.PlantUml
 {
