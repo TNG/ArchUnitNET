@@ -104,23 +104,53 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void HandleIllegalComponentNamesTest()
         {
-            var illegalDependencies1 = new List<PlantUmlDependency>
+            var forbiddenCharacters = new[] { "[", "]", "\r", "\n", "\f", "\a", "\b", "\v" };
+            foreach (var character in forbiddenCharacters)
             {
-                new PlantUmlDependency("a[", "b"),
-            };
-            var illegalDependencies2 = new List<PlantUmlDependency>
+                var deps1 = new List<PlantUmlDependency>
+                {
+                    new PlantUmlDependency(character, "a"),
+                };
+                var deps2 = new List<PlantUmlDependency>
+                {
+                    new PlantUmlDependency("a", character),
+                };
+                Assert.Throws<IllegalComponentNameException>(() =>
+                    new PlantUmlFileBuilder().WithDependenciesFrom(deps1).Build());
+                Assert.Throws<IllegalComponentNameException>(() =>
+                    new PlantUmlFileBuilder().WithDependenciesFrom(deps2).Build());
+                Assert.Throws<IllegalComponentNameException>(() =>
+                    new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies, character).Build());
+            }
+        }
+
+
+        [Fact]
+        public void SpecialCharactersInComponentNamesTest()
+        {
+            var dependenciesWithSpecialCharacters = new List<PlantUmlDependency>
             {
-                new PlantUmlDependency("a", "]b"),
+                new PlantUmlDependency("!\"§´`", "$%&/()=?"),
+                new PlantUmlDependency("\\\t%", "äöüß"),
+                new PlantUmlDependency("^°-*+.,;:", "<>|@€")
             };
-            var builder1 = new PlantUmlFileBuilder().WithDependenciesFrom(illegalDependencies1);
-            var builder2 = new PlantUmlFileBuilder().WithDependenciesFrom(illegalDependencies2);
-            var builder3 = new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies, "d", "e]");
-            var builder4 = new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies, "[");
-            
-            Assert.Throws<IllegalComponentNameException>(() => builder1.Build());
-            Assert.Throws<IllegalComponentNameException>(() => builder2.Build());
-            Assert.Throws<IllegalComponentNameException>(() => builder3.Build());
-            Assert.Throws<IllegalComponentNameException>(() => builder4.Build());
+            var builder = new PlantUmlFileBuilder().WithDependenciesFrom(dependenciesWithSpecialCharacters,
+                "!\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€");
+            var uml = builder.Build();
+            Assert.NotEmpty(uml);
+
+            var umlSb = new StringBuilder();
+            foreach (var line in uml)
+            {
+                umlSb.AppendLine(line);
+            }
+
+            var expectedUml = "@startuml" + Environment.NewLine + "[!\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€]" +
+                              Environment.NewLine + "[!\"§´`] --> [$%&/()=?]" +
+                              Environment.NewLine + "[\\\t%] --> [äöüß]" + Environment.NewLine +
+                              "[^°-*+.,;:] --> [<>|@€]" +
+                              Environment.NewLine + "@enduml" + Environment.NewLine;
+            Assert.Equal(expectedUml, umlSb.ToString());
         }
     }
 }

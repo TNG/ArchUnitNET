@@ -17,7 +17,7 @@ namespace ArchUnitNET.Domain.PlantUml
     {
         private IEnumerable<PlantUmlDependency> _dependencies;
         private IEnumerable<string> _objectsWithoutDependencies = Enumerable.Empty<string>();
-        private static readonly string[] ForbiddenCharacters = { "[", "]" };
+        private static readonly string[] ForbiddenCharacters = { "[", "]", "\r", "\n", "\f", "\a", "\b", "\v" };
 
         public List<string> Build()
         {
@@ -41,7 +41,8 @@ namespace ArchUnitNET.Domain.PlantUml
         {
             if (ForbiddenCharacters.Any(name.Contains))
             {
-                throw new IllegalComponentNameException("PlantUml component names must not contain \"[\" or \"]\".");
+                throw new IllegalComponentNameException(
+                    "PlantUml component names must not contain \"[\" or \"]\" or any of the escape characters \"\\r\", \"\\n\", \"\\f\", \"\\a\", \"\\b\", \"\\v\".");
             }
         }
 
