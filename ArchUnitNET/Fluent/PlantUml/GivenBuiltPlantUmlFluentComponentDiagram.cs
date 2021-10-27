@@ -5,10 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
-using System;
-using System.IO;
-using System.Text;
-using ArchUnitNET.Fluent.Exceptions;
+using System.Collections.Generic;
 
 namespace ArchUnitNET.Fluent.PlantUml
 {
@@ -24,33 +21,17 @@ namespace ArchUnitNET.Fluent.PlantUml
 
         public string AsString()
         {
-            var umlLines = _fluentComponentDiagramCreator.GetBuiltUml();
-            var umlSb = new StringBuilder();
-            foreach (var line in umlLines)
-            {
-                umlSb.AppendLine(line);
-            }
+            return _fluentComponentDiagramCreator.Builder.AsString();
+        }
 
-            return umlSb.ToString();
+        public List<string> AsLineList()
+        {
+            return _fluentComponentDiagramCreator.Builder.AsLineList();
         }
 
         public void WriteToFile(string path, bool overwrite = true)
         {
-            if (!overwrite && File.Exists(path))
-            {
-                throw new FileAlreadyExistsException("File already exists and overwriting is disabled.");
-            }
-
-            Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new ArgumentException("Invalid path."));
-
-            var umlLines = _fluentComponentDiagramCreator.GetBuiltUml();
-            using (var sw = File.CreateText(path))
-            {
-                foreach (var line in umlLines)
-                {
-                    sw.WriteLine(line);
-                }
-            }
+            _fluentComponentDiagramCreator.Builder.WriteToFile(path, overwrite);
         }
     }
 }

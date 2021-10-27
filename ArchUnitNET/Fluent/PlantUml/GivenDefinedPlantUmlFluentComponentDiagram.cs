@@ -19,7 +19,7 @@ namespace ArchUnitNET.Fluent.PlantUml
 
         public BuiltPlantUmlFluentComponentDiagram Build()
         {
-            _fluentComponentDiagramCreator.BuildUml();
+            _fluentComponentDiagramCreator.Builder.Build();
             return new BuiltPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
     }

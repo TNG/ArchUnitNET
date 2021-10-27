@@ -5,7 +5,6 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
-using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.PlantUml;
 
@@ -14,7 +13,6 @@ namespace ArchUnitNET.Fluent.PlantUml
     internal class PlantUmlFluentComponentDiagramCreator : IHasDescription
     {
         public readonly PlantUmlFileBuilder Builder;
-        private List<string> _builtUml;
 
         public PlantUmlFluentComponentDiagramCreator()
         {
@@ -25,16 +23,6 @@ namespace ArchUnitNET.Fluent.PlantUml
         public void AddToDescription(string description)
         {
             Description += " " + description.Trim();
-        }
-
-        public void BuildUml()
-        {
-            _builtUml = Builder.Build();
-        }
-
-        public List<string> GetBuiltUml()
-        {
-            return _builtUml;
         }
 
         public string Description { get; private set; }
