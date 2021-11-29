@@ -142,9 +142,13 @@ namespace ArchUnitNET.Loader
             }
 
             var typeName = typeReference.BuildFullName();
-            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(typeReference.IsNested
-                ? typeReference.DeclaringType.Namespace
-                : typeReference.Namespace);
+            var declaringTypeReference = typeReference;
+            while (declaringTypeReference.IsNested)
+            {
+                declaringTypeReference = declaringTypeReference.DeclaringType;
+            }
+
+            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(declaringTypeReference.Namespace);
             var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
                 typeReference.Module.Assembly.FullName, true);
 
