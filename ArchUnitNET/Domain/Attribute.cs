@@ -9,11 +9,11 @@ namespace ArchUnitNET.Domain
     public class Attribute : Class
     {
         public Attribute(IType type, bool? isAbstract, bool? isSealed) : base(type, isAbstract,
-            isSealed, false, false)
+            isSealed)
         {
         }
 
-        public Attribute(Class cls) : base(cls.Type, cls.IsAbstract, cls.IsSealed, cls.IsValueType, cls.IsEnum)
+        public Attribute(Class cls) : base(cls.Type, cls.IsAbstract, cls.IsSealed)
         {
         }
     }

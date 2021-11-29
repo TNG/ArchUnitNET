@@ -51,28 +51,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void AreEnumsTest()
         {
-            foreach (var cls in _classes)
-            {
-                var clsIsEnum = Classes().That().Are(cls).Should().BeEnums();
-                var clsIsNotEnum = Classes().That().Are(cls).Should().NotBeEnums();
-                var enumClassesDoNotIncludeType = Classes().That().AreEnums().Should().NotBe(cls);
-                var notEnumClassesDoNotIncludeType = Classes().That().AreNotEnums().Should().NotBe(cls);
-
-                Assert.Equal(cls.IsEnum, clsIsEnum.HasNoViolations(Architecture));
-                Assert.Equal(!cls.IsEnum, clsIsNotEnum.HasNoViolations(Architecture));
-                Assert.Equal(!cls.IsEnum, enumClassesDoNotIncludeType.HasNoViolations(Architecture));
-                Assert.Equal(cls.IsEnum, notEnumClassesDoNotIncludeType.HasNoViolations(Architecture));
-            }
-
-            var enumClassesAreEnums = Classes().That().AreEnums().Should().BeEnums();
-            var enumClassesAreNotEnums = Classes().That().AreEnums().Should().NotBeEnums();
-            var notEnumClassesAreEnums = Classes().That().AreNotEnums().Should().BeEnums();
-            var notEnumClassesAreNotEnums = Classes().That().AreNotEnums().Should().NotBeEnums();
-
-            Assert.True(enumClassesAreEnums.HasNoViolations(Architecture));
-            Assert.False(enumClassesAreNotEnums.HasNoViolations(Architecture));
-            Assert.False(notEnumClassesAreEnums.HasNoViolations(Architecture));
-            Assert.True(notEnumClassesAreNotEnums.HasNoViolations(Architecture));
+            Assert.True(Classes().That().AreNotEnums().Should().Be(Classes()).HasNoViolations(Architecture));
+            Assert.True(Classes().That().AreEnums().Should().NotExist().HasNoViolations(Architecture));
+            Assert.True(Classes().Should().NotBeEnums().HasNoViolations(Architecture));
+            Assert.False(Classes().Should().BeEnums().HasNoViolations(Architecture));
         }
 
         [Fact]
@@ -105,55 +87,19 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void AreStructsTest()
         {
-            foreach (var cls in _classes)
-            {
-                var clsIsStruct = Classes().That().Are(cls).Should().BeStructs();
-                var clsIsNotStruct = Classes().That().Are(cls).Should().NotBeStructs();
-                var structClassesDoNotIncludeType = Classes().That().AreStructs().Should().NotBe(cls);
-                var notStructClassesDoNotIncludeType = Classes().That().AreNotStructs().Should().NotBe(cls);
-
-                Assert.Equal(cls.IsStruct, clsIsStruct.HasNoViolations(Architecture));
-                Assert.Equal(!cls.IsStruct, clsIsNotStruct.HasNoViolations(Architecture));
-                Assert.Equal(!cls.IsStruct, structClassesDoNotIncludeType.HasNoViolations(Architecture));
-                Assert.Equal(cls.IsStruct, notStructClassesDoNotIncludeType.HasNoViolations(Architecture));
-            }
-
-            var structClassesAreStructs = Classes().That().AreStructs().Should().BeStructs();
-            var structClassesAreNotStructs = Classes().That().AreStructs().Should().NotBeStructs();
-            var notStructClassesAreStructs = Classes().That().AreNotStructs().Should().BeStructs();
-            var notStructClassesAreNotStructs = Classes().That().AreNotStructs().Should().NotBeStructs();
-
-            Assert.True(structClassesAreStructs.HasNoViolations(Architecture));
-            Assert.False(structClassesAreNotStructs.HasNoViolations(Architecture));
-            Assert.False(notStructClassesAreStructs.HasNoViolations(Architecture));
-            Assert.True(notStructClassesAreNotStructs.HasNoViolations(Architecture));
+            Assert.True(Classes().That().AreNotStructs().Should().Be(Classes()).HasNoViolations(Architecture));
+            Assert.True(Classes().That().AreStructs().Should().NotExist().HasNoViolations(Architecture));
+            Assert.True(Classes().Should().NotBeStructs().HasNoViolations(Architecture));
+            Assert.False(Classes().Should().BeStructs().HasNoViolations(Architecture));
         }
 
         [Fact]
         public void AreValueTypesTest()
         {
-            foreach (var cls in _classes)
-            {
-                var clsIsValueType = Classes().That().Are(cls).Should().BeValueTypes();
-                var clsIsNotValueType = Classes().That().Are(cls).Should().NotBeValueTypes();
-                var valueTypeClassesDoNotIncludeType = Classes().That().AreValueTypes().Should().NotBe(cls);
-                var notValueTypeClassesDoNotIncludeType = Classes().That().AreNotValueTypes().Should().NotBe(cls);
-
-                Assert.Equal(cls.IsValueType, clsIsValueType.HasNoViolations(Architecture));
-                Assert.Equal(!cls.IsValueType, clsIsNotValueType.HasNoViolations(Architecture));
-                Assert.Equal(!cls.IsValueType, valueTypeClassesDoNotIncludeType.HasNoViolations(Architecture));
-                Assert.Equal(cls.IsValueType, notValueTypeClassesDoNotIncludeType.HasNoViolations(Architecture));
-            }
-
-            var valueTypeClassesAreValueTypes = Classes().That().AreValueTypes().Should().BeValueTypes();
-            var valueTypeClassesAreNotValueTypes = Classes().That().AreValueTypes().Should().NotBeValueTypes();
-            var notValueTypeClassesAreValueTypes = Classes().That().AreNotValueTypes().Should().BeValueTypes();
-            var notValueTypeClassesAreNotValueTypes = Classes().That().AreNotValueTypes().Should().NotBeValueTypes();
-
-            Assert.True(valueTypeClassesAreValueTypes.HasNoViolations(Architecture));
-            Assert.False(valueTypeClassesAreNotValueTypes.HasNoViolations(Architecture));
-            Assert.False(notValueTypeClassesAreValueTypes.HasNoViolations(Architecture));
-            Assert.True(notValueTypeClassesAreNotValueTypes.HasNoViolations(Architecture));
+            Assert.True(Classes().That().AreNotValueTypes().Should().Be(Classes()).HasNoViolations(Architecture));
+            Assert.True(Classes().That().AreValueTypes().Should().NotExist().HasNoViolations(Architecture));
+            Assert.True(Classes().Should().NotBeValueTypes().HasNoViolations(Architecture));
+            Assert.False(Classes().Should().BeValueTypes().HasNoViolations(Architecture));
         }
     }
 }

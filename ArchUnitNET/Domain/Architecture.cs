@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ArchUnitNET.Fluent;
 
 namespace ArchUnitNET.Domain
 {
@@ -36,6 +35,8 @@ namespace ArchUnitNET.Domain
         public IEnumerable<Class> Classes => Types.OfType<Class>();
         public IEnumerable<Interface> Interfaces => Types.OfType<Interface>();
         public IEnumerable<Attribute> Attributes => Types.OfType<Attribute>();
+        public IEnumerable<Struct> Structs => Types.OfType<Struct>();
+        public IEnumerable<Enum> Enums => Types.OfType<Enum>();
         public IEnumerable<Class> ReferencedClasses => ReferencedTypes.OfType<Class>();
         public IEnumerable<Interface> ReferencedInterfaces => ReferencedTypes.OfType<Interface>();
         public IEnumerable<Attribute> ReferencedAttributes => ReferencedTypes.OfType<Attribute>();
@@ -62,7 +63,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((Architecture) obj);
+            return obj.GetType() == GetType() && Equals((Architecture)obj);
         }
 
         private bool Equals(Architecture other)

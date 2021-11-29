@@ -26,25 +26,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreSealed());
             return new GivenClassesConjunction(_ruleCreator);
         }
-
-        public GivenClassesConjunction AreValueTypes()
-        {
-            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreValueTypes());
-            return new GivenClassesConjunction(_ruleCreator);
-        }
-
-        public GivenClassesConjunction AreEnums()
-        {
-            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreEnums());
-            return new GivenClassesConjunction(_ruleCreator);
-        }
-
-        public GivenClassesConjunction AreStructs()
-        {
-            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreStructs());
-            return new GivenClassesConjunction(_ruleCreator);
-        }
-
+        
 
         //Negations
 
@@ -58,24 +40,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         public GivenClassesConjunction AreNotSealed()
         {
             _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotSealed());
-            return new GivenClassesConjunction(_ruleCreator);
-        }
-
-        public GivenClassesConjunction AreNotValueTypes()
-        {
-            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotValueTypes());
-            return new GivenClassesConjunction(_ruleCreator);
-        }
-
-        public GivenClassesConjunction AreNotEnums()
-        {
-            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotEnums());
-            return new GivenClassesConjunction(_ruleCreator);
-        }
-
-        public GivenClassesConjunction AreNotStructs()
-        {
-            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotStructs());
             return new GivenClassesConjunction(_ruleCreator);
         }
     }

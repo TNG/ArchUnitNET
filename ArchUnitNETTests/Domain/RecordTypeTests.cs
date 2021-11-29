@@ -1,4 +1,3 @@
-using System.Linq;
 using ArchUnitNET.Domain;
 using TestAssembly;
 using Xunit;
@@ -12,8 +11,8 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void RecordTypeExists()
         {
-            Assert.True(Architecture.Types.Where(type => type.Name.Equals(nameof(AbstractRecord))).Any());
-            Assert.True(Architecture.Types.Where(type => type.Name.Equals(nameof(Record1))).Any());
+            Assert.Contains(Architecture.Types, type => type.Name.Equals(nameof(AbstractRecord)));
+            Assert.Contains(Architecture.Types, type => type.Name.Equals(nameof(Record1)));
         }
     }
 }

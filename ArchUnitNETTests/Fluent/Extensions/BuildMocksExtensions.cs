@@ -67,10 +67,20 @@ namespace ArchUnitNETTests.Fluent.Extensions
             throw new ArgumentException("The provided type seems to have no visibility.");
         }
 
-        public static Class CreateStubClass(this System.Type type)
+        public static IType CreateStubIType(this System.Type type)
         {
             var classType = type.CreateStubType();
-            return new Class(classType, type.IsAbstract, type.IsSealed, type.IsValueType, type.IsEnum);
+            if (type.IsEnum)
+            {
+                return new ArchUnitNET.Domain.Enum(classType);
+            }
+
+            if (type.IsValueType)
+            {
+                return new Struct(classType);
+            }
+
+            return new Class(classType, type.IsAbstract, type.IsSealed);
         }
 
         public static Type CreateShallowStubType(this Class clazz)
@@ -116,7 +126,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
         {
             var visibility = methodBase.GetVisibility();
 
-            var declaringType = methodBase.DeclaringType.CreateStubClass();
+            var declaringType = methodBase.DeclaringType.CreateStubIType();
             var parameters = methodBase.CreateStubParameters().Select(parameter => new TypeInstance<IType>(parameter));
             var methodForm = methodBase.GetStubMethodForm();
             var isStatic = methodBase.IsStatic;
@@ -128,14 +138,14 @@ namespace ArchUnitNETTests.Fluent.Extensions
 
             if (methodBase is ConstructorInfo constructor)
             {
-                var voi = typeof(void).CreateStubClass();
+                var voi = typeof(void).CreateStubIType();
                 returnTypeInstance = new TypeInstance<IType>(voi);
                 fullName = constructor.CreateStubFullName(voi);
             }
 
             if (methodBase is MethodInfo methodInfo)
             {
-                var returnType = methodInfo.ReturnType.CreateStubClass();
+                var returnType = methodInfo.ReturnType.CreateStubIType();
                 returnTypeInstance = new TypeInstance<IType>(returnType);
                 fullName = methodInfo.CreateStubFullName();
             }
@@ -181,7 +191,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
 
         private static List<IType> CreateStubParameters(this MethodBase methodInfo)
         {
-            return methodInfo.GetParameters().Select(info => (IType) CreateStubClass(info.ParameterType)).ToList();
+            return methodInfo.GetParameters().Select(info => (IType)CreateStubIType(info.ParameterType)).ToList();
         }
 
         private static string CreateStubFullName(this MethodInfo methodInfo)

@@ -79,6 +79,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction AreValueTypes()
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreValueTypes());
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreEnums()
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreEnums());
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreStructs()
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreStructs());
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction ImplementInterface(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
@@ -209,6 +227,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TGivenRuleTypeConjunction AreNotAssignableTo(IEnumerable<Type> types)
         {
             _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNotAssignableTo(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotValueTypes()
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNotValueTypes());
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotEnums()
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNotEnums());
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotStructs()
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNotStructs());
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 

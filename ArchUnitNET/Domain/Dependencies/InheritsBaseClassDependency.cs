@@ -8,8 +8,7 @@ namespace ArchUnitNET.Domain.Dependencies
 {
     public class InheritsBaseClassDependency : TypeInstanceDependency
     {
-        // ReSharper disable SuggestBaseTypeForParameter
-        public InheritsBaseClassDependency(Class origin, ITypeInstance<Class> targetInstance)
+        public InheritsBaseClassDependency(IType origin, ITypeInstance<IType> targetInstance)
             : base(origin, targetInstance)
         {
         }

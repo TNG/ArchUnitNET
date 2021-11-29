@@ -24,7 +24,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             new ArchLoader().LoadAssemblies(typeof(GetterMethodDependencyExamples).Assembly).Build();
 
         private static readonly Type GuidType = typeof(Guid);
-        private static readonly Class MockGuidClass = GuidType.CreateStubClass();
+        private static readonly IType MockGuidStruct = GuidType.CreateStubIType();
         private static readonly MethodInfo NewGuid = GuidType.GetMethods().First(method => method.Name == "NewGuid");
         private static readonly MethodMember MockNewGuid = NewGuid.CreateStubMethodMember();
 
@@ -58,7 +58,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         }
 
         private static object[] BuildGetterTestData(Type classType, string propertyName,
-            Class expectedFieldDependencyTarget, MethodMember expectedTargetMember)
+            IType expectedFieldDependencyTarget, MethodMember expectedTargetMember)
         {
             if (classType == null)
             {
@@ -156,13 +156,13 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             {
                 BuildGetterTestData(typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.AcceptedCase),
-                    MockGuidClass, MockConstructorMember),
+                    MockGuidStruct, MockConstructorMember),
                 BuildGetterTestData(typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.FirstUnacceptedCase),
-                    MockGuidClass, MockNewGuid),
+                    MockGuidStruct, MockNewGuid),
                 BuildGetterTestData(typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.SecondUnacceptedCase),
-                    MockGuidClass, MockNewGuid)
+                    MockGuidStruct, MockNewGuid)
             };
 
             public IEnumerator<object[]> GetEnumerator()

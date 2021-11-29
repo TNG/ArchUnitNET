@@ -12,12 +12,12 @@ namespace ArchUnitNET.Loader.LoadTasks
 {
     internal class AddBaseClassDependency : ILoadTask
     {
-        private readonly Class _cls;
+        private readonly IType _cls;
         private readonly Type _type;
         private readonly TypeDefinition _typeDefinition;
         private readonly TypeFactory _typeFactory;
 
-        public AddBaseClassDependency(Class cls, Type type, TypeDefinition typeDefinition, TypeFactory typeFactory)
+        public AddBaseClassDependency(IType cls, Type type, TypeDefinition typeDefinition, TypeFactory typeFactory)
         {
             _cls = cls;
             _type = type;
