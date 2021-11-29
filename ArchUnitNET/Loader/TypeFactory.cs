@@ -104,6 +104,10 @@ namespace ArchUnitNET.Loader
                         return new TypeInstance<Attribute>(att, elementTypeInstance.GenericArguments, dimensions);
                     case Class cls:
                         return new TypeInstance<Class>(cls, elementTypeInstance.GenericArguments, dimensions);
+                    case Struct str:
+                        return new TypeInstance<Struct>(str, elementTypeInstance.GenericArguments, dimensions);
+                    case Enum en:
+                        return new TypeInstance<Enum>(en, elementTypeInstance.GenericArguments, dimensions);
                     default:
                         return new TypeInstance<IType>(elementTypeInstance.Type, elementTypeInstance.GenericArguments,
                             dimensions);
@@ -125,6 +129,10 @@ namespace ArchUnitNET.Loader
                         return new TypeInstance<Attribute>(att, genericArguments);
                     case Class cls:
                         return new TypeInstance<Class>(cls, genericArguments);
+                    case Struct str:
+                        return new TypeInstance<Struct>(str, genericArguments);
+                    case Enum en:
+                        return new TypeInstance<Enum>(en, genericArguments);
                     default:
                         return new TypeInstance<IType>(elementType, genericArguments);
                 }
@@ -181,6 +189,10 @@ namespace ArchUnitNET.Loader
                         return new TypeInstance<Attribute>(att, arrayTypeInstance.GenericArguments, dimensions);
                     case Class cls:
                         return new TypeInstance<Class>(cls, arrayTypeInstance.GenericArguments, dimensions);
+                    case Struct str:
+                        return new TypeInstance<Struct>(str, arrayTypeInstance.GenericArguments, dimensions);
+                    case Enum en:
+                        return new TypeInstance<Enum>(en, arrayTypeInstance.GenericArguments, dimensions);
                     default:
                         return new TypeInstance<IType>(arrayTypeInstance.Type, arrayTypeInstance.GenericArguments,
                             dimensions);
