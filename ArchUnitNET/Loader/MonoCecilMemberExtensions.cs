@@ -183,6 +183,12 @@ namespace ArchUnitNET.Loader
                 .CompilerServices.IteratorStateMachineAttribute).FullName);
         }
 
+        internal static bool IsAsync(this MethodDefinition methodDefinition)
+        {
+            return methodDefinition.CustomAttributes.Any(att => att.AttributeType.FullName == typeof(System.Runtime
+                .CompilerServices.AsyncStateMachineAttribute).FullName);
+        }
+
         [NotNull]
         internal static IEnumerable<FieldMember> GetAccessedFieldMembers(this MethodDefinition methodDefinition,
             TypeFactory typeFactory)
