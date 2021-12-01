@@ -19,11 +19,11 @@ namespace ArchUnitNETTests.Domain
         private static readonly Architecture Architecture =
             new ArchLoader().LoadAssembly(typeof(FixedSizeBufferTests).Assembly).Build();
 
-        private readonly Class _structWithUnsafeContent;
+        private readonly IType _structWithUnsafeContent;
 
         public FixedSizeBufferTests()
         {
-            _structWithUnsafeContent = Architecture.GetClassOfType(typeof(StructWithFixedSizeBuffer));
+            _structWithUnsafeContent = Architecture.GetITypeOfType(typeof(StructWithFixedSizeBuffer));
         }
 
         [Fact]

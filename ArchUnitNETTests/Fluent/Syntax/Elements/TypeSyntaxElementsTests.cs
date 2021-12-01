@@ -9,10 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.xUnit;
 using ArchUnitNETTests.Domain;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 using static ArchUnitNETTests.Domain.StaticTestTypes;
+using Enum = ArchUnitNET.Domain.Enum;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
@@ -91,10 +93,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void AssignableToTest()
         {
-            var falseTypeList1 = new List<Type> {typeof(PublicTestClass), typeof(InternalTestClass)};
-            var falseTypeList2 = new List<IType> {StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass};
+            var falseTypeList1 = new List<Type> { typeof(PublicTestClass), typeof(InternalTestClass) };
+            var falseTypeList2 = new List<IType> { StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass };
             var falseTypeListPattern = new List<string>
-                {StaticTestTypes.PublicTestClass.FullName, StaticTestTypes.InternalTestClass.FullName};
+                { StaticTestTypes.PublicTestClass.FullName, StaticTestTypes.InternalTestClass.FullName };
             foreach (var type in _types)
             {
                 //One Argument
@@ -439,11 +441,65 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         }
 
         [Fact]
+        public void AreEnumsTest()
+        {
+            foreach (var type in _types)
+            {
+                var isEnum = type is Enum;
+                var typeIsEnum = Types().That().Are(type).Should().BeEnums();
+                var typeIsNotEnum = Types().That().Are(type).Should().NotBeEnums();
+                var enumsDoNotIncludeType = Types().That().AreEnums().Should().NotBe(type);
+                var notEnumsDoNotIncludeType = Types().That().AreNotEnums().Should().NotBe(type);
+
+                Assert.Equal(isEnum, typeIsEnum.HasNoViolations(Architecture));
+                Assert.Equal(!isEnum, typeIsNotEnum.HasNoViolations(Architecture));
+                Assert.Equal(!isEnum, enumsDoNotIncludeType.HasNoViolations(Architecture));
+                Assert.Equal(isEnum, notEnumsDoNotIncludeType.HasNoViolations(Architecture));
+            }
+        }
+
+        [Fact]
+        public void AreStructsTest()
+        {
+            foreach (var type in _types)
+            {
+                var isStruct = type is Struct;
+                var typeIsStruct = Types().That().Are(type).Should().BeStructs();
+                var typeIsNotStruct = Types().That().Are(type).Should().NotBeStructs();
+                var structsDoNotIncludeType = Types().That().AreStructs().Should().NotBe(type);
+                var notStructsDoNotIncludeType = Types().That().AreNotStructs().Should().NotBe(type);
+
+                Assert.Equal(isStruct, typeIsStruct.HasNoViolations(Architecture));
+                Assert.Equal(!isStruct, typeIsNotStruct.HasNoViolations(Architecture));
+                Assert.Equal(!isStruct, structsDoNotIncludeType.HasNoViolations(Architecture));
+                Assert.Equal(isStruct, notStructsDoNotIncludeType.HasNoViolations(Architecture));
+            }
+        }
+
+        [Fact]
+        public void AreValueTypesTest()
+        {
+            foreach (var type in _types)
+            {
+                var isValueType = type is Struct || type is Enum;
+                var typeIsValueType = Types().That().Are(type).Should().BeValueTypes();
+                var typeIsNotValueType = Types().That().Are(type).Should().NotBeValueTypes();
+                var valueTypesDoNotIncludeType = Types().That().AreValueTypes().Should().NotBe(type);
+                var notValueTypesDoNotIncludeType = Types().That().AreNotValueTypes().Should().NotBe(type);
+
+                Assert.Equal(isValueType, typeIsValueType.HasNoViolations(Architecture));
+                Assert.Equal(!isValueType, typeIsNotValueType.HasNoViolations(Architecture));
+                Assert.Equal(!isValueType, valueTypesDoNotIncludeType.HasNoViolations(Architecture));
+                Assert.Equal(isValueType, notValueTypesDoNotIncludeType.HasNoViolations(Architecture));
+            }
+        }
+
+        [Fact]
         public void TypesThatAreNotNestedMustBeVisible()
         {
             var typesThatAreNotNestedMustBeVisible =
                 Types().That().AreNotNested().Should().BePublic().OrShould().BeInternal();
-            Assert.True(typesThatAreNotNestedMustBeVisible.HasNoViolations(Architecture));
+            typesThatAreNotNestedMustBeVisible.Check(Architecture);
         }
 
         [Fact]
@@ -451,7 +507,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var typesWithRestrictedVisibilityMustBeNested = Types().That().ArePrivate().Or()
                 .AreProtected().Or().ArePrivateProtected().Or().AreProtectedInternal().Should().BeNested();
-            Assert.True(typesWithRestrictedVisibilityMustBeNested.HasNoViolations(Architecture));
+            typesWithRestrictedVisibilityMustBeNested.Check(Architecture);
         }
     }
 }

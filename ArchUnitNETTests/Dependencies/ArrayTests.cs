@@ -19,18 +19,18 @@ namespace ArchUnitNETTests.Dependencies
         private static readonly Architecture Architecture =
             new ArchLoader().LoadAssembly(typeof(ArrayTests).Assembly).Build();
 
-        private readonly Class _bool;
+        private readonly IType _bool;
 
         private readonly Class _classWithArrayMethod;
         private readonly Class _classWithBoolArrayFields;
 
-        private readonly Class _int;
+        private readonly IType _int;
 
 
         public ArrayTests()
         {
-            _bool = Architecture.GetClassOfType(typeof(bool));
-            _int = Architecture.GetClassOfType(typeof(int));
+            _bool = Architecture.GetITypeOfType(typeof(bool));
+            _int = Architecture.GetITypeOfType(typeof(int));
             _classWithBoolArrayFields = Architecture.GetClassOfType(typeof(ClassWithBoolArrayFields));
             _classWithArrayMethod = Architecture.GetClassOfType(typeof(ClassWithArrayMethod));
         }

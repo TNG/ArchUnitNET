@@ -11,6 +11,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
 using Assembly = System.Reflection.Assembly;
+using Enum = ArchUnitNET.Domain.Enum;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -21,7 +22,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
                 var typeList = moreTypes.Select(architecture.GetITypeOfType)
-                    .Concat(new[] {architecture.GetITypeOfType(firstType)}).OfType<T>();
+                    .Concat(new[] { architecture.GetITypeOfType(firstType) }).OfType<T>();
                 return ruleTypes.Intersect(typeList);
             }
 
@@ -91,7 +92,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                var types = moreTypes.Concat(new[] {firstType});
+                var types = moreTypes.Concat(new[] { firstType });
                 return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
@@ -104,7 +105,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
+                var types = moreTypes.Concat(new[] { firstType }).Select(architecture.GetITypeOfType);
                 return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
@@ -176,6 +177,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
+        public static IPredicate<T> AreValueTypes()
+        {
+            return new SimplePredicate<T>(type => type is Enum || type is Struct, "are value types");
+        }
+
+        public static IPredicate<T> AreEnums()
+        {
+            return new SimplePredicate<T>(type => type is Enum, "are enums");
+        }
+
+        public static IPredicate<T> AreStructs()
+        {
+            return new SimplePredicate<T>(type => type is Struct, "are structs");
+        }
+
         public static IPredicate<T> ImplementInterface(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(type => type.ImplementsInterface(pattern, useRegularExpressions),
@@ -219,7 +235,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> types, Architecture architecture)
             {
-                var assemblyList = moreAssemblies.Concat(new[] {assembly}).Select(architecture.GetAssemblyOfAssembly);
+                var assemblyList = moreAssemblies.Concat(new[] { assembly }).Select(architecture.GetAssemblyOfAssembly);
                 return types.Where(type => assemblyList.Contains(type.Assembly));
             }
 
@@ -267,7 +283,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
                 var typeList = moreTypes.Select(architecture.GetITypeOfType)
-                    .Concat(new[] {architecture.GetITypeOfType(firstType)}).OfType<T>();
+                    .Concat(new[] { architecture.GetITypeOfType(firstType) }).OfType<T>();
                 return ruleTypes.Except(typeList);
             }
 
@@ -339,7 +355,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                var types = moreTypes.Concat(new[] {firstType});
+                var types = moreTypes.Concat(new[] { firstType });
                 return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
@@ -352,7 +368,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
+                var types = moreTypes.Concat(new[] { firstType }).Select(architecture.GetITypeOfType);
                 return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
@@ -423,7 +439,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             return new ArchitecturePredicate<T>(Condition, description);
         }
+        
+        public static IPredicate<T> AreNotValueTypes()
+        {
+            return new SimplePredicate<T>(cls => !(cls is Enum) && !(cls is Struct), "are not value types");
+        }
 
+        public static IPredicate<T> AreNotEnums()
+        {
+            return new SimplePredicate<T>(cls => !(cls is Enum), "are not enums");
+        }
+
+        public static IPredicate<T> AreNotStructs()
+        {
+            return new SimplePredicate<T>(cls => !(cls is Struct), "are not structs");
+        }
 
         public static IPredicate<T> DoNotImplementInterface(string pattern, bool useRegularExpressions = false)
         {
@@ -468,7 +498,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> types, Architecture architecture)
             {
-                var assemblyList = moreAssemblies.Concat(new[] {assembly}).Select(architecture.GetAssemblyOfAssembly);
+                var assemblyList = moreAssemblies.Concat(new[] { assembly }).Select(architecture.GetAssemblyOfAssembly);
                 return types.Where(type => !assemblyList.Contains(type.Assembly));
             }
 

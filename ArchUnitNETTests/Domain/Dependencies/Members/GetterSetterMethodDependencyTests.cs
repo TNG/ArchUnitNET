@@ -42,12 +42,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
         [Theory]
         [ClassData(typeof(GetterSetterTestsBuild.GetterTestData))]
-        public void AssertGetterMethodDependencies(PropertyMember propertyMember, Class mockTargetClass,
+        public void AssertGetterMethodDependencies(PropertyMember propertyMember, IType mockTargetType,
             MethodCallDependency expectedDependency)
         {
             Assert.NotEmpty(propertyMember.MemberDependencies);
             Assert.Single(propertyMember.GetMethodCallDependencies());
-            Assert.Contains(mockTargetClass,
+            Assert.Contains(mockTargetType,
                 propertyMember.GetMethodCallDependencies().Select(dependency => dependency.Target));
             Assert.Contains(expectedDependency.TargetMember.FullName,
                 propertyMember.GetMethodCallDependencies()

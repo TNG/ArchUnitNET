@@ -30,24 +30,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreValueTypes()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreValueTypes());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreEnums()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreEnums());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreStructs()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreStructs());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
 
         //Negations
 
@@ -61,24 +43,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         public TRuleTypeShouldConjunction AreNotSealed()
         {
             _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotSealed());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreNotValueTypes()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotValueTypes());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreNotEnums()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotEnums());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreNotStructs()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotStructs());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

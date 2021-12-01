@@ -25,7 +25,7 @@ namespace ArchUnitNETTests.Domain
             new ArchLoader().LoadAssembly(typeof(GenericClassTests).Assembly).Build();
 
         private readonly Class _classWithGenericParameters;
-        private readonly Class _expectedGenericArgument;
+        private readonly IType _expectedGenericArgument;
         private readonly FieldMember _genericallyTypedField;
 
         public GenericClassTests()
@@ -37,13 +37,13 @@ namespace ArchUnitNETTests.Domain
             var guidMock = new Type(SystemGuidFullName, GuidClassName,
                 _classWithGenericParameters.Assembly,
                 new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false, false, true, false);
-            _expectedGenericArgument = new Class(guidMock, false, true, true, false);
+            _expectedGenericArgument = new Struct(guidMock);
         }
 
         [Fact]
         public void GenericTypeArgumentsAsExpected()
         {
-            var genericTypeArgumentClass = _genericallyTypedField.GenericArguments.First().Type as Class;
+            var genericTypeArgumentClass = _genericallyTypedField.GenericArguments.First().Type;
 
             Assert.NotNull(genericTypeArgumentClass);
             Assert.Equal(_expectedGenericArgument, genericTypeArgumentClass);

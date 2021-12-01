@@ -82,6 +82,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction AreValueTypes()
+        {
+            _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreValueTypes());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreEnums()
+        {
+            _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreEnums());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreStructs()
+        {
+            _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreStructs());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction ImplementInterface(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -219,6 +237,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction AreNotAssignableTo(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreNotAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotValueTypes()
+        {
+            _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreNotValueTypes());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotEnums()
+        {
+            _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreNotEnums());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotStructs()
+        {
+            _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreNotStructs());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

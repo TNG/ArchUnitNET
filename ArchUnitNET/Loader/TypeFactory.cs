@@ -104,6 +104,10 @@ namespace ArchUnitNET.Loader
                         return new TypeInstance<Attribute>(att, elementTypeInstance.GenericArguments, dimensions);
                     case Class cls:
                         return new TypeInstance<Class>(cls, elementTypeInstance.GenericArguments, dimensions);
+                    case Struct str:
+                        return new TypeInstance<Struct>(str, elementTypeInstance.GenericArguments, dimensions);
+                    case Enum en:
+                        return new TypeInstance<Enum>(en, elementTypeInstance.GenericArguments, dimensions);
                     default:
                         return new TypeInstance<IType>(elementTypeInstance.Type, elementTypeInstance.GenericArguments,
                             dimensions);
@@ -125,6 +129,10 @@ namespace ArchUnitNET.Loader
                         return new TypeInstance<Attribute>(att, genericArguments);
                     case Class cls:
                         return new TypeInstance<Class>(cls, genericArguments);
+                    case Struct str:
+                        return new TypeInstance<Struct>(str, genericArguments);
+                    case Enum en:
+                        return new TypeInstance<Enum>(en, genericArguments);
                     default:
                         return new TypeInstance<IType>(elementType, genericArguments);
                 }
@@ -181,6 +189,10 @@ namespace ArchUnitNET.Loader
                         return new TypeInstance<Attribute>(att, arrayTypeInstance.GenericArguments, dimensions);
                     case Class cls:
                         return new TypeInstance<Class>(cls, arrayTypeInstance.GenericArguments, dimensions);
+                    case Struct str:
+                        return new TypeInstance<Struct>(str, arrayTypeInstance.GenericArguments, dimensions);
+                    case Enum en:
+                        return new TypeInstance<Enum>(en, arrayTypeInstance.GenericArguments, dimensions);
                     default:
                         return new TypeInstance<IType>(arrayTypeInstance.Type, arrayTypeInstance.GenericArguments,
                             dimensions);
@@ -198,32 +210,40 @@ namespace ArchUnitNET.Loader
             type.GenericParameters.AddRange(genericParameters);
 
             ITypeInstance<IType> createdTypeInstance;
-            var isInterface = typeDefinition.IsInterface;
 
             if (typeDefinition.IsInterface)
             {
                 createdTypeInstance = new TypeInstance<Interface>(new Interface(type));
             }
-            else
+            else if (typeDefinition.IsAttribute())
             {
-                if (typeDefinition.IsAttribute())
+                createdTypeInstance =
+                    new TypeInstance<Attribute>(new Attribute(type, typeDefinition.IsAbstract,
+                        typeDefinition.IsSealed));
+            }
+            else if (typeDefinition.IsValueType)
+            {
+                if (typeDefinition.IsEnum)
                 {
-                    createdTypeInstance =
-                        new TypeInstance<Attribute>(new Attribute(type, typeDefinition.IsAbstract,
-                            typeDefinition.IsSealed));
+                    createdTypeInstance = new TypeInstance<Enum>(new Enum(type));
                 }
                 else
                 {
-                    createdTypeInstance = new TypeInstance<Class>(new Class(type, typeDefinition.IsAbstract,
-                        typeDefinition.IsSealed, typeDefinition.IsValueType, typeDefinition.IsEnum));
+                    createdTypeInstance = new TypeInstance<Struct>(new Struct(type));
                 }
             }
+            else
+            {
+                createdTypeInstance =
+                    new TypeInstance<Class>(new Class(type, typeDefinition.IsAbstract, typeDefinition.IsSealed));
+            }
+
 
             if (!isStub && !isCompilerGenerated)
             {
-                if (!isInterface)
+                if (!typeDefinition.IsInterface)
                 {
-                    LoadBaseTask((Class)createdTypeInstance.Type, type, typeDefinition);
+                    LoadBaseTask(createdTypeInstance.Type, type, typeDefinition);
                 }
 
                 LoadNonBaseTasks(createdTypeInstance.Type, type, typeDefinition);
@@ -345,7 +365,7 @@ namespace ArchUnitNET.Loader
             return new GenericArgument(GetOrCreateStubTypeInstanceFromTypeReference(typeReference));
         }
 
-        private void LoadBaseTask(Class cls, Type type, TypeDefinition typeDefinition)
+        private void LoadBaseTask(IType cls, Type type, TypeDefinition typeDefinition)
         {
             if (typeDefinition == null)
             {

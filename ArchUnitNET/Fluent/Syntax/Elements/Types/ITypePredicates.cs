@@ -23,6 +23,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType AreAssignableTo(IObjectProvider<IType> types);
         TReturnType AreAssignableTo(IEnumerable<IType> types);
         TReturnType AreAssignableTo(IEnumerable<Type> types);
+        TReturnType AreValueTypes();
+        TReturnType AreEnums();
+        TReturnType AreStructs();
         TReturnType ImplementInterface(string pattern, bool useRegularExpressions = false);
         TReturnType ImplementInterface(Interface intf);
         TReturnType ImplementInterface(Type intf);
@@ -48,6 +51,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType AreNotAssignableTo(IObjectProvider<IType> types);
         TReturnType AreNotAssignableTo(IEnumerable<IType> types);
         TReturnType AreNotAssignableTo(IEnumerable<Type> types);
+        TReturnType AreNotValueTypes();
+        TReturnType AreNotEnums();
+        TReturnType AreNotStructs();
         TReturnType DoNotImplementInterface(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotImplementInterface(Interface intf);
         TReturnType DoNotImplementInterface(Type intf);
