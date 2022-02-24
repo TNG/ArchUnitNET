@@ -495,7 +495,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             bool Condition(MethodMember member)
             {
-                return typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName));
+                return typeList.Any(type => member.ReturnTypeInstance.MatchesType(type));
             }
 
             return new SimpleCondition<MethodMember>(Condition,
@@ -524,7 +524,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var pass = true;
                 var description = "is called by";
                 foreach (var type in member.GetMethodCallDependencies(true).Select(dependency => dependency.Origin)
-                    .Distinct())
+                             .Distinct())
                 {
                     if (type.FullNameMatches(pattern, useRegularExpressions))
                     {
@@ -721,7 +721,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var pass = true;
                 var description = "does have dependencies in method body to";
                 foreach (var type in member.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target)
-                    .Distinct())
+                             .Distinct())
                 {
                     if (type.FullNameMatches(pattern, useRegularExpressions))
                     {
@@ -1014,7 +1014,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             bool Condition(MethodMember member)
             {
-                return typeList.All(type => !member.ReturnType.FullNameMatches(type.FullName));
+                return typeList.All(type => !member.ReturnTypeInstance.MatchesType(type));
             }
 
             return new SimpleCondition<MethodMember>(Condition,

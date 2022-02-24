@@ -321,7 +321,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             var description = "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             return new SimplePredicate<MethodMember>(
-                member => typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName)), description);
+                member => typeList.Any(type => member.ReturnTypeInstance.MatchesType(type)), description);
         }
 
 
@@ -638,7 +638,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             var description = "do not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             return new SimplePredicate<MethodMember>(
-                member => typeList.All(type => !member.ReturnType.FullNameMatches(type.FullName)), description);
+                member => typeList.All(type => !member.ReturnTypeInstance.MatchesType(type)), description);
         }
     }
 }

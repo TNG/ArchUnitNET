@@ -4,8 +4,10 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using ArchUnitNET.Domain.Dependencies;
 
 namespace ArchUnitNET.Domain.Extensions
@@ -189,6 +191,27 @@ namespace ArchUnitNET.Domain.Extensions
             return getBackwardsDependencies
                 ? type.BackwardsDependencies.OfType<InheritsBaseClassDependency>()
                 : type.Dependencies.OfType<InheritsBaseClassDependency>();
+        }
+
+        public static bool MatchesType(this ITypeInstance<IType> typeInstance, Type targetType)
+        {
+            var targetTypeFullNameWithoutAssembly =
+                Regex.Replace(targetType.FullName ?? "", @"\[\[.*", "");
+
+            if (typeInstance.Type.FullName != targetTypeFullNameWithoutAssembly)
+            {
+                return false;
+            }
+
+            var targetGenericArguments = targetType.GetGenericArguments();
+
+            if (!targetGenericArguments.Any()) //always match when no generic arguments are given (like ITest<>)
+            {
+                return true;
+            }
+
+            return !typeInstance.GenericArguments.Where((t, i) =>
+                !targetGenericArguments[i].IsGenericParameter && !t.MatchesType(targetGenericArguments[i])).Any();
         }
     }
 }
