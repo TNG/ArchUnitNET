@@ -195,8 +195,7 @@ namespace ArchUnitNET.Domain.Extensions
 
         public static bool MatchesType(this ITypeInstance<IType> typeInstance, Type targetType)
         {
-            var targetTypeFullNameWithoutAssembly =
-                Regex.Replace(targetType.FullName ?? "", @"\[\[.*", "");
+            var targetTypeFullNameWithoutAssembly = targetType.Namespace + "." + targetType.Name;
 
             if (typeInstance.Type.FullName != targetTypeFullNameWithoutAssembly)
             {
