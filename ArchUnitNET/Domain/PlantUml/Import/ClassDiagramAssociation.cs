@@ -5,13 +5,13 @@ using System.Linq;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
 
-namespace ArchUnitNET.Domain.PlantUml
+namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class ClassDiagramAssociation
     {
         private readonly ImmutableHashSet<AssociatedComponent> _components;
 
-        public ClassDiagramAssociation(PlantUmlDiagram diagram)
+        public ClassDiagramAssociation(PlantUmlParsedDiagram diagram)
         {
             var components = ImmutableHashSet.CreateBuilder<AssociatedComponent>();
             ValidateStereotypes(diagram);
@@ -22,7 +22,7 @@ namespace ArchUnitNET.Domain.PlantUml
             _components = components.ToImmutable();
         }
 
-        private void ValidateStereotypes(PlantUmlDiagram plantUmlDiagram)
+        private void ValidateStereotypes(PlantUmlParsedDiagram plantUmlDiagram)
         {
             ISet<Stereotype> visited = new HashSet<Stereotype>();
             foreach (PlantUmlComponent component in plantUmlDiagram.AllComponents)

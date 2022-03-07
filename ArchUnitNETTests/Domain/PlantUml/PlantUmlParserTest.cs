@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ArchUnitNET.Domain.PlantUml;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
+using ArchUnitNET.Domain.PlantUml.Import;
 using Xunit;
 
 namespace ArchUnitNETTests.Domain.PlantUml
@@ -28,7 +28,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ParsesCorrectNumberOfComponents()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("SomeOrigin").WithStereoTypes("Origin.*")
                 .Component("SomeTarget").WithStereoTypes("Target.*")
                 .Write());
@@ -39,7 +39,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ParsesASimpleComponent()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                    .Component("SomeOrigin").WithStereoTypes("Origin.*")
                    .Write());
 
@@ -55,7 +55,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
             TestDiagram initialDiagram = TestDiagram.From(_memoryStream)
                 .Component("SomeOrigin").WithStereoTypes("Origin.*")
                 .Component("SomeTarget").WithStereoTypes("Target.*");
-            PlantUmlDiagram diagram = CreateDiagram(testCaseFunc(initialDiagram).Write());
+            PlantUmlParsedDiagram diagram = CreateDiagram(testCaseFunc(initialDiagram).Write());
 
             PlantUmlComponent origin = GetComponentWithName("SomeOrigin", diagram);
             PlantUmlComponent target = origin.Dependencies.Single();
@@ -70,7 +70,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [ClassData(typeof(DependencyArrowTestData))]
         public void ParsesVariousTypesOfDependencyArrows(string dependency)
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("SomeOrigin").WithStereoTypes("Origin.*")
                 .Component("SomeTarget").WithStereoTypes("Target.*")
                 .RawLine(dependency)
@@ -85,7 +85,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void DoesNotIncludeCommentedOutLines()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("uncommentedComponent").WithAlias("uncommentedAlias").WithStereoTypes("UncommentedNamespace.*")
                 .RawLine("  '  [commentedComponent] <<CommentedNamespace.*>> as commentedAlias")
                 .RawLine("")
@@ -101,7 +101,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void DoesNotIncludeDependencyDescriptions()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("component").WithStereoTypes("SomeNamespace.*")
                 .Component("otherComponent").WithStereoTypes("SomeNamespace2.*")
                 .RawLine("[component] --> [otherComponent] : this part should be ignored, no matter the comment tick ' ")
@@ -139,7 +139,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ParsesTwoIdenticalComponentsNoDependency()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("someName").WithAlias("someAlias").WithStereoTypes("someStereotype")
                 .Component("someName").WithAlias("someAlias").WithStereoTypes("someStereotype")
                 .Write());
@@ -161,7 +161,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ParsesATrickyAlias()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("tricky").WithAlias("because it's quoted").WithStereoTypes("Tricky.*")
                 .Component("tricky as hell cause of as keyword").WithAlias("other").WithStereoTypes("Other.*")
                 .Write());
@@ -176,7 +176,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ParsesComponentDiagramWithMultipleStereotypes()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("someComponent")
                 .WithStereoTypes("FirstNamespace.*", "SecondNamespace.*", "ThirdNamespace.*")
                 .Write());
@@ -189,7 +189,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ParsesComponentDiagramWithMultipleStereotypesAndAlias()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("someComponent").WithAlias("someAlias")
                 .WithStereoTypes("FirstNamespace.*", "SecondNamespace.*", "ThirdNamespace.*")
                 .Write());
@@ -202,7 +202,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ParsesDiagramWithDependenciesThatUseAlias()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("A").WithAlias("aliasForA").WithStereoTypes("Controller.*")
                 .Component("B").WithAlias("aliasForB").WithStereoTypes("Service.*")
                 .DependencyFrom("aliasForA").To("aliasForB")
@@ -219,7 +219,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ParsesDependenciesBetweenComponentsWithoutBrackets()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("A").WithStereoTypes("Origin.*")
                 .Component("B").WithStereoTypes("Target.*")
                 .DependencyFrom("A").To("B")
@@ -243,7 +243,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .DependencyFrom("Component3").To("Component4")
                 .Write();
 
-            PlantUmlDiagram diagram = CreateDiagram(_memoryStream);
+            PlantUmlParsedDiagram diagram = CreateDiagram(_memoryStream);
 
             PlantUmlComponent component1 = GetComponentWithName("Component1", diagram);
             PlantUmlComponent component2 = GetComponentWithName("Component2", diagram);
@@ -268,7 +268,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .DependencyFrom("[Component1]").To("[Component3]")
                 .Write();
 
-            PlantUmlDiagram diagram = CreateDiagram(_memoryStream);
+            PlantUmlParsedDiagram diagram = CreateDiagram(_memoryStream);
 
             PlantUmlComponent component1 = GetComponentWithName("Component1", diagram);
             PlantUmlComponent component2 = GetComponentWithName("Component2", diagram);
@@ -288,7 +288,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .DependencyFrom("[Component2]").To("[Component3]")
                 .Write();
 
-            PlantUmlDiagram diagram = CreateDiagram(_memoryStream);
+            PlantUmlParsedDiagram diagram = CreateDiagram(_memoryStream);
 
             PlantUmlComponent component1 = GetComponentWithName("Component1", diagram);
             PlantUmlComponent component2 = GetComponentWithName("Component2", diagram);
@@ -301,7 +301,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void ParseAComponentDiagramWithBothAliasAndNamesUsed()
         {
-            PlantUmlDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
+            PlantUmlParsedDiagram diagram = CreateDiagram(TestDiagram.From(_memoryStream)
                 .Component("A").WithAlias("foo").WithStereoTypes(".Service.*")
                 .Component("B").WithStereoTypes("Controller.*")
                 .DependencyFrom("[B]").To("foo")
@@ -325,7 +325,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .DependencyFrom("[foo]").To("[bar]")
                 .Write();
 
-            PlantUmlDiagram diagram = CreateDiagram(_memoryStream);
+            PlantUmlParsedDiagram diagram = CreateDiagram(_memoryStream);
 
             PlantUmlComponent foo = GetComponentWithAlias(new Alias("foo"), diagram);
             PlantUmlComponent bar = GetComponentWithAlias(new Alias("bar"), diagram);
@@ -345,14 +345,14 @@ namespace ArchUnitNETTests.Domain.PlantUml
                     .Write();
             }
 
-            PlantUmlDiagram diagram = CreateDiagram(path);
+            PlantUmlParsedDiagram diagram = CreateDiagram(path);
 
             PlantUmlComponent origin = GetComponentWithName("SomeOrigin", diagram);
             Assert.Equal(origin.Stereotypes.SingleOrDefault(), new Stereotype("Origin.*"));
             Assert.Null(origin.Alias);
         }
 
-        private PlantUmlComponent GetComponentWithName(string componentName, PlantUmlDiagram diagram)
+        private PlantUmlComponent GetComponentWithName(string componentName, PlantUmlParsedDiagram diagram)
         {
             PlantUmlComponent component = diagram.AllComponents
                 .Where(comp => Equals(comp.ComponentName, new ComponentName(componentName)))
@@ -360,17 +360,17 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return component;
         }
 
-        private PlantUmlComponent GetComponentWithAlias(Alias alias, PlantUmlDiagram diagram)
+        private PlantUmlComponent GetComponentWithAlias(Alias alias, PlantUmlParsedDiagram diagram)
         {
             return diagram.ComponentsWithAlias.Where(c => alias.Equals(c.Alias)).Single();
         }
 
-        private PlantUmlDiagram CreateDiagram(string path)
+        private PlantUmlParsedDiagram CreateDiagram(string path)
         {
             return _parser.Parse(path);
         }
 
-        private PlantUmlDiagram CreateDiagram(Stream stream)
+        private PlantUmlParsedDiagram CreateDiagram(Stream stream)
         {
             return _parser.Parse(stream);
         }

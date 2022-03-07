@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 
-namespace ArchUnitNET.Domain.PlantUml
+namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class PlantUmlDiagramBuilder
     {
@@ -29,13 +27,13 @@ namespace ArchUnitNET.Domain.PlantUml
 
         }
 
-        public PlantUmlDiagram Build()
+        public PlantUmlParsedDiagram Build()
         {
             foreach (PlantUmlComponent component in _plantUmlComponents.AllComponents)
             {
                 Finish(component);
             }
-            return new PlantUmlDiagram(_plantUmlComponents);
+            return new PlantUmlParsedDiagram(_plantUmlComponents);
         }
 
         private void Finish(PlantUmlComponent component)

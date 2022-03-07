@@ -1,4 +1,4 @@
-﻿namespace ArchUnitNET.Domain.PlantUml
+﻿namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class Stereotype
     {

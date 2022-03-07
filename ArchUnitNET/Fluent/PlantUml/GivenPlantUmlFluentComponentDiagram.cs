@@ -5,22 +5,28 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
+using ArchUnitNET.Domain.PlantUml.Export;
+
 namespace ArchUnitNET.Fluent.PlantUml
 {
-    public class GivenDefinedPlantUmlFluentComponentDiagram
+    public class GivenPlantUmlFluentComponentDiagram
     {
         private readonly PlantUmlFluentComponentDiagramCreator _fluentComponentDiagramCreator;
 
-        internal GivenDefinedPlantUmlFluentComponentDiagram(
+        internal GivenPlantUmlFluentComponentDiagram(
             PlantUmlFluentComponentDiagramCreator fluentComponentDiagramCreator)
         {
             _fluentComponentDiagramCreator = fluentComponentDiagramCreator;
         }
 
-        public BuiltPlantUmlFluentComponentDiagram Build()
+        public string AsString(RenderOptions renderOptions = null)
         {
-            _fluentComponentDiagramCreator.Builder.Build();
-            return new BuiltPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            return _fluentComponentDiagramCreator.Builder.AsString(renderOptions);
+        }
+
+        public void WriteToFile(string path, RenderOptions renderOptions = null, bool overwrite = true)
+        {
+            _fluentComponentDiagramCreator.Builder.WriteToFile(path, renderOptions, overwrite);
         }
     }
 }

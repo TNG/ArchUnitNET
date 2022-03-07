@@ -7,14 +7,14 @@ using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
-using static ArchUnitNET.Domain.PlantUml.PlantUmlPatterns;
+using static ArchUnitNET.Domain.PlantUml.Import.PlantUmlPatterns;
 
-namespace ArchUnitNET.Domain.PlantUml
+namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class PlantUmlParser
     {
         private PlantUmlPatterns _plantUmlPatterns = new PlantUmlPatterns();
-        public PlantUmlDiagram Parse(string filename)
+        public PlantUmlParsedDiagram Parse(string filename)
         {
             if (filename is null)
             {
@@ -23,7 +23,7 @@ namespace ArchUnitNET.Domain.PlantUml
             return CreateDiagram(ReadLines(filename));
         }
 
-        public PlantUmlDiagram Parse(Stream stream)
+        public PlantUmlParsedDiagram Parse(Stream stream)
         {
             if (stream is null)
             {
@@ -66,7 +66,7 @@ namespace ArchUnitNET.Domain.PlantUml
             }
         }
 
-        private PlantUmlDiagram CreateDiagram(IEnumerable<string> rawDiagramLines)
+        private PlantUmlParsedDiagram CreateDiagram(IEnumerable<string> rawDiagramLines)
         {
             IEnumerable<string> diagramLines = FilterOutComments(rawDiagramLines);
             ISet<PlantUmlComponent> components = ParseComponents(diagramLines);

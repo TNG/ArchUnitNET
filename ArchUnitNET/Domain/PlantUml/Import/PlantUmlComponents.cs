@@ -2,7 +2,7 @@
 using System.Linq;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
 
-namespace ArchUnitNET.Domain.PlantUml
+namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class PlantUmlComponents
     {

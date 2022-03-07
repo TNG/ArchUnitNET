@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ArchUnitNET.Domain.PlantUml
+namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class ComponentName
     {

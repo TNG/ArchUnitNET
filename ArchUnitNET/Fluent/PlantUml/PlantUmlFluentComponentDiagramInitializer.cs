@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.PlantUml;
+using ArchUnitNET.Domain.PlantUml.Export;
 
 namespace ArchUnitNET.Fluent.PlantUml
 {
@@ -21,54 +21,50 @@ namespace ArchUnitNET.Fluent.PlantUml
             _fluentComponentDiagramCreator = fluentComponentDiagramCreator;
         }
 
-        public GivenDefinedPlantUmlFluentComponentDiagram WithCustomDependencies(
-            IEnumerable<PlantUmlDependency> dependencies,
-            params string[] objectsWithoutDependencies)
+        public GivenPlantUmlFluentComponentDiagram WithElements(IEnumerable<IPlantUmlElement> elements)
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(dependencies, objectsWithoutDependencies);
-            _fluentComponentDiagramCreator.AddToDescription("with custom dependencies");
-            return new GivenDefinedPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            _fluentComponentDiagramCreator.Builder.WithElements(elements);
+            _fluentComponentDiagramCreator.AddToDescription("with custom elements");
+            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+        }
+        
+        public GivenPlantUmlFluentComponentDiagram WithElements(params IPlantUmlElement[] elements)
+        {
+            _fluentComponentDiagramCreator.Builder.WithElements(elements);
+            _fluentComponentDiagramCreator.AddToDescription("with custom elements");
+            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
-        public GivenDefinedPlantUmlFluentComponentDiagram WithCustomDependencies(
-            IEnumerable<PlantUmlDependency> dependencies,
-            IEnumerable<string> objectsWithoutDependencies)
-        {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(dependencies, objectsWithoutDependencies);
-            _fluentComponentDiagramCreator.AddToDescription("with custom dependencies");
-            return new GivenDefinedPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
-        }
-
-        public GivenDefinedPlantUmlFluentComponentDiagram WithDependenciesFromTypes(IEnumerable<IType> types,
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(IEnumerable<IType> types,
             bool includeDependenciesToOther = false)
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(types, includeDependenciesToOther);
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
-            return new GivenDefinedPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
-        public GivenDefinedPlantUmlFluentComponentDiagram WithDependenciesFromTypes(IObjectProvider<IType> types,
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(IObjectProvider<IType> types,
             Architecture architecture, bool includeDependenciesToOther = false)
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(types.GetObjects(architecture),
                 includeDependenciesToOther);
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
-            return new GivenDefinedPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
-        public GivenDefinedPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IEnumerable<Slice> slices)
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IEnumerable<Slice> slices)
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(slices);
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
-            return new GivenDefinedPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
-        public GivenDefinedPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IObjectProvider<Slice> slices,
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IObjectProvider<Slice> slices,
             Architecture architecture)
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(slices.GetObjects(architecture));
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
-            return new GivenDefinedPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
     }
 }

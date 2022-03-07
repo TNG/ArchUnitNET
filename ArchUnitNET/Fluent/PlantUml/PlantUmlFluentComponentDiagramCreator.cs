@@ -6,7 +6,7 @@
 // 
 
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.PlantUml;
+using ArchUnitNET.Domain.PlantUml.Export;
 
 namespace ArchUnitNET.Fluent.PlantUml
 {

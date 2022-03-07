@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.PlantUml;
+using ArchUnitNET.Domain.PlantUml.Export;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
@@ -24,20 +24,19 @@ namespace ArchUnitNETTests.Fluent.PlantUml
         private static readonly Architecture Architecture =
             new ArchLoader().LoadAssembly(typeof(PlantUmlFluentComponentDiagramTests).Assembly).Build();
 
-        private static readonly List<PlantUmlDependency> Dependencies = new List<PlantUmlDependency>
+        private static readonly List<IPlantUmlElement> Dependencies = new List<IPlantUmlElement>
         {
-            new PlantUmlDependency("a", "b"),
-            new PlantUmlDependency("b", "c"),
-            new PlantUmlDependency("c", "a")
+            new PlantUmlDependency("a", "b", DependencyType.OneToOne),
+            new PlantUmlDependency("b", "c", DependencyType.OneToOne),
+            new PlantUmlDependency("c", "a", DependencyType.OneToOne)
         };
 
         [Fact]
         public void ComponentDiagramFromSlicesTest()
         {
             var sliceRule = SliceRuleDefinition.Slices().Matching("ArchUnitNETTests.(*).");
-            var uml1 = ComponentDiagram().WithDependenciesFromSlices(sliceRule, Architecture).Build().AsString();
-            var uml2 = ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(Architecture)).Build()
-                .AsString();
+            var uml1 = ComponentDiagram().WithDependenciesFromSlices(sliceRule, Architecture).AsString();
+            var uml2 = ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(Architecture)).AsString();
             Assert.NotEmpty(uml1);
             Assert.NotEmpty(uml2);
         }
@@ -46,20 +45,18 @@ namespace ArchUnitNETTests.Fluent.PlantUml
         public void ComponentDiagramFromTypesTest()
         {
             var typeRule = ArchRuleDefinition.Types().That().Are(typeof(PlantUmlFluentComponentDiagramTests));
-            var uml1 = ComponentDiagram().WithDependenciesFromTypes(typeRule, Architecture).Build().AsString();
-            var uml2 = ComponentDiagram().WithDependenciesFromTypes(typeRule.GetObjects(Architecture)).Build()
-                .AsString();
-            var uml3 = ComponentDiagram().WithDependenciesFromTypes(typeRule, Architecture, true).Build().AsString();
-            var uml4 = ComponentDiagram().WithDependenciesFromTypes(typeRule.GetObjects(Architecture), true).Build()
-                .AsString();
+            var uml1 = ComponentDiagram().WithDependenciesFromTypes(typeRule, Architecture).AsString(new RenderOptions{OmitClassFields = true});
+            var uml2 = ComponentDiagram().WithDependenciesFromTypes(typeRule.GetObjects(Architecture)).AsString(new RenderOptions{OmitClassFields = true});
+            var uml3 = ComponentDiagram().WithDependenciesFromTypes(typeRule, Architecture, true).AsString();
+            var uml4 = ComponentDiagram().WithDependenciesFromTypes(typeRule.GetObjects(Architecture), true).AsString();
             Assert.NotEmpty(uml1);
             Assert.NotEmpty(uml2);
             Assert.NotEmpty(uml3);
             Assert.NotEmpty(uml4);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "[" +
+            var expectedUml = "@startuml" + Environment.NewLine + "class " +
                               typeof(PlantUmlFluentComponentDiagramTests).FullName +
-                              "]" + Environment.NewLine + "@enduml" + Environment.NewLine;
+                              " {" + Environment.NewLine + "}" + Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml1);
             Assert.Equal(expectedUml, uml2);
         }
@@ -67,31 +64,27 @@ namespace ArchUnitNETTests.Fluent.PlantUml
         [Fact]
         public void ComponentDiagramFromCustomDependenciesTest()
         {
-            var uml1 = ComponentDiagram().WithCustomDependencies(Dependencies, "d", "").Build().AsString();
-            var uml2 = ComponentDiagram().WithCustomDependencies(Dependencies, new[] { "", "d" }).Build().AsString();
-            Assert.NotEmpty(uml1);
-            Assert.NotEmpty(uml2);
+            var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
+            var uml = ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).AsString();
+            Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "[d]" + Environment.NewLine + "[a] --> [b]" +
-                              Environment.NewLine + "[b] --> [c]" + Environment.NewLine + "[c] --> [a]" +
+            var expectedUml = "@startuml" + Environment.NewLine + "class d {" + Environment.NewLine + "}" + Environment.NewLine + "a --|> b" +
+                              Environment.NewLine + "b --|> c" + Environment.NewLine + "c --|> a" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
-            Assert.Equal(expectedUml, uml1);
-            Assert.Equal(expectedUml, uml2);
+            Assert.Equal(expectedUml, uml);
         }
 
         [Fact]
         public void ComponentDiagramWriteToFileTest()
         {
-            const string path1 = "temp/testUml1.puml";
-            const string path2 = "temp/testUml2.puml";
+            var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
+            const string path = "temp/testUml.puml";
             var expectedUml = new[]
-                { "@startuml", "[d]", "[a] --> [b]", "[b] --> [c]", "[c] --> [a]", "@enduml" };
-            ComponentDiagram().WithCustomDependencies(Dependencies, "d", "").Build().WriteToFile(path1);
-            ComponentDiagram().WithCustomDependencies(Dependencies, new[] { "", "d" }).Build().WriteToFile(path2);
-            Assert.True(File.Exists(path1));
-            Assert.True(File.Exists(path2));
+                {"@startuml", "class d {", "}", "a --|> b", "b --|> c", "c --|> a", "@enduml"};
+            ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).WriteToFile(path);
+            Assert.True(File.Exists(path));
 
-            using (var sr = File.OpenText(path1))
+            using (var sr = File.OpenText(path))
             {
                 var i = 0;
                 var s = "";
@@ -102,19 +95,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
                 }
             }
 
-            using (var sr = File.OpenText(path2))
-            {
-                var i = 0;
-                var s = "";
-                while ((s = sr.ReadLine()) != null)
-                {
-                    Assert.Equal(expectedUml[i], s);
-                    i++;
-                }
-            }
-
-            File.Delete(path1);
-            File.Delete(path2);
+            File.Delete(path);
 
             if (!Directory.EnumerateFileSystemEntries("temp").Any())
             {

@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
-using ArchUnitNET.Domain.PlantUml;
+using ArchUnitNET.Domain.PlantUml.Import;
 using ArchUnitNET.Fluent.Conditions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
@@ -322,17 +322,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> AdhereToPlantUmlDiagram(Stream stream)
         {
-            PlantUmlDiagram diagram = new PlantUmlParser().Parse(stream);
+            PlantUmlParsedDiagram diagram = new PlantUmlParser().Parse(stream);
             return createPlantUmlCondition(diagram);
         }
         
         public static ICondition<TRuleType> AdhereToPlantUmlDiagram(string file)
         {
-            PlantUmlDiagram diagram = new PlantUmlParser().Parse(file);
+            PlantUmlParsedDiagram diagram = new PlantUmlParser().Parse(file);
             return createPlantUmlCondition(diagram);
         }
 
-        private static ICondition<TRuleType> createPlantUmlCondition(PlantUmlDiagram diagram)
+        private static ICondition<TRuleType> createPlantUmlCondition(PlantUmlParsedDiagram diagram)
         {
             ClassDiagramAssociation classDiagramAssociation = new ClassDiagramAssociation(diagram);
 

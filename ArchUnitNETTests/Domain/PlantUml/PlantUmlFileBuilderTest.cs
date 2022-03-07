@@ -9,8 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.PlantUml;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
+using ArchUnitNET.Domain.PlantUml.Export;
 using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
 using Xunit;
@@ -22,18 +22,18 @@ namespace ArchUnitNETTests.Domain.PlantUml
         private static readonly Architecture Architecture =
             new ArchLoader().LoadAssembly(typeof(PlantUmlFileBuilderTest).Assembly).Build();
 
-        private static readonly List<PlantUmlDependency> Dependencies = new List<PlantUmlDependency>
+        private static readonly List<IPlantUmlElement> Dependencies = new List<IPlantUmlElement>
         {
-            new PlantUmlDependency("a", "b"),
-            new PlantUmlDependency("b", "c"),
-            new PlantUmlDependency("c", "a")
+            new PlantUmlDependency("a", "b", DependencyType.OneToOne),
+            new PlantUmlDependency("b", "c", DependencyType.OneToOne),
+            new PlantUmlDependency("c", "a", DependencyType.OneToOne)
         };
 
         [Fact]
         public void BuildUmlByTypesTest()
         {
             var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Architecture.Types.Take(100));
-            var uml = builder.Build().AsString();
+            var uml = builder.AsString();
             Assert.NotEmpty(uml);
         }
 
@@ -41,7 +41,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void BuildUmlByTypesIncludingDependenciesToOtherTest()
         {
             var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Architecture.Types.Take(100), true);
-            var uml = builder.Build().AsString();
+            var uml = builder.AsString();
             Assert.NotEmpty(uml);
         }
 
@@ -49,7 +49,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         public void BuildUmlByNamespacesTest()
         {
             var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Architecture.Namespaces);
-            var uml = builder.Build().AsString();
+            var uml = builder.AsString();
             Assert.NotEmpty(uml);
         }
 
@@ -58,19 +58,19 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             var slices = SliceRuleDefinition.Slices().Matching("ArchUnitNETTests.(*).").GetObjects(Architecture);
             var builder = new PlantUmlFileBuilder().WithDependenciesFrom(slices);
-            var uml = builder.Build().AsString();
+            var uml = builder.AsString();
             Assert.NotEmpty(uml);
         }
 
         [Fact]
         public void BuildUmlByDependenciesTest()
         {
-            var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies);
-            var uml = builder.Build().AsString();
+            var builder = new PlantUmlFileBuilder().WithElements(Dependencies);
+            var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "[a] --> [b]" +
-                              Environment.NewLine + "[b] --> [c]" + Environment.NewLine + "[c] --> [a]" +
+            var expectedUml = "@startuml" + Environment.NewLine + "a --|> b" +
+                              Environment.NewLine + "b --|> c" + Environment.NewLine + "c --|> a" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
@@ -78,37 +78,32 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void BuildUmlByDependenciesWithObjectsWithNoDependenciesTest()
         {
-            var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies, "d", "");
-            var uml = builder.Build().AsString();
+            var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
+            var builder = new PlantUmlFileBuilder().WithElements(Dependencies.Concat(classesWithoutDependencies));
+            var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
 
-            var expectedUml = "@startuml" + Environment.NewLine + "[d]" + Environment.NewLine + "[a] --> [b]" +
-                              Environment.NewLine + "[b] --> [c]" + Environment.NewLine + "[c] --> [a]" +
-                              Environment.NewLine + "@enduml" + Environment.NewLine;
+            var expectedUml = "@startuml" + Environment.NewLine + "class d {" + Environment.NewLine + "}" +
+                              Environment.NewLine + "a --|> b" + Environment.NewLine + "b --|> c" +
+                              Environment.NewLine + "c --|> a" + Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
 
         [Fact]
         public void HandleIllegalComponentNamesTest()
         {
-            var forbiddenCharacters = new[] { "[", "]", "\r", "\n", "\f", "\a", "\b", "\v" };
+            var forbiddenCharacters = new[] {"[", "]", "\r", "\n", "\f", "\a", "\b", "\v"};
             foreach (var character in forbiddenCharacters)
             {
-                var deps1 = new List<PlantUmlDependency>
-                {
-                    new PlantUmlDependency(character, "a"),
-                };
-                var deps2 = new List<PlantUmlDependency>
-                {
-                    new PlantUmlDependency("a", character),
-                };
                 Assert.Throws<IllegalComponentNameException>(() =>
-                    new PlantUmlFileBuilder().WithDependenciesFrom(deps1).Build());
+                    new PlantUmlDependency(character, "a", DependencyType.OneToOne));
                 Assert.Throws<IllegalComponentNameException>(() =>
-                    new PlantUmlFileBuilder().WithDependenciesFrom(deps2).Build());
-                Assert.Throws<IllegalComponentNameException>(() =>
-                    new PlantUmlFileBuilder().WithDependenciesFrom(Dependencies, character).Build());
+                    new PlantUmlDependency("a", character, DependencyType.OneToOne));
+                Assert.Throws<IllegalComponentNameException>(() => new PlantUmlClass(character));
+                Assert.Throws<IllegalComponentNameException>(() => new PlantUmlInterface(character));
+                Assert.Throws<IllegalComponentNameException>(() => new PlantUmlSlice(character));
+                Assert.Throws<IllegalComponentNameException>(() => new PlantUmlNamespace(character));
             }
         }
 
@@ -116,21 +111,23 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void SpecialCharactersInComponentNamesTest()
         {
-            var dependenciesWithSpecialCharacters = new List<PlantUmlDependency>
+            var dependenciesWithSpecialCharacters = new List<IPlantUmlElement>
             {
-                new PlantUmlDependency("!\"§´`", "$%&/()=?"),
-                new PlantUmlDependency("\\\t%", "äöüß"),
-                new PlantUmlDependency("^°-*+.,;:", "<>|@€")
+                new PlantUmlDependency("!\"§´`", "$%&/()=?", DependencyType.OneToOne),
+                new PlantUmlDependency("\\\t%", "äöüß", DependencyType.OneToOne),
+                new PlantUmlDependency("^°-*+.,;:", "<>|@€", DependencyType.OneToOne)
             };
-            var builder = new PlantUmlFileBuilder().WithDependenciesFrom(dependenciesWithSpecialCharacters,
-                "!\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€");
-            var uml = builder.Build().AsString();
+            var classesWithSpecialCharacters = new[] {new PlantUmlClass("!\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€")};
+            var builder =
+                new PlantUmlFileBuilder().WithElements(
+                    dependenciesWithSpecialCharacters.Concat(classesWithSpecialCharacters));
+            var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "[!\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€]" +
-                              Environment.NewLine + "[!\"§´`] --> [$%&/()=?]" +
-                              Environment.NewLine + "[\\\t%] --> [äöüß]" + Environment.NewLine +
-                              "[^°-*+.,;:] --> [<>|@€]" +
+            var expectedUml = "@startuml" + Environment.NewLine + "class !\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€ {" +
+                              Environment.NewLine + "}" + Environment.NewLine + "!\"§´` --|> $%&/()=?" +
+                              Environment.NewLine + "\\\t% --|> äöüß" + Environment.NewLine +
+                              "^°-*+.,;: --|> <>|@€" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }

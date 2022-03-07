@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ArchUnitNET.Domain.PlantUml
+namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class PlantUmlComponentDependency
     {

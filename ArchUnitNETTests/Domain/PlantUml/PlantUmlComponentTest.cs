@@ -1,7 +1,5 @@
-﻿using ArchUnitNET.Domain.PlantUml;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using ArchUnitNET.Domain.PlantUml.Import;
 using Xunit;
 
 namespace ArchUnitNETTests.Domain.PlantUml

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
-using ArchUnitNET.Domain.PlantUml;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
+using ArchUnitNET.Domain.PlantUml.Import;
 using TestAssembly;
 using TestAssembly.Diagram.ConfusingNamespaceNames.FooNamespace.BarNamespace;
 using TestAssembly.Diagram.SimpleDependency.Origin;
@@ -123,13 +123,13 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
         private ClassDiagramAssociation CreateAssociation(Stream stream)
         {
-            PlantUmlDiagram diagram = new PlantUmlParser().Parse(stream);
+            PlantUmlParsedDiagram diagram = new PlantUmlParser().Parse(stream);
             return new ClassDiagramAssociation(diagram);
         }
 
         private ClassDiagramAssociation CreateAssociation(String file)
         {
-            PlantUmlDiagram diagram = new PlantUmlParser().Parse(file);
+            PlantUmlParsedDiagram diagram = new PlantUmlParser().Parse(file);
             return new ClassDiagramAssociation(diagram);
         }
     }

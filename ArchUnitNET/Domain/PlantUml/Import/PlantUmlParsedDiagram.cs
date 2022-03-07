@@ -4,13 +4,13 @@ using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ArchUnitNETTests")]
-namespace ArchUnitNET.Domain.PlantUml
+namespace ArchUnitNET.Domain.PlantUml.Import
 {
-    internal class PlantUmlDiagram
+    internal class PlantUmlParsedDiagram
     {
         private PlantUmlComponents _plantUmlComponents;
 
-        public PlantUmlDiagram(PlantUmlComponents plantUmlComponents)
+        public PlantUmlParsedDiagram(PlantUmlComponents plantUmlComponents)
         {
             _plantUmlComponents = plantUmlComponents ?? throw new ArgumentNullException(nameof(plantUmlComponents));
         }
