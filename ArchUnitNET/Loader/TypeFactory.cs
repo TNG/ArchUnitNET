@@ -74,7 +74,7 @@ namespace ArchUnitNET.Loader
         {
             if (typeReference.IsGenericParameter)
             {
-                var genericParameter = (Mono.Cecil.GenericParameter) typeReference;
+                var genericParameter = (Mono.Cecil.GenericParameter)typeReference;
                 var declarerIsMethod = genericParameter.Type == GenericParameterType.Method;
                 var declaringTypeFullName = declarerIsMethod
                     ? genericParameter.DeclaringMethod.BuildFullName()
@@ -90,7 +90,7 @@ namespace ArchUnitNET.Loader
                 var dimensions = new List<int>();
                 do
                 {
-                    var arrayType = (ArrayType) typeReference;
+                    var arrayType = (ArrayType)typeReference;
                     dimensions.Add(arrayType.Rank);
                     typeReference = arrayType.ElementType;
                 } while (typeReference.IsArray);
@@ -104,6 +104,10 @@ namespace ArchUnitNET.Loader
                         return new TypeInstance<Attribute>(att, elementTypeInstance.GenericArguments, dimensions);
                     case Class cls:
                         return new TypeInstance<Class>(cls, elementTypeInstance.GenericArguments, dimensions);
+                    case Struct str:
+                        return new TypeInstance<Struct>(str, elementTypeInstance.GenericArguments, dimensions);
+                    case Enum en:
+                        return new TypeInstance<Enum>(en, elementTypeInstance.GenericArguments, dimensions);
                     default:
                         return new TypeInstance<IType>(elementTypeInstance.Type, elementTypeInstance.GenericArguments,
                             dimensions);
@@ -113,7 +117,7 @@ namespace ArchUnitNET.Loader
             if (typeReference.IsGenericInstance)
             {
                 var elementType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference.GetElementType()).Type;
-                var genericInstance = (GenericInstanceType) typeReference;
+                var genericInstance = (GenericInstanceType)typeReference;
                 var genericArguments = genericInstance.GenericArguments
                     .Select(CreateGenericArgumentFromTypeReference)
                     .Where(argument => !argument.Type.IsCompilerGenerated);
@@ -125,6 +129,10 @@ namespace ArchUnitNET.Loader
                         return new TypeInstance<Attribute>(att, genericArguments);
                     case Class cls:
                         return new TypeInstance<Class>(cls, genericArguments);
+                    case Struct str:
+                        return new TypeInstance<Struct>(str, genericArguments);
+                    case Enum en:
+                        return new TypeInstance<Enum>(en, genericArguments);
                     default:
                         return new TypeInstance<IType>(elementType, genericArguments);
                 }
@@ -142,9 +150,13 @@ namespace ArchUnitNET.Loader
             }
 
             var typeName = typeReference.BuildFullName();
-            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(typeReference.IsNested
-                ? typeReference.DeclaringType.Namespace
-                : typeReference.Namespace);
+            var declaringTypeReference = typeReference;
+            while (declaringTypeReference.IsNested)
+            {
+                declaringTypeReference = declaringTypeReference.DeclaringType;
+            }
+
+            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(declaringTypeReference.Namespace);
             var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
                 typeReference.Module.Assembly.FullName, true);
 
@@ -167,7 +179,7 @@ namespace ArchUnitNET.Loader
             {
                 var arrayType = typeDefinition.Fields.First(field => field.Name == "FixedElementField").FieldType;
                 var arrayTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(arrayType);
-                var dimensions = new List<int> {1};
+                var dimensions = new List<int> { 1 };
 
                 switch (arrayTypeInstance.Type)
                 {
@@ -177,6 +189,10 @@ namespace ArchUnitNET.Loader
                         return new TypeInstance<Attribute>(att, arrayTypeInstance.GenericArguments, dimensions);
                     case Class cls:
                         return new TypeInstance<Class>(cls, arrayTypeInstance.GenericArguments, dimensions);
+                    case Struct str:
+                        return new TypeInstance<Struct>(str, arrayTypeInstance.GenericArguments, dimensions);
+                    case Enum en:
+                        return new TypeInstance<Enum>(en, arrayTypeInstance.GenericArguments, dimensions);
                     default:
                         return new TypeInstance<IType>(arrayTypeInstance.Type, arrayTypeInstance.GenericArguments,
                             dimensions);
@@ -194,32 +210,40 @@ namespace ArchUnitNET.Loader
             type.GenericParameters.AddRange(genericParameters);
 
             ITypeInstance<IType> createdTypeInstance;
-            var isInterface = typeDefinition.IsInterface;
 
             if (typeDefinition.IsInterface)
             {
                 createdTypeInstance = new TypeInstance<Interface>(new Interface(type));
             }
-            else
+            else if (typeDefinition.IsAttribute())
             {
-                if (typeDefinition.IsAttribute())
+                createdTypeInstance =
+                    new TypeInstance<Attribute>(new Attribute(type, typeDefinition.IsAbstract,
+                        typeDefinition.IsSealed));
+            }
+            else if (typeDefinition.IsValueType)
+            {
+                if (typeDefinition.IsEnum)
                 {
-                    createdTypeInstance =
-                        new TypeInstance<Attribute>(new Attribute(type, typeDefinition.IsAbstract,
-                            typeDefinition.IsSealed));
+                    createdTypeInstance = new TypeInstance<Enum>(new Enum(type));
                 }
                 else
                 {
-                    createdTypeInstance = new TypeInstance<Class>(new Class(type, typeDefinition.IsAbstract,
-                        typeDefinition.IsSealed, typeDefinition.IsValueType, typeDefinition.IsEnum));
+                    createdTypeInstance = new TypeInstance<Struct>(new Struct(type));
                 }
             }
+            else
+            {
+                createdTypeInstance =
+                    new TypeInstance<Class>(new Class(type, typeDefinition.IsAbstract, typeDefinition.IsSealed));
+            }
+
 
             if (!isStub && !isCompilerGenerated)
             {
-                if (!isInterface)
+                if (!typeDefinition.IsInterface)
                 {
-                    LoadBaseTask((Class) createdTypeInstance.Type, type, typeDefinition);
+                    LoadBaseTask(createdTypeInstance.Type, type, typeDefinition);
                 }
 
                 LoadNonBaseTasks(createdTypeInstance.Type, type, typeDefinition);
@@ -237,7 +261,7 @@ namespace ArchUnitNET.Loader
                 var elementMethod =
                     CreateMethodMemberFromMethodReference(typeInstance, methodReference.GetElementMethod()).Member;
 
-                var genericInstanceMethod = (GenericInstanceMethod) methodReference;
+                var genericInstanceMethod = (GenericInstanceMethod)methodReference;
                 var genericArguments = genericInstanceMethod.GenericArguments
                     .Select(CreateGenericArgumentFromTypeReference)
                     .Where(argument => !argument.Type.IsCompilerGenerated);
@@ -341,7 +365,7 @@ namespace ArchUnitNET.Loader
             return new GenericArgument(GetOrCreateStubTypeInstanceFromTypeReference(typeReference));
         }
 
-        private void LoadBaseTask(Class cls, Type type, TypeDefinition typeDefinition)
+        private void LoadBaseTask(IType cls, Type type, TypeDefinition typeDefinition)
         {
             if (typeDefinition == null)
             {

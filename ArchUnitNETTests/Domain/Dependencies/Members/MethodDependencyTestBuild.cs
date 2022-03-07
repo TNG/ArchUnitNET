@@ -72,6 +72,35 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             }
         }
 
+        public class MethodCallDependencyInAsyncMethodTestData : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _methodCallDependencyData = new List<object[]>
+            {
+                BuildMethodCallDependencyTestData(typeof(ClassWithMethodAAsync),
+                    nameof(ClassWithMethodAAsync.MethodAAsync).BuildMethodMemberName(), typeof(ClassWithMethodB),
+                    StaticConstants.ConstructorNameBase.BuildMethodMemberName()),
+                BuildMethodCallDependencyTestData(typeof(ClassWithMethodAAsync),
+                    nameof(ClassWithMethodAAsync.MethodAAsync).BuildMethodMemberName(), typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()),
+                BuildMethodCallDependencyTestData(typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName(), typeof(ClassWithMethodA),
+                    StaticConstants.ConstructorNameBase.BuildMethodMemberName()),
+                BuildMethodCallDependencyTestData(typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName(), typeof(ClassWithMethodA),
+                    nameof(ClassWithMethodA.MethodA).BuildMethodMemberName())
+            };
+
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                return _methodCallDependencyData.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
         public class MethodSignatureDependencyTestData : IEnumerable<object[]>
         {
             private readonly List<object[]> _methodSignatureDependencyData = new List<object[]>

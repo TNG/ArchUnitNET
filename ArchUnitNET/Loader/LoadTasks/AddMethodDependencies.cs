@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
@@ -118,6 +119,11 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             var visitedMethodReferences = new List<MethodReference> {methodDefinition};
             var bodyTypes = new List<ITypeInstance<IType>>();
+
+            if (methodDefinition.IsAsync())
+            {
+                HandleAsync(out methodDefinition, ref methodBody, bodyTypes, visitedMethodReferences);
+            }
 
             if (methodDefinition.IsIterator())
             {
@@ -247,6 +253,32 @@ namespace ArchUnitNET.Loader.LoadTasks
             var fieldsExceptGeneratorStateInfo = compilerGeneratedGeneratorObject.Fields.Where(field => !
                 (field.Name.EndsWith("__state") || field.Name.EndsWith("__current") ||
                  field.Name.EndsWith("__initialThreadId") || field.Name.EndsWith("__this")));
+
+            bodyTypes.AddRange(fieldsExceptGeneratorStateInfo.Select(bodyField =>
+                _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)));
+        }
+
+        private void HandleAsync(out MethodDefinition methodDefinition, ref MethodBody methodBody,
+            List<ITypeInstance<IType>> bodyTypes, ICollection<MethodReference> visitedMethodReferences)
+        {
+            var compilerGeneratedGeneratorObject = ((MethodReference)methodBody.Instructions
+                    .FirstOrDefault(inst => inst.IsNewObjectOp())?.Operand)?.DeclaringType.Resolve();
+
+            if (compilerGeneratedGeneratorObject == null)
+            {
+                methodDefinition = methodBody.Method;
+                return;
+            }
+
+            methodDefinition = compilerGeneratedGeneratorObject.Methods
+                .First(method => method.Name == nameof(IAsyncStateMachine.MoveNext));
+
+            visitedMethodReferences.Add(methodDefinition);
+            methodBody = methodDefinition.Body;
+
+            var fieldsExceptGeneratorStateInfo = compilerGeneratedGeneratorObject.Fields.Where(field => !
+                (field.Name.EndsWith("__state") || field.Name.EndsWith("__builder") ||
+                 field.Name.EndsWith("__this"))).ToArray();
 
             bodyTypes.AddRange(fieldsExceptGeneratorStateInfo.Select(bodyField =>
                 _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)));

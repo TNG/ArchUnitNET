@@ -55,6 +55,14 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             Assert.True(originMember.HasMemberDependency(expectedDependency));
             Assert.Contains(expectedDependency, originMember.GetMethodCallDependencies());
         }
+
+        [Theory]
+        [ClassData(typeof(MethodDependencyTestBuild.MethodCallDependencyInAsyncMethodTestData))]
+        public void MethodCallDependenciesAreFoundInAsyncMethod(IMember originMember, MethodCallDependency expectedDependency)
+        {
+            Assert.True(originMember.HasMemberDependency(expectedDependency));
+            Assert.Contains(expectedDependency, originMember.GetMethodCallDependencies());
+        }
     }
 
     public class ClassWithMethodA
@@ -72,6 +80,17 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             var classWithMethodA = new ClassWithMethodA();
             ClassWithMethodA.MethodA();
+        }
+    }
+
+    public class ClassWithMethodAAsync
+    {
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public static async void MethodAAsync()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        {
+            var classWithMethodB = new ClassWithMethodB();
+            ClassWithMethodB.MethodB();
         }
     }
 

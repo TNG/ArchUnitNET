@@ -26,24 +26,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return new ClassesShouldConjunction(_ruleCreator);
         }
 
-        public ClassesShouldConjunction BeValueTypes()
-        {
-            _ruleCreator.AddCondition(ClassConditionsDefinition.BeValueTypes());
-            return new ClassesShouldConjunction(_ruleCreator);
-        }
-
-        public ClassesShouldConjunction BeEnums()
-        {
-            _ruleCreator.AddCondition(ClassConditionsDefinition.BeEnums());
-            return new ClassesShouldConjunction(_ruleCreator);
-        }
-
-        public ClassesShouldConjunction BeStructs()
-        {
-            _ruleCreator.AddCondition(ClassConditionsDefinition.BeStructs());
-            return new ClassesShouldConjunction(_ruleCreator);
-        }
-
 
         //Negations
 
@@ -57,24 +39,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         public ClassesShouldConjunction NotBeSealed()
         {
             _ruleCreator.AddCondition(ClassConditionsDefinition.NotBeSealed());
-            return new ClassesShouldConjunction(_ruleCreator);
-        }
-
-        public ClassesShouldConjunction NotBeValueTypes()
-        {
-            _ruleCreator.AddCondition(ClassConditionsDefinition.NotBeValueTypes());
-            return new ClassesShouldConjunction(_ruleCreator);
-        }
-
-        public ClassesShouldConjunction NotBeEnums()
-        {
-            _ruleCreator.AddCondition(ClassConditionsDefinition.NotBeEnums());
-            return new ClassesShouldConjunction(_ruleCreator);
-        }
-
-        public ClassesShouldConjunction NotBeStructs()
-        {
-            _ruleCreator.AddCondition(ClassConditionsDefinition.NotBeStructs());
             return new ClassesShouldConjunction(_ruleCreator);
         }
     }

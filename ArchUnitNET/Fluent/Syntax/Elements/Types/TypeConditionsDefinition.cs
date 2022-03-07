@@ -12,6 +12,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Domain.PlantUml.Import;
 using ArchUnitNET.Fluent.Conditions;
+using Enum = ArchUnitNET.Domain.Enum;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -19,7 +20,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         public static ICondition<TRuleType> Be(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return Be(types);
         }
@@ -105,14 +106,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> BeAssignableTo(IType firstType, params IType[] moreTypes)
         {
-            var types = new List<IType> {firstType};
+            var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return BeAssignableTo(types);
         }
 
         public static ICondition<TRuleType> BeAssignableTo(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return BeAssignableTo(types);
         }
@@ -238,6 +239,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        public static ICondition<TRuleType> BeValueTypes()
+        {
+            return new SimpleCondition<TRuleType>(type => type is Enum || type is Struct, "be value types",
+                "is no value type");
+        }
+
+        public static ICondition<TRuleType> BeEnums()
+        {
+            return new SimpleCondition<TRuleType>(type => type is Enum, "be enums", "is no enum");
+        }
+
+        public static ICondition<TRuleType> BeStructs()
+        {
+            return new SimpleCondition<TRuleType>(type => type is Struct, "be structs", "is no struct");
+        }
+
         public static ICondition<TRuleType> ImplementInterface(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(
@@ -325,7 +342,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             PlantUmlParsedDiagram diagram = new PlantUmlParser().Parse(stream);
             return createPlantUmlCondition(diagram);
         }
-        
+
         public static ICondition<TRuleType> AdhereToPlantUmlDiagram(string file)
         {
             PlantUmlParsedDiagram diagram = new PlantUmlParser().Parse(file);
@@ -342,6 +359,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 {
                     return new ConditionResult(ruleType, true);
                 }
+
                 List<string> allAllowedTargets = new List<string>();
 
                 allAllowedTargets.AddRange(classDiagramAssociation.GetNamespaceIdentifiersFromComponentOf(ruleType)
@@ -353,7 +371,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 var dynamicFailDescription = "does depend on";
 
                 //Prevent failDescriptions like "does depend on X and does depend on X and does depend on Y and does depend on Y
-                var ruleTypeDependencies = ruleType.GetTypeDependencies().GroupBy(p => p.FullName).Select(g => g.First());
+                var ruleTypeDependencies =
+                    ruleType.GetTypeDependencies().GroupBy(p => p.FullName).Select(g => g.First());
                 foreach (var dependency in ruleTypeDependencies)
                 {
                     if (classDiagramAssociation.Contains(dependency)
@@ -364,13 +383,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                         pass = false;
                     }
                 }
+
                 return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
             return new SimpleCondition<TRuleType>(Condition, "adhere to PlantUML diagram.");
         }
 
-            public static ICondition<TRuleType> HaveFieldMemberWithName(string name)
+        public static ICondition<TRuleType> HaveFieldMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.HasFieldMemberWithName(name), "have a field member with name \"" + name + "\"",
@@ -412,7 +432,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return NotBe(types);
         }
@@ -515,14 +535,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> NotBeAssignableTo(IType firstType, params IType[] moreTypes)
         {
-            var types = new List<IType> {firstType};
+            var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return NotBeAssignableTo(types);
         }
 
         public static ICondition<TRuleType> NotBeAssignableTo(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return NotBeAssignableTo(types);
         }
@@ -662,6 +682,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             return new ArchitectureCondition<TRuleType>(Condition, description);
+        }
+
+        public static ICondition<TRuleType> NotBeValueTypes()
+        {
+            return new SimpleCondition<TRuleType>(type => !(type is Enum) && !(type is Struct), "not be value types",
+                "is a value type");
+        }
+
+        public static ICondition<TRuleType> NotBeEnums()
+        {
+            return new SimpleCondition<TRuleType>(type => !(type is Enum), "not be enums", "is an enum");
+        }
+
+        public static ICondition<TRuleType> NotBeStructs()
+        {
+            return new SimpleCondition<TRuleType>(type => !(type is Struct), "not be structs", "is a struct");
         }
 
         public static ICondition<TRuleType> NotImplementInterface(string pattern, bool useRegularExpressions = false)

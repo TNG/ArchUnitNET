@@ -30,7 +30,11 @@ namespace ArchUnitNET.Domain.Extensions
                 case Interface intf:
                     return intf.ImplementedInterfaces.Concat(new[] { intf });
                 case Class cls:
-                    return cls.InheritedClasses.Concat(new[] { cls }).Concat(cls.ImplementedInterfaces);
+                    return cls.InheritedClasses.Concat(new[] {cls}).Concat(cls.ImplementedInterfaces);
+                case Struct str:
+                    return str.InheritedClasses.Concat(new IType[] {str}).Concat(str.ImplementedInterfaces);
+                case Enum en:
+                    return en.InheritedClasses.Concat(new IType[] {en}).Concat(en.ImplementedInterfaces);
                 default:
                     return Enumerable.Empty<IType>();
             }

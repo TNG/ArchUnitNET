@@ -12,59 +12,43 @@ using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
-    public class Class : IType
+    public class Struct : IType
     {
-        public Class(IType type, bool? isAbstract = null, bool? isSealed = null)
+        public Struct(IType type)
         {
             Type = type;
-            IsAbstract = isAbstract;
-            IsSealed = isSealed;
         }
 
         public IType Type { get; }
-
-        public IEnumerable<ITypeDependency> DependenciesIncludingInherited => BaseClass != null
-            ? Type.Dependencies.Concat(BaseClass.DependenciesIncludingInherited)
-            : Type.Dependencies;
-
-        public MemberList MembersIncludingInherited =>
-            BaseClass != null
-                ? new MemberList(Type.Members.Concat(BaseClass.MembersIncludingInherited).ToList())
-                : Type.Members;
+        public string Name => Type.Name;
+        public string FullName => Type.FullName;
 
         [CanBeNull]
         public Class BaseClass =>
             (Class) Dependencies.OfType<InheritsBaseClassDependency>().FirstOrDefault()?.Target;
-
-        public IEnumerable<MethodMember> Constructors => Type.GetConstructors();
-        public bool? IsAbstract { get; }
-        public bool? IsSealed { get; }
-
+        
         public IEnumerable<Class> InheritedClasses => BaseClass == null
             ? Enumerable.Empty<Class>()
             : BaseClass.InheritedClasses.Concat(new[] {BaseClass});
-
+        
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;
         public bool IsGeneric => Type.IsGeneric;
         public bool IsGenericParameter => Type.IsGenericParameter;
         public bool IsStub => Type.IsStub;
         public bool IsCompilerGenerated => Type.IsCompilerGenerated;
-        public string Name => Type.Name;
-        public string FullName => Type.FullName;
 
         public Namespace Namespace => Type.Namespace;
         public Assembly Assembly => Type.Assembly;
 
-        public List<ITypeDependency> Dependencies => Type.Dependencies;
-        public List<ITypeDependency> BackwardsDependencies => Type.BackwardsDependencies;
-
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
         public List<AttributeInstance> AttributeInstances => Type.AttributeInstances;
 
+        public List<ITypeDependency> Dependencies => Type.Dependencies;
+        public List<ITypeDependency> BackwardsDependencies => Type.BackwardsDependencies;
         public IEnumerable<IType> ImplementedInterfaces => Type.ImplementedInterfaces;
-        public MemberList Members => Type.Members;
 
+        public MemberList Members => Type.Members;
         public List<GenericParameter> GenericParameters => Type.GenericParameters;
 
         public bool ImplementsInterface(Interface intf)
@@ -93,10 +77,9 @@ namespace ArchUnitNET.Domain
             return FullName;
         }
 
-        private bool Equals(Class other)
+        private bool Equals(Struct other)
         {
-            return Equals(Type, other.Type) && Equals(IsAbstract, other.IsAbstract) &&
-                   Equals(IsSealed, other.IsSealed);
+            return Equals(Type, other.Type);
         }
 
         public override bool Equals(object obj)
@@ -111,18 +94,12 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((Class) obj);
+            return obj.GetType() == GetType() && Equals((Struct) obj);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = Type != null ? Type.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ IsAbstract.GetHashCode();
-                hashCode = (hashCode * 397) ^ IsSealed.GetHashCode();
-                return hashCode;
-            }
+            return Type != null ? Type.GetHashCode() : 0;
         }
     }
 }

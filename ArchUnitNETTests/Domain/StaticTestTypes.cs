@@ -15,8 +15,8 @@ namespace ArchUnitNETTests.Domain
     {
         private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
-        public static readonly Class TestEnum = Architecture.GetClassOfType(typeof(TestEnum));
-        public static readonly Class TestStruct = Architecture.GetClassOfType(typeof(TestStruct));
+        public static readonly IType TestEnum = Architecture.GetITypeOfType(typeof(TestEnum));
+        public static readonly IType TestStruct = Architecture.GetITypeOfType(typeof(TestStruct));
         public static readonly Class SealedTestClass = Architecture.GetClassOfType(typeof(SealedTestClass));
 
         public static readonly Attribute TestAttribute =

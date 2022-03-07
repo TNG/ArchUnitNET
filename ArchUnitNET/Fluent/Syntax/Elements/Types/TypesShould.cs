@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Conditions;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Assembly = System.Reflection.Assembly;
 
@@ -79,6 +78,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction BeAssignableTo(IEnumerable<Type> types)
         {
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeAssignableTo(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TRuleTypeShouldConjunction BeValueTypes()
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeValueTypes());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeEnums()
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeEnums());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeStructs()
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeStructs());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -225,6 +242,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction NotBeValueTypes()
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.NotBeValueTypes());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeEnums()
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.NotBeEnums());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotBeStructs()
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.NotBeStructs());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TRuleTypeShouldConjunction NotImplementInterface(string pattern, bool useRegularExpressions = false)
         {

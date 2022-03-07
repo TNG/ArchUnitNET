@@ -92,14 +92,6 @@ namespace ArchUnitNETTests.Domain
         }
 
         [Fact]
-        public void ClassesHaveCorrectIsEnumProperty()
-        {
-            Assert.True(StaticTestTypes.TestEnum.IsEnum);
-            Assert.False(StaticTestTypes.TestStruct.IsEnum);
-            Assert.False(StaticTestTypes.PublicTestClass.IsEnum);
-        }
-
-        [Fact]
         public void ClassesHaveCorrectIsNestedProperty()
         {
             Assert.False(StaticTestTypes.PublicTestClass.IsNested);
@@ -117,22 +109,6 @@ namespace ArchUnitNETTests.Domain
         {
             Assert.True(StaticTestTypes.SealedTestClass.IsSealed);
             Assert.False(StaticTestTypes.PublicTestClass.IsSealed);
-        }
-
-        [Fact]
-        public void ClassesHaveCorrectIsStructProperty()
-        {
-            Assert.True(StaticTestTypes.TestStruct.IsStruct);
-            Assert.False(StaticTestTypes.TestEnum.IsStruct);
-            Assert.False(StaticTestTypes.PublicTestClass.IsStruct);
-        }
-
-        [Fact]
-        public void ClassesHaveCorrectIsValueTypeProperty()
-        {
-            Assert.True(StaticTestTypes.TestEnum.IsValueType);
-            Assert.True(StaticTestTypes.TestStruct.IsValueType);
-            Assert.False(StaticTestTypes.PublicTestClass.IsValueType);
         }
 
         [Fact]
