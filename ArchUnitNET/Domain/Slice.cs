@@ -1,8 +1,9 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
+﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 
 // 	SPDX-License-Identifier: Apache-2.0
+// 
 
 using System.Collections.Generic;
 using System.Linq;
@@ -10,40 +11,30 @@ using ArchUnitNET.Domain.Dependencies;
 
 namespace ArchUnitNET.Domain
 {
-    public class Slice<TKey> : IHasDependencies
+    public class Slice : IHasDescription, IHasDependencies
     {
-        private readonly List<IType> _types;
+        public readonly SliceIdentifier Identifier;
+        public readonly IEnumerable<IType> Types;
 
-        public Slice(TKey sliceKey, List<IType> types)
+        public Slice(SliceIdentifier identifier, IEnumerable<IType> types)
         {
-            _types = types;
-            SliceKey = sliceKey;
+            Identifier = identifier;
+            Types = types;
         }
 
-        public TKey SliceKey { get; }
-        public IEnumerable<IType> Types => _types;
-        public IEnumerable<Class> Classes => _types.OfType<Class>();
-        public IEnumerable<Interface> Interfaces => _types.OfType<Interface>();
+        public IEnumerable<Class> Classes => Types.OfType<Class>();
+        public IEnumerable<Interface> Interfaces => Types.OfType<Interface>();
 
-
-        public List<ITypeDependency> Dependencies => _types.SelectMany(type => type.Dependencies).ToList();
+        public List<ITypeDependency> Dependencies => Types.SelectMany(type => type.Dependencies).ToList();
 
         public List<ITypeDependency> BackwardsDependencies =>
-            _types.SelectMany(type => type.BackwardsDependencies).ToList();
+            Types.SelectMany(type => type.BackwardsDependencies).ToList();
 
-        public bool Equals(Slice<TKey> other)
+        public string Description => Identifier.Description;
+
+        protected bool Equals(Slice other)
         {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Equals(_types, other._types) && Equals(SliceKey, other.SliceKey);
+            return Equals(Identifier, other.Identifier) && Equals(Types, other.Types);
         }
 
         public override bool Equals(object obj)
@@ -63,17 +54,21 @@ namespace ArchUnitNET.Domain
                 return false;
             }
 
-            return Equals((Slice<TKey>) obj);
+            return Equals((Slice)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = _types != null ? _types.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (SliceKey != null ? SliceKey.GetHashCode() : 0);
-                return hashCode;
+                return ((Identifier != null ? Identifier.GetHashCode() : 0) * 397) ^
+                       (Types != null ? Types.GetHashCode() : 0);
             }
+        }
+
+        public override string ToString()
+        {
+            return Description;
         }
     }
 }

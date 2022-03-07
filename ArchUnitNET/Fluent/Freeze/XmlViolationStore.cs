@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Freeze
@@ -22,7 +23,7 @@ namespace ArchUnitNET.Fluent.Freeze
         private readonly string _storagePath;
 
         private static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
-            {Indent = true, Encoding = Encoding.UTF8};
+            { Indent = true, Encoding = Encoding.UTF8 };
 
         public XmlViolationStore(string storagePath = DefaultStoragePath)
         {

@@ -10,7 +10,7 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Slices
 {
-    public class GivenSlices
+    public class GivenSlices : IObjectProvider<Slice>
     {
         private readonly SliceRuleCreator _ruleCreator;
 
@@ -19,13 +19,15 @@ namespace ArchUnitNET.Fluent.Slices
             _ruleCreator = ruleCreator;
         }
 
+        public string Description => _ruleCreator.Description;
+
         public SlicesShould Should()
         {
             _ruleCreator.AddToDescription("should");
             return new SlicesShould(_ruleCreator);
         }
 
-        public IEnumerable<Slice> GetSlices(Architecture architecture)
+        public IEnumerable<Slice> GetObjects(Architecture architecture)
         {
             return _ruleCreator.GetSlices(architecture);
         }

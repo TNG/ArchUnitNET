@@ -3,18 +3,22 @@
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 
 // 	SPDX-License-Identifier: Apache-2.0
+// 
 
 using System.Collections.Generic;
 
 namespace ArchUnitNET.Domain
 {
-    public class Namespace : Slice, IHasName
+    public class SliceIdentifierComparer : IEqualityComparer<SliceIdentifier>
     {
-        public Namespace(string name, IEnumerable<IType> types) : base(SliceIdentifier.Of(name), types)
+        public bool Equals(SliceIdentifier x, SliceIdentifier y)
         {
+            return x != null && x.CompareTo(y);
         }
 
-        public string Name => Description;
-        public string FullName => Description;
+        public int GetHashCode(SliceIdentifier obj)
+        {
+            return obj.GetHashCode();
+        }
     }
 }

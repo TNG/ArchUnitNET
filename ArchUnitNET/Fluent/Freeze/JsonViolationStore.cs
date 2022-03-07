@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Exceptions;
 using Newtonsoft.Json;
 

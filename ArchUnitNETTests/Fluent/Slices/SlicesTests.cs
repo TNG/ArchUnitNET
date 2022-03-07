@@ -37,21 +37,21 @@ namespace ArchUnitNETTests.Fluent.Slices
         {
             Assert.Equal(3,
                 SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(*)")
-                    .GetSlices(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
+                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
             Assert.Equal(7,
                 SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(**)")
-                    .GetSlices(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
+                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
             Assert.Equal(3,
                 SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(*)..")
-                    .GetSlices(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
+                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
             Assert.Equal(3,
                 SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.(**)..")
-                    .GetSlices(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
+                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
             Assert.Equal(2,
                 SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.Slice3.(*)")
-                    .GetSlices(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
+                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Count());
             Assert.False(SliceRuleDefinition.Slices().Matching("TestAssembly.Slices.Service.(*)")
-                .GetSlices(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Any());
+                .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture).Any());
         }
 
         [Fact]
