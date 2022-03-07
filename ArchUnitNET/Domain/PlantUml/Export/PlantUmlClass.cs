@@ -9,18 +9,14 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private readonly string _name;
         private readonly List<string> _fields = new List<string>();
         string _hyperlink { get; }
-        private string _letter;
-        private string _letterColor;
 
 
-        public PlantUmlClass(string name, string hyperlink = null, string letter = null, string letterColor = null)
+        public PlantUmlClass(string name, string hyperlink = null)
         {
-            PlantUmlNameChecker.AssertNoForbiddenCharacters(name, hyperlink, letter, letterColor);
+            PlantUmlNameChecker.AssertNoForbiddenCharacters(name, hyperlink);
             PlantUmlNameChecker.AssertNotNullOrEmpty(name);
             _name = name;
             _hyperlink = hyperlink;
-            _letter = letter;
-            _letterColor = letterColor;
         }
 
         public void AddField(string field)
@@ -30,20 +26,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         public string GetPlantUmlString(RenderOptions renderOptions)
         {
-            var attributeString = "";
-
-            if (_letter != null)
-            {
-                var letterColorString = _letterColor != null ? ',' + _letterColor : "";
-                attributeString = $@" << ({_letter}{letterColorString}) >> ";
-            }
-
-            var result = "class " + _name + attributeString + " {" + Environment.NewLine;
-
-            if (_hyperlink != null)
-            {
-                result += " [[" + _hyperlink + "]] " + Environment.NewLine;
-            }
+            var hyperlinkString = _hyperlink != null ? " [[" + _hyperlink + "]] " : null;
+            var result = "class " + _name + hyperlinkString + " {" + Environment.NewLine;
 
             if (!renderOptions.OmitClassFields)
             {
