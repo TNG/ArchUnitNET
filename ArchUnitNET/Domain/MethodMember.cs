@@ -12,17 +12,15 @@ namespace ArchUnitNET.Domain
 {
     public class MethodMember : IMember
     {
-        private readonly ITypeInstance<IType> _returnTypeInstance;
-
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
-            ITypeInstance<IType> returnType, bool isVirtual, MethodForm methodForm, bool isGeneric, bool isStub,
+            ITypeInstance<IType> returnTypeInstance, bool isVirtual, MethodForm methodForm, bool isGeneric, bool isStub,
             bool isCompilerGenerated, bool? isIterator, bool? isStatic)
         {
             Name = name;
             FullName = fullName;
             DeclaringType = declaringType;
             Visibility = visibility;
-            _returnTypeInstance = returnType;
+            ReturnTypeInstance = returnTypeInstance;
             IsVirtual = isVirtual;
             MethodForm = methodForm;
             IsGeneric = isGeneric;
@@ -37,7 +35,8 @@ namespace ArchUnitNET.Domain
 
         public List<ITypeInstance<IType>> ParameterInstances { get; } = new List<ITypeInstance<IType>>();
         public IEnumerable<IType> Parameters => ParameterInstances.Select(instance => instance.Type);
-        public IType ReturnType => _returnTypeInstance.Type;
+        public ITypeInstance<IType> ReturnTypeInstance { get; }
+        public IType ReturnType => ReturnTypeInstance.Type;
         public bool IsStub { get; }
         public bool IsCompilerGenerated { get; }
         public bool? IsIterator { get; }
@@ -75,7 +74,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((MethodMember) obj);
+            return obj.GetType() == GetType() && Equals((MethodMember)obj);
         }
 
         private bool Equals(MethodMember other)
