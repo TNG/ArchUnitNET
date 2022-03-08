@@ -43,6 +43,7 @@ namespace ArchUnitNETTests.Domain.Extensions
 
         private readonly Class _exampleAttribute;
         private const string ExpectedAttributeNamespace = "ArchUnitNETTests.Domain.Dependencies.Attributes";
+        private const string ParentAttributeNamespace = "ArchUnitNETTests.Domain.Dependencies";
 
         private readonly Class _regexUtilsTests;
         private const string ExpectedRegexUtilsTestNamespace = "ArchUnitNETTests.Loader";
@@ -62,6 +63,18 @@ namespace ArchUnitNETTests.Domain.Extensions
             Assert.False(_methodOriginClass.FullNameContains("ClassMethod"));
             Assert.True(_methodMember.FullNameContains(""));
             Assert.False(_exampleAttribute.FullNameContains(null));
+        }
+
+        [Fact]
+        public void FullNameMatchesTest()
+        {
+            Assert.True(_fieldMember.FullNameMatches("(?i)ieLda", true));
+            Assert.True(_propertyOriginClass.FullNameMatches("(?i)sswITH", true));
+            Assert.False(_methodOriginClass.FullNameMatches("ClassMethod"));
+            Assert.False(_methodMember.FullNameMatches(""));
+            Assert.True(_methodMember.FullNameMatches(_methodMember.FullName));
+            Assert.True(_methodMember.FullNameMatches(_methodMember.FullName.ToLower()));
+            Assert.False(_exampleAttribute.FullNameMatches(null));
         }
 
         [Fact]
@@ -139,7 +152,9 @@ namespace ArchUnitNETTests.Domain.Extensions
             Assert.True(_fieldMember.NameMatches("(?i)ieLda", true));
             Assert.True(_propertyOriginClass.NameMatches("(?i)sswITH", true));
             Assert.False(_methodOriginClass.NameMatches("ClassMethod"));
-            Assert.True(_methodMember.NameMatches(""));
+            Assert.False(_methodMember.NameMatches(""));
+            Assert.True(_methodMember.NameMatches(_methodMember.Name));
+            Assert.True(_methodMember.NameMatches(_methodMember.Name.ToLower()));
             Assert.False(_exampleAttribute.NameMatches(null));
         }
 
@@ -147,8 +162,10 @@ namespace ArchUnitNETTests.Domain.Extensions
         public void NamespaceMatchAsExpected()
         {
             Assert.True(_exampleAttribute.ResidesInNamespace(ExpectedAttributeNamespace));
+            Assert.False(_exampleAttribute.ResidesInNamespace(ParentAttributeNamespace));
+            Assert.True(_exampleAttribute.ResidesInNamespace(ParentAttributeNamespace, true));
             Assert.True(_regexUtilsTests.ResidesInNamespace(ExpectedRegexUtilsTestNamespace));
-            Assert.True(_exampleAttribute.ResidesInNamespace(string.Empty));
+            Assert.False(_exampleAttribute.ResidesInNamespace(string.Empty));
         }
 
         [Fact]

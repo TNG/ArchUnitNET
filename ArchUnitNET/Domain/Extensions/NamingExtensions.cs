@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -37,7 +38,7 @@ namespace ArchUnitNET.Domain.Extensions
                 return pattern != null && Regex.IsMatch(cls.Name, pattern);
             }
 
-            return cls.NameContains(pattern);
+            return string.Equals(cls.Name, pattern, StringComparison.OrdinalIgnoreCase);
         }
 
         public static bool FullNameMatches(this IHasName cls, string pattern, bool useRegularExpressions = false)
@@ -47,7 +48,7 @@ namespace ArchUnitNET.Domain.Extensions
                 return pattern != null && Regex.IsMatch(cls.FullName, pattern);
             }
 
-            return cls.FullNameContains(pattern);
+            return string.Equals(cls.FullName, pattern, StringComparison.OrdinalIgnoreCase);
         }
 
         public static bool FullNameContains(this IHasName cls, string pattern)

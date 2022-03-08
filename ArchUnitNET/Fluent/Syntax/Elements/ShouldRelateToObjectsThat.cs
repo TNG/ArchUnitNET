@@ -422,29 +422,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveName(string name)
-        {
-            _ruleCreator.ContinueComplexCondition(ObjectPredicatesDefinition<TReferenceType>.HaveName(name));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveNameMatching(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction HaveName(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.HaveNameMatching(pattern, useRegularExpressions));
+                ObjectPredicatesDefinition<TReferenceType>.HaveName(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveFullName(string fullname)
-        {
-            _ruleCreator.ContinueComplexCondition(ObjectPredicatesDefinition<TReferenceType>.HaveFullName(fullname));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveFullNameMatching(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction HaveFullName(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.HaveFullNameMatching(pattern, useRegularExpressions));
+                ObjectPredicatesDefinition<TReferenceType>.HaveFullName(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -805,30 +793,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveName(string name)
+        public TRuleTypeShouldConjunction DoNotHaveName(string pattern, bool useRegularExpressions = false)
         {
-            _ruleCreator.ContinueComplexCondition(ObjectPredicatesDefinition<TReferenceType>.DoNotHaveName(name));
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveName(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveNameMatching(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction DoNotHaveFullName(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveNameMatching(pattern, useRegularExpressions));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction DoNotHaveFullName(string fullname)
-        {
-            _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveFullName(fullname));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction DoNotHaveFullNameMatching(string pattern, bool useRegularExpressions = false)
-        {
-            _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveFullNameMatching(pattern, useRegularExpressions));
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveFullName(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

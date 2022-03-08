@@ -29,7 +29,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             return new SimplePredicate<MethodMember>(
                 member => member.IsCalledBy(pattern, useRegularExpressions),
-                "are called by types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "are called by types with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 
@@ -52,8 +52,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "are called by types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "are called by types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimplePredicate<MethodMember>(Condition, description);
@@ -142,7 +142,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new SimplePredicate<MethodMember>(
                 member => member.HasDependencyInMethodBodyTo(pattern, useRegularExpressions),
                 "have dependencies in method body to types with full name " +
-                (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
         }
 
         public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(IEnumerable<string> patterns,
@@ -165,8 +165,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var firstPattern = patternList.First();
                 description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
                     "have dependencies in method body to types with full name " +
-                    (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimplePredicate<MethodMember>(Condition, description);
@@ -260,7 +260,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new SimplePredicate<MethodMember>(
                 member => member.ReturnType.FullNameMatches(pattern, useRegularExpressions),
                 "have return type with full name " +
-                (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
         }
 
         public static IPredicate<MethodMember> HaveReturnType(IEnumerable<string> patterns,
@@ -268,7 +268,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             var patternsArray = patterns.ToArray();
             var description = "have return type with full name " +
-                              (useRegularExpressions ? "matching" : "containing") + " \"" +
+                              (useRegularExpressions ? "matching " : "") + "\"" +
                               string.Join("\" or \"", patternsArray) + "\"";
 
             return new SimplePredicate<MethodMember>(
@@ -342,9 +342,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             return new SimplePredicate<MethodMember>(
                 member => !member.IsCalledBy(pattern, useRegularExpressions),
-                "are not called by types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" +
-                pattern + "\"");
+                "are not called by types with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static IPredicate<MethodMember> AreNotCalledBy(IEnumerable<string> patterns,
@@ -366,8 +365,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "are not called by types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "are not called by types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimplePredicate<MethodMember>(Condition, description);
@@ -456,7 +455,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new SimplePredicate<MethodMember>(
                 member => !member.HasDependencyInMethodBodyTo(pattern, useRegularExpressions),
                 "do not have dependencies in method body to types with full name " +
-                (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
         }
 
         public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(IEnumerable<string> patterns,
@@ -480,8 +479,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var firstPattern = patternList.First();
                 description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
                     "do not have dependencies in method body to types with full name " +
-                    (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimplePredicate<MethodMember>(Condition, description);
@@ -577,7 +576,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new SimplePredicate<MethodMember>(
                 member => !member.ReturnType.FullNameMatches(pattern, useRegularExpressions),
                 "do not have return type with full name " +
-                (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
         }
 
         public static IPredicate<MethodMember> DoNotHaveReturnType(IEnumerable<string> patterns,
@@ -585,7 +584,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             var patternsArray = patterns.ToArray();
             var description = "do not have return type with full name " +
-                              (useRegularExpressions ? "matching" : "containing") + " \"" +
+                              (useRegularExpressions ? "matching " : "") + "\"" +
                               string.Join("\" or \"", patternsArray) + "\"";
 
             return new SimplePredicate<MethodMember>(

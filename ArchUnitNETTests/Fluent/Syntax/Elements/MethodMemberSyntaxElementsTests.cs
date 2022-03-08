@@ -101,7 +101,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var methodMember in _methodMembers)
             {
                 foreach (var callingType in methodMember.GetMethodCallDependencies(true)
-                    .Select(dependency => dependency.Origin.FullName))
+                             .Select(dependency => dependency.Origin.FullName))
                 {
                     var methodIsCalledByRightType =
                         MethodMembers().That().Are(methodMember).Should().BeCalledBy(callingType);
@@ -148,7 +148,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var methodMember in _methodMembers)
             {
                 foreach (var dependency in methodMember.GetBodyTypeMemberDependencies()
-                    .Select(dependency => dependency.Target.FullName))
+                             .Select(dependency => dependency.Target.FullName))
                 {
                     var hasRightDependency = MethodMembers().That().Are(methodMember).Should()
                         .HaveDependencyInMethodBodyTo(dependency);
@@ -177,11 +177,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void HaveReturnTypeConditionTest()
         {
-            var stringReturnTypes = new List<string> {"void", "string", "ReturnTypeClass"};
+            var stringReturnTypes = new List<string> {"Void", "String", "ReturnTypeClass"};
             var retTypeWithString = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethod").Should()
-                .HaveReturnType(stringReturnTypes);
+                .HaveReturnType(stringReturnTypes, true);
             var retTypeWithStringFail = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethod").Should()
-                .HaveReturnType("bool");
+                .HaveReturnType("bool", true);
 
             Assert.True(retTypeWithString.HasNoViolations(Architecture));
             Assert.False(retTypeWithStringFail.HasNoViolations(Architecture));
@@ -217,11 +217,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void NotHaveReturnTypeConditionTest()
         {
-            var stringReturnTypes = new List<string> {"void", "string", "ReturnTypeClass"};
+            var stringReturnTypes = new List<string> {"Void", "String", "ReturnTypeClass"};
             var retTypeWithString = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethod").Should()
-                .NotHaveReturnType("bool");
+                .NotHaveReturnType("bool", true);
             var retTypeWithStringFail = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethod").Should()
-                .NotHaveReturnType(stringReturnTypes);
+                .NotHaveReturnType(stringReturnTypes, true);
 
             Assert.True(retTypeWithString.HasNoViolations(Architecture));
             Assert.False(retTypeWithStringFail.HasNoViolations(Architecture));
@@ -259,9 +259,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var stringReturnTypes = new List<string> {"void", "string"};
             var retTypeWithString = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethod").And()
-                .HaveReturnType(stringReturnTypes).Should().HaveFullNameContaining("Void").OrShould()
+                .HaveReturnType(stringReturnTypes, true).Should().HaveFullNameContaining("Void").OrShould()
                 .HaveFullNameContaining("String");
-            var retTypeWithStringNegate = MethodMembers().That().DoNotHaveReturnType("String").And()
+            var retTypeWithStringNegate = MethodMembers().That().DoNotHaveReturnType("String", true).And()
                 .HaveFullNameContaining("ReturnTypeMethod").Should().NotHaveFullNameContaining("String");
 
             Assert.True(retTypeWithString.HasNoViolations(Architecture));
@@ -276,9 +276,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(retTypeWithTypeFail.HasNoViolations(Architecture));
 
             var objectProviderClass = Classes().That().HaveFullNameContaining("ReturnTypeClass");
-            var retTypeWithObjectProvider = MethodMembers().That().HaveReturnType("ReturnTypeClass")
+            var retTypeWithObjectProvider = MethodMembers().That().HaveReturnType("ReturnTypeClass",true)
                 .Should().HaveFullNameContaining("ReturnTypeMethodClass");
-            var retTypeWithObjectProviderFail = MethodMembers().That().DoNotHaveReturnType("ReturnTypeClass")
+            var retTypeWithObjectProviderFail = MethodMembers().That().DoNotHaveReturnType("ReturnTypeClass",true)
                 .And().HaveFullNameContaining("ReturnTypeMethod")
                 .Should().HaveFullNameContaining("ReturnTypeMethodClass");
 

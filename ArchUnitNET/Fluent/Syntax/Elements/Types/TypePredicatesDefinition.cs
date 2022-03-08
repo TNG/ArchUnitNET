@@ -59,7 +59,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> AreAssignableTo(string pattern, bool useRegularExpressions = false)
         {
             var description = "are assignable to types with full name " +
-                              (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"";
+                              (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
             return new SimplePredicate<T>(type => type.IsAssignableTo(pattern, useRegularExpressions), description);
         }
 
@@ -81,8 +81,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "are assignable to types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "are assignable to types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimplePredicate<T>(Condition, description);
@@ -195,7 +195,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> ImplementInterface(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(type => type.ImplementsInterface(pattern, useRegularExpressions),
-                "implement interface with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "implement interface with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 
@@ -220,14 +220,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> ResideInNamespace(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(type => type.ResidesInNamespace(pattern, useRegularExpressions),
-                "reside in namespace with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "reside in namespace with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 
         public static IPredicate<T> ResideInAssembly(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(type => type.ResidesInAssembly(pattern, useRegularExpressions),
-                "reside in assembly with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "reside in assembly with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 
@@ -321,7 +321,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> AreNotAssignableTo(string pattern, bool useRegularExpressions = false)
         {
             var description = "are not assignable to types with full name " +
-                              (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"";
+                              (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
             return new SimplePredicate<T>(type => !type.IsAssignableTo(pattern, useRegularExpressions), description);
         }
 
@@ -344,8 +344,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 var firstPattern = patternList.First();
                 description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
                     "are not assignable to types with full name " +
-                    (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimplePredicate<T>(Condition, description);
@@ -458,8 +458,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> DoNotImplementInterface(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(type => !type.ImplementsInterface(pattern, useRegularExpressions),
-                "do not implement interface with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "do not implement interface with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotImplementInterface(Interface intf)
@@ -483,15 +483,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> DoNotResideInNamespace(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(type => !type.ResidesInNamespace(pattern, useRegularExpressions),
-                "do not reside in namespace with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "do not reside in namespace with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotResideInAssembly(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(type => !type.ResidesInAssembly(pattern, useRegularExpressions),
-                "do not reside in assembly with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "do not reside in assembly with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static IPredicate<T> DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)

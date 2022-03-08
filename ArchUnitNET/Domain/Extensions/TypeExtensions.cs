@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using ArchUnitNET.Domain.Dependencies;
 
 namespace ArchUnitNET.Domain.Extensions
@@ -30,7 +29,7 @@ namespace ArchUnitNET.Domain.Extensions
             switch (type)
             {
                 case Interface intf:
-                    return intf.ImplementedInterfaces.Concat(new[] { intf });
+                    return intf.ImplementedInterfaces.Concat(new[] {intf});
                 case Class cls:
                     return cls.InheritedClasses.Concat(new[] {cls}).Concat(cls.ImplementedInterfaces);
                 case Struct str:

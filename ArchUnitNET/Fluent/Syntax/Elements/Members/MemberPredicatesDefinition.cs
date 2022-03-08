@@ -18,7 +18,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> AreDeclaredIn(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(member => member.IsDeclaredIn(pattern, useRegularExpressions),
-                "are declared in types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "are declared in types with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 
@@ -40,8 +40,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(obj => !obj.Equals(firstPattern)).Distinct().Aggregate(
-                    "are declared in types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "are declared in types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimplePredicate<T>(Condition, description);
@@ -148,8 +148,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> AreNotDeclaredIn(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(member => !member.IsDeclaredIn(pattern, useRegularExpressions),
-                "are not declared in types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "are not declared in types with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static IPredicate<T> AreNotDeclaredIn(IEnumerable<string> patterns, bool useRegularExpressions = false)
@@ -170,8 +170,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(obj => !obj.Equals(firstPattern)).Distinct().Aggregate(
-                    "are not declared in types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "are not declared in types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimplePredicate<T>(Condition, description);

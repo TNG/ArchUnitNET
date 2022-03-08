@@ -36,8 +36,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         private readonly List<string> _falseTypeConstructors =
             new List<string> {PublicTestClassConstructor, InternalTestClassConstructor};
 
-        private const string PublicTestClassConstructor = "ArchUnitNETTests.Domain.PublicTestClass::.ctor()";
-        private const string InternalTestClassConstructor = "ArchUnitNETTests.Domain.InternalTestClass::.ctor()";
+        private const string PublicTestClassConstructor = "System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()";
+        private const string InternalTestClassConstructor = "System.Void ArchUnitNETTests.Domain.InternalTestClass::.ctor()";
 
         [Fact]
         public void DeclaredInTest()

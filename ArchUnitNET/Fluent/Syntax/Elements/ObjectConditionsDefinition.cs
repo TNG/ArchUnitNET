@@ -28,8 +28,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullNameMatches(pattern, useRegularExpressions),
-                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"",
-                "does not have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern +
+                "have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"",
+                "does not have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern +
                 "\"");
         }
 
@@ -47,12 +47,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "have full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "have full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
                 failDescription = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "does not have full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "does not have full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
@@ -135,10 +135,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.CallsMethod(pattern, useRegularExpressions),
-                "calls any method with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "calls any method with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"",
-                "does not call any method with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "does not call any method with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> CallAny(IEnumerable<string> patterns,
@@ -162,12 +162,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "calls any method with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "calls any method with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
                 failDescription = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "does not call any methods with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "does not call any methods with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
@@ -260,10 +260,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.DependsOn(pattern, useRegularExpressions),
-                "depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "depend on any types with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"",
-                "does not depend on any type with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "does not depend on any type with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> DependOnAny(IEnumerable<string> patterns,
@@ -289,12 +289,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "depend on any types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
                 failDescription = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "does not depend any types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "does not depend any types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
@@ -466,7 +466,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new SimpleCondition<TRuleType>(Condition,
-                "only depend on types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "only depend on types with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 
@@ -500,8 +500,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "only depend on types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "only depend on types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimpleCondition<TRuleType>(Condition, description);
@@ -648,10 +648,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.HasAttribute(pattern, useRegularExpressions),
-                "have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "have any attribute with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"",
-                "does not have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "does not have any attribute with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> HaveAnyAttributes(IEnumerable<string> patterns,
@@ -676,13 +676,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "have any attribute with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
                 failDescription = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
                     "does not have any attribute with full name " +
-                    (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
@@ -817,10 +817,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.OnlyHasAttributes(pattern, useRegularExpressions),
-                "only have attributes with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "only have attributes with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"",
-                "does not only have attributes with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "does not only have attributes with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> OnlyHaveAttributes(IEnumerable<string> patterns,
@@ -845,13 +845,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "only have attributes with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "only have attributes with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " and \"" + pattern + "\"");
                 failDescription = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
                     "does not only have attributes with full name " +
-                    (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
@@ -1563,32 +1563,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
-        public static ICondition<TRuleType> HaveName(string name)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.Name.Equals(name), obj => "does have name " + obj.Name, "have name \"" + name + "\"");
-        }
-
-        public static SimpleCondition<TRuleType> HaveNameMatching(string pattern, bool useRegularExpressions = false)
+        public static ICondition<TRuleType> HaveName(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(obj => obj.NameMatches(pattern, useRegularExpressions),
                 obj => "does have name " + obj.Name,
-                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                "have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
         }
 
-
-        public static ICondition<TRuleType> HaveFullName(string fullname)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.FullName.Equals(fullname), obj => "does have full name " + obj.FullName,
-                "have full name \"" + fullname + "\"");
-        }
-
-        public static ICondition<TRuleType> HaveFullNameMatching(string pattern, bool useRegularExpressions = false)
+        public static ICondition<TRuleType> HaveFullName(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(obj => obj.FullNameMatches(pattern, useRegularExpressions),
                 obj => "does have full name " + obj.FullName,
-                "have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                "have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> HaveNameStartingWith(string pattern)
@@ -1699,7 +1685,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullNameMatches(pattern, useRegularExpressions),
                 obj => "is " + obj.FullName,
-                "not have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                "not have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotBe(IEnumerable<string> patterns, bool useRegularExpressions = false)
@@ -1714,8 +1700,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "not have full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "not have full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimpleCondition<TRuleType>(
@@ -1805,8 +1791,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new SimpleCondition<TRuleType>(Condition,
-                "not call any method with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "not call any method with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotCallAny(IEnumerable<string> patterns,
@@ -1839,8 +1825,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "not call methods with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "not call methods with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimpleCondition<TRuleType>(Condition, description);
@@ -1948,8 +1934,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new SimpleCondition<TRuleType>(Condition,
-                "not depend on any types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "not depend on any types with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotDependOnAny(IEnumerable<string> patterns,
@@ -1982,8 +1968,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "not depend on types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "not depend on types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimpleCondition<TRuleType>(Condition, description);
@@ -2127,10 +2113,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.HasAttribute(pattern, useRegularExpressions),
-                "not have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "not have any attribute with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"",
-                "does have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "does have any attribute with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotHaveAnyAttributes(IEnumerable<string> patterns,
@@ -2155,13 +2141,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "not have any attribute with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "not have any attribute with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
                 failDescription = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
                     "does have any attribute with full name " +
-                    (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
@@ -2875,29 +2861,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
-        public static ICondition<TRuleType> NotHaveName(string name)
-        {
-            return new SimpleCondition<TRuleType>(obj => !obj.Name.Equals(name), obj => "does have name " + obj.Name,
-                "not have name \"" + name + "\"");
-        }
-
-        public static ICondition<TRuleType> NotHaveNameMatching(string pattern, bool useRegularExpressions = false)
+        public static ICondition<TRuleType> NotHaveName(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(obj => !obj.NameMatches(pattern, useRegularExpressions), obj => "does have name " + obj.Name,
-                "not have name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                "not have name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
         }
 
-        public static ICondition<TRuleType> NotHaveFullName(string fullname)
-        {
-            return new SimpleCondition<TRuleType>(obj => !obj.FullName.Equals(fullname),
-                obj => "does have full name " + obj.FullName, "not have full name \"" + fullname + "\"");
-        }
-
-        public static ICondition<TRuleType> NotHaveFullNameMatching(string pattern, bool useRegularExpressions = false)
+        public static ICondition<TRuleType> NotHaveFullName(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(obj => !obj.FullNameMatches(pattern, useRegularExpressions),
                 obj => "does have full name " + obj.FullName,
-                "not have full name " + (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"");
+                "not have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotHaveNameStartingWith(string pattern)

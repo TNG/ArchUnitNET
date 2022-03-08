@@ -19,7 +19,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             return new SimpleCondition<TRuleType>(member => member.IsDeclaredIn(pattern, useRegularExpressions),
                 member => "is declared in " + member.DeclaringType.FullName,
-                "be declared in types with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "be declared in types with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 
@@ -42,8 +42,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(obj => !obj.Equals(firstPattern)).Distinct().Aggregate(
-                    "be declared in types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "be declared in types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
@@ -185,8 +185,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             return new SimpleCondition<TRuleType>(member => !member.IsDeclaredIn(pattern, useRegularExpressions),
                 member => "is declared in " + member.DeclaringType.FullName,
-                "not be declared in types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "not be declared in types with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<string> patterns,
@@ -208,8 +208,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(obj => !obj.Equals(firstPattern)).Distinct().Aggregate(
-                    "not be declared in types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "not be declared in types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
 

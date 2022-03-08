@@ -438,27 +438,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveName(string name)
+        public TRuleTypeShouldConjunction HaveName(string pattern, bool useRegularExpressions = false)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.HaveName(name));
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.HaveName(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveNameMatching(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction HaveFullName(string pattern, bool useRegularExpressions = false)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.HaveNameMatching(pattern, useRegularExpressions));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveFullName(string fullname)
-        {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.HaveFullName(fullname));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveFullNameMatching(string pattern, bool useRegularExpressions = false)
-        {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.HaveFullNameMatching(pattern, useRegularExpressions));
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.HaveFullName(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -864,27 +852,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotHaveName(string name)
+        public TRuleTypeShouldConjunction NotHaveName(string pattern, bool useRegularExpressions = false)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveName(name));
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveName(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotHaveNameMatching(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction NotHaveFullName(string pattern, bool useRegularExpressions = false)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveNameMatching(pattern, useRegularExpressions));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotHaveFullName(string fullname)
-        {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveFullName(fullname));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotHaveFullNameMatching(string pattern, bool useRegularExpressions = false)
-        {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveFullNameMatching(pattern, useRegularExpressions));
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveFullName(pattern, useRegularExpressions));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
