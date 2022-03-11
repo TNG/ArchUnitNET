@@ -16,19 +16,22 @@ namespace ArchUnitNET.Domain.Extensions
 {
     public static class NamingExtensions
     {
-        public static bool NameEndsWith(this IHasName cls, string pattern)
+        public static bool NameEndsWith(this IHasName cls, string pattern,
+            StringComparison stringComparison = StringComparison.CurrentCulture)
         {
-            return cls.Name.ToLower().EndsWith(pattern.ToLower());
+            return cls.Name.EndsWith(pattern, stringComparison);
         }
 
-        public static bool NameStartsWith(this IHasName cls, string pattern)
+        public static bool NameStartsWith(this IHasName cls, string pattern,
+            StringComparison stringComparison = StringComparison.CurrentCulture)
         {
-            return cls.Name.ToLower().StartsWith(pattern.ToLower());
+            return cls.Name.StartsWith(pattern, stringComparison);
         }
 
-        public static bool NameContains(this IHasName cls, string pattern)
+        public static bool NameContains(this IHasName cls, string pattern,
+            StringComparison stringComparison = StringComparison.Ordinal)
         {
-            return pattern != null && cls.Name.ToLower().Contains(pattern.ToLower());
+            return cls.Name.IndexOf(pattern, stringComparison) >= 0;
         }
 
         public static bool NameMatches(this IHasName cls, string pattern, bool useRegularExpressions = false)
