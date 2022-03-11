@@ -5,7 +5,9 @@
   "ignoreDeps": [
     "Microsoft.NET.Test.Sdk",
     "MSTest.TestAdapter",
-    "MSTest.TestFramework"
+    "MSTest.TestFramework",
+    "JetBrains.Annotations",
+    "NUnit3TestAdapter"
   ]
 }
 
