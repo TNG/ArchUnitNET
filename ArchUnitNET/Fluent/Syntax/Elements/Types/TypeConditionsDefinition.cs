@@ -64,9 +64,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static ICondition<TRuleType> BeAssignableTo(string pattern, bool useRegularExpressions = false)
         {
             var description = "be assignable to types with full name " +
-                              (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"";
+                              (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
             var failDescription = "is not assignable to a type with full name " +
-                                  (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"";
+                                  (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
             return new SimpleCondition<TRuleType>(type => type.IsAssignableTo(pattern, useRegularExpressions),
                 description, failDescription);
         }
@@ -92,12 +92,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "be assignable to types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "be assignable to types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
                 failDescription = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "is not assignable to types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"",
+                    "is not assignable to types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"",
                     (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
@@ -259,10 +259,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ImplementsInterface(pattern, useRegularExpressions),
-                "implement interface with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "implement interface with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"",
-                "does not implement interface with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "does not implement interface with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> ImplementInterface(Interface intf)
@@ -301,7 +301,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInNamespace(pattern, useRegularExpressions),
                 obj => "does reside in " + obj.Namespace.FullName,
-                "reside in namespace with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "reside in namespace with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 
@@ -310,7 +310,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInAssembly(pattern, useRegularExpressions),
                 obj => "does reside in " + obj.Assembly.FullName,
-                "reside in assembly with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "reside in assembly with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 
@@ -492,7 +492,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = "not be assignable to types with full name " +
-                              (useRegularExpressions ? "matching" : "containing") + " \"" + pattern + "\"";
+                              (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
             return new SimpleCondition<TRuleType>(Condition, description);
         }
 
@@ -526,8 +526,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             {
                 var firstPattern = patternList.First();
                 description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "not be assignable to types with full name " + (useRegularExpressions ? "matching" : "containing") +
-                    " \"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                    "not be assignable to types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
             }
 
             return new SimpleCondition<TRuleType>(Condition, description);
@@ -703,10 +703,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static ICondition<TRuleType> NotImplementInterface(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(type => !type.ImplementsInterface(pattern, useRegularExpressions),
-                "not implement interface with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"",
-                "does implement interface with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "not implement interface with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"",
+                "does implement interface with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotImplementInterface(Interface intf)
@@ -745,8 +745,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInNamespace(pattern, useRegularExpressions),
                 obj => "does reside in " + obj.Namespace.FullName,
-                "not reside in namespace with full name " + (useRegularExpressions ? "matching" : "containing") +
-                " \"" + pattern + "\"");
+                "not reside in namespace with full name " + (useRegularExpressions ? "matching " : "") +
+                "\"" + pattern + "\"");
         }
 
         public static ICondition<TRuleType> NotResideInAssembly(string pattern, bool useRegularExpressions = false)
@@ -754,7 +754,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInAssembly(pattern, useRegularExpressions),
                 obj => "does reside in " + obj.Assembly.FullName,
-                "not reside in assembly with full name " + (useRegularExpressions ? "matching" : "containing") + " \"" +
+                "not reside in assembly with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
                 pattern + "\"");
         }
 

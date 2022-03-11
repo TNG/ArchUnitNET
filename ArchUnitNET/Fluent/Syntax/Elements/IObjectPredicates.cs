@@ -70,10 +70,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType HaveAttributeWithNamedArguments(Attribute attribute, (string,object) firstAttributeArgument, params (string,object)[] moreAttributeArguments);
         TReturnType HaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string,object)> attributeArguments);
         TReturnType HaveAttributeWithNamedArguments(Type attribute, (string,object) firstAttributeArgument, params (string,object)[] moreAttributeArguments);
-        TReturnType HaveName(string name);
-        TReturnType HaveNameMatching(string pattern, bool useRegularExpressions = false);
-        TReturnType HaveFullName(string fullname);
-        TReturnType HaveFullNameMatching(string pattern, bool useRegularExpressions = false);
+        TReturnType HaveName(string pattern, bool useRegularExpressions = false);
+        TReturnType HaveFullName(string pattern, bool useRegularExpressions = false);
         TReturnType HaveNameStartingWith(string pattern);
         TReturnType HaveNameEndingWith(string pattern);
         TReturnType HaveNameContaining(string pattern);
@@ -129,10 +127,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType DoNotHaveAttributeWithNamedArguments(Attribute attribute, (string,object) firstAttributeArgument, params (string,object)[] moreAttributeArguments);
         TReturnType DoNotHaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string,object)> attributeArguments);
         TReturnType DoNotHaveAttributeWithNamedArguments(Type attribute, (string,object) firstAttributeArgument, params (string,object)[] moreAttributeArguments);
-        TReturnType DoNotHaveName(string name);
-        TReturnType DoNotHaveNameMatching(string pattern, bool useRegularExpressions = false);
-        TReturnType DoNotHaveFullName(string fullname);
-        TReturnType DoNotHaveFullNameMatching(string pattern, bool useRegularExpressions = false);
+        TReturnType DoNotHaveName(string pattern, bool useRegularExpressions = false);
+        TReturnType DoNotHaveFullName(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotHaveNameStartingWith(string pattern);
         TReturnType DoNotHaveNameEndingWith(string pattern);
         TReturnType DoNotHaveNameContaining(string pattern);

@@ -22,60 +22,59 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         public void OneGenericParameter()
         {
             MethodMembers().That().AreDeclaredIn(typeof(OneGenericReturnTypeExample)).And()
-                .HaveNameMatching("CorrectGenericArgument").Should().HaveReturnType(typeof(ExampleGenericClass<>))
-                .Check(Architecture);
+                .HaveName("CorrectGenericArgument()").Should().Exist().AndShould()
+                .HaveReturnType(typeof(ExampleGenericClass<>)).Check(Architecture);
             MethodMembers().That().AreDeclaredIn(typeof(OneGenericReturnTypeExample)).And()
-                .HaveNameMatching("WrongGenericArgument").Should().HaveReturnType(typeof(ExampleGenericClass<>))
-                .Check(Architecture);
+                .HaveName("WrongGenericArgument()").Should().Exist().AndShould()
+                .HaveReturnType(typeof(ExampleGenericClass<>)).Check(Architecture);
             MethodMembers().That().AreDeclaredIn(typeof(OneGenericReturnTypeExample)).And()
-                .HaveNameMatching("WrongReturnType")
-                .Should().NotHaveReturnType(typeof(ExampleGenericClass<>)).Check(Architecture);
+                .HaveNameContaining("WrongReturnType")
+                .Should().Exist().AndShould().NotHaveReturnType(typeof(ExampleGenericClass<>)).Check(Architecture);
         }
 
         [Fact]
         public void TwoGenericParameters()
         {
             MethodMembers().That().AreDeclaredIn(typeof(TwoGenericReturnTypesExample)).And()
-                .HaveNameMatching("CorrectGenericArgument").Should().HaveReturnType(typeof(ExampleGenericClass<,>))
-                .Check(Architecture);
+                .HaveName("CorrectGenericArgument()").Should().Exist().AndShould()
+                .HaveReturnType(typeof(ExampleGenericClass<,>)).Check(Architecture);
             MethodMembers().That().AreDeclaredIn(typeof(TwoGenericReturnTypesExample)).And()
-                .HaveNameMatching("WrongGenericArgument").Should().HaveReturnType(typeof(ExampleGenericClass<,>))
-                .Check(Architecture);
+                .HaveName("WrongGenericArgument()").Should().Exist().AndShould()
+                .HaveReturnType(typeof(ExampleGenericClass<,>)).Check(Architecture);
             MethodMembers().That().AreDeclaredIn(typeof(TwoGenericReturnTypesExample)).And()
-                .HaveNameMatching("WrongReturnType")
-                .Should().NotHaveReturnType(typeof(ExampleGenericClass<,>)).Check(Architecture);
+                .HaveNameContaining("WrongReturnType")
+                .Should().Exist().AndShould().NotHaveReturnType(typeof(ExampleGenericClass<,>)).Check(Architecture);
         }
 
         [Fact]
         public void OneGenericArgument()
         {
             MethodMembers().That().AreDeclaredIn(typeof(OneGenericReturnTypeExample)).And()
-                .HaveNameMatching("CorrectGenericArgument").Should()
-                .HaveReturnType(typeof(ExampleGenericClass<ExampleArgument>))
-                .Check(Architecture);
+                .HaveName("CorrectGenericArgument()").Should().Exist().AndShould()
+                .HaveReturnType(typeof(ExampleGenericClass<ExampleArgument>)).Check(Architecture);
             MethodMembers().That().AreDeclaredIn(typeof(OneGenericReturnTypeExample)).And()
-                .HaveNameMatching("WrongGenericArgument").Should()
-                .NotHaveReturnType(typeof(ExampleGenericClass<ExampleArgument>))
-                .Check(Architecture);
+                .HaveName("WrongGenericArgument()").Should().Exist().AndShould()
+                .NotHaveReturnType(typeof(ExampleGenericClass<ExampleArgument>)).Check(Architecture);
             MethodMembers().That().AreDeclaredIn(typeof(OneGenericReturnTypeExample)).And()
-                .HaveNameMatching("WrongReturnType")
-                .Should().NotHaveReturnType(typeof(ExampleGenericClass<ExampleArgument>)).Check(Architecture);
+                .HaveNameContaining("WrongReturnType").Should().Exist().AndShould()
+                .NotHaveReturnType(typeof(ExampleGenericClass<ExampleArgument>)).Check(Architecture);
         }
 
         [Fact]
         public void TwoGenericArguments()
         {
             MethodMembers().That().AreDeclaredIn(typeof(TwoGenericReturnTypesExample)).And()
-                .HaveNameMatching("CorrectGenericArgument").Should()
-                .HaveReturnType(typeof(ExampleGenericClass<ExampleArgument, int>))
+                .HaveName("CorrectGenericArgument()").Should()
+                .Exist().AndShould().HaveReturnType(typeof(ExampleGenericClass<ExampleArgument, int>))
                 .Check(Architecture);
             MethodMembers().That().AreDeclaredIn(typeof(TwoGenericReturnTypesExample)).And()
-                .HaveNameMatching("WrongGenericArgument").Should()
-                .NotHaveReturnType(typeof(ExampleGenericClass<ExampleArgument, int>))
+                .HaveName("WrongGenericArgument()").Should()
+                .Exist().AndShould().NotHaveReturnType(typeof(ExampleGenericClass<ExampleArgument, int>))
                 .Check(Architecture);
             MethodMembers().That().AreDeclaredIn(typeof(TwoGenericReturnTypesExample)).And()
-                .HaveNameMatching("WrongReturnType")
-                .Should().NotHaveReturnType(typeof(ExampleGenericClass<ExampleArgument, int>)).Check(Architecture);
+                .HaveNameContaining("WrongReturnType")
+                .Should().Exist().AndShould().NotHaveReturnType(typeof(ExampleGenericClass<ExampleArgument, int>))
+                .Check(Architecture);
         }
     }
 
