@@ -206,9 +206,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(retTypeWithObjectProviderFail.HasNoViolations(Architecture));
 
             var retTypeWithIType = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethodClass").Should()
-                .HaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First().Type);
+                .HaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First());
             var retTypeWithITypeFail = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethodString").Should()
-                .HaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First().Type);
+                .HaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First());
 
             Assert.True(retTypeWithIType.HasNoViolations(Architecture));
             Assert.False(retTypeWithITypeFail.HasNoViolations(Architecture));
@@ -246,9 +246,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(retTypeWithObjectProviderFail.HasNoViolations(Architecture));
 
             var retTypeWithIType = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethodString").Should()
-                .NotHaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First().Type);
+                .NotHaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First());
             var retTypeWithITypeFail = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethodClass").Should()
-                .NotHaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First().Type);
+                .NotHaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First());
 
             Assert.True(retTypeWithIType.HasNoViolations(Architecture));
             Assert.False(retTypeWithITypeFail.HasNoViolations(Architecture));
@@ -286,11 +286,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(retTypeWithObjectProviderFail.HasNoViolations(Architecture));
 
             var retTypeWithITypeFail = MethodMembers().That()
-                .HaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First().Type).Should()
+                .HaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First()).Should()
                 .HaveFullNameContaining("ReturnTypeMethodVoid");
 
             var retTypeWithITypeNegate = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethod")
-                .And().DoNotHaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First().Type).Should()
+                .And().DoNotHaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First()).Should()
                 .HaveFullNameContaining("String").OrShould().HaveFullNameContaining("Void");
 
             Assert.False(retTypeWithITypeFail.HasNoViolations(Architecture));
