@@ -37,7 +37,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             //Assert
             Assert.Contains(actualAttribute, targetType.Attributes);
 
-            Assert.Equal(expectedAttributeType.Type, actualAttribute.Type);
+            Assert.Equal(expectedAttributeType, actualAttribute);
         }
 
         public static void MemberAttributeAsExpected(IMember targetMember, Class expectedAttributeType,
@@ -62,7 +62,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             //Assert
             Assert.Contains(actualAttribute, targetMember.Attributes);
 
-            Assert.Equal(expectedAttributeType.Type, actualAttribute.Type);
+            Assert.Equal(expectedAttributeType, actualAttribute);
         }
 
         public static void AttributeDependencyAsExpected(IMember targetMember, Class expectedAttributeClass)

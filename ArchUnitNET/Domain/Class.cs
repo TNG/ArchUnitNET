@@ -14,6 +14,8 @@ namespace ArchUnitNET.Domain
 {
     public class Class : IType
     {
+        private IType Type { get; }
+
         public Class(IType type, bool? isAbstract = null, bool? isSealed = null)
         {
             Type = type;
@@ -21,7 +23,12 @@ namespace ArchUnitNET.Domain
             IsSealed = isSealed;
         }
 
-        public IType Type { get; }
+        public Class(Class @class)
+        {
+            Type = @class.Type;
+            IsAbstract = @class.IsAbstract;
+            IsSealed = @class.IsSealed;
+        }
 
         public IEnumerable<ITypeDependency> DependenciesIncludingInherited => BaseClass != null
             ? Type.Dependencies.Concat(BaseClass.DependenciesIncludingInherited)
