@@ -1865,7 +1865,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does call";
                     var first = true;
-                    foreach (var method in failedObject.GetCalledMethods().Union(methodList))
+                    foreach (var method in failedObject.GetCalledMethods().Intersect(methodList))
                     {
                         dynamicFailDescription += first ? " " + method.FullName : " and " + method.FullName;
                         first = false;
@@ -1897,7 +1897,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does call";
                     var first = true;
-                    foreach (var method in failedObject.GetCalledMethods().Union(methodList))
+                    foreach (var method in failedObject.GetCalledMethods().Intersect(methodList))
                     {
                         dynamicFailDescription += first ? " " + method.FullName : " and " + method.FullName;
                         first = false;
