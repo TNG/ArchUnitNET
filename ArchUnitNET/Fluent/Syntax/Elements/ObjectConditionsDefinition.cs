@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -1851,7 +1851,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does call";
                     var first = true;
-                    foreach (var method in failedObject.GetCalledMethods().Union(methodList))
+                    foreach (var method in failedObject.GetCalledMethods().Intersect(methodList))
                     {
                         dynamicFailDescription += first ? " " + method.FullName : " and " + method.FullName;
                         first = false;
@@ -1883,7 +1883,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does call";
                     var first = true;
-                    foreach (var method in failedObject.GetCalledMethods().Union(methodList))
+                    foreach (var method in failedObject.GetCalledMethods().Intersect(methodList))
                     {
                         dynamicFailDescription += first ? " " + method.FullName : " and " + method.FullName;
                         first = false;
@@ -2001,7 +2001,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does depend on";
                     var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Union(typeList))
+                    foreach (var type in failedObject.GetTypeDependencies().Intersect(typeList))
                     {
                         dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
                         first = false;
@@ -2033,7 +2033,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does depend on";
                     var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Union(typeList))
+                    foreach (var type in failedObject.GetTypeDependencies().Intersect(typeList))
                     {
                         dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
                         first = false;
@@ -2078,7 +2078,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does depend on";
                     var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Union(iTypeList))
+                    foreach (var type in failedObject.GetTypeDependencies().Intersect(iTypeList))
                     {
                         dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
                         first = false;
