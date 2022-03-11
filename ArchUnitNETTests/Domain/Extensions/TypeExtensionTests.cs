@@ -129,21 +129,21 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void NameContainsTest()
         {
-            Assert.True(_fieldMember.NameContains("ieLda"));
-            Assert.True(_propertyOriginClass.NameContains("sswITH"));
+            Assert.True(_fieldMember.NameContains("ieLda", StringComparison.InvariantCultureIgnoreCase));
+            Assert.True(_propertyOriginClass.NameContains("sswITH", StringComparison.InvariantCultureIgnoreCase));
             Assert.False(_methodOriginClass.NameContains("ClassMethod"));
             Assert.True(_methodMember.NameContains(""));
-            Assert.False(_exampleAttribute.NameContains(null));
+            Assert.ThrowsAny<ArgumentNullException>(() => _exampleAttribute.NameContains(null));
         }
 
         [Fact]
         public void NameEndsWithTest()
         {
-            Assert.True(_fieldMember.NameEndsWith("ieLda"));
-            Assert.False(_propertyOriginClass.NameEndsWith("sswITH"));
+            Assert.True(_fieldMember.NameEndsWith("ieLda", StringComparison.InvariantCultureIgnoreCase));
+            Assert.False(_propertyOriginClass.NameEndsWith("sswITH", StringComparison.InvariantCultureIgnoreCase));
             Assert.False(_methodOriginClass.NameEndsWith("ClassMethod"));
             Assert.True(_methodMember.NameEndsWith(""));
-            Assert.Throws<NullReferenceException>(() => _exampleAttribute.NameEndsWith(null));
+            Assert.Throws<ArgumentNullException>(() => _exampleAttribute.NameEndsWith(null));
         }
 
         [Fact]
@@ -171,11 +171,11 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void NameStartsWithTest()
         {
-            Assert.True(_fieldMember.NameStartsWith("fIEldA"));
-            Assert.True(_propertyOriginClass.NameStartsWith("cLassw"));
+            Assert.True(_fieldMember.NameStartsWith("fIEldA", StringComparison.InvariantCultureIgnoreCase));
+            Assert.True(_propertyOriginClass.NameStartsWith("cLassw", StringComparison.InvariantCultureIgnoreCase));
             Assert.False(_methodOriginClass.NameStartsWith("With"));
             Assert.True(_methodMember.NameStartsWith(""));
-            Assert.Throws<NullReferenceException>(() => _exampleAttribute.NameStartsWith(null));
+            Assert.Throws<ArgumentNullException>(() => _exampleAttribute.NameStartsWith(null));
         }
 
         [Fact]
