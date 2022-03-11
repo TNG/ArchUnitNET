@@ -45,15 +45,19 @@ namespace ArchUnitNETTests.Fluent.PlantUml
         public void ComponentDiagramFromTypesTest()
         {
             var typeRule = ArchRuleDefinition.Types().That().Are(typeof(PlantUmlFluentComponentDiagramTests));
-            var uml1 = ComponentDiagram().WithDependenciesFromTypes(typeRule, Architecture).AsString(new RenderOptions{OmitClassFields = true});
-            var uml2 = ComponentDiagram().WithDependenciesFromTypes(typeRule.GetObjects(Architecture)).AsString(new RenderOptions{OmitClassFields = true});
-            var uml3 = ComponentDiagram().WithDependenciesFromTypes(typeRule, Architecture, true).AsString();
-            var uml4 = ComponentDiagram().WithDependenciesFromTypes(typeRule.GetObjects(Architecture), true).AsString();
+            var uml1 = ComponentDiagram().WithDependenciesFromTypes(typeRule, Architecture)
+                .AsString(new RenderOptions {OmitClassFields = true});
+            var uml2 = ComponentDiagram().WithDependenciesFromTypes(typeRule.GetObjects(Architecture))
+                .AsString(new RenderOptions {OmitClassFields = true});
+            var uml3 = ComponentDiagram()
+                .WithDependenciesFromTypes(typeRule, Architecture,
+                    new GenerationOptions {IncludeDependenciesToOther = true}).AsString();
+            var uml4 = ComponentDiagram().WithDependenciesFromTypes(typeRule.GetObjects(Architecture),
+                new GenerationOptions {IncludeDependenciesToOther = true}).AsString();
             Assert.NotEmpty(uml1);
             Assert.NotEmpty(uml2);
             Assert.NotEmpty(uml3);
             Assert.NotEmpty(uml4);
-
             var expectedUml = "@startuml" + Environment.NewLine + "class " +
                               typeof(PlantUmlFluentComponentDiagramTests).FullName +
                               " {" + Environment.NewLine + "}" + Environment.NewLine + "@enduml" + Environment.NewLine;
@@ -68,7 +72,8 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var uml = ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "class d {" + Environment.NewLine + "}" + Environment.NewLine + "a --|> b" +
+            var expectedUml = "@startuml" + Environment.NewLine + "class d {" + Environment.NewLine + "}" +
+                              Environment.NewLine + "a --|> b" +
                               Environment.NewLine + "b --|> c" + Environment.NewLine + "c --|> a" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);

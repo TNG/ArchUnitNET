@@ -40,7 +40,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void BuildUmlByTypesIncludingDependenciesToOtherTest()
         {
-            var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Architecture.Types.Take(100), true);
+            var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Architecture.Types.Take(100),
+                new GenerationOptions {IncludeDependenciesToOther = true});
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
         }
@@ -82,7 +83,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var builder = new PlantUmlFileBuilder().WithElements(Dependencies.Concat(classesWithoutDependencies));
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
-
 
             var expectedUml = "@startuml" + Environment.NewLine + "class d {" + Environment.NewLine + "}" +
                               Environment.NewLine + "a --|> b" + Environment.NewLine + "b --|> c" +
