@@ -17,9 +17,5 @@ namespace ArchUnitNET.Domain
         bool IsNested { get; }
         bool IsStub { get; }
         bool IsGenericParameter { get; }
-        bool ImplementsInterface(Interface intf);
-        bool ImplementsInterface(string pattern, bool useRegularExpressions = false);
-        bool IsAssignableTo(IType assignableToType);
-        bool IsAssignableTo(string pattern, bool useRegularExpressions = false);
     }
 }

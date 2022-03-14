@@ -42,32 +42,6 @@ namespace ArchUnitNET.Domain
         public MemberList Members => Type.Members;
         public List<GenericParameter> GenericParameters => Type.GenericParameters;
 
-        public bool ImplementsInterface(Interface intf)
-        {
-            return Type.ImplementsInterface(intf);
-        }
-
-        public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
-        {
-            return Type.ImplementsInterface(pattern, useRegularExpressions);
-        }
-
-        public bool IsAssignableTo(IType assignableToType)
-        {
-            if (assignableToType is Interface intf)
-            {
-                return Equals(intf) || ImplementsInterface(intf);
-            }
-
-            return false;
-        }
-
-        public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
-        {
-            return this.FullNameMatches(pattern, useRegularExpressions) ||
-                   ImplementsInterface(pattern, useRegularExpressions);
-        }
-
         public override string ToString()
         {
             return FullName;

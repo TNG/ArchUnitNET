@@ -65,26 +65,6 @@ namespace ArchUnitNET.Domain
         public bool IsNested => true;
         public bool IsStub => true;
 
-        public bool ImplementsInterface(Interface intf)
-        {
-            return false;
-        }
-
-        public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
-        {
-            return false;
-        }
-
-        public bool IsAssignableTo(IType assignableToType)
-        {
-            return TypeConstraints.All(type => type.IsAssignableTo(assignableToType));
-        }
-
-        public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
-        {
-            return pattern != null && TypeConstraints.All(type => type.IsAssignableTo(pattern, useRegularExpressions));
-        }
-
         internal void AssignDeclarer(IMember declaringMethod)
         {
             if (!declaringMethod.FullName.Equals(_declarerFullName))
