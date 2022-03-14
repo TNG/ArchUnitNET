@@ -71,8 +71,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "a --|> b" +
-                              Environment.NewLine + "b --|> c" + Environment.NewLine + "c --|> a" +
+            var expectedUml = "@startuml" + Environment.NewLine + "\"a\" --|> \"b\"" +
+                              Environment.NewLine + "\"b\" --|> \"c\"" + Environment.NewLine + "\"c\" --|> \"a\"" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
@@ -85,9 +85,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "class d {" + Environment.NewLine + "}" +
-                              Environment.NewLine + "a --|> b" + Environment.NewLine + "b --|> c" +
-                              Environment.NewLine + "c --|> a" + Environment.NewLine + "@enduml" + Environment.NewLine;
+            var expectedUml = "@startuml" + Environment.NewLine + "class \"d\" {" + Environment.NewLine + "}" +
+                              Environment.NewLine + "\"a\" --|> \"b\"" + Environment.NewLine + "\"b\" --|> \"c\"" +
+                              Environment.NewLine + "\"c\" --|> \"a\"" + Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
 
@@ -136,17 +136,17 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 new PlantUmlDependency("\\\t%", "äöüß", DependencyType.OneToOne),
                 new PlantUmlDependency("^°-*+.,;:", "<>|@€", DependencyType.OneToOne)
             };
-            var classesWithSpecialCharacters = new[] {new PlantUmlClass("!\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€")};
+            var classesWithSpecialCharacters = new[] {new PlantUmlClass("!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€")};
             var builder =
                 new PlantUmlFileBuilder().WithElements(
                     dependenciesWithSpecialCharacters.Concat(classesWithSpecialCharacters));
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "class !\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€ {" +
-                              Environment.NewLine + "}" + Environment.NewLine + "!\"§´` --|> $%&/()=?" +
-                              Environment.NewLine + "\\\t% --|> äöüß" + Environment.NewLine +
-                              "^°-*+.,;: --|> <>|@€" +
+            var expectedUml = "@startuml" + Environment.NewLine + "class \"!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€\" {" +
+                              Environment.NewLine + "}" + Environment.NewLine + "\"!\"§´`\" --|> \"$%&/()=?\"" +
+                              Environment.NewLine + "\"\\\t%\" --|> \"äöüß\"" + Environment.NewLine +
+                              "\"^°-*+.,;:\" --|> \"<>|@€\"" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }

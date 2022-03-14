@@ -58,9 +58,9 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             Assert.NotEmpty(uml2);
             Assert.NotEmpty(uml3);
             Assert.NotEmpty(uml4);
-            var expectedUml = "@startuml" + Environment.NewLine + "class " +
+            var expectedUml = "@startuml" + Environment.NewLine + "class \"" +
                               typeof(PlantUmlFluentComponentDiagramTests).FullName +
-                              " {" + Environment.NewLine + "}" + Environment.NewLine + "@enduml" + Environment.NewLine;
+                              "\" {" + Environment.NewLine + "}" + Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml1);
             Assert.Equal(expectedUml, uml2);
         }
@@ -72,9 +72,9 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var uml = ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "class d {" + Environment.NewLine + "}" +
-                              Environment.NewLine + "a --|> b" +
-                              Environment.NewLine + "b --|> c" + Environment.NewLine + "c --|> a" +
+            var expectedUml = "@startuml" + Environment.NewLine + "class \"d\" {" + Environment.NewLine + "}" +
+                              Environment.NewLine + "\"a\" --|> \"b\"" +
+                              Environment.NewLine + "\"b\" --|> \"c\"" + Environment.NewLine + "\"c\" --|> \"a\"" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
@@ -85,7 +85,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
             const string path = "temp/testUml.puml";
             var expectedUml = new[]
-                {"@startuml", "class d {", "}", "a --|> b", "b --|> c", "c --|> a", "@enduml"};
+                {"@startuml", "class \"d\" {", "}", "\"a\" --|> \"b\"", "\"b\" --|> \"c\"", "\"c\" --|> \"a\"", "@enduml"};
             ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).WriteToFile(path);
             Assert.True(File.Exists(path));
 
