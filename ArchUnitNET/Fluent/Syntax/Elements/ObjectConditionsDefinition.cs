@@ -1216,7 +1216,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return false;
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> HaveAttributeWithArguments([NotNull] Attribute attribute,
@@ -1274,7 +1274,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return false;
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> HaveAttributeWithArguments([NotNull] Type attribute,
@@ -1343,7 +1343,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return false;
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> HaveAnyAttributesWithNamedArguments(
@@ -1482,7 +1482,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return false;
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> HaveAttributeWithNamedArguments([NotNull] Attribute attribute,
@@ -1547,7 +1547,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return false;
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> HaveAttributeWithNamedArguments([NotNull] Type attribute,
@@ -1623,7 +1623,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return false;
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> HaveName(string pattern, bool useRegularExpressions = false)
@@ -2562,7 +2562,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return true;
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> NotHaveAttributeWithArguments([NotNull] Attribute attribute,
