@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
 
@@ -165,10 +166,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
-                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(iTypeList).Any())
+                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(archUnitTypeList).Any())
                     .ToList();
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
@@ -350,11 +363,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList.Where(methodMember =>
                         methodMember.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target)
-                            .Intersect(iTypeList).Any())
+                            .Intersect(archUnitTypeList).Any())
                     .ToList();
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
@@ -664,10 +689,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
                 var methodMemberList = methodMembers.ToList();
                 var failedObjects = methodMemberList
-                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(iTypeList).Any())
+                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(archUnitTypeList).Any())
                     .ToList();
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
@@ -865,11 +902,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
                 var methodMemberList = methodMembers.ToList();
                 var failedObjects = methodMemberList.Where(methodMember =>
                         methodMember.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target)
-                            .Intersect(iTypeList).Any())
+                            .Intersect(archUnitTypeList).Any())
                     .ToList();
                 string failDescription;
                 if (typeList.IsNullOrEmpty())

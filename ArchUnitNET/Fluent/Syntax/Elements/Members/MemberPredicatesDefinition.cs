@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
 
@@ -49,28 +50,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static IPredicate<T> AreDeclaredIn(IType firstType, params IType[] moreTypes)
         {
-            IEnumerable<T> Condition(IEnumerable<T> members)
-            {
-                var types = moreTypes.Concat(new[] {firstType});
-                return members.Intersect(types.SelectMany(type => type.Members).OfType<T>());
-            }
-
-            var description = moreTypes.Aggregate("are declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new EnumerablePredicate<T>(Condition, description);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return AreDeclaredIn(types);
         }
 
         public static IPredicate<T> AreDeclaredIn(Type firstType, params Type[] moreTypes)
         {
-            IEnumerable<T> Condition(IEnumerable<T> members, Architecture architecture)
-            {
-                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
-                return members.Intersect(types.SelectMany(type => type.Members).OfType<T>());
-            }
-
-            var description = moreTypes.Aggregate("are declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ArchitecturePredicate<T>(Condition, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return AreDeclaredIn(types);
         }
 
         public static IPredicate<T> AreDeclaredIn(IObjectProvider<IType> objectProvider)
@@ -116,8 +105,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             IEnumerable<T> Condition(IEnumerable<T> members, Architecture architecture)
             {
-                var tList = typeList.Select(architecture.GetITypeOfType);
-                return members.Intersect(tList.SelectMany(type => type.Members).OfType<T>());
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+                return members.Intersect(archUnitTypeList.SelectMany(type => type.Members).OfType<T>());
             }
 
             string description;
@@ -179,28 +180,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static IPredicate<T> AreNotDeclaredIn(IType firstType, params IType[] moreTypes)
         {
-            IEnumerable<T> Condition(IEnumerable<T> members)
-            {
-                var types = moreTypes.Concat(new[] {firstType});
-                return members.Except(types.SelectMany(type => type.Members).OfType<T>());
-            }
-
-            var description = moreTypes.Aggregate("are not declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new EnumerablePredicate<T>(Condition, description);
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return AreNotDeclaredIn(types);
         }
 
         public static IPredicate<T> AreNotDeclaredIn(Type firstType, params Type[] moreTypes)
         {
-            IEnumerable<T> Condition(IEnumerable<T> members, Architecture architecture)
-            {
-                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
-                return members.Except(types.SelectMany(type => type.Members).OfType<T>());
-            }
-
-            var description = moreTypes.Aggregate("are not declared in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
-            return new ArchitecturePredicate<T>(Condition, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return AreNotDeclaredIn(types);
         }
 
         public static IPredicate<T> AreNotDeclaredIn(IObjectProvider<IType> objectProvider)
@@ -246,8 +235,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             IEnumerable<T> Condition(IEnumerable<T> members, Architecture architecture)
             {
-                var tList = typeList.Select(architecture.GetITypeOfType);
-                return members.Except(tList.SelectMany(type => type.Members).OfType<T>());
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+                return members.Except(archUnitTypeList.SelectMany(type => type.Members).OfType<T>());
             }
 
             string description;

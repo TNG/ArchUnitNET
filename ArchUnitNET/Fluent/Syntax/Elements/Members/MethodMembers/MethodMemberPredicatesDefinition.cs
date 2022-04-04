@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
 
@@ -116,8 +117,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType);
-                return ruleTypes.Where(type => type.GetCallingTypes().Intersect(iTypeList).Any());
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+                return ruleTypes.Where(type => type.GetCallingTypes().Intersect(archUnitTypeList).Any());
             }
 
             string description;
@@ -233,9 +246,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType);
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
                 return ruleTypes.Where(type =>
-                    type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(iTypeList)
+                    type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(archUnitTypeList)
                         .Any());
             }
 
@@ -429,8 +454,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType);
-                return ruleTypes.Where(type => !type.GetCallingTypes().Intersect(iTypeList).Any());
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+                return ruleTypes.Where(type => !type.GetCallingTypes().Intersect(archUnitTypeList).Any());
             }
 
             string description;
@@ -549,9 +586,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType);
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
                 return ruleTypes.Where(type =>
-                    !type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(iTypeList)
+                    !type.GetBodyTypeMemberDependencies().Select(dependency => dependency.Target).Intersect(archUnitTypeList)
                         .Any());
             }
 
