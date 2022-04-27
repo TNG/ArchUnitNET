@@ -7,7 +7,8 @@
     "MSTest.TestAdapter",
     "MSTest.TestFramework",
     "JetBrains.Annotations",
-    "NUnit3TestAdapter"
+    "NUnit3TestAdapter",
+    "nunit"
   ]
 }
 

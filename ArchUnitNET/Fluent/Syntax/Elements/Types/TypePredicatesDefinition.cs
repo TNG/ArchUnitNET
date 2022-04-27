@@ -310,16 +310,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> AreNot(Type firstType, params Type[] moreTypes)
         {
-            IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
-            {
-                var typeList = moreTypes.Select(architecture.GetITypeOfType)
-                    .Concat(new[] {architecture.GetITypeOfType(firstType)}).OfType<T>();
-                return ruleTypes.Except(typeList);
-            }
-
-            var description = moreTypes.Aggregate("are not \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitecturePredicate<T>(Filter, description);
+            return AreNot(new List<Type>() {firstType}.Concat(moreTypes));
         }
 
         public static IPredicate<T> AreNot(IEnumerable<Type> types)
