@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
 
@@ -130,9 +131,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+
                 var methodList = methods.ToList();
-                var passedObjects = methodList.Where(method => iTypeList.Contains(method.DeclaringType)).ToList();
+                var passedObjects = methodList.Where(method => archUnitTypeList.Contains(method.DeclaringType))
+                    .ToList();
                 foreach (var failedObject in methodList.Except(passedObjects))
                 {
                     var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
@@ -296,9 +311,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+
                 var methodList = methods.ToList();
-                var failedObjects = methodList.Where(method => iTypeList.Contains(method.DeclaringType)).ToList();
+                var failedObjects = methodList.Where(method => archUnitTypeList.Contains(method.DeclaringType))
+                    .ToList();
                 foreach (var failedObject in failedObjects)
                 {
                     var failDescription = "is declared in " + failedObject.DeclaringType.FullName;

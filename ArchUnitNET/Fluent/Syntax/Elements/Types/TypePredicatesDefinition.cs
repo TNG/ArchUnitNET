@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
 using Assembly = System.Reflection.Assembly;
@@ -19,16 +20,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         public static IPredicate<T> Are(Type firstType, params Type[] moreTypes)
         {
-            IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
-            {
-                var typeList = moreTypes.Select(architecture.GetITypeOfType)
-                    .Concat(new[] { architecture.GetITypeOfType(firstType) }).OfType<T>();
-                return ruleTypes.Intersect(typeList);
-            }
-
-            var description = moreTypes.Aggregate("are \"" + firstType.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
-            return new ArchitecturePredicate<T>(Filter, description);
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return Are(types);
         }
 
         public static IPredicate<T> Are(IEnumerable<Type> types)
@@ -37,8 +31,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var tList = typeList.Select(architecture.GetITypeOfType).OfType<T>();
-                return ruleTypes.Intersect(tList);
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't be equal anyways
+                    }
+                }
+
+                return ruleTypes.Intersect(archUnitTypeList.OfType<T>());
             }
 
             string description;
@@ -92,7 +99,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                var types = moreTypes.Concat(new[] { firstType });
+                var types = moreTypes.Concat(new[] {firstType});
                 return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
@@ -105,7 +112,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var types = moreTypes.Concat(new[] { firstType }).Select(architecture.GetITypeOfType);
+                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
                 return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
@@ -157,8 +164,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var tList = typeList.Select(architecture.GetITypeOfType);
-                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(tList).Any());
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+
+                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(archUnitTypeList).Any());
             }
 
             string description;
@@ -209,8 +229,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var interf = architecture.GetInterfaceOfType(intf);
-                return ruleTypes.Where(type => type.ImplementsInterface(interf));
+                Interface archUnitInterface;
+                try
+                {
+                    archUnitInterface = architecture.GetInterfaceOfType(intf);
+                }
+                catch (TypeDoesNotExistInArchitecture e)
+                {
+                    //can't have a dependency
+                    return Enumerable.Empty<T>();
+                }
+
+                return ruleTypes.Where(type => type.ImplementsInterface(archUnitInterface));
             }
 
             return new ArchitecturePredicate<T>(Condition,
@@ -235,7 +265,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> types, Architecture architecture)
             {
-                var assemblyList = moreAssemblies.Concat(new[] { assembly }).Select(architecture.GetAssemblyOfAssembly);
+                var assemblyList = moreAssemblies.Concat(new[] {assembly}).Select(architecture.GetAssemblyOfAssembly);
                 return types.Where(type => assemblyList.Contains(type.Assembly));
             }
 
@@ -283,7 +313,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
                 var typeList = moreTypes.Select(architecture.GetITypeOfType)
-                    .Concat(new[] { architecture.GetITypeOfType(firstType) }).OfType<T>();
+                    .Concat(new[] {architecture.GetITypeOfType(firstType)}).OfType<T>();
                 return ruleTypes.Except(typeList);
             }
 
@@ -298,8 +328,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var tList = typeList.Select(architecture.GetITypeOfType).OfType<T>();
-                return ruleTypes.Except(tList);
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't be equal anyways
+                    }
+                }
+                return ruleTypes.Except(archUnitTypeList.OfType<T>());
             }
 
             string description;
@@ -355,7 +397,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                var types = moreTypes.Concat(new[] { firstType });
+                var types = moreTypes.Concat(new[] {firstType});
                 return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
@@ -368,7 +410,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var types = moreTypes.Concat(new[] { firstType }).Select(architecture.GetITypeOfType);
+                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
                 return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
@@ -420,8 +462,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var tList = typeList.Select(architecture.GetITypeOfType);
-                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(tList).Any());
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(archUnitTypeList).Any());
             }
 
             string description;
@@ -439,7 +493,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             return new ArchitecturePredicate<T>(Condition, description);
         }
-        
+
         public static IPredicate<T> AreNotValueTypes()
         {
             return new SimplePredicate<T>(cls => !(cls is Enum) && !(cls is Struct), "are not value types");
@@ -472,8 +526,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var interf = architecture.GetInterfaceOfType(intf);
-                return ruleTypes.Where(type => !type.ImplementsInterface(interf));
+                Interface archUnitInterface;
+                try
+                {
+                    archUnitInterface = architecture.GetInterfaceOfType(intf);
+                }
+                catch (TypeDoesNotExistInArchitecture e)
+                {
+                    //can't have a dependency
+                    return ruleTypes;
+                }
+                return ruleTypes.Where(type => !type.ImplementsInterface(archUnitInterface));
             }
 
             return new ArchitecturePredicate<T>(Condition,
@@ -498,7 +561,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> types, Architecture architecture)
             {
-                var assemblyList = moreAssemblies.Concat(new[] { assembly }).Select(architecture.GetAssemblyOfAssembly);
+                var assemblyList = moreAssemblies.Concat(new[] {assembly}).Select(architecture.GetAssemblyOfAssembly);
                 return types.Where(type => !assemblyList.Contains(type.Assembly));
             }
 

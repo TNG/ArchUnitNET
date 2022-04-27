@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Domain.PlantUml.Import;
 using ArchUnitNET.Fluent.Conditions;
@@ -20,7 +21,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         public static ICondition<TRuleType> Be(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> { firstType };
+            var types = new List<Type> {firstType};
             types.AddRange(moreTypes);
             return Be(types);
         }
@@ -31,9 +32,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't be equal anyways
+                    }
+                }
+
                 var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList.OfType<IType>().Intersect(iTypeList).ToList();
+                var passedObjects = ruleTypeList.OfType<IType>().Intersect(archUnitTypeList).ToList();
                 foreach (var failedObject in ruleTypeList.Cast<IType>().Except(passedObjects))
                 {
                     yield return new ConditionResult(failedObject, false, "is " + failedObject.FullName);
@@ -106,14 +120,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> BeAssignableTo(IType firstType, params IType[] moreTypes)
         {
-            var types = new List<IType> { firstType };
+            var types = new List<IType> {firstType};
             types.AddRange(moreTypes);
             return BeAssignableTo(types);
         }
 
         public static ICondition<TRuleType> BeAssignableTo(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> { firstType };
+            var types = new List<Type> {firstType};
             types.AddRange(moreTypes);
             return BeAssignableTo(types);
         }
@@ -197,9 +211,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+
                 var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList.Where(type => type.GetAssignableTypes().Intersect(iTypeList).Any())
+                var passedObjects = ruleTypeList
+                    .Where(type => type.GetAssignableTypes().Intersect(archUnitTypeList).Any())
                     .ToList();
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
@@ -278,8 +306,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
                 var ruleTypeList = ruleTypes.ToList();
-                var interf = architecture.GetInterfaceOfType(intf);
-                var passedObjects = ruleTypeList.Where(type => type.ImplementsInterface(interf)).ToList();
+                Interface archUnitInterface = null;
+                var interfaceNotInArchitecture = false;
+                try
+                {
+                    archUnitInterface = architecture.GetInterfaceOfType(intf);
+                }
+                catch (TypeDoesNotExistInArchitecture e)
+                {
+                    //can't have a dependency
+                    interfaceNotInArchitecture = true;
+                }
+
+                if (interfaceNotInArchitecture)
+                {
+                    foreach (var ruleType in ruleTypeList)
+                    {
+                        yield return new ConditionResult(ruleType, false,
+                            "does not implement interface \"" + intf.FullName + "\"");
+                    }
+
+                    yield break;
+                }
+
+                var passedObjects = ruleTypeList.Where(type => type.ImplementsInterface(archUnitInterface)).ToList();
 
                 foreach (var failedObject in ruleTypeList.Except(passedObjects))
                 {
@@ -432,7 +482,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> { firstType };
+            var types = new List<Type> {firstType};
             types.AddRange(moreTypes);
             return NotBe(types);
         }
@@ -443,9 +493,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't be equal anyways
+                    }
+                }
+
                 var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList.OfType<IType>().Intersect(iTypeList).ToList();
+                var failedObjects = ruleTypeList.OfType<IType>().Intersect(archUnitTypeList).ToList();
                 foreach (var failedObject in failedObjects)
                 {
                     yield return new ConditionResult(failedObject, false, "is " + failedObject.FullName);
@@ -535,14 +598,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static ICondition<TRuleType> NotBeAssignableTo(IType firstType, params IType[] moreTypes)
         {
-            var types = new List<IType> { firstType };
+            var types = new List<IType> {firstType};
             types.AddRange(moreTypes);
             return NotBeAssignableTo(types);
         }
 
         public static ICondition<TRuleType> NotBeAssignableTo(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> { firstType };
+            var types = new List<Type> {firstType};
             types.AddRange(moreTypes);
             return NotBeAssignableTo(types);
         }
@@ -634,9 +697,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
-                var iTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
+                var archUnitTypeList = new List<IType>();
+                foreach (var type in typeList)
+                {
+                    try
+                    {
+                        var archUnitType = architecture.GetITypeOfType(type);
+                        archUnitTypeList.Add(archUnitType);
+                    }
+                    catch (TypeDoesNotExistInArchitecture e)
+                    {
+                        //ignore, can't have a dependency anyways
+                    }
+                }
+
                 var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList.Where(type => type.GetAssignableTypes().Intersect(iTypeList).Any())
+                var failedObjects = ruleTypeList
+                    .Where(type => type.GetAssignableTypes().Intersect(archUnitTypeList).Any())
                     .ToList();
                 string dynamicFailDescription;
                 if (typeList.IsNullOrEmpty())
@@ -653,7 +730,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     {
                         dynamicFailDescription = "is assignable to";
                         var first = true;
-                        foreach (var type in failedObject.GetAssignableTypes().Intersect(iTypeList))
+                        foreach (var type in failedObject.GetAssignableTypes().Intersect(archUnitTypeList))
                         {
                             dynamicFailDescription += first ? " " + type.FullName : " and " + type.FullName;
                             first = false;
@@ -722,8 +799,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
             {
                 var ruleTypeList = ruleTypes.ToList();
-                var interf = architecture.GetInterfaceOfType(intf);
-                var passedObjects = ruleTypeList.Where(type => !type.ImplementsInterface(interf)).ToList();
+                Interface archUnitInterface = null;
+                var interfaceNotInArchitecture = false;
+                try
+                {
+                    archUnitInterface = architecture.GetInterfaceOfType(intf);
+                }
+                catch (TypeDoesNotExistInArchitecture e)
+                {
+                    //can't have a dependency
+                    interfaceNotInArchitecture = true;
+                }
+
+                if (interfaceNotInArchitecture)
+                {
+                    foreach (var ruleType in ruleTypeList)
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+
+                    yield break;
+                }
+
+                var passedObjects = ruleTypeList.Where(type => !type.ImplementsInterface(archUnitInterface)).ToList();
 
                 foreach (var failedObject in ruleTypeList.Except(passedObjects))
                 {
