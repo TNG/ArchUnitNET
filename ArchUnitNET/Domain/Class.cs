@@ -74,27 +74,6 @@ namespace ArchUnitNET.Domain
 
         public List<GenericParameter> GenericParameters => Type.GenericParameters;
 
-        public bool ImplementsInterface(Interface intf)
-        {
-            return Type.ImplementsInterface(intf);
-        }
-
-        public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
-        {
-            return Type.ImplementsInterface(pattern, useRegularExpressions);
-        }
-
-        public bool IsAssignableTo(IType assignableToType)
-        {
-            return this.GetAssignableTypes().Contains(assignableToType);
-        }
-
-        public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
-        {
-            return pattern != null && this.GetAssignableTypes()
-                .Any(type => type.FullNameMatches(pattern, useRegularExpressions));
-        }
-
         public override string ToString()
         {
             return FullName;

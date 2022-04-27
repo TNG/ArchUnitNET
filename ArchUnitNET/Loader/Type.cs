@@ -60,49 +60,6 @@ namespace ArchUnitNET.Loader
             .OfType<ImplementsInterfaceDependency>()
             .Select(dependency => dependency.Target);
 
-        public bool ImplementsInterface(Interface intf)
-        {
-            return ImplementedInterfaces.Any(implementedInterface =>
-                Equals(implementedInterface, intf));
-        }
-
-        public bool ImplementsInterface(string pattern, bool useRegularExpressions = false)
-        {
-            if (pattern == null)
-            {
-                return false;
-            }
-
-            return ImplementedInterfaces.Any(implementedInterface =>
-                implementedInterface.FullNameMatches(pattern, useRegularExpressions));
-        }
-
-        public bool IsAssignableTo(IType assignableToType)
-        {
-            if (assignableToType == null)
-            {
-                return false;
-            }
-
-            if (Equals(assignableToType))
-            {
-                return true;
-            }
-
-            return assignableToType is Interface && ImplementsInterface((Interface) assignableToType);
-        }
-
-        public bool IsAssignableTo(string pattern, bool useRegularExpressions = false)
-        {
-            if (pattern == null)
-            {
-                return false;
-            }
-
-            return this.FullNameMatches(pattern, useRegularExpressions) ||
-                   ImplementsInterface(pattern, useRegularExpressions);
-        }
-
         public override string ToString()
         {
             return FullName;

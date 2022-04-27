@@ -13,6 +13,48 @@ namespace ArchUnitNET.Domain.Extensions
 {
     public static class TypeExtensions
     {
+        public static bool ImplementsInterface(this IType type, Interface intf)
+        {
+            if (type is GenericParameter)
+            {
+                return false;
+            }
+
+            return type.ImplementedInterfaces.Any(implementedInterface =>
+                Equals(implementedInterface, intf));
+        }
+
+        public static bool ImplementsInterface(this IType type, string pattern, bool useRegularExpressions = false)
+        {
+            if (type is GenericParameter)
+            {
+                return false;
+            }
+
+            return type.ImplementedInterfaces.Any(implementedInterface =>
+                implementedInterface.FullNameMatches(pattern, useRegularExpressions));
+        }
+
+        public static bool IsAssignableTo(this IType type, IType assignableToType)
+        {
+            if (type is GenericParameter genericParameter)
+            {
+                return genericParameter.TypeConstraints.All(t => t.IsAssignableTo(assignableToType));
+            }
+
+            return type.GetAssignableTypes().Contains(assignableToType);
+        }
+
+        public static bool IsAssignableTo(this IType type, string pattern, bool useRegularExpressions = false)
+        {
+            if (type is GenericParameter genericParameter)
+            {
+                return genericParameter.TypeConstraints.All(t => t.IsAssignableTo(pattern, useRegularExpressions));
+            }
+
+            return type.GetAssignableTypes().Any(t => t.FullNameMatches(pattern, useRegularExpressions));
+        }
+
         public static bool IsAnonymousType(this IType type)
         {
             return type.NameStartsWith("<>f__AnonymousType");
