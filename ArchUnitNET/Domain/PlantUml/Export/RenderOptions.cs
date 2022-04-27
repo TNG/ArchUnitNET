@@ -2,6 +2,6 @@
 {
     public class RenderOptions
     {
-        public bool OmitClassFields { get; set; }
+        public bool OmitClassFields { get; set; } = true;
     }
 }

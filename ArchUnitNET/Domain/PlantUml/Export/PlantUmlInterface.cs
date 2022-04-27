@@ -18,7 +18,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         public string GetPlantUmlString(RenderOptions renderOptions)
         {
             var hyperlinkString = _hyperlink != null ? " [[" + _hyperlink + "]] " : null;
-            var result = "interface " + _name + hyperlinkString + " {" + Environment.NewLine + "}" +
+            var result = "interface \"" + _name + "\"" + hyperlinkString + " {" + Environment.NewLine + "}" +
                          Environment.NewLine;
             return result;
         }

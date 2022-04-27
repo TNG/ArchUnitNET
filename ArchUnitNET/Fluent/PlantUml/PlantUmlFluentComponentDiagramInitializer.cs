@@ -27,7 +27,7 @@ namespace ArchUnitNET.Fluent.PlantUml
             _fluentComponentDiagramCreator.AddToDescription("with custom elements");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
-        
+
         public GivenPlantUmlFluentComponentDiagram WithElements(params IPlantUmlElement[] elements)
         {
             _fluentComponentDiagramCreator.Builder.WithElements(elements);
@@ -36,18 +36,18 @@ namespace ArchUnitNET.Fluent.PlantUml
         }
 
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(IEnumerable<IType> types,
-            bool includeDependenciesToOther = false)
+            GenerationOptions generationOptions = null)
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(types, includeDependenciesToOther);
+            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(types, generationOptions);
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(IObjectProvider<IType> types,
-            Architecture architecture, bool includeDependenciesToOther = false)
+            Architecture architecture, GenerationOptions generationOptions = null)
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(types.GetObjects(architecture),
-                includeDependenciesToOther);
+                generationOptions);
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }

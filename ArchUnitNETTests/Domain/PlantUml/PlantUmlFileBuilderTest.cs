@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
 using ArchUnitNET.Domain.PlantUml.Export;
 using ArchUnitNET.Fluent.Slices;
@@ -40,7 +41,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void BuildUmlByTypesIncludingDependenciesToOtherTest()
         {
-            var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Architecture.Types.Take(100), true);
+            var builder = new PlantUmlFileBuilder().WithDependenciesFrom(Architecture.Types.Take(100),
+                new GenerationOptions {IncludeDependenciesToOther = true});
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
         }
@@ -69,8 +71,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "a --|> b" +
-                              Environment.NewLine + "b --|> c" + Environment.NewLine + "c --|> a" +
+            var expectedUml = "@startuml" + Environment.NewLine + "\"a\" --|> \"b\"" +
+                              Environment.NewLine + "\"b\" --|> \"c\"" + Environment.NewLine + "\"c\" --|> \"a\"" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
@@ -83,10 +85,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-
-            var expectedUml = "@startuml" + Environment.NewLine + "class d {" + Environment.NewLine + "}" +
-                              Environment.NewLine + "a --|> b" + Environment.NewLine + "b --|> c" +
-                              Environment.NewLine + "c --|> a" + Environment.NewLine + "@enduml" + Environment.NewLine;
+            var expectedUml = "@startuml" + Environment.NewLine + "class \"d\" {" + Environment.NewLine + "}" +
+                              Environment.NewLine + "\"a\" --|> \"b\"" + Environment.NewLine + "\"b\" --|> \"c\"" +
+                              Environment.NewLine + "\"c\" --|> \"a\"" + Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
 
@@ -107,6 +108,24 @@ namespace ArchUnitNETTests.Domain.PlantUml
             }
         }
 
+        [Fact]
+        public void FocusOnTest()
+        {
+            var focusedClass = Architecture.GetClassOfType(typeof(ClassToFocusOn));
+            var focusImportOptions = new GenerationOptions
+            {
+                DependencyFilter = DependencyFilters.FocusOn(focusedClass),
+                IncludeNodesWithoutDependencies = false,
+            };
+            var focusBuilder =
+                new PlantUmlFileBuilder().WithDependenciesFrom(Architecture.Types, focusImportOptions);
+            var uml = focusBuilder.AsString();
+            Assert.Equal(
+                string.Format(
+                    "@startuml{0}class \"ArchUnitNETTests.Domain.PlantUml.PlantUmlFileBuilderTest\" {{{0}}}{0}class \"ArchUnitNETTests.Domain.PlantUml.ClassToFocusOn\" {{{0}}}{0}\"ArchUnitNETTests.Domain.PlantUml.PlantUmlFileBuilderTest\" --|> \"ArchUnitNETTests.Domain.PlantUml.ClassToFocusOn\"{0}@enduml{0}",
+                    Environment.NewLine), uml);
+        }
+
 
         [Fact]
         public void SpecialCharactersInComponentNamesTest()
@@ -117,19 +136,31 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 new PlantUmlDependency("\\\t%", "äöüß", DependencyType.OneToOne),
                 new PlantUmlDependency("^°-*+.,;:", "<>|@€", DependencyType.OneToOne)
             };
-            var classesWithSpecialCharacters = new[] {new PlantUmlClass("!\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€")};
+            var classesWithSpecialCharacters = new[] {new PlantUmlClass("!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€")};
             var builder =
                 new PlantUmlFileBuilder().WithElements(
                     dependenciesWithSpecialCharacters.Concat(classesWithSpecialCharacters));
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "class !\"§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€ {" +
-                              Environment.NewLine + "}" + Environment.NewLine + "!\"§´` --|> $%&/()=?" +
-                              Environment.NewLine + "\\\t% --|> äöüß" + Environment.NewLine +
-                              "^°-*+.,;: --|> <>|@€" +
+            var expectedUml = "@startuml" + Environment.NewLine + "class \"!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€\" {" +
+                              Environment.NewLine + "}" + Environment.NewLine + "\"!\"§´`\" --|> \"$%&/()=?\"" +
+                              Environment.NewLine + "\"\\\t%\" --|> \"äöüß\"" + Environment.NewLine +
+                              "\"^°-*+.,;:\" --|> \"<>|@€\"" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
+    }
+
+    internal class ClassToFocusOn
+    {
+    }
+
+    internal class DependantClassOfFocusedClass
+    {
+    }
+
+    internal class DependingClassOfFocusedClass
+    {
     }
 }

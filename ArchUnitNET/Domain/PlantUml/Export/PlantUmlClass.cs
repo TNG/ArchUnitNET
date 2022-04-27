@@ -27,11 +27,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         public string GetPlantUmlString(RenderOptions renderOptions)
         {
             var hyperlinkString = _hyperlink != null ? " [[" + _hyperlink + "]] " : null;
-            var result = "class " + _name + hyperlinkString + " {" + Environment.NewLine;
+            var result = "class \"" + _name + "\"" + hyperlinkString + " {" + Environment.NewLine;
 
             if (!renderOptions.OmitClassFields)
             {
-                result += _fields.Aggregate("", (umlstring, field) => umlstring + field + Environment.NewLine);
+                result += _fields.Aggregate("",
+                    (umlstring, field) => umlstring + "\"" + field + "\"" + Environment.NewLine);
             }
 
             result += "}" + Environment.NewLine;
