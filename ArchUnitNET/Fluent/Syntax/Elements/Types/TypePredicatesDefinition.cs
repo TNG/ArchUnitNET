@@ -275,6 +275,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
+        public static IPredicate<T> ResideInAssembly(Domain.Assembly assembly, params Domain.Assembly[] moreAssemblies)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> types)
+            {
+                var assemblyList = moreAssemblies.Concat(new[] {assembly});
+                return types.Where(type => assemblyList.Contains(type.Assembly));
+            }
+
+            var description = moreAssemblies.Aggregate("reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\"");
+
+            return new EnumerablePredicate<T>(Condition, description);
+        }
+
         public static IPredicate<T> HavePropertyMemberWithName(string name)
         {
             return new SimplePredicate<T>(type => type.HasPropertyMemberWithName(name),
@@ -332,6 +346,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                         //ignore, can't be equal anyways
                     }
                 }
+
                 return ruleTypes.Except(archUnitTypeList.OfType<T>());
             }
 
@@ -466,6 +481,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                         //ignore, can't have a dependency anyways
                     }
                 }
+
                 return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(archUnitTypeList).Any());
             }
 
@@ -527,6 +543,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     //can't have a dependency
                     return ruleTypes;
                 }
+
                 return ruleTypes.Where(type => !type.ImplementsInterface(archUnitInterface));
             }
 
@@ -560,6 +577,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 (current, asm) => current + " or \"" + asm.FullName + "\"");
 
             return new ArchitecturePredicate<T>(Condition, description);
+        }
+
+        public static IPredicate<T> DoNotResideInAssembly(Domain.Assembly assembly,
+            params Domain.Assembly[] moreAssemblies)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> types)
+            {
+                var assemblyList = moreAssemblies.Concat(new[] {assembly});
+                return types.Where(type => !assemblyList.Contains(type.Assembly));
+            }
+
+            var description = moreAssemblies.Aggregate("do not reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\"");
+
+            return new EnumerablePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> DoNotHavePropertyMemberWithName(string name)

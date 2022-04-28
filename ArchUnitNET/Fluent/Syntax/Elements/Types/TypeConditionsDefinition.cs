@@ -380,6 +380,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 (type, architecture) => "does reside in " + type.Assembly.FullName, description);
         }
 
+        public static ICondition<TRuleType> ResideInAssembly(Assembly assembly, Assembly[] moreAssemblies)
+        {
+            bool Condition(TRuleType ruleType)
+            {
+                var assemblies = new[] {assembly}.Concat(moreAssemblies);
+                return assemblies.Contains(ruleType.Assembly);
+            }
+
+            var description = moreAssemblies.Aggregate("reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\"");
+
+            return new SimpleCondition<TRuleType>(Condition, type => "does reside in " + type.Assembly.FullName,
+                description);
+        }
+
         public static ICondition<TRuleType> HavePropertyMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(type => type.HasPropertyMemberWithName(name),
@@ -870,6 +885,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             return new ArchitectureCondition<TRuleType>(Condition,
                 (type, architecture) => "does reside in " + type.Assembly.FullName, description);
+        }
+        
+        public static ICondition<TRuleType> NotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            bool Condition(TRuleType ruleType)
+            {
+                var assemblies = new[] {assembly}.Concat(moreAssemblies);
+                return !assemblies.Contains(ruleType.Assembly);
+            }
+
+            var description = moreAssemblies.Aggregate("not reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\"");
+
+            return new SimpleCondition<TRuleType>(Condition, type => "does reside in " + type.Assembly.FullName, description);
         }
 
         public static ICondition<TRuleType> NotHavePropertyMemberWithName(string name)
