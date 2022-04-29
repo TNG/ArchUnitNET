@@ -138,6 +138,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 TypePredicatesDefinition<TRuleType>.ResideInAssembly(assembly, moreAssemblies));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
+        
+        public TGivenRuleTypeConjunction ResideInAssembly(Domain.Assembly assembly, params Domain.Assembly[] moreAssemblies)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ResideInAssembly(assembly, moreAssemblies));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TGivenRuleTypeConjunction HavePropertyMemberWithName(string name)
         {
@@ -284,6 +291,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         public TGivenRuleTypeConjunction DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotResideInAssembly(assembly, moreAssemblies));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TGivenRuleTypeConjunction DoNotResideInAssembly(Domain.Assembly assembly, params Domain.Assembly[] moreAssemblies)
         {
             _ruleCreator.AddPredicate(
                 TypePredicatesDefinition<TRuleType>.DoNotResideInAssembly(assembly, moreAssemblies));

@@ -32,6 +32,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType ResideInNamespace(string pattern, bool useRegularExpressions = false);
         TReturnType ResideInAssembly(string pattern, bool useRegularExpressions = false);
         TReturnType ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
+        TReturnType ResideInAssembly(Domain.Assembly assembly, params Domain.Assembly[] moreAssemblies);
         TReturnType HavePropertyMemberWithName(string name);
         TReturnType HaveFieldMemberWithName(string name);
         TReturnType HaveMethodMemberWithName(string name);
@@ -60,6 +61,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType DoNotResideInNamespace(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotResideInAssembly(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
+        TReturnType DoNotResideInAssembly(Domain.Assembly assembly, params Domain.Assembly[] moreAssemblies);
         TReturnType DoNotHavePropertyMemberWithName(string name);
         TReturnType DoNotHaveFieldMemberWithName(string name);
         TReturnType DoNotHaveMethodMemberWithName(string name);

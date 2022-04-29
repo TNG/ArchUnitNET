@@ -143,6 +143,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction ResideInAssembly(Domain.Assembly assembly,
+            params Domain.Assembly[] moreAssemblies)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.ResideInAssembly(assembly, moreAssemblies));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HavePropertyMemberWithName(string name)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -294,6 +302,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         public TRuleTypeShouldConjunction DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInAssembly(assembly, moreAssemblies));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotResideInAssembly(Domain.Assembly assembly,
+            params Domain.Assembly[] moreAssemblies)
         {
             _ruleCreator.ContinueComplexCondition(
                 TypePredicatesDefinition<TReferenceType>.DoNotResideInAssembly(assembly, moreAssemblies));

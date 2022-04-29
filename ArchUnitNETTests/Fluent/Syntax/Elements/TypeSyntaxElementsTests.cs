@@ -93,10 +93,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void AssignableToTest()
         {
-            var falseTypeList1 = new List<Type> { typeof(PublicTestClass), typeof(InternalTestClass) };
-            var falseTypeList2 = new List<IType> { StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass };
+            var falseTypeList1 = new List<Type> {typeof(PublicTestClass), typeof(InternalTestClass)};
+            var falseTypeList2 = new List<IType> {StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass};
             var falseTypeListPattern = new List<string>
-                { StaticTestTypes.PublicTestClass.FullName, StaticTestTypes.InternalTestClass.FullName };
+                {StaticTestTypes.PublicTestClass.FullName, StaticTestTypes.InternalTestClass.FullName};
             foreach (var type in _types)
             {
                 //One Argument
@@ -365,22 +365,51 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             foreach (var type in _types)
             {
-                var typeResidesInOwnAssembly =
-                    Types().That().Are(type).Should().ResideInAssembly(type.Assembly.FullName);
-                var typeDoesNotResideInOwnAssembly =
-                    Types().That().Are(type).Should().NotResideInAssembly(type.Assembly.FullName);
-                var thereAreTypesInOwnAssembly =
-                    Types().That().ResideInAssembly(type.Assembly.FullName).Should().Exist();
-                var typesInOtherAssemblyAreOtherTypes =
-                    Types().That().DoNotResideInAssembly(type.Assembly.FullName).Should().NotBe(type);
+                {
+                    var typeResidesInOwnAssembly =
+                        Types().That().Are(type).Should().ResideInAssembly(type.Assembly.FullName);
+                    var typeDoesNotResideInOwnAssembly =
+                        Types().That().Are(type).Should().NotResideInAssembly(type.Assembly.FullName);
+                    var thereAreTypesInOwnAssembly =
+                        Types().That().ResideInAssembly(type.Assembly.FullName).Should().Exist();
+                    var typesInOtherAssemblyAreOtherTypes =
+                        Types().That().DoNotResideInAssembly(type.Assembly.FullName).Should().NotBe(type);
 
-                Assert.True(typeResidesInOwnAssembly.HasNoViolations(Architecture));
-                Assert.False(typeDoesNotResideInOwnAssembly.HasNoViolations(Architecture));
-                Assert.True(thereAreTypesInOwnAssembly.HasNoViolations(Architecture));
-                Assert.True(typesInOtherAssemblyAreOtherTypes.HasNoViolations(Architecture));
+                    Assert.True(typeResidesInOwnAssembly.HasNoViolations(Architecture));
+                    Assert.False(typeDoesNotResideInOwnAssembly.HasNoViolations(Architecture));
+                    Assert.True(thereAreTypesInOwnAssembly.HasNoViolations(Architecture));
+                    Assert.True(typesInOtherAssemblyAreOtherTypes.HasNoViolations(Architecture));
+                }
+
+                {
+                    var typeResidesInOwnAssembly =
+                        Types().That().Are(type).Should().ResideInAssembly(type.Assembly);
+                    var typeDoesNotResideInOwnAssembly =
+                        Types().That().Are(type).Should().NotResideInAssembly(type.Assembly);
+                    var thereAreTypesInOwnAssembly =
+                        Types().That().ResideInAssembly(type.Assembly).Should().Exist();
+                    var typesInOtherAssemblyAreOtherTypes =
+                        Types().That().DoNotResideInAssembly(type.Assembly).Should().NotBe(type);
+
+                    Assert.True(typeResidesInOwnAssembly.HasNoViolations(Architecture));
+                    Assert.False(typeDoesNotResideInOwnAssembly.HasNoViolations(Architecture));
+                    Assert.True(thereAreTypesInOwnAssembly.HasNoViolations(Architecture));
+                    Assert.True(typesInOtherAssemblyAreOtherTypes.HasNoViolations(Architecture));
+                }
             }
 
             foreach (var assembly in Architecture.Assemblies.Select(assembly => assembly.FullName))
+            {
+                var typesInAssemblyAreInAssembly =
+                    Types().That().ResideInAssembly(assembly).Should().ResideInAssembly(assembly);
+                var typesInOtherAssemblyAreInOtherAssembly = Types().That().DoNotResideInAssembly(assembly).Should()
+                    .NotResideInAssembly(assembly);
+
+                Assert.True(typesInAssemblyAreInAssembly.HasNoViolations(Architecture));
+                Assert.True(typesInOtherAssemblyAreInOtherAssembly.HasNoViolations(Architecture));
+            }
+            
+            foreach (var assembly in Architecture.Assemblies)
             {
                 var typesInAssemblyAreInAssembly =
                     Types().That().ResideInAssembly(assembly).Should().ResideInAssembly(assembly);

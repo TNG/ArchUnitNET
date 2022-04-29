@@ -80,7 +80,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeAssignableTo(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TRuleTypeShouldConjunction BeValueTypes()
         {
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeValueTypes());
@@ -135,6 +135,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         public TRuleTypeShouldConjunction ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.ResideInAssembly(assembly, moreAssemblies));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction ResideInAssembly(Domain.Assembly assembly,
+            params Domain.Assembly[] moreAssemblies)
         {
             _ruleCreator.AddCondition(
                 TypeConditionsDefinition<TRuleType>.ResideInAssembly(assembly, moreAssemblies));
@@ -296,6 +304,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         public TRuleTypeShouldConjunction NotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.NotResideInAssembly(assembly, moreAssemblies));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TRuleTypeShouldConjunction NotResideInAssembly(Domain.Assembly assembly, params Domain.Assembly[] moreAssemblies)
         {
             _ruleCreator.AddCondition(
                 TypeConditionsDefinition<TRuleType>.NotResideInAssembly(assembly, moreAssemblies));
