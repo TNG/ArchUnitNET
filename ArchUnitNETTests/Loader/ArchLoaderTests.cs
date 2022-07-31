@@ -34,5 +34,31 @@ namespace ArchUnitNETTests.Loader
 
             Assert.True(archUnitNetTestArchitectureWithRecursiveDependencies.Assemblies.Count() > 100);
         }
+
+        [Fact]
+        public void LoadAssembliesRecursivelyWithCustomFilter()
+        {
+            FilterFunc filterFunc = assembly => assembly.Name.Name.StartsWith("ArchUnit") ? FilterResult.LoadAndContinue : FilterResult.DontLoadAndStop;
+            var loader = new ArchLoader();
+            var architecture = loader.LoadAssembliesRecursively(new[] { typeof(BaseClass).Assembly }, filterFunc).Build();
+            
+            Assert.Equal(3, architecture.Assemblies.Count());
+        }
+        
+        [Fact]
+        public void LoadAssembliesRecursively_NestedDependencyOnly()
+        {
+            FilterFunc filterFunc = assembly =>
+            { 
+                if (assembly.Name.Name == "ArchUnitNet")
+                    return FilterResult.LoadAndStop;
+                        
+                return FilterResult.SkipAndContinue;
+            };
+            var loader = new ArchLoader();
+            var architecture = loader.LoadAssembliesRecursively(new[] { typeof(BaseClass).Assembly }, filterFunc).Build();
+            
+            Assert.Equal(1, architecture.Assemblies.Count());
+        }
     }
 }
