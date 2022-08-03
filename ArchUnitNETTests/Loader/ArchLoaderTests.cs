@@ -25,7 +25,7 @@ namespace ArchUnitNETTests.Loader
             Assert.NotEmpty(ArchUnitNETTestAssemblyArchitectureWithDependencies.Assemblies);
         }
 
-        [Fact(Skip = "This takes very long.")]
+        [Fact]
         public void LoadAssembliesIncludingRecursiveDependencies()
         {
             var archUnitNetTestArchitectureWithRecursiveDependencies =
