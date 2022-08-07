@@ -11,7 +11,6 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNET.Fluent.Freeze;
 using ArchUnitNET.Fluent.Predicates;
 using JetBrains.Annotations;
 
@@ -98,15 +97,39 @@ namespace ArchUnitNET.Fluent
                 yield break;
             }
 
-            var conditionResults = _conditionElements.Select(conditionElement =>
-                conditionElement.Check(filteredObjectsList, architecture).ToList()).ToList();
-
-            foreach (var t in filteredObjectsList)
+            //rough heuristic - if we have small number of comparisons, we are fine with sequential search
+            //but in large cases its quadratic behavior becomes too slow and building of a dictionary is justified
+            if (filteredObjectsList.Count * _conditionElements.Count > 256)
             {
-                yield return CreateEvaluationResult(
-                    conditionResults.Select(results => results.Find(x => x.ConditionResult.AnalyzedObject.Equals(t))),
-                    architecture, archRuleCreator);
+                var conditionResults = _conditionElements.Select(conditionElement =>
+                    conditionElement.Check(filteredObjectsList, architecture).ToDictionary(x => x.ConditionResult.AnalyzedObject))
+                    .ToList();
+
+                foreach (var t in filteredObjectsList)
+                {
+                    yield return CreateEvaluationResult(FindResultsForObject(conditionResults, t), architecture, archRuleCreator);
+                }
             }
+            else
+            {
+                var conditionResults = _conditionElements.Select(conditionElement =>
+                    conditionElement.Check(filteredObjectsList, architecture).ToList()).ToList();
+
+                foreach (var t in filteredObjectsList)
+                {
+                    yield return CreateEvaluationResult(FindResultsForObject(conditionResults, t), architecture, archRuleCreator);
+                }
+            }
+        }
+
+        private IEnumerable<ConditionElementResult> FindResultsForObject(List<Dictionary<ICanBeAnalyzed, ConditionElementResult>> conditionResults, T canBeAnalyzed)
+        {
+            return conditionResults.Select(results => results[canBeAnalyzed]);
+        }
+
+        private static IEnumerable<ConditionElementResult> FindResultsForObject(List<List<ConditionElementResult>> conditionResults, T t)
+        {
+            return conditionResults.Select(results => results.Find(x => x.ConditionResult.AnalyzedObject.Equals(t)));
         }
 
         private static EvaluationResult CreateEvaluationResult(
@@ -298,7 +321,7 @@ namespace ArchUnitNET.Fluent
                 }
             }
         }
-
+        
         private class ConditionElementResult
         {
             public readonly ConditionResult ConditionResult;
@@ -311,4 +334,6 @@ namespace ArchUnitNET.Fluent
             }
         }
     }
+
+    
 }
