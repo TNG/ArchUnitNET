@@ -52,9 +52,9 @@ namespace ArchUnitNET.Loader.LoadTasks
             var fieldType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
             var isCompilerGenerated = fieldDefinition.IsCompilerGenerated();
-
+            var isInit = fieldDefinition.IsInitOnly;
             return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, visibility, fieldType,
-                isCompilerGenerated, fieldDefinition.IsStatic);
+                isCompilerGenerated, fieldDefinition.IsStatic, isInit);
         }
 
         [NotNull]
