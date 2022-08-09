@@ -330,13 +330,15 @@ namespace ArchUnitNET.Loader
             var fieldType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var isCompilerGenerated = fieldReference.IsCompilerGenerated();
             bool? isStatic = null;
+            bool isInit = false;
             if (fieldReference is FieldDefinition fieldDefinition)
             {
                 isStatic = fieldDefinition.IsStatic;
+                isInit = fieldDefinition.IsInitOnly;
             }
 
             return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType,
-                isCompilerGenerated, isStatic);
+                isCompilerGenerated, isStatic, isInit);
         }
 
         public IEnumerable<GenericParameter> GetGenericParameters(IGenericParameterProvider genericParameterProvider)
