@@ -6,6 +6,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader.LoadTasks;
@@ -281,6 +282,7 @@ namespace ArchUnitNET.Loader
             bool isStub;
             bool? isIterator;
             bool? isStatic;
+            bool isInitOnly;
 
             MethodDefinition methodDefinition;
             try
@@ -298,6 +300,7 @@ namespace ArchUnitNET.Loader
                 methodForm = methodReference.HasConstructorName() ? MethodForm.Constructor : MethodForm.Normal;
                 isIterator = null;
                 isStatic = null;
+                isInitOnly = false;
                 isStub = true;
             }
             else
@@ -307,10 +310,13 @@ namespace ArchUnitNET.Loader
                 isIterator = methodDefinition.IsIterator();
                 isStatic = methodDefinition.IsStatic;
                 isStub = false;
+                
+                //TODO GetField(methodDefinition.FullName) or GetField(methodDefinition.Name)?
+                isInitOnly = methodDefinition.GetType().GetField(methodDefinition.Name).IsInitOnly;
             }
 
             var methodMember = new MethodMember(name, fullName, typeInstance.Type, visibility, returnType,
-                false, methodForm, isGeneric, isStub, isCompilerGenerated, isIterator, isStatic);
+                false, methodForm, isGeneric, isStub, isCompilerGenerated, isIterator, isStatic, isInitOnly);
 
             var parameters = methodReference.GetParameters(this).ToList();
             methodMember.ParameterInstances.AddRange(parameters);
@@ -329,16 +335,17 @@ namespace ArchUnitNET.Loader
             var typeReference = fieldReference.FieldType;
             var fieldType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var isCompilerGenerated = fieldReference.IsCompilerGenerated();
-            bool? isStatic = null;
-            bool isInit = false;
+            bool? isStatic = null; 
+            var isReadOnly = false;
+
             if (fieldReference is FieldDefinition fieldDefinition)
             {
                 isStatic = fieldDefinition.IsStatic;
-                isInit = fieldDefinition.IsInitOnly;
+                isReadOnly = fieldDefinition.IsInitOnly;
             }
 
             return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType,
-                isCompilerGenerated, isStatic, isInit);
+                isCompilerGenerated, isStatic, isReadOnly);
         }
 
         public IEnumerable<GenericParameter> GetGenericParameters(IGenericParameterProvider genericParameterProvider)

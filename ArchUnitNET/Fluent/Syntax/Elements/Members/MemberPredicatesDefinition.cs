@@ -142,6 +142,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimplePredicate<T>(member => member.IsStatic.HasValue && member.IsStatic.Value, "are static");
         }
 
+        public static IPredicate<T> AreReadOnly()
+        {
+            return new SimplePredicate<T>(member => member.IsReadOnly.HasValue && member.IsReadOnly.Value, "are read only");
+        }
 
         //Negations
 
@@ -271,6 +275,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             return new SimplePredicate<T>(member => member.IsStatic.HasValue && !member.IsStatic.Value,
                 "are not static");
+        }
+        
+        public static IPredicate<T> AreNotReadOnly()
+        {
+            return new SimplePredicate<T>(member => member.IsReadOnly.HasValue && !member.IsReadOnly.Value,
+                "are not read only");
         }
     }
 }
