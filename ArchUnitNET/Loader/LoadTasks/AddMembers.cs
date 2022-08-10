@@ -69,7 +69,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                            (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
             
             //TODO GetField(propertyDefinition.FullName) or GetField(propertyDefinition.Name)?
-            var isInitOnly = propertyDefinition.GetType().GetField(propertyDefinition.FullName).IsInitOnly;
+            var isInitOnly = propertyDefinition.GetType().GetField(propertyDefinition.Name).IsInitOnly;
             
             return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType,
                 isCompilerGenerated, isStatic, isInitOnly);

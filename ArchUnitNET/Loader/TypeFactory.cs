@@ -312,7 +312,7 @@ namespace ArchUnitNET.Loader
                 isStub = false;
                 
                 //TODO GetField(methodDefinition.FullName) or GetField(methodDefinition.Name)?
-                isReadOnly = methodDefinition.GetType().GetField(methodDefinition.FullName).IsInitOnly;
+                isReadOnly = methodDefinition.GetType().GetField(methodDefinition.Name).IsInitOnly;
             }
 
             var methodMember = new MethodMember(name, fullName, typeInstance.Type, visibility, returnType,
