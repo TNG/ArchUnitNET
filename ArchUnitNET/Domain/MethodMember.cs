@@ -14,7 +14,7 @@ namespace ArchUnitNET.Domain
     {
         public MethodMember(string name, string fullName, IType declaringType, Visibility visibility,
             ITypeInstance<IType> returnTypeInstance, bool isVirtual, MethodForm methodForm, bool isGeneric, bool isStub,
-            bool isCompilerGenerated, bool? isIterator, bool? isStatic)
+            bool isCompilerGenerated, bool? isIterator, bool? isStatic, bool? isReadOnly)
         {
             Name = name;
             FullName = fullName;
@@ -28,6 +28,7 @@ namespace ArchUnitNET.Domain
             IsCompilerGenerated = isCompilerGenerated;
             IsIterator = isIterator;
             IsStatic = isStatic;
+            IsReadOnly = isReadOnly;
         }
 
         public bool IsVirtual { get; }
@@ -42,6 +43,7 @@ namespace ArchUnitNET.Domain
         public bool? IsIterator { get; }
         public bool IsGeneric { get; }
         public bool? IsStatic { get; }
+        public bool? IsReadOnly { get; }
         public List<GenericParameter> GenericParameters { get; } = new List<GenericParameter>();
         public Visibility Visibility { get; }
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);

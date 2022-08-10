@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
@@ -20,7 +21,8 @@ namespace ArchUnitNET.Loader.LoadTasks
         private readonly IType _type;
         private readonly TypeDefinition _typeDefinition;
         private readonly TypeFactory _typeFactory;
-
+        
+        
         public AddMembers(IType type, TypeDefinition typeDefinition, TypeFactory typeFactory, MemberList memberList)
         {
             _type = type;
@@ -52,9 +54,9 @@ namespace ArchUnitNET.Loader.LoadTasks
             var fieldType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
             var isCompilerGenerated = fieldDefinition.IsCompilerGenerated();
-
+            var isReadOnly = fieldDefinition.IsInitOnly;
             return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, visibility, fieldType,
-                isCompilerGenerated, fieldDefinition.IsStatic);
+                isCompilerGenerated, fieldDefinition.IsStatic, isReadOnly);
         }
 
         [NotNull]
@@ -65,9 +67,12 @@ namespace ArchUnitNET.Loader.LoadTasks
             var isCompilerGenerated = propertyDefinition.IsCompilerGenerated();
             var isStatic = (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic) ||
                            (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
-
+            
+            //TODO GetField(propertyDefinition.FullName) or GetField(propertyDefinition.Name)?
+            var isInitOnly = propertyDefinition.GetType().GetField(propertyDefinition.FullName).IsInitOnly;
+            
             return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType,
-                isCompilerGenerated, isStatic);
+                isCompilerGenerated, isStatic, isInitOnly);
         }
 
         private static Visibility GetVisibilityFromFieldDefinition([NotNull] FieldDefinition fieldDefinition)

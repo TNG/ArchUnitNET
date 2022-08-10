@@ -130,6 +130,18 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var parameters = methodBase.CreateStubParameters().Select(parameter => new TypeInstance<IType>(parameter));
             var methodForm = methodBase.GetStubMethodForm();
             var isStatic = methodBase.IsStatic;
+            
+            //TODO code review 
+            bool? isReadOnly;
+            try
+            {
+                isReadOnly = methodBase.GetType().GetField(methodBase.Name).IsInitOnly;
+            }
+            catch (NullReferenceException e)
+            {
+                isReadOnly = null;
+            }
+            
 
             var isGeneric = methodBase.IsGenericMethod;
 
@@ -151,7 +163,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
             }
 
             var methodMember = new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility,
-                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false, false, false, isStatic);
+                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false, false, false, isStatic, isReadOnly);
 
             methodMember.ParameterInstances.AddRange(parameters);
             return methodMember;
