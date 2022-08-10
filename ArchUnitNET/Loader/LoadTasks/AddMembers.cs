@@ -68,11 +68,20 @@ namespace ArchUnitNET.Loader.LoadTasks
             var isStatic = (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic) ||
                            (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
             
-            //TODO GetField(propertyDefinition.FullName) or GetField(propertyDefinition.Name)?
-            var isInitOnly = propertyDefinition.GetType().GetField(propertyDefinition.Name).IsInitOnly;
+            //TODO isReadOnly = ?
+            //isReadOnly = propertyDefinition.GetType().GetField(propertyDefinition.Name).IsInitOnly;
+            bool? isReadOnly;
+            try
+            {
+                isReadOnly = propertyDefinition.GetType().GetField(propertyDefinition.Name).IsInitOnly;
+            }
+            catch (NullReferenceException e)
+            {
+                isReadOnly = null;
+            }
             
             return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType,
-                isCompilerGenerated, isStatic, isInitOnly);
+                isCompilerGenerated, isStatic, isReadOnly);
         }
 
         private static Visibility GetVisibilityFromFieldDefinition([NotNull] FieldDefinition fieldDefinition)

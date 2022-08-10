@@ -74,12 +74,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreStatic());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
-        public TRuleTypeShouldConjunction AreReadOnly()
-        {
-            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreReadOnly());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
 
         //Negations
 
@@ -136,11 +130,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotStatic());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
-        public TRuleTypeShouldConjunction AreNotReadOnly()
-        {
-            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotReadOnly());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
+      
     }
 }

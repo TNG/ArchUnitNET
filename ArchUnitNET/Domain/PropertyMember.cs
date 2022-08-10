@@ -17,7 +17,7 @@ namespace ArchUnitNET.Domain
         private readonly ITypeInstance<IType> _typeInstance;
 
         public PropertyMember(IType declaringType, string name, string fullName, ITypeInstance<IType> type,
-            bool isCompilerGenerated, bool? isStatic, bool isInitOnly)
+            bool isCompilerGenerated, bool? isStatic, bool? isReadOnly)
         {
             Name = name;
             FullName = fullName;
@@ -26,7 +26,7 @@ namespace ArchUnitNET.Domain
             IsCompilerGenerated = isCompilerGenerated;
             PropertyTypeDependency = new PropertyTypeDependency(this);
             IsStatic = isStatic;
-            IsReadOnly = isInitOnly;
+            IsReadOnly = isReadOnly;
         }
 
         public bool IsVirtual { get; internal set; }

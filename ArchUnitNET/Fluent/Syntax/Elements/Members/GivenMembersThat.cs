@@ -70,13 +70,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreStatic());
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
-
-        public TGivenRuleTypeConjunction AreReadOnly()
-        {
-            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreReadOnly());
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
+        
         //Negations
 
 
@@ -128,12 +122,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TGivenRuleTypeConjunction AreNotStatic()
         {
             _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreNotStatic());
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-        
-        public TGivenRuleTypeConjunction AreNotReadOnly()
-        {
-            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreNotReadOnly());
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }

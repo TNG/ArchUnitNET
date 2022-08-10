@@ -181,13 +181,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimpleCondition<TRuleType>(member => !member.IsStatic.HasValue || member.IsStatic.Value,
                 "be static", "is not static");
         }
-        
-        public static ICondition<TRuleType> BeReadOnly()
-        {
-            return new SimpleCondition<TRuleType>(member => !member.IsReadOnly.HasValue || member.IsReadOnly.Value,
-                "be read only", "is not read only");
-        }
-
 
 
         //Relation Conditions
@@ -368,12 +361,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimpleCondition<TRuleType>(member => !member.IsStatic.HasValue || !member.IsStatic.Value,
                 "not be static", "is static");
         }
-
-        public static ICondition<TRuleType> NotBeReadOnly()
-        {
-            return new SimpleCondition<TRuleType>(member => !member.IsReadOnly.HasValue || !member.IsReadOnly.Value,
-                "not be read only", "is read only");
-        }
+        
         //Relation Condition Negations
 
 

@@ -4,6 +4,7 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,6 +14,8 @@ using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
+using Attribute = ArchUnitNET.Domain.Attribute;
+using Enum = ArchUnitNET.Domain.Enum;
 using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
@@ -282,7 +285,6 @@ namespace ArchUnitNET.Loader
             bool isStub;
             bool? isIterator;
             bool? isStatic;
-            bool? isReadOnly;
 
             MethodDefinition methodDefinition;
             try
@@ -300,7 +302,6 @@ namespace ArchUnitNET.Loader
                 methodForm = methodReference.HasConstructorName() ? MethodForm.Constructor : MethodForm.Normal;
                 isIterator = null;
                 isStatic = null;
-                isReadOnly = null;
                 isStub = true;
             }
             else
@@ -310,13 +311,11 @@ namespace ArchUnitNET.Loader
                 isIterator = methodDefinition.IsIterator();
                 isStatic = methodDefinition.IsStatic;
                 isStub = false;
-                
-                //TODO GetField(methodDefinition.FullName) or GetField(methodDefinition.Name)?
-                isReadOnly = methodDefinition.GetType().GetField(methodDefinition.Name).IsInitOnly;
+
             }
 
             var methodMember = new MethodMember(name, fullName, typeInstance.Type, visibility, returnType,
-                false, methodForm, isGeneric, isStub, isCompilerGenerated, isIterator, isStatic, isReadOnly);
+                false, methodForm, isGeneric, isStub, isCompilerGenerated, isIterator, isStatic);
 
             var parameters = methodReference.GetParameters(this).ToList();
             methodMember.ParameterInstances.AddRange(parameters);

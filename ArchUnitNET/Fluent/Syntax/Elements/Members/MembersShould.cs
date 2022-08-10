@@ -73,13 +73,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction BeReadOnly()
-        {
-            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.BeReadOnly());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-        
-        
         //Relation Conditions
 
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeDeclaredInTypesThat()
@@ -145,12 +138,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotBeReadOnly()
-        {
-            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeReadOnly());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-        
         //Relation Condition Negations
 
         public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotBeDeclaredInTypesThat()
