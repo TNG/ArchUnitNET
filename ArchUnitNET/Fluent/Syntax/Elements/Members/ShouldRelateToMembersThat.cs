@@ -74,6 +74,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreStatic());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+        
         public TRuleTypeShouldConjunction AreReadOnly()
         {
             _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreReadOnly());
@@ -141,6 +142,5 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotReadOnly());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-
     }
 }
