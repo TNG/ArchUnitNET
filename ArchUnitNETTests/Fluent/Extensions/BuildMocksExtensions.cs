@@ -130,18 +130,6 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var parameters = methodBase.CreateStubParameters().Select(parameter => new TypeInstance<IType>(parameter));
             var methodForm = methodBase.GetStubMethodForm();
             var isStatic = methodBase.IsStatic;
-            
-            //TODO isReadOnly = ?
-            bool? isReadOnly;
-            try
-            {
-                isReadOnly = methodBase.GetType().GetField(methodBase.Name).IsInitOnly;
-            }
-            catch (NullReferenceException e)
-            {
-                isReadOnly = null;
-            }
-            
 
             var isGeneric = methodBase.IsGenericMethod;
 
