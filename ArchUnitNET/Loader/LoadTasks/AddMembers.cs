@@ -67,18 +67,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             var isCompilerGenerated = propertyDefinition.IsCompilerGenerated();
             var isStatic = (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic) ||
                            (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
-            
-            //TODO isReadOnly = ?
-            //isReadOnly = propertyDefinition.GetType().GetField(propertyDefinition.Name).IsInitOnly;
-            bool? isReadOnly;
-            try
-            {
-                isReadOnly = propertyDefinition.GetType().GetField(propertyDefinition.Name).IsInitOnly;
-            }
-            catch (NullReferenceException e)
-            {
-                isReadOnly = null;
-            }
+            bool? isReadOnly = (propertyDefinition.SetMethod == null);
             
             return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType,
                 isCompilerGenerated, isStatic, isReadOnly);
