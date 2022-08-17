@@ -37,6 +37,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var sliceRule = SliceRuleDefinition.Slices().Matching("ArchUnitNETTests.(*).");
             var uml1 = ComponentDiagram().WithDependenciesFromSlices(sliceRule, Architecture).AsString();
             var uml2 = ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(Architecture)).AsString();
+            ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(Architecture)).WriteToFile("../../../Fluent/PlantUml/TestPlantumlDependeciesTest.puml");
             Assert.NotEmpty(uml1);
             Assert.NotEmpty(uml2);
         }

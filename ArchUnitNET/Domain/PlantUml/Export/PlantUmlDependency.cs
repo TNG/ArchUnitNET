@@ -22,9 +22,9 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             switch (DependencyType)
             {
                 case DependencyType.OneToOne:
-                    return "\"" + Origin + "\"" + " --|> " + "\"" + Target + "\"" + Environment.NewLine;
+                    return "[" + Origin + "]" + " --|> " + "[" + Target + "]" + Environment.NewLine;
                 case DependencyType.OneToMany:
-                    return "\"" + Origin + "\"" + " \"1\" --|> \"many\" " + "\"" + Target + "\"" + " " +
+                    return "[" + Origin + "]" + " \"1\" --|> \"many\" " + "[" + Target + "]" + " " +
                            Environment.NewLine;
             }
 
