@@ -6,6 +6,7 @@
 // 
 
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.PlantUml.Export;
 
@@ -51,8 +52,8 @@ namespace ArchUnitNET.Fluent.PlantUml
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
-
-        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IEnumerable<Slice> slices)
+        
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(params IEnumerable<Slice>[] slices)
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(slices);
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");

@@ -14,6 +14,7 @@ using ArchUnitNET.Domain.PlantUml.Export;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
+using TestAssembly;
 using Xunit;
 using static ArchUnitNET.Fluent.PlantUml.PlantUmlDefinition;
 
@@ -23,7 +24,8 @@ namespace ArchUnitNETTests.Fluent.PlantUml
     {
         private static readonly Architecture Architecture =
             new ArchLoader().LoadAssembly(typeof(PlantUmlFluentComponentDiagramTests).Assembly).Build();
-
+        private static readonly Architecture Architecture1 = 
+            new ArchLoader().LoadAssembly(typeof(Class1).Assembly).Build();
         private static readonly List<IPlantUmlElement> Dependencies = new List<IPlantUmlElement>
         {
             new PlantUmlDependency("a", "b", DependencyType.OneToOne),
@@ -35,11 +37,15 @@ namespace ArchUnitNETTests.Fluent.PlantUml
         public void ComponentDiagramFromSlicesTest()
         {
             var sliceRule = SliceRuleDefinition.Slices().Matching("ArchUnitNETTests.(*).");
+            var sliceRule1 = SliceRuleDefinition.Slices().Matching("TestAssembly.(*).");
+            
             var uml1 = ComponentDiagram().WithDependenciesFromSlices(sliceRule, Architecture).AsString();
-            var uml2 = ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(Architecture)).AsString();
-            ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(Architecture)).WriteToFile("../../../Fluent/PlantUml/TestPlantumlDependeciesTest.puml");
+            var uml2 = ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(Architecture1), sliceRule.GetObjects(Architecture)).AsString();
+            var uml3 = ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(Architecture)).AsString();
+           
             Assert.NotEmpty(uml1);
             Assert.NotEmpty(uml2);
+            Assert.NotEmpty(uml3);
         }
 
         [Fact]
@@ -74,8 +80,8 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             Assert.NotEmpty(uml);
 
             var expectedUml = "@startuml" + Environment.NewLine + "class \"d\" {" + Environment.NewLine + "}" +
-                              Environment.NewLine + "\"a\" --|> \"b\"" +
-                              Environment.NewLine + "\"b\" --|> \"c\"" + Environment.NewLine + "\"c\" --|> \"a\"" +
+                              Environment.NewLine + "[a] --|> [b]" +
+                              Environment.NewLine + "[b] --|> [c]" + Environment.NewLine + "[c] --|> [a]" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
@@ -86,7 +92,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
             const string path = "temp/testUml.puml";
             var expectedUml = new[]
-                {"@startuml", "class \"d\" {", "}", "\"a\" --|> \"b\"", "\"b\" --|> \"c\"", "\"c\" --|> \"a\"", "@enduml"};
+                {"@startuml", "class \"d\" {", "}", "[a] --|> [b]", "[b] --|> [c]", "[c] --|> [a]", "@enduml"};
             ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).WriteToFile(path);
             Assert.True(File.Exists(path));
 

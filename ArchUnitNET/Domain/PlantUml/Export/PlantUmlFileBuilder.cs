@@ -103,79 +103,76 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             return this;
         }
-
-        public PlantUmlFileBuilder WithDependenciesFrom(IEnumerable<Slice> slices, GenerationOptions generationOptions = null)
+        
+        public PlantUmlFileBuilder WithDependenciesFrom(params IEnumerable<Slice>[] slices)
         {
-            var sliceList = slices.Distinct().ToList();
-            if (generationOptions == null)
-            {
-                generationOptions = new GenerationOptions();
-            }
-
+            var generationOptions = new GenerationOptions();
             var nodes = new Dictionary<Slice, IPlantUmlElement>();
             var dependencies = new List<PlantUmlDependency>();
-
-            foreach (var slice in sliceList)
+            
+            foreach (var slc in slices)
             {
-                var dependencyTargets = sliceList.Where(targetSlice =>
-                    targetSlice.Description != slice.Description &&
-                    slice.Dependencies.Where(dep =>
-                            generationOptions.DependencyFilter?.Invoke(dep) ?? true)
-                        .Any(dep => targetSlice.Types.Contains(dep.Target)));
-
-                dependencies.AddRange(dependencyTargets.Select(target =>
-                    new PlantUmlDependency(slice.Description, target.Description, DependencyType.OneToOne)));
-
-                if (slice is Namespace) //This throws errors if namespaces and slices are used in the same diagram, the syntax can't be mixed in PlantUML
+                var sliceList = slc.Distinct().ToList();
+                foreach (var slice in sliceList)
                 {
-                    nodes.Add(slice, new PlantUmlNamespace(slice.Description));
-                }
-                else
-                {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description));
-                }
-            }
+                    var dependencyTargets = sliceList.Where(targetSlice =>
+                        targetSlice.Description != slice.Description &&
+                        slice.Dependencies.Where(dep =>
+                                generationOptions.DependencyFilter?.Invoke(dep) ?? true)
+                            .Any(dep => targetSlice.Types.Contains(dep.Target)));
 
-            if (!generationOptions.IncludeNodesWithoutDependencies)
-            {
-                foreach (var entry in nodes.Where(node =>
-                             !dependencies.SelectMany(dep => new[] {dep.Origin, dep.Target})
-                                 .Contains(node.Key.Description)))
-                {
-                    nodes.Remove(entry.Key);
-                }
-            }
+                    dependencies.AddRange(dependencyTargets.Select(target =>
+                        new PlantUmlDependency(slice.Description, target.Description, DependencyType.OneToOne)));
 
-            var nodeElements = nodes.Values.ToList();
-
-            foreach (var node in nodes)
-            {
-                if (node.Key is Namespace)
-                {
-                    var namespaceName = node.Key.Description;
-                    var dotIndex = namespaceName.Length;
-                    var parentNamespaces = new List<string>();
-                    while (dotIndex != -1)
+                    if (slice is Namespace) //This throws errors if namespaces and slices are used in the same diagram, the syntax can't be mixed in PlantUML
                     {
-                        namespaceName = namespaceName.Substring(0, dotIndex);
-                        parentNamespaces.Add(namespaceName);
-                        dotIndex = namespaceName.LastIndexOf('.');
+                        nodes.Add(slice, new PlantUmlNamespace(slice.Description));
                     }
-
-                    parentNamespaces.Reverse();
-                    foreach (var namespc in parentNamespaces.Where(namespcName => nodeElements
-                                 .OfType<PlantUmlNamespace>()
-                                 .All(element => element.Name != namespcName)))
+                    else
                     {
-                        nodeElements.Add(new PlantUmlNamespace(namespc));
+                        nodes.Add(slice, new PlantUmlSlice(slice.Description));
                     }
                 }
+
+                if (!generationOptions.IncludeNodesWithoutDependencies)
+                {
+                    foreach (var entry in nodes.Where(node =>
+                                 !dependencies.SelectMany(dep => new[] {dep.Origin, dep.Target})
+                                     .Contains(node.Key.Description)))
+                    {
+                        nodes.Remove(entry.Key);
+                    }
+                }
+
+                var nodeElements = nodes.Values.ToList();
+
+                foreach (var node in nodes)
+                {
+                    if (node.Key is Namespace)
+                    {
+                        var namespaceName = node.Key.Description;
+                        var dotIndex = namespaceName.Length;
+                        var parentNamespaces = new List<string>();
+                        while (dotIndex != -1)
+                        {
+                            namespaceName = namespaceName.Substring(0, dotIndex);
+                            parentNamespaces.Add(namespaceName);
+                            dotIndex = namespaceName.LastIndexOf('.');
+                        }
+
+                        parentNamespaces.Reverse();
+                        foreach (var namespc in parentNamespaces.Where(namespcName => nodeElements
+                                     .OfType<PlantUmlNamespace>()
+                                     .All(element => element.Name != namespcName)))
+                        {
+                            nodeElements.Add(new PlantUmlNamespace(namespc));
+                        }
+                    }
+                }
+                _diagram.AddElements(nodeElements.OrderBy(element =>
+                    element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
+                _diagram.AddElements(dependencies);
             }
-
-            _diagram.AddElements(nodeElements.OrderBy(element =>
-                element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
-            _diagram.AddElements(dependencies);
-
             return this;
         }
     }
