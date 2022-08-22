@@ -14,6 +14,7 @@ using ArchUnitNET.Domain.PlantUml.Export;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
+using Snapper;
 using TestAssembly;
 using Xunit;
 using static ArchUnitNET.Fluent.PlantUml.PlantUmlDefinition;
@@ -78,12 +79,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
             var uml = ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).AsString();
             Assert.NotEmpty(uml);
-
-            var expectedUml = "@startuml" + Environment.NewLine + "class \"d\" {" + Environment.NewLine + "}" +
-                              Environment.NewLine + "[a] --|> [b]" +
-                              Environment.NewLine + "[b] --|> [c]" + Environment.NewLine + "[c] --|> [a]" +
-                              Environment.NewLine + "@enduml" + Environment.NewLine;
-            Assert.Equal(expectedUml, uml);
+            uml.ShouldMatchSnapshot();
         }
 
         [Fact]
@@ -91,20 +87,13 @@ namespace ArchUnitNETTests.Fluent.PlantUml
         {
             var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
             const string path = "temp/testUml.puml";
-            var expectedUml = new[]
-                {"@startuml", "class \"d\" {", "}", "[a] --|> [b]", "[b] --|> [c]", "[c] --|> [a]", "@enduml"};
             ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).WriteToFile(path);
             Assert.True(File.Exists(path));
 
             using (var sr = File.OpenText(path))
             {
-                var i = 0;
-                var s = "";
-                while ((s = sr.ReadLine()) != null)
-                {
-                    Assert.Equal(expectedUml[i], s);
-                    i++;
-                }
+                var s = sr.ReadToEnd();
+                s.ShouldMatchSnapshot();
             }
 
             File.Delete(path);
