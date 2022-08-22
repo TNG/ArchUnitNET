@@ -109,6 +109,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             var generationOptions = new GenerationOptions();
             var nodes = new Dictionary<Slice, IPlantUmlElement>();
             var dependencies = new List<PlantUmlDependency>();
+            var nodeElements = nodes.Values.ToList();
             
             foreach (var slc in slices)
             {
@@ -133,46 +134,44 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                         nodes.Add(slice, new PlantUmlSlice(slice.Description));
                     }
                 }
-
-                if (!generationOptions.IncludeNodesWithoutDependencies)
-                {
-                    foreach (var entry in nodes.Where(node =>
-                                 !dependencies.SelectMany(dep => new[] {dep.Origin, dep.Target})
-                                     .Contains(node.Key.Description)))
-                    {
-                        nodes.Remove(entry.Key);
-                    }
-                }
-
-                var nodeElements = nodes.Values.ToList();
-
-                foreach (var node in nodes)
-                {
-                    if (node.Key is Namespace)
-                    {
-                        var namespaceName = node.Key.Description;
-                        var dotIndex = namespaceName.Length;
-                        var parentNamespaces = new List<string>();
-                        while (dotIndex != -1)
-                        {
-                            namespaceName = namespaceName.Substring(0, dotIndex);
-                            parentNamespaces.Add(namespaceName);
-                            dotIndex = namespaceName.LastIndexOf('.');
-                        }
-
-                        parentNamespaces.Reverse();
-                        foreach (var namespc in parentNamespaces.Where(namespcName => nodeElements
-                                     .OfType<PlantUmlNamespace>()
-                                     .All(element => element.Name != namespcName)))
-                        {
-                            nodeElements.Add(new PlantUmlNamespace(namespc));
-                        }
-                    }
-                }
-                _diagram.AddElements(nodeElements.OrderBy(element =>
-                    element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
-                _diagram.AddElements(dependencies);
             }
+            
+            if (!generationOptions.IncludeNodesWithoutDependencies)
+            {
+                foreach (var entry in nodes.Where(node =>
+                             !dependencies.SelectMany(dep => new[] {dep.Origin, dep.Target})
+                                 .Contains(node.Key.Description)))
+                {
+                    nodes.Remove(entry.Key);
+                }
+            }
+
+            foreach (var node in nodes)
+            {
+                if (node.Key is Namespace)
+                {
+                    var namespaceName = node.Key.Description;
+                    var dotIndex = namespaceName.Length;
+                    var parentNamespaces = new List<string>();
+                    while (dotIndex != -1)
+                    {
+                        namespaceName = namespaceName.Substring(0, dotIndex);
+                        parentNamespaces.Add(namespaceName);
+                        dotIndex = namespaceName.LastIndexOf('.');
+                    }
+
+                    parentNamespaces.Reverse();
+                    foreach (var namespc in parentNamespaces.Where(namespcName => nodeElements
+                                 .OfType<PlantUmlNamespace>()
+                                 .All(element => element.Name != namespcName)))
+                    {
+                        nodeElements.Add(new PlantUmlNamespace(namespc));
+                    }
+                }
+            }
+            _diagram.AddElements(nodeElements.OrderBy(element =>
+                element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
+            _diagram.AddElements(dependencies);
             return this;
         }
     }

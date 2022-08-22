@@ -25,4 +25,8 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Fluent\PlantUml\BuildTest" />
+    </ItemGroup>
+
 </Project>
