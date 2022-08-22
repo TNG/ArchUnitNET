@@ -25,7 +25,7 @@ using ArchUnitNET.Loader;
 using ArchUnitNET.Fluent;
 using Xunit;
 
-//add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
+// Add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 ```
 
@@ -40,7 +40,7 @@ private static readonly Architecture Architecture =
 #### 2.3. Declare Layers
 Declare variables you'll use throughout your tests up here
 ```cs
-//use As() to give your variables a custom description
+// Use As() to give your variables a custom description
 private readonly IObjectProvider<IType> ExampleLayer =
     Types().That().ResideInAssembly("ExampleAssembly").As("Example Layer");
 
@@ -66,11 +66,11 @@ public void TypesShouldBeInCorrectLayer()
     IArchRule forbiddenInterfacesShouldBeInForbiddenLayer =
         Interfaces().That().Are(ForbiddenInterfaces).Should().Be(ForbiddenLayer);
 
-    //check if your architecture fulfills your rules
+    // Check if your architecture fulfills your rules
     exampleClassesShouldBeInExampleLayer.Check(Architecture);
     forbiddenInterfacesShouldBeInForbiddenLayer.Check(Architecture);
 
-    //you can also combine your rules
+    // You can also combine your rules
     IArchRule combinedArchRule =
         exampleClassesShouldBeInExampleLayer
 		.And(forbiddenInterfacesShouldBeInForbiddenLayer);
@@ -83,8 +83,8 @@ Testing if the types in "ExampleLayer" depend on any object in "ForbiddenLayer"
 [Fact]
 public void ExampleLayerShouldNotAccessForbiddenLayer()
 {
-    //you can give your rules a custom reason, which is displayed when it fails
-    //(together with the types that failed the rule)
+    // You can give your rules a custom reason, which is displayed when it fails
+    // (together with the types that failed the rule)
     IArchRule exampleLayerShouldNotAccessForbiddenLayer = Types().That()
 		.Are(ExampleLayer).Should().NotDependOnAny(ForbiddenLayer)
 		.Because("it's forbidden");
