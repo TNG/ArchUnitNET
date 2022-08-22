@@ -6,12 +6,12 @@
 ## 1. Installation
 To use ArchUnitNET, install the ArchUnitNET package from [NuGet](https://www.nuget.org/packages/TngTech.ArchUnitNET/):
 ```
-PS> Install-Package ArchUnitNET
+PS> Install-Package TngTech.ArchUnitNET
 ```
 If you want to use xUnit or NUnit for your unit tests, you should instead install the corresponding ArchUnit extension:
 ```
-PS> Install-Package ArchUnitNET.xUnit
-PS> Install-Package ArchUnitNET.NUnit
+PS> Install-Package TngTech.ArchUnitNET.xUnit
+PS> Install-Package TngTech.ArchUnitNET.NUnit
 ```
 ## 2. Quick Start
 
