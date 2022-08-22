@@ -34,8 +34,10 @@ Load your architecture once at the start to maximize performance of your tests
 replace <ExampleClass\> and <ForbiddenClass\> with classes from the assemblies you want to test
 ```cs
 private static readonly Architecture Architecture =
-    new ArchLoader().LoadAssemblies(typeof(ExampleClass).Assembly, 
-    typeof(ForbiddenClass).Assembly).Build();
+    new ArchLoader().LoadAssemblies(
+        typeof(ExampleClass).Assembly, 
+        typeof(ForbiddenClass).Assembly
+    ).Build();
 ```
 #### 2.3. Declare Layers
 Declare variables you'll use throughout your tests up here
