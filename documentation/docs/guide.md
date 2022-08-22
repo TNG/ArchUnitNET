@@ -5,11 +5,11 @@
 
 ## 1. Installation
 To use ArchUnitNET, install the ArchUnitNET package from [NuGet](https://www.nuget.org/packages/TngTech.ArchUnitNET/):
-```
+```posh
 PS> Install-Package ArchUnitNET
 ```
 If you want to use xUnit or NUnit for your unit tests, you should instead install the corresponding ArchUnit extension:
-```
+```posh
 PS> Install-Package ArchUnitNET.xUnit
 PS> Install-Package ArchUnitNET.NUnit
 ```
@@ -20,7 +20,6 @@ Create a test class to start testing. We used xUnit with the ArchUnit extension 
 Find this example code [here](https://github.com/TNG/ArchUnitNET/blob/master/ExampleTest/ExampleArchUnitTest.cs).
 #### 2.1. Directives
 ```cs
-
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader;
 using ArchUnitNET.Fluent;
@@ -28,20 +27,19 @@ using Xunit;
 
 //add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
-
 ```
 
 #### 2.2. Load Architecture
 Load your architecture once at the start to maximize performance of your tests
 replace <ExampleClass\> and <ForbiddenClass\> with classes from the assemblies you want to test
-```
+```cs
 private static readonly Architecture Architecture =
     new ArchLoader().LoadAssemblies(typeof(ExampleClass).Assembly, 
     typeof(ForbiddenClass).Assembly).Build();
 ```
 #### 2.3. Declare Layers
 Declare variables you'll use throughout your tests up here
-```
+```cs
 //use As() to give your variables a custom description
 private readonly IObjectProvider<IType> ExampleLayer =
     Types().That().ResideInAssembly("ExampleAssembly").As("Example Layer");
@@ -59,7 +57,7 @@ private readonly IObjectProvider<Interface> ForbiddenInterfaces =
 #### 2.4. Test Cases
 
 Testing if above defined "ExampleClasses" reside in "ExampleLayer"
-```
+```cs
 [Fact]
 public void TypesShouldBeInCorrectLayer()
 {
@@ -81,7 +79,7 @@ public void TypesShouldBeInCorrectLayer()
 }
 ```
 Testing if the types in "ExampleLayer" depend on any object in "ForbiddenLayer"
-```
+```cs
 [Fact]
 public void ExampleLayerShouldNotAccessForbiddenLayer()
 {
@@ -94,7 +92,7 @@ public void ExampleLayerShouldNotAccessForbiddenLayer()
 }
 ```
 Testing naming of classes implementing "ForbiddenInterfaces"
-```
+```cs
 [Fact]
 public void ForbiddenClassesShouldHaveCorrectName()
 {
@@ -103,7 +101,7 @@ public void ForbiddenClassesShouldHaveCorrectName()
 }
 ```
 Testing if "ExampleClasses" call any method declared in "ForbiddenLayer" or with name containing "forbidden"
-```
+```cs
 [Fact]
 public void ExampleClassesShouldNotCallForbiddenMethods()
 {
@@ -120,41 +118,41 @@ Find this example code [here](https://github.com/TNG/ArchUnitNET/tree/master/Exa
 
 ### 3.1. Namespace Dependency Rule
 ![Namespace_Dependency](img/namespace_dependency.svg)
-```
+```cs
 IArchRule rule = Types().That().ResideInNamespace("Model").Should()
                     .NotDependOnAny(Types().That().ResideInNamespace("Controller"));
 ```
 ### 3.2. Class Dependency Rule
 ![Class_Dependency](img/class_dependency.svg)
-````
+```cs
 IArchRule rule = Classes().That().AreAssignableTo(typeof(ICar)).Should()
                     .NotDependOnAny(Classes().That().AreAssignableTo(typeof(ICanvas)));
-````
+```
 ### 3.3. Inheritance Naming Rule
 ![Inheritance_Naming](img/inheritance_naming.svg)
-````
+```cs
 IArchRule rule = Classes().That().AreAssignableTo(typeof(ICar)).Should()
                     .HaveNameContaining("Car");
-````
+```
 ### 3.4. Class Namespace Containment Rule
 ![Class_Namespace_Containment](img/class_namespace_containment.svg)
-````
+```cs
 IArchRule rule = Classes().That().HaveNameContaining("Canvas").Should()
                      .ResideInNamespace(typeof(ICanvas).Namespace);
-````
+```
 ### 3.5. Attribute Access Rule
 ![Attribute_Access](img/attribute_access.svg)
-````
+```cs
 IArchRule rule = Classes().That().DoNotHaveAnyAttributes(typeof(Display)).Should()
                     .NotDependOnAny(Classes().That().AreAssignableTo(typeof(ICanvas)));
-````
+```
 
 ### 3.6. Cycle Rule
 ![Cycle](img/cycle.svg)
-````
+```cs
 IArchRule rule = Slices().Matching("Module.(*)").Should()
                     .BeFreeOfCycles();
-````
+```
 
 ## 4. How to check
 
@@ -163,26 +161,26 @@ the xUnit or NUnit extension.
 
 ### 4.1 ArchUnitNET xUnit/NUnit extension
 
-````
+```cs
 IArchRule someRule = ...;
 someRule.check(Architecture);
-````
+```
 
 ### 4.2 ArchUnitNET no extension
-```
+```cs
 IArchRule someRule = ...;
 bool checkedRule = someRule.HasNoViolations(Architecture);
 Assert.True(checkedRule);
 ```
 ### 4.3 PlantUML Component Diagrams as rules
 ArchUnitNET can derive dependency rules from PlantUML diagrams. The rule can be created in the following way:
-```
+```cs
 String myDiagram = "./Resources/my-diagram.puml";
 IArchRule someRule = Types().Should().AdhereToPlantUmlDiagram(myDiagram);
 someRule.Check(Architecture);
 ```
 The diagrams must be component diagrams and associate types to components via stereotypes. 
-```
+```plantuml
 @startuml
 [Model] <<Model.*>>
 [Controller] <<Controller.*>>
