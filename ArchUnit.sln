@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.MSTestV2", "Arc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.MSTestV2Tests", "ArchUnitNET.MSTestV2Tests\ArchUnitNET.MSTestV2Tests.csproj", "{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNETIntegrationTests", "ArchUnitNETIntegrationTests\ArchUnitNETIntegrationTests.csproj", "{334D6D32-5B1D-43FE-B085-B5DB0BBA1A97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{334D6D32-5B1D-43FE-B085-B5DB0BBA1A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{334D6D32-5B1D-43FE-B085-B5DB0BBA1A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{334D6D32-5B1D-43FE-B085-B5DB0BBA1A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{334D6D32-5B1D-43FE-B085-B5DB0BBA1A97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

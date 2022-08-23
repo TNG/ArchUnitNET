@@ -8,7 +8,6 @@
 [ObjectModel.Navigation] --|> [ObjectModel]
 [ObjectModel.Navigation] --|> [ObjectModel.Resources]
 [ObjectModel.Logging] --|> [ObjectModel]
-[ObjectModel.Logging] --|> [ObjectModel.Resources]
 [ObjectModel.Host] --|> [ObjectModel]
 [ObjectModel.Host] --|> [ObjectModel.Logging]
 [ObjectModel.Host] --|> [ObjectModel.Client.Interfaces]

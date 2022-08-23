@@ -1,0 +1,18 @@
+@startuml
+[Apis.Util] --|> [Apis.Testing]
+[Apis.Util] --|> [Apis.Requests]
+[Apis.Requests] --|> [Apis.Util]
+[Apis.Requests] --|> [Apis.Logging]
+[Apis.Requests.Parameters] --|> [Apis.Util]
+[Apis.Requests.Parameters] --|> [Apis.Testing]
+[Apis.Requests.Parameters] --|> [Apis.Requests]
+[Apis.Requests.Parameters] --|> [Apis.Logging]
+[Apis.Requests.Parameters] --|> [Apis.Discovery]
+[Apis.Logging] --|> [Apis.Util]
+[Apis.Json] --|> [Apis]
+[Apis.Json] --|> [Apis.Util]
+[Apis.Http] --|> [Apis.Util]
+[Apis.Http] --|> [Apis.Testing]
+[Apis.Http] --|> [Apis.Logging]
+[Apis.Discovery] --|> [Apis.Util]
+@enduml

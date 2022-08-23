@@ -1,0 +1,7 @@
+@startuml
+[EntityFrameworkCore] --|> [EntityFrameworkCore.Utilities]
+[EntityFrameworkCore] --|> [EntityFrameworkCore.Diagnostics]
+[EntityFrameworkCore] --|> [EntityFrameworkCore.ChangeTracking.Internal]
+[EntityFrameworkCore.Utilities] --|> [EntityFrameworkCore.Diagnostics]
+[EntityFrameworkCore.ChangeTracking] --|> [EntityFrameworkCore]
+@enduml
