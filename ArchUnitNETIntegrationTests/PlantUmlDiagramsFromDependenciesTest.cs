@@ -1,7 +1,9 @@
 ﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.PlantUml;
 using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
+using ArchUnitNET.MSTestV2;
 using Xunit;
 
 namespace ArchUnitNETIntegrationTests;
@@ -35,30 +37,26 @@ public class PlantUmlIntegrationDiagramTests
         var path4 = "../../../PlantUmlDiagramsFromDependencies/Microsoft.EntityFrameworkCore.puml";
         PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule4.GetObjects(arch4)).WriteToFile(path4);
         Assert.True(File.Exists(path4));
-        
-        var sliceRule5 = SliceRuleDefinition.Slices().Matching("ArchUnitNET.Fluent.(*).");
+
+        var sliceRule5 = SliceRuleDefinition.Slices().Matching("Google.(**).");
         var arch5 = new ArchLoader()
-            .LoadAssembly(typeof(ArchUnitNET.Fluent.EvaluationResult).Assembly).Build();
-        var path5 = "../../../PlantUmlDiagramsFromDependencies/ArchUnitFluent.puml";
+            .LoadAssembly(typeof(Google.ApplicationContext).Assembly).Build();
+        var path5 = "../../../PlantUmlDiagramsFromDependencies/Google.CloudStorage.puml";
         PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule5.GetObjects(arch5)).WriteToFile(path5);
         Assert.True(File.Exists(path5));
         
-        var sliceRule6 = SliceRuleDefinition.Slices().Matching("ArchUnitNET.Domain.(**).");
-        var arch6 = new ArchLoader()
-            .LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
-        var path6 = "../../../PlantUmlDiagramsFromDependencies/ArchUnitDomain.puml";
+        var sliceRule6 = SliceRuleDefinition.Slices().Matching("System.(*).");
+        var arch6 = new ArchLoader().LoadAssembly(typeof(System.IO.BinaryReader).Assembly).Build();
+        var path6 = "../../../PlantUmlDiagramsFromDependencies/SystemIO.puml";
         PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule6.GetObjects(arch6)).WriteToFile(path6);
         Assert.True(File.Exists(path6));
         
-        var path7 = "../../../PlantUmlDiagramsFromDependencies/ArchUnitDomain_plus_ArchUnitFluent.puml";
-        PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule5.GetObjects(arch5), sliceRule6.GetObjects(arch6)).WriteToFile(path7);
+        var sliceRule7 = SliceRuleDefinition.Slices().Matching("Newtonsoft.Json.(**).");
+        var arch7 = new ArchLoader().LoadAssembly(typeof(Newtonsoft.Json.Formatting).Assembly).Build();
+        var path7 = "../../../PlantUmlDiagramsFromDependencies/Newtonsoft.Json.puml";
+        PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule7.GetObjects(arch7)).WriteToFile(path7);
         Assert.True(File.Exists(path7));
         
-        var sliceRule8 = SliceRuleDefinition.Slices().Matching("Google.(**).");
-        var arch8 = new ArchLoader()
-            .LoadAssembly(typeof(Google.ApplicationContext).Assembly).Build();
-        var path8 = "../../../PlantUmlDiagramsFromDependencies/Google.CloudStorage.puml";
-        PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule8.GetObjects(arch8)).WriteToFile(path8);
-        Assert.True(File.Exists(path8));
+
     }
 }

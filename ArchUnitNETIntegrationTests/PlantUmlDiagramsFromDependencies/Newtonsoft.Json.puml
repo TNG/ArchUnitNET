@@ -1,0 +1,18 @@
+@startuml
+[Utilities] --|> [Serialization]
+[Serialization] --|> [Utilities]
+[Serialization] --|> [Linq]
+[Serialization] --|> [Converters]
+[Schema] --|> [Utilities]
+[Schema] --|> [Serialization]
+[Schema] --|> [Linq]
+[Linq] --|> [Utilities]
+[Linq] --|> [Linq.JsonPath]
+[Linq.JsonPath] --|> [Utilities]
+[Linq.JsonPath] --|> [Linq]
+[Converters] --|> [Utilities]
+[Converters] --|> [Serialization]
+[Converters] --|> [Linq]
+[Converters] --|> [Bson]
+[Bson] --|> [Utilities]
+@enduml
