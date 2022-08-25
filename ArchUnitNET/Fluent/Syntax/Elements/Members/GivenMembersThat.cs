@@ -76,6 +76,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreReadOnly());
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
+
         //Negations
 
 

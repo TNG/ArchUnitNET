@@ -311,7 +311,6 @@ namespace ArchUnitNET.Loader
                 isIterator = methodDefinition.IsIterator();
                 isStatic = methodDefinition.IsStatic;
                 isStub = false;
-
             }
 
             var methodMember = new MethodMember(name, fullName, typeInstance.Type, visibility, returnType,

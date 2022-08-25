@@ -150,7 +150,9 @@ namespace ArchUnitNETTests.Domain
         {
             Assert.Contains(Architecture.Members.WhereNameIs("PropertyWithoutSet"), 
                 member => member.IsReadOnly == true);
-            Assert.Contains(Architecture.Members.WhereNameIs("PropertyWithGetUndSet"),
+            Assert.Contains(Architecture.Members.WhereNameIs("InitOnlyProperty"),
+                member => member.IsReadOnly == false);
+            Assert.Contains(Architecture.Members.WhereNameIs("PropertyWithGetAndSet"),
                 member => member.IsReadOnly == false);
             Assert.Contains(Architecture.Members.WhereNameIs("readonlyVar"),
                 member => member.IsReadOnly == true);
@@ -204,7 +206,7 @@ namespace ArchUnitNETTests.Domain
             Assert.True(fieldMembers.All(member => members.Contains(member)));
             Assert.True(propertyMembers.All(member => members.Contains(member)));
         }
-        
+
         [Fact]
         public void MethodMemberEquivalencyTests()
         {
@@ -274,13 +276,15 @@ namespace ArchUnitNETTests.Domain
         public class FieldType
         {
         }
+        
         private class ClassReadOnly
         {
             private readonly string readonlyVar;
             private readonly string readonlyVarInit = "";
             private string NotReadOnlyVarInit = "";
             private string PropertyWithoutSet { get; }
-            private string PropertyWithGetUndSet { get; set; }
+            private string InitOnlyProperty { get; init; }
+            private string PropertyWithGetAndSet { get; set; }
             public void CheckForReadOnlyMethod()
             {
             }

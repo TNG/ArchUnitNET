@@ -373,6 +373,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimpleCondition<TRuleType>(member => !member.IsReadOnly.HasValue || !member.IsReadOnly.Value,
                 "not be read only", "is read only");
         }
+
         //Relation Condition Negations
 
 

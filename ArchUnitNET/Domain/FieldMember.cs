@@ -13,7 +13,7 @@ namespace ArchUnitNET.Domain
     public class FieldMember : IMember, ITypeInstance<IType>
     {
         private readonly ITypeInstance<IType> _typeInstance;
-        
+
         public FieldMember(IType declaringType, string name, string fullName, Visibility visibility,
             ITypeInstance<IType> typeInstance, bool isCompilerGenerated, bool? isStatic, bool? isReadOnly)
         {
