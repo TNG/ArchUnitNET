@@ -14,6 +14,7 @@ using ArchUnitNET.Domain.PlantUml.Export;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
+using ArchUnitNETTests.Domain.Dependencies.Members;
 using Xunit;
 using static ArchUnitNET.Fluent.PlantUml.PlantUmlDefinition;
 
@@ -39,6 +40,14 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var uml2 = ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(Architecture)).AsString();
             Assert.NotEmpty(uml1);
             Assert.NotEmpty(uml2);
+
+            var arch1 = new ArchLoader().LoadAssembly(typeof(TestAssembly.Class1).Assembly).Build();
+            var sliceRule1 = SliceRuleDefinition.Slices().Matching("TestAssembly.(**).", true);
+            
+            var path1 = "../../../Fluent/PlantUml/Test.puml";
+            ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(arch1)).WriteToFile(path1);
+            Assert.True(File.Exists(path1));
+            
         }
 
         [Fact]

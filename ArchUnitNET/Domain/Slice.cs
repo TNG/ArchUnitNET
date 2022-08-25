@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -31,6 +32,7 @@ namespace ArchUnitNET.Domain
             Types.SelectMany(type => type.BackwardsDependencies).ToList();
 
         public string Description => Identifier.Description;
+        [CanBeNull] public string NameSpace => Identifier.NameSpace;
 
         protected bool Equals(Slice other)
         {

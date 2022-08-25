@@ -25,15 +25,18 @@ namespace ArchUnitNET.Fluent.Slices
         ///     check https://www.archunit.org/userguide/html/000_Index.html#_slices for examples for pattern
         ///     usage
         /// </param>
+        /// <param name="fullName">
+        ///     True if you want to display in PlantUmlDiagram more than just the dynamic part.
+        /// </param>
         /// <returns></returns>
-        public GivenSlices Matching(string pattern)
+        public GivenSlices Matching(string pattern, bool fullName = false)
         {
-            _ruleCreator.SetSliceAssignment(new SliceAssignment(t => AssignFunc(t, pattern),
+            _ruleCreator.SetSliceAssignment(new SliceAssignment(t => AssignFunc(t, pattern, fullName),
                 "matching \"" + pattern + "\""));
             return new GivenSlices(_ruleCreator);
         }
 
-        private static SliceIdentifier AssignFunc(IType type, string pattern)
+        private static SliceIdentifier AssignFunc(IType type, string pattern, bool fullName)
         {
             var containsSingleAsterisk = pattern.Contains("(*)");
             var containsDoubleAsterisk = pattern.Contains("(**)");
@@ -111,7 +114,12 @@ namespace ArchUnitNET.Fluent.Slices
                 }
             }
 
+            if (fullName)
+            {
+                return SliceIdentifier.Of(slicePrefix+sliceString, slicePrefix);
+            }
             return SliceIdentifier.Of(sliceString);
+
         }
     }
 }
