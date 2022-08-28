@@ -72,6 +72,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.BeStatic());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+        
+        public TRuleTypeShouldConjunction BeReadOnly()
+        {
+            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.BeReadOnly());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         //Relation Conditions
 
@@ -135,6 +141,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction NotBeStatic()
         {
             _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeStatic());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TRuleTypeShouldConjunction NotBeReadOnly()
+        {
+            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeReadOnly());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

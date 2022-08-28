@@ -145,7 +145,25 @@ namespace ArchUnitNETTests.Domain
                 member => member.SetterVisibility == NotAccessible);
         }
 
-
+        [Fact]
+        public void AreReadOnlyMethodMembersAndFieldMembersAndPropertyMembers()
+        {
+            Assert.Contains(Architecture.Members.WhereNameIs("PropertyWithoutSet"), 
+                member => member.IsReadOnly == true);
+            Assert.Contains(Architecture.Members.WhereNameIs("InitOnlyProperty"),
+                member => member.IsReadOnly == false);
+            Assert.Contains(Architecture.Members.WhereNameIs("PropertyWithGetAndSet"),
+                member => member.IsReadOnly == false);
+            Assert.Contains(Architecture.Members.WhereNameIs("readonlyVar"),
+                member => member.IsReadOnly == true);
+            Assert.Contains(Architecture.Members.WhereNameIs("readonlyVarInit"),
+                member => member.IsReadOnly == true);
+            Assert.Contains(Architecture.Members.WhereNameIs("NotReadOnlyVarInit"),
+                member => member.IsReadOnly == false);
+            Assert.Contains(Architecture.Members.WhereNameIs("CheckForReadOnlyMethod()"),
+                member => member.IsReadOnly == null);
+        }
+        
         [Fact]
         public void FieldMemberEquivalencyTests()
         {
@@ -246,6 +264,7 @@ namespace ArchUnitNETTests.Domain
         private class ClassWithMemberWithNotAccessibleGetterSetter
         {
             private FieldType _fieldWithoutGetter;
+
             private FieldType FieldWithoutSetter { get; }
 
             private FieldType FieldWithoutGetter
@@ -257,5 +276,19 @@ namespace ArchUnitNETTests.Domain
         public class FieldType
         {
         }
+        
+        private class ClassReadOnly
+        {
+            private readonly string readonlyVar;
+            private readonly string readonlyVarInit = "";
+            private string NotReadOnlyVarInit = "";
+            private string PropertyWithoutSet { get; }
+            private string InitOnlyProperty { get; init; }
+            private string PropertyWithGetAndSet { get; set; }
+            public void CheckForReadOnlyMethod()
+            {
+            }
+        }
+        
     }
 }

@@ -4,14 +4,18 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
+using Attribute = ArchUnitNET.Domain.Attribute;
+using Enum = ArchUnitNET.Domain.Enum;
 using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
@@ -329,14 +333,17 @@ namespace ArchUnitNET.Loader
             var typeReference = fieldReference.FieldType;
             var fieldType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var isCompilerGenerated = fieldReference.IsCompilerGenerated();
-            bool? isStatic = null;
+            bool? isStatic = null; 
+            var isReadOnly = false;
+
             if (fieldReference is FieldDefinition fieldDefinition)
             {
                 isStatic = fieldDefinition.IsStatic;
+                isReadOnly = fieldDefinition.IsInitOnly;
             }
 
             return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType,
-                isCompilerGenerated, isStatic);
+                isCompilerGenerated, isStatic, isReadOnly);
         }
 
         public IEnumerable<GenericParameter> GetGenericParameters(IGenericParameterProvider genericParameterProvider)
