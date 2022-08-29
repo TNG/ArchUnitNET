@@ -106,7 +106,10 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         public PlantUmlFileBuilder WithDependenciesFrom(IEnumerable<Slice> slices, GenerationOptions generationOptions = null)
         {
+            
             var sliceList = slices.Distinct().ToList();
+            var sliceListCopy = slices.Distinct().ToList();
+            
             if (generationOptions == null)
             {
                 generationOptions = new GenerationOptions();
@@ -114,6 +117,30 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             var nodes = new Dictionary<Slice, IPlantUmlElement>();
             var dependencies = new List<PlantUmlDependency>();
+
+            for (var i = sliceListCopy.Capacity-1; i >= 0; i--)
+            {
+                var tmpslc = sliceListCopy[i].Description;
+                var dots = 0;
+                while (tmpslc.Contains("."))
+                {
+                    dots++;
+                    tmpslc = tmpslc.Remove(0, tmpslc.IndexOf(".", StringComparison.Ordinal)+1);
+                }
+                if (sliceListCopy[i].NameSpace != null)
+                {
+                    tmpslc = sliceListCopy[i].NameSpace;
+                    while (tmpslc.Contains("."))
+                    {
+                        dots--;
+                        tmpslc = tmpslc.Remove(0, tmpslc.IndexOf(".", StringComparison.Ordinal)+1);
+                    }
+                }
+                if (sliceListCopy[i].CountOfAsteriskInPattern != null & dots >= sliceListCopy[i].CountOfAsteriskInPattern)
+                {
+                    sliceList.RemoveAt(i);
+                }
+            }
 
             foreach (var slice in sliceList)
             {
@@ -132,7 +159,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 }
                 else 
                 {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description, slice.NameSpace));
+                    nodes.Add(slice, new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern, slice.NameSpace));
                 }
             }
 
