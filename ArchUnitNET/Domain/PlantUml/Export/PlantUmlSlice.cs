@@ -33,7 +33,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             var result = "";
             if (_namespace != null)
             {
-                result = "package " + _namespace.Remove(_namespace.Length-1) + "{";
+                result = "package " + _namespace.Remove(_namespace.Length - 1) + "{";
                 result += Environment.NewLine;
                 var name = _name.Remove(0, _namespace.Length);
                 var i = 1;
@@ -43,11 +43,11 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     result += "package " + name.Remove(dotPattern) + "{";
                     result += Environment.NewLine;
 
-                    name = name.Remove(0, dotPattern+1);
+                    name = name.Remove(0, dotPattern + 1);
                     i++;
                 }
 
-                if ( _countOfSingleAsterisk == null | i < _countOfSingleAsterisk+1)
+                if ( _countOfSingleAsterisk == null | i < _countOfSingleAsterisk + 1)
                 {
                     result += "[" + name + "] as " + _name;  
                 
@@ -70,7 +70,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 while (name.Contains("."))
                 {
                     var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
-                    name = name.Remove(0, dotPattern+1);
+                    name = name.Remove(0, dotPattern + 1);
                     i++;
                 }
                 

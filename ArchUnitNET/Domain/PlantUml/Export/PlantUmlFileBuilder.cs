@@ -157,7 +157,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 {
                     nodes.Add(slice, new PlantUmlNamespace(slice.Description));
                 }
-                else 
+                else
                 {
                     nodes.Add(slice, new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern, slice.NameSpace));
                 }
