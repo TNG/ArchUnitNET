@@ -76,7 +76,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 
                 if (i >= _countOfSingleAsterisk)
                 {
-
                     result = "";
                 }
             }
