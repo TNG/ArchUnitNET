@@ -52,7 +52,7 @@ namespace ArchUnitNET.Fluent.PlantUml
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
-        
+
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(params IEnumerable<Slice>[] slices)
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(slices);

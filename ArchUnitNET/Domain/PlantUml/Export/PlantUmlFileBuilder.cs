@@ -103,7 +103,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             return this;
         }
-        
+
         public PlantUmlFileBuilder WithDependenciesFrom(params IEnumerable<Slice>[] slices)
         {
             var generationOptions = new GenerationOptions();
@@ -135,7 +135,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     }
                 }
             }
-            
+
             if (!generationOptions.IncludeNodesWithoutDependencies)
             {
                 foreach (var entry in nodes.Where(node =>
