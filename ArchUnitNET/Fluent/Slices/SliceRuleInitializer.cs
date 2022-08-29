@@ -25,9 +25,6 @@ namespace ArchUnitNET.Fluent.Slices
         ///     check https://www.archunit.org/userguide/html/000_Index.html#_slices for examples for pattern
         ///     usage
         /// </param>
-        /// <param name="fullName">
-        ///     True if you want to display in PlantUmlDiagram more than just the dynamic part.
-        /// </param>
         /// <returns></returns>
         public GivenSlices Matching(string pattern)
         {
@@ -150,12 +147,7 @@ namespace ArchUnitNET.Fluent.Slices
                 }
             }
 
-            if (fullName)
-            {
-                return SliceIdentifier.Of(slicePrefix+sliceString, _countOfSingleAsterisk,slicePrefix);
-            }
-            return SliceIdentifier.Of(sliceString, _countOfSingleAsterisk);
-
+            return fullName ? SliceIdentifier.Of(slicePrefix + sliceString, _countOfSingleAsterisk,slicePrefix) : SliceIdentifier.Of(sliceString, _countOfSingleAsterisk);
         }
     }
 }
