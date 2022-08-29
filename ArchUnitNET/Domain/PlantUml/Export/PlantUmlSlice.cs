@@ -6,6 +6,8 @@
 // 
 
 using System;
+using System.ComponentModel.Design;
+using System.Diagnostics;
 
 namespace ArchUnitNET.Domain.PlantUml.Export
 {
@@ -14,14 +16,16 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private readonly string _name;
         private string _hyperlink { get; }
         private string _namespace { get; }
+        private int? _countOfSingleAsterisk { get; }
 
-        public PlantUmlSlice(string name, string nameSpace = null, string hyperlink = null)
+        public PlantUmlSlice(string name, int? countOfSingleAsterisk = null, string nameSpace = null, string hyperlink = null)
         {
             PlantUmlNameChecker.AssertNoForbiddenCharacters(name, hyperlink, nameSpace);
             PlantUmlNameChecker.AssertNotNullOrEmpty(name);
             _name = name;
             _hyperlink = hyperlink;
             _namespace = nameSpace;
+            _countOfSingleAsterisk = countOfSingleAsterisk;
         }
 
         public string GetPlantUmlString(RenderOptions renderOptions)
@@ -32,7 +36,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 result = "package " + _namespace.Remove(_namespace.Length-1) + "{";
                 result += Environment.NewLine;
                 var name = _name.Remove(0, _namespace.Length);
-                int i = 1;
+                var i = 1;
                 while (name.Contains("."))
                 {
                     var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
@@ -42,20 +46,43 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     name = name.Remove(0, dotPattern+1);
                     i++;
                 }
-                
-                result += "[" + name + "] as " + _name;  
-                
-                while (i>0)
+
+                if ( _countOfSingleAsterisk == null | i < _countOfSingleAsterisk+1)
                 {
-                    result += Environment.NewLine;
-                    result += "}";
-                    i--;
+                    result += "[" + name + "] as " + _name;  
+                
+                    while (i > 0)
+                    {
+                        result += Environment.NewLine;
+                        result += "}";
+                        i--;
+                    }
+                }
+                else
+                {
+                    result = "";
+                }
+            }
+            else if(_countOfSingleAsterisk != null)
+            {
+                var i = 1;
+                var name = _name;
+                while (name.Contains("."))
+                {
+                    var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
+                    name = name.Remove(0, dotPattern+1);
+                    i++;
+                }
+                
+                if (i >= _countOfSingleAsterisk)
+                {
+
+                    result = "";
                 }
             }
             else
             {
                 result += "[" + _name + "]";
-                
             }
 
             if (_hyperlink != null)
@@ -63,7 +90,10 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 result += " [[" + _hyperlink + "]] ";
             }
 
-            result += Environment.NewLine;
+            if (result != "")
+            {
+                result += Environment.NewLine;   
+            }
 
             return result;
         }

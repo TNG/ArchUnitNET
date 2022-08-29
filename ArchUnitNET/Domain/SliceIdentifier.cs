@@ -15,18 +15,20 @@ namespace ArchUnitNET.Domain
         public readonly bool Ignored;
 
 
-        private SliceIdentifier(string identifier, bool ignored, string nameSpace = null) : base(identifier)
+        private SliceIdentifier(string identifier, bool ignored, int? countOfAsteriskInPattern = null, string nameSpace = null) : base(identifier)
         {
             Ignored = ignored;
+            CountOfAsteriskInPattern = countOfAsteriskInPattern;
             NameSpace = nameSpace;
         }
 
         public string Description => Identifier;
-        [CanBeNull] public string NameSpace;
+        [CanBeNull] public readonly string NameSpace;
+        public readonly int? CountOfAsteriskInPattern;
 
-        public static SliceIdentifier Of(string identifier, string nameSpace = null)
+        public static SliceIdentifier Of(string identifier, int? countOfAsteriskInPattern = null, string nameSpace = null)
         {
-            return new SliceIdentifier(identifier, false, nameSpace);
+            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
         }
 
         public static SliceIdentifier Ignore()

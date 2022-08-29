@@ -13,7 +13,7 @@ namespace ArchUnitNET.Fluent.Slices
     public class SliceRuleInitializer
     {
         private readonly SliceRuleCreator _ruleCreator;
-
+        private static int? _countOfSingleAsterisk = null;
         public SliceRuleInitializer(SliceRuleCreator ruleCreator)
         {
             _ruleCreator = ruleCreator;
@@ -29,14 +29,43 @@ namespace ArchUnitNET.Fluent.Slices
         ///     True if you want to display in PlantUmlDiagram more than just the dynamic part.
         /// </param>
         /// <returns></returns>
-        public GivenSlices Matching(string pattern, bool fullName = false)
+        public GivenSlices Matching(string pattern)
         {
-            _ruleCreator.SetSliceAssignment(new SliceAssignment(t => AssignFunc(t, pattern, fullName),
+            _ruleCreator.SetSliceAssignment(new SliceAssignment(t => AssignFunc(t, Parse(pattern)),
+                "matching \"" + pattern + "\""));
+            return new GivenSlices(_ruleCreator);
+        }
+        
+        public GivenSlices MatchingWithFullName(string pattern)
+        {
+            _ruleCreator.SetSliceAssignment(new SliceAssignment(t => AssignFunc(t, Parse(pattern), true),
                 "matching \"" + pattern + "\""));
             return new GivenSlices(_ruleCreator);
         }
 
-        private static SliceIdentifier AssignFunc(IType type, string pattern, bool fullName)
+        private static string Parse(string pattern)
+        {
+            var indexOfAsteriskInPattern = pattern.IndexOf("(*", StringComparison.Ordinal);
+            var tmpStr = pattern.Remove(0, indexOfAsteriskInPattern - 1);
+            _countOfSingleAsterisk = 0;
+            while (tmpStr.Contains("(*)"))
+            {
+                _countOfSingleAsterisk++;
+                tmpStr = tmpStr.Remove(0, 4);
+            }
+            
+            if (_countOfSingleAsterisk > 1)
+            {
+                pattern = pattern.Remove(indexOfAsteriskInPattern) + "(**).";
+            }
+            else
+            {
+                _countOfSingleAsterisk = null;
+            }
+            return pattern;
+        }
+
+        private static SliceIdentifier AssignFunc(IType type, string pattern, bool fullName = false)
         {
             var containsSingleAsterisk = pattern.Contains("(*)");
             var containsDoubleAsterisk = pattern.Contains("(**)");
@@ -46,10 +75,17 @@ namespace ArchUnitNET.Fluent.Slices
                 throw new ArgumentException("Patterns for Slices have to contain (*) or (**).");
             }
 
-            if (indexOfAsteriskInPattern != pattern.LastIndexOf("(*", StringComparison.Ordinal))
+            if (containsDoubleAsterisk && containsSingleAsterisk)
             {
-                throw new ArgumentException("Patterns for Slices can only contain (*) or (**) once.");
+                throw new ArgumentException("Patterns for Slices can't contain both (*) and (**).");
             }
+
+            if (pattern.IndexOf("(**", StringComparison.Ordinal) != pattern.LastIndexOf("(**", StringComparison.Ordinal))
+            {
+                throw new ArgumentException("Patterns for Slices can contain (**) only once.");
+            }
+
+            
 
             var namespc = type.Namespace.FullName;
             var slicePrefix = pattern.Remove(indexOfAsteriskInPattern);
@@ -116,9 +152,9 @@ namespace ArchUnitNET.Fluent.Slices
 
             if (fullName)
             {
-                return SliceIdentifier.Of(slicePrefix+sliceString, slicePrefix);
+                return SliceIdentifier.Of(slicePrefix+sliceString, _countOfSingleAsterisk,slicePrefix);
             }
-            return SliceIdentifier.Of(sliceString);
+            return SliceIdentifier.Of(sliceString, _countOfSingleAsterisk);
 
         }
     }

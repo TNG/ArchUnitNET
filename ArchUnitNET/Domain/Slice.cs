@@ -33,6 +33,7 @@ namespace ArchUnitNET.Domain
 
         public string Description => Identifier.Description;
         [CanBeNull] public string NameSpace => Identifier.NameSpace;
+        public int? CountOfAsteriskInPattern => Identifier.CountOfAsteriskInPattern;
 
         protected bool Equals(Slice other)
         {
