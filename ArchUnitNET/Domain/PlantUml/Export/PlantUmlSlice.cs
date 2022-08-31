@@ -49,13 +49,19 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
                 if ( _countOfSingleAsterisk == null | i < _countOfSingleAsterisk + 1)
                 {
-                    result += "[" + name + "] as " + _name;  
-                
-                    while (i > 0)
+                    if (name != "")
                     {
-                        result += Environment.NewLine;
-                        result += "}";
-                        i--;
+                        result += "[" + name + "] as " + _name;
+                        while (i > 0)
+                        {
+                            result += Environment.NewLine;
+                            result += "}";
+                            i--;
+                        }
+                    }
+                    else
+                    {
+                        result = "";
                     }
                 }
                 else
