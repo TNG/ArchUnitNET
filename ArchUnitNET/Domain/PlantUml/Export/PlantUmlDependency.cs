@@ -6,7 +6,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     {
         public string Target { get; }
         public string Origin { get; }
-        public DependencyType DependencyType { get; }
+        private DependencyType DependencyType { get; }
 
         public PlantUmlDependency(string origin, string target, DependencyType dependencyType)
         {
@@ -17,7 +17,28 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             DependencyType = dependencyType;
         }
 
-        public string GetPlantUmlString(RenderOptions renderOptions)
+        private static int CountOfDots(string str)
+        {
+            var i = 0;
+            while (str.Contains("."))
+            {
+                str = str.Remove(0, str.IndexOf(".", StringComparison.Ordinal) + 1);
+                i++;
+            }
+            return i;
+        }
+
+        public int OriginCountOfDots()
+        {
+            return CountOfDots(Origin);
+        }
+
+        public int TargetCountOfDots()
+        {
+            return CountOfDots(Target);
+        }
+
+        public string GetPlantUmlString(RenderOptions renderOptions = null)
         {
             switch (DependencyType)
             {
@@ -26,6 +47,81 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 case DependencyType.OneToMany:
                     return "[" + Origin + "]" + " \"1\" --|> \"many\" " + "[" + Target + "]" + " " +
                            Environment.NewLine;
+
+                case DependencyType.OneToOneUseIfNamespace:
+                    if (OriginCountOfDots() == TargetCountOfDots() &
+                        (OriginCountOfDots() == 0 |
+                         Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal)) ==
+                         Target.Remove(Target.LastIndexOf(".", StringComparison.Ordinal)))
+                       )
+                    {
+                        return Origin + " --|> " + Target + Environment.NewLine;
+                    }
+
+                    if (OriginCountOfDots() < TargetCountOfDots())
+                    {
+                        var tmp = Target.Remove(Target.LastIndexOf(".", StringComparison.Ordinal));
+                        while (OriginCountOfDots() < CountOfDots(tmp))
+                        {
+                            tmp = tmp.Remove(tmp.LastIndexOf(".", StringComparison.Ordinal));
+                        }
+
+                        if (tmp != Origin)
+                        {
+                            if (tmp.Remove(tmp.LastIndexOf(".", StringComparison.Ordinal)) ==
+                                Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal)))
+                            {
+                                return Origin + " --> " +
+                                       tmp.Remove(0, tmp.LastIndexOf(".", StringComparison.Ordinal) + 1)
+                                       + Environment.NewLine;
+                            }
+                        }
+                    }
+
+                    if (OriginCountOfDots() > TargetCountOfDots())
+                    {
+                        var tmp = Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal));
+                        while (CountOfDots(tmp) > TargetCountOfDots())
+                        {
+                            tmp = tmp.Remove(tmp.LastIndexOf(".", StringComparison.Ordinal));
+                        }
+                        
+                        if (tmp != Target)
+                        {
+                            if (tmp.Remove(tmp.LastIndexOf(".", StringComparison.Ordinal)) == 
+                                 Target.Remove(Target.LastIndexOf(".", StringComparison.Ordinal)))
+                            {
+                                return tmp.Remove(0, tmp.LastIndexOf(".", StringComparison.Ordinal) + 1) 
+                                       + " -> " + Target + Environment.NewLine;    
+                            }   
+                        }
+                    }
+                    return "";
+                
+                case DependencyType.OneToOnePackages:
+                    if (OriginCountOfDots() == TargetCountOfDots() &
+                        (OriginCountOfDots() == 0 | 
+                         Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal)) == 
+                         Target.Remove(Target.LastIndexOf(".", StringComparison.Ordinal)))
+                        )
+                    {
+                        var oTmp = Origin;
+                        var tTmp = Target;
+                        while (oTmp.Contains("."))
+                        {
+                            oTmp = oTmp.Remove(0, oTmp.IndexOf(".", StringComparison.Ordinal) + 1);
+                            tTmp = tTmp.Remove(0, tTmp.IndexOf(".", StringComparison.Ordinal) + 1);
+                        }
+                        return  oTmp + " ..> " + tTmp + Environment.NewLine;                        
+                    }
+                    return "";
+                
+                case DependencyType.OneToOneCompact:
+                    if (OriginCountOfDots() == TargetCountOfDots())
+                    {
+                        return  "[" + Origin  + "] --> [" + Target + "]" + Environment.NewLine;
+                    }
+                    return "";
             }
 
             return "";
@@ -67,6 +163,9 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     public enum DependencyType
     {
         OneToOne,
-        OneToMany
+        OneToMany,
+        OneToOneUseIfNamespace,
+        OneToOnePackages,
+        OneToOneCompact
     }
 }

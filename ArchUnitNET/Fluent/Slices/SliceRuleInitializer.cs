@@ -33,7 +33,7 @@ namespace ArchUnitNET.Fluent.Slices
             return new GivenSlices(_ruleCreator);
         }
         
-        public GivenSlices MatchingWithFullName(string pattern)
+        public GivenSlices MatchingWithPackages(string pattern)
         {
             _ruleCreator.SetSliceAssignment(new SliceAssignment(t => AssignFunc(t, Parse(pattern), true),
                 "matching \"" + pattern + "\""));
@@ -82,7 +82,6 @@ namespace ArchUnitNET.Fluent.Slices
                 throw new ArgumentException("Patterns for Slices can contain (**) only once.");
             }
 
-            
 
             var namespc = type.Namespace.FullName;
             var slicePrefix = pattern.Remove(indexOfAsteriskInPattern);

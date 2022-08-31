@@ -106,7 +106,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         public PlantUmlFileBuilder WithDependenciesFrom(IEnumerable<Slice> slices, GenerationOptions generationOptions = null)
         {
-            
             var sliceList = slices.Distinct().ToList();
             var sliceListCopy = slices.Distinct().ToList();
             
@@ -118,14 +117,14 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             var nodes = new Dictionary<Slice, IPlantUmlElement>();
             var dependencies = new List<PlantUmlDependency>();
 
-            for (var i = sliceListCopy.Capacity-1; i >= 0; i--)
+            for (var i = sliceListCopy.Capacity - 1; i >= 0; i--)
             {
                 var tmpslc = sliceListCopy[i].Description;
                 var dots = 0;
                 while (tmpslc.Contains("."))
                 {
                     dots++;
-                    tmpslc = tmpslc.Remove(0, tmpslc.IndexOf(".", StringComparison.Ordinal)+1);
+                    tmpslc = tmpslc.Remove(0, tmpslc.IndexOf(".", StringComparison.Ordinal) + 1);
                 }
                 if (sliceListCopy[i].NameSpace != null)
                 {
@@ -133,7 +132,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     while (tmpslc.Contains("."))
                     {
                         dots--;
-                        tmpslc = tmpslc.Remove(0, tmpslc.IndexOf(".", StringComparison.Ordinal)+1);
+                        tmpslc = tmpslc.Remove(0, tmpslc.IndexOf(".", StringComparison.Ordinal) + 1);
                     }
                 }
                 if (sliceListCopy[i].CountOfAsteriskInPattern != null & dots >= sliceListCopy[i].CountOfAsteriskInPattern)
@@ -199,6 +198,177 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 }
             }
 
+            _diagram.AddElements(nodeElements.OrderBy(element =>
+                element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
+            _diagram.AddElements(dependencies);
+
+            return this;
+        }
+
+        public PlantUmlFileBuilder WithDependenciesFromCompact(IEnumerable<Slice> slices)
+        {
+            var sliceList = slices.Distinct().ToList();
+            var sliceListCopy = slices.Distinct().ToList();
+            var nodes = new Dictionary<Slice, IPlantUmlElement>();
+            var dependencies = new List<PlantUmlDependency>();
+            GenerationOptions generationOptions = new GenerationOptions();
+            var nmsp = true;
+            
+            for (var i = sliceListCopy.Capacity - 1; i >= 0; i--)
+            {
+                var tmpslc = sliceListCopy[i].Description;
+                var dots = 0;
+                while (tmpslc.Contains("."))
+                {
+                    dots++;
+                    tmpslc = tmpslc.Remove(0, tmpslc.IndexOf(".", StringComparison.Ordinal) + 1);
+                }
+
+                if (sliceListCopy[i].NameSpace != null)
+                {
+                    tmpslc = sliceListCopy[i].NameSpace;
+                    while (tmpslc.Contains("."))
+                    {
+                        dots--;
+                        tmpslc = tmpslc.Remove(0, tmpslc.IndexOf(".", StringComparison.Ordinal) + 1);
+                    }
+                }
+                else
+                {
+                    nmsp = false;
+                }
+
+                if (sliceListCopy[i].CountOfAsteriskInPattern != null &
+                    dots >= sliceListCopy[i].CountOfAsteriskInPattern)
+                {
+                    sliceList.RemoveAt(i);
+                }
+            }
+
+
+            foreach (var slice in sliceList)
+            {
+                var show = true;
+                for (var i = sliceList.Count - 1; i >= 0; i--)
+                {
+                    if (sliceList[i].Description != slice.Description &
+                        sliceList[i].Description.Contains(slice.Description))
+                    {
+                        show = false;
+                    }
+                }
+                
+                
+                if (slice is Namespace) //This throws errors if namespaces and slices are used in the same diagram, the syntax can't be mixed in PlantUML
+                {
+                    nodes.Add(slice, new PlantUmlNamespace(slice.Description));
+                }
+                else if (show || !nmsp)
+                {
+                    nodes.Add(slice,
+                        new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern, slice.NameSpace));
+                }
+                else
+                {
+                    nodes.Add(slice,
+                        new PlantUmlSlice(slice.Description + ".", slice.CountOfAsteriskInPattern, slice.NameSpace));
+                }
+                   
+                
+                var dependencyTargets = sliceList.Where(targetSlice =>
+                    targetSlice.Description != slice.Description &&
+                    slice.Dependencies.Where(dep =>
+                            generationOptions.DependencyFilter?.Invoke(dep) ?? true)
+                        .Any(dep => targetSlice.Types.Contains(dep.Target)));
+
+                if (nmsp)
+                {
+                    if (show)
+                    {
+                        var dt = new List<PlantUmlDependency>();
+                        dt.AddRange(dependencyTargets.Select(target =>
+                            new PlantUmlDependency(slice.Description, target.Description, DependencyType.OneToOneUseIfNamespace)));
+                        for (int i = dt.Count - 1; i >= 0; i--)
+                        {
+                            if (dt[i].OriginCountOfDots() >= dt[i].TargetCountOfDots())
+                            {
+                                foreach (var slc in sliceList)
+                                {
+                                    if (slc.Description.Contains(dt[i].Target) && slc.Description != dt[i].Target)
+                                    {
+
+                                        dt.RemoveAt(i);
+                                        break;
+                                    }       
+                                }
+                            }
+                        }
+                        
+                        dependencies.AddRange(dt);
+                    }
+                    else
+                    {
+                        dependencies.AddRange(dependencyTargets.Select(target =>
+                            new PlantUmlDependency(slice.Description, target.Description, DependencyType.OneToOnePackages)));
+                    }
+                }
+                else
+                {
+                    dependencies.AddRange(dependencyTargets.Select(target =>
+                        new PlantUmlDependency(slice.Description, target.Description, DependencyType.OneToOneCompact)));
+                }
+            }
+
+            if (!generationOptions.IncludeNodesWithoutDependencies)
+            {
+                foreach (var entry in nodes.Where(node =>
+                             !dependencies.SelectMany(dep => new[] {dep.Origin, dep.Target})
+                                 .Contains(node.Key.Description)))
+                {
+                    nodes.Remove(entry.Key);
+                }
+            }
+
+            var nodeElements = nodes.Values.ToList();
+
+            foreach (var node in nodes)
+            {
+                if (node.Key is Namespace)
+                {
+                    var namespaceName = node.Key.Description;
+                    var dotIndex = namespaceName.Length;
+                    var parentNamespaces = new List<string>();
+                    while (dotIndex != -1)
+                    {
+                        namespaceName = namespaceName.Substring(0, dotIndex);
+                        parentNamespaces.Add(namespaceName);
+                        dotIndex = namespaceName.LastIndexOf('.');
+                    }
+
+                    parentNamespaces.Reverse();
+                    foreach (var namespc in parentNamespaces.Where(namespcName => nodeElements
+                                 .OfType<PlantUmlNamespace>()
+                                 .All(element => element.Name != namespcName)))
+                    {
+                        nodeElements.Add(new PlantUmlNamespace(namespc));
+                    }
+                }
+            }
+
+            for (var i = dependencies.Count - 1; i >= 0; i--)
+            {
+                for (var j = i - 1; j >= 0; j--)
+                {
+                    if (dependencies[i].GetPlantUmlString() == dependencies[j].GetPlantUmlString())
+                    {
+                        dependencies.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+
+            dependencies = dependencies.Distinct().ToList();
+            
             _diagram.AddElements(nodeElements.OrderBy(element =>
                 element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
             _diagram.AddElements(dependencies);

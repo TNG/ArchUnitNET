@@ -1,0 +1,156 @@
+@startuml
+package ArchUnitNET{
+package Loader{
+[LoadTasks] as ArchUnitNET.Loader.LoadTasks
+}
+}
+package ArchUnitNET{
+package Fluent{
+package Syntax{
+package Elements{
+package Types{
+[Interfaces] as ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
+}
+}
+}
+}
+}
+package ArchUnitNET{
+package Fluent{
+package Syntax{
+package Elements{
+package Types{
+[Classes] as ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
+}
+}
+}
+}
+}
+package ArchUnitNET{
+package Fluent{
+package Syntax{
+package Elements{
+package Types{
+[Attributes] as ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
+}
+}
+}
+}
+}
+package ArchUnitNET{
+package Fluent{
+package Syntax{
+package Elements{
+package Members{
+[PropertyMembers] as ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
+}
+}
+}
+}
+}
+package ArchUnitNET{
+package Fluent{
+package Syntax{
+package Elements{
+package Members{
+[MethodMembers] as ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
+}
+}
+}
+}
+}
+package ArchUnitNET{
+package Fluent{
+package Syntax{
+package Elements{
+package Members{
+[FieldMembers] as ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
+}
+}
+}
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Slices] as ArchUnitNET.Fluent.Slices
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Predicates] as ArchUnitNET.Fluent.Predicates
+}
+}
+package ArchUnitNET{
+package Fluent{
+[PlantUml] as ArchUnitNET.Fluent.PlantUml
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Freeze] as ArchUnitNET.Fluent.Freeze
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Extensions] as ArchUnitNET.Fluent.Extensions
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Exceptions] as ArchUnitNET.Fluent.Exceptions
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Conditions] as ArchUnitNET.Fluent.Conditions
+}
+}
+package ArchUnitNET{
+package Domain{
+package PlantUml{
+[Import] as ArchUnitNET.Domain.PlantUml.Import
+}
+}
+}
+package ArchUnitNET{
+package Domain{
+package PlantUml{
+[Export] as ArchUnitNET.Domain.PlantUml.Export
+}
+}
+}
+package ArchUnitNET{
+package Domain{
+package PlantUml{
+[Exceptions] as ArchUnitNET.Domain.PlantUml.Exceptions
+}
+}
+}
+package ArchUnitNET{
+package Domain{
+[Extensions] as ArchUnitNET.Domain.Extensions
+}
+}
+package ArchUnitNET{
+package Domain{
+[Exceptions] as ArchUnitNET.Domain.Exceptions
+}
+}
+package ArchUnitNET{
+package Domain{
+[Dependencies] as ArchUnitNET.Domain.Dependencies
+}
+}
+Loader ..> Domain : loader -> domain
+Fluent ..> Domain
+Syntax -> ArchUnitNET.Fluent.Predicates
+Syntax -> ArchUnitNET.Fluent.Conditions
+Members ..> Types
+ArchUnitNET.Fluent.Conditions --|> ArchUnitNET.Fluent.Predicates
+ArchUnitNET.Domain.PlantUml.Import --|> ArchUnitNET.Domain.PlantUml.Exceptions
+PlantUml -> ArchUnitNET.Domain.Extensions
+ArchUnitNET.Domain.PlantUml.Export --|> ArchUnitNET.Domain.PlantUml.Exceptions
+PlantUml -> ArchUnitNET.Domain.Dependencies
+ArchUnitNET.Domain.Extensions --|> ArchUnitNET.Domain.Exceptions
+ArchUnitNET.Domain.Extensions --|> ArchUnitNET.Domain.Dependencies
+@enduml
