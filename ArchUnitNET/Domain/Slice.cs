@@ -73,5 +73,10 @@ namespace ArchUnitNET.Domain
         {
             return Description;
         }
+
+        public bool ContainsNamespace()
+        {
+            return NameSpace != null;
+        }
     }
 }
