@@ -6,7 +6,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     {
         public string Target { get; }
         public string Origin { get; }
-        private DependencyType DependencyType { get; }
+        public DependencyType DependencyType { get; }
 
         public PlantUmlDependency(string origin, string target, DependencyType dependencyType)
         {
@@ -48,7 +48,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     return "[" + Origin + "]" + " \"1\" --|> \"many\" " + "[" + Target + "]" + " " +
                            Environment.NewLine;
 
-                case DependencyType.OneToOneUseIfNamespace:
+                case DependencyType.OneToOneIfSimilarNamespace:
                     if (OriginCountOfDots() == TargetCountOfDots() &
                         (OriginCountOfDots() == 0 |
                          Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal)) ==
@@ -98,23 +98,33 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     }
                     return "";
                 
-                case DependencyType.OneToOnePackages:
+                case DependencyType.PackageToPackageIfSimilarNamespace:
                     if (OriginCountOfDots() == TargetCountOfDots() &
                         (OriginCountOfDots() == 0 | 
                          Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal)) == 
                          Target.Remove(Target.LastIndexOf(".", StringComparison.Ordinal)))
                         )
                     {
-                        var oTmp = Origin;
-                        var tTmp = Target;
-                        while (oTmp.Contains("."))
-                        {
-                            oTmp = oTmp.Remove(0, oTmp.IndexOf(".", StringComparison.Ordinal) + 1);
-                            tTmp = tTmp.Remove(0, tTmp.IndexOf(".", StringComparison.Ordinal) + 1);
-                        }
-                        return  oTmp + " ..> " + tTmp + Environment.NewLine;                        
+                        return  Origin.Remove(0, Origin.LastIndexOf(".", StringComparison.Ordinal) + 1) 
+                                + " ..> " + 
+                                Target.Remove(0, Target.IndexOf(".", StringComparison.Ordinal) + 1) + Environment.NewLine;                        
                     }
                     return "";
+                
+                case DependencyType.OneToPackage:
+                 return  "["+ Origin + "] -[#red]> " + 
+                             Target.Remove(0, Target.LastIndexOf(".", StringComparison.Ordinal) + 1) 
+                             + Environment.NewLine;
+
+                case DependencyType.PackageToOne:
+                    return  Origin.Remove(0, Origin.LastIndexOf(".", StringComparison.Ordinal) + 1) 
+                            + " -[#blue]> [" + Target + "]" +Environment.NewLine;                        
+                
+                case DependencyType.PackageToPackage:
+                    return  Origin.Remove(0, Origin.LastIndexOf(".", StringComparison.Ordinal) + 1)
+                            + " -[#green]> " + 
+                            Target.Remove(0, Target.LastIndexOf(".", StringComparison.Ordinal) + 1) 
+                            + Environment.NewLine;
                 
                 case DependencyType.OneToOneCompact:
                     if (OriginCountOfDots() == TargetCountOfDots())
@@ -122,6 +132,13 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                         return  "[" + Origin  + "] --> [" + Target + "]" + Environment.NewLine;
                     }
                     return "";
+                
+                case DependencyType.Circle:
+                    return "[" + Origin + "]" + " <-[#red]> " + "[" + Target + "]" + Environment.NewLine;
+                
+                case DependencyType.NoDependency:
+                    return "";
+                    
             }
 
             return "";
@@ -164,8 +181,13 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     {
         OneToOne,
         OneToMany,
-        OneToOneUseIfNamespace,
-        OneToOnePackages,
-        OneToOneCompact
+        OneToPackage,
+        PackageToOne,
+        PackageToPackage,
+        OneToOneIfSimilarNamespace,
+        PackageToPackageIfSimilarNamespace,
+        OneToOneCompact,
+        Circle,
+        NoDependency
     }
 }

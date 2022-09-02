@@ -1,0 +1,163 @@
+@startuml
+package ArchUnitNET{
+package Loader{
+[LoadTasks] as ArchUnitNET.Loader.LoadTasks
+}
+}
+package ArchUnitNET{
+package Fluent{
+package Syntax{
+package Elements{
+[Types] as ArchUnitNET.Fluent.Syntax.Elements.Types
+}
+}
+}
+}
+package ArchUnitNET{
+package Fluent{
+package Syntax{
+package Elements{
+[Members] as ArchUnitNET.Fluent.Syntax.Elements.Members
+}
+}
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Slices] as ArchUnitNET.Fluent.Slices
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Predicates] as ArchUnitNET.Fluent.Predicates
+}
+}
+package ArchUnitNET{
+package Fluent{
+[PlantUml] as ArchUnitNET.Fluent.PlantUml
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Freeze] as ArchUnitNET.Fluent.Freeze
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Extensions] as ArchUnitNET.Fluent.Extensions
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Exceptions] as ArchUnitNET.Fluent.Exceptions
+}
+}
+package ArchUnitNET{
+package Fluent{
+[Conditions] as ArchUnitNET.Fluent.Conditions
+}
+}
+package ArchUnitNET{
+package Domain{
+package PlantUml{
+[Import] as ArchUnitNET.Domain.PlantUml.Import
+}
+}
+}
+package ArchUnitNET{
+package Domain{
+package PlantUml{
+[Export] as ArchUnitNET.Domain.PlantUml.Export
+}
+}
+}
+package ArchUnitNET{
+package Domain{
+package PlantUml{
+[Exceptions] as ArchUnitNET.Domain.PlantUml.Exceptions
+}
+}
+}
+package ArchUnitNET{
+package Domain{
+[Extensions] as ArchUnitNET.Domain.Extensions
+}
+}
+package ArchUnitNET{
+package Domain{
+[Exceptions] as ArchUnitNET.Domain.Exceptions
+}
+}
+package ArchUnitNET{
+package Domain{
+[Dependencies] as ArchUnitNET.Domain.Dependencies
+}
+}
+[ArchUnitNET.Loader] <-[#red]> [ArchUnitNET.Loader.LoadTasks]
+Loader -[#blue]> [ArchUnitNET.Domain]
+Loader -[#blue]> [ArchUnitNET.Domain.Extensions]
+Loader -[#blue]> [ArchUnitNET.Domain.Exceptions]
+Loader -[#blue]> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Loader.LoadTasks] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Loader.LoadTasks] --|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Loader.LoadTasks] --|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent] <-[#red]> [ArchUnitNET.Fluent.Syntax]
+[ArchUnitNET.Fluent] <-[#red]> [ArchUnitNET.Fluent.Syntax.Elements.Types]
+[ArchUnitNET.Fluent] <-[#red]> [ArchUnitNET.Fluent.Syntax.Elements.Members]
+Fluent -[#blue]> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent] <-[#red]> [ArchUnitNET.Fluent.Extensions]
+Fluent -[#blue]> [ArchUnitNET.Fluent.Exceptions]
+Fluent -[#blue]> [ArchUnitNET.Fluent.Conditions]
+Fluent -[#blue]> [ArchUnitNET.Domain]
+Fluent -[#blue]> [ArchUnitNET.Domain.Extensions]
+Syntax -[#blue]> [ArchUnitNET.Domain]
+Elements -[#blue]> [ArchUnitNET.Fluent]
+Elements -[#blue]> [ArchUnitNET.Fluent.Syntax]
+[ArchUnitNET.Fluent.Syntax.Elements] <-[#red]> [ArchUnitNET.Fluent.Syntax.Elements.Types]
+Elements -[#blue]> [ArchUnitNET.Fluent.Predicates]
+Elements -[#blue]> [ArchUnitNET.Fluent.Exceptions]
+Elements -[#blue]> [ArchUnitNET.Fluent.Conditions]
+Elements -[#blue]> [ArchUnitNET.Domain]
+Elements -[#blue]> [ArchUnitNET.Domain.Extensions]
+Elements -[#blue]> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Fluent.Syntax]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Fluent.Conditions]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Domain.PlantUml.Import]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Fluent.Syntax]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Fluent.Syntax.Elements]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Fluent.Syntax.Elements.Types]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Fluent.Conditions]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Slices] --|> [ArchUnitNET.Fluent]
+[ArchUnitNET.Fluent.Slices] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Fluent.Slices] --|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent.Predicates] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Fluent.PlantUml] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Fluent.PlantUml] --|> [ArchUnitNET.Domain.PlantUml.Export]
+[ArchUnitNET.Fluent.Freeze] --|> [ArchUnitNET.Fluent]
+[ArchUnitNET.Fluent.Freeze] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Fluent.Freeze] --|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Extensions] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Fluent.Extensions] --|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Conditions] --|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Conditions] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Domain] <-[#red]> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Domain] <-[#red]> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Domain.PlantUml.Import] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Domain.PlantUml.Import] --|> [ArchUnitNET.Domain.PlantUml.Exceptions]
+[ArchUnitNET.Domain.PlantUml.Import] --|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Domain.PlantUml.Export] --|> [ArchUnitNET.Domain]
+[ArchUnitNET.Domain.PlantUml.Export] --|> [ArchUnitNET.Domain.PlantUml.Exceptions]
+[ArchUnitNET.Domain.PlantUml.Export] --|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Domain.PlantUml.Export] --|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Domain.Extensions] --|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Domain.Extensions] --|> [ArchUnitNET.Domain.Dependencies]
+@enduml
