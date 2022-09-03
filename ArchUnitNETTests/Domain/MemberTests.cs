@@ -148,31 +148,66 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void AreReadOnlyMethodMembersAndFieldMembersAndPropertyMembers()
         {
-            Assert.Contains(Architecture.Members.WhereNameIs("PropertyWithoutSet"), 
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)), 
                 member => member.IsReadOnly == true);
-            Assert.Contains(Architecture.Members.WhereNameIs("InitOnlyProperty"),
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
                 member => member.IsReadOnly == false);
-            Assert.Contains(Architecture.Members.WhereNameIs("PropertyWithGetAndSet"),
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
                 member => member.IsReadOnly == false);
-            Assert.Contains(Architecture.Members.WhereNameIs("readonlyVar"),
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVar)),
                 member => member.IsReadOnly == true);
-            Assert.Contains(Architecture.Members.WhereNameIs("readonlyVarInit"),
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVarInit)),
                 member => member.IsReadOnly == true);
-            Assert.Contains(Architecture.Members.WhereNameIs("NotReadOnlyVarInit"),
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.NotReadOnlyVarInit)),
                 member => member.IsReadOnly == false);
-            Assert.Contains(Architecture.Members.WhereNameIs("CheckForReadOnlyMethod()"),
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.CheckForReadOnlyMethod) + "()"),
                 member => member.IsReadOnly == null);
         }
 
         [Fact]
         public void ArePropertyMembersWithInitSetter()
         {
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassInitProperty.PropertyWithInitSetter)),
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
                 member => member.IsInitSetter);
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassInitProperty.PropertyWithoutSetter)),
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
                 member => member.IsInitSetter == false);
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassInitProperty.PropertyWithSetter)),
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
                 member => member.IsInitSetter == false);
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PositionalInitOnlyProperty)),
+                member => member.IsInitSetter);
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.InitOnlyProperty)),
+                member => member.IsInitSetter);
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithoutSet)),
+                member => member.IsInitSetter == false);
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithSet)),
+                member => member.IsInitSetter == false);
+        }
+
+        [Fact]
+        public void AreMembersImmutable()
+        {
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVar)),
+                member => member.IsImmutable == true);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVarInit)),
+                member => member.IsImmutable == true);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.NotReadOnlyVarInit)),
+                member => member.IsImmutable == false);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
+                member => member.IsImmutable == true);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
+                member => member.IsImmutable == true);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
+                member => member.IsImmutable == false);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.CheckForReadOnlyMethod) + "()"),
+                member => member.IsImmutable == null);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PositionalInitOnlyProperty)),
+                member => member.IsImmutable == true);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PropertyWithoutSet)),
+                member => member.IsImmutable == true);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.InitOnlyProperty)),
+                member => member.IsImmutable == true);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PropertyWithSet)),
+                member => member.IsImmutable == false);
         }
 
         [Fact]
@@ -290,24 +325,22 @@ namespace ArchUnitNETTests.Domain
         
         private class ClassReadOnly
         {
-            private readonly string readonlyVar;
-            private readonly string readonlyVarInit = "";
-            private string NotReadOnlyVarInit = "";
-            private string PropertyWithoutSet { get; }
-            private string InitOnlyProperty { get; init; }
-            private string PropertyWithGetAndSet { get; set; }
+            public readonly string ReadonlyVar;
+            public readonly string ReadonlyVarInit = "";
+            public string NotReadOnlyVarInit = "";
+            public string PropertyWithoutSet { get; }
+            public string InitOnlyProperty { get; init; }
+            public string PropertyWithGetAndSet { get; set; }
             public void CheckForReadOnlyMethod()
             {
             }
         }
-        
-        private class ClassInitProperty
+
+        private record RecordReadOnly(string PositionalInitOnlyProperty)
         {
-            public string PropertyWithoutSetter { get; }
-
-            public string PropertyWithInitSetter { get; init; }
-
-            public string PropertyWithSetter { get; set; }
+            public string PropertyWithoutSet { get; }
+            public string InitOnlyProperty { get; init; }
+            public string PropertyWithSet { get; set; }
         }
     }
 }

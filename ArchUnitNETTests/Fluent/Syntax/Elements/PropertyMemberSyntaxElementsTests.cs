@@ -682,42 +682,5 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(propertyMembersWithoutInitSetterHaveInitSetter.HasNoViolations(Architecture));
             Assert.True(propertyMembersWithoutInitSetterHaveNoInitSetter.HasNoViolations(Architecture));
         }
-
-        [Fact]
-        public void AreImmutableTest()
-        {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberIsImmutable = PropertyMembers().That().Are(propertyMember).Should().BeImmutable();
-                var propertyMemberIsNotImmutable = PropertyMembers().That().Are(propertyMember).Should().NotBeImmutable();
-                var propertyMembersThatAreImmutableDoNotIncludeMember =
-                    PropertyMembers().That().AreImmutable().Should().NotBe(propertyMember).OrShould().NotExist();
-                var propertyMembersThatAreNotImmutableDoNotIncludeMember =
-                    PropertyMembers().That().AreNotImmutable().Should().NotBe(propertyMember).AndShould().Exist();
-
-                Assert.Equal(propertyMember.IsInitSetter || propertyMember.IsReadOnly == true,
-                    propertyMemberIsImmutable.HasNoViolations(Architecture));
-                Assert.Equal(!propertyMember.IsInitSetter && propertyMember.IsReadOnly != true,
-                    propertyMemberIsNotImmutable.HasNoViolations(Architecture));
-                Assert.Equal(!propertyMember.IsInitSetter && propertyMember.IsReadOnly != true,
-                    propertyMembersThatAreImmutableDoNotIncludeMember.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.IsInitSetter || propertyMember.IsReadOnly == true,
-                    propertyMembersThatAreNotImmutableDoNotIncludeMember.HasNoViolations(Architecture));
-            }
-
-            var propertyMembersThatAreImmutableAreImmutable =
-                PropertyMembers().That().AreImmutable().Should().BeImmutable();
-            var propertyMembersThatAreImmutableAreNotImmutable =
-                PropertyMembers().That().AreImmutable().Should().NotBeImmutable().AndShould().Exist();
-            var propertyMembersThatAreNotImmutableAreImmutable =
-                PropertyMembers().That().AreNotImmutable().Should().BeImmutable().AndShould().Exist();
-            var propertyMembersThatAreNotImmutableAreNotImmutable =
-                PropertyMembers().That().AreNotImmutable().Should().NotBeImmutable();
-
-            Assert.True(propertyMembersThatAreImmutableAreImmutable.HasNoViolations(Architecture));
-            Assert.False(propertyMembersThatAreImmutableAreNotImmutable.HasNoViolations(Architecture));
-            Assert.False(propertyMembersThatAreNotImmutableAreImmutable.HasNoViolations(Architecture));
-            Assert.True(propertyMembersThatAreNotImmutableAreNotImmutable.HasNoViolations(Architecture));
-        }
     }
 }

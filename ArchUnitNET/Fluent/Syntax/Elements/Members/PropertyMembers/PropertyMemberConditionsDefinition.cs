@@ -125,13 +125,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
                 "does not have an init setter");
         }
 
-        public static ICondition<PropertyMember> BeImmutable()
-        {
-            return new SimpleCondition<PropertyMember>(member => member.IsInitSetter || member.IsReadOnly == true,
-                "be immutable",
-                "is not immutable");
-        }
-
         public static ICondition<PropertyMember> BeVirtual()
         {
             return new SimpleCondition<PropertyMember>(member => member.IsVirtual, "be virtual", "is not virtual");
@@ -235,12 +228,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         {
             return new SimpleCondition<PropertyMember>(member => !member.IsInitSetter,
                 "not have an init setter", "has an init setter");
-        }
-
-        public static ICondition<PropertyMember> NotBeImmutable()
-        {
-            return new SimpleCondition<PropertyMember>(member => !member.IsInitSetter && member.IsReadOnly != true,
-                "not be immutable", "is immutable");
         }
 
         public static ICondition<PropertyMember> NotBeVirtual()

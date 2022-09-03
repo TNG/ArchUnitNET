@@ -43,6 +43,7 @@ namespace ArchUnitNET.Domain
         public bool IsGeneric { get; }
         public bool? IsStatic { get; }
         public bool? IsReadOnly { get; }
+        public bool? IsImmutable => IsReadOnly;
         public List<GenericParameter> GenericParameters { get; } = new List<GenericParameter>();
         public Visibility Visibility { get; }
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);

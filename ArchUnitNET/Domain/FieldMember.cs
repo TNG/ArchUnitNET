@@ -36,6 +36,7 @@ namespace ArchUnitNET.Domain
         public bool IsCompilerGenerated { get; }
         public bool? IsStatic { get; }
         public bool? IsReadOnly { get; }
+        public bool? IsImmutable => IsReadOnly;
         public bool IsGeneric => false;
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);

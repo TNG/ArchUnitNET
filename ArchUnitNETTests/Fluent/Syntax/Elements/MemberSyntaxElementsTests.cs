@@ -174,5 +174,43 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(wrongStatic.HasNoViolations(Architecture));
             Assert.False(wrongStatic2.HasNoViolations(Architecture));
         }
+
+
+        [Fact]
+        public void AreImmutableTest()
+        {
+            foreach (var member in _members)
+            {
+                var memberIsImmutable = Members().That().Are(member).Should().BeImmutable();
+                var memberIsNotImmutable = Members().That().Are(member).Should().NotBeImmutable();
+                var membersThatAreImmutableDoNotIncludeMember =
+                    Members().That().AreImmutable().Should().NotBe(member).OrShould().NotExist();
+                var membersThatAreNotImmutableDoNotIncludeMember =
+                    Members().That().AreNotImmutable().Should().NotBe(member).AndShould().Exist();
+
+                Assert.Equal(member.IsImmutable == true,
+                    memberIsImmutable.HasNoViolations(Architecture));
+                Assert.Equal(member.IsImmutable != true,
+                    memberIsNotImmutable.HasNoViolations(Architecture));
+                Assert.Equal(member.IsImmutable != true,
+                    membersThatAreImmutableDoNotIncludeMember.HasNoViolations(Architecture));
+                Assert.Equal(member.IsImmutable == true,
+                    membersThatAreNotImmutableDoNotIncludeMember.HasNoViolations(Architecture));
+            }
+
+            var membersThatAreImmutableAreImmutable =
+                Members().That().AreImmutable().Should().BeImmutable();
+            var membersThatAreImmutableAreNotImmutable =
+                Members().That().AreImmutable().Should().NotBeImmutable().AndShould().Exist();
+            var membersThatAreNotImmutableAreImmutable =
+                Members().That().AreNotImmutable().Should().BeImmutable().AndShould().Exist();
+            var membersThatAreNotImmutableAreNotImmutable =
+                Members().That().AreNotImmutable().Should().NotBeImmutable();
+
+            Assert.True(membersThatAreImmutableAreImmutable.HasNoViolations(Architecture));
+            Assert.False(membersThatAreImmutableAreNotImmutable.HasNoViolations(Architecture));
+            Assert.False(membersThatAreNotImmutableAreImmutable.HasNoViolations(Architecture));
+            Assert.True(membersThatAreNotImmutableAreNotImmutable.HasNoViolations(Architecture));
+        }
     }
 }

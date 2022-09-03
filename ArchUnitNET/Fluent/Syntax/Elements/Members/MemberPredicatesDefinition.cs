@@ -146,7 +146,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             return new SimplePredicate<T>(member => member.IsReadOnly.HasValue && member.IsReadOnly.Value, "are read only");
         }
-        
+
+        public static IPredicate<T> AreImmutable()
+        {
+            return new SimplePredicate<T>(member => member.IsImmutable == true, "are immutablee");
+        }
 
         //Negations
 
@@ -283,6 +287,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return new SimplePredicate<T>(member => member.IsReadOnly.HasValue && !member.IsReadOnly.Value,
                 "are not read only");
         }
-        
+
+        public static IPredicate<T> AreNotImmutable()
+        {
+            return new SimplePredicate<T>(member => member.IsImmutable != true, "are not immutablee");
+        }
     }
 }

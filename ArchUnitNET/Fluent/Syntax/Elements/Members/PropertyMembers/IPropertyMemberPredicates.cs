@@ -27,7 +27,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         TRuleTypeConjunction HaveProtectedInternalSetter();
         TRuleTypeConjunction HavePrivateProtectedSetter();
         TRuleTypeConjunction HaveInitSetter();
-        TRuleTypeConjunction AreImmutable();
         TRuleTypeConjunction AreVirtual();
 
 
@@ -49,7 +48,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         TRuleTypeConjunction DoNotHaveProtectedInternalSetter();
         TRuleTypeConjunction DoNotHavePrivateProtectedSetter();
         TRuleTypeConjunction DoNotHaveInitSetter();
-        TRuleTypeConjunction AreNotImmutable();
         TRuleTypeConjunction AreNotVirtual();
     }
 }

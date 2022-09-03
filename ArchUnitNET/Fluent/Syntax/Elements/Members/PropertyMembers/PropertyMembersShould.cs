@@ -105,12 +105,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
-        public PropertyMembersShouldConjunction BeImmutable()
-        {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.BeImmutable());
-            return new PropertyMembersShouldConjunction(_ruleCreator);
-        }
-
         public PropertyMembersShouldConjunction BeVirtual()
         {
             _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.BeVirtual());
@@ -208,12 +202,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public PropertyMembersShouldConjunction NotHaveInitSetter()
         {
             _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHaveInitSetter());
-            return new PropertyMembersShouldConjunction(_ruleCreator);
-        }
-
-        public PropertyMembersShouldConjunction NotBeImmutable()
-        {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotBeImmutable());
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 

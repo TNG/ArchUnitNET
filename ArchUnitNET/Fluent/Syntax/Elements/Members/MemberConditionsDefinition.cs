@@ -188,6 +188,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                 "be read only", "is not read only");
         }
 
+        public static ICondition<TRuleType> BeImmutable()
+        {
+            return new SimpleCondition<TRuleType>(member => member.IsImmutable == true,
+                "be immutable", "is not immutable");
+        }
 
         //Relation Conditions
 
@@ -372,6 +377,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         {
             return new SimpleCondition<TRuleType>(member => !member.IsReadOnly.HasValue || !member.IsReadOnly.Value,
                 "not be read only", "is read only");
+        }
+
+        public static ICondition<TRuleType> NotBeImmutable()
+        {
+            return new SimpleCondition<TRuleType>(member => member.IsImmutable != true,
+                "not be immutable", "is immutable");
         }
 
         //Relation Condition Negations

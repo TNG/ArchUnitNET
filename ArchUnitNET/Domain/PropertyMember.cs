@@ -49,6 +49,8 @@ namespace ArchUnitNET.Domain
         public bool IsGeneric => false;
         public bool? IsStatic { get; }
         public bool? IsReadOnly { get; }
+        public bool? IsImmutable => IsInitSetter || IsReadOnly == true;
+
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
 
         public Visibility Visibility => GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;

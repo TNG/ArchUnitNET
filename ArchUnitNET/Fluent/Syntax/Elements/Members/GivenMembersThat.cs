@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
@@ -77,6 +78,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction AreImmutable()
+        {
+            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreImmutable());
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         //Negations
 
 
@@ -134,6 +141,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TGivenRuleTypeConjunction AreNotReadOnly()
         {
             _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreNotReadOnly());
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNotImmutable()
+        {
+            _ruleCreator.AddPredicate(MemberPredicatesDefinition<TRuleType>.AreNotImmutable());
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }
