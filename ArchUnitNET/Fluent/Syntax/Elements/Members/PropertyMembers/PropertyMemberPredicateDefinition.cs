@@ -102,6 +102,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
                 "have an init setter");
         }
 
+        public static IPredicate<PropertyMember> AreImmutable()
+        {
+            return new SimplePredicate<PropertyMember>(member => member.IsInitSetter || member.IsReadOnly == true,
+                "are immutable");
+        }
+
         public static IPredicate<PropertyMember> AreVirtual()
         {
             return new SimplePredicate<PropertyMember>(member => member.IsVirtual, "are virtual");
@@ -199,6 +205,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         {
             return new SimplePredicate<PropertyMember>(member => !member.IsInitSetter,
                 "do not have an init setter");
+        }
+
+        public static IPredicate<PropertyMember> AreNotImmutable()
+        {
+            return new SimplePredicate<PropertyMember>(member => !member.IsInitSetter && member.IsReadOnly != true,
+                "are not immutable");
         }
 
         public static IPredicate<PropertyMember> AreNotVirtual()

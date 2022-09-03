@@ -27,6 +27,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         TReturnType HaveProtectedInternalSetter();
         TReturnType HavePrivateProtectedSetter();
         TReturnType HaveInitSetter();
+        TReturnType BeImmutable();
         TReturnType BeVirtual();
 
 
@@ -48,6 +49,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         TReturnType NotHaveProtectedInternalSetter();
         TReturnType NotHavePrivateProtectedSetter();
         TReturnType NotHaveInitSetter();
+        TReturnType NotBeImmutable();
         TReturnType NotBeVirtual();
     }
 }
