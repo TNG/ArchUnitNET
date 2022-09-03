@@ -68,8 +68,15 @@ namespace ArchUnitNET.Loader.LoadTasks
             var isStatic = (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic) ||
                            (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
             bool? isReadOnly = (propertyDefinition.SetMethod == null);
+            // HACK: Init setters are C# 8 feature that is only available in .net 5 and later.
+            // ArcUnitNET does not currently target those versions.
+            // That is why ModifierType.FullName is checked since there is no access to the IsExternalInit type.
+            bool isInitSetter = propertyDefinition.SetMethod != null
+                && propertyDefinition.SetMethod.ReturnType.IsRequiredModifier
+                && ((RequiredModifierType)propertyDefinition.SetMethod.ReturnType).ModifierType.FullName
+                    == "System.Runtime.CompilerServices.IsExternalInit";
             return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType,
-                isCompilerGenerated, isStatic, isReadOnly);
+                isCompilerGenerated, isStatic, isReadOnly, isInitSetter);
         }
 
         private static Visibility GetVisibilityFromFieldDefinition([NotNull] FieldDefinition fieldDefinition)

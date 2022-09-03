@@ -103,6 +103,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction HaveInitSetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HaveInitSetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction AreVirtual()
         {
             _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.AreVirtual());
@@ -194,6 +200,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public TRuleTypeShouldConjunction DoNotHavePrivateProtectedSetter()
         {
             _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedSetter());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction DoNotHaveInitSetter()
+        {
+            _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.DoNotHaveInitSetter());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

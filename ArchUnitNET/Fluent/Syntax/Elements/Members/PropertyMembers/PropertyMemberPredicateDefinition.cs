@@ -96,6 +96,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
                 "have private protected setter");
         }
 
+        public static IPredicate<PropertyMember> HaveInitSetter()
+        {
+            return new SimplePredicate<PropertyMember>(member => member.IsInitSetter,
+                "have an init setter");
+        }
+
         public static IPredicate<PropertyMember> AreVirtual()
         {
             return new SimplePredicate<PropertyMember>(member => member.IsVirtual, "are virtual");
@@ -187,6 +193,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         {
             return new SimplePredicate<PropertyMember>(member => member.SetterVisibility != PrivateProtected,
                 "do not have private protected setter");
+        }
+
+        public static IPredicate<PropertyMember> DoNotHaveInitSetter()
+        {
+            return new SimplePredicate<PropertyMember>(member => !member.IsInitSetter,
+                "do not have an init setter");
         }
 
         public static IPredicate<PropertyMember> AreNotVirtual()

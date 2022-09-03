@@ -163,7 +163,18 @@ namespace ArchUnitNETTests.Domain
             Assert.Contains(Architecture.Members.WhereNameIs("CheckForReadOnlyMethod()"),
                 member => member.IsReadOnly == null);
         }
-        
+
+        [Fact]
+        public void ArePropertyMembersWithInitSetter()
+        {
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassInitProperty.PropertyWithInitSetter)),
+                member => member.IsInitSetter);
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassInitProperty.PropertyWithoutSetter)),
+                member => member.IsInitSetter == false);
+            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassInitProperty.PropertyWithSetter)),
+                member => member.IsInitSetter == false);
+        }
+
         [Fact]
         public void FieldMemberEquivalencyTests()
         {
@@ -290,5 +301,13 @@ namespace ArchUnitNETTests.Domain
             }
         }
         
+        private class ClassInitProperty
+        {
+            public string PropertyWithoutSetter { get; }
+
+            public string PropertyWithInitSetter { get; init; }
+
+            public string PropertyWithSetter { get; set; }
+        }
     }
 }
