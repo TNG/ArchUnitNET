@@ -130,5 +130,18 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(notImmutableClassesAreImmutable.HasNoViolations(Architecture));
             Assert.True(notImmutableClassesAreNotImmutabled.HasNoViolations(Architecture));
         }
+
+        private record ImmutableRecord(string Property, string AnotherProperty);
+
+        private class ImmutableClass
+        {
+            private readonly string field;
+
+            private readonly string initializedField = "";
+
+            public string Property { get; }
+
+            public string AnotherProperty { get; init; }
+        }
     }
 }
