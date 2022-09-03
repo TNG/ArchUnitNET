@@ -6,6 +6,7 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
+using System.Linq;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
@@ -23,6 +24,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
                 "is not sealed");
         }
 
+        public static ICondition<Class> BeImmutable()
+        {
+            return new SimpleCondition<Class>(cls => cls.Members.All(m => m.IsImmutable != false), "be immutable",
+                "is not immutable");
+        }
 
         //Negations
 
@@ -37,6 +43,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         {
             return new SimpleCondition<Class>(cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value, "not be sealed",
                 "is sealed");
+        }
+
+        public static ICondition<Class> NotBeImmutable()
+        {
+            return new SimpleCondition<Class>(cls => cls.Members.Any(m => m.IsImmutable == false), "not be immutable",
+                "is immutable");
         }
     }
 }

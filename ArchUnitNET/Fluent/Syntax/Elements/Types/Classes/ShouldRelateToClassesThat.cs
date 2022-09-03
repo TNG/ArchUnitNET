@@ -30,6 +30,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction AreImmutable()
+        {
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreImmutable());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         //Negations
 
@@ -43,6 +48,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         public TRuleTypeShouldConjunction AreNotSealed()
         {
             _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotSealed());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotImmutable()
+        {
+            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotImmutable());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

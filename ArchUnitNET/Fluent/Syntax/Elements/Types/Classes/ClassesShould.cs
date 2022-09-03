@@ -26,6 +26,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return new ClassesShouldConjunction(_ruleCreator);
         }
 
+        public ClassesShouldConjunction BeImmutable()
+        {
+            _ruleCreator.AddCondition(ClassConditionsDefinition.BeImmutable());
+            return new ClassesShouldConjunction(_ruleCreator);
+        }
 
         //Negations
 
@@ -39,6 +44,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         public ClassesShouldConjunction NotBeSealed()
         {
             _ruleCreator.AddCondition(ClassConditionsDefinition.NotBeSealed());
+            return new ClassesShouldConjunction(_ruleCreator);
+        }
+
+        public ClassesShouldConjunction NotBeImmutable()
+        {
+            _ruleCreator.AddCondition(ClassConditionsDefinition.NotBeImmutable());
             return new ClassesShouldConjunction(_ruleCreator);
         }
     }

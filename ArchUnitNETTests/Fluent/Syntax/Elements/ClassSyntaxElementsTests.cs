@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
@@ -100,6 +101,34 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.True(Classes().That().AreValueTypes().Should().NotExist().HasNoViolations(Architecture));
             Assert.True(Classes().Should().NotBeValueTypes().HasNoViolations(Architecture));
             Assert.False(Classes().Should().BeValueTypes().HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void AreImmutableTest()
+        {
+            foreach (var cls in _classes)
+            {
+                var clsIsImmutable = Classes().That().Are(cls).Should().BeImmutable();
+                var clsIsNotImmutable = Classes().That().Are(cls).Should().NotBeImmutable();
+                var immutableClassesDoNotIncludeType = Classes().That().AreImmutable().Should().NotBe(cls);
+                var notImmutableClassesDoNotIncludeType = Classes().That().AreNotImmutable().Should().NotBe(cls);
+
+                bool isImmutable = cls.Members.All(m => m.IsImmutable != false);
+                Assert.Equal(isImmutable, clsIsImmutable.HasNoViolations(Architecture));
+                Assert.Equal(!isImmutable, clsIsNotImmutable.HasNoViolations(Architecture));
+                Assert.Equal(!isImmutable, immutableClassesDoNotIncludeType.HasNoViolations(Architecture));
+                Assert.Equal(isImmutable, notImmutableClassesDoNotIncludeType.HasNoViolations(Architecture));
+            }
+
+            var immutableClassesAreImmutable = Classes().That().AreImmutable().Should().BeImmutable();
+            var immutableClassesAreNotImmutable = Classes().That().AreImmutable().Should().NotBeImmutable();
+            var notImmutableClassesAreImmutable = Classes().That().AreNotImmutable().Should().BeImmutable();
+            var notImmutableClassesAreNotImmutabled = Classes().That().AreNotImmutable().Should().NotBeImmutable();
+
+            Assert.True(immutableClassesAreImmutable.HasNoViolations(Architecture));
+            Assert.False(immutableClassesAreNotImmutable.HasNoViolations(Architecture));
+            Assert.False(notImmutableClassesAreImmutable.HasNoViolations(Architecture));
+            Assert.True(notImmutableClassesAreNotImmutabled.HasNoViolations(Architecture));
         }
     }
 }

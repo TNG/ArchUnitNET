@@ -13,6 +13,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
     {
         TReturnType BeAbstract();
         TReturnType BeSealed();
+        TReturnType BeImmutable();
 
 
         //Negations
@@ -20,5 +21,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         TReturnType NotBeAbstract();
         TReturnType NotBeSealed();
+        TReturnType NotBeImmutable();
     }
 }
