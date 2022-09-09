@@ -66,6 +66,13 @@ namespace ArchUnitNET.Fluent.PlantUml
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IEnumerable<Slice> slices, string focusOnPackage)
+        {
+            _fluentComponentDiagramCreator.Builder.WithDependenciesFromFocusOn(slices, focusOnPackage);
+            _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
+            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+        }
+        
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IObjectProvider<Slice> slices,
             Architecture architecture)
         {
