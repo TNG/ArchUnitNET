@@ -47,21 +47,18 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     i++;
                 }
 
-                if ( _countOfSingleAsterisk == null | i < _countOfSingleAsterisk + 1)
+                if ( _countOfSingleAsterisk == null | i <= _countOfSingleAsterisk)
                 {
                     if (name != "")
                     {
                         result += "[" + name + "] as " + _name;
-                        while (i > 0)
-                        {
-                            result += Environment.NewLine;
-                            result += "}";
-                            i--;
-                        }
                     }
-                    else
+
+                    while (i > 0)
                     {
-                        result = "";
+                        result += Environment.NewLine;
+                        result += "}";
+                        i--;
                     }
                 }
                 else

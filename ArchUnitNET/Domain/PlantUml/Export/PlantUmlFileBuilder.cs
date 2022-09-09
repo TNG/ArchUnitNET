@@ -304,6 +304,132 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return this;
         }
 
+    public PlantUmlFileBuilder WithDependenciesFromFocusOn(IEnumerable<Slice> slices, string package)
+        {
+            _sliceList = slices.Distinct().ToList();
+            RemovePatternInappropriateSlices();
+
+            if (package == "")
+            {
+                throw new ArgumentException("Package can't contain empty line");
+            }
+            
+            var existPackage = false;
+            foreach (var slice in _sliceList.Where(slice => slice.Description.Contains(package)))
+            {
+                existPackage = true;
+            }
+
+            if (!existPackage)
+            {
+                throw new ArgumentException("This package don't contains in this slice");
+            }
+            
+            
+            
+            var nodes = new Dictionary<Slice, IPlantUmlElement>();
+            var generationOptions = new GenerationOptions();
+
+
+            foreach (var slice in _sliceList)
+            {
+                var sliceIsPackage = IfPackage(slice);
+
+                var dependencyTargets = _sliceList.Where(targetSlice =>
+                    targetSlice.Description != slice.Description &&
+                    slice.Dependencies.Where(dep =>
+                            generationOptions.DependencyFilter?.Invoke(dep) ?? true)
+                        .Any(dep => targetSlice.Types.Contains(dep.Target)));
+
+                if (sliceIsPackage)
+                {
+                    _dependencies.AddRange(dependencyTargets.Select(target =>
+                        new PlantUmlDependency(slice.Description, target.Description, DependencyType.PackageToOne)));
+                }
+                else
+                {
+                    _dependencies.AddRange(dependencyTargets.Select(target =>
+                        new PlantUmlDependency(slice.Description, target.Description, DependencyType.OneToOne)));
+                }
+
+                if (slice is Namespace) //This throws errors if namespaces and slices are used in the same diagram, the syntax can't be mixed in PlantUML
+                {
+                    nodes.Add(slice, new PlantUmlNamespace(slice.Description));
+                }
+                else if (!sliceIsPackage)
+                {
+                    nodes.Add(slice, new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern, slice.NameSpace));
+                }
+                else
+                {
+                    nodes.Add(slice, new PlantUmlSlice(slice.Description + ".", slice.CountOfAsteriskInPattern, slice.NameSpace));
+                }
+            }
+
+            if (!generationOptions.IncludeNodesWithoutDependencies)
+            {
+                foreach (var entry in nodes.Where(node =>
+                             !_dependencies.SelectMany(dep => new[] {dep.Origin, dep.Target})
+                                 .Contains(node.Key.Description)))
+                {
+                    nodes.Remove(entry.Key);
+                }
+            }
+            
+            RemoveDuplicateDependenciesWhenShowingPackages();
+            RemoveCircles();
+            RemoveDuplicatedArrowsIfExist();
+
+            for (var j = _dependencies.Count - 1; j >= 0; j--)
+            {
+                if (!_dependencies[j].Origin.Contains(package) && !_dependencies[j].Target.Contains(package))
+                {
+                    _dependencies.RemoveAt(j);
+                }
+            }
+
+            for (var i = nodes.Count - 1; i >= 0; i--)
+            {
+                var nodeExist = _dependencies.Any(dep => nodes.ElementAt(i).Key.Description == dep.Origin || nodes.ElementAt(i).Key.Description == dep.Target);
+                if (!nodeExist)
+                {
+                    nodes.Remove(nodes.ElementAt(i).Key);
+                }
+            }
+
+            var nodeElements = nodes.Values.ToList();
+
+            foreach (var node in nodes)
+            {
+                if (node.Key is Namespace)
+                {
+                    var namespaceName = node.Key.Description;
+                    var dotIndex = namespaceName.Length;
+                    var parentNamespaces = new List<string>();
+                    while (dotIndex != -1)
+                    {
+                        namespaceName = namespaceName.Substring(0, dotIndex);
+                        parentNamespaces.Add(namespaceName);
+                        dotIndex = namespaceName.LastIndexOf('.');
+                    }
+
+                    parentNamespaces.Reverse();
+                    foreach (var namespc in parentNamespaces.Where(namespcName => nodeElements
+                                 .OfType<PlantUmlNamespace>()
+                                 .All(element => element.Name != namespcName)))
+                    {
+                        nodeElements.Add(new PlantUmlNamespace(namespc));
+                    }
+                }
+            }
+            
+            _diagram.AddElements(nodeElements.OrderBy(element =>
+                element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
+            _diagram.AddElements(_dependencies);
+
+            return this;
+        }        
+
         private void RemovePatternInappropriateSlices()
         {
             var sliceListCopy = new List<Slice>();
