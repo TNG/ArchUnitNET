@@ -47,7 +47,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             const string path1 = "../../../Fluent/PlantUml/Test.puml";
             ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(arch1), "Fluent.Syntax.Elements.Members").WriteToFile(path1);
             Assert.True(File.Exists(path1));
-            //File.Delete(path1);
+            File.Delete(path1);
         }
 
         [Fact]
