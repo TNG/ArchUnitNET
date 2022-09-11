@@ -113,7 +113,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var immutableClassesDoNotIncludeType = Classes().That().AreImmutable().Should().NotBe(cls);
                 var notImmutableClassesDoNotIncludeType = Classes().That().AreNotImmutable().Should().NotBe(cls);
 
-                bool isImmutable = cls.Members.All(m => m.IsImmutable != false);
+                bool isImmutable = cls.Members.Where(m => m.IsStatic == false).All(m => m.IsImmutable != false);
                 Assert.Equal(isImmutable, clsIsImmutable.HasNoViolations(Architecture));
                 Assert.Equal(!isImmutable, clsIsNotImmutable.HasNoViolations(Architecture));
                 Assert.Equal(!isImmutable, immutableClassesDoNotIncludeType.HasNoViolations(Architecture));
@@ -142,6 +142,22 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             public string Property { get; }
 
             public string AnotherProperty { get; init; }
+        }
+
+        private class ImmutableClassWithoutMembers { }
+
+        private class ImmutableClassWithoutPropertiesAndFields
+        {
+            private void Method() { }
+        }
+
+
+        private class ImmutableClassWithOnlyStaticMembers
+        {
+            private const string ConstField = "const";
+            private static string StaticField;
+            public static string StaticProperty { get; set; }
+            private static void Method() { }
         }
     }
 }

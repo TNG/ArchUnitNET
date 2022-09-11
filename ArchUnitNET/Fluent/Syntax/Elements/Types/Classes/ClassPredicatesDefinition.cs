@@ -24,7 +24,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public static IPredicate<Class> AreImmutable()
         {
-            return new SimplePredicate<Class>(cls => cls.Members.All(x => x.IsImmutable != false), "are immutable");
+            return new SimplePredicate<Class>(cls => cls.Members.Where(m => m.IsStatic == false).All(m => m.IsImmutable != false), "are immutable");
         }
 
         //Negations
@@ -42,7 +42,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public static IPredicate<Class> AreNotImmutable()
         {
-            return new SimplePredicate<Class>(cls => cls.Members.Any(x => x.IsImmutable == false), "are not immutable");
+            return new SimplePredicate<Class>(cls => cls.Members.Any(m => m.IsStatic == false && m.IsImmutable == false), "are not immutable");
         }
     }
 }
