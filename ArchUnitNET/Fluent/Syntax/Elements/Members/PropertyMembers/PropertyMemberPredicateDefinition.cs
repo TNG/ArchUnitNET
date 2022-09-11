@@ -98,7 +98,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public static IPredicate<PropertyMember> HaveInitSetter()
         {
-            return new SimplePredicate<PropertyMember>(member => member.IsInitSetter,
+            return new SimplePredicate<PropertyMember>(member => member.WriteAccessor == WriteAccessor.Init,
                 "have an init setter");
         }
 
@@ -197,7 +197,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public static IPredicate<PropertyMember> DoNotHaveInitSetter()
         {
-            return new SimplePredicate<PropertyMember>(member => !member.IsInitSetter,
+            return new SimplePredicate<PropertyMember>(member => member.WriteAccessor != WriteAccessor.Init,
                 "do not have an init setter");
         }
 

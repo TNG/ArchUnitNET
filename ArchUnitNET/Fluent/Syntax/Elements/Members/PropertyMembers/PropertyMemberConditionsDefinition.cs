@@ -120,7 +120,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public static ICondition<PropertyMember> HaveInitSetter()
         {
-            return new SimpleCondition<PropertyMember>(member => member.IsInitSetter,
+            return new SimpleCondition<PropertyMember>(member => member.WriteAccessor == WriteAccessor.Init,
                 "have an init setter",
                 "does not have an init setter");
         }
@@ -226,7 +226,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public static ICondition<PropertyMember> NotHaveInitSetter()
         {
-            return new SimpleCondition<PropertyMember>(member => !member.IsInitSetter,
+            return new SimpleCondition<PropertyMember>(member => member.WriteAccessor != WriteAccessor.Init,
                 "not have an init setter", "has an init setter");
         }
 

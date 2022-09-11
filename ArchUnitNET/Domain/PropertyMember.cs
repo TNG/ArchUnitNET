@@ -17,7 +17,7 @@ namespace ArchUnitNET.Domain
         private readonly ITypeInstance<IType> _typeInstance;
 
         public PropertyMember(IType declaringType, string name, string fullName, ITypeInstance<IType> type,
-            bool isCompilerGenerated, bool? isStatic, bool? isReadOnly, bool isInitSetter)
+            bool isCompilerGenerated, bool? isStatic, bool? isReadOnly, WriteAccessor writeAccessor)
         {
             Name = name;
             FullName = fullName;
@@ -27,7 +27,7 @@ namespace ArchUnitNET.Domain
             PropertyTypeDependency = new PropertyTypeDependency(this);
             IsStatic = isStatic;
             IsReadOnly = isReadOnly;
-            IsInitSetter = isInitSetter;
+            WriteAccessor = writeAccessor;
         }
 
         public bool IsVirtual { get; internal set; }
@@ -39,7 +39,7 @@ namespace ArchUnitNET.Domain
 
         [CanBeNull] public MethodMember Setter { get; internal set; }
 
-        public bool IsInitSetter { get; }
+        public WriteAccessor WriteAccessor { get; }
 
         public List<IMemberTypeDependency> AttributeDependencies { get; } = new List<IMemberTypeDependency>();
 
@@ -49,7 +49,7 @@ namespace ArchUnitNET.Domain
         public bool IsGeneric => false;
         public bool? IsStatic { get; }
         public bool? IsReadOnly { get; }
-        public bool? IsImmutable => IsInitSetter || IsReadOnly == true;
+        public bool? IsImmutable => WriteAccessor == WriteAccessor.Init || IsReadOnly == true;
 
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
 

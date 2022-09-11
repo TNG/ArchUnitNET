@@ -168,19 +168,19 @@ namespace ArchUnitNETTests.Domain
         public void ArePropertyMembersWithInitSetter()
         {
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
-                member => member.IsInitSetter);
+                member => member.WriteAccessor == WriteAccessor.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
-                member => member.IsInitSetter == false);
+                member => member.WriteAccessor != WriteAccessor.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
-                member => member.IsInitSetter == false);
+                member => member.WriteAccessor != WriteAccessor.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PositionalInitOnlyProperty)),
-                member => member.IsInitSetter);
+                member => member.WriteAccessor == WriteAccessor.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.InitOnlyProperty)),
-                member => member.IsInitSetter);
+                member => member.WriteAccessor == WriteAccessor.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithoutSet)),
-                member => member.IsInitSetter == false);
+                member => member.WriteAccessor != WriteAccessor.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithSet)),
-                member => member.IsInitSetter == false);
+                member => member.WriteAccessor != WriteAccessor.Init);
         }
 
         [Fact]
