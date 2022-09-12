@@ -81,8 +81,8 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             Assert.NotEmpty(uml);
 
             var expectedUml = "@startuml" + Environment.NewLine + "class \"d\" {" + Environment.NewLine + "}" +
-                              Environment.NewLine + "\"a\" --|> \"b\"" +
-                              Environment.NewLine + "\"b\" --|> \"c\"" + Environment.NewLine + "\"c\" --|> \"a\"" +
+                              Environment.NewLine + "[a] --|> [b]" +
+                              Environment.NewLine + "[b] --|> [c]" + Environment.NewLine + "[c] --|> [a]" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
@@ -93,7 +93,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
             const string path = "temp/testUml.puml";
             var expectedUml = new[]
-                {"@startuml", "class \"d\" {", "}", "\"a\" --|> \"b\"", "\"b\" --|> \"c\"", "\"c\" --|> \"a\"", "@enduml"};
+                {"@startuml", "class \"d\" {", "}", "[a] --|> [b]", "[b] --|> [c]", "[c] --|> [a]", "@enduml"};
             ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).WriteToFile(path);
             Assert.True(File.Exists(path));
 

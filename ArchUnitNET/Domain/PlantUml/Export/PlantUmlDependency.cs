@@ -39,6 +39,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             {
                 case DependencyType.OneToOne:
                     return "[" + Origin + "]" + " --|> " + "[" + Target + "]" + Environment.NewLine;
+
                 case DependencyType.OneToMany:
                     return "[" + Origin + "]" + " \"1\" --|> \"many\" " + "[" + Target + "]" + " " +
                            Environment.NewLine;
@@ -133,7 +134,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 
                 case DependencyType.NoDependency:
                     return "";
-                    
             }
 
             return "";
