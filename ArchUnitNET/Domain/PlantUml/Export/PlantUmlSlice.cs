@@ -17,8 +17,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private string _hyperlink { get; }
         private string _namespace { get; }
         private int? _countOfSingleAsterisk { get; }
-
-        public PlantUmlSlice(string name, int? countOfSingleAsterisk = null, string nameSpace = null, string hyperlink = null)
+        private string _color { get; }
+        public PlantUmlSlice(string name, int? countOfSingleAsterisk = null, string nameSpace = null, string color = null, string hyperlink = null)
         {
             PlantUmlNameChecker.AssertNoForbiddenCharacters(name, hyperlink, nameSpace);
             PlantUmlNameChecker.AssertNotNullOrEmpty(name);
@@ -26,6 +26,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             _hyperlink = hyperlink;
             _namespace = nameSpace;
             _countOfSingleAsterisk = countOfSingleAsterisk;
+            _color = color;
+        }
+
+        public override string ToString()
+        {
+            return _name;
         }
 
         public string GetPlantUmlString(RenderOptions renderOptions)
@@ -47,44 +53,34 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     i++;
                 }
 
-                if ( _countOfSingleAsterisk == null | i <= _countOfSingleAsterisk)
+                if (name != "")
                 {
-                    if (name != "")
+                    result += "[" + name + "] as " + _name;
+                    if (_color != null)
                     {
-                        result += "[" + name + "] as " + _name;
+                        result += " #" + _color;
                     }
+                }
+                else if (_color != null)
+                {
+                    result = result.Remove(result.LastIndexOf("{", StringComparison.Ordinal));
+                    result += " #" + _color + "{" + Environment.NewLine;
+                }
 
-                    while (i > 0)
-                    {
-                        result += Environment.NewLine;
-                        result += "}";
-                        i--;
-                    }
-                }
-                else
+                while (i > 0)
                 {
-                    result = "";
-                }
-            }
-            else if(_countOfSingleAsterisk != null)
-            {
-                var i = 1;
-                var name = _name;
-                while (name.Contains("."))
-                {
-                    var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
-                    name = name.Remove(0, dotPattern + 1);
-                    i++;
-                }
-                
-                if (i >= _countOfSingleAsterisk)
-                {
-                    result = "";
+                    result += Environment.NewLine;
+                    result += "}";
+                    i--;
                 }
             }
             else
             {
                 result += "[" + _name + "]";
+                if (_color != null)
+                {
+                    result += " #" + _color;
+                }
             }
 
             if (_hyperlink != null)
@@ -92,10 +88,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 result += " [[" + _hyperlink + "]] ";
             }
 
-            if (result != "")
-            {
-                result += Environment.NewLine;   
-            }
+            result += Environment.NewLine;
 
             return result;
         }

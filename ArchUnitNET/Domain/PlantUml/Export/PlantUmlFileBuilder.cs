@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
 
 namespace ArchUnitNET.Domain.PlantUml.Export
@@ -202,7 +203,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             foreach (var slice in _sliceList)
             {
-                
                 var sliceIsPackage = IfPackage(slice);
 
                 if (slice is Namespace) //This throws errors if namespaces and slices are used in the same diagram, the syntax can't be mixed in PlantUML
@@ -304,33 +304,34 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return this;
         }
 
-    public PlantUmlFileBuilder WithDependenciesFromFocusOn(IEnumerable<Slice> slices, string package)
+        public PlantUmlFileBuilder WithDependenciesFromFocusOn(IEnumerable<Slice> slices, string package)
         {
             _sliceList = slices.Distinct().ToList();
-            RemovePatternInappropriateSlices();
-
-            if (package == "")
+            
+            switch (package)
             {
-                throw new ArgumentException("Package can't contain empty line");
+                case "":
+                    throw new ArgumentException("Package can't be empty");
+                case ".":
+                    throw new ArgumentException("Package can't contain a single dot only");
+            }
+
+            if (package[package.Length-1] == '.')
+            {
+                package = package.Remove(package.Length - 1);
             }
             
-            var existPackage = false;
-            foreach (var slice in _sliceList.Where(slice => slice.Description.Contains(package)))
-            {
-                existPackage = true;
-            }
-
+            RemovePatternInappropriateSlices(package);
+            
+            var existPackage = _sliceList.Any(slice => (slice.NameSpace + slice.Description).Contains(package));
             if (!existPackage)
             {
-                throw new ArgumentException("This package don't contains in this slice");
+                throw new ArgumentException("The package [" + package + "] don't contains in this slice");
             }
-            
-            
-            
+
             var nodes = new Dictionary<Slice, IPlantUmlElement>();
             var generationOptions = new GenerationOptions();
-
-
+            
             foreach (var slice in _sliceList)
             {
                 var sliceIsPackage = IfPackage(slice);
@@ -358,11 +359,20 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 }
                 else if (!sliceIsPackage)
                 {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern, slice.NameSpace));
+                    nodes.Add(slice,
+                        slice.Description.Contains(package)
+                            ? new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern,
+                                slice.NameSpace, "99ffd1")
+                            : new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern,
+                                slice.NameSpace));
                 }
                 else
                 {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description + ".", slice.CountOfAsteriskInPattern, slice.NameSpace));
+                    if (!slice.Description.Contains(package))
+                    {
+                        nodes.Add(slice, 
+                            new PlantUmlSlice(slice.Description + ".", slice.CountOfAsteriskInPattern, slice.NameSpace));
+                    }
                 }
             }
 
@@ -425,34 +435,52 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             
             _diagram.AddElements(nodeElements.OrderBy(element =>
                 element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
+
+            var tempList = _sliceList.Where(slice => IfPackage(slice) && slice.Description.Contains(package))
+                .Select(slice => new PlantUmlSlice(slice.Description + ".", slice.CountOfAsteriskInPattern, slice.NameSpace, "99ffd1"))
+                .ToList();
+            if (tempList.Count > 0)
+            {
+                _diagram.AddElements(tempList.OrderByDescending(element => element.ToString()));
+            }
             _diagram.AddElements(_dependencies);
 
             return this;
         }        
 
-        private void RemovePatternInappropriateSlices()
+        private void RemovePatternInappropriateSlices(string thatContainsThisString = null)
         {
+            if (_sliceList.Any(slice => slice.CountOfAsteriskInPattern == null && thatContainsThisString == null))
+            {
+                return;
+            }
+            else if (thatContainsThisString != null)
+            {
+                var cont = _sliceList.Any(slice => (slice.NameSpace+slice.Description).Contains(thatContainsThisString));
+                if (!cont)
+                {
+                     return;
+                }
+            }
+            
             var sliceListCopy = new List<Slice>();
             sliceListCopy.AddRange(_sliceList);
-            
-            for (var i = sliceListCopy.Capacity - 1; i >= 0; i--)
+            for (var i = sliceListCopy.Count - 1; i >= 0; i--)
             {
                 var currentSliceDescription = sliceListCopy[i].Description;
                 var dots = 0;
-                while (currentSliceDescription.Contains("."))
+
+                if (thatContainsThisString != null && !(sliceListCopy[i].Description).Contains(thatContainsThisString))
                 {
-                    dots++;
-                    currentSliceDescription = currentSliceDescription.Remove(0, currentSliceDescription.IndexOf(".", StringComparison.Ordinal) + 1);
+                    continue;
                 }
+                
+                dots += currentSliceDescription.Count(c => c == '.');
 
                 if (sliceListCopy[i].ContainsNamespace())
                 {
                     currentSliceDescription = sliceListCopy[i].NameSpace;
-                    while (currentSliceDescription.Contains("."))
-                    {
-                        dots--;
-                        currentSliceDescription = currentSliceDescription.Remove(0, currentSliceDescription.IndexOf(".", StringComparison.Ordinal) + 1);
-                    }
+                    dots -= currentSliceDescription.Count(c => c == '.');
                 }
 
                 if (sliceListCopy[i].CountOfAsteriskInPattern != null &
@@ -480,11 +508,11 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         private void RemoveDuplicateDependenciesWhenShowingPackages()
         {
-            if (!_sliceList[0].ContainsNamespace())
+            if (_sliceList.Any(slice => !slice.ContainsNamespace()))
             {
                 return;
             }
-
+            
             for (var j = _dependencies.Count-1; j >= 0; j--)
             {
                 if (_sliceList.Any(slice => slice.Description.Contains(_dependencies[j].Target) &&
@@ -576,7 +604,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             for (var i = _sliceList.Count - 1; i >= 0; i--)
             {
                 if (_sliceList[i].Description != slice.Description &
-                    _sliceList[i].Description.Contains(slice.Description))
+                    _sliceList[i].Description.StartsWith(slice.Description))
                 {
                     return true;
                 }

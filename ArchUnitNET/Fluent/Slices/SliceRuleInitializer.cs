@@ -43,30 +43,10 @@ namespace ArchUnitNET.Fluent.Slices
         private static string Parse(string pattern)
         {
             var indexOfAsteriskInPattern = pattern.IndexOf("(*", StringComparison.Ordinal);
-            var tmpStr = pattern.Remove(0, indexOfAsteriskInPattern - 1);
-            _countOfSingleAsterisk = 0;
-            while (tmpStr.Contains("(*)"))
-            {
-                _countOfSingleAsterisk++;
-                tmpStr = tmpStr.Remove(0, 4);
-            }
-            
-            if (_countOfSingleAsterisk > 1)
-            {
-                pattern = pattern.Remove(indexOfAsteriskInPattern) + "(**).";
-            }
-            else
-            {
-                _countOfSingleAsterisk = null;
-            }
-            return pattern;
-        }
-
-        private static SliceIdentifier AssignFunc(IType type, string pattern, bool fullName = false)
-        {
             var containsSingleAsterisk = pattern.Contains("(*)");
             var containsDoubleAsterisk = pattern.Contains("(**)");
-            var indexOfAsteriskInPattern = pattern.IndexOf("(*", StringComparison.Ordinal);
+            var tmpStr = pattern.Remove(0, indexOfAsteriskInPattern - 1);
+            
             if (!containsSingleAsterisk && !containsDoubleAsterisk)
             {
                 throw new ArgumentException("Patterns for Slices have to contain (*) or (**).");
@@ -82,6 +62,28 @@ namespace ArchUnitNET.Fluent.Slices
                 throw new ArgumentException("Patterns for Slices can contain (**) only once.");
             }
 
+            _countOfSingleAsterisk = 0;
+            while (tmpStr.Contains("(*)"))
+            {
+                _countOfSingleAsterisk++;
+                tmpStr = tmpStr.Remove(0, 4);
+            }
+            
+            if (_countOfSingleAsterisk > 0)
+            {
+                pattern = pattern.Remove(indexOfAsteriskInPattern) + "(**).";
+            }
+            else
+            {
+                _countOfSingleAsterisk = null;
+            }
+            
+            return pattern;
+        }
+
+        private static SliceIdentifier AssignFunc(IType type, string pattern, bool fullName = false)
+        {
+            var indexOfAsteriskInPattern = pattern.IndexOf("(*", StringComparison.Ordinal);
 
             var namespc = type.Namespace.FullName;
             var slicePrefix = pattern.Remove(indexOfAsteriskInPattern);
@@ -130,20 +132,9 @@ namespace ArchUnitNET.Fluent.Slices
                                             pattern + "\"");
             }
 
-            if (slicePostfix == "")
-            {
-                if (containsSingleAsterisk && sliceString.IndexOf(".", StringComparison.Ordinal) >= 0)
-                {
-                    sliceString = sliceString.Remove(sliceString.IndexOf(".", StringComparison.Ordinal));
-                }
-            }
-            else
+            if (slicePostfix != "")
             {
                 sliceString = sliceString.Remove(sliceString.IndexOf(slicePostfix, StringComparison.Ordinal));
-                if (containsSingleAsterisk && sliceString.Trim('.').Contains("."))
-                {
-                    return SliceIdentifier.Ignore();
-                }
             }
 
             return fullName ? SliceIdentifier.Of(slicePrefix + sliceString, _countOfSingleAsterisk,slicePrefix) : SliceIdentifier.Of(sliceString, _countOfSingleAsterisk);
