@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ArchUnitNET.Domain.PlantUml.Export
 {
@@ -19,13 +20,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         private static int CountOfDots(string str)
         {
-            var i = 0;
-            while (str.Contains("."))
-            {
-                str = str.Remove(0, str.IndexOf(".", StringComparison.Ordinal) + 1);
-                i++;
-            }
-            return i;
+            return str.Count(c => c == '.');
         }
 
         public int OriginCountOfDots()

@@ -144,7 +144,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 }
                 else if (!sliceIsPackage)
                 {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern, slice.NameSpace));
+                    nodes.Add(slice, new PlantUmlSlice(slice.Description, slice.NameSpace));
                 }
             }
 
@@ -212,15 +212,14 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 else if (!sliceIsPackage || !slice.ContainsNamespace())
                 {
                     nodes.Add(slice,
-                        new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern, slice.NameSpace));
+                        new PlantUmlSlice(slice.Description, slice.NameSpace));
                 }
                 else
                 {
                     nodes.Add(slice,
-                        new PlantUmlSlice(slice.Description + ".", slice.CountOfAsteriskInPattern, slice.NameSpace));
+                        new PlantUmlSlice(slice.Description + ".", slice.NameSpace));
                 }
-                   
-                
+
                 var dependencyTargets = _sliceList.Where(targetSlice =>
                     targetSlice.Description != slice.Description &&
                     slice.Dependencies.Where(dep =>
@@ -296,7 +295,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             RemoveCircles();
             RemoveDuplicatedArrowsIfExist();
-            
+
             _diagram.AddElements(nodeElements.OrderBy(element =>
                 element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
             _diagram.AddElements(_dependencies);
@@ -307,7 +306,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         public PlantUmlFileBuilder WithDependenciesFromFocusOn(IEnumerable<Slice> slices, string package)
         {
             _sliceList = slices.Distinct().ToList();
-            
+
             switch (package)
             {
                 case "":
@@ -320,9 +319,9 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             {
                 package = package.Remove(package.Length - 1);
             }
-            
+
             RemovePatternInappropriateSlices(package);
-            
+
             var existPackage = _sliceList.Any(slice => (slice.NameSpace + slice.Description).Contains(package));
             if (!existPackage)
             {
@@ -331,7 +330,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             var nodes = new Dictionary<Slice, IPlantUmlElement>();
             var generationOptions = new GenerationOptions();
-            
+
             foreach (var slice in _sliceList)
             {
                 var sliceIsPackage = IfPackage(slice);
@@ -361,17 +360,15 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 {
                     nodes.Add(slice,
                         slice.Description.Contains(package)
-                            ? new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern,
-                                slice.NameSpace, "99ffd1")
-                            : new PlantUmlSlice(slice.Description, slice.CountOfAsteriskInPattern,
-                                slice.NameSpace));
+                            ? new PlantUmlSlice(slice.Description, slice.NameSpace, "99ffd1")
+                            : new PlantUmlSlice(slice.Description, slice.NameSpace));
                 }
                 else
                 {
                     if (!slice.Description.Contains(package))
                     {
                         nodes.Add(slice, 
-                            new PlantUmlSlice(slice.Description + ".", slice.CountOfAsteriskInPattern, slice.NameSpace));
+                            new PlantUmlSlice(slice.Description + ".", slice.NameSpace));
                     }
                 }
             }
@@ -385,7 +382,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     nodes.Remove(entry.Key);
                 }
             }
-            
+
             RemoveDuplicateDependenciesWhenShowingPackages();
             RemoveCircles();
             RemoveDuplicatedArrowsIfExist();
@@ -432,12 +429,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     }
                 }
             }
-            
+
             _diagram.AddElements(nodeElements.OrderBy(element =>
                 element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1));
 
             var tempList = _sliceList.Where(slice => IfPackage(slice) && slice.Description.Contains(package))
-                .Select(slice => new PlantUmlSlice(slice.Description + ".", slice.CountOfAsteriskInPattern, slice.NameSpace, "99ffd1"))
+                .Select(slice => new PlantUmlSlice(slice.Description + ".", slice.NameSpace, "99ffd1"))
                 .ToList();
             if (tempList.Count > 0)
             {
@@ -454,7 +451,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             {
                 return;
             }
-            else if (thatContainsThisString != null)
+            if (thatContainsThisString != null)
             {
                 var cont = _sliceList.Any(slice => (slice.NameSpace+slice.Description).Contains(thatContainsThisString));
                 if (!cont)
@@ -462,25 +459,23 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                      return;
                 }
             }
-            
+
             var sliceListCopy = new List<Slice>();
             sliceListCopy.AddRange(_sliceList);
             for (var i = sliceListCopy.Count - 1; i >= 0; i--)
             {
-                var currentSliceDescription = sliceListCopy[i].Description;
                 var dots = 0;
 
                 if (thatContainsThisString != null && !(sliceListCopy[i].Description).Contains(thatContainsThisString))
                 {
                     continue;
                 }
-                
-                dots += currentSliceDescription.Count(c => c == '.');
+
+                dots += sliceListCopy[i].Description.Count(c => c == '.');
 
                 if (sliceListCopy[i].ContainsNamespace())
                 {
-                    currentSliceDescription = sliceListCopy[i].NameSpace;
-                    dots -= currentSliceDescription.Count(c => c == '.');
+                    dots -= sliceListCopy[i].NameSpace.Count(c => c == '.');
                 }
 
                 if (sliceListCopy[i].CountOfAsteriskInPattern != null &
@@ -512,7 +507,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             {
                 return;
             }
-            
+
             for (var j = _dependencies.Count-1; j >= 0; j--)
             {
                 if (_sliceList.Any(slice => slice.Description.Contains(_dependencies[j].Target) &&
@@ -583,7 +578,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                         continue;
                     }
                 }
-                
+
                 if (
                     _dependencies[i].Target.Contains(_dependencies[i].Origin) &&
                     _dependencies[i].Target != _dependencies[i].Origin

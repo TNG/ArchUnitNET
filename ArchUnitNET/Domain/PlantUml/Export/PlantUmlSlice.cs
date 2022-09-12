@@ -14,19 +14,17 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     public class PlantUmlSlice : IPlantUmlElement
     {
         private readonly string _name;
-        private string _hyperlink { get; }
-        private string _namespace { get; }
-        private int? _countOfSingleAsterisk { get; }
-        private string _color { get; }
-        public PlantUmlSlice(string name, int? countOfSingleAsterisk = null, string nameSpace = null, string color = null, string hyperlink = null)
+        private string Hyperlink { get; }
+        private string Namespace { get; }
+        private string Color { get; }
+        public PlantUmlSlice(string name, string nameSpace = null, string color = null, string hyperlink = null)
         {
             PlantUmlNameChecker.AssertNoForbiddenCharacters(name, hyperlink, nameSpace);
             PlantUmlNameChecker.AssertNotNullOrEmpty(name);
             _name = name;
-            _hyperlink = hyperlink;
-            _namespace = nameSpace;
-            _countOfSingleAsterisk = countOfSingleAsterisk;
-            _color = color;
+            Hyperlink = hyperlink;
+            Namespace = nameSpace;
+            Color = color;
         }
 
         public override string ToString()
@@ -37,11 +35,11 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         public string GetPlantUmlString(RenderOptions renderOptions)
         {
             var result = "";
-            if (_namespace != null)
+            if (Namespace != null)
             {
-                result = "package " + _namespace.Remove(_namespace.Length - 1) + "{";
+                result = "package " + Namespace.Remove(Namespace.Length - 1) + "{";
                 result += Environment.NewLine;
-                var name = _name.Remove(0, _namespace.Length);
+                var name = _name.Remove(0, Namespace.Length);
                 var i = 1;
                 while (name.Contains("."))
                 {
@@ -56,15 +54,15 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 if (name != "")
                 {
                     result += "[" + name + "] as " + _name;
-                    if (_color != null)
+                    if (Color != null)
                     {
-                        result += " #" + _color;
+                        result += " #" + Color;
                     }
                 }
-                else if (_color != null)
+                else if (Color != null)
                 {
                     result = result.Remove(result.LastIndexOf("{", StringComparison.Ordinal));
-                    result += " #" + _color + "{" + Environment.NewLine;
+                    result += " #" + Color + "{" + Environment.NewLine;
                 }
 
                 while (i > 0)
@@ -77,20 +75,18 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             else
             {
                 result += "[" + _name + "]";
-                if (_color != null)
+                if (Color != null)
                 {
-                    result += " #" + _color;
+                    result += " #" + Color;
                 }
             }
 
-            if (_hyperlink != null)
+            if (Hyperlink != null)
             {
-                result += " [[" + _hyperlink + "]] ";
+                result += " [[" + Hyperlink + "]] ";
             }
 
-            result += Environment.NewLine;
-
-            return result;
+            return result + Environment.NewLine;
         }
     }
 }
