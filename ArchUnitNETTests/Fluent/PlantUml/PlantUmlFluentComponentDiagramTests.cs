@@ -44,7 +44,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var sliceRule1 = SliceRuleDefinition.Slices().MatchingWithPackages("ArchUnitNET.(*).(*).(*)");
             const string path1 = "../../../Fluent/PlantUml/Test.puml";
             ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(arch1)).WriteToFile(path1);
-            //File.Delete(path1);
+            File.Delete(path1);
         }
 
         [Fact]
