@@ -44,83 +44,14 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     return "[" + Origin + "]" + " \"1\" --|> \"many\" " + "[" + Target + "]" + " " +
                            Environment.NewLine;
 
-                case DependencyType.OneToOneIfSimilarNamespace:
-                    if (OriginCountOfDots() == TargetCountOfDots() &
-                        (OriginCountOfDots() == 0 |
-                         Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal)) ==
-                         Target.Remove(Target.LastIndexOf(".", StringComparison.Ordinal)))
-                       )
-                    {
-                        return Origin + " --|> " + Target + Environment.NewLine;
-                    }
-
-                    if (OriginCountOfDots() < TargetCountOfDots())
-                    {
-                        var tmp = Target.Remove(Target.LastIndexOf(".", StringComparison.Ordinal));
-                        while (OriginCountOfDots() < CountOfDots(tmp))
-                        {
-                            tmp = tmp.Remove(tmp.LastIndexOf(".", StringComparison.Ordinal));
-                        }
-
-                        if (tmp != Origin)
-                        {
-                            if (tmp.Remove(tmp.LastIndexOf(".", StringComparison.Ordinal)) ==
-                                Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal)))
-                            {
-                                return Origin + " --> " +
-                                       tmp.Remove(0, tmp.LastIndexOf(".", StringComparison.Ordinal) + 1)
-                                       + Environment.NewLine;
-                            }
-                        }
-                    }
-
-                    if (OriginCountOfDots() > TargetCountOfDots())
-                    {
-                        var tmp = Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal));
-                        while (CountOfDots(tmp) > TargetCountOfDots())
-                        {
-                            tmp = tmp.Remove(tmp.LastIndexOf(".", StringComparison.Ordinal));
-                        }
-                        
-                        if (tmp != Target)
-                        {
-                            if (tmp.Remove(tmp.LastIndexOf(".", StringComparison.Ordinal)) == 
-                                 Target.Remove(Target.LastIndexOf(".", StringComparison.Ordinal)))
-                            {
-                                return tmp.Remove(0, tmp.LastIndexOf(".", StringComparison.Ordinal) + 1) 
-                                       + " -> " + Target + Environment.NewLine;    
-                            }   
-                        }
-                    }
-                    return "";
-                
-                case DependencyType.PackageToPackageIfSimilarNamespace:
-                    if (OriginCountOfDots() == TargetCountOfDots() &
-                        (OriginCountOfDots() == 0 | 
-                         Origin.Remove(Origin.LastIndexOf(".", StringComparison.Ordinal)) == 
-                         Target.Remove(Target.LastIndexOf(".", StringComparison.Ordinal)))
-                        )
-                    {
-                        return  Origin.Remove(0, Origin.LastIndexOf(".", StringComparison.Ordinal) + 1) 
-                                + " ..> " + 
-                                Target.Remove(0, Target.IndexOf(".", StringComparison.Ordinal) + 1) + Environment.NewLine;                        
-                    }
-                    return "";
-                
                 case DependencyType.OneToPackage:
-                 return  "["+ Origin + "] -[#red]> " + 
-                             Target.Remove(0, Target.LastIndexOf(".", StringComparison.Ordinal) + 1) 
-                             + Environment.NewLine;
+                    return  "["+ Origin + "] -[#red]> " + GetChildNamespace(Target) + Environment.NewLine;
 
                 case DependencyType.PackageToOne:
-                    return  Origin.Remove(0, Origin.LastIndexOf(".", StringComparison.Ordinal) + 1) 
-                            + " -[#blue]> [" + Target + "]" +Environment.NewLine;                        
+                    return GetChildNamespace(Origin) + " -[#blue]> [" + Target + "]" +Environment.NewLine;                        
                 
                 case DependencyType.PackageToPackage:
-                    return  Origin.Remove(0, Origin.LastIndexOf(".", StringComparison.Ordinal) + 1)
-                            + " -[#green]> " + 
-                            Target.Remove(0, Target.LastIndexOf(".", StringComparison.Ordinal) + 1) 
-                            + Environment.NewLine;
+                    return GetChildNamespace(Origin) + " -[#green]> " + GetChildNamespace(Target) + Environment.NewLine;
                 
                 case DependencyType.OneToOneCompact:
                     if (OriginCountOfDots() == TargetCountOfDots())
@@ -131,13 +62,73 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 
                 case DependencyType.Circle:
                     return "[" + Origin + "]" + " <-[#red]> " + "[" + Target + "]" + Environment.NewLine;
-                
+
+                case DependencyType.PackageToPackageIfSameParentNamespace:
+                    if (OriginCountOfDots() == TargetCountOfDots() &&
+                        (OriginCountOfDots() == 0 || HaveSameParentNamespace(Origin, Target)))
+                    {
+                        return  GetChildNamespace(Origin) + " ..> " + GetChildNamespace(Target) + Environment.NewLine;                        
+                    }
+                    return "";
+
+                case DependencyType.OneToOneIfSameParentNamespace:
+                    if (OriginCountOfDots() == TargetCountOfDots() &&
+                        (OriginCountOfDots() == 0 || HaveSameParentNamespace(Origin, Target))
+                       )
+                    {
+                        return Origin + " --|> " + Target + Environment.NewLine;
+                    }
+
+                    if (OriginCountOfDots() < TargetCountOfDots())
+                    {
+                        var tmp = GetParentNamespace(Target);
+                        while (OriginCountOfDots() < CountOfDots(tmp))
+                        {
+                            tmp = GetParentNamespace(tmp);
+                        }
+
+                        if (tmp != Origin)
+                        {
+                            if (HaveSameParentNamespace(tmp, Origin))
+                            {
+                                return Origin + " --> " + GetChildNamespace(tmp) + Environment.NewLine;
+                            }
+                        }
+                    }
+
+                    if (OriginCountOfDots() > TargetCountOfDots())
+                    {
+                        var tmp = GetParentNamespace(Origin);
+                        while (CountOfDots(tmp) > TargetCountOfDots())
+                        {
+                            tmp = GetParentNamespace(tmp);
+                        }
+                        
+                        if (tmp != Target)
+                        {
+                            if (HaveSameParentNamespace(tmp, Target))
+                            {
+                                return GetChildNamespace(tmp) + " -> " + Target + Environment.NewLine;    
+                            }   
+                        }
+                    }
+                    return "";
+
                 case DependencyType.NoDependency:
                     return "";
             }
 
             return "";
         }
+
+        private static string GetParentNamespace(string ns) => 
+            ns.Remove(ns.LastIndexOf(".", StringComparison.Ordinal));
+
+        private static string GetChildNamespace(string ns) => 
+            ns.Remove(0,ns.LastIndexOf(".", StringComparison.Ordinal) + 1);
+
+        private static bool HaveSameParentNamespace(string origin, string target) => 
+            (GetParentNamespace(origin) == GetParentNamespace(target));
 
         private bool Equals(PlantUmlDependency other)
         {
@@ -179,8 +170,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         OneToPackage,
         PackageToOne,
         PackageToPackage,
-        OneToOneIfSimilarNamespace,
-        PackageToPackageIfSimilarNamespace,
+        OneToOneIfSameParentNamespace,
+        PackageToPackageIfSameParentNamespace,
         OneToOneCompact,
         Circle,
         NoDependency

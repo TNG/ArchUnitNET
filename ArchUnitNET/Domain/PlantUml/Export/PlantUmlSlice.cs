@@ -8,6 +8,7 @@
 using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Text;
 
 namespace ArchUnitNET.Domain.PlantUml.Export
 {
@@ -34,59 +35,67 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         public string GetPlantUmlString(RenderOptions renderOptions)
         {
-            var result = "";
+            // var sb = new StringBuilder();
+            // sb.Append("package");
+            // sb.AppendFormat("package {0} {{", Namespace.Remove(Namespace.Length - 1));
+            // return sb.ToString();
+            var result = new StringBuilder();
             if (Namespace != null)
             {
-                result = "package " + Namespace.Remove(Namespace.Length - 1) + "{";
-                result += Environment.NewLine;
+                result.Append("package " + Namespace.Remove(Namespace.Length - 1));
                 var name = _name.Remove(0, Namespace.Length);
-                var i = 1;
+                var iter = 1;
                 while (name.Contains("."))
                 {
                     var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
-                    result += "package " + name.Remove(dotPattern) + "{";
-                    result += Environment.NewLine;
-
+                    result.AppendLine(" {");
+                    result.Append("package " + name.Remove(dotPattern));
                     name = name.Remove(0, dotPattern + 1);
-                    i++;
+                    iter++;
                 }
 
                 if (name != "")
                 {
-                    result += "[" + name + "] as " + _name;
+                    result.AppendLine(" {");
+                    result.Append("[" + name + "] as " + _name) ;
                     if (Color != null)
                     {
-                        result += " #" + Color;
+                        result.AppendLine(" #" + Color) ;
+                    }
+                    else
+                    {
+                        result.AppendLine();
                     }
                 }
                 else if (Color != null)
                 {
-                    result = result.Remove(result.LastIndexOf("{", StringComparison.Ordinal));
-                    result += " #" + Color + "{" + Environment.NewLine;
+                    result.AppendLine(" #" + Color + " {");
+                }
+                else
+                {
+                    result.AppendLine(" {");
                 }
 
-                while (i > 0)
+                for (var i = iter; i > 0; i--)
                 {
-                    result += Environment.NewLine;
-                    result += "}";
-                    i--;
+                    result.AppendLine("}");
                 }
             }
             else
             {
-                result += "[" + _name + "]";
+                result.Append("[" + _name + "]");
                 if (Color != null)
                 {
-                    result += " #" + Color;
+                    result.Append(" #" + Color);
                 }
             }
 
             if (Hyperlink != null)
             {
-                result += " [[" + Hyperlink + "]] ";
+                result.Append(" [[" + Hyperlink + "]] ");
             }
 
-            return result + Environment.NewLine;
+            return result.ToString() + Environment.NewLine;
         }
     }
 }

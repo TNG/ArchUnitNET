@@ -13,7 +13,6 @@ namespace ArchUnitNET.Fluent.Slices
     public class SliceRuleInitializer
     {
         private readonly SliceRuleCreator _ruleCreator;
-        private static int? _countOfSingleAsterisk = null;
         public SliceRuleInitializer(SliceRuleCreator ruleCreator)
         {
             _ruleCreator = ruleCreator;
@@ -28,19 +27,27 @@ namespace ArchUnitNET.Fluent.Slices
         /// <returns></returns>
         public GivenSlices Matching(string pattern)
         {
-            _ruleCreator.SetSliceAssignment(new SliceAssignment(t => AssignFunc(t, Parse(pattern)),
+            _ruleCreator.SetSliceAssignment(new SliceAssignment(t =>
+                {
+                    var parseResult = Parse(pattern);
+                    return AssignFunc(t, parseResult.pattern, parseResult.asterisk);
+                },
                 "matching \"" + pattern + "\""));
             return new GivenSlices(_ruleCreator);
         }
         
         public GivenSlices MatchingWithPackages(string pattern)
         {
-            _ruleCreator.SetSliceAssignment(new SliceAssignment(t => AssignFunc(t, Parse(pattern), true),
+            _ruleCreator.SetSliceAssignment(new SliceAssignment(t =>
+                {
+                    var parseResult = Parse(pattern);
+                    return AssignFunc(t, parseResult.pattern, parseResult.asterisk, true);
+                },
                 "matching \"" + pattern + "\""));
             return new GivenSlices(_ruleCreator);
         }
 
-        private static string Parse(string pattern)
+        private static (string pattern, int? asterisk) Parse(string pattern)
         {
             var indexOfAsteriskInPattern = pattern.IndexOf("(*", StringComparison.Ordinal);
             var containsSingleAsterisk = pattern.Contains("(*)");
@@ -62,26 +69,23 @@ namespace ArchUnitNET.Fluent.Slices
                 throw new ArgumentException("Patterns for Slices can contain (**) only once.");
             }
 
-            _countOfSingleAsterisk = 0;
+            if (containsDoubleAsterisk)
+            {
+                return (pattern, null);
+            }
+
+            var countOfSingleAsterisk = 0;
             while (tmpStr.Contains("(*)"))
             {
-                _countOfSingleAsterisk++;
+                countOfSingleAsterisk++;
                 tmpStr = tmpStr.Remove(0, 4);
             }
             
-            if (_countOfSingleAsterisk > 0)
-            {
-                pattern = pattern.Remove(indexOfAsteriskInPattern) + "(**).";
-            }
-            else
-            {
-                _countOfSingleAsterisk = null;
-            }
-            
-            return pattern;
+            pattern = pattern.Remove(indexOfAsteriskInPattern) + "(**).";
+            return (pattern, countOfSingleAsterisk);
         }
 
-        private static SliceIdentifier AssignFunc(IType type, string pattern, bool fullName = false)
+        private static SliceIdentifier AssignFunc(IType type, string pattern, int? countOfSingleAsterisk, bool fullName = false)
         {
             var indexOfAsteriskInPattern = pattern.IndexOf("(*", StringComparison.Ordinal);
 
@@ -137,7 +141,9 @@ namespace ArchUnitNET.Fluent.Slices
                 sliceString = sliceString.Remove(sliceString.IndexOf(slicePostfix, StringComparison.Ordinal));
             }
 
-            return fullName ? SliceIdentifier.Of(slicePrefix + sliceString, _countOfSingleAsterisk,slicePrefix) : SliceIdentifier.Of(sliceString, _countOfSingleAsterisk);
+            return fullName 
+                ? SliceIdentifier.Of(slicePrefix + sliceString, countOfSingleAsterisk,slicePrefix) 
+                : SliceIdentifier.Of(sliceString, countOfSingleAsterisk);
         }
     }
 }
