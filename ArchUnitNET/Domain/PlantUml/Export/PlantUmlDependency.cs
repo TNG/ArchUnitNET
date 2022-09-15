@@ -7,7 +7,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     {
         public string Target { get; }
         public string Origin { get; }
-        public DependencyType DependencyType { get; private set; }
+        public DependencyType DependencyType { get; }
 
         public PlantUmlDependency(string origin, string target, DependencyType dependencyType)
         {
