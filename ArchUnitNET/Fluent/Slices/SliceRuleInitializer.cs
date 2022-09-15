@@ -6,6 +6,8 @@
 // 
 
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Slices
@@ -52,7 +54,6 @@ namespace ArchUnitNET.Fluent.Slices
             var indexOfAsteriskInPattern = pattern.IndexOf("(*", StringComparison.Ordinal);
             var containsSingleAsterisk = pattern.Contains("(*)");
             var containsDoubleAsterisk = pattern.Contains("(**)");
-            var tmpStr = pattern.Remove(0, indexOfAsteriskInPattern - 1);
             
             if (!containsSingleAsterisk && !containsDoubleAsterisk)
             {
@@ -74,13 +75,7 @@ namespace ArchUnitNET.Fluent.Slices
                 return (pattern, null);
             }
 
-            var countOfSingleAsterisk = 0;
-            while (tmpStr.Contains("(*)"))
-            {
-                countOfSingleAsterisk++;
-                tmpStr = tmpStr.Remove(0, 4);
-            }
-            
+            var countOfSingleAsterisk =  pattern.Split(new[] { "(*)" }, StringSplitOptions.None).Length - 1;
             pattern = pattern.Remove(indexOfAsteriskInPattern) + "(**).";
             return (pattern, countOfSingleAsterisk);
         }

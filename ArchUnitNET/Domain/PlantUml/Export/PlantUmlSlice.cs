@@ -35,10 +35,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         public string GetPlantUmlString(RenderOptions renderOptions)
         {
-            // var sb = new StringBuilder();
-            // sb.Append("package");
-            // sb.AppendFormat("package {0} {{", Namespace.Remove(Namespace.Length - 1));
-            // return sb.ToString();
             var result = new StringBuilder();
             if (Namespace != null)
             {
