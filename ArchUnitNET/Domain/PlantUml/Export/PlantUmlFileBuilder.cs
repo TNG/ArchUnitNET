@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
 
 namespace ArchUnitNET.Domain.PlantUml.Export
@@ -18,7 +17,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     {
         private readonly PlantUmlDiagram _diagram = new PlantUmlDiagram();
         
-        private List<PlantUmlDependency> _dependencies = new List<PlantUmlDependency>();
+        private readonly List<PlantUmlDependency> _dependencies = new List<PlantUmlDependency>();
 
         private List<Slice> _sliceList = new List<Slice>();
 

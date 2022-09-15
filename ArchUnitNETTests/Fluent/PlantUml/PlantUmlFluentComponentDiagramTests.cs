@@ -41,7 +41,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             Assert.NotEmpty(uml2);
 
             var arch1 = new ArchLoader().LoadAssembly(typeof(Architecture).Assembly).Build();
-            var sliceRule1 = SliceRuleDefinition.Slices().MatchingWithPackages("ArchUnitNET.(*).(*).(*).(*)");
+            var sliceRule1 = SliceRuleDefinition.Slices().MatchingWithPackages("ArchUnitNET.(*).(*).(*)");
             const string path = "../../../Fluent/PlantUml/Test.puml";
             ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(arch1), "Fluent.Syntax").WriteToFile(path);
             File.Delete(path);
