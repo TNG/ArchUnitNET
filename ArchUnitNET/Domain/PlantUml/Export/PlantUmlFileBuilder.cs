@@ -163,18 +163,14 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                         }
                         else
                         {
-                            var dt = new List<PlantUmlDependency>();
-                            dt.AddRange(dependencyTargets.Select(target =>
-                                new PlantUmlDependency(slice.Description, target.Description, DependencyType.OneToOneIfSameParentNamespace)));
-                            for (var i = dt.Count - 1; i >= 0; i--)
-                            {
-                                if (dt[i].OriginCountOfDots() >= dt[i].TargetCountOfDots() && 
-                                    _sliceList.Any(slc => slc.Description.Contains(dt[i].Target) && 
-                                                          slc.Description != dt[i].Target))
-                                {
-                                    dt.RemoveAt(i);
-                                }
-                            }
+                            var dt = dependencyTargets.Select(
+                                    target => new PlantUmlDependency(slice.Description, target.Description,
+                                        DependencyType.OneToOneIfSameParentNamespace)
+                                )
+                                .Where(dependency => dependency.OriginCountOfDots() < dependency.TargetCountOfDots() ||
+                                                     _sliceList.All(slc =>
+                                                         slc.Description == dependency.Target ||
+                                                         !slc.Description.Contains(dependency.Target)));
                             _dependencies.AddRange(dt);
                         }
                     }
