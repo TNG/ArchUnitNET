@@ -7,7 +7,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     {
         public string Target { get; }
         public string Origin { get; }
-        public DependencyType DependencyType { get; }
+        public DependencyType DependencyType { get; private set; }
 
         public PlantUmlDependency(string origin, string target, DependencyType dependencyType)
         {
@@ -77,8 +77,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                        )
                     {
                         return Origin + " --|> " + Target + Environment.NewLine;
-                    }
-
+                    } 
+                    
                     if (OriginCountOfDots() < TargetCountOfDots())
                     {
                         var tmp = GetParentNamespace(Target);
@@ -87,16 +87,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                             tmp = GetParentNamespace(tmp);
                         }
 
-                        if (tmp != Origin)
+                        if (tmp != Origin && HaveSameParentNamespace(tmp, Origin))
                         {
-                            if (HaveSameParentNamespace(tmp, Origin))
-                            {
-                                return Origin + " --> " + GetChildNamespace(tmp) + Environment.NewLine;
-                            }
+                            return Origin + " --> " + GetChildNamespace(tmp) + Environment.NewLine;
                         }
                     }
-
-                    if (OriginCountOfDots() > TargetCountOfDots())
+                    else
                     {
                         var tmp = GetParentNamespace(Origin);
                         while (CountOfDots(tmp) > TargetCountOfDots())
@@ -104,12 +100,9 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                             tmp = GetParentNamespace(tmp);
                         }
                         
-                        if (tmp != Target)
+                        if (tmp != Target && HaveSameParentNamespace(tmp, Target))
                         {
-                            if (HaveSameParentNamespace(tmp, Target))
-                            {
-                                return GetChildNamespace(tmp) + " -> " + Target + Environment.NewLine;    
-                            }   
+                            return GetChildNamespace(tmp) + " -> " + Target + Environment.NewLine;    
                         }
                     }
                     return "";
