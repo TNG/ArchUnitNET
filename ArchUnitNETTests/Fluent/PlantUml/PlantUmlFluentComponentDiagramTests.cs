@@ -27,8 +27,14 @@ namespace ArchUnitNETTests.Fluent.PlantUml
         private static readonly List<IPlantUmlElement> Dependencies = new List<IPlantUmlElement>
         {
             new PlantUmlDependency("a", "b", DependencyType.OneToOne),
-            new PlantUmlDependency("b", "c", DependencyType.OneToOne),
-            new PlantUmlDependency("c", "a", DependencyType.OneToOne)
+            new PlantUmlDependency("b", "c", DependencyType.Circle),
+            new PlantUmlDependency("c", "d", DependencyType.PackageToPackageIfSameParentNamespace),
+            new PlantUmlDependency("d", "e", DependencyType.OneToMany),
+            new PlantUmlDependency("e", "f", DependencyType.OneToPackage),
+            new PlantUmlDependency("f", "g", DependencyType.PackageToOne),
+            new PlantUmlDependency("g", "h", DependencyType.PackageToPackage),
+            new PlantUmlDependency("h", "i", DependencyType.OneToOneCompact),
+            new PlantUmlDependency("i", "a", DependencyType.OneToOneIfSameParentNamespace)
         };
 
         [Fact]
@@ -43,7 +49,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var arch1 = new ArchLoader().LoadAssembly(typeof(Architecture).Assembly).Build();
             var sliceRule1 = SliceRuleDefinition.Slices().MatchingWithPackages("ArchUnitNET.(*).(*).(*)");
             const string path = "../../../Fluent/PlantUml/Test.puml";
-            ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(arch1), "Fluent.Syntax").WriteToFile(path);
+            ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(arch1), "Domain.PlantUml").WriteToFile(path);
             File.Delete(path);
         }
 
@@ -74,24 +80,42 @@ namespace ArchUnitNETTests.Fluent.PlantUml
         [Fact]
         public void ComponentDiagramFromCustomDependenciesTest()
         {
-            var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
+            var classesWithoutDependencies = new[] {new PlantUmlClass("X")};
             var uml = ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "class \"d\" {" + Environment.NewLine + "}" +
+            var expectedUml = "@startuml" + Environment.NewLine + "class \"X\" {" + Environment.NewLine + "}" + 
                               Environment.NewLine + "[a] --|> [b]" +
-                              Environment.NewLine + "[b] --|> [c]" + Environment.NewLine + "[c] --|> [a]" +
-                              Environment.NewLine + "@enduml" + Environment.NewLine;
+                              Environment.NewLine + "[b] <-[#red]> [c]" +
+                              Environment.NewLine + "c ..> d" +
+                              Environment.NewLine + "[d] \"1\" --|> \"many\" [e]" +
+                              Environment.NewLine + "[e] -[#red]> f" +
+                              Environment.NewLine + "f -[#blue]> [g]" +
+                              Environment.NewLine + "g -[#green]> h" +
+                              Environment.NewLine + "[h] --> [i]" +
+                              Environment.NewLine + "i --|> a" +
+                              Environment.NewLine + "@enduml" + 
+                              Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
 
         [Fact]
         public void ComponentDiagramWriteToFileTest()
         {
-            var classesWithoutDependencies = new[] {new PlantUmlClass("d")};
+            var classesWithoutDependencies = new[] {new PlantUmlClass("X")};
             const string path = "temp/testUml.puml";
             var expectedUml = new[]
-                {"@startuml", "class \"d\" {", "}", "[a] --|> [b]", "[b] --|> [c]", "[c] --|> [a]", "@enduml"};
+                {"@startuml", "class \"X\" {", "}", 
+                    "[a] --|> [b]",
+                    "[b] <-[#red]> [c]",
+                    "c ..> d",
+                    "[d] \"1\" --|> \"many\" [e]",
+                    "[e] -[#red]> f",
+                    "f -[#blue]> [g]",
+                    "g -[#green]> h",
+                    "[h] --> [i]",
+                    "i --|> a",
+                    "@enduml"};
             ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).WriteToFile(path);
             Assert.True(File.Exists(path));
 
