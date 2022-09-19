@@ -246,7 +246,7 @@ PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetOb
 ### 5.4 Small slices
 In order not to display all slices and all occurrences, you can use a single asterisk in the pattern. One star is one slice deep. You cannot mix single (*) and double (**) asterisks in a pattern.
 
-#### 5.4.2 ArchUnitNET.(\*)
+#### 5.4.1 ArchUnitNET.(\*)
 ![Diagram](diagrams/archUnitNet_one.svg)
 ```cs
     string pattern = "ArchUnitNET.(*)";
