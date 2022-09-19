@@ -1,0 +1,87 @@
+@startuml
+package ArchUnitNET {
+package Fluent {
+package Syntax {
+package Elements {
+[Types] as ArchUnitNET.Fluent.Syntax.Elements.Types #99ffd1
+}
+}
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+package Syntax {
+package Elements {
+[Members] as ArchUnitNET.Fluent.Syntax.Elements.Members #99ffd1
+}
+}
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Predicates] as ArchUnitNET.Fluent.Predicates
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Exceptions] as ArchUnitNET.Fluent.Exceptions
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Conditions] as ArchUnitNET.Fluent.Conditions
+}
+}
+
+package ArchUnitNET {
+package Domain {
+package PlantUml {
+[Import] as ArchUnitNET.Domain.PlantUml.Import
+}
+}
+}
+
+package ArchUnitNET {
+package Domain {
+[Extensions] as ArchUnitNET.Domain.Extensions
+}
+}
+
+package ArchUnitNET {
+package Domain {
+[Exceptions] as ArchUnitNET.Domain.Exceptions
+}
+}
+
+package ArchUnitNET {
+package Domain {
+[Dependencies] as ArchUnitNET.Domain.Dependencies
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+package Syntax {
+package Elements #99ffd1 {
+}
+}
+}
+}
+
+Elements -[#blue]> [ArchUnitNET.Fluent.Exceptions]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Fluent.Conditions]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Domain.PlantUml.Import]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Syntax.Elements.Types] --|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Fluent.Syntax.Elements.Types]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Fluent.Conditions]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Syntax.Elements.Members] --|> [ArchUnitNET.Domain.Exceptions]
+@enduml

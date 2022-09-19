@@ -195,10 +195,95 @@ Consider this diagram applied as a rule via AdhereToPlantUmlDiagram(..), then a 
 
 Only dependencies specified in the PlantUML diagram are considered. So any unknown dependency (e.g.  View.*) will be ignored.
 #### 4.3.1 PlantUML Diagram rules
+
 The rules that a PlantUML diagram used with ArchUnitNet must abide can be found in the [ArchUnit documentation](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2). In contrast to ArchUnit ArchUnitNet uses a regex as the namespace identifier instead of the two dots syntax.
 
+## 5. PlantUML file diagram builder
+ArchUnitNET can build a dependency diagram from packages on its own. You can see some examples below.
 
-## 5. Further Reading and Examples
+### 5.1 Full diagram dependencies
+![Diagram](diagrams/archUnitNet_all_noPackages.svg)
+```cs
+string pattern = "ArchUnitNET.(**)";
+GivenSlices sliceRule = SliceRuleDefinition.Slices().Matching(pattern);
+//Replace ArchUnitNET.Domain.Architecture with any class from your pattern
+Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
+
+string path = "diagram.puml";
+
+PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch)).WriteToFile(path);
+```
+
+### 5.2 Structured diagram dependencies
+On the previous case there are too many dependencies, this option is suitable mainly for small projects / architectures / slices. With an increase in the number of objects, it makes sense to introduce another type of display - a display with packages. It differs from the previous case only with the modified creation of SliceRule.
+
+![Diagram](diagrams/archUnitNet_all_withPackages.svg)
+```cs
+string pattern = "ArchUnitNET.(**)";
+GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
+
+string path = "diagram.puml";
+
+PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch)).WriteToFile(path);
+```
+
+### 5.3 Compact version
+The previous case still shows a large number of connections. For maximum simplification, as well as demonstrating the overall picture, it makes sense to reformat it into a compact version. This kind of display shows dependencies between packages at the same slice level.
+
+![Diagram](diagrams/archUnitNet_all_compact.svg)
+```cs
+string pattern = "ArchUnitNET.(**)";
+GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
+GenerationOptions g = new GenerationOptions(){CompactVersion = true};
+
+string path = "diagram.puml";
+
+PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), g).WriteToFile(path);
+```
+
+### 5.4 Small slices
+In order not to display all slices and all occurrences, you can use a single asterisk in the pattern. One star is one slice deep. You cannot mix single (*) and double (**) asterisks in a pattern.
+
+#### 5.4.2 ArchUnitNET.(\*)
+![Diagram](diagrams/archUnitNet_one.svg)
+```cs
+    string pattern = "ArchUnitNET.(*)";
+    ...
+```
+
+#### 5.4.2 ArchUnitNET.(\*).(\*)
+![Diagram](diagrams/archUnitNet_two.svg)
+```cs
+    string pattern = "ArchUnitNET.(*).(*)";
+    ...
+```
+
+#### 5.4.3 ArchUnitNET.Fluent.(\*).(\*).(\*)
+![Diagram](diagrams/archUnitNet_fluent_three.svg)
+```cs
+    string pattern = "ArchUnitNET.Fluent.(*).(*).(*)";
+    ...
+```
+
+### 5.5 Focus-mod
+Focus mod allows you to show all dependencies on the selected package or out of the package.
+
+![Diagram](diagrams/archUnitNet_focusOn.svg)
+```cs
+string pattern = "ArchUnitNET.(**)";
+string focusOnThisPackage = "ArchUnitNET.Fluent.Syntax.Elements"
+GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
+
+string path = "diagram.puml";
+
+PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), focusOnThisPackage).WriteToFile(path);
+```
+
+
+## 6. Further Reading and Examples
 A complete overview of all available methods can be found [here](additional.md).
 
 Check out example code on [Github](https://github.com/TNG/ArchUnitNET/tree/master/ExampleTest "ExampleTests").

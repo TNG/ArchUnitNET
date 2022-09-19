@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="325.5px" preserveAspectRatio="none" style="width:935px;height:325px;background:#FFFFFF;" version="1.1" viewBox="0 0 935 325" width="935.9px" zoomAndPan="magnify"><defs/><g><!--MD5=[35f9dfedec39fd2e10e8a13c47ee5789]
+cluster ArchUnitNET--><g id="cluster_ArchUnitNET"><path d="M5.95,4.2 L67.55,4.2 A2.625,2.625 0 0 1 69.3,5.95 L74.2,19.3484 L929.25,19.3484 A1.75,1.75 0 0 1 931,21.0984 L931,318.85 A1.75,1.75 0 0 1 929.25,320.6 L5.95,320.6 A1.75,1.75 0 0 1 4.2,318.85 L4.2,5.95 A1.75,1.75 0 0 1 5.95,4.2 " fill="none" style="stroke:#000000;stroke-width:1.0499999999999998;"/><line style="stroke:#000000;stroke-width:1.0499999999999998;" x1="4.2" x2="74.2" y1="19.3484" y2="19.3484"/><text fill="#000000" font-family="sans-serif" font-size="9.8" font-weight="bold" lengthAdjust="spacing" textLength="60.9" x="7" y="14.4717">ArchUnitNET</text></g><!--MD5=[f504221dae15b154bc64fdfab34a1f62]
+cluster Loader--><g id="cluster_Loader"><path d="M778.75,39.2 L813.75,39.2 A2.625,2.625 0 0 1 815.5,40.95 L820.4,54.3484 L899.15,54.3484 A1.75,1.75 0 0 1 900.9,56.0984 L900.9,115.85 A1.75,1.75 0 0 1 899.15,117.6 L778.75,117.6 A1.75,1.75 0 0 1 777,115.85 L777,40.95 A1.75,1.75 0 0 1 778.75,39.2 " fill="none" style="stroke:#000000;stroke-width:1.0499999999999998;"/><line style="stroke:#000000;stroke-width:1.0499999999999998;" x1="777" x2="820.4" y1="54.3484" y2="54.3484"/><text fill="#000000" font-family="sans-serif" font-size="9.8" font-weight="bold" lengthAdjust="spacing" textLength="34.3" x="779.8" y="49.4717">Loader</text></g><!--MD5=[50d838338a8efd04032f85b32421b4d7]
+cluster Fluent--><g id="cluster_Fluent"><path d="M22.75,44.8 L54.95,44.8 A2.625,2.625 0 0 1 56.7,46.55 L61.6,59.9484 L652.75,59.9484 A1.75,1.75 0 0 1 654.5,61.6984 L654.5,216.65 A1.75,1.75 0 0 1 652.75,218.4 L22.75,218.4 A1.75,1.75 0 0 1 21,216.65 L21,46.55 A1.75,1.75 0 0 1 22.75,44.8 " fill="none" style="stroke:#000000;stroke-width:1.0499999999999998;"/><line style="stroke:#000000;stroke-width:1.0499999999999998;" x1="21" x2="61.6" y1="59.9484" y2="59.9484"/><text fill="#000000" font-family="sans-serif" font-size="9.8" font-weight="bold" lengthAdjust="spacing" textLength="31.5" x="23.8" y="55.0717">Fluent</text></g><!--MD5=[121a8bf1197281ab89ed693fab589f94]
+cluster Domain--><g id="cluster_Domain"><path d="M678.65,145.6 L715.75,145.6 A2.625,2.625 0 0 1 717.5,147.35 L722.4,160.7484 L906.85,160.7484 A1.75,1.75 0 0 1 908.6,162.4984 L908.6,296.45 A1.75,1.75 0 0 1 906.85,298.2 L678.65,298.2 A1.75,1.75 0 0 1 676.9,296.45 L676.9,147.35 A1.75,1.75 0 0 1 678.65,145.6 " fill="none" style="stroke:#000000;stroke-width:1.0499999999999998;"/><line style="stroke:#000000;stroke-width:1.0499999999999998;" x1="676.9" x2="722.4" y1="160.7484" y2="160.7484"/><text fill="#000000" font-family="sans-serif" font-size="9.8" font-weight="bold" lengthAdjust="spacing" textLength="36.4" x="679.7" y="155.8717">Domain</text></g><!--MD5=[1c9ca8f26a4da55518a0e849e052c70c]
+entity ArchUnitNET.Loader.LoadTasks--><g id="elem_ArchUnitNET.Loader.LoadTasks"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="77" x="807.1" y="68.6"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="870.1" y="72.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="868.7" y="73.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="868.7" y="76.3"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="49" x="817.6" y="91.4717">LoadTasks</text></g><!--MD5=[ff319d9c710c0bf7787d93115c0fcb08]
+entity ArchUnitNET.Fluent.Syntax--><g id="elem_ArchUnitNET.Fluent.Syntax"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="57.4" x="394.1" y="68.6"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="437.5" y="72.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="436.1" y="73.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="436.1" y="76.3"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="29.4" x="404.6" y="91.4717">Syntax</text></g><!--MD5=[502ee4525bc8590c0b3025b59206ac5b]
+entity ArchUnitNET.Fluent.Slices--><g id="elem_ArchUnitNET.Fluent.Slices"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="53.9" x="215.95" y="68.6"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="255.85" y="72.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="254.45" y="73.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="254.45" y="76.3"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="25.9" x="226.45" y="91.4717">Slices</text></g><!--MD5=[1c44b256fb10fd47b89b46620d1d1f24]
+entity ArchUnitNET.Fluent.Predicates--><g id="elem_ArchUnitNET.Fluent.Predicates"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="74.9" x="360.15" y="175"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="421.05" y="178.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="419.65" y="179.9"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="419.65" y="182.7"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="46.9" x="370.65" y="197.8717">Predicates</text></g><!--MD5=[dc15977a09b42d1e128dc4eb6141bcd2]
+entity ArchUnitNET.Fluent.PlantUml--><g id="elem_ArchUnitNET.Fluent.PlantUml"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="66.5" x="476.35" y="68.6"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="528.85" y="72.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="527.45" y="73.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="527.45" y="76.3"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="38.5" x="486.85" y="91.4717">PlantUml</text></g><!--MD5=[2a29295b13477a201d03d9465890fca0]
+entity ArchUnitNET.Fluent.Freeze--><g id="elem_ArchUnitNET.Fluent.Freeze"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="58.8" x="132.3" y="68.6"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="177.1" y="72.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="175.7" y="73.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="175.7" y="76.3"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="30.8" x="142.8" y="91.4717">Freeze</text></g><!--MD5=[82fbb12b020fc7aa4d6912daca5c0beb]
+entity ArchUnitNET.Fluent.Extensions--><g id="elem_ArchUnitNET.Fluent.Extensions"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="75.6" x="567.7" y="68.6"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="629.3" y="72.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="627.9" y="73.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="627.9" y="76.3"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="47.6" x="578.2" y="91.4717">Extensions</text></g><!--MD5=[f2d02300251a951b350ed54409c2549b]
+entity ArchUnitNET.Fluent.Exceptions--><g id="elem_ArchUnitNET.Fluent.Exceptions"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="75.6" x="32.2" y="68.6"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="93.8" y="72.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="92.4" y="73.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="92.4" y="76.3"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="47.6" x="42.7" y="91.4717">Exceptions</text></g><!--MD5=[0920d5a70fa9b0c1b5b5731d18349e65]
+entity ArchUnitNET.Fluent.Conditions--><g id="elem_ArchUnitNET.Fluent.Conditions"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="74.9" x="294.35" y="68.6"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="355.25" y="72.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="353.85" y="73.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="353.85" y="76.3"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="46.9" x="304.85" y="91.4717">Conditions</text></g><!--MD5=[012dc235bb2353d05d86e17789058605]
+entity ArchUnitNET.Domain.Extensions--><g id="elem_ArchUnitNET.Domain.Extensions"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="75.6" x="707" y="175"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="768.6" y="178.5"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="767.2" y="179.9"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="767.2" y="182.7"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="47.6" x="717.5" y="197.8717">Extensions</text></g><!--MD5=[577007689b33d32a9979b6b47512ebbb]
+entity ArchUnitNET.Domain.Exceptions--><g id="elem_ArchUnitNET.Domain.Exceptions"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="75.6" x="699.3" y="249.2"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="760.9" y="252.7"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="759.5" y="254.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="759.5" y="256.9"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="47.6" x="709.8" y="272.0717">Exceptions</text></g><!--MD5=[331e1cc4ba5d828a21346b659bfbbe72]
+entity ArchUnitNET.Domain.Dependencies--><g id="elem_ArchUnitNET.Domain.Dependencies"><rect fill="#F1F1F1" height="31.9484" rx="1.75" ry="1.75" style="stroke:#181818;stroke-width:0.3499999999999999;" width="91.7" x="799.75" y="249.2"/><rect fill="#F1F1F1" height="7" style="stroke:#181818;stroke-width:0.3499999999999999;" width="10.5" x="877.45" y="252.7"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="876.05" y="254.1"/><rect fill="#F1F1F1" height="1.4" style="stroke:#181818;stroke-width:0.3499999999999999;" width="2.8" x="876.05" y="256.9"/><text fill="#000000" font-family="sans-serif" font-size="9.8" lengthAdjust="spacing" textLength="63.7" x="810.25" y="272.0717">Dependencies</text></g><!--MD5=[bb318d81a0c7cd9e65ea43a3ef58ad3d]
+link Loader to ArchUnitNET.Domain.Exceptions--><g id="link_Loader_ArchUnitNET.Domain.Exceptions"><path d="M792.1024,117.6064 C792.1222,117.6919 792.142,117.7774 792.1617,117.8629 C793.4237,123.3382 794.5157,128.9977 795.2,134.4 C800.198,173.908 813.603,188.685 795.2,224 C790.293,233.415 782.103,241.087 773.388,247.135 " fill="none" id="Loader-to-ArchUnitNET.Domain.Exceptions" style="stroke:#0000FF;stroke-width:0.6999999999999998;"/><polygon fill="#0000FF" points="770.42,249.123,777.2123,247.942,773.3276,247.1746,774.0949,243.2899,770.42,249.123" style="stroke:#0000FF;stroke-width:0.6999999999999998;"/></g><!--MD5=[510c873577d0d54080579917e5e5e0cd]
+link ArchUnitNET.Loader.LoadTasks to ArchUnitNET.Domain.Extensions--><g id="link_ArchUnitNET.Loader.LoadTasks_ArchUnitNET.Domain.Extensions"><path d="M830.907,100.891 C823.032,109.186 813.155,119.567 804.3,128.8 C792.953,140.63 780.346,153.699 769.664,164.738 " fill="none" id="ArchUnitNET.Loader.LoadTasks-to-ArchUnitNET.Domain.Extensions" style="stroke:#181818;stroke-width:0.6999999999999998;"/><polygon fill="none" points="773.003,168.336,759.745,174.986,765.961,161.518,773.003,168.336" style="stroke:#181818;stroke-width:0.6999999999999998;"/></g><!--MD5=[d89e23286f2150a150510400339bea6a]
+link ArchUnitNET.Loader.LoadTasks to ArchUnitNET.Domain.Dependencies--><g id="link_ArchUnitNET.Loader.LoadTasks_ArchUnitNET.Domain.Dependencies"><path d="M845.6,100.989 C845.6,130.851 845.6,196.56 845.6,235.004 " fill="none" id="ArchUnitNET.Loader.LoadTasks-to-ArchUnitNET.Domain.Dependencies" style="stroke:#181818;stroke-width:0.6999999999999998;"/><polygon fill="none" points="850.5,235.172,845.6,249.172,840.7,235.172,850.5,235.172" style="stroke:#181818;stroke-width:0.6999999999999998;"/></g><!--MD5=[fb3ba33422e7988f6cf79e22c8e5b950]
+link ArchUnitNET.Fluent.Syntax to Domain--><g id="link_ArchUnitNET.Fluent.Syntax_Domain"><path d="M432.684,100.835 C440.013,110.796 450.996,122.948 464.1,128.8 C483.427,137.424 636.664,123.011 654.5,134.4 C660.1805,138.0277 664.7519,143.1828 668.4183,148.9126 C670.2515,151.7776 671.8584,154.7862 673.2645,157.8194 C673.9676,159.336 674.6205,160.8588 675.2263,162.3728 C675.5293,163.1298 675.8205,163.8847 676.1003,164.6355 C676.2402,165.0109 676.3773,165.3853 676.5116,165.7584 C676.5787,165.945 676.6452,166.1312 676.7109,166.3172 C676.7438,166.4101 676.7765,166.503 676.809,166.5958 " fill="none" id="ArchUnitNET.Fluent.Syntax-to-Domain" style="stroke:#FF0000;stroke-width:0.6999999999999998;"/><polygon fill="#FF0000" points="676.809,166.5958,677.3668,159.7242,675.651,163.2929,672.0822,161.5771,676.809,166.5958" style="stroke:#FF0000;stroke-width:0.6999999999999998;"/></g><!--MD5=[75926c25e4ceec0ea328d8f28fb86c2a]
+link ArchUnitNET.Fluent.Slices to ArchUnitNET.Domain.Dependencies--><g id="link_ArchUnitNET.Fluent.Slices_ArchUnitNET.Domain.Dependencies"><path d="M252.259,101.017 C259.147,110.922 269.486,122.941 282.1,128.8 C298.753,136.542 429.324,130.62 447.3,134.4 C552.23,156.457 568.771,192.619 671.3,224 C717.983,238.287 733.733,237.125 785.96,248.997 " fill="none" id="ArchUnitNET.Fluent.Slices-to-ArchUnitNET.Domain.Dependencies" style="stroke:#181818;stroke-width:0.6999999999999998;"/><polygon fill="none" points="787.157,244.244,799.666,252.217,784.91,253.785,787.157,244.244" style="stroke:#181818;stroke-width:0.6999999999999998;"/></g><!--MD5=[68f615bd430555e732b0e4ecb9b70156]
+link ArchUnitNET.Fluent.Predicates to Domain--><g id="link_ArchUnitNET.Fluent.Predicates_Domain"><path d="M435.162,191.1 C476.3045,191.1 517.447,191.1 558.5895,191.1 C579.1607,191.1 599.732,191.1 620.3032,191.1 C630.5889,191.1 640.8745,191.1 651.1601,191.1 C656.3029,191.1 661.4457,191.1 666.5886,191.1 C669.16,191.1 671.7314,191.1 674.3028,191.1 C674.9456,191.1 675.5885,191.1 676.2313,191.1 " fill="none" id="ArchUnitNET.Fluent.Predicates-to-Domain" style="stroke:#FF0000;stroke-width:0.6999999999999998;"/><polygon fill="#FF0000" points="676.2313,191.1,669.9313,188.3,672.7313,191.1,669.9313,193.9,676.2313,191.1" style="stroke:#FF0000;stroke-width:0.6999999999999998;"/></g><!--MD5=[5207183ff7f0244f6b58c0d64b1273de]
+link ArchUnitNET.Fluent.PlantUml to Domain--><g id="link_ArchUnitNET.Fluent.PlantUml_Domain"><path d="M521.29,100.961 C529.69,110.845 541.947,122.857 555.8,128.8 C575.988,137.466 636.146,122.325 654.5,134.4 C665.7595,141.8095 672.6807,155.1795 676.8247,166.9972 " fill="none" id="ArchUnitNET.Fluent.PlantUml-to-Domain" style="stroke:#FF0000;stroke-width:0.6999999999999998;"/><polygon fill="#FF0000" points="676.8247,166.9972,677.3823,160.1256,675.6666,163.6944,672.0978,161.9787,676.8247,166.9972" style="stroke:#FF0000;stroke-width:0.6999999999999998;"/></g><!--MD5=[00dafc5ffc21d645edf8ade31f7b3057]
+link ArchUnitNET.Fluent.Freeze to ArchUnitNET.Domain.Exceptions--><g id="link_ArchUnitNET.Fluent.Freeze_ArchUnitNET.Domain.Exceptions"><path d="M175.14,100.877 C183.036,109.55 193.452,120.295 203.7,128.8 C262.801,177.842 275.597,198.121 347.9,224 C408.702,245.763 593.859,257.593 685.125,262.241 " fill="none" id="ArchUnitNET.Fluent.Freeze-to-ArchUnitNET.Domain.Exceptions" style="stroke:#181818;stroke-width:0.6999999999999998;"/><polygon fill="none" points="685.454,257.355,699.195,262.941,684.971,267.141,685.454,257.355" style="stroke:#181818;stroke-width:0.6999999999999998;"/></g><!--MD5=[b400c583940db8b7ceab522ec8d0273c]
+link ArchUnitNET.Fluent.Extensions to ArchUnitNET.Domain.Extensions--><g id="link_ArchUnitNET.Fluent.Extensions_ArchUnitNET.Domain.Extensions"><path d="M643.433,99.127 C662.942,107.394 686.308,119.266 704.2,134.4 C713.678,142.415 722.12,153.09 728.819,162.967 " fill="none" id="ArchUnitNET.Fluent.Extensions-to-ArchUnitNET.Domain.Extensions" style="stroke:#181818;stroke-width:0.6999999999999998;"/><polygon fill="none" points="732.956,160.342,736.316,174.79,724.682,165.592,732.956,160.342" style="stroke:#181818;stroke-width:0.6999999999999998;"/></g><!--MD5=[8e10e0cae93a58ab20ced124c4597375]
+link ArchUnitNET.Fluent.Conditions to ArchUnitNET.Fluent.Predicates--><g id="link_ArchUnitNET.Fluent.Conditions_ArchUnitNET.Fluent.Predicates"><path d="M341.509,100.891 C351.715,117.18 367.976,143.129 380.366,162.904 " fill="none" id="ArchUnitNET.Fluent.Conditions-to-ArchUnitNET.Fluent.Predicates" style="stroke:#181818;stroke-width:0.6999999999999998;"/><polygon fill="none" points="384.566,160.377,387.849,174.846,376.264,165.585,384.566,160.377" style="stroke:#181818;stroke-width:0.6999999999999998;"/></g><!--MD5=[d34e703a01c06d0124a5b11c14deb895]
+link ArchUnitNET.Fluent.Conditions to Domain--><g id="link_ArchUnitNET.Fluent.Conditions_Domain"><path d="M344.568,100.933 C353.836,110.936 367.318,123.102 382.2,128.8 C396.333,134.211 641.711,126.315 654.5,134.4 C660.1962,138.0015 664.7756,143.143 668.4449,148.8674 C670.2795,151.7295 671.8867,154.7374 673.2922,157.7714 C673.995,159.2884 674.6473,160.8119 675.2525,162.3269 C675.5551,163.0845 675.8459,163.8399 676.1253,164.5913 C676.265,164.9671 676.4019,165.3418 676.5359,165.7153 C676.6029,165.902 676.6693,166.0885 676.7349,166.2746 C676.7677,166.3676 676.8004,166.4606 676.8328,166.5535 " fill="none" id="ArchUnitNET.Fluent.Conditions-to-Domain" style="stroke:#FF0000;stroke-width:0.6999999999999998;"/><polygon fill="#FF0000" points="676.8328,166.5535,677.3968,159.6824,675.6777,163.2496,672.1105,161.5306,676.8328,166.5535" style="stroke:#FF0000;stroke-width:0.6999999999999998;"/></g><!--MD5=[ae9ed8db9c5097acf6ac176032976ba7]
+link ArchUnitNET.Domain.Extensions to ArchUnitNET.Domain.Exceptions--><g id="link_ArchUnitNET.Domain.Extensions_ArchUnitNET.Domain.Exceptions"><path d="M743.169,207.242 C742.308,215.348 741.23,225.561 740.222,235.109 " fill="none" id="ArchUnitNET.Domain.Extensions-to-ArchUnitNET.Domain.Exceptions" style="stroke:#181818;stroke-width:0.6999999999999998;"/><polygon fill="none" points="745.073,235.774,738.731,249.186,735.329,234.745,745.073,235.774" style="stroke:#181818;stroke-width:0.6999999999999998;"/></g><!--MD5=[da0cfb34630bc9251ef7cfbbba846f7e]
+link ArchUnitNET.Domain.Extensions to ArchUnitNET.Domain.Dependencies--><g id="link_ArchUnitNET.Domain.Extensions_ArchUnitNET.Domain.Dependencies"><path d="M766.178,207.242 C779.744,217.035 797.559,229.908 812.882,240.968 " fill="none" id="ArchUnitNET.Domain.Extensions-to-ArchUnitNET.Domain.Dependencies" style="stroke:#181818;stroke-width:0.6999999999999998;"/><polygon fill="none" points="815.773,237.013,824.257,249.186,810.033,244.958,815.773,237.013" style="stroke:#181818;stroke-width:0.6999999999999998;"/></g><!--MD5=[ea2de46e58fc5cf4181773e73bf4cafe]
+@startuml
+package ArchUnitNET {
+package Loader {
+[LoadTasks] as ArchUnitNET.Loader.LoadTasks
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Syntax] as ArchUnitNET.Fluent.Syntax
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Slices] as ArchUnitNET.Fluent.Slices
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Predicates] as ArchUnitNET.Fluent.Predicates
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[PlantUml] as ArchUnitNET.Fluent.PlantUml
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Freeze] as ArchUnitNET.Fluent.Freeze
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Extensions] as ArchUnitNET.Fluent.Extensions
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Exceptions] as ArchUnitNET.Fluent.Exceptions
+}
+}
+
+package ArchUnitNET {
+package Fluent {
+[Conditions] as ArchUnitNET.Fluent.Conditions
+}
+}
+
+package ArchUnitNET {
+package Domain {
+[Extensions] as ArchUnitNET.Domain.Extensions
+}
+}
+
+package ArchUnitNET {
+package Domain {
+[Exceptions] as ArchUnitNET.Domain.Exceptions
+}
+}
+
+package ArchUnitNET {
+package Domain {
+[Dependencies] as ArchUnitNET.Domain.Dependencies
+}
+}
+
+Loader -[#blue]> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Loader.LoadTasks] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Loader.LoadTasks] - -|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent.Syntax] -[#red]> Domain
+[ArchUnitNET.Fluent.Slices] - -|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent.Predicates] -[#red]> Domain
+[ArchUnitNET.Fluent.PlantUml] -[#red]> Domain
+[ArchUnitNET.Fluent.Freeze] - -|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Extensions] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Conditions] - -|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Conditions] -[#red]> Domain
+[ArchUnitNET.Domain.Extensions] - -|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Domain.Extensions] - -|> [ArchUnitNET.Domain.Dependencies]
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>
