@@ -16,5 +16,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         public bool IncludeDependenciesToOther { get; set; }
         public bool IncludeNodesWithoutDependencies { get; set; } = true;
         public bool CompactVersion { get; set; } = false;
+        public bool AlternativeView { get; set; } = false;
     }
 }

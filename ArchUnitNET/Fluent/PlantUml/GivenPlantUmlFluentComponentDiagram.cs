@@ -24,9 +24,9 @@ namespace ArchUnitNET.Fluent.PlantUml
             return _fluentComponentDiagramCreator.Builder.AsString(renderOptions);
         }
 
-        public void WriteToFile(string path, RenderOptions renderOptions = null, bool overwrite = true)
+        public void WriteToFile(string path, RenderOptions renderOptions = null)
         {
-            _fluentComponentDiagramCreator.Builder.WriteToFile(path, renderOptions, overwrite);
+            _fluentComponentDiagramCreator.Builder.WriteToFile(path, renderOptions);
         }
     }
 }

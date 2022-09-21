@@ -49,7 +49,8 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var arch1 = new ArchLoader().LoadAssembly(typeof(Architecture).Assembly).Build();
             var sliceRule1 = SliceRuleDefinition.Slices().MatchingWithPackages("ArchUnitNET.(*).(*).(*)");
             const string path = "../../../Fluent/PlantUml/Test.puml";
-            ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(arch1), "Domain.PlantUml").WriteToFile(path);
+            var g = new GenerationOptions() { AlternativeView = true, CompactVersion = true };
+            ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(arch1), g).WriteToFile(path);
             File.Delete(path);
         }
 

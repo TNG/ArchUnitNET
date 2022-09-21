@@ -33,8 +33,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             var hyperlinkString = _hyperlink != null ? " [[" + _hyperlink + "]] " : null;
             var result = "namespace " + Name + hyperlinkString + " {" + Environment.NewLine;
 
-            result += PlantUmlElements.Aggregate("", (umlstring, umlElement) =>
-                umlstring + umlElement.GetPlantUmlString(renderOptions));
+            result += PlantUmlElements.Aggregate("", (umlString, umlElement) =>
+                umlString + umlElement.GetPlantUmlString(renderOptions));
             result += "}" + Environment.NewLine;
             return result;
         }

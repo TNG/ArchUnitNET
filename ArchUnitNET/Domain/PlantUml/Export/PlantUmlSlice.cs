@@ -18,6 +18,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private string Hyperlink { get; }
         private string Namespace { get; }
         private string Color { get; }
+        private bool AlternativeView { get; set; } = false;
+
         public PlantUmlSlice(string name, string nameSpace = null, string color = null, string hyperlink = null)
         {
             PlantUmlNameChecker.AssertNoForbiddenCharacters(name, hyperlink, nameSpace);
@@ -33,7 +35,24 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return _name;
         }
 
+        public void ChangeView()
+        {
+            AlternativeView = !AlternativeView;
+        }
+
         public string GetPlantUmlString(RenderOptions renderOptions)
+        {
+            var result = AlternativeView ? BuildStringAlternative() : BuildString();
+
+            if (Hyperlink != null)
+            {
+                result.Append(" [[" + Hyperlink + "]] ");
+            }
+
+            return result.ToString() + Environment.NewLine;
+        }
+
+        private StringBuilder BuildString()
         {
             var result = new StringBuilder();
             if (Namespace != null)
@@ -53,10 +72,10 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 if (name != "")
                 {
                     result.AppendLine(" {");
-                    result.Append("[" + name + "] as " + _name) ;
+                    result.Append("[" + name + "] as " + _name);
                     if (Color != null)
                     {
-                        result.AppendLine(" #" + Color) ;
+                        result.AppendLine(" #" + Color);
                     }
                     else
                     {
@@ -86,12 +105,44 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 }
             }
 
-            if (Hyperlink != null)
+            return result;
+        }
+
+        private StringBuilder BuildStringAlternative()
+        {
+            var result = new StringBuilder();
+            if (Namespace != null)
             {
-                result.Append(" [[" + Hyperlink + "]] ");
+                result.Append("Boundary(" + Namespace.Remove(Namespace.Length - 1) + ", " + Namespace.Remove(Namespace.Length - 1) + ") ");
+                var name = _name.Remove(0, Namespace.Length);
+                var iter = 1;
+                while (name.Contains("."))
+                {
+                    var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
+                    result.AppendLine(" {");
+                    result.Append("Boundary(" + name.Remove(dotPattern) + ", " + name.Remove(dotPattern) + ") ");
+                    name = name.Remove(0, dotPattern + 1);
+                    iter++;
+                }
+                result.AppendLine(" {");
+                if (name != "")
+                {
+                    result.Append("Container("+ _name + ", " + name + ")");
+                    result.AppendLine();
+                    
+                }
+                
+                for (var i = iter; i > 0; i--)
+                {
+                    result.AppendLine("}");
+                }
+            }
+            else
+            {
+                result.Append("Container(" + _name +", " + _name + ")");
             }
 
-            return result.ToString() + Environment.NewLine;
+            return result;
         }
     }
 }
