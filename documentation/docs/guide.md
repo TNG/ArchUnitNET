@@ -267,7 +267,23 @@ In order not to display all slices and all occurrences, you can use a single ast
     ...
 ```
 
-### 5.5 Focus-mod
+### 5.5 AlternativeView-mod
+
+To enable an alternative view of diagrams, set in the GenerationOptions flag AlternativeView = true.
+
+![Diagram](diagrams/archUnitNet_three_alternative.svg)
+```cs
+string pattern = "ArchUnitNET.(*).(*).(*)";
+GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
+GenerationOptions g = new GenerationOptions(){AlternativeView = true};
+
+string path = "diagram.puml";
+
+PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), g).WriteToFile(path);
+```
+
+### 5.6 Focus-mod
 Focus mod allows you to show all dependencies on the selected package or out of the package.
 
 ![Diagram](diagrams/archUnitNet_focusOn.svg)
@@ -281,7 +297,6 @@ string path = "diagram.puml";
 
 PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), focusOnThisPackage).WriteToFile(path);
 ```
-
 
 ## 6. Further Reading and Examples
 A complete overview of all available methods can be found [here](additional.md).
