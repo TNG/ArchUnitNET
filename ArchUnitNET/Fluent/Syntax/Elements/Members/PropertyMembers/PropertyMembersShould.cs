@@ -99,7 +99,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
-        public PropertyMembersShouldConjunction HaveInitSetter()
+        public PropertyMembersShouldConjunction HaveInitOnlySetter()
         {
             _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HaveInitSetter());
             return new PropertyMembersShouldConjunction(_ruleCreator);
@@ -199,7 +199,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
-        public PropertyMembersShouldConjunction NotHaveInitSetter()
+        public PropertyMembersShouldConjunction NotHaveInitOnlySetter()
         {
             _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHaveInitSetter());
             return new PropertyMembersShouldConjunction(_ruleCreator);

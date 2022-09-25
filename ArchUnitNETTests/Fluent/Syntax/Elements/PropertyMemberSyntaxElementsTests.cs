@@ -648,39 +648,39 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         }
 
         [Fact]
-        public void HaveInitSetterTest()
+        public void HaveInitOnlySetterTest()
         {
             foreach (var propertyMember in _propertyMembers)
             {
-                var propertyMemberHasInitSetter = PropertyMembers().That().Are(propertyMember).Should().HaveInitSetter();
-                var propertyMemberHasNoInitSetter = PropertyMembers().That().Are(propertyMember).Should().NotHaveInitSetter();
-                var propertyMembersWithInitSetterDoNotIncludeMember =
-                    PropertyMembers().That().HaveInitSetter().Should().NotBe(propertyMember).OrShould().NotExist();
-                var propertyMembersWithoutInitSetterDoNotIncludeMember =
-                    PropertyMembers().That().DoNotHaveInitSetter().Should().NotBe(propertyMember).AndShould().Exist();
+                var propertyMemberHasInitOnlySetter = PropertyMembers().That().Are(propertyMember).Should().HaveInitOnlySetter();
+                var propertyMemberHasNoInitOnlySetter = PropertyMembers().That().Are(propertyMember).Should().NotHaveInitOnlySetter();
+                var propertyMembersWithInitOnlySetterDoNotIncludeMember =
+                    PropertyMembers().That().HaveInitOnlySetter().Should().NotBe(propertyMember).OrShould().NotExist();
+                var propertyMembersWithoutInitOnlySetterDoNotIncludeMember =
+                    PropertyMembers().That().DoNotHaveInitOnlySetter().Should().NotBe(propertyMember).AndShould().Exist();
 
-                Assert.Equal(propertyMember.WriteAccessor == WriteAccessors.Init,
-                    propertyMemberHasInitSetter.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.WriteAccessor != WriteAccessors.Init,
-                    propertyMemberHasNoInitSetter.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.WriteAccessor != WriteAccessors.Init,
-                    propertyMembersWithInitSetterDoNotIncludeMember.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.WriteAccessor == WriteAccessors.Init,
-                    propertyMembersWithoutInitSetterDoNotIncludeMember.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.Writability == Writability.InitOnly,
+                    propertyMemberHasInitOnlySetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.Writability != Writability.InitOnly,
+                    propertyMemberHasNoInitOnlySetter.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.Writability != Writability.InitOnly,
+                    propertyMembersWithInitOnlySetterDoNotIncludeMember.HasNoViolations(Architecture));
+                Assert.Equal(propertyMember.Writability == Writability.InitOnly,
+                    propertyMembersWithoutInitOnlySetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
-            var propertyMembersWithInitSetterHaveInitSetter = PropertyMembers().That().HaveInitSetter().Should().HaveInitSetter();
-            var propertyMembersWithInitSetterHaveNoInitSetter =
-                PropertyMembers().That().HaveInitSetter().Should().NotHaveInitSetter().AndShould().Exist();
-            var propertyMembersWithoutInitSetterHaveInitSetter =
-                PropertyMembers().That().DoNotHaveInitSetter().Should().HaveInitSetter().AndShould().Exist();
-            var propertyMembersWithoutInitSetterHaveNoInitSetter =
-                PropertyMembers().That().DoNotHaveInitSetter().Should().NotHaveInitSetter();
+            var propertyMembersWithInitOnlySetterHaveInitOnlySetter = PropertyMembers().That().HaveInitOnlySetter().Should().HaveInitOnlySetter();
+            var propertyMembersWithInitOnlySetterHaveNoInitOnlySetter =
+                PropertyMembers().That().HaveInitOnlySetter().Should().NotHaveInitOnlySetter().AndShould().Exist();
+            var propertyMembersWithoutInitOnlySetterHaveInitOnlySetter =
+                PropertyMembers().That().DoNotHaveInitOnlySetter().Should().HaveInitOnlySetter().AndShould().Exist();
+            var propertyMembersWithoutInitOnlySetterHaveNoInitOnlySetter =
+                PropertyMembers().That().DoNotHaveInitOnlySetter().Should().NotHaveInitOnlySetter();
 
-            Assert.True(propertyMembersWithInitSetterHaveInitSetter.HasNoViolations(Architecture));
-            Assert.False(propertyMembersWithInitSetterHaveNoInitSetter.HasNoViolations(Architecture));
-            Assert.False(propertyMembersWithoutInitSetterHaveInitSetter.HasNoViolations(Architecture));
-            Assert.True(propertyMembersWithoutInitSetterHaveNoInitSetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithInitOnlySetterHaveInitOnlySetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithInitOnlySetterHaveNoInitOnlySetter.HasNoViolations(Architecture));
+            Assert.False(propertyMembersWithoutInitOnlySetterHaveInitOnlySetter.HasNoViolations(Architecture));
+            Assert.True(propertyMembersWithoutInitOnlySetterHaveNoInitOnlySetter.HasNoViolations(Architecture));
         }
     }
 }

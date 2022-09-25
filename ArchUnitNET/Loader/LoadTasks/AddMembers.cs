@@ -107,22 +107,22 @@ namespace ArchUnitNET.Loader.LoadTasks
             throw new ArgumentException("The field definition seems to have no visibility.");
         }
 
-        private static WriteAccessors GetWriteAccessor([NotNull] FieldDefinition fieldDefinition)
+        private static Writability GetWriteAccessor([NotNull] FieldDefinition fieldDefinition)
         {
-            return fieldDefinition.IsInitOnly ? WriteAccessors.ReadOnly : WriteAccessors.Set;
+            return fieldDefinition.IsInitOnly ? Writability.ReadOnly : Writability.Writable;
         }
 
-        private static WriteAccessors GetWriteAccessor([NotNull] PropertyDefinition propertyDefinition)
+        private static Writability GetWriteAccessor([NotNull] PropertyDefinition propertyDefinition)
         {
             bool isReadOnly = propertyDefinition.SetMethod == null;
 
             if (isReadOnly)
             {
-                return WriteAccessors.ReadOnly;
+                return Writability.ReadOnly;
             }
 
             bool isInitSetter = CheckPropertyHasInitSetterInNetStandardCompatibleWay(propertyDefinition);
-            return isInitSetter ? WriteAccessors.Init : WriteAccessors.Set;
+            return isInitSetter ? Writability.InitOnly : Writability.Writable;
         }
 
         private static bool CheckPropertyHasInitSetterInNetStandardCompatibleWay(PropertyDefinition propertyDefinition)

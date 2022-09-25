@@ -103,7 +103,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveInitSetter()
+        public TRuleTypeShouldConjunction HaveInitOnlySetter()
         {
             _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HaveInitSetter());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -203,7 +203,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveInitSetter()
+        public TRuleTypeShouldConjunction DoNotHaveInitOnlySetter()
         {
             _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.DoNotHaveInitSetter());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);

@@ -17,7 +17,7 @@ namespace ArchUnitNET.Domain
         private readonly ITypeInstance<IType> _typeInstance;
 
         public PropertyMember(IType declaringType, string name, string fullName, ITypeInstance<IType> type,
-            bool isCompilerGenerated, bool? isStatic, WriteAccessors writeAccessor)
+            bool isCompilerGenerated, bool? isStatic, Writability writability)
         {
             Name = name;
             FullName = fullName;
@@ -26,7 +26,7 @@ namespace ArchUnitNET.Domain
             IsCompilerGenerated = isCompilerGenerated;
             PropertyTypeDependency = new PropertyTypeDependency(this);
             IsStatic = isStatic;
-            WriteAccessor = writeAccessor;
+            Writability = writability;
         }
 
         public bool IsVirtual { get; internal set; }
@@ -38,7 +38,7 @@ namespace ArchUnitNET.Domain
 
         [CanBeNull] public MethodMember Setter { get; internal set; }
 
-        public WriteAccessors WriteAccessor { get; }
+        public Writability? Writability { get; }
 
         public List<IMemberTypeDependency> AttributeDependencies { get; } = new List<IMemberTypeDependency>();
 

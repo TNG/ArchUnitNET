@@ -184,13 +184,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         
         public static ICondition<TRuleType> BeReadOnly()
         {
-            return new SimpleCondition<TRuleType>(member => member.WriteAccessor == WriteAccessors.ReadOnly,
+            return new SimpleCondition<TRuleType>(member => member.Writability == Writability.ReadOnly,
                 "be read only", "is not read only");
         }
 
         public static ICondition<TRuleType> BeImmutable()
         {
-            return new SimpleCondition<TRuleType>(member => WriteAccessors.Immutable.HasFlag(member.WriteAccessor),
+            return new SimpleCondition<TRuleType>(member => member.Writability.IsImmutable(),
                 "be immutable", "is not immutable");
         }
 
@@ -375,13 +375,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         
         public static ICondition<TRuleType> NotBeReadOnly()
         {
-            return new SimpleCondition<TRuleType>(member => member.WriteAccessor != WriteAccessors.ReadOnly,
+            return new SimpleCondition<TRuleType>(member => member.Writability != Writability.ReadOnly,
                 "not be read only", "is read only");
         }
 
         public static ICondition<TRuleType> NotBeImmutable()
         {
-            return new SimpleCondition<TRuleType>(member => !WriteAccessors.Immutable.HasFlag(member.WriteAccessor),
+            return new SimpleCondition<TRuleType>(member => !member.Writability.IsImmutable(),
                 "not be immutable", "is immutable");
         }
 

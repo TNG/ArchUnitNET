@@ -188,7 +188,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var membersThatAreNotImmutableDoNotIncludeMember =
                     Members().That().AreNotImmutable().Should().NotBe(member).AndShould().Exist();
 
-                bool isImmutable = WriteAccessors.Immutable.HasFlag(member.WriteAccessor);
+                bool isImmutable = member.Writability.IsImmutable();
                 Assert.Equal(isImmutable,
                     memberIsImmutable.HasNoViolations(Architecture));
                 Assert.Equal(!isImmutable,
