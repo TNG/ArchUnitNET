@@ -343,7 +343,7 @@ namespace ArchUnitNET.Loader
             }
 
             return new FieldMember(type, fieldReference.Name, fieldReference.FullName, Public, fieldType,
-                isCompilerGenerated, isStatic, isReadOnly);
+                isCompilerGenerated, isStatic, isReadOnly ? WriteAccessors.ReadOnly : WriteAccessors.Set);
         }
 
         public IEnumerable<GenericParameter> GetGenericParameters(IGenericParameterProvider genericParameterProvider)

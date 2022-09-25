@@ -15,7 +15,7 @@ namespace ArchUnitNET.Domain
         private readonly ITypeInstance<IType> _typeInstance;
 
         public FieldMember(IType declaringType, string name, string fullName, Visibility visibility,
-            ITypeInstance<IType> typeInstance, bool isCompilerGenerated, bool? isStatic, bool? isReadOnly)
+            ITypeInstance<IType> typeInstance, bool isCompilerGenerated, bool? isStatic, WriteAccessors writeAccessor)
         {
             DeclaringType = declaringType;
             Name = name;
@@ -24,7 +24,7 @@ namespace ArchUnitNET.Domain
             IsCompilerGenerated = isCompilerGenerated;
             _typeInstance = typeInstance;
             IsStatic = isStatic;
-            IsReadOnly = isReadOnly;
+            WriteAccessor = writeAccessor;
         }
 
         public Visibility Visibility { get; }
@@ -35,8 +35,7 @@ namespace ArchUnitNET.Domain
 
         public bool IsCompilerGenerated { get; }
         public bool? IsStatic { get; }
-        public bool? IsReadOnly { get; }
-        public bool? IsImmutable => IsReadOnly;
+        public WriteAccessors WriteAccessor { get; }
         public bool IsGeneric => false;
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);

@@ -148,66 +148,66 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void AreReadOnlyMethodMembersAndFieldMembersAndPropertyMembers()
         {
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)), 
-                member => member.IsReadOnly == true);
+            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
+                member => member.WriteAccessor == WriteAccessors.ReadOnly);
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
-                member => member.IsReadOnly == false);
+                member => member.WriteAccessor != WriteAccessors.ReadOnly);
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
-                member => member.IsReadOnly == false);
+                member => member.WriteAccessor != WriteAccessors.ReadOnly);
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVar)),
-                member => member.IsReadOnly == true);
+                member => member.WriteAccessor == WriteAccessors.ReadOnly);
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVarInit)),
-                member => member.IsReadOnly == true);
+                member => member.WriteAccessor == WriteAccessors.ReadOnly);
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.NotReadOnlyVarInit)),
-                member => member.IsReadOnly == false);
+                member => member.WriteAccessor != WriteAccessors.ReadOnly);
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.CheckForReadOnlyMethod) + "()"),
-                member => member.IsReadOnly == null);
+                member => member.WriteAccessor == WriteAccessors.None);
         }
 
         [Fact]
         public void ArePropertyMembersWithInitSetter()
         {
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
-                member => member.WriteAccessor == WriteAccessor.Init);
+                member => member.WriteAccessor == WriteAccessors.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
-                member => member.WriteAccessor != WriteAccessor.Init);
+                member => member.WriteAccessor != WriteAccessors.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
-                member => member.WriteAccessor != WriteAccessor.Init);
+                member => member.WriteAccessor != WriteAccessors.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PositionalInitOnlyProperty)),
-                member => member.WriteAccessor == WriteAccessor.Init);
+                member => member.WriteAccessor == WriteAccessors.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.InitOnlyProperty)),
-                member => member.WriteAccessor == WriteAccessor.Init);
+                member => member.WriteAccessor == WriteAccessors.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithoutSet)),
-                member => member.WriteAccessor != WriteAccessor.Init);
+                member => member.WriteAccessor != WriteAccessors.Init);
             Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithSet)),
-                member => member.WriteAccessor != WriteAccessor.Init);
+                member => member.WriteAccessor != WriteAccessors.Init);
         }
 
         [Fact]
         public void AreMembersImmutable()
         {
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVar)),
-                member => member.IsImmutable == true);
+                member => WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVarInit)),
-                member => member.IsImmutable == true);
+                member => WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.NotReadOnlyVarInit)),
-                member => member.IsImmutable == false);
+                member => !WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
-                member => member.IsImmutable == true);
+                member => WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
-                member => member.IsImmutable == true);
+                member => WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
-                member => member.IsImmutable == false);
+                member => !WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.CheckForReadOnlyMethod) + "()"),
-                member => member.IsImmutable == null);
+                member => WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PositionalInitOnlyProperty)),
-                member => member.IsImmutable == true);
+                member => WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PropertyWithoutSet)),
-                member => member.IsImmutable == true);
+                member => WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.InitOnlyProperty)),
-                member => member.IsImmutable == true);
+                member => WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
             Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PropertyWithSet)),
-                member => member.IsImmutable == false);
+                member => !WriteAccessors.Immutable.HasFlag(member.WriteAccessor));
         }
 
         [Fact]

@@ -659,13 +659,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var propertyMembersWithoutInitSetterDoNotIncludeMember =
                     PropertyMembers().That().DoNotHaveInitSetter().Should().NotBe(propertyMember).AndShould().Exist();
 
-                Assert.Equal(propertyMember.WriteAccessor == WriteAccessor.Init,
+                Assert.Equal(propertyMember.WriteAccessor == WriteAccessors.Init,
                     propertyMemberHasInitSetter.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.WriteAccessor != WriteAccessor.Init,
+                Assert.Equal(propertyMember.WriteAccessor != WriteAccessors.Init,
                     propertyMemberHasNoInitSetter.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.WriteAccessor != WriteAccessor.Init,
+                Assert.Equal(propertyMember.WriteAccessor != WriteAccessors.Init,
                     propertyMembersWithInitSetterDoNotIncludeMember.HasNoViolations(Architecture));
-                Assert.Equal(propertyMember.WriteAccessor == WriteAccessor.Init,
+                Assert.Equal(propertyMember.WriteAccessor == WriteAccessors.Init,
                     propertyMembersWithoutInitSetterDoNotIncludeMember.HasNoViolations(Architecture));
             }
 

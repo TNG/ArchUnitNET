@@ -15,7 +15,6 @@ namespace ArchUnitNET.Domain
         List<IMemberTypeDependency> MemberDependencies { get; }
         List<IMemberTypeDependency> MemberBackwardsDependencies { get; }
         bool? IsStatic { get; }
-        bool? IsReadOnly { get; }
-        bool? IsImmutable { get; }
+        WriteAccessors WriteAccessor { get; }
     }
 }

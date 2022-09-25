@@ -26,7 +26,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public static ICondition<Class> BeImmutable()
         {
-            return new SimpleCondition<Class>(cls => cls.Members.Where(m => m.IsStatic == false).All(m => m.IsImmutable != false), "be immutable",
+            return new SimpleCondition<Class>(cls => cls.Members.Where(m => m.IsStatic == false).All(m => WriteAccessors.Immutable.HasFlag(m.WriteAccessor)), "be immutable",
                 "is not immutable");
         }
 
@@ -47,7 +47,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public static ICondition<Class> NotBeImmutable()
         {
-            return new SimpleCondition<Class>(cls => cls.Members.Any(m => m.IsStatic == false && m.IsImmutable == false), "not be immutable",
+            return new SimpleCondition<Class>(cls => cls.Members.Any(m => m.IsStatic == false && !WriteAccessors.Immutable.HasFlag(m.WriteAccessor)), "not be immutable",
                 "is immutable");
         }
     }

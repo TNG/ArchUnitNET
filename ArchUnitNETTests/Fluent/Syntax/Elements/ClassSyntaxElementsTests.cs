@@ -113,7 +113,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var immutableClassesDoNotIncludeType = Classes().That().AreImmutable().Should().NotBe(cls);
                 var notImmutableClassesDoNotIncludeType = Classes().That().AreNotImmutable().Should().NotBe(cls);
 
-                bool isImmutable = cls.Members.Where(m => m.IsStatic == false).All(m => m.IsImmutable != false);
+                bool isImmutable = cls.Members.Where(m => m.IsStatic == false).All(m => WriteAccessors.Immutable.HasFlag(m.WriteAccessor));
                 Assert.Equal(isImmutable, clsIsImmutable.HasNoViolations(Architecture));
                 Assert.Equal(!isImmutable, clsIsNotImmutable.HasNoViolations(Architecture));
                 Assert.Equal(!isImmutable, immutableClassesDoNotIncludeType.HasNoViolations(Architecture));
