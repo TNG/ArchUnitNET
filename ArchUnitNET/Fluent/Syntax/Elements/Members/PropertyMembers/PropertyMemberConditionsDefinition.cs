@@ -121,8 +121,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public static ICondition<PropertyMember> HaveInitSetter()
         {
             return new SimpleCondition<PropertyMember>(member => member.Writability == Writability.InitOnly,
-                "have an init setter",
-                "does not have an init setter");
+                "have an only init only setter",
+                "does not have an init only setter");
         }
 
         public static ICondition<PropertyMember> BeVirtual()
@@ -227,7 +227,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public static ICondition<PropertyMember> NotHaveInitSetter()
         {
             return new SimpleCondition<PropertyMember>(member => member.Writability != Writability.InitOnly,
-                "not have an init setter", "has an init setter");
+                "not have an init only setter", "has an init only setter");
         }
 
         public static ICondition<PropertyMember> NotBeVirtual()

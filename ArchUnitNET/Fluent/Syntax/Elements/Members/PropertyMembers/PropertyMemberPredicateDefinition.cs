@@ -99,7 +99,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public static IPredicate<PropertyMember> HaveInitSetter()
         {
             return new SimplePredicate<PropertyMember>(member => member.Writability == Writability.InitOnly,
-                "have an init setter");
+                "have an init only setter");
         }
 
         public static IPredicate<PropertyMember> AreVirtual()
@@ -198,7 +198,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public static IPredicate<PropertyMember> DoNotHaveInitSetter()
         {
             return new SimplePredicate<PropertyMember>(member => member.Writability != Writability.InitOnly,
-                "do not have an init setter");
+                "do not have an init only setter");
         }
 
         public static IPredicate<PropertyMember> AreNotVirtual()
