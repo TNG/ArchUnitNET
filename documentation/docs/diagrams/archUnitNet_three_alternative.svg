@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="270px" preserveAspectRatio="none" style="width:522px;height:270px;background:#FFFFFF;" version="1.1" viewBox="0 0 522 270" width="522.4px" zoomAndPan="magnify"><defs/><g><!--MD5=[35f9dfedec39fd2e10e8a13c47ee5789]
+cluster ArchUnitNET--><g id="cluster_ArchUnitNET"><rect fill="none" height="264.8" rx="1" ry="1" style="stroke:#444444;stroke-width:0.4000000000000001;stroke-dasharray:7.0,7.0;" width="517.2" x="2.8" y="2.8"/><text fill="#444444" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="40" x="241.4" y="9.3938">ArchUnitNET</text></g><!--MD5=[f504221dae15b154bc64fdfab34a1f62]
+cluster Loader--><g id="cluster_Loader"><rect fill="none" height="42.4" rx="1" ry="1" style="stroke:#444444;stroke-width:0.4000000000000001;stroke-dasharray:7.0,7.0;" width="69.2" x="438" y="134"/><text fill="#444444" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="21.6" x="461.8" y="140.5938">Loader</text></g><!--MD5=[50d838338a8efd04032f85b32421b4d7]
+cluster Fluent--><g id="cluster_Fluent"><rect fill="none" height="152.8" rx="1" ry="1" style="stroke:#444444;stroke-width:0.4000000000000001;stroke-dasharray:7.0,7.0;" width="239.2" x="12.4" y="20.4"/><text fill="#444444" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="19.2" x="122.4" y="26.9938">Fluent</text></g><!--MD5=[94a2dc2ec9d8697b335698bdbfeb78e7]
+cluster Syntax--><g id="cluster_Syntax"><rect fill="none" height="36" rx="1" ry="1" style="stroke:#444444;stroke-width:0.4000000000000001;stroke-dasharray:7.0,7.0;" width="49.6" x="52.8" y="38"/><text fill="#444444" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="21.2" x="67" y="44.5938">Syntax</text></g><!--MD5=[121a8bf1197281ab89ed693fab589f94]
+cluster Domain--><g id="cluster_Domain"><rect fill="none" height="138.4" rx="1" ry="1" style="stroke:#444444;stroke-width:0.4000000000000001;stroke-dasharray:7.0,7.0;" width="157.6" x="264.4" y="116.4"/><text fill="#444444" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="23.6" x="331.4" y="122.9938">Domain</text></g><!--MD5=[124c38f5faf6c2e32fb9828e081ccfbf]
+cluster PlantUml--><g id="cluster_PlantUml"><rect fill="none" height="75.2" rx="1" ry="1" style="stroke:#444444;stroke-width:0.4000000000000001;stroke-dasharray:7.0,7.0;" width="83.2" x="280.4" y="137.2"/><text fill="#444444" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="27.6" x="308.2" y="143.7938">PlantUml</text></g><!--MD5=[1c9ca8f26a4da55518a0e849e052c70c]
+entity ArchUnitNET.Loader.LoadTasks--><g id="elem_ArchUnitNET.Loader.LoadTasks"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="42" x="447.8" y="151.6"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="34" x="451.8" y="161.3938">LoadTasks</text></g><!--MD5=[502ee4525bc8590c0b3025b59206ac5b]
+entity ArchUnitNET.Fluent.Slices--><g id="elem_ArchUnitNET.Fluent.Slices"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="26.4" x="18.8" y="52.4"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="18.4" x="22.8" y="62.1938">Slices</text></g><!--MD5=[1c44b256fb10fd47b89b46620d1d1f24]
+entity ArchUnitNET.Fluent.Predicates--><g id="elem_ArchUnitNET.Fluent.Predicates"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="40.4" x="92.6" y="151.6"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="32.4" x="96.6" y="161.3938">Predicates</text></g><!--MD5=[dc15977a09b42d1e128dc4eb6141bcd2]
+entity ArchUnitNET.Fluent.PlantUml--><g id="elem_ArchUnitNET.Fluent.PlantUml"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="35.6" x="153" y="52.4"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="27.6" x="157" y="62.1938">PlantUml</text></g><!--MD5=[2a29295b13477a201d03d9465890fca0]
+entity ArchUnitNET.Fluent.Freeze--><g id="elem_ArchUnitNET.Fluent.Freeze"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="28.8" x="110" y="52.4"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="20.8" x="114" y="62.1938">Freeze</text></g><!--MD5=[82fbb12b020fc7aa4d6912daca5c0beb]
+entity ArchUnitNET.Fluent.Extensions--><g id="elem_ArchUnitNET.Fluent.Extensions"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="42.4" x="202.8" y="52.4"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="34.4" x="206.8" y="62.1938">Extensions</text></g><!--MD5=[f2d02300251a951b350ed54409c2549b]
+entity ArchUnitNET.Fluent.Exceptions--><g id="elem_ArchUnitNET.Fluent.Exceptions"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="42.4" x="147.6" y="91.6"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="34.4" x="151.6" y="101.3938">Exceptions</text></g><!--MD5=[0920d5a70fa9b0c1b5b5731d18349e65]
+entity ArchUnitNET.Fluent.Conditions--><g id="elem_ArchUnitNET.Fluent.Conditions"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="41.6" x="92" y="91.6"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="33.6" x="96" y="101.3938">Conditions</text></g><!--MD5=[484847893f49f4f930b20a88fce90c16]
+entity ArchUnitNET.Fluent.Syntax.Elements--><g id="elem_ArchUnitNET.Fluent.Syntax.Elements"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="36.4" x="59.4" y="52.4"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="28.4" x="63.4" y="62.1938">Elements</text></g><!--MD5=[012dc235bb2353d05d86e17789058605]
+entity ArchUnitNET.Domain.Extensions--><g id="elem_ArchUnitNET.Domain.Extensions"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="42.4" x="370" y="190.8"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="34.4" x="374" y="200.5938">Extensions</text></g><!--MD5=[577007689b33d32a9979b6b47512ebbb]
+entity ArchUnitNET.Domain.Exceptions--><g id="elem_ArchUnitNET.Domain.Exceptions"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="42.4" x="370" y="230"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="34.4" x="374" y="239.7938">Exceptions</text></g><!--MD5=[331e1cc4ba5d828a21346b659bfbbe72]
+entity ArchUnitNET.Domain.Dependencies--><g id="elem_ArchUnitNET.Domain.Dependencies"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="52" x="304" y="230"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="44" x="308" y="239.7938">Dependencies</text></g><!--MD5=[e5ae0ac6ad56daf11d73811f245a4c51]
+entity ArchUnitNET.Domain.PlantUml.Import--><g id="elem_ArchUnitNET.Domain.PlantUml.Import"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="27.6" x="329.4" y="151.6"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="19.6" x="333.4" y="161.3938">Import</text></g><!--MD5=[43e6274b1a3fe0323fe04a7bdfecfd1e]
+entity ArchUnitNET.Domain.PlantUml.Export--><g id="elem_ArchUnitNET.Domain.PlantUml.Export"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="28.4" x="287" y="151.6"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="20.4" x="291" y="161.3938">Export</text></g><!--MD5=[72e82cf5caf8888f15e82f4c78e5dc24]
+entity ArchUnitNET.Domain.PlantUml.Exceptions--><g id="elem_ArchUnitNET.Domain.PlantUml.Exceptions"><rect fill="#438DD5" height="15.15" rx="1" ry="1" style="stroke:#3C7FC0;stroke-width:0.20000000000000004;" width="42.4" x="286.8" y="190.8"/><text fill="#FFFFFF" font-family="sans-serif" font-size="6.4" font-weight="bold" lengthAdjust="spacing" textLength="34.4" x="290.8" y="200.5938">Exceptions</text></g><!--MD5=[bb318d81a0c7cd9e65ea43a3ef58ad3d]
+link Loader to ArchUnitNET.Domain.Exceptions--><g id="link_Loader_ArchUnitNET.Domain.Exceptions"><path d="M499.6931,176.4265 C499.6771,176.4657 499.6611,176.5048 499.645,176.544 C499.516,176.8572 499.3836,177.1695 499.2477,177.4803 C498.9758,178.1018 498.6896,178.7175 498.3887,179.3231 C497.7868,180.5341 497.1255,181.7045 496.4,182.8 C484.156,201.288 478.12,204.712 458.8,215.6 C444.988,223.384 427.984,228.8 414.484,232.264 " fill="none" id="Loader-to-ArchUnitNET.Domain.Exceptions" style="stroke:#0000FF;stroke-width:0.4000000000000001;"/><polygon fill="#0000FF" points="412.52,232.76,416.401,233.4364,414.4599,232.2736,415.6228,230.3325,412.52,232.76" style="stroke:#0000FF;stroke-width:0.4000000000000001;"/></g><!--MD5=[510c873577d0d54080579917e5e5e0cd]
+link ArchUnitNET.Loader.LoadTasks to ArchUnitNET.Domain.Extensions--><g id="link_ArchUnitNET.Loader.LoadTasks_ArchUnitNET.Domain.Extensions"><path d="M454.204,166.824 C442.644,172.544 426.308,180.628 413.168,187.128 " fill="none" id="ArchUnitNET.Loader.LoadTasks-to-ArchUnitNET.Domain.Extensions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="414.276,189.704,405.864,190.744,411.792,184.688,414.276,189.704" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[d89e23286f2150a150510400339bea6a]
+link ArchUnitNET.Loader.LoadTasks to ArchUnitNET.Domain.Dependencies--><g id="link_ArchUnitNET.Loader.LoadTasks_ArchUnitNET.Domain.Dependencies"><path d="M464.52,166.884 C457.02,178.976 440.316,203.092 419.6,215.6 C417.096,217.112 388.184,223.952 363.872,229.536 " fill="none" id="ArchUnitNET.Loader.LoadTasks-to-ArchUnitNET.Domain.Dependencies" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="364.436,232.28,356.012,231.332,363.188,226.82,364.436,232.28" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[089c2dc787bc6ef7e88b296d67218d4e]
+link ArchUnitNET.Fluent.Syntax.Elements to ArchUnitNET.Fluent.Predicates--><g id="link_ArchUnitNET.Fluent.Syntax.Elements_ArchUnitNET.Fluent.Predicates"><path d="M78.056,67.648 C78.804,76.932 80.688,93.42 85.2,106.8 C89.752,120.308 97.536,134.528 103.68,144.68 " fill="none" id="ArchUnitNET.Fluent.Syntax.Elements-to-ArchUnitNET.Fluent.Predicates" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="106.116,143.296,107.976,151.568,101.364,146.26,106.116,143.296" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[aad9951e2f16ff22a717031a898b52ad]
+link ArchUnitNET.Fluent.Syntax.Elements to ArchUnitNET.Fluent.Exceptions--><g id="link_ArchUnitNET.Fluent.Syntax.Elements_ArchUnitNET.Fluent.Exceptions"><path d="M84.852,67.728 C88.436,71.008 92.976,74.692 97.6,77.2 C105.04,81.232 123.524,86.796 139.792,91.268 " fill="none" id="ArchUnitNET.Fluent.Syntax.Elements-to-ArchUnitNET.Fluent.Exceptions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="140.552,88.572,147.544,93.364,139.088,93.98,140.552,88.572" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[4329c27dfe367da6a1689fae2a7463f1]
+link ArchUnitNET.Fluent.Syntax.Elements to ArchUnitNET.Fluent.Conditions--><g id="link_ArchUnitNET.Fluent.Syntax.Elements_ArchUnitNET.Fluent.Conditions"><path d="M84.22,67.624 C88.812,72.632 95.064,79.452 100.552,85.44 " fill="none" id="ArchUnitNET.Fluent.Syntax.Elements-to-ArchUnitNET.Fluent.Conditions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="102.748,83.688,106.088,91.48,98.62,87.472,102.748,83.688" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[10abdf18ae2978ba83408d24006e84f3]
+link ArchUnitNET.Fluent.Syntax.Elements to ArchUnitNET.Domain.Extensions--><g id="link_ArchUnitNET.Fluent.Syntax.Elements_ArchUnitNET.Domain.Extensions"><path d="M84.108,67.636 C87.716,71.152 92.496,75.068 97.6,77.2 C161.024,103.712 188.84,63.548 251.6,91.6 C260.672,95.656 258.808,103.016 268,106.8 C277.828,110.844 355.292,103.372 363.6,110 C389.76,130.864 370.344,151.744 382.8,182.8 C382.9,183.052 383.004,183.304 383.112,183.56 " fill="none" id="ArchUnitNET.Fluent.Syntax.Elements-to-ArchUnitNET.Domain.Extensions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="385.64,182.352,386.72,190.756,380.632,184.86,385.64,182.352" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[07c512db76b11b01c0f67fa4536f3fee]
+link ArchUnitNET.Fluent.Syntax.Elements to ArchUnitNET.Domain.Exceptions--><g id="link_ArchUnitNET.Fluent.Syntax.Elements_ArchUnitNET.Domain.Exceptions"><path d="M84.1,67.652 C87.708,71.168 92.488,75.084 97.6,77.2 C155.316,101.108 326.032,73.596 376.8,110 C409.824,133.684 409.8,151.36 419.6,190.8 C422.26,201.496 424.496,205.724 419.6,215.6 C417.796,219.24 415.052,222.432 411.968,225.168 " fill="none" id="ArchUnitNET.Fluent.Syntax.Elements-to-ArchUnitNET.Domain.Exceptions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="413.644,227.412,405.572,229.996,410.268,222.94,413.644,227.412" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[75926c25e4ceec0ea328d8f28fb86c2a]
+link ArchUnitNET.Fluent.Slices to ArchUnitNET.Domain.Dependencies--><g id="link_ArchUnitNET.Fluent.Slices_ArchUnitNET.Domain.Dependencies"><path d="M32.904,67.684 C35.956,89.012 47.892,151.772 85.6,182.8 C117.476,209.032 236.596,226.284 295.944,233.444 " fill="none" id="ArchUnitNET.Fluent.Slices-to-ArchUnitNET.Domain.Dependencies" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="296.292,230.664,303.908,234.384,295.636,236.224,296.292,230.664" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[68f615bd430555e732b0e4ecb9b70156]
+link ArchUnitNET.Fluent.Predicates to Domain--><g id="link_ArchUnitNET.Fluent.Predicates_Domain"><path d="M133.056,159.2 C155.436,159.2 177.816,159.2 200.196,159.2 C211.386,159.2 222.576,159.2 233.766,159.2 C239.361,159.2 244.956,159.2 250.551,159.2 C253.3485,159.2 256.146,159.2 258.9435,159.2 C260.3423,159.2 261.741,159.2 263.1398,159.2 C263.4894,159.2 263.8391,159.2 264.1888,159.2 " fill="none" id="ArchUnitNET.Fluent.Predicates-to-Domain" style="stroke:#FF0000;stroke-width:0.4000000000000001;"/><polygon fill="#FF0000" points="264.1888,159.2,260.5888,157.6,262.1888,159.2,260.5888,160.8,264.1888,159.2" style="stroke:#FF0000;stroke-width:0.4000000000000001;"/></g><!--MD5=[f743070d9ecbe8d9df0ea574eb8d7719]
+link ArchUnitNET.Fluent.PlantUml to ArchUnitNET.Domain.PlantUml.Export--><g id="link_ArchUnitNET.Fluent.PlantUml_ArchUnitNET.Domain.PlantUml.Export"><path d="M179.6,67.656 C184.212,71.084 190.116,74.92 196,77.2 C235.404,92.484 259.92,61.912 290,91.6 C303.58,105.004 304.492,128.204 303.308,143.528 " fill="none" id="ArchUnitNET.Fluent.PlantUml-to-ArchUnitNET.Domain.PlantUml.Export" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="306.092,143.852,302.452,151.508,300.524,143.252,306.092,143.852" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[00dafc5ffc21d645edf8ade31f7b3057]
+link ArchUnitNET.Fluent.Freeze to ArchUnitNET.Domain.Exceptions--><g id="link_ArchUnitNET.Fluent.Freeze_ArchUnitNET.Domain.Exceptions"><path d="M132.3,67.748 C136.184,71.032 141.08,74.716 146,77.2 C167.1,87.856 178.056,77.732 197.2,91.6 C250.944,130.54 224.74,179.452 280.4,215.6 C309.736,234.652 324.72,223.756 362.076,230.032 " fill="none" id="ArchUnitNET.Fluent.Freeze-to-ArchUnitNET.Domain.Exceptions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="362.668,227.292,369.992,231.556,361.608,232.792,362.668,227.292" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[b400c583940db8b7ceab522ec8d0273c]
+link ArchUnitNET.Fluent.Extensions to ArchUnitNET.Domain.Extensions--><g id="link_ArchUnitNET.Fluent.Extensions_ArchUnitNET.Domain.Extensions"><path d="M245.228,60.868 C278.304,62.82 341.804,71.676 375.2,110 C392.86,130.264 393.952,163.352 392.808,182.664 " fill="none" id="ArchUnitNET.Fluent.Extensions-to-ArchUnitNET.Domain.Extensions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="395.596,182.948,392.156,190.696,390.012,182.492,395.596,182.948" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[8e10e0cae93a58ab20ced124c4597375]
+link ArchUnitNET.Fluent.Conditions to ArchUnitNET.Fluent.Predicates--><g id="link_ArchUnitNET.Fluent.Conditions_ArchUnitNET.Fluent.Predicates"><path d="M112.8,106.86 C112.8,115.912 112.8,131.636 112.8,143.416 " fill="none" id="ArchUnitNET.Fluent.Conditions-to-ArchUnitNET.Fluent.Predicates" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="115.6,143.48,112.8,151.48,110,143.48,115.6,143.48" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[d34e703a01c06d0124a5b11c14deb895]
+link ArchUnitNET.Fluent.Conditions to Domain--><g id="link_ArchUnitNET.Fluent.Conditions_Domain"><path d="M133.644,105.5 C136.044,106.02 138.464,106.472 140.8,106.8 C146.896,107.66 246.664,106.316 251.6,110 C256.101,113.361 259.3558,118.0233 261.705,123.1428 C262.2923,124.4226 262.823,125.7311 263.3025,127.0549 C263.5422,127.7168 263.7691,128.3826 263.9839,129.0506 C264.0912,129.3846 264.1956,129.7191 264.297,130.054 C264.3223,130.1377 264.3475,130.2214 264.3725,130.3052 " fill="none" id="ArchUnitNET.Fluent.Conditions-to-Domain" style="stroke:#FF0000;stroke-width:0.4000000000000001;"/><polygon fill="#FF0000" points="264.3725,130.3052,264.8769,126.3981,263.8009,128.3886,261.8104,127.3126,264.3725,130.3052" style="stroke:#FF0000;stroke-width:0.4000000000000001;"/></g><!--MD5=[416eefd4cd41b8b522c78e95a6352f25]
+link ArchUnitNET.Domain.PlantUml.Import to ArchUnitNET.Domain.PlantUml.Exceptions--><g id="link_ArchUnitNET.Domain.PlantUml.Import_ArchUnitNET.Domain.PlantUml.Exceptions"><path d="M336.784,166.856 C332.7,171.456 327.276,177.508 322.4,182.8 C321.76,183.496 321.1,184.208 320.432,184.924 " fill="none" id="ArchUnitNET.Domain.PlantUml.Import-to-ArchUnitNET.Domain.PlantUml.Exceptions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="322.448,186.864,314.924,190.772,318.372,183.028,322.448,186.864" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[2adc4dbbf51f690876d8ea8e2e39936a]
+link ArchUnitNET.Domain.PlantUml.Import to ArchUnitNET.Domain.Extensions--><g id="link_ArchUnitNET.Domain.PlantUml.Import_ArchUnitNET.Domain.Extensions"><path d="M346.728,166.848 C349.46,171.852 353.64,178.376 358.8,182.8 C360.468,184.228 362.292,185.552 364.196,186.776 " fill="none" id="ArchUnitNET.Domain.PlantUml.Import-to-ArchUnitNET.Domain.Extensions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="365.704,184.408,371.328,190.748,362.976,189.3,365.704,184.408" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[0e2fb85b74981f664c8875bbf9942a31]
+link ArchUnitNET.Domain.PlantUml.Export to ArchUnitNET.Domain.PlantUml.Exceptions--><g id="link_ArchUnitNET.Domain.PlantUml.Export_ArchUnitNET.Domain.PlantUml.Exceptions"><path d="M302.48,166.824 C303.272,171.3 304.32,177.224 305.292,182.704 " fill="none" id="ArchUnitNET.Domain.PlantUml.Export-to-ArchUnitNET.Domain.PlantUml.Exceptions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="308.064,182.312,306.704,190.68,302.552,183.288,308.064,182.312" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[dfb1966f7c4a274353642c0c7cb6ff7d]
+link ArchUnitNET.Domain.PlantUml.Export to ArchUnitNET.Domain.Extensions--><g id="link_ArchUnitNET.Domain.PlantUml.Export_ArchUnitNET.Domain.Extensions"><path d="M305.888,166.828 C309.696,172.096 315.548,178.956 322.4,182.8 C336.764,190.856 343.7,187.7 362.036,190.74 " fill="none" id="ArchUnitNET.Domain.PlantUml.Export-to-ArchUnitNET.Domain.Extensions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="362.684,188.016,369.988,192.32,361.596,193.508,362.684,188.016" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[9dcbea19e265d0d5674f96c20e17bf0a]
+link ArchUnitNET.Domain.PlantUml.Export to ArchUnitNET.Domain.Dependencies--><g id="link_ArchUnitNET.Domain.PlantUml.Export_ArchUnitNET.Domain.Dependencies"><path d="M306.812,166.844 C310.82,171.72 316.52,178.096 322.4,182.8 C327.996,187.276 332.804,184.6 336.4,190.8 C341.924,200.32 339.82,212.744 336.604,222.34 " fill="none" id="ArchUnitNET.Domain.PlantUml.Export-to-ArchUnitNET.Domain.Dependencies" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="339.172,223.46,333.66,229.9,333.956,221.428,339.172,223.46" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[ae9ed8db9c5097acf6ac176032976ba7]
+link ArchUnitNET.Domain.Extensions to ArchUnitNET.Domain.Exceptions--><g id="link_ArchUnitNET.Domain.Extensions_ArchUnitNET.Domain.Exceptions"><path d="M391.2,206.024 C391.2,210.448 391.2,216.284 391.2,221.708 " fill="none" id="ArchUnitNET.Domain.Extensions-to-ArchUnitNET.Domain.Exceptions" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="394,221.88,391.2,229.88,388.4,221.88,394,221.88" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[da0cfb34630bc9251ef7cfbbba846f7e]
+link ArchUnitNET.Domain.Extensions to ArchUnitNET.Domain.Dependencies--><g id="link_ArchUnitNET.Domain.Extensions_ArchUnitNET.Domain.Dependencies"><path d="M379.688,206.024 C370.868,211.556 358.528,219.3 348.352,225.684 " fill="none" id="ArchUnitNET.Domain.Extensions-to-ArchUnitNET.Domain.Dependencies" style="stroke:#666666;stroke-width:0.4000000000000001;"/><polygon fill="none" points="349.828,228.064,341.564,229.944,346.852,223.32,349.828,228.064" style="stroke:#666666;stroke-width:0.4000000000000001;"/></g><!--MD5=[1d20ecd00d475d2f3e1357b4faaea4c5]
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Loader, Loader)  {
+Container(ArchUnitNET.Loader.LoadTasks, LoadTasks)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Fluent, Fluent)  {
+Boundary(Syntax, Syntax)  {
+Container(ArchUnitNET.Fluent.Syntax.Elements, Elements)
+}
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Fluent, Fluent)  {
+Container(ArchUnitNET.Fluent.Slices, Slices)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Fluent, Fluent)  {
+Container(ArchUnitNET.Fluent.Predicates, Predicates)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Fluent, Fluent)  {
+Container(ArchUnitNET.Fluent.PlantUml, PlantUml)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Fluent, Fluent)  {
+Container(ArchUnitNET.Fluent.Freeze, Freeze)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Fluent, Fluent)  {
+Container(ArchUnitNET.Fluent.Extensions, Extensions)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Fluent, Fluent)  {
+Container(ArchUnitNET.Fluent.Exceptions, Exceptions)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Fluent, Fluent)  {
+Container(ArchUnitNET.Fluent.Conditions, Conditions)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Domain, Domain)  {
+Boundary(PlantUml, PlantUml)  {
+Container(ArchUnitNET.Domain.PlantUml.Import, Import)
+}
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Domain, Domain)  {
+Boundary(PlantUml, PlantUml)  {
+Container(ArchUnitNET.Domain.PlantUml.Export, Export)
+}
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Domain, Domain)  {
+Boundary(PlantUml, PlantUml)  {
+Container(ArchUnitNET.Domain.PlantUml.Exceptions, Exceptions)
+}
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Domain, Domain)  {
+Container(ArchUnitNET.Domain.Extensions, Extensions)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Domain, Domain)  {
+Container(ArchUnitNET.Domain.Exceptions, Exceptions)
+}
+}
+
+Boundary(ArchUnitNET, ArchUnitNET)  {
+Boundary(Domain, Domain)  {
+Container(ArchUnitNET.Domain.Dependencies, Dependencies)
+}
+}
+
+Loader -[#blue]> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Loader.LoadTasks] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Loader.LoadTasks] - -|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Fluent.Exceptions]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Fluent.Conditions]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Slices] - -|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent.Predicates] -[#red]> Domain
+[ArchUnitNET.Fluent.PlantUml] - -|> [ArchUnitNET.Domain.PlantUml.Export]
+[ArchUnitNET.Fluent.Freeze] - -|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Extensions] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Conditions] - -|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Conditions] -[#red]> Domain
+[ArchUnitNET.Domain.PlantUml.Import] - -|> [ArchUnitNET.Domain.PlantUml.Exceptions]
+[ArchUnitNET.Domain.PlantUml.Import] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Domain.PlantUml.Export] - -|> [ArchUnitNET.Domain.PlantUml.Exceptions]
+[ArchUnitNET.Domain.PlantUml.Export] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Domain.PlantUml.Export] - -|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Domain.Extensions] - -|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Domain.Extensions] - -|> [ArchUnitNET.Domain.Dependencies]
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam defaultTextAlignment center
+
+skinparam wrapWidth 200
+skinparam maxMessageSize 150
+
+skinparam LegendBorderColor transparent
+skinparam LegendBackgroundColor transparent
+skinparam LegendFontColor #FFFFFF
+
+skinparam shadowing<<legendArea>> false
+skinparam rectangle<<legendArea>> {
+    backgroundcolor #00000000
+    bordercolor #00000000
+}
+
+skinparam rectangle {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam database {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam queue {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam arrow {
+    Color #666666
+    FontColor #666666
+    FontSize 12
+}
+
+skinparam actor {
+    StereotypeFontSize 12
+    shadowing false
+    style awesome
+}
+
+skinparam person {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam rectangle<<boundary>> {
+    Shadowing false
+    StereotypeFontSize 6
+    StereotypeFontColor transparent
+    BorderStyle dashed
+}
+
+skinparam package {
+    StereotypeFontSize 6
+    StereotypeFontColor transparent
+    FontStyle plain
+    BackgroundColor transparent
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam rectangle<<boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<boundary>>StereotypeFontColor transparent
+skinparam rectangle<<boundary>>StereotypeFontColor transparent
+
+
+skinparam rectangle<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<enterprise_boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<enterprise_boundary>>StereotypeFontColor transparent
+skinparam rectangle<<enterprise_boundary>>StereotypeFontColor transparent
+
+
+
+skinparam rectangle<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<system_boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<system_boundary>>StereotypeFontColor transparent
+skinparam rectangle<<system_boundary>>StereotypeFontColor transparent
+
+
+
+skinparam rectangle<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<container_boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<container_boundary>>StereotypeFontColor transparent
+skinparam rectangle<<container_boundary>>StereotypeFontColor transparent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam rectangle<<person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+skinparam database<<person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+skinparam queue<<person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+skinparam actor<<person>> {
+    StereotypeFontColor #08427B
+    FontColor #08427B
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+skinparam person<<person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+
+
+skinparam rectangle<<external_person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+skinparam database<<external_person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+skinparam queue<<external_person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+skinparam actor<<external_person>> {
+    StereotypeFontColor #686868
+    FontColor #686868
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+skinparam person<<external_person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+
+
+skinparam rectangle<<system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+skinparam database<<system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+skinparam queue<<system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+skinparam actor<<system>> {
+    StereotypeFontColor #1168BD
+    FontColor #1168BD
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+skinparam person<<system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+
+
+skinparam rectangle<<external_system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+skinparam database<<external_system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+skinparam queue<<external_system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+skinparam actor<<external_system>> {
+    StereotypeFontColor #999999
+    FontColor #999999
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+skinparam person<<external_system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+
+
+
+skinparam rectangle<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<enterprise_boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<enterprise_boundary>>StereotypeFontColor transparent
+skinparam rectangle<<enterprise_boundary>>StereotypeFontColor transparent
+
+
+
+skinparam rectangle<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<system_boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<system_boundary>>StereotypeFontColor transparent
+skinparam rectangle<<system_boundary>>StereotypeFontColor transparent
+
+
+
+
+
+
+
+sprite $person [48x48/16] {
+000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000
+0000000000000000000049BCCA7200000000000000000000
+0000000000000000006EFFFFFFFFB3000000000000000000
+00000000000000001CFFFFFFFFFFFF700000000000000000
+0000000000000001EFFFFFFFFFFFFFF80000000000000000
+000000000000000CFFFFFFFFFFFFFFFF6000000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+00000000000001FFFFFFFFFFFFFFFFFFF900000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFF00000000000000
+0000000000000BFFFFFFFFFFFFFFFFFFFF40000000000000
+0000000000000EFFFFFFFFFFFFFFFFFFFF70000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000DFFFFFFFFFFFFFFFFFFFF60000000000000
+0000000000000AFFFFFFFFFFFFFFFFFFFF40000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFE00000000000000
+00000000000000EFFFFFFFFFFFFFFFFFF800000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+000000000000000BFFFFFFFFFFFFFFFF5000000000000000
+0000000000000001DFFFFFFFFFFFFFF70000000000000000
+00000000000000000BFFFFFFFFFFFF500000000000000000
+0000000000000000005DFFFFFFFFA1000000000000000000
+0000000000000000000037ABB96100000000000000000000
+000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000
+000000000000025788300000000005886410000000000000
+000000000007DFFFFFFD9643347BFFFFFFFB400000000000
+0000000004EFFFFFFFFFFFFFFFFFFFFFFFFFFB1000000000
+000000007FFFFFFFFFFFFFFFFFFFFFFFFFFFFFD200000000
+00000006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE10000000
+0000003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0000000
+000000BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5000000
+000003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD000000
+000009FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF200000
+00000DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF600000
+00000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF800000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA00000
+00000EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF700000
+000006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE100000
+0000008FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD3000000
+000000014555555555555555555555555555555300000000
+000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000
+}
+
+sprite $person2 [48x48/16] {
+0000000000000000000049BCCA7200000000000000000000
+0000000000000000006EFFFFFFFFB3000000000000000000
+00000000000000001CFFFFFFFFFFFF700000000000000000
+0000000000000001EFFFFFFFFFFFFFF80000000000000000
+000000000000000CFFFFFFFFFFFFFFFF6000000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+00000000000001FFFFFFFFFFFFFFFFFFF900000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFF00000000000000
+0000000000000BFFFFFFFFFFFFFFFFFFFF40000000000000
+0000000000000EFFFFFFFFFFFFFFFFFFFF70000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000DFFFFFFFFFFFFFFFFFFFF60000000000000
+0000000000000AFFFFFFFFFFFFFFFFFFFF40000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFE00000000000000
+00000000000000EFFFFFFFFFFFFFFFFFF800000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+000000000000000BFFFFFFFFFFFFFFFF5000000000000000
+0000000000000001DFFFFFFFFFFFFFF70000000000000000
+00000000000000000BFFFFFFFFFFFF500000000000000000
+0000000000000000005DFFFFFFFFA1000000000000000000
+0000000000000000000037ABB96100000000000000000000
+000000000002578888300000000005888864100000000000
+0000000007DFFFFFFFFD9643347BFFFFFFFFFB4000000000
+00000004EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB10000000
+0000007FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD2000000
+000006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE100000
+00003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+0000BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF50000
+0003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD0000
+0009FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2000
+000DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6000
+000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8000
+001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB000
+001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB000
+001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB000
+001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA000
+000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8000
+000DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6000
+0009FFFFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFFFF2000
+0003FFFFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFFFD0000
+0000BFFFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFFF50000
+00003FFFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFFB00000
+000006FFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFE100000
+0000007FFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFD2000000
+00000004EFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFB10000000
+0000000007DF8FFFFFFFFFFFFFFFFFFFFFF8FB4000000000
+000000000002578888888888888888888864100000000000
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam rectangle<<container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #438DD5
+    BorderColor #3C7FC0
+}
+skinparam database<<container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #438DD5
+    BorderColor #3C7FC0
+}
+skinparam queue<<container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #438DD5
+    BorderColor #3C7FC0
+}
+skinparam actor<<container>> {
+    StereotypeFontColor #438DD5
+    FontColor #438DD5
+    BackgroundColor #438DD5
+    BorderColor #3C7FC0
+}
+skinparam person<<container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #438DD5
+    BorderColor #3C7FC0
+}
+
+
+skinparam rectangle<<external_container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #B3B3B3
+    BorderColor #A6A6A6
+}
+skinparam database<<external_container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #B3B3B3
+    BorderColor #A6A6A6
+}
+skinparam queue<<external_container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #B3B3B3
+    BorderColor #A6A6A6
+}
+skinparam actor<<external_container>> {
+    StereotypeFontColor #B3B3B3
+    FontColor #B3B3B3
+    BackgroundColor #B3B3B3
+    BorderColor #A6A6A6
+}
+skinparam person<<external_container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #B3B3B3
+    BorderColor #A6A6A6
+}
+
+
+
+skinparam rectangle<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<container_boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<container_boundary>>StereotypeFontColor transparent
+skinparam rectangle<<container_boundary>>StereotypeFontColor transparent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+hide stereotype
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Loader" <<boundary>> as Loader   {
+rectangle "==LoadTasks" <<container>> as ArchUnitNET.Loader.LoadTasks 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Fluent" <<boundary>> as Fluent   {
+rectangle "==Syntax" <<boundary>> as Syntax   {
+rectangle "==Elements" <<container>> as ArchUnitNET.Fluent.Syntax.Elements 
+}
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Fluent" <<boundary>> as Fluent   {
+rectangle "==Slices" <<container>> as ArchUnitNET.Fluent.Slices 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Fluent" <<boundary>> as Fluent   {
+rectangle "==Predicates" <<container>> as ArchUnitNET.Fluent.Predicates 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Fluent" <<boundary>> as Fluent   {
+rectangle "==PlantUml" <<container>> as ArchUnitNET.Fluent.PlantUml 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Fluent" <<boundary>> as Fluent   {
+rectangle "==Freeze" <<container>> as ArchUnitNET.Fluent.Freeze 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Fluent" <<boundary>> as Fluent   {
+rectangle "==Extensions" <<container>> as ArchUnitNET.Fluent.Extensions 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Fluent" <<boundary>> as Fluent   {
+rectangle "==Exceptions" <<container>> as ArchUnitNET.Fluent.Exceptions 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Fluent" <<boundary>> as Fluent   {
+rectangle "==Conditions" <<container>> as ArchUnitNET.Fluent.Conditions 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Domain" <<boundary>> as Domain   {
+rectangle "==PlantUml" <<boundary>> as PlantUml   {
+rectangle "==Import" <<container>> as ArchUnitNET.Domain.PlantUml.Import 
+}
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Domain" <<boundary>> as Domain   {
+rectangle "==PlantUml" <<boundary>> as PlantUml   {
+rectangle "==Export" <<container>> as ArchUnitNET.Domain.PlantUml.Export 
+}
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Domain" <<boundary>> as Domain   {
+rectangle "==PlantUml" <<boundary>> as PlantUml   {
+rectangle "==Exceptions" <<container>> as ArchUnitNET.Domain.PlantUml.Exceptions 
+}
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Domain" <<boundary>> as Domain   {
+rectangle "==Extensions" <<container>> as ArchUnitNET.Domain.Extensions 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Domain" <<boundary>> as Domain   {
+rectangle "==Exceptions" <<container>> as ArchUnitNET.Domain.Exceptions 
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Domain" <<boundary>> as Domain   {
+rectangle "==Dependencies" <<container>> as ArchUnitNET.Domain.Dependencies 
+}
+}
+
+Loader -[#blue]> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Loader.LoadTasks] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Loader.LoadTasks] - -|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Fluent.Exceptions]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Fluent.Conditions]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Syntax.Elements] - -|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Slices] - -|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Fluent.Predicates] -[#red]> Domain
+[ArchUnitNET.Fluent.PlantUml] - -|> [ArchUnitNET.Domain.PlantUml.Export]
+[ArchUnitNET.Fluent.Freeze] - -|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Fluent.Extensions] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Fluent.Conditions] - -|> [ArchUnitNET.Fluent.Predicates]
+[ArchUnitNET.Fluent.Conditions] -[#red]> Domain
+[ArchUnitNET.Domain.PlantUml.Import] - -|> [ArchUnitNET.Domain.PlantUml.Exceptions]
+[ArchUnitNET.Domain.PlantUml.Import] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Domain.PlantUml.Export] - -|> [ArchUnitNET.Domain.PlantUml.Exceptions]
+[ArchUnitNET.Domain.PlantUml.Export] - -|> [ArchUnitNET.Domain.Extensions]
+[ArchUnitNET.Domain.PlantUml.Export] - -|> [ArchUnitNET.Domain.Dependencies]
+[ArchUnitNET.Domain.Extensions] - -|> [ArchUnitNET.Domain.Exceptions]
+[ArchUnitNET.Domain.Extensions] - -|> [ArchUnitNET.Domain.Dependencies]
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>

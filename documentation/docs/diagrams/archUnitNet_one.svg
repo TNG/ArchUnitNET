@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="193.5px" preserveAspectRatio="none" style="width:221px;height:193px;background:#FFFFFF;" version="1.1" viewBox="0 0 221 193" width="221.4px" zoomAndPan="magnify"><defs/><g><!--MD5=[35f9dfedec39fd2e10e8a13c47ee5789]
+cluster ArchUnitNET--><g id="cluster_ArchUnitNET"><path d="M7.65,5.4 L86.85,5.4 A3.375,3.375 0 0 1 89.1,7.65 L95.4,24.8766 L212.85,24.8766 A2.25,2.25 0 0 1 215.1,27.1266 L215.1,184.95 A2.25,2.25 0 0 1 212.85,187.2 L7.65,187.2 A2.25,2.25 0 0 1 5.4,184.95 L5.4,7.65 A2.25,2.25 0 0 1 7.65,5.4 " fill="none" style="stroke:#000000;stroke-width:1.35;"/><line style="stroke:#000000;stroke-width:1.35;" x1="5.4" x2="95.4" y1="24.8766" y2="24.8766"/><text fill="#000000" font-family="sans-serif" font-size="12.6" font-weight="bold" lengthAdjust="spacing" textLength="78.3" x="9" y="18.6064">ArchUnitNET</text></g><!--MD5=[a36960746c0dc58a4110cfd2031cc23f]
+entity ArchUnitNET.Loader--><g id="elem_ArchUnitNET.Loader"><rect fill="#F1F1F1" height="41.0766" rx="2.25" ry="2.25" style="stroke:#181818;stroke-width:0.45;" width="76.5" x="123.75" y="36"/><rect fill="#F1F1F1" height="9" style="stroke:#181818;stroke-width:0.45;" width="13.5" x="182.25" y="40.5"/><rect fill="#F1F1F1" height="1.8" style="stroke:#181818;stroke-width:0.45;" width="3.6" x="180.45" y="42.3"/><rect fill="#F1F1F1" height="1.8" style="stroke:#181818;stroke-width:0.45;" width="3.6" x="180.45" y="45.9"/><text fill="#000000" font-family="sans-serif" font-size="12.6" lengthAdjust="spacing" textLength="40.5" x="137.25" y="65.4064">Loader</text></g><!--MD5=[59d8de8af302ca6b9deafe3cd3b6bbe8]
+entity ArchUnitNET.Fluent--><g id="elem_ArchUnitNET.Fluent"><rect fill="#F1F1F1" height="41.0766" rx="2.25" ry="2.25" style="stroke:#181818;stroke-width:0.45;" width="72" x="19.8" y="36"/><rect fill="#F1F1F1" height="9" style="stroke:#181818;stroke-width:0.45;" width="13.5" x="73.8" y="40.5"/><rect fill="#F1F1F1" height="1.8" style="stroke:#181818;stroke-width:0.45;" width="3.6" x="72" y="42.3"/><rect fill="#F1F1F1" height="1.8" style="stroke:#181818;stroke-width:0.45;" width="3.6" x="72" y="45.9"/><text fill="#000000" font-family="sans-serif" font-size="12.6" lengthAdjust="spacing" textLength="36" x="33.3" y="65.4064">Fluent</text></g><!--MD5=[5e72575205a0f80aa9f8cb8ef20ffcf5]
+entity ArchUnitNET.Domain--><g id="elem_ArchUnitNET.Domain"><rect fill="#F1F1F1" height="41.0766" rx="2.25" ry="2.25" style="stroke:#181818;stroke-width:0.45;" width="79.2" x="70.2" y="131.4"/><rect fill="#F1F1F1" height="9" style="stroke:#181818;stroke-width:0.45;" width="13.5" x="131.4" y="135.9"/><rect fill="#F1F1F1" height="1.8" style="stroke:#181818;stroke-width:0.45;" width="3.6" x="129.6" y="137.7"/><rect fill="#F1F1F1" height="1.8" style="stroke:#181818;stroke-width:0.45;" width="3.6" x="129.6" y="141.3"/><text fill="#000000" font-family="sans-serif" font-size="12.6" lengthAdjust="spacing" textLength="43.2" x="83.7" y="160.8064">Domain</text></g><!--MD5=[d1182289852aeb347aabd8a690ef75d4]
+link ArchUnitNET.Loader to ArchUnitNET.Domain--><g id="link_ArchUnitNET.Loader_ArchUnitNET.Domain"><path d="M150.93,77.454 C144.774,88.497 136.917,102.573 129.726,115.47 " fill="none" id="ArchUnitNET.Loader-to-ArchUnitNET.Domain" style="stroke:#181818;stroke-width:0.9;"/><polygon fill="none" points="135.126,118.728,120.852,131.382,124.119,112.59,135.126,118.728" style="stroke:#181818;stroke-width:0.9;"/></g><!--MD5=[cf93b9c687e07206eb91b540120d180c]
+link ArchUnitNET.Fluent to ArchUnitNET.Domain--><g id="link_ArchUnitNET.Fluent_ArchUnitNET.Domain"><path d="M67.248,77.454 C73.62,88.497 81.747,102.573 89.19,115.47 " fill="none" id="ArchUnitNET.Fluent-to-ArchUnitNET.Domain" style="stroke:#181818;stroke-width:0.9;"/><polygon fill="none" points="94.824,112.635,98.361,131.382,83.916,118.935,94.824,112.635" style="stroke:#181818;stroke-width:0.9;"/></g><!--MD5=[15237e69909ed9832c3dca20f47df1cc]
+@startuml
+package ArchUnitNET {
+[Loader] as ArchUnitNET.Loader
+}
+
+package ArchUnitNET {
+[Fluent] as ArchUnitNET.Fluent
+}
+
+package ArchUnitNET {
+[Domain] as ArchUnitNET.Domain
+}
+
+[ArchUnitNET.Loader] - -|> [ArchUnitNET.Domain]
+[ArchUnitNET.Fluent] - -|> [ArchUnitNET.Domain]
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>
