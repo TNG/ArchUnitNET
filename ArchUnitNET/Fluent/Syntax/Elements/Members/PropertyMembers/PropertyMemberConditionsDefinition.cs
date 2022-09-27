@@ -118,6 +118,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
                 "have a private protected setter");
         }
 
+        public static ICondition<PropertyMember> HaveInitSetter()
+        {
+            return new SimpleCondition<PropertyMember>(member => member.Writability == Writability.InitOnly,
+                "have an only init only setter",
+                "does not have an init only setter");
+        }
+
         public static ICondition<PropertyMember> BeVirtual()
         {
             return new SimpleCondition<PropertyMember>(member => member.IsVirtual, "be virtual", "is not virtual");
@@ -215,6 +222,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         {
             return new SimpleCondition<PropertyMember>(member => member.SetterVisibility != PrivateProtected,
                 "not have a private protected setter", "does have a private protected setter");
+        }
+
+        public static ICondition<PropertyMember> NotHaveInitSetter()
+        {
+            return new SimpleCondition<PropertyMember>(member => member.Writability != Writability.InitOnly,
+                "not have an init only setter", "has an init only setter");
         }
 
         public static ICondition<PropertyMember> NotBeVirtual()

@@ -54,9 +54,9 @@ namespace ArchUnitNET.Loader.LoadTasks
             var fieldType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
             var isCompilerGenerated = fieldDefinition.IsCompilerGenerated();
-            var isReadOnly = fieldDefinition.IsInitOnly;
+            var writeAccessor = GetWriteAccessor(fieldDefinition);
             return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, visibility, fieldType,
-                isCompilerGenerated, fieldDefinition.IsStatic, isReadOnly);
+                isCompilerGenerated, fieldDefinition.IsStatic, writeAccessor);
         }
 
         [NotNull]
@@ -67,9 +67,9 @@ namespace ArchUnitNET.Loader.LoadTasks
             var isCompilerGenerated = propertyDefinition.IsCompilerGenerated();
             var isStatic = (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic) ||
                            (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
-            bool? isReadOnly = (propertyDefinition.SetMethod == null);
+            var writeAccessor = GetWriteAccessor(propertyDefinition);
             return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType,
-                isCompilerGenerated, isStatic, isReadOnly);
+                isCompilerGenerated, isStatic, writeAccessor);
         }
 
         private static Visibility GetVisibilityFromFieldDefinition([NotNull] FieldDefinition fieldDefinition)
@@ -105,6 +105,31 @@ namespace ArchUnitNET.Loader.LoadTasks
             }
 
             throw new ArgumentException("The field definition seems to have no visibility.");
+        }
+
+        private static Writability GetWriteAccessor([NotNull] FieldDefinition fieldDefinition)
+        {
+            return fieldDefinition.IsInitOnly ? Writability.ReadOnly : Writability.Writable;
+        }
+
+        private static Writability GetWriteAccessor([NotNull] PropertyDefinition propertyDefinition)
+        {
+            bool isReadOnly = propertyDefinition.SetMethod == null;
+
+            if (isReadOnly)
+            {
+                return Writability.ReadOnly;
+            }
+
+            bool isInitSetter = CheckPropertyHasInitSetterInNetStandardCompatibleWay(propertyDefinition);
+            return isInitSetter ? Writability.InitOnly : Writability.Writable;
+        }
+
+        private static bool CheckPropertyHasInitSetterInNetStandardCompatibleWay(PropertyDefinition propertyDefinition)
+        {
+            return propertyDefinition.SetMethod?.ReturnType.IsRequiredModifier == true
+                && ((RequiredModifierType)propertyDefinition.SetMethod.ReturnType).ModifierType.FullName
+                    == "System.Runtime.CompilerServices.IsExternalInit";
         }
     }
 }

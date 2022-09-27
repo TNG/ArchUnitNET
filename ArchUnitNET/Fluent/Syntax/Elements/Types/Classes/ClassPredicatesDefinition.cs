@@ -6,6 +6,7 @@
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Predicates;
+using System.Linq;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
@@ -21,6 +22,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return new SimplePredicate<Class>(cls => !cls.IsSealed.HasValue || cls.IsSealed.Value, "are sealed");
         }
 
+        public static IPredicate<Class> AreImmutable()
+        {
+            return new SimplePredicate<Class>(cls => cls.Members.Where(m => m.IsStatic == false).All(m => m.Writability.IsImmutable()), "are immutable");
+        }
+
         //Negations
 
         public static IPredicate<Class> AreNotAbstract()
@@ -32,6 +38,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         public static IPredicate<Class> AreNotSealed()
         {
             return new SimplePredicate<Class>(cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value, "are not sealed");
+        }
+
+        public static IPredicate<Class> AreNotImmutable()
+        {
+            return new SimplePredicate<Class>(cls => cls.Members.Any(m => m.IsStatic == false && !m.Writability.IsImmutable()), "are not immutable");
         }
     }
 }

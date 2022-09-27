@@ -99,6 +99,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
+        public GivenPropertyMembersConjunction HaveInitOnlySetter()
+        {
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveInitSetter());
+            return new GivenPropertyMembersConjunction(_ruleCreator);
+        }
+
         public GivenPropertyMembersConjunction AreVirtual()
         {
             _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.AreVirtual());
@@ -190,6 +196,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         public GivenPropertyMembersConjunction DoNotHavePrivateProtectedSetter()
         {
             _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedSetter());
+            return new GivenPropertyMembersConjunction(_ruleCreator);
+        }
+
+        public GivenPropertyMembersConjunction DoNotHaveInitOnlySetter()
+        {
+            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHaveInitSetter());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 

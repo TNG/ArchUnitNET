@@ -81,6 +81,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction AreImmutable()
+        {
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreImmutable());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         //Negations
 
 
@@ -140,6 +146,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public TRuleTypeShouldConjunction AreNotReadOnly()
         {
             _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotReadOnly());
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNotImmutable()
+        {
+            _ruleCreator.ContinueComplexCondition(MemberPredicatesDefinition<TReferenceType>.AreNotImmutable());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
