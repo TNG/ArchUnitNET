@@ -5,6 +5,8 @@
 // 	SPDX-License-Identifier: Apache-2.0
 // 
 
+using JetBrains.Annotations;
+
 namespace ArchUnitNET.Domain
 {
     public class SliceIdentifier : StringIdentifier, IHasDescription
@@ -13,16 +15,20 @@ namespace ArchUnitNET.Domain
         public readonly bool Ignored;
 
 
-        private SliceIdentifier(string identifier, bool ignored) : base(identifier)
+        private SliceIdentifier(string identifier, bool ignored, int? countOfAsteriskInPattern = null, string nameSpace = null) : base(identifier)
         {
             Ignored = ignored;
+            CountOfAsteriskInPattern = countOfAsteriskInPattern;
+            NameSpace = nameSpace;
         }
 
         public string Description => Identifier;
+        [CanBeNull] public readonly string NameSpace;
+        public readonly int? CountOfAsteriskInPattern;
 
-        public static SliceIdentifier Of(string identifier)
+        public static SliceIdentifier Of(string identifier, int? countOfAsteriskInPattern = null, string nameSpace = null)
         {
-            return new SliceIdentifier(identifier, false);
+            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
         }
 
         public static SliceIdentifier Ignore()

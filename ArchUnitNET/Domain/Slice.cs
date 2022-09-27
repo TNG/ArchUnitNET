@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -31,6 +32,8 @@ namespace ArchUnitNET.Domain
             Types.SelectMany(type => type.BackwardsDependencies).ToList();
 
         public string Description => Identifier.Description;
+        [CanBeNull] public string NameSpace => Identifier.NameSpace;
+        public int? CountOfAsteriskInPattern => Identifier.CountOfAsteriskInPattern;
 
         protected bool Equals(Slice other)
         {
@@ -69,6 +72,11 @@ namespace ArchUnitNET.Domain
         public override string ToString()
         {
             return Description;
+        }
+
+        public bool ContainsNamespace()
+        {
+            return NameSpace != null;
         }
     }
 }
