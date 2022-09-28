@@ -192,6 +192,129 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 description = typeList.Where(type => type != firstType).Distinct().Aggregate(
                     "are assignable to \"" + firstType.FullName + "\"",
                     (current, type) => current + " or \"" + type.FullName + "\"");
+            } 
+            return new ArchitecturePredicate<T>(Condition, description);
+        }
+
+        public static IPredicate<T> AreNestedIn(string pattern, bool useRegularExpressions = false)
+        {
+            var description = "are nested in types with full name " +
+                              (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
+            return new SimplePredicate<T>(type => type.IsNestedIn(pattern, useRegularExpressions), description);
+        }
+
+        public static IPredicate<T> AreNestedIn(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        {
+            var patternList = patterns.ToList();
+
+            bool Condition(T ruleType)
+            {
+                return patternList.Any(pattern => ruleType.IsNestedIn(pattern, useRegularExpressions));
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "are nested in no types (always false)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
+                    "are nested in types with full name " + (useRegularExpressions ? "matching " : "") +
+                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+            }
+
+            return new SimplePredicate<T>(Condition, description);
+        }
+
+        public static IPredicate<T> AreNestedIn(IType firstType, params IType[] moreTypes)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
+            {
+                var types = moreTypes.Concat(new[] {firstType});
+                return ruleTypes.Where(type => 
+                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+            }
+
+            var description = moreTypes.Aggregate("are nested in \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new EnumerablePredicate<T>(Condition, description);
+        }
+
+        public static IPredicate<T> AreNestedIn(Type firstType, params Type[] moreTypes)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
+            {
+                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
+                return ruleTypes.Where(type => 
+                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+            }
+            var description = moreTypes.Aggregate("are nested in \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\"");
+            return new ArchitecturePredicate<T>(Condition, description);
+        }
+
+        public static IPredicate<T> AreNestedIn(IObjectProvider<IType> objectProvider)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
+            {
+                var types = objectProvider.GetObjects(architecture);
+                return ruleTypes.Where(type => 
+                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+            }
+
+            var description = "are nested in " + objectProvider.Description;
+            return new ArchitecturePredicate<T>(Condition, description);
+        }
+
+        public static IPredicate<T> AreNestedIn(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
+            { 
+                return ruleTypes.Where(type => 
+                    typeList.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "are nested in no types (always false)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "are nested in \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new EnumerablePredicate<T>(Condition, description);
+        }
+
+        public static IPredicate<T> AreNestedIn(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
+            {
+                return ruleTypes.Where(type => 
+                    typeList.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "are nested in no types (always false)";
+            }
+            else
+            {
+                var firstType = typeList.First();
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "are nested in \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
             }
 
             return new ArchitecturePredicate<T>(Condition, description);

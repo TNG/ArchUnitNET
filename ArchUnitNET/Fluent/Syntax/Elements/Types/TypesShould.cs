@@ -81,6 +81,50 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction BeNestedIn(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.BeNestedIn(pattern, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeNestedIn(IEnumerable<string> patterns,
+            bool useRegularExpressions = false)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.BeNestedIn(patterns, useRegularExpressions));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeNestedIn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeNestedIn(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeNestedIn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeNestedIn(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeNestedIn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeNestedIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeNestedIn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeNestedIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction BeNestedIn(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeNestedIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }        
         public TRuleTypeShouldConjunction BeValueTypes()
         {
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.BeValueTypes());

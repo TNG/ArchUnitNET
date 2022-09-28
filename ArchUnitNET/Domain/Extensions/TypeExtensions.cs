@@ -55,6 +55,26 @@ namespace ArchUnitNET.Domain.Extensions
             return type.GetAssignableTypes().Any(t => t.FullNameMatches(pattern, useRegularExpressions));
         }
 
+        public static bool IsNestedIn(this IType type, IType assignableToType)
+        {
+            if (type is GenericParameter genericParameter)
+            {
+                return genericParameter.TypeConstraints.All(t => t.IsNestedIn(assignableToType));
+            }
+
+            return type.GetAssignableTypes().Contains(assignableToType);
+        }
+
+        public static bool IsNestedIn(this IType type, string pattern, bool useRegularExpressions = false)
+        {
+            if (type is GenericParameter genericParameter)
+            {
+                return genericParameter.TypeConstraints.All(t => t.IsNestedIn(pattern, useRegularExpressions));
+            }
+
+            return type.GetAssignableTypes().Any(t => t.FullNameMatches(pattern, useRegularExpressions));
+        }        
+
         public static bool IsAnonymousType(this IType type)
         {
             return type.NameStartsWith("<>f__AnonymousType");

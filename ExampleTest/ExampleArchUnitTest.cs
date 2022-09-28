@@ -60,6 +60,15 @@ namespace ExampleTest
             combinedArchRule.Check(Architecture);
         }
 
+        //TODO write some tests
+        [Fact]
+        public void Test()
+        {
+            var nested = Classes().That().AreNestedIn(typeof(ExampleClass));
+            var rule = nested.Should().Be(typeof(ExampleClass.NestedClass)).AndShould().Exist();
+            rule.Check(Architecture);
+        }
+
         [Fact]
         public void ExampleLayerShouldNotAccessForbiddenLayer()
         {
@@ -88,6 +97,7 @@ namespace ExampleTest
 
 internal class ExampleClass
 {
+    public class NestedClass {}
 }
 
 internal class ForbiddenClass
