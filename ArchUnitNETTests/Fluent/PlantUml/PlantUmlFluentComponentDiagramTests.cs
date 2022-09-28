@@ -49,7 +49,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var arch1 = new ArchLoader().LoadAssembly(typeof(Architecture).Assembly).Build();
             var sliceRule1 = SliceRuleDefinition.Slices().MatchingWithPackages("ArchUnitNET.(*).(*).(*)");
             const string path = "../../../Fluent/PlantUml/Test.puml";
-            var g = new GenerationOptions() { AlternativeView = true, CompactVersion = true };
+            var g = new GenerationOptions() { C4Style = true, LimitDependencies = true };
             ComponentDiagram().WithDependenciesFromSlices(sliceRule1.GetObjects(arch1), g).WriteToFile(path);
             File.Delete(path);
         }

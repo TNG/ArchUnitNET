@@ -18,7 +18,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private string Hyperlink { get; }
         private string Namespace { get; }
         private string Color { get; }
-        private bool AlternativeView { get; set; } = false;
+        private bool C4Style { get; set; } = false;
 
         public PlantUmlSlice(string name, string nameSpace = null, string color = null, string hyperlink = null)
         {
@@ -37,12 +37,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         public void ChangeView()
         {
-            AlternativeView = !AlternativeView;
+            C4Style = !C4Style;
         }
 
         public string GetPlantUmlString(RenderOptions renderOptions)
         {
-            var result = AlternativeView ? BuildStringAlternative() : BuildString();
+            var result = C4Style ? BuildStringAlternative() : BuildString();
 
             if (Hyperlink != null)
             {

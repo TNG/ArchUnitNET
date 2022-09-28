@@ -135,14 +135,14 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 else if (!sliceIsPackage)
                 {
                     var slc = new PlantUmlSlice(slice.Description, slice.NameSpace);
-                    if (generationOptions.AlternativeView)
+                    if (generationOptions.C4Style)
                     {
                         slc.ChangeView();
                     }
                     nodes.Add(slice, slc);
                 }
 
-                if (!generationOptions.CompactVersion)
+                if (!generationOptions.LimitDependencies)
                 {
                     if (sliceIsPackage)
                     {
@@ -189,7 +189,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             var nodeElements = HandleNodes(nodes);
 
-            if (!generationOptions.CompactVersion)
+            if (!generationOptions.LimitDependencies)
             {
                 RemoveDuplicateDependenciesWhenShowingPackages();
                 ReplaceCirclesWithAppropriateDependencyType();                
