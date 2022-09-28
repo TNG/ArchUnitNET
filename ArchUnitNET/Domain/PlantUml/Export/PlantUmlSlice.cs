@@ -42,7 +42,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         public string GetPlantUmlString(RenderOptions renderOptions)
         {
-            var result = C4Style ? BuildStringAlternative() : BuildString();
+            var result = C4Style ? BuildStringC4Style() : BuildString();
 
             if (Hyperlink != null)
             {
@@ -108,7 +108,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return result;
         }
 
-        private StringBuilder BuildStringAlternative()
+        private StringBuilder BuildStringC4Style()
         {
             var result = new StringBuilder();
             if (Namespace != null)
