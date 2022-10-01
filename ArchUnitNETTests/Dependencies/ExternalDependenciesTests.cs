@@ -18,9 +18,10 @@ namespace ArchUnitNETTests.Dependencies
         private static readonly Architecture Architecture =
             new ArchLoader().LoadAssembly(typeof(ExternalDependenciesTests).Assembly).Build();
 
-        private static readonly Architecture ArchitectureBothAssemblies =
-            new ArchLoader().LoadAssemblies(typeof(ExternalDependenciesTests).Assembly, typeof(Class2).Assembly)
-                .Build();
+        private static readonly Architecture ArchitectureBothAssemblies = new ArchLoader().LoadAssemblies(
+            System.Reflection.Assembly.Load("ArchUnitNETTests"),
+            System.Reflection.Assembly.Load("TestAssembly"))
+            .Build();
 
         private static readonly Architecture ArchitectureExternalDependency =
             new ArchLoader().LoadAssemblyIncludingDependencies(typeof(ExternalDependenciesTests).Assembly).Build();
