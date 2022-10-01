@@ -20,7 +20,7 @@ namespace ArchUnitNETTests.Fluent.Syntax
         public class TestDependencyIssue
         {
             private static readonly Architecture Architecture =
-                new ArchLoader().LoadAssemblies(typeof(DependenciesToOtherAssembliesTests).Assembly).Build();
+                new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNETTests")).Build();
 
             [Fact]
             public void DependOnAnyTypesThatTest()
