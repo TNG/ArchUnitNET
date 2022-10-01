@@ -16,7 +16,7 @@ namespace ArchUnitNETTests.Loader
     public class NestedTypesTests
     {
         private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssemblies(typeof(NestedTypesTests).Assembly).Build();
+            new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNETTests")).Build();
 
         [Fact]
         public void FindAllNestedTypes()
