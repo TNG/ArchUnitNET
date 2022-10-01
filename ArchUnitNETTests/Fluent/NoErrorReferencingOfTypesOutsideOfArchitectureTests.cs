@@ -21,7 +21,7 @@ namespace ArchUnitNETTests.Fluent
     public class NoErrorReferencingOfTypesOutsideOfArchitectureTests
     {
         private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssemblies(typeof(EmptyTestClass).Assembly).Build();
+            new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("TestAssembly")).Build();
 
         private readonly System.Type _classNotInArchitecture = typeof(NoErrorReferencingOfTypesOutsideOfArchitectureTests);
 
