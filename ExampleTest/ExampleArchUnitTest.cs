@@ -21,8 +21,9 @@ namespace ExampleTest
     public class ExampleArchUnitTest
     {
         // TIP: load your architecture once at the start to maximize performance of your tests
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssemblies(typeof(ExampleClass).Assembly, typeof(ForbiddenClass).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader().LoadAssemblies(
+            System.Reflection.Assembly.Load("TestAssembly"))
+            .Build();
         // replace <ExampleClass> and <ForbiddenClass> with classes from the assemblies you want to test
 
         //declare variables you'll use throughout your tests up here
@@ -85,6 +86,7 @@ namespace ExampleTest
         }
     }
 }
+
 
 internal class ExampleClass
 {
