@@ -18,7 +18,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
     public class CustomSyntaxElementsTests
     {
         private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssemblies(typeof(CustomSyntaxElementsTests).Assembly).Build();
+            new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNETTests")).Build();
 
         private readonly Class _testClass;
 
