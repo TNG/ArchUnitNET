@@ -24,7 +24,7 @@ namespace ArchUnitNET.NUnitTests
         [SetUp]
         public void Setup()
         {
-            _architecture = new ArchLoader().LoadAssemblies(typeof(RuleEvaluationTests).Assembly).Build();
+            _architecture = new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNET.NUnitTests")).Build();
             _trueRule = Classes().That().Are(typeof(RuleEvaluationTests)).Should().Exist();
             _falseRule = Classes().That().Are(typeof(RuleEvaluationTests)).Should().NotExist();
             _expectedErrorMessage = _falseRule.Evaluate(_architecture).ToErrorMessage();
