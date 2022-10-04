@@ -18,7 +18,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private string Hyperlink { get; }
         private string Namespace { get; }
         private string Color { get; }
-        private bool C4Style { get; set; } = false;
+        private bool C4Style { get; set; }
 
         public PlantUmlSlice(string name, string nameSpace = null, string color = null, string hyperlink = null)
         {
@@ -35,9 +35,9 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return _name;
         }
 
-        public void ChangeView()
+        public void UseS4Style()
         {
-            C4Style = !C4Style;
+            C4Style = true;
         }
 
         public string GetPlantUmlString(RenderOptions renderOptions)
@@ -111,35 +111,34 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private StringBuilder BuildStringC4Style()
         {
             var result = new StringBuilder();
-            if (Namespace != null)
+            if (Namespace == null)
             {
-                result.Append("Boundary(" + Namespace.Remove(Namespace.Length - 1) + ", " + Namespace.Remove(Namespace.Length - 1) + ") ");
-                var name = _name.Remove(0, Namespace.Length);
-                var iter = 1;
-                while (name.Contains("."))
-                {
-                    var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
-                    result.AppendLine(" {");
-                    result.Append("Boundary(" + name.Remove(dotPattern) + ", " + name.Remove(dotPattern) + ") ");
-                    name = name.Remove(0, dotPattern + 1);
-                    iter++;
-                }
-                result.AppendLine(" {");
-                if (name != "")
-                {
-                    result.Append("Container("+ _name + ", " + name + ")");
-                    result.AppendLine();
-                    
-                }
-                
-                for (var i = iter; i > 0; i--)
-                {
-                    result.AppendLine("}");
-                }
+                result.Append("Container(" + _name + ", " + _name + ")");
             }
-            else
+
+            var str = Namespace.Remove(Namespace.Length - 1);
+            result.Append("Boundary(" + str + ", " + str + ") ");
+            var name = _name.Remove(0, Namespace.Length);
+            var iter = 1;
+            while (name.Contains("."))
             {
-                result.Append("Container(" + _name +", " + _name + ")");
+                var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
+                result.AppendLine(" {");
+                result.Append("Boundary(" + name.Remove(dotPattern) + ", " + name.Remove(dotPattern) + ") ");
+                name = name.Remove(0, dotPattern + 1);
+                iter++;
+            }
+            
+            result.AppendLine(" {");
+            if (name != "")
+            {
+                result.Append("Container(" + _name + ", " + name + ")");
+                result.AppendLine();
+            }
+
+            for (var i = iter; i > 0; i--)
+            {
+                result.AppendLine("}");
             }
 
             return result;

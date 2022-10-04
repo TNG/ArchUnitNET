@@ -137,7 +137,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     var slc = new PlantUmlSlice(slice.Description, slice.NameSpace);
                     if (generationOptions.C4Style)
                     {
-                        slc.ChangeView();
+                        slc.UseS4Style();
                     }
                     nodes.Add(slice, slc);
                 }
