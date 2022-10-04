@@ -49,7 +49,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 result.Append(" [[" + Hyperlink + "]] ");
             }
 
-            return result.ToString() + Environment.NewLine;
+            return result.AppendLine().ToString();
         }
 
         private StringBuilder BuildString()
