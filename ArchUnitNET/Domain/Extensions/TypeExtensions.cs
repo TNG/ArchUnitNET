@@ -65,16 +65,6 @@ namespace ArchUnitNET.Domain.Extensions
             return type.GetAssignableTypes().Contains(assignableToType);
         }
 
-        public static bool IsNestedIn(this IType type, string pattern, bool useRegularExpressions = false)
-        {
-            if (type is GenericParameter genericParameter)
-            {
-                return genericParameter.TypeConstraints.All(t => t.IsNestedIn(pattern, useRegularExpressions));
-            }
-
-            return type.GetAssignableTypes().Any(t => t.FullNameMatches(pattern, useRegularExpressions));
-        }        
-
         public static bool IsAnonymousType(this IType type)
         {
             return type.NameStartsWith("<>f__AnonymousType");
@@ -87,6 +77,23 @@ namespace ArchUnitNET.Domain.Extensions
         }
 
         public static IEnumerable<IType> GetAssignableTypes(this IType type)
+        {
+            switch (type)
+            {
+                case Interface intf:
+                    return intf.ImplementedInterfaces.Concat(new[] {intf});
+                case Class cls:
+                    return cls.InheritedClasses.Concat(new[] {cls}).Concat(cls.ImplementedInterfaces);
+                case Struct str:
+                    return str.InheritedClasses.Concat(new IType[] {str}).Concat(str.ImplementedInterfaces);
+                case Enum en:
+                    return en.InheritedClasses.Concat(new IType[] {en}).Concat(en.ImplementedInterfaces);
+                default:
+                    return Enumerable.Empty<IType>();
+            }
+        }
+
+        public static IEnumerable<IType> GetNestedTypes(this IType type)
         {
             switch (type)
             {

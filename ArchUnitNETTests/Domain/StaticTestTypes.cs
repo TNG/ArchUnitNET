@@ -182,6 +182,7 @@ namespace ArchUnitNETTests.Domain
 
     public class PublicTestClass
     {
+        public class ChildClass{}
     }
 
     internal class InternalTestClass

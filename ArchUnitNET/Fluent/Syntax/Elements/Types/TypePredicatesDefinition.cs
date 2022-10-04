@@ -196,38 +196,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static IPredicate<T> AreNestedIn(string pattern, bool useRegularExpressions = false)
-        {
-            var description = "are nested in types with full name " +
-                              (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
-            return new SimplePredicate<T>(type => type.IsNestedIn(pattern, useRegularExpressions), description);
-        }
-
-        public static IPredicate<T> AreNestedIn(IEnumerable<string> patterns, bool useRegularExpressions = false)
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(T ruleType)
-            {
-                return patternList.Any(pattern => ruleType.IsNestedIn(pattern, useRegularExpressions));
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "are nested in no types (always false)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "are nested in types with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
-            }
-
-            return new SimplePredicate<T>(Condition, description);
-        }
-
         public static IPredicate<T> AreNestedIn(IType firstType, params IType[] moreTypes)
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)

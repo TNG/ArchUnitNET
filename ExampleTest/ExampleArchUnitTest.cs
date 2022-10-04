@@ -53,7 +53,6 @@ namespace ExampleTest
             //check if your architecture fulfils your rules
             exampleClassesShouldBeInExampleLayer.Check(Architecture);
             forbiddenInterfacesShouldBeInForbiddenLayer.Check(Architecture);
-
             //you can also combine your rules
             IArchRule combinedArchRule =
                 exampleClassesShouldBeInExampleLayer.And(forbiddenInterfacesShouldBeInForbiddenLayer);

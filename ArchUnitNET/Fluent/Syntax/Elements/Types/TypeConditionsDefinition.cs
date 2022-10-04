@@ -267,49 +267,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> BeNestedIn(string pattern, bool useRegularExpressions = false)
-        {
-            var description = "be nested in types with full name " + 
-                              (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
-            var failDescription = "is not nested in a type with full name " + 
-                                  (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
-            return new SimpleCondition<TRuleType>(type => type.IsNestedIn(pattern, useRegularExpressions),
-                description, failDescription);
-        }
-        
-        public static ICondition<TRuleType> BeNestedIn(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(TRuleType ruleType)
-            {
-                return patternList.Any(pattern => ruleType.IsNestedIn(pattern, useRegularExpressions));
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "be nested in no types (always false)";
-                failDescription = "is nested in any type (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "be nested in types with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" + firstPattern + "\"",
-                    (current, pattern) => current + " or \"" + pattern + "\"");
-                failDescription = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "is not nested in types with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" + firstPattern + "\"",
-                    (current, pattern) => current + " or \"" + pattern + "\"");
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
-        }
-
         public static ICondition<TRuleType> BeNestedIn(IType firstType, params IType[] moreTypes)
         {
             var types = new List<IType> {firstType};
