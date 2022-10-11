@@ -82,6 +82,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TRuleTypeShouldConjunction AreNestedIn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.AreNestedIn(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNestedIn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.AreNestedIn(firstType, moreTypes));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNestedIn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreNestedIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNestedIn(IEnumerable<IType> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreNestedIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction AreNestedIn(IEnumerable<Type> types)
+        {
+            _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreNestedIn(types));
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction AreValueTypes()
         {
             _ruleCreator.ContinueComplexCondition(TypePredicatesDefinition<TReferenceType>.AreValueTypes());

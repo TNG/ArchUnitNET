@@ -169,6 +169,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             
             Classes().That().AreNestedIn(typeof(PublicTestClass))
                 .Should().NotBe(typeof(PublicTestClass)).AndShould().Exist().Check(Architecture);
+
+            Classes().That().AreNestedIn(StaticTestTypes.PublicTestClass)
+                .Should().Be(typeof(PublicTestClass.ChildClass)).AndShould().Exist().Check(Architecture);
             
             Classes().That().AreNestedIn(typeof(PublicTestClass.ChildClass))
                 .Should().NotExist().Check(Architecture);
