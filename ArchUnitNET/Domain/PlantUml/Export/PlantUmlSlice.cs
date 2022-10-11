@@ -116,8 +116,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 result.Append("Container(" + _name + ", " + _name + ")");
             }
 
-            var str = Namespace.Remove(Namespace.Length - 1);
-            result.Append("Boundary(" + str + ", " + str + ") ");
+            var namespc = Namespace.Remove(Namespace.Length - 1);
+            result.Append("Boundary(" + namespc + ", " + namespc + ") ");
             var name = _name.Remove(0, Namespace.Length);
             var iter = 1;
             while (name.Contains("."))
