@@ -21,7 +21,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
     public class GetterSetterTestsBuild
     {
         private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssemblies(typeof(GetterMethodDependencyExamples).Assembly).Build();
+            new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNETTests")).Build();
 
         private static readonly Type GuidType = typeof(Guid);
         private static readonly IType MockGuidStruct = GuidType.CreateStubIType();

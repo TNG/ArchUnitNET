@@ -18,7 +18,7 @@ namespace ArchUnitNETTests.Fluent
     public class MultipleConditionRulesTests
     {
         private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssemblies(typeof(MultipleConditionRulesTests).Assembly).Build();
+            new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNETTests")).Build();
 
         private readonly Class _failingClass;
 

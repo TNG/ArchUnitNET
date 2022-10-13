@@ -36,8 +36,8 @@ replace <ExampleClass\> and <ForbiddenClass\> with classes from the assemblies y
 ```cs
 private static readonly Architecture Architecture =
     new ArchLoader().LoadAssemblies(
-        typeof(ExampleClass).Assembly, 
-        typeof(ForbiddenClass).Assembly
+        System.Reflection.Assembly.Load("ExampleClassAssemblyName"),
+        System.Reflection.Assembly.Load("ForbiddenClassAssemblyName")
     ).Build();
 ```
 #### 2.3. Declare Layers
