@@ -162,6 +162,31 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         }
 
         [Fact]
+        public void NestedInTest()
+        {
+            Classes().That().AreNestedIn(typeof(PublicTestClass))
+                .Should().Be(typeof(PublicTestClass.ChildClass)).AndShould().Exist().Check(Architecture);
+            
+            Classes().That().AreNestedIn(typeof(PublicTestClass))
+                .Should().NotBe(typeof(PublicTestClass)).AndShould().Exist().Check(Architecture);
+
+            Classes().That().AreNestedIn(StaticTestTypes.PublicTestClass)
+                .Should().Be(typeof(PublicTestClass.ChildClass)).AndShould().Exist().Check(Architecture);
+            
+            Classes().That().AreNestedIn(typeof(PublicTestClass.ChildClass))
+                .Should().NotExist().Check(Architecture);
+            
+            Classes().That().AreNestedIn(typeof(PublicTestClass), typeof(InternalTestClass))
+                .Should().Be(typeof(PublicTestClass.ChildClass)).AndShould().Exist().Check(Architecture);
+            
+            var typeList1 = new List<Type> {typeof(PublicTestClass), typeof(InternalTestClass)};
+            var typeList2 = new List<IType> {StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass};
+
+            Classes().That().AreNestedIn(typeList1).Should().Be(typeof(PublicTestClass.ChildClass)).AndShould().Exist().Check(Architecture);
+            Classes().That().AreNestedIn(typeList2).Should().Be(typeof(PublicTestClass.ChildClass)).AndShould().Exist().Check(Architecture);
+            }
+
+        [Fact]
         public void HaveFieldMemberWithNameTest()
         {
             foreach (var type in _types)

@@ -79,6 +79,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction AreNestedIn(IType firstType, params IType[] moreTypes)
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNestedIn(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TGivenRuleTypeConjunction AreNestedIn(Type firstType, params Type[] moreTypes)
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNestedIn(firstType, moreTypes));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNestedIn(IObjectProvider<IType> types)
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNestedIn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNestedIn(IEnumerable<IType> types)
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNestedIn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction AreNestedIn(IEnumerable<Type> types)
+        {
+            _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNestedIn(types));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        
         public TGivenRuleTypeConjunction AreValueTypes()
         {
             _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreValueTypes());

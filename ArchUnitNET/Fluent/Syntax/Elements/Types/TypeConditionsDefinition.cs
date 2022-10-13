@@ -267,6 +267,140 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        public static ICondition<TRuleType> BeNestedIn(IType firstType, params IType[] moreTypes)
+        {
+            var types = new List<IType> {firstType};
+            types.AddRange(moreTypes);
+            return BeNestedIn(types);
+        }
+
+        public static ICondition<TRuleType> BeNestedIn(Type firstType, params Type[] moreTypes)
+        {
+            var types = new List<Type> {firstType};
+            types.AddRange(moreTypes);
+            return BeNestedIn(types);
+        }
+
+        public static ICondition<TRuleType> BeNestedIn(IObjectProvider<IType> objectProvider)
+        {
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
+            {
+                var typeList = objectProvider.GetObjects(architecture).ToList();
+                var ruleTypeList = ruleTypes.ToList();
+                var passedObjects = ruleTypeList.Where(type => typeList.Any(outerType 
+                        => type.FullName.StartsWith(outerType.FullName + "+"))).ToList();
+                var failDescription = "is not nested in " + objectProvider.Description;
+                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                {
+                    yield return new ConditionResult(failedObject, false, failDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
+            }
+
+            var description = "be nested in " + objectProvider.Description;
+            return new ArchitectureCondition<TRuleType>(Condition, description);
+        }
+
+        public static ICondition<TRuleType> BeNestedIn(IEnumerable<IType> types)
+        {
+            var typeList = types.ToList();
+            var firstType = typeList.First();
+
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
+            {
+                var ruleTypeList = ruleTypes.ToList();
+                var passedObjects = ruleTypeList.Where(type => typeList.Any(outerType 
+                    => type.FullName.StartsWith(outerType.FullName + "+"))).ToList();
+                string failDescription;
+                if (typeList.IsNullOrEmpty())
+                {
+                    failDescription = "is nested in any type (always true)";
+                }
+                else
+                {
+                    failDescription = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                        "is not nested in \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\"");
+                }
+
+                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                {
+                    yield return new ConditionResult(failedObject, false, failDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "be nested in no types (always false)";
+            }
+            else
+            {
+                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
+                    "be nested in \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new EnumerableCondition<TRuleType>(Condition, description);
+        }
+
+        public static ICondition<TRuleType> BeNestedIn(IEnumerable<Type> types)
+        {
+            var typeList = types.ToList();
+            var firstType = typeList.First();
+
+            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes, Architecture architecture)
+            {
+                var ruleTypeList = ruleTypes.ToList();
+                var passedObjects = ruleTypeList.Where(type => typeList.Any(outerType 
+                    => type.FullName.StartsWith(outerType.FullName + "+"))).ToList();
+                string failDescription;
+                if (typeList.IsNullOrEmpty())
+                {
+                    failDescription = "is nested in any type (always true)";
+                }
+                else
+                {
+                    failDescription = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                        "is not nested in \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\"");
+                }
+
+                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                {
+                    yield return new ConditionResult(failedObject, false, failDescription);
+                }
+
+                foreach (var passedObject in passedObjects)
+                {
+                    yield return new ConditionResult(passedObject, true);
+                }
+            }
+
+            string description;
+            if (typeList.IsNullOrEmpty())
+            {
+                description = "be nested in no types (always false)";
+            }
+            else
+            {
+                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
+                    "be nested in \"" + firstType.FullName + "\"",
+                    (current, type) => current + " or \"" + type.FullName + "\"");
+            }
+
+            return new ArchitectureCondition<TRuleType>(Condition, description);
+        }
+
         public static ICondition<TRuleType> BeValueTypes()
         {
             return new SimpleCondition<TRuleType>(type => type is Enum || type is Struct, "be value types",
