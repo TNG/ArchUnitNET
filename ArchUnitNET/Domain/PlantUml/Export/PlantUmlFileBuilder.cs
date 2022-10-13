@@ -32,9 +32,13 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return _diagram.GetPlantUmlString(renderOptions);
         }
 
-        public void WriteToFile(string path, RenderOptions renderOptions = null, bool overwrite = true)
+        public void WriteToFile(string path, RenderOptions renderOptions = null)
         {
-            if (!overwrite && File.Exists(path))
+            if (renderOptions == null)
+            {
+                renderOptions = new RenderOptions();
+            }
+            if (!renderOptions.Overwrite && File.Exists(path))
             {
                 throw new FileAlreadyExistsException("File already exists and overwriting is disabled.");
             }
@@ -130,10 +134,15 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 }
                 else if (!sliceIsPackage)
                 {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description, slice.NameSpace));
+                    var slc = new PlantUmlSlice(slice.Description, slice.NameSpace);
+                    if (generationOptions.C4Style)
+                    {
+                        slc.UseS4Style();
+                    }
+                    nodes.Add(slice, slc);
                 }
 
-                if (!generationOptions.CompactVersion)
+                if (!generationOptions.LimitDependencies)
                 {
                     if (sliceIsPackage)
                     {
@@ -180,7 +189,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             var nodeElements = HandleNodes(nodes);
 
-            if (!generationOptions.CompactVersion)
+            if (!generationOptions.LimitDependencies)
             {
                 RemoveDuplicateDependenciesWhenShowingPackages();
                 ReplaceCirclesWithAppropriateDependencyType();                

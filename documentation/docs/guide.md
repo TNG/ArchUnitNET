@@ -228,15 +228,15 @@ string path = "diagram.puml";
 PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch)).WriteToFile(path);
 ```
 
-### 5.3 Compact version
-The previous case still shows a large number of connections. For maximum simplification, as well as demonstrating the overall picture, it makes sense to reformat it into a compact version. This kind of display shows dependencies between packages at the same slice level.
+### 5.3 LimitDependencies-mod
+The previous case still shows a large number of connections. For maximum simplification, as well as demonstrating the overall picture, it makes sense to reformat it into a limited-dependencies version. This kind of display shows dependencies between packages at the same slice level.
 
 ![Diagram](diagrams/archUnitNet_all_compact.svg)
 ```cs
 string pattern = "ArchUnitNET.(**)";
 GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
-GenerationOptions g = new GenerationOptions(){CompactVersion = true};
+GenerationOptions g = new GenerationOptions(){LimitDependencies = true};
 
 string path = "diagram.puml";
 
@@ -267,16 +267,16 @@ In order not to display all slices and all occurrences, you can use a single ast
     ...
 ```
 
-### 5.5 AlternativeView-mod
+### 5.5 C4Style-mod
 
-To enable an alternative view of diagrams, set in the GenerationOptions flag AlternativeView = true.
+To enable an C4plantUML-style view of diagrams, set in the GenerationOptions flag C4Style = true.
 
 ![Diagram](diagrams/archUnitNet_three_alternative.svg)
 ```cs
 string pattern = "ArchUnitNET.(*).(*).(*)";
 GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
-GenerationOptions g = new GenerationOptions(){AlternativeView = true};
+GenerationOptions g = new GenerationOptions(){C4Style = true};
 
 string path = "diagram.puml";
 
