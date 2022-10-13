@@ -88,7 +88,6 @@ namespace ExampleTest
 
 internal class ExampleClass
 {
-    public class NestedClass {}
 }
 
 internal class ForbiddenClass
