@@ -71,8 +71,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "\"a\" --|> \"b\"" +
-                              Environment.NewLine + "\"b\" --|> \"c\"" + Environment.NewLine + "\"c\" --|> \"a\"" +
+            var expectedUml = "@startuml" + Environment.NewLine + Environment.NewLine +
+                              "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml" +
+                              Environment.NewLine + Environment.NewLine + 
+                              "HIDE_STEREOTYPE()" + Environment.NewLine + Environment.NewLine + "[a] --|> [b]" +
+                              Environment.NewLine + "[b] --|> [c]" + Environment.NewLine + "[c] --|> [a]" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
@@ -85,9 +88,12 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "class \"d\" {" + Environment.NewLine + "}" +
-                              Environment.NewLine + "\"a\" --|> \"b\"" + Environment.NewLine + "\"b\" --|> \"c\"" +
-                              Environment.NewLine + "\"c\" --|> \"a\"" + Environment.NewLine + "@enduml" + Environment.NewLine;
+            var expectedUml = "@startuml" + Environment.NewLine + Environment.NewLine +
+                              "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml" +
+                              Environment.NewLine + Environment.NewLine + 
+                              "HIDE_STEREOTYPE()" + Environment.NewLine + Environment.NewLine + "class \"d\" {" + Environment.NewLine + "}" +
+                              Environment.NewLine + "[a] --|> [b]" + Environment.NewLine + "[b] --|> [c]" +
+                              Environment.NewLine + "[c] --|> [a]" + Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
 
@@ -109,25 +115,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
-        public void FocusOnTest()
-        {
-            var focusedClass = Architecture.GetClassOfType(typeof(ClassToFocusOn));
-            var focusImportOptions = new GenerationOptions
-            {
-                DependencyFilter = DependencyFilters.FocusOn(focusedClass),
-                IncludeNodesWithoutDependencies = false,
-            };
-            var focusBuilder =
-                new PlantUmlFileBuilder().WithDependenciesFrom(Architecture.Types, focusImportOptions);
-            var uml = focusBuilder.AsString();
-            Assert.Equal(
-                string.Format(
-                    "@startuml{0}class \"ArchUnitNETTests.Domain.PlantUml.PlantUmlFileBuilderTest\" {{{0}}}{0}class \"ArchUnitNETTests.Domain.PlantUml.ClassToFocusOn\" {{{0}}}{0}\"ArchUnitNETTests.Domain.PlantUml.PlantUmlFileBuilderTest\" --|> \"ArchUnitNETTests.Domain.PlantUml.ClassToFocusOn\"{0}@enduml{0}",
-                    Environment.NewLine), uml);
-        }
-
-
-        [Fact]
         public void SpecialCharactersInComponentNamesTest()
         {
             var dependenciesWithSpecialCharacters = new List<IPlantUmlElement>
@@ -143,10 +130,13 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var uml = builder.AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "class \"!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€\" {" +
-                              Environment.NewLine + "}" + Environment.NewLine + "\"!\"§´`\" --|> \"$%&/()=?\"" +
-                              Environment.NewLine + "\"\\\t%\" --|> \"äöüß\"" + Environment.NewLine +
-                              "\"^°-*+.,;:\" --|> \"<>|@€\"" +
+            var expectedUml = "@startuml" + Environment.NewLine + Environment.NewLine +
+                              "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml" +
+                              Environment.NewLine + Environment.NewLine + 
+                              "HIDE_STEREOTYPE()" + Environment.NewLine + Environment.NewLine + "class \"!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€\" {" +
+                              Environment.NewLine + "}" + Environment.NewLine + "[!\"§´`] --|> [$%&/()=?]" +
+                              Environment.NewLine + "[\\\t%] --|> [äöüß]" + Environment.NewLine +
+                              "[^°-*+.,;:] --|> [<>|@€]" +
                               Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml);
         }
