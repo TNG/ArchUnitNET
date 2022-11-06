@@ -55,11 +55,5 @@ namespace ArchUnitNETTests.ArchitectureTests
                 .Should().NotDependOnAny(LoaderNamespace)
                 .Check(_architecture);
         }
-
-        [Fact]
-        public void NoCircularDependencies()
-        {
-            SliceRuleDefinition.Slices().Matching("ArchUnitNET.(*)").Should().BeFreeOfCycles().Check(_architecture);
-        }
     }
 }

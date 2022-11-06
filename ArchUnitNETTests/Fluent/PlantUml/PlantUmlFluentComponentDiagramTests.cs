@@ -71,7 +71,10 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             Assert.NotEmpty(uml2);
             Assert.NotEmpty(uml3);
             Assert.NotEmpty(uml4);
-            var expectedUml = "@startuml" + Environment.NewLine + "class \"" +
+            var expectedUml = "@startuml" + Environment.NewLine + Environment.NewLine +
+                              "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml" +
+                              Environment.NewLine + Environment.NewLine + 
+                              "HIDE_STEREOTYPE()" + Environment.NewLine + Environment.NewLine + "class \"" +
                               typeof(PlantUmlFluentComponentDiagramTests).FullName +
                               "\" {" + Environment.NewLine + "}" + Environment.NewLine + "@enduml" + Environment.NewLine;
             Assert.Equal(expectedUml, uml1);
@@ -85,7 +88,11 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var uml = ComponentDiagram().WithElements(Dependencies.Concat(classesWithoutDependencies)).AsString();
             Assert.NotEmpty(uml);
 
-            var expectedUml = "@startuml" + Environment.NewLine + "class \"X\" {" + Environment.NewLine + "}" + 
+            var expectedUml = "@startuml" + Environment.NewLine + Environment.NewLine +
+                              "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml" +
+                              Environment.NewLine + Environment.NewLine + 
+                              "HIDE_STEREOTYPE()" + Environment.NewLine + Environment.NewLine +
+                              "class \"X\" {" + Environment.NewLine + "}" + 
                               Environment.NewLine + "[a] --|> [b]" +
                               Environment.NewLine + "[b] <-[#red]> [c]" +
                               Environment.NewLine + "c ..> d" +
@@ -106,7 +113,10 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             var classesWithoutDependencies = new[] {new PlantUmlClass("X")};
             const string path = "temp/testUml.puml";
             var expectedUml = new[]
-                {"@startuml", "class \"X\" {", "}", 
+                {"@startuml", "",
+                    "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml",
+                    "", "HIDE_STEREOTYPE()", "",
+                    "class \"X\" {", "}", 
                     "[a] --|> [b]",
                     "[b] <-[#red]> [c]",
                     "c ..> d",
