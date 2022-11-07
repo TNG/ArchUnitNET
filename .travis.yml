@@ -3,7 +3,7 @@ solution: ArchUnit.sln
 jobs:
   include:
     - stage: linux_build
-      dotnet: 6.0.
+      dotnet:
       mono: none
       os: linux
       script: chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
