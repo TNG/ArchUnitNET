@@ -3,12 +3,12 @@ solution: ArchUnit.sln
 jobs:
   include:
     - stage: linux_build
-      dotnet: 6.0.110
+      dotnet: 6.0
       mono: none
       os: linux
       script: chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
       before_deploy:
-        - sudo apt-get install doxygen
+        - sudo apt-get install doxygen doxygen-doc graphviz
       deploy:
         skip_cleanup: true
         provider: script
