@@ -3,7 +3,7 @@ solution: ArchUnit.sln
 jobs:
   include:
     - stage: linux_build
-      dotnet: 6.0.402
+      dotnet: 6.0.110
       mono: none
       os: linux
       dist: focal
