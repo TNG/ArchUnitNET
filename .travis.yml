@@ -6,9 +6,8 @@ jobs:
       dotnet: 6.0.110
       mono: none
       os: linux
-      dist: jammy
+      dist: focal
       script: 
-
         - chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
       before_deploy:
         - sudo apt-get install doxygen doxygen-doc graphviz
