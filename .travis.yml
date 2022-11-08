@@ -7,6 +7,7 @@ jobs:
       mono: none
       os: linux
       script: 
+        - dotnet restore
         - chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
       before_deploy:
         - sudo apt-get install doxygen doxygen-doc graphviz
