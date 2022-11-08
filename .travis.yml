@@ -22,7 +22,7 @@ jobs:
       mono: none
       os: windows
       before_script:
-        - choco install dotnet-6.0-sdk --version=6.0.110
+        - choco install dotnet-6.0-sdk
         - PowerShell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
       script:
         - PowerShell -File Travis/test_windows.ps1 -tag "$TRAVIS_TAG"
