@@ -8,6 +8,8 @@ jobs:
       os: linux
       script: 
         - dotnet restore
+        - wget https://dot.net/v1/dotnet-install.sh
+        - ./dotnet-install.sh --channel "6.0"
         - chmod +x ./Travis/test_linux.sh && ./Travis/test_linux.sh
       before_deploy:
         - sudo apt-get install doxygen doxygen-doc graphviz
