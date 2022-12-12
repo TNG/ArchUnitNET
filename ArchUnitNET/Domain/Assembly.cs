@@ -11,7 +11,7 @@ namespace ArchUnitNET.Domain
 {
     public class Assembly : IHasName, IHasAttributes
     {
-        public Assembly(string name, string fullName, bool isOnlyReferenced)
+        public Assembly(string name, string fullName, List<string> referencedAssemblyNames, bool isOnlyReferenced)
         {
             Name = name;
             FullName = fullName;

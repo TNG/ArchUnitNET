@@ -93,7 +93,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
 
         private static Assembly CreateStubAssembly(this System.Reflection.Assembly assembly)
         {
-            return new Assembly(assembly.FullName, assembly.FullName, false);
+            return new Assembly(assembly.FullName, assembly.FullName, null,false);
         }
 
         private static Namespace CreateStubNamespace(this string namespc)
