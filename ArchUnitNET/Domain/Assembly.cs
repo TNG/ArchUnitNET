@@ -16,11 +16,14 @@ namespace ArchUnitNET.Domain
             Name = name;
             FullName = fullName;
             IsOnlyReferenced = isOnlyReferenced;
+            ReferencedAssemblyNames = referencedAssemblyNames;
         }
 
         public bool IsOnlyReferenced { get; }
 
         public string Name { get; }
+
+        public List<string> ReferencedAssemblyNames { get; }
         public string FullName { get; }
 
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
