@@ -43,7 +43,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     notVirtualPropertyMembersDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
-            var virtualPropertyMembersShouldBeVirtual = PropertyMembers().That().AreVirtual().Should().BeVirtual();
+            var virtualPropertyMembersShouldBeVirtual = PropertyMembers().That().AreVirtual().Should().BeVirtual().WithoutRequiringPositiveResults();
             var virtualPropertyMembersAreNotVirtual =
                 PropertyMembers().That().AreVirtual().Should().NotBeVirtual().AndShould().Exist();
             var notVirtualPropertyMembersShouldBeVirtual =
@@ -119,7 +119,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var propertyMembersWithInternalGetterHaveInternalGetter =
-                PropertyMembers().That().HaveInternalGetter().Should().HaveInternalGetter();
+                PropertyMembers().That().HaveInternalGetter().Should().HaveInternalGetter().WithoutRequiringPositiveResults();
             var propertyMembersWithInternalGetterDoNotHaveInternalGetter =
                 PropertyMembers().That().HaveInternalGetter().Should().NotHaveInternalGetter().AndShould().Exist();
             var propertyMembersWithoutInternalGetterHaveInternalGetter =
@@ -159,7 +159,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var propertyMembersWithInternalSetterHaveInternalSetter =
-                PropertyMembers().That().HaveInternalSetter().Should().HaveInternalSetter();
+                PropertyMembers().That().HaveInternalSetter().Should().HaveInternalSetter().WithoutRequiringPositiveResults();
             var propertyMembersWithInternalSetterDoNotHaveInternalSetter =
                 PropertyMembers().That().HaveInternalSetter().Should().NotHaveInternalSetter().AndShould().Exist();
             var propertyMembersWithoutInternalSetterHaveInternalSetter =
@@ -241,7 +241,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var propertyMembersWithPrivateProtectedGetterHavePrivateProtectedGetter =
-                PropertyMembers().That().HavePrivateProtectedGetter().Should().HavePrivateProtectedGetter();
+                PropertyMembers().That().HavePrivateProtectedGetter().Should().HavePrivateProtectedGetter().WithoutRequiringPositiveResults();
             var propertyMembersWithPrivateProtectedGetterDoNotHavePrivateProtectedGetter =
                 PropertyMembers().That().HavePrivateProtectedGetter().Should().NotHavePrivateProtectedGetter()
                     .AndShould().Exist();
@@ -290,7 +290,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var propertyMembersWithPrivateProtectedSetterHavePrivateProtectedSetter =
-                PropertyMembers().That().HavePrivateProtectedSetter().Should().HavePrivateProtectedSetter();
+                PropertyMembers().That().HavePrivateProtectedSetter().Should().HavePrivateProtectedSetter().WithoutRequiringPositiveResults();
             var propertyMembersWithPrivateProtectedSetterDoNotHavePrivateProtectedSetter =
                 PropertyMembers().That().HavePrivateProtectedSetter().Should().NotHavePrivateProtectedSetter()
                     .AndShould().Exist();
@@ -419,7 +419,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var propertyMembersWithProtectedInternalGetterHaveProtectedInternalGetter =
-                PropertyMembers().That().HaveProtectedInternalGetter().Should().HaveProtectedInternalGetter();
+                PropertyMembers().That().HaveProtectedInternalGetter().Should().HaveProtectedInternalGetter().WithoutRequiringPositiveResults();
             var propertyMembersWithProtectedInternalGetterDoNotHaveProtectedInternalGetter =
                 PropertyMembers().That().HaveProtectedInternalGetter().Should().NotHaveProtectedInternalGetter()
                     .AndShould().Exist();
@@ -469,7 +469,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var propertyMembersWithProtectedInternalSetterHaveProtectedInternalSetter =
-                PropertyMembers().That().HaveProtectedInternalSetter().Should().HaveProtectedInternalSetter();
+                PropertyMembers().That().HaveProtectedInternalSetter().Should().HaveProtectedInternalSetter().WithoutRequiringPositiveResults();
             var propertyMembersWithProtectedInternalSetterDoNotHaveProtectedInternalSetter =
                 PropertyMembers().That().HaveProtectedInternalSetter().Should().NotHaveProtectedInternalSetter()
                     .AndShould().Exist();
@@ -517,7 +517,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             }
 
             var propertyMembersWithProtectedSetterHaveProtectedSetter =
-                PropertyMembers().That().HaveProtectedSetter().Should().HaveProtectedSetter();
+                PropertyMembers().That().HaveProtectedSetter().Should().HaveProtectedSetter().WithoutRequiringPositiveResults();
             var propertyMembersWithProtectedSetterDoNotHaveProtectedSetter =
                 PropertyMembers().That().HaveProtectedSetter().Should().NotHaveProtectedSetter().AndShould().Exist();
             var propertyMembersWithoutProtectedSetterHaveProtectedSetter =

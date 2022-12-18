@@ -101,9 +101,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             foreach (var type in _types)
             {
-                var membersShouldBeDeclaredInOwnType = Members().That().AreDeclaredIn(type).Should().BeDeclaredIn(type);
+                var membersShouldBeDeclaredInOwnType = Members().That().AreDeclaredIn(type).Should().BeDeclaredIn(type).WithoutRequiringPositiveResults();
                 var membersShouldNotBeDeclaredInOwnType =
-                    Members().That().AreNotDeclaredIn(type).Should().BeDeclaredIn(type);
+                    Members().That().AreNotDeclaredIn(type).Should().BeDeclaredIn(type).WithoutRequiringPositiveResults();
 
                 Assert.True(membersShouldBeDeclaredInOwnType.HasNoViolations(Architecture));
                 Assert.False(membersShouldNotBeDeclaredInOwnType.HasNoViolations(Architecture));
