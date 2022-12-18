@@ -27,6 +27,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction Exist()
         {
+            _ruleCreator.RequirePositiveResults = false;
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.Exist());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -545,6 +546,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction NotExist()
         {
+            _ruleCreator.RequirePositiveResults = false;
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotExist());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }

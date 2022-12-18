@@ -40,6 +40,9 @@ namespace ExampleTest
         private readonly IObjectProvider<Interface> ForbiddenInterfaces =
             Interfaces().That().HaveFullNameContaining("forbidden").As("Forbidden Interfaces");
 
+        private readonly IObjectProvider<IType> TypoLayer =
+            Types().That().ResideInNamespace("TypoNamespace").As("Non-existing Typo Layer");
+
 
         //write some tests
         [Fact]
@@ -68,6 +71,32 @@ namespace ExampleTest
             IArchRule exampleLayerShouldNotAccessForbiddenLayer = Types().That().Are(ExampleLayer).Should()
                 .NotDependOnAny(ForbiddenLayer).Because("it's forbidden");
             exampleLayerShouldNotAccessForbiddenLayer.Check(Architecture);
+        }
+
+        [Fact]
+        public void TypoLayerShouldViolateByDefault()
+        {
+            // test the new default case
+            IArchRule typoLayerShouldFailByDefault = Types().That().Are(TypoLayer).Should()
+                .NotDependOnAny(ForbiddenLayer).Because("typo layer does not exist");
+
+            Assert.False(typoLayerShouldFailByDefault.HasNoViolations(Architecture));
+
+
+            // test the active assertion (with implicit exemption)
+            IArchRule typoLayerShouldDefinitelyNotExist = Types().That().Are(TypoLayer).Should()
+                .NotExist().Because("typo layer simply is not there");
+            
+            Assert.True(typoLayerShouldDefinitelyNotExist.HasNoViolations(Architecture));
+            
+
+            // test the explicit exemption
+            IArchRule typoLayerCanCauseNoViolations = Types().That().Are(TypoLayer).Should()
+                .NotDependOnAny(ForbiddenLayer)
+                .Because("typo layer does not exist and causes no violation")
+                .WithoutRequiringPositiveResults();
+
+            Assert.True(typoLayerCanCauseNoViolations.HasNoViolations(Architecture));
         }
 
         [Fact]

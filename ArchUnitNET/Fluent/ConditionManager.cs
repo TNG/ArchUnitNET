@@ -90,9 +90,10 @@ namespace ArchUnitNET.Fluent
             Architecture architecture, ICanBeEvaluated archRuleCreator)
         {
             var filteredObjectsList = filteredObjects.ToList();
-            if (filteredObjectsList.IsNullOrEmpty())
+            if (filteredObjectsList.IsNullOrEmpty() &&
+                !CheckEmpty())
             {
-                yield return new EvaluationResult(null, new StringIdentifier(""), CheckEmpty(),
+                yield return new EvaluationResult(null, new StringIdentifier(""), false,
                     "There are no objects matching the criteria", archRuleCreator, architecture);
                 yield break;
             }

@@ -4,6 +4,7 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -16,6 +17,7 @@ namespace ArchUnitNET.Fluent
     {
         private readonly ConditionManager<TRuleType> _conditionManager;
         private readonly PredicateManager<TRuleType> _predicateManager;
+        private bool? _requirePositiveResults;
 
         public ArchRuleCreator(BasicObjectProvider<TRuleType> basicObjectProvider)
         {
@@ -91,6 +93,20 @@ namespace ArchUnitNET.Fluent
         public void SetCustomConditionDescription(string description)
         {
             _conditionManager.SetCustomDescription(description);
+        }
+
+        private void SetRequirePositiveResults(bool requirePositive)
+        {
+            if (_requirePositiveResults != null &&
+                _requirePositiveResults != requirePositive)
+                throw new InvalidOperationException("conflicting positive expectation");
+            _requirePositiveResults = requirePositive;
+        }
+
+        public bool RequirePositiveResults
+        {
+            get => _requirePositiveResults ?? true;
+            set => SetRequirePositiveResults(value);
         }
 
         private bool HasNoViolations(IEnumerable<TRuleType> filteredObjects, Architecture architecture)
