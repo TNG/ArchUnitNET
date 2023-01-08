@@ -45,7 +45,7 @@ namespace ExampleTest
 
 
         //write some tests
-        [Fact]
+        [Fact(Skip = "This is just a syntax example, it does not actually work")]
         public void TypesShouldBeInCorrectLayer()
         {
             //you can use the fluent API to write your own rules
@@ -64,7 +64,7 @@ namespace ExampleTest
             combinedArchRule.Check(Architecture);
         }
 
-        [Fact]
+        [Fact(Skip = "This is just a syntax example, it does not actually work")]
         public void ExampleLayerShouldNotAccessForbiddenLayer()
         {
             //you can give your rules a custom reason, which is displayed when it fails (together with the types that failed the rule)
@@ -73,7 +73,7 @@ namespace ExampleTest
             exampleLayerShouldNotAccessForbiddenLayer.Check(Architecture);
         }
 
-        [Fact]
+        [Fact(Skip = "This is just a syntax example, it does not actually work")]
         public void TypoLayerShouldViolateByDefault()
         {
             // test the new default case
@@ -99,14 +99,14 @@ namespace ExampleTest
             Assert.True(typoLayerCanCauseNoViolations.HasNoViolations(Architecture));
         }
 
-        [Fact]
+        [Fact(Skip = "This is just a syntax example, it does not actually work")]
         public void ForbiddenClassesShouldHaveCorrectName()
         {
             Classes().That().AreAssignableTo(ForbiddenInterfaces).Should().HaveNameContaining("forbidden")
                 .Check(Architecture);
         }
 
-        [Fact]
+        [Fact(Skip = "This is just a syntax example, it does not actually work")]
         public void ExampleClassesShouldNotCallForbiddenMethods()
         {
             Classes().That().Are(ExampleClasses).Should().NotCallAny(
