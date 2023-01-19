@@ -142,7 +142,6 @@ namespace ArchUnitNET.Loader
                 }
             }
 
-
             TypeDefinition typeDefinition;
             try
             {
@@ -163,7 +162,6 @@ namespace ArchUnitNET.Loader
             var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(declaringTypeReference.Namespace);
             var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(typeReference.Module.Assembly.Name.FullName,
                 typeReference.Module.Assembly.FullName, true, null);
-            
 
             Type type;
             bool isCompilerGenerated, isNested, isGeneric;
