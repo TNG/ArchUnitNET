@@ -15,10 +15,10 @@ namespace ArchUnitNET.Loader
 
         public IEnumerable<Assembly> Assemblies => _assemblies.Values;
 
-        public Assembly GetOrCreateAssembly(string assemblyName, string assemblyFullName, List<string> assemblyReferences, bool isOnlyReferenced)
+        public Assembly GetOrCreateAssembly(string assemblyName, string assemblyFullName, bool isOnlyReferenced, List<string> assemblyReferences)
         {
             return RegistryUtils.GetFromDictOrCreateAndAdd(assemblyName, _assemblies,
-                s => new Assembly(assemblyName, assemblyFullName, assemblyReferences , isOnlyReferenced));
+                s => new Assembly(assemblyName, assemblyFullName, isOnlyReferenced, assemblyReferences));
         }
 
         public bool ContainsAssembly(string assemblyName)

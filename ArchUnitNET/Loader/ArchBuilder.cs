@@ -42,25 +42,14 @@ namespace ArchUnitNET.Loader
         public IEnumerable<Assembly> Assemblies => _assemblyRegistry.Assemblies;
         public IEnumerable<Namespace> Namespaces => _namespaceRegistry.Namespaces;
 
-        /*public void AddAssembly([NotNull] AssemblyDefinition moduleAssembly, bool isOnlyReferenced)
+        public void AddAssembly([NotNull] AssemblyDefinition moduleAssembly, bool isOnlyReferenced, [CanBeNull] IEnumerable<AssemblyNameReference> moduleReferences)
         {
-            if (!_assemblyRegistry.ContainsAssembly(moduleAssembly.Name.FullName))
-            {
-                var assembly = _assemblyRegistry.GetOrCreateAssembly(moduleAssembly.Name.FullName,
-                    moduleAssembly.FullName, isOnlyReferenced);
-                _loadTaskRegistry.Add(typeof(CollectAssemblyAttributes),
-                    new CollectAssemblyAttributes(assembly, moduleAssembly, _typeFactory));
-            }
-        }*/
-
-        public void AddAssembly([NotNull] AssemblyDefinition moduleAssembly, IEnumerable<AssemblyNameReference> moduleReferences, bool isOnlyReferenced)
-        {
-            var references = moduleReferences.Select(reference => reference.Name).ToList();
+            var references = moduleReferences?.Select(reference => reference.Name).ToList();
 
             if (!_assemblyRegistry.ContainsAssembly(moduleAssembly.Name.FullName))
             {
                 var assembly = _assemblyRegistry.GetOrCreateAssembly(moduleAssembly.Name.FullName,
-                    moduleAssembly.FullName, references, isOnlyReferenced);
+                    moduleAssembly.FullName, isOnlyReferenced, references);
                 _loadTaskRegistry.Add(typeof(CollectAssemblyAttributes),
                     new CollectAssemblyAttributes(assembly, moduleAssembly, _typeFactory));
             }

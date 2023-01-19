@@ -6,12 +6,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
     public class Assembly : IHasName, IHasAttributes
     {
-        public Assembly(string name, string fullName, List<string> referencedAssemblyNames, bool isOnlyReferenced)
+        public Assembly(string name, string fullName, bool isOnlyReferenced , [CanBeNull] List<string> referencedAssemblyNames)
         {
             Name = name;
             FullName = fullName;
@@ -23,7 +24,7 @@ namespace ArchUnitNET.Domain
 
         public string Name { get; }
 
-        public List<string> ReferencedAssemblyNames { get; }
+        [CanBeNull] public List<string> ReferencedAssemblyNames { get; }
         public string FullName { get; }
 
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
