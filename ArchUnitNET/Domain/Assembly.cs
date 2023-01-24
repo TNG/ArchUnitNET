@@ -6,21 +6,25 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
     public class Assembly : IHasName, IHasAttributes
     {
-        public Assembly(string name, string fullName, bool isOnlyReferenced)
+        public Assembly(string name, string fullName, bool isOnlyReferenced , [CanBeNull] List<string> referencedAssemblyNames)
         {
             Name = name;
             FullName = fullName;
             IsOnlyReferenced = isOnlyReferenced;
+            ReferencedAssemblyNames = referencedAssemblyNames;
         }
 
         public bool IsOnlyReferenced { get; }
 
         public string Name { get; }
+
+        [CanBeNull] public List<string> ReferencedAssemblyNames { get; }
         public string FullName { get; }
 
         public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
