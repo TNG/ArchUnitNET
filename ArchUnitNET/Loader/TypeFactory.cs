@@ -177,8 +177,11 @@ namespace ArchUnitNET.Loader
                 return new TypeInstance<IType>(type);
             }
 
-            if (typeDefinition.CustomAttributes.Any(att =>
-                att.AttributeType.FullName == typeof(UnsafeValueTypeAttribute).FullName))
+            const string fixedElementField = "FixedElementField";
+
+            if (typeDefinition.CustomAttributes
+                    .Any(att => att.AttributeType.FullName == typeof(UnsafeValueTypeAttribute).FullName) &&
+                    typeDefinition.Fields.Any(field => field.Name == fixedElementField))
             {
                 var arrayType = typeDefinition.Fields.First(field => field.Name == "FixedElementField").FieldType;
                 var arrayTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(arrayType);
