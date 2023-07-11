@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj" />
+        <ProjectReference Include="..\CppDllTest\CppDllTest.vcxproj" />
         <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
     </ItemGroup>
 
