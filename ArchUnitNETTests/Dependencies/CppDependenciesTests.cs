@@ -19,10 +19,6 @@ namespace ArchUnitNETTests.Dependencies
             filterFunc => FilterResult.LoadAndContinue)
             .Build();
 
-        public CppDependenciesTests()
-        {
-        }
-
         [Fact]
         public void CppClassUserFound()
         {
