@@ -9,7 +9,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj" />
-        <ProjectReference Include="..\CppDllTest\CppDllTest.vcxproj" />
         <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
     </ItemGroup>
 
@@ -20,9 +19,22 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Update="Dependencies\cpplib\CppDllTest.dll">
+          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </None>
         <None Update="Domain\PlantUml\zzz_test_version_with_errors.puml">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Dependencies\cpplib\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="CppDllTest">
+        <HintPath>Dependencies\cpplib\CppDllTest.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

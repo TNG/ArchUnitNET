@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET.MSTestV2", "Arc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchUnitNET.MSTestV2Tests", "ArchUnitNET.MSTestV2Tests\ArchUnitNET.MSTestV2Tests.csproj", "{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppDllTest", "CppDllTest\CppDllTest.vcxproj", "{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,18 +139,6 @@ Global
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|x64.Build.0 = Release|Any CPU
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|x86.ActiveCfg = Release|Any CPU
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|x86.Build.0 = Release|Any CPU
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Debug|Any CPU.Build.0 = Debug|x64
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Debug|x64.ActiveCfg = Debug|x64
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Debug|x64.Build.0 = Debug|x64
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Debug|x86.ActiveCfg = Debug|Win32
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Debug|x86.Build.0 = Debug|Win32
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Release|Any CPU.ActiveCfg = Release|x64
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Release|Any CPU.Build.0 = Release|x64
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Release|x64.ActiveCfg = Release|x64
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Release|x64.Build.0 = Release|x64
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Release|x86.ActiveCfg = Release|Win32
-		{A167CA83-0C6D-4523-8082-4AE8C5EEFABD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
