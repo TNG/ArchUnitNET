@@ -1,0 +1,5 @@
+<map id="ArchUnitNET.Domain.PlantUml.Export.PlantUmlNamespace" name="ArchUnitNET.Domain.PlantUml.Export.PlantUmlNamespace">
+<area shape="rect" id="node1" title=" " alt="" coords="5,155,241,196"/>
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1IPlantUmlContainer.html" title=" " alt="" coords="49,80,198,107"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1IPlantUmlElement.html" title=" " alt="" coords="53,5,193,32"/>
+</map>

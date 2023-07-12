@@ -1,0 +1,4 @@
+var classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShouldConjunction =
+[
+    [ "InterfacesShouldConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShouldConjunction.html#ab7524bf67d2786c6f58029431c1bd55c", null ]
+];

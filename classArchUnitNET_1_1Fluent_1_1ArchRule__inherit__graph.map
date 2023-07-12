@@ -1,0 +1,9 @@
+<map id="ArchUnitNET.Fluent.ArchRule&lt; TRuleType &gt;" name="ArchUnitNET.Fluent.ArchRule&lt; TRuleType &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="627,23,837,65"/>
+<area shape="rect" id="node6" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html" title=" " alt="" coords="885,9,1108,79"/>
+<area shape="rect" id="node2" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="360,5,579,32"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,31,131,57"/>
+<area shape="rect" id="node5" href="$interfaceArchUnitNET_1_1Fluent_1_1ICanBeEvaluated.html" title=" " alt="" coords="179,56,312,83"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Fluent_1_1IArchRule.html" title=" " alt="" coords="427,56,511,83"/>
+<area shape="rect" id="node7" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html" title=" " alt="" coords="1156,9,1395,79"/>
+</map>

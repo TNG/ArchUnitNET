@@ -1,0 +1,4 @@
+var classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembercbe5c60298a4477121e1e7b307af6b72 =
+[
+    [ "PropertyMembersShouldConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembercbe5c60298a4477121e1e7b307af6b72.html#a90453f99ac4594aa467acd53ea27935e", null ]
+];

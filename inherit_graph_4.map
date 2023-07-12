@@ -1,0 +1,10 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,209,92,235"/>
+<area shape="rect" id="node2" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1AssemblyDoesNotExistInArchitecture.html" title=" " alt="" coords="155,5,420,47"/>
+<area shape="rect" id="node3" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1InvalidStateException.html" title=" " alt="" coords="169,71,406,112"/>
+<area shape="rect" id="node4" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1MultipleOccurrencesInSequenceException.html" title=" " alt="" coords="140,136,435,177"/>
+<area shape="rect" id="node5" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1TypeDoesNotExistInArchitecture.html" title=" " alt="" coords="169,201,406,243"/>
+<area shape="rect" id="node6" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Exceptions_1_1FileAlreadyExistsException.html" title=" " alt="" coords="167,267,407,323"/>
+<area shape="rect" id="node7" href="$classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleCreatorException.html" title=" " alt="" coords="148,347,427,403"/>
+<area shape="rect" id="node8" href="$classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleException.html" title=" " alt="" coords="148,427,427,483"/>
+</map>

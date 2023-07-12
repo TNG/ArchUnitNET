@@ -1,0 +1,26 @@
+var namespaceArchUnitNET_1_1Domain_1_1Dependencies =
+[
+    [ "AccessFieldDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1AccessFieldDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1AccessFieldDependency" ],
+    [ "AttributeMemberDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1AttributeMemberDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1AttributeMemberDependency" ],
+    [ "AttributeTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1AttributeTypeDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1AttributeTypeDependency" ],
+    [ "BodyTypeMemberDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1BodyTypeMemberDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1BodyTypeMemberDependency" ],
+    [ "CastTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1CastTypeDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1CastTypeDependency" ],
+    [ "FieldTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1FieldTypeDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1FieldTypeDependency" ],
+    [ "GenericArgumentMemberDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1GenericArgumentMemberDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1GenericArgumentMemberDependency" ],
+    [ "GenericArgumentTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1GenericArgumentTypeDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1GenericArgumentTypeDependency" ],
+    [ "IMemberMemberDependency", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberMemberDependency.html", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberMemberDependency" ],
+    [ "IMemberTypeDependency", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency" ],
+    [ "ImplementsInterfaceDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1ImplementsInterfaceDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1ImplementsInterfaceDependency" ],
+    [ "InheritsBaseClassDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1InheritsBaseClassDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1InheritsBaseClassDependency" ],
+    [ "ITypeDependency", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency" ],
+    [ "MemberGenericParameterTypeConstraintDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberGenericParameterTypeConstraintDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberGenericParameterTypeConstraintDependency" ],
+    [ "MemberTypeInstanceDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency" ],
+    [ "MetaDataDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MetaDataDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MetaDataDependency" ],
+    [ "MethodCallDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodCallDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodCallDependency" ],
+    [ "MethodSignatureDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodSignatureDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodSignatureDependency" ],
+    [ "PropertyTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1PropertyTypeDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1PropertyTypeDependency" ],
+    [ "TypeCheckDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeCheckDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeCheckDependency" ],
+    [ "TypeGenericParameterTypeConstraintDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeGenericParameterTypeConstraintDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeGenericParameterTypeConstraintDependency" ],
+    [ "TypeInstanceDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency" ],
+    [ "TypeReferenceDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeReferenceDependency.html", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeReferenceDependency" ]
+];

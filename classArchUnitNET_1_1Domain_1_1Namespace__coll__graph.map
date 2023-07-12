@@ -1,0 +1,10 @@
+<map id="ArchUnitNET.Domain.Namespace" name="ArchUnitNET.Domain.Namespace">
+<area shape="rect" id="node1" title=" " alt="" coords="141,275,379,301"/>
+<area shape="rect" id="node2" href="$classArchUnitNET_1_1Domain_1_1Slice.html" title=" " alt="" coords="185,199,239,225"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,5,131,32"/>
+<area shape="rect" id="node5" href="$classArchUnitNET_1_1Domain_1_1SliceIdentifier.html" title=" " alt="" coords="115,95,309,136"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html" title=" " alt="" coords="333,102,475,129"/>
+<area shape="rect" id="node6" href="$classArchUnitNET_1_1Domain_1_1StringIdentifier.html" title=" " alt="" coords="155,5,274,32"/>
+<area shape="rect" id="node7" title=" " alt="" coords="297,5,356,32"/>
+<area shape="rect" id="node8" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title=" " alt="" coords="263,199,353,225"/>
+</map>

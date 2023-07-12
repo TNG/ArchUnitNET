@@ -1,0 +1,4 @@
+var classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembers =
+[
+    [ "GivenPropertyMembers", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembers.html#a1b08c4241d5fb37905dcedc61cb329bf", null ]
+];

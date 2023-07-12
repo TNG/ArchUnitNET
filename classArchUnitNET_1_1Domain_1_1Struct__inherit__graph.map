@@ -1,0 +1,11 @@
+<map id="ArchUnitNET.Domain.Struct" name="ArchUnitNET.Domain.Struct">
+<area shape="rect" id="node1" title=" " alt="" coords="528,132,728,159"/>
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Domain_1_1IType.html" title=" " alt="" coords="424,132,480,159"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html" title=" " alt="" coords="248,132,376,159"/>
+<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title=" " alt="" coords="57,5,148,32"/>
+<area shape="rect" id="node5" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html" title=" " alt="" coords="31,56,174,83"/>
+<area shape="rect" id="node6" href="$interfaceArchUnitNET_1_1Domain_1_1IHasAttributes.html" title=" " alt="" coords="45,107,160,133"/>
+<area shape="rect" id="node7" href="$interfaceArchUnitNET_1_1Domain_1_1IHasVisibility.html" title=" " alt="" coords="49,157,157,184"/>
+<area shape="rect" id="node8" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeGeneric.html" title=" " alt="" coords="43,208,162,235"/>
+<area shape="rect" id="node9" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeCompilerGenerated.html" title=" " alt="" coords="5,259,200,285"/>
+</map>

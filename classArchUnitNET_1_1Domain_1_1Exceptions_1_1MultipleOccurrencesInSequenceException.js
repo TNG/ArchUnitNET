@@ -1,0 +1,4 @@
+var classArchUnitNET_1_1Domain_1_1Exceptions_1_1MultipleOccurrencesInSequenceException =
+[
+    [ "MultipleOccurrencesInSequenceException", "classArchUnitNET_1_1Domain_1_1Exceptions_1_1MultipleOccurrencesInSequenceException.html#acacdf79141931c9c5e664083555adda6", null ]
+];

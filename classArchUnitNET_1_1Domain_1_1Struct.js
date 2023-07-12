@@ -1,0 +1,27 @@
+var classArchUnitNET_1_1Domain_1_1Struct =
+[
+    [ "Struct", "classArchUnitNET_1_1Domain_1_1Struct.html#a470c85aa777b9764135b0411669cbc95", null ],
+    [ "Equals", "classArchUnitNET_1_1Domain_1_1Struct.html#ac5ccbe1369727f90370e1eea56582b63", null ],
+    [ "GetHashCode", "classArchUnitNET_1_1Domain_1_1Struct.html#a563fa2e72929cbc840f94ac3330fb398", null ],
+    [ "ToString", "classArchUnitNET_1_1Domain_1_1Struct.html#a4a1bcbe906d34840ad8117a7a9a5b26c", null ],
+    [ "Assembly", "classArchUnitNET_1_1Domain_1_1Struct.html#ac472ccd016dd3879eed446516fc6c44f", null ],
+    [ "AttributeInstances", "classArchUnitNET_1_1Domain_1_1Struct.html#a17787816298d8af3bc4b5659ec7da5fd", null ],
+    [ "Attributes", "classArchUnitNET_1_1Domain_1_1Struct.html#ad3009d70f28ec86b7587dd5a156cac79", null ],
+    [ "BackwardsDependencies", "classArchUnitNET_1_1Domain_1_1Struct.html#a3a5888b87b20d8112eb342a48b84e03c", null ],
+    [ "BaseClass", "classArchUnitNET_1_1Domain_1_1Struct.html#a40ac52c61dbe027a6c458c9331a959e8", null ],
+    [ "Dependencies", "classArchUnitNET_1_1Domain_1_1Struct.html#aac4c6eecd0a8151c8ae284baac5f1b22", null ],
+    [ "FullName", "classArchUnitNET_1_1Domain_1_1Struct.html#af1507743846d100a38f2c4fe2df6e29d", null ],
+    [ "GenericParameters", "classArchUnitNET_1_1Domain_1_1Struct.html#ae03e072da33924b980d0983152b18059", null ],
+    [ "ImplementedInterfaces", "classArchUnitNET_1_1Domain_1_1Struct.html#aca0f11099445a841f6f55a6a9e25c22a", null ],
+    [ "InheritedClasses", "classArchUnitNET_1_1Domain_1_1Struct.html#a5f3678ffda6a9269b1b4e4d8a96a90e7", null ],
+    [ "IsCompilerGenerated", "classArchUnitNET_1_1Domain_1_1Struct.html#aea7ea6a3f10fec1aeff037c10779eb65", null ],
+    [ "IsGeneric", "classArchUnitNET_1_1Domain_1_1Struct.html#a626dec25caa11562e74e9ebda9caa8b9", null ],
+    [ "IsGenericParameter", "classArchUnitNET_1_1Domain_1_1Struct.html#a5a059ac18d154a83b45acb27659334fc", null ],
+    [ "IsNested", "classArchUnitNET_1_1Domain_1_1Struct.html#acb518cb87d215f3032c9ed8b9890466d", null ],
+    [ "IsStub", "classArchUnitNET_1_1Domain_1_1Struct.html#a6da39274e375ca7bfe5002dad359462d", null ],
+    [ "Members", "classArchUnitNET_1_1Domain_1_1Struct.html#a0aa7755042e99184420365637f577ecc", null ],
+    [ "Name", "classArchUnitNET_1_1Domain_1_1Struct.html#ada417398964aa5620ed8e68e8575a243", null ],
+    [ "Namespace", "classArchUnitNET_1_1Domain_1_1Struct.html#a73abeee1f73bfb76b594feb99a798d82", null ],
+    [ "Visibility", "classArchUnitNET_1_1Domain_1_1Struct.html#a4da72769d2eecaebb2939dec88c25b35", null ],
+    [ "Type", "classArchUnitNET_1_1Domain_1_1Struct.html#abd66a591056343a34e8e59632d9e4472", null ]
+];

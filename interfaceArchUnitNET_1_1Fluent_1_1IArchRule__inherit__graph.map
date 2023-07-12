@@ -1,0 +1,12 @@
+<map id="ArchUnitNET.Fluent.IArchRule" name="ArchUnitNET.Fluent.IArchRule">
+<area shape="rect" id="node1" title=" " alt="" coords="360,158,575,185"/>
+<area shape="rect" id="node4" href="$classArchUnitNET_1_1Fluent_1_1ArchRule.html" title=" " alt="" coords="627,20,837,61"/>
+<area shape="rect" id="node7" href="$classArchUnitNET_1_1Fluent_1_1CombinedArchRule.html" title=" " alt="" coords="623,85,841,127"/>
+<area shape="rect" id="node8" href="$classArchUnitNET_1_1Fluent_1_1CustomArchRule.html" title=" " alt="" coords="631,151,833,192"/>
+<area shape="rect" id="node9" href="$classArchUnitNET_1_1Fluent_1_1Freeze_1_1FreezingArchRule.html" title=" " alt="" coords="633,216,831,257"/>
+<area shape="rect" id="node10" href="$classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRule.html" title=" " alt="" coords="635,281,829,323"/>
+<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Fluent_1_1ICanBeEvaluated.html" title=" " alt="" coords="179,158,312,185"/>
+<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,158,131,185"/>
+<area shape="rect" id="node5" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html" title=" " alt="" coords="889,5,1112,76"/>
+<area shape="rect" id="node6" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html" title=" " alt="" coords="1160,5,1399,76"/>
+</map>
