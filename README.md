@@ -38,9 +38,9 @@ namespace ExampleTest
     {
         // TIP: load your architecture once at the start to maximize performance of your tests
         private static readonly Architecture Architecture = new ArchLoader().LoadAssemblies(
-                System.Reflection.Assembly.Load("ExampleClassAssemblyName"),
-                System.Reflection.Assembly.Load("ForbiddenClassAssemblyName")
-            .Build();
+            System.Reflection.Assembly.Load("ExampleClassAssemblyName"),
+            System.Reflection.Assembly.Load("ForbiddenClassAssemblyName")
+        ).Build();
         // replace <ExampleClass> and <ForbiddenClass> with classes from the assemblies you want to test
 
         //declare variables you'll use throughout your tests up here
