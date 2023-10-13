@@ -51,6 +51,10 @@ namespace ArchUnitNETTests.Fluent
         private static readonly IArchRule WrongArchRule1AndWrongArchRule3 = WrongArchRule1.And(WrongArchRule3);
         private static readonly IArchRule WrongArchRule4AndWrongArchRule8 = WrongArchRule4.And(WrongArchRule8);
 
+        private static readonly IArchRule WrongArchRule9 =
+            Classes().That().HaveName(NoClassName).Should().BePrivate();
+
+
         private readonly string _expectedWrongArchRule1AndWrongArchRule3ErrorMessage =
             "\"Classes that are \"ArchUnitNETTests.Domain.PublicTestClass\" should be private\" failed:" +
             NewLine + "\tArchUnitNETTests.Domain.PublicTestClass is public" + NewLine +
@@ -108,6 +112,10 @@ namespace ArchUnitNETTests.Fluent
             NewLine + "\tArchUnitNETTests.Domain.PublicTestClass does exist and is public" +
             NewLine + NewLine;
 
+        private readonly string _expectedWrongArchRule9ErrorMessage = "\"Classes that have name \"NotTheNameOfAnyClass_1592479214\" should be private\" failed:" + NewLine +
+          "\tThe rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates." +
+          NewLine + NewLine;
+
         [Fact]
         public void AssertArchRuleTest()
         {
@@ -133,6 +141,8 @@ namespace ArchUnitNETTests.Fluent
                 ArchRuleAssert.CheckRule(Architecture, WrongArchRule1AndWrongArchRule3));
             var exception4And8 = Assert.Throws<FailedArchRuleException>(() =>
                 ArchRuleAssert.CheckRule(Architecture, WrongArchRule4AndWrongArchRule8));
+            var exception9 =
+                Assert.Throws<FailedArchRuleException>(() => ArchRuleAssert.CheckRule(Architecture, WrongArchRule9));
 
             Assert.Equal(_expectedWrongArchRule1ErrorMessage, exception1.Message);
             Assert.Equal(_expectedWrongArchRule2ErrorMessage, exception2.Message);
@@ -144,6 +154,8 @@ namespace ArchUnitNETTests.Fluent
             Assert.Equal(_expectedWrongArchRule8ErrorMessage, exception8.Message);
             Assert.Equal(_expectedWrongArchRule1AndWrongArchRule3ErrorMessage, exception1And3.Message);
             Assert.Equal(_expectedWrongArchRule4AndWrongArchRule8ErrorMessage, exception4And8.Message);
+            Assert.Equal(_expectedWrongArchRule9ErrorMessage, exception9.Message);
+
         }
 
         [Fact]

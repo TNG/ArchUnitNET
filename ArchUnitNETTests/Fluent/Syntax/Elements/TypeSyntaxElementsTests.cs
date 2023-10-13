@@ -339,7 +339,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             {
                 var typesThatImplementInterfaceImplementInterface = Types().That()
                     .ImplementInterface(intf.FullName)
-                    .Should().ImplementInterface(intf.FullName);
+                    .Should().ImplementInterface(intf.FullName).WithoutRequiringPositiveResults();
                 var typesThatImplementInterfaceDoNotImplementInterface = Types().That()
                     .ImplementInterface(intf.FullName).Should()
                     .NotImplementInterface(intf.FullName).AndShould().Exist();
@@ -372,7 +372,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .ImplementInterface(InheritedTestInterface.FullName);
             var testClassThatImplementsNoInterfaceDoesNotImplementInterface = Interfaces().That()
                 .Are(StaticTestTypes.PublicTestClass).Should()
-                .NotImplementInterface(InheritedTestInterface.FullName);
+                .NotImplementInterface(InheritedTestInterface.FullName)
+                .WithoutRequiringPositiveResults();
             var testClassThatImplementsNoInterfaceImplementsInterface = Interfaces().That()
                 .Are(StaticTestTypes.PublicTestClass).Should()
                 .ImplementInterface(InheritedTestInterface.FullName).AndShould()
@@ -398,7 +399,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var thereAreTypesInOwnAssembly =
                         Types().That().ResideInAssembly(type.Assembly.FullName).Should().Exist();
                     var typesInOtherAssemblyAreOtherTypes =
-                        Types().That().DoNotResideInAssembly(type.Assembly.FullName).Should().NotBe(type);
+                        Types().That().DoNotResideInAssembly(type.Assembly.FullName).Should().NotBe(type).WithoutRequiringPositiveResults();
 
                     Assert.True(typeResidesInOwnAssembly.HasNoViolations(Architecture));
                     Assert.False(typeDoesNotResideInOwnAssembly.HasNoViolations(Architecture));
@@ -414,7 +415,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     var thereAreTypesInOwnAssembly =
                         Types().That().ResideInAssembly(type.Assembly).Should().Exist();
                     var typesInOtherAssemblyAreOtherTypes =
-                        Types().That().DoNotResideInAssembly(type.Assembly).Should().NotBe(type);
+                        Types().That().DoNotResideInAssembly(type.Assembly).Should().NotBe(type).WithoutRequiringPositiveResults();
 
                     Assert.True(typeResidesInOwnAssembly.HasNoViolations(Architecture));
                     Assert.False(typeDoesNotResideInOwnAssembly.HasNoViolations(Architecture));
@@ -428,7 +429,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesInAssemblyAreInAssembly =
                     Types().That().ResideInAssembly(assembly).Should().ResideInAssembly(assembly);
                 var typesInOtherAssemblyAreInOtherAssembly = Types().That().DoNotResideInAssembly(assembly).Should()
-                    .NotResideInAssembly(assembly);
+                    .NotResideInAssembly(assembly).WithoutRequiringPositiveResults();
 
                 Assert.True(typesInAssemblyAreInAssembly.HasNoViolations(Architecture));
                 Assert.True(typesInOtherAssemblyAreInOtherAssembly.HasNoViolations(Architecture));
@@ -439,7 +440,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var typesInAssemblyAreInAssembly =
                     Types().That().ResideInAssembly(assembly).Should().ResideInAssembly(assembly);
                 var typesInOtherAssemblyAreInOtherAssembly = Types().That().DoNotResideInAssembly(assembly).Should()
-                    .NotResideInAssembly(assembly);
+                    .NotResideInAssembly(assembly).WithoutRequiringPositiveResults();
 
                 Assert.True(typesInAssemblyAreInAssembly.HasNoViolations(Architecture));
                 Assert.True(typesInOtherAssemblyAreInOtherAssembly.HasNoViolations(Architecture));

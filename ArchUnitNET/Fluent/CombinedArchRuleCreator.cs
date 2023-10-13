@@ -4,6 +4,7 @@
 // 
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -18,6 +19,7 @@ namespace ArchUnitNET.Fluent
         private readonly ArchRuleCreator<TRuleType> _currentArchRuleCreator;
         private readonly LogicalConjunction _logicalConjunction;
         private readonly ICanBeEvaluated _oldRule;
+        private bool? _requirePositiveResults;
 
         public CombinedArchRuleCreator(ICanBeEvaluated oldRule, LogicalConjunction logicalConjunction,
             BasicObjectProvider<TRuleType> basicObjectProvider)
@@ -98,6 +100,21 @@ namespace ArchUnitNET.Fluent
         {
             _currentArchRuleCreator.SetCustomConditionDescription(description);
         }
+
+        private void SetRequirePositiveResults(bool requirePositive)
+        {
+            if (_requirePositiveResults != null &&
+                _requirePositiveResults != requirePositive)
+                throw new InvalidOperationException("conflicting positive expectation");
+            _requirePositiveResults = requirePositive;
+        }
+
+        public bool RequirePositiveResults
+        {
+            get => _requirePositiveResults ?? true;
+            set => SetRequirePositiveResults(value);
+        }
+
 
         public override string ToString()
         {

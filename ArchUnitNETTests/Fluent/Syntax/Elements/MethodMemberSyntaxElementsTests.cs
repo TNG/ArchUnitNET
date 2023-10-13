@@ -81,7 +81,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     notVirtualMethodMembersDoNotIncludeMember.HasNoViolations(Architecture));
             }
 
-            var virtualMethodMembersShouldBeVirtual = MethodMembers().That().AreVirtual().Should().BeVirtual();
+            var virtualMethodMembersShouldBeVirtual = MethodMembers().That().AreVirtual().Should().BeVirtual().WithoutRequiringPositiveResults();
             var virtualMethodMembersAreNotVirtual =
                 MethodMembers().That().AreVirtual().Should().NotBeVirtual().AndShould().Exist();
             var notVirtualMethodMembersShouldBeVirtual =
@@ -124,7 +124,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             foreach (var type in _types)
             {
                 var calledMethodsShouldBeCalled = MethodMembers().That().AreCalledBy(type.FullName).Should()
-                    .BeCalledBy(type.FullName);
+                    .BeCalledBy(type.FullName).WithoutRequiringPositiveResults();
                 var notCalledMethodsShouldNotBeCalled = MethodMembers().That().AreNotCalledBy(type.FullName).Should()
                     .NotBeCalledBy(type.FullName);
 
@@ -164,7 +164,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             {
                 var dependentMethodsShouldBeDependent = MethodMembers().That()
                     .HaveDependencyInMethodBodyTo(type.FullName).Should()
-                    .HaveDependencyInMethodBodyTo(type.FullName);
+                    .HaveDependencyInMethodBodyTo(type.FullName)
+                    .WithoutRequiringPositiveResults();
                 var notDependentMethodsShouldNotBeDependent = MethodMembers().That()
                     .DoNotHaveDependencyInMethodBodyTo(type.FullName).Should()
                     .NotHaveDependencyInMethodBodyTo(type.FullName);
@@ -259,8 +260,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var stringReturnTypes = new List<string> {"void", "string"};
             var retTypeWithString = MethodMembers().That().HaveFullNameContaining("ReturnTypeMethod").And()
-                .HaveReturnType(stringReturnTypes, true).Should().HaveFullNameContaining("Void").OrShould()
-                .HaveFullNameContaining("String");
+                .HaveReturnType(stringReturnTypes, true).Should().HaveFullNameContaining("Void").OrShould().HaveFullNameContaining("String").WithoutRequiringPositiveResults();
             var retTypeWithStringNegate = MethodMembers().That().DoNotHaveReturnType("String", true).And()
                 .HaveFullNameContaining("ReturnTypeMethod").Should().NotHaveFullNameContaining("String");
 

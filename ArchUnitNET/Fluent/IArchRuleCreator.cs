@@ -31,5 +31,7 @@ namespace ArchUnitNET.Fluent
 
         void SetCustomPredicateDescription(string description);
         void SetCustomConditionDescription(string description);
+
+        bool RequirePositiveResults { get; set; }
     }
 }
