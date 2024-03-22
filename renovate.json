@@ -16,9 +16,9 @@
       "matchStrings": [
         "<TargetFramework>net(?<currentValue>[^<]*)</TargetFramework>"
       ],
-      "datasourceTemplate": "dotnet-version",
+      "datasourceTemplate": "docker",
       "depNameTemplate": "dotnet-sdk",
-      "depTypeTemplate": "action"
+      "packageNameTemplate": "mcr.microsoft.com/dotnet/sdk"
     }
   ],
   "packageRules": [
@@ -29,7 +29,7 @@
       "enabled": false
     },
     {
-      "matchDatasources": ["dotnet-version"],
+      "matchDepNames": ["dotnet-sdk"],
       "groupName": "dotnet version"
     }
   ]
