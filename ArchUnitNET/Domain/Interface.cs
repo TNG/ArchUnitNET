@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -32,7 +32,8 @@ namespace ArchUnitNET.Domain
         public Namespace Namespace => Type.Namespace;
         public Assembly Assembly => Type.Assembly;
 
-        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public IEnumerable<Attribute> Attributes =>
+            AttributeInstances.Select(instance => instance.Type);
         public List<AttributeInstance> AttributeInstances => Type.AttributeInstances;
 
         public List<ITypeDependency> Dependencies => Type.Dependencies;
@@ -64,7 +65,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((Interface) obj);
+            return obj.GetType() == GetType() && Equals((Interface)obj);
         }
 
         public override int GetHashCode()

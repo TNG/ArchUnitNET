@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -29,7 +29,9 @@ namespace ArchUnitNET.Fluent
         public static GivenAttributes Attributes(bool includeReferenced = false)
         {
             var ruleCreator = includeReferenced
-                ? new ArchRuleCreator<Attribute>(BasicObjectProviderDefinition.AttributesIncludingReferenced)
+                ? new ArchRuleCreator<Attribute>(
+                    BasicObjectProviderDefinition.AttributesIncludingReferenced
+                )
                 : new ArchRuleCreator<Attribute>(BasicObjectProviderDefinition.Attributes);
             return new GivenAttributes(ruleCreator);
         }
@@ -37,7 +39,9 @@ namespace ArchUnitNET.Fluent
         public static GivenClasses Classes(bool includeReferenced = false)
         {
             var ruleCreator = includeReferenced
-                ? new ArchRuleCreator<Class>(BasicObjectProviderDefinition.ClassesIncludingReferenced)
+                ? new ArchRuleCreator<Class>(
+                    BasicObjectProviderDefinition.ClassesIncludingReferenced
+                )
                 : new ArchRuleCreator<Class>(BasicObjectProviderDefinition.Classes);
             return new GivenClasses(ruleCreator);
         }
@@ -45,7 +49,9 @@ namespace ArchUnitNET.Fluent
         public static GivenInterfaces Interfaces(bool includeReferenced = false)
         {
             var ruleCreator = includeReferenced
-                ? new ArchRuleCreator<Interface>(BasicObjectProviderDefinition.InterfacesIncludingReferenced)
+                ? new ArchRuleCreator<Interface>(
+                    BasicObjectProviderDefinition.InterfacesIncludingReferenced
+                )
                 : new ArchRuleCreator<Interface>(BasicObjectProviderDefinition.Interfaces);
             return new GivenInterfaces(ruleCreator);
         }
@@ -58,22 +64,25 @@ namespace ArchUnitNET.Fluent
 
         public static GivenFieldMembers FieldMembers()
         {
-            var ruleCreator =
-                new ArchRuleCreator<FieldMember>(BasicObjectProviderDefinition.FieldMembers);
+            var ruleCreator = new ArchRuleCreator<FieldMember>(
+                BasicObjectProviderDefinition.FieldMembers
+            );
             return new GivenFieldMembers(ruleCreator);
         }
 
         public static GivenMethodMembers MethodMembers()
         {
-            var ruleCreator =
-                new ArchRuleCreator<MethodMember>(BasicObjectProviderDefinition.MethodMembers);
+            var ruleCreator = new ArchRuleCreator<MethodMember>(
+                BasicObjectProviderDefinition.MethodMembers
+            );
             return new GivenMethodMembers(ruleCreator);
         }
 
         public static GivenPropertyMembers PropertyMembers()
         {
-            var ruleCreator =
-                new ArchRuleCreator<PropertyMember>(BasicObjectProviderDefinition.PropertyMembers);
+            var ruleCreator = new ArchRuleCreator<PropertyMember>(
+                BasicObjectProviderDefinition.PropertyMembers
+            );
             return new GivenPropertyMembers(ruleCreator);
         }
     }

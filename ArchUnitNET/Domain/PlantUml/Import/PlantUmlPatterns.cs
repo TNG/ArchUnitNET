@@ -19,10 +19,19 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         static PlantUmlPatterns()
         {
             StereotypeFormat = "(?:<<" + Capture(AnythingBut("<>")) + ">>\\s*)";
-            ComponentNameFormat = "\\[" + Capture(AnythingBut("\\[\\]"), ComponentNameGroupName) + "]";
+            ComponentNameFormat =
+                "\\[" + Capture(AnythingBut("\\[\\]"), ComponentNameGroupName) + "]";
             StereotypePattern = new Regex(StereotypeFormat);
             AliasFormat = "\\s*(?:as \"?" + Capture("[^\"]+", AliasGroupName) + "\"?)?";
-            PlantUmlComponentPattern = new Regex(@"\A(?:^\s*" + ComponentNameFormat + @"\s*" + StereotypeFormat + "*" + AliasFormat + @"\s*)\z");
+            PlantUmlComponentPattern = new Regex(
+                @"\A(?:^\s*"
+                    + ComponentNameFormat
+                    + @"\s*"
+                    + StereotypeFormat
+                    + "*"
+                    + AliasFormat
+                    + @"\s*)\z"
+            );
         }
 
         private static string Capture(string pattern)
@@ -45,7 +54,9 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             return plantUmlDiagramLines.Where(l => PlantUmlComponentPattern.Match(l).Success);
         }
 
-        internal IEnumerable<PlantUmlDependencyMatcher> MatchDependencies(IEnumerable<string> diagramLines)
+        internal IEnumerable<PlantUmlDependencyMatcher> MatchDependencies(
+            IEnumerable<string> diagramLines
+        )
         {
             var result = new List<PlantUmlDependencyMatcher>();
             foreach (string line in diagramLines)
@@ -64,9 +75,15 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         internal class PlantUmlDependencyMatcher
         {
             private static readonly string ColorRegex = @"\[[^]]+]"; // for arrows like '--[#green]->'
-            private static readonly string DeppendencyArrowCenterRegex = @"(left|right|up|down|" + ColorRegex + ")?";
-            private static readonly Regex DependencyRightArrowPattern = new Regex(@"\s-+" + DeppendencyArrowCenterRegex + @"-*>\s");
-            private static readonly Regex DependencyLeftArrowPattern = new Regex(@"\s<-*" + DeppendencyArrowCenterRegex + @"-+\s");
+            private static readonly string DeppendencyArrowCenterRegex =
+                @"(left|right|up|down|" + ColorRegex + ")?";
+            private static readonly Regex DependencyRightArrowPattern = new Regex(
+                @"\s-+" + DeppendencyArrowCenterRegex + @"-*>\s"
+            );
+            private static readonly Regex DependencyLeftArrowPattern = new Regex(
+                @"\s<-*" + DeppendencyArrowCenterRegex + @"-+\s"
+            );
+
             public PlantUmlDependencyMatcher(string origin, string target)
             {
                 if (origin is null)
@@ -86,17 +103,25 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             public string MatchTarget { get; private set; }
             public string MatchOrigin { get; private set; }
 
-            internal static IEnumerable<PlantUmlDependencyMatcher> TryParseFromLeftToRight(string line)
+            internal static IEnumerable<PlantUmlDependencyMatcher> TryParseFromLeftToRight(
+                string line
+            )
             {
                 return IsDependencyFromLeftToRight(line)
-                    ? ImmutableList.CreateRange(new List<PlantUmlDependencyMatcher> { ParseDependencyFromLeftToRight(line) })
+                    ? ImmutableList.CreateRange(
+                        new List<PlantUmlDependencyMatcher> { ParseDependencyFromLeftToRight(line) }
+                    )
                     : Enumerable.Empty<PlantUmlDependencyMatcher>();
             }
 
-            internal static IEnumerable<PlantUmlDependencyMatcher> TryParseFromRightToLeft(string line)
+            internal static IEnumerable<PlantUmlDependencyMatcher> TryParseFromRightToLeft(
+                string line
+            )
             {
                 return IsDependencyFromRightToLeft(line)
-                    ? ImmutableList.CreateRange(new List<PlantUmlDependencyMatcher> { ParseDependencyFromRightToLeft(line) })
+                    ? ImmutableList.CreateRange(
+                        new List<PlantUmlDependencyMatcher> { ParseDependencyFromRightToLeft(line) }
+                    )
                     : Enumerable.Empty<PlantUmlDependencyMatcher>();
             }
 
@@ -125,7 +150,12 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             private static IList<string> ParseParts(string line, Regex dependencyRightArrowPattern)
             {
                 line = RemoveOptionalDescription(line);
-                return dependencyRightArrowPattern.Replace(line, " ").Split(' ').Select(l => l.Trim()).Take(2).ToList();
+                return dependencyRightArrowPattern
+                    .Replace(line, " ")
+                    .Split(' ')
+                    .Select(l => l.Trim())
+                    .Take(2)
+                    .ToList();
             }
 
             private static string RemoveOptionalDescription(string line)
@@ -138,12 +168,19 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         {
             private Match _componentMatch;
             private Match _stereotypeMatch;
+
             public PlantUmlComponentMatcher(string input)
             {
                 _componentMatch = PlantUmlComponentPattern.Match(input);
                 if (!_componentMatch.Success)
                 {
-                    throw new InvalidOperationException(string.Format("input {0} does not match pattern {1}", input, PlantUmlComponentPattern));
+                    throw new InvalidOperationException(
+                        string.Format(
+                            "input {0} does not match pattern {1}",
+                            input,
+                            PlantUmlComponentPattern
+                        )
+                    );
                 }
                 _stereotypeMatch = StereotypePattern.Match(input);
             }

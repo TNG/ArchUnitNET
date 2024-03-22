@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -26,8 +26,10 @@ namespace ExampleTest
         }
 
         // TIP: load your architecture once at the start to maximize performance of your tests
-        private static readonly Architecture ChefArchitecture =
-            new ArchLoader().LoadAssembly(typeof(FrenchChef).Assembly).Build();
+        private static readonly Architecture ChefArchitecture = new ArchLoader()
+            .LoadAssembly(typeof(FrenchChef).Assembly)
+            .Build();
+
         // replace <FrenchChef> with a class from your architecture
 
         // declare variables you'll use throughout your tests up here
@@ -40,7 +42,6 @@ namespace ExampleTest
             Assert.All(_chefs, chef => Assert.True(chef.ImplementsInterface(_cookInterface)));
         }
     }
-
 
     public class FrenchChef : ICook
     {
@@ -60,17 +61,11 @@ namespace ExampleTest
             Ratatouille();
         }
 
-        private static void CremeBrulee()
-        {
-        }
+        private static void CremeBrulee() { }
 
-        private static void Crepes()
-        {
-        }
+        private static void Crepes() { }
 
-        private static void Ratatouille()
-        {
-        }
+        private static void Ratatouille() { }
     }
 
     public class ItalianChef : ICook
@@ -91,17 +86,11 @@ namespace ExampleTest
             Lasagna();
         }
 
-        private static void PizzaMargherita()
-        {
-        }
+        private static void PizzaMargherita() { }
 
-        private static void Tiramisu()
-        {
-        }
+        private static void Tiramisu() { }
 
-        private static void Lasagna()
-        {
-        }
+        private static void Lasagna() { }
     }
 
     public interface ICook

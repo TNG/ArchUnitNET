@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Linq;
 using ArchUnitNET.Domain.Extensions;
@@ -14,7 +14,17 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 {
     public static class PlantUmlNameChecker
     {
-        private static readonly string[] ForbiddenCharacters = {"[", "]", "\r", "\n", "\f", "\a", "\b", "\v"};
+        private static readonly string[] ForbiddenCharacters =
+        {
+            "[",
+            "]",
+            "\r",
+            "\n",
+            "\f",
+            "\a",
+            "\b",
+            "\v"
+        };
 
         public static bool ContainsForbiddenCharacters([CanBeNull] string name)
         {
@@ -26,7 +36,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             if (names.Any(ContainsForbiddenCharacters))
             {
                 throw new IllegalComponentNameException(
-                    "PlantUml component names must not contain \"[\" or \"]\" or any of the escape characters \"\\r\", \"\\n\", \"\\f\", \"\\a\", \"\\b\", \"\\v\".");
+                    "PlantUml component names must not contain \"[\" or \"]\" or any of the escape characters \"\\r\", \"\\n\", \"\\f\", \"\\a\", \"\\b\", \"\\v\"."
+                );
             }
         }
 
@@ -34,7 +45,9 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         {
             if (names.Any(name => name.IsNullOrEmpty()))
             {
-                throw new IllegalComponentNameException("PlantUml component names can't be null or empty.");
+                throw new IllegalComponentNameException(
+                    "PlantUml component names can't be null or empty."
+                );
             }
         }
     }

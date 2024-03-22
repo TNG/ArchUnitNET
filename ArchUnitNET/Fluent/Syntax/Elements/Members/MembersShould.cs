@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -12,40 +12,51 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public class MembersShould<TRuleTypeShouldConjunction, TRuleType> :
-        ObjectsShould<TRuleTypeShouldConjunction, TRuleType>,
-        IComplexMemberConditions<TRuleTypeShouldConjunction, TRuleType>
+    public class MembersShould<TRuleTypeShouldConjunction, TRuleType>
+        : ObjectsShould<TRuleTypeShouldConjunction, TRuleType>,
+            IComplexMemberConditions<TRuleTypeShouldConjunction, TRuleType>
         where TRuleType : IMember
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         // ReSharper disable once MemberCanBeProtected.Global
-        public MembersShould(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
-        {
-        }
+        public MembersShould(IArchRuleCreator<TRuleType> ruleCreator)
+            : base(ruleCreator) { }
 
-        public TRuleTypeShouldConjunction BeDeclaredIn(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction BeDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MemberConditionsDefinition<TRuleType>.BeDeclaredIn(pattern, useRegularExpressions));
+                MemberConditionsDefinition<TRuleType>.BeDeclaredIn(pattern, useRegularExpressions)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction BeDeclaredIn(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction BeDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MemberConditionsDefinition<TRuleType>.BeDeclaredIn(patterns, useRegularExpressions));
+                MemberConditionsDefinition<TRuleType>.BeDeclaredIn(patterns, useRegularExpressions)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction BeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
-            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.BeDeclaredIn(firstType, moreTypes));
+            _ruleCreator.AddCondition(
+                MemberConditionsDefinition<TRuleType>.BeDeclaredIn(firstType, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction BeDeclaredIn(Type firstType, params Type[] moreTypes)
         {
-            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.BeDeclaredIn(firstType, moreTypes));
+            _ruleCreator.AddCondition(
+                MemberConditionsDefinition<TRuleType>.BeDeclaredIn(firstType, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -72,7 +83,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.BeStatic());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TRuleTypeShouldConjunction BeReadOnly()
         {
             _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.BeReadOnly());
@@ -87,42 +98,65 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Relation Conditions
 
-        public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeDeclaredInTypesThat()
+        public ShouldRelateToTypesThat<
+            TRuleTypeShouldConjunction,
+            IType,
+            TRuleType
+        > BeDeclaredInTypesThat()
         {
-            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(true),
-                MemberConditionsDefinition<TRuleType>.BeDeclaredInTypesThat());
-            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.Types(true),
+                MemberConditionsDefinition<TRuleType>.BeDeclaredInTypesThat()
+            );
+            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(
+                _ruleCreator
+            );
         }
-
 
         //Negations
 
 
-        public TRuleTypeShouldConjunction NotBeDeclaredIn(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction NotBeDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(pattern, useRegularExpressions));
+                MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotBeDeclaredIn(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction NotBeDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(patterns, useRegularExpressions));
+                MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-
 
         public TRuleTypeShouldConjunction NotBeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
-            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(firstType, moreTypes));
+            _ruleCreator.AddCondition(
+                MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(firstType, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotBeDeclaredIn(Type firstType, params Type[] moreTypes)
         {
-            _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(firstType, moreTypes));
+            _ruleCreator.AddCondition(
+                MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(firstType, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -149,7 +183,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeStatic());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TRuleTypeShouldConjunction NotBeReadOnly()
         {
             _ruleCreator.AddCondition(MemberConditionsDefinition<TRuleType>.NotBeReadOnly());
@@ -164,11 +198,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Relation Condition Negations
 
-        public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotBeDeclaredInTypesThat()
+        public ShouldRelateToTypesThat<
+            TRuleTypeShouldConjunction,
+            IType,
+            TRuleType
+        > NotBeDeclaredInTypesThat()
         {
-            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(true),
-                MemberConditionsDefinition<TRuleType>.NotBeDeclaredInTypesThat());
-            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(_ruleCreator);
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.Types(true),
+                MemberConditionsDefinition<TRuleType>.NotBeDeclaredInTypesThat()
+            );
+            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(
+                _ruleCreator
+            );
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -30,9 +30,10 @@ namespace ArchUnitNET.Domain
             IsSealed = @class.IsSealed;
         }
 
-        public IEnumerable<ITypeDependency> DependenciesIncludingInherited => BaseClass != null
-            ? Type.Dependencies.Concat(BaseClass.DependenciesIncludingInherited)
-            : Type.Dependencies;
+        public IEnumerable<ITypeDependency> DependenciesIncludingInherited =>
+            BaseClass != null
+                ? Type.Dependencies.Concat(BaseClass.DependenciesIncludingInherited)
+                : Type.Dependencies;
 
         public MemberList MembersIncludingInherited =>
             BaseClass != null
@@ -41,15 +42,16 @@ namespace ArchUnitNET.Domain
 
         [CanBeNull]
         public Class BaseClass =>
-            (Class) Dependencies.OfType<InheritsBaseClassDependency>().FirstOrDefault()?.Target;
+            (Class)Dependencies.OfType<InheritsBaseClassDependency>().FirstOrDefault()?.Target;
 
         public IEnumerable<MethodMember> Constructors => Type.GetConstructors();
         public bool? IsAbstract { get; }
         public bool? IsSealed { get; }
 
-        public IEnumerable<Class> InheritedClasses => BaseClass == null
-            ? Enumerable.Empty<Class>()
-            : BaseClass.InheritedClasses.Concat(new[] {BaseClass});
+        public IEnumerable<Class> InheritedClasses =>
+            BaseClass == null
+                ? Enumerable.Empty<Class>()
+                : BaseClass.InheritedClasses.Concat(new[] { BaseClass });
 
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;
@@ -66,7 +68,8 @@ namespace ArchUnitNET.Domain
         public List<ITypeDependency> Dependencies => Type.Dependencies;
         public List<ITypeDependency> BackwardsDependencies => Type.BackwardsDependencies;
 
-        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public IEnumerable<Attribute> Attributes =>
+            AttributeInstances.Select(instance => instance.Type);
         public List<AttributeInstance> AttributeInstances => Type.AttributeInstances;
 
         public IEnumerable<IType> ImplementedInterfaces => Type.ImplementedInterfaces;
@@ -81,8 +84,9 @@ namespace ArchUnitNET.Domain
 
         private bool Equals(Class other)
         {
-            return Equals(Type, other.Type) && Equals(IsAbstract, other.IsAbstract) &&
-                   Equals(IsSealed, other.IsSealed);
+            return Equals(Type, other.Type)
+                && Equals(IsAbstract, other.IsAbstract)
+                && Equals(IsSealed, other.IsSealed);
         }
 
         public override bool Equals(object obj)
@@ -97,7 +101,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((Class) obj);
+            return obj.GetType() == GetType() && Equals((Class)obj);
         }
 
         public override int GetHashCode()

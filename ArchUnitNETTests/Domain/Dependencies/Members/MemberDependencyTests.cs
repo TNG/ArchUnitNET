@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain.Dependencies;
@@ -15,25 +15,45 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
     {
         [Theory]
         [ClassData(typeof(MemberDependencyTestBuild.MemberDependencyModelingTestData))]
-        public void MemberTypeDependencyEquivalencyTests(IMemberTypeDependency memberTypeDependency,
-            object duplicateMemberTypeDependency, IMemberTypeDependency dependencyReferenceDuplicate,
-            [CanBeNull] object objectReferenceDuplicate)
+        public void MemberTypeDependencyEquivalencyTests(
+            IMemberTypeDependency memberTypeDependency,
+            object duplicateMemberTypeDependency,
+            IMemberTypeDependency dependencyReferenceDuplicate,
+            [CanBeNull] object objectReferenceDuplicate
+        )
         {
-            if (memberTypeDependency == null || duplicateMemberTypeDependency == null
-                                             || dependencyReferenceDuplicate == null)
+            if (
+                memberTypeDependency == null
+                || duplicateMemberTypeDependency == null
+                || dependencyReferenceDuplicate == null
+            )
             {
                 return;
             }
 
-            DuplicateMemberDependenciesAreEqual(memberTypeDependency, duplicateMemberTypeDependency);
-            DuplicateMemberDependencyObjectReferencesAreEqual(memberTypeDependency, objectReferenceDuplicate);
-            DuplicateMemberDependencyReferencesAreEqual(memberTypeDependency, dependencyReferenceDuplicate);
+            DuplicateMemberDependenciesAreEqual(
+                memberTypeDependency,
+                duplicateMemberTypeDependency
+            );
+            DuplicateMemberDependencyObjectReferencesAreEqual(
+                memberTypeDependency,
+                objectReferenceDuplicate
+            );
+            DuplicateMemberDependencyReferencesAreEqual(
+                memberTypeDependency,
+                dependencyReferenceDuplicate
+            );
             MemberDependencyDoesNotEqualNull(memberTypeDependency);
-            MemberDependencyHasConsistentHashCode(memberTypeDependency, duplicateMemberTypeDependency);
+            MemberDependencyHasConsistentHashCode(
+                memberTypeDependency,
+                duplicateMemberTypeDependency
+            );
         }
 
-        private static void DuplicateMemberDependenciesAreEqual([NotNull] IMemberTypeDependency originMember,
-            [NotNull] object duplicateMember)
+        private static void DuplicateMemberDependenciesAreEqual(
+            [NotNull] IMemberTypeDependency originMember,
+            [NotNull] object duplicateMember
+        )
         {
             originMember.RequiredNotNull();
             duplicateMember.RequiredNotNull();
@@ -43,7 +63,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
         private static void DuplicateMemberDependencyObjectReferencesAreEqual(
             [NotNull] IMemberTypeDependency memberDependency,
-            object objectReferenceDuplicate)
+            object objectReferenceDuplicate
+        )
         {
             memberDependency.RequiredNotNull();
             objectReferenceDuplicate.RequiredNotNull();
@@ -51,8 +72,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             Assert.Equal(memberDependency, objectReferenceDuplicate);
         }
 
-        private static void DuplicateMemberDependencyReferencesAreEqual([NotNull] IMemberTypeDependency dependency,
-            [NotNull] IMemberTypeDependency dependencyReferenceDuplicate)
+        private static void DuplicateMemberDependencyReferencesAreEqual(
+            [NotNull] IMemberTypeDependency dependency,
+            [NotNull] IMemberTypeDependency dependencyReferenceDuplicate
+        )
         {
             dependency.RequiredNotNull();
             dependencyReferenceDuplicate.RequiredNotNull();
@@ -60,15 +83,19 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             Assert.True(dependency.Equals(dependencyReferenceDuplicate));
         }
 
-        private static void MemberDependencyDoesNotEqualNull([NotNull] IMemberTypeDependency memberDependency)
+        private static void MemberDependencyDoesNotEqualNull(
+            [NotNull] IMemberTypeDependency memberDependency
+        )
         {
             memberDependency.RequiredNotNull();
 
             Assert.False(memberDependency.Equals(null));
         }
 
-        private static void MemberDependencyHasConsistentHashCode([NotNull] IMemberTypeDependency memberDependency,
-            [NotNull] object duplicateMemberDependency)
+        private static void MemberDependencyHasConsistentHashCode(
+            [NotNull] IMemberTypeDependency memberDependency,
+            [NotNull] object duplicateMemberDependency
+        )
         {
             memberDependency.RequiredNotNull();
             duplicateMemberDependency.RequiredNotNull();

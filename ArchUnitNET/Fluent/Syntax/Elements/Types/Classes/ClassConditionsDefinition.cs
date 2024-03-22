@@ -1,12 +1,12 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
-using System.Linq;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
@@ -14,20 +14,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
     {
         public static ICondition<Class> BeAbstract()
         {
-            return new SimpleCondition<Class>(cls => !cls.IsAbstract.HasValue || cls.IsAbstract.Value, "be abstract",
-                "is not abstract");
+            return new SimpleCondition<Class>(
+                cls => !cls.IsAbstract.HasValue || cls.IsAbstract.Value,
+                "be abstract",
+                "is not abstract"
+            );
         }
 
         public static ICondition<Class> BeSealed()
         {
-            return new SimpleCondition<Class>(cls => !cls.IsSealed.HasValue || cls.IsSealed.Value, "be sealed",
-                "is not sealed");
+            return new SimpleCondition<Class>(
+                cls => !cls.IsSealed.HasValue || cls.IsSealed.Value,
+                "be sealed",
+                "is not sealed"
+            );
         }
 
         public static ICondition<Class> BeImmutable()
         {
-            return new SimpleCondition<Class>(cls => cls.Members.Where(m => m.IsStatic == false).All(m => m.Writability.IsImmutable()), "be immutable",
-                "is not immutable");
+            return new SimpleCondition<Class>(
+                cls =>
+                    cls.Members.Where(m => m.IsStatic == false)
+                        .All(m => m.Writability.IsImmutable()),
+                "be immutable",
+                "is not immutable"
+            );
         }
 
         //Negations
@@ -35,20 +46,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         public static ICondition<Class> NotBeAbstract()
         {
-            return new SimpleCondition<Class>(cls => !cls.IsAbstract.HasValue || !cls.IsAbstract.Value,
-                "not be abstract", "is abstract");
+            return new SimpleCondition<Class>(
+                cls => !cls.IsAbstract.HasValue || !cls.IsAbstract.Value,
+                "not be abstract",
+                "is abstract"
+            );
         }
 
         public static ICondition<Class> NotBeSealed()
         {
-            return new SimpleCondition<Class>(cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value, "not be sealed",
-                "is sealed");
+            return new SimpleCondition<Class>(
+                cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value,
+                "not be sealed",
+                "is sealed"
+            );
         }
 
         public static ICondition<Class> NotBeImmutable()
         {
-            return new SimpleCondition<Class>(cls => cls.Members.Any(m => m.IsStatic == false && !m.Writability.IsImmutable()), "not be immutable",
-                "is immutable");
+            return new SimpleCondition<Class>(
+                cls => cls.Members.Any(m => m.IsStatic == false && !m.Writability.IsImmutable()),
+                "not be immutable",
+                "is immutable"
+            );
         }
     }
 }

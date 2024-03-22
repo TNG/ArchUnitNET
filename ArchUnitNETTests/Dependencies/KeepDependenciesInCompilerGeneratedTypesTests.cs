@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using System.Linq;
@@ -16,8 +16,9 @@ namespace ArchUnitNETTests.Dependencies
 {
     public class KeepDependenciesInCompilerGeneratedTypesTests
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(KeepDependenciesInCompilerGeneratedTypesTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(KeepDependenciesInCompilerGeneratedTypesTests).Assembly)
+            .Build();
 
         private readonly Class _argumentClass;
         private readonly Class _classWithIndexing;
@@ -42,7 +43,6 @@ namespace ArchUnitNETTests.Dependencies
             var typeDependencies = _classWithProperty.GetTypeDependencies().ToList();
             var property = _classWithProperty.GetPropertyMembers().First();
             var propertyTypeDependencies = property.GetTypeDependencies().ToList();
-
 
             Assert.Contains(_returnedClass, typeDependencies);
             Assert.Contains(_argumentClass, typeDependencies);
@@ -89,7 +89,9 @@ namespace ArchUnitNETTests.Dependencies
             Assert.Contains(_genericArgumentClass, methodTypeDependencies);
         }
 
-        [Fact(Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand")]
+        [Fact(
+            Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand"
+        )]
         public void LambdaPrimitiveDependenciesNotLost()
         {
             var typeDependencies = _classWithLambda.GetTypeDependencies().ToList();
@@ -112,10 +114,12 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void BackwardDependenciesAssignedCorrectly()
         {
-            var argumentTypeBackwardDependencies =
-                _argumentClass.BackwardsDependencies.Select(dep => dep.Origin).ToList();
-            var returnedTypeBackwardDependencies =
-                _returnedClass.BackwardsDependencies.Select(dep => dep.Origin).ToList();
+            var argumentTypeBackwardDependencies = _argumentClass
+                .BackwardsDependencies.Select(dep => dep.Origin)
+                .ToList();
+            var returnedTypeBackwardDependencies = _returnedClass
+                .BackwardsDependencies.Select(dep => dep.Origin)
+                .ToList();
 
             Assert.Contains(_classWithProperty, argumentTypeBackwardDependencies);
             Assert.Contains(_classWithLambda, argumentTypeBackwardDependencies);
@@ -150,9 +154,7 @@ namespace ArchUnitNETTests.Dependencies
         }
     }
 
-    internal class GenericArgumentClass
-    {
-    }
+    internal class GenericArgumentClass { }
 
     internal class ClassWithIndexingDependency
     {
@@ -161,13 +163,9 @@ namespace ArchUnitNETTests.Dependencies
 
     internal class ReturnedClass
     {
-        public ReturnedClass(object argument)
-        {
-        }
+        public ReturnedClass(object argument) { }
     }
 
-    internal class ArgumentClass
-    {
-    }
+    internal class ArgumentClass { }
 }
 #pragma warning restore 219

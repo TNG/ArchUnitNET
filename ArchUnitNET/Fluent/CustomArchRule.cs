@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using System.Collections.Generic;
@@ -16,10 +16,16 @@ namespace ArchUnitNET.Fluent
     {
         public string Description { get; }
 
-        private readonly Func<Architecture, IArchRule, IEnumerable<EvaluationResult>> _evaluationFunc;
+        private readonly Func<
+            Architecture,
+            IArchRule,
+            IEnumerable<EvaluationResult>
+        > _evaluationFunc;
 
-        public CustomArchRule(Func<Architecture, IArchRule, IEnumerable<EvaluationResult>> evaluationFunc,
-            string description)
+        public CustomArchRule(
+            Func<Architecture, IArchRule, IEnumerable<EvaluationResult>> evaluationFunc,
+            string description
+        )
         {
             _evaluationFunc = evaluationFunc;
             Description = description;

@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -14,22 +14,36 @@ using ArchUnitNET.Fluent.Predicates;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public static class MemberPredicatesDefinition<T> where T : IMember
+    public static class MemberPredicatesDefinition<T>
+        where T : IMember
     {
-        public static IPredicate<T> AreDeclaredIn(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> AreDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(member => member.IsDeclaredIn(pattern, useRegularExpressions),
-                "are declared in types with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                member => member.IsDeclaredIn(pattern, useRegularExpressions),
+                "are declared in types with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> AreDeclaredIn(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> AreDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Condition(T ruleType)
             {
-                return patternList.Any(pattern => ruleType.IsDeclaredIn(pattern, useRegularExpressions));
+                return patternList.Any(pattern =>
+                    ruleType.IsDeclaredIn(pattern, useRegularExpressions)
+                );
             }
 
             string description;
@@ -40,9 +54,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(obj => !obj.Equals(firstPattern)).Distinct().Aggregate(
-                    "are declared in types with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(obj => !obj.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "are declared in types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Condition, description);
@@ -50,14 +72,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static IPredicate<T> AreDeclaredIn(IType firstType, params IType[] moreTypes)
         {
-            var types = new List<IType> {firstType};
+            var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return AreDeclaredIn(types);
         }
 
         public static IPredicate<T> AreDeclaredIn(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return AreDeclaredIn(types);
         }
@@ -91,9 +113,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
-                    "are declared in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
+                description = typeList
+                    .Where(obj => !obj.Equals(firstType))
+                    .Distinct()
+                    .Aggregate(
+                        "are declared in \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Condition, description);
@@ -118,7 +144,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                         //ignore, can't have a dependency anyways
                     }
                 }
-                return members.Intersect(archUnitTypeList.SelectMany(type => type.Members).OfType<T>());
+                return members.Intersect(
+                    archUnitTypeList.SelectMany(type => type.Members).OfType<T>()
+                );
             }
 
             string description;
@@ -129,9 +157,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "are declared in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
+                description = typeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "are declared in \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Condition, description);
@@ -139,36 +171,58 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static IPredicate<T> AreStatic()
         {
-            return new SimplePredicate<T>(member => member.IsStatic.HasValue && member.IsStatic.Value, "are static");
+            return new SimplePredicate<T>(
+                member => member.IsStatic.HasValue && member.IsStatic.Value,
+                "are static"
+            );
         }
-        
+
         public static IPredicate<T> AreReadOnly()
         {
-            return new SimplePredicate<T>(member => member.Writability == Writability.ReadOnly, "are read only");
+            return new SimplePredicate<T>(
+                member => member.Writability == Writability.ReadOnly,
+                "are read only"
+            );
         }
 
         public static IPredicate<T> AreImmutable()
         {
-            return new SimplePredicate<T>(member => member.Writability.IsImmutable(), "are immutable");
+            return new SimplePredicate<T>(
+                member => member.Writability.IsImmutable(),
+                "are immutable"
+            );
         }
 
         //Negations
 
 
-        public static IPredicate<T> AreNotDeclaredIn(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> AreNotDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(member => !member.IsDeclaredIn(pattern, useRegularExpressions),
-                "are not declared in types with full name " + (useRegularExpressions ? "matching " : "") +
-                "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                member => !member.IsDeclaredIn(pattern, useRegularExpressions),
+                "are not declared in types with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> AreNotDeclaredIn(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> AreNotDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Condition(T ruleType)
             {
-                return patternList.All(pattern => !ruleType.IsDeclaredIn(pattern, useRegularExpressions));
+                return patternList.All(pattern =>
+                    !ruleType.IsDeclaredIn(pattern, useRegularExpressions)
+                );
             }
 
             string description;
@@ -179,9 +233,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(obj => !obj.Equals(firstPattern)).Distinct().Aggregate(
-                    "are not declared in types with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(obj => !obj.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "are not declared in types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Condition, description);
@@ -189,14 +251,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static IPredicate<T> AreNotDeclaredIn(IType firstType, params IType[] moreTypes)
         {
-            var types = new List<IType> {firstType};
+            var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return AreNotDeclaredIn(types);
         }
 
         public static IPredicate<T> AreNotDeclaredIn(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return AreNotDeclaredIn(types);
         }
@@ -230,9 +292,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
-                    "are not declared in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
+                description = typeList
+                    .Where(obj => !obj.Equals(firstType))
+                    .Distinct()
+                    .Aggregate(
+                        "are not declared in \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Condition, description);
@@ -257,7 +323,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                         //ignore, can't have a dependency anyways
                     }
                 }
-                return members.Except(archUnitTypeList.SelectMany(type => type.Members).OfType<T>());
+                return members.Except(
+                    archUnitTypeList.SelectMany(type => type.Members).OfType<T>()
+                );
             }
 
             string description;
@@ -268,9 +336,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "are not declared in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
+                description = typeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "are not declared in \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Condition, description);
@@ -278,19 +350,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static IPredicate<T> AreNotStatic()
         {
-            return new SimplePredicate<T>(member => member.IsStatic.HasValue && !member.IsStatic.Value,
-                "are not static");
+            return new SimplePredicate<T>(
+                member => member.IsStatic.HasValue && !member.IsStatic.Value,
+                "are not static"
+            );
         }
-        
+
         public static IPredicate<T> AreNotReadOnly()
         {
-            return new SimplePredicate<T>(member => member.Writability == Writability.ReadOnly,
-                "are not read only");
+            return new SimplePredicate<T>(
+                member => member.Writability == Writability.ReadOnly,
+                "are not read only"
+            );
         }
 
         public static IPredicate<T> AreNotImmutable()
         {
-            return new SimplePredicate<T>(member => !member.Writability.IsImmutable(), "are not immutablee");
+            return new SimplePredicate<T>(
+                member => !member.Writability.IsImmutable(),
+                "are not immutablee"
+            );
         }
     }
 }

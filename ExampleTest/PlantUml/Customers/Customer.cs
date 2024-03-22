@@ -1,8 +1,8 @@
-﻿using ExampleTest.PlantUml.Addresses;
-using ExampleTest.PlantUml.Orders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ExampleTest.PlantUml.Addresses;
+using ExampleTest.PlantUml.Orders;
 
 namespace ExampleTest.PlantUml.Customers
 {
@@ -14,7 +14,5 @@ namespace ExampleTest.PlantUml.Customers
         {
             // simply having such a parameter violates the specified UML diagram
         }
-
     }
-
 }

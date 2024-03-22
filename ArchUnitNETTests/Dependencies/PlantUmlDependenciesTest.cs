@@ -1,12 +1,12 @@
-﻿using ArchUnitNET.Domain;
-using ArchUnitNET.Fluent.Conditions;
-using ArchUnitNET.Loader;
-using ArchUnitNETTests.Domain.PlantUml;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
+using ArchUnitNET.Loader;
+using ArchUnitNETTests.Domain.PlantUml;
 using TestAssembly.Diagram.NoDependencies.Independent;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
@@ -18,12 +18,18 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void DiagramWithNoDependenciesFileBased()
         {
-            string path = Path.Combine(Path.GetTempPath(), "plantuml_diagram_" + Guid.NewGuid() + ".puml");
+            string path = Path.Combine(
+                Path.GetTempPath(),
+                "plantuml_diagram_" + Guid.NewGuid() + ".puml"
+            );
             using (FileStream fileStream = File.Create(path))
             {
-                TestDiagram.From(fileStream)
-                    .Component("A").WithStereoTypes("TestAssembly.Diagram.NoDependencies.Independent.*")
-                    .Component("B").WithStereoTypes("TestAssembly.Diagram.NoDependencies.SomeNamespace.*")
+                TestDiagram
+                    .From(fileStream)
+                    .Component("A")
+                    .WithStereoTypes("TestAssembly.Diagram.NoDependencies.Independent.*")
+                    .Component("B")
+                    .WithStereoTypes("TestAssembly.Diagram.NoDependencies.SomeNamespace.*")
                     .Write();
             }
             AssertNoViolation(path, "NoDependencies");
@@ -34,9 +40,12 @@ namespace ArchUnitNETTests.Dependencies
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                TestDiagram.From(memoryStream)
-                    .Component("A").WithStereoTypes("TestAssembly.Diagram.NoDependencies.Independent.*")
-                    .Component("B").WithStereoTypes("TestAssembly.Diagram.NoDependencies.SomeNamespace.*")
+                TestDiagram
+                    .From(memoryStream)
+                    .Component("A")
+                    .WithStereoTypes("TestAssembly.Diagram.NoDependencies.Independent.*")
+                    .Component("B")
+                    .WithStereoTypes("TestAssembly.Diagram.NoDependencies.SomeNamespace.*")
                     .Write();
 
                 AssertNoViolation(memoryStream, "NoDependencies");
@@ -48,10 +57,14 @@ namespace ArchUnitNETTests.Dependencies
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                TestDiagram.From(memoryStream)
-                    .Component("SomeOrigin").WithStereoTypes("TestAssembly.Diagram.NoDependencies.Independent.*")
-                    .Component("SomeTarget").WithStereoTypes("TestAssembly.Diagram.NoDependencies.SomeNamespace.*")
-                    .DependencyFrom("SomeOrigin").To("SomeTarget")
+                TestDiagram
+                    .From(memoryStream)
+                    .Component("SomeOrigin")
+                    .WithStereoTypes("TestAssembly.Diagram.NoDependencies.Independent.*")
+                    .Component("SomeTarget")
+                    .WithStereoTypes("TestAssembly.Diagram.NoDependencies.SomeNamespace.*")
+                    .DependencyFrom("SomeOrigin")
+                    .To("SomeTarget")
                     .Write();
 
                 AssertNoViolation(memoryStream, "NoDependencies");
@@ -74,15 +87,19 @@ namespace ArchUnitNETTests.Dependencies
 
         private static Architecture GetArchitectureFrom(string namespc)
         {
-            Architecture architecture = new ArchLoader().LoadNamespacesWithinAssembly(typeof(IndependentClass).Assembly, "TestAssembly.Diagram." + namespc).Build();
+            Architecture architecture = new ArchLoader()
+                .LoadNamespacesWithinAssembly(
+                    typeof(IndependentClass).Assembly,
+                    "TestAssembly.Diagram." + namespc
+                )
+                .Build();
             if (architecture.Classes.Count() == 0)
             {
                 throw new InvalidOperationException(
-                        string.Format("No classes were imported from '{0}'", namespc));
+                    string.Format("No classes were imported from '{0}'", namespc)
+                );
             }
             return architecture;
         }
     }
-
-
 }

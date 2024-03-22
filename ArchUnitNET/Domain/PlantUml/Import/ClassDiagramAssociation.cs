@@ -31,7 +31,12 @@ namespace ArchUnitNET.Domain.PlantUml.Import
                 {
                     if (visited.Contains(stereotype))
                     {
-                        throw new IllegalDiagramException(string.Format("Stereotype '{0}' should be unique", stereotype.AsString()));
+                        throw new IllegalDiagramException(
+                            string.Format(
+                                "Stereotype '{0}' should be unique",
+                                stereotype.AsString()
+                            )
+                        );
                     }
                     visited.Add(stereotype);
                 }
@@ -78,13 +83,18 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             if (associatedComponents.Count > 1)
             {
                 throw new ComponentIntersectionException(
-                        string.Format("Class {0} may not be contained in more than one component, but is contained in [{1}]",
-                                clazz.Name,
-                                string.Join(", ", GetComponentNames(associatedComponents))));
+                    string.Format(
+                        "Class {0} may not be contained in more than one component, but is contained in [{1}]",
+                        clazz.Name,
+                        string.Join(", ", GetComponentNames(associatedComponents))
+                    )
+                );
             }
             else if (associatedComponents.Count == 0)
             {
-                throw new InvalidOperationException(string.Format("Class {0} is not contained in any component", clazz.Name));
+                throw new InvalidOperationException(
+                    string.Format("Class {0} is not contained in any component", clazz.Name)
+                );
             }
 
             return associatedComponents.Single();
@@ -93,7 +103,11 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         private ISet<string> GetComponentNames(ISet<PlantUmlComponent> associatedComponents)
         {
             ISet<string> associatedComponentNames = new HashSet<string>();
-            foreach (PlantUmlComponent associatedComponent in associatedComponents.OrderBy(component => component.ComponentName.AsString()))
+            foreach (
+                PlantUmlComponent associatedComponent in associatedComponents.OrderBy(component =>
+                    component.ComponentName.AsString()
+                )
+            )
             {
                 associatedComponentNames.Add(associatedComponent.ComponentName.AsString());
             }
@@ -138,8 +152,6 @@ namespace ArchUnitNET.Domain.PlantUml.Import
                 }
                 return false;
             }
-
-
         }
     }
 }

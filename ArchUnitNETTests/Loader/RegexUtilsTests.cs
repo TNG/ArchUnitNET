@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
@@ -16,7 +16,8 @@ namespace ArchUnitNETTests.Loader
 {
     public class RegexUtilsTest
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private static readonly string _nonMatch = "Not expected to match.";
         private readonly PropertyMember _autoPropertyMember;
         private readonly string _expectedGetMethodFullName;
@@ -30,11 +31,16 @@ namespace ArchUnitNETTests.Loader
             _autoPropertyMember = propertyClass.GetPropertyMembersWithName("AutoProperty").Single();
             _expectedGetMethodName = BuildExpectedGetMethodName(_autoPropertyMember);
             _expectedGetMethodFullName = BuildExpectedGetMethodFullName(_autoPropertyMember);
-            _expectedSetMethodName = BuildExpectedSetMethodName(_autoPropertyMember, _autoPropertyMember.DeclaringType);
+            _expectedSetMethodName = BuildExpectedSetMethodName(
+                _autoPropertyMember,
+                _autoPropertyMember.DeclaringType
+            );
         }
 
-        private static string BuildExpectedGetMethodName(PropertyMember propertyMember,
-            params IType[] parameterTypes)
+        private static string BuildExpectedGetMethodName(
+            PropertyMember propertyMember,
+            params IType[] parameterTypes
+        )
         {
             var builder = new StringBuilder();
             builder.Append("get_");
@@ -43,8 +49,10 @@ namespace ArchUnitNETTests.Loader
             return builder.ToString();
         }
 
-        private static string BuildExpectedSetMethodName(PropertyMember propertyMember,
-            params IType[] parameterTypes)
+        private static string BuildExpectedSetMethodName(
+            PropertyMember propertyMember,
+            params IType[] parameterTypes
+        )
         {
             var builder = new StringBuilder();
             builder.Append("set_");
@@ -53,8 +61,10 @@ namespace ArchUnitNETTests.Loader
             return builder.ToString();
         }
 
-        private static string BuildExpectedGetMethodFullName(PropertyMember propertyMember,
-            params IType[] parameterTypes)
+        private static string BuildExpectedGetMethodFullName(
+            PropertyMember propertyMember,
+            params IType[] parameterTypes
+        )
         {
             var builder = new StringBuilder();
             builder.Append(propertyMember.DeclaringType.FullName);
@@ -66,8 +76,10 @@ namespace ArchUnitNETTests.Loader
             return builder.ToString();
         }
 
-        private static StringBuilder AddParameterTypesToMethodName(StringBuilder nameBuilder,
-            params IType[] parameterTypeNames)
+        private static StringBuilder AddParameterTypesToMethodName(
+            StringBuilder nameBuilder,
+            params IType[] parameterTypeNames
+        )
         {
             nameBuilder.Append("(");
             for (var index = 0; index < parameterTypeNames.Length; ++index)
@@ -101,15 +113,19 @@ namespace ArchUnitNETTests.Loader
         [Fact]
         public void GetMethodPropertyMemberFullNameRegexMatchAsExpected()
         {
-            Assert.Equal(_autoPropertyMember.Name,
-                RegexUtils.MatchGetPropertyName(_expectedGetMethodFullName));
+            Assert.Equal(
+                _autoPropertyMember.Name,
+                RegexUtils.MatchGetPropertyName(_expectedGetMethodFullName)
+            );
         }
 
         [Fact]
         public void GetMethodPropertyMemberRegexMatchAsExpected()
         {
-            Assert.Equal(_autoPropertyMember.Name,
-                RegexUtils.MatchGetPropertyName(_expectedGetMethodName));
+            Assert.Equal(
+                _autoPropertyMember.Name,
+                RegexUtils.MatchGetPropertyName(_expectedGetMethodName)
+            );
         }
 
         [Fact]
@@ -126,12 +142,13 @@ namespace ArchUnitNETTests.Loader
             Assert.Null(RegexUtils.MatchSetPropertyName(_nonMatch));
         }
 
-
         [Fact]
         public void SetMethodPropertyMemberRegexMatchAsExpected()
         {
-            Assert.Equal(_autoPropertyMember.Name,
-                RegexUtils.MatchSetPropertyName(_expectedSetMethodName));
+            Assert.Equal(
+                _autoPropertyMember.Name,
+                RegexUtils.MatchSetPropertyName(_expectedSetMethodName)
+            );
         }
     }
 
@@ -143,7 +160,7 @@ namespace ArchUnitNETTests.Loader
         public PropertyType FieldPropertyPair
         {
             get => _fieldPropertyPair;
-            set => _fieldPropertyPair = (ChildField) value;
+            set => _fieldPropertyPair = (ChildField)value;
         }
 
         public PropertyType LambdaFieldPropertyPair { get; set; }

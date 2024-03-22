@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +35,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((GenericArgument) obj);
+            return obj.GetType() == GetType() && Equals((GenericArgument)obj);
         }
 
         private bool Equals(GenericArgument other)
@@ -50,7 +50,8 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return Equals(Type, other.Type) && GenericArguments.SequenceEqual(other.GenericArguments);
+            return Equals(Type, other.Type)
+                && GenericArguments.SequenceEqual(other.GenericArguments);
         }
 
         public override int GetHashCode()
@@ -58,8 +59,10 @@ namespace ArchUnitNET.Domain
             unchecked
             {
                 var hashCode = Type != null ? Type.GetHashCode() : 0;
-                hashCode = GenericArguments.Aggregate(hashCode,
-                    (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0));
+                hashCode = GenericArguments.Aggregate(
+                    hashCode,
+                    (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0)
+                );
                 return hashCode;
             }
         }

@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -18,10 +18,16 @@ namespace ArchUnitNET.Loader
         private readonly Dictionary<string, ITypeInstance<IType>> _allTypes =
             new Dictionary<string, ITypeInstance<IType>>();
 
-        public ITypeInstance<IType> GetOrCreateTypeFromTypeReference([NotNull] TypeReference typeReference,
-            [NotNull] Func<string, ITypeInstance<IType>> createFunc)
+        public ITypeInstance<IType> GetOrCreateTypeFromTypeReference(
+            [NotNull] TypeReference typeReference,
+            [NotNull] Func<string, ITypeInstance<IType>> createFunc
+        )
         {
-            return RegistryUtils.GetFromDictOrCreateAndAdd(typeReference.BuildFullName(), _allTypes, createFunc);
+            return RegistryUtils.GetFromDictOrCreateAndAdd(
+                typeReference.BuildFullName(),
+                _allTypes,
+                createFunc
+            );
         }
 
         public IEnumerable<IType> GetAllTypes()

@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -12,8 +12,14 @@ namespace ArchUnitNET.Fluent
 {
     public class EvaluationResult : IHasDescription
     {
-        public EvaluationResult(object obj, StringIdentifier evaluatedObjectIdentifier, bool passed, string description,
-            ICanBeEvaluated archRule, Architecture architecture)
+        public EvaluationResult(
+            object obj,
+            StringIdentifier evaluatedObjectIdentifier,
+            bool passed,
+            string description,
+            ICanBeEvaluated archRule,
+            Architecture architecture
+        )
         {
             EvaluatedObject = obj;
             EvaluatedObjectIdentifier = evaluatedObjectIdentifier;
@@ -24,8 +30,12 @@ namespace ArchUnitNET.Fluent
         }
 
         public ICanBeEvaluated ArchRule { get; }
-        [CanBeNull] public object EvaluatedObject { get; }
-        [NotNull] public StringIdentifier EvaluatedObjectIdentifier { get; }
+
+        [CanBeNull]
+        public object EvaluatedObject { get; }
+
+        [NotNull]
+        public StringIdentifier EvaluatedObjectIdentifier { get; }
         public bool Passed { get; }
         public Architecture Architecture { get; }
         public string Description { get; }
@@ -37,12 +47,12 @@ namespace ArchUnitNET.Fluent
 
         private bool Equals(EvaluationResult other)
         {
-            return string.Equals(Description, other.Description) &&
-                   Equals(EvaluatedObject, other.EvaluatedObject) &&
-                   Equals(EvaluatedObjectIdentifier, other.EvaluatedObjectIdentifier) &&
-                   Equals(Passed, other.Passed) &&
-                   Equals(ArchRule, other.ArchRule) &&
-                   Equals(Architecture, other.Architecture);
+            return string.Equals(Description, other.Description)
+                && Equals(EvaluatedObject, other.EvaluatedObject)
+                && Equals(EvaluatedObjectIdentifier, other.EvaluatedObjectIdentifier)
+                && Equals(Passed, other.Passed)
+                && Equals(ArchRule, other.ArchRule)
+                && Equals(Architecture, other.Architecture);
         }
 
         public override bool Equals(object obj)
@@ -57,7 +67,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((EvaluationResult) obj);
+            return obj.GetType() == GetType() && Equals((EvaluationResult)obj);
         }
 
         public override int GetHashCode()
@@ -65,11 +75,14 @@ namespace ArchUnitNET.Fluent
             unchecked
             {
                 var hashCode = Description != null ? Description.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (EvaluatedObject != null ? EvaluatedObject.GetHashCode() : 0);
+                hashCode =
+                    (hashCode * 397)
+                    ^ (EvaluatedObject != null ? EvaluatedObject.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ EvaluatedObjectIdentifier.GetHashCode();
                 hashCode = (hashCode * 397) ^ Passed.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ArchRule != null ? ArchRule.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Architecture != null ? Architecture.GetHashCode() : 0);
+                hashCode =
+                    (hashCode * 397) ^ (Architecture != null ? Architecture.GetHashCode() : 0);
                 return hashCode;
             }
         }

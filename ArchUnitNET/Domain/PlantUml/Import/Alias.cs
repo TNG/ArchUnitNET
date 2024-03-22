@@ -12,7 +12,11 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             if (value.Contains("[") || value.Contains("]") || value.Contains(@""""))
             {
                 throw new IllegalDiagramException(
-                    string.Format(@"Alias '{0}' should not contain character(s): '[' or ']' or '""'", value));
+                    string.Format(
+                        @"Alias '{0}' should not contain character(s): '[' or ']' or '""'",
+                        value
+                    )
+                );
             }
 
             _value = value ?? throw new ArgumentNullException(nameof(value));
@@ -20,8 +24,7 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         public override bool Equals(object obj)
         {
-            return obj is Alias alias &&
-                   _value == alias._value;
+            return obj is Alias alias && _value == alias._value;
         }
 
         public override int GetHashCode()

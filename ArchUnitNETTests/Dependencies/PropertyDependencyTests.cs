@@ -1,9 +1,9 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -15,7 +15,8 @@ namespace ArchUnitNETTests.Dependencies
 {
     public class PropertyDependencyTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Class _dependOnClass;
         private readonly Class _propertyTestDataClass;
@@ -26,9 +27,13 @@ namespace ArchUnitNETTests.Dependencies
         {
             _dependOnClass = Architecture.GetClassOfType(typeof(PropertyDependOnClass));
             _propertyTestDataClass = Architecture.GetClassOfType(typeof(PropertyTestDataClass));
-            _testStringProperty = _propertyTestDataClass.GetPropertyMembersWithName("TestStringProperty").ToList().First();
-            _testStringPropertyGetter =
-                _propertyTestDataClass.GetMethodMembersWithName("get_TestStringProperty()").First();
+            _testStringProperty = _propertyTestDataClass
+                .GetPropertyMembersWithName("TestStringProperty")
+                .ToList()
+                .First();
+            _testStringPropertyGetter = _propertyTestDataClass
+                .GetMethodMembersWithName("get_TestStringProperty()")
+                .First();
         }
 
         [Fact]
@@ -49,8 +54,10 @@ namespace ArchUnitNETTests.Dependencies
         {
             if (_testStringProperty.Getter != null)
             {
-                Assert.Equal(_testStringPropertyGetter.MemberDependencies,
-                    _testStringProperty.Getter.MemberDependencies);
+                Assert.Equal(
+                    _testStringPropertyGetter.MemberDependencies,
+                    _testStringProperty.Getter.MemberDependencies
+                );
             }
             else
             {
@@ -61,47 +68,62 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void ClassHasDependencyFromProperty()
         {
-            Assert.Contains(_dependOnClass, _propertyTestDataClass.Dependencies.Select(d => d.Target));
+            Assert.Contains(
+                _dependOnClass,
+                _propertyTestDataClass.Dependencies.Select(d => d.Target)
+            );
         }
-        
+
         [Fact]
         public void PropertyHasDependencyFromProperty()
         {
-            Assert.Contains(_dependOnClass, _testStringProperty.MemberDependencies.Select(d => d.Target));
+            Assert.Contains(
+                _dependOnClass,
+                _testStringProperty.MemberDependencies.Select(d => d.Target)
+            );
         }
-        
+
         [Fact]
         public void GetterHasDependencyFromProperty()
         {
-            Assert.Contains(_dependOnClass, _testStringPropertyGetter.MemberDependencies.Select(d => d.Target));
+            Assert.Contains(
+                _dependOnClass,
+                _testStringPropertyGetter.MemberDependencies.Select(d => d.Target)
+            );
         }
 
         [Fact]
         public void ClassHasMethodCallDependencyFromProperty()
         {
-            var methodCalls = _propertyTestDataClass.Dependencies.Where(d => d is MethodCallDependency).ToList();
+            var methodCalls = _propertyTestDataClass
+                .Dependencies.Where(d => d is MethodCallDependency)
+                .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
                 Assert.True(false, "Class must have Method Call Dependency");
             }
             Assert.Contains(_dependOnClass, methodCalls.Select(d => d.Target));
         }
-        
+
         [Fact]
         public void PropertyHasMethodCallDependencyFromProperty()
         {
-            var methodCalls = _testStringProperty.MemberDependencies.Where(d => d is MethodCallDependency).ToList();
+            var methodCalls = _testStringProperty
+                .MemberDependencies.Where(d => d is MethodCallDependency)
+                .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
                 Assert.True(false, "Property must have Method Call Dependency");
             }
             Assert.Contains(_dependOnClass, methodCalls.Select(d => d.Target));
         }
-        
+
         [Fact]
         public void GetterHasMethodCallDependencyFromProperty()
         {
-            var methodCalls = _testStringPropertyGetter.MemberDependencies.Where(d => d is MethodCallDependency).ToList();
+            var methodCalls = _testStringPropertyGetter
+                .MemberDependencies.Where(d => d is MethodCallDependency)
+                .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
                 Assert.True(false, "Getter must have Method Call Dependency");
@@ -112,10 +134,18 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void PropertyDependencyPassedOn()
         {
-            Assert.Equal(_testStringPropertyGetter.MemberDependencies,
-                _testStringPropertyGetter.MemberDependencies.Intersect(_testStringProperty.MemberDependencies));
-            Assert.Equal(_testStringProperty.MemberDependencies,
-                _testStringProperty.MemberDependencies.Intersect(_propertyTestDataClass.Dependencies));
+            Assert.Equal(
+                _testStringPropertyGetter.MemberDependencies,
+                _testStringPropertyGetter.MemberDependencies.Intersect(
+                    _testStringProperty.MemberDependencies
+                )
+            );
+            Assert.Equal(
+                _testStringProperty.MemberDependencies,
+                _testStringProperty.MemberDependencies.Intersect(
+                    _propertyTestDataClass.Dependencies
+                )
+            );
         }
     }
 
@@ -134,10 +164,6 @@ namespace ArchUnitNETTests.Dependencies
 
     public class PropertyDependOnClass
     {
-        public void PropertyDependOnClassMethod()
-        {
-            
-        }
-        
+        public void PropertyDependOnClassMethod() { }
     }
 }

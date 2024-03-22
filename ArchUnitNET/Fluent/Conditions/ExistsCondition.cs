@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -10,7 +10,8 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Conditions
 {
-    public class ExistsCondition<TRuleType> : ICondition<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class ExistsCondition<TRuleType> : ICondition<TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         private readonly bool _valueIfExists;
 
@@ -21,7 +22,10 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public string Description => _valueIfExists ? "exist" : "not exist";
 
-        public IEnumerable<ConditionResult> Check(IEnumerable<TRuleType> objects, Architecture architecture)
+        public IEnumerable<ConditionResult> Check(
+            IEnumerable<TRuleType> objects,
+            Architecture architecture
+        )
         {
             return objects.Select(obj => new ConditionResult(obj, _valueIfExists, "does exist"));
         }
@@ -53,7 +57,7 @@ namespace ArchUnitNET.Fluent.Conditions
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ExistsCondition<TRuleType>) obj);
+            return obj.GetType() == GetType() && Equals((ExistsCondition<TRuleType>)obj);
         }
 
         public override int GetHashCode()

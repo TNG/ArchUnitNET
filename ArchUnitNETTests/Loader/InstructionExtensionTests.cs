@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -19,13 +19,19 @@ namespace ArchUnitNETTests.Loader
     {
         public InstructionExtensionTests()
         {
-            var mockModuleDefinition = LoadMockModule(typeof(InstructionExtensionTests).Assembly.Location);
-            _nextOpNull = mockModuleDefinition.Assembly.Modules.First().Types
-                .First(type => type.Name == "ClassWithPropertyA").Methods.First().Body.Instructions
-                .First(instruction => instruction.OpCode.Equals(OpCodes.Ret));
-            _nextOperandIsNotFieldReference = mockModuleDefinition.Assembly.Modules.First().Types
-                .First(type => type.Name == "ClassWithMethodSignatureA").Methods.First().Body.Instructions
-                .First(instruction => instruction.OpCode.Equals(OpCodes.Newobj));
+            var mockModuleDefinition = LoadMockModule(
+                typeof(InstructionExtensionTests).Assembly.Location
+            );
+            _nextOpNull = mockModuleDefinition
+                .Assembly.Modules.First()
+                .Types.First(type => type.Name == "ClassWithPropertyA")
+                .Methods.First()
+                .Body.Instructions.First(instruction => instruction.OpCode.Equals(OpCodes.Ret));
+            _nextOperandIsNotFieldReference = mockModuleDefinition
+                .Assembly.Modules.First()
+                .Types.First(type => type.Name == "ClassWithMethodSignatureA")
+                .Methods.First()
+                .Body.Instructions.First(instruction => instruction.OpCode.Equals(OpCodes.Newobj));
         }
 
         private readonly Instruction _nullInstruction = null;
@@ -34,7 +40,9 @@ namespace ArchUnitNETTests.Loader
 
         [Theory]
         [ClassData(typeof(InstructionExtensionBuild.InstructionExtensionTestData))]
-        public void InstructionExtensionMethodsProperlyHandleNullArgument(Func<Instruction, bool> instructionFunc)
+        public void InstructionExtensionMethodsProperlyHandleNullArgument(
+            Func<Instruction, bool> instructionFunc
+        )
         {
             Assert.Throws<ArgumentNullException>(() => instructionFunc(_nullInstruction));
         }
@@ -74,30 +82,40 @@ namespace ArchUnitNETTests.Loader
         [Fact]
         public void GetAssigneeFieldDefinitionProperlyHandlesNullArgument()
         {
-            Assert.Throws<ArgumentNullException>(() => _nullInstruction.GetAssigneeFieldDefinition());
+            Assert.Throws<ArgumentNullException>(
+                () => _nullInstruction.GetAssigneeFieldDefinition()
+            );
         }
     }
 
     public class InstructionExtensionBuild
     {
-        private static object[] BuildInstructionExtensionTestData(Func<Instruction, bool> instructionFunc)
+        private static object[] BuildInstructionExtensionTestData(
+            Func<Instruction, bool> instructionFunc
+        )
         {
-            return new object[] {instructionFunc};
+            return new object[] { instructionFunc };
         }
 
         public class InstructionExtensionTestData : IEnumerable<object[]>
         {
             private readonly List<object[]> _instructionExtensionData = new List<object[]>
             {
-                BuildInstructionExtensionTestData(InstructionExtensions.IsOperationForBackedProperty),
+                BuildInstructionExtensionTestData(
+                    InstructionExtensions.IsOperationForBackedProperty
+                ),
                 BuildInstructionExtensionTestData(InstructionExtensions.IsMethodCallAssignment),
                 BuildInstructionExtensionTestData(InstructionExtensions.IsMethodCallOp),
-                BuildInstructionExtensionTestData(InstructionExtensions.IsMethodCallToSetBackingFieldDefinition),
+                BuildInstructionExtensionTestData(
+                    InstructionExtensions.IsMethodCallToSetBackingFieldDefinition
+                ),
                 BuildInstructionExtensionTestData(InstructionExtensions.IsReturnOp),
                 BuildInstructionExtensionTestData(InstructionExtensions.IsNewObjectOp),
                 BuildInstructionExtensionTestData(InstructionExtensions.IsOperandBackingField),
                 BuildInstructionExtensionTestData(InstructionExtensions.IsSetFieldOp),
-                BuildInstructionExtensionTestData(InstructionExtensions.IsNewObjectToSetBackingField)
+                BuildInstructionExtensionTestData(
+                    InstructionExtensions.IsNewObjectToSetBackingField
+                )
             };
 
             public IEnumerator<object[]> GetEnumerator()

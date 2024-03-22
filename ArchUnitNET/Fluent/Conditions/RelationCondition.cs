@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -11,12 +11,16 @@ using ArchUnitNET.Domain;
 namespace ArchUnitNET.Fluent.Conditions
 {
     public class RelationCondition<TRuleType, TRelatedType> : IHasDescription
-        where TRuleType : ICanBeAnalyzed where TRelatedType : ICanBeAnalyzed
+        where TRuleType : ICanBeAnalyzed
+        where TRelatedType : ICanBeAnalyzed
     {
         private readonly Func<IEnumerable<TRelatedType>, ICondition<TRuleType>> _relation;
 
-        public RelationCondition(Func<IEnumerable<TRelatedType>, ICondition<TRuleType>> relation,
-            string description, string failDescription)
+        public RelationCondition(
+            Func<IEnumerable<TRelatedType>, ICondition<TRuleType>> relation,
+            string description,
+            string failDescription
+        )
         {
             _relation = relation;
             Description = description;
@@ -34,8 +38,7 @@ namespace ArchUnitNET.Fluent.Conditions
 
         private bool Equals(RelationCondition<TRuleType, TRelatedType> other)
         {
-            return FailDescription == other.FailDescription &&
-                   Description == other.Description;
+            return FailDescription == other.FailDescription && Description == other.Description;
         }
 
         public override bool Equals(object obj)
@@ -50,7 +53,8 @@ namespace ArchUnitNET.Fluent.Conditions
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((RelationCondition<TRuleType, TRelatedType>) obj);
+            return obj.GetType() == GetType()
+                && Equals((RelationCondition<TRuleType, TRelatedType>)obj);
         }
 
         public override int GetHashCode()

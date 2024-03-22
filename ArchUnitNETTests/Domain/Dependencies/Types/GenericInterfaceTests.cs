@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
@@ -16,7 +16,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Types
 {
     public class GenericInterfaceTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly Architecture _architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Interface _genericInterface;
         private readonly Class _genericInterfaceImplementation;
@@ -25,17 +26,21 @@ namespace ArchUnitNETTests.Domain.Dependencies.Types
         public GenericInterfaceTests()
         {
             _genericInterface = _architecture.GetInterfaceOfType(typeof(IGenericInterface<>));
-            _genericInterfaceImplementation = _architecture.GetClassOfType(typeof(GenericInterfaceImplementation));
+            _genericInterfaceImplementation = _architecture.GetClassOfType(
+                typeof(GenericInterfaceImplementation)
+            );
             _genericType = _architecture.GetClassOfType(typeof(GenericType));
         }
 
         [Fact]
         public void ClassImplementsGenericInterface()
         {
-            var implementsInterfaceDependency = _genericInterfaceImplementation.Dependencies
-                .OfType<ImplementsInterfaceDependency>().First();
-            var genericArgumentsOfImplementedInterface = implementsInterfaceDependency.TargetGenericArguments
-                .Select(argument => argument.Type).ToList();
+            var implementsInterfaceDependency = _genericInterfaceImplementation
+                .Dependencies.OfType<ImplementsInterfaceDependency>()
+                .First();
+            var genericArgumentsOfImplementedInterface = implementsInterfaceDependency
+                .TargetGenericArguments.Select(argument => argument.Type)
+                .ToList();
 
             Assert.True(_genericInterfaceImplementation.ImplementsInterface(_genericInterface));
             Assert.Single(genericArgumentsOfImplementedInterface);
@@ -43,15 +48,9 @@ namespace ArchUnitNETTests.Domain.Dependencies.Types
         }
     }
 
-    public interface IGenericInterface<TGenericType>
-    {
-    }
+    public interface IGenericInterface<TGenericType> { }
 
-    public class GenericType
-    {
-    }
+    public class GenericType { }
 
-    public class GenericInterfaceImplementation : IGenericInterface<GenericType>
-    {
-    }
+    public class GenericInterfaceImplementation : IGenericInterface<GenericType> { }
 }

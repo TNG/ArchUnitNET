@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
@@ -19,50 +19,104 @@ namespace ArchUnitNETTests.Fluent.Syntax
     {
         public class TestDependencyIssue
         {
-            private static readonly Architecture Architecture =
-                new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNETTests")).Build();
+            private static readonly Architecture Architecture = new ArchLoader()
+                .LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNETTests"))
+                .Build();
 
             [Fact]
             public void DependOnAnyTypesThatTest()
             {
-                Types().That().Are(typeof(DependingClass)).Should()
-                    .DependOnAnyTypesThat().Are(typeof(ClassInTestAssembly)).Check(Architecture);
-                Assert.Throws<FailedArchRuleException>(() => Types().That().Are(typeof(DependingClass)).Should()
-                    .NotDependOnAnyTypesThat().Are(typeof(ClassInTestAssembly)).Check(Architecture));
+                Types()
+                    .That()
+                    .Are(typeof(DependingClass))
+                    .Should()
+                    .DependOnAnyTypesThat()
+                    .Are(typeof(ClassInTestAssembly))
+                    .Check(Architecture);
+                Assert.Throws<FailedArchRuleException>(
+                    () =>
+                        Types()
+                            .That()
+                            .Are(typeof(DependingClass))
+                            .Should()
+                            .NotDependOnAnyTypesThat()
+                            .Are(typeof(ClassInTestAssembly))
+                            .Check(Architecture)
+                );
             }
 
             [Fact]
             public void BeAssignableToTypesThatTest()
             {
-                Types().That().Are(typeof(DependingClass)).Should()
-                    .BeAssignableToTypesThat().Are(typeof(IInterfaceInTestAssembly)).Check(Architecture);
-                Assert.Throws<FailedArchRuleException>(() => Types().That().Are(typeof(DependingClass)).Should()
-                    .NotBeAssignableToTypesThat().Are(typeof(IInterfaceInTestAssembly)).Check(Architecture));
+                Types()
+                    .That()
+                    .Are(typeof(DependingClass))
+                    .Should()
+                    .BeAssignableToTypesThat()
+                    .Are(typeof(IInterfaceInTestAssembly))
+                    .Check(Architecture);
+                Assert.Throws<FailedArchRuleException>(
+                    () =>
+                        Types()
+                            .That()
+                            .Are(typeof(DependingClass))
+                            .Should()
+                            .NotBeAssignableToTypesThat()
+                            .Are(typeof(IInterfaceInTestAssembly))
+                            .Check(Architecture)
+                );
             }
 
             [Fact]
             public void OnlyDependOnTypesThatTest()
             {
-                Types().That().Are(typeof(DependingClass)).Should()
-                    .OnlyDependOnTypesThat().Are(typeof(object), typeof(AttributeInTestAssembly),
-                        typeof(IInterfaceInTestAssembly), typeof(ClassInTestAssembly), typeof(DependingClass))
+                Types()
+                    .That()
+                    .Are(typeof(DependingClass))
+                    .Should()
+                    .OnlyDependOnTypesThat()
+                    .Are(
+                        typeof(object),
+                        typeof(AttributeInTestAssembly),
+                        typeof(IInterfaceInTestAssembly),
+                        typeof(ClassInTestAssembly),
+                        typeof(DependingClass)
+                    )
                     .Check(Architecture);
             }
 
             [Fact]
             public void HaveAnyAttributesThatTest()
             {
-                Types().That().Are(typeof(DependingClass)).Should()
-                    .HaveAnyAttributesThat().Are(typeof(AttributeInTestAssembly)).Check(Architecture);
-                Assert.Throws<FailedArchRuleException>(() => Types().That().Are(typeof(DependingClass)).Should()
-                    .NotHaveAnyAttributesThat().Are(typeof(AttributeInTestAssembly)).Check(Architecture));
+                Types()
+                    .That()
+                    .Are(typeof(DependingClass))
+                    .Should()
+                    .HaveAnyAttributesThat()
+                    .Are(typeof(AttributeInTestAssembly))
+                    .Check(Architecture);
+                Assert.Throws<FailedArchRuleException>(
+                    () =>
+                        Types()
+                            .That()
+                            .Are(typeof(DependingClass))
+                            .Should()
+                            .NotHaveAnyAttributesThat()
+                            .Are(typeof(AttributeInTestAssembly))
+                            .Check(Architecture)
+                );
             }
 
             [Fact]
             public void OnlyHaveAttributesThatTest()
             {
-                Types().That().Are(typeof(DependingClass)).Should()
-                    .OnlyHaveAttributesThat().Are(typeof(AttributeInTestAssembly)).Check(Architecture);
+                Types()
+                    .That()
+                    .Are(typeof(DependingClass))
+                    .Should()
+                    .OnlyHaveAttributesThat()
+                    .Are(typeof(AttributeInTestAssembly))
+                    .Check(Architecture);
             }
 
             [Fact]
@@ -71,12 +125,16 @@ namespace ArchUnitNETTests.Fluent.Syntax
                 var classInTestAssembly = Architecture.GetClassOfType(typeof(ClassInTestAssembly));
                 Assert.Contains(classInTestAssembly, Types(true).GetObjects(Architecture));
                 Assert.Contains(classInTestAssembly, Classes(true).GetObjects(Architecture));
-                
-                var attributeInTestAssembly = Architecture.GetAttributeOfType(typeof(AttributeInTestAssembly));
+
+                var attributeInTestAssembly = Architecture.GetAttributeOfType(
+                    typeof(AttributeInTestAssembly)
+                );
                 Assert.Contains(attributeInTestAssembly, Types(true).GetObjects(Architecture));
                 Assert.Contains(attributeInTestAssembly, Attributes(true).GetObjects(Architecture));
-                
-                var interfaceInTestAssembly = Architecture.GetInterfaceOfType(typeof(IInterfaceInTestAssembly));
+
+                var interfaceInTestAssembly = Architecture.GetInterfaceOfType(
+                    typeof(IInterfaceInTestAssembly)
+                );
                 Assert.Contains(interfaceInTestAssembly, Types(true).GetObjects(Architecture));
                 Assert.Contains(interfaceInTestAssembly, Interfaces(true).GetObjects(Architecture));
             }

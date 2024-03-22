@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -17,13 +17,16 @@ namespace ArchUnitNETTests.Domain
 {
     public static class MemberTestBuild
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private static object[] BuildOriginMemberTestData(Type originType, string memberName)
         {
             return new object[]
             {
-                Architecture.GetClassOfType(originType).GetMembersWithName(memberName)
+                Architecture
+                    .GetClassOfType(originType)
+                    .GetMembersWithName(memberName)
                     .SingleOrDefault()
             };
         }
@@ -32,10 +35,15 @@ namespace ArchUnitNETTests.Domain
         {
             private readonly List<object[]> _originMemberData = new List<object[]>
             {
-                BuildOriginMemberTestData(typeof(ClassWithMethodA),
-                    nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()),
+                BuildOriginMemberTestData(
+                    typeof(ClassWithMethodA),
+                    nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()
+                ),
                 BuildOriginMemberTestData(typeof(ClassWithFieldA), nameof(ClassWithFieldA.FieldA)),
-                BuildOriginMemberTestData(typeof(ClassWithPropertyA), nameof(ClassWithPropertyA.PropertyA))
+                BuildOriginMemberTestData(
+                    typeof(ClassWithPropertyA),
+                    nameof(ClassWithPropertyA.PropertyA)
+                )
             };
 
             public IEnumerator<object[]> GetEnumerator()

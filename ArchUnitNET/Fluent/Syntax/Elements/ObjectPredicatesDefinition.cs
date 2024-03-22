@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -17,15 +17,25 @@ using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public static class ObjectPredicatesDefinition<T> where T : ICanBeAnalyzed
+    public static class ObjectPredicatesDefinition<T>
+        where T : ICanBeAnalyzed
     {
         public static IPredicate<T> Are(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.FullNameMatches(pattern, useRegularExpressions),
-                "have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.FullNameMatches(pattern, useRegularExpressions),
+                "have full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> Are(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> Are(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
             string description;
@@ -36,20 +46,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "have full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "have full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(
-                obj => patternList.Any(pattern => obj.FullNameMatches(pattern, useRegularExpressions)), description);
+                obj =>
+                    patternList.Any(pattern => obj.FullNameMatches(pattern, useRegularExpressions)),
+                description
+            );
         }
 
-        public static IPredicate<T> Are(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
+        public static IPredicate<T> Are(
+            ICanBeAnalyzed firstObject,
+            params ICanBeAnalyzed[] moreObjects
+        )
         {
-            var objects = new List<ICanBeAnalyzed> {firstObject}.Union(moreObjects).OfType<T>();
-            var description = moreObjects.Aggregate("are \"" + firstObject.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var objects = new List<ICanBeAnalyzed> { firstObject }
+                .Union(moreObjects)
+                .OfType<T>();
+            var description = moreObjects.Aggregate(
+                "are \"" + firstObject.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\""
+            );
             return new EnumerablePredicate<T>(e => e.Intersect(objects), description);
         }
 
@@ -64,12 +92,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstObject = objectList.First();
-                description = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
-                    "are \"" + firstObject.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = objectList
+                    .Where(obj => !obj.Equals(firstObject))
+                    .Distinct()
+                    .Aggregate(
+                        "are \"" + firstObject.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
-            return new EnumerablePredicate<T>(e => e.Intersect(objectList.OfType<T>()), description);
+            return new EnumerablePredicate<T>(
+                e => e.Intersect(objectList.OfType<T>()),
+                description
+            );
         }
 
         public static IPredicate<T> Are(IObjectProvider<ICanBeAnalyzed> objectProvider)
@@ -84,12 +119,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> CallAny(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.CallsMethod(pattern, useRegularExpressions),
-                "calls any method with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.CallsMethod(pattern, useRegularExpressions),
+                "calls any method with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> CallAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> CallAny(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
@@ -106,10 +149,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "call any method with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "call any method with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Filter, description);
@@ -117,7 +167,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> CallAny(MethodMember method, params MethodMember[] moreMethods)
         {
-            var methods = new List<MethodMember> {method};
+            var methods = new List<MethodMember> { method };
             methods.AddRange(moreMethods);
             return CallAny(methods);
         }
@@ -151,9 +201,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstMethod = methodList.First();
-                description = methodList.Where(obj => !obj.Equals(firstMethod)).Distinct().Aggregate(
-                    "call \"" + firstMethod.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = methodList
+                    .Where(obj => !obj.Equals(firstMethod))
+                    .Distinct()
+                    .Aggregate(
+                        "call \"" + firstMethod.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Filter, description);
@@ -161,19 +215,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DependOnAny(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.DependsOn(pattern, useRegularExpressions),
-                "depend on any types with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.DependsOn(pattern, useRegularExpressions),
+                "depend on any types with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> DependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> DependOnAny(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Filter(T type)
             {
-                return type.GetTypeDependencies().Any(target =>
-                    patternList.Any(pattern => target.FullNameMatches(pattern, useRegularExpressions)));
+                return type.GetTypeDependencies()
+                    .Any(target =>
+                        patternList.Any(pattern =>
+                            target.FullNameMatches(pattern, useRegularExpressions)
+                        )
+                    );
             }
 
             string description;
@@ -184,10 +250,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "depend on any types with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "depend on any types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Filter, description);
@@ -195,14 +268,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DependOnAny(IType firstType, params IType[] moreTypes)
         {
-            var types = new List<IType> {firstType};
+            var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return DependOnAny(types);
         }
 
         public static IPredicate<T> DependOnAny(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return DependOnAny(types);
         }
@@ -236,9 +309,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
-                    "depend on \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = typeList
+                    .Where(obj => !obj.Equals(firstType))
+                    .Distinct()
+                    .Aggregate(
+                        "depend on \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Filter, description);
@@ -264,7 +341,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return objects.Where(obj => obj.GetTypeDependencies().Intersect(archUnitTypeList).Any());
+                return objects.Where(obj =>
+                    obj.GetTypeDependencies().Intersect(archUnitTypeList).Any()
+                );
             }
 
             string description;
@@ -275,34 +354,53 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "depend on \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = typeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "depend on \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> FollowCustomPredicate(Func<T, bool> predicate, string description)
+        public static IPredicate<T> FollowCustomPredicate(
+            Func<T, bool> predicate,
+            string description
+        )
         {
             return new SimplePredicate<T>(predicate, description);
         }
 
         public static IPredicate<T> OnlyDependOn(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.OnlyDependsOn(pattern, useRegularExpressions),
-                "only depend on types with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.OnlyDependsOn(pattern, useRegularExpressions),
+                "only depend on types with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> OnlyDependOn(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> OnlyDependOn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Filter(T type)
             {
-                return type.GetTypeDependencies().All(target =>
-                    patternList.Any(pattern => target.FullNameMatches(pattern, useRegularExpressions)));
+                return type.GetTypeDependencies()
+                    .All(target =>
+                        patternList.Any(pattern =>
+                            target.FullNameMatches(pattern, useRegularExpressions)
+                        )
+                    );
             }
 
             string description;
@@ -313,10 +411,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "only depend on types with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "only depend on types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Filter, description);
@@ -324,14 +429,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
-            var types = new List<IType> {firstType};
+            var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return OnlyDependOn(types);
         }
 
         public static IPredicate<T> OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return OnlyDependOn(types);
         }
@@ -341,7 +446,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return objects.Where(obj => obj.GetTypeDependencies(architecture).Except(types).IsNullOrEmpty());
+                return objects.Where(obj =>
+                    obj.GetTypeDependencies(architecture).Except(types).IsNullOrEmpty()
+                );
             }
 
             var description = "only depend on " + objectProvider.Description;
@@ -354,7 +461,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                return objects.Where(obj => obj.GetTypeDependencies(architecture).Except(typeList).IsNullOrEmpty());
+                return objects.Where(obj =>
+                    obj.GetTypeDependencies(architecture).Except(typeList).IsNullOrEmpty()
+                );
             }
 
             string description;
@@ -365,9 +474,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
-                    "only depend on \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = typeList
+                    .Where(obj => !obj.Equals(firstType))
+                    .Distinct()
+                    .Aggregate(
+                        "only depend on \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
@@ -394,7 +507,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
 
                 return objects.Where(obj =>
-                    obj.GetTypeDependencies(architecture).Except(archUnitTypeList).IsNullOrEmpty());
+                    obj.GetTypeDependencies(architecture).Except(archUnitTypeList).IsNullOrEmpty()
+                );
             }
 
             string description;
@@ -405,29 +519,47 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "only depend on \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = typeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "only depend on \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> HaveAnyAttributes(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> HaveAnyAttributes(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(obj => obj.HasAttribute(pattern, useRegularExpressions),
-                "have any attribute with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.HasAttribute(pattern, useRegularExpressions),
+                "have any attribute with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> HaveAnyAttributes(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> HaveAnyAttributes(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Filter(T type)
             {
                 return type.Attributes.Any(attribute =>
-                    patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
+                    patternList.Any(pattern =>
+                        attribute.FullNameMatches(pattern, useRegularExpressions)
+                    )
+                );
             }
 
             string description;
@@ -438,25 +570,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "have any attribute with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "have any attribute with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> HaveAnyAttributes(Attribute firstAttribute, params Attribute[] moreAttributes)
+        public static IPredicate<T> HaveAnyAttributes(
+            Attribute firstAttribute,
+            params Attribute[] moreAttributes
+        )
         {
-            var attributes = new List<Attribute> {firstAttribute};
+            var attributes = new List<Attribute> { firstAttribute };
             attributes.AddRange(moreAttributes);
             return HaveAnyAttributes(attributes);
         }
 
-        public static IPredicate<T> HaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes)
+        public static IPredicate<T> HaveAnyAttributes(
+            Type firstAttribute,
+            params Type[] moreAttributes
+        )
         {
-            var attributes = new List<Type> {firstAttribute};
+            var attributes = new List<Type> { firstAttribute };
             attributes.AddRange(moreAttributes);
             return HaveAnyAttributes(attributes);
         }
@@ -490,9 +635,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstAttribute = attributeList.First();
-                description = attributeList.Where(obj => !obj.Equals(firstAttribute)).Distinct().Aggregate(
-                    "have attribute \"" + firstAttribute.FullName + "\"",
-                    (current, attribute) => current + " or \"" + attribute.FullName + "\"");
+                description = attributeList
+                    .Where(obj => !obj.Equals(firstAttribute))
+                    .Distinct()
+                    .Aggregate(
+                        "have attribute \"" + firstAttribute.FullName + "\"",
+                        (current, attribute) => current + " or \"" + attribute.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Filter, description);
@@ -516,29 +665,48 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = attributeList.First();
-                description = attributeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "have attribute \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = attributeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "have attribute \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> OnlyHaveAttributes(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> OnlyHaveAttributes(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(obj => obj.OnlyHasAttributes(pattern, useRegularExpressions),
-                "only have attributes with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.OnlyHasAttributes(pattern, useRegularExpressions),
+                "only have attributes with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> OnlyHaveAttributes(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> OnlyHaveAttributes(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Filter(T type)
             {
-                return type.Attributes.IsNullOrEmpty() || type.Attributes.All(attribute =>
-                    patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
+                return type.Attributes.IsNullOrEmpty()
+                    || type.Attributes.All(attribute =>
+                        patternList.Any(pattern =>
+                            attribute.FullNameMatches(pattern, useRegularExpressions)
+                        )
+                    );
             }
 
             string description;
@@ -549,25 +717,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "only have attributes with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "only have attributes with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> OnlyHaveAttributes(Attribute firstAttribute, params Attribute[] moreAttributes)
+        public static IPredicate<T> OnlyHaveAttributes(
+            Attribute firstAttribute,
+            params Attribute[] moreAttributes
+        )
         {
-            var attributes = new List<Attribute> {firstAttribute};
+            var attributes = new List<Attribute> { firstAttribute };
             attributes.AddRange(moreAttributes);
             return OnlyHaveAttributes(attributes);
         }
 
-        public static IPredicate<T> OnlyHaveAttributes(Type firstAttribute, params Type[] moreAttributes)
+        public static IPredicate<T> OnlyHaveAttributes(
+            Type firstAttribute,
+            params Type[] moreAttributes
+        )
         {
-            var attributes = new List<Type> {firstAttribute};
+            var attributes = new List<Type> { firstAttribute };
             attributes.AddRange(moreAttributes);
             return OnlyHaveAttributes(attributes);
         }
@@ -601,9 +782,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstAttribute = attributeList.First();
-                description = attributeList.Where(obj => !obj.Equals(firstAttribute)).Distinct().Aggregate(
-                    "only have attribute \"" + firstAttribute.FullName + "\"",
-                    (current, attribute) => current + " or \"" + attribute.FullName + "\"");
+                description = attributeList
+                    .Where(obj => !obj.Equals(firstAttribute))
+                    .Distinct()
+                    .Aggregate(
+                        "only have attribute \"" + firstAttribute.FullName + "\"",
+                        (current, attribute) => current + " or \"" + attribute.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Filter, description);
@@ -640,81 +825,109 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = attributeList.First();
-                description = attributeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "only have attribute \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = attributeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "only have attribute \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> HaveAnyAttributesWithArguments(object firstArgumentValue,
-            params object[] moreArgumentValues)
+        public static IPredicate<T> HaveAnyAttributesWithArguments(
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        )
         {
-            var argumentValues = new List<object> {firstArgumentValue};
+            var argumentValues = new List<object> { firstArgumentValue };
             argumentValues.AddRange(moreArgumentValues);
             return HaveAnyAttributesWithArguments(argumentValues);
         }
 
-        public static IPredicate<T> HaveAttributeWithArguments(string attribute, object firstArgumentValue,
-            params object[] moreArgumentValues)
+        public static IPredicate<T> HaveAttributeWithArguments(
+            string attribute,
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        )
         {
-            var argumentValues = new List<object> {firstArgumentValue};
+            var argumentValues = new List<object> { firstArgumentValue };
             argumentValues.AddRange(moreArgumentValues);
             return HaveAttributeWithArguments(attribute, argumentValues);
         }
 
-        public static IPredicate<T> HaveAttributeWithArguments(Attribute attribute, object firstArgumentValue,
-            params object[] moreArgumentValues)
+        public static IPredicate<T> HaveAttributeWithArguments(
+            Attribute attribute,
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        )
         {
-            var argumentValues = new List<object> {firstArgumentValue};
+            var argumentValues = new List<object> { firstArgumentValue };
             argumentValues.AddRange(moreArgumentValues);
             return HaveAttributeWithArguments(attribute, argumentValues);
         }
 
-        public static IPredicate<T> HaveAttributeWithArguments(Type attribute, object firstArgumentValue,
-            params object[] moreArgumentValues)
+        public static IPredicate<T> HaveAttributeWithArguments(
+            Type attribute,
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        )
         {
-            var argumentValues = new List<object> {firstArgumentValue};
+            var argumentValues = new List<object> { firstArgumentValue };
             argumentValues.AddRange(moreArgumentValues);
             return HaveAttributeWithArguments(attribute, argumentValues);
         }
 
-        public static IPredicate<T> HaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments)
+        public static IPredicate<T> HaveAnyAttributesWithNamedArguments(
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        )
         {
-            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return HaveAnyAttributesWithNamedArguments(attributeArguments);
         }
 
-        public static IPredicate<T> HaveAttributeWithNamedArguments(string attribute,
-            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        public static IPredicate<T> HaveAttributeWithNamedArguments(
+            string attribute,
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        )
         {
-            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return HaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
-        public static IPredicate<T> HaveAttributeWithNamedArguments(Attribute attribute,
-            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        public static IPredicate<T> HaveAttributeWithNamedArguments(
+            Attribute attribute,
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        )
         {
-            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return HaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
-        public static IPredicate<T> HaveAttributeWithNamedArguments(Type attribute,
-            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        public static IPredicate<T> HaveAttributeWithNamedArguments(
+            Type attribute,
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        )
         {
-            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return HaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
-        public static IPredicate<T> HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
+        public static IPredicate<T> HaveAnyAttributesWithArguments(
+            IEnumerable<object> argumentValues
+        )
         {
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
             string description;
             if (argumentValueList.IsNullOrEmpty())
             {
@@ -723,17 +936,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentValueList.First();
-                description = argumentValueList.Where(attribute => attribute != firstArgument).Aggregate(
-                    "have any attributes with arguments \"" + firstArgument + "\"",
-                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                description = argumentValueList
+                    .Where(attribute => attribute != firstArgument)
+                    .Aggregate(
+                        "have any attributes with arguments \"" + firstArgument + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
             {
-                var attributeArguments = obj.AttributeInstances
-                    .SelectMany(instance => instance.AttributeArguments.Select(arg => arg.Value)).ToList();
-                var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
-                    .Union(attributeArguments.OfType<IType>()).ToList();
+                var attributeArguments = obj
+                    .AttributeInstances.SelectMany(instance =>
+                        instance.AttributeArguments.Select(arg => arg.Value)
+                    )
+                    .ToList();
+                var typeAttributeArguments = attributeArguments
+                    .OfType<ITypeInstance<IType>>()
+                    .Select(t => t.Type)
+                    .Union(attributeArguments.OfType<IType>())
+                    .ToList();
                 foreach (var arg in argumentValueList)
                 {
                     if (arg is Type argType)
@@ -755,11 +977,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> HaveAttributeWithArguments([NotNull] string attribute,
-            IEnumerable<object> argumentValues)
+        public static IPredicate<T> HaveAttributeWithArguments(
+            [NotNull] string attribute,
+            IEnumerable<object> argumentValues
+        )
         {
             string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "have attribute \"" + attribute + "\"";
@@ -767,9 +991,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentValueList.First();
-                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
-                    "have attribute \"" + attribute + "\" with arguments \"" + firstArgument + "\"",
-                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                description = argumentValueList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "have attribute \""
+                            + attribute
+                            + "\" with arguments \""
+                            + firstArgument
+                            + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -781,9 +1012,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
-                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    var attributeArguments = attributeInstance
+                        .AttributeArguments.Select(arg => arg.Value)
+                        .ToList();
+                    var typeAttributeArguments = attributeArguments
+                        .OfType<ITypeInstance<IType>>()
+                        .Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>())
+                        .ToList();
                     foreach (var arg in argumentValueList)
                     {
                         if (arg is Type argType)
@@ -800,7 +1036,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return false;
@@ -809,11 +1046,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> HaveAttributeWithArguments([NotNull] Attribute attribute,
-            IEnumerable<object> argumentValues)
+        public static IPredicate<T> HaveAttributeWithArguments(
+            [NotNull] Attribute attribute,
+            IEnumerable<object> argumentValues
+        )
         {
             string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "have attribute \"" + attribute.FullName + "\"";
@@ -821,9 +1060,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentValueList.First();
-                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
-                    "have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
-                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                description = argumentValueList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "have attribute \""
+                            + attribute.FullName
+                            + "\" with arguments \""
+                            + firstArgument
+                            + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -835,9 +1081,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
-                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    var attributeArguments = attributeInstance
+                        .AttributeArguments.Select(arg => arg.Value)
+                        .ToList();
+                    var typeAttributeArguments = attributeArguments
+                        .OfType<ITypeInstance<IType>>()
+                        .Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>())
+                        .ToList();
                     foreach (var arg in argumentValueList)
                     {
                         if (arg is Type argType)
@@ -854,7 +1105,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return false;
@@ -863,11 +1115,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> HaveAttributeWithArguments([NotNull] Type attribute,
-            IEnumerable<object> argumentValues)
+        public static IPredicate<T> HaveAttributeWithArguments(
+            [NotNull] Type attribute,
+            IEnumerable<object> argumentValues
+        )
         {
             string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "have attribute \"" + attribute.FullName + "\"";
@@ -875,9 +1129,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentValueList.First();
-                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
-                    "have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
-                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                description = argumentValueList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "have attribute \""
+                            + attribute.FullName
+                            + "\" with arguments \""
+                            + firstArgument
+                            + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -900,9 +1161,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
-                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    var attributeArguments = attributeInstance
+                        .AttributeArguments.Select(arg => arg.Value)
+                        .ToList();
+                    var typeAttributeArguments = attributeArguments
+                        .OfType<ITypeInstance<IType>>()
+                        .Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>())
+                        .ToList();
                     foreach (var arg in argumentValueList)
                     {
                         if (arg is Type argType)
@@ -919,7 +1185,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return false;
@@ -929,7 +1196,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public static IPredicate<T> HaveAnyAttributesWithNamedArguments(
-            IEnumerable<(string, object)> attributeArguments)
+            IEnumerable<(string, object)> attributeArguments
+        )
         {
             var argumentList = attributeArguments.ToList();
             string description;
@@ -940,30 +1208,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentList.First();
-                description = argumentList.Where(attribute => attribute != firstArgument).Aggregate(
-                    "have any attributes with named arguments \"" + firstArgument.Item1 + "=" + firstArgument.Item2 +
-                    "\"",
-                    (current, arg) =>
-                        current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                description = argumentList
+                    .Where(attribute => attribute != firstArgument)
+                    .Aggregate(
+                        "have any attributes with named arguments \""
+                            + firstArgument.Item1
+                            + "="
+                            + firstArgument.Item2
+                            + "\"",
+                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
             {
-                var attArguments = obj.AttributeInstances.SelectMany(instance =>
-                        instance.AttributeArguments.OfType<AttributeNamedArgument>()
-                            .Select(arg => (arg.Name, arg.Value)))
+                var attArguments = obj
+                    .AttributeInstances.SelectMany(instance =>
+                        instance
+                            .AttributeArguments.OfType<AttributeNamedArgument>()
+                            .Select(arg => (arg.Name, arg.Value))
+                    )
                     .ToList();
                 var typeAttributeArguments = attArguments
-                    .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                    .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
+                    .ToList();
                 foreach (var arg in argumentList)
                 {
                     if (arg.Item2 is Type argType)
                     {
-                        if (typeAttributeArguments.All(t =>
-                                t.Name != arg.Item1 ||
-                                t.Value is ITypeInstance<IType> typeInstance &&
-                                typeInstance.Type.FullName != argType.FullName ||
-                                t.Value is IType type && type.FullName != argType.FullName))
+                        if (
+                            typeAttributeArguments.All(t =>
+                                t.Name != arg.Item1
+                                || t.Value is ITypeInstance<IType> typeInstance
+                                    && typeInstance.Type.FullName != argType.FullName
+                                || t.Value is IType type && type.FullName != argType.FullName
+                            )
+                        )
                         {
                             return false;
                         }
@@ -980,8 +1260,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> HaveAttributeWithNamedArguments([NotNull] string attribute,
-            IEnumerable<(string, object)> attributeArguments)
+        public static IPredicate<T> HaveAttributeWithNamedArguments(
+            [NotNull] string attribute,
+            IEnumerable<(string, object)> attributeArguments
+        )
         {
             string description;
             var argumentList = attributeArguments.ToList();
@@ -992,10 +1274,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentList.First();
-                description = argumentList.Where(att => att != firstArgument).Aggregate(
-                    "have attribute \"" + attribute + "\" with named arguments \"" + firstArgument.Item1 +
-                    "=" + firstArgument.Item2 + "\"",
-                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                description = argumentList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "have attribute \""
+                            + attribute
+                            + "\" with named arguments \""
+                            + firstArgument.Item1
+                            + "="
+                            + firstArgument.Item2
+                            + "\"",
+                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -1007,19 +1297,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var attributeArgs = attributeInstance
+                        .AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value))
+                        .ToList();
                     var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
+                        .ToList();
                     foreach (var arg in argumentList)
                     {
                         if (arg.Item2 is Type argType)
                         {
-                            if (typeAttributeArguments.All(t =>
-                                    t.Name != arg.Item1 ||
-                                    t.Value is ITypeInstance<IType> typeInstance &&
-                                    typeInstance.Type.FullName != argType.FullName ||
-                                    t.Value is IType type && type.FullName != argType.FullName))
+                            if (
+                                typeAttributeArguments.All(t =>
+                                    t.Name != arg.Item1
+                                    || t.Value is ITypeInstance<IType> typeInstance
+                                        && typeInstance.Type.FullName != argType.FullName
+                                    || t.Value is IType type && type.FullName != argType.FullName
+                                )
+                            )
                             {
                                 goto NextAttribute;
                             }
@@ -1031,7 +1327,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return false;
@@ -1040,8 +1337,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> HaveAttributeWithNamedArguments([NotNull] Attribute attribute,
-            IEnumerable<(string, object)> attributeArguments)
+        public static IPredicate<T> HaveAttributeWithNamedArguments(
+            [NotNull] Attribute attribute,
+            IEnumerable<(string, object)> attributeArguments
+        )
         {
             string description;
             var argumentList = attributeArguments.ToList();
@@ -1052,10 +1351,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentList.First();
-                description = argumentList.Where(att => att != firstArgument).Aggregate(
-                    "have attribute \"" + attribute.FullName + "\" with named arguments \"" + firstArgument.Item1 +
-                    "=" + firstArgument.Item2 + "\"",
-                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                description = argumentList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "have attribute \""
+                            + attribute.FullName
+                            + "\" with named arguments \""
+                            + firstArgument.Item1
+                            + "="
+                            + firstArgument.Item2
+                            + "\"",
+                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
+                    );
             }
 
             bool Condition(T obj, Architecture architecture)
@@ -1067,19 +1374,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var attributeArgs = attributeInstance
+                        .AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value))
+                        .ToList();
                     var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
+                        .ToList();
                     foreach (var arg in argumentList)
                     {
                         if (arg.Item2 is Type argType)
                         {
-                            if (typeAttributeArguments.All(t =>
-                                    t.Name != arg.Item1 ||
-                                    t.Value is ITypeInstance<IType> typeInstance &&
-                                    typeInstance.Type.FullName != argType.FullName ||
-                                    t.Value is IType type && type.FullName != argType.FullName))
+                            if (
+                                typeAttributeArguments.All(t =>
+                                    t.Name != arg.Item1
+                                    || t.Value is ITypeInstance<IType> typeInstance
+                                        && typeInstance.Type.FullName != argType.FullName
+                                    || t.Value is IType type && type.FullName != argType.FullName
+                                )
+                            )
                             {
                                 goto NextAttribute;
                             }
@@ -1091,7 +1404,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return false;
@@ -1100,8 +1414,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static IPredicate<T> HaveAttributeWithNamedArguments([NotNull] Type attribute,
-            IEnumerable<(string, object)> attributeArguments)
+        public static IPredicate<T> HaveAttributeWithNamedArguments(
+            [NotNull] Type attribute,
+            IEnumerable<(string, object)> attributeArguments
+        )
         {
             string description;
             var argumentList = attributeArguments.ToList();
@@ -1112,10 +1428,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentList.First();
-                description = argumentList.Where(att => att != firstArgument).Aggregate(
-                    "have attribute \"" + attribute.FullName + "\" with named arguments \"" + firstArgument.Item1 +
-                    "=" + firstArgument.Item2 + "\"",
-                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                description = argumentList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "have attribute \""
+                            + attribute.FullName
+                            + "\" with named arguments \""
+                            + firstArgument.Item1
+                            + "="
+                            + firstArgument.Item2
+                            + "\"",
+                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -1138,19 +1462,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var attributeArgs = attributeInstance
+                        .AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value))
+                        .ToList();
                     var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
+                        .ToList();
                     foreach (var arg in argumentList)
                     {
                         if (arg.Item2 is Type argType)
                         {
-                            if (typeAttributeArguments.All(t =>
-                                    t.Name != arg.Item1 ||
-                                    t.Value is ITypeInstance<IType> typeInstance &&
-                                    typeInstance.Type.FullName != argType.FullName ||
-                                    t.Value is IType type && type.FullName != argType.FullName))
+                            if (
+                                typeAttributeArguments.All(t =>
+                                    t.Name != arg.Item1
+                                    || t.Value is ITypeInstance<IType> typeInstance
+                                        && typeInstance.Type.FullName != argType.FullName
+                                    || t.Value is IType type && type.FullName != argType.FullName
+                                )
+                            )
                             {
                                 goto NextAttribute;
                             }
@@ -1162,7 +1492,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return false;
@@ -1173,37 +1504,54 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> HaveName(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.NameMatches(pattern, useRegularExpressions),
-                "have name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.NameMatches(pattern, useRegularExpressions),
+                "have name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\""
+            );
         }
 
         public static IPredicate<T> HaveFullName(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => obj.FullNameMatches(pattern, useRegularExpressions),
-                "have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.FullNameMatches(pattern, useRegularExpressions),
+                "have full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
         public static IPredicate<T> HaveNameStartingWith(string pattern)
         {
-            return new SimplePredicate<T>(obj => obj.NameStartsWith(pattern),
-                "have name starting with \"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.NameStartsWith(pattern),
+                "have name starting with \"" + pattern + "\""
+            );
         }
 
         public static IPredicate<T> HaveNameEndingWith(string pattern)
         {
-            return new SimplePredicate<T>(obj => obj.NameEndsWith(pattern),
-                "have name ending with \"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.NameEndsWith(pattern),
+                "have name ending with \"" + pattern + "\""
+            );
         }
 
         public static IPredicate<T> HaveNameContaining(string pattern)
         {
-            return new SimplePredicate<T>(obj => obj.NameContains(pattern), "have name containing \"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.NameContains(pattern),
+                "have name containing \"" + pattern + "\""
+            );
         }
 
         public static IPredicate<T> HaveFullNameContaining(string pattern)
         {
-            return new SimplePredicate<T>(obj => obj.FullNameContains(pattern),
-                "have full name containing \"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => obj.FullNameContains(pattern),
+                "have full name containing \"" + pattern + "\""
+            );
         }
 
         public static IPredicate<T> ArePrivate()
@@ -1228,26 +1576,39 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> AreProtectedInternal()
         {
-            return new SimplePredicate<T>(obj => obj.Visibility == ProtectedInternal, "are protected internal");
+            return new SimplePredicate<T>(
+                obj => obj.Visibility == ProtectedInternal,
+                "are protected internal"
+            );
         }
 
         public static IPredicate<T> ArePrivateProtected()
         {
-            return new SimplePredicate<T>(obj => obj.Visibility == PrivateProtected, "are private protected");
+            return new SimplePredicate<T>(
+                obj => obj.Visibility == PrivateProtected,
+                "are private protected"
+            );
         }
-
 
         //Negations
 
 
         public static IPredicate<T> AreNot(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => !obj.FullNameMatches(pattern, useRegularExpressions),
-                "do not have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern +
-                "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.FullNameMatches(pattern, useRegularExpressions),
+                "do not have full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> AreNot(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> AreNot(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
             string description;
@@ -1258,20 +1619,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "do not have full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "do not have full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(
-                obj => patternList.All(pattern => !obj.FullNameMatches(pattern, useRegularExpressions)), description);
+                obj =>
+                    patternList.All(pattern =>
+                        !obj.FullNameMatches(pattern, useRegularExpressions)
+                    ),
+                description
+            );
         }
 
-        public static IPredicate<T> AreNot(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects)
+        public static IPredicate<T> AreNot(
+            ICanBeAnalyzed firstObject,
+            params ICanBeAnalyzed[] moreObjects
+        )
         {
-            var objects = new List<ICanBeAnalyzed> {firstObject}.Concat(moreObjects).OfType<T>();
-            var description = moreObjects.Aggregate("are not \"" + firstObject.FullName + "\"",
-                (current, obj) => current + " or \"" + obj.FullName + "\"");
+            var objects = new List<ICanBeAnalyzed> { firstObject }
+                .Concat(moreObjects)
+                .OfType<T>();
+            var description = moreObjects.Aggregate(
+                "are not \"" + firstObject.FullName + "\"",
+                (current, obj) => current + " or \"" + obj.FullName + "\""
+            );
             return new EnumerablePredicate<T>(e => e.Except(objects), description);
         }
 
@@ -1286,9 +1667,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstObject = objectList.First();
-                description = objectList.Where(obj => !obj.Equals(firstObject)).Distinct().Aggregate(
-                    "are not \"" + firstObject.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = objectList
+                    .Where(obj => !obj.Equals(firstObject))
+                    .Distinct()
+                    .Aggregate(
+                        "are not \"" + firstObject.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(e => e.Except(objectList.OfType<T>()), description);
@@ -1306,18 +1691,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotCallAny(string pattern, bool useRegularExpressions = false)
         {
-            return new SimplePredicate<T>(obj => !obj.CallsMethod(pattern, useRegularExpressions),
-                "do not call any methods with full name " + (useRegularExpressions ? "matching " : "") +
-                "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.CallsMethod(pattern, useRegularExpressions),
+                "do not call any methods with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> DoNotCallAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotCallAny(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Filter(T type)
             {
-                return patternList.All(pattern => !type.CallsMethod(pattern, useRegularExpressions));
+                return patternList.All(pattern =>
+                    !type.CallsMethod(pattern, useRegularExpressions)
+                );
             }
 
             string description;
@@ -1328,18 +1723,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "do not call any methods with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "do not call any methods with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> DoNotCallAny(MethodMember method, params MethodMember[] moreMethods)
+        public static IPredicate<T> DoNotCallAny(
+            MethodMember method,
+            params MethodMember[] moreMethods
+        )
         {
-            var methods = new List<MethodMember> {method};
+            var methods = new List<MethodMember> { method };
             methods.AddRange(moreMethods);
             return DoNotCallAny(methods);
         }
@@ -1373,29 +1778,48 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstMethod = methodList.First();
-                description = methodList.Where(obj => !obj.Equals(firstMethod)).Distinct().Aggregate(
-                    "do not call \"" + firstMethod.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = methodList
+                    .Where(obj => !obj.Equals(firstMethod))
+                    .Distinct()
+                    .Aggregate(
+                        "do not call \"" + firstMethod.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> DoNotDependOnAny(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotDependOnAny(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(obj => !obj.DependsOn(pattern, useRegularExpressions),
-                "do not depend on any types with full name " + (useRegularExpressions ? "matching " : "") +
-                "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.DependsOn(pattern, useRegularExpressions),
+                "do not depend on any types with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> DoNotDependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotDependOnAny(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Filter(T type)
             {
-                return type.GetTypeDependencies().All(target =>
-                    patternList.All(pattern => target.FullNameMatches(pattern, useRegularExpressions)));
+                return type.GetTypeDependencies()
+                    .All(target =>
+                        patternList.All(pattern =>
+                            target.FullNameMatches(pattern, useRegularExpressions)
+                        )
+                    );
             }
 
             string description;
@@ -1406,10 +1830,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "do not depend on any types with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "do not depend on any types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Filter, description);
@@ -1417,14 +1848,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> DoNotDependOnAny(IType firstType, params IType[] moreTypes)
         {
-            var types = new List<IType> {firstType};
+            var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return DoNotDependOnAny(types);
         }
 
         public static IPredicate<T> DoNotDependOnAny(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return DoNotDependOnAny(types);
         }
@@ -1458,9 +1889,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => !obj.Equals(firstType)).Distinct().Aggregate(
-                    "do not depend on \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = typeList
+                    .Where(obj => !obj.Equals(firstType))
+                    .Distinct()
+                    .Aggregate(
+                        "do not depend on \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Filter, description);
@@ -1486,7 +1921,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
                 }
 
-                return objects.Where(obj => !obj.GetTypeDependencies().Intersect(archUnitTypeList).Any());
+                return objects.Where(obj =>
+                    !obj.GetTypeDependencies().Intersect(archUnitTypeList).Any()
+                );
             }
 
             string description;
@@ -1497,31 +1934,47 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "do not depend on \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = typeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "do not depend on \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> DoNotHaveAnyAttributes(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotHaveAnyAttributes(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(obj => !obj.HasAttribute(pattern, useRegularExpressions),
-                "do not have any attribute with full name " + (useRegularExpressions ? "matching " : "") +
-                "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.HasAttribute(pattern, useRegularExpressions),
+                "do not have any attribute with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> DoNotHaveAnyAttributes(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotHaveAnyAttributes(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Filter(T type)
             {
                 return !type.Attributes.Any(attribute =>
-                    patternList.Any(pattern => attribute.FullNameMatches(pattern, useRegularExpressions)));
+                    patternList.Any(pattern =>
+                        attribute.FullNameMatches(pattern, useRegularExpressions)
+                    )
+                );
             }
 
             string description;
@@ -1532,30 +1985,45 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(pattern => !pattern.Equals(firstPattern)).Distinct().Aggregate(
-                    "do not have any attribute with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" +
-                    firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(pattern => !pattern.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "do not have any attribute with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> DoNotHaveAnyAttributes(Attribute firstAttribute, params Attribute[] moreAttributes)
+        public static IPredicate<T> DoNotHaveAnyAttributes(
+            Attribute firstAttribute,
+            params Attribute[] moreAttributes
+        )
         {
-            var attributes = new List<Attribute> {firstAttribute};
+            var attributes = new List<Attribute> { firstAttribute };
             attributes.AddRange(moreAttributes);
             return DoNotHaveAnyAttributes(attributes);
         }
 
-        public static IPredicate<T> DoNotHaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes)
+        public static IPredicate<T> DoNotHaveAnyAttributes(
+            Type firstAttribute,
+            params Type[] moreAttributes
+        )
         {
-            var attributes = new List<Type> {firstAttribute};
+            var attributes = new List<Type> { firstAttribute };
             attributes.AddRange(moreAttributes);
             return DoNotHaveAnyAttributes(attributes);
         }
 
-        public static IPredicate<T> DoNotHaveAnyAttributes(IObjectProvider<Attribute> objectProvider)
+        public static IPredicate<T> DoNotHaveAnyAttributes(
+            IObjectProvider<Attribute> objectProvider
+        )
         {
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
@@ -1584,9 +2052,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstAttribute = attributeList.First();
-                description = attributeList.Where(obj => !obj.Equals(firstAttribute)).Distinct().Aggregate(
-                    "do not have attribute \"" + firstAttribute.FullName + "\"",
-                    (current, attribute) => current + " or \"" + attribute.FullName + "\"");
+                description = attributeList
+                    .Where(obj => !obj.Equals(firstAttribute))
+                    .Distinct()
+                    .Aggregate(
+                        "do not have attribute \"" + firstAttribute.FullName + "\"",
+                        (current, attribute) => current + " or \"" + attribute.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Filter, description);
@@ -1623,83 +2095,109 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstType = attributeList.First();
-                description = attributeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "do not have attribute \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = attributeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "do not have attribute \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> DoNotHaveAnyAttributesWithArguments(object firstArgumentValue,
-            params object[] moreArgumentValues)
+        public static IPredicate<T> DoNotHaveAnyAttributesWithArguments(
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        )
         {
-            var argumentValues = new List<object> {firstArgumentValue};
+            var argumentValues = new List<object> { firstArgumentValue };
             argumentValues.AddRange(moreArgumentValues);
             return DoNotHaveAnyAttributesWithArguments(argumentValues);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithArguments(string attribute, object firstArgumentValue,
-            params object[] moreArgumentValues)
-        {
-            var argumentValues = new List<object> {firstArgumentValue};
-            argumentValues.AddRange(moreArgumentValues);
-            return DoNotHaveAttributeWithArguments(attribute, argumentValues);
-        }
-
-        public static IPredicate<T> DoNotHaveAttributeWithArguments(Attribute attribute,
+        public static IPredicate<T> DoNotHaveAttributeWithArguments(
+            string attribute,
             object firstArgumentValue,
-            params object[] moreArgumentValues)
+            params object[] moreArgumentValues
+        )
         {
-            var argumentValues = new List<object> {firstArgumentValue};
+            var argumentValues = new List<object> { firstArgumentValue };
             argumentValues.AddRange(moreArgumentValues);
             return DoNotHaveAttributeWithArguments(attribute, argumentValues);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithArguments(Type attribute, object firstArgumentValue,
-            params object[] moreArgumentValues)
+        public static IPredicate<T> DoNotHaveAttributeWithArguments(
+            Attribute attribute,
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        )
         {
-            var argumentValues = new List<object> {firstArgumentValue};
+            var argumentValues = new List<object> { firstArgumentValue };
+            argumentValues.AddRange(moreArgumentValues);
+            return DoNotHaveAttributeWithArguments(attribute, argumentValues);
+        }
+
+        public static IPredicate<T> DoNotHaveAttributeWithArguments(
+            Type attribute,
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        )
+        {
+            var argumentValues = new List<object> { firstArgumentValue };
             argumentValues.AddRange(moreArgumentValues);
             return DoNotHaveAttributeWithArguments(attribute, argumentValues);
         }
 
         public static IPredicate<T> DoNotHaveAnyAttributesWithNamedArguments(
             (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments)
+            params (string, object)[] moreAttributeArguments
+        )
         {
-            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return DoNotHaveAnyAttributesWithNamedArguments(attributeArguments);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(string attribute,
-            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
+            string attribute,
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        )
         {
-            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return DoNotHaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(Attribute attribute,
-            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
+            Attribute attribute,
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        )
         {
-            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return DoNotHaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(Type attribute,
-            (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments)
+        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
+            Type attribute,
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        )
         {
-            var attributeArguments = new List<(string, object)> {firstAttributeArgument};
+            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return DoNotHaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
-        public static IPredicate<T> DoNotHaveAnyAttributesWithArguments(IEnumerable<object> argumentValues)
+        public static IPredicate<T> DoNotHaveAnyAttributesWithArguments(
+            IEnumerable<object> argumentValues
+        )
         {
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
             string description;
             if (argumentValueList.IsNullOrEmpty())
             {
@@ -1708,17 +2206,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentValueList.First();
-                description = argumentValueList.Where(attribute => attribute != firstArgument).Aggregate(
-                    "do not have any attributes with arguments \"" + firstArgument + "\"",
-                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                description = argumentValueList
+                    .Where(attribute => attribute != firstArgument)
+                    .Aggregate(
+                        "do not have any attributes with arguments \"" + firstArgument + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
             {
-                var attributeArguments = obj.AttributeInstances
-                    .SelectMany(instance => instance.AttributeArguments.Select(arg => arg.Value)).ToList();
-                var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
-                    .Union(attributeArguments.OfType<IType>()).ToList();
+                var attributeArguments = obj
+                    .AttributeInstances.SelectMany(instance =>
+                        instance.AttributeArguments.Select(arg => arg.Value)
+                    )
+                    .ToList();
+                var typeAttributeArguments = attributeArguments
+                    .OfType<ITypeInstance<IType>>()
+                    .Select(t => t.Type)
+                    .Union(attributeArguments.OfType<IType>())
+                    .ToList();
                 foreach (var arg in argumentValueList)
                 {
                     if (arg is Type argType)
@@ -1740,11 +2247,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithArguments([NotNull] string attribute,
-            IEnumerable<object> argumentValues)
+        public static IPredicate<T> DoNotHaveAttributeWithArguments(
+            [NotNull] string attribute,
+            IEnumerable<object> argumentValues
+        )
         {
             string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "do not have attribute \"" + attribute + "\"";
@@ -1752,9 +2261,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentValueList.First();
-                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
-                    "do not have attribute \"" + attribute + "\" with arguments \"" + firstArgument + "\"",
-                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                description = argumentValueList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "do not have attribute \""
+                            + attribute
+                            + "\" with arguments \""
+                            + firstArgument
+                            + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -1766,9 +2282,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
-                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    var attributeArguments = attributeInstance
+                        .AttributeArguments.Select(arg => arg.Value)
+                        .ToList();
+                    var typeAttributeArguments = attributeArguments
+                        .OfType<ITypeInstance<IType>>()
+                        .Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>())
+                        .ToList();
                     foreach (var arg in argumentValueList)
                     {
                         if (arg is Type argType)
@@ -1785,7 +2306,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return true;
@@ -1794,11 +2316,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithArguments([NotNull] Attribute attribute,
-            IEnumerable<object> argumentValues)
+        public static IPredicate<T> DoNotHaveAttributeWithArguments(
+            [NotNull] Attribute attribute,
+            IEnumerable<object> argumentValues
+        )
         {
             string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "do not have attribute \"" + attribute.FullName + "\"";
@@ -1806,9 +2330,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentValueList.First();
-                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
-                    "do not have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
-                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                description = argumentValueList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "do not have attribute \""
+                            + attribute.FullName
+                            + "\" with arguments \""
+                            + firstArgument
+                            + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -1820,9 +2351,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
-                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    var attributeArguments = attributeInstance
+                        .AttributeArguments.Select(arg => arg.Value)
+                        .ToList();
+                    var typeAttributeArguments = attributeArguments
+                        .OfType<ITypeInstance<IType>>()
+                        .Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>())
+                        .ToList();
                     foreach (var arg in argumentValueList)
                     {
                         if (arg is Type argType)
@@ -1839,7 +2375,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return true;
@@ -1848,11 +2385,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithArguments([NotNull] Type attribute,
-            IEnumerable<object> argumentValues)
+        public static IPredicate<T> DoNotHaveAttributeWithArguments(
+            [NotNull] Type attribute,
+            IEnumerable<object> argumentValues
+        )
         {
             string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> {null};
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "do not have attribute \"" + attribute.FullName + "\"";
@@ -1860,9 +2399,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentValueList.First();
-                description = argumentValueList.Where(att => att != firstArgument).Aggregate(
-                    "do not have attribute \"" + attribute.FullName + "\" with arguments \"" + firstArgument + "\"",
-                    (current, argumentValue) => current + " and \"" + argumentValue + "\"");
+                description = argumentValueList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "do not have attribute \""
+                            + attribute.FullName
+                            + "\" with arguments \""
+                            + firstArgument
+                            + "\"",
+                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -1885,9 +2431,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArguments = attributeInstance.AttributeArguments.Select(arg => arg.Value).ToList();
-                    var typeAttributeArguments = attributeArguments.OfType<ITypeInstance<IType>>().Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>()).ToList();
+                    var attributeArguments = attributeInstance
+                        .AttributeArguments.Select(arg => arg.Value)
+                        .ToList();
+                    var typeAttributeArguments = attributeArguments
+                        .OfType<ITypeInstance<IType>>()
+                        .Select(t => t.Type)
+                        .Union(attributeArguments.OfType<IType>())
+                        .ToList();
                     foreach (var arg in argumentValueList)
                     {
                         if (arg is Type argType)
@@ -1904,7 +2455,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return true;
@@ -1914,7 +2466,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public static IPredicate<T> DoNotHaveAnyAttributesWithNamedArguments(
-            IEnumerable<(string, object)> attributeArguments)
+            IEnumerable<(string, object)> attributeArguments
+        )
         {
             var argumentList = attributeArguments.ToList();
             string description;
@@ -1925,31 +2478,44 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentList.First();
-                description = argumentList.Where(attribute => attribute != firstArgument).Aggregate(
-                    "do not have any attributes with named arguments \"" + firstArgument.Item1 + "=" +
-                    firstArgument.Item2 +
-                    "\"",
-                    (current, arg) =>
-                        current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                description = argumentList
+                    .Where(attribute => attribute != firstArgument)
+                    .Aggregate(
+                        "do not have any attributes with named arguments \""
+                            + firstArgument.Item1
+                            + "="
+                            + firstArgument.Item2
+                            + "\"",
+                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
+                    );
             }
 
             bool Condition(T obj, Architecture architecture)
             {
-                var attArguments = obj.AttributeInstances.SelectMany(instance =>
-                        instance.AttributeArguments.OfType<AttributeNamedArgument>()
-                            .Select(arg => (arg.Name, arg.Value)))
+                var attArguments = obj
+                    .AttributeInstances.SelectMany(instance =>
+                        instance
+                            .AttributeArguments.OfType<AttributeNamedArgument>()
+                            .Select(arg => (arg.Name, arg.Value))
+                    )
                     .ToList();
                 var typeAttributeArguments = attArguments
-                    .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                    .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
+                    .ToList();
                 foreach (var arg in argumentList)
                 {
                     if (arg.Item2 is Type argType)
                     {
-                        if (typeAttributeArguments.Any(t =>
-                                t.Name == arg.Item1 &&
-                                (t.Value is ITypeInstance<IType> typeInstance &&
-                                 typeInstance.Type.FullName == argType.FullName ||
-                                 t.Value is IType type && type.FullName == argType.FullName)))
+                        if (
+                            typeAttributeArguments.Any(t =>
+                                t.Name == arg.Item1
+                                && (
+                                    t.Value is ITypeInstance<IType> typeInstance
+                                        && typeInstance.Type.FullName == argType.FullName
+                                    || t.Value is IType type && type.FullName == argType.FullName
+                                )
+                            )
+                        )
                         {
                             return false;
                         }
@@ -1966,8 +2532,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments([NotNull] string attribute,
-            IEnumerable<(string, object)> attributeArguments)
+        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
+            [NotNull] string attribute,
+            IEnumerable<(string, object)> attributeArguments
+        )
         {
             string description;
             var argumentList = attributeArguments.ToList();
@@ -1978,10 +2546,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentList.First();
-                description = argumentList.Where(att => att != firstArgument).Aggregate(
-                    "do not have attribute \"" + attribute + "\" with named arguments \"" + firstArgument.Item1 +
-                    "=" + firstArgument.Item2 + "\"",
-                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                description = argumentList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "do not have attribute \""
+                            + attribute
+                            + "\" with named arguments \""
+                            + firstArgument.Item1
+                            + "="
+                            + firstArgument.Item2
+                            + "\"",
+                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -1993,19 +2569,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var attributeArgs = attributeInstance
+                        .AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value))
+                        .ToList();
                     var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
+                        .ToList();
                     foreach (var arg in argumentList)
                     {
                         if (arg.Item2 is Type argType)
                         {
-                            if (typeAttributeArguments.All(t => t.Name != arg.Item1 ||
-                                                                t.Value is ITypeInstance<IType> typeInstance &&
-                                                                typeInstance.Type.FullName != argType.FullName ||
-                                                                t.Value is IType type &&
-                                                                type.FullName != argType.FullName))
+                            if (
+                                typeAttributeArguments.All(t =>
+                                    t.Name != arg.Item1
+                                    || t.Value is ITypeInstance<IType> typeInstance
+                                        && typeInstance.Type.FullName != argType.FullName
+                                    || t.Value is IType type && type.FullName != argType.FullName
+                                )
+                            )
                             {
                                 goto NextAttribute;
                             }
@@ -2017,7 +2599,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return true;
@@ -2026,8 +2609,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments([NotNull] Attribute attribute,
-            IEnumerable<(string, object)> attributeArguments)
+        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
+            [NotNull] Attribute attribute,
+            IEnumerable<(string, object)> attributeArguments
+        )
         {
             string description;
             var argumentList = attributeArguments.ToList();
@@ -2038,11 +2623,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentList.First();
-                description = argumentList.Where(att => att != firstArgument).Aggregate(
-                    "do not have attribute \"" + attribute.FullName + "\" with named arguments \"" +
-                    firstArgument.Item1 +
-                    "=" + firstArgument.Item2 + "\"",
-                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                description = argumentList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "do not have attribute \""
+                            + attribute.FullName
+                            + "\" with named arguments \""
+                            + firstArgument.Item1
+                            + "="
+                            + firstArgument.Item2
+                            + "\"",
+                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -2054,19 +2646,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var attributeArgs = attributeInstance
+                        .AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value))
+                        .ToList();
                     var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
+                        .ToList();
                     foreach (var arg in argumentList)
                     {
                         if (arg.Item2 is Type argType)
                         {
-                            if (typeAttributeArguments.All(t => t.Name != arg.Item1 ||
-                                                                t.Value is ITypeInstance<IType> typeInstance &&
-                                                                typeInstance.Type.FullName != argType.FullName ||
-                                                                t.Value is IType type &&
-                                                                type.FullName != argType.FullName))
+                            if (
+                                typeAttributeArguments.All(t =>
+                                    t.Name != arg.Item1
+                                    || t.Value is ITypeInstance<IType> typeInstance
+                                        && typeInstance.Type.FullName != argType.FullName
+                                    || t.Value is IType type && type.FullName != argType.FullName
+                                )
+                            )
                             {
                                 goto NextAttribute;
                             }
@@ -2078,7 +2676,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return true;
@@ -2087,8 +2686,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments([NotNull] Type attribute,
-            IEnumerable<(string, object)> attributeArguments)
+        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
+            [NotNull] Type attribute,
+            IEnumerable<(string, object)> attributeArguments
+        )
         {
             string description;
             var argumentList = attributeArguments.ToList();
@@ -2099,11 +2700,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             else
             {
                 var firstArgument = argumentList.First();
-                description = argumentList.Where(att => att != firstArgument).Aggregate(
-                    "do not have attribute \"" + attribute.FullName + "\" with named arguments \"" +
-                    firstArgument.Item1 +
-                    "=" + firstArgument.Item2 + "\"",
-                    (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\"");
+                description = argumentList
+                    .Where(att => att != firstArgument)
+                    .Aggregate(
+                        "do not have attribute \""
+                            + attribute.FullName
+                            + "\" with named arguments \""
+                            + firstArgument.Item1
+                            + "="
+                            + firstArgument.Item2
+                            + "\"",
+                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
+                    );
             }
 
             bool Predicate(T obj, Architecture architecture)
@@ -2126,19 +2734,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         goto NextAttribute;
                     }
 
-                    var attributeArgs = attributeInstance.AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value)).ToList();
+                    var attributeArgs = attributeInstance
+                        .AttributeArguments.OfType<AttributeNamedArgument>()
+                        .Select(arg => (arg.Name, arg.Value))
+                        .ToList();
                     var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType).ToList();
+                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
+                        .ToList();
                     foreach (var arg in argumentList)
                     {
                         if (arg.Item2 is Type argType)
                         {
-                            if (typeAttributeArguments.All(t => t.Name != arg.Item1 ||
-                                                                t.Value is ITypeInstance<IType> typeInstance &&
-                                                                typeInstance.Type.FullName != argType.FullName ||
-                                                                t.Value is IType type &&
-                                                                type.FullName != argType.FullName))
+                            if (
+                                typeAttributeArguments.All(t =>
+                                    t.Name != arg.Item1
+                                    || t.Value is ITypeInstance<IType> typeInstance
+                                        && typeInstance.Type.FullName != argType.FullName
+                                    || t.Value is IType type && type.FullName != argType.FullName
+                                )
+                            )
                             {
                                 goto NextAttribute;
                             }
@@ -2150,7 +2764,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute: ;
+                    NextAttribute:
+                    ;
                 }
 
                 return true;
@@ -2159,40 +2774,66 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> DoNotHaveName(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotHaveName(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(obj => !obj.NameMatches(pattern, useRegularExpressions),
-                "do not have name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.NameMatches(pattern, useRegularExpressions),
+                "do not have name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> DoNotHaveFullName(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotHaveFullName(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(obj => !obj.FullNameMatches(pattern, useRegularExpressions),
-                "do not have full name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.FullNameMatches(pattern, useRegularExpressions),
+                "do not have full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
         public static IPredicate<T> DoNotHaveNameStartingWith(string pattern)
         {
-            return new SimplePredicate<T>(obj => !obj.NameStartsWith(pattern),
-                "do not have name starting with \"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.NameStartsWith(pattern),
+                "do not have name starting with \"" + pattern + "\""
+            );
         }
 
         public static IPredicate<T> DoNotHaveNameEndingWith(string pattern)
         {
-            return new SimplePredicate<T>(obj => !obj.NameEndsWith(pattern),
-                "do not have name ending with \"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.NameEndsWith(pattern),
+                "do not have name ending with \"" + pattern + "\""
+            );
         }
 
         public static IPredicate<T> DoNotHaveNameContaining(string pattern)
         {
-            return new SimplePredicate<T>(obj => !obj.NameContains(pattern),
-                "do not have name containing \"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.NameContains(pattern),
+                "do not have name containing \"" + pattern + "\""
+            );
         }
 
         public static IPredicate<T> DoNotHaveFullNameContaining(string pattern)
         {
-            return new SimplePredicate<T>(obj => !obj.FullNameContains(pattern),
-                "do not have full name containing \"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                obj => !obj.FullNameContains(pattern),
+                "do not have full name containing \"" + pattern + "\""
+            );
         }
 
         public static IPredicate<T> AreNotPrivate()
@@ -2217,12 +2858,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public static IPredicate<T> AreNotProtectedInternal()
         {
-            return new SimplePredicate<T>(obj => obj.Visibility != ProtectedInternal, "are not protected internal");
+            return new SimplePredicate<T>(
+                obj => obj.Visibility != ProtectedInternal,
+                "are not protected internal"
+            );
         }
 
         public static IPredicate<T> AreNotPrivateProtected()
         {
-            return new SimplePredicate<T>(obj => obj.Visibility != PrivateProtected, "are not private protected");
+            return new SimplePredicate<T>(
+                obj => obj.Visibility != PrivateProtected,
+                "are not private protected"
+            );
         }
     }
 }

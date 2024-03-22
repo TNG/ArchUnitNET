@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -16,14 +16,14 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class KeepDependenciesInAnonymousTypesTests
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(KeepDependenciesInCompilerGeneratedTypesTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(KeepDependenciesInCompilerGeneratedTypesTests).Assembly)
+            .Build();
 
         private readonly Class _castType;
         private readonly Class _class1WithAnonymous;
         private readonly Class _class2WithAnonymous;
         private readonly Class _instantiatedType;
-
 
         public KeepDependenciesInAnonymousTypesTests()
         {
@@ -62,10 +62,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         [Fact]
         public void BackwardDependenciesAssignedCorrectly()
         {
-            var instantiatedTypeBackwardDependencies =
-                _instantiatedType.BackwardsDependencies.Select(dep => dep.Origin).ToList();
-            var castTypeBackwardDependencies =
-                _castType.BackwardsDependencies.Select(dep => dep.Origin).ToList();
+            var instantiatedTypeBackwardDependencies = _instantiatedType
+                .BackwardsDependencies.Select(dep => dep.Origin)
+                .ToList();
+            var castTypeBackwardDependencies = _castType
+                .BackwardsDependencies.Select(dep => dep.Origin)
+                .ToList();
 
             Assert.Contains(_class1WithAnonymous, instantiatedTypeBackwardDependencies);
             Assert.Contains(_class2WithAnonymous, instantiatedTypeBackwardDependencies);
@@ -78,7 +80,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
     {
         public Class1WithAnonymousType()
         {
-            var anonymousType = new {referencedType = new InstantiatedType()};
+            var anonymousType = new { referencedType = new InstantiatedType() };
         }
     }
 
@@ -86,15 +88,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
     {
         public Class2WithAnonymousType()
         {
-            var anonymousType = new {castType = (CastType) new InstantiatedType(), i = 3};
+            var anonymousType = new { castType = (CastType)new InstantiatedType(), i = 3 };
         }
     }
 
-    internal class InstantiatedType
-    {
-    }
+    internal class InstantiatedType { }
 
-    internal class CastType : InstantiatedType
-    {
-    }
+    internal class CastType : InstantiatedType { }
 }

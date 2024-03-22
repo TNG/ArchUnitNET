@@ -1,9 +1,9 @@
-﻿using ExampleTest.PlantUml.Addresses;
-using ExampleTest.PlantUml.Customers;
-using ExampleTest.PlantUml.Products;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ExampleTest.PlantUml.Addresses;
+using ExampleTest.PlantUml.Customers;
+using ExampleTest.PlantUml.Products;
 
 namespace ExampleTest.PlantUml.Orders
 {
@@ -26,8 +26,6 @@ namespace ExampleTest.PlantUml.Orders
             }
         }
 
-        private void Report(Address address)
-        {
-        }
+        private void Report(Address address) { }
     }
 }

@@ -4,7 +4,5 @@ using System.Text;
 
 namespace ExampleTest.PlantUml.Xml.Utils
 {
-    public class XmlUtils
-    {
-    }
+    public class XmlUtils { }
 }

@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +26,16 @@ namespace ArchUnitNET.Domain
         public IEnumerable<Class> Classes => Types.OfType<Class>();
         public IEnumerable<Interface> Interfaces => Types.OfType<Interface>();
 
-        public List<ITypeDependency> Dependencies => Types.SelectMany(type => type.Dependencies).ToList();
+        public List<ITypeDependency> Dependencies =>
+            Types.SelectMany(type => type.Dependencies).ToList();
 
         public List<ITypeDependency> BackwardsDependencies =>
             Types.SelectMany(type => type.BackwardsDependencies).ToList();
 
         public string Description => Identifier.Description;
-        [CanBeNull] public string NameSpace => Identifier.NameSpace;
+
+        [CanBeNull]
+        public string NameSpace => Identifier.NameSpace;
         public int? CountOfAsteriskInPattern => Identifier.CountOfAsteriskInPattern;
 
         protected bool Equals(Slice other)
@@ -64,8 +67,8 @@ namespace ArchUnitNET.Domain
         {
             unchecked
             {
-                return ((Identifier != null ? Identifier.GetHashCode() : 0) * 397) ^
-                       (Types != null ? Types.GetHashCode() : 0);
+                return ((Identifier != null ? Identifier.GetHashCode() : 0) * 397)
+                    ^ (Types != null ? Types.GetHashCode() : 0);
             }
         }
 

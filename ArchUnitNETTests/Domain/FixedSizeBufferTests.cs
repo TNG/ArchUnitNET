@@ -1,9 +1,9 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +16,17 @@ namespace ArchUnitNETTests.Domain
 {
     public class FixedSizeBufferTests
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(FixedSizeBufferTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(FixedSizeBufferTests).Assembly)
+            .Build();
 
         private readonly IType _structWithUnsafeContent;
 
         public FixedSizeBufferTests()
         {
-            _structWithUnsafeContent = Architecture.GetITypeOfType(typeof(StructWithFixedSizeBuffer));
+            _structWithUnsafeContent = Architecture.GetITypeOfType(
+                typeof(StructWithFixedSizeBuffer)
+            );
         }
 
         [Fact]
@@ -33,8 +36,8 @@ namespace ArchUnitNETTests.Domain
             Assert.Single(fieldMembers);
             Assert.False(fieldMembers[0].Type.IsCompilerGenerated);
             var fieldTypeDependency = _structWithUnsafeContent.GetFieldTypeDependencies().First();
-            Assert.Equal(typeof(char).FullName,fieldTypeDependency.Target.FullName);
-            Assert.Equal(new List<int>{1},fieldTypeDependency.TargetArrayDimensions);
+            Assert.Equal(typeof(char).FullName, fieldTypeDependency.Target.FullName);
+            Assert.Equal(new List<int> { 1 }, fieldTypeDependency.TargetArrayDimensions);
             Assert.True(fieldTypeDependency.TargetIsArray);
         }
     }

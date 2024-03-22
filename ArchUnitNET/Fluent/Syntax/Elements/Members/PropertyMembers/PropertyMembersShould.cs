@@ -1,19 +1,19 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public class PropertyMembersShould : MembersShould<PropertyMembersShouldConjunction, PropertyMember>,
-        IComplexPropertyMemberConditions
+    public class PropertyMembersShould
+        : MembersShould<PropertyMembersShouldConjunction, PropertyMember>,
+            IComplexPropertyMemberConditions
     {
-        public PropertyMembersShould(IArchRuleCreator<PropertyMember> ruleCreator) : base(ruleCreator)
-        {
-        }
+        public PropertyMembersShould(IArchRuleCreator<PropertyMember> ruleCreator)
+            : base(ruleCreator) { }
 
         public PropertyMembersShouldConjunction HaveGetter()
         {
@@ -47,13 +47,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public PropertyMembersShouldConjunction HaveProtectedInternalGetter()
         {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HaveProtectedInternalGetter());
+            _ruleCreator.AddCondition(
+                PropertyMemberConditionsDefinition.HaveProtectedInternalGetter()
+            );
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
         public PropertyMembersShouldConjunction HavePrivateProtectedGetter()
         {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HavePrivateProtectedGetter());
+            _ruleCreator.AddCondition(
+                PropertyMemberConditionsDefinition.HavePrivateProtectedGetter()
+            );
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
@@ -89,13 +93,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public PropertyMembersShouldConjunction HaveProtectedInternalSetter()
         {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HaveProtectedInternalSetter());
+            _ruleCreator.AddCondition(
+                PropertyMemberConditionsDefinition.HaveProtectedInternalSetter()
+            );
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
         public PropertyMembersShouldConjunction HavePrivateProtectedSetter()
         {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.HavePrivateProtectedSetter());
+            _ruleCreator.AddCondition(
+                PropertyMemberConditionsDefinition.HavePrivateProtectedSetter()
+            );
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
@@ -110,7 +118,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.BeVirtual());
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
-
 
         //Negations
 
@@ -147,13 +154,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public PropertyMembersShouldConjunction NotHaveProtectedInternalGetter()
         {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHaveProtectedInternalGetter());
+            _ruleCreator.AddCondition(
+                PropertyMemberConditionsDefinition.NotHaveProtectedInternalGetter()
+            );
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
         public PropertyMembersShouldConjunction NotHavePrivateProtectedGetter()
         {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHavePrivateProtectedGetter());
+            _ruleCreator.AddCondition(
+                PropertyMemberConditionsDefinition.NotHavePrivateProtectedGetter()
+            );
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
@@ -189,13 +200,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public PropertyMembersShouldConjunction NotHaveProtectedInternalSetter()
         {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHaveProtectedInternalSetter());
+            _ruleCreator.AddCondition(
+                PropertyMemberConditionsDefinition.NotHaveProtectedInternalSetter()
+            );
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 
         public PropertyMembersShouldConjunction NotHavePrivateProtectedSetter()
         {
-            _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHavePrivateProtectedSetter());
+            _ruleCreator.AddCondition(
+                PropertyMemberConditionsDefinition.NotHavePrivateProtectedSetter()
+            );
             return new PropertyMembersShouldConjunction(_ruleCreator);
         }
 

@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -13,12 +13,12 @@ using Xunit;
 using static ArchUnitNET.Domain.Visibility;
 using static ArchUnitNETTests.Domain.StaticTestTypes;
 
-
 namespace ArchUnitNETTests.Domain
 {
     public class ClassTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly Class _baseClass;
         private readonly Interface _chainedInterface;
         private readonly Class _childClass;
@@ -36,9 +36,17 @@ namespace ArchUnitNETTests.Domain
             _childClass = Architecture.GetClassOfType(typeof(ChildClass));
             _duplicateChildClass = _baseClass;
             var backingType = Architecture.GetITypeOfType(typeof(PropertyType));
-            _misMatchType =
-                new Type(backingType.FullName, backingType.Name, backingType.Assembly, backingType.Namespace,
-                    backingType.Visibility, backingType.IsNested, backingType.IsGeneric, backingType.IsStub, false);
+            _misMatchType = new Type(
+                backingType.FullName,
+                backingType.Name,
+                backingType.Assembly,
+                backingType.Namespace,
+                backingType.Visibility,
+                backingType.IsNested,
+                backingType.IsGeneric,
+                backingType.IsStub,
+                false
+            );
             _misMatchType.GenericParameters.AddRange(backingType.GenericParameters);
 
             _implementsInterface = Architecture.GetClassOfType(typeof(InheritingType));
@@ -122,22 +130,29 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void DuplicateClassesAreEqual()
         {
-            Assert.Equal(_classEquivalencyTestData.OriginClass,
-                _classEquivalencyTestData.DuplicateClass);
+            Assert.Equal(
+                _classEquivalencyTestData.OriginClass,
+                _classEquivalencyTestData.DuplicateClass
+            );
         }
 
         [Fact]
         public void DuplicateClassObjectReferencesAreEqual()
         {
-            Assert.Equal(_classEquivalencyTestData.OriginClass,
-                _classEquivalencyTestData.ObjectReferenceDuplicate);
+            Assert.Equal(
+                _classEquivalencyTestData.OriginClass,
+                _classEquivalencyTestData.ObjectReferenceDuplicate
+            );
         }
 
         [Fact]
         public void DuplicateClassReferencesAreEqual()
         {
-            Assert.True(_classEquivalencyTestData.OriginClass
-                .Equals(_classEquivalencyTestData.ClassReferenceDuplicate));
+            Assert.True(
+                _classEquivalencyTestData.OriginClass.Equals(
+                    _classEquivalencyTestData.ClassReferenceDuplicate
+                )
+            );
         }
 
         [Fact]
@@ -165,13 +180,17 @@ namespace ArchUnitNETTests.Domain
                 ObjectReferenceDuplicate = OriginClass;
             }
 
-            [NotNull] public Class OriginClass { get; }
+            [NotNull]
+            public Class OriginClass { get; }
 
-            [NotNull] public object DuplicateClass { get; }
+            [NotNull]
+            public object DuplicateClass { get; }
 
-            [NotNull] public Class ClassReferenceDuplicate { get; }
+            [NotNull]
+            public Class ClassReferenceDuplicate { get; }
 
-            [NotNull] public object ObjectReferenceDuplicate { get; }
+            [NotNull]
+            public object ObjectReferenceDuplicate { get; }
         }
     }
 }

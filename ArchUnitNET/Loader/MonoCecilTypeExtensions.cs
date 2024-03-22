@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using ArchUnitNET.Domain;
@@ -20,12 +20,16 @@ namespace ArchUnitNET.Loader
         {
             if (typeReference.IsGenericParameter)
             {
-                var genericParameter = (GenericParameter) typeReference;
+                var genericParameter = (GenericParameter)typeReference;
 
-                return (genericParameter.Type == GenericParameterType.Type
-                           ? genericParameter.DeclaringType.BuildFullName()
-                           : genericParameter.DeclaringMethod.BuildFullName())
-                       + "+<" + genericParameter.Name + ">";
+                return (
+                        genericParameter.Type == GenericParameterType.Type
+                            ? genericParameter.DeclaringType.BuildFullName()
+                            : genericParameter.DeclaringMethod.BuildFullName()
+                    )
+                    + "+<"
+                    + genericParameter.Name
+                    + ">";
             }
 
             return typeReference.FullName.Replace("/", "+");
@@ -50,8 +54,8 @@ namespace ArchUnitNET.Loader
         {
             if (typeDefinition?.BaseType != null)
             {
-                return typeDefinition.BaseType.FullName == "System.Attribute" ||
-                       IsAttribute(typeDefinition.BaseType.Resolve());
+                return typeDefinition.BaseType.FullName == "System.Attribute"
+                    || IsAttribute(typeDefinition.BaseType.Resolve());
             }
 
             return false;
@@ -94,7 +98,9 @@ namespace ArchUnitNET.Loader
                 return Internal;
             }
 
-            throw new ArgumentException("The provided type definition seems to have no visibility.");
+            throw new ArgumentException(
+                "The provided type definition seems to have no visibility."
+            );
         }
     }
 }

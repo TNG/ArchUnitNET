@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -15,8 +15,9 @@ namespace ArchUnitNETTests.Dependencies
 {
     public class TypeCheckDependenciesTests
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(TypeCheckDependenciesTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(TypeCheckDependenciesTests).Assembly)
+            .Build();
 
         private readonly Class _classWithTypeDepencency;
         private readonly Class _dependingClass;
@@ -30,8 +31,9 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void TypeCheckDependencyTest()
         {
-            var methodMember =
-                _classWithTypeDepencency.Members.First(member => member.NameContains("MethodWithTypeDependency"));
+            var methodMember = _classWithTypeDepencency.Members.First(member =>
+                member.NameContains("MethodWithTypeDependency")
+            );
             var typeDependencies = _classWithTypeDepencency.GetTypeDependencies().ToList();
             var methodTypeDependencies = methodMember.GetTypeDependencies().ToList();
 
@@ -44,13 +46,9 @@ namespace ArchUnitNETTests.Dependencies
     {
         public void MethodWithTypeDependency(object obj)
         {
-            if (obj is DependingClass)
-            {
-            }
+            if (obj is DependingClass) { }
         }
     }
 
-    internal class DependingClass
-    {
-    }
+    internal class DependingClass { }
 }

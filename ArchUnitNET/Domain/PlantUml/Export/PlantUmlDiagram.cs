@@ -23,15 +23,24 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         {
             var result = new StringBuilder();
             result.AppendLine("@startuml").AppendLine();
-            result.AppendLine("!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml")
+            result
+                .AppendLine(
+                    "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml"
+                )
                 .AppendLine();
             result.AppendLine("HIDE_STEREOTYPE()").AppendLine();
-            result.Append(PlantUmlElements
-                .OrderBy(element => element.GetType() != typeof(PlantUmlNamespace))
-                .ThenBy(element => element.GetType() != typeof(PlantUmlSlice))
-                .ThenBy(element => element.GetType() != typeof(PlantUmlClass))
-                .ThenBy(element => element.GetType() != typeof(PlantUmlInterface))
-                .Aggregate("", (umlString, umlElement) => umlString + umlElement.GetPlantUmlString(renderOptions)));
+            result.Append(
+                PlantUmlElements
+                    .OrderBy(element => element.GetType() != typeof(PlantUmlNamespace))
+                    .ThenBy(element => element.GetType() != typeof(PlantUmlSlice))
+                    .ThenBy(element => element.GetType() != typeof(PlantUmlClass))
+                    .ThenBy(element => element.GetType() != typeof(PlantUmlInterface))
+                    .Aggregate(
+                        "",
+                        (umlString, umlElement) =>
+                            umlString + umlElement.GetPlantUmlString(renderOptions)
+                    )
+            );
             result.AppendLine("@enduml");
             return result.ToString();
         }

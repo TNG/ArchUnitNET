@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,9 @@ namespace ArchUnitNET.Fluent.Freeze
         public IEnumerable<StringIdentifier> GetFrozenViolations(IArchRule rule)
         {
             var storedRules = LoadStorage();
-            var matchingRules = storedRules.Where(r => r.ArchRuleDescription == rule.Description).ToList();
+            var matchingRules = storedRules
+                .Where(r => r.ArchRuleDescription == rule.Description)
+                .ToList();
             if (!matchingRules.Any())
             {
                 return Enumerable.Empty<StringIdentifier>();
@@ -42,15 +44,21 @@ namespace ArchUnitNET.Fluent.Freeze
 
             if (matchingRules.Count > 1)
             {
-                throw new MultipleOccurrencesInSequenceException("Multiple stored rules with same description found.");
+                throw new MultipleOccurrencesInSequenceException(
+                    "Multiple stored rules with same description found."
+                );
             }
 
-            return matchingRules.First().Violations.Select(violation => new StringIdentifier(violation));
+            return matchingRules
+                .First()
+                .Violations.Select(violation => new StringIdentifier(violation));
         }
 
         public void StoreCurrentViolations(IArchRule rule, IEnumerable<StringIdentifier> violations)
         {
-            var violationIdentifiers = violations.Select(violation => violation.Identifier).ToList();
+            var violationIdentifiers = violations
+                .Select(violation => violation.Identifier)
+                .ToList();
             var directory = Path.GetDirectoryName(_storagePath);
 
             if (directory == null)
@@ -64,16 +72,20 @@ namespace ArchUnitNET.Fluent.Freeze
             }
 
             var storedRules = LoadStorage();
-            var matchingRulesAmount = storedRules.Count(r => r.ArchRuleDescription == rule.Description);
+            var matchingRulesAmount = storedRules.Count(r =>
+                r.ArchRuleDescription == rule.Description
+            );
             if (matchingRulesAmount > 1)
             {
                 throw new MultipleOccurrencesInSequenceException(
-                    "Multiple Rules with the same description were found in the given Json.");
+                    "Multiple Rules with the same description were found in the given Json."
+                );
             }
 
             if (matchingRulesAmount == 1)
             {
-                storedRules.First(r => r.ArchRuleDescription == rule.Description).Violations = violationIdentifiers;
+                storedRules.First(r => r.ArchRuleDescription == rule.Description).Violations =
+                    violationIdentifiers;
             }
             else
             {

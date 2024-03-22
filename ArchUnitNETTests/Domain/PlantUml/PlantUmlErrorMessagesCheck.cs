@@ -12,13 +12,18 @@ namespace ArchUnitNETTests.Domain.PlantUml
 {
     public class PlantUmlErrorMessagesCheck
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture;
         private readonly string _umlFile;
 
         public PlantUmlErrorMessagesCheck()
         {
-            _umlFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Domain", "PlantUml",
-                "zzz_test_version_with_errors.puml");
+            _umlFile = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Domain",
+                "PlantUml",
+                "zzz_test_version_with_errors.puml"
+            );
         }
 
         [Fact]
@@ -28,10 +33,17 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.False(testPassed);
 
             //CheckForDuplicates returns false when errormessage contains duplicates or is empty
-            var containsNoDuplicates = ContainsNoDuplicates(rawErrormessage, out var explainErrormessage);
+            var containsNoDuplicates = ContainsNoDuplicates(
+                rawErrormessage,
+                out var explainErrormessage
+            );
 
-            var errormessage = "\nOriginal (ArchUnitNet) Exception:\n" + rawErrormessage +
-                               "\n\nAssert Error:\n" + explainErrormessage + "\n";
+            var errormessage =
+                "\nOriginal (ArchUnitNet) Exception:\n"
+                + rawErrormessage
+                + "\n\nAssert Error:\n"
+                + explainErrormessage
+                + "\n";
 
             Assert.True(containsNoDuplicates, errormessage);
         }
@@ -42,7 +54,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
             try
             {
-                IArchRule adhereToPlantUmlDiagram = Types().Should().AdhereToPlantUmlDiagram(_umlFile);
+                IArchRule adhereToPlantUmlDiagram = Types()
+                    .Should()
+                    .AdhereToPlantUmlDiagram(_umlFile);
                 adhereToPlantUmlDiagram.Check(Architecture);
             }
             //xUnit

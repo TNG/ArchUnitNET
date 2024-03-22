@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -22,18 +22,23 @@ namespace ArchUnitNETTests.Domain.Extensions
         {
             _methodOriginClass = Architecture.GetClassOfType(typeof(ClassWithMethodA));
             _methodMember = _methodOriginClass
-                .GetMembersWithName(nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()).SingleOrDefault();
+                .GetMembersWithName(nameof(ClassWithMethodA.MethodA).BuildMethodMemberName())
+                .SingleOrDefault();
             _fieldOriginClass = Architecture.GetClassOfType(typeof(ClassWithFieldA));
-            _fieldMember = _fieldOriginClass.GetMembersWithName(nameof(ClassWithFieldA.FieldA)).SingleOrDefault();
+            _fieldMember = _fieldOriginClass
+                .GetMembersWithName(nameof(ClassWithFieldA.FieldA))
+                .SingleOrDefault();
             _propertyOriginClass = Architecture.GetClassOfType(typeof(ClassWithPropertyA));
-            _propertyMember = _propertyOriginClass.GetMembersWithName(nameof(ClassWithPropertyA.PropertyA))
+            _propertyMember = _propertyOriginClass
+                .GetMembersWithName(nameof(ClassWithPropertyA.PropertyA))
                 .SingleOrDefault();
 
             _exampleAttribute = Architecture.GetClassOfType(typeof(ExampleAttribute));
             _regexUtilsTests = Architecture.GetClassOfType(typeof(RegexUtilsTest));
         }
 
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly Class _methodOriginClass;
         private readonly IMember _methodMember;
         private readonly Class _fieldOriginClass;
@@ -42,7 +47,8 @@ namespace ArchUnitNETTests.Domain.Extensions
         private readonly IMember _propertyMember;
 
         private readonly Class _exampleAttribute;
-        private const string ExpectedAttributeNamespace = "ArchUnitNETTests.Domain.Dependencies.Attributes";
+        private const string ExpectedAttributeNamespace =
+            "ArchUnitNETTests.Domain.Dependencies.Attributes";
         private const string ParentAttributeNamespace = "ArchUnitNETTests.Domain.Dependencies";
 
         private readonly Class _regexUtilsTests;
@@ -80,14 +86,29 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void HasMembersWithFullNameTest()
         {
-            Assert.True(Architecture.Types.All(type =>
-                type.GetPropertyMembers().All(member => type.HasPropertyMemberWithFullName(member.FullName))));
-            Assert.True(Architecture.Types.All(type =>
-                type.GetFieldMembers().All(member => type.HasFieldMemberWithFullName(member.FullName))));
-            Assert.True(Architecture.Types.All(type =>
-                type.GetMethodMembers().All(member => type.HasMethodMemberWithFullName(member.FullName))));
-            Assert.True(Architecture.Types.All(type =>
-                type.Members.All(member => type.HasMemberWithFullName(member.FullName))));
+            Assert.True(
+                Architecture.Types.All(type =>
+                    type.GetPropertyMembers()
+                        .All(member => type.HasPropertyMemberWithFullName(member.FullName))
+                )
+            );
+            Assert.True(
+                Architecture.Types.All(type =>
+                    type.GetFieldMembers()
+                        .All(member => type.HasFieldMemberWithFullName(member.FullName))
+                )
+            );
+            Assert.True(
+                Architecture.Types.All(type =>
+                    type.GetMethodMembers()
+                        .All(member => type.HasMethodMemberWithFullName(member.FullName))
+                )
+            );
+            Assert.True(
+                Architecture.Types.All(type =>
+                    type.Members.All(member => type.HasMemberWithFullName(member.FullName))
+                )
+            );
             Assert.False(_methodOriginClass.HasPropertyMemberWithFullName("nonExistentMember"));
             Assert.False(_methodOriginClass.HasFieldMemberWithFullName("nonExistentMember"));
             Assert.False(_methodOriginClass.HasMethodMemberWithFullName("nonExistentMember"));
@@ -97,14 +118,27 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void HasMembersWithNameTest()
         {
-            Assert.True(Architecture.Types.All(type =>
-                type.GetPropertyMembers().All(member => type.HasPropertyMemberWithName(member.Name))));
-            Assert.True(Architecture.Types.All(type =>
-                type.GetFieldMembers().All(member => type.HasFieldMemberWithName(member.Name))));
-            Assert.True(Architecture.Types.All(type =>
-                type.GetMethodMembers().All(member => type.HasMethodMemberWithName(member.Name))));
-            Assert.True(Architecture.Types.All(type =>
-                type.Members.All(member => type.HasMemberWithName(member.Name))));
+            Assert.True(
+                Architecture.Types.All(type =>
+                    type.GetPropertyMembers()
+                        .All(member => type.HasPropertyMemberWithName(member.Name))
+                )
+            );
+            Assert.True(
+                Architecture.Types.All(type =>
+                    type.GetFieldMembers().All(member => type.HasFieldMemberWithName(member.Name))
+                )
+            );
+            Assert.True(
+                Architecture.Types.All(type =>
+                    type.GetMethodMembers().All(member => type.HasMethodMemberWithName(member.Name))
+                )
+            );
+            Assert.True(
+                Architecture.Types.All(type =>
+                    type.Members.All(member => type.HasMemberWithName(member.Name))
+                )
+            );
             Assert.False(_methodOriginClass.HasPropertyMemberWithName("nonExistentMember"));
             Assert.False(_methodOriginClass.HasFieldMemberWithName("nonExistentMember"));
             Assert.False(_methodOriginClass.HasMethodMemberWithName("nonExistentMember"));
@@ -114,9 +148,11 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void ImplementsInterfaceTest()
         {
-            Assert.True(Architecture.Types.All(type =>
-                type.ImplementedInterfaces.All(intf =>
-                    type.ImplementsInterface(intf.FullName))));
+            Assert.True(
+                Architecture.Types.All(type =>
+                    type.ImplementedInterfaces.All(intf => type.ImplementsInterface(intf.FullName))
+                )
+            );
         }
 
         [Fact]
@@ -129,8 +165,15 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void NameContainsTest()
         {
-            Assert.True(_fieldMember.NameContains("ieLda", StringComparison.InvariantCultureIgnoreCase));
-            Assert.True(_propertyOriginClass.NameContains("sswITH", StringComparison.InvariantCultureIgnoreCase));
+            Assert.True(
+                _fieldMember.NameContains("ieLda", StringComparison.InvariantCultureIgnoreCase)
+            );
+            Assert.True(
+                _propertyOriginClass.NameContains(
+                    "sswITH",
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+            );
             Assert.False(_methodOriginClass.NameContains("ClassMethod"));
             Assert.True(_methodMember.NameContains(""));
             Assert.ThrowsAny<ArgumentNullException>(() => _exampleAttribute.NameContains(null));
@@ -139,8 +182,15 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void NameEndsWithTest()
         {
-            Assert.True(_fieldMember.NameEndsWith("ieLda", StringComparison.InvariantCultureIgnoreCase));
-            Assert.False(_propertyOriginClass.NameEndsWith("sswITH", StringComparison.InvariantCultureIgnoreCase));
+            Assert.True(
+                _fieldMember.NameEndsWith("ieLda", StringComparison.InvariantCultureIgnoreCase)
+            );
+            Assert.False(
+                _propertyOriginClass.NameEndsWith(
+                    "sswITH",
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+            );
             Assert.False(_methodOriginClass.NameEndsWith("ClassMethod"));
             Assert.True(_methodMember.NameEndsWith(""));
             Assert.Throws<ArgumentNullException>(() => _exampleAttribute.NameEndsWith(null));
@@ -171,8 +221,15 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void NameStartsWithTest()
         {
-            Assert.True(_fieldMember.NameStartsWith("fIEldA", StringComparison.InvariantCultureIgnoreCase));
-            Assert.True(_propertyOriginClass.NameStartsWith("cLassw", StringComparison.InvariantCultureIgnoreCase));
+            Assert.True(
+                _fieldMember.NameStartsWith("fIEldA", StringComparison.InvariantCultureIgnoreCase)
+            );
+            Assert.True(
+                _propertyOriginClass.NameStartsWith(
+                    "cLassw",
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+            );
             Assert.False(_methodOriginClass.NameStartsWith("With"));
             Assert.True(_methodMember.NameStartsWith(""));
             Assert.Throws<ArgumentNullException>(() => _exampleAttribute.NameStartsWith(null));

@@ -4,7 +4,5 @@ using System.Text;
 
 namespace TestAssembly.Diagram.NoDependencies.SomeNamespace
 {
-    public class DependencyWithinNamespace
-    {
-    }
+    public class DependencyWithinNamespace { }
 }

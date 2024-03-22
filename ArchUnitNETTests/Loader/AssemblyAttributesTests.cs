@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -15,7 +15,8 @@ namespace ArchUnitNETTests.Loader
 {
     public class AssemblyAttributesTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture;
         private readonly Attribute _testAttribute;
         private const string TestParameter = "TestParameter";
 
@@ -37,9 +38,14 @@ namespace ArchUnitNETTests.Loader
         {
             Assert.Single(Architecture.Assemblies);
             var assembly = Architecture.Assemblies.First();
-            Assert.Contains(assembly.AttributeInstances,
-                instance => Equals(instance.Type, _testAttribute) &&
-                            instance.AttributeArguments.Any(arg => arg.Value is string val && val == TestParameter));
+            Assert.Contains(
+                assembly.AttributeInstances,
+                instance =>
+                    Equals(instance.Type, _testAttribute)
+                    && instance.AttributeArguments.Any(arg =>
+                        arg.Value is string val && val == TestParameter
+                    )
+            );
         }
     }
 }

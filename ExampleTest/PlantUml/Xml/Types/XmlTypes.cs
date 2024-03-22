@@ -4,7 +4,5 @@ using System.Text;
 
 namespace ExampleTest.PlantUml.Xml.Types
 {
-    public class XmlTypes
-    {
-    }
+    public class XmlTypes { }
 }

@@ -1,8 +1,8 @@
-﻿using ExampleTest.PlantUml.Orders;
-using ExampleTest.PlantUml.Products;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ExampleTest.PlantUml.Orders;
+using ExampleTest.PlantUml.Products;
 
 namespace ExampleTest.PlantUml.Catalog
 {

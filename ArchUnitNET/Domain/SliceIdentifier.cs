@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using JetBrains.Annotations;
 
@@ -14,8 +14,13 @@ namespace ArchUnitNET.Domain
         public static readonly SliceIdentifierComparer Comparer = new SliceIdentifierComparer();
         public readonly bool Ignored;
 
-
-        private SliceIdentifier(string identifier, bool ignored, int? countOfAsteriskInPattern = null, string nameSpace = null) : base(identifier)
+        private SliceIdentifier(
+            string identifier,
+            bool ignored,
+            int? countOfAsteriskInPattern = null,
+            string nameSpace = null
+        )
+            : base(identifier)
         {
             Ignored = ignored;
             CountOfAsteriskInPattern = countOfAsteriskInPattern;
@@ -23,10 +28,16 @@ namespace ArchUnitNET.Domain
         }
 
         public string Description => Identifier;
-        [CanBeNull] public readonly string NameSpace;
+
+        [CanBeNull]
+        public readonly string NameSpace;
         public readonly int? CountOfAsteriskInPattern;
 
-        public static SliceIdentifier Of(string identifier, int? countOfAsteriskInPattern = null, string nameSpace = null)
+        public static SliceIdentifier Of(
+            string identifier,
+            int? countOfAsteriskInPattern = null,
+            string nameSpace = null
+        )
         {
             return new SliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
         }
@@ -48,7 +59,8 @@ namespace ArchUnitNET.Domain
                 return false;
             }
 
-            return Ignored && other.Ignored || !Ignored && !other.Ignored && Identifier == other.Identifier;
+            return Ignored && other.Ignored
+                || !Ignored && !other.Ignored && Identifier == other.Identifier;
         }
 
         private bool Equals(SliceIdentifier other)

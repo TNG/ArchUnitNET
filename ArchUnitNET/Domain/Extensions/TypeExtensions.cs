@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -21,10 +21,15 @@ namespace ArchUnitNET.Domain.Extensions
             }
 
             return type.ImplementedInterfaces.Any(implementedInterface =>
-                Equals(implementedInterface, intf));
+                Equals(implementedInterface, intf)
+            );
         }
 
-        public static bool ImplementsInterface(this IType type, string pattern, bool useRegularExpressions = false)
+        public static bool ImplementsInterface(
+            this IType type,
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             if (type is GenericParameter)
             {
@@ -32,27 +37,37 @@ namespace ArchUnitNET.Domain.Extensions
             }
 
             return type.ImplementedInterfaces.Any(implementedInterface =>
-                implementedInterface.FullNameMatches(pattern, useRegularExpressions));
+                implementedInterface.FullNameMatches(pattern, useRegularExpressions)
+            );
         }
 
         public static bool IsAssignableTo(this IType type, IType assignableToType)
         {
             if (type is GenericParameter genericParameter)
             {
-                return genericParameter.TypeConstraints.All(t => t.IsAssignableTo(assignableToType));
+                return genericParameter.TypeConstraints.All(t =>
+                    t.IsAssignableTo(assignableToType)
+                );
             }
 
             return type.GetAssignableTypes().Contains(assignableToType);
         }
 
-        public static bool IsAssignableTo(this IType type, string pattern, bool useRegularExpressions = false)
+        public static bool IsAssignableTo(
+            this IType type,
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             if (type is GenericParameter genericParameter)
             {
-                return genericParameter.TypeConstraints.All(t => t.IsAssignableTo(pattern, useRegularExpressions));
+                return genericParameter.TypeConstraints.All(t =>
+                    t.IsAssignableTo(pattern, useRegularExpressions)
+                );
             }
 
-            return type.GetAssignableTypes().Any(t => t.FullNameMatches(pattern, useRegularExpressions));
+            return type.GetAssignableTypes()
+                .Any(t => t.FullNameMatches(pattern, useRegularExpressions));
         }
 
         public static bool IsNestedIn(this IType type, IType assignableToType)
@@ -72,8 +87,12 @@ namespace ArchUnitNET.Domain.Extensions
 
         public static IEnumerable<Slice> SlicedBy(this IEnumerable<IType> source, string fullName)
         {
-            return source.GroupBy(type => type.FullName)
-                .Select(sliceItems => new Slice(SliceIdentifier.Of(sliceItems.Key), sliceItems.ToList()));
+            return source
+                .GroupBy(type => type.FullName)
+                .Select(sliceItems => new Slice(
+                    SliceIdentifier.Of(sliceItems.Key),
+                    sliceItems.ToList()
+                ));
         }
 
         public static IEnumerable<IType> GetAssignableTypes(this IType type)
@@ -81,13 +100,19 @@ namespace ArchUnitNET.Domain.Extensions
             switch (type)
             {
                 case Interface intf:
-                    return intf.ImplementedInterfaces.Concat(new[] {intf});
+                    return intf.ImplementedInterfaces.Concat(new[] { intf });
                 case Class cls:
-                    return cls.InheritedClasses.Concat(new[] {cls}).Concat(cls.ImplementedInterfaces);
+                    return cls
+                        .InheritedClasses.Concat(new[] { cls })
+                        .Concat(cls.ImplementedInterfaces);
                 case Struct str:
-                    return str.InheritedClasses.Concat(new IType[] {str}).Concat(str.ImplementedInterfaces);
+                    return str
+                        .InheritedClasses.Concat(new IType[] { str })
+                        .Concat(str.ImplementedInterfaces);
                 case Enum en:
-                    return en.InheritedClasses.Concat(new IType[] {en}).Concat(en.ImplementedInterfaces);
+                    return en
+                        .InheritedClasses.Concat(new IType[] { en })
+                        .Concat(en.ImplementedInterfaces);
                 default:
                     return Enumerable.Empty<IType>();
             }
@@ -98,19 +123,28 @@ namespace ArchUnitNET.Domain.Extensions
             switch (type)
             {
                 case Interface intf:
-                    return intf.ImplementedInterfaces.Concat(new[] {intf});
+                    return intf.ImplementedInterfaces.Concat(new[] { intf });
                 case Class cls:
-                    return cls.InheritedClasses.Concat(new[] {cls}).Concat(cls.ImplementedInterfaces);
+                    return cls
+                        .InheritedClasses.Concat(new[] { cls })
+                        .Concat(cls.ImplementedInterfaces);
                 case Struct str:
-                    return str.InheritedClasses.Concat(new IType[] {str}).Concat(str.ImplementedInterfaces);
+                    return str
+                        .InheritedClasses.Concat(new IType[] { str })
+                        .Concat(str.ImplementedInterfaces);
                 case Enum en:
-                    return en.InheritedClasses.Concat(new IType[] {en}).Concat(en.ImplementedInterfaces);
+                    return en
+                        .InheritedClasses.Concat(new IType[] { en })
+                        .Concat(en.ImplementedInterfaces);
                 default:
                     return Enumerable.Empty<IType>();
             }
         }
 
-        public static IEnumerable<PropertyMember> GetPropertyMembersWithName(this IType type, string name)
+        public static IEnumerable<PropertyMember> GetPropertyMembersWithName(
+            this IType type,
+            string name
+        )
         {
             return type.GetPropertyMembers().WhereNameIs(name);
         }
@@ -130,7 +164,10 @@ namespace ArchUnitNET.Domain.Extensions
             return !type.GetFieldMembersWithName(name).IsNullOrEmpty();
         }
 
-        public static IEnumerable<MethodMember> GetMethodMembersWithName(this IType type, string name)
+        public static IEnumerable<MethodMember> GetMethodMembersWithName(
+            this IType type,
+            string name
+        )
         {
             return type.GetMethodMembers().WhereNameIs(name);
         }
@@ -192,23 +229,39 @@ namespace ArchUnitNET.Domain.Extensions
 
         public static Attribute GetAttributeOfType(this IType type, Class attributeClass)
         {
-            return type.Attributes.FirstOrDefault(attribute => attribute.FullName.Equals(attributeClass.FullName));
+            return type.Attributes.FirstOrDefault(attribute =>
+                attribute.FullName.Equals(attributeClass.FullName)
+            );
         }
 
-        public static bool ResidesInNamespace(this IType e, string pattern, bool useRegularExpressions = false)
+        public static bool ResidesInNamespace(
+            this IType e,
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             return e.Namespace.FullNameMatches(pattern, useRegularExpressions);
         }
 
-        public static bool ResidesInAssembly(this IType e, string pattern, bool useRegularExpressions = false)
+        public static bool ResidesInAssembly(
+            this IType e,
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             return e.Assembly.FullNameMatches(pattern, useRegularExpressions);
         }
 
-        public static bool IsDeclaredAsFieldIn(this IType type, string pattern, bool useRegularExpressions = false)
+        public static bool IsDeclaredAsFieldIn(
+            this IType type,
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return type.GetFieldTypeDependencies(true).Any(dependency =>
-                dependency.Target.FullNameMatches(pattern, useRegularExpressions));
+            return type.GetFieldTypeDependencies(true)
+                .Any(dependency =>
+                    dependency.Target.FullNameMatches(pattern, useRegularExpressions)
+                );
         }
 
         public static bool HasDependency(this IType type, ITypeDependency dependency)
@@ -216,7 +269,10 @@ namespace ArchUnitNET.Domain.Extensions
             return type.Dependencies.Contains(dependency);
         }
 
-        public static bool HasDependencies(this IType type, IEnumerable<ITypeDependency> dependencies)
+        public static bool HasDependencies(
+            this IType type,
+            IEnumerable<ITypeDependency> dependencies
+        )
         {
             return dependencies.All(dependency => type.Dependencies.Contains(dependency));
         }
@@ -241,24 +297,30 @@ namespace ArchUnitNET.Domain.Extensions
             return type.GetMethodMembers().Where(method => method.IsConstructor());
         }
 
-        public static IEnumerable<AttributeTypeDependency> GetAttributeTypeDependencies(this IType type,
-            bool getBackwardsDependencies = false)
+        public static IEnumerable<AttributeTypeDependency> GetAttributeTypeDependencies(
+            this IType type,
+            bool getBackwardsDependencies = false
+        )
         {
             return getBackwardsDependencies
                 ? type.BackwardsDependencies.OfType<AttributeTypeDependency>()
                 : type.Dependencies.OfType<AttributeTypeDependency>();
         }
 
-        public static IEnumerable<ImplementsInterfaceDependency> GetImplementsInterfaceDependencies(this IType type,
-            bool getBackwardsDependencies = false)
+        public static IEnumerable<ImplementsInterfaceDependency> GetImplementsInterfaceDependencies(
+            this IType type,
+            bool getBackwardsDependencies = false
+        )
         {
             return getBackwardsDependencies
                 ? type.BackwardsDependencies.OfType<ImplementsInterfaceDependency>()
                 : type.Dependencies.OfType<ImplementsInterfaceDependency>();
         }
 
-        public static IEnumerable<InheritsBaseClassDependency> GetInheritsBaseClassDependencies(this IType type,
-            bool getBackwardsDependencies = false)
+        public static IEnumerable<InheritsBaseClassDependency> GetInheritsBaseClassDependencies(
+            this IType type,
+            bool getBackwardsDependencies = false
+        )
         {
             return getBackwardsDependencies
                 ? type.BackwardsDependencies.OfType<InheritsBaseClassDependency>()
@@ -281,8 +343,13 @@ namespace ArchUnitNET.Domain.Extensions
                 return true;
             }
 
-            return !typeInstance.GenericArguments.Where((t, i) =>
-                !targetGenericArguments[i].IsGenericParameter && !t.MatchesType(targetGenericArguments[i])).Any();
+            return !typeInstance
+                .GenericArguments.Where(
+                    (t, i) =>
+                        !targetGenericArguments[i].IsGenericParameter
+                        && !t.MatchesType(targetGenericArguments[i])
+                )
+                .Any();
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -15,8 +15,9 @@ namespace ArchUnitNETTests.Dependencies
 {
     public class StringDependenciesTests
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(StringDependenciesTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(StringDependenciesTests).Assembly)
+            .Build();
 
         private readonly Class _classWithLocalString;
         private readonly Class _classWithPropertyString;
@@ -30,14 +31,18 @@ namespace ArchUnitNETTests.Dependencies
             _classWithPropertyString = Architecture.GetClassOfType(typeof(ClassWithPropertyString));
         }
 
-        [Fact(Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand")]
+        [Fact(
+            Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand"
+        )]
         public void StringFieldDependencyFound()
         {
             var typeDependencies = _classWithStringField.GetTypeDependencies().ToList();
             Assert.Contains(typeof(string).FullName, typeDependencies.Select(dep => dep.FullName));
         }
 
-        [Fact(Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand")]
+        [Fact(
+            Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand"
+        )]
         public void LocalStringDependencyFound()
         {
             var typeDependencies = _classWithLocalString.GetTypeDependencies().ToList();
@@ -45,10 +50,15 @@ namespace ArchUnitNETTests.Dependencies
             var methodTypeDependencies = method.GetTypeDependencies().ToList();
 
             Assert.Contains(typeof(string).FullName, typeDependencies.Select(dep => dep.FullName));
-            Assert.Contains(typeof(string).FullName, methodTypeDependencies.Select(dep => dep.FullName));
+            Assert.Contains(
+                typeof(string).FullName,
+                methodTypeDependencies.Select(dep => dep.FullName)
+            );
         }
 
-        [Fact(Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand")]
+        [Fact(
+            Skip = "Fails because the string is created with OpCode Ldstr which has no TypeReference as Operand"
+        )]
         public void PropertyStringDependencyFound()
         {
             var typeDependencies = _classWithPropertyString.GetTypeDependencies().ToList();
@@ -56,7 +66,10 @@ namespace ArchUnitNETTests.Dependencies
             var propertyTypeDependencies = property.GetTypeDependencies().ToList();
 
             Assert.Contains(typeof(string).FullName, typeDependencies.Select(dep => dep.FullName));
-            Assert.Contains(typeof(string).FullName, propertyTypeDependencies.Select(dep => dep.FullName));
+            Assert.Contains(
+                typeof(string).FullName,
+                propertyTypeDependencies.Select(dep => dep.FullName)
+            );
         }
     }
 

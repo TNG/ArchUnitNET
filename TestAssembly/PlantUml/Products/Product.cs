@@ -9,13 +9,8 @@ namespace TestAssembly.PlantUml.Products
 
         internal Order Order => null; // the return type violates the specified UML diagram
 
+        public void Register() { }
 
-        public void Register()
-        {
-        }
-
-        public void Report()
-        {
-        }
+        public void Report() { }
     }
 }

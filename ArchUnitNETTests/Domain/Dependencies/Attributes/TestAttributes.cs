@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -25,64 +25,40 @@ using TestAssembly;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Attributes
 {
-    public class TestAttributes
-    {
-    }
+    public class TestAttributes { }
 
     [AttributeUsage(AttributeTargets.All)]
-    public class ExampleAttribute : Attribute
-    {
-    }
+    public class ExampleAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public class ExampleClassAttribute : Attribute
-    {
-    }
+    public class ExampleClassAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Interface)]
-    public class ExampleInterfaceAttribute : Attribute
-    {
-    }
+    public class ExampleInterfaceAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class ExampleMethodAttribute : Attribute
-    {
-    }
+    public class ExampleMethodAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Field)]
-    public class ExampleFieldAttribute : Attribute
-    {
-    }
+    public class ExampleFieldAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class ExamplePropertyAttribute : Attribute
-    {
-    }
+    public class ExamplePropertyAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Parameter)]
-    public class ExampleParameterAttribute : Attribute
-    {
-    }
+    public class ExampleParameterAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Struct)]
-    public class ExampleStructAttribute : Attribute
-    {
-    }
+    public class ExampleStructAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Enum)]
-    public class ExampleEnumAttribute : Attribute
-    {
-    }
+    public class ExampleEnumAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Delegate)]
-    public class ExampleDelegateAttribute : Attribute
-    {
-    }
+    public class ExampleDelegateAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.ReturnValue)]
-    public class ExampleReturnAttribute : Attribute
-    {
-    }
+    public class ExampleReturnAttribute : Attribute { }
 
     public abstract class ExampleAbstractAttribute : Attribute
     {
@@ -109,17 +85,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
         }
     }
 
-    public class ForbiddenAttribute : Attribute
-    {
-    }
+    public class ForbiddenAttribute : Attribute { }
 
-    public class InterfaceImplementingAttribute : Attribute, IAttribute
-    {
-    }
+    public class InterfaceImplementingAttribute : Attribute, IAttribute { }
 
-    public interface IAttribute
-    {
-    }
+    public interface IAttribute { }
 
     [AttributeUsage(AttributeTargets.All)]
     public class CountryAttributeWithParameters : Attribute
@@ -170,19 +140,13 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             _parameterProperty = value;
         }
 
-        private static void MethodForDelegate(FieldType fieldType)
-        {
-        }
+        private static void MethodForDelegate(FieldType fieldType) { }
 
         [ExampleMethod]
-        public void MethodWithAttribute()
-        {
-        }
+        public void MethodWithAttribute() { }
 
         [CountryAttributeWithParameters("Germany", 83000000, Visited = true)]
-        public void MethodWithCountryAttribute()
-        {
-        }
+        public void MethodWithCountryAttribute() { }
 
         public void MethodWithParameterAttribute([ExampleParameter] string example)
         {
@@ -235,16 +199,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
 
         [TypeDependent(typeof(Class1))]
         [TypeDependent(typeof(Class2))]
-        public void Method()
-        {
-        }
+        public void Method() { }
     }
 
     [TypeDependent(typeof(Hello))]
     [TypeDependent(typeof(HelloEvent))]
-    public class AttributeWithAttributes : Attribute
-    {
-    }
+    public class AttributeWithAttributes : Attribute { }
 
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public class TypeDependentAttribute : Attribute
@@ -259,10 +219,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
 
     public class Hello : IEventHandler<HelloEvent>
     {
-//        [Forbidden]
-        public void Handle(HelloEvent helloEvent)
-        {
-        }
+        //        [Forbidden]
+        public void Handle(HelloEvent helloEvent) { }
 
         public static int StaticMethod()
         {
@@ -270,15 +228,9 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
         }
     }
 
-    public class HelloEvent : IPersistentEvent
-    {
-    }
+    public class HelloEvent : IPersistentEvent { }
 
-    public interface IEventHandler<TEvent>
-    {
-    }
+    public interface IEventHandler<TEvent> { }
 
-    public interface IPersistentEvent
-    {
-    }
+    public interface IPersistentEvent { }
 }

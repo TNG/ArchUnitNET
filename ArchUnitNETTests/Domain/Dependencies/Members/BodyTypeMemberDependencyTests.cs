@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
@@ -17,12 +17,15 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         public BodyTypeMemberDependencyTests()
         {
             var classWithBodyTypeA = _architecture.GetClassOfType(typeof(ClassWithBodyTypeA));
-            _methodWithTypeA = classWithBodyTypeA
-                .Members[nameof(ClassWithBodyTypeA.MethodWithTypeA).BuildMethodMemberName()] as MethodMember;
+            _methodWithTypeA =
+                classWithBodyTypeA.Members[
+                    nameof(ClassWithBodyTypeA.MethodWithTypeA).BuildMethodMemberName()
+                ] as MethodMember;
             _typeA = _architecture.GetClassOfType(typeof(TypeA));
         }
 
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly Architecture _architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly MethodMember _methodWithTypeA;
         private readonly Class _typeA;
@@ -30,12 +33,14 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         [Fact]
         public void BodyTypeDependenciesFound()
         {
-            var bodyTypeDependencies =
-                _methodWithTypeA.GetBodyTypeMemberDependencies().ToList();
+            var bodyTypeDependencies = _methodWithTypeA.GetBodyTypeMemberDependencies().ToList();
 
             Assert.Equal("AABC", ClassWithBodyTypeA.MethodWithTypeA());
             Assert.True(bodyTypeDependencies.Count >= 3);
-            Assert.Contains(_typeA, bodyTypeDependencies.Select(dependency => (Class) dependency.Target));
+            Assert.Contains(
+                _typeA,
+                bodyTypeDependencies.Select(dependency => (Class)dependency.Target)
+            );
         }
     }
 

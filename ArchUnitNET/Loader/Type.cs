@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -14,8 +14,17 @@ namespace ArchUnitNET.Loader
 {
     public class Type : IType
     {
-        public Type(string fullname, string name, Assembly assembly, Namespace namespc, Visibility visibility,
-            bool isNested, bool isGeneric, bool isStub, bool isCompilerGenerated)
+        public Type(
+            string fullname,
+            string name,
+            Assembly assembly,
+            Namespace namespc,
+            Visibility visibility,
+            bool isNested,
+            bool isGeneric,
+            bool isStub,
+            bool isCompilerGenerated
+        )
         {
             FullName = fullname;
             Name = name;
@@ -49,16 +58,18 @@ namespace ArchUnitNET.Loader
 
         public bool IsStub { get; }
         public MemberList Members { get; } = new MemberList();
-        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
-        public List<AttributeInstance> AttributeInstances { get; } =  new List<AttributeInstance>();
+        public IEnumerable<Attribute> Attributes =>
+            AttributeInstances.Select(instance => instance.Type);
+        public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
 
         public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
 
         public List<ITypeDependency> BackwardsDependencies { get; } = new List<ITypeDependency>();
 
-        public IEnumerable<IType> ImplementedInterfaces => Dependencies
-            .OfType<ImplementsInterfaceDependency>()
-            .Select(dependency => dependency.Target);
+        public IEnumerable<IType> ImplementedInterfaces =>
+            Dependencies
+                .OfType<ImplementsInterfaceDependency>()
+                .Select(dependency => dependency.Target);
 
         public override string ToString()
         {
@@ -82,7 +93,7 @@ namespace ArchUnitNET.Loader
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((Type) obj);
+            return obj.GetType() == GetType() && Equals((Type)obj);
         }
 
         public override int GetHashCode()

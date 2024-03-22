@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -19,10 +19,12 @@ namespace ArchUnitNETTests.Domain
     public class GenericClassTests
     {
         private const string GuidClassName = "Guid";
-        private const string SystemGuidFullName = StaticConstants.SystemNamespace + "." + GuidClassName;
+        private const string SystemGuidFullName =
+            StaticConstants.SystemNamespace + "." + GuidClassName;
 
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(GenericClassTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(GenericClassTests).Assembly)
+            .Build();
 
         private readonly Class _classWithGenericParameters;
         private readonly IType _expectedGenericArgument;
@@ -30,13 +32,24 @@ namespace ArchUnitNETTests.Domain
 
         public GenericClassTests()
         {
-            _classWithGenericParameters = Architecture.GetClassOfType(typeof(ClassWithGenericParameters<>));
+            _classWithGenericParameters = Architecture.GetClassOfType(
+                typeof(ClassWithGenericParameters<>)
+            );
             var invokesGenericClass = Architecture.GetClassOfType(typeof(InvokesGenericClass));
             _genericallyTypedField = invokesGenericClass
-                .GetFieldMembersWithName(nameof(InvokesGenericClass.GuidGenericArgument)).SingleOrDefault();
-            var guidMock = new Type(SystemGuidFullName, GuidClassName,
+                .GetFieldMembersWithName(nameof(InvokesGenericClass.GuidGenericArgument))
+                .SingleOrDefault();
+            var guidMock = new Type(
+                SystemGuidFullName,
+                GuidClassName,
                 _classWithGenericParameters.Assembly,
-                new Namespace(StaticConstants.SystemNamespace, new List<IType>()), Public, false, false, true, false);
+                new Namespace(StaticConstants.SystemNamespace, new List<IType>()),
+                Public,
+                false,
+                false,
+                true,
+                false
+            );
             _expectedGenericArgument = new Struct(guidMock);
         }
 
@@ -73,13 +86,12 @@ namespace ArchUnitNETTests.Domain
 
     public class ClassWithGenericParameters<T>
     {
-        public void Add(T item)
-        {
-        }
+        public void Add(T item) { }
     }
 
     public class InvokesGenericClass
     {
-        public ClassWithGenericParameters<Guid> GuidGenericArgument = new ClassWithGenericParameters<Guid>();
+        public ClassWithGenericParameters<Guid> GuidGenericArgument =
+            new ClassWithGenericParameters<Guid>();
     }
 }

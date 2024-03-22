@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections;
@@ -15,9 +15,7 @@ namespace ArchUnitNET.Domain
     {
         private readonly IList<IMember> _list = new List<IMember>();
 
-        public MemberList()
-        {
-        }
+        public MemberList() { }
 
         public MemberList(IList<IMember> list)
         {
@@ -112,9 +110,9 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-
-            return _list.SequenceEqual(other._list) && Equals(Count, other.Count) &&
-                   Equals(IsReadOnly, other.IsReadOnly);
+            return _list.SequenceEqual(other._list)
+                && Equals(Count, other.Count)
+                && Equals(IsReadOnly, other.IsReadOnly);
         }
 
         public override bool Equals(object obj)
@@ -134,7 +132,7 @@ namespace ArchUnitNET.Domain
                 return false;
             }
 
-            return Equals((MemberList) obj);
+            return Equals((MemberList)obj);
         }
 
         public override int GetHashCode()

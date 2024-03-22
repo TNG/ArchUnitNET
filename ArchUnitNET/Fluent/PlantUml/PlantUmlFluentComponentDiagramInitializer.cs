@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
@@ -16,12 +16,15 @@ namespace ArchUnitNET.Fluent.PlantUml
         private readonly PlantUmlFluentComponentDiagramCreator _fluentComponentDiagramCreator;
 
         internal PlantUmlFluentComponentDiagramInitializer(
-            PlantUmlFluentComponentDiagramCreator fluentComponentDiagramCreator)
+            PlantUmlFluentComponentDiagramCreator fluentComponentDiagramCreator
+        )
         {
             _fluentComponentDiagramCreator = fluentComponentDiagramCreator;
         }
 
-        public GivenPlantUmlFluentComponentDiagram WithElements(IEnumerable<IPlantUmlElement> elements)
+        public GivenPlantUmlFluentComponentDiagram WithElements(
+            IEnumerable<IPlantUmlElement> elements
+        )
         {
             _fluentComponentDiagramCreator.Builder.WithElements(elements);
             _fluentComponentDiagramCreator.AddToDescription("with custom elements");
@@ -35,41 +38,61 @@ namespace ArchUnitNET.Fluent.PlantUml
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
-        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(IEnumerable<IType> types,
-            GenerationOptions generationOptions = null)
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(
+            IEnumerable<IType> types,
+            GenerationOptions generationOptions = null
+        )
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(types, generationOptions);
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
-        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(IObjectProvider<IType> types,
-            Architecture architecture, GenerationOptions generationOptions = null)
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(
+            IObjectProvider<IType> types,
+            Architecture architecture,
+            GenerationOptions generationOptions = null
+        )
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(types.GetObjects(architecture),
-                generationOptions);
+            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(
+                types.GetObjects(architecture),
+                generationOptions
+            );
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
-        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IEnumerable<Slice> slices, GenerationOptions generationOptions = null)
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(
+            IEnumerable<Slice> slices,
+            GenerationOptions generationOptions = null
+        )
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(slices, generationOptions);
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
-        
-        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IEnumerable<Slice> slices, string focusOnPackage)
+
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(
+            IEnumerable<Slice> slices,
+            string focusOnPackage
+        )
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFromFocusOn(slices, focusOnPackage);
+            _fluentComponentDiagramCreator.Builder.WithDependenciesFromFocusOn(
+                slices,
+                focusOnPackage
+            );
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
-        
-        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(IObjectProvider<Slice> slices,
-            Architecture architecture)
+
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(
+            IObjectProvider<Slice> slices,
+            Architecture architecture
+        )
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(slices.GetObjects(architecture));
+            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(
+                slices.GetObjects(architecture)
+            );
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }

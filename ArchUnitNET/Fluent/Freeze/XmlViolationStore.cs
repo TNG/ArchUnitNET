@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,10 @@ namespace ArchUnitNET.Fluent.Freeze
         private readonly string _storagePath;
 
         private static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
-            { Indent = true, Encoding = Encoding.UTF8 };
+        {
+            Indent = true,
+            Encoding = Encoding.UTF8
+        };
 
         public XmlViolationStore(string storagePath = DefaultStoragePath)
         {
@@ -67,9 +70,10 @@ namespace ArchUnitNET.Fluent.Freeze
                 Directory.CreateDirectory(directory);
             }
 
-            var violationElements =
-                violations.Select(violation =>
-                    new XElement("Violation", violation.Identifier));
+            var violationElements = violations.Select(violation => new XElement(
+                "Violation",
+                violation.Identifier
+            ));
             var ruleElement = new XElement("FrozenRule", violationElements);
             ruleElement.SetAttributeValue("ArchRule", rule.Description);
 
@@ -87,8 +91,11 @@ namespace ArchUnitNET.Fluent.Freeze
         [CanBeNull]
         private static XElement FindStoredRule(XDocument xDocument, IArchRule rule)
         {
-            return xDocument.Root?.Elements().FirstOrDefault(element =>
-                element.Attribute("ArchRule")?.Value.ToString() == rule.Description);
+            return xDocument
+                .Root?.Elements()
+                .FirstOrDefault(element =>
+                    element.Attribute("ArchRule")?.Value.ToString() == rule.Description
+                );
         }
 
         private XDocument LoadStorage()
@@ -96,7 +103,9 @@ namespace ArchUnitNET.Fluent.Freeze
             try
             {
                 var doc = XDocument.Load(_storagePath);
-                return doc.Root?.Name == "FrozenRules" ? doc : new XDocument(new XElement("FrozenRules"));
+                return doc.Root?.Name == "FrozenRules"
+                    ? doc
+                    : new XDocument(new XElement("FrozenRules"));
             }
             catch (Exception) //file not found or invalid xml document
             {

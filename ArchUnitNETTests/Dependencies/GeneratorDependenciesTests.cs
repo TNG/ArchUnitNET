@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using System.Collections.Generic;
@@ -17,8 +17,9 @@ namespace ArchUnitNETTests.Dependencies
 {
     public class GeneratorDependenciesTests
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(GeneratorDependenciesTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(GeneratorDependenciesTests).Assembly)
+            .Build();
 
         private readonly Class _accessedClass;
         private readonly FieldMember _accessedStaticField;
@@ -30,28 +31,39 @@ namespace ArchUnitNETTests.Dependencies
         public GeneratorDependenciesTests()
         {
             _accessedClass = Architecture.GetClassOfType(typeof(AccessedClass));
-            _accessedStaticField = _accessedClass.GetFieldMembersWithName(nameof(AccessedClass.StringField)).First();
-            _accessedBoolField = _accessedClass.GetFieldMembersWithName(nameof(AccessedClass.BoolField)).First();
-            _accessedStaticMethodAsField =
-                _accessedClass.GetFieldMembersWithName(nameof(AccessedClass.StaticMethodAsField)).First();
+            _accessedStaticField = _accessedClass
+                .GetFieldMembersWithName(nameof(AccessedClass.StringField))
+                .First();
+            _accessedBoolField = _accessedClass
+                .GetFieldMembersWithName(nameof(AccessedClass.BoolField))
+                .First();
+            _accessedStaticMethodAsField = _accessedClass
+                .GetFieldMembersWithName(nameof(AccessedClass.StaticMethodAsField))
+                .First();
             _accessedConstructor = _accessedClass.Constructors.First();
             _accessedStaticMethodWithBody = _accessedClass
-                .GetMethodMembersWithName(nameof(AccessedClass.StaticMethodWithBody) + "(System.Int32)").First();
+                .GetMethodMembersWithName(
+                    nameof(AccessedClass.StaticMethodWithBody) + "(System.Int32)"
+                )
+                .First();
         }
 
         public static IEnumerable<object[]> GetGenerators()
         {
             var classWithGenerators = Architecture.GetClassOfType(typeof(ClassWithGenerators));
             var simpleGenerator = classWithGenerators
-                .GetMethodMembersWithName(nameof(ClassWithGenerators.SimpleGenerator) + "()").First();
+                .GetMethodMembersWithName(nameof(ClassWithGenerators.SimpleGenerator) + "()")
+                .First();
             var complexGenerator = classWithGenerators
-                .GetMethodMembersWithName(nameof(ClassWithGenerators.ComplexGenerator) + "()").First();
+                .GetMethodMembersWithName(nameof(ClassWithGenerators.ComplexGenerator) + "()")
+                .First();
             var nestedGenerator = classWithGenerators
-                .GetMethodMembersWithName(nameof(ClassWithGenerators.ContainingGenerator) + "()").First();
+                .GetMethodMembersWithName(nameof(ClassWithGenerators.ContainingGenerator) + "()")
+                .First();
 
-            yield return new object[] {simpleGenerator};
-            yield return new object[] {complexGenerator};
-            yield return new object[] {nestedGenerator};
+            yield return new object[] { simpleGenerator };
+            yield return new object[] { complexGenerator };
+            yield return new object[] { nestedGenerator };
         }
 
         [Theory]
@@ -60,7 +72,10 @@ namespace ArchUnitNETTests.Dependencies
         {
             var accessedFieldMembers = generator.GetAccessedFieldMembers().ToList();
             var calledMethods = generator.GetCalledMethods().ToList();
-            var bodyTypes = generator.GetBodyTypeMemberDependencies().Select(dep => dep.Target).ToList();
+            var bodyTypes = generator
+                .GetBodyTypeMemberDependencies()
+                .Select(dep => dep.Target)
+                .ToList();
 
             Assert.Contains(_accessedBoolField, accessedFieldMembers);
             Assert.Contains(_accessedStaticField, accessedFieldMembers);

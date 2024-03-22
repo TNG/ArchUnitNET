@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -15,8 +15,9 @@ namespace ArchUnitNETTests.Dependencies
 {
     public class AccessFieldDependenciesTests
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(AccessFieldDependenciesTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(AccessFieldDependenciesTests).Assembly)
+            .Build();
 
         private readonly Class _accessingClass;
 
@@ -28,19 +29,25 @@ namespace ArchUnitNETTests.Dependencies
 
         public AccessFieldDependenciesTests()
         {
-            _classWithNonStaticFields = Architecture.GetClassOfType(typeof(ClassWithNonStaticFields));
+            _classWithNonStaticFields = Architecture.GetClassOfType(
+                typeof(ClassWithNonStaticFields)
+            );
             _classWithStaticFields = Architecture.GetClassOfType(typeof(ClassWithStaticFields));
             _accessingClass = Architecture.GetClassOfType(typeof(ClassAccessingFields));
 
-
-            _nonStaticFieldMember = _classWithNonStaticFields.GetFieldMembersWithName("NonStaticField").First();
-            _staticFieldMember = _classWithStaticFields.GetFieldMembersWithName("StaticField").First();
+            _nonStaticFieldMember = _classWithNonStaticFields
+                .GetFieldMembersWithName("NonStaticField")
+                .First();
+            _staticFieldMember = _classWithStaticFields
+                .GetFieldMembersWithName("StaticField")
+                .First();
         }
 
         [Fact]
         public void PropertyAccessToStaticFieldFound()
         {
-            var property = _accessingClass.GetPropertyMembers()
+            var property = _accessingClass
+                .GetPropertyMembers()
                 .First(member => member.FullNameContains("PropertyAccessingStaticField"));
             var propertyTypeDependencies = property.GetTypeDependencies().ToList();
             var propertyFieldDependencies = property.GetAccessedFieldMembers().ToList();
@@ -52,7 +59,8 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void PropertyAccessToNonStaticFieldFound()
         {
-            var property = _accessingClass.GetPropertyMembers()
+            var property = _accessingClass
+                .GetPropertyMembers()
                 .First(member => member.FullNameContains("PropertyAccessingNonStaticField"));
             var propertyTypeDependencies = property.GetTypeDependencies().ToList();
             var propertyFieldDependencies = property.GetAccessedFieldMembers().ToList();
@@ -64,7 +72,8 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void SettingStaticFieldDependencyFound()
         {
-            var method = _accessingClass.GetMethodMembers()
+            var method = _accessingClass
+                .GetMethodMembers()
                 .First(member => member.FullNameContains("MethodSettingStaticField"));
             var methodTypeDependencies = method.GetTypeDependencies().ToList();
             var methodFieldDependencies = method.GetAccessedFieldMembers().ToList();
@@ -76,7 +85,8 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void GettingStaticFieldDependencyFound()
         {
-            var method = _accessingClass.GetMethodMembers()
+            var method = _accessingClass
+                .GetMethodMembers()
                 .First(member => member.FullNameContains("MethodGettingStaticField"));
             var methodTypeDependencies = method.GetTypeDependencies().ToList();
             var methodFieldDependencies = method.GetAccessedFieldMembers().ToList();
@@ -88,7 +98,8 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void SettingNonStaticFieldDependencyFound()
         {
-            var method = _accessingClass.GetMethodMembers()
+            var method = _accessingClass
+                .GetMethodMembers()
                 .First(member => member.FullNameContains("MethodSettingNonStaticField"));
             var methodTypeDependencies = method.GetTypeDependencies().ToList();
             var methodFieldDependencies = method.GetAccessedFieldMembers().ToList();
@@ -100,7 +111,8 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void GettingNonStaticFieldDependencyFound()
         {
-            var method = _accessingClass.GetMethodMembers()
+            var method = _accessingClass
+                .GetMethodMembers()
                 .First(member => member.FullNameContains("MethodGettingNonStaticField"));
             var methodTypeDependencies = method.GetTypeDependencies().ToList();
             var methodFieldDependencies = method.GetAccessedFieldMembers().ToList();
@@ -122,8 +134,10 @@ namespace ArchUnitNETTests.Dependencies
 
     internal class ClassAccessingFields
     {
-        public ClassAccessingFields PropertyAccessingStaticField => ClassWithStaticFields.StaticField;
-        public ClassAccessingFields PropertyAccessingNonStaticField => new ClassWithNonStaticFields().NonStaticField;
+        public ClassAccessingFields PropertyAccessingStaticField =>
+            ClassWithStaticFields.StaticField;
+        public ClassAccessingFields PropertyAccessingNonStaticField =>
+            new ClassWithNonStaticFields().NonStaticField;
 
         public void MethodGettingStaticField()
         {
@@ -143,7 +157,7 @@ namespace ArchUnitNETTests.Dependencies
 
         public void MethodSettingNonStaticField()
         {
-            var cls = new ClassWithNonStaticFields {NonStaticField = new ClassAccessingFields()};
+            var cls = new ClassWithNonStaticFields { NonStaticField = new ClassAccessingFields() };
         }
     }
 }

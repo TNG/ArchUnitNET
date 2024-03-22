@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -10,12 +10,15 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Predicates
 {
-    public class EnumerablePredicate<TRuleType> : IPredicate<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class EnumerablePredicate<TRuleType> : IPredicate<TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         private readonly Func<IEnumerable<TRuleType>, IEnumerable<TRuleType>> _predicate;
 
-        public EnumerablePredicate(Func<IEnumerable<TRuleType>, IEnumerable<TRuleType>> predicate,
-            string description)
+        public EnumerablePredicate(
+            Func<IEnumerable<TRuleType>, IEnumerable<TRuleType>> predicate,
+            string description
+        )
         {
             _predicate = predicate;
             Description = description;
@@ -23,7 +26,10 @@ namespace ArchUnitNET.Fluent.Predicates
 
         public string Description { get; }
 
-        public IEnumerable<TRuleType> GetMatchingObjects(IEnumerable<TRuleType> objects, Architecture architecture)
+        public IEnumerable<TRuleType> GetMatchingObjects(
+            IEnumerable<TRuleType> objects,
+            Architecture architecture
+        )
         {
             return _predicate(objects);
         }
@@ -50,7 +56,7 @@ namespace ArchUnitNET.Fluent.Predicates
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((EnumerablePredicate<TRuleType>) obj);
+            return obj.GetType() == GetType() && Equals((EnumerablePredicate<TRuleType>)obj);
         }
 
         public override int GetHashCode()

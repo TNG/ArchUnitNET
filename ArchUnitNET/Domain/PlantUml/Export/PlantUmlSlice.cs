@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using System.ComponentModel.Design;
@@ -20,7 +20,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private string Color { get; }
         private bool C4Style { get; set; }
 
-        public PlantUmlSlice(string name, string nameSpace = null, string color = null, string hyperlink = null)
+        public PlantUmlSlice(
+            string name,
+            string nameSpace = null,
+            string color = null,
+            string hyperlink = null
+        )
         {
             PlantUmlNameChecker.AssertNoForbiddenCharacters(name, hyperlink, nameSpace);
             PlantUmlNameChecker.AssertNotNullOrEmpty(name);
@@ -124,11 +129,13 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             {
                 var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
                 result.AppendLine(" {");
-                result.Append("Boundary(" + name.Remove(dotPattern) + ", " + name.Remove(dotPattern) + ") ");
+                result.Append(
+                    "Boundary(" + name.Remove(dotPattern) + ", " + name.Remove(dotPattern) + ") "
+                );
                 name = name.Remove(0, dotPattern + 1);
                 iter++;
             }
-            
+
             result.AppendLine(" {");
             if (name != "")
             {

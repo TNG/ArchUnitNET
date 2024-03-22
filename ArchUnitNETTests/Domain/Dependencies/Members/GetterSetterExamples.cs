@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -18,18 +18,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
     {
         public Guid AcceptedCase
         {
-            get
-            {
-                return new Guid("35353");
-            }
+            get { return new Guid("35353"); }
         }
 
         public Guid FirstUnacceptedCase
         {
-            get
-            {
-                return Guid.NewGuid();
-            }
+            get { return Guid.NewGuid(); }
         }
 
         public Guid SecondUnacceptedCase => Guid.NewGuid();
@@ -46,14 +40,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
         public ChildField CustomProperty
         {
-            set
-            {
-                _customPropertyBacking = value;
-            }
-            get
-            {
-                return _customPropertyBacking;
-            }
+            set { _customPropertyBacking = value; }
+            get { return _customPropertyBacking; }
         }
 
         public ChildField LambdaPair
@@ -63,7 +51,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
         public PropertyType ConstructorPair
         {
-            set {_constructorPairBacking = new PropertyType(value);}
+            set { _constructorPairBacking = new PropertyType(value); }
         }
 
         public PropertyType ConstructorLambdaPair

@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -13,7 +13,8 @@ using ArchUnitNET.Fluent.Predicates;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ArchRuleCreator<TRuleType> : IArchRuleCreator<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class ArchRuleCreator<TRuleType> : IArchRuleCreator<TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         private readonly ConditionManager<TRuleType> _conditionManager;
         private readonly PredicateManager<TRuleType> _predicateManager;
@@ -25,7 +26,8 @@ namespace ArchUnitNET.Fluent
             _conditionManager = new ConditionManager<TRuleType>();
         }
 
-        public string Description => (_predicateManager.Description + " " + _conditionManager.Description).Trim();
+        public string Description =>
+            (_predicateManager.Description + " " + _conditionManager.Description).Trim();
 
         public bool HasNoViolations(Architecture architecture)
         {
@@ -67,8 +69,10 @@ namespace ArchUnitNET.Fluent
             _predicateManager.AddReason(reason);
         }
 
-        public void BeginComplexCondition<TRelatedType>(IObjectProvider<TRelatedType> relatedObjects,
-            RelationCondition<TRuleType, TRelatedType> relationCondition)
+        public void BeginComplexCondition<TRelatedType>(
+            IObjectProvider<TRelatedType> relatedObjects,
+            RelationCondition<TRuleType, TRelatedType> relationCondition
+        )
             where TRelatedType : ICanBeAnalyzed
         {
             _conditionManager.BeginComplexCondition(relatedObjects, relationCondition);
@@ -97,8 +101,7 @@ namespace ArchUnitNET.Fluent
 
         private void SetRequirePositiveResults(bool requirePositive)
         {
-            if (_requirePositiveResults != null &&
-                _requirePositiveResults != requirePositive)
+            if (_requirePositiveResults != null && _requirePositiveResults != requirePositive)
                 throw new InvalidOperationException("conflicting positive expectation");
             _requirePositiveResults = requirePositive;
         }
@@ -109,13 +112,18 @@ namespace ArchUnitNET.Fluent
             set => SetRequirePositiveResults(value);
         }
 
-        private bool HasNoViolations(IEnumerable<TRuleType> filteredObjects, Architecture architecture)
+        private bool HasNoViolations(
+            IEnumerable<TRuleType> filteredObjects,
+            Architecture architecture
+        )
         {
             return EvaluateConditions(filteredObjects, architecture).All(result => result.Passed);
         }
 
-        private IEnumerable<EvaluationResult> EvaluateConditions(IEnumerable<TRuleType> filteredObjects,
-            Architecture architecture)
+        private IEnumerable<EvaluationResult> EvaluateConditions(
+            IEnumerable<TRuleType> filteredObjects,
+            Architecture architecture
+        )
         {
             return _conditionManager.EvaluateConditions(filteredObjects, architecture, this);
         }
@@ -127,8 +135,8 @@ namespace ArchUnitNET.Fluent
 
         private bool Equals(ArchRuleCreator<TRuleType> other)
         {
-            return _conditionManager.Equals(other._conditionManager) &&
-                   _predicateManager.Equals(other._predicateManager);
+            return _conditionManager.Equals(other._conditionManager)
+                && _predicateManager.Equals(other._predicateManager);
         }
 
         public override bool Equals(object obj)
@@ -143,15 +151,18 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ArchRuleCreator<TRuleType>) obj);
+            return obj.GetType() == GetType() && Equals((ArchRuleCreator<TRuleType>)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = 397 ^ (_conditionManager != null ? _conditionManager.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (_predicateManager != null ? _predicateManager.GetHashCode() : 0);
+                var hashCode =
+                    397 ^ (_conditionManager != null ? _conditionManager.GetHashCode() : 0);
+                hashCode =
+                    (hashCode * 397)
+                    ^ (_predicateManager != null ? _predicateManager.GetHashCode() : 0);
                 return hashCode;
             }
         }

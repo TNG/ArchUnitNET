@@ -18,8 +18,7 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         public override bool Equals(object obj)
         {
-            return obj is ComponentName name &&
-                   _value == name._value;
+            return obj is ComponentName name && _value == name._value;
         }
 
         public override int GetHashCode()

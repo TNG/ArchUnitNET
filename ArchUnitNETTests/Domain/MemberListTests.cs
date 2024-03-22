@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -18,18 +18,25 @@ namespace ArchUnitNETTests.Domain
     {
         public MemberListTests()
         {
-            _fieldA = Architecture.GetClassOfType(typeof(ClassWithFieldA))
-                .GetFieldMembersWithName(nameof(ClassWithFieldA.FieldA)).SingleOrDefault();
-            _propertyA = Architecture.GetClassOfType(typeof(ClassWithPropertyA))
-                .GetPropertyMembersWithName(nameof(ClassWithPropertyA.PropertyA)).SingleOrDefault();
-            _methodA = Architecture.GetClassOfType(typeof(ClassWithMethodA))
-                .GetMethodMembersWithName(nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()).SingleOrDefault();
+            _fieldA = Architecture
+                .GetClassOfType(typeof(ClassWithFieldA))
+                .GetFieldMembersWithName(nameof(ClassWithFieldA.FieldA))
+                .SingleOrDefault();
+            _propertyA = Architecture
+                .GetClassOfType(typeof(ClassWithPropertyA))
+                .GetPropertyMembersWithName(nameof(ClassWithPropertyA.PropertyA))
+                .SingleOrDefault();
+            _methodA = Architecture
+                .GetClassOfType(typeof(ClassWithMethodA))
+                .GetMethodMembersWithName(nameof(ClassWithMethodA.MethodA).BuildMethodMemberName())
+                .SingleOrDefault();
 
             _memberList = new MemberList();
-            _listOfMembers = new List<IMember> {_fieldA, _propertyA, _methodA};
+            _listOfMembers = new List<IMember> { _fieldA, _propertyA, _methodA };
         }
 
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly MemberList _memberList;
         private readonly FieldMember _fieldA;
         private readonly PropertyMember _propertyA;
@@ -91,7 +98,9 @@ namespace ArchUnitNETTests.Domain
         {
             Assert.Empty(_memberList);
             _memberList.Add(_methodA);
-            var memberFromMethodAName = _memberList[nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()];
+            var memberFromMethodAName = _memberList[
+                nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()
+            ];
             Assert.Equal(_methodA, memberFromMethodAName);
         }
 
@@ -135,7 +144,6 @@ namespace ArchUnitNETTests.Domain
             Assert.DoesNotContain(_propertyA, _memberList);
             Assert.Single(_memberList);
         }
-
 
         [Fact]
         public void SuccessfullySetAtIndex()

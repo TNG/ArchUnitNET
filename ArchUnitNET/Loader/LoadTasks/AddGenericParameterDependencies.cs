@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
@@ -13,7 +13,8 @@ namespace ArchUnitNET.Loader.LoadTasks
 {
     public class AddGenericParameterDependencies : ILoadTask
     {
-        [NotNull] private readonly IType _type;
+        [NotNull]
+        private readonly IType _type;
 
         public AddGenericParameterDependencies([NotNull] IType type)
         {
@@ -33,8 +34,10 @@ namespace ArchUnitNET.Loader.LoadTasks
                 genericParameter.AssignDeclarer(_type);
                 foreach (var typeInstanceConstraint in genericParameter.TypeInstanceConstraints)
                 {
-                    var dependency =
-                        new TypeGenericParameterTypeConstraintDependency(genericParameter, typeInstanceConstraint);
+                    var dependency = new TypeGenericParameterTypeConstraintDependency(
+                        genericParameter,
+                        typeInstanceConstraint
+                    );
                     genericParameter.Dependencies.Add(dependency);
                 }
             }
@@ -49,9 +52,10 @@ namespace ArchUnitNET.Loader.LoadTasks
                     genericParameter.AssignDeclarer(member);
                     foreach (var typeInstanceConstraint in genericParameter.TypeInstanceConstraints)
                     {
-                        var dependency =
-                            new MemberGenericParameterTypeConstraintDependency(genericParameter,
-                                typeInstanceConstraint);
+                        var dependency = new MemberGenericParameterTypeConstraintDependency(
+                            genericParameter,
+                            typeInstanceConstraint
+                        );
                         genericParameter.Dependencies.Add(dependency);
                     }
                 }
