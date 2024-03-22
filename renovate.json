@@ -9,6 +9,16 @@
       "datasourceTemplate": "dotnet-version",
       "depNameTemplate": "dotnet-sdk",
       "depTypeTemplate": "action"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/|\\.).*(csproj|pubxml)$"],
+      "matchStrings": [
+        "<TargetFramework>net(?<currentValue>[^<]*)</TargetFramework>"
+      ],
+      "datasourceTemplate": "dotnet-version",
+      "depNameTemplate": "dotnet-sdk",
+      "depTypeTemplate": "action"
     }
   ],
   "packageRules": [
