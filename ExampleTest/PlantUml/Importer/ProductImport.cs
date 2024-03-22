@@ -1,10 +1,10 @@
-﻿using ExampleTest.PlantUml.Catalog;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using ExampleTest.PlantUml.Catalog;
 using ExampleTest.PlantUml.Customers;
 using ExampleTest.PlantUml.Xml.Processor;
 using ExampleTest.PlantUml.Xml.Types;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ExampleTest.PlantUml.Importer
 {

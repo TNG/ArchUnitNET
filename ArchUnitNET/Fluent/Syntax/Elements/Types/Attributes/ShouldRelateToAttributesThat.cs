@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -9,15 +9,14 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public class ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> :
-        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, Attribute, TRuleType>,
-        IAttributePredicates<TRuleTypeShouldConjunction, Attribute>
+    public class ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType>
+        : ShouldRelateToTypesThat<TRuleTypeShouldConjunction, Attribute, TRuleType>,
+            IAttributePredicates<TRuleTypeShouldConjunction, Attribute>
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
-        public ShouldRelateToAttributesThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
-        {
-        }
+        public ShouldRelateToAttributesThat(IArchRuleCreator<TRuleType> ruleCreator)
+            : base(ruleCreator) { }
 
         public TRuleTypeShouldConjunction AreAbstract()
         {
@@ -30,7 +29,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
             _ruleCreator.ContinueComplexCondition(AttributePredicatesDefinition.AreSealed());
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-
 
         //Negations
 

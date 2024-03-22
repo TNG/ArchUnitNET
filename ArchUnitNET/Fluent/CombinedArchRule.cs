@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -16,21 +16,30 @@ namespace ArchUnitNET.Fluent
         private readonly LogicalConjunction _logicalConjunction;
         private readonly ICanBeEvaluated _secondRule;
 
-        public CombinedArchRule(ICanBeEvaluated firstRule, LogicalConjunction logicalConjunction,
-            ICanBeEvaluated secondRule)
+        public CombinedArchRule(
+            ICanBeEvaluated firstRule,
+            LogicalConjunction logicalConjunction,
+            ICanBeEvaluated secondRule
+        )
         {
             _firstRule = firstRule;
             _secondRule = secondRule;
             _logicalConjunction = logicalConjunction;
         }
 
-        public string Description => _firstRule.Description + " " + _logicalConjunction.Description + " " +
-                                     _secondRule.Description;
+        public string Description =>
+            _firstRule.Description
+            + " "
+            + _logicalConjunction.Description
+            + " "
+            + _secondRule.Description;
 
         public bool HasNoViolations(Architecture architecture)
         {
-            return _logicalConjunction.Evaluate(_firstRule.HasNoViolations(architecture),
-                _secondRule.HasNoViolations(architecture));
+            return _logicalConjunction.Evaluate(
+                _firstRule.HasNoViolations(architecture),
+                _secondRule.HasNoViolations(architecture)
+            );
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
@@ -65,9 +74,9 @@ namespace ArchUnitNET.Fluent
 
         private bool Equals(CombinedArchRule other)
         {
-            return Equals(_firstRule, other._firstRule) &&
-                   Equals(_secondRule, other._secondRule) &&
-                   Equals(_logicalConjunction, other._logicalConjunction);
+            return Equals(_firstRule, other._firstRule)
+                && Equals(_secondRule, other._secondRule)
+                && Equals(_logicalConjunction, other._logicalConjunction);
         }
 
         public override bool Equals(object obj)
@@ -82,7 +91,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((CombinedArchRule) obj);
+            return obj.GetType() == GetType() && Equals((CombinedArchRule)obj);
         }
 
         public override int GetHashCode()
@@ -91,9 +100,10 @@ namespace ArchUnitNET.Fluent
             {
                 var hashCode = Description != null ? Description.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (_firstRule != null ? _firstRule.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (_logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^
-                           (_secondRule != null ? _secondRule.GetHashCode() : 0);
+                hashCode =
+                    (hashCode * 397)
+                    ^ (_logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_secondRule != null ? _secondRule.GetHashCode() : 0);
                 return hashCode;
             }
         }

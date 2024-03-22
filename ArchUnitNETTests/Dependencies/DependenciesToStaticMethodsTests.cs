@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using System.Collections.Generic;
@@ -17,8 +17,9 @@ namespace ArchUnitNETTests.Dependencies
 {
     public class DependenciesToStaticMethodsTests
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(DependenciesToStaticMethodsTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(DependenciesToStaticMethodsTests).Assembly)
+            .Build();
 
         private readonly Class _accessingClass;
         private readonly Class _classAccessingStaticMethodInGenerator;
@@ -27,19 +28,24 @@ namespace ArchUnitNETTests.Dependencies
         private readonly MethodMember _staticMethodMemberWithBody;
         private readonly FieldMember _staticMethodMemberAsField;
 
-
         public DependenciesToStaticMethodsTests()
         {
             _accessingClass = Architecture.GetClassOfType(typeof(ClassAccessingStaticMethod));
-            _classAccessingStaticMethodInGenerator =
-                Architecture.GetClassOfType(typeof(ClassAccessingStaticMethodInGenerator));
-            _classAccessingStaticMethodWithoutGenerator =
-                Architecture.GetClassOfType(typeof(ClassAccessingStaticMethodWithoutGenerator));
+            _classAccessingStaticMethodInGenerator = Architecture.GetClassOfType(
+                typeof(ClassAccessingStaticMethodInGenerator)
+            );
+            _classAccessingStaticMethodWithoutGenerator = Architecture.GetClassOfType(
+                typeof(ClassAccessingStaticMethodWithoutGenerator)
+            );
             _classWithStaticMethod = Architecture.GetClassOfType(typeof(ClassWithStaticMethods));
             _staticMethodMemberWithBody = _classWithStaticMethod
-                .GetMethodMembersWithName(nameof(ClassWithStaticMethods.StaticMethodWithBody) + "(System.Int32)").First();
+                .GetMethodMembersWithName(
+                    nameof(ClassWithStaticMethods.StaticMethodWithBody) + "(System.Int32)"
+                )
+                .First();
             _staticMethodMemberAsField = _classWithStaticMethod
-                .GetFieldMembersWithName(nameof(ClassWithStaticMethods.StaticMethodAsField)).First();
+                .GetFieldMembersWithName(nameof(ClassWithStaticMethods.StaticMethodAsField))
+                .First();
         }
 
         [Fact]
@@ -65,21 +71,33 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void StaticReferencesInGeneratorFound()
         {
-            var typeDependencies = _classAccessingStaticMethodInGenerator.GetTypeDependencies().ToList();
-            var methodDependencies = _classAccessingStaticMethodInGenerator.GetCalledMethods().ToList();
-            var fieldDependencies = _classAccessingStaticMethodInGenerator.GetAccessedFieldMembers().ToList();
+            var typeDependencies = _classAccessingStaticMethodInGenerator
+                .GetTypeDependencies()
+                .ToList();
+            var methodDependencies = _classAccessingStaticMethodInGenerator
+                .GetCalledMethods()
+                .ToList();
+            var fieldDependencies = _classAccessingStaticMethodInGenerator
+                .GetAccessedFieldMembers()
+                .ToList();
 
             Assert.Contains(_classWithStaticMethod, typeDependencies);
             Assert.Contains(_staticMethodMemberWithBody, methodDependencies);
             Assert.Contains(_staticMethodMemberAsField, fieldDependencies);
         }
-        
+
         [Fact]
         public void StaticReferencesWithoutGeneratorFound()
         {
-            var typeDependencies = _classAccessingStaticMethodWithoutGenerator.GetTypeDependencies().ToList();
-            var methodDependencies = _classAccessingStaticMethodWithoutGenerator.GetCalledMethods().ToList();
-            var fieldDependencies = _classAccessingStaticMethodWithoutGenerator.GetAccessedFieldMembers().ToList();
+            var typeDependencies = _classAccessingStaticMethodWithoutGenerator
+                .GetTypeDependencies()
+                .ToList();
+            var methodDependencies = _classAccessingStaticMethodWithoutGenerator
+                .GetCalledMethods()
+                .ToList();
+            var fieldDependencies = _classAccessingStaticMethodWithoutGenerator
+                .GetAccessedFieldMembers()
+                .ToList();
 
             Assert.Contains(_classWithStaticMethod, typeDependencies);
             Assert.Contains(_staticMethodMemberWithBody, methodDependencies);
@@ -96,7 +114,6 @@ namespace ArchUnitNETTests.Dependencies
 
         public static Func<int, int> StaticMethodAsField = i => i + 2;
     }
-
 
     internal class ClassAccessingStaticMethod
     {

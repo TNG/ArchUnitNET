@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
@@ -19,9 +19,13 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             var architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
             _classWithFieldA = architecture.GetClassOfType(typeof(ClassWithFieldA));
-            _fieldAMember = _classWithFieldA.GetFieldMembersWithName(nameof(ClassWithFieldA.FieldA)).SingleOrDefault();
+            _fieldAMember = _classWithFieldA
+                .GetFieldMembersWithName(nameof(ClassWithFieldA.FieldA))
+                .SingleOrDefault();
             _fieldType = architecture.GetClassOfType(typeof(FieldType));
-            _privateFieldAMember = _classWithFieldA.GetFieldMembersWithName("_privateFieldA").SingleOrDefault();
+            _privateFieldAMember = _classWithFieldA
+                .GetFieldMembersWithName("_privateFieldA")
+                .SingleOrDefault();
         }
 
         private readonly Class _classWithFieldA;
@@ -47,8 +51,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             var fieldMembers = _classWithFieldA.GetFieldMembers();
 
             //Assert
-            Assert.All(fieldMembers, fieldMember =>
-                Assert.True(_classWithFieldA.HasDependencies(fieldMember.MemberDependencies)));
+            Assert.All(
+                fieldMembers,
+                fieldMember =>
+                    Assert.True(_classWithFieldA.HasDependencies(fieldMember.MemberDependencies))
+            );
         }
 
         [Fact]
@@ -73,7 +80,5 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         public FieldType FieldA;
     }
 
-    public class FieldType
-    {
-    }
+    public class FieldType { }
 }

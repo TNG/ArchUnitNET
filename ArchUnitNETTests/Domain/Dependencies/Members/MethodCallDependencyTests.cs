@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
@@ -19,7 +19,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class MethodCallDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly Architecture _architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Class _classWithConstructors;
         private readonly MethodMember _methodAMember;
@@ -28,10 +29,14 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         public MethodCallDependencyTests()
         {
             _classWithConstructors = _architecture.GetClassOfType(typeof(ClassWithConstructors));
-            _methodAMember = _architecture.GetClassOfType(typeof(ClassWithMethodA))
-                .GetMethodMembersWithName(nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()).FirstOrDefault();
-            _methodBMember = _architecture.GetClassOfType(typeof(ClassWithMethodB))
-                .GetMethodMembersWithName(nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()).FirstOrDefault();
+            _methodAMember = _architecture
+                .GetClassOfType(typeof(ClassWithMethodA))
+                .GetMethodMembersWithName(nameof(ClassWithMethodA.MethodA).BuildMethodMemberName())
+                .FirstOrDefault();
+            _methodBMember = _architecture
+                .GetClassOfType(typeof(ClassWithMethodB))
+                .GetMethodMembersWithName(nameof(ClassWithMethodB.MethodB).BuildMethodMemberName())
+                .FirstOrDefault();
         }
 
         [Theory]
@@ -50,7 +55,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
         [Theory]
         [ClassData(typeof(MethodDependencyTestBuild.MethodCallDependencyTestData))]
-        public void MethodCallDependenciesAreFound(IMember originMember, MethodCallDependency expectedDependency)
+        public void MethodCallDependenciesAreFound(
+            IMember originMember,
+            MethodCallDependency expectedDependency
+        )
         {
             Assert.True(originMember.HasMemberDependency(expectedDependency));
             Assert.Contains(expectedDependency, originMember.GetMethodCallDependencies());
@@ -58,7 +66,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
         [Theory]
         [ClassData(typeof(MethodDependencyTestBuild.MethodCallDependencyInAsyncMethodTestData))]
-        public void MethodCallDependenciesAreFoundInAsyncMethod(IMember originMember, MethodCallDependency expectedDependency)
+        public void MethodCallDependenciesAreFoundInAsyncMethod(
+            IMember originMember,
+            MethodCallDependency expectedDependency
+        )
         {
             Assert.True(originMember.HasMemberDependency(expectedDependency));
             Assert.Contains(expectedDependency, originMember.GetMethodCallDependencies());
@@ -99,13 +110,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         private FieldType _fieldTest;
         private FieldType _privateFieldTest;
 
-        public ClassWithConstructors() : this(new FieldType())
-        {
-        }
+        public ClassWithConstructors()
+            : this(new FieldType()) { }
 
-        private ClassWithConstructors(FieldType fieldTest) : this(fieldTest, fieldTest)
-        {
-        }
+        private ClassWithConstructors(FieldType fieldTest)
+            : this(fieldTest, fieldTest) { }
 
         private ClassWithConstructors(FieldType fieldTest, FieldType privateFieldTest)
         {

@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -17,10 +17,17 @@ namespace ArchUnitNET.Domain
         private readonly string _declarerFullName;
         internal readonly IEnumerable<ITypeInstance<IType>> TypeInstanceConstraints;
 
-        public GenericParameter(string declarerFullName, string name, GenericParameterVariance variance,
-            IEnumerable<ITypeInstance<IType>> typeConstraints, bool hasReferenceTypeConstraint,
-            bool hasNotNullableValueTypeConstraint, bool hasDefaultConstructorConstraint, bool isCompilerGenerated,
-            bool declarerIsMethod)
+        public GenericParameter(
+            string declarerFullName,
+            string name,
+            GenericParameterVariance variance,
+            IEnumerable<ITypeInstance<IType>> typeConstraints,
+            bool hasReferenceTypeConstraint,
+            bool hasNotNullableValueTypeConstraint,
+            bool hasDefaultConstructorConstraint,
+            bool isCompilerGenerated,
+            bool declarerIsMethod
+        )
         {
             _declarerFullName = declarerFullName;
             Name = name;
@@ -34,22 +41,29 @@ namespace ArchUnitNET.Domain
         }
 
         public IType DeclaringType { get; private set; }
-        [CanBeNull] public IMember DeclaringMethod { get; private set; }
+
+        [CanBeNull]
+        public IMember DeclaringMethod { get; private set; }
         public bool DeclarerIsMethod { get; }
         public GenericParameterVariance Variance { get; }
-        public IEnumerable<IType> TypeConstraints => TypeInstanceConstraints.Select(instance => instance.Type);
+        public IEnumerable<IType> TypeConstraints =>
+            TypeInstanceConstraints.Select(instance => instance.Type);
         public bool HasReferenceTypeConstraint { get; }
         public bool HasNotNullableValueTypeConstraint { get; }
         public bool HasDefaultConstructorConstraint { get; }
 
-        public bool HasConstraints => HasReferenceTypeConstraint || HasNotNullableValueTypeConstraint ||
-                                      HasDefaultConstructorConstraint || TypeConstraints.Any();
+        public bool HasConstraints =>
+            HasReferenceTypeConstraint
+            || HasNotNullableValueTypeConstraint
+            || HasDefaultConstructorConstraint
+            || TypeConstraints.Any();
 
         public string Name { get; }
         public string FullName => _declarerFullName + "+<" + Name + ">";
         public bool IsCompilerGenerated { get; }
-        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
-        public List<AttributeInstance> AttributeInstances { get; } =  new List<AttributeInstance>();
+        public IEnumerable<Attribute> Attributes =>
+            AttributeInstances.Select(instance => instance.Type);
+        public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
 
         public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
         public List<ITypeDependency> BackwardsDependencies { get; } = new List<ITypeDependency>();
@@ -118,7 +132,7 @@ namespace ArchUnitNET.Domain
                 return false;
             }
 
-            return Equals((GenericParameter) obj);
+            return Equals((GenericParameter)obj);
         }
 
         public override int GetHashCode()

@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections;
@@ -18,40 +18,61 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public static class MemberDependencyTestBuild
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
-        private static object[] BuildBodyTypeMemberDependencyTestData(Type originType, string originMemberName,
-            Type targetType)
+        private static object[] BuildBodyTypeMemberDependencyTestData(
+            Type originType,
+            string originMemberName,
+            Type targetType
+        )
         {
-            var classMemberInfo =
-                BuildMemberDependencyTestData(originType, originMemberName, targetType);
+            var classMemberInfo = BuildMemberDependencyTestData(
+                originType,
+                originMemberName,
+                targetType
+            );
 
             if (!(classMemberInfo.OriginMember is MethodMember originMember))
             {
-                return new object[] {null, null, null, null};
+                return new object[] { null, null, null, null };
             }
 
-            var memberTypeDependency =
-                new BodyTypeMemberDependency(originMember, new TypeInstance<IType>(classMemberInfo.TargetClass));
-            object duplicateMemberTypeDependency =
-                new BodyTypeMemberDependency(originMember, new TypeInstance<IType>(classMemberInfo.TargetClass));
+            var memberTypeDependency = new BodyTypeMemberDependency(
+                originMember,
+                new TypeInstance<IType>(classMemberInfo.TargetClass)
+            );
+            object duplicateMemberTypeDependency = new BodyTypeMemberDependency(
+                originMember,
+                new TypeInstance<IType>(classMemberInfo.TargetClass)
+            );
             var dependencyReferenceDuplicate = memberTypeDependency;
             object objectReferenceDuplicate = memberTypeDependency;
 
             return new[]
             {
-                memberTypeDependency, duplicateMemberTypeDependency, dependencyReferenceDuplicate,
+                memberTypeDependency,
+                duplicateMemberTypeDependency,
+                dependencyReferenceDuplicate,
                 objectReferenceDuplicate
             };
         }
 
-        private static object[] BuildFieldDependencyTestData(Type originType, string originMemberName, Type targetType)
+        private static object[] BuildFieldDependencyTestData(
+            Type originType,
+            string originMemberName,
+            Type targetType
+        )
         {
-            var classMemberInfo = BuildMemberDependencyTestData(originType, originMemberName, targetType);
+            var classMemberInfo = BuildMemberDependencyTestData(
+                originType,
+                originMemberName,
+                targetType
+            );
 
             if (!(classMemberInfo.OriginMember is FieldMember originMember))
             {
-                return new object[] {null, null, null, null};
+                return new object[] { null, null, null, null };
             }
 
             var memberTypeDependency = new FieldTypeDependency(originMember);
@@ -61,68 +82,110 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
             return new[]
             {
-                memberTypeDependency, duplicateMemberTypeDependency, dependencyReferenceDuplicate,
+                memberTypeDependency,
+                duplicateMemberTypeDependency,
+                dependencyReferenceDuplicate,
                 objectReferenceDuplicate
             };
         }
 
-        private static object[] BuildMethodCallDependencyTestData(Type originType, string originMemberName,
-            Type targetType, string targetMemberName)
+        private static object[] BuildMethodCallDependencyTestData(
+            Type originType,
+            string originMemberName,
+            Type targetType,
+            string targetMemberName
+        )
         {
-            var classMemberInfo = BuildMemberDependencyTestData(originType, originMemberName, targetType,
-                targetMemberName);
+            var classMemberInfo = BuildMemberDependencyTestData(
+                originType,
+                originMemberName,
+                targetType,
+                targetMemberName
+            );
 
             if (!(classMemberInfo.TargetMember is MethodMember targetMember))
             {
-                return new object[] {null, null, null, null};
+                return new object[] { null, null, null, null };
             }
 
-            var memberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember,
-                new MethodMemberInstance(targetMember, Enumerable.Empty<GenericArgument>(),
-                    Enumerable.Empty<GenericArgument>()));
-            object duplicateMemberTypeDependency = new MethodCallDependency(classMemberInfo.OriginMember,
-                new MethodMemberInstance(targetMember, Enumerable.Empty<GenericArgument>(),
-                    Enumerable.Empty<GenericArgument>()));
+            var memberTypeDependency = new MethodCallDependency(
+                classMemberInfo.OriginMember,
+                new MethodMemberInstance(
+                    targetMember,
+                    Enumerable.Empty<GenericArgument>(),
+                    Enumerable.Empty<GenericArgument>()
+                )
+            );
+            object duplicateMemberTypeDependency = new MethodCallDependency(
+                classMemberInfo.OriginMember,
+                new MethodMemberInstance(
+                    targetMember,
+                    Enumerable.Empty<GenericArgument>(),
+                    Enumerable.Empty<GenericArgument>()
+                )
+            );
             var dependencyReferenceDuplicate = memberTypeDependency;
             object objectReferenceDuplicate = memberTypeDependency;
 
             return new[]
             {
-                memberTypeDependency, duplicateMemberTypeDependency, dependencyReferenceDuplicate,
+                memberTypeDependency,
+                duplicateMemberTypeDependency,
+                dependencyReferenceDuplicate,
                 objectReferenceDuplicate
             };
         }
 
-        private static object[] BuildMethodSignatureDependencyTestData(Type originType, string originMemberName,
-            Type targetType)
+        private static object[] BuildMethodSignatureDependencyTestData(
+            Type originType,
+            string originMemberName,
+            Type targetType
+        )
         {
-            var classMemberInfo = BuildMemberDependencyTestData(originType, originMemberName, targetType);
+            var classMemberInfo = BuildMemberDependencyTestData(
+                originType,
+                originMemberName,
+                targetType
+            );
             if (!(classMemberInfo.OriginMember is MethodMember originMember))
             {
-                return new object[] {null, null, null, null};
+                return new object[] { null, null, null, null };
             }
 
-            var memberTypeDependency =
-                new MethodSignatureDependency(originMember, new TypeInstance<IType>(classMemberInfo.TargetClass));
-            object duplicateMemberTypeDependency =
-                new MethodSignatureDependency(originMember, new TypeInstance<IType>(classMemberInfo.TargetClass));
+            var memberTypeDependency = new MethodSignatureDependency(
+                originMember,
+                new TypeInstance<IType>(classMemberInfo.TargetClass)
+            );
+            object duplicateMemberTypeDependency = new MethodSignatureDependency(
+                originMember,
+                new TypeInstance<IType>(classMemberInfo.TargetClass)
+            );
             var dependencyReferenceDuplicate = memberTypeDependency;
             object objectReferenceDuplicate = memberTypeDependency;
 
             return new[]
             {
-                memberTypeDependency, duplicateMemberTypeDependency, dependencyReferenceDuplicate,
+                memberTypeDependency,
+                duplicateMemberTypeDependency,
+                dependencyReferenceDuplicate,
                 objectReferenceDuplicate
             };
         }
 
-        private static object[] BuildPropertyDependencyTestData(Type originType, string originMemberName,
-            Type targetType)
+        private static object[] BuildPropertyDependencyTestData(
+            Type originType,
+            string originMemberName,
+            Type targetType
+        )
         {
-            var classMemberInfo = BuildMemberDependencyTestData(originType, originMemberName, targetType);
+            var classMemberInfo = BuildMemberDependencyTestData(
+                originType,
+                originMemberName,
+                targetType
+            );
             if (!(classMemberInfo.OriginMember is PropertyMember originMember))
             {
-                return new object[] {null, null, null, null};
+                return new object[] { null, null, null, null };
             }
 
             var memberTypeDependency = new PropertyTypeDependency(originMember);
@@ -132,13 +195,19 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
             return new[]
             {
-                memberTypeDependency, duplicateMemberTypeDependency, dependencyReferenceDuplicate,
+                memberTypeDependency,
+                duplicateMemberTypeDependency,
+                dependencyReferenceDuplicate,
                 objectReferenceDuplicate
             };
         }
 
-        private static ClassMemberInfo BuildMemberDependencyTestData(Type originType, string originMemberName,
-            Type targetType, string targetMemberName = null)
+        private static ClassMemberInfo BuildMemberDependencyTestData(
+            Type originType,
+            string originMemberName,
+            Type targetType,
+            string targetMemberName = null
+        )
         {
             var originClass = Architecture.GetClassOfType(originType);
             var originMember = originClass.GetMembersWithName(originMemberName).SingleOrDefault();
@@ -152,18 +221,32 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             private readonly List<object[]> _memberDependencyModelingData = new List<object[]>
             {
-                BuildPropertyDependencyTestData(typeof(ClassWithPropertyA), nameof(ClassWithPropertyA.PropertyA),
-                    typeof(PropertyType)),
-                BuildBodyTypeMemberDependencyTestData(typeof(ClassWithBodyTypeA),
-                    nameof(ClassWithBodyTypeA.MethodWithTypeA).BuildMethodMemberName(), typeof(TypeA)),
-                BuildFieldDependencyTestData(typeof(ClassWithFieldA), nameof(ClassWithFieldA.FieldA),
-                    typeof(FieldType)),
-                BuildMethodCallDependencyTestData(typeof(ClassWithMethodA),
-                    nameof(ClassWithMethodA.MethodA).BuildMethodMemberName(), typeof(ClassWithMethodB),
-                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()),
-                BuildMethodSignatureDependencyTestData(typeof(ClassWithMethodSignatureA),
+                BuildPropertyDependencyTestData(
+                    typeof(ClassWithPropertyA),
+                    nameof(ClassWithPropertyA.PropertyA),
+                    typeof(PropertyType)
+                ),
+                BuildBodyTypeMemberDependencyTestData(
+                    typeof(ClassWithBodyTypeA),
+                    nameof(ClassWithBodyTypeA.MethodWithTypeA).BuildMethodMemberName(),
+                    typeof(TypeA)
+                ),
+                BuildFieldDependencyTestData(
+                    typeof(ClassWithFieldA),
+                    nameof(ClassWithFieldA.FieldA),
+                    typeof(FieldType)
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithMethodA),
+                    nameof(ClassWithMethodA.MethodA).BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()
+                ),
+                BuildMethodSignatureDependencyTestData(
+                    typeof(ClassWithMethodSignatureA),
                     nameof(ClassWithMethodSignatureA.MethodA).BuildMethodMemberName(),
-                    typeof(ClassWithMethodSignatureB))
+                    typeof(ClassWithMethodSignatureB)
+                )
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -180,7 +263,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
     public class ClassMemberInfo
     {
-        public ClassMemberInfo(Class originClass, IMember originMember, Class targetClass, IMember targetMember)
+        public ClassMemberInfo(
+            Class originClass,
+            IMember originMember,
+            Class targetClass,
+            IMember targetMember
+        )
         {
             OriginClass = originClass;
             OriginMember = originMember;

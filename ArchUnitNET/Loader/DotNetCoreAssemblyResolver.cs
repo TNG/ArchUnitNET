@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -29,7 +29,7 @@ namespace ArchUnitNET.Loader
         [CanBeNull]
         public AssemblyDefinition Resolve(AssemblyNameReference name)
         {
-            return Resolve(name, new ReaderParameters {AssemblyResolver = this});
+            return Resolve(name, new ReaderParameters { AssemblyResolver = this });
         }
 
         [CanBeNull]
@@ -40,12 +40,16 @@ namespace ArchUnitNET.Loader
                 throw new ArgumentNullException(nameof(name));
             }
 
-            if (_libraries.TryGetValue(name.FullName, out var assemblyDefinition) || string.IsNullOrEmpty(AssemblyPath))
+            if (
+                _libraries.TryGetValue(name.FullName, out var assemblyDefinition)
+                || string.IsNullOrEmpty(AssemblyPath)
+            )
             {
                 return assemblyDefinition;
             }
 
-            var file = Directory.EnumerateFiles(AssemblyPath, $"{name.Name}.dll", SearchOption.AllDirectories)
+            var file = Directory
+                .EnumerateFiles(AssemblyPath, $"{name.Name}.dll", SearchOption.AllDirectories)
                 .FirstOrDefault();
 
             if (file == null)
@@ -73,7 +77,10 @@ namespace ArchUnitNET.Loader
             }
         }
 
-        private void AddLib([NotNull] AssemblyNameReference name, [NotNull] AssemblyDefinition moduleAssembly)
+        private void AddLib(
+            [NotNull] AssemblyNameReference name,
+            [NotNull] AssemblyDefinition moduleAssembly
+        )
         {
             if (!_libraries.ContainsKey(name.FullName))
             {

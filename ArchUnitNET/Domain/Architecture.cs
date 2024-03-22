@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -15,9 +15,13 @@ namespace ArchUnitNET.Domain
         private readonly IEnumerable<Assembly> _allAssemblies;
         private readonly ObjectProviderCache _objectProviderCache;
 
-        public Architecture(IEnumerable<Assembly> allAssemblies, IEnumerable<Namespace> namespaces,
-            IEnumerable<IType> types, IEnumerable<GenericParameter> genericParameters,
-            IEnumerable<IType> referencedTypes)
+        public Architecture(
+            IEnumerable<Assembly> allAssemblies,
+            IEnumerable<Namespace> namespaces,
+            IEnumerable<IType> types,
+            IEnumerable<GenericParameter> genericParameters,
+            IEnumerable<IType> referencedTypes
+        )
         {
             _allAssemblies = allAssemblies;
             Namespaces = namespaces;
@@ -27,7 +31,8 @@ namespace ArchUnitNET.Domain
             _objectProviderCache = new ObjectProviderCache(this);
         }
 
-        public IEnumerable<Assembly> Assemblies => _allAssemblies.Where(assembly => !assembly.IsOnlyReferenced);
+        public IEnumerable<Assembly> Assemblies =>
+            _allAssemblies.Where(assembly => !assembly.IsOnlyReferenced);
         public IEnumerable<Namespace> Namespaces { get; }
         public IEnumerable<IType> Types { get; }
         public IEnumerable<GenericParameter> GenericParameters { get; }
@@ -45,8 +50,11 @@ namespace ArchUnitNET.Domain
         public IEnumerable<MethodMember> MethodMembers => Members.OfType<MethodMember>();
         public IEnumerable<IMember> Members => Types.SelectMany(type => type.Members);
 
-        public IEnumerable<T> GetOrCreateObjects<T>(IObjectProvider<T> objectProvider,
-            Func<Architecture, IEnumerable<T>> providingFunction) where T : ICanBeAnalyzed
+        public IEnumerable<T> GetOrCreateObjects<T>(
+            IObjectProvider<T> objectProvider,
+            Func<Architecture, IEnumerable<T>> providingFunction
+        )
+            where T : ICanBeAnalyzed
         {
             return _objectProviderCache.GetOrCreateObjects(objectProvider, providingFunction);
         }
@@ -68,8 +76,9 @@ namespace ArchUnitNET.Domain
 
         private bool Equals(Architecture other)
         {
-            return Assemblies.Equals(other.Assemblies) && Namespaces.Equals(other.Namespaces) &&
-                   Types.Equals(other.Types);
+            return Assemblies.Equals(other.Assemblies)
+                && Namespaces.Equals(other.Namespaces)
+                && Types.Equals(other.Types);
         }
 
         public override int GetHashCode()

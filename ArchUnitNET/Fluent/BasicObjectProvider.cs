@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -10,7 +10,8 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class BasicObjectProvider<T> : IObjectProvider<T> where T : ICanBeAnalyzed
+    public class BasicObjectProvider<T> : IObjectProvider<T>
+        where T : ICanBeAnalyzed
     {
         private readonly Func<Architecture, IEnumerable<T>> _objects;
 
@@ -49,7 +50,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((BasicObjectProvider<T>) obj);
+            return obj.GetType() == GetType() && Equals((BasicObjectProvider<T>)obj);
         }
 
         public override int GetHashCode()

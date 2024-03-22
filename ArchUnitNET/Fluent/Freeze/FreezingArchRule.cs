@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,8 @@ namespace ArchUnitNET.Fluent.Freeze
         {
             var evalResults = _frozenRule.Evaluate(architecture).ToList();
             var evalResultsIgnoringFrozen = new List<EvaluationResult>();
-            var identifiersOfFailedResults = evalResults.Where(result => !result.Passed)
+            var identifiersOfFailedResults = evalResults
+                .Where(result => !result.Passed)
                 .Select(result => result.EvaluatedObjectIdentifier);
 
             if (!_violationStore.RuleAlreadyFrozen(_frozenRule))
@@ -47,8 +48,12 @@ namespace ArchUnitNET.Fluent.Freeze
                 var stillUnresolvedViolations = new List<StringIdentifier>();
                 foreach (var evalResult in evalResults)
                 {
-                    if (frozenViolations.Contains(evalResult.EvaluatedObjectIdentifier,
-                        new StringIdentifierComparer()) && !evalResult.Passed)
+                    if (
+                        frozenViolations.Contains(
+                            evalResult.EvaluatedObjectIdentifier,
+                            new StringIdentifierComparer()
+                        ) && !evalResult.Passed
+                    )
                     {
                         evalResultsIgnoringFrozen.Add(MarkAsPassed(evalResult));
                         stillUnresolvedViolations.Add(evalResult.EvaluatedObjectIdentifier);
@@ -102,9 +107,14 @@ namespace ArchUnitNET.Fluent.Freeze
 
         private static EvaluationResult MarkAsPassed(EvaluationResult evaluationResult)
         {
-            return new EvaluationResult(evaluationResult.EvaluatedObject, evaluationResult.EvaluatedObjectIdentifier,
+            return new EvaluationResult(
+                evaluationResult.EvaluatedObject,
+                evaluationResult.EvaluatedObjectIdentifier,
                 true,
-                evaluationResult.Description, evaluationResult.ArchRule, evaluationResult.Architecture);
+                evaluationResult.Description,
+                evaluationResult.ArchRule,
+                evaluationResult.Architecture
+            );
         }
     }
 }

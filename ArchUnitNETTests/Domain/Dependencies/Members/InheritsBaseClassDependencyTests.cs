@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -14,7 +14,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class BaseClassTest
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly Architecture _architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Class _baseClass;
         private readonly Class _childClass;
@@ -43,8 +44,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         [Fact]
         public void ChildClassHasBaseClassDependency()
         {
-            var expectedDependency =
-                new InheritsBaseClassDependency(_childClass, new TypeInstance<Class>(_baseClass));
+            var expectedDependency = new InheritsBaseClassDependency(
+                _childClass,
+                new TypeInstance<Class>(_baseClass)
+            );
 
             Assert.True(_childClass.HasDependency(expectedDependency));
         }
@@ -52,8 +55,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         [Fact]
         public void OriginAsExpected()
         {
-            Assert.All(_childClass.GetInheritsBaseClassDependencies(),
-                dependency => Assert.Equal(_childClass, dependency.Origin));
+            Assert.All(
+                _childClass.GetInheritsBaseClassDependencies(),
+                dependency => Assert.Equal(_childClass, dependency.Origin)
+            );
         }
     }
 
@@ -68,11 +73,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
     }
 
     // ReSharper disable once UnusedTypeParameter
-    public abstract class GenericBaseClass<TSelf> where TSelf : class
-    {
-    }
+    public abstract class GenericBaseClass<TSelf>
+        where TSelf : class { }
 
-    public class ChildClassOfGeneric : GenericBaseClass<ChildClassOfGeneric>
-    {
-    }
+    public class ChildClassOfGeneric : GenericBaseClass<ChildClassOfGeneric> { }
 }

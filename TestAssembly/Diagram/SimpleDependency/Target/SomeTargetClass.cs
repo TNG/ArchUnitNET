@@ -4,7 +4,5 @@ using System.Text;
 
 namespace TestAssembly.Diagram.SimpleDependency.Target
 {
-    class SomeTargetClass
-    {
-    }
+    class SomeTargetClass { }
 }

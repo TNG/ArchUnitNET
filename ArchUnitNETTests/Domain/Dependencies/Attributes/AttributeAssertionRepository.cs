@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -15,8 +15,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
 {
     public static class AttributeAssertionRepository
     {
-        public static void TypeAttributeAsExpected<TTargetType>(TTargetType targetType, Class expectedAttributeType,
-            Attribute actualAttribute) where TTargetType : IType
+        public static void TypeAttributeAsExpected<TTargetType>(
+            TTargetType targetType,
+            Class expectedAttributeType,
+            Attribute actualAttribute
+        )
+            where TTargetType : IType
         {
             //Precondition Checks
             if (targetType == null)
@@ -40,8 +44,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             Assert.Equal(expectedAttributeType, actualAttribute);
         }
 
-        public static void MemberAttributeAsExpected(IMember targetMember, Class expectedAttributeType,
-            Attribute actualAttribute)
+        public static void MemberAttributeAsExpected(
+            IMember targetMember,
+            Class expectedAttributeType,
+            Attribute actualAttribute
+        )
         {
             //Precondition Checks
             if (targetMember == null)
@@ -65,7 +72,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             Assert.Equal(expectedAttributeType, actualAttribute);
         }
 
-        public static void AttributeDependencyAsExpected(IMember targetMember, Class expectedAttributeClass)
+        public static void AttributeDependencyAsExpected(
+            IMember targetMember,
+            Class expectedAttributeClass
+        )
         {
             //Precondition Checks
             if (targetMember == null)
@@ -81,14 +91,19 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             //Arrange, Act
             var expectedAttribute = new Attribute(expectedAttributeClass);
 
-            var expectedAttributeDependency =
-                new AttributeMemberDependency(targetMember, new AttributeInstance(expectedAttribute));
+            var expectedAttributeDependency = new AttributeMemberDependency(
+                targetMember,
+                new AttributeInstance(expectedAttribute)
+            );
 
             //Assert
             Assert.Contains(expectedAttributeDependency, targetMember.Dependencies);
         }
 
-        public static void AttributeDependencyAsExpected(IType targetType, Class expectedAttributeClass)
+        public static void AttributeDependencyAsExpected(
+            IType targetType,
+            Class expectedAttributeClass
+        )
         {
             //Precondition Checks
             if (targetType == null)
@@ -104,8 +119,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             //Arrange, Act
             var expectedAttribute = new Attribute(expectedAttributeClass);
 
-            var expectedAttributeDependency =
-                new AttributeTypeDependency(targetType, new AttributeInstance(expectedAttribute));
+            var expectedAttributeDependency = new AttributeTypeDependency(
+                targetType,
+                new AttributeInstance(expectedAttribute)
+            );
 
             //Assert
             Assert.True(targetType.HasDependency(expectedAttributeDependency));

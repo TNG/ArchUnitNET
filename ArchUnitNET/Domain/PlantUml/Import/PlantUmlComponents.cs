@@ -20,18 +20,12 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         public IEnumerable<PlantUmlComponent> AllComponents
         {
-            get
-            {
-                return _componentsByName.Values;
-            }
+            get { return _componentsByName.Values; }
         }
 
         public IEnumerable<PlantUmlComponent> CompomenentsWithAlias
         {
-            get
-            {
-                return _componentsByAlias.Values;
-            }
+            get { return _componentsByAlias.Values; }
         }
 
         internal PlantUmlComponent FindComponentWith(string nameOrAlias)
@@ -49,8 +43,13 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             }
             if (result == null)
             {
-                throw new IllegalDiagramException(string.Format("There is no Component with name or alias = '{0}'. {1}", nameOrAlias,
-                        "Components must be specified separately from dependencies."));
+                throw new IllegalDiagramException(
+                    string.Format(
+                        "There is no Component with name or alias = '{0}'. {1}",
+                        nameOrAlias,
+                        "Components must be specified separately from dependencies."
+                    )
+                );
             }
             return result;
         }

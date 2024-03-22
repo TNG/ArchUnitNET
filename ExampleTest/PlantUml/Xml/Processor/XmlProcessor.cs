@@ -4,7 +4,5 @@ using System.Text;
 
 namespace ExampleTest.PlantUml.Xml.Processor
 {
-    public class XmlProcessor
-    {
-    }
+    public class XmlProcessor { }
 }

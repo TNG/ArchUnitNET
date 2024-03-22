@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -17,7 +17,8 @@ namespace ArchUnitNETTests.Loader
 {
     public class TypeTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly Architecture _architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
         private readonly Class _expectedAttributeClass;
         private readonly Type _type;
 
@@ -37,8 +38,12 @@ namespace ArchUnitNETTests.Loader
 
         [Theory]
         [ClassData(typeof(TypeTestBuild.TypeEquivalencyModelingTestData))]
-        public void TypeEquivalencyTests(IType type, object duplicateType, IType typeCopy,
-            [CanBeNull] object referenceCopy)
+        public void TypeEquivalencyTests(
+            IType type,
+            object duplicateType,
+            IType typeCopy,
+            [CanBeNull] object referenceCopy
+        )
         {
             DuplicateTypesAreEqual(type, duplicateType);
             DuplicateTypeObjectReferencesAreEqual(type, referenceCopy);
@@ -47,7 +52,10 @@ namespace ArchUnitNETTests.Loader
             TypeHasConsistentHashCode(type, duplicateType);
         }
 
-        private static void DuplicateTypesAreEqual([NotNull] IType type, [NotNull] object duplicateType)
+        private static void DuplicateTypesAreEqual(
+            [NotNull] IType type,
+            [NotNull] object duplicateType
+        )
         {
             type.RequiredNotNull();
             duplicateType.RequiredNotNull();
@@ -55,8 +63,10 @@ namespace ArchUnitNETTests.Loader
             Assert.Equal(type, duplicateType);
         }
 
-        private static void DuplicateTypeObjectReferencesAreEqual([NotNull] IType type,
-            object objectReferenceDuplicate)
+        private static void DuplicateTypeObjectReferencesAreEqual(
+            [NotNull] IType type,
+            object objectReferenceDuplicate
+        )
         {
             type.RequiredNotNull();
             objectReferenceDuplicate.RequiredNotNull();
@@ -64,8 +74,10 @@ namespace ArchUnitNETTests.Loader
             Assert.Equal(type, objectReferenceDuplicate);
         }
 
-        private static void DuplicateTypeReferencesAreEqual([NotNull] IType type,
-            [NotNull] IType typeReferenceDuplicate)
+        private static void DuplicateTypeReferencesAreEqual(
+            [NotNull] IType type,
+            [NotNull] IType typeReferenceDuplicate
+        )
         {
             type.RequiredNotNull();
             typeReferenceDuplicate.RequiredNotNull();
@@ -80,8 +92,10 @@ namespace ArchUnitNETTests.Loader
             Assert.False(type.Equals(null));
         }
 
-        private static void TypeHasConsistentHashCode([NotNull] IType type,
-            [NotNull] object duplicateType)
+        private static void TypeHasConsistentHashCode(
+            [NotNull] IType type,
+            [NotNull] object duplicateType
+        )
         {
             type.RequiredNotNull();
             duplicateType.RequiredNotNull();
@@ -111,11 +125,7 @@ namespace ArchUnitNETTests.Loader
     }
 
     [Example]
-    public class AssignClass : IExample
-    {
-    }
+    public class AssignClass : IExample { }
 
-    public interface IExample
-    {
-    }
+    public interface IExample { }
 }

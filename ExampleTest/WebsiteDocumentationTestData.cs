@@ -1,9 +1,9 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable SuggestVarOrType_SimpleTypes
@@ -19,17 +19,13 @@ using View;
 
 namespace Model
 {
-    public interface ICar
-    {
-    }
+    public interface ICar { }
 
     public class FastCar : ICar
     {
         private Steering _steering;
 
-        public void IllegalAccess(ICanvas canvas)
-        {
-        }
+        public void IllegalAccess(ICanvas canvas) { }
     }
 
     public class SlowCar : ICar
@@ -42,24 +38,16 @@ namespace Model
         }
     }
 
-    public class SlowRocket : ICar
-    {
-    }
+    public class SlowRocket : ICar { }
 
-    public class StartCanvas : ICanvas
-    {
-    }
+    public class StartCanvas : ICanvas { }
 }
 
 namespace View
 {
-    public interface ICanvas
-    {
-    }
+    public interface ICanvas { }
 
-    internal class EndCanvas : ICanvas
-    {
-    }
+    internal class EndCanvas : ICanvas { }
 
     [Display]
     internal class StartButton
@@ -82,9 +70,7 @@ namespace View
         }
     }
 
-    public sealed class Display : Attribute
-    {
-    }
+    public sealed class Display : Attribute { }
 }
 
 namespace Controller
@@ -98,9 +84,7 @@ namespace Controller
             _car = car;
         }
 
-        public void ApplySteering()
-        {
-        }
+        public void ApplySteering() { }
     }
 }
 
@@ -111,9 +95,7 @@ namespace Module.One
         private ModuleTwoClassTwo _a;
     }
 
-    internal class ModuleOneClassTwo
-    {
-    }
+    internal class ModuleOneClassTwo { }
 }
 
 namespace Module.Two
@@ -123,9 +105,7 @@ namespace Module.Two
         private ModuleThreeClassTwo _a;
     }
 
-    internal class ModuleTwoClassTwo
-    {
-    }
+    internal class ModuleTwoClassTwo { }
 }
 
 namespace Module.Three
@@ -135,8 +115,6 @@ namespace Module.Three
         private ModuleOneClassTwo _a;
     }
 
-    internal class ModuleThreeClassTwo
-    {
-    }
+    internal class ModuleThreeClassTwo { }
 }
 #pragma warning restore 169

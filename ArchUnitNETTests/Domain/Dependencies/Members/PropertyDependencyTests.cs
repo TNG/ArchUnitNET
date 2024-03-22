@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -24,10 +24,12 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             _classWithPropertyA = _architecture.GetClassOfType(typeof(ClassWithPropertyA));
             _propertyType = _architecture.GetClassOfType(typeof(PropertyType));
             _propertyAMember = _classWithPropertyA.Members["PropertyA"] as PropertyMember;
-            _privatePropertyAMember = _classWithPropertyA.Members["PrivatePropertyA"] as PropertyMember;
+            _privatePropertyAMember =
+                _classWithPropertyA.Members["PrivatePropertyA"] as PropertyMember;
         }
 
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly Architecture _architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly Class _classWithPropertyA;
         private readonly PropertyMember _propertyAMember;
@@ -54,7 +56,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             var propertyMembers = _classWithPropertyA.GetPropertyMembers();
             propertyMembers.ForEach(propertyMember =>
-                Assert.True(_classWithPropertyA.HasDependencies(propertyMember.MemberDependencies)));
+                Assert.True(_classWithPropertyA.HasDependencies(propertyMember.MemberDependencies))
+            );
         }
 
         [Fact]

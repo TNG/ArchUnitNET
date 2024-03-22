@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
@@ -13,7 +13,8 @@ namespace ArchUnitNETTests.Domain
 {
     public class TypeTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         [Fact]
         public void TypesAreClassesAndInterfacesAndStructsAndEnums()
@@ -23,7 +24,14 @@ namespace ArchUnitNETTests.Domain
             var interfaces = Architecture.Interfaces;
             var structs = Architecture.Structs;
             var enums = Architecture.Enums;
-            Assert.True(types.All(type => classes.Contains(type) || interfaces.Contains(type) || structs.Contains(type) || enums.Contains(type)));
+            Assert.True(
+                types.All(type =>
+                    classes.Contains(type)
+                    || interfaces.Contains(type)
+                    || structs.Contains(type)
+                    || enums.Contains(type)
+                )
+            );
             Assert.True(classes.All(cls => types.Contains(cls)));
             Assert.True(interfaces.All(intf => types.Contains(intf)));
             Assert.True(structs.All(str => types.Contains(str)));
@@ -35,7 +43,7 @@ namespace ArchUnitNETTests.Domain
         {
             Assert.True(Architecture.Types.All(type => type.Visibility != NotAccessible));
         }
-        
+
         [Fact]
         public void AssignEnumsCorrectly()
         {

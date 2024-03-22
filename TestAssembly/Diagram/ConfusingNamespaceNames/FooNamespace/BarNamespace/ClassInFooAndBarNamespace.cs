@@ -4,7 +4,5 @@ using System.Text;
 
 namespace TestAssembly.Diagram.ConfusingNamespaceNames.FooNamespace.BarNamespace
 {
-    public class ClassInFooAndBarNamespace
-    {
-    }
+    public class ClassInFooAndBarNamespace { }
 }

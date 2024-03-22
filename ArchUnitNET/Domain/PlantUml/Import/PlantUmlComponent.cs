@@ -9,7 +9,11 @@ namespace ArchUnitNET.Domain.PlantUml.Import
     {
         private IEnumerable<PlantUmlComponentDependency> _dependencies;
 
-        public PlantUmlComponent(ComponentName componentName, ISet<Stereotype> stereotypes, Alias alias)
+        public PlantUmlComponent(
+            ComponentName componentName,
+            ISet<Stereotype> stereotypes,
+            Alias alias
+        )
         {
             ComponentName = componentName ?? throw new ArgumentNullException(nameof(componentName));
             Stereotypes = stereotypes ?? throw new ArgumentNullException(nameof(stereotypes));
@@ -39,10 +43,13 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         public override bool Equals(object obj)
         {
-            return obj is PlantUmlComponent component &&
-                   Stereotypes.SequenceEqual(component.Stereotypes) &&
-                   EqualityComparer<Alias>.Default.Equals(Alias, component.Alias) &&
-                   EqualityComparer<ComponentName>.Default.Equals(ComponentName, component.ComponentName);
+            return obj is PlantUmlComponent component
+                && Stereotypes.SequenceEqual(component.Stereotypes)
+                && EqualityComparer<Alias>.Default.Equals(Alias, component.Alias)
+                && EqualityComparer<ComponentName>.Default.Equals(
+                    ComponentName,
+                    component.ComponentName
+                );
         }
 
         public override int GetHashCode()
@@ -50,10 +57,14 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             unchecked
             {
                 var hashCode = 397 ^ (Alias != null ? Alias.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (ComponentName != null ? ComponentName.GetHashCode() : 0);
+                hashCode =
+                    (hashCode * 397) ^ (ComponentName != null ? ComponentName.GetHashCode() : 0);
 
-                return Stereotypes.Aggregate(hashCode,
-                    (current, element) => (current * 397) ^ (element != null ? element.GetHashCode() : 0));
+                return Stereotypes.Aggregate(
+                    hashCode,
+                    (current, element) =>
+                        (current * 397) ^ (element != null ? element.GetHashCode() : 0)
+                );
             }
         }
 

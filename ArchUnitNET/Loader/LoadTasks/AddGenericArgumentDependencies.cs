@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,8 @@ namespace ArchUnitNET.Loader.LoadTasks
 {
     public class AddGenericArgumentDependencies : ILoadTask
     {
-        [NotNull] private readonly IType _type;
+        [NotNull]
+        private readonly IType _type;
 
         public AddGenericArgumentDependencies([NotNull] IType type)
         {
@@ -30,19 +31,24 @@ namespace ArchUnitNET.Loader.LoadTasks
             var typeDependencies = new List<GenericArgumentTypeDependency>();
             foreach (var dependency in _type.Dependencies)
             {
-                FindGenericArgumentsInTypeDependenciesRecursive(dependency.TargetGenericArguments, typeDependencies);
+                FindGenericArgumentsInTypeDependenciesRecursive(
+                    dependency.TargetGenericArguments,
+                    typeDependencies
+                );
             }
 
             _type.Dependencies.AddRange(typeDependencies);
-
 
             foreach (var member in _type.Members)
             {
                 var memberDependencies = new List<GenericArgumentMemberDependency>();
                 foreach (var dependency in member.Dependencies)
                 {
-                    FindGenericArgumentsInMemberDependenciesRecursive(member, dependency.TargetGenericArguments,
-                        memberDependencies);
+                    FindGenericArgumentsInMemberDependenciesRecursive(
+                        member,
+                        dependency.TargetGenericArguments,
+                        memberDependencies
+                    );
                 }
 
                 member.MemberDependencies.AddRange(memberDependencies);
@@ -59,12 +65,20 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private void FindGenericArgumentsInTypeDependenciesRecursive(
             IEnumerable<GenericArgument> targetGenericArguments,
-            ICollection<GenericArgumentTypeDependency> createdDependencies)
+            ICollection<GenericArgumentTypeDependency> createdDependencies
+        )
         {
-            foreach (var genericArgument in targetGenericArguments.Where(argument => !argument.Type.IsGenericParameter))
+            foreach (
+                var genericArgument in targetGenericArguments.Where(argument =>
+                    !argument.Type.IsGenericParameter
+                )
+            )
             {
                 createdDependencies.Add(new GenericArgumentTypeDependency(_type, genericArgument));
-                FindGenericArgumentsInTypeDependenciesRecursive(genericArgument.GenericArguments, createdDependencies);
+                FindGenericArgumentsInTypeDependenciesRecursive(
+                    genericArgument.GenericArguments,
+                    createdDependencies
+                );
             }
         }
 
@@ -74,20 +88,33 @@ namespace ArchUnitNET.Loader.LoadTasks
             {
                 foreach (var parameter in member.GenericParameters)
                 {
-                    member.MemberDependencies.AddRange(parameter.Dependencies.Cast<IMemberTypeDependency>());
+                    member.MemberDependencies.AddRange(
+                        parameter.Dependencies.Cast<IMemberTypeDependency>()
+                    );
                 }
             }
         }
 
-        private static void FindGenericArgumentsInMemberDependenciesRecursive(IMember member,
+        private static void FindGenericArgumentsInMemberDependenciesRecursive(
+            IMember member,
             IEnumerable<GenericArgument> targetGenericArguments,
-            ICollection<GenericArgumentMemberDependency> createdDependencies)
+            ICollection<GenericArgumentMemberDependency> createdDependencies
+        )
         {
-            foreach (var genericArgument in targetGenericArguments.Where(argument => !argument.Type.IsGenericParameter))
+            foreach (
+                var genericArgument in targetGenericArguments.Where(argument =>
+                    !argument.Type.IsGenericParameter
+                )
+            )
             {
-                createdDependencies.Add(new GenericArgumentMemberDependency(member, genericArgument));
-                FindGenericArgumentsInMemberDependenciesRecursive(member, genericArgument.GenericArguments,
-                    createdDependencies);
+                createdDependencies.Add(
+                    new GenericArgumentMemberDependency(member, genericArgument)
+                );
+                FindGenericArgumentsInMemberDependenciesRecursive(
+                    member,
+                    genericArgument.GenericArguments,
+                    createdDependencies
+                );
             }
         }
     }

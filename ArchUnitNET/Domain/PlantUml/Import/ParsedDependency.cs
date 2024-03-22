@@ -15,9 +15,9 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         public override bool Equals(object obj)
         {
-            return obj is ParsedDependency dependency &&
-                   EqualityComparer<ComponentIdentifier>.Default.Equals(Origin, dependency.Origin) &&
-                   EqualityComparer<ComponentIdentifier>.Default.Equals(Target, dependency.Target);
+            return obj is ParsedDependency dependency
+                && EqualityComparer<ComponentIdentifier>.Default.Equals(Origin, dependency.Origin)
+                && EqualityComparer<ComponentIdentifier>.Default.Equals(Target, dependency.Target);
         }
 
         public override int GetHashCode()

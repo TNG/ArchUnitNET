@@ -41,44 +41,74 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     return "[" + Origin + "]" + " --|> " + "[" + Target + "]" + Environment.NewLine;
 
                 case DependencyType.OneToMany:
-                    return "[" + Origin + "]" + " \"1\" --|> \"many\" " + "[" + Target + "]" +
-                           Environment.NewLine;
+                    return "["
+                        + Origin
+                        + "]"
+                        + " \"1\" --|> \"many\" "
+                        + "["
+                        + Target
+                        + "]"
+                        + Environment.NewLine;
 
                 case DependencyType.OneToPackage:
-                    return  "["+ Origin + "] -[#red]> " + GetChildNamespace(Target) + Environment.NewLine;
+                    return "["
+                        + Origin
+                        + "] -[#red]> "
+                        + GetChildNamespace(Target)
+                        + Environment.NewLine;
 
                 case DependencyType.PackageToOne:
-                    return GetChildNamespace(Origin) + " -[#blue]> [" + Target + "]" +Environment.NewLine;                        
-                
+                    return GetChildNamespace(Origin)
+                        + " -[#blue]> ["
+                        + Target
+                        + "]"
+                        + Environment.NewLine;
+
                 case DependencyType.PackageToPackage:
-                    return GetChildNamespace(Origin) + " -[#green]> " + GetChildNamespace(Target) + Environment.NewLine;
-                
+                    return GetChildNamespace(Origin)
+                        + " -[#green]> "
+                        + GetChildNamespace(Target)
+                        + Environment.NewLine;
+
                 case DependencyType.OneToOneCompact:
                     if (OriginCountOfDots() == TargetCountOfDots())
                     {
-                        return  "[" + Origin  + "] --> [" + Target + "]" + Environment.NewLine;
+                        return "[" + Origin + "] --> [" + Target + "]" + Environment.NewLine;
                     }
                     return "";
-                
+
                 case DependencyType.Circle:
-                    return "[" + Origin + "]" + " <-[#red]> " + "[" + Target + "]" + Environment.NewLine;
+                    return "["
+                        + Origin
+                        + "]"
+                        + " <-[#red]> "
+                        + "["
+                        + Target
+                        + "]"
+                        + Environment.NewLine;
 
                 case DependencyType.PackageToPackageIfSameParentNamespace:
-                    if (OriginCountOfDots() == TargetCountOfDots() &&
-                        (OriginCountOfDots() == 0 || HaveSameParentNamespace(Origin, Target)))
+                    if (
+                        OriginCountOfDots() == TargetCountOfDots()
+                        && (OriginCountOfDots() == 0 || HaveSameParentNamespace(Origin, Target))
+                    )
                     {
-                        return  GetChildNamespace(Origin) + " ..> " + GetChildNamespace(Target) + Environment.NewLine;                        
+                        return GetChildNamespace(Origin)
+                            + " ..> "
+                            + GetChildNamespace(Target)
+                            + Environment.NewLine;
                     }
                     return "";
 
                 case DependencyType.OneToOneIfSameParentNamespace:
-                    if (OriginCountOfDots() == TargetCountOfDots() &&
-                        (OriginCountOfDots() == 0 || HaveSameParentNamespace(Origin, Target))
-                       )
+                    if (
+                        OriginCountOfDots() == TargetCountOfDots()
+                        && (OriginCountOfDots() == 0 || HaveSameParentNamespace(Origin, Target))
+                    )
                     {
                         return Origin + " --|> " + Target + Environment.NewLine;
-                    } 
-                    
+                    }
+
                     if (OriginCountOfDots() < TargetCountOfDots())
                     {
                         var tmp = GetParentNamespace(Target);
@@ -99,10 +129,10 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                         {
                             tmp = GetParentNamespace(tmp);
                         }
-                        
+
                         if (tmp != Target && HaveSameParentNamespace(tmp, Target))
                         {
-                            return GetChildNamespace(tmp) + " -> " + Target + Environment.NewLine;    
+                            return GetChildNamespace(tmp) + " -> " + Target + Environment.NewLine;
                         }
                     }
                     return "";
@@ -114,19 +144,20 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return "";
         }
 
-        private static string GetParentNamespace(string ns) => 
+        private static string GetParentNamespace(string ns) =>
             ns.Remove(ns.LastIndexOf(".", StringComparison.Ordinal));
 
-        private static string GetChildNamespace(string ns) => 
-            ns.Remove(0,ns.LastIndexOf(".", StringComparison.Ordinal) + 1);
+        private static string GetChildNamespace(string ns) =>
+            ns.Remove(0, ns.LastIndexOf(".", StringComparison.Ordinal) + 1);
 
-        private static bool HaveSameParentNamespace(string origin, string target) => 
+        private static bool HaveSameParentNamespace(string origin, string target) =>
             (GetParentNamespace(origin) == GetParentNamespace(target));
 
         private bool Equals(PlantUmlDependency other)
         {
-            return Equals(Target, other.Target) && Equals(Origin, other.Origin) &&
-                   Equals(DependencyType, other.DependencyType);
+            return Equals(Target, other.Target)
+                && Equals(Origin, other.Origin)
+                && Equals(DependencyType, other.DependencyType);
         }
 
         public override bool Equals(object obj)

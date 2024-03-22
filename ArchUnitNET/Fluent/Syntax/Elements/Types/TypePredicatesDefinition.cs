@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -16,11 +16,12 @@ using Enum = ArchUnitNET.Domain.Enum;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public static class TypePredicatesDefinition<T> where T : IType
+    public static class TypePredicatesDefinition<T>
+        where T : IType
     {
         public static IPredicate<T> Are(Type firstType, params Type[] moreTypes)
         {
-            var types = new List<Type> {firstType};
+            var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return Are(types);
         }
@@ -56,27 +57,47 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "are \"" + firstType.FullName + "\"", (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = typeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "are \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> AreAssignableTo(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> AreAssignableTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            var description = "are assignable to types with full name " +
-                              (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
-            return new SimplePredicate<T>(type => type.IsAssignableTo(pattern, useRegularExpressions), description);
+            var description =
+                "are assignable to types with full name "
+                + (useRegularExpressions ? "matching " : "")
+                + "\""
+                + pattern
+                + "\"";
+            return new SimplePredicate<T>(
+                type => type.IsAssignableTo(pattern, useRegularExpressions),
+                description
+            );
         }
 
-        public static IPredicate<T> AreAssignableTo(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> AreAssignableTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Condition(T ruleType)
             {
-                return patternList.Any(pattern => ruleType.IsAssignableTo(pattern, useRegularExpressions));
+                return patternList.Any(pattern =>
+                    ruleType.IsAssignableTo(pattern, useRegularExpressions)
+                );
             }
 
             string description;
@@ -87,9 +108,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "are assignable to types with full name " + (useRegularExpressions ? "matching " : "") +
-                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(type => !type.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "are assignable to types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Condition, description);
@@ -99,12 +128,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                var types = moreTypes.Concat(new[] {firstType});
+                var types = moreTypes.Concat(new[] { firstType });
                 return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
-            var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
+            var description = moreTypes.Aggregate(
+                "are assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\""
+            );
             return new EnumerablePredicate<T>(Condition, description);
         }
 
@@ -112,12 +143,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
+                var types = moreTypes
+                    .Concat(new[] { firstType })
+                    .Select(architecture.GetITypeOfType);
                 return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
-            var description = moreTypes.Aggregate("are assignable to \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
+            var description = moreTypes.Aggregate(
+                "are assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\""
+            );
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
@@ -150,9 +185,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
-                    "are assignable to \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
+                description = typeList
+                    .Where(type => !type.Equals(firstType))
+                    .Distinct()
+                    .Aggregate(
+                        "are assignable to \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Condition, description);
@@ -178,7 +217,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     }
                 }
 
-                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(archUnitTypeList).Any());
+                return ruleTypes.Where(type =>
+                    type.GetAssignableTypes().Intersect(archUnitTypeList).Any()
+                );
             }
 
             string description;
@@ -189,10 +230,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
-                    "are assignable to \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
-            } 
+                description = typeList
+                    .Where(type => type != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "are assignable to \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
+            }
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
@@ -200,13 +245,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                var types = moreTypes.Concat(new[] {firstType});
-                return ruleTypes.Where(type => 
-                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+                var types = moreTypes.Concat(new[] { firstType });
+                return ruleTypes.Where(type =>
+                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
+                );
             }
 
-            var description = moreTypes.Aggregate("are nested in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
+            var description = moreTypes.Aggregate(
+                "are nested in \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\""
+            );
             return new EnumerablePredicate<T>(Condition, description);
         }
 
@@ -214,12 +262,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
-                return ruleTypes.Where(type => 
-                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+                var types = moreTypes
+                    .Concat(new[] { firstType })
+                    .Select(architecture.GetITypeOfType);
+                return ruleTypes.Where(type =>
+                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
+                );
             }
-            var description = moreTypes.Aggregate("are nested in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
+            var description = moreTypes.Aggregate(
+                "are nested in \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\""
+            );
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
@@ -228,8 +281,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return ruleTypes.Where(type => 
-                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+                return ruleTypes.Where(type =>
+                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
+                );
             }
 
             var description = "are nested in " + objectProvider.Description;
@@ -241,9 +295,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             var typeList = types.ToList();
 
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
-            { 
-                return ruleTypes.Where(type => 
-                    typeList.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+            {
+                return ruleTypes.Where(type =>
+                    typeList.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
+                );
             }
 
             string description;
@@ -254,9 +309,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
-                    "are nested in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
+                description = typeList
+                    .Where(type => !type.Equals(firstType))
+                    .Distinct()
+                    .Aggregate(
+                        "are nested in \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Condition, description);
@@ -268,8 +327,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                return ruleTypes.Where(type => 
-                    typeList.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+")));
+                return ruleTypes.Where(type =>
+                    typeList.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
+                );
             }
 
             string description;
@@ -280,9 +340,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
-                    "are nested in \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
+                description = typeList
+                    .Where(type => type != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "are nested in \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Condition, description);
@@ -290,7 +354,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> AreValueTypes()
         {
-            return new SimplePredicate<T>(type => type is Enum || type is Struct, "are value types");
+            return new SimplePredicate<T>(
+                type => type is Enum || type is Struct,
+                "are value types"
+            );
         }
 
         public static IPredicate<T> AreEnums()
@@ -303,17 +370,27 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimplePredicate<T>(type => type is Struct, "are structs");
         }
 
-        public static IPredicate<T> ImplementInterface(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> ImplementInterface(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(type => type.ImplementsInterface(pattern, useRegularExpressions),
-                "implement interface with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                type => type.ImplementsInterface(pattern, useRegularExpressions),
+                "implement interface with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
         public static IPredicate<T> ImplementInterface(Interface intf)
         {
-            return new SimplePredicate<T>(type => type.ImplementsInterface(intf),
-                "implement interface \"" + intf.FullName + "\"");
+            return new SimplePredicate<T>(
+                type => type.ImplementsInterface(intf),
+                "implement interface \"" + intf.FullName + "\""
+            );
         }
 
         public static IPredicate<T> ImplementInterface(Type intf)
@@ -334,74 +411,112 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 return ruleTypes.Where(type => type.ImplementsInterface(archUnitInterface));
             }
 
-            return new ArchitecturePredicate<T>(Condition,
-                "implement interface \"" + intf.FullName + "\"");
+            return new ArchitecturePredicate<T>(
+                Condition,
+                "implement interface \"" + intf.FullName + "\""
+            );
         }
 
-        public static IPredicate<T> ResideInNamespace(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> ResideInNamespace(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(type => type.ResidesInNamespace(pattern, useRegularExpressions),
-                "reside in namespace with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                type => type.ResidesInNamespace(pattern, useRegularExpressions),
+                "reside in namespace with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> ResideInAssembly(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> ResideInAssembly(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(type => type.ResidesInAssembly(pattern, useRegularExpressions),
-                "reside in assembly with full name " + (useRegularExpressions ? "matching " : "") + "\"" +
-                pattern + "\"");
+            return new SimplePredicate<T>(
+                type => type.ResidesInAssembly(pattern, useRegularExpressions),
+                "reside in assembly with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        public static IPredicate<T> ResideInAssembly(
+            Assembly assembly,
+            params Assembly[] moreAssemblies
+        )
         {
             IEnumerable<T> Condition(IEnumerable<T> types, Architecture architecture)
             {
-                var assemblyList = moreAssemblies.Concat(new[] {assembly}).Select(architecture.GetAssemblyOfAssembly);
+                var assemblyList = moreAssemblies
+                    .Concat(new[] { assembly })
+                    .Select(architecture.GetAssemblyOfAssembly);
                 return types.Where(type => assemblyList.Contains(type.Assembly));
             }
 
-            var description = moreAssemblies.Aggregate("reside in assembly \"" + assembly.FullName + "\"",
-                (current, asm) => current + " or \"" + asm.FullName + "\"");
+            var description = moreAssemblies.Aggregate(
+                "reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\""
+            );
 
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static IPredicate<T> ResideInAssembly(Domain.Assembly assembly, params Domain.Assembly[] moreAssemblies)
+        public static IPredicate<T> ResideInAssembly(
+            Domain.Assembly assembly,
+            params Domain.Assembly[] moreAssemblies
+        )
         {
             IEnumerable<T> Condition(IEnumerable<T> types)
             {
-                var assemblyList = moreAssemblies.Concat(new[] {assembly});
+                var assemblyList = moreAssemblies.Concat(new[] { assembly });
                 return types.Where(type => assemblyList.Contains(type.Assembly));
             }
 
-            var description = moreAssemblies.Aggregate("reside in assembly \"" + assembly.FullName + "\"",
-                (current, asm) => current + " or \"" + asm.FullName + "\"");
+            var description = moreAssemblies.Aggregate(
+                "reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\""
+            );
 
             return new EnumerablePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> HavePropertyMemberWithName(string name)
         {
-            return new SimplePredicate<T>(type => type.HasPropertyMemberWithName(name),
-                "have property member with name\"" + name + "\"");
+            return new SimplePredicate<T>(
+                type => type.HasPropertyMemberWithName(name),
+                "have property member with name\"" + name + "\""
+            );
         }
 
         public static IPredicate<T> HaveFieldMemberWithName(string name)
         {
-            return new SimplePredicate<T>(type => type.HasFieldMemberWithName(name),
-                "have field member with name \"" + name + "\"");
+            return new SimplePredicate<T>(
+                type => type.HasFieldMemberWithName(name),
+                "have field member with name \"" + name + "\""
+            );
         }
 
         public static IPredicate<T> HaveMethodMemberWithName(string name)
         {
-            return new SimplePredicate<T>(type => type.HasMethodMemberWithName(name),
-                "have method member with name \"" + name + "\"");
+            return new SimplePredicate<T>(
+                type => type.HasMethodMemberWithName(name),
+                "have method member with name \"" + name + "\""
+            );
         }
 
         public static IPredicate<T> HaveMemberWithName(string name)
         {
-            return new SimplePredicate<T>(type => type.HasMemberWithName(name),
-                "have member with name \"" + name + "\"");
+            return new SimplePredicate<T>(
+                type => type.HasMemberWithName(name),
+                "have member with name \"" + name + "\""
+            );
         }
 
         public static IPredicate<T> AreNested()
@@ -409,13 +524,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimplePredicate<T>(type => type.IsNested, "are nested");
         }
 
-
         //Negations
 
 
         public static IPredicate<T> AreNot(Type firstType, params Type[] moreTypes)
         {
-            return AreNot(new List<Type>() {firstType}.Concat(moreTypes));
+            return AreNot(new List<Type>() { firstType }.Concat(moreTypes));
         }
 
         public static IPredicate<T> AreNot(IEnumerable<Type> types)
@@ -449,28 +563,47 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(obj => obj != firstType).Distinct().Aggregate(
-                    "are not \"" + firstType.FullName + "\"",
-                    (current, obj) => current + " or \"" + obj.FullName + "\"");
+                description = typeList
+                    .Where(obj => obj != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "are not \"" + firstType.FullName + "\"",
+                        (current, obj) => current + " or \"" + obj.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
-        public static IPredicate<T> AreNotAssignableTo(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> AreNotAssignableTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            var description = "are not assignable to types with full name " +
-                              (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\"";
-            return new SimplePredicate<T>(type => !type.IsAssignableTo(pattern, useRegularExpressions), description);
+            var description =
+                "are not assignable to types with full name "
+                + (useRegularExpressions ? "matching " : "")
+                + "\""
+                + pattern
+                + "\"";
+            return new SimplePredicate<T>(
+                type => !type.IsAssignableTo(pattern, useRegularExpressions),
+                description
+            );
         }
 
-        public static IPredicate<T> AreNotAssignableTo(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public static IPredicate<T> AreNotAssignableTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             var patternList = patterns.ToList();
 
             bool Condition(T ruleType)
             {
-                return patternList.All(pattern => !ruleType.IsAssignableTo(pattern, useRegularExpressions));
+                return patternList.All(pattern =>
+                    !ruleType.IsAssignableTo(pattern, useRegularExpressions)
+                );
             }
 
             string description;
@@ -481,10 +614,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstPattern = patternList.First();
-                description = patternList.Where(type => !type.Equals(firstPattern)).Distinct().Aggregate(
-                    "are not assignable to types with full name " +
-                    (useRegularExpressions ? "matching " : "") +
-                    "\"" + firstPattern + "\"", (current, pattern) => current + " or \"" + pattern + "\"");
+                description = patternList
+                    .Where(type => !type.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "are not assignable to types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
             }
 
             return new SimplePredicate<T>(Condition, description);
@@ -494,12 +634,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                var types = moreTypes.Concat(new[] {firstType});
+                var types = moreTypes.Concat(new[] { firstType });
                 return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
-            var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
+            var description = moreTypes.Aggregate(
+                "are not assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\""
+            );
             return new EnumerablePredicate<T>(Condition, description);
         }
 
@@ -507,12 +649,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var types = moreTypes.Concat(new[] {firstType}).Select(architecture.GetITypeOfType);
+                var types = moreTypes
+                    .Concat(new[] { firstType })
+                    .Select(architecture.GetITypeOfType);
                 return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
-            var description = moreTypes.Aggregate("are not assignable to \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\"");
+            var description = moreTypes.Aggregate(
+                "are not assignable to \"" + firstType.FullName + "\"",
+                (current, type) => current + " or \"" + type.FullName + "\""
+            );
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
@@ -534,7 +680,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
             {
-                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(typeList).Any());
+                return ruleTypes.Where(type =>
+                    !type.GetAssignableTypes().Intersect(typeList).Any()
+                );
             }
 
             string description;
@@ -545,9 +693,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(type => !type.Equals(firstType)).Distinct().Aggregate(
-                    "are not assignable to \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
+                description = typeList
+                    .Where(type => !type.Equals(firstType))
+                    .Distinct()
+                    .Aggregate(
+                        "are not assignable to \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
             }
 
             return new EnumerablePredicate<T>(Condition, description);
@@ -573,7 +725,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     }
                 }
 
-                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(archUnitTypeList).Any());
+                return ruleTypes.Where(type =>
+                    !type.GetAssignableTypes().Intersect(archUnitTypeList).Any()
+                );
             }
 
             string description;
@@ -584,9 +738,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             else
             {
                 var firstType = typeList.First();
-                description = typeList.Where(type => type != firstType).Distinct().Aggregate(
-                    "are not assignable to \"" + firstType.FullName + "\"",
-                    (current, type) => current + " or \"" + type.FullName + "\"");
+                description = typeList
+                    .Where(type => type != firstType)
+                    .Distinct()
+                    .Aggregate(
+                        "are not assignable to \"" + firstType.FullName + "\"",
+                        (current, type) => current + " or \"" + type.FullName + "\""
+                    );
             }
 
             return new ArchitecturePredicate<T>(Condition, description);
@@ -594,7 +752,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IPredicate<T> AreNotValueTypes()
         {
-            return new SimplePredicate<T>(cls => !(cls is Enum) && !(cls is Struct), "are not value types");
+            return new SimplePredicate<T>(
+                cls => !(cls is Enum) && !(cls is Struct),
+                "are not value types"
+            );
         }
 
         public static IPredicate<T> AreNotEnums()
@@ -607,17 +768,27 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimplePredicate<T>(cls => !(cls is Struct), "are not structs");
         }
 
-        public static IPredicate<T> DoNotImplementInterface(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotImplementInterface(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(type => !type.ImplementsInterface(pattern, useRegularExpressions),
-                "do not implement interface with full name " + (useRegularExpressions ? "matching " : "") +
-                "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                type => !type.ImplementsInterface(pattern, useRegularExpressions),
+                "do not implement interface with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
         public static IPredicate<T> DoNotImplementInterface(Interface intf)
         {
-            return new SimplePredicate<T>(type => !type.ImplementsInterface(intf),
-                "do not implement interface \"" + intf.FullName + "\"");
+            return new SimplePredicate<T>(
+                type => !type.ImplementsInterface(intf),
+                "do not implement interface \"" + intf.FullName + "\""
+            );
         }
 
         public static IPredicate<T> DoNotImplementInterface(Type intf)
@@ -638,75 +809,112 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 return ruleTypes.Where(type => !type.ImplementsInterface(archUnitInterface));
             }
 
-            return new ArchitecturePredicate<T>(Condition,
-                "do not implement interface \"" + intf.FullName + "\"");
+            return new ArchitecturePredicate<T>(
+                Condition,
+                "do not implement interface \"" + intf.FullName + "\""
+            );
         }
 
-        public static IPredicate<T> DoNotResideInNamespace(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotResideInNamespace(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(type => !type.ResidesInNamespace(pattern, useRegularExpressions),
-                "do not reside in namespace with full name " + (useRegularExpressions ? "matching " : "") +
-                "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                type => !type.ResidesInNamespace(pattern, useRegularExpressions),
+                "do not reside in namespace with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> DoNotResideInAssembly(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> DoNotResideInAssembly(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            return new SimplePredicate<T>(type => !type.ResidesInAssembly(pattern, useRegularExpressions),
-                "do not reside in assembly with full name " + (useRegularExpressions ? "matching " : "") +
-                "\"" + pattern + "\"");
+            return new SimplePredicate<T>(
+                type => !type.ResidesInAssembly(pattern, useRegularExpressions),
+                "do not reside in assembly with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
         }
 
-        public static IPredicate<T> DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies)
+        public static IPredicate<T> DoNotResideInAssembly(
+            Assembly assembly,
+            params Assembly[] moreAssemblies
+        )
         {
             IEnumerable<T> Condition(IEnumerable<T> types, Architecture architecture)
             {
-                var assemblyList = moreAssemblies.Concat(new[] {assembly}).Select(architecture.GetAssemblyOfAssembly);
+                var assemblyList = moreAssemblies
+                    .Concat(new[] { assembly })
+                    .Select(architecture.GetAssemblyOfAssembly);
                 return types.Where(type => !assemblyList.Contains(type.Assembly));
             }
 
-            var description = moreAssemblies.Aggregate("do not reside in assembly \"" + assembly.FullName + "\"",
-                (current, asm) => current + " or \"" + asm.FullName + "\"");
+            var description = moreAssemblies.Aggregate(
+                "do not reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\""
+            );
 
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
-        public static IPredicate<T> DoNotResideInAssembly(Domain.Assembly assembly,
-            params Domain.Assembly[] moreAssemblies)
+        public static IPredicate<T> DoNotResideInAssembly(
+            Domain.Assembly assembly,
+            params Domain.Assembly[] moreAssemblies
+        )
         {
             IEnumerable<T> Condition(IEnumerable<T> types)
             {
-                var assemblyList = moreAssemblies.Concat(new[] {assembly});
+                var assemblyList = moreAssemblies.Concat(new[] { assembly });
                 return types.Where(type => !assemblyList.Contains(type.Assembly));
             }
 
-            var description = moreAssemblies.Aggregate("do not reside in assembly \"" + assembly.FullName + "\"",
-                (current, asm) => current + " or \"" + asm.FullName + "\"");
+            var description = moreAssemblies.Aggregate(
+                "do not reside in assembly \"" + assembly.FullName + "\"",
+                (current, asm) => current + " or \"" + asm.FullName + "\""
+            );
 
             return new EnumerablePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> DoNotHavePropertyMemberWithName(string name)
         {
-            return new SimplePredicate<T>(type => !type.HasPropertyMemberWithName(name),
-                "do not have property member with name \"" + name + "\"");
+            return new SimplePredicate<T>(
+                type => !type.HasPropertyMemberWithName(name),
+                "do not have property member with name \"" + name + "\""
+            );
         }
 
         public static IPredicate<T> DoNotHaveFieldMemberWithName(string name)
         {
-            return new SimplePredicate<T>(type => !type.HasFieldMemberWithName(name),
-                "do not have field member with name \"" + name + "\"");
+            return new SimplePredicate<T>(
+                type => !type.HasFieldMemberWithName(name),
+                "do not have field member with name \"" + name + "\""
+            );
         }
 
         public static IPredicate<T> DoNotHaveMethodMemberWithName(string name)
         {
-            return new SimplePredicate<T>(type => !type.HasMethodMemberWithName(name),
-                "do not have method member with name \"" + name + "\"");
+            return new SimplePredicate<T>(
+                type => !type.HasMethodMemberWithName(name),
+                "do not have method member with name \"" + name + "\""
+            );
         }
 
         public static IPredicate<T> DoNotHaveMemberWithName(string name)
         {
-            return new SimplePredicate<T>(type => !type.HasMemberWithName(name),
-                "do not have member with name \"" + name + "\"");
+            return new SimplePredicate<T>(
+                type => !type.HasMemberWithName(name),
+                "do not have member with name \"" + name + "\""
+            );
         }
 
         public static IPredicate<T> AreNotNested()

@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -12,7 +12,12 @@ namespace ArchUnitNET.Domain
 {
     public class Assembly : IHasName, IHasAttributes
     {
-        public Assembly(string name, string fullName, bool isOnlyReferenced , [CanBeNull] List<string> referencedAssemblyNames)
+        public Assembly(
+            string name,
+            string fullName,
+            bool isOnlyReferenced,
+            [CanBeNull] List<string> referencedAssemblyNames
+        )
         {
             Name = name;
             FullName = fullName;
@@ -24,10 +29,12 @@ namespace ArchUnitNET.Domain
 
         public string Name { get; }
 
-        [CanBeNull] public List<string> ReferencedAssemblyNames { get; }
+        [CanBeNull]
+        public List<string> ReferencedAssemblyNames { get; }
         public string FullName { get; }
 
-        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public IEnumerable<Attribute> Attributes =>
+            AttributeInstances.Select(instance => instance.Type);
         public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
 
         public bool Equals(Assembly other)
@@ -42,8 +49,9 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return Equals(Name, other.Name) && Equals(FullName, other.FullName) &&
-                   Equals(IsOnlyReferenced, other.IsOnlyReferenced);
+            return Equals(Name, other.Name)
+                && Equals(FullName, other.FullName)
+                && Equals(IsOnlyReferenced, other.IsOnlyReferenced);
         }
 
         public override bool Equals(object obj)
@@ -63,7 +71,7 @@ namespace ArchUnitNET.Domain
                 return false;
             }
 
-            return Equals((Assembly) obj);
+            return Equals((Assembly)obj);
         }
 
         public override int GetHashCode()

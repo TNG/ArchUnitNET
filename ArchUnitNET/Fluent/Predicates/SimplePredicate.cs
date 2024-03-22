@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -11,7 +11,8 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Predicates
 {
-    public class SimplePredicate<TRuleType> : IPredicate<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class SimplePredicate<TRuleType> : IPredicate<TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
         private readonly Func<TRuleType, bool> _predicate;
 
@@ -23,7 +24,10 @@ namespace ArchUnitNET.Fluent.Predicates
 
         public string Description { get; }
 
-        public IEnumerable<TRuleType> GetMatchingObjects(IEnumerable<TRuleType> objects, Architecture architecture)
+        public IEnumerable<TRuleType> GetMatchingObjects(
+            IEnumerable<TRuleType> objects,
+            Architecture architecture
+        )
         {
             return objects.Where(_predicate);
         }
@@ -50,7 +54,7 @@ namespace ArchUnitNET.Fluent.Predicates
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((SimplePredicate<TRuleType>) obj);
+            return obj.GetType() == GetType() && Equals((SimplePredicate<TRuleType>)obj);
         }
 
         public override int GetHashCode()

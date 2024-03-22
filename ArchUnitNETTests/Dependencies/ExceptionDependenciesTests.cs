@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using System.Linq;
@@ -16,8 +16,9 @@ namespace ArchUnitNETTests.Dependencies
 {
     public class ExceptionDependenciesTests
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssembly(typeof(ExceptionDependenciesTests).Assembly).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssembly(typeof(ExceptionDependenciesTests).Assembly)
+            .Build();
 
         private readonly Class _classWithException;
         private readonly Class _throwingClass;
@@ -32,7 +33,9 @@ namespace ArchUnitNETTests.Dependencies
         public void ThrowDependencyFound()
         {
             var typeDependencies = _throwingClass.GetTypeDependencies().ToList();
-            var method = _throwingClass.GetMethodMembers().First(member => member.FullNameContains("ThrowingMethod"));
+            var method = _throwingClass
+                .GetMethodMembers()
+                .First(member => member.FullNameContains("ThrowingMethod"));
             var methodTypeDependencies = method.GetTypeDependencies().ToList();
 
             Assert.Contains(_classWithException, typeDependencies);

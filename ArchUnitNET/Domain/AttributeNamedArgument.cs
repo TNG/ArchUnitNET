@@ -1,16 +1,16 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 namespace ArchUnitNET.Domain
 {
     public class AttributeNamedArgument : AttributeArgument
     {
-        public AttributeNamedArgument(string name, object value, ITypeInstance<IType> typeInstance) : base(value,
-            typeInstance)
+        public AttributeNamedArgument(string name, object value, ITypeInstance<IType> typeInstance)
+            : base(value, typeInstance)
         {
             Name = name;
         }
@@ -34,7 +34,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((AttributeNamedArgument) obj);
+            return obj.GetType() == GetType() && Equals((AttributeNamedArgument)obj);
         }
 
         public override int GetHashCode()

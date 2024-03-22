@@ -4,9 +4,8 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class ComponentIdentifier
     {
-        public ComponentIdentifier(ComponentName componentName) : this(componentName, null)
-        {
-        }
+        public ComponentIdentifier(ComponentName componentName)
+            : this(componentName, null) { }
 
         public ComponentIdentifier(ComponentName componentName, Alias alias)
         {
@@ -20,9 +19,12 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         public override bool Equals(object obj)
         {
-            return obj is ComponentIdentifier identifier &&
-                   EqualityComparer<ComponentName>.Default.Equals(ComponentName, identifier.ComponentName) &&
-                   EqualityComparer<Alias>.Default.Equals(Alias, identifier.Alias);
+            return obj is ComponentIdentifier identifier
+                && EqualityComparer<ComponentName>.Default.Equals(
+                    ComponentName,
+                    identifier.ComponentName
+                )
+                && EqualityComparer<Alias>.Default.Equals(Alias, identifier.Alias);
         }
 
         public override int GetHashCode()

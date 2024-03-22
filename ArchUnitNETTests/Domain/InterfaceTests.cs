@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -60,22 +60,29 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void DuplicateInterfaceObjectReferencesAreEqual()
         {
-            Assert.Equal(_interfaceEquivalencyTestData.OriginInterface,
-                _interfaceEquivalencyTestData.ObjectReferenceDuplicate);
+            Assert.Equal(
+                _interfaceEquivalencyTestData.OriginInterface,
+                _interfaceEquivalencyTestData.ObjectReferenceDuplicate
+            );
         }
 
         [Fact]
         public void DuplicateInterfaceReferencesAreEqual()
         {
-            Assert.True(_interfaceEquivalencyTestData.OriginInterface
-                .Equals(_interfaceEquivalencyTestData.InterfaceReferenceDuplicate));
+            Assert.True(
+                _interfaceEquivalencyTestData.OriginInterface.Equals(
+                    _interfaceEquivalencyTestData.InterfaceReferenceDuplicate
+                )
+            );
         }
 
         [Fact]
         public void DuplicateInterfacesAreEqual()
         {
-            Assert.Equal(_interfaceEquivalencyTestData.OriginInterface,
-                _interfaceEquivalencyTestData.DuplicateInterface);
+            Assert.Equal(
+                _interfaceEquivalencyTestData.OriginInterface,
+                _interfaceEquivalencyTestData.DuplicateInterface
+            );
         }
 
         [Fact]

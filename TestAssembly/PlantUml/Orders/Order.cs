@@ -24,8 +24,6 @@ namespace TestAssembly.PlantUml.Orders
             }
         }
 
-        private void Report(Address address)
-        {
-        }
+        private void Report(Address address) { }
     }
 }

@@ -6,20 +6,15 @@ namespace ArchUnitNET.Domain.PlantUml.Exceptions
     [Serializable]
     internal class IllegalComponentNameException : Exception
     {
-        public IllegalComponentNameException()
-        {
-        }
+        public IllegalComponentNameException() { }
 
-        public IllegalComponentNameException(string message) : base(message)
-        {
-        }
+        public IllegalComponentNameException(string message)
+            : base(message) { }
 
-        public IllegalComponentNameException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+        public IllegalComponentNameException(string message, Exception innerException)
+            : base(message, innerException) { }
 
-        protected IllegalComponentNameException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        protected IllegalComponentNameException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
     }
 }

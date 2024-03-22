@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -9,7 +9,8 @@ using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax
 {
-    public abstract class SyntaxElement<TRuleType> : IHasDescription where TRuleType : ICanBeAnalyzed
+    public abstract class SyntaxElement<TRuleType> : IHasDescription
+        where TRuleType : ICanBeAnalyzed
     {
         // ReSharper disable once InconsistentNaming
         protected readonly IArchRuleCreator<TRuleType> _ruleCreator;
@@ -38,7 +39,7 @@ namespace ArchUnitNET.Fluent.Syntax
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((SyntaxElement<TRuleType>) obj);
+            return obj.GetType() == GetType() && Equals((SyntaxElement<TRuleType>)obj);
         }
 
         private bool Equals(SyntaxElement<TRuleType> other)

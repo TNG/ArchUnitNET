@@ -8,6 +8,20 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
+  formatting:
+    name: Check formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - name: Setup .NET
+        uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4.0.0
+        with:
+          dotnet-version: 6.0.402
+      - name: Install tools
+        run: dotnet tool restore
+      - name: Check formatting
+        run: dotnet csharpier --check .
   run-tests:
     name: Run tests
     strategy:

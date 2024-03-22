@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -10,12 +10,12 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public class MethodMembersShould : MembersShould<MethodMembersShouldConjunction, MethodMember>,
-        IComplexMethodMemberConditions
+    public class MethodMembersShould
+        : MembersShould<MethodMembersShouldConjunction, MethodMember>,
+            IComplexMethodMemberConditions
     {
-        public MethodMembersShould(IArchRuleCreator<MethodMember> ruleCreator) : base(ruleCreator)
-        {
-        }
+        public MethodMembersShould(IArchRuleCreator<MethodMember> ruleCreator)
+            : base(ruleCreator) { }
 
         public MethodMembersShouldConjunction BeConstructor()
         {
@@ -29,22 +29,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction BeCalledBy(string pattern, bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction BeCalledBy(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.BeCalledBy(pattern, useRegularExpressions));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.BeCalledBy(pattern, useRegularExpressions)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction BeCalledBy(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction BeCalledBy(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.BeCalledBy(patterns, useRegularExpressions));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.BeCalledBy(patterns, useRegularExpressions)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction BeCalledBy(IType firstType, params IType[] moreTypes)
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.BeCalledBy(firstType, moreTypes));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.BeCalledBy(firstType, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -72,73 +83,112 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(string pattern,
-            bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(pattern, useRegularExpressions));
+                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(patterns, useRegularExpressions));
+                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes)
+        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(firstType, moreTypes));
+                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(firstType, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes)
+        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(
+            Type type,
+            params Type[] moreTypes
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(type, moreTypes));
+                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(type, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(IObjectProvider<IType> types)
+        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(
+            IObjectProvider<IType> types
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types));
+                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(IEnumerable<IType> types)
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types));
+                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(IEnumerable<Type> types)
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types));
+                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveReturnType(string pattern, bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction HaveReturnType(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(pattern, useRegularExpressions));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.HaveReturnType(pattern, useRegularExpressions)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveReturnType(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction HaveReturnType(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(patterns, useRegularExpressions));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.HaveReturnType(patterns, useRegularExpressions)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveReturnType(IType firstType, params IType[] moreTypes)
+        public MethodMembersShouldConjunction HaveReturnType(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(firstType, moreTypes));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.HaveReturnType(firstType, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -156,7 +206,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public MethodMembersShouldConjunction HaveReturnType(Type type, params Type[] moreTypes)
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(type, moreTypes));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.HaveReturnType(type, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -181,28 +233,44 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotBeCalledBy(string pattern, bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction NotBeCalledBy(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotBeCalledBy(pattern, useRegularExpressions));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.NotBeCalledBy(pattern, useRegularExpressions)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotBeCalledBy(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction NotBeCalledBy(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotBeCalledBy(patterns, useRegularExpressions));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.NotBeCalledBy(patterns, useRegularExpressions)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotBeCalledBy(IType firstType, params IType[] moreTypes)
+        public MethodMembersShouldConjunction NotBeCalledBy(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotBeCalledBy(firstType, moreTypes));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.NotBeCalledBy(firstType, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction NotBeCalledBy(Type type, params Type[] moreTypes)
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotBeCalledBy(type, moreTypes));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.NotBeCalledBy(type, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -224,75 +292,119 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(string pattern,
-            bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(pattern, useRegularExpressions));
+                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction
-            NotHaveDependencyInMethodBodyTo(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(patterns, useRegularExpressions));
+                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes)
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(firstType, moreTypes));
+                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(
+                    firstType,
+                    moreTypes
+                )
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes)
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
+            Type type,
+            params Type[] moreTypes
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(type, moreTypes));
+                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(type, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(IObjectProvider<IType> types)
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
+            IObjectProvider<IType> types
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types));
+                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(IEnumerable<IType> types)
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
+            IEnumerable<IType> types
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types));
+                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(IEnumerable<Type> types)
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
+            IEnumerable<Type> types
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types));
+                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveReturnType(string pattern, bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction NotHaveReturnType(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveReturnType(pattern, useRegularExpressions));
+                MethodMemberConditionsDefinition.NotHaveReturnType(pattern, useRegularExpressions)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveReturnType(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public MethodMembersShouldConjunction NotHaveReturnType(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveReturnType(patterns, useRegularExpressions));
+                MethodMemberConditionsDefinition.NotHaveReturnType(patterns, useRegularExpressions)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveReturnType(IType firstType, params IType[] moreTypes)
+        public MethodMembersShouldConjunction NotHaveReturnType(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveReturnType(firstType, moreTypes));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.NotHaveReturnType(firstType, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -310,7 +422,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public MethodMembersShouldConjunction NotHaveReturnType(Type type, params Type[] moreTypes)
         {
-            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveReturnType(type, moreTypes));
+            _ruleCreator.AddCondition(
+                MethodMemberConditionsDefinition.NotHaveReturnType(type, moreTypes)
+            );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 

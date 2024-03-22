@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -27,7 +27,10 @@ namespace ArchUnitNET.Fluent
             return _logicalConjunction(value1, value2);
         }
 
-        public abstract IEnumerable<T> Evaluate<T>(IEnumerable<T> enumerable1, IEnumerable<T> enumerable2);
+        public abstract IEnumerable<T> Evaluate<T>(
+            IEnumerable<T> enumerable1,
+            IEnumerable<T> enumerable2
+        );
 
         public override string ToString()
         {
@@ -51,7 +54,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((LogicalConjunction) obj);
+            return obj.GetType() == GetType() && Equals((LogicalConjunction)obj);
         }
 
         public override int GetHashCode()

@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -13,15 +13,17 @@ namespace ArchUnitNET.Loader
 {
     public static class InstructionExtensions
     {
-        public static bool IsOperationForBackedProperty([NotNull] this Instruction methodBodyInstruction)
+        public static bool IsOperationForBackedProperty(
+            [NotNull] this Instruction methodBodyInstruction
+        )
         {
             if (methodBodyInstruction == null)
             {
                 throw new ArgumentNullException(nameof(methodBodyInstruction));
             }
 
-            return IsMethodCallToSetBackingFieldDefinition(methodBodyInstruction) ||
-                   IsNewObjectToSetBackingField(methodBodyInstruction);
+            return IsMethodCallToSetBackingFieldDefinition(methodBodyInstruction)
+                || IsNewObjectToSetBackingField(methodBodyInstruction);
         }
 
         public static bool IsMethodCallAssignment([NotNull] this Instruction instruction)
@@ -35,7 +37,9 @@ namespace ArchUnitNET.Loader
             return IsReturnOp(nextOp) && IsMethodCallOp(instruction);
         }
 
-        public static FieldDefinition GetAssigneeFieldDefinition([NotNull] this Instruction methodCallInstruction)
+        public static FieldDefinition GetAssigneeFieldDefinition(
+            [NotNull] this Instruction methodCallInstruction
+        )
         {
             if (methodCallInstruction == null)
             {
@@ -43,7 +47,10 @@ namespace ArchUnitNET.Loader
             }
 
             var methodCallAssignment = methodCallInstruction.Next;
-            if (methodCallAssignment != null && methodCallAssignment.Operand is FieldReference fieldReference)
+            if (
+                methodCallAssignment != null
+                && methodCallAssignment.Operand is FieldReference fieldReference
+            )
             {
                 return fieldReference.Resolve();
             }
@@ -51,7 +58,9 @@ namespace ArchUnitNET.Loader
             return null;
         }
 
-        public static bool IsMethodCallToSetBackingFieldDefinition([NotNull] this Instruction instruction)
+        public static bool IsMethodCallToSetBackingFieldDefinition(
+            [NotNull] this Instruction instruction
+        )
         {
             if (instruction == null)
             {
@@ -113,7 +122,8 @@ namespace ArchUnitNET.Loader
                 throw new ArgumentNullException(nameof(methodBodyInstruction));
             }
 
-            return methodBodyInstruction.OpCode == OpCodes.Call || methodBodyInstruction.OpCode == OpCodes.Callvirt;
+            return methodBodyInstruction.OpCode == OpCodes.Call
+                || methodBodyInstruction.OpCode == OpCodes.Callvirt;
         }
 
         public static bool IsSetFieldOp([NotNull] this Instruction nextOp)

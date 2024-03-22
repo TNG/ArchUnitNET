@@ -1,8 +1,8 @@
-﻿using ExampleTest.PlantUml.Customers;
-using ExampleTest.PlantUml.Orders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ExampleTest.PlantUml.Customers;
+using ExampleTest.PlantUml.Orders;
 
 namespace ExampleTest.PlantUml.Products
 {
@@ -18,14 +18,8 @@ namespace ExampleTest.PlantUml.Products
             }
         }
 
+        public void Register() { }
 
-        public void Register()
-        {
-        }
-
-        public void Report()
-        {
-        }
+        public void Report() { }
     }
-
 }

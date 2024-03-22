@@ -39,7 +39,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
         private TestDiagram AddComponent(ComponentBuilder creator)
         {
-            string stereotypes = string.Join(" ", creator.Stereotypes.Select(input => "<<" + input + ">>"));
+            string stereotypes = string.Join(
+                " ",
+                creator.Stereotypes.Select(input => "<<" + input + ">>")
+            );
             string line = string.Format("[{0}] {1}", creator.ComponentName, stereotypes);
             if (creator.Alias != null)
             {
@@ -54,10 +57,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
             _lines.Add(line);
             return this;
         }
-        
+
         internal Stream Write()
         {
-            using (StreamWriter file = new StreamWriter(_stream, leaveOpen:true))
+            using (StreamWriter file = new StreamWriter(_stream, leaveOpen: true))
             {
                 file.WriteLine("@startuml");
                 foreach (var line in _lines)
@@ -97,8 +100,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 Stereotypes.AddRange(ImmutableList.CreateRange(stereoTypes));
                 return _testDiagram.AddComponent(this);
             }
-
-
         }
 
         public class DependencyFromCreator
@@ -136,7 +137,5 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 return _testDiagram.RawLine(dependency);
             }
         }
-
-        
     }
 }

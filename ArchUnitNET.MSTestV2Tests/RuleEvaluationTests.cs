@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -25,7 +25,9 @@ namespace ArchUnitNET.MSTestV2Tests
         [ClassInitialize]
         public static void Setup(TestContext context)
         {
-            _architecture = new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNET.MSTestV2Tests")).Build();
+            _architecture = new ArchLoader()
+                .LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNET.MSTestV2Tests"))
+                .Build();
             _trueRule = Classes().That().Are(typeof(RuleEvaluationTests)).Should().Exist();
             _falseRule = Classes().That().Are(typeof(RuleEvaluationTests)).Should().NotExist();
             _expectedErrorMessage = _falseRule.Evaluate(_architecture).ToErrorMessage();
@@ -35,9 +37,19 @@ namespace ArchUnitNET.MSTestV2Tests
         public void ArchRuleAssertTest()
         {
             ArchRuleAssert.FulfilsRule(_architecture, _trueRule);
-            Assert.ThrowsException<AssertFailedException>(() => ArchRuleAssert.FulfilsRule(_architecture, _falseRule));
-            Assert.AreEqual(_expectedErrorMessage,
-                RemoveAssertionText(Assert.ThrowsException<AssertFailedException>(() => ArchRuleAssert.FulfilsRule(_architecture, _falseRule)).Message));
+            Assert.ThrowsException<AssertFailedException>(
+                () => ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
+            );
+            Assert.AreEqual(
+                _expectedErrorMessage,
+                RemoveAssertionText(
+                    Assert
+                        .ThrowsException<AssertFailedException>(
+                            () => ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
+                        )
+                        .Message
+                )
+            );
         }
 
         [TestMethod]
@@ -45,16 +57,35 @@ namespace ArchUnitNET.MSTestV2Tests
         {
             _architecture.CheckRule(_trueRule);
             _trueRule.Check(_architecture);
-            Assert.ThrowsException<AssertFailedException>(() => _architecture.CheckRule(_falseRule));
+            Assert.ThrowsException<AssertFailedException>(
+                () => _architecture.CheckRule(_falseRule)
+            );
             Assert.ThrowsException<AssertFailedException>(() => _falseRule.Check(_architecture));
-            Assert.AreEqual(_expectedErrorMessage,
-                RemoveAssertionText(Assert.ThrowsException<AssertFailedException>(() => _architecture.CheckRule(_falseRule)).Message));
-            Assert.AreEqual(_expectedErrorMessage,
-                RemoveAssertionText(Assert.ThrowsException<AssertFailedException>(() => _falseRule.Check(_architecture)).Message));
+            Assert.AreEqual(
+                _expectedErrorMessage,
+                RemoveAssertionText(
+                    Assert
+                        .ThrowsException<AssertFailedException>(
+                            () => _architecture.CheckRule(_falseRule)
+                        )
+                        .Message
+                )
+            );
+            Assert.AreEqual(
+                _expectedErrorMessage,
+                RemoveAssertionText(
+                    Assert
+                        .ThrowsException<AssertFailedException>(
+                            () => _falseRule.Check(_architecture)
+                        )
+                        .Message
+                )
+            );
         }
 
-        private static string RemoveAssertionText(string exceptionMessage) {
-          return exceptionMessage.Replace("Assert.Fail failed. ", string.Empty);
+        private static string RemoveAssertionText(string exceptionMessage)
+        {
+            return exceptionMessage.Replace("Assert.Fail failed. ", string.Empty);
         }
     }
 }

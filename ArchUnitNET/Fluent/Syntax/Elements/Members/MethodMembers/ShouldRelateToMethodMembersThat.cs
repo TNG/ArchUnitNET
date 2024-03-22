@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -11,19 +11,20 @@ using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public class ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType> :
-        ShouldRelateToMembersThat<TRuleTypeShouldConjunction, MethodMember, TRuleType>,
-        IMethodMemberPredicates<TRuleTypeShouldConjunction, MethodMember>
+    public class ShouldRelateToMethodMembersThat<TRuleTypeShouldConjunction, TRuleType>
+        : ShouldRelateToMembersThat<TRuleTypeShouldConjunction, MethodMember, TRuleType>,
+            IMethodMemberPredicates<TRuleTypeShouldConjunction, MethodMember>
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public ShouldRelateToMethodMembersThat(IArchRuleCreator<TRuleType> ruleCreator) : base(ruleCreator)
-        {
-        }
+        public ShouldRelateToMethodMembersThat(IArchRuleCreator<TRuleType> ruleCreator)
+            : base(ruleCreator) { }
 
         public TRuleTypeShouldConjunction AreConstructors()
         {
-            _ruleCreator.ContinueComplexCondition(MethodMemberPredicatesDefinition.AreConstructors());
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.AreConstructors()
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -33,163 +34,212 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreCalledBy(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction AreCalledBy(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreCalledBy(pattern, useRegularExpressions));
+                MethodMemberPredicatesDefinition.AreCalledBy(pattern, useRegularExpressions)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreCalledBy(IEnumerable<string> patterns, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction AreCalledBy(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreCalledBy(patterns, useRegularExpressions));
+                MethodMemberPredicatesDefinition.AreCalledBy(patterns, useRegularExpressions)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreCalledBy(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreCalledBy(firstType, moreTypes));
+                MethodMemberPredicatesDefinition.AreCalledBy(firstType, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreCalledBy(Type type, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreCalledBy(type, moreTypes));
+                MethodMemberPredicatesDefinition.AreCalledBy(type, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreCalledBy(IObjectProvider<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreCalledBy(types));
+                MethodMemberPredicatesDefinition.AreCalledBy(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreCalledBy(IEnumerable<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreCalledBy(types));
+                MethodMemberPredicatesDefinition.AreCalledBy(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreCalledBy(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreCalledBy(types));
+                MethodMemberPredicatesDefinition.AreCalledBy(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(string pattern,
-            bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(pattern, useRegularExpressions));
+                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(patterns, useRegularExpressions));
+                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes)
+        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(firstType, moreTypes));
+                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(firstType, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes)
+        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(
+            Type type,
+            params Type[] moreTypes
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(type, moreTypes));
+                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(type, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(IObjectProvider<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types));
+                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(IEnumerable<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types));
+                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types));
+                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveReturnType(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction HaveReturnType(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveReturnType(pattern, useRegularExpressions));
+                MethodMemberPredicatesDefinition.HaveReturnType(pattern, useRegularExpressions)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveReturnType(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction HaveReturnType(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveReturnType(patterns, useRegularExpressions));
+                MethodMemberPredicatesDefinition.HaveReturnType(patterns, useRegularExpressions)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveReturnType(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveReturnType(firstType, moreTypes));
+                MethodMemberPredicatesDefinition.HaveReturnType(firstType, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveReturnType(IEnumerable<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveReturnType(types));
+                MethodMemberPredicatesDefinition.HaveReturnType(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveReturnType(IObjectProvider<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveReturnType(types));
+                MethodMemberPredicatesDefinition.HaveReturnType(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveReturnType(Type type, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveReturnType(type, moreTypes));
+                MethodMemberPredicatesDefinition.HaveReturnType(type, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction HaveReturnType(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveReturnType(types));
+                MethodMemberPredicatesDefinition.HaveReturnType(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-
 
         //Negations
 
 
         public TRuleTypeShouldConjunction AreNoConstructors()
         {
-            _ruleCreator.ContinueComplexCondition(MethodMemberPredicatesDefinition.AreNoConstructors());
+            _ruleCreator.ContinueComplexCondition(
+                MethodMemberPredicatesDefinition.AreNoConstructors()
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -199,154 +249,214 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreNotCalledBy(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction AreNotCalledBy(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(pattern, useRegularExpressions));
+                MethodMemberPredicatesDefinition.AreNotCalledBy(pattern, useRegularExpressions)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreNotCalledBy(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction AreNotCalledBy(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(patterns, useRegularExpressions));
+                MethodMemberPredicatesDefinition.AreNotCalledBy(patterns, useRegularExpressions)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotCalledBy(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(firstType, moreTypes));
+                MethodMemberPredicatesDefinition.AreNotCalledBy(firstType, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotCalledBy(Type type, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(type, moreTypes));
+                MethodMemberPredicatesDefinition.AreNotCalledBy(type, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotCalledBy(IObjectProvider<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(types));
+                MethodMemberPredicatesDefinition.AreNotCalledBy(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotCalledBy(IEnumerable<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(types));
+                MethodMemberPredicatesDefinition.AreNotCalledBy(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction AreNotCalledBy(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(types));
+                MethodMemberPredicatesDefinition.AreNotCalledBy(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(string pattern,
-            bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(pattern, useRegularExpressions));
+                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(patterns, useRegularExpressions));
+                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes)
+        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(firstType, moreTypes));
+                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(
+                    firstType,
+                    moreTypes
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes)
+        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(
+            Type type,
+            params Type[] moreTypes
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(type, moreTypes));
+                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(type, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(IObjectProvider<IType> types)
+        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(
+            IObjectProvider<IType> types
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types));
+                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(IEnumerable<IType> types)
+        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(
+            IEnumerable<IType> types
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types));
+                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types));
+                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveReturnType(string pattern, bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(
+            string pattern,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(pattern, useRegularExpressions));
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(pattern, useRegularExpressions)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveReturnType(IEnumerable<string> patterns,
-            bool useRegularExpressions = false)
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(patterns, useRegularExpressions));
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotHaveReturnType(IType firstType, params IType[] moreTypes)
+        public TRuleTypeShouldConjunction DoNotHaveReturnType(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(firstType, moreTypes));
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(firstType, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveReturnType(IEnumerable<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveReturnType(IObjectProvider<IType> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveReturnType(Type type, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(type, moreTypes));
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(type, moreTypes)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DoNotHaveReturnType(IEnumerable<Type> types)
         {
             _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
+                MethodMemberPredicatesDefinition.DoNotHaveReturnType(types)
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

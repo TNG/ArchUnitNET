@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -19,8 +19,10 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
     {
         [Theory]
         [ClassData(typeof(MethodDependencyTestBuild.MethodSignatureDependencyTestData))]
-        public void MethodSignatureDependenciesAreFound(MethodMember originMember,
-            MethodSignatureDependency expectedDependency)
+        public void MethodSignatureDependenciesAreFound(
+            MethodMember originMember,
+            MethodSignatureDependency expectedDependency
+        )
         {
             Assert.True(originMember.HasMethodSignatureDependency(expectedDependency));
         }
@@ -51,12 +53,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             _innerField = classWithMethodSignatureB;
         }
 
-        public void OverloadedMethod(string s)
-        {
-        }
+        public void OverloadedMethod(string s) { }
 
-        public void OverloadedMethod(int i)
-        {
-        }
+        public void OverloadedMethod(int i) { }
     }
 }

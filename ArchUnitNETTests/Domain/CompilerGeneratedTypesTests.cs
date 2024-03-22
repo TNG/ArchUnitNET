@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Collections.Generic;
 using System.Linq;
@@ -28,15 +28,23 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void RecognizeCompilerGeneratedTypes()
         {
-            Assert.DoesNotContain(Architecture.Types,
-                type => !type.IsCompilerGenerated && (type.Name.StartsWith("<") || type.Name.StartsWith("!")));
+            Assert.DoesNotContain(
+                Architecture.Types,
+                type =>
+                    !type.IsCompilerGenerated
+                    && (type.Name.StartsWith("<") || type.Name.StartsWith("!"))
+            );
         }
 
         [Fact]
         public void RecognizeCompilerGeneratedMethods()
         {
-            Assert.DoesNotContain(Architecture.MethodMembers,
-                method => !method.IsCompilerGenerated && (method.Name.StartsWith("<") || method.Name.StartsWith("!")));
+            Assert.DoesNotContain(
+                Architecture.MethodMembers,
+                method =>
+                    !method.IsCompilerGenerated
+                    && (method.Name.StartsWith("<") || method.Name.StartsWith("!"))
+            );
         }
 
         [Fact]
@@ -51,7 +59,9 @@ namespace ArchUnitNETTests.Domain
         public void NoCompilerGeneratedTypesAsDependencyTarget()
         {
             var dependencyTargets = _dependencies.Select(dep => dep.Target);
-            var compilerGeneratedDependencyTargets = dependencyTargets.Where(type => type.IsCompilerGenerated);
+            var compilerGeneratedDependencyTargets = dependencyTargets.Where(type =>
+                type.IsCompilerGenerated
+            );
 
             Assert.Empty(compilerGeneratedDependencyTargets);
         }
@@ -59,9 +69,12 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void NoCompilerGeneratedTypesAsGenericArguments()
         {
-            var genericArgumentTypes =
-                _dependencies.SelectMany(dep => dep.TargetGenericArguments.Select(argument => argument.Type));
-            var compilerGeneratedGenericArgumentTypes = genericArgumentTypes.Where(type => type.IsCompilerGenerated);
+            var genericArgumentTypes = _dependencies.SelectMany(dep =>
+                dep.TargetGenericArguments.Select(argument => argument.Type)
+            );
+            var compilerGeneratedGenericArgumentTypes = genericArgumentTypes.Where(type =>
+                type.IsCompilerGenerated
+            );
 
             Assert.Empty(compilerGeneratedGenericArgumentTypes);
         }

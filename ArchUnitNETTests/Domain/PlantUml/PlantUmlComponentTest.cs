@@ -9,8 +9,16 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void TwoComponentsWithSameNameStereoTypeAndAliasShouldBeEqual()
         {
-            var component1 = new PlantUmlComponent(new ComponentName("someName"), new HashSet<Stereotype>() { new Stereotype("someStereoType") }, new Alias("someAlias"));
-            var component2 = new PlantUmlComponent(new ComponentName("someName"), new HashSet<Stereotype>() { new Stereotype("someStereoType") }, new Alias("someAlias"));
+            var component1 = new PlantUmlComponent(
+                new ComponentName("someName"),
+                new HashSet<Stereotype>() { new Stereotype("someStereoType") },
+                new Alias("someAlias")
+            );
+            var component2 = new PlantUmlComponent(
+                new ComponentName("someName"),
+                new HashSet<Stereotype>() { new Stereotype("someStereoType") },
+                new Alias("someAlias")
+            );
 
             Assert.Equal(component1, component2);
         }
@@ -18,8 +26,16 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void TwoNonIdenticalComponentsShouldNotBeEqual()
         {
-            var component1 = new PlantUmlComponent(new ComponentName("someName1"), new HashSet<Stereotype>() { new Stereotype("someStereoType") }, new Alias("someAlias"));
-            var component2 = new PlantUmlComponent(new ComponentName("someName2"), new HashSet<Stereotype>() { new Stereotype("someStereoType") }, new Alias("someAlias"));
+            var component1 = new PlantUmlComponent(
+                new ComponentName("someName1"),
+                new HashSet<Stereotype>() { new Stereotype("someStereoType") },
+                new Alias("someAlias")
+            );
+            var component2 = new PlantUmlComponent(
+                new ComponentName("someName2"),
+                new HashSet<Stereotype>() { new Stereotype("someStereoType") },
+                new Alias("someAlias")
+            );
 
             Assert.NotEqual(component1, component2);
         }
@@ -27,8 +43,16 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void TwoComponentsWithSameNameStereoTypeAndAliasHaveSameHashCode()
         {
-            var component1 = new PlantUmlComponent(new ComponentName("someName"), new HashSet<Stereotype>() { new Stereotype("someStereoType") }, new Alias("someAlias"));
-            var component2 = new PlantUmlComponent(new ComponentName("someName"), new HashSet<Stereotype>() { new Stereotype("someStereoType") }, new Alias("someAlias"));
+            var component1 = new PlantUmlComponent(
+                new ComponentName("someName"),
+                new HashSet<Stereotype>() { new Stereotype("someStereoType") },
+                new Alias("someAlias")
+            );
+            var component2 = new PlantUmlComponent(
+                new ComponentName("someName"),
+                new HashSet<Stereotype>() { new Stereotype("someStereoType") },
+                new Alias("someAlias")
+            );
 
             Assert.Equal(component1.GetHashCode(), component2.GetHashCode());
         }

@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 namespace ArchUnitNET.Domain
 {
@@ -23,8 +23,9 @@ namespace ArchUnitNET.Domain
 
         public override bool Equals(object obj)
         {
-            return obj != null && obj.GetType() == GetType() &&
-                   Identifier == ((StringIdentifier)obj).Identifier;
+            return obj != null
+                && obj.GetType() == GetType()
+                && Identifier == ((StringIdentifier)obj).Identifier;
         }
 
         public override int GetHashCode()

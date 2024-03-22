@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -11,18 +11,29 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Predicates
 {
-    public class ArchitecturePredicate<TRuleType> : IPredicate<TRuleType> where TRuleType : ICanBeAnalyzed
+    public class ArchitecturePredicate<TRuleType> : IPredicate<TRuleType>
+        where TRuleType : ICanBeAnalyzed
     {
-        private readonly Func<IEnumerable<TRuleType>, Architecture, IEnumerable<TRuleType>> _predicate;
+        private readonly Func<
+            IEnumerable<TRuleType>,
+            Architecture,
+            IEnumerable<TRuleType>
+        > _predicate;
 
-        public ArchitecturePredicate(Func<TRuleType, Architecture, bool> predicate, string description)
+        public ArchitecturePredicate(
+            Func<TRuleType, Architecture, bool> predicate,
+            string description
+        )
         {
-            _predicate = (ruleTypes, architecture) => ruleTypes.Where(obj => predicate(obj, architecture));
+            _predicate = (ruleTypes, architecture) =>
+                ruleTypes.Where(obj => predicate(obj, architecture));
             Description = description;
         }
 
-        public ArchitecturePredicate(Func<IEnumerable<TRuleType>, Architecture, IEnumerable<TRuleType>> predicate,
-            string description)
+        public ArchitecturePredicate(
+            Func<IEnumerable<TRuleType>, Architecture, IEnumerable<TRuleType>> predicate,
+            string description
+        )
         {
             _predicate = predicate;
             Description = description;
@@ -30,7 +41,10 @@ namespace ArchUnitNET.Fluent.Predicates
 
         public string Description { get; }
 
-        public IEnumerable<TRuleType> GetMatchingObjects(IEnumerable<TRuleType> objects, Architecture architecture)
+        public IEnumerable<TRuleType> GetMatchingObjects(
+            IEnumerable<TRuleType> objects,
+            Architecture architecture
+        )
         {
             return _predicate(objects, architecture);
         }
@@ -57,7 +71,7 @@ namespace ArchUnitNET.Fluent.Predicates
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ArchitecturePredicate<TRuleType>) obj);
+            return obj.GetType() == GetType() && Equals((ArchitecturePredicate<TRuleType>)obj);
         }
 
         public override int GetHashCode()

@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -21,9 +21,13 @@ namespace ArchUnitNET.Loader.LoadTasks
         private readonly IType _type;
         private readonly TypeDefinition _typeDefinition;
         private readonly TypeFactory _typeFactory;
-        
-        
-        public AddMembers(IType type, TypeDefinition typeDefinition, TypeFactory typeFactory, MemberList memberList)
+
+        public AddMembers(
+            IType type,
+            TypeDefinition typeDefinition,
+            TypeFactory typeFactory,
+            MemberList memberList
+        )
         {
             _type = type;
             _typeDefinition = typeDefinition;
@@ -40,10 +44,20 @@ namespace ArchUnitNET.Loader.LoadTasks
         [NotNull]
         private IEnumerable<IMember> CreateMembers([NotNull] TypeDefinition typeDefinition)
         {
-            return typeDefinition.Fields.Where(fieldDefinition => !fieldDefinition.IsBackingField())
-                .Select(CreateFieldMember).Concat(typeDefinition.Properties.Select(CreatePropertyMember)
-                    .Concat(typeDefinition.Methods.Select(method =>
-                        _typeFactory.GetOrCreateMethodMemberFromMethodReference(_type, method).Member)))
+            return typeDefinition
+                .Fields.Where(fieldDefinition => !fieldDefinition.IsBackingField())
+                .Select(CreateFieldMember)
+                .Concat(
+                    typeDefinition
+                        .Properties.Select(CreatePropertyMember)
+                        .Concat(
+                            typeDefinition.Methods.Select(method =>
+                                _typeFactory
+                                    .GetOrCreateMethodMemberFromMethodReference(_type, method)
+                                    .Member
+                            )
+                        )
+                )
                 .Where(member => !member.IsCompilerGenerated);
         }
 
@@ -51,28 +65,50 @@ namespace ArchUnitNET.Loader.LoadTasks
         private IMember CreateFieldMember([NotNull] FieldDefinition fieldDefinition)
         {
             var typeReference = fieldDefinition.FieldType;
-            var fieldType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
+            var fieldType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                typeReference
+            );
             var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
             var isCompilerGenerated = fieldDefinition.IsCompilerGenerated();
             var writeAccessor = GetWriteAccessor(fieldDefinition);
-            return new FieldMember(_type, fieldDefinition.Name, fieldDefinition.FullName, visibility, fieldType,
-                isCompilerGenerated, fieldDefinition.IsStatic, writeAccessor);
+            return new FieldMember(
+                _type,
+                fieldDefinition.Name,
+                fieldDefinition.FullName,
+                visibility,
+                fieldType,
+                isCompilerGenerated,
+                fieldDefinition.IsStatic,
+                writeAccessor
+            );
         }
 
         [NotNull]
         private IMember CreatePropertyMember(PropertyDefinition propertyDefinition)
         {
             var typeReference = propertyDefinition.PropertyType;
-            var propertyType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
+            var propertyType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                typeReference
+            );
             var isCompilerGenerated = propertyDefinition.IsCompilerGenerated();
-            var isStatic = (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic) ||
-                           (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
+            var isStatic =
+                (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic)
+                || (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
             var writeAccessor = GetWriteAccessor(propertyDefinition);
-            return new PropertyMember(_type, propertyDefinition.Name, propertyDefinition.FullName, propertyType,
-                isCompilerGenerated, isStatic, writeAccessor);
+            return new PropertyMember(
+                _type,
+                propertyDefinition.Name,
+                propertyDefinition.FullName,
+                propertyType,
+                isCompilerGenerated,
+                isStatic,
+                writeAccessor
+            );
         }
 
-        private static Visibility GetVisibilityFromFieldDefinition([NotNull] FieldDefinition fieldDefinition)
+        private static Visibility GetVisibilityFromFieldDefinition(
+            [NotNull] FieldDefinition fieldDefinition
+        )
         {
             if (fieldDefinition.IsPublic)
             {
@@ -121,15 +157,20 @@ namespace ArchUnitNET.Loader.LoadTasks
                 return Writability.ReadOnly;
             }
 
-            bool isInitSetter = CheckPropertyHasInitSetterInNetStandardCompatibleWay(propertyDefinition);
+            bool isInitSetter = CheckPropertyHasInitSetterInNetStandardCompatibleWay(
+                propertyDefinition
+            );
             return isInitSetter ? Writability.InitOnly : Writability.Writable;
         }
 
-        private static bool CheckPropertyHasInitSetterInNetStandardCompatibleWay(PropertyDefinition propertyDefinition)
+        private static bool CheckPropertyHasInitSetterInNetStandardCompatibleWay(
+            PropertyDefinition propertyDefinition
+        )
         {
             return propertyDefinition.SetMethod?.ReturnType.IsRequiredModifier == true
-                && ((RequiredModifierType)propertyDefinition.SetMethod.ReturnType).ModifierType.FullName
-                    == "System.Runtime.CompilerServices.IsExternalInit";
+                && ((RequiredModifierType)propertyDefinition.SetMethod.ReturnType)
+                    .ModifierType
+                    .FullName == "System.Runtime.CompilerServices.IsExternalInit";
         }
     }
 }

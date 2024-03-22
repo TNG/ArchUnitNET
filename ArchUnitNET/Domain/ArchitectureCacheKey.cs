@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -18,7 +18,8 @@ namespace ArchUnitNET.Domain
 
         public bool Equals(ArchitectureCacheKey other)
         {
-            return other != null && _architectureCacheKey.SequenceEqual(other._architectureCacheKey);
+            return other != null
+                && _architectureCacheKey.SequenceEqual(other._architectureCacheKey);
         }
 
         public void Add(string moduleName, string filter)
@@ -38,7 +39,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ArchitectureCacheKey) obj);
+            return obj.GetType() == GetType() && Equals((ArchitectureCacheKey)obj);
         }
 
         public override int GetHashCode()
@@ -46,7 +47,10 @@ namespace ArchUnitNET.Domain
             unchecked
             {
                 var hashCode = 397;
-                _architectureCacheKey.ForEach(tuple => { hashCode = (hashCode * 131) ^ tuple.GetHashCode(); });
+                _architectureCacheKey.ForEach(tuple =>
+                {
+                    hashCode = (hashCode * 131) ^ tuple.GetHashCode();
+                });
                 return hashCode;
             }
         }
@@ -54,10 +58,16 @@ namespace ArchUnitNET.Domain
 
     internal class ArchitectureCacheKeyComparer : IComparer<(string moduleName, string filter)>
     {
-        public int Compare((string moduleName, string filter) x,
-            (string moduleName, string filter) y)
+        public int Compare(
+            (string moduleName, string filter) x,
+            (string moduleName, string filter) y
+        )
         {
-            var moduleNameComparison = string.Compare(x.moduleName, y.moduleName, StringComparison.Ordinal);
+            var moduleNameComparison = string.Compare(
+                x.moduleName,
+                y.moduleName,
+                StringComparison.Ordinal
+            );
             return moduleNameComparison == 0
                 ? string.Compare(x.filter, y.filter, StringComparison.Ordinal)
                 : moduleNameComparison;

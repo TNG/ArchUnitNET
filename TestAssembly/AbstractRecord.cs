@@ -9,8 +9,6 @@ namespace TestAssembly
             return this with { TestProperty2 = testProperty };
         }
 
-        public void TestMethod()
-        {
-        }
+        public void TestMethod() { }
     }
 }

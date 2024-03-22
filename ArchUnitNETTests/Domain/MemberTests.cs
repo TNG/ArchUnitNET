@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -23,20 +23,26 @@ namespace ArchUnitNETTests.Domain
     {
         public MemberTests()
         {
-            _methodMemberEquivalencyTestData = new MemberEquivalencyTestData(typeof(ClassWithMethodA),
-                nameof(ClassWithMethodA.MethodA).BuildMethodMemberName());
-            _fieldMemberEquivalencyTestData =
-                new MemberEquivalencyTestData(typeof(ClassWithFieldA), nameof(ClassWithFieldA.FieldA));
-            _propertyMemberEquivalencyTestData = new MemberEquivalencyTestData(typeof(ClassWithPropertyA),
-                nameof(ClassWithPropertyA.PropertyA));
+            _methodMemberEquivalencyTestData = new MemberEquivalencyTestData(
+                typeof(ClassWithMethodA),
+                nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()
+            );
+            _fieldMemberEquivalencyTestData = new MemberEquivalencyTestData(
+                typeof(ClassWithFieldA),
+                nameof(ClassWithFieldA.FieldA)
+            );
+            _propertyMemberEquivalencyTestData = new MemberEquivalencyTestData(
+                typeof(ClassWithPropertyA),
+                nameof(ClassWithPropertyA.PropertyA)
+            );
         }
 
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         private readonly MemberEquivalencyTestData _methodMemberEquivalencyTestData;
         private readonly MemberEquivalencyTestData _fieldMemberEquivalencyTestData;
         private readonly MemberEquivalencyTestData _propertyMemberEquivalencyTestData;
-
 
         [Theory]
         [ClassData(typeof(MemberTestBuild.OriginMemberTestData))]
@@ -47,7 +53,10 @@ namespace ArchUnitNETTests.Domain
             MemberTypeBackwardsDependenciesByTargetType(originMember);
         }
 
-        private static void DuplicateMembersAreEqual([NotNull] IMember originMember, [NotNull] object duplicateMember)
+        private static void DuplicateMembersAreEqual(
+            [NotNull] IMember originMember,
+            [NotNull] object duplicateMember
+        )
         {
             originMember.RequiredNotNull();
             duplicateMember.RequiredNotNull();
@@ -55,16 +64,20 @@ namespace ArchUnitNETTests.Domain
             Assert.Equal(originMember, duplicateMember);
         }
 
-        private static void DuplicateMemberObjectReferencesAreEqual([NotNull] IMember originMember,
-            object objectReferenceDuplicate)
+        private static void DuplicateMemberObjectReferencesAreEqual(
+            [NotNull] IMember originMember,
+            object objectReferenceDuplicate
+        )
         {
             originMember.RequiredNotNull();
 
             Assert.Equal(originMember, objectReferenceDuplicate);
         }
 
-        private static void DuplicateMemberReferencesAreEqual([NotNull] IMember originMember,
-            [NotNull] IMember memberReferenceDuplicate)
+        private static void DuplicateMemberReferencesAreEqual(
+            [NotNull] IMember originMember,
+            [NotNull] IMember memberReferenceDuplicate
+        )
         {
             originMember.RequiredNotNull();
             memberReferenceDuplicate.RequiredNotNull();
@@ -79,8 +92,10 @@ namespace ArchUnitNETTests.Domain
             Assert.False(member.Equals(null));
         }
 
-        private static void MemberHasConsistentHashCode([NotNull] IMember originMember,
-            [NotNull] object duplicateMember)
+        private static void MemberHasConsistentHashCode(
+            [NotNull] IMember originMember,
+            [NotNull] object duplicateMember
+        )
         {
             originMember.RequiredNotNull();
             duplicateMember.RequiredNotNull();
@@ -98,33 +113,49 @@ namespace ArchUnitNETTests.Domain
             });
         }
 
-        private static void MemberMemberBackwardsDependenciesByTargetMember([NotNull] IMember originMember)
+        private static void MemberMemberBackwardsDependenciesByTargetMember(
+            [NotNull] IMember originMember
+        )
         {
-            originMember.MemberBackwardsDependencies
-                .OfType<IMemberMemberDependency>()
+            originMember
+                .MemberBackwardsDependencies.OfType<IMemberMemberDependency>()
                 .ForEach(memberMemberBackwardsDependency =>
                 {
-                    Assert.Contains(memberMemberBackwardsDependency,
-                        memberMemberBackwardsDependency.OriginMember.MemberDependencies);
+                    Assert.Contains(
+                        memberMemberBackwardsDependency,
+                        memberMemberBackwardsDependency.OriginMember.MemberDependencies
+                    );
                 });
         }
 
-        private static void MemberTypeBackwardsDependenciesByTargetType([NotNull] IMember originMember)
+        private static void MemberTypeBackwardsDependenciesByTargetType(
+            [NotNull] IMember originMember
+        )
         {
-            originMember.MemberBackwardsDependencies
-                .OfType<IMemberTypeDependency>()
+            originMember
+                .MemberBackwardsDependencies.OfType<IMemberTypeDependency>()
                 .ForEach(memberTypeBackwardsDependency =>
-                    Assert.Contains(memberTypeBackwardsDependency,
-                        memberTypeBackwardsDependency.Origin.Dependencies));
+                    Assert.Contains(
+                        memberTypeBackwardsDependency,
+                        memberTypeBackwardsDependency.Origin.Dependencies
+                    )
+                );
         }
 
         private class MemberEquivalencyTestData
         {
-            public MemberEquivalencyTestData([NotNull] Type originType, [NotNull] string originMemberName)
+            public MemberEquivalencyTestData(
+                [NotNull] Type originType,
+                [NotNull] string originMemberName
+            )
             {
                 var methodOriginClass = Architecture.GetClassOfType(originType);
-                OriginMember = methodOriginClass.GetMembersWithName(originMemberName).SingleOrDefault();
-                DuplicateMember = methodOriginClass.GetMembersWithName(originMemberName).SingleOrDefault();
+                OriginMember = methodOriginClass
+                    .GetMembersWithName(originMemberName)
+                    .SingleOrDefault();
+                DuplicateMember = methodOriginClass
+                    .GetMembersWithName(originMemberName)
+                    .SingleOrDefault();
             }
 
             public IMember OriginMember { get; }
@@ -134,87 +165,154 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void CorrectlyAssignNotAccessibleGetter()
         {
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs("FieldWithoutGetter"),
-                member => member.GetterVisibility == NotAccessible);
+            Assert.Contains(
+                Architecture.PropertyMembers.WhereNameIs("FieldWithoutGetter"),
+                member => member.GetterVisibility == NotAccessible
+            );
         }
 
         [Fact]
         public void CorrectlyAssignNotAccessibleSetter()
         {
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs("FieldWithoutSetter"),
-                member => member.SetterVisibility == NotAccessible);
+            Assert.Contains(
+                Architecture.PropertyMembers.WhereNameIs("FieldWithoutSetter"),
+                member => member.SetterVisibility == NotAccessible
+            );
         }
 
         [Fact]
         public void AreReadOnlyMethodMembersAndFieldMembersAndPropertyMembers()
         {
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
-                member => member.Writability == Writability.ReadOnly);
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
-                member => member.Writability != Writability.ReadOnly);
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
-                member => member.Writability != Writability.ReadOnly);
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVar)),
-                member => member.Writability == Writability.ReadOnly);
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVarInit)),
-                member => member.Writability == Writability.ReadOnly);
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.NotReadOnlyVarInit)),
-                member => member.Writability != Writability.ReadOnly);
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.CheckForReadOnlyMethod) + "()"),
-                member => member.Writability == null);
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
+                member => member.Writability == Writability.ReadOnly
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
+                member => member.Writability != Writability.ReadOnly
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
+                member => member.Writability != Writability.ReadOnly
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVar)),
+                member => member.Writability == Writability.ReadOnly
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVarInit)),
+                member => member.Writability == Writability.ReadOnly
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.NotReadOnlyVarInit)),
+                member => member.Writability != Writability.ReadOnly
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(
+                    nameof(ClassReadOnly.CheckForReadOnlyMethod) + "()"
+                ),
+                member => member.Writability == null
+            );
         }
 
         [Fact]
         public void ArePropertyMembersWithInitOnlySetter()
         {
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
-                member => member.Writability == Writability.InitOnly);
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
-                member => member.Writability != Writability.InitOnly);
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
-                member => member.Writability != Writability.InitOnly);
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PositionalInitOnlyProperty)),
-                member => member.Writability == Writability.InitOnly);
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.InitOnlyProperty)),
-                member => member.Writability == Writability.InitOnly);
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithoutSet)),
-                member => member.Writability != Writability.InitOnly);
-            Assert.Contains(Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithSet)),
-                member => member.Writability != Writability.InitOnly);
+            Assert.Contains(
+                Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
+                member => member.Writability == Writability.InitOnly
+            );
+            Assert.Contains(
+                Architecture.PropertyMembers.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
+                member => member.Writability != Writability.InitOnly
+            );
+            Assert.Contains(
+                Architecture.PropertyMembers.WhereNameIs(
+                    nameof(ClassReadOnly.PropertyWithGetAndSet)
+                ),
+                member => member.Writability != Writability.InitOnly
+            );
+            Assert.Contains(
+                Architecture.PropertyMembers.WhereNameIs(
+                    nameof(RecordReadOnly.PositionalInitOnlyProperty)
+                ),
+                member => member.Writability == Writability.InitOnly
+            );
+            Assert.Contains(
+                Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.InitOnlyProperty)),
+                member => member.Writability == Writability.InitOnly
+            );
+            Assert.Contains(
+                Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithoutSet)),
+                member => member.Writability != Writability.InitOnly
+            );
+            Assert.Contains(
+                Architecture.PropertyMembers.WhereNameIs(nameof(RecordReadOnly.PropertyWithSet)),
+                member => member.Writability != Writability.InitOnly
+            );
         }
 
         [Fact]
         public void AreMembersImmutable()
         {
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVar)),
-                member => member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVarInit)),
-                member => member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.NotReadOnlyVarInit)),
-                member => !member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
-                member => member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
-                member => member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
-                member => !member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(ClassReadOnly.CheckForReadOnlyMethod) + "()"),
-                member => member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PositionalInitOnlyProperty)),
-                member => member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PropertyWithoutSet)),
-                member => member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.InitOnlyProperty)),
-                member => member.Writability.IsImmutable());
-            Assert.Contains(Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PropertyWithSet)),
-                member => !member.Writability.IsImmutable());
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVar)),
+                member => member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.ReadonlyVarInit)),
+                member => member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.NotReadOnlyVarInit)),
+                member => !member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithoutSet)),
+                member => member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.InitOnlyProperty)),
+                member => member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(ClassReadOnly.PropertyWithGetAndSet)),
+                member => !member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(
+                    nameof(ClassReadOnly.CheckForReadOnlyMethod) + "()"
+                ),
+                member => member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PositionalInitOnlyProperty)),
+                member => member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PropertyWithoutSet)),
+                member => member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(RecordReadOnly.InitOnlyProperty)),
+                member => member.Writability.IsImmutable()
+            );
+            Assert.Contains(
+                Architecture.Members.WhereNameIs(nameof(RecordReadOnly.PropertyWithSet)),
+                member => !member.Writability.IsImmutable()
+            );
         }
 
         [Fact]
         public void FieldMemberEquivalencyTests()
         {
             //Setup
-            if (!(_fieldMemberEquivalencyTestData.OriginMember is FieldMember memberReferenceDuplicate))
+            if (
+                !(
+                    _fieldMemberEquivalencyTestData.OriginMember
+                    is FieldMember memberReferenceDuplicate
+                )
+            )
             {
                 return;
             }
@@ -222,21 +320,32 @@ namespace ArchUnitNETTests.Domain
             object objectReferenceDuplicate = _fieldMemberEquivalencyTestData.OriginMember;
 
             //Assert
-            MemberHasConsistentHashCode(_fieldMemberEquivalencyTestData.OriginMember,
-                _fieldMemberEquivalencyTestData.DuplicateMember);
-            DuplicateMembersAreEqual(_fieldMemberEquivalencyTestData.OriginMember,
-                _fieldMemberEquivalencyTestData.DuplicateMember);
+            MemberHasConsistentHashCode(
+                _fieldMemberEquivalencyTestData.OriginMember,
+                _fieldMemberEquivalencyTestData.DuplicateMember
+            );
+            DuplicateMembersAreEqual(
+                _fieldMemberEquivalencyTestData.OriginMember,
+                _fieldMemberEquivalencyTestData.DuplicateMember
+            );
             MemberDoesNotEqualNull(_fieldMemberEquivalencyTestData.OriginMember);
 
-            DuplicateMemberReferencesAreEqual(_fieldMemberEquivalencyTestData.OriginMember, memberReferenceDuplicate);
-            DuplicateMemberObjectReferencesAreEqual(_fieldMemberEquivalencyTestData.OriginMember,
-                objectReferenceDuplicate);
+            DuplicateMemberReferencesAreEqual(
+                _fieldMemberEquivalencyTestData.OriginMember,
+                memberReferenceDuplicate
+            );
+            DuplicateMemberObjectReferencesAreEqual(
+                _fieldMemberEquivalencyTestData.OriginMember,
+                objectReferenceDuplicate
+            );
         }
 
         [Fact]
         public void FieldMembersMustHaveAccessibleVisibility()
         {
-            Assert.True(Architecture.FieldMembers.All(member => member.Visibility != NotAccessible));
+            Assert.True(
+                Architecture.FieldMembers.All(member => member.Visibility != NotAccessible)
+            );
         }
 
         [Fact]
@@ -246,8 +355,13 @@ namespace ArchUnitNETTests.Domain
             var methodMembers = Architecture.MethodMembers;
             var fieldMembers = Architecture.FieldMembers;
             var propertyMembers = Architecture.PropertyMembers;
-            Assert.True(members.All(member =>
-                methodMembers.Contains(member) ^ fieldMembers.Contains(member) ^ propertyMembers.Contains(member)));
+            Assert.True(
+                members.All(member =>
+                    methodMembers.Contains(member)
+                    ^ fieldMembers.Contains(member)
+                    ^ propertyMembers.Contains(member)
+                )
+            );
             Assert.True(methodMembers.All(member => members.Contains(member)));
             Assert.True(fieldMembers.All(member => members.Contains(member)));
             Assert.True(propertyMembers.All(member => members.Contains(member)));
@@ -257,7 +371,12 @@ namespace ArchUnitNETTests.Domain
         public void MethodMemberEquivalencyTests()
         {
             //Setup
-            if (!(_methodMemberEquivalencyTestData.OriginMember is MethodMember memberReferenceDuplicate))
+            if (
+                !(
+                    _methodMemberEquivalencyTestData.OriginMember
+                    is MethodMember memberReferenceDuplicate
+                )
+            )
             {
                 return;
             }
@@ -265,28 +384,44 @@ namespace ArchUnitNETTests.Domain
             object objectReferenceDuplicate = _methodMemberEquivalencyTestData.OriginMember;
 
             //Assert
-            MemberHasConsistentHashCode(_methodMemberEquivalencyTestData.OriginMember,
-                _methodMemberEquivalencyTestData.DuplicateMember);
-            DuplicateMembersAreEqual(_methodMemberEquivalencyTestData.OriginMember,
-                _methodMemberEquivalencyTestData.DuplicateMember);
+            MemberHasConsistentHashCode(
+                _methodMemberEquivalencyTestData.OriginMember,
+                _methodMemberEquivalencyTestData.DuplicateMember
+            );
+            DuplicateMembersAreEqual(
+                _methodMemberEquivalencyTestData.OriginMember,
+                _methodMemberEquivalencyTestData.DuplicateMember
+            );
             MemberDoesNotEqualNull(_methodMemberEquivalencyTestData.OriginMember);
 
-            DuplicateMemberReferencesAreEqual(_methodMemberEquivalencyTestData.OriginMember, memberReferenceDuplicate);
-            DuplicateMemberObjectReferencesAreEqual(_methodMemberEquivalencyTestData.OriginMember,
-                objectReferenceDuplicate);
+            DuplicateMemberReferencesAreEqual(
+                _methodMemberEquivalencyTestData.OriginMember,
+                memberReferenceDuplicate
+            );
+            DuplicateMemberObjectReferencesAreEqual(
+                _methodMemberEquivalencyTestData.OriginMember,
+                objectReferenceDuplicate
+            );
         }
 
         [Fact]
         public void MethodMembersMustHaveAccessibleVisibility()
         {
-            Assert.True(Architecture.MethodMembers.All(member => member.Visibility != NotAccessible));
+            Assert.True(
+                Architecture.MethodMembers.All(member => member.Visibility != NotAccessible)
+            );
         }
 
         [Fact]
         public void PropertyMemberEquivalencyTests()
         {
             //Setup
-            if (!(_propertyMemberEquivalencyTestData.OriginMember is PropertyMember memberReferenceDuplicate))
+            if (
+                !(
+                    _propertyMemberEquivalencyTestData.OriginMember
+                    is PropertyMember memberReferenceDuplicate
+                )
+            )
             {
                 return;
             }
@@ -294,16 +429,24 @@ namespace ArchUnitNETTests.Domain
             object objectReferenceDuplicate = _propertyMemberEquivalencyTestData.OriginMember;
 
             //Assert
-            MemberHasConsistentHashCode(_propertyMemberEquivalencyTestData.OriginMember,
-                _propertyMemberEquivalencyTestData.DuplicateMember);
-            DuplicateMembersAreEqual(_propertyMemberEquivalencyTestData.OriginMember,
-                _propertyMemberEquivalencyTestData.DuplicateMember);
+            MemberHasConsistentHashCode(
+                _propertyMemberEquivalencyTestData.OriginMember,
+                _propertyMemberEquivalencyTestData.DuplicateMember
+            );
+            DuplicateMembersAreEqual(
+                _propertyMemberEquivalencyTestData.OriginMember,
+                _propertyMemberEquivalencyTestData.DuplicateMember
+            );
             MemberDoesNotEqualNull(_propertyMemberEquivalencyTestData.OriginMember);
 
-            DuplicateMemberReferencesAreEqual(_propertyMemberEquivalencyTestData.OriginMember,
-                memberReferenceDuplicate);
-            DuplicateMemberObjectReferencesAreEqual(_propertyMemberEquivalencyTestData.OriginMember,
-                objectReferenceDuplicate);
+            DuplicateMemberReferencesAreEqual(
+                _propertyMemberEquivalencyTestData.OriginMember,
+                memberReferenceDuplicate
+            );
+            DuplicateMemberObjectReferencesAreEqual(
+                _propertyMemberEquivalencyTestData.OriginMember,
+                objectReferenceDuplicate
+            );
         }
 
         // ReSharper disable All
@@ -319,10 +462,8 @@ namespace ArchUnitNETTests.Domain
             }
         }
 
-        public class FieldType
-        {
-        }
-        
+        public class FieldType { }
+
         private class ClassReadOnly
         {
             public readonly string ReadonlyVar;
@@ -331,9 +472,8 @@ namespace ArchUnitNETTests.Domain
             public string PropertyWithoutSet { get; }
             public string InitOnlyProperty { get; init; }
             public string PropertyWithGetAndSet { get; set; }
-            public void CheckForReadOnlyMethod()
-            {
-            }
+
+            public void CheckForReadOnlyMethod() { }
         }
 
         private record RecordReadOnly(string PositionalInitOnlyProperty)

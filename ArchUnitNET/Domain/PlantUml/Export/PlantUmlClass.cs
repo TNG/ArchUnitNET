@@ -10,7 +10,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private readonly List<string> _fields = new List<string>();
         string _hyperlink { get; }
 
-
         public PlantUmlClass(string name, string hyperlink = null)
         {
             PlantUmlNameChecker.AssertNoForbiddenCharacters(name, hyperlink);
@@ -31,8 +30,10 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             if (!renderOptions.OmitClassFields)
             {
-                result += _fields.Aggregate("",
-                    (umlstring, field) => umlstring + "\"" + field + "\"" + Environment.NewLine);
+                result += _fields.Aggregate(
+                    "",
+                    (umlstring, field) => umlstring + "\"" + field + "\"" + Environment.NewLine
+                );
             }
 
             result += "}" + Environment.NewLine;

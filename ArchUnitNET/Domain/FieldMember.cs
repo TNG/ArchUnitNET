@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -14,8 +14,16 @@ namespace ArchUnitNET.Domain
     {
         private readonly ITypeInstance<IType> _typeInstance;
 
-        public FieldMember(IType declaringType, string name, string fullName, Visibility visibility,
-            ITypeInstance<IType> typeInstance, bool isCompilerGenerated, bool? isStatic, Writability writability)
+        public FieldMember(
+            IType declaringType,
+            string name,
+            string fullName,
+            Visibility visibility,
+            ITypeInstance<IType> typeInstance,
+            bool isCompilerGenerated,
+            bool? isStatic,
+            Writability writability
+        )
         {
             DeclaringType = declaringType;
             Name = name;
@@ -38,11 +46,15 @@ namespace ArchUnitNET.Domain
         public Writability? Writability { get; }
         public bool IsGeneric => false;
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
-        public IEnumerable<Attribute> Attributes => AttributeInstances.Select(instance => instance.Type);
+        public IEnumerable<Attribute> Attributes =>
+            AttributeInstances.Select(instance => instance.Type);
         public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
-        public List<IMemberTypeDependency> MemberDependencies { get; } = new List<IMemberTypeDependency>();
-        public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } = new List<IMemberTypeDependency>();
-        public List<ITypeDependency> Dependencies => MemberDependencies.Cast<ITypeDependency>().ToList();
+        public List<IMemberTypeDependency> MemberDependencies { get; } =
+            new List<IMemberTypeDependency>();
+        public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } =
+            new List<IMemberTypeDependency>();
+        public List<ITypeDependency> Dependencies =>
+            MemberDependencies.Cast<ITypeDependency>().ToList();
 
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
@@ -69,7 +81,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((FieldMember) obj);
+            return obj.GetType() == GetType() && Equals((FieldMember)obj);
         }
 
         private bool Equals(FieldMember other)

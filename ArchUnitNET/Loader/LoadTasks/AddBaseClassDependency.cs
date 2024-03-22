@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -17,7 +17,12 @@ namespace ArchUnitNET.Loader.LoadTasks
         private readonly TypeDefinition _typeDefinition;
         private readonly TypeFactory _typeFactory;
 
-        public AddBaseClassDependency(IType cls, Type type, TypeDefinition typeDefinition, TypeFactory typeFactory)
+        public AddBaseClassDependency(
+            IType cls,
+            Type type,
+            TypeDefinition typeDefinition,
+            TypeFactory typeFactory
+        )
         {
             _cls = cls;
             _type = type;
@@ -34,15 +39,22 @@ namespace ArchUnitNET.Loader.LoadTasks
                 return;
             }
 
-            var baseType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeDefinitionBaseType);
+            var baseType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                typeDefinitionBaseType
+            );
             if (!(baseType.Type is Class baseClass))
             {
                 return;
             }
 
-            var dependency =
-                new InheritsBaseClassDependency(_cls,
-                    new TypeInstance<Class>(baseClass, baseType.GenericArguments, baseType.ArrayDimensions));
+            var dependency = new InheritsBaseClassDependency(
+                _cls,
+                new TypeInstance<Class>(
+                    baseClass,
+                    baseType.GenericArguments,
+                    baseType.ArrayDimensions
+                )
+            );
             _type.Dependencies.Add(dependency);
         }
     }

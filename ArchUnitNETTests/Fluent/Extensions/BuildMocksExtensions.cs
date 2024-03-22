@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -23,8 +23,17 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var assembly = type.Assembly.CreateStubAssembly();
             var namespc = type.Namespace.CreateStubNamespace();
             var visibility = type.GetVisibility();
-            return new Type(type.FullName, type.Name, assembly, namespc, visibility, type.IsNested, type.IsGenericType,
-                true, false);
+            return new Type(
+                type.FullName,
+                type.Name,
+                assembly,
+                namespc,
+                visibility,
+                type.IsNested,
+                type.IsGenericType,
+                true,
+                false
+            );
         }
 
         private static Visibility GetVisibility(this System.Type type)
@@ -85,8 +94,17 @@ namespace ArchUnitNETTests.Fluent.Extensions
 
         public static Type CreateShallowStubType(this Class clazz)
         {
-            var type = new Type(clazz.FullName, clazz.Name, clazz.Assembly, clazz.Namespace, clazz.Visibility,
-                clazz.IsNested, clazz.IsGeneric, clazz.IsStub, clazz.IsCompilerGenerated);
+            var type = new Type(
+                clazz.FullName,
+                clazz.Name,
+                clazz.Assembly,
+                clazz.Namespace,
+                clazz.Visibility,
+                clazz.IsNested,
+                clazz.IsGeneric,
+                clazz.IsStub,
+                clazz.IsCompilerGenerated
+            );
             type.GenericParameters.AddRange(clazz.GenericParameters);
             return type;
         }
@@ -101,7 +119,10 @@ namespace ArchUnitNETTests.Fluent.Extensions
             return new Namespace(namespc, new List<IType>());
         }
 
-        public static string BuildMethodMemberName(this string methodName, params System.Type[] parameterType)
+        public static string BuildMethodMemberName(
+            this string methodName,
+            params System.Type[] parameterType
+        )
         {
             var builder = new StringBuilder();
 
@@ -127,7 +148,9 @@ namespace ArchUnitNETTests.Fluent.Extensions
             var visibility = methodBase.GetVisibility();
 
             var declaringType = methodBase.DeclaringType.CreateStubIType();
-            var parameters = methodBase.CreateStubParameters().Select(parameter => new TypeInstance<IType>(parameter));
+            var parameters = methodBase
+                .CreateStubParameters()
+                .Select(parameter => new TypeInstance<IType>(parameter));
             var methodForm = methodBase.GetStubMethodForm();
             var isStatic = methodBase.IsStatic;
 
@@ -150,8 +173,20 @@ namespace ArchUnitNETTests.Fluent.Extensions
                 fullName = methodInfo.CreateStubFullName();
             }
 
-            var methodMember = new MethodMember(methodBase.BuildMockMethodName(), fullName, declaringType, visibility,
-                returnTypeInstance, methodBase.IsVirtual, methodForm, isGeneric, false, false, false, isStatic);
+            var methodMember = new MethodMember(
+                methodBase.BuildMockMethodName(),
+                fullName,
+                declaringType,
+                visibility,
+                returnTypeInstance,
+                methodBase.IsVirtual,
+                methodForm,
+                isGeneric,
+                false,
+                false,
+                false,
+                isStatic
+            );
 
             methodMember.ParameterInstances.AddRange(parameters);
             return methodMember;
@@ -161,13 +196,17 @@ namespace ArchUnitNETTests.Fluent.Extensions
         {
             var stringBuilder = new StringBuilder(methodBase.Name);
             stringBuilder.Append("(");
-            stringBuilder.Append(ConstructParameters(methodBase.CreateStubParameters(), methodBase.CallingConvention));
+            stringBuilder.Append(
+                ConstructParameters(methodBase.CreateStubParameters(), methodBase.CallingConvention)
+            );
             stringBuilder.Append(")");
             return stringBuilder.ToString();
         }
 
-        private static string ConstructParameters(IEnumerable<IType> parameterTypes,
-            CallingConventions callingConvention)
+        private static string ConstructParameters(
+            IEnumerable<IType> parameterTypes,
+            CallingConventions callingConvention
+        )
         {
             var stringBuilder = new StringBuilder();
             var str1 = "";
@@ -191,26 +230,39 @@ namespace ArchUnitNETTests.Fluent.Extensions
 
         private static List<IType> CreateStubParameters(this MethodBase methodInfo)
         {
-            return methodInfo.GetParameters().Select(info => (IType)CreateStubIType(info.ParameterType)).ToList();
+            return methodInfo
+                .GetParameters()
+                .Select(info => (IType)CreateStubIType(info.ParameterType))
+                .ToList();
         }
 
         private static string CreateStubFullName(this MethodInfo methodInfo)
         {
             var builder = new StringBuilder();
-            builder.Append(methodInfo.ReturnType.FullName).Append(" ").Append(methodInfo.MemberFullName());
+            builder
+                .Append(methodInfo.ReturnType.FullName)
+                .Append(" ")
+                .Append(methodInfo.MemberFullName());
             methodInfo.MethodSignatureFullName(builder);
             return builder.ToString();
         }
 
-        private static string CreateStubFullName(this ConstructorInfo constructorInfo, IType returnType)
+        private static string CreateStubFullName(
+            this ConstructorInfo constructorInfo,
+            IType returnType
+        )
         {
             var builder = new StringBuilder();
-            builder.Append(returnType.FullName).Append(" ").Append(constructorInfo.MemberFullName());
+            builder
+                .Append(returnType.FullName)
+                .Append(" ")
+                .Append(constructorInfo.MemberFullName());
             constructorInfo.MethodSignatureFullName(builder);
             return builder.ToString();
         }
 
-        private static string MemberFullName<TMethod>(this TMethod methodInfo) where TMethod : MethodBase
+        private static string MemberFullName<TMethod>(this TMethod methodInfo)
+            where TMethod : MethodBase
         {
             if (methodInfo.DeclaringType == null)
             {
@@ -220,7 +272,10 @@ namespace ArchUnitNETTests.Fluent.Extensions
             return methodInfo.DeclaringType.FullName + "::" + methodInfo.Name;
         }
 
-        private static void MethodSignatureFullName(this MethodBase methodBase, StringBuilder stringBuilder)
+        private static void MethodSignatureFullName(
+            this MethodBase methodBase,
+            StringBuilder stringBuilder
+        )
         {
             stringBuilder.Append("(");
             if (methodBase.GetParameters().Length != 0)
@@ -241,7 +296,8 @@ namespace ArchUnitNETTests.Fluent.Extensions
             stringBuilder.Append(")");
         }
 
-        private static Visibility GetVisibility<TMethod>(this TMethod methodInfo) where TMethod : MethodBase
+        private static Visibility GetVisibility<TMethod>(this TMethod methodInfo)
+            where TMethod : MethodBase
         {
             return methodInfo.IsPublic ? Public : Private;
         }

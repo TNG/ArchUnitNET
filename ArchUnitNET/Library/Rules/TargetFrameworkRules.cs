@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
@@ -22,8 +22,14 @@ namespace ArchUnitNET.Library.Rules
                 {
                     var passed = assembly.IsDotNetStandard();
                     var description = "has target framework " + assembly.GetTargetFramework();
-                    yield return new EvaluationResult(assembly, new StringIdentifier(assembly.FullName), passed,
-                        description, archRule, architecture);
+                    yield return new EvaluationResult(
+                        assembly,
+                        new StringIdentifier(assembly.FullName),
+                        passed,
+                        description,
+                        archRule,
+                        architecture
+                    );
                 }
             }
 
@@ -38,8 +44,14 @@ namespace ArchUnitNET.Library.Rules
                 {
                     var passed = assembly.IsDotNetCore();
                     var description = "has target framework " + assembly.GetTargetFramework();
-                    yield return new EvaluationResult(assembly, new StringIdentifier(assembly.FullName), passed,
-                        description, archRule, architecture);
+                    yield return new EvaluationResult(
+                        assembly,
+                        new StringIdentifier(assembly.FullName),
+                        passed,
+                        description,
+                        archRule,
+                        architecture
+                    );
                 }
             }
 
@@ -54,8 +66,14 @@ namespace ArchUnitNET.Library.Rules
                 {
                     var passed = assembly.IsDotNetFramework();
                     var description = "has target framework " + assembly.GetTargetFramework();
-                    yield return new EvaluationResult(assembly, new StringIdentifier(assembly.FullName), passed,
-                        description, archRule, architecture);
+                    yield return new EvaluationResult(
+                        assembly,
+                        new StringIdentifier(assembly.FullName),
+                        passed,
+                        description,
+                        archRule,
+                        architecture
+                    );
                 }
             }
 

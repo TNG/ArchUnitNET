@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -22,14 +22,25 @@ namespace ArchUnitNET.Loader
     {
         private static readonly OpCode[] BodyTypeOpCodes =
         {
-            OpCodes.Box, OpCodes.Newarr, OpCodes.Initobj, OpCodes.Unbox, OpCodes.Unbox_Any, OpCodes.Ldelem_Any,
-            OpCodes.Ldobj, OpCodes.Stelem_Any, OpCodes.Ldelema, OpCodes.Stobj
+            OpCodes.Box,
+            OpCodes.Newarr,
+            OpCodes.Initobj,
+            OpCodes.Unbox,
+            OpCodes.Unbox_Any,
+            OpCodes.Ldelem_Any,
+            OpCodes.Ldobj,
+            OpCodes.Stelem_Any,
+            OpCodes.Ldelema,
+            OpCodes.Stobj
         }; //maybe not complete
 
         internal static string BuildFullName(this MethodReference methodReference)
         {
-            return methodReference.FullName + methodReference.GenericParameters.Aggregate(string.Empty,
-                (current, newElement) => current + "<" + newElement.Name + ">");
+            return methodReference.FullName
+                + methodReference.GenericParameters.Aggregate(
+                    string.Empty,
+                    (current, newElement) => current + "<" + newElement.Name + ">"
+                );
         }
 
         [NotNull]
@@ -65,17 +76,23 @@ namespace ArchUnitNET.Loader
 
         [NotNull]
         internal static IEnumerable<CustomAttribute> GetAllMethodCustomAttributes(
-            this MethodDefinition methodDefinition)
+            this MethodDefinition methodDefinition
+        )
         {
-            return methodDefinition.CustomAttributes
-                .Concat(methodDefinition.Parameters.SelectMany(parameterDefinition =>
-                    parameterDefinition.CustomAttributes))
+            return methodDefinition
+                .CustomAttributes.Concat(
+                    methodDefinition.Parameters.SelectMany(parameterDefinition =>
+                        parameterDefinition.CustomAttributes
+                    )
+                )
                 .Concat(methodDefinition.MethodReturnType.CustomAttributes);
         }
 
         [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetSignatureTypes(this MethodReference methodReference,
-            TypeFactory typeFactory)
+        internal static IEnumerable<ITypeInstance<IType>> GetSignatureTypes(
+            this MethodReference methodReference,
+            TypeFactory typeFactory
+        )
         {
             var parameters = GetAllParameters(methodReference, typeFactory).ToList();
             var returnType = GetReturnType(methodReference, typeFactory);
@@ -87,16 +104,23 @@ namespace ArchUnitNET.Loader
             return parameters;
         }
 
-        private static ITypeInstance<IType> GetReturnType(this MethodReference methodReference, TypeFactory typeFactory)
+        private static ITypeInstance<IType> GetReturnType(
+            this MethodReference methodReference,
+            TypeFactory typeFactory
+        )
         {
             return ReturnsVoid(methodReference)
                 ? null
-                : typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(methodReference.MethodReturnType.ReturnType);
+                : typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                    methodReference.MethodReturnType.ReturnType
+                );
         }
 
         [NotNull]
-        private static IEnumerable<ITypeInstance<IType>> GetAllParameters(this MethodReference methodReference,
-            TypeFactory typeFactory)
+        private static IEnumerable<ITypeInstance<IType>> GetAllParameters(
+            this MethodReference methodReference,
+            TypeFactory typeFactory
+        )
         {
             var parameters = methodReference.GetParameters(typeFactory).ToList();
             var genericParameters = methodReference.GetGenericParameters(typeFactory).ToList();
@@ -105,111 +129,172 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetParameters(this MethodReference method,
-            TypeFactory typeFactory)
+        internal static IEnumerable<ITypeInstance<IType>> GetParameters(
+            this MethodReference method,
+            TypeFactory typeFactory
+        )
         {
-            return method.Parameters.Select(parameter =>
-            {
-                var typeReference = parameter.ParameterType;
-                return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
-            }).Distinct();
+            return method
+                .Parameters.Select(parameter =>
+                {
+                    var typeReference = parameter.ParameterType;
+                    return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
+                })
+                .Distinct();
         }
 
         [NotNull]
-        private static IEnumerable<ITypeInstance<IType>> GetGenericParameters(this MethodReference method,
-            TypeFactory typeFactory)
+        private static IEnumerable<ITypeInstance<IType>> GetGenericParameters(
+            this MethodReference method,
+            TypeFactory typeFactory
+        )
         {
-            return method.GenericParameters.Select(parameter =>
-            {
-                var typeReference = parameter.GetElementType();
-                return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
-            }).Distinct();
+            return method
+                .GenericParameters.Select(parameter =>
+                {
+                    var typeReference = parameter.GetElementType();
+                    return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
+                })
+                .Distinct();
         }
 
         [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetBodyTypes(this MethodDefinition methodDefinition,
-            TypeFactory typeFactory)
+        internal static IEnumerable<ITypeInstance<IType>> GetBodyTypes(
+            this MethodDefinition methodDefinition,
+            TypeFactory typeFactory
+        )
         {
-            var instructions = methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
+            var instructions =
+                methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
 
             var bodyTypes = instructions
-                .Where(inst => BodyTypeOpCodes.Contains(inst.OpCode) && inst.Operand is TypeReference)
-                .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
+                .Where(inst =>
+                    BodyTypeOpCodes.Contains(inst.OpCode) && inst.Operand is TypeReference
+                )
+                .Select(inst =>
+                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                        (TypeReference)inst.Operand
+                    )
+                );
 
             //OpCodes.Ldstr should create a dependency to string, but it does not have a TypeReference as Operand so no Type can be created
 
-            bodyTypes = bodyTypes.Union(methodDefinition.Body?.Variables.Select(variableDefinition =>
-            {
-                var variableTypeReference = variableDefinition.VariableType;
-                return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(variableTypeReference);
-            }) ?? Enumerable.Empty<TypeInstance<IType>>()).Distinct();
+            bodyTypes = bodyTypes
+                .Union(
+                    methodDefinition.Body?.Variables.Select(variableDefinition =>
+                    {
+                        var variableTypeReference = variableDefinition.VariableType;
+                        return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                            variableTypeReference
+                        );
+                    }) ?? Enumerable.Empty<TypeInstance<IType>>()
+                )
+                .Distinct();
 
             return bodyTypes;
         }
 
         [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetCastTypes(this MethodDefinition methodDefinition,
-            TypeFactory typeFactory)
+        internal static IEnumerable<ITypeInstance<IType>> GetCastTypes(
+            this MethodDefinition methodDefinition,
+            TypeFactory typeFactory
+        )
         {
-            var instructions = methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
+            var instructions =
+                methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
 
-            return instructions.Where(inst => inst.OpCode == OpCodes.Castclass && inst.Operand is TypeReference)
-                .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
+            return instructions
+                .Where(inst => inst.OpCode == OpCodes.Castclass && inst.Operand is TypeReference)
+                .Select(inst =>
+                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                        (TypeReference)inst.Operand
+                    )
+                );
         }
 
         [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetMetaDataTypes(this MethodDefinition methodDefinition,
-            TypeFactory typeFactory)
+        internal static IEnumerable<ITypeInstance<IType>> GetMetaDataTypes(
+            this MethodDefinition methodDefinition,
+            TypeFactory typeFactory
+        )
         {
-            var instructions = methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
+            var instructions =
+                methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
 
-            return instructions.Where(inst => inst.OpCode == OpCodes.Ldtoken && inst.Operand is TypeReference)
-                .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
+            return instructions
+                .Where(inst => inst.OpCode == OpCodes.Ldtoken && inst.Operand is TypeReference)
+                .Select(inst =>
+                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                        (TypeReference)inst.Operand
+                    )
+                );
         }
 
         [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetTypeCheckTypes(this MethodDefinition methodDefinition,
-            TypeFactory typeFactory)
+        internal static IEnumerable<ITypeInstance<IType>> GetTypeCheckTypes(
+            this MethodDefinition methodDefinition,
+            TypeFactory typeFactory
+        )
         {
-            var instructions = methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
+            var instructions =
+                methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
 
-            return instructions.Where(inst => inst.OpCode == OpCodes.Isinst && inst.Operand is TypeReference)
-                .Select(inst => typeFactory.GetOrCreateStubTypeInstanceFromTypeReference((TypeReference) inst.Operand));
+            return instructions
+                .Where(inst => inst.OpCode == OpCodes.Isinst && inst.Operand is TypeReference)
+                .Select(inst =>
+                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                        (TypeReference)inst.Operand
+                    )
+                );
         }
 
         internal static bool IsIterator(this MethodDefinition methodDefinition)
         {
-            return methodDefinition.CustomAttributes.Any(att => att.AttributeType.FullName == typeof(System.Runtime
-                .CompilerServices.IteratorStateMachineAttribute).FullName);
+            return methodDefinition.CustomAttributes.Any(att =>
+                att.AttributeType.FullName
+                == typeof(System.Runtime.CompilerServices.IteratorStateMachineAttribute).FullName
+            );
         }
 
         internal static bool IsAsync(this MethodDefinition methodDefinition)
         {
-            return methodDefinition.CustomAttributes.Any(att => att.AttributeType.FullName == typeof(System.Runtime
-                .CompilerServices.AsyncStateMachineAttribute).FullName);
+            return methodDefinition.CustomAttributes.Any(att =>
+                att.AttributeType.FullName
+                == typeof(System.Runtime.CompilerServices.AsyncStateMachineAttribute).FullName
+            );
         }
 
         [NotNull]
-        internal static IEnumerable<FieldMember> GetAccessedFieldMembers(this MethodDefinition methodDefinition,
-            TypeFactory typeFactory)
+        internal static IEnumerable<FieldMember> GetAccessedFieldMembers(
+            this MethodDefinition methodDefinition,
+            TypeFactory typeFactory
+        )
         {
             var accessedFieldMembers = new List<FieldMember>();
-            var instructions = methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
-            var accessedFieldReferences =
-                instructions.Select(inst => inst.Operand).OfType<FieldReference>().Distinct();
+            var instructions =
+                methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
+            var accessedFieldReferences = instructions
+                .Select(inst => inst.Operand)
+                .OfType<FieldReference>()
+                .Distinct();
 
             foreach (var fieldReference in accessedFieldReferences)
             {
-                var declaringType =
-                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(fieldReference.DeclaringType);
-                var matchingFieldMembers = declaringType.Type.GetFieldMembers()
-                    .Where(member => member.Name == fieldReference.Name).ToList();
+                var declaringType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                    fieldReference.DeclaringType
+                );
+                var matchingFieldMembers = declaringType
+                    .Type.GetFieldMembers()
+                    .Where(member => member.Name == fieldReference.Name)
+                    .ToList();
 
                 switch (matchingFieldMembers.Count)
                 {
                     case 0:
-                        var stubFieldMember =
-                            typeFactory.CreateStubFieldMemberFromFieldReference(declaringType.Type, fieldReference);
+                        var stubFieldMember = typeFactory.CreateStubFieldMemberFromFieldReference(
+                            declaringType.Type,
+                            fieldReference
+                        );
                         accessedFieldMembers.Add(stubFieldMember);
                         break;
                     case 1:
@@ -217,7 +302,8 @@ namespace ArchUnitNET.Loader
                         break;
                     default:
                         throw new MultipleOccurrencesInSequenceException(
-                            $"Multiple Fields matching {fieldReference.FullName} found in provided type.");
+                            $"Multiple Fields matching {fieldReference.FullName} found in provided type."
+                        );
                 }
             }
 
@@ -226,9 +312,10 @@ namespace ArchUnitNET.Loader
 
         internal static bool IsCompilerGenerated(this MemberReference memberReference)
         {
-            var declaringType = memberReference.Resolve()?.DeclaringType ?? memberReference.DeclaringType;
-            return declaringType != null && declaringType.Name.HasCompilerGeneratedName() ||
-                   memberReference.Name.HasCompilerGeneratedName();
+            var declaringType =
+                memberReference.Resolve()?.DeclaringType ?? memberReference.DeclaringType;
+            return declaringType != null && declaringType.Name.HasCompilerGeneratedName()
+                || memberReference.Name.HasCompilerGeneratedName();
         }
 
         internal static bool HasCompilerGeneratedName(this string name)

@@ -6,7 +6,8 @@ namespace ArchUnitNETTests.Domain
 {
     public class RecordTypeTests
     {
-        private static readonly Architecture Architecture = StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture;
+        private static readonly Architecture Architecture =
+            StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture;
 
         [Fact]
         public void RecordTypeExists()

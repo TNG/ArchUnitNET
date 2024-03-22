@@ -4,7 +4,5 @@ using System.Text;
 
 namespace TestAssembly.Diagram.NoDependencies.Independent
 {
-    public class IndependentClass
-    {
-    }
+    public class IndependentClass { }
 }

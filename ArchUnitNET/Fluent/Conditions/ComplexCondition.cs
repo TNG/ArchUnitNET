@@ -1,7 +1,7 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
@@ -11,15 +11,18 @@ using ArchUnitNET.Fluent.Predicates;
 namespace ArchUnitNET.Fluent.Conditions
 {
     public class ComplexCondition<TRuleType, TRelatedType> : ICondition<TRuleType>
-        where TRuleType : ICanBeAnalyzed where TRelatedType : ICanBeAnalyzed
+        where TRuleType : ICanBeAnalyzed
+        where TRelatedType : ICanBeAnalyzed
     {
         private readonly IPredicate<TRelatedType> _predicate;
         private readonly IObjectProvider<TRelatedType> _relatedTypes;
         private readonly RelationCondition<TRuleType, TRelatedType> _relation;
 
-        public ComplexCondition(IObjectProvider<TRelatedType> relatedTypes,
+        public ComplexCondition(
+            IObjectProvider<TRelatedType> relatedTypes,
             RelationCondition<TRuleType, TRelatedType> relation,
-            IPredicate<TRelatedType> predicate)
+            IPredicate<TRelatedType> predicate
+        )
         {
             _relatedTypes = relatedTypes;
             _relation = relation;
@@ -28,10 +31,18 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public string Description => _relation.Description + " " + _predicate.Description;
 
-        public IEnumerable<ConditionResult> Check(IEnumerable<TRuleType> objects, Architecture architecture)
+        public IEnumerable<ConditionResult> Check(
+            IEnumerable<TRuleType> objects,
+            Architecture architecture
+        )
         {
             return _relation
-                .GetCondition(_predicate.GetMatchingObjects(_relatedTypes.GetObjects(architecture), architecture))
+                .GetCondition(
+                    _predicate.GetMatchingObjects(
+                        _relatedTypes.GetObjects(architecture),
+                        architecture
+                    )
+                )
                 .Check(objects, architecture);
         }
 
@@ -62,15 +73,16 @@ namespace ArchUnitNET.Fluent.Conditions
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ComplexCondition<TRuleType, TRelatedType>) obj);
+            return obj.GetType() == GetType()
+                && Equals((ComplexCondition<TRuleType, TRelatedType>)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return ((_predicate != null ? _predicate.GetHashCode() : 0) * 397) ^
-                       (_relation != null ? _relation.GetHashCode() : 0);
+                return ((_predicate != null ? _predicate.GetHashCode() : 0) * 397)
+                    ^ (_relation != null ? _relation.GetHashCode() : 0);
             }
         }
     }

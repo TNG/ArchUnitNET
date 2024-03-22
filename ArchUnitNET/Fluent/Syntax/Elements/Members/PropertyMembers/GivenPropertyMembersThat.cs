@@ -1,19 +1,19 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public class GivenPropertyMembersThat : GivenMembersThat<GivenPropertyMembersConjunction, PropertyMember>,
-        IPropertyMemberPredicates<GivenPropertyMembersConjunction, PropertyMember>
+    public class GivenPropertyMembersThat
+        : GivenMembersThat<GivenPropertyMembersConjunction, PropertyMember>,
+            IPropertyMemberPredicates<GivenPropertyMembersConjunction, PropertyMember>
     {
-        public GivenPropertyMembersThat(IArchRuleCreator<PropertyMember> ruleCreator) : base(ruleCreator)
-        {
-        }
+        public GivenPropertyMembersThat(IArchRuleCreator<PropertyMember> ruleCreator)
+            : base(ruleCreator) { }
 
         public GivenPropertyMembersConjunction HaveGetter()
         {
@@ -47,13 +47,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction HaveProtectedInternalGetter()
         {
-            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveProtectedInternalGetter());
+            _ruleCreator.AddPredicate(
+                PropertyMemberPredicateDefinition.HaveProtectedInternalGetter()
+            );
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePrivateProtectedGetter()
         {
-            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HavePrivateProtectedGetter());
+            _ruleCreator.AddPredicate(
+                PropertyMemberPredicateDefinition.HavePrivateProtectedGetter()
+            );
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
@@ -89,13 +93,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction HaveProtectedInternalSetter()
         {
-            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveProtectedInternalSetter());
+            _ruleCreator.AddPredicate(
+                PropertyMemberPredicateDefinition.HaveProtectedInternalSetter()
+            );
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction HavePrivateProtectedSetter()
         {
-            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HavePrivateProtectedSetter());
+            _ruleCreator.AddPredicate(
+                PropertyMemberPredicateDefinition.HavePrivateProtectedSetter()
+            );
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
@@ -110,7 +118,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.AreVirtual());
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
-
 
         //Negations
 
@@ -147,13 +154,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction DoNotHaveProtectedInternalGetter()
         {
-            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHaveProtectedInternalGetter());
+            _ruleCreator.AddPredicate(
+                PropertyMemberPredicateDefinition.DoNotHaveProtectedInternalGetter()
+            );
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePrivateProtectedGetter()
         {
-            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedGetter());
+            _ruleCreator.AddPredicate(
+                PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedGetter()
+            );
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
@@ -189,13 +200,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         public GivenPropertyMembersConjunction DoNotHaveProtectedInternalSetter()
         {
-            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHaveProtectedInternalSetter());
+            _ruleCreator.AddPredicate(
+                PropertyMemberPredicateDefinition.DoNotHaveProtectedInternalSetter()
+            );
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 
         public GivenPropertyMembersConjunction DoNotHavePrivateProtectedSetter()
         {
-            _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedSetter());
+            _ruleCreator.AddPredicate(
+                PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedSetter()
+            );
             return new GivenPropertyMembersConjunction(_ruleCreator);
         }
 

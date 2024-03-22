@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
@@ -15,8 +15,10 @@ namespace ArchUnitNETTests.Dependencies
     public class CppDependenciesTests
     {
         private static readonly Architecture Architecture = new ArchLoader()
-            .LoadAssembliesRecursively(new[] { typeof(CppExampleClassUser).Assembly },
-            filterFunc => FilterResult.LoadAndContinue)
+            .LoadAssembliesRecursively(
+                new[] { typeof(CppExampleClassUser).Assembly },
+                filterFunc => FilterResult.LoadAndContinue
+            )
             .Build();
 
         [Fact]
@@ -38,8 +40,8 @@ namespace ArchUnitNETTests.Dependencies
     #pragma once
     public ref class CppExampleClass
     {
-	    public:
-		    void DoCall();
+        public:
+            void DoCall();
     };
 
     CppExampleClass.cpp

@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
@@ -22,12 +22,16 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         public void Execute()
         {
-            _type.Dependencies.ForEach(dependency => dependency.Target.BackwardsDependencies.Add(dependency));
+            _type.Dependencies.ForEach(dependency =>
+                dependency.Target.BackwardsDependencies.Add(dependency)
+            );
 
-            var memberMemberDependencies = _type.Members.SelectMany(member => member.MemberDependencies)
+            var memberMemberDependencies = _type
+                .Members.SelectMany(member => member.MemberDependencies)
                 .OfType<IMemberMemberDependency>();
             memberMemberDependencies.ForEach(memberDependency =>
-                memberDependency.TargetMember.MemberBackwardsDependencies.Add(memberDependency));
+                memberDependency.TargetMember.MemberBackwardsDependencies.Add(memberDependency)
+            );
         }
     }
 }

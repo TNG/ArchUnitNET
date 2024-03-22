@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System.Collections.Generic;
 using System.Text;
@@ -12,9 +12,8 @@ namespace ArchUnitNET.Domain
 {
     public class EnumerableIdentifier : StringIdentifier
     {
-        public EnumerableIdentifier(IEnumerable<StringIdentifier> enumerable) : base(CreateIdentifierString(enumerable))
-        {
-        }
+        public EnumerableIdentifier(IEnumerable<StringIdentifier> enumerable)
+            : base(CreateIdentifierString(enumerable)) { }
 
         private static string CreateIdentifierString(IEnumerable<StringIdentifier> enumerable)
         {

@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System.Linq;
@@ -18,17 +18,23 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class GetterSetterMethodDependencyTests
     {
-        private readonly Architecture _architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+        private readonly Architecture _architecture =
+            StaticTestArchitectures.ArchUnitNETTestArchitecture;
 
         public GetterSetterMethodDependencyTests()
         {
-            var getterExampleClass = _architecture.GetClassOfType(typeof(GetterMethodDependencyExamples));
+            var getterExampleClass = _architecture.GetClassOfType(
+                typeof(GetterMethodDependencyExamples)
+            );
             getterExampleClass.RequiredNotNull();
         }
 
         [Theory]
         [ClassData(typeof(GetterSetterTestsBuild.SetterTestData))]
-        public void AssertSetterMethodDependencies(PropertyMember backedProperty, Class expectedTarget)
+        public void AssertSetterMethodDependencies(
+            PropertyMember backedProperty,
+            Class expectedTarget
+        )
         {
             if (backedProperty.Setter != null)
             {
@@ -42,21 +48,32 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
         [Theory]
         [ClassData(typeof(GetterSetterTestsBuild.GetterTestData))]
-        public void AssertGetterMethodDependencies(PropertyMember propertyMember, IType mockTargetType,
-            MethodCallDependency expectedDependency)
+        public void AssertGetterMethodDependencies(
+            PropertyMember propertyMember,
+            IType mockTargetType,
+            MethodCallDependency expectedDependency
+        )
         {
             Assert.NotEmpty(propertyMember.MemberDependencies);
             Assert.Single(propertyMember.GetMethodCallDependencies());
-            Assert.Contains(mockTargetType,
-                propertyMember.GetMethodCallDependencies().Select(dependency => dependency.Target));
-            Assert.Contains(expectedDependency.TargetMember.FullName,
-                propertyMember.GetMethodCallDependencies()
-                    .Select(dependency => dependency.TargetMember.FullName));
+            Assert.Contains(
+                mockTargetType,
+                propertyMember.GetMethodCallDependencies().Select(dependency => dependency.Target)
+            );
+            Assert.Contains(
+                expectedDependency.TargetMember.FullName,
+                propertyMember
+                    .GetMethodCallDependencies()
+                    .Select(dependency => dependency.TargetMember.FullName)
+            );
         }
 
         [Theory]
         [ClassData(typeof(GetterSetterTestsBuild.AccessMethodDependenciesByPropertyTestData))]
-        public void AccessorMethodDependenciesByProperty(PropertyMember accessedProperty, MethodMember accessorMethod)
+        public void AccessorMethodDependenciesByProperty(
+            PropertyMember accessedProperty,
+            MethodMember accessorMethod
+        )
         {
             accessorMethod.MemberDependencies.ForEach(dependency =>
             {

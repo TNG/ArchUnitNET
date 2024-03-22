@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using System;
@@ -20,20 +20,29 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 {
     public class GetterSetterTestsBuild
     {
-        private static readonly Architecture Architecture =
-            new ArchLoader().LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNETTests")).Build();
+        private static readonly Architecture Architecture = new ArchLoader()
+            .LoadAssemblies(System.Reflection.Assembly.Load("ArchUnitNETTests"))
+            .Build();
 
         private static readonly Type GuidType = typeof(Guid);
         private static readonly IType MockGuidStruct = GuidType.CreateStubIType();
-        private static readonly MethodInfo NewGuid = GuidType.GetMethods().First(method => method.Name == "NewGuid");
+        private static readonly MethodInfo NewGuid = GuidType
+            .GetMethods()
+            .First(method => method.Name == "NewGuid");
         private static readonly MethodMember MockNewGuid = NewGuid.CreateStubMethodMember();
 
-        private static readonly Type[] ExpectedParameters = {typeof(string)};
-        private static readonly ConstructorInfo ConstructGuid = GuidType.GetConstructor(ExpectedParameters);
-        private static readonly MethodMember MockConstructorMember = ConstructGuid.CreateStubMethodMember();
+        private static readonly Type[] ExpectedParameters = { typeof(string) };
+        private static readonly ConstructorInfo ConstructGuid = GuidType.GetConstructor(
+            ExpectedParameters
+        );
+        private static readonly MethodMember MockConstructorMember =
+            ConstructGuid.CreateStubMethodMember();
 
-        private static object[] BuildSetterTestData(Type classType, string backedPropertyName,
-            Type expectedFieldDependencyTarget)
+        private static object[] BuildSetterTestData(
+            Type classType,
+            string backedPropertyName,
+            Type expectedFieldDependencyTarget
+        )
         {
             if (classType == null)
             {
@@ -52,13 +61,19 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
             var baseClass = Architecture.GetClassOfType(classType);
             var backedProperty = baseClass.GetPropertyMembersWithName(backedPropertyName).First();
-            var expectedDependencyTargetClass = Architecture.GetClassOfType(expectedFieldDependencyTarget);
+            var expectedDependencyTargetClass = Architecture.GetClassOfType(
+                expectedFieldDependencyTarget
+            );
 
-            return new object[] {backedProperty, expectedDependencyTargetClass};
+            return new object[] { backedProperty, expectedDependencyTargetClass };
         }
 
-        private static object[] BuildGetterTestData(Type classType, string propertyName,
-            IType expectedFieldDependencyTarget, MethodMember expectedTargetMember)
+        private static object[] BuildGetterTestData(
+            Type classType,
+            string propertyName,
+            IType expectedFieldDependencyTarget,
+            MethodMember expectedTargetMember
+        )
         {
             if (classType == null)
             {
@@ -77,11 +92,23 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
 
             var baseClass = Architecture.GetClassOfType(classType);
             var accessedProperty = baseClass.GetPropertyMembersWithName(propertyName).First();
-            var expectedDependency = CreateStubMethodCallDependency(accessedProperty, expectedTargetMember);
-            return new object[] {accessedProperty, expectedFieldDependencyTarget, expectedDependency};
+            var expectedDependency = CreateStubMethodCallDependency(
+                accessedProperty,
+                expectedTargetMember
+            );
+            return new object[]
+            {
+                accessedProperty,
+                expectedFieldDependencyTarget,
+                expectedDependency
+            };
         }
 
-        private static object[] BuildAccessMethodTestData(Type classType, string propertyName, MethodForm methodForm)
+        private static object[] BuildAccessMethodTestData(
+            Type classType,
+            string propertyName,
+            MethodForm methodForm
+        )
         {
             if (classType == null)
             {
@@ -96,21 +123,30 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             if (methodForm != MethodForm.Getter && methodForm != MethodForm.Setter)
             {
                 throw new InvalidInputException(
-                    $"Given MethodForm {nameof(methodForm)} is not valid for this test. Please give the form of Getter or Setter.");
+                    $"Given MethodForm {nameof(methodForm)} is not valid for this test. Please give the form of Getter or Setter."
+                );
             }
 
             var baseClass = Architecture.GetClassOfType(classType);
             var accessedProperty = baseClass.GetPropertyMembersWithName(propertyName).First();
-            var accessorMethod = methodForm == MethodForm.Getter ? accessedProperty.Getter : accessedProperty.Setter;
-            return new object[] {accessedProperty, accessorMethod};
+            var accessorMethod =
+                methodForm == MethodForm.Getter ? accessedProperty.Getter : accessedProperty.Setter;
+            return new object[] { accessedProperty, accessorMethod };
         }
 
-        private static MethodCallDependency CreateStubMethodCallDependency(IMember originMember,
-            MethodMember targetMember)
+        private static MethodCallDependency CreateStubMethodCallDependency(
+            IMember originMember,
+            MethodMember targetMember
+        )
         {
-            var methodCallDependency = new MethodCallDependency(originMember,
-                new MethodMemberInstance(targetMember, Enumerable.Empty<GenericArgument>(),
-                    Enumerable.Empty<GenericArgument>()));
+            var methodCallDependency = new MethodCallDependency(
+                originMember,
+                new MethodMemberInstance(
+                    targetMember,
+                    Enumerable.Empty<GenericArgument>(),
+                    Enumerable.Empty<GenericArgument>()
+                )
+            );
             methodCallDependency.TargetMember.MemberBackwardsDependencies.Add(methodCallDependency);
             return methodCallDependency;
         }
@@ -119,24 +155,36 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             private readonly List<object[]> _setterTestData = new List<object[]>
             {
-                BuildSetterTestData(typeof(SetterMethodDependencyExamples),
+                BuildSetterTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.CustomProperty),
-                    typeof(ChildField)),
-                BuildSetterTestData(typeof(SetterMethodDependencyExamples),
+                    typeof(ChildField)
+                ),
+                BuildSetterTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.LambdaPair),
-                    typeof(ChildField)),
-                BuildSetterTestData(typeof(SetterMethodDependencyExamples),
+                    typeof(ChildField)
+                ),
+                BuildSetterTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.ConstructorPair),
-                    typeof(PropertyType)),
-                BuildSetterTestData(typeof(SetterMethodDependencyExamples),
+                    typeof(PropertyType)
+                ),
+                BuildSetterTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.ConstructorLambdaPair),
-                    typeof(PropertyType)),
-                BuildSetterTestData(typeof(SetterMethodDependencyExamples),
+                    typeof(PropertyType)
+                ),
+                BuildSetterTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.MethodPair),
-                    typeof(PropertyType)),
-                BuildSetterTestData(typeof(SetterMethodDependencyExamples),
+                    typeof(PropertyType)
+                ),
+                BuildSetterTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.MethodLambdaPair),
-                    typeof(PropertyType))
+                    typeof(PropertyType)
+                )
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -154,15 +202,24 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             private readonly List<object[]> _getterTestData = new List<object[]>
             {
-                BuildGetterTestData(typeof(GetterMethodDependencyExamples),
+                BuildGetterTestData(
+                    typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.AcceptedCase),
-                    MockGuidStruct, MockConstructorMember),
-                BuildGetterTestData(typeof(GetterMethodDependencyExamples),
+                    MockGuidStruct,
+                    MockConstructorMember
+                ),
+                BuildGetterTestData(
+                    typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.FirstUnacceptedCase),
-                    MockGuidStruct, MockNewGuid),
-                BuildGetterTestData(typeof(GetterMethodDependencyExamples),
+                    MockGuidStruct,
+                    MockNewGuid
+                ),
+                BuildGetterTestData(
+                    typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.SecondUnacceptedCase),
-                    MockGuidStruct, MockNewGuid)
+                    MockGuidStruct,
+                    MockNewGuid
+                )
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -180,33 +237,51 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             private readonly List<object[]> _accessMethodTestData = new List<object[]>
             {
-                BuildAccessMethodTestData(typeof(SetterMethodDependencyExamples),
+                BuildAccessMethodTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.CustomProperty),
-                    MethodForm.Setter),
-                BuildAccessMethodTestData(typeof(SetterMethodDependencyExamples),
+                    MethodForm.Setter
+                ),
+                BuildAccessMethodTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.LambdaPair),
-                    MethodForm.Setter),
-                BuildAccessMethodTestData(typeof(SetterMethodDependencyExamples),
+                    MethodForm.Setter
+                ),
+                BuildAccessMethodTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.ConstructorPair),
-                    MethodForm.Setter),
-                BuildAccessMethodTestData(typeof(SetterMethodDependencyExamples),
+                    MethodForm.Setter
+                ),
+                BuildAccessMethodTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.ConstructorLambdaPair),
-                    MethodForm.Setter),
-                BuildAccessMethodTestData(typeof(SetterMethodDependencyExamples),
+                    MethodForm.Setter
+                ),
+                BuildAccessMethodTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.MethodPair),
-                    MethodForm.Setter),
-                BuildAccessMethodTestData(typeof(SetterMethodDependencyExamples),
+                    MethodForm.Setter
+                ),
+                BuildAccessMethodTestData(
+                    typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.MethodLambdaPair),
-                    MethodForm.Setter),
-                BuildAccessMethodTestData(typeof(GetterMethodDependencyExamples),
+                    MethodForm.Setter
+                ),
+                BuildAccessMethodTestData(
+                    typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.AcceptedCase),
-                    MethodForm.Getter),
-                BuildAccessMethodTestData(typeof(GetterMethodDependencyExamples),
+                    MethodForm.Getter
+                ),
+                BuildAccessMethodTestData(
+                    typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.FirstUnacceptedCase),
-                    MethodForm.Getter),
-                BuildAccessMethodTestData(typeof(GetterMethodDependencyExamples),
+                    MethodForm.Getter
+                ),
+                BuildAccessMethodTestData(
+                    typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.SecondUnacceptedCase),
-                    MethodForm.Getter)
+                    MethodForm.Getter
+                )
             };
 
             public IEnumerator<object[]> GetEnumerator()

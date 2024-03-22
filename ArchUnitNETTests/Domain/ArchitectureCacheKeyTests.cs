@@ -1,7 +1,7 @@
 //  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
 
 using ArchUnitNET.Domain;
@@ -17,10 +17,15 @@ namespace ArchUnitNETTests.Domain
         public ArchitectureCacheKeyTests()
         {
             _baseClassModuleName = ModuleDefinition
-                .ReadModule(typeof(BaseClass).Assembly.Location, new ReaderParameters()).Name;
+                .ReadModule(typeof(BaseClass).Assembly.Location, new ReaderParameters())
+                .Name;
 
             _architectureCacheTestsClassModuleName = ModuleDefinition
-                .ReadModule(typeof(ArchitectureCacheTests).Assembly.Location, new ReaderParameters()).Name;
+                .ReadModule(
+                    typeof(ArchitectureCacheTests).Assembly.Location,
+                    new ReaderParameters()
+                )
+                .Name;
 
             _memberDependencyTests = typeof(BodyTypeMemberDependencyTests).Namespace;
             _attributeDependencyTests = typeof(AttributeDependencyTests).Namespace;
@@ -45,7 +50,7 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void ArchitectureCacheKeyDoesNotEqualNull()
         {
-            Assert.False(_architectureCacheKey.Equals((object) null));
+            Assert.False(_architectureCacheKey.Equals((object)null));
         }
 
         [Fact]

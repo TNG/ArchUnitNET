@@ -1,9 +1,9 @@
 ﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
 // 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
 // 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
+//
 // 	SPDX-License-Identifier: Apache-2.0
-// 
+//
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,12 @@ namespace ArchUnitNET.Fluent.Slices
 {
     public class SliceRuleCreator : ICanBeEvaluated
     {
-        private Func<IEnumerable<Slice>, ICanBeEvaluated, Architecture, IEnumerable<EvaluationResult>> _evaluationFunc;
+        private Func<
+            IEnumerable<Slice>,
+            ICanBeEvaluated,
+            Architecture,
+            IEnumerable<EvaluationResult>
+        > _evaluationFunc;
         private SliceAssignment _sliceAssignment;
 
         public SliceRuleCreator()
@@ -41,7 +46,13 @@ namespace ArchUnitNET.Fluent.Slices
         }
 
         public void SetEvaluationFunction(
-            Func<IEnumerable<Slice>, ICanBeEvaluated, Architecture, IEnumerable<EvaluationResult>> evaluationFunc)
+            Func<
+                IEnumerable<Slice>,
+                ICanBeEvaluated,
+                Architecture,
+                IEnumerable<EvaluationResult>
+            > evaluationFunc
+        )
         {
             _evaluationFunc = evaluationFunc;
         }
@@ -56,10 +67,13 @@ namespace ArchUnitNET.Fluent.Slices
             if (_sliceAssignment == null)
             {
                 throw new InvalidOperationException(
-                    "The Slice Assignment has to be set before GetSlices() can be called.");
+                    "The Slice Assignment has to be set before GetSlices() can be called."
+                );
             }
 
-            return _sliceAssignment.Apply(architecture.Types).Where(slice => !slice.Identifier.Ignored);
+            return _sliceAssignment
+                .Apply(architecture.Types)
+                .Where(slice => !slice.Identifier.Ignored);
         }
     }
 }
