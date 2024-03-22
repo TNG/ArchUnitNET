@@ -1,14 +1,12 @@
 {
-  "extends": [
-    "config:base"
-  ],
-  "ignoreDeps": [
-    "Microsoft.NET.Test.Sdk",
-    "MSTest.TestAdapter",
-    "MSTest.TestFramework",
-    "JetBrains.Annotations",
-    "NUnit3TestAdapter",
-    "nunit"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "packageRules": [
+    {
+      "matchManagers": ["nuget"],
+      "matchPackagePrefixes": ["xunit", "nunit", "NUnit", "MSTest"],
+      "matchPackageNames": ["Microsoft.NET.Test.Sdk", "JetBrains.Annotations"],
+      "enabled": false
+    }
   ]
 }
-
