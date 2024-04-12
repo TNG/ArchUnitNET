@@ -44,7 +44,7 @@ namespace ArchUnitNET.Loader
             _architectureCache = ArchitectureCache.Instance;
         }
 
-        public IEnumerable<IType> Types => _architectureTypes.Select(pair => pair.Value);
+        public IEnumerable<IType> Types => _architectureTypes.Values;
         public IEnumerable<Assembly> Assemblies => _assemblyRegistry.Assemblies;
         public IEnumerable<Namespace> Namespaces => _namespaceRegistry.Namespaces;
 
