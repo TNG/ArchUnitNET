@@ -312,15 +312,18 @@ namespace ArchUnitNET.Loader
 
         internal static bool IsCompilerGenerated(this MemberReference memberReference)
         {
+            if (memberReference.Name.HasCompilerGeneratedName())
+            {
+                return true;
+            }
             var declaringType =
                 memberReference.Resolve()?.DeclaringType ?? memberReference.DeclaringType;
-            return declaringType != null && declaringType.Name.HasCompilerGeneratedName()
-                || memberReference.Name.HasCompilerGeneratedName();
+            return declaringType != null && declaringType.Name.HasCompilerGeneratedName();
         }
 
         internal static bool HasCompilerGeneratedName(this string name)
         {
-            return name.StartsWith("<") || name.StartsWith("!");
+            return name[0] == '<' || name[0] == '!';
         }
 
         internal static MethodForm GetMethodForm(this MethodDefinition methodDefinition)

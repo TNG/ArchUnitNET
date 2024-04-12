@@ -19,7 +19,8 @@ namespace ArchUnitNET.Loader
     {
         private readonly ArchitectureCache _architectureCache;
         private readonly ArchitectureCacheKey _architectureCacheKey;
-        private readonly List<IType> _architectureTypes = new List<IType>();
+        private readonly IDictionary<string, IType> _architectureTypes =
+            new Dictionary<string, IType>();
         private readonly AssemblyRegistry _assemblyRegistry;
         private readonly LoadTaskRegistry _loadTaskRegistry;
         private readonly NamespaceRegistry _namespaceRegistry;
@@ -43,7 +44,7 @@ namespace ArchUnitNET.Loader
             _architectureCache = ArchitectureCache.Instance;
         }
 
-        public IEnumerable<IType> Types => _architectureTypes;
+        public IEnumerable<IType> Types => _architectureTypes.Values;
         public IEnumerable<Assembly> Assemblies => _assemblyRegistry.Assemblies;
         public IEnumerable<Namespace> Namespaces => _namespaceRegistry.Namespaces;
 
@@ -83,6 +84,7 @@ namespace ArchUnitNET.Loader
                     t.FullName != "Microsoft.CodeAnalysis.EmbeddedAttribute"
                     && t.FullName != "System.Runtime.CompilerServices.NullableAttribute"
                     && t.FullName != "System.Runtime.CompilerServices.NullableContextAttribute"
+                    && !t.FullName.StartsWith("Coverlet")
                 )
                 .ToList();
 
@@ -109,10 +111,10 @@ namespace ArchUnitNET.Loader
                 .ForEach(typeDefinition =>
                 {
                     var type = _typeFactory.GetOrCreateTypeFromTypeReference(typeDefinition);
-                    if (!_architectureTypes.Contains(type) && !type.IsCompilerGenerated)
+                    if (!_architectureTypes.ContainsKey(type.FullName) && !type.IsCompilerGenerated)
                     {
                         currentTypes.Add(type);
-                        _architectureTypes.Add(type);
+                        _architectureTypes.Add(type.FullName, type);
                     }
                 });
 
