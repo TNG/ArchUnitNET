@@ -1,0 +1,12 @@
+﻿Query: Types that are "VisibilityNamespace.InternalClass" should be internal
+Result: True
+Description: VisibilityNamespace.InternalClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "VisibilityNamespace.OuterClass+InternalInnerClass" should be internal
+Result: True
+Description: VisibilityNamespace.OuterClass+InternalInnerClass passed
+Message: 
+All Evaluations passed
+

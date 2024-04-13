@@ -1,0 +1,45 @@
+﻿Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should calls any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does not call any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should calls any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does not call any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should calls any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does not call any methods with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should calls any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does not call any methods with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+
+
+

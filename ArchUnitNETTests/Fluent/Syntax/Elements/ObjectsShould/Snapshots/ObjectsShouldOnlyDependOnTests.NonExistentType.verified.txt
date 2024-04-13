@@ -1,0 +1,18 @@
+﻿Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and System.Runtime.CompilerServices.NullableContextAttribute and System.Runtime.CompilerServices.NullableAttribute and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
+Message: 
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and System.Runtime.CompilerServices.NullableContextAttribute and System.Runtime.CompilerServices.NullableAttribute and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
+
+
+
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and System.Runtime.CompilerServices.NullableContextAttribute and System.Runtime.CompilerServices.NullableAttribute and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
+Message: 
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and System.Runtime.CompilerServices.NullableContextAttribute and System.Runtime.CompilerServices.NullableAttribute and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
+
+
+

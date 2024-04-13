@@ -1,0 +1,63 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes with full name "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does not only have attributes with full name "AttributeNamespace.UnusedAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes with full name "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does not only have attributes with full name "AttributeNamespace.UnusedAttribute"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes with full name "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does not only have attributes with full name "AttributeNamespace.UnusedAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes with full name "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does not only have attributes with full name "AttributeNamespace.UnusedAttribute"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have Attributes that are "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have Attributes that are "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+

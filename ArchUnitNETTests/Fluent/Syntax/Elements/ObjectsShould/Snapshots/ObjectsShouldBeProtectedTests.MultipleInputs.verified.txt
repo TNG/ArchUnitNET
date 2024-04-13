@@ -1,0 +1,19 @@
+﻿Query: Types that are "VisibilityNamespace.OuterClass+ProtectedInnerClass" or "VisibilityNamespace.OuterClass+OtherProtectedInnerClass" should be protected
+Result: True
+Description: VisibilityNamespace.OuterClass+ProtectedInnerClass passed
+Result: True
+Description: VisibilityNamespace.OuterClass+OtherProtectedInnerClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "VisibilityNamespace.OuterClass+ProtectedInnerClass" or "VisibilityNamespace.OuterClass+ProtectedInternalInnerClass" should be protected
+Result: False
+Description: VisibilityNamespace.OuterClass+ProtectedInternalInnerClass is protected internal
+Result: True
+Description: VisibilityNamespace.OuterClass+ProtectedInnerClass passed
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+ProtectedInnerClass" or "VisibilityNamespace.OuterClass+ProtectedInternalInnerClass" should be protected" failed:
+	VisibilityNamespace.OuterClass+ProtectedInternalInnerClass is protected internal
+
+
+

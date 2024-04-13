@@ -1,0 +1,19 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should have attribute "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Result: True
+Description: AttributeNamespace.OtherClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.ClassWithoutAttributes" should have attribute "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes does not have attribute "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.ClassWithoutAttributes" should have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithoutAttributes does not have attribute "AttributeNamespace.Attribute1"
+
+
+

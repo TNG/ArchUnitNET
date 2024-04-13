@@ -1,0 +1,36 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)" failed:
+	AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)" failed:
+	AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)" failed:
+	AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any Attributes that have full name "NotTheNameOfAnyObject"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have any Attributes that have full name "NotTheNameOfAnyObject"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have any Attributes that have full name "NotTheNameOfAnyObject"" failed:
+	AttributeNamespace.ClassWithAttributes does not have any Attributes that have full name "NotTheNameOfAnyObject"
+
+
+

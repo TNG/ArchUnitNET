@@ -1,0 +1,63 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any attribute with full name "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have any attribute with full name "AttributeNamespace.UnusedAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have any attribute with full name "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have any attribute with full name "AttributeNamespace.UnusedAttribute"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any attribute with full name "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have any attribute with full name "AttributeNamespace.UnusedAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have any attribute with full name "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have any attribute with full name "AttributeNamespace.UnusedAttribute"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any Attributes that are "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have any Attributes that are "AttributeNamespace.UnusedAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have any Attributes that are "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have any Attributes that are "AttributeNamespace.UnusedAttribute"
+
+
+

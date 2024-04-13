@@ -1,0 +1,54 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Result: False
+Description: AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Message: 
+"Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"" failed:
+	AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Result: False
+Description: AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Message: 
+"Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"" failed:
+	AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Result: False
+Description: AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Message: 
+"Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"" failed:
+	AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Result: False
+Description: AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Message: 
+"Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"" failed:
+	AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Result: False
+Description: AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Message: 
+"Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"" failed:
+	AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Result: False
+Description: AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+Message: 
+"Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"" failed:
+	AttributeNamespace.ClassWithPositionalArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Attribute2Argument2"
+
+
+

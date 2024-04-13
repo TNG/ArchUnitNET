@@ -1,0 +1,36 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithAttributes" should only have attributes with full name "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should does only have Attributes that are "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+

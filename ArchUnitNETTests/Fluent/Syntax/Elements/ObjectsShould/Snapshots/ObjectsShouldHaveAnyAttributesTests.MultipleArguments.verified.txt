@@ -1,0 +1,36 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any attribute with full name "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any Attributes that are "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+

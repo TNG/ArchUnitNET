@@ -17,7 +17,10 @@ namespace ArchUnitNETTests.Domain
         public ArchitectureCacheKeyTests()
         {
             _baseClassModuleName = ModuleDefinition
-                .ReadModule(typeof(BaseClass).Assembly.Location, new ReaderParameters())
+                .ReadModule(
+                    typeof(TypeDependencyNamespace.BaseClass).Assembly.Location,
+                    new ReaderParameters()
+                )
                 .Name;
 
             _architectureCacheTestsClassModuleName = ModuleDefinition

@@ -1,0 +1,27 @@
+﻿Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on types with full name "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass and TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.ChildClass" should not depend on types with full name "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass and TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+

@@ -1,0 +1,63 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have any attribute with full name "AttributeNamespace.Attribute1"
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have any attribute with full name "AttributeNamespace.Attribute1"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have any attribute with full name "AttributeNamespace.Attribute1"
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have any attribute with full name "AttributeNamespace.Attribute1"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any Attributes that are "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any Attributes that are "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+

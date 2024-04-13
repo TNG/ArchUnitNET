@@ -1,0 +1,24 @@
+﻿Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any types with full name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does not depend on any type with full name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does not depend on any type with full name "NotTheNameOfAnyObject"
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any types with full name "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.ChildClass does not depend on any type with full name "NotTheNameOfAnyObject"
+	TypeDependencyNamespace.OtherChildClass does not depend on any type with full name "NotTheNameOfAnyObject"
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any types with full name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does not depend any types with full name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does not depend any types with full name "NotTheNameOfAnyObject"
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any types with full name "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.ChildClass does not depend any types with full name "NotTheNameOfAnyObject"
+	TypeDependencyNamespace.OtherChildClass does not depend any types with full name "NotTheNameOfAnyObject"
+
+
+

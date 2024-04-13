@@ -1,0 +1,36 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any Attributes that are "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+

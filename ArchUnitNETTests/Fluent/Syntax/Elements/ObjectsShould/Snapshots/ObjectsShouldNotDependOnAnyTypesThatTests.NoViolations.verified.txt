@@ -1,0 +1,6 @@
+﻿Query: Types that are "TypeDependencyNamespace.BaseClass" should not depend on any types that are "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+

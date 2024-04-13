@@ -1,0 +1,60 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have no attributes
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attributes
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have no attributes" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attributes
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have no attributes
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have no attributes" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have no attributes
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have no attributes" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have Attributes that have full name "NotTheNameOfAnyObject"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have Attributes that have full name "NotTheNameOfAnyObject"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have no attributes
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have no attributes
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have no attributes
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should does only have Attributes that have full name "NotTheNameOfAnyObject"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+

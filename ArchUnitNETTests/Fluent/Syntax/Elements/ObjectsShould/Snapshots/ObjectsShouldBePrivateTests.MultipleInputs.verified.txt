@@ -1,0 +1,19 @@
+﻿Query: Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" or "VisibilityNamespace.OuterClass+OtherPrivateInnerClass" should be private
+Result: True
+Description: VisibilityNamespace.OuterClass+PrivateInnerClass passed
+Result: True
+Description: VisibilityNamespace.OuterClass+OtherPrivateInnerClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" or "VisibilityNamespace.OuterClass+PrivateProtectedInnerClass" should be private
+Result: False
+Description: VisibilityNamespace.OuterClass+PrivateProtectedInnerClass is private protected
+Result: True
+Description: VisibilityNamespace.OuterClass+PrivateInnerClass passed
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" or "VisibilityNamespace.OuterClass+PrivateProtectedInnerClass" should be private" failed:
+	VisibilityNamespace.OuterClass+PrivateProtectedInnerClass is private protected
+
+
+

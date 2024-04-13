@@ -1,0 +1,19 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.OtherClassWithSingleAttribute" should only have attributes "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Result: True
+Description: AttributeNamespace.OtherClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute2
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute2
+
+
+

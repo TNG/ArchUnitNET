@@ -15,15 +15,19 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
     public class BaseClassTest
     {
         private readonly Architecture _architecture =
-            StaticTestArchitectures.ArchUnitNETTestArchitecture;
+            StaticTestArchitectures.DependencyArchitecture;
 
         private readonly Class _baseClass;
         private readonly Class _childClass;
 
         public BaseClassTest()
         {
-            _baseClass = _architecture.GetClassOfType(typeof(BaseClass));
-            _childClass = _architecture.GetClassOfType(typeof(ChildClass));
+            _baseClass = _architecture.GetClassOfType(
+                typeof(TypeDependencyNamespace.BaseClassWithMember)
+            );
+            _childClass = _architecture.GetClassOfType(
+                typeof(TypeDependencyNamespace.ChildClassWithMember)
+            );
         }
 
         [Fact]
@@ -61,20 +65,4 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             );
         }
     }
-
-    public abstract class BaseClass
-    {
-        public string BaseClassMember { get; set; }
-    }
-
-    public class ChildClass : BaseClass
-    {
-        public string ChildClassMember { get; set; }
-    }
-
-    // ReSharper disable once UnusedTypeParameter
-    public abstract class GenericBaseClass<TSelf>
-        where TSelf : class { }
-
-    public class ChildClassOfGeneric : GenericBaseClass<ChildClassOfGeneric> { }
 }

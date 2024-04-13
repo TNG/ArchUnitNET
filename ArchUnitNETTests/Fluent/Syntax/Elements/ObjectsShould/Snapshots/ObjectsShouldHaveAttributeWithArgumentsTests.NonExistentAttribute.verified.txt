@@ -1,0 +1,9 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "NotTheNameOfAnyObject" with arguments "Attribute1Argument1"
+Result: False
+Description: AttributeNamespace.ClassWithPositionalArguments does not have attribute "NotTheNameOfAnyObject" with arguments "Attribute1Argument1"
+Message: 
+"Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "NotTheNameOfAnyObject" with arguments "Attribute1Argument1"" failed:
+	AttributeNamespace.ClassWithPositionalArguments does not have attribute "NotTheNameOfAnyObject" with arguments "Attribute1Argument1"
+
+
+

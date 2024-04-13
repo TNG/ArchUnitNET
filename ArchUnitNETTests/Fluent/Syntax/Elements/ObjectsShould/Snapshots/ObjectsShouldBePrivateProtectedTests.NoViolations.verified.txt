@@ -1,0 +1,6 @@
+﻿Query: Types that are "VisibilityNamespace.OuterClass+PrivateProtectedInnerClass" should be private protected
+Result: True
+Description: VisibilityNamespace.OuterClass+PrivateProtectedInnerClass passed
+Message: 
+All Evaluations passed
+

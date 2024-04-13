@@ -1,0 +1,42 @@
+﻿Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any types with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on types with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on Classes that are "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+

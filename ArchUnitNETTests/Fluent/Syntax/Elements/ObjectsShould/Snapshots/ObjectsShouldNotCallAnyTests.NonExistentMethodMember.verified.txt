@@ -1,0 +1,12 @@
+﻿Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any method with full name "NotTheNameOfAnyObject"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call methods with full name "NotTheNameOfAnyObject"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+

@@ -8,7 +8,6 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
 using ArchUnitNETTests.Domain.Dependencies.Attributes;
-using ArchUnitNETTests.Domain.Dependencies.Members;
 using TestAssembly;
 
 // ReSharper disable InconsistentNaming
@@ -22,7 +21,19 @@ namespace ArchUnitNETTests
             .Build();
 
         public static readonly Architecture ArchUnitNETTestArchitecture = new ArchLoader()
-            .LoadAssemblies(typeof(BaseClass).Assembly)
+            .LoadAssemblies(typeof(StaticTestArchitectures).Assembly)
+            .Build();
+
+        public static readonly Architecture AttributeArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(AttributeNamespace.ClassWithSingleAttribute).Assembly)
+            .Build();
+
+        public static readonly Architecture DependencyArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(TypeDependencyNamespace.BaseClass).Assembly)
+            .Build();
+
+        public static readonly Architecture VisibilityArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(VisibilityNamespace.PublicClass).Assembly)
             .Build();
 
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture = new ArchLoader()
@@ -32,7 +43,7 @@ namespace ArchUnitNETTests
         public static readonly Architecture FullArchUnitNETArchitecture = new ArchLoader()
             .LoadAssemblies(
                 typeof(Architecture).Assembly,
-                typeof(BaseClass).Assembly,
+                typeof(TypeDependencyNamespace.BaseClass).Assembly,
                 typeof(Class1).Assembly,
                 typeof(FailedArchRuleException).Assembly
             )
@@ -40,7 +51,9 @@ namespace ArchUnitNETTests
 
         public static readonly Architecture ArchUnitNETTestArchitectureWithDependencies =
             new ArchLoader()
-                .LoadAssembliesIncludingDependencies(typeof(BaseClass).Assembly)
+                .LoadAssembliesIncludingDependencies(
+                    typeof(TypeDependencyNamespace.BaseClass).Assembly
+                )
                 .Build();
 
         public static readonly Architecture ArchUnitNETTestAssemblyArchitectureWithDependencies =
@@ -50,7 +63,7 @@ namespace ArchUnitNETTests
             new ArchLoader()
                 .LoadAssembliesIncludingDependencies(
                     typeof(Architecture).Assembly,
-                    typeof(BaseClass).Assembly,
+                    typeof(TypeDependencyNamespace.BaseClass).Assembly,
                     typeof(Class1).Assembly,
                     typeof(FailedArchRuleException).Assembly
                 )

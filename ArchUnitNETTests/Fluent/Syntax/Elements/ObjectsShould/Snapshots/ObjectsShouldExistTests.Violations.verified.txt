@@ -1,0 +1,9 @@
+﻿Query: Types that have full name "NotTheNameOfAnyObject" should exist
+Result: False
+Description: There are no objects matching the criteria
+Message: 
+"Types that have full name "NotTheNameOfAnyObject" should exist" failed:
+	There are no objects matching the criteria
+
+
+

@@ -1,0 +1,30 @@
+﻿Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute1Argument1" and "Attribute1Argument2"
+Result: True
+Description: AttributeNamespace.ClassWithPositionalArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute1Argument1" and "Attribute1Argument2"
+Result: True
+Description: AttributeNamespace.ClassWithPositionalArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute1Argument1" and "Attribute1Argument2"
+Result: True
+Description: AttributeNamespace.ClassWithPositionalArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute1Argument1" and "Attribute1Argument2"
+Result: True
+Description: AttributeNamespace.ClassWithPositionalArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithPositionalArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Attribute1Argument1" and "Attribute1Argument2"
+Result: True
+Description: AttributeNamespace.ClassWithPositionalArguments passed
+Message: 
+All Evaluations passed
+

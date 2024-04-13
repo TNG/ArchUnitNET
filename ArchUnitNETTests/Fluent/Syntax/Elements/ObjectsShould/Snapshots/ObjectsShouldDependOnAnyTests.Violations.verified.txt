@@ -1,0 +1,84 @@
+﻿Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any types with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does not depend on any type with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does not depend on any type with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any types with full name "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass does not depend on any type with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+	TypeDependencyNamespace.OtherChildClass does not depend on any type with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any types with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does not depend any types with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does not depend any types with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any types with full name "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass does not depend any types with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+	TypeDependencyNamespace.OtherChildClass does not depend any types with full name "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any Classes that are "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any Classes that are "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+

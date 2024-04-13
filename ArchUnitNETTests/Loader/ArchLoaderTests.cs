@@ -6,7 +6,6 @@
 
 using System.Linq;
 using ArchUnitNET.Loader;
-using ArchUnitNETTests.Domain.Dependencies.Members;
 using Xunit;
 using static ArchUnitNETTests.StaticTestArchitectures;
 
@@ -29,11 +28,14 @@ namespace ArchUnitNETTests.Loader
         public void LoadAssembliesIncludingRecursiveDependencies()
         {
             var archUnitNetTestArchitectureWithRecursiveDependencies = new ArchLoader()
-                .LoadAssembliesIncludingDependencies(new[] { typeof(BaseClass).Assembly }, true)
+                .LoadAssembliesIncludingDependencies(
+                    new[] { typeof(TypeDependencyNamespace.BaseClass).Assembly },
+                    true
+                )
                 .Build();
 
             Assert.True(
-                archUnitNetTestArchitectureWithRecursiveDependencies.Assemblies.Count() > 100
+                archUnitNetTestArchitectureWithRecursiveDependencies.Assemblies.Count() > 2
             );
         }
 
@@ -46,7 +48,7 @@ namespace ArchUnitNETTests.Loader
                     : FilterResult.DontLoadAndStop;
             var loader = new ArchLoader();
             var architecture = loader
-                .LoadAssembliesRecursively(new[] { typeof(BaseClass).Assembly }, filterFunc)
+                .LoadAssembliesRecursively(new[] { typeof(ArchLoaderTests).Assembly }, filterFunc)
                 .Build();
 
             Assert.Equal(3, architecture.Assemblies.Count());
@@ -64,10 +66,10 @@ namespace ArchUnitNETTests.Loader
             };
             var loader = new ArchLoader();
             var architecture = loader
-                .LoadAssembliesRecursively(new[] { typeof(BaseClass).Assembly }, filterFunc)
+                .LoadAssembliesRecursively(new[] { typeof(ArchLoaderTests).Assembly }, filterFunc)
                 .Build();
 
-            Assert.Equal(1, architecture.Assemblies.Count());
+            Assert.Single(architecture.Assemblies);
         }
     }
 }

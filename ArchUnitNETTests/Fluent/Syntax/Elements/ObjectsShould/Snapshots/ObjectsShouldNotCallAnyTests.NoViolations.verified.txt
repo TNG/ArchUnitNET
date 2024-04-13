@@ -1,0 +1,30 @@
+﻿Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call methods with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+

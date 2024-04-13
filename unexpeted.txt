@@ -1,0 +1,112 @@
+[Fact]
+public async void BeConditionMultipleArguments()
+{
+    var t = new DependencyAssemblyTestHelpers();
+    var should = Types().That().Are(t.BaseClass).Should();
+    t.AssertViolations(should.Be([t.ClassWithoutDependencies.FullName, t.BaseClass.FullName]));
+    t.AssertViolations(should.Be(t.ClassWithoutDependencies, t.BaseClass));
+    t.AssertViolations(should.Be([t.ClassWithoutDependencies, t.BaseClass]));
+    t.AssertViolations(should.Be(t.ClassWithoutDependenciesSystemType, t.BaseClassSystemType));
+    t.AssertViolations(
+        should.Be([t.ClassWithoutDependenciesSystemType, t.BaseClassSystemType])
+    );
+    await t.AssertSnapshotMatches();
+}
+
+fails
+
+---------------------------------------
+
+    [Fact]
+    public async void BeConditionEmptyArguments()
+    {
+        var t = new DependencyAssemblyTestHelpers();
+        var should = Types().That().Are(t.BaseClass).Should();
+        t.AssertViolations(should.Be(new List<string>()));
+        t.AssertViolations(should.Be(new List<IType>()));
+        t.AssertViolations(should.Be(new List<Type>()));
+        t.AssertViolations(should.Be(Classes().That().Are(t.NonExistentTypeName)));
+        should = Types().That().Are(t.NonExistentTypeName).Should();
+        t.AssertNoViolations(should.Be(new List<string>()));
+        t.AssertNoViolations(should.Be(new List<IType>()));
+        t.AssertNoViolations(should.Be(new List<Type>()));
+        t.AssertNoViolations(should.Be(Classes().That().Are(t.NonExistentTypeName)));
+        await t.AssertSnapshotMatches();
+    }
+
+AssertNoViolations fails
+
+---------------------------------------
+
+
+    [Fact]
+    public async void OnlyDependOnConditionEmptyArguments()
+    {
+        var t = new DependencyAssemblyTestHelpers();
+        var should = Types().That().Are(t.ClassWithMultipleDependencies).Should();
+        t.AssertViolations(should.OnlyDependOn(new List<string>()));
+        t.AssertViolations(should.OnlyDependOn(new List<IType>()));
+        t.AssertViolations(should.OnlyDependOn(new List<Type>()));
+        t.AssertViolations(should.OnlyDependOn(Classes().That().Are(t.NonExistentTypeName)));
+        should = Types().That().Are(t.NonExistentTypeName).Should();
+        t.AssertNoViolations(should.OnlyDependOn(new List<string>()));
+        t.AssertNoViolations(should.OnlyDependOn(new List<IType>()));
+        t.AssertNoViolations(should.OnlyDependOn(new List<Type>()));
+        t.AssertNoViolations(should.OnlyDependOn(Classes().That().Are(t.NonExistentTypeName)));
+        await t.AssertSnapshotMatches();
+    }
+
+AssertNoViolations fails
+
+---------------------------------------
+
+
+    [Fact]
+    public async void HaveAnyAttributesWithArgumentsConditionEmptyArguments()
+    {
+        var t = new AttributeAssemblyTestHelpers();
+        t.AssertNoViolations(
+            Types()
+                .That()
+                .Are(t.ClassWithSingleAttributeWithSingleArgument)
+                .Should()
+                .HaveAnyAttributesWithArguments([])
+        );
+        t.AssertNoViolations(
+            Types()
+                .That()
+                .Are(t.ClassWithSingleAttribute)
+                .Should()
+                .HaveAnyAttributesWithArguments([])
+        );
+        await t.AssertSnapshotMatches();
+    }
+
+- Would expect to only match Attributes without arguments
+
+---------------------------------------
+
+    [Fact]
+    public async void HaveAttributeWithArgumentsConditionEmptyArguments()
+    {
+        var t = new AttributeAssemblyTestHelpers();
+        var should = Types().That().Are(t.ClassWithSingleAttribute).Should();
+        t.AssertNoViolations(
+            should.HaveAttributeWithArguments(t.Attribute1.FullName, new List<object>())
+        );
+        t.AssertNoViolations(should.HaveAttributeWithArguments(t.Attribute1, new List<object>()));
+        t.AssertNoViolations(
+            should.HaveAttributeWithArguments(t.Attribute1SystemType, new List<object>())
+        );
+        should = Types().That().Are(t.ClassWithSingleAttributeWithSingleArgument).Should();
+        t.AssertViolations(
+            should.HaveAttributeWithArguments(t.Attribute1.FullName, new List<object>())
+        );
+        t.AssertViolations(should.HaveAttributeWithArguments(t.Attribute1, new List<object>()));
+        t.AssertViolations(
+            should.HaveAttributeWithArguments(t.Attribute1SystemType, new List<object>())
+        );
+        await t.AssertSnapshotMatches();
+    }
+
+Would expect that it only matches Attributes without arguments

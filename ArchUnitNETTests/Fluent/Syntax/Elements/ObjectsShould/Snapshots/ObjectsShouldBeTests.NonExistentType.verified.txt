@@ -1,0 +1,18 @@
+﻿Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does not have full name "NotTheNameOfAnyObject"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have full name "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.BaseClass does not have full name "NotTheNameOfAnyObject"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does not have full name "NotTheNameOfAnyObject"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have full name "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.BaseClass does not have full name "NotTheNameOfAnyObject"
+
+
+

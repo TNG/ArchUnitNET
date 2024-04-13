@@ -391,8 +391,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             string failDescription;
             if (patternList.IsNullOrEmpty())
             {
-                description = "depend on one of no types (impossible)";
-                failDescription = "does not depend on no types (always true)";
+                description = "depend on any of no types (impossible)";
+                failDescription = "does not depend any of no types (impossible)";
             }
             else
             {
@@ -481,6 +481,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
             {
+                if (types.IsNullOrEmpty())
+                {
+                    foreach (var ruleType in ruleTypes)
+                    {
+                        yield return new ConditionResult(
+                            ruleType,
+                            false,
+                            "does not depend on one of no types (impossible)"
+                        );
+                    }
+                    yield break;
+                }
                 var ruleTypeList = ruleTypes.ToList();
                 var passedObjects = ruleTypeList
                     .Where(type => type.GetTypeDependencies().Intersect(typeList).Any())
@@ -535,6 +547,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
+                if (types.IsNullOrEmpty())
+                {
+                    foreach (var ruleType in ruleTypes)
+                    {
+                        yield return new ConditionResult(
+                            ruleType,
+                            false,
+                            "does not depend on any of no types (impossible)"
+                        );
+                    }
+                    yield break;
+                }
+
                 var archUnitTypeList = new List<IType>();
                 foreach (var type in typeList)
                 {

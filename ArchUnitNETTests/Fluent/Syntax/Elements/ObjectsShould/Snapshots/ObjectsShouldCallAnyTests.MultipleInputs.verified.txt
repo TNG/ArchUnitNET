@@ -1,0 +1,15 @@
+﻿Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass...
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+
+
+

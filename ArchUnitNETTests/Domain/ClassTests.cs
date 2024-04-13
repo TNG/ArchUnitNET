@@ -32,8 +32,12 @@ namespace ArchUnitNETTests.Domain
 
         public ClassTests()
         {
-            _baseClass = Architecture.GetClassOfType(typeof(BaseClass));
-            _childClass = Architecture.GetClassOfType(typeof(ChildClass));
+            _baseClass = StaticTestArchitectures.DependencyArchitecture.GetClassOfType(
+                typeof(TypeDependencyNamespace.BaseClass)
+            );
+            _childClass = StaticTestArchitectures.DependencyArchitecture.GetClassOfType(
+                typeof(TypeDependencyNamespace.ChildClass)
+            );
             _duplicateChildClass = _baseClass;
             var backingType = Architecture.GetITypeOfType(typeof(PropertyType));
             _misMatchType = new Type(

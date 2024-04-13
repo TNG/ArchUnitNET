@@ -1,0 +1,12 @@
+﻿Query: Types that are "VisibilityNamespace.PublicClass" should be public
+Result: True
+Description: VisibilityNamespace.PublicClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "VisibilityNamespace.OuterClass+PublicInnerClass" should be public
+Result: True
+Description: VisibilityNamespace.OuterClass+PublicInnerClass passed
+Message: 
+All Evaluations passed
+

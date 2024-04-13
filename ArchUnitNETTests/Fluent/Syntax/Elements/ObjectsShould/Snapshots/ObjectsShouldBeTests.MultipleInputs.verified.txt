@@ -1,0 +1,19 @@
+﻿Query: Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+"Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+

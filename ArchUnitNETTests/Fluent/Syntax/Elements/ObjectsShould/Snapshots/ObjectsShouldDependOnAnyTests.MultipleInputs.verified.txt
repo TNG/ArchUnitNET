@@ -1,0 +1,20 @@
+﻿Query: Types that are "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" should depend on "TypeDependencyNamespace.BaseClassWithMultipleDependencies"
+Result: True
+Description: TypeDependencyNamespace.ChildClass1 passed
+Result: True
+Description: TypeDependencyNamespace.ChildClass2 passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does depend on System.Object
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.BaseClass does depend on System.Object
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+

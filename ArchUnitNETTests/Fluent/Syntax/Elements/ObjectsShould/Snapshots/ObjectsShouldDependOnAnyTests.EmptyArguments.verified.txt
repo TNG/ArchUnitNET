@@ -1,0 +1,48 @@
+﻿Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any of no types (impossible)
+Result: False
+Description: TypeDependencyNamespace.ChildClass does not depend any of no types (impossible)
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does not depend any of no types (impossible)
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any of no types (impossible)" failed:
+	TypeDependencyNamespace.ChildClass does not depend any of no types (impossible)
+	TypeDependencyNamespace.OtherChildClass does not depend any of no types (impossible)
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on one of no types (impossible)
+Result: False
+Description: TypeDependencyNamespace.ChildClass does not depend on one of no types (impossible)
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does not depend on one of no types (impossible)
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on one of no types (impossible)" failed:
+	TypeDependencyNamespace.ChildClass does not depend on one of no types (impossible)
+	TypeDependencyNamespace.OtherChildClass does not depend on one of no types (impossible)
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on one of no types (impossible)
+Result: False
+Description: TypeDependencyNamespace.ChildClass does not depend on any of no types (impossible)
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does not depend on any of no types (impossible)
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on one of no types (impossible)" failed:
+	TypeDependencyNamespace.ChildClass does not depend on any of no types (impossible)
+	TypeDependencyNamespace.OtherChildClass does not depend on any of no types (impossible)
+
+
+
+Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any Classes that have full name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should depend on any Classes that have full name "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.OtherChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+

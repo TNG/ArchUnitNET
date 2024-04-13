@@ -16,7 +16,7 @@ namespace ArchUnitNETTests.Dependencies
     {
         private static readonly Architecture Architecture = new ArchLoader()
             .LoadAssembliesRecursively(
-                new[] { typeof(CppExampleClassUser).Assembly },
+                new[] { typeof(CppExampleClassUserNamespace.CppExampleClassUser).Assembly },
                 filterFunc => FilterResult.LoadAndContinue
             )
             .Build();
@@ -24,32 +24,10 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void CppClassUserFound()
         {
-            var exampleCppUser = Architecture.GetClassOfType(typeof(CastClassA));
+            var exampleCppUser = Architecture.GetClassOfType(
+                typeof(CppExampleClassUserNamespace.CastClassA)
+            );
             Assert.Contains(exampleCppUser, Architecture.Classes);
         }
     }
-
-    internal class CppExampleClassUser
-    {
-        CppExampleClass _cppExampleClass = new CppExampleClass();
-    }
-
-    /*
-     * C++/CLI code contains the next .h .cpp content
-    CppExampleClass.h
-    #pragma once
-    public ref class CppExampleClass
-    {
-        public:
-            void DoCall();
-    };
-
-    CppExampleClass.cpp
-    #include "pch.h"
-    #include "CppExampleClass.h"
-
-    void CppExampleClass::DoCall()
-    {
-    }
-    */
 }
