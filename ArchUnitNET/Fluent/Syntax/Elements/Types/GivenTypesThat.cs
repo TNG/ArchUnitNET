@@ -183,6 +183,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        /// <summary>Matches the types that reside in the assembly.</summary>
+        /// <param name="pattern">Name of the assembly to match.</param>
+        /// <param name="useRegularExpressions">Indicates if pattern shall be considered a regular expression.</param>
+        /// <remarks>In case of not using regular expression pattern has to be Assembly Full Name.</remarks>
         public TGivenRuleTypeConjunction ResideInAssembly(
             string pattern,
             bool useRegularExpressions = false
