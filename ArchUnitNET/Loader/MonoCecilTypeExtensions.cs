@@ -6,9 +6,11 @@
 //
 
 using System;
+using System.Linq;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using Mono.Cecil.Rocks;
 using static ArchUnitNET.Domain.Visibility;
 using GenericParameter = Mono.Cecil.GenericParameter;
 
@@ -101,6 +103,11 @@ namespace ArchUnitNET.Loader
             throw new ArgumentException(
                 "The provided type definition seems to have no visibility."
             );
+        }
+
+        internal static bool IsRecord(this TypeDefinition typeDefinition)
+        {
+            return typeDefinition.IsClass && typeDefinition.GetMethods().Any(x => x.Name == "<Clone>$");
         }
     }
 }

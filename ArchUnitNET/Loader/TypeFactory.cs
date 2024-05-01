@@ -353,7 +353,7 @@ namespace ArchUnitNET.Loader
             else
             {
                 createdTypeInstance = new TypeInstance<Class>(
-                    new Class(type, typeDefinition.IsAbstract, typeDefinition.IsSealed)
+                    new Class(type, typeDefinition.IsAbstract, typeDefinition.IsSealed, typeDefinition.IsRecord())
                 );
             }
 

@@ -30,6 +30,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             );
         }
 
+        public static ICondition<Class> BeRecord()
+        {
+            return new SimpleCondition<Class>(
+                cls => !cls.IsRecord.HasValue || cls.IsRecord.Value,
+                "be record",
+                "is not record"
+            );
+        }
+
         public static ICondition<Class> BeImmutable()
         {
             return new SimpleCondition<Class>(
@@ -59,6 +68,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
                 cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value,
                 "not be sealed",
                 "is sealed"
+            );
+        }
+        public static ICondition<Class> NotBeRecord()
+        {
+            return new SimpleCondition<Class>(
+                cls => !cls.IsRecord.HasValue || !cls.IsRecord.Value,
+                "not be record",
+                "is record"
             );
         }
 

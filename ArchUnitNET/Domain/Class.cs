@@ -16,11 +16,12 @@ namespace ArchUnitNET.Domain
     {
         private IType Type { get; }
 
-        public Class(IType type, bool? isAbstract = null, bool? isSealed = null)
+        public Class(IType type, bool? isAbstract = null, bool? isSealed = null, bool? isRecord = null)
         {
             Type = type;
             IsAbstract = isAbstract;
             IsSealed = isSealed;
+            IsRecord = isRecord;
         }
 
         public Class(Class @class)
@@ -28,6 +29,7 @@ namespace ArchUnitNET.Domain
             Type = @class.Type;
             IsAbstract = @class.IsAbstract;
             IsSealed = @class.IsSealed;
+            IsRecord = @class.IsRecord;
         }
 
         public IEnumerable<ITypeDependency> DependenciesIncludingInherited =>
@@ -47,6 +49,7 @@ namespace ArchUnitNET.Domain
         public IEnumerable<MethodMember> Constructors => Type.GetConstructors();
         public bool? IsAbstract { get; }
         public bool? IsSealed { get; }
+        public bool? IsRecord { get; }
 
         public IEnumerable<Class> InheritedClasses =>
             BaseClass == null
@@ -86,7 +89,8 @@ namespace ArchUnitNET.Domain
         {
             return Equals(Type, other.Type)
                 && Equals(IsAbstract, other.IsAbstract)
-                && Equals(IsSealed, other.IsSealed);
+                && Equals(IsSealed, other.IsSealed)
+                && Equals(IsRecord, other.IsRecord);
         }
 
         public override bool Equals(object obj)
@@ -111,6 +115,7 @@ namespace ArchUnitNET.Domain
                 var hashCode = Type != null ? Type.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ IsAbstract.GetHashCode();
                 hashCode = (hashCode * 397) ^ IsSealed.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsRecord.GetHashCode();
                 return hashCode;
             }
         }

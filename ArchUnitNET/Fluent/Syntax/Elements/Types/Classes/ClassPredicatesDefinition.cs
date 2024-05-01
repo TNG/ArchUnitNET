@@ -28,6 +28,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             );
         }
 
+        public static IPredicate<Class> AreRecord()
+        {
+            return new SimplePredicate<Class>(
+                cls => !cls.IsRecord.HasValue || cls.IsRecord.Value,
+                "are record"
+            );
+        }
+
         public static IPredicate<Class> AreImmutable()
         {
             return new SimplePredicate<Class>(
@@ -53,6 +61,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return new SimplePredicate<Class>(
                 cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value,
                 "are not sealed"
+            );
+        }
+
+        public static IPredicate<Class> AreNotRecord()
+        {
+            return new SimplePredicate<Class>(
+                cls => !cls.IsRecord.HasValue || !cls.IsRecord.Value,
+                "are not record"
             );
         }
 

@@ -230,6 +230,39 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.True(notImmutableClassesAreNotImmutabled.HasNoViolations(Architecture));
         }
 
+        [Fact]
+        public void AreRecordTest()
+        {
+            var recordsAreRecord = Classes()
+                .That()
+                .AreRecord()
+                .Should()
+                .BeRecord();
+
+            var recordsAreNotRecord = Classes()
+                .That()
+                .AreRecord()
+                .Should()
+                .NotBeRecord();
+
+            var notRecordsAreRecord = Classes()
+                .That()
+                .AreNotRecord()
+                .Should()
+                .BeRecord();
+
+            var notRecordsAreNotRecord = Classes()
+                .That()
+                .AreNotRecord()
+                .Should()
+                .NotBeRecord();
+
+            Assert.True(recordsAreRecord.HasNoViolations(Architecture));
+            Assert.False(recordsAreNotRecord.HasNoViolations(Architecture));
+            Assert.False(notRecordsAreRecord.HasNoViolations(Architecture));
+            Assert.True(notRecordsAreNotRecord.HasNoViolations(Architecture));
+        }
+
         private record ImmutableRecord(string Property, string AnotherProperty);
 
         private class ImmutableClass
