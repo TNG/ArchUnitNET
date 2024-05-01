@@ -18,6 +18,8 @@ namespace ArchUnitNET.Loader
 {
     internal static class MonoCecilTypeExtensions
     {
+        private const string RecordCloneMethodName = "<Clone>$";
+
         internal static string BuildFullName(this TypeReference typeReference)
         {
             if (typeReference.IsGenericParameter)
@@ -107,7 +109,7 @@ namespace ArchUnitNET.Loader
 
         internal static bool IsRecord(this TypeDefinition typeDefinition)
         {
-            return typeDefinition.IsClass && typeDefinition.GetMethods().Any(x => x.Name == "<Clone>$");
+            return typeDefinition.IsClass && typeDefinition.GetMethods().Any(x => x.Name == RecordCloneMethodName);
         }
     }
 }
