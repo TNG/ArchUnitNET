@@ -16,7 +16,12 @@ namespace ArchUnitNET.Domain
     {
         private IType Type { get; }
 
-        public Class(IType type, bool? isAbstract = null, bool? isSealed = null, bool? isRecord = null)
+        public Class(
+            IType type,
+            bool? isAbstract = null,
+            bool? isSealed = null,
+            bool? isRecord = null
+        )
         {
             Type = type;
             IsAbstract = isAbstract;

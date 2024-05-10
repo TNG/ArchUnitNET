@@ -109,7 +109,8 @@ namespace ArchUnitNET.Loader
 
         internal static bool IsRecord(this TypeDefinition typeDefinition)
         {
-            return typeDefinition.IsClass && typeDefinition.GetMethods().Any(x => x.Name == RecordCloneMethodName);
+            return typeDefinition.IsClass
+                && typeDefinition.GetMethods().Any(x => x.Name == RecordCloneMethodName);
         }
     }
 }

@@ -233,29 +233,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void AreRecordTest()
         {
-            var recordsAreRecord = Classes()
-                .That()
-                .AreRecord()
-                .Should()
-                .BeRecord();
+            var recordsAreRecord = Classes().That().AreRecord().Should().BeRecord();
 
-            var recordsAreNotRecord = Classes()
-                .That()
-                .AreRecord()
-                .Should()
-                .NotBeRecord();
+            var recordsAreNotRecord = Classes().That().AreRecord().Should().NotBeRecord();
 
-            var notRecordsAreRecord = Classes()
-                .That()
-                .AreNotRecord()
-                .Should()
-                .BeRecord();
+            var notRecordsAreRecord = Classes().That().AreNotRecord().Should().BeRecord();
 
-            var notRecordsAreNotRecord = Classes()
-                .That()
-                .AreNotRecord()
-                .Should()
-                .NotBeRecord();
+            var notRecordsAreNotRecord = Classes().That().AreNotRecord().Should().NotBeRecord();
 
             Assert.True(recordsAreRecord.HasNoViolations(Architecture));
             Assert.False(recordsAreNotRecord.HasNoViolations(Architecture));

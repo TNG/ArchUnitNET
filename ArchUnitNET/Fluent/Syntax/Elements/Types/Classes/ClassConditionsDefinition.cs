@@ -70,6 +70,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
                 "is sealed"
             );
         }
+
         public static ICondition<Class> NotBeRecord()
         {
             return new SimpleCondition<Class>(
