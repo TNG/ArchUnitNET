@@ -1,6 +1,6 @@
 <img src="Logo/ArchUnitNET-Logo.png" height="64" alt="ArchUnit">
 
-# ArchUnitNET [![Build Status](https://travis-ci.com/TNG/ArchUnitNET.svg?branch=master)](https://travis-ci.com/TNG/ArchUnitNET) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/TNG/ArchUnitNET/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/TngTech.ArchUnitNET)](https://www.nuget.org/packages/TngTech.ArchUnitNET/)
+# ArchUnitNET [![Build Status](https://github.com/TNG/ArchUnitNET/actions/workflows/build.yaml/badge.svg)](https://github.com/TNG/ArchUnitNET/actions/workflows/build.yaml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/TNG/ArchUnitNET/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/TngTech.ArchUnitNET)](https://www.nuget.org/packages/TngTech.ArchUnitNET/) [![codecov](https://codecov.io/gh/TNG/ArchUnitNET/graph/badge.svg?token=HgiEXfA0K7)](https://codecov.io/gh/TNG/ArchUnitNET)
 
 Visit our documentation at https://archunitnet.readthedocs.io/en/latest/.
 
@@ -9,18 +9,25 @@ classes, members, interfaces, and more. This is done by analyzing C# bytecode an
 structure. The main focus of ArchUnitNET is to automatically test architecture and coding rules.
 
 ## An Example
+
 To use ArchUnitNET, install the ArchUnitNET package from NuGet:
+
 ```
 PS> Install-Package TngTech.ArchUnitNET
 ```
+
 If you want to use xUnit, NUnit or MSTestV2 for your unit tests, you should instead install the corresponding ArchUnit extension:
+
 ```
 PS> Install-Package TngTech.ArchUnitNET.xUnit
 PS> Install-Package TngTech.ArchUnitNET.NUnit
 PS> Install-Package TngTech.ArchUnitNET.MSTestV2
 ```
+
 #### Create a Test
+
 Then you will want to create a class to start testing. We used xUnit with the ArchUnit extension here, but it works similarly with NUnit or other Unit Test Frameworks.
+
 ```cs
 
 using ArchUnitNET.Domain;
@@ -106,12 +113,12 @@ namespace ExampleTest
 }
 ```
 
-
 #### Further Info and Help
-Check out test examples for the current release at 
+
+Check out test examples for the current release at
 [ArchUnitNET Examples](https://github.com/TNG/ArchUnitNET/tree/master/ExampleTest "ExampleTests").
 
-
 ## License
+
 ArchUnitNET is published under the Apache License 2.0. For more information concerning the license, see
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
