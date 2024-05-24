@@ -27,6 +27,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return new GivenClassesConjunction(_ruleCreator);
         }
 
+        public GivenClassesConjunction AreRecord()
+        {
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreRecord());
+            return new GivenClassesConjunction(_ruleCreator);
+        }
+
         public GivenClassesConjunction AreImmutable()
         {
             _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreImmutable());
@@ -45,6 +51,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         public GivenClassesConjunction AreNotSealed()
         {
             _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotSealed());
+            return new GivenClassesConjunction(_ruleCreator);
+        }
+
+        public GivenClassesConjunction AreNotRecord()
+        {
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotRecord());
             return new GivenClassesConjunction(_ruleCreator);
         }
 
