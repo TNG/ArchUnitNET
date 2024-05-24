@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
   pull_request:
     types: [opened, reopened, synchronize]
 
@@ -53,3 +55,27 @@ jobs:
           dotnet-version: 8.0.300
       - name: Run tests
         run: dotnet test -c Debug
+  deploy:
+    name: Deploy
+    if: github.ref == 'refs/tags/[0-9]+.[0-9]+.[0-9]+'
+    runs-on: windows-latest
+    environment: deploy
+    needs:
+      - formatting
+      - coverage
+      - run-tests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - name: Setup .NET
+        uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4.0.0
+        with:
+          dotnet-version: 8.0.300
+      - name: Add package source
+        run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+      - name: Build
+        run: dotnet build -c Release
+      - name: Pack
+        run: dotnet pack -c Release --output nupkgs -p:PackageVersion="${{ github.ref_name }}" -p:AssemblyVersion="${{ github.ref_name }}.0"
+      - name: Push
+        run: dotnet nuget push nupkgs/*.nupkg --source nuget.org --api-key ${{ secrets.NUGET_API_KEY }}
