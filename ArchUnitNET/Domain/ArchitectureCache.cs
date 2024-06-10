@@ -28,5 +28,7 @@ namespace ArchUnitNET.Domain
         {
             return Cache.TryAdd(architectureCacheKey, architecture);
         }
+
+        public void Clear() => Cache.Clear();
     }
 }

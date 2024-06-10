@@ -14,10 +14,5 @@ namespace ArchUnitNETTests.Domain
         {
             return Cache.Count;
         }
-
-        public void Clear()
-        {
-            Cache.Clear();
-        }
     }
 }
