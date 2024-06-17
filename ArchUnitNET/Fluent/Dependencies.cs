@@ -3,6 +3,7 @@
 // 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
 // 
 // 	SPDX-License-Identifier: Apache-2.0
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -20,7 +21,8 @@ namespace ArchUnitNET.Fluent
         public static IArchRule Check(Assembly source, IEnumerable<Assembly> target)
         {
             var allowedTypes = Types().That().ResideInAssembly(source);
-            allowedTypes = target.Aggregate(allowedTypes, (current, assembly) => current.Or().ResideInAssembly(assembly));
+            allowedTypes =
+                target.Aggregate(allowedTypes, (current, assembly) => current.Or().ResideInAssembly(assembly));
 
             var rule = Types()
                 .That()
