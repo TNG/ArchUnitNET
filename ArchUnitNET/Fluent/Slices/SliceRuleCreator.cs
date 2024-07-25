@@ -22,6 +22,13 @@ namespace ArchUnitNET.Fluent.Slices
         > _evaluationFunc;
         private SliceAssignment _sliceAssignment;
 
+        private List<Func<Slice, bool>> filters = new List<Func<Slice, bool>>();
+
+        public void AddFilter(Func<Slice, bool> filter)
+        {
+            filters.Add(filter);
+        }
+
         public SliceRuleCreator()
         {
             Description = "Slices";
@@ -71,9 +78,13 @@ namespace ArchUnitNET.Fluent.Slices
                 );
             }
 
-            return _sliceAssignment
+            var slices = _sliceAssignment
                 .Apply(architecture.Types)
                 .Where(slice => !slice.Identifier.Ignored);
+
+            filters.ForEach(filter => slices = slices.Where(filter));
+
+            return slices;
         }
     }
 }
