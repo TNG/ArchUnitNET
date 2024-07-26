@@ -68,7 +68,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Setup doxygen
-        run: sudo apt-get install doxygen
+        run: sudo apt-get install doxygen graphviz
       - name: Create temporary directory
         run: |
           tmpdir=$(mktemp -d -p "$GITHUB_WORKSPACE")
