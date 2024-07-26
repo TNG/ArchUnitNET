@@ -19,7 +19,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4.0.0
         with:
-          dotnet-version: 8.0.300
+          dotnet-version: 8.0.303
       - name: Install tools
         run: dotnet tool restore
       - name: Check formatting
@@ -33,7 +33,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4.0.0
         with:
-          dotnet-version: 8.0.300
+          dotnet-version: 8.0.303
       - name: Run tests
         run: dotnet test -c Debug --collect:"XPlat Code Coverage" --settings coverlet.runsettings ArchUnitNETTests/
       - name: Upload coverage reports to Codecov
@@ -52,7 +52,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4.0.0
         with:
-          dotnet-version: 8.0.300
+          dotnet-version: 8.0.303
       - name: Run tests
         run: dotnet test -c Debug
   deploy:
@@ -70,7 +70,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4.0.0
         with:
-          dotnet-version: 8.0.300
+          dotnet-version: 8.0.303
       - name: Add package source
         run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
       - name: Build
