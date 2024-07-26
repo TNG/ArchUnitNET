@@ -71,7 +71,7 @@ jobs:
         run: sudo apt-get install doxygen
       - name: Create temporary directory
         run: |
-          tmpdir=$(mktemp -d -p "$RUNNER_TEMP")
+          tmpdir=$(mktemp -d -p "$GITHUB_WORKSPACE")
           mkdir -p $tmpdir
           relative_path=$(realpath --relative-to="$GITHUB_WORKSPACE" "$tmpdir")
           echo "Created temporary directory $tmpdir ($relative_path relative to $GITHUB_WORKSPACE)"
