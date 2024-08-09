@@ -7,6 +7,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using Xunit;
@@ -23,7 +24,16 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             var methodMembers = clazz.GetMethodMembers();
             methodMembers.ForEach(methodMember =>
-                Assert.True(clazz.HasDependencies(methodMember.MemberDependencies))
+                Assert.True(
+                    clazz.HasDependencies(
+                        methodMember.MemberDependencies.Where(dependency =>
+                            // E.g. static members with initializer lead to a dependency
+                            // to the declaring type which we want to ignore
+                            // https://github.com/TNG/ArchUnitNET/issues/229
+                            dependency.Target.FullName != clazz.FullName
+                        )
+                    )
+                )
             );
         }
     }
