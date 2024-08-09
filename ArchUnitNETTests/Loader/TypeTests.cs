@@ -4,6 +4,7 @@
 //
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
@@ -122,10 +123,26 @@ namespace ArchUnitNETTests.Loader
         {
             Assert.False(_type.IsAssignableTo(null));
         }
+
+        [Fact]
+        public void ClassesWithStaticMemberInitializersDoNotDependOnThemselves()
+        {
+            _architecture
+                .GetClassOfType(typeof(StaticMemberWithInitializer))
+                .Dependencies.ForEach(dependency =>
+                {
+                    Assert.NotEqual(dependency.Origin, dependency.Target);
+                });
+        }
     }
 
     [Example]
     public class AssignClass : IExample { }
 
     public interface IExample { }
+
+    public class StaticMemberWithInitializer
+    {
+        public static readonly string StaticField = "StaticField";
+    }
 }

@@ -43,7 +43,14 @@ namespace ArchUnitNET.Loader.LoadTasks
         {
             _type.Members.ForEach(member =>
             {
-                _dependencies.AddRange(member.Dependencies);
+                _dependencies.AddRange(
+                    member.Dependencies.Where(dependency =>
+                        // E.g. static members with initializer lead to a dependency
+                        // to the declaring type which we want to ignore
+                        // https://github.com/TNG/ArchUnitNET/issues/229
+                        dependency.Target.FullName != _type.FullName
+                    )
+                );
             });
         }
 
