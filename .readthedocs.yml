@@ -1,5 +1,9 @@
 version: 2
 
+build:
+  os: ubuntu-lts-latest
+  tools:
+    python: "3.12"
+
 mkdocs:
   configuration: documentation/mkdocs.yml
-  fail_on_warning: false
