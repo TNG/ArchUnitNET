@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
+      - "[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?"
   pull_request:
     types: [opened, reopened, synchronize]
   merge_group:
@@ -76,19 +76,37 @@ jobs:
           relative_path=$(realpath --relative-to="$GITHUB_WORKSPACE" "$tmpdir")
           echo "Created temporary directory $tmpdir ($relative_path relative to $GITHUB_WORKSPACE)"
           echo "DOCS_TEMP_DIR=$relative_path" >> "$GITHUB_ENV"
+          if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+$ ]]; then
+            echo "DOCS_TEMP_DIR_SUBPATH=stable" >> "$GITHUB_ENV"
+          else 
+            if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+-[a-z]+.[0-9]+$ ]]; then
+              echo "DOCS_TEMP_DIR_SUBPATH=preview" >> "$GITHUB_ENV"
+            else
+              echo "DOCS_TEMP_DIR_SUBPATH=latest" >> "$GITHUB_ENV"
+            fi
+          fi
       - name: Checkout gh-pages branch
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           ref: gh-pages
           path: ${{ env.DOCS_TEMP_DIR }}
-      - name: Generate documentation
-        working-directory: ${{ env.DOCS_TEMP_DIR }}
+      - name: Generate stable documentation
+        working-directory: ${{ env.DOCS_TEMP_DIR }}/${{ env.DOCS_TEMP_DIR_SUBPATH }}
         run: |
-          find . -mindepth 1 -not -path './.git*' -delete
+          rm -rf 'stable/'
+          mkdir -p 'stable'
+          cd 'stable'
           doxygen "$GITHUB_WORKSPACE/documentation/Doxyfile"
           touch .nojekyll
+      - name: Check release conditions
+        run: |
+          if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?|"refs/heads/main"$ ]]; then
+            echo "CREATE_RELEASE=true" >> "$GITHUB_ENV"
+          else
+            echo "CREATE_RELEASE=false" >> "$GITHUB_ENV"
+          fi
       - name: Commit and push changes
-        if: github.ref == 'refs/tags/[0-9]+.[0-9]+.[0-9]+'
+        if: ${{ env.CREATE_RELEASE }} == 'true'
         working-directory: ${{ env.DOCS_TEMP_DIR }}
         run: |
           git config --global user.name "GitHub Actions"
@@ -100,9 +118,15 @@ jobs:
           else
             echo "No changes to commit"
           fi
+      - name: Update readthedocs preview
+        if: ${{ env.CREATE_RELEASE }} == 'true' && ${{ env.DOCS_TEMP_DIR_SUBPATH }} == 'preview'
+        run: |
+          git fetch origin preview
+          git checkout preview
+          git reset --hard "$GITHUB_REF"
+          git push origin --force-with-lease
   publish-packages:
     name: Publish packages
-    if: github.ref == 'refs/tags/[0-9]+.[0-9]+.[0-9]+'
     runs-on: windows-latest
     environment: deploy
     needs:
@@ -122,5 +146,13 @@ jobs:
         run: dotnet build -c Release
       - name: Pack
         run: dotnet pack -c Release --output nupkgs -p:PackageVersion="${{ github.ref_name }}" -p:AssemblyVersion="${{ github.ref_name }}.0"
+      - name: Check release conditions
+        run: |
+          if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?|"refs/heads/main"$ ]]; then
+            echo "CREATE_RELEASE=true" >> "$GITHUB_ENV"
+          else
+            echo "CREATE_RELEASE=false" >> "$GITHUB_ENV"
+          fi
       - name: Push
+        if: ${{ env.CREATE_RELEASE }} == 'true'
         run: dotnet nuget push nupkgs/*.nupkg --source nuget.org --api-key ${{ secrets.NUGET_API_KEY }}
