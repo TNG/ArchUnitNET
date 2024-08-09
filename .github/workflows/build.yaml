@@ -1,13 +1,15 @@
 name: build
 run-name: Build and test
 on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  merge_group:
+    types: [checks_requested]
   push:
     branches:
       - main
-    tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
-  pull_request:
-    types: [opened, reopened, synchronize]
+  release:
+    types: [published]
 
 jobs:
   formatting:
@@ -55,9 +57,77 @@ jobs:
           dotnet-version: 8.0.303
       - name: Run tests
         run: dotnet test -c Debug
-  deploy:
-    name: Deploy
-    if: github.ref == 'refs/tags/[0-9]+.[0-9]+.[0-9]+'
+  publish-docs:
+    name: Publish documentation
+    runs-on: ubuntu-latest
+    needs:
+      - formatting
+      - coverage
+      - run-tests
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - name: Setup doxygen
+        run: sudo apt-get install doxygen graphviz
+      - name: Create temporary directory
+        run: |
+          tmpdir=$(mktemp -d -p "$GITHUB_WORKSPACE")
+          mkdir -p $tmpdir
+          relative_path=$(realpath --relative-to="$GITHUB_WORKSPACE" "$tmpdir")
+          echo "Created temporary directory $tmpdir ($relative_path relative to $GITHUB_WORKSPACE)"
+          echo "DOCS_TEMP_DIR=$relative_path" >> "$GITHUB_ENV"
+          if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+$ ]]; then
+            echo "DOCS_TEMP_DIR_SUBPATH=stable" >> "$GITHUB_ENV"
+          else 
+            if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+-[a-z]+.[0-9]+$ ]]; then
+              echo "DOCS_TEMP_DIR_SUBPATH=preview" >> "$GITHUB_ENV"
+            else
+              echo "DOCS_TEMP_DIR_SUBPATH=latest" >> "$GITHUB_ENV"
+            fi
+          fi
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: gh-pages
+          path: ${{ env.DOCS_TEMP_DIR }}
+      - name: Generate documentation
+        working-directory: ${{ env.DOCS_TEMP_DIR }}/${{ env.DOCS_TEMP_DIR_SUBPATH }}
+        run: |
+          rm -rf '*' 
+          doxygen "$GITHUB_WORKSPACE/documentation/Doxyfile"
+          touch .nojekyll
+      - name: Check release conditions
+        run: |
+          if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?|"refs/heads/main"$ ]]; then
+            echo "CREATE_RELEASE=true" >> "$GITHUB_ENV"
+          else
+            echo "CREATE_RELEASE=false" >> "$GITHUB_ENV"
+          fi
+      - name: Commit and push changes
+        if: env.CREATE_RELEASE == 'true'
+        working-directory: ${{ env.DOCS_TEMP_DIR }}
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "publish-docs@github.com"
+          git add -A
+          if [[ "$(git status --porcelain)" ]]; then
+            git commit -m "Update documentation for $GITHUB_REF_NAME"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+      - name: Update readthedocs preview
+        if: env.CREATE_RELEASE == 'true' && env.DOCS_TEMP_DIR_SUBPATH == 'preview'
+        run: |
+          git fetch origin preview
+          git checkout preview
+          git reset --hard "$GITHUB_REF"
+          git push origin --force-with-lease
+  publish-packages:
+    name: Publish packages
+    if: github.event_name == 'release'
     runs-on: windows-latest
     environment: deploy
     needs:
@@ -77,5 +147,13 @@ jobs:
         run: dotnet build -c Release
       - name: Pack
         run: dotnet pack -c Release --output nupkgs -p:PackageVersion="${{ github.ref_name }}" -p:AssemblyVersion="${{ github.ref_name }}.0"
+      - name: Check release conditions
+        run: |
+          if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?|"refs/heads/main"$ ]]; then
+            echo "CREATE_RELEASE=true" >> "$GITHUB_ENV"
+          else
+            echo "CREATE_RELEASE=false" >> "$GITHUB_ENV"
+          fi
       - name: Push
+        if: env.CREATE_RELEASE == 'true'
         run: dotnet nuget push nupkgs/*.nupkg --source nuget.org --api-key ${{ secrets.NUGET_API_KEY }}
