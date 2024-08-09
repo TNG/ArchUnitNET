@@ -64,6 +64,8 @@ jobs:
       - formatting
       - coverage
       - run-tests
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -104,7 +106,7 @@ jobs:
             echo "CREATE_RELEASE=false" >> "$GITHUB_ENV"
           fi
       - name: Commit and push changes
-        if: ${{ env.CREATE_RELEASE }} == 'true'
+        if: env.CREATE_RELEASE == 'true'
         working-directory: ${{ env.DOCS_TEMP_DIR }}
         run: |
           git config --global user.name "GitHub Actions"
@@ -117,7 +119,7 @@ jobs:
             echo "No changes to commit"
           fi
       - name: Update readthedocs preview
-        if: ${{ env.CREATE_RELEASE }} == 'true' && ${{ env.DOCS_TEMP_DIR_SUBPATH }} == 'preview'
+        if: env.CREATE_RELEASE == 'true' && env.DOCS_TEMP_DIR_SUBPATH == 'preview'
         run: |
           git fetch origin preview
           git checkout preview
@@ -153,5 +155,5 @@ jobs:
             echo "CREATE_RELEASE=false" >> "$GITHUB_ENV"
           fi
       - name: Push
-        if: ${{ env.CREATE_RELEASE }} == 'true'
+        if: env.CREATE_RELEASE == 'true'
         run: dotnet nuget push nupkgs/*.nupkg --source nuget.org --api-key ${{ secrets.NUGET_API_KEY }}
