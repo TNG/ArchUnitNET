@@ -78,10 +78,10 @@ jobs:
           relative_path=$(realpath --relative-to="$GITHUB_WORKSPACE" "$tmpdir")
           echo "Created temporary directory $tmpdir ($relative_path relative to $GITHUB_WORKSPACE)"
           echo "DOCS_TEMP_DIR=$relative_path" >> "$GITHUB_ENV"
-          if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+$ ]]; then
+          if [[ "$GITHUB_REF" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+$ ]]; then
             echo "DOCS_TEMP_DIR_SUBPATH=stable" >> "$GITHUB_ENV"
           else 
-            if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+-[a-z]+.[0-9]+$ ]]; then
+            if [[ "$GITHUB_REF" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+-[a-z]+.[0-9]+$ ]]; then
               echo "DOCS_TEMP_DIR_SUBPATH=preview" >> "$GITHUB_ENV"
             else
               echo "DOCS_TEMP_DIR_SUBPATH=latest" >> "$GITHUB_ENV"
@@ -100,7 +100,7 @@ jobs:
           touch .nojekyll
       - name: Check release conditions
         run: |
-          if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?|"refs/heads/main"$ ]]; then
+          if [[ "$GITHUB_REF" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?|"refs/heads/main"$ ]]; then
             echo "CREATE_RELEASE=true" >> "$GITHUB_ENV"
           else
             echo "CREATE_RELEASE=false" >> "$GITHUB_ENV"
@@ -149,7 +149,7 @@ jobs:
         run: dotnet pack -c Release --output nupkgs -p:PackageVersion="${{ github.ref_name }}" -p:AssemblyVersion="${{ github.ref_name }}.0"
       - name: Check release conditions
         run: |
-          if [[ "$test" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?|"refs/heads/main"$ ]]; then
+          if [[ "$GITHUB_REF" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?|"refs/heads/main"$ ]]; then
             echo "CREATE_RELEASE=true" >> "$GITHUB_ENV"
           else
             echo "CREATE_RELEASE=false" >> "$GITHUB_ENV"
