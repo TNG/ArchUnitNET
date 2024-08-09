@@ -1,15 +1,15 @@
 name: build
 run-name: Build and test
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - "[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?"
   pull_request:
     types: [opened, reopened, synchronize]
   merge_group:
     types: [checks_requested]
+  push:
+    branches:
+      - main
+  release:
+    types: [published]
 
 jobs:
   formatting:
@@ -90,12 +90,10 @@ jobs:
         with:
           ref: gh-pages
           path: ${{ env.DOCS_TEMP_DIR }}
-      - name: Generate stable documentation
+      - name: Generate documentation
         working-directory: ${{ env.DOCS_TEMP_DIR }}/${{ env.DOCS_TEMP_DIR_SUBPATH }}
         run: |
-          rm -rf 'stable/'
-          mkdir -p 'stable'
-          cd 'stable'
+          rm -rf '*' 
           doxygen "$GITHUB_WORKSPACE/documentation/Doxyfile"
           touch .nojekyll
       - name: Check release conditions
