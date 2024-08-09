@@ -1,0 +1,13 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat&lt; TGivenRuleTypeConjunction, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat&lt; TGivenRuleTypeConjunction, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="690,51,943,122"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsThat.html" title=" " alt="" coords="414,30,642,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="658,64,690,68,689,73,657,69"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="169,5,366,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="382,30,414,33,413,39,381,35"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,5,121,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="136,16,168,16,168,21,136,21"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectPredicates.html" title=" " alt="" coords="170,56,365,111"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="380,66,413,62,414,67,381,72"/>
+<area shape="rect" id="Node000006" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberPredicates.html" title=" " alt="" coords="430,94,626,150"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="641,105,689,99,690,105,642,111"/>
+</map>

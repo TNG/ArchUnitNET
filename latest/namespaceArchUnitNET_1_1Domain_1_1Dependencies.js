@@ -1,0 +1,26 @@
+var namespaceArchUnitNET_1_1Domain_1_1Dependencies =
+[
+    [ "AccessFieldDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1AccessFieldDependency.html", null ],
+    [ "AttributeMemberDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1AttributeMemberDependency.html", null ],
+    [ "AttributeTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1AttributeTypeDependency.html", null ],
+    [ "BodyTypeMemberDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1BodyTypeMemberDependency.html", null ],
+    [ "CastTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1CastTypeDependency.html", null ],
+    [ "FieldTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1FieldTypeDependency.html", null ],
+    [ "GenericArgumentMemberDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1GenericArgumentMemberDependency.html", null ],
+    [ "GenericArgumentTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1GenericArgumentTypeDependency.html", null ],
+    [ "IMemberMemberDependency", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberMemberDependency.html", null ],
+    [ "IMemberTypeDependency", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html", null ],
+    [ "ImplementsInterfaceDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1ImplementsInterfaceDependency.html", null ],
+    [ "InheritsBaseClassDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1InheritsBaseClassDependency.html", null ],
+    [ "ITypeDependency", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html", null ],
+    [ "MemberGenericParameterTypeConstraintDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberGenericParameterTypeConstraintDependency.html", null ],
+    [ "MemberTypeInstanceDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html", null ],
+    [ "MetaDataDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MetaDataDependency.html", null ],
+    [ "MethodCallDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodCallDependency.html", null ],
+    [ "MethodSignatureDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodSignatureDependency.html", null ],
+    [ "PropertyTypeDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1PropertyTypeDependency.html", null ],
+    [ "TypeCheckDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeCheckDependency.html", null ],
+    [ "TypeGenericParameterTypeConstraintDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeGenericParameterTypeConstraintDependency.html", null ],
+    [ "TypeInstanceDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html", null ],
+    [ "TypeReferenceDependency", "classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeReferenceDependency.html", null ]
+];

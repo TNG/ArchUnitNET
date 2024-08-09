@@ -1,0 +1,9 @@
+<map id="ArchUnitNET.Fluent.CombinedArchRuleCreator&lt; TRuleType &gt;" name="ArchUnitNET.Fluent.CombinedArchRuleCreator&lt; TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="7,226,213,267"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1IArchRuleCreator.html" title=" " alt="" coords="5,153,215,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,194,113,226,107,226,107,194"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1ICanBeEvaluated.html" title=" " alt="" coords="48,79,172,105"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,120,113,152,107,152,107,120"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="52,5,168,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="113,46,113,79,107,79,107,46"/>
+</map>

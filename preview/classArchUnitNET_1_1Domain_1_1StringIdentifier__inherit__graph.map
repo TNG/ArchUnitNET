@@ -1,0 +1,7 @@
+<map id="ArchUnitNET.Domain.StringIdentifier" name="ArchUnitNET.Domain.StringIdentifier">
+<area shape="rect" id="Node000001" title=" " alt="" coords="135,5,319,46"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1EnumerableIdentifier.html" title=" " alt="" coords="5,94,225,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,58,142,96,139,91,188,53"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1SliceIdentifier.html" title=" " alt="" coords="249,94,429,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="266,53,315,91,312,96,263,58"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="ArchUnitNET.Domain.PlantUml.Export.IPlantUmlElement" name="ArchUnitNET.Domain.PlantUml.Export.IPlantUmlElement">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,168,203,209"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1IPlantUmlContainer.html" title=" " alt="" coords="257,37,462,78"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,156,192,121,250,89,280,76,282,81,252,93,195,126,145,161"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlClass.html" title=" " alt="" coords="270,103,450,143"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="200,161,277,141,278,147,202,166"/>
+<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlDependency.html" title=" " alt="" coords="251,168,469,209"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="218,186,250,186,250,191,218,191"/>
+<area shape="rect" id="Node000007" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlInterface.html" title=" " alt="" coords="262,233,458,274"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="202,210,278,230,277,235,200,216"/>
+<area shape="rect" id="Node000008" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlSlice.html" title=" " alt="" coords="270,299,450,339"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="145,216,195,251,252,283,282,296,280,301,250,288,192,255,142,220"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlDiagram.html" title=" " alt="" coords="528,5,722,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="478,41,527,35,528,40,478,46"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlNamespace.html" title=" " alt="" coords="517,71,732,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="478,70,517,75,516,80,478,75"/>
+</map>

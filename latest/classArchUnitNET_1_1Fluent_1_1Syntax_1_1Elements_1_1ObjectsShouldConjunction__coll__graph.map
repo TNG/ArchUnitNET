@@ -1,0 +1,16 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction&lt; TRuleTypeShould, TRuleTypeShouldConjunctionWithReason, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction&lt; TRuleTypeShould, TRuleTypeShouldConjunctionWithReason, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="27,404,344,474"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html" title=" " alt="" coords="69,300,302,356"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,371,188,403,183,403,183,371"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1ArchRule.html" title=" " alt="" coords="104,226,266,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="188,268,188,299,183,299,183,268"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="5,153,203,178"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="131,187,173,224,170,228,127,191"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="128,5,243,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="174,46,113,153,108,151,169,43"/>
+<area shape="rect" id="Node000007" href="$interfaceArchUnitNET_1_1Fluent_1_1ICanBeEvaluated.html" title=" " alt="" coords="189,79,312,105"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="208,40,242,77,238,80,204,44"/>
+<area shape="rect" id="Node000006" href="$interfaceArchUnitNET_1_1Fluent_1_1IArchRule.html" title=" " alt="" coords="227,153,306,178"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="243,191,201,228,197,224,240,187"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="259,119,267,152,261,153,254,120"/>
+</map>

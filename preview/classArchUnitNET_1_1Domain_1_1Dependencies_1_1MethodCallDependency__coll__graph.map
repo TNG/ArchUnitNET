@@ -1,0 +1,17 @@
+<map id="ArchUnitNET.Domain.Dependencies.MethodCallDependency" name="ArchUnitNET.Domain.Dependencies.MethodCallDependency">
+<area shape="rect" id="Node000001" title=" " alt="" coords="110,274,347,315"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html" title=" " alt="" coords="5,199,225,225"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,232,202,271,199,276,143,236"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html" title=" " alt="" coords="29,124,201,150"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="118,165,118,199,112,199,112,165"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title=" " alt="" coords="246,20,373,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="284,57,212,102,155,126,153,121,210,98,281,53"/>
+<area shape="rect" id="Node000006" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html" title=" " alt="" coords="226,124,399,150"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="313,61,315,123,309,124,308,62"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Domain_1_1ITypeInstance.html" title=" " alt="" coords="9,5,221,61"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="118,77,118,123,112,123,112,77"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="266,158,149,201,147,196,264,153"/>
+<area shape="rect" id="Node000007" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberMemberDependency.html" title=" " alt="" coords="248,199,440,225"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="326,163,342,198,337,200,321,165"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="316,236,258,276,255,271,313,232"/>
+</map>

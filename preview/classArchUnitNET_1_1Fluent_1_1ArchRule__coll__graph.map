@@ -1,0 +1,12 @@
+<map id="ArchUnitNET.Fluent.ArchRule&lt; TRuleType &gt;" name="ArchUnitNET.Fluent.ArchRule&lt; TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="88,226,283,267"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="5,153,203,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,187,167,224,163,228,125,191"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="128,5,243,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="174,46,113,153,108,151,169,43"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Fluent_1_1ICanBeEvaluated.html" title=" " alt="" coords="189,79,312,105"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="208,40,242,77,238,80,204,44"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Fluent_1_1IArchRule.html" title=" " alt="" coords="227,153,306,178"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="245,191,207,228,204,224,242,187"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="259,119,267,152,261,153,254,120"/>
+</map>

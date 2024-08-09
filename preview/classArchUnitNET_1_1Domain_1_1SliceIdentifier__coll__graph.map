@@ -1,0 +1,11 @@
+<map id="ArchUnitNET.Domain.SliceIdentifier" name="ArchUnitNET.Domain.SliceIdentifier">
+<area shape="rect" id="Node000001" title=" " alt="" coords="103,199,282,240"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1StringIdentifier.html" title=" " alt="" coords="5,103,111,128"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,136,168,196,165,201,84,140"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="135,103,250,128"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,144,195,198,190,198,190,144"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Domain_1_1SliceIdentifierComparer.html" title=" " alt="" coords="275,95,454,136"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="320,147,227,201,224,196,317,142"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="296,5,433,46"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="367,62,367,95,362,95,362,62"/>
+</map>

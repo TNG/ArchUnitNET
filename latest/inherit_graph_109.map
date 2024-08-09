@@ -1,0 +1,17 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,209,85,234"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1AssemblyDoesNotExistInArchitecture.html" title=" " alt="" coords="145,5,388,46"/>
+<area shape="poly" id="edge234_Node000000_Node000001" title=" " alt="" coords="51,193,62,161,78,124,101,88,131,57,151,44,154,49,134,61,105,91,83,127,67,163,56,194"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1InvalidStateException.html" title=" " alt="" coords="157,71,376,111"/>
+<area shape="poly" id="edge235_Node000000_Node000002" title=" " alt="" coords="61,194,90,157,110,138,131,122,157,110,159,114,134,127,113,142,94,160,65,198"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1MultipleOccurrencesInSequenceException.html" title=" " alt="" coords="133,136,400,177"/>
+<area shape="poly" id="edge236_Node000000_Node000003" title=" " alt="" coords="93,200,132,187,176,175,177,180,133,192,95,205"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1TypeDoesNotExistInArchitecture.html" title=" " alt="" coords="157,201,376,242"/>
+<area shape="poly" id="edge237_Node000000_Node000004" title=" " alt="" coords="100,219,156,219,156,224,100,224"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Exceptions_1_1FileAlreadyExistsException.html" title=" " alt="" coords="156,266,376,322"/>
+<area shape="poly" id="edge238_Node000000_Node000005" title=" " alt="" coords="96,238,134,251,169,263,167,268,132,256,94,243"/>
+<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleCreatorException.html" title=" " alt="" coords="138,346,394,402"/>
+<area shape="poly" id="edge239_Node000000_Node000006" title=" " alt="" coords="63,247,92,291,112,313,134,331,154,343,152,348,131,336,108,316,88,294,58,250"/>
+<area shape="rect" id="Node000007" href="$classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleException.html" title=" " alt="" coords="138,426,394,482"/>
+<area shape="poly" id="edge240_Node000000_Node000007" title=" " alt="" coords="54,249,63,286,79,330,102,374,134,412,150,423,147,427,131,416,98,377,74,332,58,287,49,250"/>
+</map>

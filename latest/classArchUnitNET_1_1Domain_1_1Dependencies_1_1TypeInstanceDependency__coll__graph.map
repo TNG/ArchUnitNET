@@ -1,0 +1,7 @@
+<map id="ArchUnitNET.Domain.Dependencies.TypeInstanceDependency" name="ArchUnitNET.Domain.Dependencies.TypeInstanceDependency">
+<area shape="rect" id="Node000001" title=" " alt="" coords="46,124,283,165"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title=" " alt="" coords="5,20,132,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,56,149,122,145,125,87,59"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1ITypeInstance.html" title=" " alt="" coords="156,5,368,61"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="230,74,184,125,180,122,226,70"/>
+</map>

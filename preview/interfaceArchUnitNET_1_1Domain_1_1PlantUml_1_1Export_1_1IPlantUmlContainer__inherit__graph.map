@@ -1,0 +1,9 @@
+<map id="ArchUnitNET.Domain.PlantUml.Export.IPlantUmlContainer" name="ArchUnitNET.Domain.PlantUml.Export.IPlantUmlContainer">
+<area shape="rect" id="Node000001" title=" " alt="" coords="181,39,386,79"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlDiagram.html" title=" " alt="" coords="444,5,639,46"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="401,41,444,36,444,41,402,46"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlNamespace.html" title=" " alt="" coords="434,71,649,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="402,71,434,75,433,80,401,76"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1IPlantUmlElement.html" title=" " alt="" coords="5,46,133,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,56,180,56,180,62,149,62"/>
+</map>
