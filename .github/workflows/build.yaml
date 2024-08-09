@@ -125,6 +125,7 @@ jobs:
           git push origin --force-with-lease
   publish-packages:
     name: Publish packages
+    if: github.event_name == 'release'
     runs-on: windows-latest
     environment: deploy
     needs:
