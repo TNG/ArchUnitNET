@@ -141,13 +141,12 @@ jobs:
         uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee # v4.0.1
         with:
           dotnet-version: 8.0.303
-      - name: Add package source
-        run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
       - name: Build
         run: dotnet build -c Release
       - name: Pack
-        run: dotnet pack -c Release --output nupkgs -p:PackageVersion="${{ github.ref_name }}" -p:AssemblyVersion="${{ github.ref_name }}.0"
+        run: dotnet pack -c Release --output nupkgs -p:PackageVersion="$env:GITHUB_REF" -p:AssemblyVersion="$env:GITHUB_REF.0"
       - name: Check release conditions
+        shell: bash
         run: |
           if [[ "$GITHUB_REF" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+(-[a-z]+.[0-9]+)?|"refs/heads/main"$ ]]; then
             echo "CREATE_RELEASE=true" >> "$GITHUB_ENV"
@@ -156,4 +155,6 @@ jobs:
           fi
       - name: Push
         if: env.CREATE_RELEASE == 'true'
-        run: dotnet nuget push nupkgs/*.nupkg --source nuget.org --api-key ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key "$env:NUGET_API_KEY"
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
