@@ -144,7 +144,7 @@ jobs:
       - name: Build
         run: dotnet build -c Release
       - name: Pack
-        run: dotnet pack -c Release --output nupkgs -p:PackageVersion="$env:GITHUB_REF" -p:AssemblyVersion="$env:GITHUB_REF.0"
+        run: dotnet pack -c Release --output nupkgs -p:PackageVersion="$env:GITHUB_REF_NAME" -p:AssemblyVersion="$env:GITHUB_REF_NAME.0"
       - name: Check release conditions
         shell: bash
         run: |
