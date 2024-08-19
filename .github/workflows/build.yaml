@@ -167,6 +167,6 @@ jobs:
           fi
       - name: Push
         if: env.CREATE_RELEASE == 'true'
-        run: dotnet nuget push nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key "$env:NUGET_API_KEY"
+        run: dotnet nuget push .\nupkgs\*.nupkg --source https://api.nuget.org/v3/index.json --api-key "$env:NUGET_API_KEY"
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
