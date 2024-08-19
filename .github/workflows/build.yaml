@@ -144,7 +144,19 @@ jobs:
       - name: Build
         run: dotnet build -c Release
       - name: Pack
-        run: dotnet pack -c Release --output nupkgs -p:PackageVersion="$env:GITHUB_REF_NAME" -p:AssemblyVersion="$env:GITHUB_REF_NAME.0"
+        run: |
+          $semver = "$env:GITHUB_REF_NAME"
+          if ($semver -match '^(\d+)\.(\d+)\.\d+') {
+              $major = $matches[1]
+              $minor = $matches[2]
+              $packageVersion = "$env:GITHUB_REF_NAME"
+              $assemblyVersion = "$major.$minor.$env:GITHUB_RUN_NUMBER.0"
+              Write-Host "Package version: $packageVersion"
+              Write-Host "Assembly version: $assemblyVersion"
+              dotnet pack -c Release --output nupkgs -p:PackageVersion=$packageVersion -p:AssemblyVersion=$assemblyVersion
+          } else {
+              throw "Invalid semver format"
+          }
       - name: Check release conditions
         shell: bash
         run: |
