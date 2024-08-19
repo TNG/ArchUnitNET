@@ -24,32 +24,12 @@
 */
 var NAVTREE =
 [
-  [ "API Documentation", "index.html", [
-    [ "Packages", "namespaces.html", [
-      [ "Package List", "namespaces.html", "namespaces_dup" ],
-      [ "Package Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
-      ] ]
-    ] ],
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ]
-  ] ]
+  [ "API Documentation", "index.html", ]
 ];
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShouldConjunctionWithDescription.html",
-"structArchUnitNET_1_1Loader_1_1FilterResult.html"
+"index.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
