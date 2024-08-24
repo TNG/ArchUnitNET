@@ -635,11 +635,17 @@ public class ObjectsShouldTests
             .Should()
             .DependOnAny(helper.BaseClassWithMultipleDependenciesSystemType)
             .AssertNoViolations(helper);
-        Types()
-            .That()
-            .Are(helper.ChildClass, helper.BaseClass)
-            .Should()
-            .DependOnAny(helper.ClassWithoutDependencies)
+        should = Types().That().Are(helper.ChildClass, helper.BaseClass).Should();
+        should.DependOnAny(helper.ClassWithoutDependencies.FullName).AssertOnlyViolations(helper);
+        should.DependOnAny([helper.ClassWithoutDependencies.FullName]).AssertOnlyViolations(helper);
+        should.DependOnAny(helper.ClassWithoutDependencies).AssertOnlyViolations(helper);
+        should.DependOnAny([helper.ClassWithoutDependencies]).AssertOnlyViolations(helper);
+        should.DependOnAny(helper.ClassWithoutDependenciesSystemType).AssertOnlyViolations(helper);
+        should
+            .DependOnAny([helper.ClassWithoutDependenciesSystemType])
+            .AssertOnlyViolations(helper);
+        should
+            .DependOnAny(Classes().That().Are(helper.ClassWithoutDependencies))
             .AssertOnlyViolations(helper);
         await helper.AssertSnapshotMatches();
     }
