@@ -67,7 +67,7 @@ namespace ArchUnitNETTests.Loader
                 .LoadAssembliesRecursively(new[] { typeof(BaseClass).Assembly }, filterFunc)
                 .Build();
 
-            Assert.Equal(1, architecture.Assemblies.Count());
+            Assert.Single(architecture.Assemblies);
         }
     }
 }

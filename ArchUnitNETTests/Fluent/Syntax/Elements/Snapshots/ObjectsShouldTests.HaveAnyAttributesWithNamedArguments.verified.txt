@@ -1,0 +1,168 @@
+﻿===== No violations with type arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+===== No violations with value arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+===== Violations with type arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+===== Violations with value arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "OtherNamedParameter2=NamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "OtherNamedParameter2=NamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "OtherNamedParameter2=NamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "OtherNamedParameter2=NamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+===== Empty arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have no or any attributes with named arguments (always true)
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+===== Multiple arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=NamedArgument" and "NamedParameter3=1" and "OtherNamedParameter1=OtherNamedArgument" and "OtherNamedParameter2=3" and "OtherNamedParameter3=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does have no attribute with a named argument
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithAttributes does have no attribute with a named argument
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does have no attribute with a named argument
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithAttributes does have no attribute with a named argument
+
+
+

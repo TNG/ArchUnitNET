@@ -45,7 +45,7 @@ namespace ArchUnitNETTests.Dependencies
             }
             else
             {
-                Assert.True(false, "Property must have a getter");
+                Assert.Fail("Property must have a getter");
             }
         }
 
@@ -61,7 +61,7 @@ namespace ArchUnitNETTests.Dependencies
             }
             else
             {
-                Assert.True(false, "Property must have a getter");
+                Assert.Fail("Property must have a getter");
             }
         }
 
@@ -100,7 +100,7 @@ namespace ArchUnitNETTests.Dependencies
                 .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
-                Assert.True(false, "Class must have Method Call Dependency");
+                Assert.Fail("Class must have Method Call Dependency");
             }
             Assert.Contains(_dependOnClass, methodCalls.Select(d => d.Target));
         }
@@ -113,7 +113,7 @@ namespace ArchUnitNETTests.Dependencies
                 .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
-                Assert.True(false, "Property must have Method Call Dependency");
+                Assert.Fail("Property must have Method Call Dependency");
             }
             Assert.Contains(_dependOnClass, methodCalls.Select(d => d.Target));
         }
@@ -126,7 +126,7 @@ namespace ArchUnitNETTests.Dependencies
                 .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
-                Assert.True(false, "Getter must have Method Call Dependency");
+                Assert.Fail("Getter must have Method Call Dependency");
             }
             Assert.Contains(_dependOnClass, methodCalls.Select(d => d.Target));
         }
