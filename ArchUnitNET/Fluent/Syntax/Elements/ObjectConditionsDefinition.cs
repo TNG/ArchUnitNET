@@ -451,16 +451,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     .ToList();
                 foreach (var failedObject in ruleTypeList.Except(passedObjects))
                 {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
+                    var actualTypeDependencies = failedObject
+                        .GetTypeDependencies(architecture)
+                        .Except(typeList);
+                    var dynamicFailDescription = actualTypeDependencies.IsNullOrEmpty()
+                        ? "does not depend on any type"
+                        : actualTypeDependencies
+                            .Where(type => !type.Equals(actualTypeDependencies.First()))
+                            .Distinct()
+                            .Aggregate(
+                                "does depend on " + actualTypeDependencies.First().FullName,
+                                (current, type) => current + " and " + type.FullName
+                            );
                     yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
@@ -478,7 +480,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var typeList = types.ToList();
 
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<TRuleType> ruleTypes,
+                Architecture architecture
+            )
             {
                 var ruleTypeList = ruleTypes.ToList();
                 var passedObjects = ruleTypeList
@@ -486,16 +491,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     .ToList();
                 foreach (var failedObject in ruleTypeList.Except(passedObjects))
                 {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
+                    var actualTypeDependencies = failedObject
+                        .GetTypeDependencies(architecture)
+                        .Except(typeList);
+                    var dynamicFailDescription = actualTypeDependencies.IsNullOrEmpty()
+                        ? "does not depend on any type"
+                        : actualTypeDependencies
+                            .Where(type => !type.Equals(actualTypeDependencies.First()))
+                            .Distinct()
+                            .Aggregate(
+                                "does depend on " + actualTypeDependencies.First().FullName,
+                                (current, type) => current + " and " + type.FullName
+                            );
                     yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
@@ -522,7 +529,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     );
             }
 
-            return new EnumerableCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> DependOnAny(IEnumerable<Type> types)
@@ -554,18 +561,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     .ToList();
                 foreach (var failedObject in ruleTypeList.Except(passedObjects))
                 {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (
-                        var type in failedObject.GetTypeDependencies().Except(archUnitTypeList)
-                    )
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
+                    var actualTypeDependencies = failedObject
+                        .GetTypeDependencies(architecture)
+                        .Except(archUnitTypeList);
+                    var dynamicFailDescription = actualTypeDependencies.IsNullOrEmpty()
+                        ? "does not depend on any type"
+                        : actualTypeDependencies
+                            .Where(type => !type.Equals(actualTypeDependencies.First()))
+                            .Distinct()
+                            .Aggregate(
+                                "does depend on " + actualTypeDependencies.First().FullName,
+                                (current, type) => current + " and " + type.FullName
+                            );
                     yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
 
@@ -617,11 +624,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             bool useRegularExpressions = false
         )
         {
-            ConditionResult Condition(TRuleType ruleType)
+            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
             {
                 var pass = true;
                 var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
+                foreach (var dependency in ruleType.GetTypeDependencies(architecture))
                 {
                     if (!dependency.FullNameMatches(pattern, useRegularExpressions))
                     {
@@ -635,7 +642,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return new ConditionResult(ruleType, pass, dynamicFailDescription);
             }
 
-            return new SimpleCondition<TRuleType>(
+            return new ArchitectureCondition<TRuleType>(
                 Condition,
                 "only depend on types with full name "
                     + (useRegularExpressions ? "matching " : "")
@@ -652,11 +659,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             var patternList = patterns.ToList();
 
-            ConditionResult Condition(TRuleType ruleType)
+            ConditionResult Condition(TRuleType ruleType, Architecture architecture)
             {
                 var pass = true;
                 var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
+                foreach (var dependency in ruleType.GetTypeDependencies(architecture))
                 {
                     if (
                         !patternList.Any(pattern =>
@@ -695,7 +702,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     );
             }
 
-            return new SimpleCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
@@ -728,7 +735,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does depend on";
                     var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
+                    foreach (
+                        var type in failedObject.GetTypeDependencies(architecture).Except(typeList)
+                    )
                     {
                         dynamicFailDescription += first
                             ? " " + type.FullName
@@ -766,7 +775,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     var dynamicFailDescription = "does depend on";
                     var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
+                    foreach (
+                        var type in failedObject.GetTypeDependencies(architecture).Except(typeList)
+                    )
                     {
                         dynamicFailDescription += first
                             ? " " + type.FullName
@@ -837,7 +848,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     var dynamicFailDescription = "does depend on";
                     var first = true;
                     foreach (
-                        var type in failedObject.GetTypeDependencies().Except(archUnitTypeList)
+                        var type in failedObject
+                            .GetTypeDependencies(architecture)
+                            .Except(archUnitTypeList)
                     )
                     {
                         dynamicFailDescription += first
