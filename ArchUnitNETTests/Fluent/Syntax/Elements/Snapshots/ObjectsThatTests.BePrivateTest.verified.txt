@@ -1,0 +1,94 @@
+﻿===== No violations =====
+
+Query: Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" should be private
+Result: True
+Description: VisibilityNamespace.OuterClass+PrivateInnerClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that are "VisibilityNamespace.PublicClass" should be private
+Result: False
+Description: VisibilityNamespace.PublicClass is public
+Message: 
+"Types that are "VisibilityNamespace.PublicClass" should be private" failed:
+	VisibilityNamespace.PublicClass is public
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+PublicInnerClass" should be private
+Result: False
+Description: VisibilityNamespace.OuterClass+PublicInnerClass is public
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+PublicInnerClass" should be private" failed:
+	VisibilityNamespace.OuterClass+PublicInnerClass is public
+
+
+
+Query: Types that are "VisibilityNamespace.InternalClass" should be private
+Result: False
+Description: VisibilityNamespace.InternalClass is internal
+Message: 
+"Types that are "VisibilityNamespace.InternalClass" should be private" failed:
+	VisibilityNamespace.InternalClass is internal
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+InternalInnerClass" should be private
+Result: False
+Description: VisibilityNamespace.OuterClass+InternalInnerClass is internal
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+InternalInnerClass" should be private" failed:
+	VisibilityNamespace.OuterClass+InternalInnerClass is internal
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+ProtectedInnerClass" should be private
+Result: False
+Description: VisibilityNamespace.OuterClass+ProtectedInnerClass is protected
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+ProtectedInnerClass" should be private" failed:
+	VisibilityNamespace.OuterClass+ProtectedInnerClass is protected
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+ProtectedInternalInnerClass" should be private
+Result: False
+Description: VisibilityNamespace.OuterClass+ProtectedInternalInnerClass is protected internal
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+ProtectedInternalInnerClass" should be private" failed:
+	VisibilityNamespace.OuterClass+ProtectedInternalInnerClass is protected internal
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+PrivateProtectedInnerClass" should be private
+Result: False
+Description: VisibilityNamespace.OuterClass+PrivateProtectedInnerClass is private protected
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+PrivateProtectedInnerClass" should be private" failed:
+	VisibilityNamespace.OuterClass+PrivateProtectedInnerClass is private protected
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" or "VisibilityNamespace.OuterClass+OtherPrivateInnerClass" should be private
+Result: True
+Description: VisibilityNamespace.OuterClass+PrivateInnerClass passed
+Result: True
+Description: VisibilityNamespace.OuterClass+OtherPrivateInnerClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" or "VisibilityNamespace.OuterClass+PrivateProtectedInnerClass" should be private
+Result: False
+Description: VisibilityNamespace.OuterClass+PrivateProtectedInnerClass is private protected
+Result: True
+Description: VisibilityNamespace.OuterClass+PrivateInnerClass passed
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" or "VisibilityNamespace.OuterClass+PrivateProtectedInnerClass" should be private" failed:
+	VisibilityNamespace.OuterClass+PrivateProtectedInnerClass is private protected
+
+
+

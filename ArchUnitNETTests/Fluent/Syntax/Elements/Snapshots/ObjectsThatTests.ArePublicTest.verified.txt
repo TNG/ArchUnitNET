@@ -1,0 +1,91 @@
+﻿===== No violations =====
+
+Query: Types that are "VisibilityNamespace.PublicClass" should be types that are public
+Result: True
+Description: VisibilityNamespace.PublicClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "VisibilityNamespace.OuterClass+PublicInnerClass" should be types that are public
+Result: True
+Description: VisibilityNamespace.OuterClass+PublicInnerClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that are "VisibilityNamespace.InternalClass" should be types that are public
+Result: False
+Description: VisibilityNamespace.InternalClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+Message: 
+"Types that are "VisibilityNamespace.InternalClass" should be types that are public" failed:
+	VisibilityNamespace.InternalClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+InternalInnerClass" should be types that are public
+Result: False
+Description: VisibilityNamespace.OuterClass+InternalInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+InternalInnerClass" should be types that are public" failed:
+	VisibilityNamespace.OuterClass+InternalInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+ProtectedInnerClass" should be types that are public
+Result: False
+Description: VisibilityNamespace.OuterClass+ProtectedInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+ProtectedInnerClass" should be types that are public" failed:
+	VisibilityNamespace.OuterClass+ProtectedInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+ProtectedInternalInnerClass" should be types that are public
+Result: False
+Description: VisibilityNamespace.OuterClass+ProtectedInternalInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+ProtectedInternalInnerClass" should be types that are public" failed:
+	VisibilityNamespace.OuterClass+ProtectedInternalInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" should be types that are public
+Result: False
+Description: VisibilityNamespace.OuterClass+PrivateInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" should be types that are public" failed:
+	VisibilityNamespace.OuterClass+PrivateInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+
+
+
+Query: Types that are "VisibilityNamespace.OuterClass+PrivateProtectedInnerClass" should be types that are public
+Result: False
+Description: VisibilityNamespace.OuterClass+PrivateProtectedInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+Message: 
+"Types that are "VisibilityNamespace.OuterClass+PrivateProtectedInnerClass" should be types that are public" failed:
+	VisibilityNamespace.OuterClass+PrivateProtectedInnerClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" should be types that are public
+Result: True
+Description: VisibilityNamespace.PublicClass passed
+Result: True
+Description: VisibilityNamespace.OtherPublicClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "VisibilityNamespace.PublicClass" or "VisibilityNamespace.InternalClass" should be types that are public
+Result: True
+Description: VisibilityNamespace.PublicClass passed
+Result: False
+Description: VisibilityNamespace.InternalClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+Message: 
+"Types that are "VisibilityNamespace.PublicClass" or "VisibilityNamespace.InternalClass" should be types that are public" failed:
+	VisibilityNamespace.InternalClass is not "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" or "VisibilityNamespace.OuterClass" or "VisibilityNamespace.OuterClass+PublicInnerClass" or "VisibilityNamespace.OuterClass+OtherPublicInnerClass" or "System.Object" or "System.Void" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+
+
+

@@ -90,6 +90,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        public static RelationCondition<TRuleType, IType> BeTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(
+                ObjectConditionsDefinition<TRuleType>.Be,
+                "be types that",
+                "are not types that"
+            );
+        }
+
         public static ICondition<TRuleType> BeAssignableTo(
             string pattern,
             bool useRegularExpressions = false

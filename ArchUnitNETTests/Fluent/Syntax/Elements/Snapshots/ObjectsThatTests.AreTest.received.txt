@@ -1,0 +1,184 @@
+﻿===== No violations =====
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that are Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+===== Non-existent type =====
+
+Query: Types that have full name "NotTheNameOfAnyObject" should have full name "NotTheNameOfAnyObject"
+Result: False
+Description: The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+Message: 
+"Types that have full name "NotTheNameOfAnyObject" should have full name "NotTheNameOfAnyObject"" failed:
+	The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+
+
+
+Query: Types that have full name "NotTheNameOfAnyObject" should have full name "NotTheNameOfAnyObject"
+Result: False
+Description: The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+Message: 
+"Types that have full name "NotTheNameOfAnyObject" should have full name "NotTheNameOfAnyObject"" failed:
+	The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+
+
+
+===== Empty arguments =====
+
+Query: Types that do not exist (always empty) should be "TypeDependencyNamespace.ChildClass"
+Result: False
+Description: The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+Message: 
+"Types that do not exist (always empty) should be "TypeDependencyNamespace.ChildClass"" failed:
+	The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+
+
+
+Query: Types that do not exist (always empty) should be "TypeDependencyNamespace.ChildClass"
+Result: False
+Description: The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+Message: 
+"Types that do not exist (always empty) should be "TypeDependencyNamespace.ChildClass"" failed:
+	The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+
+
+
+===== Multiple arguments =====
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+"Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+
+
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+"Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+
+
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+"Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+
+
+

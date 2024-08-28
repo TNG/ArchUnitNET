@@ -1,0 +1,44 @@
+﻿===== NoViolations =====
+
+Query: Types that have full name "TypeDependencyNamespace.BaseClass" should have full name "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that have full name matching "^.*\.BaseClass$" should have full name "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that have full name "TypeDependencyNamespace.BaseClass" should have full name "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that have full name matching "^.*\.BaseClass$" should have full name "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are Types that are "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+

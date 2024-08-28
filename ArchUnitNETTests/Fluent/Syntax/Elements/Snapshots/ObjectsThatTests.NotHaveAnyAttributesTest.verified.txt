@@ -1,0 +1,262 @@
+﻿===== No violations =====
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name matching "^.*\.UnusedAttribute$"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name matching "^.*\.UnusedAttribute$"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any Attributes that are "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have any attribute with full name "AttributeNamespace.Attribute1"
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have any attribute with full name "AttributeNamespace.Attribute1"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have any attribute with full name "AttributeNamespace.Attribute1"
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any attribute with full name "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have any attribute with full name "AttributeNamespace.Attribute1"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any Attributes that are "AttributeNamespace.Attribute1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have any Attributes that are "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+
+===== Non-existent attribute =====
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should not have any attribute with full name "NotTheNameOfAnyObject"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should not have any attribute with full name "NotTheNameOfAnyObject"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+===== Type outside of architecture =====
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should not have attribute "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+===== Empty arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should not have one of no attributes (always true)
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should not have one of no attributes (always true)
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should not have one of no attributes (always true)
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should not have any Attributes that have full name "NotTheNameOfAnyObject"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that have full name "NotTheNameOfAnyObject" should not have one of no attributes (always true)
+Message: 
+All Evaluations passed
+
+Query: Types that have full name "NotTheNameOfAnyObject" should not have one of no attributes (always true)
+Message: 
+All Evaluations passed
+
+Query: Types that have full name "NotTheNameOfAnyObject" should not have one of no attributes (always true)
+Message: 
+All Evaluations passed
+
+Query: Types that have full name "NotTheNameOfAnyObject" should not have any Attributes that have full name "NotTheNameOfAnyObject"
+Message: 
+All Evaluations passed
+
+===== Multiple arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should not have any attribute with full name "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does have any attribute with full name "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should not have any attribute with full name "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"" failed:
+	AttributeNamespace.ClassWithAttributes does have any attribute with full name "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"" failed:
+	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"" failed:
+	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"" failed:
+	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"" failed:
+	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should not have any Attributes that are "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should not have any Attributes that are "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"" failed:
+	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.OtherClassWithoutAttributes" should not have attribute "AttributeNamespace.Attribute2"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Result: True
+Description: AttributeNamespace.OtherClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.OtherClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Result: False
+Description: AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.OtherClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1
+
+
+

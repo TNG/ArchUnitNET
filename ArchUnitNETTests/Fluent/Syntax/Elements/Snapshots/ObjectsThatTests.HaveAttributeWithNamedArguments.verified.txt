@@ -1,0 +1,507 @@
+﻿===== No violations with type arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+===== No violations with value arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+===== Violations with type arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+===== Violations with value arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+===== Unused attribute =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+===== Type outside of architecture =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+===== Emtpy arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+All Evaluations passed
+
+===== Multiple arguments =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other...
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other..." failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other...
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other..." failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other...
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other..." failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other...
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other..." failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other...
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other..." failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other...
+Result: False
+Description: AttributeNamespace.ClassWithArguments does exist
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "Other..." failed:
+	AttributeNamespace.ClassWithArguments does exist
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+
+
+
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+Result: True
+Description: AttributeNamespace.ClassWithArguments passed
+Message: 
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should be types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
+	AttributeNamespace.ClassWithAttributes is not "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments"
+
+
+

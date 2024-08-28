@@ -1,0 +1,19 @@
+﻿===== No violations =====
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should not depend on any types that are "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any types that are "TypeDependencyNamespace.BaseClass"
+Result: False
+Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.ChildClass" should not depend on any types that are "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+
+
+
