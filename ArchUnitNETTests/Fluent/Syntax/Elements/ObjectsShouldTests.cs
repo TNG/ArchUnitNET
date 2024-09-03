@@ -538,7 +538,7 @@ public class ObjectsShouldTests
             )
             .AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Multiple inputs");
+        helper.AddSnapshotHeader("Input with multiple dependencies");
         MethodMembers()
             .That()
             .Are(helper.MethodWithMultipleDependencies)
@@ -2110,7 +2110,7 @@ public class ObjectsShouldTests
             .NotHaveAnyAttributesWithArguments([helper.Attribute1Parameter2Value])
             .AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type without attrubites");
+        helper.AddSnapshotHeader("Type without attributes");
         should = Types().That().Are(helper.ClassWithoutAttributes).Should();
         should
             .NotHaveAnyAttributesWithArguments(helper.Attribute1Parameter1Value)
@@ -2887,7 +2887,7 @@ public class ObjectsShouldTests
         should.OnlyDependOn([helper.NonExistentObjectName]).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Type outside of architecture");
-        should = Types().That().Are(helper.BaseClass).Should();
+        should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
         should
             .OnlyDependOn(typeof(AttributeNamespace.ClassWithoutAttributes))
             .AssertNoViolations(helper);
