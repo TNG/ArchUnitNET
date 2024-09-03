@@ -33,6 +33,13 @@ namespace ArchUnitNETTests
             .LoadAssemblies(typeof(TypeDependencyNamespace.BaseClass).Assembly)
             .Build();
 
+        public static readonly Architecture LoaderTestArchitecture = new ArchLoader()
+            .LoadAssemblies(
+                typeof(LoaderTestAssembly.LoaderTestAssembly).Assembly,
+                typeof(OtherLoaderTestAssembly.OtherLoaderTestAssembly).Assembly
+            )
+            .Build();
+
         public static readonly Architecture VisibilityArchitecture = new ArchLoader()
             .LoadAssemblies(typeof(VisibilityNamespace.PublicClass).Assembly)
             .Build();
