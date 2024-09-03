@@ -1,0 +1,25 @@
+﻿===== No violations =====
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should exist
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should exist
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that have full name "NotTheNameOfAnyObject" should exist
+Result: False
+Description: There are no objects matching the criteria
+Message: 
+"Types that have full name "NotTheNameOfAnyObject" should exist" failed:
+	There are no objects matching the criteria
+
+
+
