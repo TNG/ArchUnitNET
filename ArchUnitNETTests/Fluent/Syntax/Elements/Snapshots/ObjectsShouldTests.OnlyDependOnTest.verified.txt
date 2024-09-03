@@ -141,11 +141,14 @@ Message:
 
 ===== Type outside of architecture =====
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should only depend on "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on "AttributeNamespace.ClassWithoutAttributes"
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and System.Runtime.CompilerServices.NullableContextAttribute and System.Runtime.CompilerServices.NullableAttribute and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
 Message: 
-All Evaluations passed
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on "AttributeNamespace.ClassWithoutAttributes"" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and System.Runtime.CompilerServices.NullableContextAttribute and System.Runtime.CompilerServices.NullableAttribute and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+
+
 
 ===== Empty arguments =====
 

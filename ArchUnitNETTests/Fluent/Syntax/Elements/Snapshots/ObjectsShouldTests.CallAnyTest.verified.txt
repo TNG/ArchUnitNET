@@ -176,7 +176,7 @@ Message:
 
 
 
-===== Multiple inputs =====
+===== Input with multiple dependencies =====
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass...
 Result: True

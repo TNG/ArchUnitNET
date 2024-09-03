@@ -2890,7 +2890,7 @@ public class ObjectsShouldTests
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
         should
             .OnlyDependOn(typeof(AttributeNamespace.ClassWithoutAttributes))
-            .AssertNoViolations(helper);
+            .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
