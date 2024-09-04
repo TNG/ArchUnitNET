@@ -26,6 +26,19 @@ namespace ArchUnitNETTests.Loader
         }
 
         [Fact]
+        public void SameFullNameInMultipleAssemblies()
+        {
+            var types = LoaderTestArchitecture.Types.Where(type =>
+                type.Namespace.FullName == "DuplicateClassAcrossAssemblies"
+            );
+            Assert.Equal(2, types.Count());
+            Assert.Single(types.Where(type => type.Assembly.Name.StartsWith("LoaderTestAssembly")));
+            Assert.Single(
+                types.Where(type => type.Assembly.Name.StartsWith("OtherLoaderTestAssembly"))
+            );
+        }
+
+        [Fact]
         public void LoadAssembliesIncludingRecursiveDependencies()
         {
             var archUnitNetTestArchitectureWithRecursiveDependencies = new ArchLoader()

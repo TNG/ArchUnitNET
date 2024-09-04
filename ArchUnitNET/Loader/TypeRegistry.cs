@@ -23,8 +23,12 @@ namespace ArchUnitNET.Loader
             [NotNull] Func<string, ITypeInstance<IType>> createFunc
         )
         {
+            var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                typeReference.Module.Assembly.FullName,
+                typeReference.BuildFullName()
+            );
             return RegistryUtils.GetFromDictOrCreateAndAdd(
-                typeReference.BuildFullName(),
+                assemblyQualifiedName,
                 _allTypes,
                 createFunc
             );
