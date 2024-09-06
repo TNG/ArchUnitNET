@@ -20,6 +20,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.MSTestV2", "Arc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.MSTestV2Tests", "ArchUnitNET.MSTestV2Tests\ArchUnitNET.MSTestV2Tests.csproj", "{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestAssemblies", "TestAssemblies", "{B1191F18-91CB-4387-B775-A5EB64D3AC30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyAssembly", "TestAssemblies\DependencyAssembly\DependencyAssembly.csproj", "{10A70A38-A18D-4FA8-AF25-2B25B3D60BE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttributeAssembly", "TestAssemblies\AttributeAssembly\AttributeAssembly.csproj", "{FB457140-47B4-4B20-8505-BA9BFC73C705}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisibilityAssembly", "TestAssemblies\VisibilityAssembly\VisibilityAssembly.csproj", "{FBCD91F2-4DB9-44AC-8214-6F2FFF9178D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoaderTestAssembly", "TestAssemblies\LoaderTestAssembly\LoaderTestAssembly.csproj", "{0243F2D4-AC89-4561-A936-D647B6BB821F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherLoaderTestAssembly", "TestAssemblies\OtherLoaderTestAssembly\OtherLoaderTestAssembly.csproj", "{5A24529B-1794-4080-ADCC-77440BA0A0B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,8 +74,35 @@ Global
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D6B6EFE-DA0B-4C4D-B710-FA658F0C68CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10A70A38-A18D-4FA8-AF25-2B25B3D60BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10A70A38-A18D-4FA8-AF25-2B25B3D60BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10A70A38-A18D-4FA8-AF25-2B25B3D60BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10A70A38-A18D-4FA8-AF25-2B25B3D60BE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB457140-47B4-4B20-8505-BA9BFC73C705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB457140-47B4-4B20-8505-BA9BFC73C705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB457140-47B4-4B20-8505-BA9BFC73C705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB457140-47B4-4B20-8505-BA9BFC73C705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBCD91F2-4DB9-44AC-8214-6F2FFF9178D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBCD91F2-4DB9-44AC-8214-6F2FFF9178D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBCD91F2-4DB9-44AC-8214-6F2FFF9178D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBCD91F2-4DB9-44AC-8214-6F2FFF9178D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0243F2D4-AC89-4561-A936-D647B6BB821F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0243F2D4-AC89-4561-A936-D647B6BB821F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0243F2D4-AC89-4561-A936-D647B6BB821F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0243F2D4-AC89-4561-A936-D647B6BB821F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A24529B-1794-4080-ADCC-77440BA0A0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A24529B-1794-4080-ADCC-77440BA0A0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A24529B-1794-4080-ADCC-77440BA0A0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A24529B-1794-4080-ADCC-77440BA0A0B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{10A70A38-A18D-4FA8-AF25-2B25B3D60BE6} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
+		{FB457140-47B4-4B20-8505-BA9BFC73C705} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
+		{FBCD91F2-4DB9-44AC-8214-6F2FFF9178D5} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
+		{0243F2D4-AC89-4561-A936-D647B6BB821F} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
+		{5A24529B-1794-4080-ADCC-77440BA0A0B3} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
 	EndGlobalSection
 EndGlobal

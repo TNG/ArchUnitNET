@@ -25,6 +25,25 @@ namespace ArchUnitNETTests
             .LoadAssemblies(typeof(BaseClass).Assembly)
             .Build();
 
+        public static readonly Architecture AttributeArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(AttributeNamespace.ClassWithoutAttributes).Assembly)
+            .Build();
+
+        public static readonly Architecture DependencyArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(TypeDependencyNamespace.BaseClass).Assembly)
+            .Build();
+
+        public static readonly Architecture LoaderTestArchitecture = new ArchLoader()
+            .LoadAssemblies(
+                typeof(LoaderTestAssembly.LoaderTestAssembly).Assembly,
+                typeof(OtherLoaderTestAssembly.OtherLoaderTestAssembly).Assembly
+            )
+            .Build();
+
+        public static readonly Architecture VisibilityArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(VisibilityNamespace.PublicClass).Assembly)
+            .Build();
+
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture = new ArchLoader()
             .LoadAssemblies(typeof(Class1).Assembly)
             .Build();

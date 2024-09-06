@@ -1,0 +1,20 @@
+﻿===== No violations =====
+
+Query: Types that depend on "TypeDependencyNamespace.ChildClass" should not exist
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not exist
+Result: False
+Description: TypeDependencyNamespace.ChildClass does exist
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass does exist
+Message: 
+"Types that depend on "TypeDependencyNamespace.BaseClass" should not exist" failed:
+	TypeDependencyNamespace.ChildClass does exist
+	TypeDependencyNamespace.OtherChildClass does exist
+
+
+

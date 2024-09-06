@@ -1,0 +1,19 @@
+﻿===== No violations =====
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes that have full name "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes that have full name "AttributeNamespace.UnusedAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes that have full name "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
+
+
+

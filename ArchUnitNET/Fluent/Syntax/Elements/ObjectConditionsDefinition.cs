@@ -374,12 +374,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         )
         {
             var patternList = patterns.ToList();
-
-            bool Condition(TRuleType ruleType)
+            bool Condition(TRuleType ruleType, Architecture architecture)
             {
-                return !ruleType.GetTypeDependencies().IsNullOrEmpty()
+                return !ruleType.GetTypeDependencies(architecture).IsNullOrEmpty()
                     && ruleType
-                        .GetTypeDependencies()
+                        .GetTypeDependencies(architecture)
                         .Any(target =>
                             patternList.Any(pattern =>
                                 target.FullNameMatches(pattern, useRegularExpressions)
@@ -421,7 +420,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     );
             }
 
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> DependOnAny(IType firstType, params IType[] moreTypes)
@@ -1943,7 +1942,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -2034,7 +2033,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -2136,7 +2135,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -3742,7 +3741,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -3833,7 +3832,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -3935,7 +3934,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }

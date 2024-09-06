@@ -111,10 +111,17 @@ namespace ArchUnitNET.Loader
                 .ForEach(typeDefinition =>
                 {
                     var type = _typeFactory.GetOrCreateTypeFromTypeReference(typeDefinition);
-                    if (!_architectureTypes.ContainsKey(type.FullName) && !type.IsCompilerGenerated)
+                    var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                        module.Assembly.Name.Name,
+                        typeDefinition.FullName
+                    );
+                    if (
+                        !_architectureTypes.ContainsKey(assemblyQualifiedName)
+                        && !type.IsCompilerGenerated
+                    )
                     {
                         currentTypes.Add(type);
-                        _architectureTypes.Add(type.FullName, type);
+                        _architectureTypes.Add(assemblyQualifiedName, type);
                     }
                 });
 
