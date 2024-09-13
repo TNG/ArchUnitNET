@@ -139,6 +139,15 @@ Message:
 
 
 
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "System.Diagnostics.CodeAnalysis.NotNullAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithAttributes does not have attribute "System.Diagnostics.CodeAnalysis.NotNullAttribute"
+Message: 
+"Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "System.Diagnostics.CodeAnalysis.NotNullAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have attribute "System.Diagnostics.CodeAnalysis.NotNullAttribute"
+
+
+
 ===== Empty arguments =====
 
 Query: Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)
@@ -210,6 +219,18 @@ Message:
 All Evaluations passed
 
 Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any Attributes that are "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any attribute with full name "NotTheNameOfAnyObject" or "AttributeNamespace.Attribute1"
+Result: True
+Description: AttributeNamespace.ClassWithAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "System.Diagnostics.CodeAnalysis.NotNullAttribute" or "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 

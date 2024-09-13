@@ -790,6 +790,7 @@ public class ObjectsShouldTests
         should = Types().That().Are(helper.ClassWithAttributes).Should();
         should.HaveAnyAttributes(helper.NonExistentObjectName).AssertOnlyViolations(helper);
         should.HaveAnyAttributes([helper.NonExistentObjectName]).AssertOnlyViolations(helper);
+        should.HaveAnyAttributes(typeof(NotNullAttribute)).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithAttributes).Should();
@@ -819,6 +820,12 @@ public class ObjectsShouldTests
             .AssertNoViolations(helper);
         should
             .HaveAnyAttributes(Attributes().That().Are(helper.Attribute1, helper.UnusedAttribute))
+            .AssertNoViolations(helper);
+        should
+            .HaveAnyAttributes([helper.NonExistentObjectName, helper.Attribute1.FullName])
+            .AssertNoViolations(helper);
+        should
+            .HaveAnyAttributes(typeof(NotNullAttribute), helper.Attribute1SystemType)
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");

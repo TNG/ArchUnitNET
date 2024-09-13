@@ -4,14 +4,14 @@
 //
 // 	SPDX-License-Identifier: Apache-2.0
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using static ArchUnitNET.Domain.Visibility;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
@@ -1086,9 +1086,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var archAttributeList = attributeList
-                    .Select(architecture.GetAttributeOfType)
-                    .ToList();
+                var archAttributeList = attributeList.Select(type =>
+                {
+                    Attribute attribute;
+                    try
+                    {
+                        attribute = architecture.GetAttributeOfType(type);
+                    }
+                    catch (TypeDoesNotExistInArchitecture)
+                    {
+                        attribute = null;
+                    }
+                    return attribute;
+                }).ToList();
                 var ruleTypeList = ruleTypes.ToList();
                 var passedObjects = ruleTypeList
                     .Where(type => type.Attributes.Intersect(archAttributeList).Any())
@@ -1594,7 +1604,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -1675,7 +1685,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -1767,7 +1777,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -1949,7 +1959,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -2040,7 +2050,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -2142,7 +2152,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return true;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -3391,7 +3401,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -3472,7 +3482,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -3564,7 +3574,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -3748,7 +3758,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -3839,7 +3849,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
@@ -3941,7 +3951,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     }
 
                     return false;
-                    NextAttribute:
+                NextAttribute:
                     ;
                 }
 
