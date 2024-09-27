@@ -175,9 +175,16 @@ namespace ArchUnitNET.Loader.LoadTasks
             IEnumerable<CustomAttribute> customAttributes
         )
         {
-            return customAttributes.Select(attr =>
-                attr.CreateAttributeFromCustomAttribute(_typeFactory)
-            );
+            return customAttributes
+                .Where(customAttribute =>
+                    customAttribute.AttributeType.FullName
+                        != "Microsoft.CodeAnalysis.EmbeddedAttribute"
+                    && customAttribute.AttributeType.FullName
+                        != "System.Runtime.CompilerServices.NullableAttribute"
+                    && customAttribute.AttributeType.FullName
+                        != "System.Runtime.CompilerServices.NullableContextAttribute"
+                )
+                .Select(attr => attr.CreateAttributeFromCustomAttribute(_typeFactory));
         }
 
         [NotNull]
