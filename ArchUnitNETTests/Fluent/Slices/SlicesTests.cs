@@ -97,6 +97,72 @@ namespace ArchUnitNETTests.Fluent.Slices
         }
 
         [Fact]
+        public void MatchingRegexTest()
+        {
+            Assert.True(
+                SliceRuleDefinition
+                    .Slices()
+                    .MatchingRegex(@"(?:[^\.]*\.){2}([^\.]+).*", true)
+                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .ToList().Count > 5
+            );
+
+            Assert.False(
+                SliceRuleDefinition
+                    .Slices()
+                    .MatchingRegex(@"TestAssembly\.Slices\.([^\.]+).*", true)
+                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .ToList()
+                    .Select(slice => slice.Identifier.Identifier)
+                    .Select(identifier => identifier.Contains("."))
+                    .Aggregate(false, (a, b) => a||b)
+            );
+
+            Assert.DoesNotContain("TestAssembly.Slices.Slice1", 
+                SliceRuleDefinition
+                    .Slices()
+                    .MatchingRegex(@"TestAssembly\.Slices\.(?!Slice1)([^\.]+).*")
+                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .ToList()
+                    .Select(slice => slice.Identifier.Identifier)
+            );
+        }
+
+        [Fact]
+        public void WhereTest()
+        {
+            Assert.True(
+                SliceRuleDefinition
+                    .Slices()
+                    .Matching("TestAssembly.Slices.Slice3.(*)")
+                    .Where(slice => slice.Identifier.Identifier.Contains("Group1"))
+                    .Where(slice => true)
+                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Count() == 1
+            );
+
+            SliceRuleDefinition
+                .Slices()
+                .Matching("TestAssembly.Slices.(**)")
+                .Where(slice => !slice.Identifier.Identifier.Contains("Slice3"))
+                .Where(slice => !slice.Identifier.Identifier.Contains("Slice2"))
+                .Should()
+                .NotDependOnEachOther()
+                .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
+
+            Assert.True(
+                SliceRuleDefinition
+                    .Slices()
+                    .Matching("TestAssembly.Slices.(**)")
+                    .Where(slice => !slice.Identifier.Identifier.Contains("Slice3"))
+                    .Where(slice => !slice.Identifier.Identifier.Contains("Slice2"))
+                    .Should()
+                    .NotDependOnEachOther()
+                    .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+            );
+        }
+
+        [Fact]
         public void NotDependOnEachOtherTest()
         {
             SliceRuleDefinition

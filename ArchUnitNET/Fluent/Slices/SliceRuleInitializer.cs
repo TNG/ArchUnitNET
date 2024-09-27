@@ -6,6 +6,7 @@
 //
 
 using System;
+using System.Text.RegularExpressions;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Slices
@@ -17,6 +18,58 @@ namespace ArchUnitNET.Fluent.Slices
         public SliceRuleInitializer(SliceRuleCreator ruleCreator)
         {
             _ruleCreator = ruleCreator;
+        }
+
+        /// <summary></summary>
+        /// <param name="pattern">
+        ///     Fullname is matched with regex.
+        ///     Non matching Types are Ignored
+        ///     Others are grouped by capture groups (append all captures to identifier string)
+        /// </param>
+        /// <param name="match_namespace">
+        ///     If true namespace fullname is matched.
+        ///     Otherwise fullname of Type/Object is matched.
+        /// </param>
+        /// <returns></returns>
+
+        public GivenSlices MatchingRegex(
+            string pattern,
+            bool match_namespace = false
+        )
+        {
+            _ruleCreator.SetSliceAssignment(
+                new SliceAssignment(
+                    t =>
+                    {
+                        var match = Regex.Match(match_namespace ? t.Namespace.FullName : t.FullName, pattern);
+                        if (!match.Success) return SliceIdentifier.Ignore();
+
+                        string sliceName = "";
+                        if (match.Groups.Count == 1)
+                        {
+                            sliceName += match.Value;
+                        }
+                        for (int i = 1; i < match.Groups.Count; i++)
+                        {
+                            if(match.Groups[i].Captures.Count == 1)
+                            {
+                                sliceName += match.Groups[i];
+                            }
+                            else
+                            {
+                                for(int j = 0; j < match.Groups[i].Captures.Count; j++)
+                                {
+                                    sliceName += match.Groups[i].Captures[j];
+                                }
+                            }
+                        }
+
+                        return SliceIdentifier.Of(sliceName, null);
+                    },
+                    "matching \"" + pattern + "\""
+                )
+            );
+            return new GivenSlices(_ruleCreator);
         }
 
         /// <summary>
