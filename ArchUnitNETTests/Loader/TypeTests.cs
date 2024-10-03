@@ -4,6 +4,7 @@
 //
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
@@ -121,6 +122,17 @@ namespace ArchUnitNETTests.Loader
         public void NotAssignableToNull()
         {
             Assert.False(_type.IsAssignableTo(null));
+        }
+
+        [Fact]
+        public void TypesAreNotLoadedFromMultipleAssemblies()
+        {
+            var booleanType = _architecture
+                .Types.Concat(_architecture.ReferencedTypes)
+                .Where(type => type.FullName == "System.Boolean")
+                .ToList();
+            Assert.Single(booleanType);
+            Assert.False(booleanType.First().Assembly.Name.StartsWith("ArchUnitNET"));
         }
     }
 
