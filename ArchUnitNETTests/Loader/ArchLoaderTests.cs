@@ -6,8 +6,10 @@
 
 using System.Linq;
 using ArchUnitNET.Loader;
+using ArchUnitNET.xUnit;
 using ArchUnitNETTests.Domain.Dependencies.Members;
 using Xunit;
+using static ArchUnitNET.Fluent.ArchRuleDefinition;
 using static ArchUnitNETTests.StaticTestArchitectures;
 
 namespace ArchUnitNETTests.Loader
@@ -81,6 +83,20 @@ namespace ArchUnitNETTests.Loader
                 .Build();
 
             Assert.Single(architecture.Assemblies);
+        }
+
+        [Fact]
+        public void TypesAreAssignedToCorrectAssemblies()
+        {
+            // https://github.com/TNG/ArchUnitNET/issues/302
+            var architecture = FullArchUnitNETArchitecture;
+            Types()
+                .That()
+                .ResideInAssembly(architecture.GetType().Assembly)
+                .Should()
+                .NotDependOnAnyTypesThat()
+                .ResideInAssembly(GetType().Assembly)
+                .Check(architecture);
         }
     }
 }
