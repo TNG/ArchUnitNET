@@ -12,31 +12,37 @@ namespace ArchUnitNET.Domain
 {
     public class Architecture
     {
-        private readonly IEnumerable<Assembly> _allAssemblies;
+        private readonly List<Assembly> _assemblies;
+        private readonly List<Namespace> _namespaces;
+        private readonly List<IType> _types;
+        private readonly List<GenericParameter> _genericParameters;
+        private readonly List<IType> _referencedTypes;
+        private readonly List<IMember> _members;
         private readonly ObjectProviderCache _objectProviderCache;
 
         public Architecture(
-            IEnumerable<Assembly> allAssemblies,
-            IEnumerable<Namespace> namespaces,
-            IEnumerable<IType> types,
-            IEnumerable<GenericParameter> genericParameters,
-            IEnumerable<IType> referencedTypes
+            List<Assembly> assemblies,
+            List<Namespace> namespaces,
+            List<IType> types,
+            List<GenericParameter> genericParameters,
+            List<IType> referencedTypes
         )
         {
-            _allAssemblies = allAssemblies;
-            Namespaces = namespaces;
-            Types = types;
-            GenericParameters = genericParameters;
-            ReferencedTypes = referencedTypes;
+            _assemblies = assemblies;
+            _namespaces = namespaces;
+            _types = types;
+            _genericParameters = genericParameters;
+            _referencedTypes = referencedTypes;
+            _members = types.SelectMany(type => type.Members).ToList();
             _objectProviderCache = new ObjectProviderCache(this);
         }
 
         public IEnumerable<Assembly> Assemblies =>
-            _allAssemblies.Where(assembly => !assembly.IsOnlyReferenced);
-        public IEnumerable<Namespace> Namespaces { get; }
-        public IEnumerable<IType> Types { get; }
-        public IEnumerable<GenericParameter> GenericParameters { get; }
-        public IEnumerable<IType> ReferencedTypes { get; }
+            _assemblies.Where(assembly => !assembly.IsOnlyReferenced);
+        public IEnumerable<Namespace> Namespaces => _namespaces;
+        public IEnumerable<IType> Types => _types;
+        public IEnumerable<GenericParameter> GenericParameters => _genericParameters;
+        public IEnumerable<IType> ReferencedTypes => _referencedTypes;
         public IEnumerable<Class> Classes => Types.OfType<Class>();
         public IEnumerable<Interface> Interfaces => Types.OfType<Interface>();
         public IEnumerable<Attribute> Attributes => Types.OfType<Attribute>();
@@ -48,7 +54,7 @@ namespace ArchUnitNET.Domain
         public IEnumerable<PropertyMember> PropertyMembers => Members.OfType<PropertyMember>();
         public IEnumerable<FieldMember> FieldMembers => Members.OfType<FieldMember>();
         public IEnumerable<MethodMember> MethodMembers => Members.OfType<MethodMember>();
-        public IEnumerable<IMember> Members => Types.SelectMany(type => type.Members);
+        public IEnumerable<IMember> Members => _members;
 
         public IEnumerable<T> GetOrCreateObjects<T>(
             IObjectProvider<T> objectProvider,

@@ -15,8 +15,8 @@ namespace ArchUnitNET.Domain
     {
         public TypeInstance(
             T type,
-            IEnumerable<GenericArgument> genericArguments,
-            IEnumerable<int> arrayDimensions
+            List<GenericArgument> genericArguments,
+            List<int> arrayDimensions
         )
         {
             Type = type;
@@ -25,11 +25,11 @@ namespace ArchUnitNET.Domain
             IsArray = ArrayDimensions.Any();
         }
 
-        public TypeInstance(T type, IEnumerable<GenericArgument> genericArguments)
-            : this(type, genericArguments, Enumerable.Empty<int>()) { }
+        public TypeInstance(T type, List<GenericArgument> genericArguments)
+            : this(type, genericArguments, new List<int>()) { }
 
         public TypeInstance(T type)
-            : this(type, Enumerable.Empty<GenericArgument>()) { }
+            : this(type, new List<GenericArgument>()) { }
 
         public T Type { get; }
         public IEnumerable<GenericArgument> GenericArguments { get; }

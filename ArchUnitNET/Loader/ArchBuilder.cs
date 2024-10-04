@@ -169,11 +169,11 @@ namespace ArchUnitNET.Loader
             var referencedTypes = allTypes.Except(Types).Except(genericParameters);
             var namespaces = Namespaces.Where(ns => ns.Types.Any());
             var newArchitecture = new Architecture(
-                Assemblies,
-                namespaces,
-                Types,
+                Assemblies.ToList(),
+                namespaces.ToList(),
+                Types.ToList(),
                 genericParameters,
-                referencedTypes
+                referencedTypes.ToList()
             );
             _architectureCache.Add(_architectureCacheKey, newArchitecture);
             return newArchitecture;
