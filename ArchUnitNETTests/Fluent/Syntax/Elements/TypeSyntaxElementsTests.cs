@@ -144,17 +144,17 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var falseTypeList1 = new List<Type>
             {
                 typeof(PublicTestClass),
-                typeof(InternalTestClass)
+                typeof(InternalTestClass),
             };
             var falseTypeList2 = new List<IType>
             {
                 StaticTestTypes.PublicTestClass,
-                StaticTestTypes.InternalTestClass
+                StaticTestTypes.InternalTestClass,
             };
             var falseTypeListPattern = new List<string>
             {
                 StaticTestTypes.PublicTestClass.FullName,
-                StaticTestTypes.InternalTestClass.FullName
+                StaticTestTypes.InternalTestClass.FullName,
             };
             foreach (var type in _types)
             {
@@ -354,7 +354,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var typeList2 = new List<IType>
             {
                 StaticTestTypes.PublicTestClass,
-                StaticTestTypes.InternalTestClass
+                StaticTestTypes.InternalTestClass,
             };
 
             Classes()

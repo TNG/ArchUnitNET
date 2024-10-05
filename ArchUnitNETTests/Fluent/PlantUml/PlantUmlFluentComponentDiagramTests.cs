@@ -35,7 +35,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             new PlantUmlDependency("f", "g", DependencyType.PackageToOne),
             new PlantUmlDependency("g", "h", DependencyType.PackageToPackage),
             new PlantUmlDependency("h", "i", DependencyType.OneToOneCompact),
-            new PlantUmlDependency("i", "a", DependencyType.OneToOneIfSameParentNamespace)
+            new PlantUmlDependency("i", "a", DependencyType.OneToOneIfSameParentNamespace),
         };
 
         [Fact]
@@ -185,7 +185,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
                 "g -[#green]> h",
                 "[h] --> [i]",
                 "i --|> a",
-                "@enduml"
+                "@enduml",
             };
             ComponentDiagram()
                 .WithElements(Dependencies.Concat(classesWithoutDependencies))

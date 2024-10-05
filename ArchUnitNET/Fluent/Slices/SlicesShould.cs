@@ -74,7 +74,7 @@ namespace ArchUnitNET.Fluent.Slices
                             {
                                 var depsFromThisSliceToOtherSlice = new List<string>
                                 {
-                                    slice.Description + " -> " + otherSlice.Description
+                                    slice.Description + " -> " + otherSlice.Description,
                                 };
                                 depsFromThisSliceToOtherSlice.AddRange(
                                     depsToSlice.Select(dependency =>

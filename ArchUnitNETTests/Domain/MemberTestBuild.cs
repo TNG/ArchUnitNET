@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Domain
                 Architecture
                     .GetClassOfType(originType)
                     .GetMembersWithName(memberName)
-                    .SingleOrDefault()
+                    .SingleOrDefault(),
             };
         }
 
@@ -43,7 +43,7 @@ namespace ArchUnitNETTests.Domain
                 BuildOriginMemberTestData(
                     typeof(ClassWithPropertyA),
                     nameof(ClassWithPropertyA.PropertyA)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()

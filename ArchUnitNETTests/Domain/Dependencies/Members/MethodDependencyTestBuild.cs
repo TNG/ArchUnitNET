@@ -86,7 +86,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     nameof(ClassWithMethodB.MethodB).BuildMethodMemberName(),
                     typeof(ClassWithMethodA),
                     nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -127,7 +127,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     nameof(ClassWithMethodB.MethodB).BuildMethodMemberName(),
                     typeof(ClassWithMethodA),
                     nameof(ClassWithMethodA.MethodA).BuildMethodMemberName()
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -163,7 +163,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                         typeof(ClassWithMethodSignatureB)
                     ),
                     typeof(ClassWithMethodSignatureB)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -189,7 +189,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 ),
                 ClassDependenciesIncludeMemberDependenciesBuild.BuildClassTestData(
                     typeof(ClassWithConstructors)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()

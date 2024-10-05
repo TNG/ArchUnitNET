@@ -11,6 +11,6 @@ namespace ArchUnitNET.Domain
         Constructor,
         Getter,
         Setter,
-        Normal
+        Normal,
     }
 }
