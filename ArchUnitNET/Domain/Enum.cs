@@ -22,6 +22,7 @@ namespace ArchUnitNET.Domain
         public IType Type { get; }
         public string Name => Type.Name;
         public string FullName => Type.FullName;
+        public string AssemblyQualifiedName => Type.AssemblyQualifiedName;
 
         [CanBeNull]
         public Class BaseClass =>

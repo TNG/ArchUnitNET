@@ -29,6 +29,10 @@ namespace ArchUnitNET.Domain
         {
             Name = name;
             FullName = fullName;
+            AssemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                declaringType.Assembly.FullName,
+                fullName
+            );
             DeclaringType = declaringType;
             Visibility = visibility;
             ReturnTypeInstance = returnTypeInstance;
@@ -71,8 +75,11 @@ namespace ArchUnitNET.Domain
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
 
+        public Assembly Assembly => DeclaringType.Assembly;
+        public Namespace Namespace => DeclaringType.Namespace;
         public string Name { get; }
         public string FullName { get; }
+        public string AssemblyQualifiedName { get; }
         public IType DeclaringType { get; }
 
         public override string ToString()
