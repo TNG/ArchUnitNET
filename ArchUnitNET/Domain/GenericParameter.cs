@@ -60,6 +60,11 @@ namespace ArchUnitNET.Domain
 
         public string Name { get; }
         public string FullName => _declarerFullName + "+<" + Name + ">";
+        public string AssemblyQualifiedName =>
+            System.Reflection.Assembly.CreateQualifiedName(
+                DeclaringType.Assembly.FullName,
+                FullName
+            );
         public bool IsCompilerGenerated { get; }
         public IEnumerable<Attribute> Attributes =>
             AttributeInstances.Select(instance => instance.Type);

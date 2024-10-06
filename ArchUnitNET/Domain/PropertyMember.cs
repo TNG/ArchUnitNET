@@ -28,6 +28,10 @@ namespace ArchUnitNET.Domain
         {
             Name = name;
             FullName = fullName;
+            AssemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                declaringType.Assembly.FullName,
+                fullName
+            );
             _typeInstance = type;
             DeclaringType = declaringType;
             IsCompilerGenerated = isCompilerGenerated;
@@ -60,10 +64,13 @@ namespace ArchUnitNET.Domain
 
         public List<GenericParameter> GenericParameters => new List<GenericParameter>();
 
+        public Assembly Assembly => DeclaringType.Assembly;
+        public Namespace Namespace => DeclaringType.Namespace;
         public Visibility Visibility =>
             GetterVisibility < SetterVisibility ? GetterVisibility : SetterVisibility;
         public string Name { get; }
         public string FullName { get; }
+        public string AssemblyQualifiedName { get; }
         public IType DeclaringType { get; }
         public IEnumerable<Attribute> Attributes =>
             AttributeInstances.Select(instance => instance.Type);

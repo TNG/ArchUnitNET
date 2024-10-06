@@ -28,6 +28,10 @@ namespace ArchUnitNET.Loader
         {
             FullName = fullname;
             Name = name;
+            AssemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                assembly?.FullName ?? string.Empty,
+                fullname
+            );
             Assembly = assembly;
             Namespace = namespc;
             Visibility = visibility;
@@ -42,6 +46,8 @@ namespace ArchUnitNET.Loader
         public string Name { get; }
 
         public string FullName { get; }
+
+        public string AssemblyQualifiedName { get; }
 
         public Namespace Namespace { get; }
 
