@@ -64,7 +64,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             Assert.Contains(expectedDependency, originMember.GetMethodCallDependencies());
         }
 
-        [Theory]
+        [SkipInReleaseBuildTheory]
         [ClassData(typeof(MethodDependencyTestBuild.MethodCallDependencyInAsyncMethodTestData))]
         public void MethodCallDependenciesAreFoundInAsyncMethod(
             IMember originMember,
