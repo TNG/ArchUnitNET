@@ -26,6 +26,7 @@ namespace ArchUnitNET.Loader
         private readonly MethodMemberRegistry _methodMemberRegistry;
         private readonly NamespaceRegistry _namespaceRegistry;
         private readonly TypeRegistry _typeRegistry;
+        private readonly Dictionary<string, IType> _allTypes = new Dictionary<string, IType>();
 
         public TypeFactory(
             TypeRegistry typeRegistry,
@@ -50,12 +51,7 @@ namespace ArchUnitNET.Loader
         [NotNull]
         internal IType GetOrCreateTypeFromTypeReference(TypeReference typeReference)
         {
-            return _typeRegistry
-                .GetOrCreateTypeFromTypeReference(
-                    typeReference,
-                    s => CreateTypeFromTypeReference(typeReference, false)
-                )
-                .Type;
+            return GetOrCreateTypeInstanceFromTypeReference(typeReference, false).Type;
         }
 
         [NotNull]
@@ -63,9 +59,17 @@ namespace ArchUnitNET.Loader
             TypeReference typeReference
         )
         {
+            return GetOrCreateTypeInstanceFromTypeReference(typeReference, true);
+        }
+
+        private ITypeInstance<IType> GetOrCreateTypeInstanceFromTypeReference(
+            TypeReference typeReference,
+            bool isStub
+        )
+        {
             return _typeRegistry.GetOrCreateTypeFromTypeReference(
                 typeReference,
-                s => CreateTypeFromTypeReference(typeReference, true)
+                s => CreateTypeFromTypeReference(typeReference, isStub)
             );
         }
 
@@ -103,6 +107,11 @@ namespace ArchUnitNET.Loader
             bool isStub
         )
         {
+            if (typeReference is TypeDefinition t)
+            {
+                return CreateTypeInstanceFromTypeDefinition(t, isStub);
+            }
+
             if (typeReference.IsGenericParameter)
             {
                 var genericParameter = (Mono.Cecil.GenericParameter)typeReference;
@@ -133,45 +142,11 @@ namespace ArchUnitNET.Loader
                 var elementTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(
                     typeReference
                 );
-                switch (elementTypeInstance.Type)
-                {
-                    case Interface intf:
-                        return new TypeInstance<Interface>(
-                            intf,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Attribute att:
-                        return new TypeInstance<Attribute>(
-                            att,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Class cls:
-                        return new TypeInstance<Class>(
-                            cls,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Struct str:
-                        return new TypeInstance<Struct>(
-                            str,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Enum en:
-                        return new TypeInstance<Enum>(
-                            en,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    default:
-                        return new TypeInstance<IType>(
-                            elementTypeInstance.Type,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                }
+                return CreateTypeInstance(
+                    elementTypeInstance.Type,
+                    elementTypeInstance.GenericArguments.ToList(),
+                    dimensions
+                );
             }
 
             if (typeReference.IsGenericInstance)
@@ -182,22 +157,9 @@ namespace ArchUnitNET.Loader
                 var genericInstance = (GenericInstanceType)typeReference;
                 var genericArguments = genericInstance
                     .GenericArguments.Select(CreateGenericArgumentFromTypeReference)
-                    .Where(argument => !argument.Type.IsCompilerGenerated);
-                switch (elementType)
-                {
-                    case Interface intf:
-                        return new TypeInstance<Interface>(intf, genericArguments);
-                    case Attribute att:
-                        return new TypeInstance<Attribute>(att, genericArguments);
-                    case Class cls:
-                        return new TypeInstance<Class>(cls, genericArguments);
-                    case Struct str:
-                        return new TypeInstance<Struct>(str, genericArguments);
-                    case Enum en:
-                        return new TypeInstance<Enum>(en, genericArguments);
-                    default:
-                        return new TypeInstance<IType>(elementType, genericArguments);
-                }
+                    .Where(argument => !argument.Type.IsCompilerGenerated)
+                    .ToList();
+                return CreateTypeInstance(elementType, genericArguments, new List<int>());
             }
 
             if (
@@ -207,7 +169,10 @@ namespace ArchUnitNET.Loader
                 || typeReference.IsRequiredModifier
             )
             {
-                return CreateTypeFromTypeReference(typeReference.GetElementType(), isStub);
+                return GetOrCreateTypeInstanceFromTypeReference(
+                    typeReference.GetElementType(),
+                    isStub
+                );
             }
 
             if (typeReference is FunctionPointerType functionPointerType)
@@ -227,35 +192,25 @@ namespace ArchUnitNET.Loader
                     e
                 );
             }
+
             if (typeDefinition == null)
             {
                 throw new ArchLoaderException($"Could not resolve type {typeReference.FullName}");
             }
 
-            var typeName = typeDefinition.BuildFullName();
-            var declaringTypeReference = typeDefinition;
-            while (declaringTypeReference.IsNested)
-            {
-                declaringTypeReference = declaringTypeReference.DeclaringType;
-            }
-
-            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(
-                declaringTypeReference.Namespace
+            return _typeRegistry.GetOrCreateTypeFromTypeReference(
+                typeDefinition,
+                s => CreateTypeInstanceFromTypeDefinition(typeDefinition, isStub)
             );
-            var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(
-                typeDefinition.Module.Assembly.Name.FullName,
-                typeDefinition.Module.Assembly.FullName,
-                true,
-                null
-            );
+        }
 
-            Type type;
-            bool isCompilerGenerated,
-                isNested,
-                isGeneric;
-
+        [NotNull]
+        private ITypeInstance<IType> CreateTypeInstanceFromTypeDefinition(
+            TypeDefinition typeDefinition,
+            bool isStub
+        )
+        {
             const string fixedElementField = "FixedElementField";
-
             if (
                 typeDefinition.CustomAttributes.Any(att =>
                     att.AttributeType.FullName == typeof(UnsafeValueTypeAttribute).FullName
@@ -267,54 +222,44 @@ namespace ArchUnitNET.Loader
                     .FieldType;
                 var arrayTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(arrayType);
                 var dimensions = new List<int> { 1 };
-
-                switch (arrayTypeInstance.Type)
-                {
-                    case Interface intf:
-                        return new TypeInstance<Interface>(
-                            intf,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Attribute att:
-                        return new TypeInstance<Attribute>(
-                            att,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Class cls:
-                        return new TypeInstance<Class>(
-                            cls,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Struct str:
-                        return new TypeInstance<Struct>(
-                            str,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Enum en:
-                        return new TypeInstance<Enum>(
-                            en,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    default:
-                        return new TypeInstance<IType>(
-                            arrayTypeInstance.Type,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                }
+                return CreateTypeInstance(
+                    arrayTypeInstance.Type,
+                    arrayTypeInstance.GenericArguments.ToList(),
+                    dimensions
+                );
             }
 
+            var assemblyFullName = typeDefinition.Module.Assembly.FullName;
+            var fullName = typeDefinition.BuildFullName();
+            // var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+            //     assemblyFullName,
+            //     fullName
+            // );
+            // if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingType))
+            // {
+            //     return CreateTypeInstance(existingType, new List<GenericArgument>(), new List<int>());
+            // }
+            //
+            var declaringTypeReference = typeDefinition;
+            while (declaringTypeReference.IsNested)
+            {
+                declaringTypeReference = declaringTypeReference.DeclaringType;
+            }
+            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(
+                declaringTypeReference.Namespace
+            );
+            var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(
+                assemblyFullName,
+                assemblyFullName,
+                true,
+                null
+            );
             var visibility = typeDefinition.GetVisibility();
-            isCompilerGenerated = typeDefinition.IsCompilerGenerated();
-            isNested = typeDefinition.IsNested;
-            isGeneric = typeDefinition.HasGenericParameters;
-            type = new Type(
-                typeName,
+            var isCompilerGenerated = typeDefinition.IsCompilerGenerated();
+            var isNested = typeDefinition.IsNested;
+            var isGeneric = typeDefinition.HasGenericParameters;
+            var type = new Type(
+                fullName,
                 typeDefinition.Name,
                 currentAssembly,
                 currentNamespace,
@@ -373,7 +318,38 @@ namespace ArchUnitNET.Loader
                 LoadNonBaseTasks(createdTypeInstance.Type, type, typeDefinition);
             }
 
+            // _allTypes.Add(assemblyQualifiedName, createdTypeInstance.Type);
             return createdTypeInstance;
+        }
+
+        [NotNull]
+        private ITypeInstance<IType> CreateTypeInstance(
+            IType type,
+            List<GenericArgument> genericArguments,
+            List<int> arrayDimensions
+        )
+        {
+            switch (type)
+            {
+                case Interface intf:
+                    return new TypeInstance<Interface>(intf, genericArguments, arrayDimensions);
+                case Attribute att:
+                    return new TypeInstance<Attribute>(att, genericArguments, arrayDimensions);
+                case Class cls:
+                    return new TypeInstance<Class>(cls, genericArguments, arrayDimensions);
+                case Struct str:
+                    return new TypeInstance<Struct>(str, genericArguments, arrayDimensions);
+                case Enum en:
+                    return new TypeInstance<Enum>(en, genericArguments, arrayDimensions);
+                case GenericParameter gen:
+                    return new TypeInstance<GenericParameter>(
+                        gen,
+                        genericArguments,
+                        arrayDimensions
+                    );
+                default:
+                    throw new ArgumentException("Subtype of IType not recognized");
+            }
         }
 
         [NotNull]
@@ -549,6 +525,13 @@ namespace ArchUnitNET.Loader
             bool declarerIsMethod
         )
         {
+            if (
+                declarerFullName == "System.Collections.Generic.List`1"
+                && genericParameter.Name == "!0"
+            )
+            {
+                ;
+            }
             var isCompilerGenerated = genericParameter.IsCompilerGenerated();
             var variance = genericParameter.GetVariance();
             var typeConstraints = genericParameter.Constraints.Select(con =>

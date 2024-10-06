@@ -36,6 +36,28 @@ namespace ArchUnitNET.Loader
 
         public IEnumerable<IType> GetAllTypes()
         {
+            // if (
+            //     _allTypes.Values.Select(instance => instance.Type).Count()
+            //     != _allTypes.Values.Select(instance => instance.Type).Distinct().Count()
+            // )
+            // {
+            //     var sorted = _allTypes.Values.GroupBy(instance => instance.Type.FullName).ToList();
+            //     foreach (var group in sorted)
+            //     {
+            //         foreach (var left in group)
+            //         {
+            //             foreach (var right in group)
+            //             {
+            //                 if (!ReferenceEquals(left.Type, right.Type))
+            //                 {
+            //                     throw new InvalidOperationException(
+            //                         $"Type {left.Type.AssemblyQualifiedName} is already registered with a different instance"
+            //                     );
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
             return _allTypes.Values.Select(instance => instance.Type).Distinct();
         }
     }

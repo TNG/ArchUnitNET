@@ -4,6 +4,7 @@
 //
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using Mono.Cecil;
@@ -51,8 +52,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                 _cls,
                 new TypeInstance<Class>(
                     baseClass,
-                    baseType.GenericArguments,
-                    baseType.ArrayDimensions
+                    baseType.GenericArguments.ToList(),
+                    baseType.ArrayDimensions.ToList()
                 )
             );
             _type.Dependencies.Add(dependency);
