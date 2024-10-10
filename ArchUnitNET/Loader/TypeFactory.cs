@@ -133,45 +133,11 @@ namespace ArchUnitNET.Loader
                 var elementTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(
                     typeReference
                 );
-                switch (elementTypeInstance.Type)
-                {
-                    case Interface intf:
-                        return new TypeInstance<Interface>(
-                            intf,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Attribute att:
-                        return new TypeInstance<Attribute>(
-                            att,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Class cls:
-                        return new TypeInstance<Class>(
-                            cls,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Struct str:
-                        return new TypeInstance<Struct>(
-                            str,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Enum en:
-                        return new TypeInstance<Enum>(
-                            en,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    default:
-                        return new TypeInstance<IType>(
-                            elementTypeInstance.Type,
-                            elementTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                }
+                return CreateTypeInstance(
+                    elementTypeInstance.Type,
+                    elementTypeInstance.GenericArguments,
+                    dimensions
+                );
             }
 
             if (typeReference.IsGenericInstance)
@@ -182,22 +148,9 @@ namespace ArchUnitNET.Loader
                 var genericInstance = (GenericInstanceType)typeReference;
                 var genericArguments = genericInstance
                     .GenericArguments.Select(CreateGenericArgumentFromTypeReference)
-                    .Where(argument => !argument.Type.IsCompilerGenerated);
-                switch (elementType)
-                {
-                    case Interface intf:
-                        return new TypeInstance<Interface>(intf, genericArguments);
-                    case Attribute att:
-                        return new TypeInstance<Attribute>(att, genericArguments);
-                    case Class cls:
-                        return new TypeInstance<Class>(cls, genericArguments);
-                    case Struct str:
-                        return new TypeInstance<Struct>(str, genericArguments);
-                    case Enum en:
-                        return new TypeInstance<Enum>(en, genericArguments);
-                    default:
-                        return new TypeInstance<IType>(elementType, genericArguments);
-                }
+                    .Where(argument => !argument.Type.IsCompilerGenerated)
+                    .ToList();
+                return CreateTypeInstance(elementType, genericArguments, new List<int>());
             }
 
             if (
@@ -267,46 +220,11 @@ namespace ArchUnitNET.Loader
                     .FieldType;
                 var arrayTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(arrayType);
                 var dimensions = new List<int> { 1 };
-
-                switch (arrayTypeInstance.Type)
-                {
-                    case Interface intf:
-                        return new TypeInstance<Interface>(
-                            intf,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Attribute att:
-                        return new TypeInstance<Attribute>(
-                            att,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Class cls:
-                        return new TypeInstance<Class>(
-                            cls,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Struct str:
-                        return new TypeInstance<Struct>(
-                            str,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    case Enum en:
-                        return new TypeInstance<Enum>(
-                            en,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                    default:
-                        return new TypeInstance<IType>(
-                            arrayTypeInstance.Type,
-                            arrayTypeInstance.GenericArguments,
-                            dimensions
-                        );
-                }
+                return CreateTypeInstance(
+                    arrayTypeInstance.Type,
+                    arrayTypeInstance.GenericArguments,
+                    dimensions
+                );
             }
 
             var visibility = typeDefinition.GetVisibility();
@@ -374,6 +292,36 @@ namespace ArchUnitNET.Loader
             }
 
             return createdTypeInstance;
+        }
+
+        [NotNull]
+        private ITypeInstance<IType> CreateTypeInstance(
+            IType type,
+            IEnumerable<GenericArgument> genericArguments,
+            IEnumerable<int> arrayDimensions
+        )
+        {
+            switch (type)
+            {
+                case Interface intf:
+                    return new TypeInstance<Interface>(intf, genericArguments, arrayDimensions);
+                case Attribute att:
+                    return new TypeInstance<Attribute>(att, genericArguments, arrayDimensions);
+                case Class cls:
+                    return new TypeInstance<Class>(cls, genericArguments, arrayDimensions);
+                case Struct str:
+                    return new TypeInstance<Struct>(str, genericArguments, arrayDimensions);
+                case Enum en:
+                    return new TypeInstance<Enum>(en, genericArguments, arrayDimensions);
+                case GenericParameter gen:
+                    return new TypeInstance<GenericParameter>(
+                        gen,
+                        genericArguments,
+                        arrayDimensions
+                    );
+                default:
+                    throw new ArgumentException("Subtype of IType not recognized");
+            }
         }
 
         [NotNull]
