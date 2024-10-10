@@ -1,4 +1,6 @@
-﻿namespace AttributeNamespace;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace AttributeNamespace;
 
 public class TypeArgument { };
 
@@ -13,12 +15,12 @@ public class UnusedTypeArgument { }
 [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
 public class Attribute1 : System.Attribute
 {
-    public Attribute1(string parameter1 = "", int parameter2 = -1, System.Type parameter3 = null)
+    public Attribute1(string parameter1 = "", int parameter2 = -1, System.Type? parameter3 = null)
     { }
 
-    public System.Type NamedParameter1 { get; set; }
+    public System.Type? NamedParameter1 { get; set; }
 
-    public string NamedParameter2 { get; set; }
+    public string NamedParameter2 { get; set; } = "";
 
     public int NamedParameter3 { get; set; }
 }
@@ -26,14 +28,14 @@ public class Attribute1 : System.Attribute
 [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
 public class Attribute2 : System.Attribute
 {
-    public Attribute2(System.Type parameter1 = null, string parameter2 = "", int parameter3 = -1)
+    public Attribute2(System.Type? parameter1 = null, string parameter2 = "", int parameter3 = -1)
     { }
 
-    public string OtherNamedParameter1 { get; set; }
+    public string OtherNamedParameter1 { get; set; } = "";
 
     public int OtherNamedParameter2 { get; set; }
 
-    public System.Type OtherNamedParameter3 { get; set; }
+    public System.Type? OtherNamedParameter3 { get; set; }
 }
 
 [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
@@ -41,15 +43,15 @@ public class UnusedAttribute : System.Attribute
 {
     public UnusedAttribute(
         int unusedParameter1 = -1,
-        System.Type unusedParameter2 = null,
+        System.Type? unusedParameter2 = null,
         string unusedParameter3 = ""
     ) { }
 
     public int UnusedNamedParameter1 { get; set; }
 
-    public System.Type UnusedNamedParameter2 { get; set; }
+    public System.Type? UnusedNamedParameter2 { get; set; }
 
-    public string UnusedNamedParameter3 { get; set; }
+    public string UnusedNamedParameter3 { get; set; } = "";
 }
 
 public class ClassWithoutAttributes { }
