@@ -160,7 +160,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -338,7 +338,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -625,7 +625,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -808,7 +808,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }

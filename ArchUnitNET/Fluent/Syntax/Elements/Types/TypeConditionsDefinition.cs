@@ -44,7 +44,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't be equal anyways
                     }
@@ -285,7 +285,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -578,7 +578,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 {
                     archUnitInterface = architecture.GetInterfaceOfType(intf);
                 }
-                catch (TypeDoesNotExistInArchitecture e)
+                catch (TypeDoesNotExistInArchitecture)
                 {
                     //can't have a dependency
                     interfaceNotInArchitecture = true;
@@ -850,7 +850,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't be equal anyways
                     }
@@ -1114,7 +1114,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -1258,7 +1258,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 {
                     archUnitInterface = architecture.GetInterfaceOfType(intf);
                 }
-                catch (TypeDoesNotExistInArchitecture e)
+                catch (TypeDoesNotExistInArchitecture)
                 {
                     //can't have a dependency
                     interfaceNotInArchitecture = true;

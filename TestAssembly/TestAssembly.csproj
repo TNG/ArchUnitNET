@@ -4,6 +4,7 @@
         <LangVersion>Latest</LangVersion>
         <IsPackable>false</IsPackable>
         <Product>TestAssembly</Product>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>

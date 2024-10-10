@@ -466,7 +466,7 @@ namespace ArchUnitNETTests.Domain
 
         private class ClassReadOnly
         {
-            public readonly string ReadonlyVar;
+            public readonly string ReadonlyVar = "";
             public readonly string ReadonlyVarInit = "";
             public string NotReadOnlyVarInit = "";
             public string PropertyWithoutSet { get; }
