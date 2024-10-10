@@ -4,6 +4,7 @@
 //
 // 	SPDX-License-Identifier: Apache-2.0
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -199,18 +200,40 @@ namespace ArchUnitNET.Loader
                 }
             }
 
+            if (
+                typeReference.IsByReference
+                || typeReference.IsPointer
+                || typeReference.IsPinned
+                || typeReference.IsRequiredModifier
+            )
+            {
+                return CreateTypeFromTypeReference(typeReference.GetElementType(), isStub);
+            }
+
+            if (typeReference is FunctionPointerType functionPointerType)
+            {
+                return GetOrCreateTypeInstance(functionPointerType);
+            }
+
             TypeDefinition typeDefinition;
             try
             {
                 typeDefinition = typeReference.Resolve();
             }
-            catch (AssemblyResolutionException)
+            catch (AssemblyResolutionException e)
             {
-                typeDefinition = null;
+                throw new ArchLoaderException(
+                    $"Could not resolve type {typeReference.FullName}",
+                    e
+                );
+            }
+            if (typeDefinition == null)
+            {
+                throw new ArchLoaderException($"Could not resolve type {typeReference.FullName}");
             }
 
-            var typeName = typeReference.BuildFullName();
-            var declaringTypeReference = typeReference;
+            var typeName = typeDefinition.BuildFullName();
+            var declaringTypeReference = typeDefinition;
             while (declaringTypeReference.IsNested)
             {
                 declaringTypeReference = declaringTypeReference.DeclaringType;
@@ -220,8 +243,8 @@ namespace ArchUnitNET.Loader
                 declaringTypeReference.Namespace
             );
             var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(
-                typeReference.Module.Assembly.Name.FullName,
-                typeReference.Module.Assembly.FullName,
+                typeDefinition.Module.Assembly.Name.FullName,
+                typeDefinition.Module.Assembly.FullName,
                 true,
                 null
             );
@@ -230,26 +253,6 @@ namespace ArchUnitNET.Loader
             bool isCompilerGenerated,
                 isNested,
                 isGeneric;
-
-            if (typeDefinition == null)
-            {
-                isCompilerGenerated = typeReference.IsCompilerGenerated();
-                isNested = typeReference.IsNested;
-                isGeneric = typeReference.HasGenericParameters;
-                type = new Type(
-                    typeName,
-                    typeReference.Name,
-                    currentAssembly,
-                    currentNamespace,
-                    NotAccessible,
-                    isNested,
-                    isGeneric,
-                    true,
-                    isCompilerGenerated
-                );
-
-                return new TypeInstance<IType>(type);
-            }
 
             const string fixedElementField = "FixedElementField";
 
@@ -312,7 +315,7 @@ namespace ArchUnitNET.Loader
             isGeneric = typeDefinition.HasGenericParameters;
             type = new Type(
                 typeName,
-                typeReference.Name,
+                typeDefinition.Name,
                 currentAssembly,
                 currentNamespace,
                 visibility,
@@ -371,6 +374,35 @@ namespace ArchUnitNET.Loader
             }
 
             return createdTypeInstance;
+        }
+
+        [NotNull]
+        private ITypeInstance<FunctionPointer> GetOrCreateTypeInstance(
+            FunctionPointerType functionPointerType
+        )
+        {
+            var type = new Type(
+                functionPointerType.FullName,
+                functionPointerType.Name,
+                null,
+                null,
+                Public,
+                false,
+                false,
+                false,
+                false
+            );
+            var returnTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(
+                functionPointerType.ReturnType
+            );
+            var parameterTypeInstances = functionPointerType
+                .Parameters.Select(parameter =>
+                    GetOrCreateStubTypeInstanceFromTypeReference(parameter.ParameterType)
+                )
+                .ToList();
+            return new TypeInstance<FunctionPointer>(
+                new FunctionPointer(type, returnTypeInstance, parameterTypeInstances)
+            );
         }
 
         [NotNull]
