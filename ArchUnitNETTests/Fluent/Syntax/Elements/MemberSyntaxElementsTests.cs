@@ -29,25 +29,25 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         private readonly List<IType> _falseTypes1 = new List<IType>
         {
             StaticTestTypes.PublicTestClass,
-            StaticTestTypes.InternalTestClass
+            StaticTestTypes.InternalTestClass,
         };
 
         private readonly List<Type> _falseTypes2 = new List<Type>
         {
             typeof(PublicTestClass),
-            typeof(InternalTestClass)
+            typeof(InternalTestClass),
         };
 
         private readonly List<string> _falseTypesPattern = new List<string>
         {
             StaticTestTypes.PublicTestClass.FullName,
-            StaticTestTypes.InternalTestClass.FullName
+            StaticTestTypes.InternalTestClass.FullName,
         };
 
         private readonly List<string> _falseTypeConstructors = new List<string>
         {
             PublicTestClassConstructor,
-            InternalTestClassConstructor
+            InternalTestClassConstructor,
         };
 
         private const string PublicTestClassConstructor =

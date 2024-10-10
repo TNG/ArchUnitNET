@@ -27,7 +27,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         private readonly IEnumerable<Type> _falseDependencies = new List<Type>
         {
             typeof(ClassWithNoDependencies1),
-            typeof(ClassWithNoDependencies2)
+            typeof(ClassWithNoDependencies2),
         };
 
         private readonly IEnumerable<IType> _types = Architecture.Types;
@@ -174,7 +174,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var list = new List<Class>
             {
                 StaticTestTypes.PublicTestClass,
-                StaticTestTypes.InternalTestClass
+                StaticTestTypes.InternalTestClass,
             };
             var listPublicTestClassAndInternalTestClassIsPublicOrInternal = Types()
                 .That()
@@ -204,7 +204,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var patternList = new List<string>
             {
                 StaticTestTypes.PublicTestClass.FullName,
-                StaticTestTypes.InternalTestClass.FullName
+                StaticTestTypes.InternalTestClass.FullName,
             };
             var publicTestClassAndInternalTestClassIsPublicOrInternalPattern = Types()
                 .That()
@@ -1082,7 +1082,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Types().That().Are(NestedProtectedTestClass).Should().BeProtected(),
                 Types().That().Are(NestedInternalTestClass).Should().BeInternal(),
                 Types().That().Are(NestedProtectedInternalTestClass).Should().BeProtectedInternal(),
-                Types().That().Are(NestedPrivateProtectedTestClass).Should().BePrivateProtected()
+                Types().That().Are(NestedPrivateProtectedTestClass).Should().BePrivateProtected(),
             };
 
             foreach (var visibilityRule in visibilityRules)

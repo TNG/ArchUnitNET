@@ -150,6 +150,6 @@ namespace ArchUnitNET.Domain
     {
         NonVariant,
         Covariant,
-        Contravariant
+        Contravariant,
     }
 }

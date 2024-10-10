@@ -520,7 +520,7 @@ public class ObjectsShouldTests
             .CallAny(
                 [
                     helper.MethodWithoutDependencies.FullName,
-                    helper.MethodWithMultipleDependencies.FullName
+                    helper.MethodWithMultipleDependencies.FullName,
                 ]
             )
             .AssertOnlyViolations(helper);
@@ -1018,7 +1018,7 @@ public class ObjectsShouldTests
             .HaveAnyAttributesWithNamedArguments(
                 [
                     helper.Attribute1NamedParameter1Pair,
-                    helper.Attribute1NamedParameter2InvalidValuePair
+                    helper.Attribute1NamedParameter2InvalidValuePair,
                 ]
             )
             .AssertOnlyViolations(helper);
@@ -1773,7 +1773,7 @@ public class ObjectsShouldTests
                 [
                     helper.MethodWithoutDependencies.FullName,
                     helper.CalledMethod1.FullName,
-                    helper.CalledMethod2.FullName
+                    helper.CalledMethod2.FullName,
                 ]
             )
             .AssertOnlyViolations(helper);

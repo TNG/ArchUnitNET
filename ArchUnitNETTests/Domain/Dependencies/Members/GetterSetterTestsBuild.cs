@@ -100,7 +100,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             {
                 accessedProperty,
                 expectedFieldDependencyTarget,
-                expectedDependency
+                expectedDependency,
             };
         }
 
@@ -184,7 +184,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.MethodLambdaPair),
                     typeof(PropertyType)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -219,7 +219,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     nameof(GetterMethodDependencyExamples.SecondUnacceptedCase),
                     MockGuidStruct,
                     MockNewGuid
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -281,7 +281,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.SecondUnacceptedCase),
                     MethodForm.Getter
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()

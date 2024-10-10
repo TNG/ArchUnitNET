@@ -81,7 +81,7 @@ namespace ArchUnitNETTests.Loader
                 BuildTypeTestData(typeof(ClassWithFieldA)),
                 BuildTypeTestData(typeof(ClassWithPropertyA)),
                 BuildTypeTestData(typeof(ClassWithMethodA)),
-                BuildTypeTestData(typeof(ClassWithExampleAttribute))
+                BuildTypeTestData(typeof(ClassWithExampleAttribute)),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -102,7 +102,7 @@ namespace ArchUnitNETTests.Loader
                 BuildTypeEquivalenceTestData(typeof(ClassWithFieldA)),
                 BuildTypeEquivalenceTestData(typeof(ClassWithPropertyA)),
                 BuildTypeEquivalenceTestData(typeof(ClassWithMethodA)),
-                BuildTypeEquivalenceTestData(typeof(ClassWithExampleAttribute))
+                BuildTypeEquivalenceTestData(typeof(ClassWithExampleAttribute)),
             };
 
             public IEnumerator<object[]> GetEnumerator()

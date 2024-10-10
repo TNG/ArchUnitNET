@@ -115,7 +115,7 @@ namespace ArchUnitNETTests.Loader
                 BuildInstructionExtensionTestData(InstructionExtensions.IsSetFieldOp),
                 BuildInstructionExtensionTestData(
                     InstructionExtensions.IsNewObjectToSetBackingField
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()

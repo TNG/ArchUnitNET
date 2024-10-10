@@ -28,7 +28,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             new PlantUmlDependency("a", "b", DependencyType.OneToOne),
             new PlantUmlDependency("b", "c", DependencyType.OneToOne),
-            new PlantUmlDependency("c", "a", DependencyType.OneToOne)
+            new PlantUmlDependency("c", "a", DependencyType.OneToOne),
         };
 
         [Fact]
@@ -165,11 +165,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
             {
                 new PlantUmlDependency("!\"§´`", "$%&/()=?", DependencyType.OneToOne),
                 new PlantUmlDependency("\\\t%", "äöüß", DependencyType.OneToOne),
-                new PlantUmlDependency("^°-*+.,;:", "<>|@€", DependencyType.OneToOne)
+                new PlantUmlDependency("^°-*+.,;:", "<>|@€", DependencyType.OneToOne),
             };
             var classesWithSpecialCharacters = new[]
             {
-                new PlantUmlClass("!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€")
+                new PlantUmlClass("!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€"),
             };
             var builder = new PlantUmlFileBuilder().WithElements(
                 dependenciesWithSpecialCharacters.Concat(classesWithSpecialCharacters)

@@ -150,7 +150,7 @@ namespace ArchUnitNET.Loader
                     typeof(AddGenericArgumentDependencies),
                     typeof(AddClassDependencies),
                     typeof(AddBackwardsDependencies),
-                    typeof(AddTypesToNamespace)
+                    typeof(AddTypesToNamespace),
                 }
             );
         }

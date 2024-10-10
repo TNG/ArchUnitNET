@@ -268,7 +268,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 {
                     new Stereotype("FirstNamespace.*"),
                     new Stereotype("SecondNamespace.*"),
-                    new Stereotype("ThirdNamespace.*")
+                    new Stereotype("ThirdNamespace.*"),
                 },
                 component.Stereotypes.OrderBy(st => st.AsString())
             );

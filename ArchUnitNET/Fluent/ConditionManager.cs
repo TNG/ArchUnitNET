@@ -28,7 +28,7 @@ namespace ArchUnitNET.Fluent
         {
             _conditionElements = new List<ConditionElement<T>>
             {
-                new ConditionElement<T>(LogicalConjunctionDefinition.ForwardSecondValue)
+                new ConditionElement<T>(LogicalConjunctionDefinition.ForwardSecondValue),
             };
         }
 

@@ -198,6 +198,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         PackageToPackageIfSameParentNamespace,
         OneToOneCompact,
         Circle,
-        NoDependency
+        NoDependency,
     }
 }

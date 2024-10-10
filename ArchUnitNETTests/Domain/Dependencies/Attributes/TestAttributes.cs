@@ -169,7 +169,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
         Enum1,
         Enum2,
         Enum3,
-        Enum4
+        Enum4,
     }
 
     [ExampleInterface]

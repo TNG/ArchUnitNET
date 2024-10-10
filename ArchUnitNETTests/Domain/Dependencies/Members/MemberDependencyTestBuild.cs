@@ -54,7 +54,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -85,7 +85,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -132,7 +132,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -168,7 +168,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -198,7 +198,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -246,7 +246,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     typeof(ClassWithMethodSignatureA),
                     nameof(ClassWithMethodSignatureA.MethodA).BuildMethodMemberName(),
                     typeof(ClassWithMethodSignatureB)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()

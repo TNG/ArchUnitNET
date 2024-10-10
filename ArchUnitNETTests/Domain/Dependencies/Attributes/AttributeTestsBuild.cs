@@ -78,7 +78,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
                 BuildTypeAttributeTestData(
                     typeof(StructWithAttribute),
                     typeof(ExampleStructAttribute)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -133,7 +133,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
                     typeof(ClassWithExampleAttribute),
                     nameof(ClassWithExampleAttribute.FieldWithAbstractAttributeImplemented),
                     typeof(ChildOfAbstractAttribute)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
