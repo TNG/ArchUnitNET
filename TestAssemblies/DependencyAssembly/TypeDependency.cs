@@ -8,17 +8,17 @@ public class OtherChildClass : BaseClass { }
 
 public abstract class BaseClassWithMember
 {
-    public string BaseClassMember { get; set; }
+    public string BaseClassMember { get; set; } = "";
 }
 
 public class ChildClassWithMember : BaseClassWithMember
 {
-    public string ChildClassMember { get; set; }
+    public string ChildClassMember { get; set; } = "";
 }
 
 public class OtherChildClassWithMember : BaseClassWithMember
 {
-    public string OtherChildClassMember { get; set; }
+    public string OtherChildClassMember { get; set; } = "";
 }
 
 public abstract class BaseClassWithMultipleDependencies { }
@@ -31,8 +31,8 @@ public class OtherBaseClass { }
 
 public class ClassWithMultipleDependencies
 {
-    public BaseClassWithMember _baseClass;
-    public OtherBaseClass _otherBaseClass;
+    public BaseClassWithMember? _baseClass;
+    public OtherBaseClass? _otherBaseClass;
 }
 
 public abstract class GenericBaseClass<TSelf>

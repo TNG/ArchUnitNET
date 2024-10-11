@@ -249,6 +249,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
         private record ImmutableRecord(string Property, string AnotherProperty);
 
+#pragma warning disable 0169
+#pragma warning disable 0414
         private class ImmutableClass
         {
             private readonly string field;
@@ -259,6 +261,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             public string AnotherProperty { get; init; }
         }
+#pragma warning restore 0169
+#pragma warning restore 0414
 
         private class ImmutableClassWithoutMembers { }
 
@@ -270,7 +274,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         private class ImmutableClassWithOnlyStaticMembers
         {
             private const string ConstField = "const";
+#pragma warning disable 0169
             private static string StaticField;
+#pragma warning restore 0169
             public static string StaticProperty { get; set; }
 
             private static void Method() { }
