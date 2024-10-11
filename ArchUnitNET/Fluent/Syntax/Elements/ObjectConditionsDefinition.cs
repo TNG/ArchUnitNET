@@ -542,7 +542,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -820,7 +820,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -1308,7 +1308,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         var archUnitAttribute = architecture.GetAttributeOfType(type);
                         archUnitAttributeList.Add(archUnitAttribute);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -1730,7 +1730,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 }
-                catch (TypeDoesNotExistInArchitecture e)
+                catch (TypeDoesNotExistInArchitecture)
                 {
                     //can't have a dependency
                     return false;
@@ -2099,7 +2099,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 }
-                catch (TypeDoesNotExistInArchitecture e)
+                catch (TypeDoesNotExistInArchitecture)
                 {
                     //can't have a dependency
                     return false;
@@ -2851,7 +2851,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         var archUnitType = architecture.GetITypeOfType(type);
                         archUnitTypeList.Add(archUnitType);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -3103,7 +3103,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                         var archUnitAttribute = architecture.GetAttributeOfType(type);
                         archUnitAttributeList.Add(archUnitAttribute);
                     }
-                    catch (TypeDoesNotExistInArchitecture e)
+                    catch (TypeDoesNotExistInArchitecture)
                     {
                         //ignore, can't have a dependency anyways
                     }
@@ -3527,7 +3527,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 }
-                catch (TypeDoesNotExistInArchitecture e)
+                catch (TypeDoesNotExistInArchitecture)
                 {
                     //can't have a dependency
                     return true;
@@ -3898,7 +3898,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 {
                     archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 }
-                catch (TypeDoesNotExistInArchitecture e)
+                catch (TypeDoesNotExistInArchitecture)
                 {
                     //can't have a dependency
                     return true;

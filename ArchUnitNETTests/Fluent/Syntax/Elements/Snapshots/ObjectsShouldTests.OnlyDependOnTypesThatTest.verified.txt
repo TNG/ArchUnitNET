@@ -10,10 +10,10 @@ All Evaluations passed
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types that have full name "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and System.Runtime.CompilerServices.NullableContextAttribute and System.Runtime.CompilerServices.NullableAttribute and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types that have full name "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and System.Runtime.CompilerServices.NullableContextAttribute and System.Runtime.CompilerServices.NullableAttribute and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
 
 
 

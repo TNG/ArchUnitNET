@@ -18,4 +18,14 @@ namespace ArchUnitNETTests
 #endif
         }
     }
+
+    public sealed class SkipInReleaseBuildTheory : TheoryAttribute
+    {
+        public SkipInReleaseBuildTheory()
+        {
+#if !DEBUG
+            Skip = "This test only works in debug build";
+#endif
+        }
+    }
 }
