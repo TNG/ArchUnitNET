@@ -30,7 +30,7 @@ namespace ArchUnitNET.Fluent
                 new PredicateElement<T>(
                     LogicalConjunctionDefinition.ForwardSecondValue,
                     new SimplePredicate<T>(t => true, NotSet)
-                )
+                ),
             };
             _hasCustomDescription = false;
         }
@@ -42,15 +42,14 @@ namespace ArchUnitNET.Fluent
                     (current, objectFilterElement) =>
                         current + " " + objectFilterElement.Description
                 )
-                : _predicateElements.First().Description == NotSet
-                    ? _basicObjectProvider.Description
-                    : _basicObjectProvider.Description
-                        + " that"
-                        + _predicateElements.Aggregate(
-                            "",
-                            (current, objectFilterElement) =>
-                                current + " " + objectFilterElement.Description
-                        );
+            : _predicateElements.First().Description == NotSet ? _basicObjectProvider.Description
+            : _basicObjectProvider.Description
+                + " that"
+                + _predicateElements.Aggregate(
+                    "",
+                    (current, objectFilterElement) =>
+                        current + " " + objectFilterElement.Description
+                );
 
         public IEnumerable<T> GetObjects(Architecture architecture)
         {

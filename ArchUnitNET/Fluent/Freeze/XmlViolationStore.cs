@@ -25,7 +25,7 @@ namespace ArchUnitNET.Fluent.Freeze
         private static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
         {
             Indent = true,
-            Encoding = Encoding.UTF8
+            Encoding = Encoding.UTF8,
         };
 
         public XmlViolationStore(string storagePath = DefaultStoragePath)

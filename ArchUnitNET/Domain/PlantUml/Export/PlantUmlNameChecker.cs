@@ -23,7 +23,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             "\f",
             "\a",
             "\b",
-            "\v"
+            "\v",
         };
 
         public static bool ContainsForbiddenCharacters([CanBeNull] string name)

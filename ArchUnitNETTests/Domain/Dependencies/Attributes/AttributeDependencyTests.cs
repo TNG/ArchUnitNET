@@ -100,7 +100,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
                 _class1,
                 _class2,
                 _classWithAttribute,
-                _classWithBodyTypeA
+                _classWithBodyTypeA,
             };
 
             //Assert

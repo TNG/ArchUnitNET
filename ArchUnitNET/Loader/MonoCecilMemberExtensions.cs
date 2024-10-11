@@ -31,7 +31,7 @@ namespace ArchUnitNET.Loader
             OpCodes.Ldobj,
             OpCodes.Stelem_Any,
             OpCodes.Ldelema,
-            OpCodes.Stobj
+            OpCodes.Stobj,
         }; //maybe not complete
 
         internal static string BuildFullName(this MethodReference methodReference)

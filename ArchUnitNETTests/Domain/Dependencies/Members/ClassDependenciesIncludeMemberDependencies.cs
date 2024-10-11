@@ -48,7 +48,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 BuildClassTestData(typeof(ClassWithConstructors)),
                 BuildClassTestData(typeof(ClassWithMethodSignatureA)),
                 BuildClassTestData(typeof(ClassWithMethodSignatureB)),
-                BuildClassTestData(typeof(ClassWithMethodSignatureC))
+                BuildClassTestData(typeof(ClassWithMethodSignatureC)),
             };
 
             public IEnumerator<object[]> GetEnumerator()

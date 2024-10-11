@@ -34,10 +34,8 @@ namespace ArchUnitNETTests.Loader
                 type.Namespace.FullName == "DuplicateClassAcrossAssemblies"
             );
             Assert.Equal(2, types.Count());
-            Assert.Single(types.Where(type => type.Assembly.Name.StartsWith("LoaderTestAssembly")));
-            Assert.Single(
-                types.Where(type => type.Assembly.Name.StartsWith("OtherLoaderTestAssembly"))
-            );
+            Assert.Single(types, type => type.Assembly.Name.StartsWith("LoaderTestAssembly"));
+            Assert.Single(types, type => type.Assembly.Name.StartsWith("OtherLoaderTestAssembly"));
         }
 
         [Fact]

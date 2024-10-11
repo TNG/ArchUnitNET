@@ -4,7 +4,7 @@
     {
         ReadOnly,
         InitOnly,
-        Writable
+        Writable,
     }
 
     public static class WritabilityExtensions
