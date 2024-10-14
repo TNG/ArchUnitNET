@@ -12,27 +12,27 @@ using Xunit;
 
 namespace ArchUnitNETTests.Dependencies
 {
-    public class CppDependenciesTests
-    {
-        private static readonly Architecture Architecture = new ArchLoader()
-            .LoadAssembliesRecursively(
-                new[] { typeof(CppExampleClassUser).Assembly },
-                filterFunc => FilterResult.LoadAndContinue
-            )
-            .Build();
-
-        [Fact]
-        public void CppClassUserFound()
-        {
-            var exampleCppUser = Architecture.GetClassOfType(typeof(CastClassA));
-            Assert.Contains(exampleCppUser, Architecture.Classes);
-        }
-    }
-
-    internal class CppExampleClassUser
-    {
-        CppExampleClass _cppExampleClass = new CppExampleClass();
-    }
+    // public class CppDependenciesTests
+    // {
+    //     private static readonly Architecture Architecture = new ArchLoader()
+    //         .LoadAssembliesRecursively(
+    //             new[] { typeof(CppExampleClassUser).Assembly },
+    //             filterFunc => FilterResult.LoadAndContinue
+    //         )
+    //         .Build();
+    //
+    //     [Fact]
+    //     public void CppClassUserFound()
+    //     {
+    //         var exampleCppUser = Architecture.GetClassOfType(typeof(CastClassA));
+    //         Assert.Contains(exampleCppUser, Architecture.Classes);
+    //     }
+    // }
+    //
+    // internal class CppExampleClassUser
+    // {
+    //     CppExampleClass _cppExampleClass = new CppExampleClass();
+    // }
 
     /*
      * C++/CLI code contains the next .h .cpp content

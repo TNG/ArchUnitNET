@@ -76,7 +76,7 @@ namespace ArchUnitNETTests.Loader
         public void LoadAssembliesRecursivelyWithCustomFilter()
         {
             FilterFunc filterFunc = assembly =>
-                assembly.Name.Name.StartsWith("ArchUnit")
+                assembly.FullName.StartsWith("ArchUnit")
                     ? FilterResult.LoadAndContinue
                     : FilterResult.DontLoadAndStop;
             var loader = new ArchLoader();
@@ -92,7 +92,7 @@ namespace ArchUnitNETTests.Loader
         {
             FilterFunc filterFunc = assembly =>
             {
-                if (assembly.Name.Name == "ArchUnitNet")
+                if (assembly.GetName().Name == "ArchUnitNet")
                     return FilterResult.LoadAndStop;
 
                 return FilterResult.SkipAndContinue;

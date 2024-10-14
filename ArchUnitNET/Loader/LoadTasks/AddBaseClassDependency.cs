@@ -14,39 +14,38 @@ namespace ArchUnitNET.Loader.LoadTasks
     {
         private readonly IType _cls;
         private readonly Type _type;
-        private readonly TypeDefinition _typeDefinition;
+        private readonly System.Type _systemType;
         private readonly TypeFactory _typeFactory;
 
         public AddBaseClassDependency(
             IType cls,
             Type type,
-            TypeDefinition typeDefinition,
+            System.Type systemType,
             TypeFactory typeFactory
         )
         {
             _cls = cls;
             _type = type;
-            _typeDefinition = typeDefinition;
+            _systemType = systemType;
             _typeFactory = typeFactory;
         }
 
         public void Execute()
         {
-            var typeDefinitionBaseType = _typeDefinition?.BaseType;
+            var systemTypeBaseType = _systemType.BaseType;
 
-            if (typeDefinitionBaseType == null)
+            if (systemTypeBaseType == null)
             {
                 return;
             }
 
-            var baseType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                typeDefinitionBaseType
+            var baseType = _typeFactory.GetOrCreateStubTypeFromSystemType(
+                systemTypeBaseType
             );
             if (!(baseType.Type is Class baseClass))
             {
                 return;
             }
-
             var dependency = new InheritsBaseClassDependency(
                 _cls,
                 new TypeInstance<Class>(

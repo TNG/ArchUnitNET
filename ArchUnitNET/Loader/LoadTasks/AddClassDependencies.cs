@@ -17,18 +17,18 @@ namespace ArchUnitNET.Loader.LoadTasks
     {
         private readonly List<ITypeDependency> _dependencies;
         private readonly IType _type;
-        private readonly TypeDefinition _typeDefinition;
+        private readonly System.Type _systemType;
         private readonly TypeFactory _typeFactory;
 
         public AddClassDependencies(
             IType type,
-            TypeDefinition typeDefinition,
+            System.Type systemType,
             TypeFactory typeFactory,
             List<ITypeDependency> dependencies
         )
         {
             _type = type;
-            _typeDefinition = typeDefinition;
+            _systemType = systemType;
             _typeFactory = typeFactory;
             _dependencies = dependencies;
         }
@@ -49,7 +49,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private void AddInterfaceDependencies()
         {
-            GetInterfacesImplementedByClass(_typeDefinition)
+            GetInterfacesImplementedByClass(_systemType)
                 .ForEach(target =>
                 {
                     var targetType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
@@ -59,19 +59,17 @@ namespace ArchUnitNET.Loader.LoadTasks
                 });
         }
 
-        private static IEnumerable<TypeReference> GetInterfacesImplementedByClass(
-            TypeDefinition typeDefinition
+        private static IEnumerable<System.Type> GetInterfacesImplementedByClass(
+            System.Type systemType
         )
         {
-            var baseType = typeDefinition.BaseType?.Resolve();
+            var baseType = systemType.BaseType;
             var baseInterfaces =
                 baseType != null
                     ? GetInterfacesImplementedByClass(baseType)
-                    : new List<TypeReference>();
+                    : new List<System.Type>();
 
-            return typeDefinition
-                .Interfaces.Select(implementation => implementation.InterfaceType)
-                .Concat(baseInterfaces);
+            return systemType.GetInterfaces().Concat(baseInterfaces);
         }
     }
 }

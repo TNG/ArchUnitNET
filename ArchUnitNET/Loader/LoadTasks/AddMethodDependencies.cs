@@ -8,59 +8,55 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
-using Mono.Cecil.Cil;
+using MethodBody = Mono.Cecil.Cil.MethodBody;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
     internal class AddMethodDependencies : ILoadTask
     {
         private readonly IType _type;
-        private readonly TypeDefinition _typeDefinition;
+        private readonly System.Type _systemType;
         private readonly TypeFactory _typeFactory;
 
         public AddMethodDependencies(
             IType type,
-            TypeDefinition typeDefinition,
+            System.Type systemType,
             TypeFactory typeFactory
         )
         {
             _type = type;
-            _typeDefinition = typeDefinition;
+            _systemType = systemType;
             _typeFactory = typeFactory;
         }
 
         public void Execute()
         {
-            _typeDefinition
-                .Methods.Where(methodDefinition =>
-                    _type.GetMemberWithFullName(methodDefinition.BuildFullName()) is MethodMember
-                )
-                .Select(definition =>
+            _systemType.GetMethods()
+                .Select(methodInfo =>
                     (
-                        methodMember: _type.GetMemberWithFullName(definition.BuildFullName())
-                            as MethodMember,
-                        methodDefinition: definition
+                        methodMember: _type.GetMethodMembers().SingleOrDefault(member => member.Name == methodInfo.Name),
+                        methodInfo
                     )
                 )
                 .Select(tuple =>
                 {
-                    var (methodMember, methodDefinition) = tuple;
+                    var (methodMember, methodInfo) = tuple;
                     var dependencies = CreateMethodSignatureDependencies(
-                            methodDefinition,
+                            methodInfo,
                             methodMember
                         )
-                        .Concat(CreateMethodBodyDependencies(methodDefinition, methodMember));
-                    if (methodDefinition.IsSetter || methodDefinition.IsGetter)
+                        .Concat(CreateMethodBodyDependencies(methodInfo, methodMember));
+                    if (methodInfo.IsSetter || methodInfo.IsGetter)
                     {
-                        AssignDependenciesToProperty(methodMember, methodDefinition);
+                        AssignDependenciesToProperty(methodMember, methodInfo);
                     }
-
                     return (methodMember, dependencies);
                 })
                 .ForEach(tuple =>
@@ -121,62 +117,65 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         [NotNull]
         private IEnumerable<MethodSignatureDependency> CreateMethodSignatureDependencies(
-            MethodReference methodReference,
+            MethodInfo methodInfo,
             MethodMember methodMember
         )
         {
-            return methodReference
-                .GetSignatureTypes(_typeFactory)
+            var parameterDependencies= methodInfo.GetParameters().Select(parameter => _typeFactory.GetOrCreateStubTypeFromSystemType(parameter.ParameterType))
                 .Select(signatureType => new MethodSignatureDependency(
                     methodMember,
                     signatureType
                 ));
+            var returnTypeDependency = new MethodSignatureDependency(
+                methodMember,
+                _typeFactory.GetOrCreateStubTypeFromSystemType(methodInfo.ReturnType)
+            );
+            return parameterDependencies.Append(returnTypeDependency);
         }
 
         [NotNull]
         private IEnumerable<IMemberTypeDependency> CreateMethodBodyDependencies(
-            MethodDefinition methodDefinition,
+            MethodInfo methodInfo,
             MethodMember methodMember
         )
         {
-            var methodBody = methodDefinition.Body;
+            var methodBody = methodInfo.GetMethodBody();
             if (methodBody == null)
             {
                 yield break;
             }
 
-            var visitedMethodReferences = new List<MethodReference> { methodDefinition };
+            var visitedMethodReferences = new List<MethodInfo> { methodInfo };
             var bodyTypes = new List<ITypeInstance<IType>>();
-
-            if (methodDefinition.IsAsync())
+            if (methodInfo.IsAsync())
             {
                 HandleAsync(
-                    out methodDefinition,
+                    out methodInfo,
                     ref methodBody,
                     bodyTypes,
                     visitedMethodReferences
                 );
             }
 
-            if (methodDefinition.IsIterator())
+            if (methodInfo.IsIterator())
             {
                 HandleIterator(
-                    out methodDefinition,
+                    out methodInfo,
                     ref methodBody,
                     bodyTypes,
                     visitedMethodReferences
                 );
             }
 
-            bodyTypes.AddRange(methodDefinition.GetBodyTypes(_typeFactory).ToList());
+            bodyTypes.AddRange(methodInfo.GetBodyTypes(_typeFactory).ToList());
 
-            var castTypes = methodDefinition.GetCastTypes(_typeFactory).ToList();
+            var castTypes = methodInfo.GetCastTypes(_typeFactory).ToList();
 
-            var typeCheckTypes = methodDefinition.GetTypeCheckTypes(_typeFactory).ToList();
+            var typeCheckTypes = methodInfo.GetTypeCheckTypes(_typeFactory).ToList();
 
-            var metaDataTypes = methodDefinition.GetMetaDataTypes(_typeFactory).ToList();
+            var metaDataTypes = methodInfo.GetMetaDataTypes(_typeFactory).ToList();
 
-            var accessedFieldMembers = methodDefinition
+            var accessedFieldMembers = methodInfo
                 .GetAccessedFieldMembers(_typeFactory)
                 .ToList();
 

@@ -6,6 +6,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
@@ -17,27 +19,27 @@ namespace ArchUnitNET.Loader.LoadTasks
     internal class AddAttributesAndAttributeDependencies : ILoadTask
     {
         private readonly IType _type;
-        private readonly TypeDefinition _typeDefinition;
+        private readonly System.Type _systemType;
         private readonly TypeFactory _typeFactory;
 
         public AddAttributesAndAttributeDependencies(
             IType type,
-            TypeDefinition typeDefinition,
+            System.Type systemType,
             TypeFactory typeFactory
         )
         {
             _type = type;
-            _typeDefinition = typeDefinition;
+            _systemType = systemType;
             _typeFactory = typeFactory;
         }
 
         public void Execute()
         {
-            _typeDefinition.CustomAttributes.ForEach(
+            _systemType.CustomAttributes.ForEach(
                 AddAttributeArgumentReferenceDependenciesToOriginType
             );
             var typeAttributeInstances = CreateAttributesFromCustomAttributes(
-                    _typeDefinition.CustomAttributes
+                    _systemType.CustomAttributes
                 )
                 .ToList();
             _type.AttributeInstances.AddRange(typeAttributeInstances);
@@ -51,7 +53,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private void SetUpAttributesForTypeGenericParameters()
         {
-            foreach (var genericParameter in _typeDefinition.GenericParameters)
+            foreach (var genericParameter in _systemType.GenericParameters)
             {
                 var param = _type.GenericParameters.First(parameter =>
                     parameter.Name == genericParameter.Name
@@ -71,15 +73,15 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private void CollectAttributesForMembers()
         {
-            _typeDefinition
+            _systemType
                 .Fields.Where(x => !x.IsBackingField() && !x.IsCompilerGenerated())
                 .ForEach(SetUpAttributesForFields);
 
-            _typeDefinition
+            _systemType
                 .Properties.Where(x => !x.IsCompilerGenerated())
                 .ForEach(SetUpAttributesForProperties);
 
-            _typeDefinition
+            _systemType
                 .Methods.Where(x => !x.IsCompilerGenerated())
                 .ForEach(SetUpAttributesForMethods);
         }
@@ -153,7 +155,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private void CollectMemberAttributesAndDependencies(
             IMember methodMember,
-            List<CustomAttribute> memberCustomAttributes,
+            List<CustomAttributeData> memberCustomAttributes,
             List<IMemberTypeDependency> attributeDependencies
         )
         {
@@ -172,7 +174,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         [NotNull]
         public IEnumerable<AttributeInstance> CreateAttributesFromCustomAttributes(
-            IEnumerable<CustomAttribute> customAttributes
+            IEnumerable<CustomAttributeData> customAttributes
         )
         {
             return customAttributes
@@ -184,7 +186,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                     && customAttribute.AttributeType.FullName
                         != "System.Runtime.CompilerServices.NullableContextAttribute"
                 )
-                .Select(attr => attr.CreateAttributeFromCustomAttribute(_typeFactory));
+                .Select(attr => attr.CreateAttributeFromCustomAttributeData(_typeFactory));
         }
 
         [NotNull]
@@ -200,27 +202,27 @@ namespace ArchUnitNET.Loader.LoadTasks
         }
 
         private void AddAttributeArgumentReferenceDependenciesToOriginType(
-            ICustomAttribute customAttribute
+            CustomAttributeData customAttributeData
         )
         {
-            if (!customAttribute.HasConstructorArguments)
+            if (!customAttributeData.ConstructorArguments.Any())
             {
                 return;
             }
 
-            var attributeConstructorArgs = customAttribute.ConstructorArguments;
+            var attributeConstructorArgs = customAttributeData.ConstructorArguments;
             attributeConstructorArgs
                 .Where(attributeArgument =>
-                    attributeArgument.Value is TypeReference typeReference
-                    && !typeReference.IsCompilerGenerated()
+                    attributeArgument.Value is System.Type systemType
+                    && systemType.GetCustomAttribute<CompilerGeneratedAttribute>() == null
                 )
                 .Select(attributeArgument =>
-                    (typeReference: attributeArgument.Value as TypeReference, attributeArgument)
+                    (systemType: attributeArgument.Value as System.Type, attributeArgument)
                 )
                 .ForEach(tuple =>
                 {
-                    var argumentType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                        tuple.typeReference
+                    var argumentType = _typeFactory.GetOrCreateStubTypeFromSystemType(
+                        tuple.systemType
                     );
                     var dependency = new TypeReferenceDependency(_type, argumentType);
                     _type.Dependencies.Add(dependency);

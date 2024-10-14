@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
-using Mono.Cecil;
 using static System.IO.SearchOption;
 using Assembly = System.Reflection.Assembly;
 
@@ -19,21 +19,16 @@ namespace ArchUnitNET.Loader
     public class ArchLoader
     {
         private readonly ArchBuilder _archBuilder = new ArchBuilder();
-        private DotNetCoreAssemblyResolver _assemblyResolver = new DotNetCoreAssemblyResolver();
 
         public Architecture Build()
         {
             var architecture = _archBuilder.Build();
-            _assemblyResolver.Dispose();
-            _assemblyResolver = new DotNetCoreAssemblyResolver();
-
             return architecture;
         }
 
         public ArchLoader LoadAssemblies(params Assembly[] assemblies)
         {
-            var assemblySet = new HashSet<Assembly>(assemblies);
-            assemblySet.ForEach(assembly => LoadAssembly(assembly));
+            assemblies.ForEach(assembly => LoadAssembly(assembly));
             return this;
         }
 
@@ -47,59 +42,58 @@ namespace ArchUnitNET.Loader
             bool recursive
         )
         {
-            var assemblySet = new HashSet<Assembly>(assemblies);
-            assemblySet.ForEach(assembly => LoadAssemblyIncludingDependencies(assembly, recursive));
+            assemblies.ForEach(assembly => LoadAssemblyIncludingDependencies(assembly, recursive));
             return this;
         }
 
-        public ArchLoader LoadFilteredDirectory(
-            string directory,
-            string filter,
-            SearchOption searchOption = TopDirectoryOnly
-        )
-        {
-            var path = Path.GetFullPath(directory);
-            _assemblyResolver.AssemblyPath = path;
-            var assemblies = Directory.GetFiles(path, filter, searchOption);
-
-            var result = this;
-            return assemblies.Aggregate(
-                result,
-                (current, assembly) => current.LoadAssembly(assembly, false, false)
-            );
-        }
-
-        public ArchLoader LoadFilteredDirectoryIncludingDependencies(
-            string directory,
-            string filter,
-            bool recursive = false,
-            SearchOption searchOption = TopDirectoryOnly
-        )
-        {
-            var path = Path.GetFullPath(directory);
-            _assemblyResolver.AssemblyPath = path;
-            var assemblies = Directory.GetFiles(path, filter, searchOption);
-
-            var result = this;
-            return assemblies.Aggregate(
-                result,
-                (current, assembly) => current.LoadAssembly(assembly, true, recursive)
-            );
-        }
+        // public ArchLoader LoadFilteredDirectory(
+        //     string directory,
+        //     string filter,
+        //     SearchOption searchOption = TopDirectoryOnly
+        // )
+        // {
+        //     var path = Path.GetFullPath(directory);
+        //     _assemblyResolver.AssemblyPath = path;
+        //     var assemblies = Directory.GetFiles(path, filter, searchOption);
+        //
+        //     var result = this;
+        //     return assemblies.Aggregate(
+        //         result,
+        //         (current, assembly) => current.LoadAssembly(assembly, false, false)
+        //     );
+        // }
+        //
+        // public ArchLoader LoadFilteredDirectoryIncludingDependencies(
+        //     string directory,
+        //     string filter,
+        //     bool recursive = false,
+        //     SearchOption searchOption = TopDirectoryOnly
+        // )
+        // {
+        //     var path = Path.GetFullPath(directory);
+        //     _assemblyResolver.AssemblyPath = path;
+        //     var assemblies = Directory.GetFiles(path, filter, searchOption);
+        //
+        //     var result = this;
+        //     return assemblies.Aggregate(
+        //         result,
+        //         (current, assembly) => current.LoadAssembly(assembly, true, recursive)
+        //     );
+        // }
 
         public ArchLoader LoadNamespacesWithinAssembly(Assembly assembly, params string[] namespc)
         {
-            var nameSpaces = new HashSet<string>(namespc);
-            nameSpaces.ForEach(nameSpace =>
+            namespc.ForEach(nameSpace =>
             {
-                LoadModule(assembly.Location, nameSpace, false, false);
+                LoadAssembly(assembly, nameSpace, false, false);
             });
             return this;
         }
 
         public ArchLoader LoadAssembly(Assembly assembly)
         {
-            return LoadAssembly(assembly.Location, false, false);
+            LoadAssembly(assembly, null, false, false);
+            return this;
         }
 
         public ArchLoader LoadAssemblyIncludingDependencies(
@@ -107,83 +101,71 @@ namespace ArchUnitNET.Loader
             bool recursive = false
         )
         {
-            return LoadAssembly(assembly.Location, true, recursive);
+            LoadAssembly(assembly, null, true, recursive);
+            return this;
         }
 
         private ArchLoader LoadAssembly(string fileName, bool includeDependencies, bool recursive)
         {
-            LoadModule(fileName, null, includeDependencies, recursive);
-
+            LoadAssembly(Assembly.LoadFile(fileName), null, includeDependencies, recursive);
             return this;
         }
 
-        private void LoadModule(
-            string fileName,
+        private void LoadAssembly(
+            Assembly assembly,
             string nameSpace,
             bool includeDependencies,
             bool recursive,
             FilterFunc filterFunc = null
         )
         {
-            try
+            var processedAssemblies = new List<AssemblyName> { assembly.GetName() };
+            var resolvedModules = new List<Module>(assembly.Modules);
+            var references = assembly.GetReferencedAssemblies();
+            _archBuilder.AddAssembly(assembly, false, references);
+            foreach (var assemblyReference in references)
             {
-                var module = ModuleDefinition.ReadModule(
-                    fileName,
-                    new ReaderParameters { AssemblyResolver = _assemblyResolver }
-                );
-                var processedAssemblies = new List<AssemblyNameReference> { module.Assembly.Name };
-                var resolvedModules = new List<ModuleDefinition>();
-                _assemblyResolver.AddLib(module.Assembly);
-                _archBuilder.AddAssembly(module.Assembly, false, module.AssemblyReferences);
-                foreach (var assemblyReference in module.AssemblyReferences)
+                if (includeDependencies && recursive)
                 {
-                    if (includeDependencies && recursive)
+                    AddReferencedAssembliesRecursively(
+                        assemblyReference,
+                        processedAssemblies,
+                        resolvedModules,
+                        filterFunc
+                    );
+                }
+                else
+                {
+                    processedAssemblies.Add(assemblyReference);
+                    if (includeDependencies)
                     {
-                        AddReferencedAssembliesRecursively(
-                            assemblyReference,
-                            processedAssemblies,
-                            resolvedModules,
-                            filterFunc
-                        );
-                    }
-                    else
-                    {
+                        Assembly loadedAssembly = null;
                         try
                         {
-                            processedAssemblies.Add(assemblyReference);
-                            _assemblyResolver.AddLib(assemblyReference);
-                            if (includeDependencies)
-                            {
-                                var assemblyDefinition =
-                                    _assemblyResolver.Resolve(assemblyReference)
-                                    ?? throw new AssemblyResolutionException(assemblyReference);
-                                _archBuilder.AddAssembly(assemblyDefinition, false, null);
-                                resolvedModules.AddRange(assemblyDefinition.Modules);
-                            }
+                            loadedAssembly = Assembly.Load(assemblyReference);
                         }
-                        catch (AssemblyResolutionException)
+                        catch (FileNotFoundException)
                         {
-                            //Failed to resolve assembly, skip it
+                            throw new ArchLoaderException(
+                                $"Assembly {assemblyReference.Name} not found"
+                            );
                         }
+                        _archBuilder.AddAssembly(loadedAssembly, false, null);
+                        resolvedModules.AddRange(loadedAssembly.Modules);
                     }
                 }
-
-                _archBuilder.LoadTypesForModule(module, nameSpace);
-                foreach (var moduleDefinition in resolvedModules)
-                {
-                    _archBuilder.LoadTypesForModule(moduleDefinition, null);
-                }
             }
-            catch (BadImageFormatException)
+
+            foreach (var module in resolvedModules)
             {
-                // invalid file format of DLL or executable, therefore ignored
+                _archBuilder.LoadTypesForModule(module, null);
             }
         }
 
         private void AddReferencedAssembliesRecursively(
-            AssemblyNameReference currentAssemblyReference,
-            ICollection<AssemblyNameReference> processedAssemblies,
-            List<ModuleDefinition> resolvedModules,
+            AssemblyName currentAssemblyReference,
+            ICollection<AssemblyName> processedAssemblies,
+            List<Module> resolvedModules,
             FilterFunc filterFunc
         )
         {
@@ -193,38 +175,27 @@ namespace ArchUnitNET.Loader
             }
 
             processedAssemblies.Add(currentAssemblyReference);
-            try
+
+            var currentAssembly = Assembly.Load(currentAssemblyReference);
+
+            var filterResult = filterFunc?.Invoke(currentAssembly);
+            if (filterResult?.LoadThisAssembly != false)
             {
-                _assemblyResolver.AddLib(currentAssemblyReference);
-                var assemblyDefinition =
-                    _assemblyResolver.Resolve(currentAssemblyReference)
-                    ?? throw new AssemblyResolutionException(currentAssemblyReference);
-
-                var filterResult = filterFunc?.Invoke(assemblyDefinition);
-                if (filterResult?.LoadThisAssembly != false)
-                {
-                    _archBuilder.AddAssembly(assemblyDefinition, false, null);
-                    resolvedModules.AddRange(assemblyDefinition.Modules);
-                }
-
-                foreach (
-                    var reference in assemblyDefinition.Modules.SelectMany(m =>
-                        m.AssemblyReferences
-                    )
-                )
-                {
-                    if (filterResult?.TraverseDependencies != false)
-                        AddReferencedAssembliesRecursively(
-                            reference,
-                            processedAssemblies,
-                            resolvedModules,
-                            filterFunc
-                        );
-                }
+                _archBuilder.AddAssembly(currentAssembly, false, null);
+                resolvedModules.AddRange(currentAssembly.Modules);
             }
-            catch (AssemblyResolutionException)
+
+            foreach (var reference in currentAssembly.GetReferencedAssemblies())
             {
-                //Failed to resolve assembly, skip it
+                if (filterResult?.TraverseDependencies != false)
+                {
+                    AddReferencedAssembliesRecursively(
+                        reference,
+                        processedAssemblies,
+                        resolvedModules,
+                        filterFunc
+                    );
+                }
             }
         }
 
@@ -241,7 +212,7 @@ namespace ArchUnitNET.Loader
         {
             foreach (var assembly in assemblies)
             {
-                LoadModule(assembly.Location, null, true, true, filterFunc);
+                LoadAssembly(assembly, null, true, true, filterFunc);
             }
             return this;
         }

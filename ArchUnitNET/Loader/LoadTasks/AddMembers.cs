@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
@@ -19,89 +20,90 @@ namespace ArchUnitNET.Loader.LoadTasks
     {
         private readonly MemberList _memberList;
         private readonly ITypeInstance<IType> _typeInstance;
-        private readonly TypeDefinition _typeDefinition;
+        private readonly System.Type _systemType;
         private readonly TypeFactory _typeFactory;
 
         public AddMembers(
             ITypeInstance<IType> typeInstance,
-            TypeDefinition typeDefinition,
+            System.Type systemType,
             TypeFactory typeFactory,
             MemberList memberList
         )
         {
             _typeInstance = typeInstance;
-            _typeDefinition = typeDefinition;
+            _systemType = systemType;
             _typeFactory = typeFactory;
             _memberList = memberList;
         }
 
         public void Execute()
         {
-            var members = CreateMembers(_typeDefinition);
+            var members = CreateMembers(_systemType);
             _memberList.AddRange(members);
         }
 
         [NotNull]
-        private IEnumerable<IMember> CreateMembers([NotNull] TypeDefinition typeDefinition)
+        private IEnumerable<IMember> CreateMembers([NotNull] System.Type systemType)
         {
-            return typeDefinition
-                .Fields.Where(fieldDefinition => !fieldDefinition.IsBackingField())
-                .Select(CreateFieldMember)
-                .Concat(
-                    typeDefinition
-                        .Properties.Select(CreatePropertyMember)
-                        .Concat(
-                            typeDefinition.Methods.Select(method =>
-                                _typeFactory
-                                    .GetOrCreateMethodMemberFromMethodReference(
-                                        _typeInstance,
-                                        method
-                                    )
-                                    .Member
-                            )
+            var fields = systemType
+                .GetFields()
+                .Where(field => !field.IsBackingField())
+                .Select(CreateFieldMember);
+            var properties = systemType
+                .GetProperties()
+                .Select(CreatePropertyMember);
+            var methods = systemType
+                .GetMethods()
+                .Select(method =>
+                    _typeFactory
+                        .GetOrCreateMethodFromMethodInfo(
+                            _typeInstance,
+                            method
                         )
-                )
+                        .Member
+                );
+            return fields
+                .Concat(properties)
+                .Concat(methods)
                 .Where(member => !member.IsCompilerGenerated);
         }
 
         [NotNull]
-        private IMember CreateFieldMember([NotNull] FieldDefinition fieldDefinition)
+        private IMember CreateFieldMember([NotNull] FieldInfo fieldInfo)
         {
-            var typeReference = fieldDefinition.FieldType;
-            var fieldType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                typeReference
+            var fieldType = _typeFactory.GetOrCreateStubTypeFromSystemType(
+                fieldInfo.FieldType
             );
-            var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
-            var isCompilerGenerated = fieldDefinition.IsCompilerGenerated();
-            var writeAccessor = GetWriteAccessor(fieldDefinition);
+            var visibility = GetVisibilityFromFieldDefinition(fieldInfo);
+            var isCompilerGenerated = fieldInfo.GetCustomAttribute<CompilerGeneratedAttribute>() != null;
+            var writeAccessor = GetWriteAccessor(fieldInfo);
             return new FieldMember(
                 _typeInstance.Type,
-                fieldDefinition.Name,
-                fieldDefinition.FullName,
+                fieldInfo.Name,
+                fieldInfo.Name,
                 visibility,
                 fieldType,
                 isCompilerGenerated,
-                fieldDefinition.IsStatic,
+                fieldInfo.IsStatic,
                 writeAccessor
             );
         }
 
         [NotNull]
-        private IMember CreatePropertyMember(PropertyDefinition propertyDefinition)
+        private IMember CreatePropertyMember(PropertyInfo propertyInfo)
         {
-            var typeReference = propertyDefinition.PropertyType;
-            var propertyType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                typeReference
+            var propertyType = _typeFactory.GetOrCreateStubTypeFromSystemType(
+                propertyInfo.PropertyType
             );
-            var isCompilerGenerated = propertyDefinition.IsCompilerGenerated();
+            var isCompilerGenerated = propertyInfo.GetCustomAttribute<CompilerGeneratedAttribute>() != null; 
             var isStatic =
-                (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic)
-                || (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
-            var writeAccessor = GetWriteAccessor(propertyDefinition);
+                (propertyInfo.SetMethod != null && propertyInfo.SetMethod.IsStatic)
+                || (propertyInfo.GetMethod != null && propertyInfo.GetMethod.IsStatic);
+            var writeAccessor = GetWriteAccessor(propertyInfo);
             return new PropertyMember(
                 _typeInstance.Type,
-                propertyDefinition.Name,
-                propertyDefinition.FullName,
+                propertyInfo.Name,
+                propertyInfo.FullName,
                 propertyType,
                 isCompilerGenerated,
                 isStatic,
@@ -110,35 +112,35 @@ namespace ArchUnitNET.Loader.LoadTasks
         }
 
         private static Visibility GetVisibilityFromFieldDefinition(
-            [NotNull] FieldDefinition fieldDefinition
+            [NotNull] FieldInfo fieldInfo
         )
         {
-            if (fieldDefinition.IsPublic)
+            if (fieldInfo.IsPublic)
             {
                 return Public;
             }
 
-            if (fieldDefinition.IsPrivate)
+            if (fieldInfo.IsPrivate)
             {
                 return Private;
             }
 
-            if (fieldDefinition.IsFamily)
+            if (fieldInfo.IsFamily)
             {
                 return Protected;
             }
 
-            if (fieldDefinition.IsAssembly)
+            if (fieldInfo.IsAssembly)
             {
                 return Internal;
             }
 
-            if (fieldDefinition.IsFamilyOrAssembly)
+            if (fieldInfo.IsFamilyOrAssembly)
             {
                 return ProtectedInternal;
             }
 
-            if (fieldDefinition.IsFamilyAndAssembly)
+            if (fieldInfo.IsFamilyAndAssembly)
             {
                 return PrivateProtected;
             }
@@ -146,14 +148,14 @@ namespace ArchUnitNET.Loader.LoadTasks
             throw new ArgumentException("The field definition seems to have no visibility.");
         }
 
-        private static Writability GetWriteAccessor([NotNull] FieldDefinition fieldDefinition)
+        private static Writability GetWriteAccessor([NotNull] FieldInfo fieldInfo)
         {
-            return fieldDefinition.IsInitOnly ? Writability.ReadOnly : Writability.Writable;
+            return fieldInfo.IsInitOnly ? Writability.ReadOnly : Writability.Writable;
         }
 
-        private static Writability GetWriteAccessor([NotNull] PropertyDefinition propertyDefinition)
+        private static Writability GetWriteAccessor([NotNull] PropertyInfo propertyInfo)
         {
-            bool isReadOnly = propertyDefinition.SetMethod == null;
+            bool isReadOnly = propertyInfo.SetMethod == null;
 
             if (isReadOnly)
             {
@@ -161,19 +163,21 @@ namespace ArchUnitNET.Loader.LoadTasks
             }
 
             bool isInitSetter = CheckPropertyHasInitSetterInNetStandardCompatibleWay(
-                propertyDefinition
+                propertyInfo
             );
             return isInitSetter ? Writability.InitOnly : Writability.Writable;
         }
 
         private static bool CheckPropertyHasInitSetterInNetStandardCompatibleWay(
-            PropertyDefinition propertyDefinition
+            [NotNull] PropertyInfo propertyInfo
         )
         {
-            return propertyDefinition.SetMethod?.ReturnType.IsRequiredModifier == true
-                && ((RequiredModifierType)propertyDefinition.SetMethod.ReturnType)
-                    .ModifierType
-                    .FullName == "System.Runtime.CompilerServices.IsExternalInit";
+            return false;
+            // TODO: Implement this
+            // return propertyInfo.SetMethod?.ReturnType.IsRequiredModifier == true
+            //     && ((RequiredModifierType)propertyInfo.SetMethod.ReturnType)
+            //         .ModifierType
+            //         .FullName == "System.Runtime.CompilerServices.IsExternalInit";
         }
     }
 }

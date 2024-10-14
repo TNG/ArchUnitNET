@@ -5,7 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 //
 
-using Mono.Cecil;
+using System.Reflection;
 
 namespace ArchUnitNET.Loader
 {
@@ -13,7 +13,7 @@ namespace ArchUnitNET.Loader
     /// Type of delegate to control assemblies loading
     /// </summary>
     /// <param name="assemblyDefinition">Current assembly definition</param>
-    public delegate FilterResult FilterFunc(AssemblyDefinition assemblyDefinition);
+    public delegate FilterResult FilterFunc(Assembly assemblyDefinition);
 
     /// <summary>
     /// Filter function result options

@@ -7,15 +7,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
+using Assembly = System.Reflection.Assembly;
 using Attribute = ArchUnitNET.Domain.Attribute;
 using Enum = ArchUnitNET.Domain.Enum;
 using GenericParameter = ArchUnitNET.Domain.GenericParameter;
+using GenericParameterAttributes = System.Reflection.GenericParameterAttributes;
+using TypeAttributes = System.Reflection.TypeAttributes;
 
 namespace ArchUnitNET.Loader
 {
@@ -48,6 +52,172 @@ namespace ArchUnitNET.Loader
                 .Values.Select(instance => instance.Type)
                 .Distinct()
                 .Where(type => !type.IsCompilerGenerated);
+        }
+
+        internal ITypeInstance<IType> GetOrCreateStubTypeFromSystemType(
+            [NotNull] System.Type systemType
+        )
+        {
+            return GetOrCreateTypeFromSystemType(systemType, true);
+        }
+
+        internal ITypeInstance<IType> GetOrCreateTypeFromSystemType(
+            [NotNull] System.Type systemType,
+            bool isStub = false
+        )
+        {
+            if (systemType.IsGenericParameter)
+            {
+                return GetOrCreateGenericParameterFromSystemType(systemType, isStub);
+            }
+
+            var assemblyQualifiedName = systemType.AssemblyQualifiedName;
+            if (assemblyQualifiedName == null)
+            {
+                throw new NotImplementedException();
+            }
+            if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
+            {
+                return existingTypeInstance;
+            }
+            if (!systemType.HasElementType)
+            {
+                var assembly = _assemblyRegistry.GetOrCreateAssembly(
+                    systemType.Assembly.FullName,
+                    systemType.Assembly.FullName,
+                    true,
+                    null
+                );
+                var @namespace =
+                    systemType.Namespace != null
+                        ? _namespaceRegistry.GetOrCreateNamespace(systemType.Namespace)
+                        : null;
+                var visibility = systemType.IsPublic ? Public : Internal;
+                var isCompilerGenerated = systemType.GetCustomAttribute<CompilerGeneratedAttribute>() != null;
+                var type = new Type(
+                    systemType.FullName,
+                    systemType.Name,
+                    assembly,
+                    @namespace,
+                    visibility,
+                    systemType.DeclaringType != null,
+                    systemType.IsGenericType,
+                    false,
+                    isCompilerGenerated
+                );
+                ITypeInstance<IType> result = null;
+                if (systemType.IsClass)
+                {
+                    result = new TypeInstance<Class>(
+                        new Class(type, systemType.IsAbstract, systemType.IsSealed, false)
+                    );
+                }
+                if (systemType.IsInterface)
+                {
+                    result = new TypeInstance<Interface>(new Interface(type));
+                }
+                if (systemType.IsValueType)
+                {
+                    if (systemType.IsEnum)
+                    {
+                        result = new TypeInstance<Enum>(new Enum(type));
+                    }
+                    else
+                    {
+                        result = new TypeInstance<Struct>(new Struct(type));
+                    }
+                }
+                if (result == null)
+                {
+                    throw new NotImplementedException();
+                }
+
+                _allTypes.Add(assemblyQualifiedName, result);
+                
+                var genericParameters = systemType
+                    .GetTypeInfo()
+                    .GenericTypeParameters.Select(GetOrCreateStubTypeFromSystemType)
+                    .Select(t => t.Type as GenericParameter);
+                type.GenericParameters.AddRange(genericParameters);
+
+                if (!isStub && !isCompilerGenerated)
+                {
+                    if (!systemType.IsInterface)
+                    {
+                        LoadBaseTask(result.Type, type, systemType);
+                    }
+                
+                    LoadNonBaseTasks(result, type, systemType);
+                }
+                
+                return result;
+            }
+            throw new NotImplementedException();
+        }
+
+        private ITypeInstance<IType> GetOrCreateGenericParameterFromSystemType(System.Type systemType, bool isStub)
+        {
+            var declaringType = systemType.DeclaringType == null
+                ? GetOrCreateTypeFromSystemType(systemType.DeclaringType, isStub)
+                : GetOrCreateTypeFromSystemType(systemType.DeclaringMethod.DeclaringType, isStub);
+            var declaringMethod = systemType.DeclaringMethod != null ? GetOrCreateMethodFromMethodInfo(declaringType, systemType.DeclaringMethod) : null;
+            var declarerFullName =
+                declaringMethod != null
+                    ? declaringMethod.Member.FullName
+                    : declaringType.Type.FullName;
+            var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                declaringType.Type.Assembly.FullName,
+                $"{declarerFullName}+<{systemType.Name}>"
+            );
+            if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
+            {
+                return existingTypeInstance;
+            }
+            var varianceAttributes = systemType.GenericParameterAttributes & GenericParameterAttributes.VarianceMask;
+            GenericParameterVariance variance;
+            if (varianceAttributes == GenericParameterAttributes.None)
+            {
+                variance = GenericParameterVariance.NonVariant;
+            }
+            else if ((varianceAttributes & GenericParameterAttributes.Covariant) != 0)
+            {
+                variance = GenericParameterVariance.Covariant;
+            }
+            else if ((varianceAttributes & GenericParameterAttributes.Contravariant) != 0)
+            {
+                variance = GenericParameterVariance.Contravariant;
+            }
+            else
+            {
+                throw new ArchLoaderException($"Unknown variance attribute {varianceAttributes}");
+            }
+            var specialConstraints = systemType.GenericParameterAttributes & GenericParameterAttributes.SpecialConstraintMask;
+            var hasReferenceTypeConstraint = (specialConstraints & GenericParameterAttributes.ReferenceTypeConstraint) != 0;
+            var hasNotNullableValueTypeConstraint = (specialConstraints & GenericParameterAttributes.NotNullableValueTypeConstraint) != 0;
+            var hasDefaultConstructorConstraint = (specialConstraints & GenericParameterAttributes.DefaultConstructorConstraint) != 0;
+            var typeConstraints = systemType.GetGenericParameterConstraints().Select(GetOrCreateStubTypeFromSystemType);
+            var isCompilerGenerated = systemType.GetCustomAttribute<CompilerGeneratedAttribute>() != null;
+            var genericParameter = new GenericParameter(
+                declaringType,
+                declaringMethod,
+                $"{declarerFullName}+<{systemType.Name}>",
+                systemType.Name,
+                variance,
+                typeConstraints,
+                hasReferenceTypeConstraint,
+                hasNotNullableValueTypeConstraint,
+                hasDefaultConstructorConstraint,
+               isCompilerGenerated
+            );
+            var result = new TypeInstance<GenericParameter>(genericParameter);
+            _allTypes.Add(assemblyQualifiedName, result);
+            return result;
+        }
+
+        [NotNull]
+        internal MethodMemberInstance GetOrCreateMethodFromMethodInfo(ITypeInstance<IType> declaringType, MethodBase methodBase)
+        {
+            throw new NotImplementedException();
         }
 
         [NotNull]
@@ -328,16 +498,16 @@ namespace ArchUnitNET.Loader
                 );
             }
 
-            if (!isStub && !isCompilerGenerated)
-            {
-                if (!typeDefinition.IsInterface)
-                {
-                    LoadBaseTask(createdTypeInstance.Type, type, typeDefinition);
-                }
-
-                LoadNonBaseTasks(createdTypeInstance, type, typeDefinition);
-            }
-
+            // if (!isStub && !isCompilerGenerated)
+            // {
+            //     if (!typeDefinition.IsInterface)
+            //     {
+            //         LoadBaseTask(createdTypeInstance.Type, type, typeDefinition);
+            //     }
+            //
+            //     LoadNonBaseTasks(createdTypeInstance, type, typeDefinition);
+            // }
+            //
             _allTypes.Add(assemblyQualifiedName, createdTypeInstance);
 
             var genericParameters = GetGenericParameters(typeDefinition);
@@ -610,33 +780,28 @@ namespace ArchUnitNET.Loader
             return new GenericArgument(GetOrCreateStubTypeInstanceFromTypeReference(typeReference));
         }
 
-        private void LoadBaseTask(IType cls, Type type, TypeDefinition typeDefinition)
+        private void LoadBaseTask(IType cls, Type type, System.Type systemType)
         {
-            if (typeDefinition == null)
-            {
-                return;
-            }
-
             _loadTaskRegistry.Add(
                 typeof(AddBaseClassDependency),
-                new AddBaseClassDependency(cls, type, typeDefinition, this)
+                new AddBaseClassDependency(cls, type, systemType, this)
             );
         }
 
         private void LoadNonBaseTasks(
             ITypeInstance<IType> createdTypeInstance,
             Type type,
-            TypeDefinition typeDefinition
+            System.Type systemType
         )
         {
-            if (typeDefinition == null)
+            if (systemType == null)
             {
                 return;
             }
 
             _loadTaskRegistry.Add(
                 typeof(AddMembers),
-                new AddMembers(createdTypeInstance, typeDefinition, this, type.Members)
+                new AddMembers(createdTypeInstance, systemType, this, type.Members)
             );
             _loadTaskRegistry.Add(
                 typeof(AddGenericParameterDependencies),
@@ -646,7 +811,7 @@ namespace ArchUnitNET.Loader
                 typeof(AddAttributesAndAttributeDependencies),
                 new AddAttributesAndAttributeDependencies(
                     createdTypeInstance.Type,
-                    typeDefinition,
+                    systemType,
                     this
                 )
             );
@@ -656,7 +821,7 @@ namespace ArchUnitNET.Loader
             );
             _loadTaskRegistry.Add(
                 typeof(AddMethodDependencies),
-                new AddMethodDependencies(createdTypeInstance.Type, typeDefinition, this)
+                new AddMethodDependencies(createdTypeInstance.Type, systemType, this)
             );
             _loadTaskRegistry.Add(
                 typeof(AddGenericArgumentDependencies),
@@ -666,7 +831,7 @@ namespace ArchUnitNET.Loader
                 typeof(AddClassDependencies),
                 new AddClassDependencies(
                     createdTypeInstance.Type,
-                    typeDefinition,
+                    systemType,
                     this,
                     type.Dependencies
                 )

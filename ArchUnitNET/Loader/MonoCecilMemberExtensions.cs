@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Exceptions;
@@ -351,9 +352,9 @@ namespace ArchUnitNET.Loader
             return methodReference.Name == ".ctor" || methodReference.Name == ".cctor";
         }
 
-        internal static bool IsBackingField(this FieldReference fieldReference)
+        internal static bool IsBackingField(this FieldInfo fieldInfo)
         {
-            return fieldReference.FullName.Contains(StaticConstants.BackingField);
+            return fieldInfo.Name.Contains(StaticConstants.BackingField);
         }
 
         internal static Visibility GetVisibility([CanBeNull] this MethodDefinition methodDefinition)

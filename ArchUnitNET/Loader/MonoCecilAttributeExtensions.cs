@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
@@ -18,14 +19,13 @@ namespace ArchUnitNET.Loader
     internal static class MonoCecilAttributeExtensions
     {
         [NotNull]
-        public static AttributeInstance CreateAttributeFromCustomAttribute(
-            this CustomAttribute customAttribute,
+        public static AttributeInstance CreateAttributeFromCustomAttributeData(
+            this CustomAttributeData customAttributeData,
             TypeFactory typeFactory
         )
         {
-            var attributeTypeReference = customAttribute.AttributeType;
-            var attributeType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                attributeTypeReference
+            var attributeType = typeFactory.GetOrCreateStubTypeFromSystemType(
+                customAttributeData.AttributeType
             );
             if (!(attributeType.Type is Attribute attribute))
             {
@@ -36,7 +36,7 @@ namespace ArchUnitNET.Loader
 
             var attributeArguments = new List<AttributeArgument>();
 
-            foreach (var constructorArgument in customAttribute.ConstructorArguments)
+            foreach (var constructorArgument in customAttributeData.ConstructorArguments)
             {
                 HandleAttributeArgument(
                     constructorArgument,
@@ -47,7 +47,7 @@ namespace ArchUnitNET.Loader
                 attributeArguments.Add(new AttributeArgument(value, type));
             }
 
-            foreach (var namedArgument in customAttribute.Fields.Concat(customAttribute.Properties))
+            foreach (var namedArgument in customAttributeData.Fields.Concat(customAttributeData.Properties))
             {
                 var name = namedArgument.Name;
                 HandleAttributeArgument(
@@ -63,34 +63,36 @@ namespace ArchUnitNET.Loader
         }
 
         private static void HandleAttributeArgument(
-            CustomAttributeArgument argument,
+            CustomAttributeTypedArgument argument,
             TypeFactory typeFactory,
             out object value,
             out ITypeInstance<IType> type
         )
         {
-            while (argument.Value is CustomAttributeArgument arg) //if would work too
-            {
-                argument = arg;
-            }
-
-            type = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(argument.Type);
-
-            if (argument.Value is IEnumerable<CustomAttributeArgument> attArgEnumerable)
-            {
-                value = (
-                    from attArg in attArgEnumerable
-                    select attArg.Value is TypeReference tr
-                        ? typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
-                        : attArg.Value
-                ).ToArray();
-            }
-            else
-            {
-                value = argument.Value is TypeReference tr
-                    ? typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
-                    : argument.Value;
-            }
+            ;
+            // TODO: Implement this method
+            // while (argument.Value is CustomAttributeArgument arg) //if would work too
+            // {
+            //     argument = arg;
+            // }
+            //
+            // type = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(argument.Type);
+            //
+            // if (argument.Value is IEnumerable<CustomAttributeArgument> attArgEnumerable)
+            // {
+            //     value = (
+            //         from attArg in attArgEnumerable
+            //         select attArg.Value is TypeReference tr
+            //             ? typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
+            //             : attArg.Value
+            //     ).ToArray();
+            // }
+            // else
+            // {
+            //     value = argument.Value is TypeReference tr
+            //         ? typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
+            //         : argument.Value;
+            // }
         }
     }
 }
