@@ -6,7 +6,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -16,7 +15,7 @@ namespace ArchUnitNET.Domain
             string name,
             string fullName,
             bool isOnlyReferenced,
-            [CanBeNull] List<string> referencedAssemblyNames
+            List<string> referencedAssemblyNames
         )
         {
             Name = name;
@@ -29,7 +28,6 @@ namespace ArchUnitNET.Domain
 
         public string Name { get; }
 
-        [CanBeNull]
         public List<string> ReferencedAssemblyNames { get; }
         public string FullName { get; }
 

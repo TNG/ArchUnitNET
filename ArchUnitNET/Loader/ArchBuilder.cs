@@ -50,11 +50,10 @@ namespace ArchUnitNET.Loader
 
         public void AddAssembly(
             [NotNull] AssemblyDefinition moduleAssembly,
-            bool isOnlyReferenced,
-            [CanBeNull] IEnumerable<AssemblyNameReference> moduleReferences
+            bool isOnlyReferenced
         )
         {
-            var references = moduleReferences?.Select(reference => reference.Name).ToList();
+            var references = moduleAssembly.MainModule.AssemblyReferences.Select(reference => reference.Name).ToList();
 
             if (!_assemblyRegistry.ContainsAssembly(moduleAssembly.Name.FullName))
             {
