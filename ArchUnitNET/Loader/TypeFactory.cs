@@ -23,13 +23,15 @@ namespace ArchUnitNET.Loader
     {
         private readonly AssemblyRegistry _assemblyRegistry;
         private readonly LoadTaskRegistry _loadTaskRegistry;
-        private readonly MethodMemberRegistry _methodMemberRegistry;
         private readonly NamespaceRegistry _namespaceRegistry;
-        private readonly TypeRegistry _typeRegistry;
+
+        private readonly Dictionary<string, ITypeInstance<IType>> _allTypes =
+            new Dictionary<string, ITypeInstance<IType>>();
+
+        private readonly Dictionary<string, MethodMemberInstance> _allMethods =
+            new Dictionary<string, MethodMemberInstance>();
 
         public TypeFactory(
-            TypeRegistry typeRegistry,
-            MethodMemberRegistry methodMemberRegistry,
             LoadTaskRegistry loadTaskRegistry,
             AssemblyRegistry assemblyRegistry,
             NamespaceRegistry namespaceRegistry
@@ -38,24 +40,20 @@ namespace ArchUnitNET.Loader
             _loadTaskRegistry = loadTaskRegistry;
             _assemblyRegistry = assemblyRegistry;
             _namespaceRegistry = namespaceRegistry;
-            _typeRegistry = typeRegistry;
-            _methodMemberRegistry = methodMemberRegistry;
         }
 
         public IEnumerable<IType> GetAllNonCompilerGeneratedTypes()
         {
-            return _typeRegistry.GetAllTypes().Where(type => !type.IsCompilerGenerated);
+            return _allTypes
+                .Values.Select(instance => instance.Type)
+                .Distinct()
+                .Where(type => !type.IsCompilerGenerated);
         }
 
         [NotNull]
         internal IType GetOrCreateTypeFromTypeReference(TypeReference typeReference)
         {
-            return _typeRegistry
-                .GetOrCreateTypeFromTypeReference(
-                    typeReference,
-                    s => CreateTypeFromTypeReference(typeReference, false)
-                )
-                .Type;
+            return GetOrCreateTypeInstanceFromTypeReference(typeReference, false).Type;
         }
 
         [NotNull]
@@ -63,96 +61,26 @@ namespace ArchUnitNET.Loader
             TypeReference typeReference
         )
         {
-            return _typeRegistry.GetOrCreateTypeFromTypeReference(
-                typeReference,
-                s => CreateTypeFromTypeReference(typeReference, true)
-            );
+            return GetOrCreateTypeInstanceFromTypeReference(typeReference, true);
         }
 
-        [NotNull]
-        internal MethodMemberInstance GetOrCreateMethodMemberFromMethodReference(
-            [NotNull] IType type,
-            [NotNull] MethodReference methodReference
-        )
-        {
-            return _methodMemberRegistry.GetOrCreateMethodFromMethodReference(
-                methodReference,
-                s =>
-                    CreateMethodMemberFromMethodReference(
-                        new TypeInstance<IType>(type),
-                        methodReference
-                    )
-            );
-        }
-
-        [NotNull]
-        internal MethodMemberInstance GetOrCreateMethodMemberFromMethodReference(
-            [NotNull] ITypeInstance<IType> typeInstance,
-            [NotNull] MethodReference methodReference
-        )
-        {
-            return _methodMemberRegistry.GetOrCreateMethodFromMethodReference(
-                methodReference,
-                s => CreateMethodMemberFromMethodReference(typeInstance, methodReference)
-            );
-        }
-
-        [NotNull]
-        private ITypeInstance<IType> CreateTypeFromTypeReference(
+        private ITypeInstance<IType> GetOrCreateTypeInstanceFromTypeReference(
             TypeReference typeReference,
             bool isStub
         )
         {
             if (typeReference.IsGenericParameter)
             {
-                var genericParameter = (Mono.Cecil.GenericParameter)typeReference;
-                var declarerIsMethod = genericParameter.Type == GenericParameterType.Method;
-                var declaringTypeFullName = declarerIsMethod
-                    ? genericParameter.DeclaringMethod.BuildFullName()
-                    : genericParameter.DeclaringType.BuildFullName();
-
-                return new TypeInstance<GenericParameter>(
-                    CreateGenericParameter(
-                        genericParameter,
-                        declaringTypeFullName,
-                        declarerIsMethod
-                    )
-                );
+                return GetOrCreateGenericParameterTypeInstanceFromTypeReference(typeReference);
             }
-
             if (typeReference.IsArray)
             {
-                var dimensions = new List<int>();
-                do
-                {
-                    var arrayType = (ArrayType)typeReference;
-                    dimensions.Add(arrayType.Rank);
-                    typeReference = arrayType.ElementType;
-                } while (typeReference.IsArray);
-
-                var elementTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(
-                    typeReference
-                );
-                return CreateTypeInstance(
-                    elementTypeInstance.Type,
-                    elementTypeInstance.GenericArguments,
-                    dimensions
-                );
+                return GetOrCreateArrayTypeInstanceFromTypeReference(typeReference);
             }
-
             if (typeReference.IsGenericInstance)
             {
-                var elementType = GetOrCreateStubTypeInstanceFromTypeReference(
-                    typeReference.GetElementType()
-                ).Type;
-                var genericInstance = (GenericInstanceType)typeReference;
-                var genericArguments = genericInstance
-                    .GenericArguments.Select(CreateGenericArgumentFromTypeReference)
-                    .Where(argument => !argument.Type.IsCompilerGenerated)
-                    .ToList();
-                return CreateTypeInstance(elementType, genericArguments, new List<int>());
+                return GetOrCreateGenericInstanceTypeInstanceFromTypeReference(typeReference);
             }
-
             if (
                 typeReference.IsByReference
                 || typeReference.IsPointer
@@ -160,14 +88,30 @@ namespace ArchUnitNET.Loader
                 || typeReference.IsRequiredModifier
             )
             {
-                return CreateTypeFromTypeReference(typeReference.GetElementType(), isStub);
+                return GetOrCreateTypeInstanceFromTypeReference(
+                    typeReference.GetElementType(),
+                    isStub
+                );
             }
-
             if (typeReference is FunctionPointerType functionPointerType)
             {
-                return GetOrCreateTypeInstance(functionPointerType);
+                return GetOrCreateFunctionPointerTypeInstanceFromTypeReference(functionPointerType);
             }
+            if (typeReference is TypeDefinition typeDefinition)
+            {
+                return GetOrCreateTypeInstanceFromTypeDefinition(typeDefinition, isStub);
+            }
+            return GetOrCreateTypeInstanceFromTypeDefinition(
+                ResolveTypeReferenceToTypeDefinition(typeReference),
+                isStub
+            );
+        }
 
+        [NotNull]
+        private static TypeDefinition ResolveTypeReferenceToTypeDefinition(
+            TypeReference typeReference
+        )
+        {
             TypeDefinition typeDefinition;
             try
             {
@@ -184,31 +128,119 @@ namespace ArchUnitNET.Loader
             {
                 throw new ArchLoaderException($"Could not resolve type {typeReference.FullName}");
             }
+            return typeDefinition;
+        }
 
-            var typeName = typeDefinition.BuildFullName();
-            var declaringTypeReference = typeDefinition;
-            while (declaringTypeReference.IsNested)
+        private ITypeInstance<IType> GetOrCreateGenericParameterTypeInstanceFromTypeReference(
+            TypeReference typeReference
+        )
+        {
+            var genericParameter = (Mono.Cecil.GenericParameter)typeReference;
+            var declarerIsMethod = genericParameter.Type == GenericParameterType.Method;
+            var declaringType = GetOrCreateStubTypeInstanceFromTypeReference(
+                declarerIsMethod
+                    ? genericParameter.DeclaringMethod.DeclaringType
+                    : genericParameter.DeclaringType
+            );
+            var declaringMethod = declarerIsMethod
+                ? GetOrCreateMethodMemberFromMethodReference(
+                    declaringType,
+                    genericParameter.DeclaringMethod
+                )
+                : null;
+            var declarerFullName =
+                declaringMethod != null
+                    ? declaringMethod.Member.FullName
+                    : declaringType.Type.FullName;
+            var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                declaringType.Type.Assembly.FullName,
+                $"{declarerFullName}+<{genericParameter.Name}>"
+            );
+            if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
             {
-                declaringTypeReference = declaringTypeReference.DeclaringType;
+                return existingTypeInstance;
+            }
+            var result = new TypeInstance<GenericParameter>(
+                CreateGenericParameter(genericParameter, declaringType, declaringMethod)
+            );
+            _allTypes.Add(assemblyQualifiedName, result);
+            return result;
+        }
+
+        private ITypeInstance<IType> GetOrCreateGenericInstanceTypeInstanceFromTypeReference(
+            TypeReference typeReference
+        )
+        {
+            var elementType = GetOrCreateStubTypeInstanceFromTypeReference(
+                typeReference.GetElementType()
+            ).Type;
+            var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                elementType.Assembly.FullName,
+                typeReference.BuildFullName()
+            );
+            if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
+            {
+                return existingTypeInstance;
+            }
+            var genericInstance = (GenericInstanceType)typeReference;
+            var genericArguments = genericInstance
+                .GenericArguments.Select(CreateGenericArgumentFromTypeReference)
+                .Where(argument => !argument.Type.IsCompilerGenerated)
+                .ToList();
+            var result = CreateTypeInstance(elementType, genericArguments, new List<int>());
+            _allTypes.Add(assemblyQualifiedName, result);
+            return result;
+        }
+
+        private ITypeInstance<IType> GetOrCreateArrayTypeInstanceFromTypeReference(
+            TypeReference typeReference
+        )
+        {
+            var dimensions = new List<int>();
+            var elementType = typeReference;
+            do
+            {
+                var arrayType = (ArrayType)elementType;
+                dimensions.Add(arrayType.Rank);
+                elementType = arrayType.ElementType;
+            } while (elementType.IsArray);
+            var elementTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(elementType);
+            var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                elementTypeInstance.Type.Assembly.FullName,
+                typeReference.BuildFullName()
+            );
+            if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
+            {
+                return existingTypeInstance;
+            }
+            var result = CreateTypeInstance(
+                elementTypeInstance.Type,
+                elementTypeInstance.GenericArguments,
+                dimensions
+            );
+            _allTypes.Add(assemblyQualifiedName, result);
+            return result;
+        }
+
+        [NotNull]
+        private ITypeInstance<IType> GetOrCreateTypeInstanceFromTypeDefinition(
+            TypeDefinition typeDefinition,
+            bool isStub
+        )
+        {
+            var assemblyFullName = typeDefinition.Module.Assembly.FullName;
+            var fullName = typeDefinition.BuildFullName();
+
+            var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                assemblyFullName,
+                fullName
+            );
+            if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
+            {
+                return existingTypeInstance;
             }
 
-            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(
-                declaringTypeReference.Namespace
-            );
-            var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(
-                typeDefinition.Module.Assembly.Name.FullName,
-                typeDefinition.Module.Assembly.FullName,
-                true,
-                null
-            );
-
-            Type type;
-            bool isCompilerGenerated,
-                isNested,
-                isGeneric;
-
             const string fixedElementField = "FixedElementField";
-
             if (
                 typeDefinition.CustomAttributes.Any(att =>
                     att.AttributeType.FullName == typeof(UnsafeValueTypeAttribute).FullName
@@ -227,12 +259,26 @@ namespace ArchUnitNET.Loader
                 );
             }
 
+            var declaringTypeReference = typeDefinition;
+            while (declaringTypeReference.IsNested)
+            {
+                declaringTypeReference = declaringTypeReference.DeclaringType;
+            }
+            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(
+                declaringTypeReference.Namespace
+            );
+            var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(
+                assemblyFullName,
+                assemblyFullName,
+                true,
+                null
+            );
             var visibility = typeDefinition.GetVisibility();
-            isCompilerGenerated = typeDefinition.IsCompilerGenerated();
-            isNested = typeDefinition.IsNested;
-            isGeneric = typeDefinition.HasGenericParameters;
-            type = new Type(
-                typeName,
+            var isCompilerGenerated = typeDefinition.IsCompilerGenerated();
+            var isNested = typeDefinition.IsNested;
+            var isGeneric = typeDefinition.HasGenericParameters;
+            var type = new Type(
+                fullName,
                 typeDefinition.Name,
                 currentAssembly,
                 currentNamespace,
@@ -242,9 +288,6 @@ namespace ArchUnitNET.Loader
                 isStub,
                 isCompilerGenerated
             );
-
-            var genericParameters = GetGenericParameters(typeDefinition);
-            type.GenericParameters.AddRange(genericParameters);
 
             ITypeInstance<IType> createdTypeInstance;
 
@@ -288,8 +331,13 @@ namespace ArchUnitNET.Loader
                     LoadBaseTask(createdTypeInstance.Type, type, typeDefinition);
                 }
 
-                LoadNonBaseTasks(createdTypeInstance.Type, type, typeDefinition);
+                LoadNonBaseTasks(createdTypeInstance, type, typeDefinition);
             }
+
+            _allTypes.Add(assemblyQualifiedName, createdTypeInstance);
+
+            var genericParameters = GetGenericParameters(typeDefinition);
+            type.GenericParameters.AddRange(genericParameters);
 
             return createdTypeInstance;
         }
@@ -325,10 +373,14 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        private ITypeInstance<FunctionPointer> GetOrCreateTypeInstance(
+        private ITypeInstance<IType> GetOrCreateFunctionPointerTypeInstanceFromTypeReference(
             FunctionPointerType functionPointerType
         )
         {
+            if (_allTypes.TryGetValue(functionPointerType.FullName, out var existingTypeInstance))
+            {
+                return existingTypeInstance;
+            }
             var type = new Type(
                 functionPointerType.FullName,
                 functionPointerType.Name,
@@ -348,38 +400,37 @@ namespace ArchUnitNET.Loader
                     GetOrCreateStubTypeInstanceFromTypeReference(parameter.ParameterType)
                 )
                 .ToList();
-            return new TypeInstance<FunctionPointer>(
+            var result = new TypeInstance<FunctionPointer>(
                 new FunctionPointer(type, returnTypeInstance, parameterTypeInstances)
             );
+            _allTypes.Add(functionPointerType.FullName, result);
+            return result;
         }
 
         [NotNull]
-        private MethodMemberInstance CreateMethodMemberFromMethodReference(
+        public MethodMemberInstance GetOrCreateMethodMemberFromMethodReference(
             [NotNull] ITypeInstance<IType> typeInstance,
             [NotNull] MethodReference methodReference
         )
         {
+            var methodReferenceFullName = methodReference.BuildFullName();
             if (methodReference.IsGenericInstance)
             {
-                var elementMethod = CreateMethodMemberFromMethodReference(
-                    typeInstance,
-                    methodReference.GetElementMethod()
-                ).Member;
-
-                var genericInstanceMethod = (GenericInstanceMethod)methodReference;
-                var genericArguments = genericInstanceMethod
-                    .GenericArguments.Select(CreateGenericArgumentFromTypeReference)
-                    .Where(argument => !argument.Type.IsCompilerGenerated);
-
-                return new MethodMemberInstance(
-                    elementMethod,
-                    typeInstance.GenericArguments,
-                    genericArguments
+                return RegistryUtils.GetFromDictOrCreateAndAdd(
+                    methodReferenceFullName,
+                    _allMethods,
+                    _ =>
+                        CreateGenericInstanceMethodMemberFromMethodReference(
+                            typeInstance,
+                            methodReference
+                        )
                 );
             }
 
-            var returnTypeReference = methodReference.ReturnType;
-            var returnType = GetOrCreateStubTypeInstanceFromTypeReference(returnTypeReference);
+            if (_allMethods.TryGetValue(methodReferenceFullName, out var existingMethodInstance))
+            {
+                return existingMethodInstance;
+            }
 
             var name = methodReference.BuildMethodMemberName();
             var fullName = methodReference.BuildFullName();
@@ -425,7 +476,6 @@ namespace ArchUnitNET.Loader
                 fullName,
                 typeInstance.Type,
                 visibility,
-                returnType,
                 false,
                 methodForm,
                 isGeneric,
@@ -435,16 +485,47 @@ namespace ArchUnitNET.Loader
                 isStatic
             );
 
-            var parameters = methodReference.GetParameters(this).ToList();
-            methodMember.ParameterInstances.AddRange(parameters);
+            var result = new MethodMemberInstance(
+                methodMember,
+                typeInstance.GenericArguments,
+                Enumerable.Empty<GenericArgument>()
+            );
+
+            _allMethods.Add(methodReferenceFullName, result);
 
             var genericParameters = GetGenericParameters(methodReference);
             methodMember.GenericParameters.AddRange(genericParameters);
 
+            var returnTypeReference = methodReference.ReturnType;
+            methodMember.ReturnTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(
+                returnTypeReference
+            );
+
+            var parameters = methodReference.GetParameters(this).ToList();
+            methodMember.ParameterInstances.AddRange(parameters);
+
+            return result;
+        }
+
+        private MethodMemberInstance CreateGenericInstanceMethodMemberFromMethodReference(
+            ITypeInstance<IType> typeInstance,
+            MethodReference methodReference
+        )
+        {
+            var elementMethod = GetOrCreateMethodMemberFromMethodReference(
+                typeInstance,
+                methodReference.GetElementMethod()
+            ).Member;
+
+            var genericInstanceMethod = (GenericInstanceMethod)methodReference;
+            var genericArguments = genericInstanceMethod
+                .GenericArguments.Select(CreateGenericArgumentFromTypeReference)
+                .Where(argument => !argument.Type.IsCompilerGenerated);
+
             return new MethodMemberInstance(
-                methodMember,
+                elementMethod,
                 typeInstance.GenericArguments,
-                Enumerable.Empty<GenericArgument>()
+                genericArguments
             );
         }
 
@@ -493,8 +574,8 @@ namespace ArchUnitNET.Loader
 
         private GenericParameter CreateGenericParameter(
             Mono.Cecil.GenericParameter genericParameter,
-            [NotNull] string declarerFullName,
-            bool declarerIsMethod
+            ITypeInstance<IType> declaringTypeInstance,
+            [CanBeNull] MethodMemberInstance declaringMethodInstance
         )
         {
             var isCompilerGenerated = genericParameter.IsCompilerGenerated();
@@ -502,16 +583,21 @@ namespace ArchUnitNET.Loader
             var typeConstraints = genericParameter.Constraints.Select(con =>
                 GetOrCreateStubTypeInstanceFromTypeReference(con.ConstraintType)
             );
+            var declarerFullName =
+                declaringMethodInstance != null
+                    ? declaringMethodInstance.Member.FullName
+                    : declaringTypeInstance.Type.FullName;
             return new GenericParameter(
-                declarerFullName,
+                declaringTypeInstance,
+                declaringMethodInstance,
+                $"{declarerFullName}+<{genericParameter.Name}>",
                 genericParameter.Name,
                 variance,
                 typeConstraints,
                 genericParameter.HasReferenceTypeConstraint,
                 genericParameter.HasNotNullableValueTypeConstraint,
                 genericParameter.HasDefaultConstructorConstraint,
-                isCompilerGenerated,
-                declarerIsMethod
+                isCompilerGenerated
             );
         }
 
@@ -533,7 +619,11 @@ namespace ArchUnitNET.Loader
             );
         }
 
-        private void LoadNonBaseTasks(IType createdType, Type type, TypeDefinition typeDefinition)
+        private void LoadNonBaseTasks(
+            ITypeInstance<IType> createdTypeInstance,
+            Type type,
+            TypeDefinition typeDefinition
+        )
         {
             if (typeDefinition == null)
             {
@@ -542,7 +632,7 @@ namespace ArchUnitNET.Loader
 
             _loadTaskRegistry.Add(
                 typeof(AddMembers),
-                new AddMembers(createdType, typeDefinition, this, type.Members)
+                new AddMembers(createdTypeInstance, typeDefinition, this, type.Members)
             );
             _loadTaskRegistry.Add(
                 typeof(AddGenericParameterDependencies),
@@ -550,15 +640,19 @@ namespace ArchUnitNET.Loader
             );
             _loadTaskRegistry.Add(
                 typeof(AddAttributesAndAttributeDependencies),
-                new AddAttributesAndAttributeDependencies(createdType, typeDefinition, this)
+                new AddAttributesAndAttributeDependencies(
+                    createdTypeInstance.Type,
+                    typeDefinition,
+                    this
+                )
             );
             _loadTaskRegistry.Add(
                 typeof(AddFieldAndPropertyDependencies),
-                new AddFieldAndPropertyDependencies(createdType)
+                new AddFieldAndPropertyDependencies(createdTypeInstance.Type)
             );
             _loadTaskRegistry.Add(
                 typeof(AddMethodDependencies),
-                new AddMethodDependencies(createdType, typeDefinition, this)
+                new AddMethodDependencies(createdTypeInstance.Type, typeDefinition, this)
             );
             _loadTaskRegistry.Add(
                 typeof(AddGenericArgumentDependencies),
@@ -566,11 +660,16 @@ namespace ArchUnitNET.Loader
             );
             _loadTaskRegistry.Add(
                 typeof(AddClassDependencies),
-                new AddClassDependencies(createdType, typeDefinition, this, type.Dependencies)
+                new AddClassDependencies(
+                    createdTypeInstance.Type,
+                    typeDefinition,
+                    this,
+                    type.Dependencies
+                )
             );
             _loadTaskRegistry.Add(
                 typeof(AddBackwardsDependencies),
-                new AddBackwardsDependencies(createdType)
+                new AddBackwardsDependencies(createdTypeInstance.Type)
             );
         }
     }

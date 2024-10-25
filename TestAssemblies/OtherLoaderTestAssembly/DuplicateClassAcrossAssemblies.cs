@@ -1,3 +1,3 @@
 ﻿namespace DuplicateClassAcrossAssemblies;
 
-internal class DuplicateClass { }
+public class DuplicateClass { }

@@ -17,7 +17,6 @@ namespace ArchUnitNET.Domain
             string fullName,
             IType declaringType,
             Visibility visibility,
-            ITypeInstance<IType> returnTypeInstance,
             bool isVirtual,
             MethodForm methodForm,
             bool isGeneric,
@@ -35,7 +34,6 @@ namespace ArchUnitNET.Domain
             );
             DeclaringType = declaringType;
             Visibility = visibility;
-            ReturnTypeInstance = returnTypeInstance;
             IsVirtual = isVirtual;
             MethodForm = methodForm;
             IsGeneric = isGeneric;
@@ -52,7 +50,7 @@ namespace ArchUnitNET.Domain
             new List<ITypeInstance<IType>>();
         public IEnumerable<IType> Parameters =>
             ParameterInstances.Select(instance => instance.Type);
-        public ITypeInstance<IType> ReturnTypeInstance { get; }
+        public ITypeInstance<IType> ReturnTypeInstance { get; internal set; }
         public IType ReturnType => ReturnTypeInstance.Type;
         public bool IsStub { get; }
         public bool IsCompilerGenerated { get; }

@@ -178,7 +178,6 @@ namespace ArchUnitNETTests.Fluent.Extensions
                 fullName,
                 declaringType,
                 visibility,
-                returnTypeInstance,
                 methodBase.IsVirtual,
                 methodForm,
                 isGeneric,
@@ -187,7 +186,7 @@ namespace ArchUnitNETTests.Fluent.Extensions
                 false,
                 isStatic
             );
-
+            methodMember.ReturnTypeInstance = returnTypeInstance;
             methodMember.ParameterInstances.AddRange(parameters);
             return methodMember;
         }
