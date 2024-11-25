@@ -45,9 +45,7 @@ namespace ArchUnitNETTests.Loader
                 .LoadAssembliesIncludingDependencies(new[] { typeof(BaseClass).Assembly }, true)
                 .Build();
 
-            Assert.True(
-                architecture.Assemblies.Count() > 100
-            );
+            Assert.True(architecture.Assemblies.Count() > 100);
 
             // Check for well-known assemblies, that ReferencedAssemblyNames is not empty
             Assert.All(
