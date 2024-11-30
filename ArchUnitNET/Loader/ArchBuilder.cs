@@ -31,11 +31,7 @@ namespace ArchUnitNET.Loader
             _assemblyRegistry = new AssemblyRegistry();
             _namespaceRegistry = new NamespaceRegistry();
             _loadTaskRegistry = new LoadTaskRegistry();
-            var typeRegistry = new TypeRegistry();
-            var methodMemberRegistry = new MethodMemberRegistry();
             _typeFactory = new TypeFactory(
-                typeRegistry,
-                methodMemberRegistry,
                 _loadTaskRegistry,
                 _assemblyRegistry,
                 _namespaceRegistry

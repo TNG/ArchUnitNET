@@ -69,6 +69,7 @@ namespace ArchUnitNET.Domain
         public bool IsCompilerGenerated => Type.IsCompilerGenerated;
         public string Name => Type.Name;
         public string FullName => Type.FullName;
+        public string AssemblyQualifiedName => Type.AssemblyQualifiedName;
 
         public Namespace Namespace => Type.Namespace;
         public Assembly Assembly => Type.Assembly;

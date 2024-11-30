@@ -10,8 +10,6 @@ namespace ArchUnitNET.Domain
 {
     public interface IType : ICanBeAnalyzed
     {
-        Namespace Namespace { get; }
-        Assembly Assembly { get; }
         MemberList Members { get; }
         IEnumerable<IType> ImplementedInterfaces { get; }
         bool IsNested { get; }

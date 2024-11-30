@@ -7,7 +7,8 @@
 namespace ArchUnitNET.Domain
 {
     public interface ICanBeAnalyzed
-        : IHasName,
+        : IHasAssemblyQualifiedName,
+            IResidesInNamespace,
             IHasDependencies,
             IHasAttributes,
             IHasVisibility,

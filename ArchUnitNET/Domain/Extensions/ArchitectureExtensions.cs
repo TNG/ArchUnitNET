@@ -50,25 +50,16 @@ namespace ArchUnitNET.Domain.Extensions
                 return architecture.GetInterfaceOfType(type);
             }
 
-            try
+            var foundType = AllTypes(architecture)
+                .WhereAssemblyQualifiedNameIs(type.AssemblyQualifiedName);
+            if (foundType != null)
             {
-                var foundType = AllTypes(architecture).WhereFullNameIs(type.FullName);
-                if (foundType != null)
-                {
-                    return foundType;
-                }
+                return foundType;
+            }
 
-                throw new TypeDoesNotExistInArchitecture(
-                    $"Type {type.FullName} does not exist in provided architecture."
-                );
-            }
-            catch (MultipleOccurrencesInSequenceException)
-            {
-                throw new NotSupportedException(
-                    $"Type {type.FullName} found multiple times in provided architecture. Please use extern "
-                        + "alias to reference assemblies that have the same fully-qualified type names."
-                );
-            }
+            throw new TypeDoesNotExistInArchitecture(
+                $"Type {type.FullName} does not exist in provided architecture."
+            );
         }
 
         [NotNull]
@@ -77,25 +68,16 @@ namespace ArchUnitNET.Domain.Extensions
             [NotNull] Type type
         )
         {
-            try
+            var cls = AllClasses(architecture)
+                .WhereAssemblyQualifiedNameIs(type.AssemblyQualifiedName);
+            if (cls != null)
             {
-                var cls = AllClasses(architecture).WhereFullNameIs(type.FullName);
-                if (cls != null)
-                {
-                    return cls;
-                }
+                return cls;
+            }
 
-                throw new TypeDoesNotExistInArchitecture(
-                    $"Type {type.FullName} does not exist in provided architecture or is no class."
-                );
-            }
-            catch (MultipleOccurrencesInSequenceException)
-            {
-                throw new NotSupportedException(
-                    $"Type {type.FullName} found multiple times in provided architecture. Please use extern "
-                        + "alias to reference assemblies that have the same fully-qualified type names."
-                );
-            }
+            throw new TypeDoesNotExistInArchitecture(
+                $"Type {type.FullName} does not exist in provided architecture or is no class."
+            );
         }
 
         [NotNull]
@@ -104,25 +86,16 @@ namespace ArchUnitNET.Domain.Extensions
             [NotNull] Type type
         )
         {
-            try
+            var intf = AllInterfaces(architecture)
+                .WhereAssemblyQualifiedNameIs(type.AssemblyQualifiedName);
+            if (intf != null)
             {
-                var intf = AllInterfaces(architecture).WhereFullNameIs(type.FullName);
-                if (intf != null)
-                {
-                    return intf;
-                }
+                return intf;
+            }
 
-                throw new TypeDoesNotExistInArchitecture(
-                    $"Type {type.FullName} does not exist in provided architecture or is no interface."
-                );
-            }
-            catch (MultipleOccurrencesInSequenceException)
-            {
-                throw new NotSupportedException(
-                    $"Type {type.FullName} found multiple times in provided architecture. Please use extern "
-                        + "alias to reference assemblies that have the same fully-qualified type names."
-                );
-            }
+            throw new TypeDoesNotExistInArchitecture(
+                $"Type {type.FullName} does not exist in provided architecture or is no interface."
+            );
         }
 
         [NotNull]
@@ -131,25 +104,16 @@ namespace ArchUnitNET.Domain.Extensions
             [NotNull] Type type
         )
         {
-            try
+            var attribute = AllAttributes(architecture)
+                .WhereAssemblyQualifiedNameIs(type.AssemblyQualifiedName);
+            if (attribute != null)
             {
-                var attribute = AllAttributes(architecture).WhereFullNameIs(type.FullName);
-                if (attribute != null)
-                {
-                    return attribute;
-                }
+                return attribute;
+            }
 
-                throw new TypeDoesNotExistInArchitecture(
-                    $"Type {type.FullName} does not exist in provided architecture or is no attribute."
-                );
-            }
-            catch (MultipleOccurrencesInSequenceException)
-            {
-                throw new NotSupportedException(
-                    $"Type {type.FullName} found multiple times in provided architecture. Please use extern "
-                        + "alias to reference assemblies that have the same fully-qualified type names."
-                );
-            }
+            throw new TypeDoesNotExistInArchitecture(
+                $"Type {type.FullName} does not exist in provided architecture or is no attribute."
+            );
         }
 
         [NotNull]

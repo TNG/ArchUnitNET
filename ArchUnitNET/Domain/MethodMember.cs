@@ -17,7 +17,6 @@ namespace ArchUnitNET.Domain
             string fullName,
             IType declaringType,
             Visibility visibility,
-            ITypeInstance<IType> returnTypeInstance,
             bool isVirtual,
             MethodForm methodForm,
             bool isGeneric,
@@ -29,9 +28,12 @@ namespace ArchUnitNET.Domain
         {
             Name = name;
             FullName = fullName;
+            AssemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                declaringType.Assembly.FullName,
+                fullName
+            );
             DeclaringType = declaringType;
             Visibility = visibility;
-            ReturnTypeInstance = returnTypeInstance;
             IsVirtual = isVirtual;
             MethodForm = methodForm;
             IsGeneric = isGeneric;
@@ -48,7 +50,7 @@ namespace ArchUnitNET.Domain
             new List<ITypeInstance<IType>>();
         public IEnumerable<IType> Parameters =>
             ParameterInstances.Select(instance => instance.Type);
-        public ITypeInstance<IType> ReturnTypeInstance { get; }
+        public ITypeInstance<IType> ReturnTypeInstance { get; internal set; }
         public IType ReturnType => ReturnTypeInstance.Type;
         public bool IsStub { get; }
         public bool IsCompilerGenerated { get; }
@@ -71,8 +73,11 @@ namespace ArchUnitNET.Domain
         public List<ITypeDependency> BackwardsDependencies =>
             MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
 
+        public Assembly Assembly => DeclaringType.Assembly;
+        public Namespace Namespace => DeclaringType.Namespace;
         public string Name { get; }
         public string FullName { get; }
+        public string AssemblyQualifiedName { get; }
         public IType DeclaringType { get; }
 
         public override string ToString()

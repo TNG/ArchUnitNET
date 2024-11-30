@@ -5,11 +5,13 @@
 // 	SPDX-License-Identifier: Apache-2.0
 //
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Loader
 {
@@ -25,9 +27,12 @@ namespace ArchUnitNET.Loader
             var attributeType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
                 attributeTypeReference
             );
-            var attribute = attributeType.Type is Class cls
-                ? new Attribute(cls)
-                : new Attribute(attributeType.Type, null, null);
+            if (!(attributeType.Type is Attribute attribute))
+            {
+                throw new ArgumentException(
+                    $"Attribute type {attributeType.Type.FullName} is not an attribute."
+                );
+            }
 
             var attributeArguments = new List<AttributeArgument>();
 
