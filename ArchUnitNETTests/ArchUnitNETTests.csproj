@@ -27,7 +27,7 @@
     </PackageReference>
     <PackageReference Include="Verify.xunit" Version="26.6.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
