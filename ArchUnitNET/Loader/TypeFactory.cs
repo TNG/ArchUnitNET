@@ -229,7 +229,29 @@ namespace ArchUnitNET.Loader
             }
             if (typeDefinition == null)
             {
-                throw new ArchLoaderException($"Could not resolve type {typeReference.FullName}");
+                // When assemblies are loaded by path, there are cases where a dependent type cannot be resolved because
+                // the assembly dependency is not loaded in the current application domain. In this case, we create a
+                // stub type.
+                return new TypeInstance<IType>(
+                    new UnavailableType(
+                        new Type(
+                            typeReference.BuildFullName(),
+                            typeReference.Name,
+                            _assemblyRegistry.GetOrCreateAssembly(
+                                typeReference.Module.Assembly.Name.FullName,
+                                typeReference.Module.Assembly.FullName,
+                                true,
+                                null
+                            ),
+                            _namespaceRegistry.GetOrCreateNamespace(typeReference.Namespace),
+                            NotAccessible,
+                            typeReference.IsNested,
+                            typeReference.HasGenericParameters,
+                            true,
+                            typeReference.IsCompilerGenerated()
+                        )
+                    )
+                );
             }
 
             var typeName = typeDefinition.BuildFullName();
