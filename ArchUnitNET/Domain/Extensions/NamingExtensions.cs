@@ -110,23 +110,9 @@ namespace ArchUnitNET.Domain.Extensions
         )
             where TType : IHasAssemblyQualifiedName
         {
-#if !DEBUG
             return source.FirstOrDefault(type =>
                 type.AssemblyQualifiedName == assemblyQualifiedName
             );
-#else
-            var matchingTypes = source
-                .Where(type => type.AssemblyQualifiedName == assemblyQualifiedName)
-                .ToList();
-            if (matchingTypes.Count > 1)
-            {
-                throw new MultipleOccurrencesInSequenceException(
-                    $"Assembly qualified name {assemblyQualifiedName} found multiple times in provided types. "
-                        + "Please use extern alias to reference assemblies that have the same fully-qualified type names."
-                );
-            }
-            return matchingTypes.FirstOrDefault();
-#endif
         }
     }
 }

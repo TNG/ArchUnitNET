@@ -61,9 +61,6 @@ namespace ArchUnitNETTests.Loader
                     type.Namespace.FullName == "DuplicateClassAcrossAssemblies"
                 )
                 .ToList();
-            var types2 = ArchUnitNETTestArchitecture
-                .ReferencedTypes.Where(type => type.FullName.Contains("Duplicate"))
-                .ToList();
             Assert.Equal(2, types.Count);
             Assert.Single(types, type => type.Assembly.Name.StartsWith("LoaderTestAssembly"));
             Assert.Single(types, type => type.Assembly.Name.StartsWith("OtherLoaderTestAssembly"));
