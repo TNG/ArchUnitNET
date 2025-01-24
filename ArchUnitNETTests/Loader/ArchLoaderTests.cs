@@ -7,7 +7,10 @@
 extern alias LoaderTestAssemblyAlias;
 extern alias OtherLoaderTestAssemblyAlias;
 
+using System;
 using System.Linq;
+using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
 using ArchUnitNETTests.Domain.Dependencies.Members;
@@ -123,6 +126,31 @@ namespace ArchUnitNETTests.Loader
                 .NotDependOnAnyTypesThat()
                 .ResideInAssembly(GetType().Assembly)
                 .Check(architecture);
+        }
+
+        [Fact]
+        public void UnavailableTypeTest()
+        {
+            // When loading an assembly from a file, there are situations where the assemblies dependencies are not
+            // available in the current AppDomain. This test checks that the loader does not throw an exception in this
+            // case.
+            var assemblyPath = AppDomain.CurrentDomain.BaseDirectory[
+                ..AppDomain.CurrentDomain.BaseDirectory.IndexOf(
+                    @"ArchUnitNETTests",
+                    StringComparison.InvariantCulture
+                )
+            ];
+            var architecture = new ArchLoader()
+                .LoadFilteredDirectory(
+                    assemblyPath,
+                    "FilteredDirectoryLoaderTestAssembly.dll",
+                    System.IO.SearchOption.AllDirectories
+                )
+                .Build();
+            Assert.Single(architecture.Types);
+            var loggerType = architecture.ReferencedTypes.WhereFullNameIs("Serilog.ILogger");
+            Assert.NotNull(loggerType);
+            Assert.True(loggerType is UnavailableType);
         }
     }
 }

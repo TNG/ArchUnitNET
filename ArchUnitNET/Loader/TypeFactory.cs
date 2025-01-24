@@ -101,16 +101,19 @@ namespace ArchUnitNET.Loader
             {
                 return GetOrCreateTypeInstanceFromTypeDefinition(typeDefinition, isStub);
             }
-            return GetOrCreateTypeInstanceFromTypeDefinition(
-                ResolveTypeReferenceToTypeDefinition(typeReference),
-                isStub
-            );
+
+            var resolvedTypeDefinition = ResolveTypeReferenceToTypeDefinition(typeReference);
+            if (resolvedTypeDefinition == null)
+            {
+                // When assemblies are loaded by path, there are cases where a dependent type cannot be resolved because
+                // the assembly dependency is not loaded in the current application domain. In this case, we create a
+                // stub type.
+                return GetOrCreateUnavailableTypeFromTypeReference(typeReference);
+            }
+            return GetOrCreateTypeInstanceFromTypeDefinition(resolvedTypeDefinition, isStub);
         }
 
-        [NotNull]
-        private static TypeDefinition ResolveTypeReferenceToTypeDefinition(
-            TypeReference typeReference
-        )
+        private TypeDefinition ResolveTypeReferenceToTypeDefinition(TypeReference typeReference)
         {
             TypeDefinition typeDefinition;
             try
@@ -123,10 +126,6 @@ namespace ArchUnitNET.Loader
                     $"Could not resolve type {typeReference.FullName}",
                     e
                 );
-            }
-            if (typeDefinition == null)
-            {
-                throw new ArchLoaderException($"Could not resolve type {typeReference.FullName}");
             }
             return typeDefinition;
         }
@@ -340,6 +339,44 @@ namespace ArchUnitNET.Loader
             type.GenericParameters.AddRange(genericParameters);
 
             return createdTypeInstance;
+        }
+
+        [NotNull]
+        private ITypeInstance<UnavailableType> GetOrCreateUnavailableTypeFromTypeReference(
+            TypeReference typeReference
+        )
+        {
+            var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                typeReference.Module.Assembly.FullName,
+                typeReference.BuildFullName()
+            );
+            if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
+            {
+                return (ITypeInstance<UnavailableType>)existingTypeInstance;
+            }
+
+            var result = new TypeInstance<UnavailableType>(
+                new UnavailableType(
+                    new Type(
+                        typeReference.BuildFullName(),
+                        typeReference.Name,
+                        _assemblyRegistry.GetOrCreateAssembly(
+                            typeReference.Module.Assembly.Name.FullName,
+                            typeReference.Module.Assembly.FullName,
+                            true,
+                            null
+                        ),
+                        _namespaceRegistry.GetOrCreateNamespace(typeReference.Namespace),
+                        NotAccessible,
+                        typeReference.IsNested,
+                        typeReference.HasGenericParameters,
+                        true,
+                        typeReference.IsCompilerGenerated()
+                    )
+                )
+            );
+            _allTypes.Add(assemblyQualifiedName, result);
+            return result;
         }
 
         [NotNull]
