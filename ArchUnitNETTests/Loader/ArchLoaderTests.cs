@@ -4,6 +4,9 @@
 //
 // 	SPDX-License-Identifier: Apache-2.0
 
+extern alias LoaderTestAssemblyAlias;
+extern alias OtherLoaderTestAssemblyAlias;
+
 using System;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -14,6 +17,9 @@ using ArchUnitNETTests.Domain.Dependencies.Members;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 using static ArchUnitNETTests.StaticTestArchitectures;
+
+using DuplicateClass = LoaderTestAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
+using OtherDuplicateClass = OtherLoaderTestAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
 
 namespace ArchUnitNETTests.Loader
 {
@@ -33,10 +39,29 @@ namespace ArchUnitNETTests.Loader
         [Fact]
         public void SameFullNameInMultipleAssemblies()
         {
-            var types = LoaderTestArchitecture.Types.Where(type =>
-                type.Namespace.FullName == "DuplicateClassAcrossAssemblies"
-            );
-            Assert.Equal(2, types.Count());
+            // Loaded as non-stub types
+            var types = LoaderTestArchitecture
+                .Types.Where(type => type.Namespace.FullName == "DuplicateClassAcrossAssemblies")
+                .ToList();
+            Assert.Equal(2, types.Count);
+            Assert.Single(types, type => type.Assembly.Name.StartsWith("LoaderTestAssembly"));
+            Assert.Single(types, type => type.Assembly.Name.StartsWith("OtherLoaderTestAssembly"));
+
+            // Loaded as stub types
+
+            // We create a direct dependency of ArchUnitNETTests on the duplicate type such that they are loaded as stub types
+
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
+            DuplicateClass duplicateClass = null;
+            OtherDuplicateClass otherDuplicateClass = null;
+#pragma warning restore CS0219 // Variable is assigned but its value is never used
+
+            types = ArchUnitNETTestArchitecture
+                .ReferencedTypes.Where(type =>
+                    type.Namespace.FullName == "DuplicateClassAcrossAssemblies"
+                )
+                .ToList();
+            Assert.Equal(2, types.Count);
             Assert.Single(types, type => type.Assembly.Name.StartsWith("LoaderTestAssembly"));
             Assert.Single(types, type => type.Assembly.Name.StartsWith("OtherLoaderTestAssembly"));
         }

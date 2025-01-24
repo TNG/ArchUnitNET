@@ -34,6 +34,7 @@ namespace ArchUnitNET.Domain
         public bool IsGenericParameter => _type.IsGenericParameter;
         public string Name => _type.Name;
         public string FullName => _type.FullName;
+        public string AssemblyQualifiedName => _type.AssemblyQualifiedName;
         public Visibility Visibility => _type.Visibility;
         public bool IsGeneric => _type.IsGeneric;
         public List<GenericParameter> GenericParameters => _type.GenericParameters;

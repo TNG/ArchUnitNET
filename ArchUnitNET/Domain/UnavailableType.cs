@@ -20,6 +20,7 @@ namespace ArchUnitNET.Domain
         private IType Type { get; }
         public string Name => Type.Name;
         public string FullName => Type.FullName;
+        public string AssemblyQualifiedName => Type.AssemblyQualifiedName;
 
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;
