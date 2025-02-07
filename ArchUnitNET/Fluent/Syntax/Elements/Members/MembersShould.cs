@@ -21,29 +21,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         // ReSharper disable once MemberCanBeProtected.Global
         public MembersShould(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
-
-        public TRuleTypeShouldConjunction BeDeclaredIn(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                MemberConditionsDefinition<TRuleType>.BeDeclaredIn(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction BeDeclaredIn(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                MemberConditionsDefinition<TRuleType>.BeDeclaredIn(patterns, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
+        
         public TRuleTypeShouldConjunction BeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(
@@ -114,35 +92,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         }
 
         //Negations
-
-
-        public TRuleTypeShouldConjunction NotBeDeclaredIn(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotBeDeclaredIn(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
 
         public TRuleTypeShouldConjunction NotBeDeclaredIn(IType firstType, params IType[] moreTypes)
         {

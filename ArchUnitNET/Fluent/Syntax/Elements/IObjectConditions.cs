@@ -16,18 +16,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleType : ICanBeAnalyzed
     {
         TReturnType Exist();
-        TReturnType Be(string pattern, bool useRegularExpressions = false);
-        TReturnType Be(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType Be(IEnumerable<ICanBeAnalyzed> objects);
         TReturnType Be(IObjectProvider<ICanBeAnalyzed> objects);
-        TReturnType CallAny(string pattern, bool useRegularExpressions = false);
-        TReturnType CallAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType CallAny(MethodMember method, params MethodMember[] moreMethods);
         TReturnType CallAny(IEnumerable<MethodMember> methods);
         TReturnType CallAny(IObjectProvider<MethodMember> methods);
-        TReturnType DependOnAny(string pattern, bool useRegularExpressions = false);
-        TReturnType DependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType DependOnAny(IType firstType, params IType[] moreTypes);
         TReturnType DependOnAny(Type firstType, params Type[] moreTypes);
         TReturnType DependOnAny(IObjectProvider<IType> types);
@@ -43,28 +37,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             string description,
             string failDescription
         );
-        TReturnType OnlyDependOn(string pattern, bool useRegularExpressions = false);
-        TReturnType OnlyDependOn(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType OnlyDependOn(IType firstType, params IType[] moreTypes);
         TReturnType OnlyDependOn(Type firstType, params Type[] moreTypes);
         TReturnType OnlyDependOn(IObjectProvider<IType> types);
         TReturnType OnlyDependOn(IEnumerable<IType> types);
         TReturnType OnlyDependOn(IEnumerable<Type> types);
-        TReturnType HaveAnyAttributes(string pattern, bool useRegularExpressions = false);
-        TReturnType HaveAnyAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        );
         TReturnType HaveAnyAttributes(Attribute firstAttribute, params Attribute[] moreAttributes);
         TReturnType HaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes);
         TReturnType HaveAnyAttributes(IObjectProvider<Attribute> attributes);
         TReturnType HaveAnyAttributes(IEnumerable<Attribute> attributes);
         TReturnType HaveAnyAttributes(IEnumerable<Type> attributes);
-        TReturnType OnlyHaveAttributes(string pattern, bool useRegularExpressions = false);
-        TReturnType OnlyHaveAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        );
         TReturnType OnlyHaveAttributes(Attribute firstAttribute, params Attribute[] moreAttributes);
         TReturnType OnlyHaveAttributes(Type firstAttribute, params Type[] moreAttributes);
         TReturnType OnlyHaveAttributes(IObjectProvider<Attribute> attributes);
@@ -72,15 +54,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType OnlyHaveAttributes(IEnumerable<Type> attributes);
         TReturnType HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues);
         TReturnType HaveAnyAttributesWithArguments(
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        );
-        TReturnType HaveAttributeWithArguments(
-            string attribute,
-            IEnumerable<object> argumentValues
-        );
-        TReturnType HaveAttributeWithArguments(
-            string attribute,
             object firstArgumentValue,
             params object[] moreArgumentValues
         );
@@ -107,15 +80,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params (string, object)[] moreAttributeArguments
         );
         TReturnType HaveAttributeWithNamedArguments(
-            string attribute,
-            IEnumerable<(string, object)> attributeArguments
-        );
-        TReturnType HaveAttributeWithNamedArguments(
-            string attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        );
-        TReturnType HaveAttributeWithNamedArguments(
             Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
         );
@@ -133,8 +97,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             (string, object) firstAttributeArgument,
             params (string, object)[] moreAttributeArguments
         );
-        TReturnType HaveName(string pattern, bool useRegularExpressions = false);
-        TReturnType HaveFullName(string pattern, bool useRegularExpressions = false);
+        TReturnType HaveName(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
+        TReturnType HaveFullName(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
         TReturnType HaveNameStartingWith(string pattern);
         TReturnType HaveNameEndingWith(string pattern);
         TReturnType HaveNameContaining(string pattern);
@@ -150,31 +114,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
 
         TReturnType NotExist();
-        TReturnType NotBe(string pattern, bool useRegularExpressions = false);
-        TReturnType NotBe(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType NotBe(IEnumerable<ICanBeAnalyzed> objects);
         TReturnType NotBe(IObjectProvider<ICanBeAnalyzed> objects);
-        TReturnType NotCallAny(string pattern, bool useRegularExpressions = false);
-        TReturnType NotCallAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType NotCallAny(MethodMember method, params MethodMember[] moreMethods);
         TReturnType NotCallAny(IEnumerable<MethodMember> methods);
         TReturnType NotCallAny(IObjectProvider<MethodMember> methods);
-        TReturnType NotDependOnAny(string pattern, bool useRegularExpressions = false);
-        TReturnType NotDependOnAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        );
         TReturnType NotDependOnAny(IType firstType, params IType[] moreTypes);
         TReturnType NotDependOnAny(Type firstType, params Type[] moreTypes);
         TReturnType NotDependOnAny(IObjectProvider<IType> types);
         TReturnType NotDependOnAny(IEnumerable<IType> types);
         TReturnType NotDependOnAny(IEnumerable<Type> types);
-        TReturnType NotHaveAnyAttributes(string pattern, bool useRegularExpressions = false);
-        TReturnType NotHaveAnyAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        );
         TReturnType NotHaveAnyAttributes(
             Attribute firstAttribute,
             params Attribute[] moreAttributes
@@ -231,8 +181,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             (string, object) firstAttributeArgument,
             params (string, object)[] moreAttributeArguments
         );
-        TReturnType NotHaveName(string pattern, bool useRegularExpressions = false);
-        TReturnType NotHaveFullName(string pattern, bool useRegularExpressions = false);
+        TReturnType NotHaveName(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
+        TReturnType NotHaveFullName(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
         TReturnType NotHaveNameStartingWith(string pattern);
         TReturnType NotHaveNameEndingWith(string pattern);
         TReturnType NotHaveNameContaining(string pattern);

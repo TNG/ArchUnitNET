@@ -17,11 +17,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         TReturnType Are(Type firstType, params Type[] moreTypes);
         TReturnType Are(IEnumerable<Type> types);
-        TReturnType AreAssignableTo(string pattern, bool useRegularExpressions = false);
-        TReturnType AreAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        );
         TReturnType AreAssignableTo(IType firstType, params IType[] moreTypes);
         TReturnType AreAssignableTo(Type type, params Type[] moreTypes);
         TReturnType AreAssignableTo(IObjectProvider<IType> types);
@@ -30,11 +25,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType AreValueTypes();
         TReturnType AreEnums();
         TReturnType AreStructs();
-        TReturnType ImplementInterface(string pattern, bool useRegularExpressions = false);
         TReturnType ImplementInterface(Interface intf);
         TReturnType ImplementInterface(Type intf);
-        TReturnType ResideInNamespace(string pattern, bool useRegularExpressions = false);
-        TReturnType ResideInAssembly(string pattern, bool useRegularExpressions = false);
+        TReturnType ResideInNamespace(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
+        TReturnType ResideInAssembly(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
         TReturnType ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
         TReturnType ResideInAssembly(
             Domain.Assembly assembly,
@@ -51,11 +45,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         TReturnType AreNot(Type firstType, params Type[] moreTypes);
         TReturnType AreNot(IEnumerable<Type> types);
-        TReturnType AreNotAssignableTo(string pattern, bool useRegularExpressions = false);
-        TReturnType AreNotAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        );
         TReturnType AreNotAssignableTo(IType type, params IType[] moreTypes);
         TReturnType AreNotAssignableTo(Type type, params Type[] moreTypes);
         TReturnType AreNotAssignableTo(IObjectProvider<IType> types);
@@ -64,11 +53,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType AreNotValueTypes();
         TReturnType AreNotEnums();
         TReturnType AreNotStructs();
-        TReturnType DoNotImplementInterface(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotImplementInterface(Interface intf);
         TReturnType DoNotImplementInterface(Type intf);
-        TReturnType DoNotResideInNamespace(string pattern, bool useRegularExpressions = false);
-        TReturnType DoNotResideInAssembly(string pattern, bool useRegularExpressions = false);
+        TReturnType DoNotResideInNamespace(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
+        TReturnType DoNotResideInAssembly(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
         TReturnType DoNotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
         TReturnType DoNotResideInAssembly(
             Domain.Assembly assembly,

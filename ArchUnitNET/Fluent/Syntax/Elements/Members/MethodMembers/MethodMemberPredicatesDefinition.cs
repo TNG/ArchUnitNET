@@ -30,59 +30,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         }
 
         public static IPredicate<MethodMember> AreCalledBy(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimplePredicate<MethodMember>(
-                member => member.IsCalledBy(pattern, useRegularExpressions),
-                "are called by types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<MethodMember> AreCalledBy(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(MethodMember ruleType)
-            {
-                return patternList.Any(pattern =>
-                    ruleType.IsCalledBy(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "are called by one of no types (always false)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "are called by types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> AreCalledBy(
             IType firstType,
             params IType[] moreTypes
         )
@@ -188,59 +135,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             }
 
             return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimplePredicate<MethodMember>(
-                member => member.HasDependencyInMethodBodyTo(pattern, useRegularExpressions),
-                "have dependencies in method body to types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(MethodMember ruleType)
-            {
-                return patternList.Any(pattern =>
-                    ruleType.HasDependencyInMethodBodyTo(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "have dependencies in method body to one of no types (always false)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "have dependencies in method body to types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<MethodMember>(Condition, description);
         }
 
         public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(
@@ -372,43 +266,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         }
 
         public static IPredicate<MethodMember> HaveReturnType(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimplePredicate<MethodMember>(
-                member => member.ReturnType.FullNameMatches(pattern, useRegularExpressions),
-                "have return type with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<MethodMember> HaveReturnType(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternsArray = patterns.ToArray();
-            var description =
-                "have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + string.Join("\" or \"", patternsArray)
-                + "\"";
-
-            return new SimplePredicate<MethodMember>(
-                member =>
-                    patternsArray.Any(pattern =>
-                        member.ReturnType.FullNameMatches(pattern, useRegularExpressions)
-                    ),
-                description
-            );
-        }
-
-        public static IPredicate<MethodMember> HaveReturnType(
             IType firstType,
             params IType[] moreTypes
         )
@@ -489,59 +346,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 member => !member.IsVirtual,
                 "are not virtual"
             );
-        }
-
-        public static IPredicate<MethodMember> AreNotCalledBy(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimplePredicate<MethodMember>(
-                member => !member.IsCalledBy(pattern, useRegularExpressions),
-                "are not called by types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<MethodMember> AreNotCalledBy(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(MethodMember ruleType)
-            {
-                return !patternList.Any(pattern =>
-                    ruleType.IsCalledBy(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "are not called by one of no types (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "are not called by types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<MethodMember>(Condition, description);
         }
 
         public static IPredicate<MethodMember> AreNotCalledBy(
@@ -654,61 +458,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             return new ArchitecturePredicate<MethodMember>(Condition, description);
         }
-
-        public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimplePredicate<MethodMember>(
-                member => !member.HasDependencyInMethodBodyTo(pattern, useRegularExpressions),
-                "do not have dependencies in method body to types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(MethodMember ruleType)
-            {
-                return !patternList.Any(pattern =>
-                    ruleType.HasDependencyInMethodBodyTo(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description =
-                    "do not have dependencies in method body to one of no types (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "do not have dependencies in method body to types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<MethodMember>(Condition, description);
-        }
-
+        
         public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
             IType firstType,
             params IType[] moreTypes
@@ -840,43 +590,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             }
 
             return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveReturnType(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimplePredicate<MethodMember>(
-                member => !member.ReturnType.FullNameMatches(pattern, useRegularExpressions),
-                "do not have return type with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveReturnType(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternsArray = patterns.ToArray();
-            var description =
-                "do not have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + string.Join("\" or \"", patternsArray)
-                + "\"";
-
-            return new SimplePredicate<MethodMember>(
-                member =>
-                    patternsArray.All(pattern =>
-                        !member.ReturnType.FullNameMatches(pattern, useRegularExpressions)
-                    ),
-                description
-            );
         }
 
         public static IPredicate<MethodMember> DoNotHaveReturnType(
