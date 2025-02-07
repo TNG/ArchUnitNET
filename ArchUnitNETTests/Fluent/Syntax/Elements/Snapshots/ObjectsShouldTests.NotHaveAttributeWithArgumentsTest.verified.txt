@@ -1,17 +1,5 @@
 ﻿===== No violations with type arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.OtherTypeArgument"
-Result: True
-Description: AttributeNamespace.ClassWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.OtherTypeArgument"
-Result: True
-Description: AttributeNamespace.ClassWithArguments passed
-Message: 
-All Evaluations passed
-
 Query: Types that are "AttributeNamespace.ClassWithArguments" should does have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.OtherTypeArgument"
 Result: True
 Description: AttributeNamespace.ClassWithArguments passed
@@ -38,18 +26,6 @@ All Evaluations passed
 
 ===== No violations with value arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.OtherTypeArgument"
-Result: True
-Description: AttributeNamespace.ClassWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.OtherTypeArgument"
-Result: True
-Description: AttributeNamespace.ClassWithArguments passed
-Message: 
-All Evaluations passed
-
 Query: Types that are "AttributeNamespace.ClassWithArguments" should does have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.OtherTypeArgument"
 Result: True
 Description: AttributeNamespace.ClassWithArguments passed
@@ -75,24 +51,6 @@ Message:
 All Evaluations passed
 
 ===== Violations with type arguments =====
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
-	AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
-	AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-
-
 
 Query: Types that are "AttributeNamespace.ClassWithArguments" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Result: False
@@ -132,24 +90,6 @@ Message:
 
 ===== Violations with value arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "0"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "0"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "0"" failed:
-	AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "0"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "0"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "0"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "0"" failed:
-	AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "0"
-
-
-
 Query: Types that are "AttributeNamespace.ClassWithArguments" should does have attribute "AttributeNamespace.Attribute1" with arguments "0"
 Result: False
 Description: AttributeNamespace.ClassWithArguments not have attribute "AttributeNamespace.Attribute1" with arguments "0"
@@ -188,18 +128,6 @@ Message:
 
 ===== Unused attribute =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.UnusedAttribute" with arguments "Argument"
-Result: True
-Description: AttributeNamespace.ClassWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.UnusedAttribute" with arguments "Argument"
-Result: True
-Description: AttributeNamespace.ClassWithArguments passed
-Message: 
-All Evaluations passed
-
 Query: Types that are "AttributeNamespace.ClassWithArguments" should does have attribute "AttributeNamespace.UnusedAttribute" with arguments "Argument"
 Result: True
 Description: AttributeNamespace.ClassWithArguments passed
@@ -234,12 +162,6 @@ All Evaluations passed
 
 ===== Null argument =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.UnusedAttribute" with arguments ""
-Result: True
-Description: AttributeNamespace.ClassWithArguments passed
-Message: 
-All Evaluations passed
-
 Query: Types that are "AttributeNamespace.ClassWithArguments" should does have attribute "AttributeNamespace.UnusedAttribute" with arguments ""
 Result: True
 Description: AttributeNamespace.ClassWithArguments passed
@@ -253,15 +175,6 @@ Message:
 All Evaluations passed
 
 ===== Empty arguments =====
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1"" failed:
-	AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1"
-
-
 
 Query: Types that are "AttributeNamespace.ClassWithArguments" should does have attribute "AttributeNamespace.Attribute1"
 Result: False
@@ -282,24 +195,6 @@ Message:
 
 
 ===== Multiple arguments =====
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument" and "0"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument" and "0"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument" and "0"" failed:
-	AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument" and "0"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument" and "0"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument" and "0"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument" and "0"" failed:
-	AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument" and "0"
-
-
 
 Query: Types that are "AttributeNamespace.ClassWithArguments" should does have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument" and "0"
 Result: False
@@ -338,28 +233,6 @@ Message:
 
 
 ===== Multiple inputs =====
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-Result: True
-Description: AttributeNamespace.ClassWithAttributes passed
-Result: False
-Description: AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
-	AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-Result: True
-Description: AttributeNamespace.ClassWithAttributes passed
-Result: False
-Description: AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
-	AttributeNamespace.ClassWithArguments does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
-
-
 
 Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Result: True

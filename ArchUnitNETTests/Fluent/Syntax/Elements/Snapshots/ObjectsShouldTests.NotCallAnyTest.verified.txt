@@ -1,29 +1,5 @@
 ﻿===== No violations =====
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
-Result: True
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
-Message: 
-All Evaluations passed
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any method with full name matching "^.*\.MethodWithoutDependencies$"
-Result: True
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
-Message: 
-All Evaluations passed
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call methods with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
-Result: True
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
-Message: 
-All Evaluations passed
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any method with full name matching "^.*\.MethodWithoutDependencies$"
-Result: True
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
-Message: 
-All Evaluations passed
-
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
@@ -43,24 +19,6 @@ Message:
 All Evaluations passed
 
 ===== Violations =====
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
-Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
-Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any method with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
-
-
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call methods with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
-Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
-Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call methods with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
-
-
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 Result: False
@@ -89,20 +47,6 @@ Message:
 
 
 
-===== Non-existent method member =====
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any method with full name "NotTheNameOfAnyObject"
-Result: True
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
-Message: 
-All Evaluations passed
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call methods with full name "NotTheNameOfAnyObject"
-Result: True
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
-Message: 
-All Evaluations passed
-
 ===== Empty arguments =====
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call no methods (always true)
@@ -111,37 +55,7 @@ Description: System.Void MethodDependencyNamespace.MethodDependencyClass::Method
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call no methods (always true)
-Result: True
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
-Message: 
-All Evaluations passed
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call Method members that have full name "NotTheNameOfAnyObject"
-Result: True
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
-Message: 
-All Evaluations passed
-
 ===== Multiple arguments =====
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call any method with full name matching "^.*::(MethodWithoutDependencies|CalledMethod[0-9])\(\)$"
-Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
-Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call any method with full name matching "^.*::(MethodWithoutDependencies|CalledMethod[0-9])\(\)$"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
-
-
-
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call methods with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe...
-Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
-Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call methods with full name "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe..." failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
-
-
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Metho...
 Result: False
