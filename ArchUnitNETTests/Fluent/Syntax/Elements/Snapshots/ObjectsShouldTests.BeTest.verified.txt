@@ -1,29 +1,5 @@
 ﻿===== No violations =====
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should have full name "TypeDependencyNamespace.ChildClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should have full name matching "^.*\.ChildClass$"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should have full name "TypeDependencyNamespace.ChildClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should have full name matching "^.*\.ChildClass$"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ChildClass"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
@@ -55,42 +31,6 @@ Message:
 All Evaluations passed
 
 ===== Violations =====
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should have full name "TypeDependencyNamespace.ClassWithoutDependencies"
-Result: False
-Description: TypeDependencyNamespace.ChildClass does not have full name "TypeDependencyNamespace.ClassWithoutDependencies"
-Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should have full name "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.ChildClass does not have full name "TypeDependencyNamespace.ClassWithoutDependencies"
-
-
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should have full name matching "^.*\.ClassWithoutDependencies$"
-Result: False
-Description: TypeDependencyNamespace.ChildClass does not have full name matching "^.*\.ClassWithoutDependencies$"
-Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should have full name matching "^.*\.ClassWithoutDependencies$"" failed:
-	TypeDependencyNamespace.ChildClass does not have full name matching "^.*\.ClassWithoutDependencies$"
-
-
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should have full name "TypeDependencyNamespace.ClassWithoutDependencies"
-Result: False
-Description: TypeDependencyNamespace.ChildClass does not have full name "TypeDependencyNamespace.ClassWithoutDependencies"
-Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should have full name "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.ChildClass does not have full name "TypeDependencyNamespace.ClassWithoutDependencies"
-
-
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should have full name matching "^.*\.ClassWithoutDependencies$"
-Result: False
-Description: TypeDependencyNamespace.ChildClass does not have full name matching "^.*\.ClassWithoutDependencies$"
-Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should have full name matching "^.*\.ClassWithoutDependencies$"" failed:
-	TypeDependencyNamespace.ChildClass does not have full name matching "^.*\.ClassWithoutDependencies$"
-
-
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: False
@@ -137,36 +77,7 @@ Message:
 
 
 
-===== Non-existent type =====
-
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "NotTheNameOfAnyObject"
-Result: False
-Description: TypeDependencyNamespace.BaseClass does not have full name "NotTheNameOfAnyObject"
-Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should have full name "NotTheNameOfAnyObject"" failed:
-	TypeDependencyNamespace.BaseClass does not have full name "NotTheNameOfAnyObject"
-
-
-
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "NotTheNameOfAnyObject"
-Result: False
-Description: TypeDependencyNamespace.BaseClass does not have full name "NotTheNameOfAnyObject"
-Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should have full name "NotTheNameOfAnyObject"" failed:
-	TypeDependencyNamespace.BaseClass does not have full name "NotTheNameOfAnyObject"
-
-
-
 ===== Empty arguments =====
-
-Query: Types that are "TypeDependencyNamespace.BaseClass" should not exist
-Result: False
-Description: TypeDependencyNamespace.BaseClass does exist
-Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should not exist" failed:
-	TypeDependencyNamespace.BaseClass does exist
-
-
 
 Query: Types that are "TypeDependencyNamespace.BaseClass" should not exist
 Result: False
@@ -196,15 +107,6 @@ Message:
 
 
 ===== Multiple arguments =====
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should have full name "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
-Result: False
-Description: TypeDependencyNamespace.ChildClass does not have full name "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
-Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should have full name "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does not have full name "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
-
-
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
