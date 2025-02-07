@@ -775,7 +775,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers)
             {
                 var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
+                var failedObjects = methodMemberList
                     .Where(methodMember =>
                         methodMember
                             .GetBodyTypeMemberDependencies()
@@ -788,27 +788,27 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 if (typeList.IsNullOrEmpty())
                 {
                     failDescription =
-                        "does not have dependencies in method body to one of no types (always true)";
+                        "does have dependencies in method body to one of no types (always false)";
                 }
                 else
                 {
                     failDescription = typeList
-                        .Where(type => !type.Equals(firstType))
+                        .Where(type => !Equals(type, firstType))
                         .Distinct()
                         .Aggregate(
-                            "does not have dependencies in method body to \""
-                                + firstType.FullName
-                                + "\"",
+                            "does have dependencies in method body to \""
+                            + firstType.FullName
+                            + "\"",
                             (current, type) => current + " or \"" + type.FullName + "\""
                         );
                 }
 
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
+                foreach (var failedObject in failedObjects)
                 {
                     yield return new ConditionResult(failedObject, false, failDescription);
                 }
 
-                foreach (var passedObject in passedObjects)
+                foreach (var passedObject in methodMemberList.Except(failedObjects))
                 {
                     yield return new ConditionResult(passedObject, true);
                 }
@@ -817,15 +817,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             string description;
             if (typeList.IsNullOrEmpty())
             {
-                description = "have dependencies in method body to one of no types (always false)";
+                description =
+                    "not have dependencies in method body to one of no types (always true)";
             }
             else
             {
                 description = typeList
-                    .Where(type => !type.Equals(firstType))
+                    .Where(type => !Equals(type, firstType))
                     .Distinct()
                     .Aggregate(
-                        "have dependencies in method body to \"" + firstType.FullName + "\"",
+                        "not have dependencies in method body to \"" + firstType.FullName + "\"",
                         (current, type) => current + " or \"" + type.FullName + "\""
                     );
             }
