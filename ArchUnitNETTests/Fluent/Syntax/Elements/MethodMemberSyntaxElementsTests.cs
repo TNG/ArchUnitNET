@@ -196,7 +196,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 foreach (
                     var callingType in methodMember
                         .GetMethodCallDependencies(true)
-                        .Select(dependency => dependency.Origin.FullName)
+                        .Select(dependency => dependency.Origin)
                 )
                 {
                     var methodIsCalledByRightType = MethodMembers()
@@ -218,12 +218,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     .That()
                     .Are(methodMember)
                     .Should()
-                    .BeCalledBy(typeof(PublicTestClass).FullName);
+                    .BeCalledBy(typeof(PublicTestClass));
                 var methodIsNotCalledByFalseType = MethodMembers()
                     .That()
                     .Are(methodMember)
                     .Should()
-                    .NotBeCalledBy(typeof(PublicTestClass).FullName);
+                    .NotBeCalledBy(typeof(PublicTestClass));
 
                 Assert.False(methodIsCalledByFalseType.HasNoViolations(Architecture));
                 Assert.True(methodIsNotCalledByFalseType.HasNoViolations(Architecture));
@@ -233,15 +233,15 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             {
                 var calledMethodsShouldBeCalled = MethodMembers()
                     .That()
-                    .AreCalledBy(type.FullName)
+                    .AreCalledBy(type)
                     .Should()
-                    .BeCalledBy(type.FullName)
+                    .BeCalledBy(type)
                     .WithoutRequiringPositiveResults();
                 var notCalledMethodsShouldNotBeCalled = MethodMembers()
                     .That()
-                    .AreNotCalledBy(type.FullName)
+                    .AreNotCalledBy(type)
                     .Should()
-                    .NotBeCalledBy(type.FullName);
+                    .NotBeCalledBy(type);
 
                 Assert.True(calledMethodsShouldBeCalled.HasNoViolations(Architecture));
                 Assert.True(notCalledMethodsShouldNotBeCalled.HasNoViolations(Architecture));
@@ -249,12 +249,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             var emptyTypeCallsNoMethods = MethodMembers()
                 .That()
-                .AreCalledBy(typeof(PublicTestClass).FullName)
+                .AreCalledBy(typeof(PublicTestClass))
                 .Should()
                 .NotExist();
             var methodsNotCalledByEmptyTypeShouldExist = MethodMembers()
                 .That()
-                .AreNotCalledBy(typeof(PublicTestClass).FullName)
+                .AreNotCalledBy(typeof(PublicTestClass))
                 .Should()
                 .Exist();
 
@@ -270,7 +270,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 foreach (
                     var dependency in methodMember
                         .GetBodyTypeMemberDependencies()
-                        .Select(dependency => dependency.Target.FullName)
+                        .Select(dependency => dependency.Target)
                 )
                 {
                     var hasRightDependency = MethodMembers()
@@ -293,15 +293,15 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             {
                 var dependentMethodsShouldBeDependent = MethodMembers()
                     .That()
-                    .HaveDependencyInMethodBodyTo(type.FullName)
+                    .HaveDependencyInMethodBodyTo(type)
                     .Should()
-                    .HaveDependencyInMethodBodyTo(type.FullName)
+                    .HaveDependencyInMethodBodyTo(type)
                     .WithoutRequiringPositiveResults();
                 var notDependentMethodsShouldNotBeDependent = MethodMembers()
                     .That()
-                    .DoNotHaveDependencyInMethodBodyTo(type.FullName)
+                    .DoNotHaveDependencyInMethodBodyTo(type)
                     .Should()
-                    .NotHaveDependencyInMethodBodyTo(type.FullName);
+                    .NotHaveDependencyInMethodBodyTo(type);
 
                 Assert.True(dependentMethodsShouldBeDependent.HasNoViolations(Architecture));
                 Assert.True(notDependentMethodsShouldNotBeDependent.HasNoViolations(Architecture));
@@ -311,21 +311,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void HaveReturnTypeConditionTest()
         {
-            var stringReturnTypes = new List<string> { "Void", "String", "ReturnTypeClass" };
-            var retTypeWithString = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .HaveReturnType(stringReturnTypes, true);
-            var retTypeWithStringFail = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .HaveReturnType("bool", true);
-
-            Assert.True(retTypeWithString.HasNoViolations(Architecture));
-            Assert.False(retTypeWithStringFail.HasNoViolations(Architecture));
-
             var retTypeWithType = MethodMembers()
                 .That()
                 .HaveFullNameContaining("ReturnTypeMethod")
@@ -373,21 +358,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void NotHaveReturnTypeConditionTest()
         {
-            var stringReturnTypes = new List<string> { "Void", "String", "ReturnTypeClass" };
-            var retTypeWithString = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .NotHaveReturnType("bool", true);
-            var retTypeWithStringFail = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .NotHaveReturnType(stringReturnTypes, true);
-
-            Assert.True(retTypeWithString.HasNoViolations(Architecture));
-            Assert.False(retTypeWithStringFail.HasNoViolations(Architecture));
-
             var retTypeWithType = MethodMembers()
                 .That()
                 .HaveFullNameContaining("ReturnTypeMethod")
@@ -435,28 +405,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public void HaveReturnTypePredicateTest()
         {
-            var stringReturnTypes = new List<string> { "void", "string" };
-            var retTypeWithString = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .And()
-                .HaveReturnType(stringReturnTypes, true)
-                .Should()
-                .HaveFullNameContaining("Void")
-                .OrShould()
-                .HaveFullNameContaining("String")
-                .WithoutRequiringPositiveResults();
-            var retTypeWithStringNegate = MethodMembers()
-                .That()
-                .DoNotHaveReturnType("String", true)
-                .And()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .NotHaveFullNameContaining("String");
-
-            Assert.True(retTypeWithString.HasNoViolations(Architecture));
-            Assert.True(retTypeWithStringNegate.HasNoViolations(Architecture));
-
             var retTypeWithType = MethodMembers()
                 .That()
                 .HaveFullNameContaining("ReturnTypeMethod")
@@ -478,12 +426,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var objectProviderClass = Classes().That().HaveFullNameContaining("ReturnTypeClass");
             var retTypeWithObjectProvider = MethodMembers()
                 .That()
-                .HaveReturnType("ReturnTypeClass", true)
+                .HaveReturnType(objectProviderClass)
                 .Should()
                 .HaveFullNameContaining("ReturnTypeMethodClass");
             var retTypeWithObjectProviderFail = MethodMembers()
                 .That()
-                .DoNotHaveReturnType("ReturnTypeClass", true)
+                .DoNotHaveReturnType(objectProviderClass)
                 .And()
                 .HaveFullNameContaining("ReturnTypeMethod")
                 .Should()

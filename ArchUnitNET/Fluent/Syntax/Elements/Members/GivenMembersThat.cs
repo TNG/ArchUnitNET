@@ -20,29 +20,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         // ReSharper disable once MemberCanBeProtected.Global
         public GivenMembersThat(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
-
-        public TGivenRuleTypeConjunction AreDeclaredIn(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(pattern, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction AreDeclaredIn(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(patterns, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
+        
         public TGivenRuleTypeConjunction AreDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddPredicate(
@@ -96,36 +74,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         }
 
         //Negations
-
-
-        public TGivenRuleTypeConjunction AreNotDeclaredIn(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction AreNotDeclaredIn(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
+        
         public TGivenRuleTypeConjunction AreNotDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddPredicate(

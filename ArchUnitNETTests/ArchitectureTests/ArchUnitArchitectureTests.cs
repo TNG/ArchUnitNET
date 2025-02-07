@@ -32,7 +32,7 @@ namespace ArchUnitNETTests.ArchitectureTests
                 .That()
                 .ResideInNamespace(DomainNamespace)
                 .Should()
-                .NotDependOnAny(FluentNamespace)
+                .NotDependOnAny(Types().That().ResideInNamespace(FluentNamespace))
                 .Check(_architecture);
         }
 
@@ -43,7 +43,7 @@ namespace ArchUnitNETTests.ArchitectureTests
                 .That()
                 .ResideInNamespace(DomainNamespace)
                 .Should()
-                .NotDependOnAny(LoaderNamespace)
+                .NotDependOnAny(Types().That().ResideInNamespace(LoaderNamespace))
                 .Check(_architecture);
         }
 
@@ -54,7 +54,7 @@ namespace ArchUnitNETTests.ArchitectureTests
                 .That()
                 .ResideInNamespace(LoaderNamespace)
                 .Should()
-                .NotDependOnAny(FluentNamespace)
+                .NotDependOnAny(Types().That().ResideInNamespace(FluentNamespace))
                 .Check(_architecture);
         }
 
@@ -65,7 +65,7 @@ namespace ArchUnitNETTests.ArchitectureTests
                 .That()
                 .ResideInNamespace(FluentNamespace)
                 .Should()
-                .NotDependOnAny(LoaderNamespace)
+                .NotDependOnAny(Types().That().ResideInNamespace(LoaderNamespace))
                 .Check(_architecture);
         }
     }
