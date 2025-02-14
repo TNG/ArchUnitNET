@@ -1,14 +1,6 @@
 # Method Member
 
-```
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
-// 	SPDX-License-Identifier: Apache-2.0
-```
-
-		TRuleTypeConjunction AreConstructors();
+    	TRuleTypeConjunction AreConstructors();
         TRuleTypeConjunction AreVirtual();
         TRuleTypeConjunction AreCalledBy(string pattern, bool useRegularExpressions = false);
         TRuleTypeConjunction AreCalledBy(IEnumerable<string> patterns, bool useRegularExpressions = false);
