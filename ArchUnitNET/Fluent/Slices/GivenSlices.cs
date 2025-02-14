@@ -5,6 +5,7 @@
 // 	SPDX-License-Identifier: Apache-2.0
 //
 
+using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 
@@ -30,6 +31,12 @@ namespace ArchUnitNET.Fluent.Slices
         public IEnumerable<Slice> GetObjects(Architecture architecture)
         {
             return _ruleCreator.GetSlices(architecture);
+        }
+
+        public GivenSlices Where(Func<Slice, bool> filter)
+        {
+            _ruleCreator.AddFilter(filter);
+            return this;
         }
     }
 }
