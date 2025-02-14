@@ -22,7 +22,6 @@ namespace ArchUnitNET.xUnitTests
         private readonly IArchRule _falseRule;
         private readonly IArchRule _trueRule;
 
-
         public RuleEvaluationTests()
         {
             _architecture = new ArchLoader()
