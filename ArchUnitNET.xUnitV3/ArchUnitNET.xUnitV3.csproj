@@ -17,7 +17,7 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <RootNamespace>ArchUnitNET.xUnit.v3</RootNamespace>
+        <RootNamespace>ArchUnitNET.xUnitV3</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
