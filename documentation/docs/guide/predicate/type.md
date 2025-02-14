@@ -1,14 +1,6 @@
 # Type
 
-```
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
-// 	SPDX-License-Identifier: Apache-2.0
-```
-
-		TReturnType Are(Type firstType, params Type[] moreTypes);
+    	TReturnType Are(Type firstType, params Type[] moreTypes);
         TReturnType Are(IEnumerable<Type> types);
         TReturnType AreAssignableTo(string pattern, bool useRegularExpressions = false);
         TReturnType AreAssignableTo(IEnumerable<string> patterns, bool useRegularExpressions = false);
