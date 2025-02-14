@@ -122,3 +122,16 @@ Check out test examples for the current release at
 
 ArchUnitNET is published under the Apache License 2.0. For more information concerning the license, see
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+## Contributors ✨
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
