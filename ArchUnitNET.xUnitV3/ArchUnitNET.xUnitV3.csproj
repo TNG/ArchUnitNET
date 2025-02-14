@@ -11,7 +11,7 @@
         <PackageTags>test;arch;archunit;xunit</PackageTags>
         <IncludeSource>False</IncludeSource>
         <Company>TNG Technology Consulting GmbH</Company>
-        <PackageId>TngTech.ArchUnitNET.xUnit.v3</PackageId>
+        <PackageId>TngTech.ArchUnitNET.xUnitV3</PackageId>
         <IsTestProject>false</IsTestProject>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>

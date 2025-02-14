@@ -36,6 +36,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilteredDirectoryLoaderTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.xUnitV3", "ArchUnitNET.xUnitV3\ArchUnitNET.xUnitV3.csproj", "{5DE11135-0C27-41B4-BC34-9CB17BF335A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.xUnitTests", "ArchUnitNET.xUnitTests\ArchUnitNET.xUnitTests.csproj", "{E226D0D5-E50A-4E9C-A30F-F4747299D614}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.xUnitV3Tests", "ArchUnitNET.xUnitV3Tests\ArchUnitNET.xUnitV3Tests.csproj", "{439E00CE-5CB8-4474-9A27-3FFC5770DB7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +110,14 @@ Global
 		{5DE11135-0C27-41B4-BC34-9CB17BF335A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DE11135-0C27-41B4-BC34-9CB17BF335A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DE11135-0C27-41B4-BC34-9CB17BF335A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E226D0D5-E50A-4E9C-A30F-F4747299D614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E226D0D5-E50A-4E9C-A30F-F4747299D614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E226D0D5-E50A-4E9C-A30F-F4747299D614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E226D0D5-E50A-4E9C-A30F-F4747299D614}.Release|Any CPU.Build.0 = Release|Any CPU
+		{439E00CE-5CB8-4474-9A27-3FFC5770DB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{439E00CE-5CB8-4474-9A27-3FFC5770DB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{439E00CE-5CB8-4474-9A27-3FFC5770DB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{439E00CE-5CB8-4474-9A27-3FFC5770DB7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
