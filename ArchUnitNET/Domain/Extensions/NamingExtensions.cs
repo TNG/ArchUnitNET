@@ -102,5 +102,17 @@ namespace ArchUnitNET.Domain.Extensions
 
             return withFullName.FirstOrDefault();
         }
+
+        [CanBeNull]
+        public static TType WhereAssemblyQualifiedNameIs<TType>(
+            this IEnumerable<TType> source,
+            string assemblyQualifiedName
+        )
+            where TType : IHasAssemblyQualifiedName
+        {
+            return source.FirstOrDefault(type =>
+                type.AssemblyQualifiedName == assemblyQualifiedName
+            );
+        }
     }
 }

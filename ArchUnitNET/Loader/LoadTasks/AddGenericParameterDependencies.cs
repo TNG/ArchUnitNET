@@ -31,7 +31,6 @@ namespace ArchUnitNET.Loader.LoadTasks
         {
             foreach (var genericParameter in _type.GenericParameters)
             {
-                genericParameter.AssignDeclarer(_type);
                 foreach (var typeInstanceConstraint in genericParameter.TypeInstanceConstraints)
                 {
                     var dependency = new TypeGenericParameterTypeConstraintDependency(
@@ -49,7 +48,6 @@ namespace ArchUnitNET.Loader.LoadTasks
             {
                 foreach (var genericParameter in member.GenericParameters)
                 {
-                    genericParameter.AssignDeclarer(member);
                     foreach (var typeInstanceConstraint in genericParameter.TypeInstanceConstraints)
                     {
                         var dependency = new MemberGenericParameterTypeConstraintDependency(

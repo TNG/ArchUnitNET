@@ -19,9 +19,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Setup .NET
-        uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25 # v4.1.0
+        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
-          dotnet-version: 8.0.404
+          dotnet-version: 9.0.200
       - name: Install tools
         run: dotnet tool restore
       - name: Check formatting
@@ -33,13 +33,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Setup .NET
-        uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25 # v4.1.0
+        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
-          dotnet-version: 8.0.404
+          dotnet-version: 9.0.200
       - name: Run tests
         run: dotnet test -c Debug --collect:"XPlat Code Coverage" --settings coverlet.runsettings ArchUnitNETTests/
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.6.0
+        uses: codecov/codecov-action@v5.3.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
   run-tests:
@@ -52,9 +52,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Setup .NET
-        uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25 # v4.1.0
+        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
-          dotnet-version: 8.0.404
+          dotnet-version: 9.0.200
       - name: Run tests
         run: dotnet test -c Debug
   publish-docs:
@@ -138,9 +138,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Setup .NET
-        uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25 # v4.1.0
+        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
-          dotnet-version: 8.0.404
+          dotnet-version: 9.0.200
       - name: Build
         run: dotnet build -c Release
       - name: Pack
