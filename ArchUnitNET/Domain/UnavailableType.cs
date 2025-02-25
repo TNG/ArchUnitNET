@@ -59,7 +59,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((Struct)obj);
+            return obj.GetType() == GetType() && Equals((UnavailableType)obj);
         }
 
         public override int GetHashCode()
