@@ -20,6 +20,7 @@ If you want to use xUnit, NUnit or MSTestV2 for your unit tests, you should inst
 
 ```
 PS> Install-Package TngTech.ArchUnitNET.xUnit
+PS> Install-Package TngTech.ArchUnitNET.xUnitV3
 PS> Install-Package TngTech.ArchUnitNET.NUnit
 PS> Install-Package TngTech.ArchUnitNET.MSTestV2
 ```
