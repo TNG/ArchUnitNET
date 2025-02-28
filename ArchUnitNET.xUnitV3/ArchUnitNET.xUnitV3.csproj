@@ -30,16 +30,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="..\Logo\ArchUnitNET-Logo.png">
-        <Pack>true</Pack>
-        <PackagePath>/Logo/</PackagePath>
-        <Link>ArchUnitNET-Logo.png</Link>
-      </None>
-      <None Include="..\README.md">
-        <Pack>true</Pack>
-        <PackagePath></PackagePath>
-        <Link>README.md</Link>
-      </None>
+        <None Include="..\Logo\ArchUnitNET-Logo.png">
+            <Pack>true</Pack>
+            <PackagePath>/Logo/</PackagePath>
+            <Link>ArchUnitNET-Logo.png</Link>
+        </None>
+        <None Include="..\README.md">
+            <Pack>true</Pack>
+            <PackagePath></PackagePath>
+            <Link>README.md</Link>
+        </None>
     </ItemGroup>
 
 </Project>
