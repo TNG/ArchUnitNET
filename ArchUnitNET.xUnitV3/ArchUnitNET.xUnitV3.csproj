@@ -4,7 +4,6 @@
         <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
         <IsPackable>true</IsPackable>
         <Title>ArchUnit C# xUnit v3 Extension</Title>
-        <Authors>Florian Gather, Fritz Brandhuber, Jonas Bengtsson</Authors>
         <Description>xUnit v3 Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
