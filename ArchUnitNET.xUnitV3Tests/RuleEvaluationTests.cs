@@ -51,11 +51,15 @@ namespace ArchUnitNET.xUnitV3Tests
             Assert.Throws<FailedArchRuleException>(() => _falseRule.Check(_architecture));
             Assert.Equal(
                 _expectedErrorMessage,
-                Assert.Throws<FailedArchRuleException>(() => _architecture.CheckRule(_falseRule)).Message
+                Assert
+                    .Throws<FailedArchRuleException>(() => _architecture.CheckRule(_falseRule))
+                    .Message
             );
             Assert.Equal(
                 _expectedErrorMessage,
-                Assert.Throws<FailedArchRuleException>(() => _falseRule.Check(_architecture)).Message
+                Assert
+                    .Throws<FailedArchRuleException>(() => _falseRule.Check(_architecture))
+                    .Message
             );
         }
     }
