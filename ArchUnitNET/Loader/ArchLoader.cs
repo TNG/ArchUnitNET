@@ -128,7 +128,7 @@ namespace ArchUnitNET.Loader
                 var processedAssemblies = new List<AssemblyNameReference> { module.Assembly.Name };
                 var resolvedModules = new List<ModuleDefinition>();
                 _assemblyResolver.AddLib(module.Assembly);
-                _archBuilder.AddAssembly(module.Assembly, false, module.AssemblyReferences);
+                _archBuilder.AddAssembly(module.Assembly, false);
                 foreach (var assemblyReference in module.AssemblyReferences)
                 {
                     if (includeDependencies && recursive)
@@ -151,7 +151,7 @@ namespace ArchUnitNET.Loader
                                 var assemblyDefinition =
                                     _assemblyResolver.Resolve(assemblyReference)
                                     ?? throw new AssemblyResolutionException(assemblyReference);
-                                _archBuilder.AddAssembly(assemblyDefinition, false, null);
+                                _archBuilder.AddAssembly(assemblyDefinition, false);
                                 resolvedModules.AddRange(assemblyDefinition.Modules);
                             }
                         }
@@ -197,7 +197,7 @@ namespace ArchUnitNET.Loader
                 var filterResult = filterFunc?.Invoke(assemblyDefinition);
                 if (filterResult?.LoadThisAssembly != false)
                 {
-                    _archBuilder.AddAssembly(assemblyDefinition, false, null);
+                    _archBuilder.AddAssembly(assemblyDefinition, false);
                     resolvedModules.AddRange(assemblyDefinition.Modules);
                 }
 
