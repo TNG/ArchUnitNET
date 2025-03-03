@@ -20,6 +20,7 @@ If you want to use xUnit, NUnit or MSTestV2 for your unit tests, you should inst
 
 ```
 PS> Install-Package TngTech.ArchUnitNET.xUnit
+PS> Install-Package TngTech.ArchUnitNET.xUnitV3
 PS> Install-Package TngTech.ArchUnitNET.NUnit
 PS> Install-Package TngTech.ArchUnitNET.MSTestV2
 ```
@@ -122,3 +123,7 @@ Check out test examples for the current release at
 
 ArchUnitNET is published under the Apache License 2.0. For more information concerning the license, see
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+## Contributors ✨
+
+Thanks to [all the people who have contributed](https://github.com/TNG/ArchUnitNET/graphs/contributors) to the project.
