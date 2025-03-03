@@ -1,8 +1,11 @@
 using System.Linq;
+using System.Threading.Tasks;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
+using ArchUnitNET.xUnit;
 using Xunit;
+using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ExampleTest
 {
@@ -61,6 +64,17 @@ namespace ExampleTest
 
             Assert.Contains(_missingDependencyClass, methodWithTypeOfDependencyDependencies);
         }
+
+        [Fact]
+        public void AsyncMethodDependencyTest()
+        {
+            Classes()
+                .That()
+                .Are(typeof(AsyncUser))
+                .Should()
+                .CallAny(MethodMembers().That().HaveName("MethodAsync()"))
+                .Check(Architecture);
+        }
     }
 
 #pragma warning disable 219
@@ -85,5 +99,23 @@ namespace ExampleTest
     internal class MissingDependencyClass { }
 
     internal class SubClass : MissingDependencyClass { }
+
+    internal class AsyncService
+    {
+        public async Task MethodAsync()
+        {
+            await Task.Delay(100);
+        }
+    }
+
+    internal class AsyncUser
+    {
+        private readonly AsyncService _asyncService = new AsyncService();
+
+        public async Task UseAsyncService()
+        {
+            await _asyncService.MethodAsync();
+        }
+    }
 }
 #pragma warning restore 219

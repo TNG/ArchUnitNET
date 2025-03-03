@@ -113,6 +113,16 @@ namespace ExampleTest
 }
 ```
 
+#### Run the tests
+
+Since ArchUnitNET is reading the architecture form the analyzed binaries, it is recommended to run ArchUnitNET-based tests in Debug configuration.
+
+```
+dotnet test -c Debug
+```
+
+For more details on known edge cases, see [the documentation](https://archunitnet.readthedocs.io/en/stable/limitations/debug_artifacts/).
+
 #### Further Info and Help
 
 Check out test examples for the current release at
