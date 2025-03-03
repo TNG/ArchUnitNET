@@ -91,10 +91,7 @@ namespace ArchUnitNETTests.Loader
             Assert.Equal(3, architecture.Assemblies.Count());
 
             // Check that ReferencedAssemblyNames is not empty
-            Assert.All(
-                architecture.Assemblies,
-                x => Assert.NotEmpty(x.ReferencedAssemblyNames)
-            );
+            Assert.All(architecture.Assemblies, x => Assert.NotEmpty(x.ReferencedAssemblyNames));
         }
 
         [Fact]

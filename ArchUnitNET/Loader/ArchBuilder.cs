@@ -38,12 +38,11 @@ namespace ArchUnitNET.Loader
         public IEnumerable<Assembly> Assemblies => _assemblyRegistry.Assemblies;
         public IEnumerable<Namespace> Namespaces => _namespaceRegistry.Namespaces;
 
-        public void AddAssembly(
-            [NotNull] AssemblyDefinition moduleAssembly,
-            bool isOnlyReferenced
-        )
+        public void AddAssembly([NotNull] AssemblyDefinition moduleAssembly, bool isOnlyReferenced)
         {
-            var references = moduleAssembly.MainModule.AssemblyReferences.Select(reference => reference.Name).ToList();
+            var references = moduleAssembly
+                .MainModule.AssemblyReferences.Select(reference => reference.Name)
+                .ToList();
 
             if (!_assemblyRegistry.ContainsAssembly(moduleAssembly.Name.FullName))
             {
