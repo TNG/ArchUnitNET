@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 namespace ArchUnitNET.Domain
 {
     public enum Visibility
@@ -14,7 +8,9 @@ namespace ArchUnitNET.Domain
         Protected = 3,
         PrivateProtected = 4,
         Private = 5,
-        NotAccessible = 6 //should only be used for Getters/Setters or as default instead of null
+        NotAccessible =
+            6 //should only be used for Getters/Setters or as default instead of null
+        ,
     }
 
     public static class VisibilityStrings
@@ -27,7 +23,7 @@ namespace ArchUnitNET.Domain
             "Protected",
             "Private Protected",
             "Private",
-            "Not Accessible"
+            "Not Accessible",
         };
 
         private static readonly string[] LowerCase =
@@ -38,7 +34,7 @@ namespace ArchUnitNET.Domain
             "protected",
             "private protected",
             "private",
-            "not accessible"
+            "not accessible",
         };
 
         public static string ToString(this Visibility visibility, bool useCapitalLetters = false)

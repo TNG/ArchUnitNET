@@ -1,11 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-//
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +18,7 @@ namespace ArchUnitNET.Fluent.Freeze
         private static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
         {
             Indent = true,
-            Encoding = Encoding.UTF8
+            Encoding = Encoding.UTF8,
         };
 
         public XmlViolationStore(string storagePath = DefaultStoragePath)

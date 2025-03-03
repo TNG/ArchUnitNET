@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
 
@@ -28,6 +22,10 @@ namespace ArchUnitNET.Domain
             DeclaringType = declaringType;
             Name = name;
             FullName = fullName;
+            AssemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                declaringType.Assembly.FullName,
+                fullName
+            );
             Visibility = visibility;
             IsCompilerGenerated = isCompilerGenerated;
             _typeInstance = typeInstance;
@@ -35,11 +33,13 @@ namespace ArchUnitNET.Domain
             Writability = writability;
         }
 
+        public Assembly Assembly => DeclaringType.Assembly;
+        public Namespace Namespace => DeclaringType.Namespace;
         public Visibility Visibility { get; }
-
         public IType DeclaringType { get; }
         public string Name { get; }
         public string FullName { get; }
+        public string AssemblyQualifiedName { get; }
 
         public bool IsCompilerGenerated { get; }
         public bool? IsStatic { get; }

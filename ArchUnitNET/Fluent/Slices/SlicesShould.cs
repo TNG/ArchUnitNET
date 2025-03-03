@@ -1,11 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-//
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ArchUnitNET.Domain;
@@ -74,7 +67,7 @@ namespace ArchUnitNET.Fluent.Slices
                             {
                                 var depsFromThisSliceToOtherSlice = new List<string>
                                 {
-                                    slice.Description + " -> " + otherSlice.Description
+                                    slice.Description + " -> " + otherSlice.Description,
                                 };
                                 depsFromThisSliceToOtherSlice.AddRange(
                                     depsToSlice.Select(dependency =>

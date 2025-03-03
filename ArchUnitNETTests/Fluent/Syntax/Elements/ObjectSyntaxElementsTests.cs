@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -27,7 +21,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         private readonly IEnumerable<Type> _falseDependencies = new List<Type>
         {
             typeof(ClassWithNoDependencies1),
-            typeof(ClassWithNoDependencies2)
+            typeof(ClassWithNoDependencies2),
         };
 
         private readonly IEnumerable<IType> _types = Architecture.Types;
@@ -174,7 +168,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var list = new List<Class>
             {
                 StaticTestTypes.PublicTestClass,
-                StaticTestTypes.InternalTestClass
+                StaticTestTypes.InternalTestClass,
             };
             var listPublicTestClassAndInternalTestClassIsPublicOrInternal = Types()
                 .That()
@@ -204,7 +198,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var patternList = new List<string>
             {
                 StaticTestTypes.PublicTestClass.FullName,
-                StaticTestTypes.InternalTestClass.FullName
+                StaticTestTypes.InternalTestClass.FullName,
             };
             var publicTestClassAndInternalTestClassIsPublicOrInternalPattern = Types()
                 .That()
@@ -1082,7 +1076,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Types().That().Are(NestedProtectedTestClass).Should().BeProtected(),
                 Types().That().Are(NestedInternalTestClass).Should().BeInternal(),
                 Types().That().Are(NestedProtectedInternalTestClass).Should().BeProtectedInternal(),
-                Types().That().Are(NestedPrivateProtectedTestClass).Should().BePrivateProtected()
+                Types().That().Are(NestedPrivateProtectedTestClass).Should().BePrivateProtected(),
             };
 
             foreach (var visibilityRule in visibilityRules)

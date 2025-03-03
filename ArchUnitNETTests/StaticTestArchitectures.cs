@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
@@ -23,6 +17,25 @@ namespace ArchUnitNETTests
 
         public static readonly Architecture ArchUnitNETTestArchitecture = new ArchLoader()
             .LoadAssemblies(typeof(BaseClass).Assembly)
+            .Build();
+
+        public static readonly Architecture AttributeArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(AttributeNamespace.ClassWithoutAttributes).Assembly)
+            .Build();
+
+        public static readonly Architecture DependencyArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(TypeDependencyNamespace.BaseClass).Assembly)
+            .Build();
+
+        public static readonly Architecture LoaderTestArchitecture = new ArchLoader()
+            .LoadAssemblies(
+                typeof(LoaderTestAssembly.LoaderTestAssembly).Assembly,
+                typeof(OtherLoaderTestAssembly.OtherLoaderTestAssembly).Assembly
+            )
+            .Build();
+
+        public static readonly Architecture VisibilityArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(VisibilityNamespace.PublicClass).Assembly)
             .Build();
 
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture = new ArchLoader()

@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -144,17 +138,17 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var falseTypeList1 = new List<Type>
             {
                 typeof(PublicTestClass),
-                typeof(InternalTestClass)
+                typeof(InternalTestClass),
             };
             var falseTypeList2 = new List<IType>
             {
                 StaticTestTypes.PublicTestClass,
-                StaticTestTypes.InternalTestClass
+                StaticTestTypes.InternalTestClass,
             };
             var falseTypeListPattern = new List<string>
             {
                 StaticTestTypes.PublicTestClass.FullName,
-                StaticTestTypes.InternalTestClass.FullName
+                StaticTestTypes.InternalTestClass.FullName,
             };
             foreach (var type in _types)
             {
@@ -354,7 +348,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var typeList2 = new List<IType>
             {
                 StaticTestTypes.PublicTestClass,
-                StaticTestTypes.InternalTestClass
+                StaticTestTypes.InternalTestClass,
             };
 
             Classes()

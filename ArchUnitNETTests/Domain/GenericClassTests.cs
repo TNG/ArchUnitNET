@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +29,7 @@ namespace ArchUnitNETTests.Domain
             _classWithGenericParameters = Architecture.GetClassOfType(
                 typeof(ClassWithGenericParameters<>)
             );
+            var systemType = Architecture.GetClassOfType(typeof(string));
             var invokesGenericClass = Architecture.GetClassOfType(typeof(InvokesGenericClass));
             _genericallyTypedField = invokesGenericClass
                 .GetFieldMembersWithName(nameof(InvokesGenericClass.GuidGenericArgument))
@@ -42,7 +37,7 @@ namespace ArchUnitNETTests.Domain
             var guidMock = new Type(
                 SystemGuidFullName,
                 GuidClassName,
-                _classWithGenericParameters.Assembly,
+                systemType.Assembly,
                 new Namespace(StaticConstants.SystemNamespace, new List<IType>()),
                 Public,
                 false,

@@ -1,14 +1,9 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-//
-
-using System;
+﻿using System;
+using System.Linq;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using Mono.Cecil.Rocks;
 using static ArchUnitNET.Domain.Visibility;
 using GenericParameter = Mono.Cecil.GenericParameter;
 
@@ -16,6 +11,8 @@ namespace ArchUnitNET.Loader
 {
     internal static class MonoCecilTypeExtensions
     {
+        private const string RecordCloneMethodName = "<Clone>$";
+
         internal static string BuildFullName(this TypeReference typeReference)
         {
             if (typeReference.IsGenericParameter)
@@ -101,6 +98,12 @@ namespace ArchUnitNET.Loader
             throw new ArgumentException(
                 "The provided type definition seems to have no visibility."
             );
+        }
+
+        internal static bool IsRecord(this TypeDefinition typeDefinition)
+        {
+            return typeDefinition.IsClass
+                && typeDefinition.GetMethods().Any(x => x.Name == RecordCloneMethodName);
         }
     }
 }

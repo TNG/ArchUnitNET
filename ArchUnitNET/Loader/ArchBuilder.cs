@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -31,11 +25,7 @@ namespace ArchUnitNET.Loader
             _assemblyRegistry = new AssemblyRegistry();
             _namespaceRegistry = new NamespaceRegistry();
             _loadTaskRegistry = new LoadTaskRegistry();
-            var typeRegistry = new TypeRegistry();
-            var methodMemberRegistry = new MethodMemberRegistry();
             _typeFactory = new TypeFactory(
-                typeRegistry,
-                methodMemberRegistry,
                 _loadTaskRegistry,
                 _assemblyRegistry,
                 _namespaceRegistry
@@ -111,10 +101,17 @@ namespace ArchUnitNET.Loader
                 .ForEach(typeDefinition =>
                 {
                     var type = _typeFactory.GetOrCreateTypeFromTypeReference(typeDefinition);
-                    if (!_architectureTypes.ContainsKey(type.FullName) && !type.IsCompilerGenerated)
+                    var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
+                        module.Assembly.Name.Name,
+                        typeDefinition.FullName
+                    );
+                    if (
+                        !_architectureTypes.ContainsKey(assemblyQualifiedName)
+                        && !type.IsCompilerGenerated
+                    )
                     {
                         currentTypes.Add(type);
-                        _architectureTypes.Add(type.FullName, type);
+                        _architectureTypes.Add(assemblyQualifiedName, type);
                     }
                 });
 
@@ -143,7 +140,7 @@ namespace ArchUnitNET.Loader
                     typeof(AddGenericArgumentDependencies),
                     typeof(AddClassDependencies),
                     typeof(AddBackwardsDependencies),
-                    typeof(AddTypesToNamespace)
+                    typeof(AddTypesToNamespace),
                 }
             );
         }

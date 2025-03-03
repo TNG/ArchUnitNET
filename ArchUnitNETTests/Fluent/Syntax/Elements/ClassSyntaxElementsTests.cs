@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using Xunit;
@@ -230,8 +224,27 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.True(notImmutableClassesAreNotImmutabled.HasNoViolations(Architecture));
         }
 
+        [Fact]
+        public void AreRecordTest()
+        {
+            var recordsAreRecord = Classes().That().AreRecord().Should().BeRecord();
+
+            var recordsAreNotRecord = Classes().That().AreRecord().Should().NotBeRecord();
+
+            var notRecordsAreRecord = Classes().That().AreNotRecord().Should().BeRecord();
+
+            var notRecordsAreNotRecord = Classes().That().AreNotRecord().Should().NotBeRecord();
+
+            Assert.True(recordsAreRecord.HasNoViolations(Architecture));
+            Assert.False(recordsAreNotRecord.HasNoViolations(Architecture));
+            Assert.False(notRecordsAreRecord.HasNoViolations(Architecture));
+            Assert.True(notRecordsAreNotRecord.HasNoViolations(Architecture));
+        }
+
         private record ImmutableRecord(string Property, string AnotherProperty);
 
+#pragma warning disable 0169
+#pragma warning disable 0414
         private class ImmutableClass
         {
             private readonly string field;
@@ -242,6 +255,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             public string AnotherProperty { get; init; }
         }
+#pragma warning restore 0169
+#pragma warning restore 0414
 
         private class ImmutableClassWithoutMembers { }
 
@@ -253,7 +268,9 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         private class ImmutableClassWithOnlyStaticMembers
         {
             private const string ConstField = "const";
+#pragma warning disable 0169
             private static string StaticField;
+#pragma warning restore 0169
             public static string StaticProperty { get; set; }
 
             private static void Method() { }

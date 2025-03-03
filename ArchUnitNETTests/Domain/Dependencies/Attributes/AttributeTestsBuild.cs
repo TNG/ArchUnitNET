@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -78,7 +72,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
                 BuildTypeAttributeTestData(
                     typeof(StructWithAttribute),
                     typeof(ExampleStructAttribute)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -133,7 +127,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
                     typeof(ClassWithExampleAttribute),
                     nameof(ClassWithExampleAttribute.FieldWithAbstractAttributeImplemented),
                     typeof(ChildOfAbstractAttribute)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()

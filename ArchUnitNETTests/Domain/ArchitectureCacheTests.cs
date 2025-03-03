@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using Xunit;
@@ -49,6 +43,18 @@ namespace ArchUnitNETTests.Domain
                 _testArchitectureCache.TryGetArchitecture(_testArchitectureCacheKey),
                 _testEmptyArchitecture
             );
+        }
+
+        [Fact]
+        public void CacheClear()
+        {
+            _testArchitectureCache.Add(_testArchitectureCacheKey, _testEmptyArchitecture);
+            Assert.Equal(
+                _testArchitectureCache.TryGetArchitecture(_testArchitectureCacheKey),
+                _testEmptyArchitecture
+            );
+            _testArchitectureCache.Clear();
+            Assert.Null(_testArchitectureCache.TryGetArchitecture(_testArchitectureCacheKey));
         }
     }
 }

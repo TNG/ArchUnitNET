@@ -1,6 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "extends": [
+    "config:base",
+    "group:allNonMajor"
+  ],
   "customManagers": [
     {
       "customType": "regex",
@@ -24,6 +27,11 @@
   "packageRules": [
     {
       "matchManagers": ["nuget"],
+      "matchFileNames": [
+        "ArchUnitNET.MSTestV2/ArchUnitNET.MSTestV2.csproj",
+        "ArchUnitNET.NUnit/ArchUnitNET.NUnit.csproj",
+        "ArchUnitNET.XUnit/ArchUnitNET.XUnit.csproj"
+      ],
       "matchPackagePrefixes": ["xunit", "nunit", "NUnit", "MSTest"],
       "matchPackageNames": ["Microsoft.NET.Test.Sdk", "JetBrains.Annotations"],
       "enabled": false

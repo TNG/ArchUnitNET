@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
@@ -27,6 +21,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return new GivenClassesConjunction(_ruleCreator);
         }
 
+        public GivenClassesConjunction AreRecord()
+        {
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreRecord());
+            return new GivenClassesConjunction(_ruleCreator);
+        }
+
         public GivenClassesConjunction AreImmutable()
         {
             _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreImmutable());
@@ -45,6 +45,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         public GivenClassesConjunction AreNotSealed()
         {
             _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotSealed());
+            return new GivenClassesConjunction(_ruleCreator);
+        }
+
+        public GivenClassesConjunction AreNotRecord()
+        {
+            _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotRecord());
             return new GivenClassesConjunction(_ruleCreator);
         }
 

@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System.Linq;
+﻿using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
 
@@ -27,6 +21,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
                 cls => !cls.IsSealed.HasValue || cls.IsSealed.Value,
                 "be sealed",
                 "is not sealed"
+            );
+        }
+
+        public static ICondition<Class> BeRecord()
+        {
+            return new SimpleCondition<Class>(
+                cls => !cls.IsRecord.HasValue || cls.IsRecord.Value,
+                "be record",
+                "is not record"
             );
         }
 
@@ -59,6 +62,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
                 cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value,
                 "not be sealed",
                 "is sealed"
+            );
+        }
+
+        public static ICondition<Class> NotBeRecord()
+        {
+            return new SimpleCondition<Class>(
+                cls => !cls.IsRecord.HasValue || !cls.IsRecord.Value,
+                "not be record",
+                "is record"
             );
         }
 

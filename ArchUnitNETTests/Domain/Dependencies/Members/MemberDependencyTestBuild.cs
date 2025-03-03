@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +48,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -85,7 +79,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -132,7 +126,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -168,7 +162,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -198,7 +192,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 memberTypeDependency,
                 duplicateMemberTypeDependency,
                 dependencyReferenceDuplicate,
-                objectReferenceDuplicate
+                objectReferenceDuplicate,
             };
         }
 
@@ -246,7 +240,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     typeof(ClassWithMethodSignatureA),
                     nameof(ClassWithMethodSignatureA.MethodA).BuildMethodMemberName(),
                     typeof(ClassWithMethodSignatureB)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()

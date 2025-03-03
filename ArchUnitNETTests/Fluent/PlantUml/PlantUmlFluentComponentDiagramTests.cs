@@ -1,11 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-//
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,7 +28,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             new PlantUmlDependency("f", "g", DependencyType.PackageToOne),
             new PlantUmlDependency("g", "h", DependencyType.PackageToPackage),
             new PlantUmlDependency("h", "i", DependencyType.OneToOneCompact),
-            new PlantUmlDependency("i", "a", DependencyType.OneToOneIfSameParentNamespace)
+            new PlantUmlDependency("i", "a", DependencyType.OneToOneIfSameParentNamespace),
         };
 
         [Fact]
@@ -185,7 +178,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
                 "g -[#green]> h",
                 "[h] --> [i]",
                 "i --|> a",
-                "@enduml"
+                "@enduml",
             };
             ComponentDiagram()
                 .WithElements(Dependencies.Concat(classesWithoutDependencies))

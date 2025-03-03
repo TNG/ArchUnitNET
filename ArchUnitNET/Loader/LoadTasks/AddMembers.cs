@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +12,18 @@ namespace ArchUnitNET.Loader.LoadTasks
     internal class AddMembers : ILoadTask
     {
         private readonly MemberList _memberList;
-        private readonly IType _type;
+        private readonly ITypeInstance<IType> _typeInstance;
         private readonly TypeDefinition _typeDefinition;
         private readonly TypeFactory _typeFactory;
 
         public AddMembers(
-            IType type,
+            ITypeInstance<IType> typeInstance,
             TypeDefinition typeDefinition,
             TypeFactory typeFactory,
             MemberList memberList
         )
         {
-            _type = type;
+            _typeInstance = typeInstance;
             _typeDefinition = typeDefinition;
             _typeFactory = typeFactory;
             _memberList = memberList;
@@ -53,7 +47,10 @@ namespace ArchUnitNET.Loader.LoadTasks
                         .Concat(
                             typeDefinition.Methods.Select(method =>
                                 _typeFactory
-                                    .GetOrCreateMethodMemberFromMethodReference(_type, method)
+                                    .GetOrCreateMethodMemberFromMethodReference(
+                                        _typeInstance,
+                                        method
+                                    )
                                     .Member
                             )
                         )
@@ -72,7 +69,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             var isCompilerGenerated = fieldDefinition.IsCompilerGenerated();
             var writeAccessor = GetWriteAccessor(fieldDefinition);
             return new FieldMember(
-                _type,
+                _typeInstance.Type,
                 fieldDefinition.Name,
                 fieldDefinition.FullName,
                 visibility,
@@ -96,7 +93,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 || (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
             var writeAccessor = GetWriteAccessor(propertyDefinition);
             return new PropertyMember(
-                _type,
+                _typeInstance.Type,
                 propertyDefinition.Name,
                 propertyDefinition.FullName,
                 propertyType,

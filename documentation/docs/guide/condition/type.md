@@ -1,15 +1,6 @@
 #Type Conditions
 
-```
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
-// 	SPDX-License-Identifier: Apache-2.0
-```
-   
-
-		TReturnType Be(Type firstType, params Type[] moreTypes);
+    	TReturnType Be(Type firstType, params Type[] moreTypes);
         TReturnType Be(IEnumerable<Type> types);
         TReturnType BeAssignableTo(string pattern, bool useRegularExpressions = false);
         TReturnType BeAssignableTo(IEnumerable<string> patterns, bool useRegularExpressions = false);

@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +25,7 @@ namespace ArchUnitNET.Loader
             OpCodes.Ldobj,
             OpCodes.Stelem_Any,
             OpCodes.Ldelema,
-            OpCodes.Stobj
+            OpCodes.Stobj,
         }; //maybe not complete
 
         internal static string BuildFullName(this MethodReference methodReference)

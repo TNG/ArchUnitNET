@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -81,7 +75,7 @@ namespace ArchUnitNETTests.Loader
                 BuildTypeTestData(typeof(ClassWithFieldA)),
                 BuildTypeTestData(typeof(ClassWithPropertyA)),
                 BuildTypeTestData(typeof(ClassWithMethodA)),
-                BuildTypeTestData(typeof(ClassWithExampleAttribute))
+                BuildTypeTestData(typeof(ClassWithExampleAttribute)),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -102,7 +96,7 @@ namespace ArchUnitNETTests.Loader
                 BuildTypeEquivalenceTestData(typeof(ClassWithFieldA)),
                 BuildTypeEquivalenceTestData(typeof(ClassWithPropertyA)),
                 BuildTypeEquivalenceTestData(typeof(ClassWithMethodA)),
-                BuildTypeEquivalenceTestData(typeof(ClassWithExampleAttribute))
+                BuildTypeEquivalenceTestData(typeof(ClassWithExampleAttribute)),
             };
 
             public IEnumerator<object[]> GetEnumerator()

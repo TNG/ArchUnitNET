@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System;
 using ArchUnitNETTests.Domain.Dependencies.Members;
 using TestAssembly;
@@ -169,7 +163,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
         Enum1,
         Enum2,
         Enum3,
-        Enum4
+        Enum4,
     }
 
     [ExampleInterface]

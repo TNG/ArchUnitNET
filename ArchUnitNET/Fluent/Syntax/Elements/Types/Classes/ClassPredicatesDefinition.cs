@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System.Linq;
+﻿using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Predicates;
 
@@ -25,6 +19,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return new SimplePredicate<Class>(
                 cls => !cls.IsSealed.HasValue || cls.IsSealed.Value,
                 "are sealed"
+            );
+        }
+
+        public static IPredicate<Class> AreRecord()
+        {
+            return new SimplePredicate<Class>(
+                cls => !cls.IsRecord.HasValue || cls.IsRecord.Value,
+                "are record"
             );
         }
 
@@ -53,6 +55,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return new SimplePredicate<Class>(
                 cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value,
                 "are not sealed"
+            );
+        }
+
+        public static IPredicate<Class> AreNotRecord()
+        {
+            return new SimplePredicate<Class>(
+                cls => !cls.IsRecord.HasValue || !cls.IsRecord.Value,
+                "are not record"
             );
         }
 

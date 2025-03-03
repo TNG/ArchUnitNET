@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNETTests.Domain;
@@ -29,25 +23,25 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         private readonly List<IType> _falseTypes1 = new List<IType>
         {
             StaticTestTypes.PublicTestClass,
-            StaticTestTypes.InternalTestClass
+            StaticTestTypes.InternalTestClass,
         };
 
         private readonly List<Type> _falseTypes2 = new List<Type>
         {
             typeof(PublicTestClass),
-            typeof(InternalTestClass)
+            typeof(InternalTestClass),
         };
 
         private readonly List<string> _falseTypesPattern = new List<string>
         {
             StaticTestTypes.PublicTestClass.FullName,
-            StaticTestTypes.InternalTestClass.FullName
+            StaticTestTypes.InternalTestClass.FullName,
         };
 
         private readonly List<string> _falseTypeConstructors = new List<string>
         {
             PublicTestClassConstructor,
-            InternalTestClassConstructor
+            InternalTestClassConstructor,
         };
 
         private const string PublicTestClassConstructor =

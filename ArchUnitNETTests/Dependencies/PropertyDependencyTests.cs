@@ -1,10 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 	Copyright 2020 Pavel Fischer <rubbiroid@gmail.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-//
-
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
@@ -45,7 +38,7 @@ namespace ArchUnitNETTests.Dependencies
             }
             else
             {
-                Assert.True(false, "Property must have a getter");
+                Assert.Fail("Property must have a getter");
             }
         }
 
@@ -61,7 +54,7 @@ namespace ArchUnitNETTests.Dependencies
             }
             else
             {
-                Assert.True(false, "Property must have a getter");
+                Assert.Fail("Property must have a getter");
             }
         }
 
@@ -100,7 +93,7 @@ namespace ArchUnitNETTests.Dependencies
                 .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
-                Assert.True(false, "Class must have Method Call Dependency");
+                Assert.Fail("Class must have Method Call Dependency");
             }
             Assert.Contains(_dependOnClass, methodCalls.Select(d => d.Target));
         }
@@ -113,7 +106,7 @@ namespace ArchUnitNETTests.Dependencies
                 .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
-                Assert.True(false, "Property must have Method Call Dependency");
+                Assert.Fail("Property must have Method Call Dependency");
             }
             Assert.Contains(_dependOnClass, methodCalls.Select(d => d.Target));
         }
@@ -126,7 +119,7 @@ namespace ArchUnitNETTests.Dependencies
                 .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
-                Assert.True(false, "Getter must have Method Call Dependency");
+                Assert.Fail("Getter must have Method Call Dependency");
             }
             Assert.Contains(_dependOnClass, methodCalls.Select(d => d.Target));
         }

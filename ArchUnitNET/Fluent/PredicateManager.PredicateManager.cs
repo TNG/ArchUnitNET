@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -30,7 +24,7 @@ namespace ArchUnitNET.Fluent
                 new PredicateElement<T>(
                     LogicalConjunctionDefinition.ForwardSecondValue,
                     new SimplePredicate<T>(t => true, NotSet)
-                )
+                ),
             };
             _hasCustomDescription = false;
         }
@@ -42,15 +36,14 @@ namespace ArchUnitNET.Fluent
                     (current, objectFilterElement) =>
                         current + " " + objectFilterElement.Description
                 )
-                : _predicateElements.First().Description == NotSet
-                    ? _basicObjectProvider.Description
-                    : _basicObjectProvider.Description
-                        + " that"
-                        + _predicateElements.Aggregate(
-                            "",
-                            (current, objectFilterElement) =>
-                                current + " " + objectFilterElement.Description
-                        );
+            : _predicateElements.First().Description == NotSet ? _basicObjectProvider.Description
+            : _basicObjectProvider.Description
+                + " that"
+                + _predicateElements.Aggregate(
+                    "",
+                    (current, objectFilterElement) =>
+                        current + " " + objectFilterElement.Description
+                );
 
         public IEnumerable<T> GetObjects(Architecture architecture)
         {

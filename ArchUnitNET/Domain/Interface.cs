@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
@@ -21,6 +15,7 @@ namespace ArchUnitNET.Domain
         public IType Type { get; }
         public string Name => Type.Name;
         public string FullName => Type.FullName;
+        public string AssemblyQualifiedName => Type.AssemblyQualifiedName;
 
         public Visibility Visibility => Type.Visibility;
         public bool IsNested => Type.IsNested;

@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -100,7 +94,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             {
                 accessedProperty,
                 expectedFieldDependencyTarget,
-                expectedDependency
+                expectedDependency,
             };
         }
 
@@ -184,7 +178,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     typeof(SetterMethodDependencyExamples),
                     nameof(SetterMethodDependencyExamples.MethodLambdaPair),
                     typeof(PropertyType)
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -219,7 +213,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     nameof(GetterMethodDependencyExamples.SecondUnacceptedCase),
                     MockGuidStruct,
                     MockNewGuid
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
@@ -281,7 +275,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     typeof(GetterMethodDependencyExamples),
                     nameof(GetterMethodDependencyExamples.SecondUnacceptedCase),
                     MethodForm.Getter
-                )
+                ),
             };
 
             public IEnumerator<object[]> GetEnumerator()
