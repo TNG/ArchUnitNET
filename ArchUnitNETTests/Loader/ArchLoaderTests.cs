@@ -63,12 +63,16 @@ namespace ArchUnitNETTests.Loader
         [Fact]
         public void LoadAssembliesIncludingRecursiveDependencies()
         {
-            var archUnitNetTestArchitectureWithRecursiveDependencies = new ArchLoader()
+            var architecture = new ArchLoader()
                 .LoadAssembliesIncludingDependencies(new[] { typeof(BaseClass).Assembly }, true)
                 .Build();
 
-            Assert.True(
-                archUnitNetTestArchitectureWithRecursiveDependencies.Assemblies.Count() > 100
+            Assert.True(architecture.Assemblies.Count() > 100);
+
+            // Check for well-known assemblies, that ReferencedAssemblyNames is not empty
+            Assert.All(
+                architecture.Assemblies.Where(x => x.Name.StartsWith("ArchUnit")),
+                x => Assert.NotEmpty(x.ReferencedAssemblyNames)
             );
         }
 
@@ -85,6 +89,9 @@ namespace ArchUnitNETTests.Loader
                 .Build();
 
             Assert.Equal(3, architecture.Assemblies.Count());
+
+            // Check that ReferencedAssemblyNames is not empty
+            Assert.All(architecture.Assemblies, x => Assert.NotEmpty(x.ReferencedAssemblyNames));
         }
 
         [Fact]
