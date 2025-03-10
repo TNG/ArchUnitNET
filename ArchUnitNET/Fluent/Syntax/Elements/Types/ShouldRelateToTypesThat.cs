@@ -32,34 +32,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction AreAssignableTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.AreAssignableTo(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.AreAssignableTo(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction AreAssignableTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -164,20 +136,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ImplementInterface(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.ImplementInterface(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction ImplementInterface(Interface intf)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -194,33 +152,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ResideInNamespace(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TRuleTypeShouldConjunction ResideInNamespace(string fullName)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.ResideInNamespace(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypePredicatesDefinition<TReferenceType>.ResideInNamespace(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+        public TRuleTypeShouldConjunction ResideInNamespaceMatching(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.ResideInNamespaceMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ResideInAssembly(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TRuleTypeShouldConjunction ResideInAssembly(string fullName)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.ResideInAssembly(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypePredicatesDefinition<TReferenceType>.ResideInAssembly(fullName)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+        
+        public TRuleTypeShouldConjunction ResideInAssemblyMatching(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.ResideInAssemblyMatching(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
 
         public TRuleTypeShouldConjunction ResideInAssembly(
             Assembly assembly,
@@ -302,35 +264,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-
-        public TRuleTypeShouldConjunction AreNotAssignableTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.AreNotAssignableTo(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreNotAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.AreNotAssignableTo(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
+        
         public TRuleTypeShouldConjunction AreNotAssignableTo(
             IType firstType,
             params IType[] moreTypes
@@ -401,20 +335,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotImplementInterface(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.DoNotImplementInterface(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction DoNotImplementInterface(Interface intf)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -431,30 +351,32 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotResideInNamespace(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TRuleTypeShouldConjunction DoNotResideInNamespace(string fullName)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.DoNotResideInNamespace(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInNamespace(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+        public TRuleTypeShouldConjunction DoNotResideInNamespaceMatching(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInNamespaceMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction DoNotResideInAssembly(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TRuleTypeShouldConjunction DoNotResideInAssembly(string fullName)
         {
             _ruleCreator.ContinueComplexCondition(
-                TypePredicatesDefinition<TReferenceType>.DoNotResideInAssembly(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInAssembly(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+        public TRuleTypeShouldConjunction DoNotResideInAssemblyMatching(string pattern)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInAssemblyMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }

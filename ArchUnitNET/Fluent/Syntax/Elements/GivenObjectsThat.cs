@@ -15,25 +15,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         protected GivenObjectsThat(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
 
-        public TGivenRuleTypeConjunction Are(string pattern, bool useRegularExpressions = false)
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.Are(pattern, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction Are(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.Are(patterns, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TGivenRuleTypeConjunction Are(
             ICanBeAnalyzed firstObject,
             params ICanBeAnalyzed[] moreObjects
@@ -57,25 +38,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction CallAny(string pattern, bool useRegularExpressions = false)
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.CallAny(pattern, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction CallAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.CallAny(patterns, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TGivenRuleTypeConjunction CallAny(
             MethodMember method,
             params MethodMember[] moreMethods
@@ -96,28 +58,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction CallAny(IObjectProvider<MethodMember> methods)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.CallAny(methods));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DependOnAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DependOnAny(pattern, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DependOnAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DependOnAny(patterns, useRegularExpressions)
-            );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -172,28 +112,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction OnlyDependOn(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.OnlyDependOn(pattern, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction OnlyDependOn(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.OnlyDependOn(patterns, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TGivenRuleTypeConjunction OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.AddPredicate(
@@ -225,34 +143,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction OnlyDependOn(IEnumerable<Type> types)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.OnlyDependOn(types));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveAnyAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveAnyAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -304,34 +194,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.AddPredicate(
                 ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributes(attributes)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction OnlyHaveAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.OnlyHaveAttributes(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction OnlyHaveAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.OnlyHaveAttributes(
-                    patterns,
-                    useRegularExpressions
-                )
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
@@ -413,36 +275,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TGivenRuleTypeConjunction HaveAttributeWithArguments(
-            string attribute,
-            IEnumerable<object> argumentValues
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(
-                    attribute,
-                    argumentValues
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveAttributeWithArguments(
-            string attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(
-                    attribute,
-                    firstArgumentValue,
-                    moreArgumentValues
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveAttributeWithArguments(
             Attribute attribute,
             IEnumerable<object> argumentValues
         )
@@ -529,36 +361,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(
-            string attribute,
-            IEnumerable<(string, object)> attributeArguments
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithNamedArguments(
-                    attribute,
-                    attributeArguments
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(
-            string attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithNamedArguments(
-                    attribute,
-                    firstAttributeArgument,
-                    moreAttributeArguments
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(
             Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
         )
@@ -618,24 +420,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TGivenRuleTypeConjunction HaveName(string name)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveName(pattern, useRegularExpressions)
+                ObjectPredicatesDefinition<TRuleType>.HaveName(name)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TGivenRuleTypeConjunction HaveNameMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.HaveNameMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TGivenRuleTypeConjunction HaveFullName(string fullName)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveFullName(pattern, useRegularExpressions)
+                ObjectPredicatesDefinition<TRuleType>.HaveFullName(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TGivenRuleTypeConjunction HaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.HaveFullNameMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
@@ -710,26 +522,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
-
-        public TGivenRuleTypeConjunction AreNot(string pattern, bool useRegularExpressions = false)
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.AreNot(pattern, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction AreNot(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.AreNot(patterns, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TGivenRuleTypeConjunction AreNot(
             ICanBeAnalyzed firstObject,
             params ICanBeAnalyzed[] moreObjects
@@ -754,28 +546,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TGivenRuleTypeConjunction DoNotCallAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotCallAny(pattern, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotCallAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotCallAny(patterns, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotCallAny(
             MethodMember method,
             params MethodMember[] moreMethods
         )
@@ -795,34 +565,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction DoNotCallAny(IObjectProvider<MethodMember> methods)
         {
             _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotCallAny(methods));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotDependOnAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotDependOnAny(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotDependOnAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotDependOnAny(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -862,34 +604,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.AddPredicate(
                 ObjectPredicatesDefinition<TRuleType>.DoNotDependOnAny(types)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributes(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributes(
-                    patterns,
-                    useRegularExpressions
-                )
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
@@ -975,66 +689,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(
-            string attribute,
-            IEnumerable<object> argumentValues
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithArguments(
-                    attribute,
-                    argumentValues
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(
-            string attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithArguments(
-                    attribute,
-                    firstArgumentValue,
-                    moreArgumentValues
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(
-            string attribute,
-            IEnumerable<(string, object)> attributeArguments
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithNamedArguments(
-                    attribute,
-                    attributeArguments
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(
-            string attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithNamedArguments(
-                    attribute,
-                    firstAttributeArgument,
-                    moreAttributeArguments
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(
             Attribute attribute,
             IEnumerable<object> argumentValues
         )
@@ -1180,27 +834,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotHaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TGivenRuleTypeConjunction DoNotHaveName(string name)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotHaveName(pattern, useRegularExpressions)
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveName(name)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TGivenRuleTypeConjunction DoNotHaveNameMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveNameMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotHaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TGivenRuleTypeConjunction DoNotHaveFullName(string fullName)
         {
             _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotHaveFullName(
-                    pattern,
-                    useRegularExpressions
-                )
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveFullName(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TGivenRuleTypeConjunction DoNotHaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveFullNameMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }

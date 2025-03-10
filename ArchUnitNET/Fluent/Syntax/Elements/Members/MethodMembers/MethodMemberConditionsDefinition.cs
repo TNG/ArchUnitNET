@@ -28,77 +28,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
-        public static ICondition<MethodMember> BeCalledBy(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<MethodMember>(
-                member => member.IsCalledBy(pattern, useRegularExpressions),
-                "be called by types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "is called by a type with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static ICondition<MethodMember> BeCalledBy(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(MethodMember ruleType)
-            {
-                return patternList.Any(pattern =>
-                    ruleType.IsCalledBy(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "be called by one of no types (always false)";
-                failDescription = "is not called by one of no types (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "be called by types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "is not called by types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<MethodMember>(Condition, description, failDescription);
-        }
-
         public static ICondition<MethodMember> BeCalledBy(IType firstType, params IType[] moreTypes)
         {
             var types = new List<IType> { firstType };
@@ -271,78 +200,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             }
 
             return new ArchitectureCondition<MethodMember>(Condition, description);
-        }
-
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<MethodMember>(
-                member => member.HasDependencyInMethodBodyTo(pattern, useRegularExpressions),
-                "have dependencies in method body to types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "does not have dependencies in method body to a type with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(MethodMember ruleType)
-            {
-                return patternList.Any(pattern =>
-                    ruleType.HasDependencyInMethodBodyTo(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "have dependency in method body to one of no types (always false)";
-                failDescription =
-                    "does not have dependencies in method body to one of no types (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "have dependencies in method body to types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "does not have dependencies in method body to types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<MethodMember>(Condition, description, failDescription);
         }
 
         public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
@@ -553,62 +410,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         }
 
         public static ICondition<MethodMember> HaveReturnType(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            var description =
-                "have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + pattern
-                + "\"";
-
-            var failDescription =
-                "does not have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + pattern
-                + "\"";
-
-            return new SimpleCondition<MethodMember>(
-                member => member.ReturnType.FullNameMatches(pattern, useRegularExpressions),
-                description,
-                failDescription
-            );
-        }
-
-        public static ICondition<MethodMember> HaveReturnType(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternsArray = patterns.ToArray();
-            var description =
-                "have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + string.Join("\" or \"", patternsArray)
-                + "\"";
-
-            var failDescription =
-                "does not have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + string.Join("\" or \"", patternsArray)
-                + "\"";
-
-            bool Condition(MethodMember member)
-            {
-                return patternsArray.Any(pattern =>
-                    member.ReturnType.FullNameMatches(pattern, useRegularExpressions)
-                );
-            }
-
-            return new SimpleCondition<MethodMember>(Condition, description, failDescription);
-        }
-
-        public static ICondition<MethodMember> HaveReturnType(
             IType firstType,
             params IType[] moreTypes
         )
@@ -627,7 +428,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             bool Condition(MethodMember member)
             {
-                return typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName));
+                return typeList.Any(type => member.ReturnType.FullNameEquals(type.FullName));
             }
 
             return new SimpleCondition<MethodMember>(
@@ -648,7 +449,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
-                        typeList.Any(type => methodMember.ReturnType.FullNameMatches(type.FullName))
+                        typeList.Any(type => methodMember.ReturnType.FullNameEquals(type.FullName))
                     )
                     .ToList();
                 foreach (var failedObject in methodMemberList.Except(passedObjects))
@@ -718,93 +519,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 "not be virtual",
                 "is virtual"
             );
-        }
-
-        public static ICondition<MethodMember> NotBeCalledBy(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            ConditionResult Condition(MethodMember member)
-            {
-                var pass = true;
-                var description = "is called by";
-                foreach (
-                    var type in member
-                        .GetMethodCallDependencies(true)
-                        .Select(dependency => dependency.Origin)
-                        .Distinct()
-                )
-                {
-                    if (type.FullNameMatches(pattern, useRegularExpressions))
-                    {
-                        description += (pass ? " " : " and ") + type.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(member, pass, description);
-            }
-
-            return new SimpleCondition<MethodMember>(
-                Condition,
-                "not be called by types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static ICondition<MethodMember> NotBeCalledBy(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(MethodMember ruleType)
-            {
-                return !patternList.Any(pattern =>
-                    ruleType.IsCalledBy(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "not be called by one of no types (always true)";
-                failDescription = "is called by one of no types (always false)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "not be called by types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "is called by types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<MethodMember>(Condition, description, failDescription);
         }
 
         public static ICondition<MethodMember> NotBeCalledBy(
@@ -988,95 +702,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         }
 
         public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            ConditionResult Condition(MethodMember member)
-            {
-                var pass = true;
-                var description = "does have dependencies in method body to";
-                foreach (
-                    var type in member
-                        .GetBodyTypeMemberDependencies()
-                        .Select(dependency => dependency.Target)
-                        .Distinct()
-                )
-                {
-                    if (type.FullNameMatches(pattern, useRegularExpressions))
-                    {
-                        description += (pass ? " " : " and ") + type.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(member, pass, description);
-            }
-
-            return new SimpleCondition<MethodMember>(
-                Condition,
-                "not have dependencies in method body to types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(MethodMember ruleType)
-            {
-                return !patternList.Any(pattern =>
-                    ruleType.HasDependencyInMethodBodyTo(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description =
-                    "not have dependencies in method body to one of no types (always true)";
-                failDescription =
-                    "does have dependencies in method body to one of no types (always false)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "not have dependencies in method body to types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "does have dependencies in method body to types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<MethodMember>(Condition, description, failDescription);
-        }
-
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
             IType firstType,
             params IType[] moreTypes
         )
@@ -1144,7 +769,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers)
             {
                 var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
+                var failedObjects = methodMemberList
                     .Where(methodMember =>
                         methodMember
                             .GetBodyTypeMemberDependencies()
@@ -1157,27 +782,27 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 if (typeList.IsNullOrEmpty())
                 {
                     failDescription =
-                        "does not have dependencies in method body to one of no types (always true)";
+                        "does have dependencies in method body to one of no types (always false)";
                 }
                 else
                 {
                     failDescription = typeList
-                        .Where(type => !type.Equals(firstType))
+                        .Where(type => !Equals(type, firstType))
                         .Distinct()
                         .Aggregate(
-                            "does not have dependencies in method body to \""
-                                + firstType.FullName
-                                + "\"",
+                            "does have dependencies in method body to \""
+                            + firstType.FullName
+                            + "\"",
                             (current, type) => current + " or \"" + type.FullName + "\""
                         );
                 }
 
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
+                foreach (var failedObject in failedObjects)
                 {
                     yield return new ConditionResult(failedObject, false, failDescription);
                 }
 
-                foreach (var passedObject in passedObjects)
+                foreach (var passedObject in methodMemberList.Except(failedObjects))
                 {
                     yield return new ConditionResult(passedObject, true);
                 }
@@ -1186,15 +811,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             string description;
             if (typeList.IsNullOrEmpty())
             {
-                description = "have dependencies in method body to one of no types (always false)";
+                description =
+                    "not have dependencies in method body to one of no types (always true)";
             }
             else
             {
                 description = typeList
-                    .Where(type => !type.Equals(firstType))
+                    .Where(type => !Equals(type, firstType))
                     .Distinct()
                     .Aggregate(
-                        "have dependencies in method body to \"" + firstType.FullName + "\"",
+                        "not have dependencies in method body to \"" + firstType.FullName + "\"",
                         (current, type) => current + " or \"" + type.FullName + "\""
                     );
             }
@@ -1288,62 +914,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         }
 
         public static ICondition<MethodMember> NotHaveReturnType(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            var description =
-                "not have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + pattern
-                + "\"";
-
-            var failDescription =
-                "does have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + pattern
-                + "\"";
-
-            return new SimpleCondition<MethodMember>(
-                member => !member.ReturnType.FullNameMatches(pattern, useRegularExpressions),
-                description,
-                failDescription
-            );
-        }
-
-        public static ICondition<MethodMember> NotHaveReturnType(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternsArray = patterns.ToArray();
-            var description =
-                "not have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + string.Join("\" or \"", patternsArray)
-                + "\"";
-
-            var failDescription =
-                "does have return type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + string.Join("\" or \"", patternsArray)
-                + "\"";
-
-            bool Condition(MethodMember member)
-            {
-                return patternsArray.All(pattern =>
-                    !member.ReturnType.FullNameMatches(pattern, useRegularExpressions)
-                );
-            }
-
-            return new SimpleCondition<MethodMember>(Condition, description, failDescription);
-        }
-
-        public static ICondition<MethodMember> NotHaveReturnType(
             IType firstType,
             params IType[] moreTypes
         )
@@ -1362,7 +932,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             bool Condition(MethodMember member)
             {
-                return typeList.All(type => !member.ReturnType.FullNameMatches(type.FullName));
+                return typeList.All(type => !member.ReturnType.FullNameEquals(type.FullName));
             }
 
             return new SimpleCondition<MethodMember>(
@@ -1384,7 +954,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
                         typeList.All(type =>
-                            !methodMember.ReturnType.FullNameMatches(type.FullName)
+                            !methodMember.ReturnType.FullNameEquals(type.FullName)
                         )
                     )
                     .ToList();

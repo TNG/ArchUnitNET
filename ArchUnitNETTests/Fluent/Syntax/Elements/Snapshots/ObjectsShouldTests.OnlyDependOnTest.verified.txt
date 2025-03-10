@@ -1,29 +1,5 @@
 ﻿===== No violations =====
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should only depend on types with full name "TypeDependencyNamespace.BaseClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should only depend on types with full name matching "^.*\.BaseClass$"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should only depend on types with full name "TypeDependencyNamespace.BaseClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should only depend on types with full name matching "^.*\.BaseClass$"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
 Query: Types that are "TypeDependencyNamespace.ChildClass" should only depend on "TypeDependencyNamespace.BaseClass"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
@@ -55,24 +31,6 @@ Message:
 All Evaluations passed
 
 ===== Violations =====
-
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "TypeDependencyNamespace.BaseClass"
-Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-
-
-
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "TypeDependencyNamespace.BaseClass"
-Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-
-
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on "TypeDependencyNamespace.BaseClass"
 Result: False
@@ -119,26 +77,6 @@ Message:
 
 
 
-===== Non-existent type =====
-
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "NotTheNameOfAnyObject"
-Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "NotTheNameOfAnyObject"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-
-
-
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "NotTheNameOfAnyObject"
-Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "NotTheNameOfAnyObject"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-
-
-
 ===== Type outside of architecture =====
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on "AttributeNamespace.ClassWithoutAttributes"
@@ -151,15 +89,6 @@ Message:
 
 
 ===== Empty arguments =====
-
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should have no dependencies
-Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should have no dependencies" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass and System.Object
-
-
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should have no dependencies
 Result: False
@@ -189,15 +118,6 @@ Message:
 
 
 ===== Multiple arguments =====
-
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.OtherBaseClass"
-Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and System.Object
-Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types with full name "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and System.Object
-
-
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False

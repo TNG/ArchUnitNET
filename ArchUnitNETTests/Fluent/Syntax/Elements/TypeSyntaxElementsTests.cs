@@ -159,21 +159,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     .Are(type)
                     .Should()
                     .BeAssignableTo(type);
-                var typeIsAssignableToItselfPattern = Types()
-                    .That()
-                    .Are(type)
-                    .Should()
-                    .BeAssignableTo(type.FullName);
                 var typeIsNotAssignableToItself = Types()
                     .That()
                     .Are(type)
                     .Should()
                     .NotBeAssignableTo(type);
-                var typeIsNotAssignableToItselfPattern = Types()
-                    .That()
-                    .Are(type)
-                    .Should()
-                    .NotBeAssignableTo(type.FullName);
                 var typeIsNotAssignableToFalseType1 = Types()
                     .That()
                     .Are(type)
@@ -186,13 +176,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     .Are(type)
                     .Should()
                     .NotBeAssignableTo(StaticTestTypes.PublicTestClass)
-                    .OrShould()
-                    .Be(typeof(PublicTestClass));
-                var typeIsNotAssignableToFalseTypePattern = Types()
-                    .That()
-                    .Are(type)
-                    .Should()
-                    .NotBeAssignableTo(StaticTestTypes.PublicTestClass.FullName)
                     .OrShould()
                     .Be(typeof(PublicTestClass));
                 var typeIsAssignableToFalseType1 = Types()
@@ -209,25 +192,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     .BeAssignableTo(StaticTestTypes.PublicTestClass)
                     .AndShould()
                     .NotBe(typeof(PublicTestClass));
-                var typeIsAssignableToFalseTypePattern = Types()
-                    .That()
-                    .Are(type)
-                    .Should()
-                    .BeAssignableTo(StaticTestTypes.PublicTestClass.FullName)
-                    .AndShould()
-                    .NotBe(typeof(PublicTestClass));
 
                 Assert.True(typeIsAssignableToItself.HasNoViolations(Architecture));
-                Assert.True(typeIsAssignableToItselfPattern.HasNoViolations(Architecture));
                 Assert.False(typeIsNotAssignableToItself.HasNoViolations(Architecture));
-                Assert.False(typeIsNotAssignableToItselfPattern.HasNoViolations(Architecture));
                 Assert.True(typeIsNotAssignableToFalseType1.HasNoViolations(Architecture));
                 Assert.True(typeIsNotAssignableToFalseType2.HasNoViolations(Architecture));
-                Assert.True(typeIsNotAssignableToFalseTypePattern.HasNoViolations(Architecture));
                 Assert.False(typeIsAssignableToFalseType1.HasNoViolations(Architecture));
                 Assert.False(typeIsAssignableToFalseType2.HasNoViolations(Architecture));
-                Assert.False(typeIsAssignableToFalseTypePattern.HasNoViolations(Architecture));
-
                 //Multiple Arguments
 
                 var typeIsAssignableToItselfFluent = Types()
@@ -254,13 +225,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     .NotBeAssignableTo(falseTypeList2)
                     .OrShould()
                     .Be(falseTypeList1);
-                var typeIsNotAssignableToFalseTypeMultiplePattern = Types()
-                    .That()
-                    .Are(type)
-                    .Should()
-                    .NotBeAssignableTo(falseTypeListPattern)
-                    .OrShould()
-                    .Be(falseTypeList1);
                 var typeIsAssignableToFalseTypeMultiple1 = Types()
                     .That()
                     .Are(type)
@@ -275,26 +239,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     .BeAssignableTo(falseTypeList2)
                     .AndShould()
                     .NotBe(falseTypeList1);
-                var typeIsAssignableToFalseTypeMultiplePattern = Types()
-                    .That()
-                    .Are(type)
-                    .Should()
-                    .BeAssignableTo(falseTypeListPattern)
-                    .AndShould()
-                    .NotBe(falseTypeList1);
 
                 Assert.True(typeIsAssignableToItselfFluent.HasNoViolations(Architecture));
                 Assert.False(typeIsNotAssignableToItselfFluent.HasNoViolations(Architecture));
                 Assert.True(typeIsNotAssignableToFalseTypeMultiple1.HasNoViolations(Architecture));
                 Assert.True(typeIsNotAssignableToFalseTypeMultiple2.HasNoViolations(Architecture));
-                Assert.True(
-                    typeIsNotAssignableToFalseTypeMultiplePattern.HasNoViolations(Architecture)
-                );
                 Assert.False(typeIsAssignableToFalseTypeMultiple1.HasNoViolations(Architecture));
                 Assert.False(typeIsAssignableToFalseTypeMultiple2.HasNoViolations(Architecture));
-                Assert.False(
-                    typeIsAssignableToFalseTypeMultiplePattern.HasNoViolations(Architecture)
-                );
             }
         }
 
@@ -600,42 +551,42 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             {
                 var typesThatImplementInterfaceImplementInterface = Types()
                     .That()
-                    .ImplementInterface(intf.FullName)
+                    .ImplementInterface(intf)
                     .Should()
-                    .ImplementInterface(intf.FullName)
+                    .ImplementInterface(intf)
                     .WithoutRequiringPositiveResults();
                 var typesThatImplementInterfaceDoNotImplementInterface = Types()
                     .That()
-                    .ImplementInterface(intf.FullName)
+                    .ImplementInterface(intf)
                     .Should()
-                    .NotImplementInterface(intf.FullName)
+                    .NotImplementInterface(intf)
                     .AndShould()
                     .Exist();
                 var typesThatDoNotImplementInterfaceImplementInterface = Types()
                     .That()
-                    .DoNotImplementInterface(intf.FullName)
+                    .DoNotImplementInterface(intf)
                     .Should()
-                    .ImplementInterface(intf.FullName)
+                    .ImplementInterface(intf)
                     .AndShould()
                     .Exist();
                 var typesThatDoNotImplementInterfaceDoNotImplementInterface = Types()
                     .That()
-                    .DoNotImplementInterface(intf.FullName)
+                    .DoNotImplementInterface(intf)
                     .Should()
-                    .NotImplementInterface(intf.FullName);
+                    .NotImplementInterface(intf);
                 var implementInterfaceIsEqualToAssignableTo = Types()
                     .That()
-                    .ImplementInterface(intf.FullName)
+                    .ImplementInterface(intf)
                     .Should()
-                    .BeAssignableTo(intf.FullName)
+                    .BeAssignableTo(intf)
                     .And()
                     .Types()
                     .That()
-                    .AreAssignableTo(intf.FullName)
+                    .AreAssignableTo(intf)
                     .Should()
-                    .ImplementInterface(intf.FullName)
+                    .ImplementInterface(intf)
                     .OrShould()
-                    .Be(intf.FullName);
+                    .Be(intf);
 
                 Assert.True(
                     typesThatImplementInterfaceImplementInterface.HasNoViolations(Architecture)
@@ -658,30 +609,30 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .That()
                 .Are(StaticTestTypes.InheritedType)
                 .Should()
-                .ImplementInterface(InheritedTestInterface.FullName);
+                .ImplementInterface(InheritedTestInterface);
             var testClassThatImplementsOtherInterfaceImplementsInterfaces = Types()
                 .That()
                 .Are(StaticTestTypes.InheritedType)
                 .Should()
-                .ImplementInterface(InheritedTestInterface.FullName)
+                .ImplementInterface(InheritedTestInterface)
                 .AndShould()
-                .ImplementInterface(InheritingInterface.FullName);
+                .ImplementInterface(InheritingInterface);
             var testInterfaceThatImplementsInterfaceImplementsInterface = Interfaces()
                 .That()
                 .Are(InheritingInterface)
                 .Should()
-                .ImplementInterface(InheritedTestInterface.FullName);
+                .ImplementInterface(InheritedTestInterface);
             var testClassThatImplementsNoInterfaceDoesNotImplementInterface = Interfaces()
                 .That()
                 .Are(StaticTestTypes.PublicTestClass)
                 .Should()
-                .NotImplementInterface(InheritedTestInterface.FullName)
+                .NotImplementInterface(InheritedTestInterface)
                 .WithoutRequiringPositiveResults();
             var testClassThatImplementsNoInterfaceImplementsInterface = Interfaces()
                 .That()
                 .Are(StaticTestTypes.PublicTestClass)
                 .Should()
-                .ImplementInterface(InheritedTestInterface.FullName)
+                .ImplementInterface(InheritedTestInterface)
                 .AndShould()
                 .Exist();
 

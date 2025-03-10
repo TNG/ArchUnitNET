@@ -1,6 +1,6 @@
 ﻿===== No violations =====
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -8,7 +8,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name matching "^.*\.ClassWithoutDependencies$"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -16,7 +16,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name "TypeDependencyNamespace.ClassWithoutDependencies"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be Classes that are "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -24,7 +24,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name matching "^.*\.ClassWithoutDependencies$"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -32,39 +32,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be Classes that are "TypeDependencyNamespace.ClassWithoutDependencies"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -74,104 +42,64 @@ All Evaluations passed
 
 ===== Violations =====
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name "TypeDependencyNamespace.ChildClass"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
 Result: False
 Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
 Result: True
 Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
-"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name "TypeDependencyNamespace.ChildClass"" failed:
+"Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
 	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
 
 
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name "TypeDependencyNamespace.ChildClass"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
 Result: False
 Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
 Result: True
 Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
-"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name "TypeDependencyNamespace.ChildClass"" failed:
+"Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
 	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
 
 
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
-Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
-
-
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
-Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
-
-
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be Classes that are "TypeDependencyNamespace.ChildClass"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be Classes that are "TypeDependencyNamespace.ChildClass"
 Result: False
 Description: TypeDependencyNamespace.ChildClass is Classes that are "TypeDependencyNamespace.ChildClass"
 Result: True
 Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
-"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be Classes that are "TypeDependencyNamespace.ChildClass"" failed:
+"Types that depend on "TypeDependencyNamespace.BaseClass" should not be Classes that are "TypeDependencyNamespace.ChildClass"" failed:
 	TypeDependencyNamespace.ChildClass is Classes that are "TypeDependencyNamespace.ChildClass"
 
 
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
 Result: False
 Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
 Result: True
 Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
-"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
+"Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
 	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
 
 
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
 Result: False
 Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
 Result: True
 Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
-"Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
+"Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
 	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
 
 
-
-===== Non-existent type =====
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name "NotTheNameOfAnyObject"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name "NotTheNameOfAnyObject"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-All Evaluations passed
 
 ===== Empty arguments =====
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should exist
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should exist
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -179,7 +107,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should exist
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be no type (always true)
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -187,15 +115,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be no type (always true)
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be Classes that have full name "NotTheNameOfAnyObject"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be Classes that have full name "NotTheNameOfAnyObject"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -205,7 +125,7 @@ All Evaluations passed
 
 ===== Multiple arguments =====
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not have full name "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -213,7 +133,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -221,7 +141,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -229,15 +149,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Result: True
-Description: TypeDependencyNamespace.OtherChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that depend on any types with full name "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True

@@ -145,7 +145,7 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             {
                 foreach (Stereotype stereotype in _component.Stereotypes)
                 {
-                    if (clazz.ResidesInNamespace(stereotype.AsString(), true))
+                    if (clazz.ResidesInNamespaceMatching(stereotype.AsString()))
                     {
                         return true;
                     }

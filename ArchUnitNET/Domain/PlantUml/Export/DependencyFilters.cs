@@ -50,16 +50,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             };
         }
 
-        public static Func<ITypeDependency, bool> FocusOn(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return dependency =>
-                dependency.Target.FullNameMatches(pattern, useRegularExpressions)
-                ^ dependency.Origin.FullNameMatches(pattern, useRegularExpressions);
-        }
-
         public static Func<ITypeDependency, bool> HasOrigin(IType type)
         {
             return dependency => dependency.Origin.Equals(type);
@@ -70,14 +60,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return dependency => types.Contains(dependency.Origin);
         }
 
-        public static Func<ITypeDependency, bool> HasOrigin(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return dependency => dependency.Origin.FullNameMatches(pattern, useRegularExpressions);
-        }
-
         public static Func<ITypeDependency, bool> HasTarget(IType type)
         {
             return dependency => dependency.Target.Equals(type);
@@ -86,14 +68,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         public static Func<ITypeDependency, bool> HasTarget(IEnumerable<IType> types)
         {
             return dependency => types.Contains(dependency.Target);
-        }
-
-        public static Func<ITypeDependency, bool> HasTarget(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return dependency => dependency.Target.FullNameMatches(pattern, useRegularExpressions);
         }
     }
 }

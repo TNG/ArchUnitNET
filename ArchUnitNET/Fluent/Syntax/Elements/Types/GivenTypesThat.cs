@@ -13,7 +13,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         // ReSharper disable once MemberCanBeProtected.Global
         public GivenTypesThat(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+            : base(ruleCreator)
+        {
+        }
 
         public TGivenRuleTypeConjunction Are(Type firstType, params Type[] moreTypes)
         {
@@ -26,28 +28,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TGivenRuleTypeConjunction Are(IEnumerable<Type> types)
         {
             _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.Are(types));
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction AreAssignableTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.AreAssignableTo(pattern, useRegularExpressions)
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction AreAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.AreAssignableTo(patterns, useRegularExpressions)
-            );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -137,20 +117,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction ImplementInterface(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.ImplementInterface(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TGivenRuleTypeConjunction ImplementInterface(Interface intf)
         {
             _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.ImplementInterface(intf));
@@ -163,27 +129,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction ResideInNamespace(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TGivenRuleTypeConjunction ResideInNamespace(string fullName)
         {
             _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.ResideInNamespace(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypePredicatesDefinition<TRuleType>.ResideInNamespace(fullName)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction ResideInAssembly(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TGivenRuleTypeConjunction ResideInNamespaceMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.ResideInAssembly(pattern, useRegularExpressions)
+                TypePredicatesDefinition<TRuleType>.ResideInNamespace(pattern)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction ResideInAssembly(string fullName)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ResideInAssembly(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TGivenRuleTypeConjunction ResideInAssemblyMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ResideInAssemblyMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
@@ -264,34 +237,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         public TGivenRuleTypeConjunction AreNotAssignableTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.AreNotAssignableTo(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction AreNotAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.AreNotAssignableTo(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunction AreNotAssignableTo(
             IType firstType,
             params IType[] moreTypes
         )
@@ -352,20 +297,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotImplementInterface(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.DoNotImplementInterface(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TGivenRuleTypeConjunction DoNotImplementInterface(Interface intf)
         {
             _ruleCreator.AddPredicate(
@@ -382,30 +313,32 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotResideInNamespace(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TGivenRuleTypeConjunction DoNotResideInNamespace(string fullName)
         {
             _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.DoNotResideInNamespace(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypePredicatesDefinition<TRuleType>.DoNotResideInNamespace(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        
+        public TGivenRuleTypeConjunction DoNotResideInNamespaceMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotResideInNamespaceMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotResideInAssembly(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TGivenRuleTypeConjunction DoNotResideInAssembly(string fullName)
         {
             _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.DoNotResideInAssembly(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypePredicatesDefinition<TRuleType>.DoNotResideInAssembly(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+        public TGivenRuleTypeConjunction DoNotResideInAssemblyMatching(string pattern){
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotResideInAssemblyMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }

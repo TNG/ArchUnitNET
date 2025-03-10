@@ -1,6 +1,6 @@
 ﻿===== No violations =====
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should only depend on types that have full name "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should only depend on types that are "TypeDependencyNamespace.BaseClass"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Message: 
@@ -8,11 +8,11 @@ All Evaluations passed
 
 ===== Violations =====
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types that have full name "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types that are "TypeDependencyNamespace.BaseClass"
 Result: False
 Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types that have full name "TypeDependencyNamespace.BaseClass"" failed:
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on types that are "TypeDependencyNamespace.BaseClass"" failed:
 	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
 
 

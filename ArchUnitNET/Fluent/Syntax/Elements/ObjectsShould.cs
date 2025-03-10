@@ -17,31 +17,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         protected ObjectsShould(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+            : base(ruleCreator)
+        {
+        }
 
         public TRuleTypeShouldConjunction Exist()
         {
             _ruleCreator.RequirePositiveResults = false;
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.Exist());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction Be(string pattern, bool useRegularExpressions = false)
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.Be(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction Be(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.Be(patterns, useRegularExpressions)
-            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -69,28 +52,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TRuleTypeShouldConjunction CallAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.CallAny(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction CallAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.CallAny(patterns, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction CallAny(
             MethodMember method,
             params MethodMember[] moreMethods
         )
@@ -110,28 +71,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction CallAny(IObjectProvider<MethodMember> methods)
         {
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.CallAny(methods));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction DependOnAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.DependOnAny(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction DependOnAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.DependOnAny(patterns, useRegularExpressions)
-            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -202,28 +141,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction OnlyDependOn(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.OnlyDependOn(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction OnlyDependOn(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.OnlyDependOn(patterns, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(
@@ -255,34 +172,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<Type> types)
         {
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.OnlyDependOn(types));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveAnyAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveAnyAttributes(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveAnyAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveAnyAttributes(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -334,34 +223,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.AddCondition(
                 ObjectConditionsDefinition<TRuleType>.HaveAnyAttributes(attributes)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction OnlyHaveAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.OnlyHaveAttributes(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction OnlyHaveAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.OnlyHaveAttributes(
-                    patterns,
-                    useRegularExpressions
-                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -443,36 +304,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TRuleTypeShouldConjunction HaveAttributeWithArguments(
-            string attribute,
-            IEnumerable<object> argumentValues
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveAttributeWithArguments(
-                    attribute,
-                    argumentValues
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveAttributeWithArguments(
-            string attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveAttributeWithArguments(
-                    attribute,
-                    firstArgumentValue,
-                    moreArgumentValues
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveAttributeWithArguments(
             Attribute attribute,
             IEnumerable<object> argumentValues
         )
@@ -559,36 +390,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(
-            string attribute,
-            IEnumerable<(string, object)> attributeArguments
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveAttributeWithNamedArguments(
-                    attribute,
-                    attributeArguments
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(
-            string attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveAttributeWithNamedArguments(
-                    attribute,
-                    firstAttributeArgument,
-                    moreAttributeArguments
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(
             Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
         )
@@ -648,24 +449,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TRuleTypeShouldConjunction HaveName(string name)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveName(pattern, useRegularExpressions)
+                ObjectConditionsDefinition<TRuleType>.HaveName(name)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TRuleTypeShouldConjunction HaveNameMatching(string pattern)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveFullName(pattern, useRegularExpressions)
+                ObjectConditionsDefinition<TRuleType>.HaveNameMatching(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveFullName(string fullName)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.HaveFullName(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.HaveFullNameMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -808,25 +619,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotBe(string pattern, bool useRegularExpressions = false)
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotBe(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotBe(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotBe(patterns, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction NotBe(
             ICanBeAnalyzed firstObject,
             params ICanBeAnalyzed[] moreObjects
@@ -851,28 +643,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TRuleTypeShouldConjunction NotCallAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotCallAny(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotCallAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotCallAny(patterns, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotCallAny(
             MethodMember method,
             params MethodMember[] moreMethods
         )
@@ -892,31 +662,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotCallAny(IObjectProvider<MethodMember> methods)
         {
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotCallAny(methods));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotDependOnAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotDependOnAny(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotDependOnAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotDependOnAny(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -951,34 +696,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotDependOnAny(IEnumerable<Type> types)
         {
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotDependOnAny(types));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotHaveAnyAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributes(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotHaveAnyAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributes(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -1063,36 +780,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TRuleTypeShouldConjunction NotHaveAttributeWithArguments(
-            string attribute,
-            IEnumerable<object> argumentValues
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithArguments(
-                    attribute,
-                    argumentValues
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotHaveAttributeWithArguments(
-            string attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithArguments(
-                    attribute,
-                    firstArgumentValue,
-                    moreArgumentValues
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotHaveAttributeWithArguments(
             Attribute attribute,
             IEnumerable<object> argumentValues
         )
@@ -1179,36 +866,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(
-            string attribute,
-            IEnumerable<(string, object)> attributeArguments
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithNamedArguments(
-                    attribute,
-                    attributeArguments
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(
-            string attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithNamedArguments(
-                    attribute,
-                    firstAttributeArgument,
-                    moreAttributeArguments
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(
             Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
         )
@@ -1268,27 +925,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotHaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TRuleTypeShouldConjunction NotHaveName(string name)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveName(pattern, useRegularExpressions)
+                ObjectConditionsDefinition<TRuleType>.NotHaveName(name)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotHaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TRuleTypeShouldConjunction NotHaveNameMatching(string pattern)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveFullName(
-                    pattern,
-                    useRegularExpressions
-                )
+                ObjectConditionsDefinition<TRuleType>.NotHaveNameMatching(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotHaveFullName(string fullName)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotHaveFullName(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotHaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotHaveFullNameMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }

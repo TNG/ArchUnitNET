@@ -23,28 +23,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
-        public GivenMethodMembersConjunction AreCalledBy(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.AreCalledBy(pattern, useRegularExpressions)
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction AreCalledBy(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.AreCalledBy(patterns, useRegularExpressions)
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
         public GivenMethodMembersConjunction AreCalledBy(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddPredicate(
@@ -76,34 +54,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public GivenMethodMembersConjunction AreCalledBy(IEnumerable<Type> types)
         {
             _ruleCreator.AddPredicate(MethodMemberPredicatesDefinition.AreCalledBy(types));
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction HaveDependencyInMethodBodyTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction HaveDependencyInMethodBodyTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
@@ -151,28 +101,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             _ruleCreator.AddPredicate(
                 MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types)
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction HaveReturnType(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.HaveReturnType(pattern, useRegularExpressions)
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction HaveReturnType(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.HaveReturnType(patterns, useRegularExpressions)
             );
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
@@ -230,28 +158,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         }
 
         public GivenMethodMembersConjunction AreNotCalledBy(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(pattern, useRegularExpressions)
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction AreNotCalledBy(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(patterns, useRegularExpressions)
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction AreNotCalledBy(
             IType firstType,
             params IType[] moreTypes
         )
@@ -285,34 +191,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public GivenMethodMembersConjunction AreNotCalledBy(IEnumerable<Type> types)
         {
             _ruleCreator.AddPredicate(MethodMemberPredicatesDefinition.AreNotCalledBy(types));
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction DoNotHaveDependencyInMethodBodyTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction DoNotHaveDependencyInMethodBodyTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
@@ -367,31 +245,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             _ruleCreator.AddPredicate(
                 MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types)
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction DoNotHaveReturnType(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(pattern, useRegularExpressions)
-            );
-            return new GivenMethodMembersConjunction(_ruleCreator);
-        }
-
-        public GivenMethodMembersConjunction DoNotHaveReturnType(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddPredicate(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(
-                    patterns,
-                    useRegularExpressions
-                )
             );
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
