@@ -27,8 +27,7 @@ namespace ArchUnitNET.Domain.Extensions
 
         public static bool ImplementsInterface(
             this IType type,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
             if (type is GenericParameter)
@@ -37,7 +36,22 @@ namespace ArchUnitNET.Domain.Extensions
             }
 
             return type.ImplementedInterfaces.Any(implementedInterface =>
-                implementedInterface.FullNameMatches(pattern, useRegularExpressions)
+                implementedInterface.FullNameEquals(fullName)
+            );
+        }
+        
+        public static bool ImplementsInterfaceMatching(
+            this IType type,
+            string pattern
+        )
+        {
+            if (type is GenericParameter)
+            {
+                return false;
+            }
+
+            return type.ImplementedInterfaces.Any(implementedInterface =>
+                implementedInterface.FullNameMatches(pattern)
             );
         }
 
@@ -55,19 +69,34 @@ namespace ArchUnitNET.Domain.Extensions
 
         public static bool IsAssignableTo(
             this IType type,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
+            )
+        {
+            if (type is GenericParameter genericParameter)
+            {
+                return genericParameter.TypeConstraints.All(t =>
+                    t.IsAssignableTo(fullName)
+                );
+            }
+
+            return type.GetAssignableTypes()
+                .Any(t => t.FullNameEquals(fullName));
+        }
+        
+        public static bool IsAssignableToTypeMatching(
+            this IType type,
+            string pattern
         )
         {
             if (type is GenericParameter genericParameter)
             {
                 return genericParameter.TypeConstraints.All(t =>
-                    t.IsAssignableTo(pattern, useRegularExpressions)
+                    t.IsAssignableTo(pattern)
                 );
             }
 
             return type.GetAssignableTypes()
-                .Any(t => t.FullNameMatches(pattern, useRegularExpressions));
+                .Any(t => t.FullNameMatches(pattern));
         }
 
         public static bool IsNestedIn(this IType type, IType assignableToType)
@@ -233,34 +262,57 @@ namespace ArchUnitNET.Domain.Extensions
                 attribute.FullName.Equals(attributeClass.FullName)
             );
         }
-
+        
         public static bool ResidesInNamespace(
             this IType e,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
-            return e.Namespace.FullNameMatches(pattern, useRegularExpressions);
+            return e.Namespace.FullNameEquals(fullName);
+        }
+
+        public static bool ResidesInNamespaceMatching(
+            this IType e,
+            string pattern
+        )
+        {
+            return e.Namespace.FullNameMatches(pattern);
         }
 
         public static bool ResidesInAssembly(
             this IType e,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
-            return e.Assembly.FullNameMatches(pattern, useRegularExpressions);
+            return e.Assembly.FullNameEquals(fullName);
+        }
+        public static bool ResidesInAssemblyMatching(
+            this IType e,
+            string pattern
+        )
+        {
+            return e.Assembly.FullNameMatches(pattern);
         }
 
         public static bool IsDeclaredAsFieldIn(
             this IType type,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
             return type.GetFieldTypeDependencies(true)
                 .Any(dependency =>
-                    dependency.Target.FullNameMatches(pattern, useRegularExpressions)
+                    dependency.Target.FullNameEquals(fullName)
+                );
+        }
+        
+        public static bool IsDeclaredAsFieldInTypeMatching(
+            this IType type,
+            string pattern
+        )
+        {
+            return type.GetFieldTypeDependencies(true)
+                .Any(dependency =>
+                    dependency.Target.FullNameMatches(pattern)
                 );
         }
 

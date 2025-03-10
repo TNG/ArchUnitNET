@@ -88,8 +88,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             (string, object) firstAttributeArgument,
             params (string, object)[] moreAttributeArguments
         );
-        TReturnType HaveName(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
-        TReturnType HaveFullName(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
+        TReturnType HaveName(string name);
+        TReturnType HaveNameMatching(string pattern);
+        TReturnType HaveFullName(string fullName);
+        TReturnType HaveFullNameMatching(string pattern);
         TReturnType HaveNameStartingWith(string pattern);
         TReturnType HaveNameEndingWith(string pattern);
         TReturnType HaveNameContaining(string pattern);
@@ -170,8 +172,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             (string, object) firstAttributeArgument,
             params (string, object)[] moreAttributeArguments
         );
-        TReturnType DoNotHaveName(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
-        TReturnType DoNotHaveFullName(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
+        TReturnType DoNotHaveName(string name);
+        TReturnType DoNotHaveNameMatching(string pattern);
+        TReturnType DoNotHaveFullName(string fullName);
+        TReturnType DoNotHaveFullNameMatching(string pattern);
         TReturnType DoNotHaveNameStartingWith(string pattern);
         TReturnType DoNotHaveNameEndingWith(string pattern);
         TReturnType DoNotHaveNameContaining(string pattern);

@@ -1514,35 +1514,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ICondition<TRuleType> HaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )  //TODO split into multiple implementations
+        public static ICondition<TRuleType> HaveName(string name)
         {
             return new SimpleCondition<TRuleType>(
-                obj => obj.NameMatches(pattern, useRegularExpressions),
+                obj => obj.NameEquals(name),
                 obj => "does have name " + obj.Name,
-                "have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
+                $"have name \"{name}\"");
+        }
+        
+        public static ICondition<TRuleType> HaveNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.NameMatches(pattern),
+                obj => "does have name " + obj.Name,
+                $"have name matching \"{pattern}\"");
         }
 
-        public static ICondition<TRuleType> HaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        )  //TODO split into multiple implementations
+        public static ICondition<TRuleType> HaveFullName(string name)
         {
             return new SimpleCondition<TRuleType>(
-                obj => obj.FullNameMatches(pattern, useRegularExpressions),
+                obj => obj.FullNameEquals(name),
                 obj => "does have full name " + obj.FullName,
-                "have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                "have full name \"" + name + "\""
+            );
+        }
+        public static ICondition<TRuleType> HaveFullNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameMatches(pattern),
+                obj => "does have full name " + obj.FullName,
+                "have full name matching \"" + pattern + "\""
             );
         }
 
@@ -2821,35 +2822,41 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
-        public static ICondition<TRuleType> NotHaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public static ICondition<TRuleType> NotHaveName(string name)
         {
             return new SimpleCondition<TRuleType>(
-                obj => !obj.NameMatches(pattern, useRegularExpressions),
+                obj => !obj.NameEquals(name),
                 obj => "does have name " + obj.Name,
-                "not have name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                $"not have name \"{name}\""
+            );
+        }
+        public static ICondition<TRuleType> NotHaveNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.NameMatches(pattern),
+                obj => "does have name " + obj.Name,
+                $"not have name matching \"{pattern}\""
             );
         }
 
         public static ICondition<TRuleType> NotHaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+            string fullName
+        )
         {
             return new SimpleCondition<TRuleType>(
-                obj => !obj.FullNameMatches(pattern, useRegularExpressions),
+                obj => !obj.FullNameEquals(fullName),
                 obj => "does have full name " + obj.FullName,
-                "not have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                "not have full name \"" + fullName + "\""
+            );
+        }
+        public static ICondition<TRuleType> NotHaveFullNameMatching(
+            string pattern
+        )
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.FullNameMatches(pattern),
+                obj => "does have full name " + obj.FullName,
+                "not have full name matching \"" + pattern + "\""
             );
         }
 

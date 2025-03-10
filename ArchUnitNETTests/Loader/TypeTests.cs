@@ -121,7 +121,8 @@ namespace ArchUnitNETTests.Loader
         [Fact]
         public void NotAssignableToNull()
         {
-            Assert.False(_type.IsAssignableTo(null));
+            Assert.False(_type.IsAssignableTo((IType)null));
+            Assert.False(_type.IsAssignableTo((string)null));
         }
 
         [Fact]

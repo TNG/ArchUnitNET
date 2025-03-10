@@ -20,52 +20,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     public static class ObjectPredicatesDefinition<T>
         where T : ICanBeAnalyzed
     {
-        public static IPredicate<T> Are(string pattern, bool useRegularExpressions = false)
-        {
-            return new SimplePredicate<T>(
-                obj => obj.FullNameMatches(pattern, useRegularExpressions),
-                "have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<T> Are(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "not exist (impossible)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "have full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<T>(
-                obj =>
-                    patternList.Any(pattern => obj.FullNameMatches(pattern, useRegularExpressions)),
-                description
-            );
-        }
-
         public static IPredicate<T> Are(
             ICanBeAnalyzed firstObject,
             params ICanBeAnalyzed[] moreObjects
@@ -117,54 +71,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, "are " + objectProvider.Description);
         }
 
-        public static IPredicate<T> CallAny(string pattern, bool useRegularExpressions = false)
-        {
-            return new SimplePredicate<T>(
-                obj => obj.CallsMethod(pattern, useRegularExpressions),
-                "calls any method with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<T> CallAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Filter(T type)
-            {
-                return patternList.Any(method => type.CallsMethod(method));
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "call one of no methods (impossible)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "call any method with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<T>(Filter, description);
-        }
-
         public static IPredicate<T> CallAny(MethodMember method, params MethodMember[] moreMethods)
         {
             var methods = new List<MethodMember> { method };
@@ -212,60 +118,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new EnumerablePredicate<T>(Filter, description);
         }
-
-        public static IPredicate<T> DependOnAny(string pattern, bool useRegularExpressions = false)
-        {
-            return new SimplePredicate<T>(
-                obj => obj.DependsOn(pattern, useRegularExpressions),
-                "depend on any types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<T> DependOnAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Filter(T type)
-            {
-                return type.GetTypeDependencies()
-                    .Any(target =>
-                        patternList.Any(pattern =>
-                            target.FullNameMatches(pattern, useRegularExpressions)
-                        )
-                    );
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "have no dependencies";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "depend on any types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<T>(Filter, description);
-        }
-
+        
         public static IPredicate<T> DependOnAny(IType firstType, params IType[] moreTypes)
         {
             var types = new List<IType> { firstType };
@@ -373,60 +226,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimplePredicate<T>(predicate, description);
         }
-
-        public static IPredicate<T> OnlyDependOn(string pattern, bool useRegularExpressions = false)
-        {
-            return new SimplePredicate<T>(
-                obj => obj.OnlyDependsOn(pattern, useRegularExpressions),
-                "only depend on types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<T> OnlyDependOn(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Filter(T type)
-            {
-                return type.GetTypeDependencies()
-                    .All(target =>
-                        patternList.Any(pattern =>
-                            target.FullNameMatches(pattern, useRegularExpressions)
-                        )
-                    );
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "have no dependencies";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "only depend on types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<T>(Filter, description);
-        }
-
+        
         public static IPredicate<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
             var types = new List<IType> { firstType };
@@ -530,62 +330,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
-
-        public static IPredicate<T> HaveAnyAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimplePredicate<T>(
-                obj => obj.HasAttribute(pattern, useRegularExpressions),
-                "have any attribute with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<T> HaveAnyAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Filter(T type)
-            {
-                return type.Attributes.Any(attribute =>
-                    patternList.Any(pattern =>
-                        attribute.FullNameMatches(pattern, useRegularExpressions)
-                    )
-                );
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "have one of no attributes (impossible)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "have any attribute with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<T>(Filter, description);
-        }
-
+        
         public static IPredicate<T> HaveAnyAttributes(
             Attribute firstAttribute,
             params Attribute[] moreAttributes
@@ -675,62 +420,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new ArchitecturePredicate<T>(Filter, description);
-        }
-
-        public static IPredicate<T> OnlyHaveAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimplePredicate<T>(
-                obj => obj.OnlyHasAttributes(pattern, useRegularExpressions),
-                "only have attributes with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        public static IPredicate<T> OnlyHaveAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Filter(T type)
-            {
-                return type.Attributes.IsNullOrEmpty()
-                    || type.Attributes.All(attribute =>
-                        patternList.Any(pattern =>
-                            attribute.FullNameMatches(pattern, useRegularExpressions)
-                        )
-                    );
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "have no attributes";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "only have attributes with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimplePredicate<T>(Filter, description);
         }
 
         public static IPredicate<T> OnlyHaveAttributes(
@@ -1334,23 +1023,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> HaveName(string pattern, bool useRegularExpressions = false) //TODO split into multiple implementations
+        public static IPredicate<T> HaveName(string name)
         {
             return new SimplePredicate<T>(
-                obj => obj.NameMatches(pattern, useRegularExpressions),
-                "have name " + (useRegularExpressions ? "matching " : "") + "\"" + pattern + "\""
+                obj => obj.NameEquals(name),
+                "have name \"" + name + "\""
+            );
+        }
+        public static IPredicate<T> HaveNameMatching(string pattern)
+        {
+            return new SimplePredicate<T>(
+                obj => obj.NameMatches(pattern),
+                "have name matching \"" + pattern + "\""
             );
         }
 
-        public static IPredicate<T> HaveFullName(string pattern, bool useRegularExpressions = false) //TODO split into multiple implementations
+        public static IPredicate<T> HaveFullName(string fullName)
         {
             return new SimplePredicate<T>(
-                obj => obj.FullNameMatches(pattern, useRegularExpressions),
-                "have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                obj => obj.FullNameEquals(fullName),
+                "have full name \"" + fullName + "\""
+            );
+        }
+        public static IPredicate<T> HaveFullNameMatching(string pattern)
+        {
+            return new SimplePredicate<T>(
+                obj => obj.FullNameMatches(pattern),
+                "have full name matching \"" + pattern + "\""
             );
         }
 
@@ -2229,36 +1928,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> DoNotHaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public static IPredicate<T> DoNotHaveName(string name)
         {
             return new SimplePredicate<T>(
-                obj => !obj.NameMatches(pattern, useRegularExpressions),
-                "do not have name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                obj => !obj.NameEquals(name),
+                $"do not have name \"{name}\""
             );
         }
 
-        public static IPredicate<T> DoNotHaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public static IPredicate<T> DoNotHaveNameMatching(string pattern)
         {
             return new SimplePredicate<T>(
-                obj => !obj.FullNameMatches(pattern, useRegularExpressions),
-                "do not have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                obj => !obj.NameMatches(pattern),
+                $"do not have name matching \"{pattern}\""
             );
         }
 
+        public static IPredicate<T> DoNotHaveFullName(string fullName)
+        {
+            return new SimplePredicate<T>(
+                obj => !obj.FullNameEquals(fullName),
+                "do not have full name \"" + fullName + "\""
+            );
+        }
+
+        public static IPredicate<T> DoNotHaveFullNameMatching(string pattern)
+        {
+            return new SimplePredicate<T>(
+                obj => !obj.FullNameMatches(pattern),
+                "do not have full name matching \"" + pattern + "\""
+            );
+        }
+        
         public static IPredicate<T> DoNotHaveNameStartingWith(string pattern)
         {
             return new SimplePredicate<T>(

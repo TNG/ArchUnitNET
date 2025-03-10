@@ -1397,9 +1397,9 @@ public class ObjectsShouldTests
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.BaseClass).Should();
         should.HaveName(helper.BaseClass.Name).AssertNoViolations(helper);
-        should.HaveName("^Base.*$", true).AssertNoViolations(helper);
+        should.HaveNameMatching("^Base.*$").AssertNoViolations(helper);
         should.HaveFullName(helper.BaseClass.FullName).AssertNoViolations(helper);
-        should.HaveFullName("^.*\\.Base.*$", true).AssertNoViolations(helper);
+        should.HaveFullNameMatching("^.*\\.Base.*$").AssertNoViolations(helper);
         should.HaveNameContaining("Base").AssertNoViolations(helper);
         should.HaveFullNameContaining(helper.BaseClass.Namespace.Name).AssertNoViolations(helper);
         should.HaveNameStartingWith("Base").AssertNoViolations(helper);
@@ -1408,9 +1408,9 @@ public class ObjectsShouldTests
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.BaseClass).Should();
         should.HaveName(helper.BaseClass.FullName).AssertOnlyViolations(helper);
-        should.HaveName("^.*\\.Base.*$", false).AssertOnlyViolations(helper);
+        should.HaveName("^.*\\.Base.*$").AssertOnlyViolations(helper);
         should.HaveFullName(helper.BaseClass.Name).AssertOnlyViolations(helper);
-        should.HaveFullName("^Base.*$", false).AssertOnlyViolations(helper);
+        should.HaveFullName("^Base.*$").AssertOnlyViolations(helper);
         should.HaveNameContaining(helper.BaseClass.Namespace.Name).AssertOnlyViolations(helper);
         should.HaveFullNameContaining(helper.NonExistentObjectName).AssertOnlyViolations(helper);
         should.HaveNameStartingWith(helper.BaseClass.Namespace.Name).AssertOnlyViolations(helper);
@@ -2318,9 +2318,9 @@ public class ObjectsShouldTests
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.BaseClass).Should();
         should.NotHaveName(helper.BaseClass.FullName).AssertNoViolations(helper);
-        should.NotHaveName("^.*\\.Base.*$", true).AssertNoViolations(helper);
+        should.NotHaveNameMatching("^.*\\.Base.*$").AssertNoViolations(helper);
         should.NotHaveFullName(helper.BaseClass.Name).AssertNoViolations(helper);
-        should.NotHaveFullName("^Base.*$", true).AssertNoViolations(helper);
+        should.NotHaveFullNameMatching("^Base.*$").AssertNoViolations(helper);
         should.NotHaveNameContaining(helper.BaseClass.Namespace.Name).AssertNoViolations(helper);
         should.NotHaveFullNameContaining(helper.NonExistentObjectName).AssertNoViolations(helper);
         should.NotHaveNameStartingWith(helper.BaseClass.Namespace.Name).AssertNoViolations(helper);
@@ -2329,9 +2329,9 @@ public class ObjectsShouldTests
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.BaseClass).Should();
         should.NotHaveName(helper.BaseClass.Name).AssertOnlyViolations(helper);
-        should.NotHaveName("^Base.*$", true).AssertOnlyViolations(helper);
+        should.NotHaveNameMatching("^Base.*$").AssertOnlyViolations(helper);
         should.NotHaveFullName(helper.BaseClass.FullName).AssertOnlyViolations(helper);
-        should.NotHaveFullName("^.*\\.Base.*$", true).AssertOnlyViolations(helper);
+        should.NotHaveFullNameMatching("^.*\\.Base.*$").AssertOnlyViolations(helper);
         should.NotHaveNameContaining("Base").AssertOnlyViolations(helper);
         should
             .NotHaveFullNameContaining(helper.BaseClass.Namespace.Name)

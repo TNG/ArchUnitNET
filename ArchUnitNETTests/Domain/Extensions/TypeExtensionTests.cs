@@ -74,13 +74,19 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void FullNameMatchesTest()
         {
-            Assert.True(_fieldMember.FullNameMatches("(?i)ieLda", true));
-            Assert.True(_propertyOriginClass.FullNameMatches("(?i)sswITH", true));
-            Assert.False(_methodOriginClass.FullNameMatches("ClassMethod"));
-            Assert.False(_methodMember.FullNameMatches(""));
-            Assert.True(_methodMember.FullNameMatches(_methodMember.FullName));
-            Assert.True(_methodMember.FullNameMatches(_methodMember.FullName.ToLower()));
+            Assert.True(_fieldMember.FullNameMatches("(?i)ieLda"));
+            Assert.True(_propertyOriginClass.FullNameMatches("(?i)sswITH"));
             Assert.False(_exampleAttribute.FullNameMatches(null));
+        }
+        
+        [Fact]
+        public void FullNameEqualsTest()
+        {
+            Assert.False(_methodOriginClass.FullNameEquals("ClassMethod"));
+            Assert.False(_methodMember.FullNameEquals(""));
+            Assert.True(_methodMember.FullNameEquals(_methodMember.FullName));
+            Assert.True(_methodMember.FullNameEquals(_methodMember.FullName.ToLower()));
+            Assert.False(_exampleAttribute.FullNameEquals(null));
         }
 
         [Fact]
@@ -199,13 +205,19 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void NameMatchesTest()
         {
-            Assert.True(_fieldMember.NameMatches("(?i)ieLda", true));
-            Assert.True(_propertyOriginClass.NameMatches("(?i)sswITH", true));
-            Assert.False(_methodOriginClass.NameMatches("ClassMethod"));
-            Assert.False(_methodMember.NameMatches(""));
-            Assert.True(_methodMember.NameMatches(_methodMember.Name));
-            Assert.True(_methodMember.NameMatches(_methodMember.Name.ToLower()));
+            Assert.True(_fieldMember.NameMatches("(?i)ieLda"));
+            Assert.True(_propertyOriginClass.NameMatches("(?i)sswITH"));
             Assert.False(_exampleAttribute.NameMatches(null));
+        }
+        
+        [Fact]
+        public void NameEqualsTest()
+        {
+            Assert.False(_methodOriginClass.NameEquals("ClassMethod"));
+            Assert.False(_methodMember.NameEquals(""));
+            Assert.True(_methodMember.NameEquals(_methodMember.Name));
+            Assert.True(_methodMember.NameEquals(_methodMember.Name.ToLower()));
+            Assert.False(_exampleAttribute.NameEquals(null));
         }
 
         [Fact]
@@ -213,7 +225,7 @@ namespace ArchUnitNETTests.Domain.Extensions
         {
             Assert.True(_exampleAttribute.ResidesInNamespace(ExpectedAttributeNamespace));
             Assert.False(_exampleAttribute.ResidesInNamespace(ParentAttributeNamespace));
-            Assert.True(_exampleAttribute.ResidesInNamespace(ParentAttributeNamespace, true));
+            Assert.True(_exampleAttribute.ResidesInNamespaceMatching(ParentAttributeNamespace));
             Assert.True(_regexUtilsTests.ResidesInNamespace(ExpectedRegexUtilsTestNamespace));
             Assert.False(_exampleAttribute.ResidesInNamespace(string.Empty));
         }

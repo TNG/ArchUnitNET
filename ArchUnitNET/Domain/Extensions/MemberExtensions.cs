@@ -14,11 +14,18 @@ namespace ArchUnitNET.Domain.Extensions
     {
         public static bool IsDeclaredIn(
             this IMember member,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
-            return member.DeclaringType.FullNameMatches(pattern, useRegularExpressions);
+            return member.DeclaringType.FullNameEquals(fullName);
+        }
+        
+        public static bool IsDeclaredInTypeMatching(
+            this IMember member,
+            string pattern
+        )
+        {
+            return member.DeclaringType.FullNameMatches(pattern);
         }
 
         public static bool IsDeclaredIn(this IMember member, IType type)
@@ -62,16 +69,27 @@ namespace ArchUnitNET.Domain.Extensions
             return member.GetMethodCallDependencies(getBackwardsDependencies).Any();
         }
 
-        public static bool IsCalledBy(
+        public static bool IsCalledByType(
             this MethodMember member,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
             return member
                 .GetMethodCallDependencies(true)
                 .Any(dependency =>
-                    dependency.Origin.FullNameMatches(pattern, useRegularExpressions)
+                    dependency.Origin.FullNameEquals(fullName)
+                );
+        }
+        
+        public static bool IsCalledByTypeMatching(
+            this MethodMember member,
+            string pattern
+        )
+        {
+            return member
+                .GetMethodCallDependencies(true)
+                .Any(dependency =>
+                    dependency.Origin.FullNameMatches(pattern)
                 );
         }
 
@@ -83,16 +101,27 @@ namespace ArchUnitNET.Domain.Extensions
                 .Distinct();
         }
 
-        public static bool HasDependencyInMethodBodyTo(
+        public static bool HasDependencyInMethodBodyToType(
             this MethodMember member,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
             return member
                 .GetBodyTypeMemberDependencies()
                 .Any(dependency =>
-                    dependency.Target.FullNameMatches(pattern, useRegularExpressions)
+                    dependency.Target.FullNameEquals(fullName)
+                );
+        }
+        
+        public static bool HasDependencyInMethodBodyToTypeMatching(
+            this MethodMember member,
+            string pattern
+        )
+        {
+            return member
+                .GetBodyTypeMemberDependencies()
+                .Any(dependency =>
+                    dependency.Target.FullNameMatches(pattern)
                 );
         }
 

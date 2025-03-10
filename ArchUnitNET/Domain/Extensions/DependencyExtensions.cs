@@ -15,12 +15,20 @@ namespace ArchUnitNET.Domain.Extensions
     {
         public static bool CallsMethod(
             this IHasDependencies type,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
             return type.GetCalledMethods()
-                .Any(member => member.FullNameMatches(pattern, useRegularExpressions));
+                .Any(member => member.FullNameEquals(fullName));
+        }
+        
+        public static bool CallsMethodMatching(
+            this IHasDependencies type,
+            string pattern
+        )
+        {
+            return type.GetCalledMethods()
+                .Any(member => member.FullNameMatches(pattern));
         }
 
         public static IEnumerable<MethodMember> GetCalledMethods(this IHasDependencies type)
@@ -37,24 +45,40 @@ namespace ArchUnitNET.Domain.Extensions
                 .Select(dependency => (FieldMember)dependency.TargetMember);
         }
 
-        public static bool DependsOn(
+        public static bool DependsOnType(
             this IHasDependencies c,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
             return c.GetTypeDependencies()
-                .Any(d => d.FullNameMatches(pattern, useRegularExpressions));
+                .Any(d => d.FullNameEquals(fullName));
+        }
+        
+        public static bool DependsOnTypeMatching(
+            this IHasDependencies c,
+            string pattern
+        )
+        {
+            return c.GetTypeDependencies()
+                .Any(d => d.FullNameMatches(pattern));
         }
 
-        public static bool OnlyDependsOn(
+
+        public static bool OnlyDependsOnType(
             this IHasDependencies c,
-            string pattern,
-            bool useRegularExpressions = false
+            string fullName
         )
         {
             return c.GetTypeDependencies()
-                .All(d => d.FullNameMatches(pattern, useRegularExpressions));
+                .All(d => d.FullNameEquals(fullName));
+        }
+        public static bool OnlyDependsOnTypesMatching(
+            this IHasDependencies c,
+            string pattern
+        )
+        {
+            return c.GetTypeDependencies()
+                .All(d => d.FullNameMatches(pattern));
         }
 
         public static IEnumerable<IType> GetTypeDependencies(this IHasDependencies c)

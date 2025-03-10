@@ -78,7 +78,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             //Assert
             Assert.All(
                 expectedClassTargets,
-                targetClass => Assert.True(_originClass.DependsOn(targetClass.FullName))
+                targetClass => Assert.True(_originClass.DependsOnType(targetClass.FullName))
             );
         }
 
@@ -87,7 +87,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
         {
             Assert.All(
                 _eventHandlerImplementClasses,
-                cls => Assert.False(cls.DependsOn("forbidden"))
+                cls => Assert.False(cls.DependsOnTypeMatching("forbidden"))
             );
         }
 
@@ -106,7 +106,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Attributes
             //Assert
             Assert.All(
                 expectedClassTargets,
-                targetClass => Assert.True(_originClass.DependsOn(targetClass.FullName))
+                targetClass => Assert.True(_originClass.DependsOnType(targetClass.FullName))
             );
         }
 
