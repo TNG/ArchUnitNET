@@ -133,27 +133,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ResideInNamespace(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public TRuleTypeShouldConjunction ResideInNamespace(string fullName)
         {
             _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.ResideInNamespace(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypeConditionsDefinition<TRuleType>.ResideInNamespace(fullName)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction ResideInAssembly(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public TRuleTypeShouldConjunction ResideInNamespaceMatching(string pattern)
         {
             _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.ResideInAssembly(pattern, useRegularExpressions)
+                TypeConditionsDefinition<TRuleType>.ResideInNamespaceMatching(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction ResideInAssembly(string fullName)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.ResideInAssembly(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+        public TRuleTypeShouldConjunction ResideInAssemblyMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.ResideInAssemblyMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -321,30 +327,32 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotResideInNamespace(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public TRuleTypeShouldConjunction NotResideInNamespace(string fullName)
         {
             _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.NotResideInNamespace(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypeConditionsDefinition<TRuleType>.NotResideInNamespace(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+        public TRuleTypeShouldConjunction NotResideInNamespaceMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.NotResideInNamespaceMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotResideInAssembly(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public TRuleTypeShouldConjunction NotResideInAssembly(string fullName)
         {
             _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.NotResideInAssembly(
-                    pattern,
-                    useRegularExpressions
-                )
+                TypeConditionsDefinition<TRuleType>.NotResideInAssembly(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+        public TRuleTypeShouldConjunction NotResideInAssemblyMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                TypeConditionsDefinition<TRuleType>.NotResideInAssemblyMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }

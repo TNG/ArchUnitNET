@@ -283,7 +283,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             return new SimplePredicate<MethodMember>(
-                member => typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName)),
+                member => typeList.Any(type => member.ReturnType.FullNameEquals(type.FullName)),
                 description
             );
         }
@@ -298,7 +298,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var typeList = types.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
                 return methodMemberList.Where(methodMember =>
-                    typeList.Any(type => methodMember.ReturnType.FullNameMatches(type.FullName))
+                    typeList.Any(type => methodMember.ReturnType.FullNameEquals(type.FullName))
                 );
             }
 
@@ -610,7 +610,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 "do not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             return new SimplePredicate<MethodMember>(
-                member => typeList.Any(type => !member.ReturnType.FullNameMatches(type.FullName)),
+                member => typeList.Any(type => !member.ReturnType.FullNameEquals(type.FullName)),
                 description
             );
         }
@@ -625,7 +625,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var typeList = types.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
                 return methodMemberList.Where(methodMember =>
-                    typeList.All(type => !methodMember.ReturnType.FullNameMatches(type.FullName))
+                    typeList.All(type => !methodMember.ReturnType.FullNameEquals(type.FullName))
                 );
             }
 

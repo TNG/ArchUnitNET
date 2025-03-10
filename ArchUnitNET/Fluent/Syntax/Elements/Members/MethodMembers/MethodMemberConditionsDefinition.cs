@@ -434,7 +434,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             bool Condition(MethodMember member)
             {
-                return typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName));
+                return typeList.Any(type => member.ReturnType.FullNameEquals(type.FullName));
             }
 
             return new SimpleCondition<MethodMember>(
@@ -455,7 +455,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
-                        typeList.Any(type => methodMember.ReturnType.FullNameMatches(type.FullName))
+                        typeList.Any(type => methodMember.ReturnType.FullNameEquals(type.FullName))
                     )
                     .ToList();
                 foreach (var failedObject in methodMemberList.Except(passedObjects))
@@ -938,7 +938,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             bool Condition(MethodMember member)
             {
-                return typeList.All(type => !member.ReturnType.FullNameMatches(type.FullName));
+                return typeList.All(type => !member.ReturnType.FullNameEquals(type.FullName));
             }
 
             return new SimpleCondition<MethodMember>(
@@ -960,7 +960,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
                         typeList.All(type =>
-                            !methodMember.ReturnType.FullNameMatches(type.FullName)
+                            !methodMember.ReturnType.FullNameEquals(type.FullName)
                         )
                     )
                     .ToList();

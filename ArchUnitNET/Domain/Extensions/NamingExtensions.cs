@@ -43,32 +43,24 @@ namespace ArchUnitNET.Domain.Extensions
             return cls.Name.IndexOf(pattern, stringComparison) >= 0;
         }
 
-        public static bool NameMatches(
-            this IHasName cls,
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public static bool NameEquals(this IHasName cls, string name)
         {
-            if (useRegularExpressions)
-            {
-                return pattern != null && Regex.IsMatch(cls.Name, pattern);
-            }
-
-            return string.Equals(cls.Name, pattern, StringComparison.OrdinalIgnoreCase);
+            return string.Equals(cls.Name, name, StringComparison.OrdinalIgnoreCase);
         }
 
-        public static bool FullNameMatches(
-            this IHasName cls,
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public static bool NameMatches(this IHasName cls, string pattern)
         {
-            if (useRegularExpressions)
-            {
-                return pattern != null && Regex.IsMatch(cls.FullName, pattern);
-            }
+            return pattern != null && Regex.IsMatch(cls.Name, pattern);
+        }
 
-            return string.Equals(cls.FullName, pattern, StringComparison.OrdinalIgnoreCase);
+        public static bool FullNameEquals(this IHasName cls, string fullName)
+        {
+            return string.Equals(cls.FullName, fullName, StringComparison.OrdinalIgnoreCase);
+        }
+        
+        public static bool FullNameMatches(this IHasName cls, string pattern)
+        {
+            return pattern != null && Regex.IsMatch(cls.FullName, pattern);
         }
 
         public static bool FullNameContains(this IHasName cls, string pattern)
@@ -96,7 +88,7 @@ namespace ArchUnitNET.Domain.Extensions
             {
                 throw new MultipleOccurrencesInSequenceException(
                     $"Full name {fullName} found multiple times in provided types. Please use extern "
-                        + "alias to reference assemblies that have the same fully-qualified type names."
+                    + "alias to reference assemblies that have the same fully-qualified type names."
                 );
             }
 

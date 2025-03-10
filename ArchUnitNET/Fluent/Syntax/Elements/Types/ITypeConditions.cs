@@ -27,8 +27,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType BeStructs();
         TReturnType ImplementInterface(Interface intf);
         TReturnType ImplementInterface(Type intf);
-        TReturnType ResideInNamespace(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
-        TReturnType ResideInAssembly(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
+        TReturnType ResideInNamespace(string fullName);
+        TReturnType ResideInNamespaceMatching(string pattern);
+        TReturnType ResideInAssembly(string fullName);
+        TReturnType ResideInAssemblyMatching(string pattern);
         TReturnType ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
         TReturnType ResideInAssembly(
             Domain.Assembly assembly,
@@ -55,8 +57,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType NotBeStructs();
         TReturnType NotImplementInterface(Interface intf);
         TReturnType NotImplementInterface(Type intf);
-        TReturnType NotResideInNamespace(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
-        TReturnType NotResideInAssembly(string pattern, bool useRegularExpressions = false); //TODO split into multiple implementations
+        TReturnType NotResideInNamespace(string fullName);
+        TReturnType NotResideInNamespaceMatching(string pattern);
+        TReturnType NotResideInAssembly(string fullName);
+        TReturnType NotResideInAssemblyMatching(string pattern);
         TReturnType NotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
         TReturnType NotResideInAssembly(
             Domain.Assembly assembly,

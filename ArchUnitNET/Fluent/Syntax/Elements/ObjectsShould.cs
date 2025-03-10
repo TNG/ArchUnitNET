@@ -23,7 +23,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         protected ObjectsShould(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+            : base(ruleCreator)
+        {
+        }
 
         public TRuleTypeShouldConjunction Exist()
         {
@@ -453,24 +455,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public TRuleTypeShouldConjunction HaveName(string name)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveName(pattern, useRegularExpressions)
+                ObjectConditionsDefinition<TRuleType>.HaveName(name)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction HaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public TRuleTypeShouldConjunction HaveNameMatching(string pattern)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveFullName(pattern, useRegularExpressions)
+                ObjectConditionsDefinition<TRuleType>.HaveNameMatching(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveFullName(string fullName)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.HaveFullName(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction HaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.HaveFullNameMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -635,7 +647,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotBe(objects));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TRuleTypeShouldConjunction NotCallAny(
             MethodMember method,
             params MethodMember[] moreMethods
@@ -919,27 +931,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotHaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public TRuleTypeShouldConjunction NotHaveName(string name)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveName(pattern, useRegularExpressions)
+                ObjectConditionsDefinition<TRuleType>.NotHaveName(name)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TRuleTypeShouldConjunction NotHaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public TRuleTypeShouldConjunction NotHaveNameMatching(string pattern)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveFullName(
-                    pattern,
-                    useRegularExpressions
-                )
+                ObjectConditionsDefinition<TRuleType>.NotHaveNameMatching(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotHaveFullName(string fullName)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotHaveFullName(fullName)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TRuleTypeShouldConjunction NotHaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotHaveFullNameMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }

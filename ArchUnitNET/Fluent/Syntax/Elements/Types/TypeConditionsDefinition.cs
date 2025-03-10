@@ -528,37 +528,39 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> ResideInNamespace(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public static ICondition<TRuleType> ResideInNamespace(string fullName)
         {
             return new SimpleCondition<TRuleType>(
-                type => type.ResidesInNamespace(pattern, useRegularExpressions),
+                type => type.ResidesInNamespace(fullName),
                 obj => "does reside in " + obj.Namespace.FullName,
-                "reside in namespace with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                "reside in namespace with full name \"" + fullName + "\""
+            );
+        }
+        public static ICondition<TRuleType> ResideInNamespaceMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInNamespace(pattern),
+                obj => "does reside in " + obj.Namespace.FullName,
+                "reside in namespace with full name matching \"" + pattern + "\""
             );
         }
 
-        public static ICondition<TRuleType> ResideInAssembly(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public static ICondition<TRuleType> ResideInAssembly(string fullName)
         {
             return new SimpleCondition<TRuleType>(
-                type => type.ResidesInAssembly(pattern, useRegularExpressions),
+                type => type.ResidesInAssembly(fullName),
                 obj => "does reside in " + obj.Assembly.FullName,
-                "reside in assembly with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                "reside in assembly with full name \"" + fullName + "\""
             );
         }
+        public static ICondition<TRuleType> ResideInAssemblyMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInAssemblyMatching(pattern),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "reside in assembly with full name matching \"" + pattern + "\""
+            );
+         }
 
         public static ICondition<TRuleType> ResideInAssembly(
             System.Reflection.Assembly assembly,
@@ -662,7 +664,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     if (
                         classDiagramAssociation.Contains(dependency)
                         && !allAllowedTargets.Any(pattern =>
-                            dependency.FullNameMatches(pattern, true)
+                            dependency.FullNameMatches(pattern)
                         )
                     )
                     {
@@ -1103,35 +1105,38 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotResideInNamespace(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public static ICondition<TRuleType> NotResideInNamespace(string fullName)
         {
             return new SimpleCondition<TRuleType>(
-                type => !type.ResidesInNamespace(pattern, useRegularExpressions),
+                type => !type.ResidesInNamespace(fullName),
                 obj => "does reside in " + obj.Namespace.FullName,
-                "not reside in namespace with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                "not reside in namespace with full name \"" + fullName + "\""
             );
         }
 
-        public static ICondition<TRuleType> NotResideInAssembly(
-            string pattern,
-            bool useRegularExpressions = false
-        ) //TODO split into multiple implementations
+        public static ICondition<TRuleType> NotResideInNamespaceMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                type => !type.ResidesInAssembly(pattern, useRegularExpressions),
+                type => !type.ResidesInNamespaceMatching(pattern),
+                obj => "does reside in " + obj.Namespace.FullName,
+                "not reside in namespace with full name matching \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotResideInAssembly(string fullName)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInAssembly(fullName),
                 obj => "does reside in " + obj.Assembly.FullName,
-                "not reside in assembly with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
+                "not reside in assembly with full name \"" + fullName + "\""
+            );
+        }
+        public static ICondition<TRuleType> NotResideInAssemblyMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInAssemblyMatching(pattern),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "not reside in assembly with full name matching \"" + pattern + "\""
             );
         }
 
