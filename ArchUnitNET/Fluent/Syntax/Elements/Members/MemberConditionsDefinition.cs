@@ -374,7 +374,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         }
 
         //Relation Condition Negations
-        
+
         public static RelationCondition<TRuleType, IType> NotBeDeclaredInTypesThat()
         {
             return new RelationCondition<TRuleType, IType>(

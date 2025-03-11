@@ -57,7 +57,7 @@ namespace ArchUnitNET.Domain.Extensions
         {
             return string.Equals(cls.FullName, fullName, StringComparison.OrdinalIgnoreCase);
         }
-        
+
         public static bool FullNameMatches(this IHasName cls, string pattern)
         {
             return pattern != null && Regex.IsMatch(cls.FullName, pattern);
@@ -88,7 +88,7 @@ namespace ArchUnitNET.Domain.Extensions
             {
                 throw new MultipleOccurrencesInSequenceException(
                     $"Full name {fullName} found multiple times in provided types. Please use extern "
-                    + "alias to reference assemblies that have the same fully-qualified type names."
+                        + "alias to reference assemblies that have the same fully-qualified type names."
                 );
             }
 

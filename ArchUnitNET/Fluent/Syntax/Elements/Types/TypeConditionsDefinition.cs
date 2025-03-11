@@ -536,6 +536,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "reside in namespace with full name \"" + fullName + "\""
             );
         }
+
         public static ICondition<TRuleType> ResideInNamespaceMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
@@ -553,6 +554,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "reside in assembly with full name \"" + fullName + "\""
             );
         }
+
         public static ICondition<TRuleType> ResideInAssemblyMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
@@ -560,7 +562,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 obj => "does reside in " + obj.Assembly.FullName,
                 "reside in assembly with full name matching \"" + pattern + "\""
             );
-         }
+        }
 
         public static ICondition<TRuleType> ResideInAssembly(
             System.Reflection.Assembly assembly,
@@ -663,9 +665,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 {
                     if (
                         classDiagramAssociation.Contains(dependency)
-                        && !allAllowedTargets.Any(pattern =>
-                            dependency.FullNameMatches(pattern)
-                        )
+                        && !allAllowedTargets.Any(pattern => dependency.FullNameMatches(pattern))
                     )
                     {
                         dynamicFailDescription += pass
@@ -1131,6 +1131,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "not reside in assembly with full name \"" + fullName + "\""
             );
         }
+
         public static ICondition<TRuleType> NotResideInAssemblyMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(

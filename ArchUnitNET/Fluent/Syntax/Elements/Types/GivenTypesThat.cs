@@ -19,9 +19,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     {
         // ReSharper disable once MemberCanBeProtected.Global
         public GivenTypesThat(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator)
-        {
-        }
+            : base(ruleCreator) { }
 
         public TGivenRuleTypeConjunction Are(Type firstType, params Type[] moreTypes)
         {
@@ -158,7 +156,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TGivenRuleTypeConjunction ResideInAssemblyMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
@@ -326,7 +324,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TGivenRuleTypeConjunction DoNotResideInNamespaceMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
@@ -342,7 +340,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
-        public TGivenRuleTypeConjunction DoNotResideInAssemblyMatching(string pattern){
+
+        public TGivenRuleTypeConjunction DoNotResideInAssemblyMatching(string pattern)
+        {
             _ruleCreator.AddPredicate(
                 TypePredicatesDefinition<TRuleType>.DoNotResideInAssemblyMatching(pattern)
             );

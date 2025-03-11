@@ -38,7 +38,9 @@ public class ObjectsShouldTests
         should = Types().That().Are(helper.BaseClass).Should();
         should.Be(new List<IType>()).AssertOnlyViolations(helper);
         should.Be(new List<System.Type>()).AssertOnlyViolations(helper);
-        should.Be(Classes().That().HaveFullName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
+        should
+            .Be(Classes().That().HaveFullName(helper.NonExistentObjectName))
+            .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ChildClass).Should();
@@ -530,7 +532,10 @@ public class ObjectsShouldTests
         should.DependOnAny([helper.BaseClassSystemType]).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
-        should = Types().That().HaveFullName(helper.ClassWithMultipleDependencies.FullName).Should();
+        should = Types()
+            .That()
+            .HaveFullName(helper.ClassWithMultipleDependencies.FullName)
+            .Should();
         should.DependOnAny(helper.ClassWithoutDependencies).AssertOnlyViolations(helper);
         should.DependOnAny(helper.ClassWithoutDependenciesSystemType).AssertOnlyViolations(helper);
         should
@@ -540,7 +545,7 @@ public class ObjectsShouldTests
         should
             .DependOnAny([helper.ClassWithoutDependenciesSystemType])
             .AssertOnlyViolations(helper);
-        
+
         helper.AddSnapshotHeader("Type outside of architecture");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
         should
@@ -572,9 +577,7 @@ public class ObjectsShouldTests
 
         helper.AddSnapshotHeader("Input without dependencies");
         should = Types().That().Are(helper.ClassWithoutDependencies).Should();
-        should
-            .DependOnAny([helper.BaseClass, helper.ChildClass])
-            .AssertOnlyViolations(helper);
+        should.DependOnAny([helper.BaseClass, helper.ChildClass]).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
         Types()
@@ -1444,7 +1447,9 @@ public class ObjectsShouldTests
         should = Types().That().DependOnAny(helper.BaseClass).Should();
         should.NotBe(new List<IType>()).AssertNoViolations(helper);
         should.NotBe(new List<System.Type>()).AssertNoViolations(helper);
-        should.NotBe(Classes().That().HaveFullName(helper.NonExistentObjectName)).AssertNoViolations(helper);
+        should
+            .NotBe(Classes().That().HaveFullName(helper.NonExistentObjectName))
+            .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().DependOnAny(helper.BaseClass).Should();
@@ -2487,10 +2492,7 @@ public class ObjectsShouldTests
 
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
-        should
-            .OnlyHaveAttributesThat()
-            .Are(helper.UnusedAttribute)
-            .AssertOnlyViolations(helper);
+        should.OnlyHaveAttributesThat().Are(helper.UnusedAttribute).AssertOnlyViolations(helper);
         await helper.AssertSnapshotMatches();
     }
 

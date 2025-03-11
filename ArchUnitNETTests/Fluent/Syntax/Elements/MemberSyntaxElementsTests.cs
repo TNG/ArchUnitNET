@@ -38,12 +38,17 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             typeof(InternalTestClass),
         };
 
-        private static readonly IObjectProvider<MethodMember> FalseTypeConstructors =  MethodMembers().That()
-            .HaveFullName("System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()").Or()
-            .HaveFullName("System.Void ArchUnitNETTests.Domain.InternalTestClass::.ctor()");
+        private static readonly IObjectProvider<MethodMember> FalseTypeConstructors =
+            MethodMembers()
+                .That()
+                .HaveFullName("System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()")
+                .Or()
+                .HaveFullName("System.Void ArchUnitNETTests.Domain.InternalTestClass::.ctor()");
 
         private static readonly IObjectProvider<MethodMember> PublicTestClassConstructor =
-            MethodMembers().That().HaveFullName("System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()");
+            MethodMembers()
+                .That()
+                .HaveFullName("System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()");
 
         [Fact]
         public void DeclaredInTest()

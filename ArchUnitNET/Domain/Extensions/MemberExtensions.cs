@@ -12,18 +12,12 @@ namespace ArchUnitNET.Domain.Extensions
 {
     public static class MemberExtensions
     {
-        public static bool IsDeclaredIn(
-            this IMember member,
-            string fullName
-        )
+        public static bool IsDeclaredIn(this IMember member, string fullName)
         {
             return member.DeclaringType.FullNameEquals(fullName);
         }
-        
-        public static bool IsDeclaredInTypeMatching(
-            this IMember member,
-            string pattern
-        )
+
+        public static bool IsDeclaredInTypeMatching(this IMember member, string pattern)
         {
             return member.DeclaringType.FullNameMatches(pattern);
         }
@@ -69,28 +63,18 @@ namespace ArchUnitNET.Domain.Extensions
             return member.GetMethodCallDependencies(getBackwardsDependencies).Any();
         }
 
-        public static bool IsCalledByType(
-            this MethodMember member,
-            string fullName
-        )
+        public static bool IsCalledByType(this MethodMember member, string fullName)
         {
             return member
                 .GetMethodCallDependencies(true)
-                .Any(dependency =>
-                    dependency.Origin.FullNameEquals(fullName)
-                );
+                .Any(dependency => dependency.Origin.FullNameEquals(fullName));
         }
-        
-        public static bool IsCalledByTypeMatching(
-            this MethodMember member,
-            string pattern
-        )
+
+        public static bool IsCalledByTypeMatching(this MethodMember member, string pattern)
         {
             return member
                 .GetMethodCallDependencies(true)
-                .Any(dependency =>
-                    dependency.Origin.FullNameMatches(pattern)
-                );
+                .Any(dependency => dependency.Origin.FullNameMatches(pattern));
         }
 
         public static IEnumerable<IType> GetCallingTypes(this MethodMember member)
@@ -108,11 +92,9 @@ namespace ArchUnitNET.Domain.Extensions
         {
             return member
                 .GetBodyTypeMemberDependencies()
-                .Any(dependency =>
-                    dependency.Target.FullNameEquals(fullName)
-                );
+                .Any(dependency => dependency.Target.FullNameEquals(fullName));
         }
-        
+
         public static bool HasDependencyInMethodBodyToTypeMatching(
             this MethodMember member,
             string pattern
@@ -120,9 +102,7 @@ namespace ArchUnitNET.Domain.Extensions
         {
             return member
                 .GetBodyTypeMemberDependencies()
-                .Any(dependency =>
-                    dependency.Target.FullNameMatches(pattern)
-                );
+                .Any(dependency => dependency.Target.FullNameMatches(pattern));
         }
 
         public static bool HasFieldTypeDependencies(

@@ -23,9 +23,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         protected ObjectsShould(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator)
-        {
-        }
+            : base(ruleCreator) { }
 
         public TRuleTypeShouldConjunction Exist()
         {
@@ -457,9 +455,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction HaveName(string name)
         {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveName(name)
-            );
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.HaveName(name));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -473,9 +469,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction HaveFullName(string fullName)
         {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveFullName(fullName)
-            );
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.HaveFullName(fullName));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -933,9 +927,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction NotHaveName(string name)
         {
-            _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveName(name)
-            );
+            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveName(name));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 

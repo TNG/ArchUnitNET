@@ -165,6 +165,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
         public TRuleTypeShouldConjunction ResideInNamespaceMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -180,7 +181,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TRuleTypeShouldConjunction ResideInAssemblyMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -188,7 +189,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-
 
         public TRuleTypeShouldConjunction ResideInAssembly(
             Assembly assembly,
@@ -270,7 +270,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TRuleTypeShouldConjunction AreNotAssignableTo(
             IType firstType,
             params IType[] moreTypes
@@ -364,6 +364,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
         public TRuleTypeShouldConjunction DoNotResideInNamespaceMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -379,6 +380,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
         public TRuleTypeShouldConjunction DoNotResideInAssemblyMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(

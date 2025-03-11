@@ -113,7 +113,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "be " + objectProvider.Description
             );
         }
-        
+
         public static ICondition<TRuleType> CallAny(
             MethodMember method,
             params MethodMember[] moreMethods
@@ -924,7 +924,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             argumentValues.AddRange(moreArgumentValues);
             return HaveAnyAttributesWithArguments(argumentValues);
         }
-        
+
         public static ICondition<TRuleType> HaveAttributeWithArguments(
             Attribute attribute,
             object firstArgumentValue,
@@ -1056,7 +1056,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
-        
+
         public static ICondition<TRuleType> HaveAttributeWithArguments(
             [NotNull] Attribute attribute,
             IEnumerable<object> argumentValues
@@ -1320,7 +1320,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
-        
+
         public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
             [NotNull] Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -1519,15 +1519,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameEquals(name),
                 obj => "does have name " + obj.Name,
-                $"have name \"{name}\"");
+                $"have name \"{name}\""
+            );
         }
-        
+
         public static ICondition<TRuleType> HaveNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameMatches(pattern),
                 obj => "does have name " + obj.Name,
-                $"have name matching \"{pattern}\"");
+                $"have name matching \"{pattern}\""
+            );
         }
 
         public static ICondition<TRuleType> HaveFullName(string name)
@@ -1538,6 +1540,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "have full name \"" + name + "\""
             );
         }
+
         public static ICondition<TRuleType> HaveFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
@@ -1767,7 +1770,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "not be " + objectProvider.Description
             );
         }
-        
+
         public static ICondition<TRuleType> NotCallAny(
             MethodMember method,
             params MethodMember[] moreMethods
@@ -1865,7 +1868,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new EnumerableCondition<TRuleType>(Condition, description);
         }
-        
+
         public static ICondition<TRuleType> NotDependOnAny(
             IType firstType,
             params IType[] moreTypes
@@ -2628,7 +2631,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
-        
+
         public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
             [NotNull] Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -2830,6 +2833,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 $"not have name \"{name}\""
             );
         }
+
         public static ICondition<TRuleType> NotHaveNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
@@ -2839,9 +2843,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveFullName(
-            string fullName
-        )
+        public static ICondition<TRuleType> NotHaveFullName(string fullName)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullNameEquals(fullName),
@@ -2849,9 +2851,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "not have full name \"" + fullName + "\""
             );
         }
-        public static ICondition<TRuleType> NotHaveFullNameMatching(
-            string pattern
-        )
+
+        public static ICondition<TRuleType> NotHaveFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullNameMatches(pattern),

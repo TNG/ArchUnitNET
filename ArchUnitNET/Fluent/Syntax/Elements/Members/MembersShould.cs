@@ -21,7 +21,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         // ReSharper disable once MemberCanBeProtected.Global
         public MembersShould(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
-        
+
         public TRuleTypeShouldConjunction BeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(
