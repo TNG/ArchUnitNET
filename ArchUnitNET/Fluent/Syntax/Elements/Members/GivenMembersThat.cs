@@ -20,7 +20,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         // ReSharper disable once MemberCanBeProtected.Global
         public GivenMembersThat(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
-        
+
         public TGivenRuleTypeConjunction AreDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddPredicate(
@@ -74,7 +74,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         }
 
         //Negations
-        
+
         public TGivenRuleTypeConjunction AreNotDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddPredicate(

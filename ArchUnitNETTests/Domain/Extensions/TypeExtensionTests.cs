@@ -78,7 +78,7 @@ namespace ArchUnitNETTests.Domain.Extensions
             Assert.True(_propertyOriginClass.FullNameMatches("(?i)sswITH"));
             Assert.False(_exampleAttribute.FullNameMatches(null));
         }
-        
+
         [Fact]
         public void FullNameEqualsTest()
         {
@@ -209,7 +209,7 @@ namespace ArchUnitNETTests.Domain.Extensions
             Assert.True(_propertyOriginClass.NameMatches("(?i)sswITH"));
             Assert.False(_exampleAttribute.NameMatches(null));
         }
-        
+
         [Fact]
         public void NameEqualsTest()
         {

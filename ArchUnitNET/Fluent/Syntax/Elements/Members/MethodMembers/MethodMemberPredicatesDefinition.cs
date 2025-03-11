@@ -458,7 +458,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             return new ArchitecturePredicate<MethodMember>(Condition, description);
         }
-        
+
         public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
             IType firstType,
             params IType[] moreTypes

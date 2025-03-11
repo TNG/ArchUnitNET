@@ -797,8 +797,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         .Distinct()
                         .Aggregate(
                             "does have dependencies in method body to \""
-                            + firstType.FullName
-                            + "\"",
+                                + firstType.FullName
+                                + "\"",
                             (current, type) => current + " or \"" + type.FullName + "\""
                         );
                 }
@@ -959,9 +959,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
-                        typeList.All(type =>
-                            !methodMember.ReturnType.FullNameEquals(type.FullName)
-                        )
+                        typeList.All(type => !methodMember.ReturnType.FullNameEquals(type.FullName))
                     )
                     .ToList();
                 foreach (var failedObject in methodMemberList.Except(passedObjects))

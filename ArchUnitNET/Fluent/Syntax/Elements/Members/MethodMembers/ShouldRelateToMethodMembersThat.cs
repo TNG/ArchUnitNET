@@ -119,7 +119,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TRuleTypeShouldConjunction HaveReturnType(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(

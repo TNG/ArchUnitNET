@@ -156,6 +156,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
         public TRuleTypeShouldConjunction ResideInAssemblyMatching(string pattern)
         {
             _ruleCreator.AddCondition(
@@ -255,7 +256,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.NotBe(types));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TRuleTypeShouldConjunction NotBeAssignableTo(
             IType firstType,
             params IType[] moreTypes
@@ -334,6 +335,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
         public TRuleTypeShouldConjunction NotResideInNamespaceMatching(string pattern)
         {
             _ruleCreator.AddCondition(
@@ -349,6 +351,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
         public TRuleTypeShouldConjunction NotResideInAssemblyMatching(string pattern)
         {
             _ruleCreator.AddCondition(

@@ -314,7 +314,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimplePredicate<T>(type => type is Struct, "are structs");
         }
-        
+
         public static IPredicate<T> ImplementInterface(Interface intf)
         {
             return new SimplePredicate<T>(
@@ -354,6 +354,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "reside in namespace with full name \"" + fullName + "\""
             );
         }
+
         public static IPredicate<T> ResideInNamespaceMatching(string pattern)
         {
             return new SimplePredicate<T>(
@@ -369,6 +370,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "reside in assembly with full name \"" + fullName + "\""
             );
         }
+
         public static IPredicate<T> ResideInAssemblyMatching(string pattern)
         {
             return new SimplePredicate<T>(
@@ -642,7 +644,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimplePredicate<T>(cls => !(cls is Struct), "are not structs");
         }
-        
+
         public static IPredicate<T> DoNotImplementInterface(Interface intf)
         {
             return new SimplePredicate<T>(
@@ -682,6 +684,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "do not reside in namespace with full name \"" + fullName + "\""
             );
         }
+
         public static IPredicate<T> DoNotResideInNamespaceMatching(string pattern)
         {
             return new SimplePredicate<T>(
@@ -697,6 +700,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "do not reside in assembly with full name \"" + fullName + "\""
             );
         }
+
         public static IPredicate<T> DoNotResideInAssemblyMatching(string pattern)
         {
             return new SimplePredicate<T>(

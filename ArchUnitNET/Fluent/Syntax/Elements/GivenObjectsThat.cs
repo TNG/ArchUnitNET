@@ -428,12 +428,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TGivenRuleTypeConjunction HaveName(string name)
         {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveName(name)
-            );
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveName(name));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TGivenRuleTypeConjunction HaveNameMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
@@ -444,12 +442,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TGivenRuleTypeConjunction HaveFullName(string fullName)
         {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.HaveFullName(fullName)
-            );
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveFullName(fullName));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TGivenRuleTypeConjunction HaveFullNameMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
@@ -842,12 +838,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TGivenRuleTypeConjunction DoNotHaveName(string name)
         {
-            _ruleCreator.AddPredicate(
-                ObjectPredicatesDefinition<TRuleType>.DoNotHaveName(name)
-            );
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveName(name));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TGivenRuleTypeConjunction DoNotHaveNameMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
@@ -863,7 +857,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
-        
+
         public TGivenRuleTypeConjunction DoNotHaveFullNameMatching(string pattern)
         {
             _ruleCreator.AddPredicate(

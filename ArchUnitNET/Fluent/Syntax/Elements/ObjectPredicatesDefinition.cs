@@ -118,7 +118,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new EnumerablePredicate<T>(Filter, description);
         }
-        
+
         public static IPredicate<T> DependOnAny(IType firstType, params IType[] moreTypes)
         {
             var types = new List<IType> { firstType };
@@ -226,7 +226,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             return new SimplePredicate<T>(predicate, description);
         }
-        
+
         public static IPredicate<T> OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
             var types = new List<IType> { firstType };
@@ -330,7 +330,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitecturePredicate<T>(Filter, description);
         }
-        
+
         public static IPredicate<T> HaveAnyAttributes(
             Attribute firstAttribute,
             params Attribute[] moreAttributes
@@ -643,7 +643,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitecturePredicate<T>(Predicate, description);
         }
-        
+
         public static IPredicate<T> HaveAttributeWithArguments(
             [NotNull] Attribute attribute,
             IEnumerable<object> argumentValues
@@ -1030,6 +1030,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "have name \"" + name + "\""
             );
         }
+
         public static IPredicate<T> HaveNameMatching(string pattern)
         {
             return new SimplePredicate<T>(
@@ -1045,6 +1046,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "have full name \"" + fullName + "\""
             );
         }
+
         public static IPredicate<T> HaveFullNameMatching(string pattern)
         {
             return new SimplePredicate<T>(
@@ -1437,7 +1439,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             argumentValues.AddRange(moreArgumentValues);
             return DoNotHaveAnyAttributesWithArguments(argumentValues);
         }
-        
 
         public static IPredicate<T> DoNotHaveAttributeWithArguments(
             Attribute attribute,
@@ -1546,7 +1547,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitecturePredicate<T>(Predicate, description);
         }
-        
+
         public static IPredicate<T> DoNotHaveAttributeWithArguments(
             [NotNull] Attribute attribute,
             IEnumerable<object> argumentValues
@@ -1762,7 +1763,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitecturePredicate<T>(Condition, description);
         }
-        
+
         public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
             [NotNull] Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -1959,7 +1960,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "do not have full name matching \"" + pattern + "\""
             );
         }
-        
+
         public static IPredicate<T> DoNotHaveNameStartingWith(string pattern)
         {
             return new SimplePredicate<T>(

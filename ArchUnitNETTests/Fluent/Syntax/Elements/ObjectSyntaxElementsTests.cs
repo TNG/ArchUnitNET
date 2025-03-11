@@ -44,26 +44,14 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var otherTypesAreNotThisType = Types().That().AreNot(type).Should().NotBe(type);
                 var otherTypesAreThisType = Types().That().AreNot(type).Should().Be(type);
 
-                var typeIsItselfPattern = Types()
-                    .That()
-                    .Are(type)
-                    .Should()
-                    .Be(type);
-                var typeIsNotItselfPattern = Types()
-                    .That()
-                    .Are(type)
-                    .Should()
-                    .NotBe(type);
+                var typeIsItselfPattern = Types().That().Are(type).Should().Be(type);
+                var typeIsNotItselfPattern = Types().That().Are(type).Should().NotBe(type);
                 var otherTypesAreNotThisTypePattern = Types()
                     .That()
                     .AreNot(type)
                     .Should()
                     .NotBe(type);
-                var otherTypesAreThisTypePattern = Types()
-                    .That()
-                    .AreNot(type)
-                    .Should()
-                    .Be(type);
+                var otherTypesAreThisTypePattern = Types().That().AreNot(type).Should().Be(type);
 
                 Assert.True(typeIsItself.HasNoViolations(Architecture));
                 Assert.False(typeIsNotItself.HasNoViolations(Architecture));
@@ -103,7 +91,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.False(publicTypesAreNotPublicTestClass.HasNoViolations(Architecture));
 
             //Tests with multiple arguments
-            
+
             var publicTestClassAndInternalTestClassIsPublicOrInternal = Types()
                 .That()
                 .Are(StaticTestTypes.PublicTestClass, StaticTestTypes.InternalTestClass)
@@ -173,7 +161,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .AreInternal()
                 .Should()
                 .NotBe(list);
-            
+
             Assert.True(
                 listPublicTestClassAndInternalTestClassIsPublicOrInternal.HasNoViolations(
                     Architecture
