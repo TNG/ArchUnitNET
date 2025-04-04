@@ -17,6 +17,70 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
     public static class MemberConditionsDefinition<TRuleType>
         where TRuleType : IMember
     {
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use BeDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public static ICondition<TRuleType> BeDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            return new SimpleCondition<TRuleType>(
+                member => member.IsDeclaredIn(pattern, useRegularExpressions),
+                member => "is declared in " + member.DeclaringType.FullName,
+                "be declared in types with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use BeDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public static ICondition<TRuleType> BeDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            var patternList = patterns.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return patternList.Any(pattern =>
+                    ruleType.IsDeclaredIn(pattern, useRegularExpressions)
+                );
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "be declared in no type (always false)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList
+                    .Where(obj => !obj.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "be declared in types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
+            }
+
+            return new SimpleCondition<TRuleType>(
+                Condition,
+                member => "is declared in " + member.DeclaringType.FullName,
+                description
+            );
+        }
+
         public static ICondition<TRuleType> BeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             var types = new List<IType> { firstType };
@@ -200,6 +264,71 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         }
 
         //Negations
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public static ICondition<TRuleType> NotBeDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            return new SimpleCondition<TRuleType>(
+                member => !member.IsDeclaredIn(pattern, useRegularExpressions),
+                member => "is declared in " + member.DeclaringType.FullName,
+                "not be declared in types with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public static ICondition<TRuleType> NotBeDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            var patternList = patterns.ToList();
+
+            bool Condition(TRuleType ruleType)
+            {
+                return patternList.All(pattern =>
+                    !ruleType.IsDeclaredIn(pattern, useRegularExpressions)
+                );
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "not be declared in no type (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList
+                    .Where(obj => !obj.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "not be declared in types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
+            }
+
+            return new SimpleCondition<TRuleType>(
+                Condition,
+                member => "is declared in " + member.DeclaringType.FullName,
+                description
+            );
+        }
+
         public static ICondition<TRuleType> NotBeDeclaredIn(
             IType firstType,
             params IType[] moreTypes

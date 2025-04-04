@@ -16,12 +16,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleType : ICanBeAnalyzed
     {
         TReturnType Exist();
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Be(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType Be(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Be(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType Be(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType Be(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType Be(IEnumerable<ICanBeAnalyzed> objects);
         TReturnType Be(IObjectProvider<ICanBeAnalyzed> objects);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
+        TReturnType CallAny(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
+        TReturnType CallAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType CallAny(MethodMember method, params MethodMember[] moreMethods);
         TReturnType CallAny(IEnumerable<MethodMember> methods);
         TReturnType CallAny(IObjectProvider<MethodMember> methods);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType DependOnAny(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType DependOnAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType DependOnAny(IType firstType, params IType[] moreTypes);
         TReturnType DependOnAny(Type firstType, params Type[] moreTypes);
         TReturnType DependOnAny(IObjectProvider<IType> types);
@@ -37,16 +67,52 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             string description,
             string failDescription
         );
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType OnlyDependOn(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType OnlyDependOn(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType OnlyDependOn(IType firstType, params IType[] moreTypes);
         TReturnType OnlyDependOn(Type firstType, params Type[] moreTypes);
         TReturnType OnlyDependOn(IObjectProvider<IType> types);
         TReturnType OnlyDependOn(IEnumerable<IType> types);
         TReturnType OnlyDependOn(IEnumerable<Type> types);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        TReturnType HaveAnyAttributes(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        TReturnType HaveAnyAttributes(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        );
         TReturnType HaveAnyAttributes(Attribute firstAttribute, params Attribute[] moreAttributes);
         TReturnType HaveAnyAttributes(Type firstAttribute, params Type[] moreAttributes);
         TReturnType HaveAnyAttributes(IObjectProvider<Attribute> attributes);
         TReturnType HaveAnyAttributes(IEnumerable<Attribute> attributes);
         TReturnType HaveAnyAttributes(IEnumerable<Type> attributes);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        TReturnType OnlyHaveAttributes(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        TReturnType OnlyHaveAttributes(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        );
         TReturnType OnlyHaveAttributes(Attribute firstAttribute, params Attribute[] moreAttributes);
         TReturnType OnlyHaveAttributes(Type firstAttribute, params Type[] moreAttributes);
         TReturnType OnlyHaveAttributes(IObjectProvider<Attribute> attributes);
@@ -54,6 +120,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType OnlyHaveAttributes(IEnumerable<Type> attributes);
         TReturnType HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues);
         TReturnType HaveAnyAttributesWithArguments(
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        );
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        TReturnType HaveAttributeWithArguments(
+            string attribute,
+            IEnumerable<object> argumentValues
+        );
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        TReturnType HaveAttributeWithArguments(
+            string attribute,
             object firstArgumentValue,
             params object[] moreArgumentValues
         );
@@ -79,6 +162,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             (string, object) firstAttributeArgument,
             params (string, object)[] moreAttributeArguments
         );
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        TReturnType HaveAttributeWithNamedArguments(
+            string attribute,
+            IEnumerable<(string, object)> attributeArguments
+        );
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        TReturnType HaveAttributeWithNamedArguments(
+            string attribute,
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        );
         TReturnType HaveAttributeWithNamedArguments(
             Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -97,8 +197,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             (string, object) firstAttributeArgument,
             params (string, object)[] moreAttributeArguments
         );
+
+        [Obsolete(
+            "Either HaveName() without the useRegularExpressions parameter or HaveNameMatching() should be used"
+        )]
+        TReturnType HaveName(string pattern, bool useRegularExpressions);
         TReturnType HaveName(string name);
         TReturnType HaveNameMatching(string pattern);
+
+        [Obsolete(
+            "Either HaveFullName() without the useRegularExpressions parameter or HaveFullNameMatching() should be used"
+        )]
+        TReturnType HaveFullName(string pattern, bool useRegularExpressions);
         TReturnType HaveFullName(string fullName);
         TReturnType HaveFullNameMatching(string pattern);
         TReturnType HaveNameStartingWith(string pattern);
@@ -116,17 +226,63 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
 
         TReturnType NotExist();
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBe(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType NotBe(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBe(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType NotBe(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType NotBe(ICanBeAnalyzed firstObject, params ICanBeAnalyzed[] moreObjects);
         TReturnType NotBe(IEnumerable<ICanBeAnalyzed> objects);
         TReturnType NotBe(IObjectProvider<ICanBeAnalyzed> objects);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
+        TReturnType NotCallAny(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
+        TReturnType NotCallAny(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType NotCallAny(MethodMember method, params MethodMember[] moreMethods);
         TReturnType NotCallAny(IEnumerable<MethodMember> methods);
         TReturnType NotCallAny(IObjectProvider<MethodMember> methods);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType NotDependOnAny(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
+        TReturnType NotDependOnAny(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        );
         TReturnType NotDependOnAny(IType firstType, params IType[] moreTypes);
         TReturnType NotDependOnAny(Type firstType, params Type[] moreTypes);
         TReturnType NotDependOnAny(IObjectProvider<IType> types);
         TReturnType NotDependOnAny(IEnumerable<IType> types);
         TReturnType NotDependOnAny(IEnumerable<Type> types);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotHaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        TReturnType NotHaveAnyAttributes(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotHaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        TReturnType NotHaveAnyAttributes(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        );
         TReturnType NotHaveAnyAttributes(
             Attribute firstAttribute,
             params Attribute[] moreAttributes
@@ -183,8 +339,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             (string, object) firstAttributeArgument,
             params (string, object)[] moreAttributeArguments
         );
+
+        [Obsolete(
+            "Either NotHaveName() without the useRegularExpressions parameter or NotHaveNameMatching() should be used"
+        )]
+        TReturnType NotHaveName(string pattern, bool useRegularExpressions);
         TReturnType NotHaveName(string name);
         TReturnType NotHaveNameMatching(string pattern);
+
+        [Obsolete(
+            "Either NotHaveFullName() without the useRegularExpressions parameter or NotHaveFullNameMatching() should be used"
+        )]
+        TReturnType NotHaveFullName(string pattern, bool useRegularExpressions);
         TReturnType NotHaveFullName(string fullName);
         TReturnType NotHaveFullNameMatching(string pattern);
         TReturnType NotHaveNameStartingWith(string pattern);

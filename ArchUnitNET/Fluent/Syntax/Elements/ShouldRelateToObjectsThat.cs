@@ -22,6 +22,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         protected ShouldRelateToObjectsThat(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Are(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction Are(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.Are(pattern, useRegularExpressions)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Are(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction Are(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.Are(patterns, useRegularExpressions)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction Are(
             ICanBeAnalyzed firstObject,
             params ICanBeAnalyzed[] moreObjects
@@ -49,6 +74,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction CallAny(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.CallAny(pattern, useRegularExpressions)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction CallAny(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.CallAny(patterns, useRegularExpressions)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction CallAny(
             MethodMember method,
             params MethodMember[] moreMethods
@@ -72,6 +125,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectPredicatesDefinition<TReferenceType>.CallAny(methods)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction DependOnAny(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DependOnAny(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction DependOnAny(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DependOnAny(
+                    patterns,
+                    useRegularExpressions
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -138,6 +225,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction OnlyDependOn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.OnlyDependOn(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction OnlyDependOn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.OnlyDependOn(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -174,6 +295,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectPredicatesDefinition<TReferenceType>.OnlyDependOn(types)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction HaveAnyAttributes(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAnyAttributes(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction HaveAnyAttributes(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAnyAttributes(
+                    patterns,
+                    useRegularExpressions
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -226,6 +381,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectPredicatesDefinition<TReferenceType>.HaveAnyAttributes(attributes)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction OnlyHaveAttributes(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.OnlyHaveAttributes(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction OnlyHaveAttributes(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.OnlyHaveAttributes(
+                    patterns,
+                    useRegularExpressions
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -308,6 +497,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(
+            string attribute,
+            IEnumerable<object> argumentValues
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithArguments(
+                    attribute,
+                    argumentValues
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(
+            string attribute,
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithArguments(
+                    attribute,
+                    firstArgumentValue,
+                    moreArgumentValues
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HaveAttributeWithArguments(
             Attribute attribute,
             IEnumerable<object> argumentValues
@@ -394,6 +619,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(
+            string attribute,
+            IEnumerable<(string, object)> attributeArguments
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithNamedArguments(
+                    attribute,
+                    attributeArguments
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(
+            string attribute,
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveAttributeWithNamedArguments(
+                    attribute,
+                    firstAttributeArgument,
+                    moreAttributeArguments
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(
             Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -450,6 +711,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     firstAttributeArgument,
                     moreAttributeArguments
                 )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Either HaveName() without the useRegularExpressions parameter or HaveNameMatching() should be used"
+        )]
+        public TRuleTypeShouldConjunction HaveName(string pattern, bool useRegularExpressions)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveName(pattern, useRegularExpressions)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -466,6 +738,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectPredicatesDefinition<TReferenceType>.HaveNameMatching(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Either HaveFullName() without the useRegularExpressions parameter or HaveFullNameMatching() should be used"
+        )]
+        public TRuleTypeShouldConjunction HaveFullName(string pattern, bool useRegularExpressions)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.HaveFullName(
+                    pattern,
+                    useRegularExpressions
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -568,6 +854,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNot(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreNot(string pattern, bool useRegularExpressions = false)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.AreNot(pattern, useRegularExpressions)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNot(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreNot(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.AreNot(patterns, useRegularExpressions)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction AreNot(
             ICanBeAnalyzed firstObject,
             params ICanBeAnalyzed[] moreObjects
@@ -595,6 +906,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction DoNotCallAny(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAny(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction DoNotCallAny(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotCallAny(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction DoNotCallAny(
             MethodMember method,
             params MethodMember[] moreMethods
@@ -618,6 +963,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectPredicatesDefinition<TReferenceType>.DoNotCallAny(methods)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction DoNotDependOnAny(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotDependOnAny(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction DoNotDependOnAny(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotDependOnAny(
+                    patterns,
+                    useRegularExpressions
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -661,6 +1040,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectPredicatesDefinition<TReferenceType>.DoNotDependOnAny(types)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction DoNotHaveAnyAttributes(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAnyAttributes(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction DoNotHaveAnyAttributes(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAnyAttributes(
+                    patterns,
+                    useRegularExpressions
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -831,6 +1244,78 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithArguments(
+            string attribute,
+            IEnumerable<object> argumentValues
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithArguments(
+                    attribute,
+                    argumentValues
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithArguments(
+            string attribute,
+            object firstArgumentValue,
+            params object[] moreArgumentValues
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithArguments(
+                    attribute,
+                    firstArgumentValue,
+                    moreArgumentValues
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithNamedArguments(
+            string attribute,
+            IEnumerable<(string, object)> attributeArguments
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithNamedArguments(
+                    attribute,
+                    attributeArguments
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction DoNotHaveAttributeWithNamedArguments(
+            string attribute,
+            (string, object) firstAttributeArgument,
+            params (string, object)[] moreAttributeArguments
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithNamedArguments(
+                    attribute,
+                    firstAttributeArgument,
+                    moreAttributeArguments
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction DoNotHaveAttributeWithNamedArguments(
             Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -886,6 +1371,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     attribute,
                     firstAttributeArgument,
                     moreAttributeArguments
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Either DoNotHaveName() without the useRegularExpressions parameter or DoNotHaveNameMatching() should be used"
+        )]
+        public TRuleTypeShouldConjunction DoNotHaveName(string pattern, bool useRegularExpressions)
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveName(
+                    pattern,
+                    useRegularExpressions
                 )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -903,6 +1402,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         {
             _ruleCreator.ContinueComplexCondition(
                 ObjectPredicatesDefinition<TReferenceType>.DoNotHaveName(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Either DoNotHaveFullName() without the useRegularExpressions parameter or DoNotHaveFullNameMatching() should be used"
+        )]
+        public TRuleTypeShouldConjunction DoNotHaveFullName(
+            string pattern,
+            bool useRegularExpressions
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveFullName(
+                    pattern,
+                    useRegularExpressions
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }

@@ -21,6 +21,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public ShouldRelateToMembersThat(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MemberPredicatesDefinition<TReferenceType>.AreDeclaredIn(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MemberPredicatesDefinition<TReferenceType>.AreDeclaredIn(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction AreDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -86,6 +120,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         }
 
         //Negations
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreNotDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MemberPredicatesDefinition<TReferenceType>.AreNotDeclaredIn(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreNotDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                MemberPredicatesDefinition<TReferenceType>.AreNotDeclaredIn(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TRuleTypeShouldConjunction AreNotDeclaredIn(
             IType firstType,

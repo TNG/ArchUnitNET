@@ -69,6 +69,67 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreAssignableTo(Types().That().HaveFullName()) instead"
+        )]
+        public static IPredicate<T> AreAssignableTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            var description =
+                "are assignable to types with full name "
+                + (useRegularExpressions ? "matching " : "")
+                + "\""
+                + pattern
+                + "\"";
+            return new SimplePredicate<T>(
+                type => type.IsAssignableTo(pattern, useRegularExpressions),
+                description
+            );
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreAssignableTo(Types().That().HaveFullName()) instead"
+        )]
+        public static IPredicate<T> AreAssignableTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            var patternList = patterns.ToList();
+
+            bool Condition(T ruleType)
+            {
+                return patternList.Any(pattern =>
+                    ruleType.IsAssignableTo(pattern, useRegularExpressions)
+                );
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "are assignable to no types (always false)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList
+                    .Where(type => !type.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "are assignable to types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
+            }
+
+            return new SimplePredicate<T>(Condition, description);
+        }
+
         public static IPredicate<T> AreAssignableTo(IType firstType, params IType[] moreTypes)
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
@@ -315,6 +376,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimplePredicate<T>(type => type is Struct, "are structs");
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public static IPredicate<T> ImplementInterface(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            return new SimplePredicate<T>(
+                type => type.ImplementsInterface(pattern, useRegularExpressions),
+                "implement interface with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
+        }
+
         public static IPredicate<T> ImplementInterface(Interface intf)
         {
             return new SimplePredicate<T>(
@@ -347,6 +426,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        [Obsolete(
+            "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
+        )]
+        public static IPredicate<T> ResideInNamespace(string pattern, bool useRegularExpressions)
+        {
+            return new SimplePredicate<T>(
+                type => type.ResidesInNamespace(pattern, useRegularExpressions),
+                "reside in namespace with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
+        }
+
         public static IPredicate<T> ResideInNamespace(string fullName)
         {
             return new SimplePredicate<T>(
@@ -360,6 +454,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimplePredicate<T>(
                 type => type.ResidesInNamespaceMatching(pattern),
                 "reside in namespace with full name matching \"" + pattern + "\""
+            );
+        }
+
+        [Obsolete(
+            "Either ResideInAssembly() without the useRegularExpressions parameter or ResideInAssemblyMatching() should be used"
+        )]
+        public static IPredicate<T> ResideInAssembly(string pattern, bool useRegularExpressions)
+        {
+            return new SimplePredicate<T>(
+                type => type.ResidesInAssembly(pattern, useRegularExpressions),
+                "reside in assembly with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
             );
         }
 
@@ -507,6 +616,67 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotAssignableTo(Types().That().HaveFullName()) instead"
+        )]
+        public static IPredicate<T> AreNotAssignableTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            var description =
+                "are not assignable to types with full name "
+                + (useRegularExpressions ? "matching " : "")
+                + "\""
+                + pattern
+                + "\"";
+            return new SimplePredicate<T>(
+                type => !type.IsAssignableTo(pattern, useRegularExpressions),
+                description
+            );
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotAssignableTo(Types().That().HaveFullName()) instead"
+        )]
+        public static IPredicate<T> AreNotAssignableTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            var patternList = patterns.ToList();
+
+            bool Condition(T ruleType)
+            {
+                return patternList.All(pattern =>
+                    !ruleType.IsAssignableTo(pattern, useRegularExpressions)
+                );
+            }
+
+            string description;
+            if (patternList.IsNullOrEmpty())
+            {
+                description = "are not assignable to no types (always true)";
+            }
+            else
+            {
+                var firstPattern = patternList.First();
+                description = patternList
+                    .Where(type => !type.Equals(firstPattern))
+                    .Distinct()
+                    .Aggregate(
+                        "are not assignable to types with full name "
+                            + (useRegularExpressions ? "matching " : "")
+                            + "\""
+                            + firstPattern
+                            + "\"",
+                        (current, pattern) => current + " or \"" + pattern + "\""
+                    );
+            }
+
+            return new SimplePredicate<T>(Condition, description);
+        }
+
         public static IPredicate<T> AreNotAssignableTo(IType firstType, params IType[] moreTypes)
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
@@ -645,6 +815,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimplePredicate<T>(cls => !(cls is Struct), "are not structs");
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public static IPredicate<T> DoNotImplementInterface(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            return new SimplePredicate<T>(
+                type => !type.ImplementsInterface(pattern, useRegularExpressions),
+                "do not implement interface with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
+        }
+
         public static IPredicate<T> DoNotImplementInterface(Interface intf)
         {
             return new SimplePredicate<T>(
@@ -677,6 +865,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        [Obsolete(
+            "Either DoNotResideInNamespace() without the useRegularExpressions parameter or DoNotResideInNamespaceMatching() should be used"
+        )]
+        public static IPredicate<T> DoNotResideInNamespace(
+            string pattern,
+            bool useRegularExpressions
+        )
+        {
+            return new SimplePredicate<T>(
+                type => !type.ResidesInNamespace(pattern, useRegularExpressions),
+                "do not reside in namespace with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
+            );
+        }
+
         public static IPredicate<T> DoNotResideInNamespace(string fullName)
         {
             return new SimplePredicate<T>(
@@ -690,6 +896,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimplePredicate<T>(
                 type => !type.ResidesInNamespace(pattern),
                 "do not reside in namespace with full name matching \"" + pattern + "\""
+            );
+        }
+
+        [Obsolete(
+            "Either DoNotResideInAssembly() without the useRegularExpressions parameter or DoNotResideInAssemblyMatching() should be used"
+        )]
+        public static IPredicate<T> DoNotResideInAssembly(
+            string pattern,
+            bool useRegularExpressions
+        )
+        {
+            return new SimplePredicate<T>(
+                type => !type.ResidesInAssembly(pattern, useRegularExpressions),
+                "do not reside in assembly with full name "
+                    + (useRegularExpressions ? "matching " : "")
+                    + "\""
+                    + pattern
+                    + "\""
             );
         }
 

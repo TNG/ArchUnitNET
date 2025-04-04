@@ -43,6 +43,23 @@ namespace ArchUnitNET.Domain.Extensions
             return cls.Name.IndexOf(pattern, stringComparison) >= 0;
         }
 
+        [Obsolete(
+            "Either NameEquals() or NameMatches() without the useRegularExpressions parameter should be used"
+        )]
+        public static bool NameMatches(
+            this IHasName cls,
+            string pattern,
+            bool useRegularExpressions
+        )
+        {
+            if (useRegularExpressions)
+            {
+                return pattern != null && Regex.IsMatch(cls.Name, pattern);
+            }
+
+            return string.Equals(cls.Name, pattern, StringComparison.OrdinalIgnoreCase);
+        }
+
         public static bool NameEquals(this IHasName cls, string name)
         {
             return string.Equals(cls.Name, name, StringComparison.OrdinalIgnoreCase);
@@ -51,6 +68,23 @@ namespace ArchUnitNET.Domain.Extensions
         public static bool NameMatches(this IHasName cls, string pattern)
         {
             return pattern != null && Regex.IsMatch(cls.Name, pattern);
+        }
+
+        [Obsolete(
+            "Either FullNameEquals() or FullNameMatches() without the useRegularExpressions parameter should be used"
+        )]
+        public static bool FullNameMatches(
+            this IHasName cls,
+            string pattern,
+            bool useRegularExpressions
+        )
+        {
+            if (useRegularExpressions)
+            {
+                return pattern != null && Regex.IsMatch(cls.FullName, pattern);
+            }
+
+            return string.Equals(cls.FullName, pattern, StringComparison.OrdinalIgnoreCase);
         }
 
         public static bool FullNameEquals(this IHasName cls, string fullName)

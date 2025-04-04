@@ -38,6 +38,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreAssignableTo(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreAssignableTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.AreAssignableTo(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreAssignableTo(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreAssignableTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.AreAssignableTo(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction AreAssignableTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -142,6 +176,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction ImplementInterface(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.ImplementInterface(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction ImplementInterface(Interface intf)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -158,6 +209,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
+        )]
+        public TRuleTypeShouldConjunction ResideInNamespace(
+            string pattern,
+            bool useRegularExpressions
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.ResideInNamespace(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction ResideInNamespace(string fullName)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -170,6 +238,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.ContinueComplexCondition(
                 TypePredicatesDefinition<TReferenceType>.ResideInNamespaceMatching(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Either ResideInAssembly() without the useRegularExpressions parameter or ResideInAssemblyMatching() should be used"
+        )]
+        public TRuleTypeShouldConjunction ResideInAssembly(
+            string pattern,
+            bool useRegularExpressions
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.ResideInAssembly(
+                    pattern,
+                    useRegularExpressions
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -271,6 +356,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotAssignableTo(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreNotAssignableTo(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.AreNotAssignableTo(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotAssignableTo(Types().That().HaveFullName()) instead"
+        )]
+        public TRuleTypeShouldConjunction AreNotAssignableTo(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.AreNotAssignableTo(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction AreNotAssignableTo(
             IType firstType,
             params IType[] moreTypes
@@ -341,6 +460,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
+        public TRuleTypeShouldConjunction DoNotImplementInterface(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.DoNotImplementInterface(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction DoNotImplementInterface(Interface intf)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -357,6 +493,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Either DoNotResideInNamespace() without the useRegularExpressions parameter or DoNotResideInNamespaceMatching() should be used"
+        )]
+        public TRuleTypeShouldConjunction DoNotResideInNamespace(
+            string pattern,
+            bool useRegularExpressions
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInNamespace(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TRuleTypeShouldConjunction DoNotResideInNamespace(string fullName)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -369,6 +522,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.ContinueComplexCondition(
                 TypePredicatesDefinition<TReferenceType>.DoNotResideInNamespaceMatching(pattern)
+            );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Either DoNotResideInAssembly() without the useRegularExpressions parameter or DoNotResideInAssemblyMatching() should be used"
+        )]
+        public TRuleTypeShouldConjunction DoNotResideInAssembly(
+            string pattern,
+            bool useRegularExpressions
+        )
+        {
+            _ruleCreator.ContinueComplexCondition(
+                TypePredicatesDefinition<TReferenceType>.DoNotResideInAssembly(
+                    pattern,
+                    useRegularExpressions
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
