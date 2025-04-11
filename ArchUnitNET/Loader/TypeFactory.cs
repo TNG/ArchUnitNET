@@ -130,31 +130,37 @@ namespace ArchUnitNET.Loader
         {
             var genericParameter = (Mono.Cecil.GenericParameter)typeReference;
             var declarerIsMethod = genericParameter.Type == GenericParameterType.Method;
-            var declaringType = GetOrCreateStubTypeInstanceFromTypeReference(
-                declarerIsMethod
-                    ? genericParameter.DeclaringMethod.DeclaringType
-                    : genericParameter.DeclaringType
-            );
-            var declaringMethod = declarerIsMethod
-                ? GetOrCreateMethodMemberFromMethodReference(
-                    declaringType,
-                    genericParameter.DeclaringMethod
-                )
-                : null;
-            var declarerFullName =
-                declaringMethod != null
-                    ? declaringMethod.Member.FullName
-                    : declaringType.Type.FullName;
+            var declarerFullName = declarerIsMethod
+                ? genericParameter.DeclaringMethod.BuildFullName()
+                : genericParameter.DeclaringType.BuildFullName();
+            var declaringTypeAssemblyName = declarerIsMethod
+                ? genericParameter.DeclaringMethod.DeclaringType.Module.Assembly.FullName
+                : genericParameter.DeclaringType.Module.Assembly.FullName;
             var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
-                declaringType.Type.Assembly.FullName,
+                declaringTypeAssemblyName,
                 $"{declarerFullName}+<{genericParameter.Name}>"
             );
             if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
             {
                 return existingTypeInstance;
             }
+            var isCompilerGenerated = genericParameter.IsCompilerGenerated();
+            var variance = genericParameter.GetVariance();
+            var typeConstraints = genericParameter.Constraints.Select(con =>
+                GetOrCreateStubTypeInstanceFromTypeReference(con.ConstraintType)
+            );
             var result = new TypeInstance<GenericParameter>(
-                CreateGenericParameter(genericParameter, declaringType, declaringMethod)
+                new GenericParameter(
+                    declarerFullName,
+                    genericParameter.Name,
+                    variance,
+                    typeConstraints,
+                    genericParameter.HasReferenceTypeConstraint,
+                    genericParameter.HasNotNullableValueTypeConstraint,
+                    genericParameter.HasDefaultConstructorConstraint,
+                    isCompilerGenerated,
+                    declarerIsMethod
+                )
             );
             _allTypes.Add(assemblyQualifiedName, result);
             return result;
@@ -199,7 +205,7 @@ namespace ArchUnitNET.Loader
             } while (elementType.IsArray);
             var elementTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(elementType);
             var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
-                elementTypeInstance.Type.Assembly.FullName,
+                elementTypeInstance.Type.Assembly?.FullName ?? "",
                 typeReference.BuildFullName()
             );
             if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
@@ -601,35 +607,6 @@ namespace ArchUnitNET.Loader
                         GetOrCreateStubTypeInstanceFromTypeReference(param).Type
                     )
                     .Cast<GenericParameter>();
-        }
-
-        private GenericParameter CreateGenericParameter(
-            Mono.Cecil.GenericParameter genericParameter,
-            ITypeInstance<IType> declaringTypeInstance,
-            [CanBeNull] MethodMemberInstance declaringMethodInstance
-        )
-        {
-            var isCompilerGenerated = genericParameter.IsCompilerGenerated();
-            var variance = genericParameter.GetVariance();
-            var typeConstraints = genericParameter.Constraints.Select(con =>
-                GetOrCreateStubTypeInstanceFromTypeReference(con.ConstraintType)
-            );
-            var declarerFullName =
-                declaringMethodInstance != null
-                    ? declaringMethodInstance.Member.FullName
-                    : declaringTypeInstance.Type.FullName;
-            return new GenericParameter(
-                declaringTypeInstance,
-                declaringMethodInstance,
-                $"{declarerFullName}+<{genericParameter.Name}>",
-                genericParameter.Name,
-                variance,
-                typeConstraints,
-                genericParameter.HasReferenceTypeConstraint,
-                genericParameter.HasNotNullableValueTypeConstraint,
-                genericParameter.HasDefaultConstructorConstraint,
-                isCompilerGenerated
-            );
         }
 
         internal GenericArgument CreateGenericArgumentFromTypeReference(TypeReference typeReference)

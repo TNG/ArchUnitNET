@@ -43,3 +43,18 @@ public class ChildClassOfGeneric : GenericBaseClass<ChildClassOfGeneric> { }
 public class ClassWithoutDependencies { }
 
 public class OtherClassWithoutDependencies { }
+
+// https://github.com/TNG/ArchUnitNET/issues/351
+class Issue351
+{
+    public void OuterFunc()
+    {
+        LocalFunc<string>();
+
+        void LocalFunc<T>()
+        {
+            var list = new List<string>();
+            list.GroupBy(x => x).ToDictionary(g => g.Key, g => (IReadOnlyCollection<T>)g.ToList());
+        }
+    }
+}
