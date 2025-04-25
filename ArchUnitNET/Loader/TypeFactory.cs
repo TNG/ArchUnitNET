@@ -404,6 +404,12 @@ namespace ArchUnitNET.Loader
                         genericArguments,
                         arrayDimensions
                     );
+                case UnavailableType unavailableType:
+                    return new TypeInstance<UnavailableType>(
+                        unavailableType,
+                        genericArguments,
+                        arrayDimensions
+                    );
                 default:
                     throw new ArgumentException("Subtype of IType not recognized");
             }
