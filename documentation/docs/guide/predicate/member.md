@@ -1,14 +1,6 @@
 # Member
 
-```
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-// 
-// 	SPDX-License-Identifier: Apache-2.0
-```
-
-		TRuleTypeConjunction AreDeclaredIn(string pattern, bool useRegularExpressions = false);
+    	TRuleTypeConjunction AreDeclaredIn(string pattern, bool useRegularExpressions = false);
         TRuleTypeConjunction AreDeclaredIn(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TRuleTypeConjunction AreDeclaredIn(IType firstType, params IType[] moreTypes);
         TRuleTypeConjunction AreDeclaredIn(Type firstType, params Type[] moreTypes);

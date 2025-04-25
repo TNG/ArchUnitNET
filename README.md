@@ -20,6 +20,7 @@ If you want to use xUnit, NUnit or MSTestV2 for your unit tests, you should inst
 
 ```
 PS> Install-Package TngTech.ArchUnitNET.xUnit
+PS> Install-Package TngTech.ArchUnitNET.xUnitV3
 PS> Install-Package TngTech.ArchUnitNET.NUnit
 PS> Install-Package TngTech.ArchUnitNET.MSTestV2
 ```
@@ -113,6 +114,16 @@ namespace ExampleTest
 }
 ```
 
+#### Run the tests
+
+Since ArchUnitNET is reading the architecture form the analyzed binaries, it is recommended to run ArchUnitNET-based tests in Debug configuration.
+
+```
+dotnet test -c Debug
+```
+
+For more details on known edge cases, see [the documentation](https://archunitnet.readthedocs.io/en/stable/limitations/debug_artifacts/).
+
 #### Further Info and Help
 
 Check out test examples for the current release at
@@ -122,3 +133,7 @@ Check out test examples for the current release at
 
 ArchUnitNET is published under the Apache License 2.0. For more information concerning the license, see
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+## Contributors ✨
+
+Thanks to [all the people who have contributed](https://github.com/TNG/ArchUnitNET/graphs/contributors) to the project.

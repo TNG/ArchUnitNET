@@ -1,12 +1,5 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -16,7 +9,7 @@ namespace ArchUnitNET.Domain
             string name,
             string fullName,
             bool isOnlyReferenced,
-            [CanBeNull] List<string> referencedAssemblyNames
+            List<string> referencedAssemblyNames
         )
         {
             Name = name;
@@ -29,7 +22,6 @@ namespace ArchUnitNET.Domain
 
         public string Name { get; }
 
-        [CanBeNull]
         public List<string> ReferencedAssemblyNames { get; }
         public string FullName { get; }
 

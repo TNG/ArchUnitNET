@@ -1,10 +1,4 @@
-﻿//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
@@ -211,6 +205,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        /// <summary>Matches the types that reside in the assembly.</summary>
+        /// <param name="pattern">Name of the assembly to match.</param>
+        /// <param name="useRegularExpressions">Indicates if pattern shall be considered a regular expression.</param>
+        /// <remarks>In case of not using regular expression pattern has to be Assembly Full Name.</remarks>
         [Obsolete(
             "Either ResideInAssembly() without the useRegularExpressions parameter or ResideInAssemblyMatching() should be used"
         )]
