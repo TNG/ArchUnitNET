@@ -2354,7 +2354,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Relation Conditions
 
-
         public static RelationCondition<TRuleType, IType> DependOnAnyTypesThat()
         {
             return new RelationCondition<TRuleType, IType>(
@@ -2392,7 +2391,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         //Negations
-
 
         public static ICondition<TRuleType> NotExist()
         {

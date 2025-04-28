@@ -291,7 +291,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
                 //Multiple Arguments as IEnumerable
 
-
                 var typeOnlyDependsOnOwnDependencies = Types()
                     .That()
                     .Are(type)

@@ -25,7 +25,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         //Negations
 
-
         public static ICondition<Attribute> NotBeAbstract()
         {
             return new SimpleCondition<Attribute>(

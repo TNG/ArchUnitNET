@@ -26,15 +26,14 @@ namespace ArchUnitNETTests.Fluent.Syntax
                     .DependOnAnyTypesThat()
                     .Are(typeof(ClassInTestAssembly))
                     .Check(Architecture);
-                Assert.Throws<FailedArchRuleException>(
-                    () =>
-                        Types()
-                            .That()
-                            .Are(typeof(DependingClass))
-                            .Should()
-                            .NotDependOnAnyTypesThat()
-                            .Are(typeof(ClassInTestAssembly))
-                            .Check(Architecture)
+                Assert.Throws<FailedArchRuleException>(() =>
+                    Types()
+                        .That()
+                        .Are(typeof(DependingClass))
+                        .Should()
+                        .NotDependOnAnyTypesThat()
+                        .Are(typeof(ClassInTestAssembly))
+                        .Check(Architecture)
                 );
             }
 
@@ -48,15 +47,14 @@ namespace ArchUnitNETTests.Fluent.Syntax
                     .BeAssignableToTypesThat()
                     .Are(typeof(IInterfaceInTestAssembly))
                     .Check(Architecture);
-                Assert.Throws<FailedArchRuleException>(
-                    () =>
-                        Types()
-                            .That()
-                            .Are(typeof(DependingClass))
-                            .Should()
-                            .NotBeAssignableToTypesThat()
-                            .Are(typeof(IInterfaceInTestAssembly))
-                            .Check(Architecture)
+                Assert.Throws<FailedArchRuleException>(() =>
+                    Types()
+                        .That()
+                        .Are(typeof(DependingClass))
+                        .Should()
+                        .NotBeAssignableToTypesThat()
+                        .Are(typeof(IInterfaceInTestAssembly))
+                        .Check(Architecture)
                 );
             }
 
@@ -88,15 +86,14 @@ namespace ArchUnitNETTests.Fluent.Syntax
                     .HaveAnyAttributesThat()
                     .Are(typeof(AttributeInTestAssembly))
                     .Check(Architecture);
-                Assert.Throws<FailedArchRuleException>(
-                    () =>
-                        Types()
-                            .That()
-                            .Are(typeof(DependingClass))
-                            .Should()
-                            .NotHaveAnyAttributesThat()
-                            .Are(typeof(AttributeInTestAssembly))
-                            .Check(Architecture)
+                Assert.Throws<FailedArchRuleException>(() =>
+                    Types()
+                        .That()
+                        .Are(typeof(DependingClass))
+                        .Should()
+                        .NotHaveAnyAttributesThat()
+                        .Are(typeof(AttributeInTestAssembly))
+                        .Check(Architecture)
                 );
             }
 

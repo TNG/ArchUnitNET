@@ -22,8 +22,8 @@ namespace ArchUnitNETTests.Fluent
 
         public NoErrorReferencingOfTypesOutsideOfArchitectureTests()
         {
-            Assert.Throws<TypeDoesNotExistInArchitecture>(
-                () => Architecture.GetClassOfType(_classNotInArchitecture)
+            Assert.Throws<TypeDoesNotExistInArchitecture>(() =>
+                Architecture.GetClassOfType(_classNotInArchitecture)
             );
         }
 
@@ -49,15 +49,11 @@ namespace ArchUnitNETTests.Fluent
             Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
             negation.Check(Architecture);
 
-            AssertNoException(
-                () => Classes().That().DependOnAny(_classNotInArchitecture).GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes().That().DependOnAny(_classNotInArchitecture).GetObjects(Architecture)
             );
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .DoNotDependOnAny(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes().That().DoNotDependOnAny(_classNotInArchitecture).GetObjects(Architecture)
             );
         }
 
@@ -71,9 +67,8 @@ namespace ArchUnitNETTests.Fluent
                 .OnlyDependOn(_classNotInArchitecture);
             rule.Check(Architecture);
 
-            AssertNoException(
-                () =>
-                    Classes().That().OnlyDependOn(_classNotInArchitecture).GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes().That().OnlyDependOn(_classNotInArchitecture).GetObjects(Architecture)
             );
         }
 
@@ -93,19 +88,17 @@ namespace ArchUnitNETTests.Fluent
             rule.Check(Architecture);
             negation.Check(Architecture);
 
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .OnlyHaveAttributes(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes()
+                    .That()
+                    .OnlyHaveAttributes(_classNotInArchitecture)
+                    .GetObjects(Architecture)
             );
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .DoNotHaveAnyAttributes(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes()
+                    .That()
+                    .DoNotHaveAnyAttributes(_classNotInArchitecture)
+                    .GetObjects(Architecture)
             );
         }
 
@@ -125,25 +118,20 @@ namespace ArchUnitNETTests.Fluent
             Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
             negation.Check(Architecture);
 
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .HaveAttributeWithArguments(
-                            _classNotInArchitecture,
-                            Enumerable.Empty<object>()
-                        )
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes()
+                    .That()
+                    .HaveAttributeWithArguments(_classNotInArchitecture, Enumerable.Empty<object>())
+                    .GetObjects(Architecture)
             );
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .DoNotHaveAttributeWithArguments(
-                            _classNotInArchitecture,
-                            Enumerable.Empty<object>()
-                        )
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes()
+                    .That()
+                    .DoNotHaveAttributeWithArguments(
+                        _classNotInArchitecture,
+                        Enumerable.Empty<object>()
+                    )
+                    .GetObjects(Architecture)
             );
         }
 
@@ -169,25 +157,23 @@ namespace ArchUnitNETTests.Fluent
             Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
             negation.Check(Architecture);
 
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .HaveAttributeWithNamedArguments(
-                            _classNotInArchitecture,
-                            Enumerable.Empty<(string, object)>()
-                        )
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes()
+                    .That()
+                    .HaveAttributeWithNamedArguments(
+                        _classNotInArchitecture,
+                        Enumerable.Empty<(string, object)>()
+                    )
+                    .GetObjects(Architecture)
             );
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .DoNotHaveAttributeWithNamedArguments(
-                            _classNotInArchitecture,
-                            Enumerable.Empty<(string, object)>()
-                        )
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes()
+                    .That()
+                    .DoNotHaveAttributeWithNamedArguments(
+                        _classNotInArchitecture,
+                        Enumerable.Empty<(string, object)>()
+                    )
+                    .GetObjects(Architecture)
             );
         }
 
@@ -207,11 +193,11 @@ namespace ArchUnitNETTests.Fluent
             Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
             negation.Check(Architecture);
 
-            AssertNoException(
-                () => Classes().That().Are(_classNotInArchitecture).GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes().That().Are(_classNotInArchitecture).GetObjects(Architecture)
             );
-            AssertNoException(
-                () => Classes().That().AreNot(_classNotInArchitecture).GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes().That().AreNot(_classNotInArchitecture).GetObjects(Architecture)
             );
         }
 
@@ -231,19 +217,14 @@ namespace ArchUnitNETTests.Fluent
             Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
             negation.Check(Architecture);
 
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .AreAssignableTo(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes().That().AreAssignableTo(_classNotInArchitecture).GetObjects(Architecture)
             );
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .AreNotAssignableTo(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes()
+                    .That()
+                    .AreNotAssignableTo(_classNotInArchitecture)
+                    .GetObjects(Architecture)
             );
         }
 
@@ -263,19 +244,17 @@ namespace ArchUnitNETTests.Fluent
             Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
             negation.Check(Architecture);
 
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .ImplementInterface(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes()
+                    .That()
+                    .ImplementInterface(_classNotInArchitecture)
+                    .GetObjects(Architecture)
             );
-            AssertNoException(
-                () =>
-                    Classes()
-                        .That()
-                        .DoNotImplementInterface(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Classes()
+                    .That()
+                    .DoNotImplementInterface(_classNotInArchitecture)
+                    .GetObjects(Architecture)
             );
         }
 
@@ -287,16 +266,11 @@ namespace ArchUnitNETTests.Fluent
             Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
             negation.Check(Architecture);
 
-            AssertNoException(
-                () =>
-                    Members().That().AreDeclaredIn(_classNotInArchitecture).GetObjects(Architecture)
+            AssertNoException(() =>
+                Members().That().AreDeclaredIn(_classNotInArchitecture).GetObjects(Architecture)
             );
-            AssertNoException(
-                () =>
-                    Members()
-                        .That()
-                        .AreNotDeclaredIn(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                Members().That().AreNotDeclaredIn(_classNotInArchitecture).GetObjects(Architecture)
             );
         }
 
@@ -308,19 +282,14 @@ namespace ArchUnitNETTests.Fluent
             Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
             negation.Check(Architecture);
 
-            AssertNoException(
-                () =>
-                    MethodMembers()
-                        .That()
-                        .AreCalledBy(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                MethodMembers().That().AreCalledBy(_classNotInArchitecture).GetObjects(Architecture)
             );
-            AssertNoException(
-                () =>
-                    MethodMembers()
-                        .That()
-                        .AreNotCalledBy(_classNotInArchitecture)
-                        .GetObjects(Architecture)
+            AssertNoException(() =>
+                MethodMembers()
+                    .That()
+                    .AreNotCalledBy(_classNotInArchitecture)
+                    .GetObjects(Architecture)
             );
         }
     }

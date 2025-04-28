@@ -856,7 +856,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Relation Conditions
 
-
         public static RelationCondition<TRuleType, IType> BeAssignableToTypesThat()
         {
             return new RelationCondition<TRuleType, IType>(
@@ -867,7 +866,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         //Negations
-
 
         public static ICondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
         {
@@ -1519,7 +1517,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         //Relation Condition Negations
-
 
         public static RelationCondition<TRuleType, IType> NotBeAssignableToTypesThat()
         {

@@ -719,7 +719,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         //Negations
 
-
         public static ICondition<MethodMember> BeNoConstructor()
         {
             return new SimpleCondition<MethodMember>(

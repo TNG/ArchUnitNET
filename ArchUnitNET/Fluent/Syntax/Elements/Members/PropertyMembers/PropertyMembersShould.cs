@@ -115,7 +115,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         //Negations
 
-
         public PropertyMembersShouldConjunction NotHaveGetter()
         {
             _ruleCreator.AddCondition(PropertyMemberConditionsDefinition.NotHaveGetter());

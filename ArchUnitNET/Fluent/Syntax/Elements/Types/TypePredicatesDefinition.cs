@@ -561,7 +561,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-
         public static IPredicate<T> AreNot(Type firstType, params Type[] moreTypes)
         {
             return AreNot(new List<Type>() { firstType }.Concat(moreTypes));

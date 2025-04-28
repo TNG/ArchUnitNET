@@ -368,114 +368,103 @@ namespace ArchUnitNETTests.Domain
                 )
                 .Check(Architecture);
 
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithMultipleAttributesWithParameters))
-                        .Should()
-                        .HaveAnyAttributesWithNamedArguments(("Parameter2", "param1_1"))
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithMultipleAttributesWithParameters))
+                    .Should()
+                    .HaveAnyAttributesWithNamedArguments(("Parameter2", "param1_1"))
+                    .Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithMultipleAttributesWithParameters))
-                        .Should()
-                        .HaveAttributeWithArguments(_attributeWithStringParameters, "non_existent")
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithMultipleAttributesWithParameters))
+                    .Should()
+                    .HaveAttributeWithArguments(_attributeWithStringParameters, "non_existent")
+                    .Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithTypeParameterAttribute))
-                        .Should()
-                        .HaveAnyAttributesWithNamedArguments(
-                            ("Type3", typeof(ClassWithArrayParameterAttribute))
-                        )
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithTypeParameterAttribute))
+                    .Should()
+                    .HaveAnyAttributesWithNamedArguments(
+                        ("Type3", typeof(ClassWithArrayParameterAttribute))
+                    )
+                    .Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithMultipleAttributesWithParameters))
-                        .Should()
-                        .HaveAnyAttributesWithArguments("1")
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithMultipleAttributesWithParameters))
+                    .Should()
+                    .HaveAnyAttributesWithArguments("1")
+                    .Check(Architecture)
             );
 
             //Negations
 
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithMultipleAttributesWithParameters))
-                        .Should()
-                        .NotHaveAttributeWithArguments(_attributeWithStringParameters, "param1_1")
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithMultipleAttributesWithParameters))
+                    .Should()
+                    .NotHaveAttributeWithArguments(_attributeWithStringParameters, "param1_1")
+                    .Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithMultipleAttributesWithParameters))
-                        .Should()
-                        .NotHaveAnyAttributesWithArguments("param1_0")
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithMultipleAttributesWithParameters))
+                    .Should()
+                    .NotHaveAnyAttributesWithArguments("param1_0")
+                    .Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithMultipleAttributesWithParameters))
-                        .Should()
-                        .NotHaveAnyAttributesWithNamedArguments(("Parameter2", "param2_1"))
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithMultipleAttributesWithParameters))
+                    .Should()
+                    .NotHaveAnyAttributesWithNamedArguments(("Parameter2", "param2_1"))
+                    .Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithMultipleAttributesWithParameters))
-                        .Should()
-                        .NotHaveAnyAttributesWithNamedArguments(
-                            ("Parameter2", "param2_1"),
-                            ("Parameter3", "param3_2")
-                        )
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithMultipleAttributesWithParameters))
+                    .Should()
+                    .NotHaveAnyAttributesWithNamedArguments(
+                        ("Parameter2", "param2_1"),
+                        ("Parameter3", "param3_2")
+                    )
+                    .Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithMultipleAttributesWithParameters))
-                        .Should()
-                        .NotHaveAnyAttributesWithArguments(null)
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithMultipleAttributesWithParameters))
+                    .Should()
+                    .NotHaveAnyAttributesWithArguments(null)
+                    .Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithTypeParameterAttribute))
-                        .Should()
-                        .NotHaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute))
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithTypeParameterAttribute))
+                    .Should()
+                    .NotHaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute))
+                    .Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Types()
-                        .That()
-                        .Are(typeof(ClassWithTypeParameterAttribute))
-                        .Should()
-                        .NotHaveAnyAttributesWithNamedArguments(
-                            ("Type2", typeof(ClassWithArrayParameterAttribute))
-                        )
-                        .Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Types()
+                    .That()
+                    .Are(typeof(ClassWithTypeParameterAttribute))
+                    .Should()
+                    .NotHaveAnyAttributesWithNamedArguments(
+                        ("Type2", typeof(ClassWithArrayParameterAttribute))
+                    )
+                    .Check(Architecture)
             );
 
             Types()

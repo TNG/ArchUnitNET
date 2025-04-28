@@ -67,26 +67,24 @@ namespace ArchUnitNETTests.Fluent
         [Fact]
         public void FailFrozenRule()
         {
-            Assert.Throws<FailedArchRuleException>(
-                () => Freeze(_failingFrozenRule).Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Freeze(_failingFrozenRule).Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Freeze(_failingFrozenSliceRule)
-                        .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Freeze(_failingFrozenSliceRule)
+                    .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
             );
         }
 
         [Fact]
         public void FailFrozenRuleUsingXmlViolationStore()
         {
-            Assert.Throws<FailedArchRuleException>(
-                () => Freeze(_failingFrozenRule, new XmlViolationStore()).Check(Architecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Freeze(_failingFrozenRule, new XmlViolationStore()).Check(Architecture)
             );
-            Assert.Throws<FailedArchRuleException>(
-                () =>
-                    Freeze(_failingFrozenSliceRule, new XmlViolationStore())
-                        .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+            Assert.Throws<FailedArchRuleException>(() =>
+                Freeze(_failingFrozenSliceRule, new XmlViolationStore())
+                    .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
             );
         }
 

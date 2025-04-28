@@ -25,7 +25,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         //Negations
 
-
         TRuleTypeConjunction HaveNoGetter();
         TRuleTypeConjunction DoNotHavePrivateGetter();
         TRuleTypeConjunction DoNotHavePublicGetter();

@@ -23,7 +23,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         //Negations
 
-
         public AttributesShouldConjunction NotBeAbstract()
         {
             _ruleCreator.AddCondition(AttributeConditionsDefinition.NotBeAbstract());

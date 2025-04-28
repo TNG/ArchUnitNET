@@ -218,7 +218,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
-
         TReturnType NotExist();
 
         [Obsolete(

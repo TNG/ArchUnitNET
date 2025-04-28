@@ -25,7 +25,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         //Negations
 
-
         TReturnType NotHaveGetter();
         TReturnType NotHavePrivateGetter();
         TReturnType NotHavePublicGetter();

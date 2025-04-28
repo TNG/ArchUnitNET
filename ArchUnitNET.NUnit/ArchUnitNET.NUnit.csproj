@@ -1,34 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-        <IsPackable>true</IsPackable>
-        <Title>ArchUnit C# NUnit Extension</Title>
-        <Description>NUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
-        <PackageTags>test;arch;archunit;nunit</PackageTags>
-        <IncludeSource>False</IncludeSource>
-        <Company>TNG Technology Consulting GmbH</Company>
-        <PackageId>TngTech.ArchUnitNET.NUnit</PackageId>
-        <IsTestProject>false</IsTestProject>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="nunit" Version="3.13.2"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="../README.md" Pack="true" PackagePath=""/>
-        <None Include="../Logo/ArchUnitNET-Logo.png" Pack="true" PackagePath="/Logo/"/>
-    </ItemGroup>
-
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <IsPackable>true</IsPackable>
+    <Title>ArchUnit C# NUnit Extension</Title>
+    <Description>NUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+    <PackageTags>test;arch;archunit;nunit</PackageTags>
+    <IncludeSource>False</IncludeSource>
+    <Company>TNG Technology Consulting GmbH</Company>
+    <PackageId>TngTech.ArchUnitNET.NUnit</PackageId>
+    <IsTestProject>false</IsTestProject>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="3.13.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="" />
+    <None Include="../Logo/ArchUnitNET-Logo.png" Pack="true" PackagePath="/Logo/" />
+  </ItemGroup>
 </Project>

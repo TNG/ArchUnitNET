@@ -30,14 +30,14 @@ namespace ArchUnitNET.NUnitTests
         public void ArchRuleAssertTest()
         {
             ArchRuleAssert.FulfilsRule(_architecture, _trueRule);
-            Assert.Throws<AssertionException>(
-                () => ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
+            Assert.Throws<AssertionException>(() =>
+                ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
             );
             Assert.AreEqual(
                 _expectedErrorMessage,
                 Assert
-                    .Catch<AssertionException>(
-                        () => ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
+                    .Catch<AssertionException>(() =>
+                        ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
                     )
                     .Message
             );

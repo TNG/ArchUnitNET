@@ -11,7 +11,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         //Negations
 
-
         TReturnType AreNotAbstract();
         TReturnType AreNotSealed();
     }

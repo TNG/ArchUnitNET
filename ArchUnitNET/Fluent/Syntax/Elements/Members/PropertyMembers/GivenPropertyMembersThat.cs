@@ -115,7 +115,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         //Negations
 
-
         public GivenPropertyMembersConjunction HaveNoGetter()
         {
             _ruleCreator.AddPredicate(PropertyMemberPredicateDefinition.HaveNoGetter());

@@ -26,7 +26,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         //Negations
 
-
         public TRuleTypeShouldConjunction AreNotAbstract()
         {
             _ruleCreator.ContinueComplexCondition(AttributePredicatesDefinition.AreNotAbstract());

@@ -232,7 +232,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         //Negations
 
-
         public MethodMembersShouldConjunction BeNoConstructor()
         {
             _ruleCreator.AddCondition(MethodMemberConditionsDefinition.BeNoConstructor());

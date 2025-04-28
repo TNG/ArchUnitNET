@@ -67,7 +67,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         //Negations
 
-
         TReturnType BeNoConstructor();
         TReturnType NotBeVirtual();
 

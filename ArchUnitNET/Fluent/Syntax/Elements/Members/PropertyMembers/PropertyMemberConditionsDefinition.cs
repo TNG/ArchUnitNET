@@ -184,7 +184,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         //Negations
 
-
         public static ICondition<PropertyMember> NotHaveGetter()
         {
             return new SimpleCondition<PropertyMember>(

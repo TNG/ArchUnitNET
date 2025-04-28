@@ -133,7 +133,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         //Negations
 
-
         public static IPredicate<PropertyMember> HaveNoGetter()
         {
             return new SimplePredicate<PropertyMember>(

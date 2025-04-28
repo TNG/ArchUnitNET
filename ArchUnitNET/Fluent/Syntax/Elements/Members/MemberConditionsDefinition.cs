@@ -247,7 +247,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Relation Conditions
 
-
         public static RelationCondition<TRuleType, IType> BeDeclaredInTypesThat()
         {
             return new RelationCondition<TRuleType, IType>(
