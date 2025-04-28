@@ -1,24 +1,24 @@
 ﻿===== No violations =====
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttribute passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttribute passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttribute passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttribute passed
 Message: 
@@ -32,38 +32,38 @@ All Evaluations passed
 
 ===== Violations =====
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.UnusedAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.UnusedAttribute"" failed:
 	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.UnusedAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.UnusedAttribute"" failed:
 	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.UnusedAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.UnusedAttribute"" failed:
 	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.UnusedAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "AttributeNamespace.UnusedAttribute"" failed:
 	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
 
 
@@ -79,14 +79,8 @@ Message:
 
 ===== Attribute outside of architecture =====
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "TypeDependencyNamespace.BaseClass"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should only have attributes "TypeDependencyNamespace.BaseClass"" failed:
-	AttributeNamespace.ClassWithSingleAttribute does have attribute AttributeNamespace.Attribute1
-
-
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should does only have "TypeDependencyNamespace.BaseClass"
+Exception: Type TypeDependencyNamespace.BaseClass does not exist in provided architecture or is no class.
 
 ===== Empty arguments =====
 
@@ -131,25 +125,25 @@ All Evaluations passed
 
 ===== Multiple arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should does only have "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should does only have "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should does only have "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should only have attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should does only have "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
@@ -163,49 +157,49 @@ All Evaluations passed
 
 ===== Multiple inputs =====
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should only have attributes "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should does only have "AttributeNamespace.UnusedAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 Result: False
 Description: AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should does only have "AttributeNamespace.UnusedAttribute"" failed:
 	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 	AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should only have attributes "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should does only have "AttributeNamespace.UnusedAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 Result: False
 Description: AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should does only have "AttributeNamespace.UnusedAttribute"" failed:
 	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 	AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should only have attributes "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should does only have "AttributeNamespace.UnusedAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 Result: False
 Description: AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should does only have "AttributeNamespace.UnusedAttribute"" failed:
 	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 	AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should only have attributes "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should does only have "AttributeNamespace.UnusedAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 Result: False
 Description: AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should only have attributes "AttributeNamespace.UnusedAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should does only have "AttributeNamespace.UnusedAttribute"" failed:
 	AttributeNamespace.ClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 	AttributeNamespace.OtherClassWithAttributes does have attribute AttributeNamespace.Attribute1 and AttributeNamespace.Attribute2
 

@@ -10,10 +10,10 @@ All Evaluations passed
 
 Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attributes that are "AttributeNamespace.UnusedAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+Description: AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 Message: 
 "Types that are "AttributeNamespace.ClassWithAttributes" should have attributes that are "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+	AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 
 
 

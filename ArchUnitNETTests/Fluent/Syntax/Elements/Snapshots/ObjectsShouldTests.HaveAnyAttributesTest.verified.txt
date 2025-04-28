@@ -1,24 +1,24 @@
 ﻿===== No violations =====
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
@@ -32,39 +32,39 @@ All Evaluations passed
 
 ===== Violations =====
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.UnusedAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+Description: AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+"Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.UnusedAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+Description: AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+"Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.UnusedAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+Description: AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+"Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.UnusedAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+Description: AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.UnusedAttribute"
+"Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
 
 
 
@@ -81,19 +81,19 @@ Message:
 
 Query: Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+Description: AttributeNamespace.ClassWithAttributes does not have any of no attributes (always true)
 Message: 
 "Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)" failed:
-	AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+	AttributeNamespace.ClassWithAttributes does not have any of no attributes (always true)
 
 
 
 Query: Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+Description: AttributeNamespace.ClassWithAttributes does not have any of no attributes (always true)
 Message: 
 "Types that are "AttributeNamespace.ClassWithAttributes" should have one of no attributes (impossible)" failed:
-	AttributeNamespace.ClassWithAttributes does not have one of no attributes (always true)
+	AttributeNamespace.ClassWithAttributes does not have any of no attributes (always true)
 
 
 
@@ -108,25 +108,25 @@ Message:
 
 ===== Multiple arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" should have any "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
@@ -140,7 +140,7 @@ All Evaluations passed
 
 ===== Multiple inputs =====
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should have attribute "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.OtherClassWithAttributes" should have any "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Result: True
@@ -148,14 +148,14 @@ Description: AttributeNamespace.OtherClassWithAttributes passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.ClassWithoutAttributes" should have attribute "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.ClassWithoutAttributes" should have any "AttributeNamespace.Attribute1"
 Result: False
-Description: AttributeNamespace.ClassWithoutAttributes does not have attribute "AttributeNamespace.Attribute1"
+Description: AttributeNamespace.ClassWithoutAttributes does not have any "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithAttributes passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.ClassWithoutAttributes" should have attribute "AttributeNamespace.Attribute1"" failed:
-	AttributeNamespace.ClassWithoutAttributes does not have attribute "AttributeNamespace.Attribute1"
+"Types that are "AttributeNamespace.ClassWithAttributes" or "AttributeNamespace.ClassWithoutAttributes" should have any "AttributeNamespace.Attribute1"" failed:
+	AttributeNamespace.ClassWithoutAttributes does not have any "AttributeNamespace.Attribute1"
 
 
 
