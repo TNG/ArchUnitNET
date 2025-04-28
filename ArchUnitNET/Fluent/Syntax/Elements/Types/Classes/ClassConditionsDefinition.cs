@@ -46,7 +46,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         //Negations
 
-
         public static ICondition<Class> NotBeAbstract()
         {
             return new SimpleCondition<Class>(

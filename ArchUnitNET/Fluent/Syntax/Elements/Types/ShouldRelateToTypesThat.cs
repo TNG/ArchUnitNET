@@ -333,7 +333,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-
         public TRuleTypeShouldConjunction AreNot(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(

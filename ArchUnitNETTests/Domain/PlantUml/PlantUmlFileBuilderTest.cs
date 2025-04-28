@@ -134,19 +134,17 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var forbiddenCharacters = new[] { "[", "]", "\r", "\n", "\f", "\a", "\b", "\v" };
             foreach (var character in forbiddenCharacters)
             {
-                Assert.Throws<IllegalComponentNameException>(
-                    () => new PlantUmlDependency(character, "a", DependencyType.OneToOne)
+                Assert.Throws<IllegalComponentNameException>(() =>
+                    new PlantUmlDependency(character, "a", DependencyType.OneToOne)
                 );
-                Assert.Throws<IllegalComponentNameException>(
-                    () => new PlantUmlDependency("a", character, DependencyType.OneToOne)
+                Assert.Throws<IllegalComponentNameException>(() =>
+                    new PlantUmlDependency("a", character, DependencyType.OneToOne)
                 );
                 Assert.Throws<IllegalComponentNameException>(() => new PlantUmlClass(character));
-                Assert.Throws<IllegalComponentNameException>(
-                    () => new PlantUmlInterface(character)
+                Assert.Throws<IllegalComponentNameException>(() => new PlantUmlInterface(character)
                 );
                 Assert.Throws<IllegalComponentNameException>(() => new PlantUmlSlice(character));
-                Assert.Throws<IllegalComponentNameException>(
-                    () => new PlantUmlNamespace(character)
+                Assert.Throws<IllegalComponentNameException>(() => new PlantUmlNamespace(character)
                 );
             }
         }

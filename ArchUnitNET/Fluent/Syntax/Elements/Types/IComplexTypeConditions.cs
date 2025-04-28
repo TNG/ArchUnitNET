@@ -16,7 +16,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-
         ShouldRelateToTypesThat<
             TRuleTypeShouldConjunction,
             IType,

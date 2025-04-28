@@ -299,7 +299,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-
         public TGivenRuleTypeConjunction AreNot(Type firstType, params Type[] moreTypes)
         {
             _ruleCreator.AddPredicate(

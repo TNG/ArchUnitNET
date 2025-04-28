@@ -136,7 +136,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         //Negations
 
-
         public TRuleTypeShouldConjunction HaveNoGetter()
         {
             _ruleCreator.ContinueComplexCondition(PropertyMemberPredicateDefinition.HaveNoGetter());

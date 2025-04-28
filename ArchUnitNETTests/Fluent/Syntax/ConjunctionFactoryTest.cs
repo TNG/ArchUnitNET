@@ -23,8 +23,8 @@ namespace ArchUnitNETTests.Fluent.Syntax
         [Fact]
         public void CreateSyntaxElementWithInvalidParametersThrowsExceptionTest()
         {
-            Assert.Throws<MissingMethodException>(
-                () => Create<ConjunctionFactoryTest, IType>(new ArchRuleCreator<IType>(Types))
+            Assert.Throws<MissingMethodException>(() =>
+                Create<ConjunctionFactoryTest, IType>(new ArchRuleCreator<IType>(Types))
             );
         }
     }

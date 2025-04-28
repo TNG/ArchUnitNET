@@ -95,8 +95,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
                 Class classNotContained = Architecture.GetClassOfType(typeof(object));
 
-                InvalidOperationException exception = Assert.Throws<InvalidOperationException>(
-                    () => classDiagramAssociation.GetTargetNamespaceIdentifiers(classNotContained)
+                InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() =>
+                    classDiagramAssociation.GetTargetNamespaceIdentifiers(classNotContained)
                 );
                 Assert.Equal(
                     string.Format(
@@ -156,11 +156,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
             );
 
             ComponentIntersectionException exception =
-                Assert.Throws<ComponentIntersectionException>(
-                    () =>
-                        classDiagramAssociation.GetTargetNamespaceIdentifiers(
-                            classContainedInTwoComponents
-                        )
+                Assert.Throws<ComponentIntersectionException>(() =>
+                    classDiagramAssociation.GetTargetNamespaceIdentifiers(
+                        classContainedInTwoComponents
+                    )
                 );
             Assert.Equal(
                 string.Format(
@@ -188,8 +187,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
                     typeof(ClassInFooAndBarNamespace)
                 );
 
-                IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(
-                    () => CreateAssociation(memoryStream)
+                IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() =>
+                    CreateAssociation(memoryStream)
                 );
                 Assert.Equal("Stereotype '.*.Identical.*' should be unique", exception.Message);
             }

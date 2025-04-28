@@ -876,7 +876,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
-
         public TRuleTypeShouldConjunction NotExist()
         {
             _ruleCreator.RequirePositiveResults = false;

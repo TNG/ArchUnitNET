@@ -29,14 +29,14 @@ namespace ArchUnitNET.xUnitV3Tests
         public void ArchRuleAssertTest()
         {
             ArchRuleAssert.CheckRule(_architecture, _trueRule);
-            Assert.Throws<FailedArchRuleException>(
-                () => ArchRuleAssert.CheckRule(_architecture, _falseRule)
+            Assert.Throws<FailedArchRuleException>(() =>
+                ArchRuleAssert.CheckRule(_architecture, _falseRule)
             );
             Assert.Equal(
                 _expectedErrorMessage,
                 Assert
-                    .Throws<FailedArchRuleException>(
-                        () => ArchRuleAssert.CheckRule(_architecture, _falseRule)
+                    .Throws<FailedArchRuleException>(() =>
+                        ArchRuleAssert.CheckRule(_architecture, _falseRule)
                     )
                     .Message
             );

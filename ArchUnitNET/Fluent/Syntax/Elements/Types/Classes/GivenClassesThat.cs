@@ -35,7 +35,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         //Negations
 
-
         public GivenClassesConjunction AreNotAbstract()
         {
             _ruleCreator.AddPredicate(ClassPredicatesDefinition.AreNotAbstract());

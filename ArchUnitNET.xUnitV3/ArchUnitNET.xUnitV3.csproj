@@ -1,45 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
-        <IsPackable>true</IsPackable>
-        <Title>ArchUnit C# xUnit v3 Extension</Title>
-        <Description>xUnit v3 Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
-        <PackageTags>test;arch;archunit;xunit</PackageTags>
-        <IncludeSource>False</IncludeSource>
-        <Company>TNG Technology Consulting GmbH</Company>
-        <PackageId>TngTech.ArchUnitNET.xUnitV3</PackageId>
-        <IsTestProject>false</IsTestProject>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <RootNamespace>ArchUnitNET.xUnitV3</RootNamespace>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="xunit.v3.assert" Version="1.1.0"/>
-        <PackageReference Include="System.Net.Http" Version="4.3.4"/>
-        <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="..\Logo\ArchUnitNET-Logo.png">
-            <Pack>true</Pack>
-            <PackagePath>/Logo/</PackagePath>
-            <Link>ArchUnitNET-Logo.png</Link>
-        </None>
-        <None Include="..\README.md">
-            <Pack>true</Pack>
-            <PackagePath></PackagePath>
-            <Link>README.md</Link>
-        </None>
-    </ItemGroup>
-
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
+    <IsPackable>true</IsPackable>
+    <Title>ArchUnit C# xUnit v3 Extension</Title>
+    <Description>xUnit v3 Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+    <PackageTags>test;arch;archunit;xunit</PackageTags>
+    <IncludeSource>False</IncludeSource>
+    <Company>TNG Technology Consulting GmbH</Company>
+    <PackageId>TngTech.ArchUnitNET.xUnitV3</PackageId>
+    <IsTestProject>false</IsTestProject>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RootNamespace>ArchUnitNET.xUnitV3</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit.v3.assert" Version="1.1.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Logo\ArchUnitNET-Logo.png">
+      <Pack>true</Pack>
+      <PackagePath>/Logo/</PackagePath>
+      <Link>ArchUnitNET-Logo.png</Link>
+    </None>
+    <None Include="..\README.md">
+      <Pack>true</Pack>
+      <PackagePath></PackagePath>
+      <Link>README.md</Link>
+    </None>
+  </ItemGroup>
 </Project>

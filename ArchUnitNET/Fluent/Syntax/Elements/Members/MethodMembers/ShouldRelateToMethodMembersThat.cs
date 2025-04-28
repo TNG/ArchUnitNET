@@ -246,7 +246,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         //Negations
 
-
         public TRuleTypeShouldConjunction AreNoConstructors()
         {
             _ruleCreator.ContinueComplexCondition(

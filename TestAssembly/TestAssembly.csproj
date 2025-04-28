@@ -1,15 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <LangVersion>Latest</LangVersion>
-        <IsPackable>false</IsPackable>
-        <Product>TestAssembly</Product>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <AssemblyAttribute Include="TestAssembly.AssemblyTestAttribute">
-            <_Parameter1>TestParameter</_Parameter1>
-        </AssemblyAttribute>
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>Latest</LangVersion>
+    <IsPackable>false</IsPackable>
+    <Product>TestAssembly</Product>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="TestAssembly.AssemblyTestAttribute">
+      <_Parameter1>TestParameter</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>

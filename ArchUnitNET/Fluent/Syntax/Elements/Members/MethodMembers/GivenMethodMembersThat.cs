@@ -234,7 +234,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         //Negations
 
-
         public GivenMethodMembersConjunction AreNoConstructors()
         {
             _ruleCreator.AddPredicate(MethodMemberPredicatesDefinition.AreNoConstructors());

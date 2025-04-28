@@ -66,7 +66,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-
         TReturnType AreNot(Type firstType, params Type[] moreTypes);
         TReturnType AreNot(IEnumerable<Type> types);
 

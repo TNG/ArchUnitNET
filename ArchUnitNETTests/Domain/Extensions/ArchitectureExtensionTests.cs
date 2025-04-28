@@ -39,8 +39,8 @@ namespace ArchUnitNETTests.Domain.Extensions
         [Fact]
         public void TypeNotInArchitectureNotFound()
         {
-            Assert.Throws<TypeDoesNotExistInArchitecture>(
-                () => _architecture.GetITypeOfType(typeof(Guid))
+            Assert.Throws<TypeDoesNotExistInArchitecture>(() =>
+                _architecture.GetITypeOfType(typeof(Guid))
             );
         }
     }

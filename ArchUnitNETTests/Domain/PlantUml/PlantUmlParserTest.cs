@@ -158,8 +158,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .To("[AlsoNotYetDefined]")
                 .Write();
 
-            IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(
-                () => CreateDiagram(_memoryStream)
+            IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() =>
+                CreateDiagram(_memoryStream)
             );
             Assert.Contains(
                 "There is no Component with name or alias = 'NotYetDefined'",
@@ -176,8 +176,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             TestDiagram.From(_memoryStream).RawLine("[componentWithoutStereotype]").Write();
 
-            IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(
-                () => CreateDiagram(_memoryStream)
+            IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() =>
+                CreateDiagram(_memoryStream)
             );
             Assert.Contains("componentWithoutStereotype", exception.Message);
             Assert.Contains(
@@ -217,8 +217,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .WithStereoTypes("Irrelevant.*")
                 .Write();
 
-            IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(
-                () => CreateDiagram(_memoryStream)
+            IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() =>
+                CreateDiagram(_memoryStream)
             );
             Assert.Contains(
                 "Alias 'ill[]egal' should not contain character(s): '[' or ']' or '\"'",

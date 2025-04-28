@@ -486,7 +486,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         //Negations
 
-
         public static IPredicate<MethodMember> AreNoConstructors()
         {
             return new SimplePredicate<MethodMember>(
