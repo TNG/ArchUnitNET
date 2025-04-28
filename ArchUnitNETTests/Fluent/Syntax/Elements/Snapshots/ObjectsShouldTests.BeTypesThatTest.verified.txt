@@ -1,0 +1,19 @@
+﻿===== No violations =====
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that are "TypeDependencyNamespace.ChildClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that are "TypeDependencyNamespace.ChildClass"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+
+
+

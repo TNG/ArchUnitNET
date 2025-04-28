@@ -1362,7 +1362,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -1439,7 +1439,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -1527,7 +1527,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -2344,7 +2344,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                             return false;
                         }
                     }
-                    else if (attributeArguments.Contains(arg))
+                    else if (!attributeArguments.Contains(arg))
                     {
                         return false;
                     }

@@ -29,6 +29,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeTypesThat()
+        {
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.Types(true),
+                TypeConditionsDefinition<TRuleType>.BeTypesThat()
+            );
+            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(
+                _ruleCreator
+            );
+        }
+
         [Obsolete(
             "Another overload of this method should be used. This will be removed in a future update. You can use BeAssignableTo(Types().That().HaveFullName()) instead"
         )]

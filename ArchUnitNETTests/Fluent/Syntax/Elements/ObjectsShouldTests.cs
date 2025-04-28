@@ -71,6 +71,20 @@ public class ObjectsShouldTests
     }
 
     [Fact]
+    public async Task BeTypesThatTest()
+    {
+        var helper = new DependencyAssemblyTestHelper();
+        helper.AddSnapshotHeader("No violations");
+        var should = Types().That().Are(helper.ChildClass).Should();
+        should.BeTypesThat().Are(helper.ChildClass).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Violations");
+        should = Types().That().Are(helper.BaseClass).Should();
+        should.BeTypesThat().Are(helper.ChildClass).AssertOnlyViolations(helper);
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
     public async Task BeInternalTest()
     {
         var helper = new VisibilityAssemblyTestHelper();
