@@ -32,22 +32,17 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             typeof(InternalTestClass),
         };
 
-        private readonly List<string> _falseTypesPattern = new List<string>
-        {
-            StaticTestTypes.PublicTestClass.FullName,
-            StaticTestTypes.InternalTestClass.FullName,
-        };
+        private static readonly IObjectProvider<MethodMember> FalseTypeConstructors =
+            MethodMembers()
+                .That()
+                .HaveFullName("System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()")
+                .Or()
+                .HaveFullName("System.Void ArchUnitNETTests.Domain.InternalTestClass::.ctor()");
 
-        private readonly List<string> _falseTypeConstructors = new List<string>
-        {
-            PublicTestClassConstructor,
-            InternalTestClassConstructor,
-        };
-
-        private const string PublicTestClassConstructor =
-            "System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()";
-        private const string InternalTestClassConstructor =
-            "System.Void ArchUnitNETTests.Domain.InternalTestClass::.ctor()";
+        private static readonly IObjectProvider<MethodMember> PublicTestClassConstructor =
+            MethodMembers()
+                .That()
+                .HaveFullName("System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()");
 
         [Fact]
         public void DeclaredInTest()
@@ -120,42 +115,28 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     .Should()
                     .BeDeclaredIn(_falseTypes1)
                     .AndShould()
-                    .NotBe(_falseTypeConstructors);
+                    .NotBe(FalseTypeConstructors);
                 var notDeclaredInOtherTypeMultiple1 = Members()
                     .That()
                     .Are(member)
                     .Should()
                     .NotBeDeclaredIn(_falseTypes1)
                     .OrShould()
-                    .Be(_falseTypeConstructors);
+                    .Be(FalseTypeConstructors);
                 var declaredInOtherTypeMultiple2 = Members()
                     .That()
                     .Are(member)
                     .Should()
                     .BeDeclaredIn(_falseTypes2)
                     .AndShould()
-                    .NotBe(_falseTypeConstructors);
+                    .NotBe(FalseTypeConstructors);
                 var notDeclaredInOtherTypeMultiple2 = Members()
                     .That()
                     .Are(member)
                     .Should()
                     .NotBeDeclaredIn(_falseTypes2)
                     .OrShould()
-                    .Be(_falseTypeConstructors);
-                var declaredInOtherTypeMultiplePattern = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .BeDeclaredIn(_falseTypesPattern)
-                    .AndShould()
-                    .NotBe(_falseTypeConstructors);
-                var notDeclaredInOtherTypeMultiplePattern = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .NotBeDeclaredIn(_falseTypesPattern)
-                    .OrShould()
-                    .Be(_falseTypeConstructors);
+                    .Be(FalseTypeConstructors);
 
                 Assert.True(declaredInRightTypeFluent.HasNoViolations(Architecture));
                 Assert.False(notDeclaredInRightTypeFluent.HasNoViolations(Architecture));
@@ -163,8 +144,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Assert.True(notDeclaredInOtherTypeMultiple1.HasNoViolations(Architecture));
                 Assert.False(declaredInOtherTypeMultiple2.HasNoViolations(Architecture));
                 Assert.True(notDeclaredInOtherTypeMultiple2.HasNoViolations(Architecture));
-                Assert.False(declaredInOtherTypeMultiplePattern.HasNoViolations(Architecture));
-                Assert.True(notDeclaredInOtherTypeMultiplePattern.HasNoViolations(Architecture));
             }
 
             foreach (var type in _types)
@@ -198,11 +177,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .AreDeclaredIn(StaticTestTypes.PublicTestClass)
                 .Should()
                 .Be(PublicTestClassConstructor);
-            var emptyTypeHasOnlyConstructorPattern = Members()
-                .That()
-                .AreDeclaredIn(typeof(PublicTestClass).FullName)
-                .Should()
-                .Be(PublicTestClassConstructor);
             var allMembersAreNotDeclaredInEmptyType1 = Members()
                 .That()
                 .AreNotDeclaredIn(typeof(PublicTestClass))
@@ -213,18 +187,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .AreNotDeclaredIn(StaticTestTypes.PublicTestClass)
                 .Should()
                 .Be(Members().That().AreNot(PublicTestClassConstructor));
-            var allMembersAreNotDeclaredInEmptyTypePattern = Members()
-                .That()
-                .AreNotDeclaredIn(typeof(PublicTestClass).FullName)
-                .Should()
-                .Be(Members().That().AreNot(PublicTestClassConstructor));
 
             Assert.True(emptyTypeHasOnlyConstructor1.HasNoViolations(Architecture));
             Assert.True(emptyTypeHasOnlyConstructor2.HasNoViolations(Architecture));
-            Assert.True(emptyTypeHasOnlyConstructorPattern.HasNoViolations(Architecture));
             Assert.True(allMembersAreNotDeclaredInEmptyType1.HasNoViolations(Architecture));
             Assert.True(allMembersAreNotDeclaredInEmptyType2.HasNoViolations(Architecture));
-            Assert.True(allMembersAreNotDeclaredInEmptyTypePattern.HasNoViolations(Architecture));
 
             //Multiple Arguments
 
@@ -232,41 +199,27 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .That()
                 .AreDeclaredIn(_falseTypes1)
                 .Should()
-                .Be(_falseTypeConstructors);
+                .Be(FalseTypeConstructors);
             var emptyTypeHasOnlyConstructorMultiple2 = Members()
                 .That()
                 .AreDeclaredIn(_falseTypes2)
                 .Should()
-                .Be(_falseTypeConstructors);
-            var emptyTypeHasOnlyConstructorMultiplePattern = Members()
-                .That()
-                .AreDeclaredIn(_falseTypesPattern)
-                .Should()
-                .Be(_falseTypeConstructors);
+                .Be(FalseTypeConstructors);
             var allMembersAreNotDeclaredInEmptyTypeMultiple1 = Members()
                 .That()
                 .AreNotDeclaredIn(_falseTypes1)
                 .Should()
-                .Be(Members().That().AreNot(_falseTypeConstructors));
+                .Be(Members().That().AreNot(FalseTypeConstructors));
             var allMembersAreNotDeclaredInEmptyTypeMultiple2 = Members()
                 .That()
                 .AreNotDeclaredIn(_falseTypes2)
                 .Should()
-                .Be(Members().That().AreNot(_falseTypeConstructors));
-            var allMembersAreNotDeclaredInEmptyTypeMultiplePattern = Members()
-                .That()
-                .AreNotDeclaredIn(_falseTypesPattern)
-                .Should()
-                .Be(Members().That().AreNot(_falseTypeConstructors));
+                .Be(Members().That().AreNot(FalseTypeConstructors));
 
             Assert.True(emptyTypeHasOnlyConstructorMultiple1.HasNoViolations(Architecture));
             Assert.True(emptyTypeHasOnlyConstructorMultiple2.HasNoViolations(Architecture));
-            Assert.True(emptyTypeHasOnlyConstructorMultiplePattern.HasNoViolations(Architecture));
             Assert.True(allMembersAreNotDeclaredInEmptyTypeMultiple1.HasNoViolations(Architecture));
             Assert.True(allMembersAreNotDeclaredInEmptyTypeMultiple2.HasNoViolations(Architecture));
-            Assert.True(
-                allMembersAreNotDeclaredInEmptyTypeMultiplePattern.HasNoViolations(Architecture)
-            );
         }
 
         [Fact]

@@ -28,6 +28,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use BeCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> BeCalledBy(
             string pattern,
             bool useRegularExpressions = false
@@ -48,6 +51,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use BeCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> BeCalledBy(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -273,6 +279,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
             string pattern,
             bool useRegularExpressions = false
@@ -293,6 +302,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -552,6 +564,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> HaveReturnType(
             string pattern,
             bool useRegularExpressions = false
@@ -578,6 +593,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> HaveReturnType(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -627,7 +645,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             bool Condition(MethodMember member)
             {
-                return typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName));
+                return typeList.Any(type => member.ReturnType.FullNameEquals(type.FullName));
             }
 
             return new SimpleCondition<MethodMember>(
@@ -648,7 +666,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
-                        typeList.Any(type => methodMember.ReturnType.FullNameMatches(type.FullName))
+                        typeList.Any(type => methodMember.ReturnType.FullNameEquals(type.FullName))
                     )
                     .ToList();
                 foreach (var failedObject in methodMemberList.Except(passedObjects))
@@ -720,6 +738,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> NotBeCalledBy(
             string pattern,
             bool useRegularExpressions = false
@@ -756,6 +777,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> NotBeCalledBy(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -987,6 +1011,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotHaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
             string pattern,
             bool useRegularExpressions = false
@@ -1023,6 +1050,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotHaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -1144,7 +1174,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers)
             {
                 var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
+                var failedObjects = methodMemberList
                     .Where(methodMember =>
                         methodMember
                             .GetBodyTypeMemberDependencies()
@@ -1157,27 +1187,27 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 if (typeList.IsNullOrEmpty())
                 {
                     failDescription =
-                        "does not have dependencies in method body to one of no types (always true)";
+                        "does have dependencies in method body to one of no types (always false)";
                 }
                 else
                 {
                     failDescription = typeList
-                        .Where(type => !type.Equals(firstType))
+                        .Where(type => !Equals(type, firstType))
                         .Distinct()
                         .Aggregate(
-                            "does not have dependencies in method body to \""
+                            "does have dependencies in method body to \""
                                 + firstType.FullName
                                 + "\"",
                             (current, type) => current + " or \"" + type.FullName + "\""
                         );
                 }
 
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
+                foreach (var failedObject in failedObjects)
                 {
                     yield return new ConditionResult(failedObject, false, failDescription);
                 }
 
-                foreach (var passedObject in passedObjects)
+                foreach (var passedObject in methodMemberList.Except(failedObjects))
                 {
                     yield return new ConditionResult(passedObject, true);
                 }
@@ -1186,15 +1216,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             string description;
             if (typeList.IsNullOrEmpty())
             {
-                description = "have dependencies in method body to one of no types (always false)";
+                description =
+                    "not have dependencies in method body to one of no types (always true)";
             }
             else
             {
                 description = typeList
-                    .Where(type => !type.Equals(firstType))
+                    .Where(type => !Equals(type, firstType))
                     .Distinct()
                     .Aggregate(
-                        "have dependencies in method body to \"" + firstType.FullName + "\"",
+                        "not have dependencies in method body to \"" + firstType.FullName + "\"",
                         (current, type) => current + " or \"" + type.FullName + "\""
                     );
             }
@@ -1287,6 +1318,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotHaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> NotHaveReturnType(
             string pattern,
             bool useRegularExpressions = false
@@ -1313,6 +1347,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotHaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<MethodMember> NotHaveReturnType(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -1362,7 +1399,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             bool Condition(MethodMember member)
             {
-                return typeList.All(type => !member.ReturnType.FullNameMatches(type.FullName));
+                return typeList.All(type => !member.ReturnType.FullNameEquals(type.FullName));
             }
 
             return new SimpleCondition<MethodMember>(
@@ -1383,9 +1420,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
-                        typeList.All(type =>
-                            !methodMember.ReturnType.FullNameMatches(type.FullName)
-                        )
+                        typeList.All(type => !methodMember.ReturnType.FullNameEquals(type.FullName))
                     )
                     .ToList();
                 foreach (var failedObject in methodMemberList.Except(passedObjects))

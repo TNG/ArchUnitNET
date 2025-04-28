@@ -15,6 +15,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         protected GivenObjectsThat(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Are(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction Are(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
@@ -23,6 +26,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Are(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction Are(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -57,6 +63,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction CallAny(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
@@ -65,6 +74,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction CallAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -99,6 +111,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction DependOnAny(
             string pattern,
             bool useRegularExpressions = false
@@ -110,6 +125,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction DependOnAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -172,6 +190,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction OnlyDependOn(
             string pattern,
             bool useRegularExpressions = false
@@ -183,6 +204,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction OnlyDependOn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -228,6 +252,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction HaveAnyAttributes(
             string pattern,
             bool useRegularExpressions = false
@@ -242,6 +269,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction HaveAnyAttributes(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -308,6 +338,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction OnlyHaveAttributes(
             string pattern,
             bool useRegularExpressions = false
@@ -322,6 +355,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction OnlyHaveAttributes(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -412,6 +448,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction HaveAttributeWithArguments(
             string attribute,
             IEnumerable<object> argumentValues
@@ -426,6 +465,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction HaveAttributeWithArguments(
             string attribute,
             object firstArgumentValue,
@@ -528,6 +570,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(
             string attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -542,6 +587,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(
             string attribute,
             (string, object) firstAttributeArgument,
@@ -618,10 +666,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        [Obsolete(
+            "Either HaveName() without the useRegularExpressions parameter or HaveNameMatching() should be used"
+        )]
+        public TGivenRuleTypeConjunction HaveName(string pattern, bool useRegularExpressions)
         {
             _ruleCreator.AddPredicate(
                 ObjectPredicatesDefinition<TRuleType>.HaveName(pattern, useRegularExpressions)
@@ -629,13 +677,41 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction HaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public TGivenRuleTypeConjunction HaveName(string name)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveName(name));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveNameMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.HaveNameMatching(pattern)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Either HaveFullName() without the useRegularExpressions parameter or HaveFullNameMatching() should be used"
+        )]
+        public TGivenRuleTypeConjunction HaveFullName(string pattern, bool useRegularExpressions)
         {
             _ruleCreator.AddPredicate(
                 ObjectPredicatesDefinition<TRuleType>.HaveFullName(pattern, useRegularExpressions)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveFullName(string fullName)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveFullName(fullName));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction HaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.HaveFullNameMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
@@ -710,7 +786,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
-
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNot(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction AreNot(string pattern, bool useRegularExpressions = false)
         {
             _ruleCreator.AddPredicate(
@@ -719,6 +797,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNot(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction AreNot(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -753,6 +834,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction DoNotCallAny(
             string pattern,
             bool useRegularExpressions = false
@@ -764,6 +848,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction DoNotCallAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -798,6 +885,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction DoNotDependOnAny(
             string pattern,
             bool useRegularExpressions = false
@@ -812,6 +902,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction DoNotDependOnAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -866,6 +959,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(
             string pattern,
             bool useRegularExpressions = false
@@ -880,6 +976,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -974,6 +1073,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(
             string attribute,
             IEnumerable<object> argumentValues
@@ -988,6 +1090,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(
             string attribute,
             object firstArgumentValue,
@@ -1004,6 +1109,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(
             string attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -1018,6 +1126,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(
             string attribute,
             (string, object) firstAttributeArgument,
@@ -1180,10 +1291,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
-        public TGivenRuleTypeConjunction DoNotHaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        [Obsolete(
+            "Either DoNotHaveName() without the useRegularExpressions parameter or DoNotHaveNameMatching() should be used"
+        )]
+        public TGivenRuleTypeConjunction DoNotHaveName(string pattern, bool useRegularExpressions)
         {
             _ruleCreator.AddPredicate(
                 ObjectPredicatesDefinition<TRuleType>.DoNotHaveName(pattern, useRegularExpressions)
@@ -1191,9 +1302,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction DoNotHaveName(string name)
+        {
+            _ruleCreator.AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveName(name));
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveNameMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveNameMatching(pattern)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Either DoNotHaveFullName() without the useRegularExpressions parameter or DoNotHaveFullNameMatching() should be used"
+        )]
         public TGivenRuleTypeConjunction DoNotHaveFullName(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             _ruleCreator.AddPredicate(
@@ -1201,6 +1329,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     pattern,
                     useRegularExpressions
                 )
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveFullName(string fullName)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveFullName(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotHaveFullNameMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                ObjectPredicatesDefinition<TRuleType>.DoNotHaveFullNameMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }

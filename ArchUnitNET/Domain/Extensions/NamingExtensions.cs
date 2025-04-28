@@ -36,10 +36,13 @@ namespace ArchUnitNET.Domain.Extensions
             return cls.Name.IndexOf(pattern, stringComparison) >= 0;
         }
 
+        [Obsolete(
+            "Either NameEquals() or NameMatches() without the useRegularExpressions parameter should be used"
+        )]
         public static bool NameMatches(
             this IHasName cls,
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             if (useRegularExpressions)
@@ -50,10 +53,23 @@ namespace ArchUnitNET.Domain.Extensions
             return string.Equals(cls.Name, pattern, StringComparison.OrdinalIgnoreCase);
         }
 
+        public static bool NameEquals(this IHasName cls, string name)
+        {
+            return string.Equals(cls.Name, name, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool NameMatches(this IHasName cls, string pattern)
+        {
+            return pattern != null && Regex.IsMatch(cls.Name, pattern);
+        }
+
+        [Obsolete(
+            "Either FullNameEquals() or FullNameMatches() without the useRegularExpressions parameter should be used"
+        )]
         public static bool FullNameMatches(
             this IHasName cls,
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             if (useRegularExpressions)
@@ -62,6 +78,16 @@ namespace ArchUnitNET.Domain.Extensions
             }
 
             return string.Equals(cls.FullName, pattern, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool FullNameEquals(this IHasName cls, string fullName)
+        {
+            return string.Equals(cls.FullName, fullName, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool FullNameMatches(this IHasName cls, string pattern)
+        {
+            return pattern != null && Regex.IsMatch(cls.FullName, pattern);
         }
 
         public static bool FullNameContains(this IHasName cls, string pattern)

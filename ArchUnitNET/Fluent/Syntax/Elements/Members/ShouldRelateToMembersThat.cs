@@ -15,6 +15,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public ShouldRelateToMembersThat(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public TRuleTypeShouldConjunction AreDeclaredIn(
             string pattern,
             bool useRegularExpressions = false
@@ -29,6 +32,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public TRuleTypeShouldConjunction AreDeclaredIn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -109,7 +115,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Negations
 
-
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public TRuleTypeShouldConjunction AreNotDeclaredIn(
             string pattern,
             bool useRegularExpressions = false
@@ -124,6 +132,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public TRuleTypeShouldConjunction AreNotDeclaredIn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false

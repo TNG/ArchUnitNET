@@ -38,26 +38,14 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 var otherTypesAreNotThisType = Types().That().AreNot(type).Should().NotBe(type);
                 var otherTypesAreThisType = Types().That().AreNot(type).Should().Be(type);
 
-                var typeIsItselfPattern = Types()
-                    .That()
-                    .Are(type.FullName)
-                    .Should()
-                    .Be(type.FullName);
-                var typeIsNotItselfPattern = Types()
-                    .That()
-                    .Are(type.FullName)
-                    .Should()
-                    .NotBe(type.FullName);
+                var typeIsItselfPattern = Types().That().Are(type).Should().Be(type);
+                var typeIsNotItselfPattern = Types().That().Are(type).Should().NotBe(type);
                 var otherTypesAreNotThisTypePattern = Types()
                     .That()
-                    .AreNot(type.FullName)
+                    .AreNot(type)
                     .Should()
-                    .NotBe(type.FullName);
-                var otherTypesAreThisTypePattern = Types()
-                    .That()
-                    .AreNot(type.FullName)
-                    .Should()
-                    .Be(type.FullName);
+                    .NotBe(type);
+                var otherTypesAreThisTypePattern = Types().That().AreNot(type).Should().Be(type);
 
                 Assert.True(typeIsItself.HasNoViolations(Architecture));
                 Assert.False(typeIsNotItself.HasNoViolations(Architecture));
@@ -91,39 +79,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .Should()
                 .NotBe(StaticTestTypes.PublicTestClass);
 
-            var publicTestClassIsPublicPattern = Types()
-                .That()
-                .Are(StaticTestTypes.PublicTestClass.FullName)
-                .Should()
-                .BePublic();
-            var publicTestClassIsNotPublicPattern = Types()
-                .That()
-                .Are(StaticTestTypes.PublicTestClass.FullName)
-                .Should()
-                .NotBePublic();
-            var notPublicTypesAreNotPublicTestClassPattern = Types()
-                .That()
-                .AreNotPublic()
-                .Should()
-                .NotBe(StaticTestTypes.PublicTestClass.FullName);
-            var publicTypesAreNotPublicTestClassPattern = Types()
-                .That()
-                .ArePublic()
-                .Should()
-                .NotBe(StaticTestTypes.PublicTestClass.FullName);
-
             Assert.True(publicTestClassIsPublic.HasNoViolations(Architecture));
             Assert.False(publicTestClassIsNotPublic.HasNoViolations(Architecture));
             Assert.True(notPublicTypesAreNotPublicTestClass.HasNoViolations(Architecture));
             Assert.False(publicTypesAreNotPublicTestClass.HasNoViolations(Architecture));
 
-            Assert.True(publicTestClassIsPublicPattern.HasNoViolations(Architecture));
-            Assert.False(publicTestClassIsNotPublicPattern.HasNoViolations(Architecture));
-            Assert.True(notPublicTypesAreNotPublicTestClassPattern.HasNoViolations(Architecture));
-            Assert.False(publicTypesAreNotPublicTestClassPattern.HasNoViolations(Architecture));
-
             //Tests with multiple arguments
-
 
             var publicTestClassAndInternalTestClassIsPublicOrInternal = Types()
                 .That()
@@ -195,31 +156,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 .Should()
                 .NotBe(list);
 
-            var patternList = new List<string>
-            {
-                StaticTestTypes.PublicTestClass.FullName,
-                StaticTestTypes.InternalTestClass.FullName,
-            };
-            var publicTestClassAndInternalTestClassIsPublicOrInternalPattern = Types()
-                .That()
-                .Are(patternList)
-                .Should()
-                .BePublic()
-                .OrShould()
-                .BeInternal();
-            var publicTestClassAndInternalTestClassIsPublicPattern = Types()
-                .That()
-                .Are(patternList)
-                .Should()
-                .BePublic();
-            var notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClassPattern =
-                Types().That().AreNotPublic().And().AreNotInternal().Should().NotBe(patternList);
-            var internalTypesAreNotPublicTestClassOrInternalTestClassPattern = Types()
-                .That()
-                .AreInternal()
-                .Should()
-                .NotBe(patternList);
-
             Assert.True(
                 listPublicTestClassAndInternalTestClassIsPublicOrInternal.HasNoViolations(
                     Architecture
@@ -238,25 +174,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     Architecture
                 )
             );
-
-            Assert.True(
-                publicTestClassAndInternalTestClassIsPublicOrInternalPattern.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                publicTestClassAndInternalTestClassIsPublicPattern.HasNoViolations(Architecture)
-            );
-            Assert.True(
-                notPublicAndNotInternalClassesAreNotPublicTestClassOrInternalTestClassPattern.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                internalTypesAreNotPublicTestClassOrInternalTestClassPattern.HasNoViolations(
-                    Architecture
-                )
-            );
         }
 
         [Fact]
@@ -264,57 +181,37 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             foreach (var type in _types)
             {
-                //One Argument
-
                 var typesDependOnOwnDependencies = Types()
                     .That()
-                    .DependOnAny(type.FullName)
+                    .DependOnAny(type)
                     .Should()
-                    .DependOnAny(type.FullName)
+                    .DependOnAny(type)
                     .WithoutRequiringPositiveResults();
                 var typeDoesNotDependOnFalseDependency = Types()
                     .That()
                     .Are(type)
                     .Should()
-                    .NotDependOnAny(NoTypeName);
+                    .NotDependOnAny(Types().That().HaveFullName(NoTypeName));
                 var typeDependsOnFalseDependency = Types()
                     .That()
                     .Are(type)
                     .Should()
-                    .DependOnAny(NoTypeName)
+                    .DependOnAny(Types().That().HaveFullName(NoTypeName))
                     .WithoutRequiringPositiveResults();
 
                 Assert.True(typesDependOnOwnDependencies.HasNoViolations(Architecture));
                 Assert.True(typeDoesNotDependOnFalseDependency.HasNoViolations(Architecture));
                 Assert.False(typeDependsOnFalseDependency.HasNoViolations(Architecture));
-
-                //Multiple Arguments
-
-                var patternList = new List<string> { type.FullName, NoTypeName };
-                var typesDependOnOwnDependenciesMultiple = Types()
-                    .That()
-                    .DependOnAny(patternList)
-                    .Should()
-                    .DependOnAny(patternList)
-                    .WithoutRequiringPositiveResults();
-                var typeDependsOnFalseDependencyMultiple = Types()
-                    .That()
-                    .Are(patternList)
-                    .Should()
-                    .DependOnAny(NoTypeName);
-
-                Assert.True(typesDependOnOwnDependenciesMultiple.HasNoViolations(Architecture));
-                Assert.False(typeDependsOnFalseDependencyMultiple.HasNoViolations(Architecture));
             }
 
             var noTypeDependsOnFalseDependency = Types()
                 .That()
-                .DependOnAny(NoTypeName)
+                .DependOnAny(Types().That().HaveFullName(NoTypeName))
                 .Should()
                 .NotExist();
             var typesDoNotDependsOnFalseDependency = Types()
                 .That()
-                .DoNotDependOnAny(NoTypeName)
+                .DoNotDependOnAny(Types().That().HaveFullName(NoTypeName))
                 .Should()
                 .Exist();
 

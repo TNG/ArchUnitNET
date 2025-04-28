@@ -11,6 +11,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
     public static class MemberPredicatesDefinition<T>
         where T : IMember
     {
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> AreDeclaredIn(
             string pattern,
             bool useRegularExpressions = false
@@ -26,6 +29,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> AreDeclaredIn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -189,7 +195,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Negations
 
-
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> AreNotDeclaredIn(
             string pattern,
             bool useRegularExpressions = false
@@ -205,6 +213,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> AreNotDeclaredIn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false

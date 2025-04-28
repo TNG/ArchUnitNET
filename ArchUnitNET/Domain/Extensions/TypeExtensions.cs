@@ -19,10 +19,13 @@ namespace ArchUnitNET.Domain.Extensions
             );
         }
 
+        [Obsolete(
+            "Either ImplementsInterface() without the useRegularExpressions parameter or ImplementsInterfaceMatching() should be used"
+        )]
         public static bool ImplementsInterface(
             this IType type,
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             if (type is GenericParameter)
@@ -32,6 +35,30 @@ namespace ArchUnitNET.Domain.Extensions
 
             return type.ImplementedInterfaces.Any(implementedInterface =>
                 implementedInterface.FullNameMatches(pattern, useRegularExpressions)
+            );
+        }
+
+        public static bool ImplementsInterface(this IType type, string fullName)
+        {
+            if (type is GenericParameter)
+            {
+                return false;
+            }
+
+            return type.ImplementedInterfaces.Any(implementedInterface =>
+                implementedInterface.FullNameEquals(fullName)
+            );
+        }
+
+        public static bool ImplementsInterfaceMatching(this IType type, string pattern)
+        {
+            if (type is GenericParameter)
+            {
+                return false;
+            }
+
+            return type.ImplementedInterfaces.Any(implementedInterface =>
+                implementedInterface.FullNameMatches(pattern)
             );
         }
 
@@ -47,10 +74,13 @@ namespace ArchUnitNET.Domain.Extensions
             return type.GetAssignableTypes().Contains(assignableToType);
         }
 
+        [Obsolete(
+            "Either IsAssignableTo() without the useRegularExpressions parameter or IsAssignableToTypeMatching() should be used"
+        )]
         public static bool IsAssignableTo(
             this IType type,
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             if (type is GenericParameter genericParameter)
@@ -62,6 +92,26 @@ namespace ArchUnitNET.Domain.Extensions
 
             return type.GetAssignableTypes()
                 .Any(t => t.FullNameMatches(pattern, useRegularExpressions));
+        }
+
+        public static bool IsAssignableTo(this IType type, string fullName)
+        {
+            if (type is GenericParameter genericParameter)
+            {
+                return genericParameter.TypeConstraints.All(t => t.IsAssignableTo(fullName));
+            }
+
+            return type.GetAssignableTypes().Any(t => t.FullNameEquals(fullName));
+        }
+
+        public static bool IsAssignableToTypeMatching(this IType type, string pattern)
+        {
+            if (type is GenericParameter genericParameter)
+            {
+                return genericParameter.TypeConstraints.All(t => t.IsAssignableTo(pattern));
+            }
+
+            return type.GetAssignableTypes().Any(t => t.FullNameMatches(pattern));
         }
 
         public static bool IsNestedIn(this IType type, IType assignableToType)
@@ -228,34 +278,75 @@ namespace ArchUnitNET.Domain.Extensions
             );
         }
 
+        [Obsolete(
+            "Either ResidesInNamespace() without the useRegularExpressions parameter or ResidesInNamespaceMatching() should be used"
+        )]
         public static bool ResidesInNamespace(
             this IType e,
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             return e.Namespace.FullNameMatches(pattern, useRegularExpressions);
         }
 
+        public static bool ResidesInNamespace(this IType e, string fullName)
+        {
+            return e.Namespace.FullNameEquals(fullName);
+        }
+
+        public static bool ResidesInNamespaceMatching(this IType e, string pattern)
+        {
+            return e.Namespace.FullNameMatches(pattern);
+        }
+
+        [Obsolete(
+            "Either ResidesInAssembly() without the useRegularExpressions parameter or ResidesInAssemblyMatching() should be used"
+        )]
         public static bool ResidesInAssembly(
             this IType e,
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             return e.Assembly.FullNameMatches(pattern, useRegularExpressions);
         }
 
+        public static bool ResidesInAssembly(this IType e, string fullName)
+        {
+            return e.Assembly.FullNameEquals(fullName);
+        }
+
+        public static bool ResidesInAssemblyMatching(this IType e, string pattern)
+        {
+            return e.Assembly.FullNameMatches(pattern);
+        }
+
+        [Obsolete(
+            "Either IsDeclaredAsFieldIn() without the useRegularExpressions parameter or IsDeclaredAsFieldInTypeMatching() should be used"
+        )]
         public static bool IsDeclaredAsFieldIn(
             this IType type,
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             return type.GetFieldTypeDependencies(true)
                 .Any(dependency =>
                     dependency.Target.FullNameMatches(pattern, useRegularExpressions)
                 );
+        }
+
+        public static bool IsDeclaredAsFieldIn(this IType type, string fullName)
+        {
+            return type.GetFieldTypeDependencies(true)
+                .Any(dependency => dependency.Target.FullNameEquals(fullName));
+        }
+
+        public static bool IsDeclaredAsFieldInTypeMatching(this IType type, string pattern)
+        {
+            return type.GetFieldTypeDependencies(true)
+                .Any(dependency => dependency.Target.FullNameMatches(pattern));
         }
 
         public static bool HasDependency(this IType type, ITypeDependency dependency)

@@ -50,6 +50,9 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             };
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static Func<ITypeDependency, bool> FocusOn(
             string pattern,
             bool useRegularExpressions = false
@@ -70,6 +73,9 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return dependency => types.Contains(dependency.Origin);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static Func<ITypeDependency, bool> HasOrigin(
             string pattern,
             bool useRegularExpressions = false
@@ -88,6 +94,9 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return dependency => types.Contains(dependency.Target);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static Func<ITypeDependency, bool> HasTarget(
             string pattern,
             bool useRegularExpressions = false

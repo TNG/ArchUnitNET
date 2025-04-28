@@ -14,6 +14,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     public static class ObjectPredicatesDefinition<T>
         where T : ICanBeAnalyzed
     {
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Are(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> Are(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(
@@ -26,6 +29,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Are(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> Are(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -111,6 +117,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, "are " + objectProvider.Description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> CallAny(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(
@@ -123,6 +132,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> CallAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -207,6 +219,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new EnumerablePredicate<T>(Filter, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> DependOnAny(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(
@@ -219,6 +234,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> DependOnAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -368,6 +386,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimplePredicate<T>(predicate, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> OnlyDependOn(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(
@@ -380,6 +401,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> OnlyDependOn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -525,6 +549,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> HaveAnyAttributes(
             string pattern,
             bool useRegularExpressions = false
@@ -540,6 +567,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> HaveAnyAttributes(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -671,6 +701,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> OnlyHaveAttributes(
             string pattern,
             bool useRegularExpressions = false
@@ -686,6 +719,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> OnlyHaveAttributes(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -841,6 +877,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return HaveAnyAttributesWithArguments(argumentValues);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static IPredicate<T> HaveAttributeWithArguments(
             string attribute,
             object firstArgumentValue,
@@ -884,6 +923,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return HaveAnyAttributesWithNamedArguments(attributeArguments);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static IPredicate<T> HaveAttributeWithNamedArguments(
             string attribute,
             (string, object) firstAttributeArgument,
@@ -971,6 +1013,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static IPredicate<T> HaveAttributeWithArguments(
             [NotNull] string attribute,
             IEnumerable<object> argumentValues
@@ -1254,6 +1299,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static IPredicate<T> HaveAttributeWithNamedArguments(
             [NotNull] string attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -1496,7 +1544,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> HaveName(string pattern, bool useRegularExpressions = false)
+        [Obsolete(
+            "Either HaveName() without the useRegularExpressions parameter or HaveNameMatching() should be used"
+        )]
+        public static IPredicate<T> HaveName(string pattern, bool useRegularExpressions)
         {
             return new SimplePredicate<T>(
                 obj => obj.NameMatches(pattern, useRegularExpressions),
@@ -1504,7 +1555,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static IPredicate<T> HaveFullName(string pattern, bool useRegularExpressions = false)
+        public static IPredicate<T> HaveName(string name)
+        {
+            return new SimplePredicate<T>(
+                obj => obj.NameEquals(name),
+                "have name \"" + name + "\""
+            );
+        }
+
+        public static IPredicate<T> HaveNameMatching(string pattern)
+        {
+            return new SimplePredicate<T>(
+                obj => obj.NameMatches(pattern),
+                "have name matching \"" + pattern + "\""
+            );
+        }
+
+        [Obsolete(
+            "Either HaveFullName() without the useRegularExpressions parameter or HaveFullNameMatching() should be used"
+        )]
+        public static IPredicate<T> HaveFullName(string pattern, bool useRegularExpressions)
         {
             return new SimplePredicate<T>(
                 obj => obj.FullNameMatches(pattern, useRegularExpressions),
@@ -1513,6 +1583,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     + "\""
                     + pattern
                     + "\""
+            );
+        }
+
+        public static IPredicate<T> HaveFullName(string fullName)
+        {
+            return new SimplePredicate<T>(
+                obj => obj.FullNameEquals(fullName),
+                "have full name \"" + fullName + "\""
+            );
+        }
+
+        public static IPredicate<T> HaveFullNameMatching(string pattern)
+        {
+            return new SimplePredicate<T>(
+                obj => obj.FullNameMatches(pattern),
+                "have full name matching \"" + pattern + "\""
             );
         }
 
@@ -1586,7 +1672,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
-
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNot(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> AreNot(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(
@@ -1599,6 +1687,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNot(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> AreNot(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -1683,6 +1774,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, "are not " + objectProvider.Description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> DoNotCallAny(string pattern, bool useRegularExpressions = false)
         {
             return new SimplePredicate<T>(
@@ -1695,6 +1789,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> DoNotCallAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -1784,6 +1881,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new EnumerablePredicate<T>(Filter, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> DoNotDependOnAny(
             string pattern,
             bool useRegularExpressions = false
@@ -1799,6 +1899,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> DoNotDependOnAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -1940,6 +2043,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Filter, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> DoNotHaveAnyAttributes(
             string pattern,
             bool useRegularExpressions = false
@@ -1955,6 +2061,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static IPredicate<T> DoNotHaveAnyAttributes(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -2111,6 +2220,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return DoNotHaveAnyAttributesWithArguments(argumentValues);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static IPredicate<T> DoNotHaveAttributeWithArguments(
             string attribute,
             object firstArgumentValue,
@@ -2154,6 +2266,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return DoNotHaveAnyAttributesWithNamedArguments(attributeArguments);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
             string attribute,
             (string, object) firstAttributeArgument,
@@ -2241,6 +2356,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static IPredicate<T> DoNotHaveAttributeWithArguments(
             [NotNull] string attribute,
             IEnumerable<object> argumentValues
@@ -2526,6 +2644,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
             [NotNull] string attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -2768,10 +2889,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
-        public static IPredicate<T> DoNotHaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        [Obsolete(
+            "Either DoNotHaveName() without the useRegularExpressions parameter or DoNotHaveNameMatching() should be used"
+        )]
+        public static IPredicate<T> DoNotHaveName(string pattern, bool useRegularExpressions)
         {
             return new SimplePredicate<T>(
                 obj => !obj.NameMatches(pattern, useRegularExpressions),
@@ -2783,10 +2904,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static IPredicate<T> DoNotHaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public static IPredicate<T> DoNotHaveName(string name)
+        {
+            return new SimplePredicate<T>(
+                obj => !obj.NameEquals(name),
+                $"do not have name \"{name}\""
+            );
+        }
+
+        public static IPredicate<T> DoNotHaveNameMatching(string pattern)
+        {
+            return new SimplePredicate<T>(
+                obj => !obj.NameMatches(pattern),
+                $"do not have name matching \"{pattern}\""
+            );
+        }
+
+        [Obsolete(
+            "Either DoNotHaveFullName() without the useRegularExpressions parameter or DoNotHaveFullNameMatching() should be used"
+        )]
+        public static IPredicate<T> DoNotHaveFullName(string pattern, bool useRegularExpressions)
         {
             return new SimplePredicate<T>(
                 obj => !obj.FullNameMatches(pattern, useRegularExpressions),
@@ -2795,6 +2932,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     + "\""
                     + pattern
                     + "\""
+            );
+        }
+
+        public static IPredicate<T> DoNotHaveFullName(string fullName)
+        {
+            return new SimplePredicate<T>(
+                obj => !obj.FullNameEquals(fullName),
+                "do not have full name \"" + fullName + "\""
+            );
+        }
+
+        public static IPredicate<T> DoNotHaveFullNameMatching(string pattern)
+        {
+            return new SimplePredicate<T>(
+                obj => !obj.FullNameMatches(pattern),
+                "do not have full name matching \"" + pattern + "\""
             );
         }
 

@@ -29,6 +29,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreAssignableTo(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction AreAssignableTo(
             string pattern,
             bool useRegularExpressions = false
@@ -40,6 +43,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreAssignableTo(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction AreAssignableTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -137,6 +143,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction ImplementInterface(
             string pattern,
             bool useRegularExpressions = false
@@ -163,9 +172,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
+        )]
         public TGivenRuleTypeConjunction ResideInNamespace(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             _ruleCreator.AddPredicate(
@@ -177,17 +189,52 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction ResideInNamespace(string fullName)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ResideInNamespace(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction ResideInNamespaceMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ResideInNamespace(pattern)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         /// <summary>Matches the types that reside in the assembly.</summary>
         /// <param name="pattern">Name of the assembly to match.</param>
         /// <param name="useRegularExpressions">Indicates if pattern shall be considered a regular expression.</param>
         /// <remarks>In case of not using regular expression pattern has to be Assembly Full Name.</remarks>
+        [Obsolete(
+            "Either ResideInAssembly() without the useRegularExpressions parameter or ResideInAssemblyMatching() should be used"
+        )]
         public TGivenRuleTypeConjunction ResideInAssembly(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             _ruleCreator.AddPredicate(
                 TypePredicatesDefinition<TRuleType>.ResideInAssembly(pattern, useRegularExpressions)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction ResideInAssembly(string fullName)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ResideInAssembly(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction ResideInAssemblyMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.ResideInAssemblyMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
@@ -267,6 +314,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotAssignableTo(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction AreNotAssignableTo(
             string pattern,
             bool useRegularExpressions = false
@@ -281,6 +331,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotAssignableTo(Types().That().HaveFullName()) instead"
+        )]
         public TGivenRuleTypeConjunction AreNotAssignableTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -356,6 +409,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public TGivenRuleTypeConjunction DoNotImplementInterface(
             string pattern,
             bool useRegularExpressions = false
@@ -386,9 +442,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        [Obsolete(
+            "Either DoNotResideInNamespace() without the useRegularExpressions parameter or DoNotResideInNamespaceMatching() should be used"
+        )]
         public TGivenRuleTypeConjunction DoNotResideInNamespace(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             _ruleCreator.AddPredicate(
@@ -400,9 +459,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
 
+        public TGivenRuleTypeConjunction DoNotResideInNamespace(string fullName)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotResideInNamespace(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotResideInNamespaceMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotResideInNamespaceMatching(pattern)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Either DoNotResideInAssembly() without the useRegularExpressions parameter or DoNotResideInAssemblyMatching() should be used"
+        )]
         public TGivenRuleTypeConjunction DoNotResideInAssembly(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             _ruleCreator.AddPredicate(
@@ -410,6 +488,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     pattern,
                     useRegularExpressions
                 )
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotResideInAssembly(string fullName)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotResideInAssembly(fullName)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        public TGivenRuleTypeConjunction DoNotResideInAssemblyMatching(string pattern)
+        {
+            _ruleCreator.AddPredicate(
+                TypePredicatesDefinition<TRuleType>.DoNotResideInAssemblyMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }

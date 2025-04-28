@@ -29,7 +29,7 @@ namespace ExampleTest
 
         private readonly IObjectProvider<Class> ExampleClasses = Classes()
             .That()
-            .ImplementInterface("IExampleInterface")
+            .ImplementInterface(typeof(IExampleInterface))
             .As("Example Classes");
 
         private readonly IObjectProvider<IType> ForbiddenLayer = Types()
@@ -155,3 +155,5 @@ namespace ExampleTest
 internal class ExampleClass { }
 
 internal class ForbiddenClass { }
+
+internal interface IExampleInterface { }

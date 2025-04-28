@@ -84,6 +84,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use BeAssignableTo(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> BeAssignableTo(
             string pattern,
             bool useRegularExpressions = false
@@ -108,6 +111,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use BeAssignableTo(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> BeAssignableTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -529,6 +535,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> ImplementInterface(
             string pattern,
             bool useRegularExpressions = false
@@ -617,9 +626,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        [Obsolete(
+            "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
+        )]
         public static ICondition<TRuleType> ResideInNamespace(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             return new SimpleCondition<TRuleType>(
@@ -633,9 +645,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        public static ICondition<TRuleType> ResideInNamespace(string fullName)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInNamespace(fullName),
+                obj => "does reside in " + obj.Namespace.FullName,
+                "reside in namespace with full name \"" + fullName + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> ResideInNamespaceMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInNamespace(pattern),
+                obj => "does reside in " + obj.Namespace.FullName,
+                "reside in namespace with full name matching \"" + pattern + "\""
+            );
+        }
+
+        [Obsolete(
+            "Either ResideInAssembly() without the useRegularExpressions parameter or ResideInAssemblyMatching() should be used"
+        )]
         public static ICondition<TRuleType> ResideInAssembly(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             return new SimpleCondition<TRuleType>(
@@ -646,6 +679,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     + "\""
                     + pattern
                     + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> ResideInAssembly(string fullName)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInAssembly(fullName),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "reside in assembly with full name \"" + fullName + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> ResideInAssemblyMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInAssemblyMatching(pattern),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "reside in assembly with full name matching \"" + pattern + "\""
             );
         }
 
@@ -750,9 +801,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 {
                     if (
                         classDiagramAssociation.Contains(dependency)
-                        && !allAllowedTargets.Any(pattern =>
-                            dependency.FullNameMatches(pattern, true)
-                        )
+                        && !allAllowedTargets.Any(pattern => dependency.FullNameMatches(pattern))
                     )
                     {
                         dynamicFailDescription += pass
@@ -890,6 +939,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeAssignableTo(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotBeAssignableTo(
             string pattern,
             bool useRegularExpressions = false
@@ -920,6 +972,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeAssignableTo(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotBeAssignableTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -1209,6 +1264,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> NotImplementInterface(
             string pattern,
             bool useRegularExpressions = false
@@ -1293,9 +1351,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        [Obsolete(
+            "Either NotResideInNamespace() without the useRegularExpressions parameter or NotResideInNamespaceMatching() should be used"
+        )]
         public static ICondition<TRuleType> NotResideInNamespace(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             return new SimpleCondition<TRuleType>(
@@ -1309,9 +1370,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        public static ICondition<TRuleType> NotResideInNamespace(string fullName)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInNamespace(fullName),
+                obj => "does reside in " + obj.Namespace.FullName,
+                "not reside in namespace with full name \"" + fullName + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotResideInNamespaceMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInNamespaceMatching(pattern),
+                obj => "does reside in " + obj.Namespace.FullName,
+                "not reside in namespace with full name matching \"" + pattern + "\""
+            );
+        }
+
+        [Obsolete(
+            "Either NotResideInAssembly() without the useRegularExpressions parameter or NotResideInAssemblyMatching() should be used"
+        )]
         public static ICondition<TRuleType> NotResideInAssembly(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             return new SimpleCondition<TRuleType>(
@@ -1322,6 +1404,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     + "\""
                     + pattern
                     + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotResideInAssembly(string fullName)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInAssembly(fullName),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "not reside in assembly with full name \"" + fullName + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotResideInAssemblyMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInAssemblyMatching(pattern),
+                obj => "does reside in " + obj.Assembly.FullName,
+                "not reside in assembly with full name matching \"" + pattern + "\""
             );
         }
 

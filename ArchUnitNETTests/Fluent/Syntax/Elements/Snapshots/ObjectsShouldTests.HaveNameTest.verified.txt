@@ -1,12 +1,12 @@
 ﻿===== No violations =====
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "BaseClass"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have name "BaseClass"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name matching "^Base.*$"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have name matching "^Base.*$"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
@@ -50,20 +50,20 @@ All Evaluations passed
 
 ===== Violations =====
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have name "TypeDependencyNamespace.BaseClass"
 Result: False
 Description: TypeDependencyNamespace.BaseClass does have name BaseClass
 Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should have full name "TypeDependencyNamespace.BaseClass"" failed:
+"Types that are "TypeDependencyNamespace.BaseClass" should have name "TypeDependencyNamespace.BaseClass"" failed:
 	TypeDependencyNamespace.BaseClass does have name BaseClass
 
 
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "^.*\.Base.*$"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have name "^.*\.Base.*$"
 Result: False
 Description: TypeDependencyNamespace.BaseClass does have name BaseClass
 Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should have full name "^.*\.Base.*$"" failed:
+"Types that are "TypeDependencyNamespace.BaseClass" should have name "^.*\.Base.*$"" failed:
 	TypeDependencyNamespace.BaseClass does have name BaseClass
 
 

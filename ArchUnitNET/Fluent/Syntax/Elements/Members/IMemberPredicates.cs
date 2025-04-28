@@ -8,7 +8,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         : IObjectPredicates<TRuleTypeConjunction, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         TRuleTypeConjunction AreDeclaredIn(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         TRuleTypeConjunction AreDeclaredIn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -24,7 +31,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         //Negations
 
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         TRuleTypeConjunction AreNotDeclaredIn(string pattern, bool useRegularExpressions = false);
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         TRuleTypeConjunction AreNotDeclaredIn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false

@@ -23,6 +23,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new SimplePredicate<MethodMember>(member => member.IsVirtual, "are virtual");
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> AreCalledBy(
             string pattern,
             bool useRegularExpressions = false
@@ -38,6 +41,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> AreCalledBy(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -184,6 +190,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitecturePredicate<MethodMember>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(
             string pattern,
             bool useRegularExpressions = false
@@ -199,6 +208,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -365,6 +377,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitecturePredicate<MethodMember>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> HaveReturnType(
             string pattern,
             bool useRegularExpressions = false
@@ -380,6 +395,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> HaveReturnType(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -420,7 +438,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             return new SimplePredicate<MethodMember>(
-                member => typeList.Any(type => member.ReturnType.FullNameMatches(type.FullName)),
+                member => typeList.Any(type => member.ReturnType.FullNameEquals(type.FullName)),
                 description
             );
         }
@@ -435,7 +453,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var typeList = types.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
                 return methodMemberList.Where(methodMember =>
-                    typeList.Any(type => methodMember.ReturnType.FullNameMatches(type.FullName))
+                    typeList.Any(type => methodMember.ReturnType.FullNameEquals(type.FullName))
                 );
             }
 
@@ -485,6 +503,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> AreNotCalledBy(
             string pattern,
             bool useRegularExpressions = false
@@ -500,6 +521,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> AreNotCalledBy(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -649,6 +673,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitecturePredicate<MethodMember>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
             string pattern,
             bool useRegularExpressions = false
@@ -664,6 +691,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -836,6 +866,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitecturePredicate<MethodMember>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> DoNotHaveReturnType(
             string pattern,
             bool useRegularExpressions = false
@@ -851,6 +884,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public static IPredicate<MethodMember> DoNotHaveReturnType(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -891,7 +927,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 "do not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             return new SimplePredicate<MethodMember>(
-                member => typeList.Any(type => !member.ReturnType.FullNameMatches(type.FullName)),
+                member => typeList.Any(type => !member.ReturnType.FullNameEquals(type.FullName)),
                 description
             );
         }
@@ -906,7 +942,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 var typeList = types.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
                 return methodMemberList.Where(methodMember =>
-                    typeList.All(type => !methodMember.ReturnType.FullNameMatches(type.FullName))
+                    typeList.All(type => !methodMember.ReturnType.FullNameEquals(type.FullName))
                 );
             }
 

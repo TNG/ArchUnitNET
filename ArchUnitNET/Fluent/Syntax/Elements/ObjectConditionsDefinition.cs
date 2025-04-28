@@ -19,6 +19,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ExistsCondition<TRuleType>(true);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Be(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> Be(string pattern, bool useRegularExpressions = false)
         {
             return new SimpleCondition<TRuleType>(
@@ -36,6 +39,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use Be(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> Be(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -173,6 +179,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> CallAny(
             string pattern,
             bool useRegularExpressions = false
@@ -193,6 +202,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> CallAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -342,6 +354,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> DependOnAny(
             string pattern,
             bool useRegularExpressions = false
@@ -362,6 +377,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> DependOnAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -606,6 +624,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(condition, description, failDescription);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> OnlyDependOn(
             string pattern,
             bool useRegularExpressions = false
@@ -639,6 +660,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> OnlyDependOn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -869,6 +893,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> HaveAnyAttributes(
             string pattern,
             bool useRegularExpressions = false
@@ -889,6 +916,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> HaveAnyAttributes(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -1101,6 +1131,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> OnlyHaveAttributes(
             string pattern,
             bool useRegularExpressions = false
@@ -1121,6 +1154,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> OnlyHaveAttributes(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -1363,6 +1399,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return HaveAnyAttributesWithArguments(argumentValues);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> HaveAttributeWithArguments(
             string attribute,
             object firstArgumentValue,
@@ -1406,6 +1445,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return HaveAnyAttributesWithNamedArguments(attributeArguments);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
             string attribute,
             (string, object) firstAttributeArgument,
@@ -1517,6 +1559,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> HaveAttributeWithArguments(
             [NotNull] string attribute,
             IEnumerable<object> argumentValues
@@ -1862,6 +1907,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
             [NotNull] string attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -2146,10 +2194,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ICondition<TRuleType> HaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        [Obsolete(
+            "Either HaveName() without the useRegularExpressions parameter or HaveNameMatching() should be used"
+        )]
+        public static ICondition<TRuleType> HaveName(string pattern, bool useRegularExpressions)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameMatches(pattern, useRegularExpressions),
@@ -2162,10 +2210,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveFullName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        public static ICondition<TRuleType> HaveName(string name)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.NameEquals(name),
+                obj => "does have name " + obj.Name,
+                $"have name \"{name}\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.NameMatches(pattern),
+                obj => "does have name " + obj.Name,
+                $"have name matching \"{pattern}\""
+            );
+        }
+
+        [Obsolete(
+            "Either HaveFullName() without the useRegularExpressions parameter or HaveFullNameMatching() should be used"
+        )]
+        public static ICondition<TRuleType> HaveFullName(string pattern, bool useRegularExpressions)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullNameMatches(pattern, useRegularExpressions),
@@ -2175,6 +2241,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     + "\""
                     + pattern
                     + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveFullName(string name)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameEquals(name),
+                obj => "does have full name " + obj.FullName,
+                "have full name \"" + name + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveFullNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameMatches(pattern),
+                obj => "does have full name " + obj.FullName,
+                "have full name matching \"" + pattern + "\""
             );
         }
 
@@ -2315,6 +2399,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ExistsCondition<TRuleType>(false);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBe(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotBe(
             string pattern,
             bool useRegularExpressions = false
@@ -2331,6 +2418,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBe(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotBe(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -2452,6 +2542,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotCallAny(
             string pattern,
             bool useRegularExpressions = false
@@ -2485,6 +2578,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotCallAny(MethodMembers().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotCallAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -2636,6 +2732,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotDependOnAny(
             string pattern,
             bool useRegularExpressions = false
@@ -2669,6 +2768,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotDependOnAny(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotDependOnAny(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -2897,6 +2999,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> NotHaveAnyAttributes(
             string pattern,
             bool useRegularExpressions = false
@@ -2917,6 +3022,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> NotHaveAnyAttributes(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -3160,6 +3268,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return NotHaveAnyAttributesWithArguments(argumentValues);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> NotHaveAttributeWithArguments(
             string attribute,
             object firstArgumentValue,
@@ -3203,6 +3314,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return NotHaveAnyAttributesWithNamedArguments(attributeArguments);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
             string attribute,
             (string, object) firstAttributeArgument,
@@ -3314,6 +3428,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> NotHaveAttributeWithArguments(
             [NotNull] string attribute,
             IEnumerable<object> argumentValues
@@ -3661,6 +3778,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update."
+        )]
         public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
             [NotNull] string attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -3945,10 +4065,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
-        public static ICondition<TRuleType> NotHaveName(
-            string pattern,
-            bool useRegularExpressions = false
-        )
+        [Obsolete(
+            "Either NotHaveName() without the useRegularExpressions parameter or NotHaveNameMatching() should be used"
+        )]
+        public static ICondition<TRuleType> NotHaveName(string pattern, bool useRegularExpressions)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.NameMatches(pattern, useRegularExpressions),
@@ -3961,9 +4081,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        public static ICondition<TRuleType> NotHaveName(string name)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.NameEquals(name),
+                obj => "does have name " + obj.Name,
+                $"not have name \"{name}\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.NameMatches(pattern),
+                obj => "does have name " + obj.Name,
+                $"not have name matching \"{pattern}\""
+            );
+        }
+
+        [Obsolete(
+            "Either NotHaveFullName() without the useRegularExpressions parameter or NotHaveFullNameMatching() should be used"
+        )]
         public static ICondition<TRuleType> NotHaveFullName(
             string pattern,
-            bool useRegularExpressions = false
+            bool useRegularExpressions
         )
         {
             return new SimpleCondition<TRuleType>(
@@ -3974,6 +4115,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     + "\""
                     + pattern
                     + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveFullName(string fullName)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.FullNameEquals(fullName),
+                obj => "does have full name " + obj.FullName,
+                "not have full name \"" + fullName + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveFullNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.FullNameMatches(pattern),
+                obj => "does have full name " + obj.FullName,
+                "not have full name matching \"" + pattern + "\""
             );
         }
 

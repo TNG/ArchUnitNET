@@ -23,6 +23,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction AreCalledBy(
             string pattern,
             bool useRegularExpressions = false
@@ -34,6 +37,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction AreCalledBy(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -79,6 +85,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction HaveDependencyInMethodBodyTo(
             string pattern,
             bool useRegularExpressions = false
@@ -93,6 +102,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction HaveDependencyInMethodBodyTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -155,6 +167,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction HaveReturnType(
             string pattern,
             bool useRegularExpressions = false
@@ -166,6 +181,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use HaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction HaveReturnType(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -229,6 +247,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction AreNotCalledBy(
             string pattern,
             bool useRegularExpressions = false
@@ -240,6 +261,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotCalledBy(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction AreNotCalledBy(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -288,6 +312,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction DoNotHaveDependencyInMethodBodyTo(
             string pattern,
             bool useRegularExpressions = false
@@ -302,6 +329,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction DoNotHaveDependencyInMethodBodyTo(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -371,6 +401,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction DoNotHaveReturnType(
             string pattern,
             bool useRegularExpressions = false
@@ -382,6 +415,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new GivenMethodMembersConjunction(_ruleCreator);
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveReturnType(Types().That().HaveFullName()) instead"
+        )]
         public GivenMethodMembersConjunction DoNotHaveReturnType(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false

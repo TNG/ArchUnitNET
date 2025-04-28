@@ -11,6 +11,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
     public static class MemberConditionsDefinition<TRuleType>
         where TRuleType : IMember
     {
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use BeDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> BeDeclaredIn(
             string pattern,
             bool useRegularExpressions = false
@@ -27,6 +30,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use BeDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> BeDeclaredIn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -253,7 +259,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Negations
 
-
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotBeDeclaredIn(
             string pattern,
             bool useRegularExpressions = false
@@ -270,6 +278,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             );
         }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
         public static ICondition<TRuleType> NotBeDeclaredIn(
             IEnumerable<string> patterns,
             bool useRegularExpressions = false
@@ -486,7 +497,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         }
 
         //Relation Condition Negations
-
 
         public static RelationCondition<TRuleType, IType> NotBeDeclaredInTypesThat()
         {
