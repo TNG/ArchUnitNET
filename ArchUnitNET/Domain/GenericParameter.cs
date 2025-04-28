@@ -8,24 +8,22 @@ namespace ArchUnitNET.Domain
 {
     public class GenericParameter : IType
     {
+        private readonly string _declarerFullName;
         internal readonly IEnumerable<ITypeInstance<IType>> TypeInstanceConstraints;
 
         public GenericParameter(
-            ITypeInstance<IType> declaringTypeInstance,
-            [CanBeNull] MethodMemberInstance declaringMethodInstance,
-            string fullName,
+            string declarerFullName,
             string name,
             GenericParameterVariance variance,
             IEnumerable<ITypeInstance<IType>> typeConstraints,
             bool hasReferenceTypeConstraint,
             bool hasNotNullableValueTypeConstraint,
             bool hasDefaultConstructorConstraint,
-            bool isCompilerGenerated
+            bool isCompilerGenerated,
+            bool declarerIsMethod
         )
         {
-            DeclaringTypeInstance = declaringTypeInstance;
-            DeclaringMethodInstance = declaringMethodInstance;
-            FullName = fullName;
+            _declarerFullName = declarerFullName;
             Name = name;
             Variance = variance;
             TypeInstanceConstraints = typeConstraints;
@@ -33,17 +31,14 @@ namespace ArchUnitNET.Domain
             HasNotNullableValueTypeConstraint = hasNotNullableValueTypeConstraint;
             HasDefaultConstructorConstraint = hasDefaultConstructorConstraint;
             IsCompilerGenerated = isCompilerGenerated;
+            DeclarerIsMethod = declarerIsMethod;
         }
 
-        public ITypeInstance<IType> DeclaringTypeInstance { get; }
-        public IType DeclaringType => DeclaringTypeInstance.Type;
+        public IType DeclaringType { get; private set; }
 
         [CanBeNull]
-        public MethodMemberInstance DeclaringMethodInstance { get; }
-
-        [CanBeNull]
-        public IMember DeclaringMethod => DeclaringMethodInstance?.Member;
-        public bool DeclarerIsMethod => DeclaringMethodInstance != null;
+        public IMember DeclaringMethod { get; private set; }
+        public bool DeclarerIsMethod { get; }
         public GenericParameterVariance Variance { get; }
         public IEnumerable<IType> TypeConstraints =>
             TypeInstanceConstraints.Select(instance => instance.Type);
@@ -58,7 +53,7 @@ namespace ArchUnitNET.Domain
             || TypeConstraints.Any();
 
         public string Name { get; }
-        public string FullName { get; }
+        public string FullName => _declarerFullName + "+<" + Name + ">";
         public string AssemblyQualifiedName =>
             System.Reflection.Assembly.CreateQualifiedName(
                 DeclaringType.Assembly.FullName,
@@ -82,6 +77,27 @@ namespace ArchUnitNET.Domain
 
         public bool IsNested => true;
         public bool IsStub => true;
+
+        internal void AssignDeclarer(IMember declaringMethod)
+        {
+            if (!declaringMethod.FullName.Equals(_declarerFullName))
+            {
+                throw new InvalidOperationException("Full name of declaring member doesn't match.");
+            }
+
+            DeclaringType = declaringMethod.DeclaringType;
+            DeclaringMethod = declaringMethod;
+        }
+
+        internal void AssignDeclarer(IType declaringType)
+        {
+            if (!declaringType.FullName.Equals(_declarerFullName))
+            {
+                throw new InvalidOperationException("Full name of declaring type doesn't match.");
+            }
+
+            DeclaringType = declaringType;
+        }
 
         public bool Equals(GenericParameter other)
         {
