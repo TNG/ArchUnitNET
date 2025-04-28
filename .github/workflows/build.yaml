@@ -25,7 +25,7 @@ jobs:
       - name: Install tools
         run: dotnet tool restore
       - name: Check formatting
-        run: dotnet csharpier --check .
+        run: dotnet csharpier check .
   coverage:
     name: Check code coverage
     runs-on: ubuntu-latest
