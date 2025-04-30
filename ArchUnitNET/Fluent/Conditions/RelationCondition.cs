@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Conditions
@@ -8,10 +9,10 @@ namespace ArchUnitNET.Fluent.Conditions
         where TRuleType : ICanBeAnalyzed
         where TRelatedType : ICanBeAnalyzed
     {
-        private readonly Func<IEnumerable<TRelatedType>, ICondition<TRuleType>> _relation;
+        private readonly Func<IObjectProvider<TRelatedType>, ICondition<TRuleType>> _relation;
 
         public RelationCondition(
-            Func<IEnumerable<TRelatedType>, ICondition<TRuleType>> relation,
+            Func<IObjectProvider<TRelatedType>, ICondition<TRuleType>> relation,
             string description,
             string failDescription
         )
@@ -25,9 +26,9 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public string Description { get; }
 
-        public ICondition<TRuleType> GetCondition(IEnumerable<TRelatedType> objectProvider)
+        public ICondition<TRuleType> GetCondition(IEnumerable<TRelatedType> objects)
         {
-            return _relation(objectProvider);
+            return _relation(new ListObjectProvider<TRelatedType>(objects.ToList()));
         }
 
         private bool Equals(RelationCondition<TRuleType, TRelatedType> other)

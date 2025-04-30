@@ -90,66 +90,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> Be(
-            ICanBeAnalyzed firstObject,
-            params ICanBeAnalyzed[] moreObjects
-        )
-        {
-            var objects = new List<ICanBeAnalyzed> { firstObject };
-            objects.AddRange(moreObjects);
-            return Be(objects);
-        }
-
-        public static ICondition<TRuleType> Be(IEnumerable<ICanBeAnalyzed> objects)
-        {
-            var objectList = objects.ToList();
-
-            string description;
-            string failDescription;
-            if (objectList.IsNullOrEmpty())
-            {
-                description = "not exist";
-                failDescription = "does exist";
-            }
-            else
-            {
-                var firstObject = objectList.First();
-                description = objectList
-                    .Where(obj => !obj.Equals(firstObject))
-                    .Distinct()
-                    .Aggregate(
-                        "be \"" + firstObject.FullName + "\"",
-                        (current, obj) => current + " or \"" + obj.FullName + "\""
-                    );
-                failDescription = objectList
-                    .Where(obj => !obj.Equals(firstObject))
-                    .Distinct()
-                    .Aggregate(
-                        "is not \"" + firstObject.FullName + "\"",
-                        (current, obj) => current + " or \"" + obj.FullName + "\""
-                    );
-            }
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var typeList = ruleTypes.ToList();
-                var passedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
-                foreach (var failedObject in typeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description);
-        }
-
         public static ICondition<TRuleType> Be(IObjectProvider<ICanBeAnalyzed> objectProvider)
         {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<ICanBeAnalyzed>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
                 Architecture architecture
@@ -163,7 +106,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     yield return new ConditionResult(
                         failedObject,
                         false,
-                        "is not " + objectProvider.Description
+                        (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                            ? "does exist"
+                            : "is not " + objectProvider.Description
                     );
                 }
 
@@ -175,7 +120,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitectureCondition<TRuleType>(
                 Condition,
-                "be " + objectProvider.Description
+                (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                    ? "not exist"
+                    : "be " + objectProvider.Description
             );
         }
 
@@ -256,16 +203,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ICondition<TRuleType> CallAny(
-            MethodMember method,
-            params MethodMember[] moreMethods
-        )
-        {
-            var methods = new List<MethodMember> { method };
-            methods.AddRange(moreMethods);
-            return CallAny(methods);
-        }
-
         public static ICondition<TRuleType> CallAny(IObjectProvider<MethodMember> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
@@ -292,66 +229,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
                     yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
-
                 foreach (var passedObject in passedObjects)
                 {
                     yield return new ConditionResult(passedObject, true);
                 }
             }
 
-            var description = "call any " + objectProvider.Description;
+            var description =
+                (objectProvider as ISizedObjectProvider<MethodMember>)?.Count == 0
+                    ? "call any of no methods (impossible)"
+                    : "call any " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> CallAny(IEnumerable<MethodMember> methods)
-        {
-            var methodList = methods.ToList();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var typeList = ruleTypes.ToList();
-                var passedObjects = typeList
-                    .Where(type => type.GetCalledMethods().Intersect(methodList).Any())
-                    .ToList();
-                foreach (var failedObject in typeList.Except(passedObjects))
-                {
-                    var dynamicFailDescription = "does call";
-                    var first = true;
-                    foreach (var method in failedObject.GetCalledMethods().Except(methodList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + method.FullName
-                            : " and " + method.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (methodList.IsNullOrEmpty())
-            {
-                description = "call one of no methods (impossible)";
-            }
-            else
-            {
-                var firstMethod = methodList.First();
-                description = methodList
-                    .Where(method => !method.Equals(firstMethod))
-                    .Distinct()
-                    .Aggregate(
-                        "call \"" + firstMethod.FullName + "\"",
-                        (current, method) => current + " or \"" + method.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         [Obsolete(
@@ -435,20 +323,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        public static ICondition<TRuleType> DependOnAny(IType firstType, params IType[] moreTypes)
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return DependOnAny(types);
-        }
-
-        public static ICondition<TRuleType> DependOnAny(Type firstType, params Type[] moreTypes)
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return DependOnAny(types);
-        }
-
         public static ICondition<TRuleType> DependOnAny(IObjectProvider<IType> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
@@ -482,128 +356,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description = "depend on any " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> DependOnAny(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type => type.GetTypeDependencies().Intersect(typeList).Any())
-                    .ToList();
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "depend on one of no types (impossible)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "depend on \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> DependOnAny(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type => type.GetTypeDependencies().Intersect(archUnitTypeList).Any())
-                    .ToList();
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (
-                        var type in failedObject.GetTypeDependencies().Except(archUnitTypeList)
-                    )
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "depend on one of no types (impossible)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "depend on \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
+            var description =
+                (objectProvider as ISizedObjectProvider<IType>)?.Count == 0
+                    ? "depend on any of no types (impossible)"
+                    : "depend on any " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -716,20 +472,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> OnlyDependOn(IType firstType, params IType[] moreTypes)
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return OnlyDependOn(types);
-        }
-
-        public static ICondition<TRuleType> OnlyDependOn(Type firstType, params Type[] moreTypes)
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return OnlyDependOn(types);
-        }
-
         public static ICondition<TRuleType> OnlyDependOn(IObjectProvider<IType> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
@@ -763,133 +505,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description = "only depend on " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> OnlyDependOn(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.GetTypeDependencies(architecture).Except(typeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "have no dependencies";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "only depend on \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> OnlyDependOn(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type =>
-                        type.GetTypeDependencies(architecture).Except(archUnitTypeList).Any()
-                    )
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (
-                        var type in failedObject.GetTypeDependencies().Except(archUnitTypeList)
-                    )
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "have no dependencies";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "only depend on \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
+            var description =
+                (objectProvider as ISizedObjectProvider<IType>)?.Count == 0
+                    ? "have no dependencies"
+                    : "only depend on " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -973,29 +592,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public static ICondition<TRuleType> HaveAnyAttributes(
-            Attribute firstAttribute,
-            params Attribute[] moreAttributes
-        )
-        {
-            var attributes = new List<Attribute> { firstAttribute };
-            attributes.AddRange(moreAttributes);
-            return HaveAnyAttributes(attributes);
-        }
-
-        public static ICondition<TRuleType> HaveAnyAttributes(
-            Type firstAttribute,
-            params Type[] moreAttributes
-        )
-        {
-            var attributes = new List<Type> { firstAttribute };
-            attributes.AddRange(moreAttributes);
-            return HaveAnyAttributes(attributes);
-        }
-
-        public static ICondition<TRuleType> HaveAnyAttributes(
             IObjectProvider<Attribute> objectProvider
         )
         {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<Attribute>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
                 Architecture architecture
@@ -1011,7 +611,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     yield return new ConditionResult(
                         failedObject,
                         false,
-                        "does not have any " + objectProvider.Description
+                        (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                            ? "does not have any of no attributes (always true)"
+                            : "does not have any " + objectProvider.Description
                     );
                 }
 
@@ -1021,113 +623,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description = "have any " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> HaveAnyAttributes(IEnumerable<Attribute> attributes)
-        {
-            var attributeList = attributes.ToList();
-
-            string description;
-            string failDescription;
-            if (attributeList.IsNullOrEmpty())
-            {
-                description = "have one of no attributes (impossible)";
-                failDescription = "does not have one of no attributes (always true)";
-            }
-            else
-            {
-                var firstAttribute = attributeList.First();
-                description = attributeList
-                    .Where(attribute => !attribute.Equals(firstAttribute))
-                    .Distinct()
-                    .Aggregate(
-                        "have attribute \"" + firstAttribute.FullName + "\"",
-                        (current, attribute) => current + " or \"" + attribute.FullName + "\""
-                    );
-                failDescription = attributeList
-                    .Where(attribute => !attribute.Equals(firstAttribute))
-                    .Distinct()
-                    .Aggregate(
-                        "does not have attribute \"" + firstAttribute.FullName + "\"",
-                        (current, attribute) => current + " or \"" + attribute.FullName + "\""
-                    );
-            }
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type => type.Attributes.Intersect(attributeList).Any())
-                    .ToList();
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> HaveAnyAttributes(IEnumerable<Type> attributes)
-        {
-            var attributeList = attributes.ToList();
-
-            string description;
-            string failDescription;
-            if (attributeList.IsNullOrEmpty())
-            {
-                description = "have one of no attributes (impossible)";
-                failDescription = "does not have one of no attributes (always true)";
-            }
-            else
-            {
-                var firstAttribute = attributeList.First();
-                description = attributeList
-                    .Where(attribute => attribute != firstAttribute)
-                    .Distinct()
-                    .Aggregate(
-                        "have attribute \"" + firstAttribute.FullName + "\"",
-                        (current, attribute) => current + " or \"" + attribute.FullName + "\""
-                    );
-                failDescription = attributeList
-                    .Where(attribute => attribute != firstAttribute)
-                    .Distinct()
-                    .Aggregate(
-                        "does not have attribute \"" + firstAttribute.FullName + "\"",
-                        (current, attribute) => current + " or \"" + attribute.FullName + "\""
-                    );
-            }
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archAttributeList = attributeList
-                    .Select(architecture.GetAttributeOfType)
-                    .ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type => type.Attributes.Intersect(archAttributeList).Any())
-                    .ToList();
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
+            var description =
+                (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                    ? "have one of no attributes (impossible)"
+                    : "have any " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -1212,26 +711,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public static ICondition<TRuleType> OnlyHaveAttributes(
-            Attribute firstAttribute,
-            params Attribute[] moreAttributes
-        )
-        {
-            var attributes = new List<Attribute> { firstAttribute };
-            attributes.AddRange(moreAttributes);
-            return OnlyHaveAttributes(attributes);
-        }
-
-        public static ICondition<TRuleType> OnlyHaveAttributes(
-            Type firstAttribute,
-            params Type[] moreAttributes
-        )
-        {
-            var attributes = new List<Type> { firstAttribute };
-            attributes.AddRange(moreAttributes);
-            return OnlyHaveAttributes(attributes);
-        }
-
-        public static ICondition<TRuleType> OnlyHaveAttributes(
             IObjectProvider<Attribute> objectProvider
         )
         {
@@ -1266,126 +745,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description = "does only have " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> OnlyHaveAttributes(IEnumerable<Attribute> attributes)
-        {
-            var attributeList = attributes.ToList();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.Attributes.Except(attributeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var dynamicFailDescription = "does have attribute";
-                    var first = true;
-                    foreach (var attribute in failedObject.Attributes.Except(attributeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + attribute.FullName
-                            : " and " + attribute.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (attributeList.IsNullOrEmpty())
-            {
-                description = "have no attributes";
-            }
-            else
-            {
-                var firstAttribute = attributeList.First();
-                description = attributeList
-                    .Where(attribute => !attribute.Equals(firstAttribute))
-                    .Distinct()
-                    .Aggregate(
-                        "only have attributes \"" + firstAttribute.FullName + "\"",
-                        (current, attribute) => current + " and \"" + attribute.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> OnlyHaveAttributes(IEnumerable<Type> attributes)
-        {
-            var attributeList = attributes.ToList();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitAttributeList = new List<Attribute>();
-                foreach (var type in attributeList)
-                {
-                    try
-                    {
-                        var archUnitAttribute = architecture.GetAttributeOfType(type);
-                        archUnitAttributeList.Add(archUnitAttribute);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.Attributes.Except(archUnitAttributeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var dynamicFailDescription = "does have attribute";
-                    var first = true;
-                    foreach (var attribute in failedObject.Attributes.Except(archUnitAttributeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + attribute.FullName
-                            : " and " + attribute.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (attributeList.IsNullOrEmpty())
-            {
-                description = "have no attributes";
-            }
-            else
-            {
-                var firstAttribute = attributeList.First();
-                description = attributeList
-                    .Where(attribute => attribute != firstAttribute)
-                    .Distinct()
-                    .Aggregate(
-                        "only have attributes \"" + firstAttribute.FullName + "\"",
-                        (current, attribute) => current + " and \"" + attribute.FullName + "\""
-                    );
-            }
-
+            var description =
+                (objectProvider as ISizedObjectProvider<Attribute>)?.Count == 0
+                    ? "have no attributes"
+                    : "does only have " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -2456,59 +1819,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotBe(
-            ICanBeAnalyzed firstObject,
-            params ICanBeAnalyzed[] moreObjects
-        )
-        {
-            var objects = new List<ICanBeAnalyzed> { firstObject };
-            objects.AddRange(moreObjects);
-            return NotBe(objects);
-        }
-
-        public static ICondition<TRuleType> NotBe(IEnumerable<ICanBeAnalyzed> objects)
-        {
-            var objectList = objects.ToList();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var typeList = ruleTypes.ToList();
-                var failedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        "is " + failedObject.FullName
-                    );
-                }
-
-                foreach (var passedObject in typeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (objectList.IsNullOrEmpty())
-            {
-                description = "exist";
-            }
-            else
-            {
-                var firstObject = objectList.First();
-                description = objectList
-                    .Where(obj => !obj.Equals(firstObject))
-                    .Distinct()
-                    .Aggregate(
-                        "not be \"" + firstObject.FullName + "\"",
-                        (current, obj) => current + " or \"" + obj.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description);
-        }
-
         public static ICondition<TRuleType> NotBe(IObjectProvider<ICanBeAnalyzed> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
@@ -2536,7 +1846,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             return new ArchitectureCondition<TRuleType>(
                 Condition,
-                "not be " + objectProvider.Description
+                (objectProvider as ISizedObjectProvider<ICanBeAnalyzed>)?.Count == 0
+                    ? "exist"
+                    : "not be " + objectProvider.Description
             );
         }
 
@@ -2632,16 +1944,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotCallAny(
-            MethodMember method,
-            params MethodMember[] moreMethods
-        )
-        {
-            var methods = new List<MethodMember> { method };
-            methods.AddRange(moreMethods);
-            return NotCallAny(methods);
-        }
-
         public static ICondition<TRuleType> NotCallAny(IObjectProvider<MethodMember> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
@@ -2675,59 +1977,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description = "not call " + objectProvider.Description;
+            var description =
+                (objectProvider as ISizedObjectProvider<MethodMember>)?.Count == 0
+                    ? "not call any of no methods (always true)"
+                    : "not call any " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> NotCallAny(IEnumerable<MethodMember> methods)
-        {
-            var methodList = methods.ToList();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var typeList = ruleTypes.ToList();
-                var failedObjects = typeList
-                    .Where(type => type.GetCalledMethods().Intersect(methodList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var dynamicFailDescription = "does call";
-                    var first = true;
-                    foreach (var method in failedObject.GetCalledMethods().Intersect(methodList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + method.FullName
-                            : " and " + method.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in typeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (methodList.IsNullOrEmpty())
-            {
-                description = "not call no methods (always true)";
-            }
-            else
-            {
-                var firstMethod = methodList.First();
-                description = methodList
-                    .Where(obj => !obj.Equals(firstMethod))
-                    .Distinct()
-                    .Aggregate(
-                        "not call \"" + firstMethod.FullName + "\"",
-                        (current, obj) => current + " or \"" + obj.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description);
         }
 
         [Obsolete(
@@ -2822,23 +2076,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotDependOnAny(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return NotDependOnAny(types);
-        }
-
-        public static ICondition<TRuleType> NotDependOnAny(Type firstType, params Type[] moreTypes)
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return NotDependOnAny(types);
-        }
-
         public static ICondition<TRuleType> NotDependOnAny(IObjectProvider<IType> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
@@ -2872,128 +2109,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description = "not depend on " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> NotDependOnAny(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.GetTypeDependencies().Intersect(typeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Intersect(typeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not depend on no types (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(obj => !obj.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "not depend on \"" + firstType.FullName + "\"",
-                        (current, obj) => current + " or \"" + obj.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> NotDependOnAny(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
-                var failedObjects = ruleTypeList
-                    .Where(type => type.GetTypeDependencies().Intersect(archUnitTypeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (
-                        var type in failedObject.GetTypeDependencies().Intersect(archUnitTypeList)
-                    )
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not depend on no types (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(obj => obj != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "not depend on \"" + firstType.FullName + "\"",
-                        (current, obj) => current + " or \"" + obj.FullName + "\""
-                    );
-            }
-
+            var description =
+                (objectProvider as ISizedObjectProvider<IType>)?.Count == 0
+                    ? "not depend on any of no types (always true)"
+                    : "not depend on any " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -3077,26 +2196,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         }
 
         public static ICondition<TRuleType> NotHaveAnyAttributes(
-            Attribute firstAttribute,
-            params Attribute[] moreAttributes
-        )
-        {
-            var attributes = new List<Attribute> { firstAttribute };
-            attributes.AddRange(moreAttributes);
-            return NotHaveAnyAttributes(attributes);
-        }
-
-        public static ICondition<TRuleType> NotHaveAnyAttributes(
-            Type firstAttribute,
-            params Type[] moreAttributes
-        )
-        {
-            var attributes = new List<Type> { firstAttribute };
-            attributes.AddRange(moreAttributes);
-            return NotHaveAnyAttributes(attributes);
-        }
-
-        public static ICondition<TRuleType> NotHaveAnyAttributes(
             IObjectProvider<Attribute> objectProvider
         )
         {
@@ -3131,128 +2230,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description = "not have any " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> NotHaveAnyAttributes(IEnumerable<Attribute> attributes)
-        {
-            var attributeList = attributes.ToList();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.Attributes.Intersect(attributeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var dynamicFailDescription = "does have attribute";
-                    var first = true;
-                    foreach (var attribute in failedObject.Attributes.Intersect(attributeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + attribute.FullName
-                            : " and " + attribute.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (attributeList.IsNullOrEmpty())
-            {
-                description = "not have one of no attributes (always true)";
-            }
-            else
-            {
-                var firstAttribute = attributeList.First();
-                description = attributeList
-                    .Where(attribute => !attribute.Equals(firstAttribute))
-                    .Distinct()
-                    .Aggregate(
-                        "not have attribute \"" + firstAttribute.FullName + "\"",
-                        (current, attribute) => current + " or \"" + attribute.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> NotHaveAnyAttributes(IEnumerable<Type> attributes)
-        {
-            var attributeList = attributes.ToList();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitAttributeList = new List<Attribute>();
-                foreach (var type in attributeList)
-                {
-                    try
-                    {
-                        var archUnitAttribute = architecture.GetAttributeOfType(type);
-                        archUnitAttributeList.Add(archUnitAttribute);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.Attributes.Intersect(archUnitAttributeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var dynamicFailDescription = "does have attribute";
-                    var first = true;
-                    foreach (
-                        var attribute in failedObject.Attributes.Intersect(archUnitAttributeList)
-                    )
-                    {
-                        dynamicFailDescription += first
-                            ? " " + attribute.FullName
-                            : " and " + attribute.FullName;
-                        first = false;
-                    }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (attributeList.IsNullOrEmpty())
-            {
-                description = "not have one of no attributes (always true)";
-            }
-            else
-            {
-                var firstAttribute = attributeList.First();
-                description = attributeList
-                    .Where(attribute => attribute != firstAttribute)
-                    .Distinct()
-                    .Aggregate(
-                        "not have attribute \"" + firstAttribute.FullName + "\"",
-                        (current, attribute) => current + " or \"" + attribute.FullName + "\""
-                    );
-            }
-
+            var description =
+                (objectProvider as ISizedObjectProvider<Attribute>)?.Count == 0
+                    ? "not have any of no attributes (always true)"
+                    : "not have any " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 

@@ -44,12 +44,12 @@ All Evaluations passed
 
 Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+Description: TypeDependencyNamespace.ChildClass is "TypeDependencyNamespace.ChildClass"
 Result: True
 Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 "Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+	TypeDependencyNamespace.ChildClass is "TypeDependencyNamespace.ChildClass"
 
 
 
@@ -77,12 +77,12 @@ Message:
 
 Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+Description: TypeDependencyNamespace.ChildClass is "TypeDependencyNamespace.ChildClass"
 Result: True
 Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 "Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+	TypeDependencyNamespace.ChildClass is "TypeDependencyNamespace.ChildClass"
 
 
 

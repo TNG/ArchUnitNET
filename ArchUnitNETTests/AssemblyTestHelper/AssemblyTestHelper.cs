@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -27,14 +28,11 @@ public abstract class AssemblyTestHelper
     private string FormatSnapshot(IArchRule rule, IEnumerable<EvaluationResult> results)
     {
         var formatted = new StringBuilder();
-        formatted.Append("Query: ");
-        formatted.AppendLine(rule.Description);
+        formatted.AppendLine("Query: " + rule.Description);
         foreach (var result in results)
         {
-            formatted.Append("Result: ");
-            formatted.AppendLine(result.Passed.ToString());
-            formatted.Append("Description: ");
-            formatted.AppendLine(result.ToString());
+            formatted.AppendLine("Result: " + result.Passed.ToString());
+            formatted.AppendLine("Description: " + result.ToString());
         }
         formatted.AppendLine("Message: ");
         formatted.AppendLine(results.ToErrorMessage());
@@ -77,6 +75,15 @@ public abstract class AssemblyTestHelper
             Assert.Fail(output);
         }
         snapshot.Append(output);
+    }
+
+    public void AssertException<T>(IArchRule rule)
+        where T : Exception
+    {
+        var exception = Assert.Throws<T>(() => rule.Evaluate(Architecture));
+        snapshot.AppendLine("Query: " + rule.Description);
+        snapshot.AppendLine("Exception: " + exception.Message);
+        snapshot.AppendLine();
     }
 
     public Task AssertSnapshotMatches([CallerFilePath] string sourceFile = "")

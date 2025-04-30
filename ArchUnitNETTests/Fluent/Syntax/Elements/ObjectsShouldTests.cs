@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNETTests.AssemblyTestHelper;
@@ -550,7 +551,7 @@ public class ObjectsShouldTests
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
         should
             .DependOnAny(typeof(AttributeNamespace.ClassWithoutAttributes))
-            .AssertOnlyViolations(helper);
+            .AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
@@ -1584,7 +1585,7 @@ public class ObjectsShouldTests
         should = Types().That().Are(helper.ChildClass).Should();
         should
             .NotDependOnAny(typeof(AttributeNamespace.ClassWithoutAttributes))
-            .AssertNoViolations(helper);
+            .AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ChildClass).Should();
@@ -1669,7 +1670,7 @@ public class ObjectsShouldTests
         should = Types().That().Are(helper.ClassWithAttributes).Should();
         should
             .NotHaveAnyAttributes(typeof(TypeDependencyNamespace.BaseClass))
-            .AssertNoViolations(helper);
+            .AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithoutAttributes).Should();
@@ -2370,7 +2371,7 @@ public class ObjectsShouldTests
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
         should
             .OnlyDependOn(typeof(AttributeNamespace.ClassWithoutAttributes))
-            .AssertOnlyViolations(helper);
+            .AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
@@ -2438,7 +2439,7 @@ public class ObjectsShouldTests
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
         should
             .OnlyHaveAttributes(typeof(TypeDependencyNamespace.BaseClass))
-            .AssertOnlyViolations(helper);
+            .AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();

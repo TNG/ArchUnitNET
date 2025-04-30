@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ArchUnitNET.Fluent;
@@ -19,5 +20,11 @@ public static class AssemblyTestHelperExtensions
     public static void AssertOnlyViolations(this IArchRule archRule, AssemblyTestHelper testHelper)
     {
         testHelper.AssertOnlyViolations(archRule);
+    }
+
+    public static void AssertException<T>(this IArchRule archRule, AssemblyTestHelper testHelper)
+        where T : Exception
+    {
+        testHelper.AssertException<T>(archRule);
     }
 }

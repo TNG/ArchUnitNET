@@ -80,13 +80,7 @@ Message:
 ===== Type outside of architecture =====
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
-Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should only depend on "AttributeNamespace.ClassWithoutAttributes"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ===== Empty arguments =====
 

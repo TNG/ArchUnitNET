@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
@@ -56,15 +58,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params ICanBeAnalyzed[] moreObjects
         )
         {
+            var objectList = new List<ICanBeAnalyzed> { firstObject };
+            objectList.AddRange(moreObjects);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.Be(firstObject, moreObjects)
+                ObjectConditionsDefinition<TRuleType>.Be(
+                    new ListObjectProvider<ICanBeAnalyzed>(objectList)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction Be(IEnumerable<ICanBeAnalyzed> objects)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.Be(objects));
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.Be(
+                    new ListObjectProvider<ICanBeAnalyzed>(objects.ToList())
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -107,15 +117,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params MethodMember[] moreMethods
         )
         {
+            var methodList = new List<MethodMember> { method };
+            methodList.AddRange(moreMethods);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.CallAny(method, moreMethods)
+                ObjectConditionsDefinition<TRuleType>.CallAny(
+                    new ListObjectProvider<MethodMember>(methodList)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction CallAny(IEnumerable<MethodMember> methods)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.CallAny(methods));
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.CallAny(
+                    new ListObjectProvider<MethodMember>(methods.ToList())
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -155,16 +173,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction DependOnAny(IType firstType, params IType[] moreTypes)
         {
+            var typeList = new List<IType> { firstType };
+            typeList.AddRange(moreTypes);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.DependOnAny(firstType, moreTypes)
+                ObjectConditionsDefinition<TRuleType>.DependOnAny(
+                    new ListObjectProvider<IType>(typeList)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DependOnAny(Type firstType, params Type[] moreTypes)
         {
+            var typeList = new List<Type> { firstType };
+            typeList.AddRange(moreTypes);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.DependOnAny(firstType, moreTypes)
+                ObjectConditionsDefinition<TRuleType>.DependOnAny(
+                    new SystemTypeListObjectProvider<IType>(typeList)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -177,13 +203,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction DependOnAny(IEnumerable<IType> types)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.DependOnAny(types));
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.DependOnAny(
+                    new ListObjectProvider<IType>(types.ToList())
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction DependOnAny(IEnumerable<Type> types)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.DependOnAny(types));
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.DependOnAny(
+                    new SystemTypeListObjectProvider<IType>(types.ToList())
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -250,16 +284,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction OnlyDependOn(IType firstType, params IType[] moreTypes)
         {
+            var typeList = new List<IType> { firstType };
+            typeList.AddRange(moreTypes);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes)
+                ObjectConditionsDefinition<TRuleType>.OnlyDependOn(
+                    new ListObjectProvider<IType>(typeList)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction OnlyDependOn(Type firstType, params Type[] moreTypes)
         {
+            var typeList = new List<Type> { firstType };
+            typeList.AddRange(moreTypes);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.OnlyDependOn(firstType, moreTypes)
+                ObjectConditionsDefinition<TRuleType>.OnlyDependOn(
+                    new SystemTypeListObjectProvider<IType>(typeList)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -272,13 +314,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<IType> types)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.OnlyDependOn(types));
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.OnlyDependOn(
+                    new ListObjectProvider<IType>(types.ToList())
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction OnlyDependOn(IEnumerable<Type> types)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.OnlyDependOn(types));
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.OnlyDependOn(
+                    new SystemTypeListObjectProvider<IType>(types.ToList())
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -321,10 +371,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params Attribute[] moreAttributes
         )
         {
+            var attributeList = new List<Attribute> { firstAttribute };
+            attributeList.AddRange(moreAttributes);
             _ruleCreator.AddCondition(
                 ObjectConditionsDefinition<TRuleType>.HaveAnyAttributes(
-                    firstAttribute,
-                    moreAttributes
+                    new ListObjectProvider<Attribute>(attributeList)
                 )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -335,10 +386,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params Type[] moreAttributes
         )
         {
+            var attributeList = new List<Type> { firstAttribute };
+            attributeList.AddRange(moreAttributes);
             _ruleCreator.AddCondition(
                 ObjectConditionsDefinition<TRuleType>.HaveAnyAttributes(
-                    firstAttribute,
-                    moreAttributes
+                    new SystemTypeListObjectProvider<Attribute>(attributeList)
                 )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -355,7 +407,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction HaveAnyAttributes(IEnumerable<Attribute> attributes)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveAnyAttributes(attributes)
+                ObjectConditionsDefinition<TRuleType>.HaveAnyAttributes(
+                    new ListObjectProvider<Attribute>(attributes.ToList())
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -363,7 +417,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction HaveAnyAttributes(IEnumerable<Type> attributes)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.HaveAnyAttributes(attributes)
+                ObjectConditionsDefinition<TRuleType>.HaveAnyAttributes(
+                    new SystemTypeListObjectProvider<Attribute>(attributes.ToList())
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -407,10 +463,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params Attribute[] moreAttributes
         )
         {
+            var attributeList = new List<Attribute> { firstAttribute };
+            attributeList.AddRange(moreAttributes);
             _ruleCreator.AddCondition(
                 ObjectConditionsDefinition<TRuleType>.OnlyHaveAttributes(
-                    firstAttribute,
-                    moreAttributes
+                    new ListObjectProvider<Attribute>(attributeList)
                 )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -421,10 +478,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params Type[] moreAttributes
         )
         {
+            var attributeList = new List<Type> { firstAttribute };
+            attributeList.AddRange(moreAttributes);
             _ruleCreator.AddCondition(
                 ObjectConditionsDefinition<TRuleType>.OnlyHaveAttributes(
-                    firstAttribute,
-                    moreAttributes
+                    new SystemTypeListObjectProvider<Attribute>(attributeList)
                 )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -441,7 +499,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction OnlyHaveAttributes(IEnumerable<Attribute> attributes)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.OnlyHaveAttributes(attributes)
+                ObjectConditionsDefinition<TRuleType>.OnlyHaveAttributes(
+                    new ListObjectProvider<Attribute>(attributes.ToList())
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -449,7 +509,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction OnlyHaveAttributes(IEnumerable<Type> attributes)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.OnlyHaveAttributes(attributes)
+                ObjectConditionsDefinition<TRuleType>.OnlyHaveAttributes(
+                    new SystemTypeListObjectProvider<Attribute>(attributes.ToList())
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -913,15 +975,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params ICanBeAnalyzed[] moreObjects
         )
         {
+            var objectList = new List<ICanBeAnalyzed> { firstObject };
+            objectList.AddRange(moreObjects);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotBe(firstObject, moreObjects)
+                ObjectConditionsDefinition<TRuleType>.NotBe(
+                    new ListObjectProvider<ICanBeAnalyzed>(objectList)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotBe(IEnumerable<ICanBeAnalyzed> objects)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotBe(objects));
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotBe(
+                    new ListObjectProvider<ICanBeAnalyzed>(objects.ToList())
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -964,15 +1034,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params MethodMember[] moreMethods
         )
         {
+            var methods = new List<MethodMember> { method };
+            methods.AddRange(moreMethods);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotCallAny(method, moreMethods)
+                ObjectConditionsDefinition<TRuleType>.NotCallAny(
+                    new ListObjectProvider<MethodMember>(methods)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotCallAny(IEnumerable<MethodMember> methods)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotCallAny(methods));
+            var methodList = methods.ToList();
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotCallAny(
+                    new ListObjectProvider<MethodMember>(methodList)
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -1015,16 +1094,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction NotDependOnAny(IType firstType, params IType[] moreTypes)
         {
+            var typeList = new List<IType> { firstType };
+            typeList.AddRange(moreTypes);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotDependOnAny(firstType, moreTypes)
+                ObjectConditionsDefinition<TRuleType>.NotDependOnAny(
+                    new ListObjectProvider<IType>(typeList)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotDependOnAny(Type firstType, params Type[] moreTypes)
         {
+            var typeList = new List<Type> { firstType };
+            typeList.AddRange(moreTypes);
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotDependOnAny(firstType, moreTypes)
+                ObjectConditionsDefinition<TRuleType>.NotDependOnAny(
+                    new SystemTypeListObjectProvider<IType>(typeList)
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -1037,13 +1124,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         public TRuleTypeShouldConjunction NotDependOnAny(IEnumerable<IType> types)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotDependOnAny(types));
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotDependOnAny(
+                    new ListObjectProvider<IType>(types.ToList())
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
         public TRuleTypeShouldConjunction NotDependOnAny(IEnumerable<Type> types)
         {
-            _ruleCreator.AddCondition(ObjectConditionsDefinition<TRuleType>.NotDependOnAny(types));
+            _ruleCreator.AddCondition(
+                ObjectConditionsDefinition<TRuleType>.NotDependOnAny(
+                    new SystemTypeListObjectProvider<IType>(types.ToList())
+                )
+            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -1086,10 +1181,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params Attribute[] moreAttributes
         )
         {
+            var attributeList = new List<Attribute> { firstAttribute };
+            attributeList.AddRange(moreAttributes);
             _ruleCreator.AddCondition(
                 ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributes(
-                    firstAttribute,
-                    moreAttributes
+                    new ListObjectProvider<Attribute>(attributeList)
                 )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -1100,10 +1196,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             params Type[] moreAttributes
         )
         {
+            var attributeList = new List<Type> { firstAttribute };
+            attributeList.AddRange(moreAttributes);
             _ruleCreator.AddCondition(
                 ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributes(
-                    firstAttribute,
-                    moreAttributes
+                    new SystemTypeListObjectProvider<Attribute>(attributeList)
                 )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
@@ -1122,7 +1219,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotHaveAnyAttributes(IEnumerable<Attribute> attributes)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributes(attributes)
+                ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributes(
+                    new ListObjectProvider<Attribute>(attributes.ToList())
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -1130,7 +1229,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotHaveAnyAttributes(IEnumerable<Type> attributes)
         {
             _ruleCreator.AddCondition(
-                ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributes(attributes)
+                ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributes(
+                    new SystemTypeListObjectProvider<Attribute>(attributes.ToList())
+                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
