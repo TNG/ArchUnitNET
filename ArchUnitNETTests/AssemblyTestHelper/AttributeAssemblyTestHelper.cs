@@ -77,6 +77,9 @@ public class AttributeAssemblyTestHelpers : AssemblyTestHelper
 
     public Attribute Attribute2;
     public System.Type Attribute2SystemType = typeof(Attribute2);
+    
+    public Attribute OnceUsedAttribute;
+    public System.Type OnceUsedAttributeSystemType = typeof(OnceUsedAttribute);
 
     public Attribute UnusedAttribute;
     public System.Type UnusedAttributeSystemType = typeof(UnusedAttribute);
@@ -94,6 +97,10 @@ public class AttributeAssemblyTestHelpers : AssemblyTestHelper
     public System.Type OtherClassWithSingleAttributeSystemType =
         typeof(OtherClassWithSingleAttribute);
 
+    public Class ClassWithSingleUniquelyUsedAttribute;
+    public System.Type ClassWithSingleUniquelyUsedAttributeSystemType =
+        typeof(ClassWithSingleUniquelyUsedAttribute);
+    
     public Class ClassWithAttributes;
     public System.Type ClassWithAttributesSystemType = typeof(ClassWithAttributes);
 
@@ -110,6 +117,7 @@ public class AttributeAssemblyTestHelpers : AssemblyTestHelper
     {
         Attribute1 = Architecture.GetAttributeOfType(typeof(Attribute1));
         Attribute2 = Architecture.GetAttributeOfType(typeof(Attribute2));
+        OnceUsedAttribute = Architecture.GetAttributeOfType(typeof(OnceUsedAttribute));
         UnusedAttribute = Architecture.GetAttributeOfType(typeof(UnusedAttribute));
         ClassWithoutAttributes = Architecture.GetClassOfType(typeof(ClassWithoutAttributes));
         OtherClassWithoutAttributes = Architecture.GetClassOfType(
@@ -118,6 +126,9 @@ public class AttributeAssemblyTestHelpers : AssemblyTestHelper
         ClassWithSingleAttribute = Architecture.GetClassOfType(typeof(ClassWithSingleAttribute));
         OtherClassWithSingleAttribute = Architecture.GetClassOfType(
             typeof(OtherClassWithSingleAttribute)
+        );
+        ClassWithSingleUniquelyUsedAttribute = Architecture.GetClassOfType(
+            typeof(ClassWithSingleUniquelyUsedAttribute)
         );
         ClassWithAttributes = Architecture.GetClassOfType(typeof(ClassWithAttributes));
         OtherClassWithAttributes = Architecture.GetClassOfType(typeof(OtherClassWithAttributes));

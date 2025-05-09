@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Syntax.Elements;
@@ -125,7 +127,9 @@ public class GivenObjectsThatTests
         predicates =
         [
             Types().That().DependOnAny(helper.BaseClass),
+            Types().That().DependOnAny(helper.BaseClassSystemType),
             Types().That().DependOnAny([helper.BaseClass]),
+            Types().That().DependOnAny([helper.BaseClassSystemType]),
             Types().That().DependOnAny(Types().That().Are(helper.BaseClass)),
         ];
         predicates.ForEach(types =>
@@ -138,7 +142,7 @@ public class GivenObjectsThatTests
         );
 
         helper.AddSnapshotHeader("Empty arguments");
-        predicates = [Types().That().DependOnAny(new List<IType> { })];
+        predicates = [Types().That().DependOnAny(new List<IType> { }), Types().That().DependOnAny(new List<Type> {})];
         predicates.ForEach(types =>
             types
                 .Should()
@@ -151,7 +155,10 @@ public class GivenObjectsThatTests
         predicates =
         [
             Types().That().DependOnAny(helper.BaseClass, helper.OtherBaseClass),
+            Types().That().DependOnAny(helper.BaseClassSystemType, helper.OtherBaseClassSystemType),
             Types().That().DependOnAny([helper.BaseClass, helper.OtherBaseClass]),
+            Types().That().DependOnAny([helper.BaseClassSystemType, helper.OtherBaseClassSystemType]),
+            Types().That().DependOnAny(Types().That().Are(helper.BaseClass, helper.OtherBaseClass))
         ];
         predicates.ForEach(types =>
             types
@@ -176,7 +183,9 @@ public class GivenObjectsThatTests
         predicates =
         [
             Types().That().DependOnAny(helper.BaseClass).And().OnlyDependOn(helper.BaseClass),
+            Types().That().DependOnAny(helper.BaseClass).And().OnlyDependOn(helper.BaseClassSystemType),
             Types().That().DependOnAny(helper.BaseClass).And().OnlyDependOn([helper.BaseClass]),
+            Types().That().DependOnAny(helper.BaseClass).And().OnlyDependOn(helper.BaseClassSystemType),
             Types()
                 .That()
                 .DependOnAny(helper.BaseClass)
@@ -193,34 +202,128 @@ public class GivenObjectsThatTests
         );
 
         helper.AddSnapshotHeader("Empty arguments");
-        predicates = [Types().That().OnlyDependOn(new List<IType> { })];
+        predicates =
+        [
+            Types()
+                .That()
+                .OnlyDependOn(new List<IType> { })
+                .And()
+                .Are(helper.BaseClass),
+            Types()
+                .That()
+                .OnlyDependOn(new List<Type> { })
+                .And()
+                .Are(helper.BaseClass)
+        ];
+        predicates.ForEach(types =>
+            types.Should()
+                .Be(helper.BaseClass)
+                .AssertNoViolations(helper));
+
+        helper.AddSnapshotHeader("Multiple arguments");
+        predicates =
+        [
+            Types()
+                .That()
+                .OnlyDependOn(helper.BaseClassWithMember, helper.OtherBaseClass)
+                .And()
+                .Are(
+                    helper.BaseClass,
+                    helper.ChildClassWithMember,
+                    helper.ClassWithMultipleDependencies
+                ),
+            Types()
+                .That()
+                .OnlyDependOn(helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType)
+                .And()
+                .Are(
+                    helper.BaseClass,
+                    helper.ChildClassWithMember,
+                    helper.ClassWithMultipleDependencies
+                ),
+            Types()
+                .That()
+                .OnlyDependOn([helper.BaseClassWithMember, helper.OtherBaseClass])
+                .And()
+                .Are(
+                    helper.BaseClass,
+                    helper.ChildClassWithMember,
+                    helper.ClassWithMultipleDependencies
+                ),
+            Types()
+                .That()
+                .OnlyDependOn([helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType])
+                .And()
+                .Are(
+                    helper.BaseClass,
+                    helper.ChildClassWithMember,
+                    helper.ClassWithMultipleDependencies
+                ),
+            Types()
+                .That()
+                .OnlyDependOn(Types().That().Are(helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType))
+                .And()
+                .Are(
+                    helper.BaseClass,
+                    helper.ChildClassWithMember,
+                    helper.ClassWithMultipleDependencies
+                ),
+        ];
         predicates.ForEach(types =>
             types
                 .Should()
                 .Be(
                     helper.BaseClass,
-                    helper.BaseClassWithMember,
-                    helper.BaseClassWithMultipleDependencies,
-                    helper.OtherBaseClass,
-                    helper.GenericBaseClass,
-                    helper.ClassWithoutDependencies,
-                    helper.OtherClassWithoutDependencies
+                    helper.ChildClassWithMember,
+                    helper.ClassWithMultipleDependencies
                 )
                 .AssertNoViolations(helper)
-        );
-
-        helper.AddSnapshotHeader("Multiple arguments");
-        predicates =
-        [
-            Types().That().OnlyDependOn(helper.BaseClassWithMember, helper.OtherBaseClass),
-            Types().That().OnlyDependOn([helper.BaseClassWithMember, helper.OtherBaseClass]),
-        ];
-        predicates.ForEach(types =>
-            types.Should().Be(helper.ClassWithMultipleDependencies).AssertNoViolations(helper)
         );
         predicates.ForEach(types =>
             types.Should().Be(helper.ChildClass1).AssertOnlyViolations(helper)
         );
+        predicates =
+        [
+            Types().That().OnlyDependOn(helper.BaseClassWithMember, helper.OtherBaseClass),
+            Types().That().OnlyDependOn(helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType),
+            Types().That().OnlyDependOn([helper.BaseClassWithMember, helper.OtherBaseClass]),
+            Types().That().OnlyDependOn([helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType]),
+            Types().That().OnlyDependOn(Types().That().Are(helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType)),
+        ];
+        predicates.ForEach(types =>
+            types
+                .Should()
+                .NotBe(helper.ChildClass, helper.OtherChildClass)
+                .AssertNoViolations(helper)
+        );
+
+        await helper.AssertSnapshotMatches();
+    }
+
+    // TODO
+    // [Fact]
+    // public async Task FollowCustomPredicateTest()
+    // {
+    //     
+    // }
+    
+    [Fact]
+    public async Task HaveAnyAttributesTest()
+    {
+        var helper = new AttributeAssemblyTestHelpers();
+        var predicates = new List<GivenTypesConjunction> { };
+        
+        helper.AddSnapshotHeader("No violations");
+        predicates =
+        [
+            Types().That().HaveAnyAttributes(helper.OnceUsedAttribute),
+            Types().That().HaveAnyAttributes(helper.OnceUsedAttributeSystemType),
+            Types().That().HaveAnyAttributes([helper.OnceUsedAttribute]),
+            Types().That().HaveAnyAttributes([helper.OnceUsedAttributeSystemType]),
+            Types().That().HaveAnyAttributes(Attributes().That().Are(helper.OnceUsedAttribute))
+        ];
+        predicates.ForEach(types =>
+            types.Should().Be(helper.ClassWithSingleUniquelyUsedAttribute));
 
         await helper.AssertSnapshotMatches();
     }

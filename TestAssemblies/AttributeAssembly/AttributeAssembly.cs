@@ -39,6 +39,19 @@ public class Attribute2 : System.Attribute
 }
 
 [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
+public class OnceUsedAttribute : System.Attribute
+{
+    public OnceUsedAttribute(string parameter1 = "", int parameter2 = -1, System.Type? parameter3 = null)
+    { }
+
+    public System.Type? NamedParameter1 { get; set; }
+
+    public string NamedParameter2 { get; set; } = "";
+
+    public int NamedParameter3 { get; set; }
+}
+
+[System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
 public class UnusedAttribute : System.Attribute
 {
     public UnusedAttribute(
@@ -63,6 +76,9 @@ public class ClassWithSingleAttribute { }
 
 [Attribute1]
 public class OtherClassWithSingleAttribute { }
+
+[OnceUsed]
+public class ClassWithSingleUniquelyUsedAttribute { }
 
 [Attribute1]
 [Attribute2]
