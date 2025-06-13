@@ -234,46 +234,46 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Result: True
-Description: AttributeNamespace.ClassWithAttributes passed
+Description: AttributeNamespace.ClassWithTwoAttributes passed
 Result: False
 Description: AttributeNamespace.ClassWithArguments not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
 	AttributeNamespace.ClassWithArguments not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Result: True
-Description: AttributeNamespace.ClassWithAttributes passed
+Description: AttributeNamespace.ClassWithTwoAttributes passed
 Result: False
 Description: AttributeNamespace.ClassWithArguments not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
 	AttributeNamespace.ClassWithArguments not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Result: True
-Description: AttributeNamespace.ClassWithAttributes passed
+Description: AttributeNamespace.ClassWithTwoAttributes passed
 Result: False
 Description: AttributeNamespace.ClassWithArguments not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
 	AttributeNamespace.ClassWithArguments not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Result: True
-Description: AttributeNamespace.ClassWithAttributes passed
+Description: AttributeNamespace.ClassWithTwoAttributes passed
 Result: False
 Description: AttributeNamespace.ClassWithArguments not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should does have attribute "AttributeNamespace.Attribute1" with arguments "Argument"" failed:
 	AttributeNamespace.ClassWithArguments not have attribute "AttributeNamespace.Attribute1" with arguments "Argument"
 
 

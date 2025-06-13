@@ -13,6 +13,7 @@ using ArchUnitNETTests.AssemblyTestHelper;
 using Mono.Cecil.Cil;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
+using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements;
 
@@ -324,7 +325,60 @@ public class GivenObjectsThatTests
         ];
         predicates.ForEach(types =>
             types.Should().Be(helper.ClassWithSingleUniquelyUsedAttribute));
-
+        
+        helper.AddSnapshotHeader("Empty arguments");
+        predicates = [
+            Types().That().HaveAnyAttributes(Attributes().That().HaveName(helper.NonExistentObjectName)),
+            Types().That().HaveAnyAttributes(new List<Attribute> { }),
+            Types().That().HaveAnyAttributes(new List<Type> { })
+        ];
+        predicates.ForEach(types =>
+            types
+                .Should()
+                .Be(new List<IType> { })
+                .WithoutRequiringPositiveResults()
+                .AssertNoViolations(helper)
+        );
+        
+        helper.AddSnapshotHeader("Multiple arguments");
+        predicates =
+        [
+            Types().That().HaveAnyAttributes(helper.Attribute1, helper.Attribute2),
+            Types().That().HaveAnyAttributes(helper.Attribute1SystemType, helper.Attribute2SystemType),
+            Types().That().HaveAnyAttributes([helper.Attribute1, helper.Attribute2]),
+            Types().That().HaveAnyAttributes([helper.Attribute1SystemType, helper.Attribute2SystemType]),
+            Types().That().HaveAnyAttributes(Attributes().That().Are(helper.Attribute1, helper.Attribute2))
+        ];
+        predicates.ForEach(types =>
+            types.And().Are(helper.ClassWithoutAttributes, helper.ClassWithSingleAttribute, helper.ClassWithTwoAttributes, helper.ClassWithThreeAttributes)
+                .Should()
+                .Be(helper.ClassWithSingleAttribute,  helper.ClassWithTwoAttributes, helper.ClassWithThreeAttributes)
+                .AssertNoViolations(helper)
+        );
+        predicates.ForEach(types =>
+            types.Should().Be(helper.ClassWithoutAttributes).AssertOnlyViolations(helper)
+        );
+        
         await helper.AssertSnapshotMatches();
     }
+
+    // [Fact]
+    // public async Task OnlyHaveAttributesTest()
+    // {
+    //     var helper = new AttributeAssemblyTestHelpers();
+    //     var predicates = new List<GivenTypesConjunction> { };
+    //     
+    //     helper.AddSnapshotHeader("No violations");
+    //     predicates =
+    //     [
+    //         Types().That().OnlyHaveAttributes(helper.OnceUsedAttribute),
+    //         Types().That().OnlyHaveAttributes(helper.OnceUsedAttributeSystemType),
+    //         Types().That().OnlyHaveAttributes([helper.OnceUsedAttribute]),
+    //         Types().That().OnlyHaveAttributes([helper.OnceUsedAttributeSystemType]),
+    //         Types().That().OnlyHaveAttributes(Attributes().That().Are(helper.OnceUsedAttribute))
+    //     ];
+    //     predicates.ForEach(types =>
+    //         types.Should().Be(helper.ClassWithSingleUniquelyUsedAttribute));
+    // }
+
 }

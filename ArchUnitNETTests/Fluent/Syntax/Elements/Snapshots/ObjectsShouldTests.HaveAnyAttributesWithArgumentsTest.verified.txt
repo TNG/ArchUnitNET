@@ -85,9 +85,9 @@ Description: AttributeNamespace.ClassWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have no or any attributes with arguments (always true)
+Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should have no or any attributes with arguments (always true)
 Result: True
-Description: AttributeNamespace.ClassWithAttributes passed
+Description: AttributeNamespace.ClassWithTwoAttributes passed
 Message: 
 All Evaluations passed
 
@@ -121,14 +121,14 @@ Description: AttributeNamespace.OtherClassWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have any attributes with arguments "0"
+Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should have any attributes with arguments "0"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does have attributes with argument values "" and "" and "-1" and "" and "" and "" and "-1"
+Description: AttributeNamespace.ClassWithTwoAttributes does have attributes with argument values "" and "" and "-1" and "" and "" and "" and "-1"
 Result: True
 Description: AttributeNamespace.ClassWithArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have any attributes with arguments "0"" failed:
-	AttributeNamespace.ClassWithAttributes does have attributes with argument values "" and "" and "-1" and "" and "" and "" and "-1"
+"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithTwoAttributes" should have any attributes with arguments "0"" failed:
+	AttributeNamespace.ClassWithTwoAttributes does have attributes with argument values "" and "" and "-1" and "" and "" and "" and "-1"
 
 
 

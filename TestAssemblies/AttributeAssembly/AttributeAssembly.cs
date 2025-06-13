@@ -39,6 +39,19 @@ public class Attribute2 : System.Attribute
 }
 
 [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
+public class Attribute3 : System.Attribute
+{
+    public Attribute3(System.Type? parameter1 = null, string parameter2 = "", int parameter3 = -1)
+    { }
+
+    public string OtherNamedParameter1 { get; set; } = "";
+
+    public int OtherNamedParameter2 { get; set; }
+
+    public System.Type? OtherNamedParameter3 { get; set; }
+}
+
+[System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct)]
 public class OnceUsedAttribute : System.Attribute
 {
     public OnceUsedAttribute(string parameter1 = "", int parameter2 = -1, System.Type? parameter3 = null)
@@ -69,24 +82,17 @@ public class UnusedAttribute : System.Attribute
 
 public class ClassWithoutAttributes { }
 
-public class OtherClassWithoutAttributes { }
-
 [Attribute1]
 public class ClassWithSingleAttribute { }
 
 [Attribute1]
-public class OtherClassWithSingleAttribute { }
-
-[OnceUsed]
-public class ClassWithSingleUniquelyUsedAttribute { }
+[Attribute2]
+public class ClassWithTwoAttributes { }
 
 [Attribute1]
 [Attribute2]
-public class ClassWithAttributes { }
-
-[Attribute1]
-[Attribute2]
-public class OtherClassWithAttributes { }
+[Attribute3]
+public class ClassWithThreeAttributes { }
 
 [Attribute1(
     "Argument",
@@ -123,3 +129,7 @@ public class ClassWithArguments { }
     OtherNamedParameter3 = typeof(OtherNamedTypeArgument)
 )]
 public class OtherClassWithArguments { }
+
+[OnceUsed]
+public class ClassWithSingleUniquelyUsedAttribute { }
+
