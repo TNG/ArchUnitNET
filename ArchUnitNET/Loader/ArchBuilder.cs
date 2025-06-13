@@ -47,7 +47,7 @@ namespace ArchUnitNET.Loader
             if (!_assemblyRegistry.ContainsAssembly(moduleAssembly.Name.FullName))
             {
                 var assembly = _assemblyRegistry.GetOrCreateAssembly(
-                    moduleAssembly.Name.FullName,
+                    moduleAssembly.Name.Name,
                     moduleAssembly.FullName,
                     isOnlyReferenced,
                     references
