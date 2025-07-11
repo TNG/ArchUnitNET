@@ -19,77 +19,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ExistsCondition<TRuleType>(true);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use Be(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> Be(string pattern, bool useRegularExpressions = false)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.FullNameMatches(pattern, useRegularExpressions),
-                "have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "does not have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use Be(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> Be(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "not exist";
-                failDescription = "does exist";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "have full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "does not have full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(
-                obj =>
-                    patternList.Any(pattern => obj.FullNameMatches(pattern, useRegularExpressions)),
-                description,
-                failDescription
-            );
-        }
-
         public static ICondition<TRuleType> Be(IObjectProvider<ICanBeAnalyzed> objectProvider)
         {
             var sizedObjectProvider = objectProvider as ISizedObjectProvider<ICanBeAnalyzed>;
@@ -124,83 +53,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     ? "not exist"
                     : "be " + objectProvider.Description
             );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> CallAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.CallsMethod(pattern, useRegularExpressions),
-                "calls any method with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "does not call any method with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use CallAny(MethodMembers().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> CallAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(TRuleType ruleType)
-            {
-                return patternList.Any(pattern =>
-                    ruleType.CallsMethod(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "call one of no methods (impossible)";
-                failDescription = "does not call one of no methods (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "calls any method with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "does not call any methods with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> CallAny(IObjectProvider<MethodMember> objectProvider)
@@ -240,87 +92,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     ? "call any of no methods (impossible)"
                     : "call any " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> DependOnAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.DependsOn(pattern, useRegularExpressions),
-                "depend on any types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "does not depend on any type with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use DependOnAny(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> DependOnAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-            bool Condition(TRuleType ruleType, Architecture architecture)
-            {
-                return !ruleType.GetTypeDependencies(architecture).IsNullOrEmpty()
-                    && ruleType
-                        .GetTypeDependencies(architecture)
-                        .Any(target =>
-                            patternList.Any(pattern =>
-                                target.FullNameMatches(pattern, useRegularExpressions)
-                            )
-                        );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "depend on one of no types (impossible)";
-                failDescription = "does not depend on no types (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "depend on any types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "does not depend any types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> DependOnAny(IObjectProvider<IType> objectProvider)
@@ -380,98 +151,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(condition, description, failDescription);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> OnlyDependOn(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
-                {
-                    if (!dependency.FullNameMatches(pattern, useRegularExpressions))
-                    {
-                        dynamicFailDescription += pass
-                            ? " " + dependency.FullName
-                            : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            return new SimpleCondition<TRuleType>(
-                Condition,
-                "only depend on types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyDependOn(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> OnlyDependOn(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
-                {
-                    if (
-                        !patternList.Any(pattern =>
-                            dependency.FullNameMatches(pattern, useRegularExpressions)
-                        )
-                    )
-                    {
-                        dynamicFailDescription += pass
-                            ? " " + dependency.FullName
-                            : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "have no dependencies";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "only depend on types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description);
-        }
-
         public static ICondition<TRuleType> OnlyDependOn(IObjectProvider<IType> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
@@ -512,85 +191,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> HaveAnyAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.HasAttribute(pattern, useRegularExpressions),
-                "have any attribute with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "does not have any attribute with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use HaveAnyAttributes(Attributes().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> HaveAnyAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(TRuleType ruleType)
-            {
-                return ruleType.Attributes.Any(attribute =>
-                    patternList.Any(pattern =>
-                        attribute.FullNameMatches(pattern, useRegularExpressions)
-                    )
-                );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "have one of no attributes (impossible)";
-                failDescription = "does not have one of no attributes (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "have any attribute with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "does not have any attribute with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
-        }
-
         public static ICondition<TRuleType> HaveAnyAttributes(
             IObjectProvider<Attribute> objectProvider
         )
@@ -628,86 +228,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     ? "have one of no attributes (impossible)"
                     : "have any " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> OnlyHaveAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.OnlyHasAttributes(pattern, useRegularExpressions),
-                "only have attributes with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "does not only have attributes with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use OnlyHaveAttributes(Attributes().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> OnlyHaveAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(TRuleType ruleType)
-            {
-                return ruleType.Attributes.IsNullOrEmpty()
-                    || ruleType.Attributes.All(attribute =>
-                        patternList.Any(pattern =>
-                            attribute.FullNameMatches(pattern, useRegularExpressions)
-                        )
-                    );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "have no attributes";
-                failDescription = "does have attributes";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "only have attributes with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " and \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "does not only have attributes with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> OnlyHaveAttributes(
@@ -762,20 +282,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return HaveAnyAttributesWithArguments(argumentValues);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> HaveAttributeWithArguments(
-            string attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            var argumentValues = new List<object> { firstArgumentValue };
-            argumentValues.AddRange(moreArgumentValues);
-            return HaveAttributeWithArguments(attribute, argumentValues);
-        }
-
         public static ICondition<TRuleType> HaveAttributeWithArguments(
             Attribute attribute,
             object firstArgumentValue,
@@ -806,20 +312,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return HaveAnyAttributesWithNamedArguments(attributeArguments);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
-            string attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
-            attributeArguments.AddRange(moreAttributeArguments);
-            return HaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
         public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
@@ -920,90 +412,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> HaveAttributeWithArguments(
-            [NotNull] string attribute,
-            IEnumerable<object> argumentValues
-        )
-        {
-            string description,
-                failDescription;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
-            if (argumentValueList.IsNullOrEmpty())
-            {
-                description = "have attribute \"" + attribute + "\"";
-                failDescription = "does not have attribute \"" + attribute + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentValueList.First();
-                description = argumentValueList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "have attribute \""
-                            + attribute
-                            + "\" with arguments \""
-                            + firstArgument
-                            + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-                failDescription = argumentValueList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "does not have attribute \""
-                            + attribute
-                            + "\" with arguments \""
-                            + firstArgument
-                            + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-            }
-
-            bool Condition(TRuleType obj, Architecture architecture)
-            {
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.FullNameMatches(attribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArguments = attributeInstance
-                        .AttributeArguments.Select(arg => arg.Value)
-                        .ToList();
-                    var typeAttributeArguments = attributeArguments
-                        .OfType<ITypeInstance<IType>>()
-                        .Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>())
-                        .ToList();
-                    foreach (var arg in argumentValueList)
-                    {
-                        if (arg is Type argType)
-                        {
-                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArguments.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return true;
-                    NextAttribute:
-                    ;
-                }
-
-                return false;
-            }
-
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> HaveAttributeWithArguments(
@@ -1270,100 +678,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
-            [NotNull] string attribute,
-            IEnumerable<(string, object)> attributeArguments
-        )
-        {
-            string description,
-                failDescription;
-            var argumentList = attributeArguments.ToList();
-            if (argumentList.IsNullOrEmpty())
-            {
-                description = "have attribute \"" + attribute + "\"";
-                failDescription = "does not have attribute \"" + attribute + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentList.First();
-                description = argumentList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "have attribute \""
-                            + attribute
-                            + "\" with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-                failDescription = argumentList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "does not have attribute \""
-                            + attribute
-                            + "\" with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-            }
-
-            bool Condition(TRuleType obj, Architecture architecture)
-            {
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.FullNameMatches(attribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArgs = attributeInstance
-                        .AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value))
-                        .ToList();
-                    var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
-                        .ToList();
-                    foreach (var arg in argumentList)
-                    {
-                        if (arg.Item2 is Type argType)
-                        {
-                            if (
-                                typeAttributeArguments.All(t =>
-                                    t.Name != arg.Item1
-                                    || t.Value is ITypeInstance<IType> typeInstance
-                                        && typeInstance.Type.FullName != argType.FullName
-                                    || t.Value is IType type && type.FullName != argType.FullName
-                                )
-                            )
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArgs.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return true;
-                    NextAttribute:
-                    ;
-                }
-
-                return false;
-            }
-
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
-        }
-
         public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
             [NotNull] Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -1557,22 +871,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        [Obsolete(
-            "Either HaveName() without the useRegularExpressions parameter or HaveNameMatching() should be used"
-        )]
-        public static ICondition<TRuleType> HaveName(string pattern, bool useRegularExpressions)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.NameMatches(pattern, useRegularExpressions),
-                obj => "does have name " + obj.Name,
-                "have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
         public static ICondition<TRuleType> HaveName(string name)
         {
             return new SimpleCondition<TRuleType>(
@@ -1588,22 +886,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 obj => obj.NameMatches(pattern),
                 obj => "does have name " + obj.Name,
                 $"have name matching \"{pattern}\""
-            );
-        }
-
-        [Obsolete(
-            "Either HaveFullName() without the useRegularExpressions parameter or HaveFullNameMatching() should be used"
-        )]
-        public static ICondition<TRuleType> HaveFullName(string pattern, bool useRegularExpressions)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.FullNameMatches(pattern, useRegularExpressions),
-                obj => "does have full name " + obj.FullName,
-                "have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
             );
         }
 
@@ -1760,65 +1042,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ExistsCondition<TRuleType>(false);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotBe(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> NotBe(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => !obj.FullNameMatches(pattern, useRegularExpressions),
-                obj => "is " + obj.FullName,
-                "not have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotBe(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> NotBe(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "exist";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "not have full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(
-                obj =>
-                    patternList.All(pattern =>
-                        !obj.FullNameMatches(pattern, useRegularExpressions)
-                    ),
-                obj => "is " + obj.FullName,
-                description
-            );
-        }
-
         public static ICondition<TRuleType> NotBe(IObjectProvider<ICanBeAnalyzed> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
@@ -1850,98 +1073,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     ? "exist"
                     : "not be " + objectProvider.Description
             );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotCallAny(MethodMembers().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> NotCallAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var pass = true;
-                var dynamicFailDescription = "does call";
-                foreach (var dependency in ruleType.GetCalledMethods())
-                {
-                    if (dependency.FullNameMatches(pattern, useRegularExpressions))
-                    {
-                        dynamicFailDescription += pass
-                            ? " " + dependency.FullName
-                            : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            return new SimpleCondition<TRuleType>(
-                Condition,
-                "not call any method with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotCallAny(MethodMembers().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> NotCallAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var pass = true;
-                var dynamicFailDescription = "does call";
-                foreach (var dependency in ruleType.GetCalledMethods())
-                {
-                    if (
-                        patternList.Any(pattern =>
-                            dependency.FullNameMatches(pattern, useRegularExpressions)
-                        )
-                    )
-                    {
-                        dynamicFailDescription += pass
-                            ? " " + dependency.FullName
-                            : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "not call no methods (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "not call methods with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotCallAny(IObjectProvider<MethodMember> objectProvider)
@@ -1984,98 +1115,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotDependOnAny(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> NotDependOnAny(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
-                {
-                    if (dependency.FullNameMatches(pattern, useRegularExpressions))
-                    {
-                        dynamicFailDescription += pass
-                            ? " " + dependency.FullName
-                            : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            return new SimpleCondition<TRuleType>(
-                Condition,
-                "not depend on any types with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotDependOnAny(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> NotDependOnAny(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var pass = true;
-                var dynamicFailDescription = "does depend on";
-                foreach (var dependency in ruleType.GetTypeDependencies())
-                {
-                    if (
-                        patternList.Any(pattern =>
-                            dependency.FullNameMatches(pattern, useRegularExpressions)
-                        )
-                    )
-                    {
-                        dynamicFailDescription += pass
-                            ? " " + dependency.FullName
-                            : " and " + dependency.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "not depend on no types (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "not depend on types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description);
-        }
-
         public static ICondition<TRuleType> NotDependOnAny(IObjectProvider<IType> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
@@ -2114,85 +1153,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     ? "not depend on any of no types (always true)"
                     : "not depend on any " + objectProvider.Description;
             return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> NotHaveAnyAttributes(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => !obj.HasAttribute(pattern, useRegularExpressions),
-                "not have any attribute with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "does have any attribute with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> NotHaveAnyAttributes(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(TRuleType ruleType)
-            {
-                return !ruleType.Attributes.Any(attribute =>
-                    patternList.Any(pattern =>
-                        attribute.FullNameMatches(pattern, useRegularExpressions)
-                    )
-                );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "not have one of no attributes (always true)";
-                failDescription = "does have one of no attributes (impossible)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "not have any attribute with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(pattern => !pattern.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "does have any attribute with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> NotHaveAnyAttributes(
@@ -2247,20 +1207,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return NotHaveAnyAttributesWithArguments(argumentValues);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> NotHaveAttributeWithArguments(
-            string attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            var argumentValues = new List<object> { firstArgumentValue };
-            argumentValues.AddRange(moreArgumentValues);
-            return NotHaveAttributeWithArguments(attribute, argumentValues);
-        }
-
         public static ICondition<TRuleType> NotHaveAttributeWithArguments(
             Attribute attribute,
             object firstArgumentValue,
@@ -2291,20 +1237,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             var attributeArguments = new List<(string, object)> { firstAttributeArgument };
             attributeArguments.AddRange(moreAttributeArguments);
             return NotHaveAnyAttributesWithNamedArguments(attributeArguments);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
-            string attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
-            attributeArguments.AddRange(moreAttributeArguments);
-            return NotHaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
         public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
@@ -2405,90 +1337,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
 
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> NotHaveAttributeWithArguments(
-            [NotNull] string attribute,
-            IEnumerable<object> argumentValues
-        )
-        {
-            string description,
-                failDescription;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
-            if (argumentValueList.IsNullOrEmpty())
-            {
-                description = "not have attribute \"" + attribute + "\"";
-                failDescription = "does have attribute \"" + attribute + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentValueList.First();
-                description = argumentValueList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "not have attribute \""
-                            + attribute
-                            + "\" with arguments \""
-                            + firstArgument
-                            + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-                failDescription = argumentValueList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "does have attribute \""
-                            + attribute
-                            + "\" with arguments \""
-                            + firstArgument
-                            + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-            }
-
-            bool Condition(TRuleType obj, Architecture architecture)
-            {
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.FullNameMatches(attribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArguments = attributeInstance
-                        .AttributeArguments.Select(arg => arg.Value)
-                        .ToList();
-                    var typeAttributeArguments = attributeArguments
-                        .OfType<ITypeInstance<IType>>()
-                        .Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>())
-                        .ToList();
-                    foreach (var arg in argumentValueList)
-                    {
-                        if (arg is Type argType)
-                        {
-                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArguments.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return false;
-                    NextAttribute:
-                    ;
-                }
-
-                return true;
-            }
-
-            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> NotHaveAttributeWithArguments(
@@ -2757,100 +1605,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
-            [NotNull] string attribute,
-            IEnumerable<(string, object)> attributeArguments
-        )
-        {
-            string description,
-                failDescription;
-            var argumentList = attributeArguments.ToList();
-            if (argumentList.IsNullOrEmpty())
-            {
-                description = "not have attribute \"" + attribute + "\"";
-                failDescription = "does have attribute \"" + attribute + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentList.First();
-                description = argumentList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "not have attribute \""
-                            + attribute
-                            + "\" with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-                failDescription = argumentList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "does have attribute \""
-                            + attribute
-                            + "\" with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-            }
-
-            bool Condition(TRuleType obj, Architecture architecture)
-            {
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.FullNameMatches(attribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArgs = attributeInstance
-                        .AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value))
-                        .ToList();
-                    var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
-                        .ToList();
-                    foreach (var arg in argumentList)
-                    {
-                        if (arg.Item2 is Type argType)
-                        {
-                            if (
-                                typeAttributeArguments.All(t =>
-                                    t.Name != arg.Item1
-                                    || t.Value is ITypeInstance<IType> typeInstance
-                                        && typeInstance.Type.FullName != argType.FullName
-                                    || t.Value is IType type && type.FullName != argType.FullName
-                                )
-                            )
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArgs.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return false;
-                    NextAttribute:
-                    ;
-                }
-
-                return true;
-            }
-
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
-        }
-
         public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
             [NotNull] Attribute attribute,
             IEnumerable<(string, object)> attributeArguments
@@ -3044,22 +1798,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
-        [Obsolete(
-            "Either NotHaveName() without the useRegularExpressions parameter or NotHaveNameMatching() should be used"
-        )]
-        public static ICondition<TRuleType> NotHaveName(string pattern, bool useRegularExpressions)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => !obj.NameMatches(pattern, useRegularExpressions),
-                obj => "does have name " + obj.Name,
-                "not have name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
         public static ICondition<TRuleType> NotHaveName(string name)
         {
             return new SimpleCondition<TRuleType>(
@@ -3075,25 +1813,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 obj => !obj.NameMatches(pattern),
                 obj => "does have name " + obj.Name,
                 $"not have name matching \"{pattern}\""
-            );
-        }
-
-        [Obsolete(
-            "Either NotHaveFullName() without the useRegularExpressions parameter or NotHaveFullNameMatching() should be used"
-        )]
-        public static ICondition<TRuleType> NotHaveFullName(
-            string pattern,
-            bool useRegularExpressions
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => !obj.FullNameMatches(pattern, useRegularExpressions),
-                obj => "does have full name " + obj.FullName,
-                "not have full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
             );
         }
 
