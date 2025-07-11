@@ -76,7 +76,8 @@ namespace ArchUnitNETTests.Loader
         [Fact]
         public void GetAssigneeFieldDefinitionProperlyHandlesNullArgument()
         {
-            Assert.Throws<ArgumentNullException>(() => _nullInstruction.GetAssigneeFieldDefinition()
+            Assert.Throws<ArgumentNullException>(() =>
+                _nullInstruction.GetAssigneeFieldDefinition()
             );
         }
     }
