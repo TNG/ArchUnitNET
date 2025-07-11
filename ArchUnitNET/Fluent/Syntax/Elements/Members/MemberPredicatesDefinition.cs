@@ -364,7 +364,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> AreNotReadOnly()
         {
             return new SimplePredicate<T>(
-                member => member.Writability == Writability.ReadOnly,
+                member => member.Writability != Writability.ReadOnly,
                 "are not read only"
             );
         }
