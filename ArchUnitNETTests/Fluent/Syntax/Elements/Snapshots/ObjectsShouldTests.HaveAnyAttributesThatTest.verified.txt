@@ -1,19 +1,19 @@
 ﻿===== No violations =====
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attributes that are "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should have attributes that are "AttributeNamespace.Attribute1"
 Result: True
-Description: AttributeNamespace.ClassWithAttributes passed
+Description: AttributeNamespace.ClassWithTwoAttributes passed
 Message: 
 All Evaluations passed
 
 ===== Violations =====
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have attributes that are "AttributeNamespace.UnusedAttribute"
+Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should have attributes that are "AttributeNamespace.UnusedAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
+Description: AttributeNamespace.ClassWithTwoAttributes does not have any "AttributeNamespace.UnusedAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithAttributes" should have attributes that are "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithAttributes does not have any "AttributeNamespace.UnusedAttribute"
+"Types that are "AttributeNamespace.ClassWithTwoAttributes" should have attributes that are "AttributeNamespace.UnusedAttribute"" failed:
+	AttributeNamespace.ClassWithTwoAttributes does not have any "AttributeNamespace.UnusedAttribute"
 
 
 
