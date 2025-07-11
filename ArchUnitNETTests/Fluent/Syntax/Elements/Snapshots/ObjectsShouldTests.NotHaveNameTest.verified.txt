@@ -42,7 +42,7 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should not have name ending with "Base"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should not have name ending with "Test"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
@@ -86,11 +86,11 @@ Message:
 
 
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should not have name containing "Base"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should not have name containing "BaseClass"
 Result: False
 Description: TypeDependencyNamespace.BaseClass does have name BaseClass
 Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should not have name containing "Base"" failed:
+"Types that are "TypeDependencyNamespace.BaseClass" should not have name containing "BaseClass"" failed:
 	TypeDependencyNamespace.BaseClass does have name BaseClass
 
 
@@ -104,20 +104,20 @@ Message:
 
 
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should not have name starting with "Base"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should not have name starting with "BaseClass"
 Result: False
 Description: TypeDependencyNamespace.BaseClass does have name BaseClass
 Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should not have name starting with "Base"" failed:
+"Types that are "TypeDependencyNamespace.BaseClass" should not have name starting with "BaseClass"" failed:
 	TypeDependencyNamespace.BaseClass does have name BaseClass
 
 
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should not have name ending with "Class"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should not have name ending with "BaseClass"
 Result: False
 Description: TypeDependencyNamespace.BaseClass does have name BaseClass
 Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should not have name ending with "Class"" failed:
+"Types that are "TypeDependencyNamespace.BaseClass" should not have name ending with "BaseClass"" failed:
 	TypeDependencyNamespace.BaseClass does have name BaseClass
 
 

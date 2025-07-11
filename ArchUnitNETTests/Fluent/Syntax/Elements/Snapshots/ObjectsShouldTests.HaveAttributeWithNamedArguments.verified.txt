@@ -1,347 +1,293 @@
 ﻿===== No violations with type arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
 ===== No violations with value arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=Argument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=Argument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=Argument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NamedArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=Argument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
 ===== Violations with type arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.OtherNamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 
 
 
 ===== Violations with value arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=Argument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "InvalidName=Argument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "OtherNamedParameter2=NamedArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=OtherNamedArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
 
 
 
 ===== Unused attribute =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.UnusedAttribute" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 
 
 
 ===== Type outside of architecture =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "TypeDependencyNamespace.BaseClass" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
 
 
 
 ===== Emtpy arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
 ===== Multiple arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter2=3"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter..." failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter2=3"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter2=3"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter..." failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter2=3"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter2=3"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter..." failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter2=3"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter2=3"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter..." failed:
-	AttributeNamespace.ClassWithArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument" and "OtherNamedParameter2=3"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1"
 
 
 
 ===== Multiple inputs =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"" failed:
-	AttributeNamespace.ClassWithAttributes does not have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.NamedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does not have attribute "AttributeNamespace.Attribute2" with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
 
 
 

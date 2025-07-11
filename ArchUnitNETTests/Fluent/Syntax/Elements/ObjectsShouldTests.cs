@@ -713,7 +713,7 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations");
-        var should = Types().That().Are(helper.ClassWithAttributes).Should();
+        var should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should.HaveAnyAttributes(helper.Attribute1).AssertNoViolations(helper);
         should.HaveAnyAttributes([helper.Attribute1]).AssertNoViolations(helper);
         should.HaveAnyAttributes(helper.Attribute1SystemType).AssertNoViolations(helper);
@@ -723,7 +723,7 @@ public class ObjectsShouldTests
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
-        should = Types().That().Are(helper.ClassWithAttributes).Should();
+        should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should.HaveAnyAttributes(helper.UnusedAttribute).AssertOnlyViolations(helper);
         should.HaveAnyAttributes([helper.UnusedAttribute]).AssertOnlyViolations(helper);
         should.HaveAnyAttributes(helper.UnusedAttributeSystemType).AssertOnlyViolations(helper);
@@ -733,7 +733,7 @@ public class ObjectsShouldTests
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
-        should = Types().That().Are(helper.ClassWithAttributes).Should();
+        should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should.HaveAnyAttributes(new List<Attribute>()).AssertOnlyViolations(helper);
         should.HaveAnyAttributes(new List<System.Type>()).AssertOnlyViolations(helper);
         should
@@ -741,7 +741,7 @@ public class ObjectsShouldTests
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithAttributes).Should();
+        should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should
             .HaveAnyAttributes(helper.Attribute1, helper.UnusedAttribute)
             .AssertNoViolations(helper);
@@ -761,13 +761,13 @@ public class ObjectsShouldTests
         helper.AddSnapshotHeader("Multiple inputs");
         Types()
             .That()
-            .Are(helper.ClassWithAttributes, helper.OtherClassWithAttributes)
+            .Are(helper.ClassWithTwoAttributes, helper.ClassWithThreeAttributes)
             .Should()
             .HaveAnyAttributes(helper.Attribute1)
             .AssertNoViolations(helper);
         Types()
             .That()
-            .Are(helper.ClassWithAttributes, helper.ClassWithoutAttributes)
+            .Are(helper.ClassWithTwoAttributes, helper.ClassWithoutAttributes)
             .Should()
             .HaveAnyAttributes(helper.Attribute1)
             .AssertAnyViolations(helper);
@@ -779,11 +779,11 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations");
-        var should = Types().That().Are(helper.ClassWithAttributes).Should();
+        var should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should.HaveAnyAttributesThat().Are(helper.Attribute1).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
-        should = Types().That().Are(helper.ClassWithAttributes).Should();
+        should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should.HaveAnyAttributesThat().Are(helper.UnusedAttribute).AssertOnlyViolations(helper);
         await helper.AssertSnapshotMatches();
     }
@@ -793,85 +793,91 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations with type arguments");
-        var should = Types().That().Are(helper.ClassWithArguments).Should();
+        var should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .HaveAnyAttributesWithArguments(helper.Attribute1Parameter3Value)
+            .HaveAnyAttributesWithArguments(helper.Attribute1StringArgument)
             .AssertNoViolations(helper);
         should
-            .HaveAnyAttributesWithArguments([helper.Attribute1Parameter3Value])
+            .HaveAnyAttributesWithArguments([helper.Attribute1StringArgument])
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("No violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .HaveAnyAttributesWithArguments(helper.Attribute1Parameter1Value)
+            .HaveAnyAttributesWithArguments(helper.Attribute1IntegerArgument)
             .AssertNoViolations(helper);
         should
-            .HaveAnyAttributesWithArguments([helper.Attribute1Parameter1Value])
+            .HaveAnyAttributesWithArguments([helper.Attribute1IntegerArgument])
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .HaveAnyAttributesWithArguments(helper.UnusedTypeParameterValue)
+            .HaveAnyAttributesWithArguments(helper.UnusedTypeArgument)
             .AssertOnlyViolations(helper);
         should
-            .HaveAnyAttributesWithArguments([helper.UnusedTypeParameterValue])
+            .HaveAnyAttributesWithArguments([helper.UnusedTypeArgument])
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
         should = Types().That().Are(helper.ClassWithoutAttributes).Should();
         should
-            .HaveAnyAttributesWithArguments(helper.Attribute1Parameter2Value)
+            .HaveAnyAttributesWithArguments(helper.Attribute1IntegerArgument)
             .AssertOnlyViolations(helper);
         should
-            .HaveAnyAttributesWithArguments([helper.Attribute1Parameter2Value])
+            .HaveAnyAttributesWithArguments([helper.Attribute1IntegerArgument])
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Null argument");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should.HaveAnyAttributesWithArguments(null).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         Types()
             .That()
-            .Are(helper.ClassWithArguments)
+            .Are(helper.ClassWithSingleAttributeWithArguments)
             .Should()
             .HaveAnyAttributesWithArguments([])
             .AssertNoViolations(helper);
         Types()
             .That()
-            .Are(helper.ClassWithAttributes)
+            .Are(helper.ClassWithTwoAttributesWithArguments)
             .Should()
             .HaveAnyAttributesWithArguments([])
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
             .HaveAnyAttributesWithArguments(
-                [helper.Attribute1Parameter3InvalidValue, helper.UnusedParameterValue]
+                [helper.UnusedAttributeIntValue, helper.UnusedAttributeStringValue]
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAnyAttributesWithArguments(
-                helper.Attribute1Parameter3InvalidValue,
-                helper.UnusedParameterValue
+                helper.UnusedAttributeIntValue,
+                helper.UnusedAttributeStringValue
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
         Types()
             .That()
-            .Are(helper.ClassWithArguments, helper.OtherClassWithArguments)
+            .Are(
+                helper.ClassWithSingleAttributeWithArguments,
+                helper.ClassWithTwoAttributesWithArguments
+            )
             .Should()
-            .HaveAnyAttributesWithArguments(helper.Attribute1Parameter1Value)
+            .HaveAnyAttributesWithArguments(helper.Attribute1StringArgument)
             .AssertNoViolations(helper);
         Types()
             .That()
-            .Are(helper.ClassWithArguments, helper.ClassWithAttributes)
+            .Are(
+                helper.ClassWithSingleAttributeWithArguments,
+                helper.ClassWithTwoAttributesWithArguments
+            )
             .Should()
-            .HaveAnyAttributesWithArguments(helper.Attribute1Parameter2Value)
+            .HaveAnyAttributesWithArguments(helper.Attribute2IntegerArgument)
             .AssertAnyViolations(helper);
         await helper.AssertSnapshotMatches();
     }
@@ -881,92 +887,117 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations with type arguments");
-        var should = Types().That().Are(helper.ClassWithArguments).Should();
+        var should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
-            .HaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter1Pair)
+            .HaveAnyAttributesWithNamedArguments(
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
+            )
             .AssertNoViolations(helper);
         should
-            .HaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter1Pair])
+            .HaveAnyAttributesWithNamedArguments(
+                [("NamedParameter1", helper.Attribute1TypeArgumentSystemType)]
+            )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("No violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
-            .HaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter2Pair)
+            .HaveAnyAttributesWithNamedArguments(
+                ("NamedParameter2", helper.Attribute1StringArgument)
+            )
             .AssertNoViolations(helper);
         should
-            .HaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter2Pair])
+            .HaveAnyAttributesWithNamedArguments(
+                [("NamedParameter2", helper.Attribute1StringArgument)]
+            )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
-            .HaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter1InvalidNamePair)
+            .HaveAnyAttributesWithNamedArguments(("InvalidName", helper.Attribute1TypeArgument))
             .AssertOnlyViolations(helper);
         should
-            .HaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter1InvalidNamePair])
+            .HaveAnyAttributesWithNamedArguments([("InvalidName", helper.Attribute1TypeArgument)])
             .AssertOnlyViolations(helper);
         should
-            .HaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter1InvalidValuePair)
+            .HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.UnusedTypeArgument))
             .AssertOnlyViolations(helper);
         should
-            .HaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter1InvalidValuePair])
+            .HaveAnyAttributesWithNamedArguments([("NamedParameter1", helper.UnusedTypeArgument)])
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
-            .HaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter2InvalidNamePair)
+            .HaveAnyAttributesWithNamedArguments(("InvalidName", helper.Attribute1StringArgument))
             .AssertOnlyViolations(helper);
         should
-            .HaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter2InvalidNamePair])
+            .HaveAnyAttributesWithNamedArguments([("InvalidName", helper.Attribute1StringArgument)])
             .AssertOnlyViolations(helper);
         should
-            .HaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter2InvalidValuePair)
+            .HaveAnyAttributesWithNamedArguments(
+                ("NamedParameter2", helper.UnusedAttributeStringValue)
+            )
             .AssertOnlyViolations(helper);
         should
-            .HaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter2InvalidValuePair])
+            .HaveAnyAttributesWithNamedArguments(
+                [("NamedParameter2", helper.UnusedAttributeStringValue)]
+            )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should.HaveAnyAttributesWithNamedArguments([]).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .HaveAnyAttributesWithNamedArguments(
-                helper.Attribute1NamedParameter1Pair,
-                helper.Attribute1NamedParameter2Pair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType),
+                ("NamedParameter2", helper.Attribute1StringArgument)
             )
             .AssertNoViolations(helper);
         should
             .HaveAnyAttributesWithNamedArguments(
-                [helper.Attribute1NamedParameter1Pair, helper.Attribute1NamedParameter2Pair]
+                [
+                    ("NamedParameter1", helper.Attribute1TypeArgumentSystemType),
+                    ("NamedParameter2", helper.Attribute1StringArgument),
+                ]
             )
             .AssertNoViolations(helper);
         should
             .HaveAnyAttributesWithNamedArguments(
-                helper.Attribute1NamedParameter1Pair,
-                helper.Attribute1NamedParameter2InvalidValuePair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType),
+                ("NamedParameter2", helper.UnusedAttributeStringValue)
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAnyAttributesWithNamedArguments(
                 [
-                    helper.Attribute1NamedParameter1Pair,
-                    helper.Attribute1NamedParameter2InvalidValuePair,
+                    ("NamedParameter1", helper.Attribute1TypeArgumentSystemType),
+                    ("NamedParameter2", helper.UnusedAttributeStringValue),
                 ]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
-        should = Types().That().Are(helper.ClassWithArguments, helper.ClassWithAttributes).Should();
+        should = Types()
+            .That()
+            .Are(
+                helper.ClassWithSingleAttributeWithNamedArguments,
+                helper.ClassWithTwoAttributesWithNamedArguments
+            )
+            .Should();
         should
-            .HaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter1Pair)
-            .AssertAnyViolations(helper);
+            .HaveAnyAttributesWithNamedArguments(
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
+            )
+            .AssertNoViolations(helper);
         should
-            .HaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter1Pair])
+            .HaveAnyAttributesWithNamedArguments(
+                [("NamedParameter3", helper.Attribute2TypeArgumentSystemType)]
+            )
             .AssertAnyViolations(helper);
 
         await helper.AssertSnapshotMatches();
@@ -977,110 +1008,104 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations with type arguments");
-        var should = Types().That().Are(helper.ClassWithArguments).Should();
+        var should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute1Parameter3Value)
-            .AssertNoViolations(helper);
-        should
-            .HaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1Parameter3Value])
+            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute1TypeArgumentSystemType)
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithArguments(
-                helper.Attribute1SystemType,
-                helper.Attribute1Parameter3Value
+                helper.Attribute1,
+                [helper.Attribute1TypeArgumentSystemType]
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1Parameter3Value]
+                helper.Attribute1TypeArgumentSystemType
+            )
+            .AssertNoViolations(helper);
+        should
+            .HaveAttributeWithArguments(
+                helper.Attribute1SystemType,
+                [helper.Attribute1TypeArgumentSystemType]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("No violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute1Parameter1Value)
+            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute1StringArgument)
             .AssertNoViolations(helper);
         should
-            .HaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1Parameter1Value])
+            .HaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1StringArgument])
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1Parameter1Value
+                helper.Attribute1StringArgument
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1Parameter1Value]
+                [helper.Attribute1StringArgument]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute1Parameter3InvalidValue)
+            .HaveAttributeWithArguments(helper.Attribute1, helper.UnusedTypeArgument)
             .AssertOnlyViolations(helper);
         should
-            .HaveAttributeWithArguments(
-                helper.Attribute1,
-                [helper.Attribute1Parameter3InvalidValue]
-            )
+            .HaveAttributeWithArguments(helper.Attribute1, [helper.UnusedTypeArgument])
             .AssertOnlyViolations(helper);
         should
-            .HaveAttributeWithArguments(
-                helper.Attribute1SystemType,
-                helper.Attribute1Parameter3InvalidValue
-            )
+            .HaveAttributeWithArguments(helper.Attribute1SystemType, helper.UnusedTypeArgument)
             .AssertOnlyViolations(helper);
         should
-            .HaveAttributeWithArguments(
-                helper.Attribute1SystemType,
-                [helper.Attribute1Parameter3InvalidValue]
-            )
+            .HaveAttributeWithArguments(helper.Attribute1SystemType, [helper.UnusedTypeArgument])
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute2Parameter2Value)
+            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute2StringArgument)
             .AssertOnlyViolations(helper);
         should
-            .HaveAttributeWithArguments(helper.Attribute1, [helper.Attribute2Parameter2Value])
+            .HaveAttributeWithArguments(helper.Attribute1, [helper.Attribute2StringArgument])
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute2Parameter2Value
+                helper.Attribute2StringArgument
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute2Parameter2Value]
+                [helper.Attribute2StringArgument]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Type outside of architecture");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
             .HaveAttributeWithArguments(
                 typeof(TypeDependencyNamespace.BaseClass),
-                helper.Attribute1Parameter1Value
+                helper.Attribute1StringArgument
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Null argument");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should.HaveAttributeWithArguments(helper.Attribute1, null).AssertOnlyViolations(helper);
         should
             .HaveAttributeWithArguments(helper.Attribute1SystemType, null)
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
             .HaveAttributeWithArguments(helper.Attribute1, new List<object>())
             .AssertNoViolations(helper);
@@ -1089,46 +1114,52 @@ public class ObjectsShouldTests
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
             .HaveAttributeWithArguments(
                 helper.Attribute1,
-                helper.Attribute1Parameter1Value,
-                helper.Attribute1Parameter2Value
+                helper.Attribute1StringArgument,
+                helper.Attribute1IntegerArgument
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithArguments(
                 helper.Attribute1,
-                [helper.Attribute1Parameter1Value, helper.Attribute1Parameter2Value]
+                [helper.Attribute1StringArgument, helper.Attribute1IntegerArgument]
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1Parameter1Value,
-                helper.Attribute1Parameter2Value
+                helper.Attribute1StringArgument,
+                helper.Attribute1IntegerArgument
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1Parameter1Value, helper.Attribute1Parameter2Value]
+                [helper.Attribute1StringArgument, helper.Attribute1IntegerArgument]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
         Types()
             .That()
-            .Are(helper.ClassWithArguments, helper.OtherClassWithArguments)
+            .Are(
+                helper.ClassWithSingleAttributeWithArguments,
+                helper.ClassWithTwoAttributesWithArguments
+            )
             .Should()
-            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute1Parameter1Value)
+            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute1StringArgument)
             .AssertNoViolations(helper);
         Types()
             .That()
-            .Are(helper.ClassWithArguments, helper.ClassWithAttributes)
+            .Are(
+                helper.ClassWithSingleAttributeWithArguments,
+                helper.ClassWithTwoAttributesWithArguments
+            )
             .Should()
-            .HaveAttributeWithArguments(helper.Attribute1, helper.Attribute1Parameter2Value)
+            .HaveAttributeWithArguments(helper.Attribute2, helper.Attribute2IntegerArgument)
             .AssertAnyViolations(helper);
         await helper.AssertSnapshotMatches();
     }
@@ -1138,257 +1169,233 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations with type arguments");
-        var should = Types().That().Are(helper.ClassWithArguments).Should();
+        var should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgumentSystemType)]
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgumentSystemType)]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("No violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter2Pair
+                ("NamedParameter2", helper.Attribute1StringArgument)
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute1NamedParameter2Pair]
+                [("NamedParameter2", helper.Attribute1StringArgument)]
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter2Pair
+                ("NamedParameter2", helper.Attribute1StringArgument)
             )
             .AssertNoViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter2Pair]
+                [("NamedParameter2", helper.Attribute1StringArgument)]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter1InvalidNamePair
-            )
-            .AssertOnlyViolations(helper);
-        should
-            .HaveAttributeWithNamedArguments(
-                helper.Attribute1,
-                [helper.Attribute1NamedParameter1InvalidNamePair]
-            )
-            .AssertOnlyViolations(helper);
-        should
-            .HaveAttributeWithNamedArguments(
-                helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter1InvalidNamePair
-            )
-            .AssertOnlyViolations(helper);
-        should
-            .HaveAttributeWithNamedArguments(
-                helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter1InvalidNamePair]
+                ("InvalidName", helper.Attribute1TypeArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter1InvalidValuePair
+                [("InvalidName", helper.Attribute1TypeArgument)]
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute1NamedParameter1InvalidValuePair]
+                ("NamedParameter1", helper.UnusedTypeArgument)
+            )
+            .AssertOnlyViolations(helper);
+        should
+            .HaveAttributeWithNamedArguments(
+                helper.Attribute1,
+                [("NamedParameter1", helper.UnusedTypeArgument)]
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter1InvalidValuePair
+                ("NamedParameter1", helper.UnusedTypeArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter1InvalidValuePair]
+                [("NamedParameter1", helper.UnusedTypeArgument)]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter2InvalidNamePair
-            )
-            .AssertOnlyViolations(helper);
-        should
-            .HaveAttributeWithNamedArguments(
-                helper.Attribute1,
-                [helper.Attribute1NamedParameter2InvalidNamePair]
-            )
-            .AssertOnlyViolations(helper);
-        should
-            .HaveAttributeWithNamedArguments(
-                helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter2InvalidNamePair
-            )
-            .AssertOnlyViolations(helper);
-        should
-            .HaveAttributeWithNamedArguments(
-                helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter2InvalidNamePair]
+                ("InvalidName", helper.Attribute1StringArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter2InvalidValuePair
+                [("InvalidName", helper.Attribute1StringArgument)]
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute1NamedParameter2InvalidValuePair]
+                ("NamedParameter2", helper.UnusedAttributeStringValue)
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
-                helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter2InvalidValuePair
-            )
-            .AssertOnlyViolations(helper);
-        should
-            .HaveAttributeWithNamedArguments(
-                helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter2InvalidValuePair]
+                helper.Attribute1,
+                [("NamedParameter2", helper.UnusedAttributeStringValue)]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Unused attribute");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .HaveAttributeWithNamedArguments(
                 helper.UnusedAttribute,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.UnusedAttribute,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgument)]
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.UnusedAttributeSystemType,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.UnusedAttributeSystemType,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgument)]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Type outside of architecture");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .HaveAttributeWithNamedArguments(
                 typeof(TypeDependencyNamespace.BaseClass),
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgument)
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Emtpy arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should.HaveAttributeWithNamedArguments(helper.Attribute1, []).AssertNoViolations(helper);
         should
             .HaveAttributeWithNamedArguments(helper.Attribute1SystemType, [])
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter1Pair,
-                helper.Attribute2NamedParameter2Pair
+                ("NamedParameter1", helper.Attribute1TypeArgument),
+                ("NamedParameter2", helper.Attribute1StringArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute1NamedParameter1Pair, helper.Attribute2NamedParameter2Pair]
+                [
+                    ("NamedParameter1", helper.Attribute1TypeArgument),
+                    ("NamedParameter2", helper.Attribute1StringArgument),
+                ]
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter1Pair,
-                helper.Attribute2NamedParameter2Pair
+                ("NamedParameter1", helper.Attribute1TypeArgument),
+                ("NamedParameter2", helper.Attribute1StringArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter1Pair, helper.Attribute2NamedParameter2Pair]
+                [
+                    ("NamedParameter1", helper.Attribute1TypeArgument),
+                    ("NamedParameter2", helper.Attribute1StringArgument),
+                ]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
-        should = Types().That().Are(helper.ClassWithArguments, helper.ClassWithAttributes).Should();
+        should = Types()
+            .That()
+            .Are(
+                helper.ClassWithSingleAttributeWithNamedArguments,
+                helper.ClassWithTwoAttributesWithNamedArguments
+            )
+            .Should();
         should
             .HaveAttributeWithNamedArguments(
-                helper.Attribute1,
-                helper.Attribute1NamedParameter1Pair
+                helper.Attribute2,
+                ("NamedParameter3", helper.Attribute2TypeArgumentSystemType)
             )
             .AssertAnyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
-                helper.Attribute1,
-                [helper.Attribute1NamedParameter1Pair]
+                helper.Attribute2,
+                [("NamedParameter3", helper.Attribute2TypeArgumentSystemType)]
             )
             .AssertAnyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
-                helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter1Pair
+                helper.Attribute2SystemType,
+                ("NamedParameter3", helper.Attribute2TypeArgumentSystemType)
             )
             .AssertAnyViolations(helper);
         should
             .HaveAttributeWithNamedArguments(
-                helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter1Pair]
+                helper.Attribute2SystemType,
+                [("NamedParameter3", helper.Attribute2TypeArgumentSystemType)]
             )
             .AssertAnyViolations(helper);
         await helper.AssertSnapshotMatches();
@@ -1667,7 +1674,7 @@ public class ObjectsShouldTests
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Type outside of architecture");
-        should = Types().That().Are(helper.ClassWithAttributes).Should();
+        should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should
             .NotHaveAnyAttributes(typeof(TypeDependencyNamespace.BaseClass))
             .AssertException<TypeDoesNotExistInArchitecture>(helper);
@@ -1694,7 +1701,7 @@ public class ObjectsShouldTests
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithAttributes).Should();
+        should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should
             .NotHaveAnyAttributes(helper.Attribute1, helper.Attribute2)
             .AssertOnlyViolations(helper);
@@ -1714,13 +1721,13 @@ public class ObjectsShouldTests
         helper.AddSnapshotHeader("Multiple inputs");
         Types()
             .That()
-            .Are(helper.ClassWithoutAttributes, helper.OtherClassWithoutAttributes)
+            .Are(helper.ClassWithoutAttributes, helper.ClassWithSingleAttribute)
             .Should()
             .NotHaveAnyAttributes(helper.Attribute2)
             .AssertNoViolations(helper);
         Types()
             .That()
-            .Are(helper.ClassWithoutAttributes, helper.OtherClassWithAttributes)
+            .Are(helper.ClassWithoutAttributes, helper.ClassWithSingleAttribute)
             .Should()
             .NotHaveAnyAttributes(helper.Attribute1)
             .AssertAnyViolations(helper);
@@ -1746,77 +1753,83 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations with type arguments");
-        var should = Types().That().Are(helper.ClassWithArguments).Should();
+        var should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .NotHaveAnyAttributesWithArguments(helper.UnusedTypeParameterValue)
+            .NotHaveAnyAttributesWithArguments(helper.UnusedTypeArgument)
             .AssertNoViolations(helper);
         should
-            .NotHaveAnyAttributesWithArguments([helper.UnusedTypeParameterValue])
+            .NotHaveAnyAttributesWithArguments([helper.UnusedTypeArgument])
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("No violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .NotHaveAnyAttributesWithArguments(helper.UnusedParameterValue)
+            .NotHaveAnyAttributesWithArguments(helper.UnusedAttributeStringValue)
             .AssertNoViolations(helper);
         should
-            .NotHaveAnyAttributesWithArguments([helper.UnusedParameterValue])
+            .NotHaveAnyAttributesWithArguments([helper.UnusedAttributeStringValue])
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .NotHaveAnyAttributesWithArguments(helper.Attribute1Parameter3Value)
+            .NotHaveAnyAttributesWithArguments(helper.Attribute1TypeArgumentSystemType)
             .AssertOnlyViolations(helper);
         should
-            .NotHaveAnyAttributesWithArguments([helper.Attribute1Parameter3Value])
+            .NotHaveAnyAttributesWithArguments([helper.Attribute1TypeArgumentSystemType])
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .NotHaveAnyAttributesWithArguments(helper.Attribute1Parameter2Value)
+            .NotHaveAnyAttributesWithArguments(helper.Attribute1IntegerArgument)
             .AssertOnlyViolations(helper);
         should
-            .NotHaveAnyAttributesWithArguments([helper.Attribute1Parameter2Value])
+            .NotHaveAnyAttributesWithArguments([helper.Attribute1IntegerArgument])
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Type without attributes");
         should = Types().That().Are(helper.ClassWithoutAttributes).Should();
         should
-            .NotHaveAnyAttributesWithArguments(helper.Attribute1Parameter1Value)
+            .NotHaveAnyAttributesWithArguments(helper.Attribute1StringArgument)
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Null argument");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should.NotHaveAnyAttributesWithArguments(null).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should.NotHaveAnyAttributesWithArguments([]).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
             .NotHaveAnyAttributesWithArguments(
-                [helper.UnusedTypeParameterValue, helper.Attribute1Parameter1Value]
+                [helper.UnusedTypeArgument, helper.Attribute1StringArgument]
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAnyAttributesWithArguments(
-                helper.UnusedTypeParameterValue,
-                helper.Attribute1Parameter1Value
+                helper.UnusedTypeArgument,
+                helper.Attribute1StringArgument
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
-        should = Types().That().Are(helper.ClassWithArguments, helper.ClassWithAttributes).Should();
+        should = Types()
+            .That()
+            .Are(
+                helper.ClassWithSingleAttributeWithArguments,
+                helper.ClassWithTwoAttributesWithArguments
+            )
+            .Should();
         should
-            .NotHaveAnyAttributesWithArguments(helper.Attribute1Parameter1Value)
-            .AssertAnyViolations(helper);
+            .NotHaveAnyAttributesWithArguments(helper.Attribute1StringArgument)
+            .AssertOnlyViolations(helper);
         should
-            .NotHaveAnyAttributesWithArguments([helper.Attribute1Parameter1Value])
-            .AssertAnyViolations(helper);
+            .NotHaveAnyAttributesWithArguments([helper.Attribute1StringArgument])
+            .AssertOnlyViolations(helper);
         await helper.AssertSnapshotMatches();
     }
 
@@ -1825,91 +1838,112 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations with type arguments");
-        var should = Types().That().Are(helper.ClassWithArguments).Should();
+        var should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
-            .NotHaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter1InvalidNamePair)
+            .NotHaveAnyAttributesWithNamedArguments(("InvalidName", helper.Attribute1TypeArgument))
             .AssertNoViolations(helper);
         should
             .NotHaveAnyAttributesWithNamedArguments(
-                [helper.Attribute1NamedParameter1InvalidNamePair]
+                [("InvalidName", helper.Attribute1TypeArgument)]
             )
             .AssertNoViolations(helper);
         should
-            .NotHaveAnyAttributesWithNamedArguments(
-                helper.Attribute1NamedParameter1InvalidValuePair
-            )
+            .NotHaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.UnusedTypeArgument))
             .AssertNoViolations(helper);
         should
             .NotHaveAnyAttributesWithNamedArguments(
-                [helper.Attribute1NamedParameter1InvalidValuePair]
+                [("NamedParameter1", helper.UnusedTypeArgument)]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("No violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
-        should
-            .NotHaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter2InvalidNamePair)
-            .AssertNoViolations(helper);
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAnyAttributesWithNamedArguments(
-                [helper.Attribute1NamedParameter2InvalidNamePair]
+                ("InvalidName", helper.Attribute1StringArgument)
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAnyAttributesWithNamedArguments(
-                helper.Attribute1NamedParameter2InvalidValuePair
+                [("InvalidName", helper.Attribute1StringArgument)]
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAnyAttributesWithNamedArguments(
-                [helper.Attribute1NamedParameter2InvalidValuePair]
+                ("NamedParameter2", helper.UnusedAttributeStringValue)
+            )
+            .AssertNoViolations(helper);
+        should
+            .NotHaveAnyAttributesWithNamedArguments(
+                [("NamedParameter2", helper.UnusedAttributeStringValue)]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
-        should
-            .NotHaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter1Pair)
-            .AssertOnlyViolations(helper);
-        should
-            .NotHaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter1Pair])
-            .AssertOnlyViolations(helper);
-
-        helper.AddSnapshotHeader("Violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
-        should
-            .NotHaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter2Pair)
-            .AssertOnlyViolations(helper);
-        should
-            .NotHaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter2Pair])
-            .AssertOnlyViolations(helper);
-
-        helper.AddSnapshotHeader("Empty arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
-        should.NotHaveAnyAttributesWithNamedArguments([]).AssertNoViolations(helper);
-
-        helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAnyAttributesWithNamedArguments(
-                [helper.Attribute1NamedParameter1Pair, helper.Attribute1NamedParameter2Pair]
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAnyAttributesWithNamedArguments(
-                helper.Attribute1NamedParameter1Pair,
-                helper.Attribute1NamedParameter2Pair
+                [("NamedParameter1", helper.Attribute1TypeArgumentSystemType)]
+            )
+            .AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Violations with value arguments");
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
+        should
+            .NotHaveAnyAttributesWithNamedArguments(
+                ("NamedParameter2", helper.Attribute1StringArgument)
+            )
+            .AssertOnlyViolations(helper);
+        should
+            .NotHaveAnyAttributesWithNamedArguments(
+                [("NamedParameter2", helper.Attribute1StringArgument)]
+            )
+            .AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Empty arguments");
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
+        should.NotHaveAnyAttributesWithNamedArguments([]).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Multiple arguments");
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
+        should
+            .NotHaveAnyAttributesWithNamedArguments(
+                ("NamedParameter1", helper.Attribute1TypeArgument),
+                ("NamedParameter2", helper.Attribute1StringArgument)
+            )
+            .AssertOnlyViolations(helper);
+        should
+            .NotHaveAnyAttributesWithNamedArguments(
+                [
+                    ("NamedParameter1", helper.Attribute1TypeArgument),
+                    ("NamedParameter2", helper.Attribute1StringArgument),
+                ]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
-        should = Types().That().Are(helper.ClassWithArguments, helper.ClassWithAttributes).Should();
+        should = Types()
+            .That()
+            .Are(
+                helper.ClassWithSingleAttributeWithNamedArguments,
+                helper.ClassWithTwoAttributesWithNamedArguments
+            )
+            .Should();
         should
-            .NotHaveAnyAttributesWithNamedArguments(helper.Attribute1NamedParameter1Pair)
-            .AssertAnyViolations(helper);
+            .NotHaveAnyAttributesWithNamedArguments(
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
+            )
+            .AssertOnlyViolations(helper);
         should
-            .NotHaveAnyAttributesWithNamedArguments([helper.Attribute1NamedParameter1Pair])
-            .AssertAnyViolations(helper);
+            .NotHaveAnyAttributesWithNamedArguments(
+                [("NamedParameter1", helper.Attribute1TypeArgumentSystemType)]
+            )
+            .AssertOnlyViolations(helper);
         await helper.AssertSnapshotMatches();
     }
 
@@ -1918,121 +1952,121 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations with type arguments");
-        var should = Types().That().Are(helper.ClassWithArguments).Should();
+        var should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute2Parameter1Value)
+            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute2TypeArgument)
             .AssertNoViolations(helper);
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute2Parameter1Value])
+            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute2TypeArgument])
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute2Parameter1Value
+                helper.Attribute2TypeArgument
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute2Parameter1Value]
+                [helper.Attribute2TypeArgument]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("No violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute2Parameter1Value)
+            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute2StringArgument)
             .AssertNoViolations(helper);
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute2Parameter1Value])
+            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute2StringArgument])
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute2Parameter1Value
+                helper.Attribute2StringArgument
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute2Parameter1Value]
+                [helper.Attribute2StringArgument]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute1Parameter1Value)
+            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute1StringArgument)
             .AssertOnlyViolations(helper);
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1Parameter1Value])
+            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1StringArgument])
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1Parameter1Value
+                helper.Attribute1StringArgument
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1Parameter1Value]
+                [helper.Attribute1StringArgument]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute1Parameter2Value)
+            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute1IntegerArgument)
             .AssertOnlyViolations(helper);
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1Parameter2Value])
+            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1IntegerArgument])
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1Parameter2Value
+                helper.Attribute1IntegerArgument
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1Parameter2Value]
+                [helper.Attribute1IntegerArgument]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Unused attribute");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
-            .NotHaveAttributeWithArguments(helper.UnusedAttribute, helper.Attribute1Parameter1Value)
+            .NotHaveAttributeWithArguments(helper.UnusedAttribute, helper.Attribute1StringArgument)
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.UnusedAttribute,
-                [helper.Attribute1Parameter1Value]
+                [helper.Attribute1StringArgument]
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.UnusedAttributeSystemType,
-                helper.Attribute1Parameter1Value
+                helper.Attribute1StringArgument
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.UnusedAttributeSystemType,
-                [helper.Attribute1Parameter1Value]
+                [helper.Attribute1StringArgument]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Type outside of architecture");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
             .NotHaveAttributeWithArguments(typeof(TypeDependencyNamespace.BaseClass), 1)
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Null argument");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
             .NotHaveAttributeWithArguments(helper.UnusedAttribute, null)
             .AssertNoViolations(helper);
@@ -2041,61 +2075,67 @@ public class ObjectsShouldTests
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should.NotHaveAttributeWithArguments(helper.Attribute1, []).AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(helper.Attribute1SystemType, [])
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1,
-                helper.Attribute1Parameter3Value,
-                helper.Attribute1Parameter2Value
+                helper.Attribute1TypeArgumentSystemType,
+                helper.Attribute1IntegerArgument
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1,
-                [helper.Attribute1Parameter3Value, helper.Attribute1Parameter2Value]
+                [helper.Attribute1TypeArgumentSystemType, helper.Attribute1IntegerArgument]
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1Parameter3Value,
-                helper.Attribute1Parameter2Value
+                helper.Attribute1TypeArgumentSystemType,
+                helper.Attribute1IntegerArgument
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1Parameter3Value, helper.Attribute1Parameter2Value]
+                [helper.Attribute1TypeArgumentSystemType, helper.Attribute1IntegerArgument]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
-        should = Types().That().Are(helper.ClassWithArguments, helper.ClassWithAttributes).Should();
+        should = Types()
+            .That()
+            .Are(
+                helper.ClassWithSingleAttributeWithArguments,
+                helper.ClassWithTwoAttributesWithNamedArguments
+            )
+            .Should();
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute1Parameter1Value)
-            .AssertAnyViolations(helper);
+            .NotHaveAttributeWithArguments(helper.Attribute1, helper.Attribute1StringArgument)
+            .AssertOnlyViolations(helper);
         should
-            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1Parameter1Value])
-            .AssertAnyViolations(helper);
+            .NotHaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1StringArgument])
+            .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1Parameter1Value
+                helper.Attribute1StringArgument
             )
-            .AssertAnyViolations(helper);
+            .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1Parameter1Value]
+                [helper.Attribute1StringArgument]
             )
-            .AssertAnyViolations(helper);
+            .AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -2105,151 +2145,151 @@ public class ObjectsShouldTests
     {
         var helper = new AttributeAssemblyTestHelpers();
         helper.AddSnapshotHeader("No violations with type arguments");
-        var should = Types().That().Are(helper.ClassWithArguments).Should();
+        var should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute2NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute2TypeArgument)
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute2NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute2TypeArgument)]
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute2NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute2TypeArgument)
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute2NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute2TypeArgument)]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("No violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute2NamedParameter1Pair
+                ("NamedParameter2", helper.Attribute2StringArgument)
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute2NamedParameter1Pair]
+                [("NamedParameter2", helper.Attribute2StringArgument)]
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute2NamedParameter1Pair
+                ("NamedParameter2", helper.Attribute2StringArgument)
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute2NamedParameter1Pair]
+                [("NamedParameter2", helper.Attribute2StringArgument)]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgumentSystemType)]
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgumentSystemType)]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter2Pair
+                ("NamedParameter2", helper.Attribute1StringArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute1NamedParameter2Pair]
+                [("NamedParameter2", helper.Attribute1StringArgument)]
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter2Pair
+                ("NamedParameter2", helper.Attribute1StringArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter2Pair]
+                [("NamedParameter2", helper.Attribute1StringArgument)]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Unused attribute");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.UnusedAttribute,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgument)
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.UnusedAttribute,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgument)]
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.UnusedAttributeSystemType,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgument)
             )
             .AssertNoViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.UnusedAttributeSystemType,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgument)]
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Type outside of architecture");
-        should = Types().That().Are(helper.ClassWithAttributes).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAttributeWithNamedArguments(
                 typeof(TypeDependencyNamespace.BaseClass),
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgument)
             )
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAttributeWithNamedArguments(helper.Attribute1, [])
             .AssertOnlyViolations(helper);
@@ -2258,60 +2298,72 @@ public class ObjectsShouldTests
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithArguments).Should();
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter1Pair,
-                helper.Attribute1NamedParameter2Pair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType),
+                ("NamedParameter2", helper.Attribute1StringArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute1NamedParameter1Pair, helper.Attribute1NamedParameter2Pair]
+                [
+                    ("NamedParameter1", helper.Attribute1TypeArgumentSystemType),
+                    ("NamedParameter2", helper.Attribute1StringArgument),
+                ]
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter1Pair,
-                helper.Attribute1NamedParameter2Pair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType),
+                ("NamedParameter2", helper.Attribute1StringArgument)
             )
             .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter1Pair, helper.Attribute1NamedParameter2Pair]
+                [
+                    ("NamedParameter1", helper.Attribute1TypeArgumentSystemType),
+                    ("NamedParameter2", helper.Attribute1StringArgument),
+                ]
             )
             .AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
-        should = Types().That().Are(helper.ClassWithArguments, helper.ClassWithAttributes).Should();
+        should = Types()
+            .That()
+            .Are(
+                helper.ClassWithSingleAttributeWithNamedArguments,
+                helper.ClassWithTwoAttributesWithNamedArguments
+            )
+            .Should();
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
             )
-            .AssertAnyViolations(helper);
+            .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgumentSystemType)]
             )
-            .AssertAnyViolations(helper);
+            .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                helper.Attribute1NamedParameter1Pair
+                ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)
             )
-            .AssertAnyViolations(helper);
+            .AssertOnlyViolations(helper);
         should
             .NotHaveAttributeWithNamedArguments(
                 helper.Attribute1SystemType,
-                [helper.Attribute1NamedParameter1Pair]
+                [("NamedParameter1", helper.Attribute1TypeArgumentSystemType)]
             )
-            .AssertAnyViolations(helper);
+            .AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -2330,7 +2382,7 @@ public class ObjectsShouldTests
         should.NotHaveNameContaining(helper.BaseClass.Namespace.Name).AssertNoViolations(helper);
         should.NotHaveFullNameContaining(helper.NonExistentObjectName).AssertNoViolations(helper);
         should.NotHaveNameStartingWith(helper.BaseClass.Namespace.Name).AssertNoViolations(helper);
-        should.NotHaveNameEndingWith("Base").AssertNoViolations(helper);
+        should.NotHaveNameEndingWith("Test").AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.BaseClass).Should();
@@ -2338,12 +2390,12 @@ public class ObjectsShouldTests
         should.NotHaveNameMatching("^Base.*$").AssertOnlyViolations(helper);
         should.NotHaveFullName(helper.BaseClass.FullName).AssertOnlyViolations(helper);
         should.NotHaveFullNameMatching("^.*\\.Base.*$").AssertOnlyViolations(helper);
-        should.NotHaveNameContaining("Base").AssertOnlyViolations(helper);
+        should.NotHaveNameContaining(helper.BaseClass.Name).AssertOnlyViolations(helper);
         should
             .NotHaveFullNameContaining(helper.BaseClass.Namespace.Name)
             .AssertOnlyViolations(helper);
-        should.NotHaveNameStartingWith("Base").AssertOnlyViolations(helper);
-        should.NotHaveNameEndingWith("Class").AssertOnlyViolations(helper);
+        should.NotHaveNameStartingWith(helper.BaseClass.Name).AssertOnlyViolations(helper);
+        should.NotHaveNameEndingWith(helper.BaseClass.Name).AssertOnlyViolations(helper);
         await helper.AssertSnapshotMatches();
     }
 
@@ -2453,7 +2505,7 @@ public class ObjectsShouldTests
         should.OnlyHaveAttributes(new List<System.Type>()).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
-        should = Types().That().Are(helper.ClassWithAttributes).Should();
+        should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should.OnlyHaveAttributes(helper.Attribute1, helper.Attribute2).AssertNoViolations(helper);
         should
             .OnlyHaveAttributes([helper.Attribute1, helper.Attribute2])
@@ -2469,16 +2521,17 @@ public class ObjectsShouldTests
             .AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
-        should = Types()
+        Types()
             .That()
-            .Are(helper.ClassWithAttributes, helper.OtherClassWithAttributes)
-            .Should();
-        should.OnlyHaveAttributes(helper.UnusedAttribute).AssertOnlyViolations(helper);
-        should.OnlyHaveAttributes([helper.UnusedAttribute]).AssertOnlyViolations(helper);
-        should.OnlyHaveAttributes(helper.UnusedAttributeSystemType).AssertOnlyViolations(helper);
-        should.OnlyHaveAttributes([helper.UnusedAttributeSystemType]).AssertOnlyViolations(helper);
-        should
-            .OnlyHaveAttributes(Attributes().That().Are(helper.UnusedAttribute))
+            .Are(helper.ClassWithSingleAttribute, helper.ClassWithTwoAttributes)
+            .Should()
+            .OnlyHaveAttributes(helper.Attribute1)
+            .AssertAnyViolations(helper);
+        Types()
+            .That()
+            .Are(helper.ClassWithSingleAttribute, helper.ClassWithTwoAttributes)
+            .Should()
+            .OnlyHaveAttributes(helper.Attribute2)
             .AssertOnlyViolations(helper);
         await helper.AssertSnapshotMatches();
     }

@@ -9,10 +9,8 @@ namespace ArchUnitNETTests.AssemblyTestHelper;
 
 public class VisibilityAssemblyTestHelper : AssemblyTestHelper
 {
-    public override Architecture Architecture
-    {
-        get => StaticTestArchitectures.VisibilityArchitecture;
-    }
+    public sealed override Architecture Architecture =>
+        StaticTestArchitectures.VisibilityArchitecture;
 
     public Class PublicClass;
     public Type PublicSystemType = typeof(PublicClass);
