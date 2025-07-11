@@ -18,7 +18,7 @@ namespace ArchUnitNET.Loader
         )
         {
             return RegistryUtils.GetFromDictOrCreateAndAdd(
-                assemblyName,
+                assemblyFullName,
                 _assemblies,
                 s => new Assembly(
                     assemblyName,
