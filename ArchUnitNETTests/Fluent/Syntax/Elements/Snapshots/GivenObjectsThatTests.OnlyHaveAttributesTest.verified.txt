@@ -1,0 +1,271 @@
+﻿===== No violations =====
+
+===== Violations =====
+
+Query: Types that only have attribute "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+Message: 
+"Types that only have attribute "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+
+
+
+Query: Types that only have attribute "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+Message: 
+"Types that only have attribute "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+
+
+
+Query: Types that only have attribute "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+Message: 
+"Types that only have attribute "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+
+
+
+Query: Types that only have attribute "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+Message: 
+"Types that only have attribute "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+
+
+
+Query: Types that only have Attributes that are "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+Result: False
+Description: AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+Message: 
+"Types that only have Attributes that are "AttributeNamespace.OnceUsedAttribute" should be "AttributeNamespace.ClassWithSingleAttribute"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument1 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument2 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.TypeArgument3 is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.UnusedTypeArgument is not "AttributeNamespace.ClassWithSingleAttribute"
+	AttributeNamespace.ClassWithSingleUniquelyUsedAttribute is not "AttributeNamespace.ClassWithSingleAttribute"
+
+
+
+===== Empty arguments =====
+
+Query: Types that only have Attributes that have name "NotTheNameOfAnyObject" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" should be "AttributeNamespace.ClassWithoutAttributes"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that have no attributes and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" should be "AttributeNamespace.ClassWithoutAttributes"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that have no attributes and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" should be "AttributeNamespace.ClassWithoutAttributes"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Message: 
+All Evaluations passed
+
+===== Multiple arguments =====
+
+Query: Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Result: True
+Description: AttributeNamespace.ClassWithTwoAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Result: True
+Description: AttributeNamespace.ClassWithTwoAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Result: True
+Description: AttributeNamespace.ClassWithTwoAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Result: True
+Description: AttributeNamespace.ClassWithTwoAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that only have Attributes that are "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes"
+Result: True
+Description: AttributeNamespace.ClassWithoutAttributes passed
+Result: True
+Description: AttributeNamespace.ClassWithSingleAttribute passed
+Result: True
+Description: AttributeNamespace.ClassWithTwoAttributes passed
+Message: 
+All Evaluations passed
+
+Query: Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Message: 
+"Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+
+
+
+Query: Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Message: 
+"Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+
+
+
+Query: Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Message: 
+"Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+
+
+
+Query: Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Message: 
+"Types that only have attribute "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+
+
+
+Query: Types that only have Attributes that are "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+Result: False
+Description: AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+Message: 
+"Types that only have Attributes that are "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" and are "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or ... should be "AttributeNamespace.ClassWithThreeAttributes"" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithThreeAttributes"
+	AttributeNamespace.ClassWithTwoAttributes is not "AttributeNamespace.ClassWithThreeAttributes"
+
+
+

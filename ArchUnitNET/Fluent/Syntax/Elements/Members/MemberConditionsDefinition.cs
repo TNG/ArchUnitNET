@@ -11,6 +11,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
     public static class MemberConditionsDefinition<TRuleType>
         where TRuleType : IMember
     {
+        public static RelationCondition<TRuleType, IType> BeMethodsThat()
+        {
+            return new RelationCondition<TRuleType, IType>(
+                ObjectConditionsDefinition<TRuleType>.Be,
+                "be methods that",
+                "are not methods that"
+            );
+        }
+
         [Obsolete(
             "Another overload of this method should be used. This will be removed in a future update. You can use BeDeclaredIn(Types().That().HaveFullName()) instead"
         )]

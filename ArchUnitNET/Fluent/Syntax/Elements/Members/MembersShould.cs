@@ -16,6 +16,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public MembersShould(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
 
+        public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeMethodsThat()
+        {
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.Types(true),
+                MemberConditionsDefinition<TRuleType>.BeMethodsThat()
+            );
+            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(
+                _ruleCreator
+            );
+        }
+
         [Obsolete(
             "Another overload of this method should be used. This will be removed in a future update. You can use BeDeclaredIn(Types().That().HaveFullName()) instead"
         )]

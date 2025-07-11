@@ -1,0 +1,400 @@
+﻿===== No violations =====
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on Types that are "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+	TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+	TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+	TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+	TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on Types that are "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Result: False
+Description: TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+Message: 
+"Types that depend on "TypeDependencyNamespace.BaseClass" and only depend on Types that are "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+	TypeDependencyNamespace.OtherChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
+
+
+
+===== Empty arguments =====
+
+Query: Types that have no dependencies and are "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that have no dependencies and are "TypeDependencyNamespace.BaseClass" should be "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+===== Multiple arguments =====
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or "...
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Message: 
+All Evaluations passed
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or "...
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Message: 
+All Evaluations passed
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or "...
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Message: 
+All Evaluations passed
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or "...
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Message: 
+All Evaluations passed
+
+Query: Types that only depend on Types that are "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or "...
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Message: 
+All Evaluations passed
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+Message: 
+"Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+
+
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+Message: 
+"Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+
+
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+Message: 
+"Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+
+
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+Message: 
+"Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+
+
+
+Query: Types that only depend on Types that are "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+Result: False
+Description: TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+Message: 
+"Types that only depend on Types that are "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" and are "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClassWithMember" or ... should be "TypeDependencyNamespace.ChildClass1"" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ChildClassWithMember is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass1"
+	TypeDependencyNamespace.ClassWithoutDependencies is not "TypeDependencyNamespace.ChildClass1"
+
+
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" should not be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherBaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.GenericBaseClass`1 passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.Issue351 passed
+Message: 
+All Evaluations passed
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" should not be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherBaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.GenericBaseClass`1 passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.Issue351 passed
+Message: 
+All Evaluations passed
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" should not be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherBaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.GenericBaseClass`1 passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.Issue351 passed
+Message: 
+All Evaluations passed
+
+Query: Types that only depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" should not be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherBaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.GenericBaseClass`1 passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.Issue351 passed
+Message: 
+All Evaluations passed
+
+Query: Types that only depend on Types that are "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass" should not be "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.ChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClassWithMember passed
+Result: True
+Description: TypeDependencyNamespace.BaseClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherBaseClass passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies passed
+Result: True
+Description: TypeDependencyNamespace.GenericBaseClass`1 passed
+Result: True
+Description: TypeDependencyNamespace.ClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.OtherClassWithoutDependencies passed
+Result: True
+Description: TypeDependencyNamespace.Issue351 passed
+Message: 
+All Evaluations passed
+

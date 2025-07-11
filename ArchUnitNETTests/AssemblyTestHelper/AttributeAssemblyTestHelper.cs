@@ -73,15 +73,15 @@ public class AttributeAssemblyTestHelpers : AssemblyTestHelper
     public Class ClassWithThreeAttributesWithArguments;
     public System.Type ClassWithThreeAttributesWithArgumentsSystemType =
         typeof(ClassWithThreeAttributesWithArguments);
-    
+
     public Class ClassWithSingleAttributeWithNamedArguments;
     public System.Type ClassWithSingleAttributeWithNamedArgumentsSystemType =
         typeof(ClassWithSingleAttributeWithNamedArguments);
-    
+
     public Class ClassWithTwoAttributesWithNamedArguments;
     public System.Type ClassWithTwoAttributesWithNamedArgumentsSystemType =
         typeof(ClassWithTwoAttributesWithNamedArguments);
-    
+
     public Class ClassWithThreeAttributesWithNamedArguments;
     public System.Type ClassWithThreeAttributesWithNamedArgumentsSystemType =
         typeof(ClassWithThreeAttributesWithNamedArguments);
