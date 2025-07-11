@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FrozenRules>
+  <FrozenRule ArchRule="Types that are &quot;DuplicateClassAcrossAssemblies.DuplicateClass&quot; or &quot;DuplicateClassAcrossAssemblies.DuplicateClass&quot; should not have name &quot;DuplicateClass&quot;">
+    <Violation>DuplicateClassAcrossAssemblies.DuplicateClass</Violation>
+    <Violation>DuplicateClassAcrossAssemblies.DuplicateClass</Violation>
+  </FrozenRule>
   <FrozenRule ArchRule="Types that are &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation&quot; or &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation2&quot; should be public">
     <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation</Violation>
   </FrozenRule>

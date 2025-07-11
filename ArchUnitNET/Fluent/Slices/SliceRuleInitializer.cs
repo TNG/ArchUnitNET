@@ -84,7 +84,7 @@ namespace ArchUnitNET.Fluent.Slices
             return (pattern, countOfSingleAsterisk);
         }
 
-        private static SliceIdentifier AssignFunc(
+        private static FrozenRuleSliceIdentifier AssignFunc(
             IType type,
             string pattern,
             int? countOfSingleAsterisk,
@@ -104,12 +104,12 @@ namespace ArchUnitNET.Fluent.Slices
                 slicePrefix = slicePrefix.Substring(1);
                 if (!namespc.Contains(slicePrefix))
                 {
-                    return SliceIdentifier.Ignore();
+                    return FrozenRuleSliceIdentifier.Ignore();
                 }
             }
             else if (!namespc.StartsWith(slicePrefix))
             {
-                return SliceIdentifier.Ignore();
+                return FrozenRuleSliceIdentifier.Ignore();
             }
 
             if (slicePostfix.EndsWith("."))
@@ -124,12 +124,12 @@ namespace ArchUnitNET.Fluent.Slices
                         .Contains(slicePostfix)
                 )
                 {
-                    return SliceIdentifier.Ignore();
+                    return FrozenRuleSliceIdentifier.Ignore();
                 }
             }
             else if (!namespc.EndsWith(slicePostfix))
             {
-                return SliceIdentifier.Ignore();
+                return FrozenRuleSliceIdentifier.Ignore();
             }
 
             var sliceString = namespc;
@@ -162,8 +162,8 @@ namespace ArchUnitNET.Fluent.Slices
             }
 
             return fullName
-                ? SliceIdentifier.Of(slicePrefix + sliceString, countOfSingleAsterisk, slicePrefix)
-                : SliceIdentifier.Of(sliceString, countOfSingleAsterisk);
+                ? FrozenRuleSliceIdentifier.Of(slicePrefix + sliceString, countOfSingleAsterisk, slicePrefix)
+                : FrozenRuleSliceIdentifier.Of(sliceString, countOfSingleAsterisk);
         }
     }
 }

@@ -6,6 +6,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <PlatformTarget>ARM64</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj" />
     <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
@@ -44,6 +47,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ArchUnitNET\Storage\" />
     <Folder Include="Dependencies\cpplib\" />
     <Folder Include="Fluent\Syntax\Elements\Snapshots\" />
   </ItemGroup>

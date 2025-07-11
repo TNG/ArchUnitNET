@@ -1,4 +1,7 @@
-﻿using ArchUnitNET.Domain;
+﻿extern alias LoaderTestAssemblyAlias;
+extern alias OtherLoaderTestAssemblyAlias;
+
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Freeze;
 using ArchUnitNET.Fluent.Slices;
@@ -8,6 +11,9 @@ using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 using static ArchUnitNET.Fluent.Freeze.FreezingArchRule;
 
+using DuplicateClass = LoaderTestAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
+using OtherDuplicateClass = OtherLoaderTestAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
+
 namespace ArchUnitNETTests.Fluent
 {
     public class FreezeTests
@@ -15,7 +21,7 @@ namespace ArchUnitNETTests.Fluent
         private static readonly Architecture Architecture = new ArchLoader()
             .LoadAssembly(typeof(FreezeTests).Assembly)
             .Build();
-
+        
         private readonly IArchRule _frozenRule = Types()
             .That()
             .Are(typeof(Violation), typeof(Violation2))
@@ -75,7 +81,7 @@ namespace ArchUnitNETTests.Fluent
                     .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
             );
         }
-
+        
         [Fact]
         public void FailFrozenRuleUsingXmlViolationStore()
         {
@@ -97,6 +103,15 @@ namespace ArchUnitNETTests.Fluent
                 .Check(Architecture);
             Freeze(_frozenSliceRule, "../../../ArchUnitNET/Storage/CustomPathFrozenRules.json")
                 .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
+        }
+
+        [Fact]
+        public void FrozenRuleWithTwoTypesWithSameFullName()
+        {
+            var rule =Types().That().Are(typeof(DuplicateClass), typeof(OtherDuplicateClass)).Should()
+                .NotHaveName("DuplicateClass");
+            Freeze(rule, new JsonViolationStore()).Check(StaticTestArchitectures.LoaderTestArchitecture);
+            Freeze(rule, new XmlViolationStore()).Check(StaticTestArchitectures.LoaderTestArchitecture);
         }
 
         private class Violation { }

@@ -95,7 +95,7 @@ namespace ArchUnitNET.Domain.Extensions
             return source
                 .GroupBy(type => type.FullName)
                 .Select(sliceItems => new Slice(
-                    SliceIdentifier.Of(sliceItems.Key),
+                    FrozenRuleSliceIdentifier.Of(sliceItems.Key),
                     sliceItems.ToList()
                 ));
         }

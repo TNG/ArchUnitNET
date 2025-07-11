@@ -24,7 +24,7 @@ namespace ArchUnitNET.Fluent.Freeze
             return storedRules.Any(r => r.ArchRuleDescription == rule.Description);
         }
 
-        public IEnumerable<StringIdentifier> GetFrozenViolations(IArchRule rule)
+        public IEnumerable<FrozenRuleIdentifier> GetFrozenViolations(IArchRule rule)
         {
             var storedRules = LoadStorage();
             var matchingRules = storedRules
@@ -32,7 +32,7 @@ namespace ArchUnitNET.Fluent.Freeze
                 .ToList();
             if (!matchingRules.Any())
             {
-                return Enumerable.Empty<StringIdentifier>();
+                return Enumerable.Empty<FrozenRuleIdentifier>();
             }
 
             if (matchingRules.Count > 1)
@@ -44,11 +44,13 @@ namespace ArchUnitNET.Fluent.Freeze
 
             return matchingRules
                 .First()
-                .Violations.Select(violation => new StringIdentifier(violation));
+                .Violations.Select(violation => new FrozenRuleIdentifier(violation));
         }
 
-        public void StoreCurrentViolations(IArchRule rule, IEnumerable<StringIdentifier> violations)
+        public void StoreCurrentViolations(IArchRule rule, IEnumerable<FrozenRuleIdentifier> violations)
         {
+            var identifierGroups = violations.GroupBy(violation => violation.Identifier);
+            
             var violationIdentifiers = violations
                 .Select(violation => violation.Identifier)
                 .ToList();

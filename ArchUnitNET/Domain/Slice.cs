@@ -7,10 +7,10 @@ namespace ArchUnitNET.Domain
 {
     public class Slice : IHasDescription, IHasDependencies
     {
-        public readonly SliceIdentifier Identifier;
+        public readonly FrozenRuleSliceIdentifier Identifier;
         public readonly IEnumerable<IType> Types;
 
-        public Slice(SliceIdentifier identifier, IEnumerable<IType> types)
+        public Slice(FrozenRuleSliceIdentifier identifier, IEnumerable<IType> types)
         {
             Identifier = identifier;
             Types = types;

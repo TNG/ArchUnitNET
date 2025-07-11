@@ -1,10 +1,10 @@
 ﻿namespace ArchUnitNET.Domain
 {
-    public class StringIdentifier
+    public class FrozenRuleIdentifier
     {
         public readonly string Identifier;
 
-        public StringIdentifier(string identifier)
+        public FrozenRuleIdentifier(string identifier)
         {
             Identifier = identifier;
         }
@@ -18,7 +18,7 @@
         {
             return obj != null
                 && obj.GetType() == GetType()
-                && Identifier == ((StringIdentifier)obj).Identifier;
+                && Identifier == ((FrozenRuleIdentifier)obj).Identifier;
         }
 
         public override int GetHashCode()

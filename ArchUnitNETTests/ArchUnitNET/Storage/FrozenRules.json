@@ -32,5 +32,12 @@
   {
     "ArchRuleDescription": "Slices matching \"TestAssembly.Slices.(*)..\" should not depend on each other",
     "Violations": []
+  },
+  {
+    "ArchRuleDescription": "Types that are \"DuplicateClassAcrossAssemblies.DuplicateClass\" or \"DuplicateClassAcrossAssemblies.DuplicateClass\" should not have name \"DuplicateClass\"",
+    "Violations": [
+      "DuplicateClassAcrossAssemblies.DuplicateClass",
+      "DuplicateClassAcrossAssemblies.DuplicateClass"
+    ]
   }
 ]

@@ -108,7 +108,7 @@ namespace ArchUnitNET.Fluent
             {
                 yield return new EvaluationResult(
                     null,
-                    new StringIdentifier(""),
+                    new FrozenRuleIdentifier(""),
                     false,
                     "There are no objects matching the criteria",
                     archRuleCreator,
@@ -220,7 +220,7 @@ namespace ArchUnitNET.Fluent
                 }
             }
 
-            var identifier = new StringIdentifier(analyzedObject.FullName);
+            var identifier = new FrozenRuleAnalyzedObjectIdentifier(analyzedObject);
             return new EvaluationResult(
                 analyzedObject,
                 identifier,

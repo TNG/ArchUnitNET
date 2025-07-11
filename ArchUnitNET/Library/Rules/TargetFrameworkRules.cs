@@ -17,7 +17,7 @@ namespace ArchUnitNET.Library.Rules
                     var description = "has target framework " + assembly.GetTargetFramework();
                     yield return new EvaluationResult(
                         assembly,
-                        new StringIdentifier(assembly.FullName),
+                        new FrozenRuleIdentifier(assembly.FullName),
                         passed,
                         description,
                         archRule,
@@ -39,7 +39,7 @@ namespace ArchUnitNET.Library.Rules
                     var description = "has target framework " + assembly.GetTargetFramework();
                     yield return new EvaluationResult(
                         assembly,
-                        new StringIdentifier(assembly.FullName),
+                        new FrozenRuleIdentifier(assembly.FullName),
                         passed,
                         description,
                         archRule,
@@ -61,7 +61,7 @@ namespace ArchUnitNET.Library.Rules
                     var description = "has target framework " + assembly.GetTargetFramework();
                     yield return new EvaluationResult(
                         assembly,
-                        new StringIdentifier(assembly.FullName),
+                        new FrozenRuleIdentifier(assembly.FullName),
                         passed,
                         description,
                         archRule,

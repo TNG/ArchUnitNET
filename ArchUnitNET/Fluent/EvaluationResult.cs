@@ -8,7 +8,7 @@ namespace ArchUnitNET.Fluent
     {
         public EvaluationResult(
             object obj,
-            StringIdentifier evaluatedObjectIdentifier,
+            FrozenRuleIdentifier frozenRuleIdentifier,
             bool passed,
             string description,
             ICanBeEvaluated archRule,
@@ -16,7 +16,7 @@ namespace ArchUnitNET.Fluent
         )
         {
             EvaluatedObject = obj;
-            EvaluatedObjectIdentifier = evaluatedObjectIdentifier;
+            FrozenRuleIdentifier = frozenRuleIdentifier;
             Passed = passed;
             Description = description;
             ArchRule = archRule;
@@ -29,7 +29,7 @@ namespace ArchUnitNET.Fluent
         public object EvaluatedObject { get; }
 
         [NotNull]
-        public StringIdentifier EvaluatedObjectIdentifier { get; }
+        public FrozenRuleIdentifier FrozenRuleIdentifier { get; }
         public bool Passed { get; }
         public Architecture Architecture { get; }
         public string Description { get; }
@@ -43,7 +43,7 @@ namespace ArchUnitNET.Fluent
         {
             return string.Equals(Description, other.Description)
                 && Equals(EvaluatedObject, other.EvaluatedObject)
-                && Equals(EvaluatedObjectIdentifier, other.EvaluatedObjectIdentifier)
+                && Equals(FrozenRuleIdentifier, other.FrozenRuleIdentifier)
                 && Equals(Passed, other.Passed)
                 && Equals(ArchRule, other.ArchRule)
                 && Equals(Architecture, other.Architecture);
@@ -72,7 +72,7 @@ namespace ArchUnitNET.Fluent
                 hashCode =
                     (hashCode * 397)
                     ^ (EvaluatedObject != null ? EvaluatedObject.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ EvaluatedObjectIdentifier.GetHashCode();
+                hashCode = (hashCode * 397) ^ FrozenRuleIdentifier.GetHashCode();
                 hashCode = (hashCode * 397) ^ Passed.GetHashCode();
                 hashCode = (hashCode * 397) ^ (ArchRule != null ? ArchRule.GetHashCode() : 0);
                 hashCode =

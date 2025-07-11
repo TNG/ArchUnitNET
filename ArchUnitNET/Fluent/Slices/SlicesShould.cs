@@ -90,7 +90,7 @@ namespace ArchUnitNET.Fluent.Slices
                         }
                     }
 
-                    var cycleIdentifier = new EnumerableIdentifier(
+                    var cycleIdentifier = new FrozenRuleEnumerableIdentifier(
                         cycle.Contents.Select(slice => slice.Identifier)
                     );
                     yield return new EvaluationResult(
@@ -105,7 +105,7 @@ namespace ArchUnitNET.Fluent.Slices
             }
             else
             {
-                var slicesIdentifier = new EnumerableIdentifier(
+                var slicesIdentifier = new FrozenRuleEnumerableIdentifier(
                     slicesList.Select(slice => slice.Identifier)
                 );
                 yield return new EvaluationResult(

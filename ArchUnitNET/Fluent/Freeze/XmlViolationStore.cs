@@ -33,7 +33,7 @@ namespace ArchUnitNET.Fluent.Freeze
             return storedRule != null;
         }
 
-        public IEnumerable<StringIdentifier> GetFrozenViolations(IArchRule rule)
+        public IEnumerable<FrozenRuleIdentifier> GetFrozenViolations(IArchRule rule)
         {
             var storageDoc = LoadStorage();
             var storedRule = FindStoredRule(storageDoc, rule);
@@ -45,11 +45,11 @@ namespace ArchUnitNET.Fluent.Freeze
 
             foreach (var xElement in storedRule.Elements())
             {
-                yield return new StringIdentifier(xElement.Value);
+                yield return new FrozenRuleIdentifier(xElement.Value);
             }
         }
 
-        public void StoreCurrentViolations(IArchRule rule, IEnumerable<StringIdentifier> violations)
+        public void StoreCurrentViolations(IArchRule rule, IEnumerable<FrozenRuleIdentifier> violations)
         {
             var directory = Path.GetDirectoryName(_storagePath);
 
