@@ -8,10 +8,8 @@ namespace ArchUnitNETTests.AssemblyTestHelper;
 
 public class DependencyAssemblyTestHelper : AssemblyTestHelper
 {
-    public override Architecture Architecture
-    {
-        get => StaticTestArchitectures.DependencyArchitecture;
-    }
+    public sealed override Architecture Architecture =>
+        StaticTestArchitectures.DependencyArchitecture;
 
     public Class BaseClass;
     public Type BaseClassSystemType = typeof(BaseClass);

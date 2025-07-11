@@ -1,134 +1,134 @@
 ﻿===== No violations with type arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.TypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "Argument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.TypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "Argument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
 ===== No violations with value arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "Argument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "Argument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
 ===== Violations with type arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 
 
 
 ===== Violations with value arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "0"
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "1"
 Result: False
 Description: AttributeNamespace.ClassWithoutAttributes does have no attribute with an argument
 Message: 
-"Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "0"" failed:
+"Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "1"" failed:
 	AttributeNamespace.ClassWithoutAttributes does have no attribute with an argument
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "0"
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "1"
 Result: False
 Description: AttributeNamespace.ClassWithoutAttributes does have no attribute with an argument
 Message: 
-"Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "0"" failed:
+"Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "1"" failed:
 	AttributeNamespace.ClassWithoutAttributes does have no attribute with an argument
 
 
 
 ===== Null argument =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments ""
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments ""
 Result: False
-Description: AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments """ failed:
-	AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments """ failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 
 
 
 ===== Empty arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have no or any attributes with arguments (always true)
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have no or any attributes with arguments (always true)
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithAttributes" should have no or any attributes with arguments (always true)
+Query: Types that are "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have no or any attributes with arguments (always true)
 Result: True
-Description: AttributeNamespace.ClassWithAttributes passed
+Description: AttributeNamespace.ClassWithTwoAttributesWithArguments passed
 Message: 
 All Evaluations passed
 
 ===== Multiple arguments =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.OtherTypeArgument" and "UnusedValueArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.OtherTypeArgument" and "UnusedValueArgument"" failed:
-	AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.OtherTypeArgument" and "UnusedValueArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" should have any attributes with arguments "AttributeNamespace.OtherTypeArgument" and "UnusedValueArgument"" failed:
-	AttributeNamespace.ClassWithArguments does have attributes with argument values "Argument" and "Argument" and "0" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedArgument" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "OtherArgument" and "2" and "OtherNamedArgument" and "3" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 
 
 
 ===== Multiple inputs =====
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.OtherClassWithArguments" should have any attributes with arguments "Argument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have any attributes with arguments "Argument1"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Result: True
-Description: AttributeNamespace.OtherClassWithArguments passed
+Description: AttributeNamespace.ClassWithTwoAttributesWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have any attributes with arguments "0"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have any attributes with arguments "2"
 Result: False
-Description: AttributeNamespace.ClassWithAttributes does have attributes with argument values "" and "" and "-1" and "" and "" and "" and "-1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 Result: True
-Description: AttributeNamespace.ClassWithArguments passed
+Description: AttributeNamespace.ClassWithTwoAttributesWithArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithArguments" or "AttributeNamespace.ClassWithAttributes" should have any attributes with arguments "0"" failed:
-	AttributeNamespace.ClassWithAttributes does have attributes with argument values "" and "" and "-1" and "" and "" and "" and "-1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have any attributes with arguments "2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
 
 
 
