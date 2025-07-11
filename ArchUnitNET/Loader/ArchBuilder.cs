@@ -44,10 +44,10 @@ namespace ArchUnitNET.Loader
                 .MainModule.AssemblyReferences.Select(reference => reference.Name)
                 .ToList();
 
-            if (!_assemblyRegistry.ContainsAssembly(moduleAssembly.Name.FullName))
+            if (!_assemblyRegistry.ContainsAssembly(moduleAssembly.FullName))
             {
                 var assembly = _assemblyRegistry.GetOrCreateAssembly(
-                    moduleAssembly.Name.FullName,
+                    moduleAssembly.Name.Name,
                     moduleAssembly.FullName,
                     isOnlyReferenced,
                     references

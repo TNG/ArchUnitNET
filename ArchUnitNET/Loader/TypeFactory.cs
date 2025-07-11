@@ -361,7 +361,7 @@ namespace ArchUnitNET.Loader
                         typeReference.BuildFullName(),
                         typeReference.Name,
                         _assemblyRegistry.GetOrCreateAssembly(
-                            typeReference.Module.Assembly.Name.FullName,
+                            typeReference.Module.Assembly.Name.Name,
                             typeReference.Module.Assembly.FullName,
                             true,
                             null
