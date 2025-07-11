@@ -28,34 +28,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use AreCalledBy(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction AreCalledBy(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreCalledBy(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use AreCalledBy(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction AreCalledBy(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreCalledBy(patterns, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction AreCalledBy(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -92,40 +64,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             _ruleCreator.ContinueComplexCondition(
                 MethodMemberPredicatesDefinition.AreCalledBy(types)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use HaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use HaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction HaveDependencyInMethodBodyTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(
-                    patterns,
-                    useRegularExpressions
-                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -172,34 +110,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             _ruleCreator.ContinueComplexCondition(
                 MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use HaveReturnType(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction HaveReturnType(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveReturnType(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use HaveReturnType(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction HaveReturnType(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.HaveReturnType(patterns, useRegularExpressions)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -260,34 +170,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotCalledBy(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction AreNotCalledBy(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotCalledBy(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction AreNotCalledBy(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.AreNotCalledBy(patterns, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction AreNotCalledBy(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -324,40 +206,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             _ruleCreator.ContinueComplexCondition(
                 MethodMemberPredicatesDefinition.AreNotCalledBy(types)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveDependencyInMethodBodyTo(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction DoNotHaveDependencyInMethodBodyTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(
-                    patterns,
-                    useRegularExpressions
-                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -411,37 +259,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             _ruleCreator.ContinueComplexCondition(
                 MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveReturnType(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction DoNotHaveReturnType(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use DoNotHaveReturnType(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction DoNotHaveReturnType(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.ContinueComplexCondition(
-                MethodMemberPredicatesDefinition.DoNotHaveReturnType(
-                    patterns,
-                    useRegularExpressions
-                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
