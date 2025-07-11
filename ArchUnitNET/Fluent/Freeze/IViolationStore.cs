@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Freeze
     public interface IViolationStore
     {
         bool RuleAlreadyFrozen(IArchRule rule);
-        IEnumerable<StringIdentifier> GetFrozenViolations(IArchRule rule);
-        void StoreCurrentViolations(IArchRule rule, IEnumerable<StringIdentifier> violations);
+        IEnumerable<FrozenRuleIdentifier> GetFrozenViolations(IArchRule rule);
+        void StoreCurrentViolations(IArchRule rule, IEnumerable<FrozenRuleIdentifier> violations);
     }
 }

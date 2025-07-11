@@ -7,10 +7,10 @@ namespace ArchUnitNET.Fluent.Slices
 {
     public class SliceAssignment : IHasDescription
     {
-        private readonly Func<IType, SliceIdentifier> _assignIdentifierFunc;
+        private readonly Func<IType, FrozenRuleSliceIdentifier> _assignIdentifierFunc;
 
         public SliceAssignment(
-            Func<IType, SliceIdentifier> assignIdentifierFunc,
+            Func<IType, FrozenRuleSliceIdentifier> assignIdentifierFunc,
             string description
         )
         {
@@ -25,7 +25,7 @@ namespace ArchUnitNET.Fluent.Slices
             return types.GroupBy(
                 _assignIdentifierFunc,
                 (identifier, enumerable) => new Slice(identifier, enumerable),
-                SliceIdentifier.Comparer
+                FrozenRuleSliceIdentifier.Comparer
             );
         }
     }

@@ -2,12 +2,12 @@
 
 namespace ArchUnitNET.Domain
 {
-    public class SliceIdentifier : StringIdentifier, IHasDescription
+    public class FrozenRuleSliceIdentifier : FrozenRuleIdentifier, IHasDescription
     {
-        public static readonly SliceIdentifierComparer Comparer = new SliceIdentifierComparer();
+        public static readonly FrozenRuleSliceIdentifierComparer Comparer = new FrozenRuleSliceIdentifierComparer();
         public readonly bool Ignored;
 
-        private SliceIdentifier(
+        private FrozenRuleSliceIdentifier(
             string identifier,
             bool ignored,
             int? countOfAsteriskInPattern = null,
@@ -26,18 +26,18 @@ namespace ArchUnitNET.Domain
         public readonly string NameSpace;
         public readonly int? CountOfAsteriskInPattern;
 
-        public static SliceIdentifier Of(
+        public static FrozenRuleSliceIdentifier Of(
             string identifier,
             int? countOfAsteriskInPattern = null,
             string nameSpace = null
         )
         {
-            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
+            return new FrozenRuleSliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
         }
 
-        public static SliceIdentifier Ignore()
+        public static FrozenRuleSliceIdentifier Ignore()
         {
-            return new SliceIdentifier("Ignored", true);
+            return new FrozenRuleSliceIdentifier("Ignored", true);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace ArchUnitNET.Domain
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool CompareTo(SliceIdentifier other)
+        public bool CompareTo(FrozenRuleSliceIdentifier other)
         {
             if (other == null)
             {
@@ -56,7 +56,7 @@ namespace ArchUnitNET.Domain
                 || !Ignored && !other.Ignored && Identifier == other.Identifier;
         }
 
-        private bool Equals(SliceIdentifier other)
+        private bool Equals(FrozenRuleSliceIdentifier other)
         {
             return Identifier == other.Identifier && Ignored == other.Ignored;
         }
@@ -73,7 +73,7 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((SliceIdentifier)obj);
+            return obj.GetType() == GetType() && Equals((FrozenRuleSliceIdentifier)obj);
         }
 
         public override int GetHashCode()

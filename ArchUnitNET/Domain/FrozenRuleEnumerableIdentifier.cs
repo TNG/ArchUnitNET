@@ -3,12 +3,12 @@ using System.Text;
 
 namespace ArchUnitNET.Domain
 {
-    public class EnumerableIdentifier : StringIdentifier
+    public class FrozenRuleEnumerableIdentifier : FrozenRuleIdentifier
     {
-        public EnumerableIdentifier(IEnumerable<StringIdentifier> enumerable)
+        public FrozenRuleEnumerableIdentifier(IEnumerable<FrozenRuleIdentifier> enumerable)
             : base(CreateIdentifierString(enumerable)) { }
 
-        private static string CreateIdentifierString(IEnumerable<StringIdentifier> enumerable)
+        private static string CreateIdentifierString(IEnumerable<FrozenRuleIdentifier> enumerable)
         {
             var sb = new StringBuilder("<>_first:");
             foreach (var identifier in enumerable)

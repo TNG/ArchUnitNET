@@ -44,7 +44,7 @@ namespace ArchUnitNET.Fluent
                 result.Add(
                     new EvaluationResult(
                         this,
-                        new StringIdentifier(Description),
+                        new FrozenRuleIdentifier(Description),
                         false,
                         $"The rule requires positive evaluation, not just absence of violations. Use {nameof(WithoutRequiringPositiveResults)}() or improve your rule's predicates.",
                         this,

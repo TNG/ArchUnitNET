@@ -28,7 +28,7 @@ namespace ArchUnitNET.Fluent.Freeze
             var evalResultsIgnoringFrozen = new List<EvaluationResult>();
             var identifiersOfFailedResults = evalResults
                 .Where(result => !result.Passed)
-                .Select(result => result.EvaluatedObjectIdentifier);
+                .Select(result => result.FrozenRuleIdentifier);
 
             if (!_violationStore.RuleAlreadyFrozen(_frozenRule))
             {
@@ -38,18 +38,18 @@ namespace ArchUnitNET.Fluent.Freeze
             else
             {
                 var frozenViolations = _violationStore.GetFrozenViolations(_frozenRule).ToList();
-                var stillUnresolvedViolations = new List<StringIdentifier>();
+                var stillUnresolvedViolations = new List<FrozenRuleIdentifier>();
                 foreach (var evalResult in evalResults)
                 {
                     if (
                         frozenViolations.Contains(
-                            evalResult.EvaluatedObjectIdentifier,
-                            new StringIdentifierComparer()
+                            evalResult.FrozenRuleIdentifier,
+                            new FrozenRuleIdentifierComparer()
                         ) && !evalResult.Passed
                     )
                     {
                         evalResultsIgnoringFrozen.Add(MarkAsPassed(evalResult));
-                        stillUnresolvedViolations.Add(evalResult.EvaluatedObjectIdentifier);
+                        stillUnresolvedViolations.Add(evalResult.FrozenRuleIdentifier);
                     }
                     else
                     {
@@ -102,7 +102,7 @@ namespace ArchUnitNET.Fluent.Freeze
         {
             return new EvaluationResult(
                 evaluationResult.EvaluatedObject,
-                evaluationResult.EvaluatedObjectIdentifier,
+                evaluationResult.FrozenRuleIdentifier,
                 true,
                 evaluationResult.Description,
                 evaluationResult.ArchRule,
