@@ -29,34 +29,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use BeAssignableTo(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction BeAssignableTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.BeAssignableTo(pattern, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use BeAssignableTo(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction BeAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.BeAssignableTo(patterns, useRegularExpressions)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction BeAssignableTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(
@@ -143,23 +115,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public TRuleTypeShouldConjunction ImplementInterface(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.ImplementInterface(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction ImplementInterface(Interface intf)
         {
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.ImplementInterface(intf));
@@ -169,23 +124,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TRuleTypeShouldConjunction ImplementInterface(Type intf)
         {
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.ImplementInterface(intf));
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
-        )]
-        public TRuleTypeShouldConjunction ResideInNamespace(
-            string pattern,
-            bool useRegularExpressions
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.ResideInNamespace(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
@@ -201,20 +139,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddCondition(
                 TypeConditionsDefinition<TRuleType>.ResideInNamespaceMatching(pattern)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Either ResideInAssembly() without the useRegularExpressions parameter or ResideInAssemblyMatching() should be used"
-        )]
-        public TRuleTypeShouldConjunction ResideInAssembly(
-            string pattern,
-            bool useRegularExpressions
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.ResideInAssembly(pattern, useRegularExpressions)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
@@ -326,40 +250,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeAssignableTo(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction NotBeAssignableTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.NotBeAssignableTo(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeAssignableTo(Types().That().HaveFullName()) instead"
-        )]
-        public TRuleTypeShouldConjunction NotBeAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.NotBeAssignableTo(
-                    patterns,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction NotBeAssignableTo(
             IType firstType,
             params IType[] moreTypes
@@ -415,23 +305,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public TRuleTypeShouldConjunction NotImplementInterface(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.NotImplementInterface(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction NotImplementInterface(Interface intf)
         {
             _ruleCreator.AddCondition(
@@ -448,23 +321,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
-        [Obsolete(
-            "Either NotResideInNamespace() without the useRegularExpressions parameter or NotResideInNamespaceMatching() should be used"
-        )]
-        public TRuleTypeShouldConjunction NotResideInNamespace(
-            string pattern,
-            bool useRegularExpressions
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.NotResideInNamespace(
-                    pattern,
-                    useRegularExpressions
-                )
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
         public TRuleTypeShouldConjunction NotResideInNamespace(string fullName)
         {
             _ruleCreator.AddCondition(
@@ -477,23 +333,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             _ruleCreator.AddCondition(
                 TypeConditionsDefinition<TRuleType>.NotResideInNamespaceMatching(pattern)
-            );
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        [Obsolete(
-            "Either NotResideInAssembly() without the useRegularExpressions parameter or NotResideInAssemblyMatching() should be used"
-        )]
-        public TRuleTypeShouldConjunction NotResideInAssembly(
-            string pattern,
-            bool useRegularExpressions
-        )
-        {
-            _ruleCreator.AddCondition(
-                TypeConditionsDefinition<TRuleType>.NotResideInAssembly(
-                    pattern,
-                    useRegularExpressions
-                )
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
