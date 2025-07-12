@@ -29,15 +29,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 var archUnitTypeList = new List<IType>();
                 foreach (var type in typeList)
                 {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't be equal anyways
-                    }
+                    var archUnitType = architecture.GetITypeOfType(type);
+                    archUnitTypeList.Add(archUnitType);
                 }
 
                 return ruleTypes.Intersect(archUnitTypeList.OfType<T>());

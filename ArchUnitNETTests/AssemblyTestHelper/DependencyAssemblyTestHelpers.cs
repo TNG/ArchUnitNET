@@ -48,6 +48,12 @@ public class DependencyAssemblyTestHelper : AssemblyTestHelper
     public Class ClassWithoutDependencies;
     public Type ClassWithoutDependenciesSystemType = typeof(ClassWithoutDependencies);
 
+    public Class GenericBaseClass;
+    public Type GenericBaseClassSystemType = typeof(GenericBaseClass<>);
+
+    public Class ChildClassOfGeneric;
+    public Type ChildClassOfGenericSystemType = typeof(ChildClassOfGeneric);
+
     public Class OtherClassWithoutDependencies;
     public Type OtherClassWithoutDependenciesSystemType = typeof(OtherClassWithoutDependencies);
 
@@ -84,6 +90,8 @@ public class DependencyAssemblyTestHelper : AssemblyTestHelper
         ClassWithMultipleDependencies = Architecture.GetClassOfType(
             typeof(ClassWithMultipleDependencies)
         );
+        GenericBaseClass = Architecture.GetClassOfType(typeof(GenericBaseClass<>));
+        ChildClassOfGeneric = Architecture.GetClassOfType(typeof(ChildClassOfGeneric));
         ClassWithoutDependencies = Architecture.GetClassOfType(typeof(ClassWithoutDependencies));
         OtherClassWithoutDependencies = Architecture.GetClassOfType(
             typeof(OtherClassWithoutDependencies)

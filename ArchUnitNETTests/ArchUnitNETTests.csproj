@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dependencies\cpplib\" />
+    <Folder Include="Fluent\Syntax\Elements\Snapshots\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CppDllTest">

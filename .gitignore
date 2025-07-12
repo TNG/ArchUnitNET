@@ -63,3 +63,7 @@ list_license.ps1
 
 # Visual Studio cache/options directory
 .vs/
+
+# Test Results and Coverage Reports
+TestResults/
+coveragereport/

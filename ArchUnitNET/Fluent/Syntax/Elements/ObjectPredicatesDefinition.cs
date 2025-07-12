@@ -342,15 +342,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 var archUnitTypeList = new List<IType>();
                 foreach (var type in typeList)
                 {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
+                    var archUnitType = architecture.GetITypeOfType(type);
+                    archUnitTypeList.Add(archUnitType);
                 }
 
                 return objects.Where(obj =>
@@ -513,15 +506,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 var archUnitTypeList = new List<IType>();
                 foreach (var type in typeList)
                 {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
+                    var archUnitType = architecture.GetITypeOfType(type);
+                    archUnitTypeList.Add(archUnitType);
                 }
 
                 return objects.Where(obj =>
@@ -833,15 +819,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 var archUnitAttributeList = new List<Attribute>();
                 foreach (var type in attributeList)
                 {
-                    try
-                    {
-                        var archUnitAttribute = architecture.GetAttributeOfType(type);
-                        archUnitAttributeList.Add(archUnitAttribute);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
+                    var archUnitAttribute = architecture.GetAttributeOfType(type);
+                    archUnitAttributeList.Add(archUnitAttribute);
                 }
 
                 return objects.Where(obj => !obj.Attributes.Except(archUnitAttributeList).Any());
@@ -1439,7 +1418,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -1527,7 +1506,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -2344,7 +2323,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                             return false;
                         }
                     }
-                    else if (attributeArguments.Contains(arg))
+                    else if (
+                        attributeArguments.Contains(arg) || typeAttributeArguments.Contains(arg)
+                    )
                     {
                         return false;
                     }
@@ -2784,7 +2765,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -2872,7 +2853,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }

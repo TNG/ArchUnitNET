@@ -33,15 +33,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 var archUnitTypeList = new List<IType>();
                 foreach (var type in typeList)
                 {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't be equal anyways
-                    }
+                    var archUnitType = architecture.GetITypeOfType(type);
+                    archUnitTypeList.Add(archUnitType);
                 }
 
                 var ruleTypeList = ruleTypes.ToList();
@@ -163,6 +156,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
+        }
+
+        public static RelationCondition<TRuleType, IType> BeTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(
+                ObjectConditionsDefinition<TRuleType>.Be,
+                "be types that",
+                "are not types that"
+            );
         }
 
         public static ICondition<TRuleType> BeAssignableTo(

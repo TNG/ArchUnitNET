@@ -44,6 +44,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        public ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> BeMethodsThat()
+        {
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.Types(true),
+                MemberConditionsDefinition<TRuleType>.BeMethodsThat()
+            );
+            return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(
+                _ruleCreator
+            );
+        }
+
         public TRuleTypeShouldConjunction BeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(

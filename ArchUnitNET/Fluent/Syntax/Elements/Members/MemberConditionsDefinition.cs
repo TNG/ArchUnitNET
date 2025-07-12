@@ -75,6 +75,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             );
         }
 
+        public static RelationCondition<TRuleType, IType> BeMethodsThat()
+        {
+            return new RelationCondition<TRuleType, IType>(
+                ObjectConditionsDefinition<TRuleType>.Be,
+                "be methods that",
+                "are not methods that"
+            );
+        }
+
         public static ICondition<TRuleType> BeDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             var types = new List<IType> { firstType };
