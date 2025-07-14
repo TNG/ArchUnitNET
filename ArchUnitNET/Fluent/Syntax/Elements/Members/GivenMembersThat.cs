@@ -15,6 +15,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public GivenMembersThat(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
 
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public TGivenRuleTypeConjunction AreDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(pattern, useRegularExpressions)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public TGivenRuleTypeConjunction AreDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(patterns, useRegularExpressions)
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
         public TGivenRuleTypeConjunction AreDeclaredIn(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddPredicate(
@@ -68,6 +96,40 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         }
 
         //Negations
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public TGivenRuleTypeConjunction AreNotDeclaredIn(
+            string pattern,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(
+                    pattern,
+                    useRegularExpressions
+                )
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        [Obsolete(
+            "Another overload of this method should be used. This will be removed in a future update. You can use AreNotDeclaredIn(Types().That().HaveFullName()) instead"
+        )]
+        public TGivenRuleTypeConjunction AreNotDeclaredIn(
+            IEnumerable<string> patterns,
+            bool useRegularExpressions = false
+        )
+        {
+            _ruleCreator.AddPredicate(
+                MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(
+                    patterns,
+                    useRegularExpressions
+                )
+            );
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
 
         public TGivenRuleTypeConjunction AreNotDeclaredIn(IType firstType, params IType[] moreTypes)
         {
