@@ -141,10 +141,12 @@ namespace ArchUnitNETTests.Domain.PlantUml
                     new PlantUmlDependency("a", character, DependencyType.OneToOne)
                 );
                 Assert.Throws<IllegalComponentNameException>(() => new PlantUmlClass(character));
-                Assert.Throws<IllegalComponentNameException>(() => new PlantUmlInterface(character)
+                Assert.Throws<IllegalComponentNameException>(() =>
+                    new PlantUmlInterface(character)
                 );
                 Assert.Throws<IllegalComponentNameException>(() => new PlantUmlSlice(character));
-                Assert.Throws<IllegalComponentNameException>(() => new PlantUmlNamespace(character)
+                Assert.Throws<IllegalComponentNameException>(() =>
+                    new PlantUmlNamespace(character)
                 );
             }
         }
