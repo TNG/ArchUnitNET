@@ -368,7 +368,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> ResideInAssemblyMatching(string pattern)
         {
             return new SimplePredicate<T>(
-                type => type.ResidesInAssembly(pattern),
+                type => type.ResidesInAssemblyMatching(pattern),
                 "reside in assembly with full name matching \"" + pattern + "\""
             );
         }
@@ -681,7 +681,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> DoNotResideInNamespaceMatching(string pattern)
         {
             return new SimplePredicate<T>(
-                type => !type.ResidesInNamespace(pattern),
+                type => !type.ResidesInNamespaceMatching(pattern),
                 "do not reside in namespace with full name matching \"" + pattern + "\""
             );
         }
@@ -697,7 +697,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> DoNotResideInAssemblyMatching(string pattern)
         {
             return new SimplePredicate<T>(
-                type => !type.ResidesInAssembly(pattern),
+                type => !type.ResidesInAssemblyMatching(pattern),
                 "do not reside in assembly with full name matching \"" + pattern + "\""
             );
         }

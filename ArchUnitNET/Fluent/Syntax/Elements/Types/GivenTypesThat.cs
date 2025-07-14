@@ -138,7 +138,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TGivenRuleTypeConjunction ResideInNamespaceMatching(string pattern)
         {
             _ruleCreator.AddPredicate(
-                TypePredicatesDefinition<TRuleType>.ResideInNamespace(pattern)
+                TypePredicatesDefinition<TRuleType>.ResideInNamespaceMatching(pattern)
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }

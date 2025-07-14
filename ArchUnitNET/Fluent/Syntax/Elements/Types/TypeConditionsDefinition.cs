@@ -534,7 +534,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static ICondition<TRuleType> ResideInNamespaceMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
-                type => type.ResidesInNamespace(pattern),
+                type => type.ResidesInNamespaceMatching(pattern),
                 obj => "does reside in " + obj.Namespace.FullName,
                 "reside in namespace with full name matching \"" + pattern + "\""
             );
