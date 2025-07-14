@@ -697,7 +697,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public static IPredicate<T> DoNotResideInAssemblyMatching(string pattern)
         {
             return new SimplePredicate<T>(
-                type => !type.ResidesInAssembly(pattern),
+                type => !type.ResidesInAssemblyMatching(pattern),
                 "do not reside in assembly with full name matching \"" + pattern + "\""
             );
         }

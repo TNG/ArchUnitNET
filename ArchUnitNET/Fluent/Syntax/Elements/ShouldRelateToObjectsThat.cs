@@ -896,7 +896,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction DoNotHaveNameMatching(string pattern)
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveName(pattern)
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveNameMatching(pattern)
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
