@@ -8,15 +8,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         : IObjectConditions<TReturnType, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use BeDeclaredIn(Types().That().HaveFullName()) instead"
-        )]
-        TReturnType BeDeclaredIn(string pattern, bool useRegularExpressions = false);
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use BeDeclaredIn(Types().That().HaveFullName()) instead"
-        )]
-        TReturnType BeDeclaredIn(IEnumerable<string> patterns, bool useRegularExpressions = false);
         TReturnType BeDeclaredIn(IType firstType, params IType[] moreTypes);
         TReturnType BeDeclaredIn(Type firstType, params Type[] moreTypes);
         TReturnType BeDeclaredIn(IObjectProvider<IType> types);
@@ -26,18 +17,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         TReturnType BeImmutable();
 
         //Negations
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeDeclaredIn(Types().That().HaveFullName()) instead"
-        )]
-        TReturnType NotBeDeclaredIn(string pattern, bool useRegularExpressions = false);
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeDeclaredIn(Types().That().HaveFullName()) instead"
-        )]
-        TReturnType NotBeDeclaredIn(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        );
         TReturnType NotBeDeclaredIn(IType firstType, params IType[] moreTypes);
         TReturnType NotBeDeclaredIn(Type firstType, params Type[] moreTypes);
         TReturnType NotBeDeclaredIn(IObjectProvider<IType> types);
