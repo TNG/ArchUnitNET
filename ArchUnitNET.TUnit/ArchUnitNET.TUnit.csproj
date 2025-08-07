@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>true</IsPackable>
+    <Title>ArchUnit C# TUnit Extension</Title>
+    <Description>TUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
+    <PackageTags>test;arch;archunit;tunit</PackageTags>
+    <IncludeSource>False</IncludeSource>
+    <Company>TNG Technology Consulting GmbH</Company>
+    <PackageId>TngTech.ArchUnitNET.TUnit</PackageId>
+    <IsTestProject>false</IsTestProject>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RootNamespace>ArchUnitNET.TUnit</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+    <PackageReference Include="TUnit.Assertions" Version="0.52.51" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Logo\ArchUnitNET-Logo.png">
+      <Pack>true</Pack>
+      <PackagePath>/Logo/</PackagePath>
+      <Link>ArchUnitNET-Logo.png</Link>
+    </None>
+    <None Include="..\README.md">
+      <Pack>true</Pack>
+      <PackagePath></PackagePath>
+      <Link>README.md</Link>
+    </None>
+  </ItemGroup>
+</Project>
