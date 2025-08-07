@@ -40,6 +40,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.xUnitTests", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.xUnitV3Tests", "ArchUnitNET.xUnitV3Tests\ArchUnitNET.xUnitV3Tests.csproj", "{439E00CE-5CB8-4474-9A27-3FFC5770DB7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.TUnit", "ArchUnitNET.TUnit\ArchUnitNET.TUnit.csproj", "{AD4D9490-F6F1-47DC-9F52-FD15497CDE55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.TUnitTests", "ArchUnitNET.TUnitTests\ArchUnitNET.TUnitTests.csproj", "{C54143CE-3256-4313-B991-0706705EEA1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,6 +122,14 @@ Global
 		{439E00CE-5CB8-4474-9A27-3FFC5770DB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{439E00CE-5CB8-4474-9A27-3FFC5770DB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{439E00CE-5CB8-4474-9A27-3FFC5770DB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD4D9490-F6F1-47DC-9F52-FD15497CDE55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD4D9490-F6F1-47DC-9F52-FD15497CDE55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD4D9490-F6F1-47DC-9F52-FD15497CDE55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD4D9490-F6F1-47DC-9F52-FD15497CDE55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54143CE-3256-4313-B991-0706705EEA1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54143CE-3256-4313-B991-0706705EEA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54143CE-3256-4313-B991-0706705EEA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54143CE-3256-4313-B991-0706705EEA1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
