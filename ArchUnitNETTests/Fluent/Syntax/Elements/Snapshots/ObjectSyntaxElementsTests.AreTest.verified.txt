@@ -1,0 +1,39 @@
+﻿Query: Types that do not exist should be types that are "TypeDependencyNamespace.ChildClass"
+Result: False
+Description: The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+Message: 
+"Types that do not exist should be types that are "TypeDependencyNamespace.ChildClass"" failed:
+	The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.
+
+
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are Classes that are "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+

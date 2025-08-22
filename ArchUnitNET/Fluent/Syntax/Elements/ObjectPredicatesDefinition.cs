@@ -1439,7 +1439,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -1527,7 +1527,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -2344,7 +2344,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                             return false;
                         }
                     }
-                    else if (attributeArguments.Contains(arg))
+                    else if (
+                        attributeArguments.Contains(arg) || typeAttributeArguments.Contains(arg)
+                    )
                     {
                         return false;
                     }
@@ -2434,7 +2436,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         )
         {
             string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { };
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "do not have attribute \"" + attribute.FullName + "\"";
@@ -2503,7 +2505,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         )
         {
             string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
+            var argumentValueList = argumentValues?.ToList() ?? new List<object> { };
             if (argumentValueList.IsNullOrEmpty())
             {
                 description = "do not have attribute \"" + attribute.FullName + "\"";
@@ -2784,7 +2786,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }
@@ -2872,7 +2874,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                                 goto NextAttribute;
                             }
                         }
-                        else if (!argumentList.Contains(arg))
+                        else if (!attributeArgs.Contains(arg))
                         {
                             goto NextAttribute;
                         }

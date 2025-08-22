@@ -10,6 +10,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
     public static class MethodMemberConditionsDefinition
     {
+        public static RelationCondition<MethodMember, MethodMember> BeMethodMembersThat()
+        {
+            return new RelationCondition<MethodMember, MethodMember>(
+                ObjectConditionsDefinition<MethodMember>.Be,
+                "be method members that",
+                "are not method members that"
+            );
+        }
+
         public static ICondition<MethodMember> BeConstructor()
         {
             return new SimpleCondition<MethodMember>(

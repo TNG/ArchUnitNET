@@ -1,0 +1,334 @@
+﻿===== No violations =====
+
+----- Conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+----- Predicates as conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+
+
+
+----- Predicates -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+
+
+
+----- Predicates as conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+
+
+
+===== Empty arguments =====
+
+----- Conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any of no methods (always true)
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call one of no methods (always true)
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+----- Predicates as conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call one of no methods (always true)
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
+===== Multiple arguments =====
+
+----- Conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.M...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.M..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.M...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.M..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Met...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should not call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Met..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+
+
+
+----- Predicates -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Metho...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Me...
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Metho..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Me...
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Metho...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Me...
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Metho..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Me...
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies(...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Meth...
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies(..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Meth...
+
+
+
+----- Predicates as conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Metho...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Metho..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Metho...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void Metho..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies(...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that do not call Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies(..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+
+
+
+===== Multiple inputs =====
+
+----- Conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDep... should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDep... should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependen...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDep... should not call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependen..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()
+
+
+
+----- Predicates -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDep... should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDep... should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNa...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependenc...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependenc...
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDep... should be Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNa..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependenc...
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependenc...
+
+
+
+----- Predicates as conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDep... should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDep... should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNa...
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" or "System.Void MethodDependencyNamespace.MethodDep... should be method members that do not call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNa..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not "System.Void TypeDependencyNamespace.BaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass::.ctor()" or "System.Void TypeDependencyNamespace.OtherChildClass::.ctor()" or "System.String TypeDependencyNamespace.BaseClassWithMember::get_BaseClassMember()" or "System.Void TypeDependencyNamespace.BaseClassWithMember::set_BaseClassMember(System.String)" or "System.Void TypeDependencyNamespace.BaseClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.ChildClassWithMember::get_ChildClassMember()" or "System.Void TypeDependencyNamespace.ChildClassWithMember::set_ChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.ChildClassWithMember::.ctor()" or "System.String TypeDependencyNamespace.OtherChildClassWithMember::get_OtherChildClassMember()" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::set_OtherChildClassMember(System.String)" or "System.Void TypeDependencyNamespace.OtherChildClassWithMember::.ctor()" or "System.Void TypeDependencyNamespace.BaseClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClass2::.ctor()" or "System.Void TypeDependencyNamespace.OtherBaseClass::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithMultipleDependencies::.ctor()" or "System.Void TypeDependencyNamespace.GenericBaseClass`1::.ctor()" or "System.Void TypeDependencyNamespace.ChildClassOfGeneric::.ctor()" or "System.Void TypeDependencyNamespace.ClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.OtherClassWithoutDependencies::.ctor()" or "System.Void TypeDependencyNamespace.Issue351::OuterFunc()" or "System.Void TypeDependencyNamespace.Issue351::.ctor()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDependencyClass::.ctor()"
+
+
+

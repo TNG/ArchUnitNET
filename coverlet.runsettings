@@ -6,6 +6,7 @@
         <Configuration>
           <Format>cobertura</Format>
           <Include>[ArchUnitNET]*</Include>
+          <ExcludeByAttribute>Obsolete</ExcludeByAttribute>
         </Configuration>
       </DataCollector>
     </DataCollectors>

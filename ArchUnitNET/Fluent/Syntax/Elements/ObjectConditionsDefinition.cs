@@ -2939,7 +2939,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return true;
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
@@ -3041,7 +3041,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 return true;
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, failDescription, description);
+            return new ArchitectureCondition<TRuleType>(Condition, description, failDescription);
         }
 
         [Obsolete(
