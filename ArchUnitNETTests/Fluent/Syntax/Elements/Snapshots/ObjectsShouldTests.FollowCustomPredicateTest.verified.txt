@@ -1,0 +1,72 @@
+﻿===== No violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that follow custom predicate
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that follow custom predicate
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that follow custom predicate
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that follow custom predicate
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that follow custom predicate
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that follow custom predicate
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that follow custom predicate" failed:
+	TypeDependencyNamespace.BaseClass is not Types that follow custom predicate
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that follow custom predicate
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that follow custom predicate
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that follow custom predicate" failed:
+	TypeDependencyNamespace.BaseClass is not Types that follow custom predicate
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that follow custom predicate
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that follow custom predicate" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that follow custom predicate
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that follow custom predicate" failed:
+	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+
+
+

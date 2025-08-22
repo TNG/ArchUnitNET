@@ -11,6 +11,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public MethodMembersShould(IArchRuleCreator<MethodMember> ruleCreator)
             : base(ruleCreator) { }
 
+        public ShouldRelateToMethodMembersThat<
+            MethodMembersShouldConjunction,
+            MethodMember
+        > BeMethodMembersThat()
+        {
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.MethodMembers(),
+                MethodMemberConditionsDefinition.BeMethodMembersThat()
+            );
+            return new ShouldRelateToMethodMembersThat<
+                MethodMembersShouldConjunction,
+                MethodMember
+            >(_ruleCreator);
+        }
+
         public MethodMembersShouldConjunction BeConstructor()
         {
             _ruleCreator.AddCondition(MethodMemberConditionsDefinition.BeConstructor());

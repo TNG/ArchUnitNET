@@ -165,6 +165,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(Condition, description, failDescription);
         }
 
+        public static RelationCondition<TRuleType, IType> BeTypesThat()
+        {
+            return new RelationCondition<TRuleType, IType>(
+                ObjectConditionsDefinition<TRuleType>.Be,
+                "be types that",
+                "are not types that"
+            );
+        }
+
         public static ICondition<TRuleType> BeAssignableTo(
             IType firstType,
             params IType[] moreTypes

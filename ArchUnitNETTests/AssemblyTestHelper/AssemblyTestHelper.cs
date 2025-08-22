@@ -25,6 +25,11 @@ public abstract class AssemblyTestHelper
         snapshot.AppendLine("===== " + header + " =====\n");
     }
 
+    public void AddSnapshotSubHeader(string subHeader)
+    {
+        snapshot.AppendLine("----- " + subHeader + " -----\n");
+    }
+
     private string FormatSnapshot(IArchRule rule, IEnumerable<EvaluationResult> results)
     {
         var formatted = new StringBuilder();

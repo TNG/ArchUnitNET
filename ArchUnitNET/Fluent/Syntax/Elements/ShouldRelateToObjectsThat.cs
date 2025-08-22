@@ -1158,7 +1158,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         )
         {
             _ruleCreator.ContinueComplexCondition(
-                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAnyAttributesWithArguments(
+                ObjectPredicatesDefinition<TReferenceType>.DoNotHaveAttributeWithArguments(
                     attribute,
                     argumentValues
                 )

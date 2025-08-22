@@ -1,5 +1,7 @@
 ﻿===== No violations =====
 
+----- Conditions -----
+
 Query: Types that are "TypeDependencyNamespace.BaseClass" should have name "BaseClass"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
@@ -48,7 +50,109 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
+----- Predicates -----
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name "BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name matching "^Base.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name matching "^.*\.Base.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name containing "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name containing "TypeDependencyNamespace"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name starting with "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name ending with "Class"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates as conditions -----
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name "BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name matching "^Base.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name matching "^.*\.Base.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name containing "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name containing "TypeDependencyNamespace"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name starting with "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name ending with "Class"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
 ===== Violations =====
+
+----- Conditions -----
 
 Query: Types that are "TypeDependencyNamespace.BaseClass" should have name "TypeDependencyNamespace.BaseClass"
 Result: False
@@ -121,4 +225,104 @@ Message:
 	TypeDependencyNamespace.BaseClass does have name BaseClass
 
 
+
+----- Predicates -----
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name "BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name matching "^Base.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name matching "^.*\.Base.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name containing "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name containing "TypeDependencyNamespace"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name starting with "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name ending with "Class"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates as conditions -----
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name "BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name matching "^Base.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name matching "^.*\.Base.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name containing "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name containing "TypeDependencyNamespace"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name starting with "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name ending with "Class"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
 
