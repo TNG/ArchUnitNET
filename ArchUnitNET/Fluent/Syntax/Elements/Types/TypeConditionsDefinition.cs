@@ -30,20 +30,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't be equal anyways
-                    }
-                }
-
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 var ruleTypeList = ruleTypes.ToList();
                 var passedObjects = ruleTypeList
                     .OfType<IType>()
@@ -196,20 +183,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 var ruleTypeList = ruleTypes.ToList();
                 var passedObjects = ruleTypeList
                     .Where(type => type.GetAssignableTypes().Intersect(archUnitTypeList).Any())
@@ -471,32 +445,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             )
             {
                 var ruleTypeList = ruleTypes.ToList();
-                Interface archUnitInterface = null;
-                var interfaceNotInArchitecture = false;
-                try
-                {
-                    archUnitInterface = architecture.GetInterfaceOfType(intf);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    interfaceNotInArchitecture = true;
-                }
-
-                if (interfaceNotInArchitecture)
-                {
-                    foreach (var ruleType in ruleTypeList)
-                    {
-                        yield return new ConditionResult(
-                            ruleType,
-                            false,
-                            "does not implement interface \"" + intf.FullName + "\""
-                        );
-                    }
-
-                    yield break;
-                }
-
+                var archUnitInterface = architecture.GetInterfaceOfType(intf);
                 var passedObjects = ruleTypeList
                     .Where(type => type.ImplementsInterface(archUnitInterface))
                     .ToList();
@@ -741,19 +690,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't be equal anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
 
                 var ruleTypeList = ruleTypes.ToList();
                 var failedObjects = ruleTypeList
@@ -924,19 +861,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
 
                 var ruleTypeList = ruleTypes.ToList();
                 var failedObjects = ruleTypeList
@@ -1050,27 +975,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             )
             {
                 var ruleTypeList = ruleTypes.ToList();
-                Interface archUnitInterface = null;
-                var interfaceNotInArchitecture = false;
-                try
-                {
-                    archUnitInterface = architecture.GetInterfaceOfType(intf);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    interfaceNotInArchitecture = true;
-                }
-
-                if (interfaceNotInArchitecture)
-                {
-                    foreach (var ruleType in ruleTypeList)
-                    {
-                        yield return new ConditionResult(ruleType, true);
-                    }
-
-                    yield break;
-                }
+                var archUnitInterface = architecture.GetInterfaceOfType(intf);
 
                 var passedObjects = ruleTypeList
                     .Where(type => !type.ImplementsInterface(archUnitInterface))

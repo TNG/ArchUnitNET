@@ -93,19 +93,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return ruleTypes.Where(type =>
                     type.GetCallingTypes().Intersect(archUnitTypeList).Any()
                 );
@@ -218,19 +206,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return ruleTypes.Where(type =>
                     type.GetBodyTypeMemberDependencies()
                         .Select(dependency => dependency.Target)
@@ -414,19 +390,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return ruleTypes.Where(type =>
                     !type.GetCallingTypes().Intersect(archUnitTypeList).Any()
                 );
@@ -543,19 +507,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return ruleTypes.Where(type =>
                     !type.GetBodyTypeMemberDependencies()
                         .Select(dependency => dependency.Target)

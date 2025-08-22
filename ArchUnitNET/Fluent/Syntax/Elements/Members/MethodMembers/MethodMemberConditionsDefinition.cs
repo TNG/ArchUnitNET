@@ -137,19 +137,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
@@ -337,19 +325,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
@@ -635,19 +611,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 var methodMemberList = methodMembers.ToList();
                 var failedObjects = methodMemberList
                     .Where(methodMember =>
@@ -839,19 +803,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 var methodMemberList = methodMembers.ToList();
                 var failedObjects = methodMemberList
                     .Where(methodMember =>

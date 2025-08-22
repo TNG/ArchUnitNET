@@ -72,19 +72,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             IEnumerable<T> Condition(IEnumerable<T> members, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return members.Intersect(
                     archUnitTypeList.SelectMany(type => type.Members).OfType<T>()
                 );
@@ -197,19 +185,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
             IEnumerable<T> Condition(IEnumerable<T> members, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return members.Except(
                     archUnitTypeList.SelectMany(type => type.Members).OfType<T>()
                 );

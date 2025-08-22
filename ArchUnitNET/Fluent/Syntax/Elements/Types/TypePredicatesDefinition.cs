@@ -26,20 +26,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't be equal anyways
-                    }
-                }
-
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return ruleTypes.Intersect(archUnitTypeList.OfType<T>());
             }
 
@@ -142,20 +129,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return ruleTypes.Where(type =>
                     type.GetAssignableTypes().Intersect(archUnitTypeList).Any()
                 );
@@ -321,17 +295,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                Interface archUnitInterface;
-                try
-                {
-                    archUnitInterface = architecture.GetInterfaceOfType(intf);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return Enumerable.Empty<T>();
-                }
-
+                var archUnitInterface = architecture.GetInterfaceOfType(intf);
                 return ruleTypes.Where(type => type.ImplementsInterface(archUnitInterface));
             }
 
@@ -463,20 +427,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't be equal anyways
-                    }
-                }
-
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return ruleTypes.Except(archUnitTypeList.OfType<T>());
             }
 
@@ -581,20 +532,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return ruleTypes.Where(type =>
                     !type.GetAssignableTypes().Intersect(archUnitTypeList).Any()
                 );
@@ -650,17 +588,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                Interface archUnitInterface;
-                try
-                {
-                    archUnitInterface = architecture.GetInterfaceOfType(intf);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return ruleTypes;
-                }
-
+                var archUnitInterface = architecture.GetInterfaceOfType(intf);
                 return ruleTypes.Where(type => !type.ImplementsInterface(archUnitInterface));
             }
 

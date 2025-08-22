@@ -174,20 +174,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return objects.Where(obj =>
                     obj.GetTypeDependencies().Intersect(archUnitTypeList).Any()
                 );
@@ -286,20 +273,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return objects.Where(obj =>
                     obj.GetTypeDependencies(architecture).Except(archUnitTypeList).IsNullOrEmpty()
                 );
@@ -483,20 +457,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                var archUnitAttributeList = new List<Attribute>();
-                foreach (var type in attributeList)
-                {
-                    try
-                    {
-                        var archUnitAttribute = architecture.GetAttributeOfType(type);
-                        archUnitAttributeList.Add(archUnitAttribute);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
+                var archUnitAttributeList = attributeList.Select(architecture.GetAttributeOfType).ToList();
                 return objects.Where(obj => !obj.Attributes.Except(archUnitAttributeList).Any());
             }
 
@@ -735,17 +696,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Predicate(T obj, Architecture architecture)
             {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return false;
-                }
-
+                var archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 foreach (var attributeInstance in obj.AttributeInstances)
                 {
                     if (!attributeInstance.Type.Equals(archUnitAttribute))
@@ -959,17 +910,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Predicate(T obj, Architecture architecture)
             {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return false;
-                }
-
+                var archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 foreach (var attributeInstance in obj.AttributeInstances)
                 {
                     if (!attributeInstance.Type.Equals(archUnitAttribute))
@@ -1279,20 +1220,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
+                var archUnitTypeList = typeList.Select(architecture.GetITypeOfType).ToList();
                 return objects.Where(obj =>
                     !obj.GetTypeDependencies().Intersect(archUnitTypeList).Any()
                 );
@@ -1387,20 +1315,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                var archUnitAttributeList = new List<Attribute>();
-                foreach (var type in attributeList)
-                {
-                    try
-                    {
-                        var archUnitAttribute = architecture.GetAttributeOfType(type);
-                        archUnitAttributeList.Add(archUnitAttribute);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
+                var archUnitAttributeList = attributeList.Select(architecture.GetAttributeOfType).ToList();
                 return objects.Where(obj => !obj.Attributes.Intersect(archUnitAttributeList).Any());
             }
 
@@ -1639,17 +1554,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Predicate(T obj, Architecture architecture)
             {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return true;
-                }
-
+                var archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 foreach (var attributeInstance in obj.AttributeInstances)
                 {
                     if (!attributeInstance.Type.Equals(archUnitAttribute))
@@ -1865,17 +1770,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Predicate(T obj, Architecture architecture)
             {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return true;
-                }
-
+                var archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 foreach (var attributeInstance in obj.AttributeInstances)
                 {
                     if (!attributeInstance.Type.Equals(archUnitAttribute))

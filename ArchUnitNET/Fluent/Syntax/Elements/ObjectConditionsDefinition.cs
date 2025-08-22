@@ -535,17 +535,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Condition(TRuleType obj, Architecture architecture)
             {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return false;
-                }
-
+                var archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 foreach (var attributeInstance in obj.AttributeInstances)
                 {
                     if (!attributeInstance.Type.Equals(archUnitAttribute))
@@ -813,17 +803,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Condition(TRuleType obj, Architecture architecture)
             {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return false;
-                }
-
+                var archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 foreach (var attributeInstance in obj.AttributeInstances)
                 {
                     if (!attributeInstance.Type.Equals(archUnitAttribute))
@@ -1460,17 +1440,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Condition(TRuleType obj, Architecture architecture)
             {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return true;
-                }
-
+                var archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 foreach (var attributeInstance in obj.AttributeInstances)
                 {
                     if (!attributeInstance.Type.Equals(archUnitAttribute))
@@ -1740,17 +1710,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
             bool Condition(TRuleType obj, Architecture architecture)
             {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return true;
-                }
-
+                var archUnitAttribute = architecture.GetAttributeOfType(attribute);
                 foreach (var attributeInstance in obj.AttributeInstances)
                 {
                     if (!attributeInstance.Type.Equals(archUnitAttribute))
