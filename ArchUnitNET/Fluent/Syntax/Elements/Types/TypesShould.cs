@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
+using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Assembly = System.Reflection.Assembly;
 
@@ -183,6 +185,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        // csharpier-ignore-start
+        public TRuleTypeShouldConjunction ImplementAny() => ImplementAny(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction ImplementAny(params Interface[] interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAny(params Type[] interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAny(IEnumerable<Interface> interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAny(IEnumerable<Type> interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypeConditionsDefinition<TRuleType>.ImplementAny(interfaces));
+        // csharpier-ignore-end
+
         [Obsolete(
             "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
         )]
@@ -317,6 +328,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 TypeConditionsDefinition<TRuleType>.BeAssignableToTypesThat()
             );
             return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(
+                _ruleCreator
+            );
+        }
+
+        public ShouldRelateToInterfacesThat<
+            TRuleTypeShouldConjunction,
+            TRuleType
+        > ImplementAnyInterfacesThat()
+        {
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.Interfaces(true),
+                TypeConditionsDefinition<TRuleType>.ImplementAnyInterfacesThat()
+            );
+            return new ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType>(
                 _ruleCreator
             );
         }
@@ -458,6 +483,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
+        // csharpier-ignore-start
+        public TRuleTypeShouldConjunction NotImplementAny() => NotImplementAny(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction NotImplementAny(params Interface[] interfaces) => NotImplementAny(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAny(params Type[] interfaces) => NotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAny(IEnumerable<Interface> interfaces) => NotImplementAny(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAny(IEnumerable<Type> interfaces) => NotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypeConditionsDefinition<TRuleType>.NotImplementAny(interfaces));
+        // csharpier-ignore-end
 
         [Obsolete(
             "Either NotResideInNamespace() without the useRegularExpressions parameter or NotResideInNamespaceMatching() should be used"
@@ -616,6 +650,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(
                 _ruleCreator
             );
+        }
+
+        public ShouldRelateToInterfacesThat<
+            TRuleTypeShouldConjunction,
+            TRuleType
+        > NotImplementAnyInterfacesThat()
+        {
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.Interfaces(true),
+                TypeConditionsDefinition<TRuleType>.NotImplementAnyInterfacesThat()
+            );
+            return new ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType>(
+                _ruleCreator
+            );
+        }
+
+        private TRuleTypeShouldConjunction Handle(ICondition<TRuleType> condition)
+        {
+            _ruleCreator.AddCondition(condition);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

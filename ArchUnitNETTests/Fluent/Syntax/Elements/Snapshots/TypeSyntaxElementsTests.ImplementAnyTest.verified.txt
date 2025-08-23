@@ -1,0 +1,661 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that are "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any Interfaces that are "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+----- Predicates as conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any Interfaces that are "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+----- Complex conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IBaseInterface"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+
+
+
+----- Predicates -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement "InterfaceAssembly.IOtherBaseInterface"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"
+
+
+
+----- Predicates as conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+----- Complex conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+
+
+
+===== Empty Arguments (No Violations) =====
+
+----- Conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interface
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interface
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interface
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that have name "NotTheNameOfAnyObject"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any interface
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any interface
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any interface
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+----- Predicates as conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any interface
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any interface
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any Interfaces that have name "NotTheNameOfAnyObject"
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+----- Complex conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that do not exist (always empty)
+Result: True
+Description: InterfaceAssembly.IChildInterface passed
+Message: 
+All Evaluations passed
+
+===== Empty Arguments (Violations) =====
+
+----- Conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interface
+Result: False
+Description: InterfaceAssembly.IBaseInterface does not implement any interface
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interface" failed:
+	InterfaceAssembly.IBaseInterface does not implement any interface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interface
+Result: False
+Description: InterfaceAssembly.IBaseInterface does not implement any interface
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interface" failed:
+	InterfaceAssembly.IBaseInterface does not implement any interface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interface
+Result: False
+Description: InterfaceAssembly.IBaseInterface does not implement any interface
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interface" failed:
+	InterfaceAssembly.IBaseInterface does not implement any interface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any Interfaces that have name "NotTheNameOfAnyObject"
+Result: False
+Description: InterfaceAssembly.IBaseInterface does not implement any interface
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any Interfaces that have name "NotTheNameOfAnyObject"" failed:
+	InterfaceAssembly.IBaseInterface does not implement any interface
+
+
+
+----- Predicates -----
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should be Interfaces that implement any interface
+Result: False
+Description: InterfaceAssembly.IBaseInterface is not Interfaces that implement any interface
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should be Interfaces that implement any interface" failed:
+	InterfaceAssembly.IBaseInterface is not Interfaces that implement any interface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should be Interfaces that implement any interface
+Result: False
+Description: InterfaceAssembly.IBaseInterface is not Interfaces that implement any interface
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should be Interfaces that implement any interface" failed:
+	InterfaceAssembly.IBaseInterface is not Interfaces that implement any interface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should be Interfaces that implement any interface
+Result: False
+Description: InterfaceAssembly.IBaseInterface is not Interfaces that implement any interface
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should be Interfaces that implement any interface" failed:
+	InterfaceAssembly.IBaseInterface is not Interfaces that implement any interface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should be Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
+Result: False
+Description: InterfaceAssembly.IBaseInterface is not Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should be Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"" failed:
+	InterfaceAssembly.IBaseInterface is not Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
+
+
+
+----- Predicates as conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should be types that implement any interface
+Result: False
+Description: InterfaceAssembly.IBaseInterface is not "InterfaceAssembly.IChildInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should be types that implement any interface" failed:
+	InterfaceAssembly.IBaseInterface is not "InterfaceAssembly.IChildInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should be types that implement any interface
+Result: False
+Description: InterfaceAssembly.IBaseInterface is not "InterfaceAssembly.IChildInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should be types that implement any interface" failed:
+	InterfaceAssembly.IBaseInterface is not "InterfaceAssembly.IChildInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should be types that implement any Interfaces that have name "NotTheNameOfAnyObject"
+Result: False
+Description: InterfaceAssembly.IBaseInterface is not "InterfaceAssembly.IChildInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should be types that implement any Interfaces that have name "NotTheNameOfAnyObject"" failed:
+	InterfaceAssembly.IBaseInterface is not "InterfaceAssembly.IChildInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+----- Complex conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interfaces that do not exist (always empty)
+Result: False
+Description: InterfaceAssembly.IBaseInterface does not implement any interface
+Message: 
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interfaces that do not exist (always empty)" failed:
+	InterfaceAssembly.IBaseInterface does not implement any interface
+
+
+
+===== Multiple arguments =====
+
+----- Conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+----- Predicates -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not Interfaces that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not Interfaces that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+
+
+
+----- Predicates as conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithMultipleDependencies"
+
+
+
+----- Complex conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+
+----- Complex conditions -----
+
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
+Result: False
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Message: 
+"Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+
+
+

@@ -28,7 +28,7 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public ICondition<TRuleType> GetCondition(IEnumerable<TRelatedType> objects)
         {
-            return _relation(new ListObjectProvider<TRelatedType>(objects.ToList()));
+            return _relation(new ObjectProvider<TRelatedType>(objects.ToList()));
         }
 
         private bool Equals(RelationCondition<TRuleType, TRelatedType> other)

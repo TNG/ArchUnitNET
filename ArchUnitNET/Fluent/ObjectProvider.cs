@@ -4,15 +4,18 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ListObjectProvider<T> : ISizedObjectProvider<T>
+    public class ObjectProvider<T> : ISizedObjectProvider<T>
         where T : ICanBeAnalyzed
     {
-        private readonly IEnumerable<T> _objects;
+        private readonly List<T> _objects;
 
-        public ListObjectProvider(List<T> objects)
+        public ObjectProvider()
+            : this(new List<T>()) { }
+
+        public ObjectProvider(IEnumerable<T> objects)
         {
-            _objects = objects;
-            Description = string.Join(" or ", objects.Select(obj => $"\"{obj.FullName}\""));
+            _objects = objects.ToList();
+            Description = string.Join(" or ", _objects.Select(obj => $"\"{obj.FullName}\""));
         }
 
         public string Description { get; }
@@ -24,7 +27,7 @@ namespace ArchUnitNET.Fluent
             return _objects;
         }
 
-        private bool Equals(ListObjectProvider<T> other)
+        private bool Equals(ObjectProvider<T> other)
         {
             return string.Equals(Description, other.Description);
         }
@@ -41,7 +44,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((ListObjectProvider<T>)obj);
+            return obj.GetType() == GetType() && Equals((ObjectProvider<T>)obj);
         }
 
         public override int GetHashCode()
