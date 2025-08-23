@@ -1,10 +1,12 @@
-﻿using ArchUnitNET.Domain;
+﻿using System.Runtime.InteropServices;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
 using Xunit;
 
 namespace ArchUnitNETTests.Dependencies
 {
+#if WINDOWS
     public class CppDependenciesTests
     {
         private static readonly Architecture Architecture = new ArchLoader()
@@ -17,7 +19,13 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void CppClassUserFound()
         {
-            var exampleCppUser = Architecture.GetClassOfType(typeof(CastClassA));
+            // Skip test if not running on Windows
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return;
+            }
+
+            var exampleCppUser = Architecture.GetClassOfType(typeof(CppExampleClassUser));
             Assert.Contains(exampleCppUser, Architecture.Classes);
         }
     }
@@ -26,23 +34,5 @@ namespace ArchUnitNETTests.Dependencies
     {
         CppExampleClass _cppExampleClass = new CppExampleClass();
     }
-
-    /*
-     * C++/CLI code contains the next .h .cpp content
-    CppExampleClass.h
-    #pragma once
-    public ref class CppExampleClass
-    {
-        public:
-            void DoCall();
-    };
-
-    CppExampleClass.cpp
-    #include "pch.h"
-    #include "CppExampleClass.h"
-
-    void CppExampleClass::DoCall()
-    {
-    }
-    */
+#endif
 }

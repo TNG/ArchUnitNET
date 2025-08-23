@@ -56,6 +56,15 @@ jobs:
         with:
           dotnet-version: 9.0.304
       - name: Run tests
+        if: matrix.os == 'windows-latest'
+        shell: cmd
+        run: |
+          echo Building C++ project first with Visual Studio MSBuild...
+          "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\amd64\MSBuild.exe" "ArchUnitNETTests\Dependencies\cpplib\CppDllTest.vcxproj" /p:Configuration=Debug /p:Platform=x64
+          echo Running tests with dotnet...
+          dotnet test -c Debug
+      - name: Run tests
+        if: matrix.os != 'windows-latest'
         run: dotnet test -c Debug
   publish-docs:
     name: Publish documentation

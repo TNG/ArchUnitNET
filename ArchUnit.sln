@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.TUnit", "ArchUn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.TUnitTests", "ArchUnitNET.TUnitTests\ArchUnitNET.TUnitTests.csproj", "{C54143CE-3256-4313-B991-0706705EEA1D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppDllTest", "ArchUnitNETTests\Dependencies\cpplib\CppDllTest.vcxproj", "{A8B5AD03-3AB1-4CD7-9BF1-8C5D6B2E5F43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

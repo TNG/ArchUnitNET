@@ -6,6 +6,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <!-- Define WINDOWS symbol when building on Windows -->
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj" />
     <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
@@ -25,6 +29,16 @@
     />
     <ProjectReference Include="..\TestAssemblies\VisibilityAssembly\VisibilityAssembly.csproj" />
   </ItemGroup>
+  <!-- C++/CLI project reference - Windows only -->
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+    <ProjectReference Include="Dependencies\cpplib\CppDllTest.vcxproj" />
+  </ItemGroup>
+  <!-- Fallback reference for non-Windows platforms -->
+  <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
+    <Reference Include="CppDllTest">
+      <HintPath>Dependencies\cpplib\CppDllTest.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.4">
@@ -37,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="Dependencies\cpplib\CppDllTest.dll">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Domain\PlantUml\zzz_test_version_with_errors.puml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -46,10 +60,5 @@
   <ItemGroup>
     <Folder Include="Dependencies\cpplib\" />
     <Folder Include="Fluent\Syntax\Elements\Snapshots\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="CppDllTest">
-      <HintPath>Dependencies\cpplib\CppDllTest.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
