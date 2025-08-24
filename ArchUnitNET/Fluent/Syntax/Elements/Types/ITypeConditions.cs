@@ -24,6 +24,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType ImplementInterface(Interface intf);
         TReturnType ImplementInterface(Type intf);
 
+        TReturnType ImplementAny();
+        TReturnType ImplementAny(params Interface[] interfaces);
+        TReturnType ImplementAny(params Type[] interfaces);
+        TReturnType ImplementAny(IEnumerable<Interface> interfaces);
+        TReturnType ImplementAny(IEnumerable<Type> interfaces);
+        TReturnType ImplementAny(IObjectProvider<Interface> interfaces);
+
         TReturnType ResideInNamespace(string fullName);
         TReturnType ResideInNamespaceMatching(string pattern);
 
@@ -56,6 +63,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         TReturnType NotImplementInterface(Interface intf);
         TReturnType NotImplementInterface(Type intf);
+
+        TReturnType NotImplementAny();
+        TReturnType NotImplementAny(params Interface[] interfaces);
+        TReturnType NotImplementAny(params Type[] interfaces);
+        TReturnType NotImplementAny(IEnumerable<Interface> interfaces);
+        TReturnType NotImplementAny(IEnumerable<Type> interfaces);
+        TReturnType NotImplementAny(IObjectProvider<Interface> interfaces);
 
         TReturnType NotResideInNamespace(string fullName);
         TReturnType NotResideInNamespaceMatching(string pattern);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Assembly = System.Reflection.Assembly;
 
@@ -151,6 +152,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
+        // csharpier-ignore-start
+        public TRuleTypeShouldConjunction ImplementAny() => ImplementAny(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction ImplementAny(params Interface[] interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAny(params Type[] interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAny(IEnumerable<Interface> interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAny(IEnumerable<Type> interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TReferenceType>.ImplementAny(interfaces));
+        // csharpier-ignore-end
 
         public TRuleTypeShouldConjunction ResideInNamespace(string fullName)
         {
@@ -350,6 +360,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
 
+        // csharpier-ignore-start
+        public TRuleTypeShouldConjunction DoNotImplementAny() => DoNotImplementAny(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction DoNotImplementAny(params Interface[] interfaces) => DoNotImplementAny(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAny(params Type[] interfaces) => DoNotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAny(IEnumerable<Interface> interfaces) => DoNotImplementAny(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAny(IEnumerable<Type> interfaces) => DoNotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TReferenceType>.DoNotImplementAny(interfaces));
+        // csharpier-ignore-end
+
         public TRuleTypeShouldConjunction DoNotResideInNamespace(string fullName)
         {
             _ruleCreator.ContinueComplexCondition(
@@ -447,6 +466,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             _ruleCreator.ContinueComplexCondition(
                 TypePredicatesDefinition<TReferenceType>.AreNotNested()
             );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        private TRuleTypeShouldConjunction Handle(IPredicate<TReferenceType> predicate)
+        {
+            _ruleCreator.ContinueComplexCondition(predicate);
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

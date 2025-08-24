@@ -5,6 +5,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
+using static ArchUnitNET.Fluent.Syntax.DescriptionHelpers;
 using Assembly = System.Reflection.Assembly;
 using Enum = ArchUnitNET.Domain.Enum;
 
@@ -341,6 +342,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        public static IPredicate<T> ImplementAny(IObjectProvider<Interface> interfaces)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
+            {
+                var interfaceList = interfaces.GetObjects(architecture).ToList();
+                return ruleTypes.Where(type =>
+                    interfaceList.Count > 0
+                        ? type.ImplementedInterfaces.Intersect(interfaceList).Any()
+                        : type.ImplementedInterfaces.Any()
+                );
+            }
+            var description = SelectDescription(
+                "implement any interface",
+                "implement",
+                "implement any",
+                interfaces
+            );
+            return new ArchitecturePredicate<T>(Condition, description);
+        }
+
         public static IPredicate<T> ResideInNamespace(string fullName)
         {
             return new SimplePredicate<T>(
@@ -668,6 +689,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 Condition,
                 "do not implement interface \"" + intf.FullName + "\""
             );
+        }
+
+        public static IPredicate<T> DoNotImplementAny(IObjectProvider<Interface> interfaces)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
+            {
+                var interfaceList = interfaces.GetObjects(architecture).ToList();
+                return ruleTypes.Where(type =>
+                    interfaceList.Count > 0
+                        ? !type.ImplementedInterfaces.Intersect(interfaceList).Any()
+                        : !type.ImplementedInterfaces.Any()
+                );
+            }
+            var description = SelectDescription(
+                "do not implement any interface",
+                "do not implement",
+                "do not implement any",
+                interfaces
+            );
+            return new ArchitecturePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> DoNotResideInNamespace(string fullName)
