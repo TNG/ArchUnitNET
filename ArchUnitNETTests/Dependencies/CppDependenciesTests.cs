@@ -5,6 +5,7 @@ using Xunit;
 
 namespace ArchUnitNETTests.Dependencies
 {
+#if WINDOWS
     public class CppDependenciesTests
     {
         private static readonly Architecture Architecture = new ArchLoader()
@@ -26,6 +27,7 @@ namespace ArchUnitNETTests.Dependencies
     {
         CppExampleClass _cppExampleClass = new CppExampleClass();
     }
+#endif
 
     /*
      * C++/CLI code contains the next .h .cpp content
