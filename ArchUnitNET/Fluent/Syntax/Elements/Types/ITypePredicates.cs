@@ -40,6 +40,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType ImplementInterface(Interface intf);
         TReturnType ImplementInterface(Type intf);
 
+        TReturnType ImplementAny();
+        TReturnType ImplementAny(params Interface[] interfaces);
+        TReturnType ImplementAny(params Type[] interfaces);
+        TReturnType ImplementAny(IEnumerable<Interface> interfaces);
+        TReturnType ImplementAny(IEnumerable<Type> interfaces);
+        TReturnType ImplementAny(IObjectProvider<Interface> interfaces);
+
         [Obsolete(
             "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
         )]
@@ -96,6 +103,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType DoNotImplementInterface(string pattern, bool useRegularExpressions = false);
         TReturnType DoNotImplementInterface(Interface intf);
         TReturnType DoNotImplementInterface(Type intf);
+
+        TReturnType DoNotImplementAny();
+        TReturnType DoNotImplementAny(params Interface[] interfaces);
+        TReturnType DoNotImplementAny(params Type[] interfaces);
+        TReturnType DoNotImplementAny(IEnumerable<Interface> interfaces);
+        TReturnType DoNotImplementAny(IEnumerable<Type> interfaces);
+        TReturnType DoNotImplementAny(IObjectProvider<Interface> interfaces);
 
         [Obsolete(
             "Either DoNotResideInNamespace() without the useRegularExpressions parameter or DoNotResideInNamespaceMatching() should be used"
