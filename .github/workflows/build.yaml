@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Setup .NET
-        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
         with:
           dotnet-version: 9.0.304
       - name: Install tools
@@ -33,13 +33,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Setup .NET
-        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
         with:
           dotnet-version: 9.0.304
       - name: Run tests
         run: dotnet test -c Debug --collect:"XPlat Code Coverage" --settings coverlet.runsettings ArchUnitNETTests/
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5.3.1
+        uses: codecov/codecov-action@v5.5.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
   run-tests:
@@ -52,7 +52,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Setup .NET
-        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
         with:
           dotnet-version: 9.0.304
       - name: Run tests
@@ -138,7 +138,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Setup .NET
-        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
         with:
           dotnet-version: 9.0.304
       - name: Build
