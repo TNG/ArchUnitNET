@@ -334,7 +334,7 @@ All Evaluations passed
 
 ----- Complex conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that do not exist (always empty)
+Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are any of no objects (always empty)
 Result: True
 Description: InterfaceAssembly.IChildInterface passed
 Message: 
@@ -449,11 +449,11 @@ Message:
 
 ----- Complex conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interfaces that do not exist (always empty)
+Query: Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interfaces that are any of no objects (always empty)
 Result: False
 Description: InterfaceAssembly.IBaseInterface does not implement any interface
 Message: 
-"Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interfaces that do not exist (always empty)" failed:
+"Interfaces that are "InterfaceAssembly.IBaseInterface" should implement any interfaces that are any of no objects (always empty)" failed:
 	InterfaceAssembly.IBaseInterface does not implement any interface
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
@@ -124,7 +125,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .And()
-                .HaveAttributeWithArguments(_attributeWithStringParameters, "param1_1")
+                .HaveAttributeWithArguments(_attributeWithStringParameters, ["param1_1"])
                 .Should()
                 .Exist()
                 .Check(Architecture);
@@ -132,7 +133,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .And()
-                .HaveAnyAttributesWithArguments("param1_0")
+                .HaveAnyAttributesWithArguments(["param1_0"])
                 .Should()
                 .Exist()
                 .Check(Architecture);
@@ -167,7 +168,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithTypeParameterAttribute))
                 .And()
-                .HaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute))
+                .HaveAnyAttributesWithArguments([typeof(ClassWithArrayParameterAttribute)])
                 .Should()
                 .Exist()
                 .Check(Architecture);
@@ -194,7 +195,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .And()
-                .HaveAttributeWithArguments(_attributeWithStringParameters, "non_existent")
+                .HaveAttributeWithArguments(_attributeWithStringParameters, ["non_existent"])
                 .Should()
                 .NotExist()
                 .Check(Architecture);
@@ -212,7 +213,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .And()
-                .HaveAnyAttributesWithArguments("1")
+                .HaveAnyAttributesWithArguments(["1"])
                 .Should()
                 .NotExist()
                 .Check(Architecture);
@@ -223,7 +224,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .And()
-                .DoNotHaveAttributeWithArguments(_attributeWithStringParameters, "param1_1")
+                .DoNotHaveAttributeWithArguments(_attributeWithStringParameters, ["param1_1"])
                 .Should()
                 .NotExist()
                 .Check(Architecture);
@@ -231,7 +232,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .And()
-                .DoNotHaveAnyAttributesWithArguments("param1_0")
+                .DoNotHaveAnyAttributesWithArguments(["param1_0"])
                 .Should()
                 .NotExist()
                 .Check(Architecture);
@@ -266,7 +267,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithTypeParameterAttribute))
                 .And()
-                .DoNotHaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute))
+                .DoNotHaveAnyAttributesWithArguments([typeof(ClassWithArrayParameterAttribute)])
                 .Should()
                 .NotExist()
                 .Check(Architecture);
@@ -293,7 +294,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .And()
-                .DoNotHaveAttributeWithArguments(_attributeWithStringParameters, "non_existent")
+                .DoNotHaveAttributeWithArguments(_attributeWithStringParameters, ["non_existent"])
                 .Should()
                 .Exist()
                 .Check(Architecture);
@@ -311,7 +312,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .And()
-                .DoNotHaveAnyAttributesWithArguments("1")
+                .DoNotHaveAnyAttributesWithArguments(["1"])
                 .Should()
                 .Exist()
                 .Check(Architecture);
@@ -324,13 +325,13 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .Should()
-                .HaveAttributeWithArguments(_attributeWithStringParameters, "param1_1")
+                .HaveAttributeWithArguments(_attributeWithStringParameters, ["param1_1"])
                 .Check(Architecture);
             Types()
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .Should()
-                .HaveAnyAttributesWithArguments("param1_0")
+                .HaveAnyAttributesWithArguments(["param1_0"])
                 .Check(Architecture);
             Types()
                 .That()
@@ -357,7 +358,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithTypeParameterAttribute))
                 .Should()
-                .HaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute))
+                .HaveAnyAttributesWithArguments([typeof(ClassWithArrayParameterAttribute)])
                 .Check(Architecture);
             Types()
                 .That()
@@ -381,7 +382,7 @@ namespace ArchUnitNETTests.Domain
                     .That()
                     .Are(typeof(ClassWithMultipleAttributesWithParameters))
                     .Should()
-                    .HaveAttributeWithArguments(_attributeWithStringParameters, "non_existent")
+                    .HaveAttributeWithArguments(_attributeWithStringParameters, ["non_existent"])
                     .Check(Architecture)
             );
             Assert.Throws<FailedArchRuleException>(() =>
@@ -399,7 +400,7 @@ namespace ArchUnitNETTests.Domain
                     .That()
                     .Are(typeof(ClassWithMultipleAttributesWithParameters))
                     .Should()
-                    .HaveAnyAttributesWithArguments("1")
+                    .HaveAnyAttributesWithArguments(["1"])
                     .Check(Architecture)
             );
 
@@ -410,7 +411,7 @@ namespace ArchUnitNETTests.Domain
                     .That()
                     .Are(typeof(ClassWithMultipleAttributesWithParameters))
                     .Should()
-                    .NotHaveAttributeWithArguments(_attributeWithStringParameters, "param1_1")
+                    .NotHaveAttributeWithArguments(_attributeWithStringParameters, ["param1_1"])
                     .Check(Architecture)
             );
             Assert.Throws<FailedArchRuleException>(() =>
@@ -418,7 +419,7 @@ namespace ArchUnitNETTests.Domain
                     .That()
                     .Are(typeof(ClassWithMultipleAttributesWithParameters))
                     .Should()
-                    .NotHaveAnyAttributesWithArguments("param1_0")
+                    .NotHaveAnyAttributesWithArguments(["param1_0"])
                     .Check(Architecture)
             );
             Assert.Throws<FailedArchRuleException>(() =>
@@ -453,7 +454,7 @@ namespace ArchUnitNETTests.Domain
                     .That()
                     .Are(typeof(ClassWithTypeParameterAttribute))
                     .Should()
-                    .NotHaveAnyAttributesWithArguments(typeof(ClassWithArrayParameterAttribute))
+                    .NotHaveAnyAttributesWithArguments([typeof(ClassWithArrayParameterAttribute)])
                     .Check(Architecture)
             );
             Assert.Throws<FailedArchRuleException>(() =>
@@ -477,7 +478,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .Should()
-                .NotHaveAttributeWithArguments(_attributeWithStringParameters, "non_existent")
+                .NotHaveAttributeWithArguments(_attributeWithStringParameters, ["non_existent"])
                 .Check(Architecture);
             Types()
                 .That()
@@ -491,7 +492,7 @@ namespace ArchUnitNETTests.Domain
                 .That()
                 .Are(typeof(ClassWithMultipleAttributesWithParameters))
                 .Should()
-                .NotHaveAnyAttributesWithArguments("1")
+                .NotHaveAnyAttributesWithArguments(["1"])
                 .Check(Architecture);
         }
     }

@@ -9,32 +9,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleType : ICanBeAnalyzed
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
-        ShouldRelateToTypesThat<
-            TRuleTypeShouldConjunction,
-            IType,
-            TRuleType
-        > DependOnAnyTypesThat();
-        ShouldRelateToTypesThat<
-            TRuleTypeShouldConjunction,
-            IType,
-            TRuleType
-        > OnlyDependOnTypesThat();
+        // csharpier-ignore-start
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> DependOnAnyTypesThat();
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> OnlyDependOnTypesThat();
+
         ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> HaveAnyAttributesThat();
-        ShouldRelateToAttributesThat<
-            TRuleTypeShouldConjunction,
-            TRuleType
-        > OnlyHaveAttributesThat();
+        ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat();
 
-        //Negations
+        // Negations
 
-        ShouldRelateToTypesThat<
-            TRuleTypeShouldConjunction,
-            IType,
-            TRuleType
-        > NotDependOnAnyTypesThat();
-        ShouldRelateToAttributesThat<
-            TRuleTypeShouldConjunction,
-            TRuleType
-        > NotHaveAnyAttributesThat();
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotDependOnAnyTypesThat();
+        ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAnyAttributesThat();
+        // csharpier-ignore-end
     }
 }

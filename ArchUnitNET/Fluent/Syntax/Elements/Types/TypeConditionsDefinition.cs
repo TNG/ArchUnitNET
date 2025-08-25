@@ -7,7 +7,6 @@ using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Domain.PlantUml.Import;
 using ArchUnitNET.Fluent.Conditions;
-using static ArchUnitNET.Fluent.Syntax.DescriptionHelpers;
 using Enum = ArchUnitNET.Domain.Enum;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
@@ -563,11 +562,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 }
             }
 
-            var description = SelectDescription(
+            var description = interfaces.CreateDynamicDescription(
                 "implement any interface",
                 "implement",
-                "implement any",
-                interfaces
+                "implement any"
             );
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
@@ -1186,11 +1184,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 }
             }
 
-            var description = SelectDescription(
+            var description = interfaces.CreateDynamicDescription(
                 "not implement any interface",
                 "not implement",
-                "not implement any",
-                interfaces
+                "not implement any"
             );
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }

@@ -8,12 +8,6 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "AttributeNamespace.TypeArgument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
 ----- Predicates -----
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "AttributeNamespace.TypeArgument1"
@@ -22,19 +16,7 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "AttributeNamespace.TypeArgument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
 ----- Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "AttributeNamespace.TypeArgument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "AttributeNamespace.TypeArgument1"
 Result: True
@@ -52,12 +34,6 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
 ----- Predicates -----
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "1"
@@ -66,19 +42,7 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
 ----- Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "1"
 Result: True
@@ -99,15 +63,6 @@ Message:
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
-
-
-
 ----- Predicates -----
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
@@ -119,25 +74,7 @@ Message:
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
-
-
-
 ----- Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-
-
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "AttributeNamespace.UnusedTypeArgument"
 Result: False
@@ -161,25 +98,7 @@ Message:
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "1"
-Result: False
-Description: AttributeNamespace.ClassWithoutAttributes does have no attribute with an argument
-Message: 
-"Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with arguments "1"" failed:
-	AttributeNamespace.ClassWithoutAttributes does have no attribute with an argument
-
-
-
 ----- Predicates -----
-
-Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should be Types that have any attributes with arguments "1"
-Result: False
-Description: AttributeNamespace.ClassWithoutAttributes is not Types that have any attributes with arguments "1"
-Message: 
-"Types that are "AttributeNamespace.ClassWithoutAttributes" should be Types that have any attributes with arguments "1"" failed:
-	AttributeNamespace.ClassWithoutAttributes is not Types that have any attributes with arguments "1"
-
-
 
 Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should be Types that have any attributes with arguments "1"
 Result: False
@@ -198,50 +117,6 @@ Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespac
 Message: 
 "Types that are "AttributeNamespace.ClassWithoutAttributes" should be types that have any attributes with arguments "1"" failed:
 	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" or "AttributeNamespace.ClassWithThreeAttributesWithArguments" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should be types that have any attributes with arguments "1"
-Result: False
-Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" or "AttributeNamespace.ClassWithThreeAttributesWithArguments" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
-Message: 
-"Types that are "AttributeNamespace.ClassWithoutAttributes" should be types that have any attributes with arguments "1"" failed:
-	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" or "AttributeNamespace.ClassWithThreeAttributesWithArguments" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
-
-
-
-===== Null argument =====
-
------ Conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments ""
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments """ failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
-
-
-
------ Predicates -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments ""
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have any attributes with arguments ""
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments """ failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have any attributes with arguments ""
-
-
-
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments ""
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments """ failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute"
 
 
 
@@ -302,15 +177,6 @@ Message:
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attributes with argument values "Argument1" and "Argument1" and "1" and "ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]"
-
-
-
 ----- Predicates -----
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"
@@ -322,25 +188,7 @@ Message:
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"
-
-
-
 ----- Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-
-
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have any attributes with arguments "42" and "NotTheValueOfAnyAttribute"
 Result: False

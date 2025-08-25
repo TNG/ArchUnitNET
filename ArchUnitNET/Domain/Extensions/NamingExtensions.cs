@@ -9,6 +9,16 @@ namespace ArchUnitNET.Domain.Extensions
 {
     public static class NamingExtensions
     {
+        public static bool NameEquals(this IHasName cls, string name)
+        {
+            return string.Equals(cls.Name, name, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool NameMatches(this IHasName cls, string pattern)
+        {
+            return pattern != null && Regex.IsMatch(cls.Name, pattern);
+        }
+
         public static bool NameEndsWith(
             this IHasName cls,
             string pattern,
@@ -36,16 +46,6 @@ namespace ArchUnitNET.Domain.Extensions
             return cls.Name.IndexOf(pattern, stringComparison) >= 0;
         }
 
-        public static bool NameEquals(this IHasName cls, string name)
-        {
-            return string.Equals(cls.Name, name, StringComparison.OrdinalIgnoreCase);
-        }
-
-        public static bool NameMatches(this IHasName cls, string pattern)
-        {
-            return pattern != null && Regex.IsMatch(cls.Name, pattern);
-        }
-
         public static bool FullNameEquals(this IHasName cls, string fullName)
         {
             return string.Equals(cls.FullName, fullName, StringComparison.OrdinalIgnoreCase);
@@ -56,9 +56,67 @@ namespace ArchUnitNET.Domain.Extensions
             return pattern != null && Regex.IsMatch(cls.FullName, pattern);
         }
 
+        public static bool FullNameEndsWith(this IHasName cls, string pattern)
+        {
+            return cls.FullName.EndsWith(pattern, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool FullNameStartsWith(this IHasName cls, string pattern)
+        {
+            return cls.FullName.StartsWith(pattern, StringComparison.OrdinalIgnoreCase);
+        }
+
         public static bool FullNameContains(this IHasName cls, string pattern)
         {
             return pattern != null && cls.FullName.ToLower().Contains(pattern.ToLower());
+        }
+
+        public static bool AssemblyQualifiedNameEquals(
+            this IHasAssemblyQualifiedName cls,
+            string assemblyQualifiedName
+        )
+        {
+            return string.Equals(
+                cls.AssemblyQualifiedName,
+                assemblyQualifiedName,
+                StringComparison.OrdinalIgnoreCase
+            );
+        }
+
+        public static bool AssemblyQualifiedNameMatches(
+            this IHasAssemblyQualifiedName cls,
+            string pattern
+        )
+        {
+            return pattern != null && Regex.IsMatch(cls.AssemblyQualifiedName, pattern);
+        }
+
+        public static bool AssemblyQualifiedNameEndsWith(
+            this IHasAssemblyQualifiedName cls,
+            string pattern
+        )
+        {
+            return cls.AssemblyQualifiedName.EndsWith(pattern, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool AssemblyQualifiedNameStartsWith(
+            this IHasAssemblyQualifiedName cls,
+            string pattern
+        )
+        {
+            return cls.AssemblyQualifiedName.StartsWith(
+                pattern,
+                StringComparison.OrdinalIgnoreCase
+            );
+        }
+
+        public static bool AssemblyQualifiedNameContains(
+            this IHasAssemblyQualifiedName cls,
+            string pattern
+        )
+        {
+            return pattern != null
+                && cls.AssemblyQualifiedName.ToLower().Contains(pattern.ToLower());
         }
 
         [NotNull]
