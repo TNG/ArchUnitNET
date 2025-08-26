@@ -202,28 +202,25 @@ Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in prov
 ----- Predicates -----
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that only depend on "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that only depend on "AttributeNamespace.ClassWithoutAttributes"
-Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that only depend on "AttributeNamespace.ClassWithoutAttributes"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that only depend on "AttributeNamespace.ClassWithoutAttributes"
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates as conditions -----
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that only depend on "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
-Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that only depend on "AttributeNamespace.ClassWithoutAttributes"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ===== Empty arguments =====
 
 ----- Conditions -----
+
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should have no dependencies
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should have no dependencies" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on System.Object and TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+
+
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should have no dependencies
 Result: False
@@ -254,21 +251,30 @@ Message:
 
 ----- Predicates -----
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that have no dependencies
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that depend on no types
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that have no dependencies
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that depend on no types
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that have no dependencies" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that have no dependencies
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that depend on no types" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that depend on no types
 
 
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that have no dependencies
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that depend on no types
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that have no dependencies
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that depend on no types
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that have no dependencies" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that have no dependencies
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that depend on no types" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that depend on no types
+
+
+
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that depend on no types
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that depend on no types
+Message: 
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that depend on no types" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that depend on no types
 
 
 
@@ -283,20 +289,29 @@ Message:
 
 ----- Predicates as conditions -----
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that have no dependencies
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on no types
 Result: False
 Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that have no dependencies" failed:
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on no types" failed:
 	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that have no dependencies
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on no types
 Result: False
 Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that have no dependencies" failed:
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on no types" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
+
+
+
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on no types
+Result: False
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
+Message: 
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on no types" failed:
 	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 

@@ -5,7 +5,6 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
-using static ArchUnitNET.Fluent.Syntax.DescriptionHelpers;
 using Assembly = System.Reflection.Assembly;
 using Enum = ArchUnitNET.Domain.Enum;
 
@@ -353,11 +352,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                         : type.ImplementedInterfaces.Any()
                 );
             }
-            var description = SelectDescription(
+            var description = interfaces.FormatDescription(
                 "implement any interface",
                 "implement",
-                "implement any",
-                interfaces
+                "implement any"
             );
             return new ArchitecturePredicate<T>(Condition, description);
         }
@@ -702,11 +700,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                         : !type.ImplementedInterfaces.Any()
                 );
             }
-            var description = SelectDescription(
+            var description = interfaces.FormatDescription(
                 "do not implement any interface",
                 "do not implement",
-                "do not implement any",
-                interfaces
+                "do not implement any"
             );
             return new ArchitecturePredicate<T>(Condition, description);
         }

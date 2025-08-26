@@ -4,7 +4,7 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ObjectProvider<T> : ISizedObjectProvider<T>
+    internal class ObjectProvider<T> : ISizedObjectProvider<T>
         where T : ICanBeAnalyzed
     {
         private readonly List<T> _objects;
@@ -20,16 +20,32 @@ namespace ArchUnitNET.Fluent
 
         public string Description { get; }
 
-        public int Count => _objects.Count();
+        public int Count => _objects.Count;
 
         public IEnumerable<T> GetObjects(Architecture architecture)
         {
             return _objects;
         }
 
+        public string FormatDescription(
+            string emptyDescription,
+            string singleDescription,
+            string multipleDescription
+        )
+        {
+            switch (Count)
+            {
+                case 0:
+                    return emptyDescription;
+                case 1:
+                    return $"{singleDescription} {Description}";
+            }
+            return $"{multipleDescription} {Description}";
+        }
+
         private bool Equals(ObjectProvider<T> other)
         {
-            return string.Equals(Description, other.Description);
+            return _objects.SequenceEqual(other._objects);
         }
 
         public override bool Equals(object obj)
@@ -49,7 +65,12 @@ namespace ArchUnitNET.Fluent
 
         public override int GetHashCode()
         {
-            return Description != null ? Description.GetHashCode() : 0;
+            return _objects != null
+                ? _objects.Aggregate(
+                    0,
+                    (current, obj) => (current * 397) ^ (obj?.GetHashCode() ?? 0)
+                )
+                : 0;
         }
     }
 }

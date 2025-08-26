@@ -30,6 +30,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
         }
 
+        public string FormatDescription(
+            string emptyDescription,
+            string singleDescription,
+            string multipleDescription
+        )
+        {
+            return $"{multipleDescription} {Description}";
+        }
+
         public TRuleTypeThat That()
         {
             return Create<TRuleTypeThat, TRuleType>(_ruleCreator);

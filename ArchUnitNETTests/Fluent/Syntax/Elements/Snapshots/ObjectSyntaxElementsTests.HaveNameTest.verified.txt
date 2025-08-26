@@ -14,6 +14,24 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have name starting with "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have name ending with "Class"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have name containing "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
 Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "TypeDependencyNamespace.BaseClass"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
@@ -26,7 +44,13 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have name containing "Base"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name starting with "TypeDependencyNamespace"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name ending with "BaseClass"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
@@ -38,13 +62,31 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have name starting with "Base"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have name ending with "Class"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name matching "^TypeDependencyNamespace.BaseClass, .*DependencyAssembly.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name starting with "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name ending with "DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name containing "DependencyAssembly"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
@@ -64,6 +106,24 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name starting with "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name ending with "Class"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name containing "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
 Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name "TypeDependencyNamespace.BaseClass"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
@@ -76,7 +136,13 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name containing "Base"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name starting with "TypeDependencyNamespace"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name ending with "BaseClass"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
@@ -88,13 +154,31 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name starting with "Base"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken...
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name ending with "Class"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name matching "^TypeDependencyNamespace.BaseClass, .*DependencyAssembly.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name starting with "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name ending with "DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name containing "DependencyAssembly"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
@@ -114,6 +198,24 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name starting with "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name ending with "Class"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name containing "Base"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
 Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name "TypeDependencyNamespace.BaseClass"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
@@ -126,7 +228,13 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name containing "Base"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name starting with "TypeDependencyNamespace"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name ending with "BaseClass"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
@@ -138,13 +246,31 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name starting with "Base"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken...
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name ending with "Class"
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name matching "^TypeDependencyNamespace.BaseClass, .*DependencyAssembly.*$"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name starting with "TypeDependencyNamespace.BaseClass"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name ending with "DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+Result: True
+Description: TypeDependencyNamespace.BaseClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name containing "DependencyAssembly"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
@@ -172,42 +298,6 @@ Message:
 
 
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "BaseClass"
-Result: False
-Description: TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
-Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should have full name "BaseClass"" failed:
-	TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
-
-
-
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "^Base.*$"
-Result: False
-Description: TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
-Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should have full name "^Base.*$"" failed:
-	TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
-
-
-
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have name containing "TypeDependencyNamespace"
-Result: False
-Description: TypeDependencyNamespace.BaseClass does have name BaseClass
-Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should have name containing "TypeDependencyNamespace"" failed:
-	TypeDependencyNamespace.BaseClass does have name BaseClass
-
-
-
-Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name containing "NotTheNameOfAnyObject"
-Result: False
-Description: TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
-Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should have full name containing "NotTheNameOfAnyObject"" failed:
-	TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
-
-
-
 Query: Types that are "TypeDependencyNamespace.BaseClass" should have name starting with "TypeDependencyNamespace"
 Result: False
 Description: TypeDependencyNamespace.BaseClass does have name BaseClass
@@ -226,103 +316,376 @@ Message:
 
 
 
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have name containing "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have name BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have name containing "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass does have name BaseClass
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have full name "BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name "^Base.*$"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have full name "^Base.*$"" failed:
+	TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name starting with "Base"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have full name starting with "Base"" failed:
+	TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name ending with "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have full name ending with "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have full name containing "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have full name containing "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.BaseClass does have full name TypeDependencyNamespace.BaseClass
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name "TypeDependencyNamespace.BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name "^TypeDependencyNamespace.BaseClass, .*NotTheNameOfAnyObject.*$"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name "^TypeDependencyNamespace.BaseClass, .*NotTheNameOfAnyObject.*$"" failed:
+	TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name starting with "BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name starting with "BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name ending with "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name ending with "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name containing "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should have assembly qualified name containing "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.BaseClass does have assembly qualified name TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+
+
+
 ----- Predicates -----
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name "BaseClass"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name "TypeDependencyNamespace.BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have name "TypeDependencyNamespace.BaseClass"
 Message: 
-All Evaluations passed
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have name "TypeDependencyNamespace.BaseClass"
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name matching "^Base.*$"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
-Message: 
-All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name "TypeDependencyNamespace.BaseClass"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
-Message: 
-All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name matching "^.*\.Base.*$"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name "^.*\.Base.*$"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have name "^.*\.Base.*$"
 Message: 
-All Evaluations passed
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name "^.*\.Base.*$"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have name "^.*\.Base.*$"
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name containing "Base"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
-Message: 
-All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name containing "TypeDependencyNamespace"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
-Message: 
-All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name starting with "Base"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name starting with "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have name starting with "TypeDependencyNamespace"
 Message: 
-All Evaluations passed
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name starting with "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have name starting with "TypeDependencyNamespace"
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name ending with "Class"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name ending with "Base"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have name ending with "Base"
 Message: 
-All Evaluations passed
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name ending with "Base"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have name ending with "Base"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name containing "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have name containing "TypeDependencyNamespace"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have name containing "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have name containing "TypeDependencyNamespace"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name "BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have full name "BaseClass"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name "BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have full name "BaseClass"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name "^Base.*$"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have full name "^Base.*$"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name "^Base.*$"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have full name "^Base.*$"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name starting with "Base"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have full name starting with "Base"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name starting with "Base"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have full name starting with "Base"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name ending with "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have full name ending with "TypeDependencyNamespace"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name ending with "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have full name ending with "TypeDependencyNamespace"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name containing "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have full name containing "NotTheNameOfAnyObject"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have full name containing "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have full name containing "NotTheNameOfAnyObject"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name "TypeDependencyNamespace.BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name "TypeDependencyNamespace.BaseClass"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name "TypeDependencyNamespace.BaseClass"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name "^TypeDependencyNamespace.BaseClass, .*NotTheNameOfAnyObject.*$"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name "^TypeDependencyNamespace.BaseClass, .*NotTheNameOfAnyObject.*$"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name "^TypeDependencyNamespace.BaseClass, .*NotTheNameOfAnyObject.*$"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name "^TypeDependencyNamespace.BaseClass, .*NotTheNameOfAnyObject.*$"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name starting with "BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name starting with "BaseClass"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name starting with "BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name starting with "BaseClass"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name ending with "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name ending with "TypeDependencyNamespace"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name ending with "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name ending with "TypeDependencyNamespace"
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name containing "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name containing "NotTheNameOfAnyObject"
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name containing "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.BaseClass is not Types that have assembly qualified name containing "NotTheNameOfAnyObject"
+
+
 
 ----- Predicates as conditions -----
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name "BaseClass"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name "TypeDependencyNamespace.BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
 Message: 
-All Evaluations passed
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have name "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass does exist
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name matching "^Base.*$"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
-Message: 
-All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name "TypeDependencyNamespace.BaseClass"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
-Message: 
-All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name matching "^.*\.Base.*$"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name "^.*\.Base.*$"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
 Message: 
-All Evaluations passed
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have name "^.*\.Base.*$"" failed:
+	TypeDependencyNamespace.BaseClass does exist
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name containing "Base"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
-Message: 
-All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name containing "TypeDependencyNamespace"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
-Message: 
-All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name starting with "Base"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name starting with "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
 Message: 
-All Evaluations passed
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have name starting with "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass does exist
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name ending with "Class"
-Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name ending with "Base"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
 Message: 
-All Evaluations passed
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have name ending with "Base"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have name containing "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have name containing "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name "BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name "BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name "^Base.*$"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name "^Base.*$"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name starting with "Base"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name starting with "Base"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name ending with "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name ending with "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name containing "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have full name containing "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name "TypeDependencyNamespace.BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name "^TypeDependencyNamespace.BaseClass, .*NotTheNameOfAnyObject.*$"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name "^TypeDependencyNamespace.BaseClass, .*NotTheNameOfAnyObject.*$"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name starting with "BaseClass"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name starting with "BaseClass"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name ending with "TypeDependencyNamespace"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name ending with "TypeDependencyNamespace"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name containing "NotTheNameOfAnyObject"
+Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should be types that have assembly qualified name containing "NotTheNameOfAnyObject"" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
 
