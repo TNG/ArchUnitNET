@@ -644,26 +644,22 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             )
             {
                 var interfaceList = interfaces.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type =>
-                        interfaceList.Count > 0
-                            ? type.ImplementedInterfaces.Intersect(interfaceList).Any()
-                            : type.ImplementedInterfaces.Any()
-                    )
-                    .ToList();
-                var failDescription =
-                    interfaceList.Count == 0
-                        ? "does not implement any interface"
-                        : "only implements "
-                            + string.Join(" and ", interfaceList.Select(i => i.FullName));
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                foreach (var ruleType in ruleTypes) {
+                    if (interfaceList.Count > 0
+                            ? ruleType.ImplementedInterfaces.Intersect(interfaceList).Any()
+                            : ruleType.ImplementedInterfaces.Any())
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        var failDescription =
+                            !ruleType.ImplementedInterfaces.Any()
+                                ? "does not implement any interface"
+                                : "only implements "
+                                  + string.Join(" and ", ruleType.ImplementedInterfaces.Select(i => i.FullName));
+                        yield return new ConditionResult(ruleType, false, failDescription);
+                    }
                 }
             }
 

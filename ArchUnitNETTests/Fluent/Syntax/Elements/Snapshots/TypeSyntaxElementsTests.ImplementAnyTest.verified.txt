@@ -110,46 +110,46 @@ All Evaluations passed
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
@@ -251,10 +251,10 @@ Message:
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
@@ -464,46 +464,46 @@ Message:
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
@@ -605,46 +605,46 @@ Message:
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are Interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
@@ -652,10 +652,10 @@ Message:
 
 Query: Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+Description: InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 Message: 
 "Interfaces that are "InterfaceAssembly.IChildInterface" should implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface"" failed:
-	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IOtherBaseInterface and InterfaceAssembly.IOtherChildInterface
+	InterfaceAssembly.IChildInterface only implements InterfaceAssembly.IBaseInterface
 
 
 
