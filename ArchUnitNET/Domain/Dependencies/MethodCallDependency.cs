@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using ArchUnitNET.Loader;
 
 namespace ArchUnitNET.Domain.Dependencies
 {
@@ -9,7 +8,7 @@ namespace ArchUnitNET.Domain.Dependencies
             : base(originMember, calledMethodInstance)
         {
             TargetMember = calledMethodInstance.Member;
-            TargetMemberGenericArguments = calledMethodInstance.GenericArguments;
+            TargetMemberGenericArguments = calledMethodInstance.MemberGenericArguments;
         }
 
         public IMember TargetMember { get; }

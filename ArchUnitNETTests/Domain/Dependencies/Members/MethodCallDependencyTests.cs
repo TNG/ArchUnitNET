@@ -33,6 +33,44 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 .FirstOrDefault();
         }
 
+        [Fact]
+        public void UsesMemberGenericArguments()
+        {
+            var architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+            var originClass = architecture.GetClassOfType(
+                typeof(ClassWithMethodWithGenericMethodArguments)
+            );
+            var originMember = originClass
+                .GetMembersWithName(
+                    nameof(ClassWithMethodWithGenericMethodArguments.Method).BuildMethodMemberName()
+                )
+                .Single();
+            var targetClass = architecture.GetClassOfType(typeof(ClassWithGenericMethodArguments));
+            var targetMember = targetClass
+                .GetMethodMembersWithName(
+                    nameof(ClassWithGenericMethodArguments.Method).BuildMethodMemberName()
+                )
+                .Single();
+            var memberGenericArgument = new GenericArgument(
+                new TypeInstance<IType>(
+                    architecture.GetClassOfType(typeof(ClassForGenericArgument))
+                )
+            );
+            var methodCallDependency = new MethodCallDependency(
+                targetMember,
+                new MethodMemberInstance(
+                    targetMember,
+                    Enumerable.Empty<GenericArgument>(),
+                    [memberGenericArgument]
+                )
+            );
+
+            Assert.Contains(
+                memberGenericArgument,
+                methodCallDependency.TargetMemberGenericArguments
+            );
+        }
+
         [Theory]
         [ClassData(typeof(MethodDependencyTestBuild.ConstructorTestData))]
         public void ConstructorsAddedToClass(Class classWithConstructors)
@@ -68,6 +106,42 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             Assert.True(originMember.HasMemberDependency(expectedDependency));
             Assert.Contains(expectedDependency, originMember.GetMethodCallDependencies());
         }
+
+        [Theory]
+        [ClassData(
+            typeof(MethodDependencyTestBuild.MethodCallGenericConstructorArgumentsDependencyTestData)
+        )]
+        public void MethodCallGenericConstructorArgumentDependenciesAreFound(
+            IMember originMember,
+            MethodCallDependency expectedDependency
+        )
+        {
+            Assert.Contains(
+                originMember.GetMethodCallDependencies(),
+                methodCallDependency =>
+                    methodCallDependency.TargetGenericArguments.SequenceEqual(
+                        expectedDependency.TargetGenericArguments
+                    )
+            );
+        }
+
+        [Theory]
+        [ClassData(
+            typeof(MethodDependencyTestBuild.MethodCallGenericMethodArgumentsDependencyTestData)
+        )]
+        public void MethodCallGenericMethodArgumentDependenciesAreFound(
+            IMember originMember,
+            MethodCallDependency expectedDependency
+        )
+        {
+            Assert.Contains(
+                originMember.GetMethodCallDependencies(),
+                methodCallDependency =>
+                    methodCallDependency.TargetMemberGenericArguments.SequenceEqual(
+                        expectedDependency.TargetMemberGenericArguments
+                    )
+            );
+        }
     }
 
     public class ClassWithMethodA
@@ -98,6 +172,34 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             ClassWithMethodB.MethodB();
         }
     }
+
+    public class ClassWithMethodWithGenericConstructorArguments
+    {
+        public static void Method()
+        {
+            var classForGenericArguments =
+                new ClassWithGenericConstructorArguments<ClassForGenericArgument>();
+        }
+    }
+
+    // ReSharper disable once UnusedTypeParameter
+    public class ClassWithGenericConstructorArguments<T>;
+
+    public class ClassWithMethodWithGenericMethodArguments
+    {
+        public static void Method()
+        {
+            ClassWithGenericMethodArguments.Method<ClassForGenericArgument>();
+        }
+    }
+
+    public class ClassWithGenericMethodArguments
+    {
+        // ReSharper disable once UnusedTypeParameter
+        public static void Method<T>() { }
+    }
+
+    public class ClassForGenericArgument;
 
     public class ClassWithConstructors
     {
