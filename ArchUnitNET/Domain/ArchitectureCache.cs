@@ -1,11 +1,10 @@
-using System.Collections.Concurrent;
+using System.Runtime.Caching;
 
 namespace ArchUnitNET.Domain
 {
     public class ArchitectureCache
     {
-        protected readonly ConcurrentDictionary<ArchitectureCacheKey, Architecture> Cache =
-            new ConcurrentDictionary<ArchitectureCacheKey, Architecture>();
+        protected readonly MemoryCache _cache = new MemoryCache(nameof(ArchitectureCache));
 
         protected ArchitectureCache() { }
 
@@ -13,16 +12,12 @@ namespace ArchUnitNET.Domain
 
         public Architecture TryGetArchitecture(ArchitectureCacheKey architectureCacheKey)
         {
-            return Cache.TryGetValue(architectureCacheKey, out var matchArchitecture)
-                ? matchArchitecture
-                : null;
+            return _cache.Get(architectureCacheKey.ToString()) as Architecture;
         }
 
-        public bool Add(ArchitectureCacheKey architectureCacheKey, Architecture architecture)
+        public void Add(ArchitectureCacheKey architectureCacheKey, Architecture architecture)
         {
-            return Cache.TryAdd(architectureCacheKey, architecture);
+            _cache.Add(architectureCacheKey.ToString(), architecture, new CacheItemPolicy());
         }
-
-        public void Clear() => Cache.Clear();
     }
 }

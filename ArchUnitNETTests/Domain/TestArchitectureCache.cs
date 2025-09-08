@@ -4,9 +4,9 @@ namespace ArchUnitNETTests.Domain
 {
     public class TestArchitectureCache : ArchitectureCache
     {
-        public int Size()
+        public long Size()
         {
-            return Cache.Count;
+            return _cache.GetCount();
         }
     }
 }
