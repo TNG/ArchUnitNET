@@ -5,48 +5,19 @@ using ArchUnitNET.Domain.Extensions;
 
 namespace ArchUnitNET.Domain
 {
-    public class ArchitectureCacheKey : IEquatable<ArchitectureCacheKey>
+    public class ArchitectureCacheKey
     {
         private readonly SortedSet<(string moduleName, string filter)> _architectureCacheKey =
             new SortedSet<(string moduleName, string filter)>(new ArchitectureCacheKeyComparer());
-
-        public bool Equals(ArchitectureCacheKey other)
-        {
-            return other != null
-                && _architectureCacheKey.SequenceEqual(other._architectureCacheKey);
-        }
 
         public void Add(string moduleName, string filter)
         {
             _architectureCacheKey.Add((moduleName, filter));
         }
 
-        public override bool Equals(object obj)
+        public override string ToString()
         {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            return obj.GetType() == GetType() && Equals((ArchitectureCacheKey)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = 397;
-                _architectureCacheKey.ForEach(tuple =>
-                {
-                    hashCode = (hashCode * 131) ^ tuple.GetHashCode();
-                });
-                return hashCode;
-            }
+            return string.Join(",", _architectureCacheKey);
         }
     }
 

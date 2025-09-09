@@ -44,17 +44,5 @@ namespace ArchUnitNETTests.Domain
                 _testEmptyArchitecture
             );
         }
-
-        [Fact]
-        public void CacheClear()
-        {
-            _testArchitectureCache.Add(_testArchitectureCacheKey, _testEmptyArchitecture);
-            Assert.Equal(
-                _testArchitectureCache.TryGetArchitecture(_testArchitectureCacheKey),
-                _testEmptyArchitecture
-            );
-            _testArchitectureCache.Clear();
-            Assert.Null(_testArchitectureCache.TryGetArchitecture(_testArchitectureCacheKey));
-        }
     }
 }

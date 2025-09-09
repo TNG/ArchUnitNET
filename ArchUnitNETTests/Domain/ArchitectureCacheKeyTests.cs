@@ -35,22 +35,10 @@ namespace ArchUnitNETTests.Domain
         private readonly ArchitectureCacheKey _duplicateArchitectureCacheKey;
 
         [Fact]
-        public void ArchitectureCacheKeyContentEquivalentsAreEqual()
+        public void ArchitectureCacheKeyContentEquivalentsAreStringEqual()
         {
             object contentEquivalent = new ArchitectureCacheKey();
-            Assert.True(_architectureCacheKey.Equals(contentEquivalent));
-        }
-
-        [Fact]
-        public void ArchitectureCacheKeyDoesNotEqualNull()
-        {
-            Assert.False(_architectureCacheKey.Equals((object)null));
-        }
-
-        [Fact]
-        public void ArchitectureCacheKeyIsEqualToItself()
-        {
-            Assert.True(_architectureCacheKey.Equals(_architectureCacheKey));
+            Assert.Equal(_architectureCacheKey, (ArchitectureCacheKey)contentEquivalent, ArchitectureCacheKeysHaveSameToString);
         }
 
         [Fact]
@@ -62,7 +50,7 @@ namespace ArchUnitNETTests.Domain
             duplicateCacheKey.Add(_baseClassModuleName, null);
             duplicateCacheKey.Add(_baseClassModuleName, null);
 
-            Assert.Equal(_architectureCacheKey, duplicateCacheKey);
+            Assert.Equal(_architectureCacheKey, duplicateCacheKey, ArchitectureCacheKeysHaveSameToString);
         }
 
         [Fact]
@@ -75,7 +63,7 @@ namespace ArchUnitNETTests.Domain
             reverseOrderCacheKey.Add(_architectureCacheTestsClassModuleName, null);
             reverseOrderCacheKey.Add(_baseClassModuleName, null);
 
-            Assert.Equal(_architectureCacheKey, reverseOrderCacheKey);
+            Assert.Equal(_architectureCacheKey, reverseOrderCacheKey, ArchitectureCacheKeysHaveSameToString);
         }
 
         [Fact]
@@ -87,7 +75,7 @@ namespace ArchUnitNETTests.Domain
             duplicateCacheKey.Add(_baseClassModuleName, _memberDependencyTests);
             duplicateCacheKey.Add(_baseClassModuleName, _memberDependencyTests);
 
-            Assert.Equal(_architectureCacheKey, duplicateCacheKey);
+            Assert.Equal(_architectureCacheKey, duplicateCacheKey, ArchitectureCacheKeysHaveSameToString);
         }
 
         [Fact]
@@ -100,7 +88,7 @@ namespace ArchUnitNETTests.Domain
             reverseOrderCacheKey.Add(_baseClassModuleName, _attributeDependencyTests);
             reverseOrderCacheKey.Add(_baseClassModuleName, _memberDependencyTests);
 
-            Assert.Equal(_architectureCacheKey, reverseOrderCacheKey);
+            Assert.Equal(_architectureCacheKey, reverseOrderCacheKey, ArchitectureCacheKeysHaveSameToString);
         }
 
         [Fact]
@@ -109,16 +97,21 @@ namespace ArchUnitNETTests.Domain
             _architectureCacheKey.Add(_baseClassModuleName, null);
             _duplicateArchitectureCacheKey.Add(_baseClassModuleName, null);
 
-            Assert.Equal(_architectureCacheKey, _duplicateArchitectureCacheKey);
+            Assert.Equal(_architectureCacheKey, _duplicateArchitectureCacheKey, ArchitectureCacheKeysHaveSameToString);
         }
 
         [Fact]
-        public void SameObjectReferenceIsSameArchitectureCacheKet()
+        public void SameObjectReferenceIsSameArchitectureCacheKey()
         {
             _architectureCacheKey.Add(_baseClassModuleName, null);
             object referenceDuplicate = _architectureCacheKey;
 
             Assert.True(_architectureCacheKey.Equals(referenceDuplicate));
+        }
+
+        private static bool ArchitectureCacheKeysHaveSameToString(ArchitectureCacheKey first, ArchitectureCacheKey second)
+        {
+            return first.ToString().Equals(second.ToString());
         }
     }
 }
