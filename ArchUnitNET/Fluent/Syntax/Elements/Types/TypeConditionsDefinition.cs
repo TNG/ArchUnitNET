@@ -644,20 +644,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             )
             {
                 var interfaceList = interfaces.GetObjects(architecture).ToList();
-                foreach (var ruleType in ruleTypes) {
-                    if (interfaceList.Count > 0
+                foreach (var ruleType in ruleTypes)
+                {
+                    if (
+                        interfaceList.Count > 0
                             ? ruleType.ImplementedInterfaces.Intersect(interfaceList).Any()
-                            : ruleType.ImplementedInterfaces.Any())
+                            : ruleType.ImplementedInterfaces.Any()
+                    )
                     {
                         yield return new ConditionResult(ruleType, true);
                     }
                     else
                     {
-                        var failDescription =
-                            !ruleType.ImplementedInterfaces.Any()
-                                ? "does not implement any interface"
-                                : "only implements "
-                                  + string.Join(" and ", ruleType.ImplementedInterfaces.Select(i => i.FullName));
+                        var failDescription = !ruleType.ImplementedInterfaces.Any()
+                            ? "does not implement any interface"
+                            : "only implements "
+                                + string.Join(
+                                    " and ",
+                                    ruleType.ImplementedInterfaces.Select(i => i.FullName)
+                                );
                         yield return new ConditionResult(ruleType, false, failDescription);
                     }
                 }
