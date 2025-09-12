@@ -157,7 +157,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use ImplementAnyInterfacesThat().HaveFullName(...) instead. This will be removed in a future update."
         )]
         public TRuleTypeShouldConjunction ImplementInterface(
             string pattern,
@@ -452,7 +452,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use NotImplementAnyInterfacesThat().HaveFullName(...) instead. This will be removed in a future update."
         )]
         public TRuleTypeShouldConjunction NotImplementInterface(
             string pattern,

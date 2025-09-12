@@ -146,7 +146,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use ImplementAny(Interfacs().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TGivenRuleTypeConjunction ImplementInterface(
             string pattern,
@@ -420,7 +420,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use DoNotImplementAny(Interfaces().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TGivenRuleTypeConjunction DoNotImplementInterface(
             string pattern,
