@@ -172,7 +172,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use ImplementAnyInterfaces(Interfacs().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TRuleTypeShouldConjunction ImplementInterface(
             string pattern,
@@ -205,12 +205,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         // csharpier-ignore-start
-        public TRuleTypeShouldConjunction ImplementAny() => ImplementAny(new ObjectProvider<Interface>());
-        public TRuleTypeShouldConjunction ImplementAny(params Interface[] interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction ImplementAny(params Type[] interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction ImplementAny(IEnumerable<Interface> interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction ImplementAny(IEnumerable<Type> interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction ImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TReferenceType>.ImplementAny(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces() => ImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(params Interface[] interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(params Type[] interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IEnumerable<Interface> interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IEnumerable<Type> interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TReferenceType>.ImplementAny(interfaces));
         // csharpier-ignore-end
 
         [Obsolete(
@@ -464,7 +464,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use DoNotImplementAnyInterfaces(Interfaces().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TRuleTypeShouldConjunction DoNotImplementInterface(
             string pattern,
@@ -497,12 +497,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         // csharpier-ignore-start
-        public TRuleTypeShouldConjunction DoNotImplementAny() => DoNotImplementAny(new ObjectProvider<Interface>());
-        public TRuleTypeShouldConjunction DoNotImplementAny(params Interface[] interfaces) => DoNotImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction DoNotImplementAny(params Type[] interfaces) => DoNotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction DoNotImplementAny(IEnumerable<Interface> interfaces) => DoNotImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction DoNotImplementAny(IEnumerable<Type> interfaces) => DoNotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction DoNotImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TReferenceType>.DoNotImplementAny(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces() => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(params Interface[] interfaces) => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(params Type[] interfaces) => DoNotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(IEnumerable<Interface> interfaces) => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(IEnumerable<Type> interfaces) => DoNotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TReferenceType>.DoNotImplementAny(interfaces));
         // csharpier-ignore-end
 
         [Obsolete(

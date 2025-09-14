@@ -186,12 +186,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         // csharpier-ignore-start
-        public TRuleTypeShouldConjunction ImplementAny() => ImplementAny(new ObjectProvider<Interface>());
-        public TRuleTypeShouldConjunction ImplementAny(params Interface[] interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction ImplementAny(params Type[] interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction ImplementAny(IEnumerable<Interface> interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction ImplementAny(IEnumerable<Type> interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction ImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypeConditionsDefinition<TRuleType>.ImplementAny(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces() => ImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(params Interface[] interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(params Type[] interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IEnumerable<Interface> interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IEnumerable<Type> interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypeConditionsDefinition<TRuleType>.ImplementAny(interfaces));
         // csharpier-ignore-end
 
         [Obsolete(
@@ -485,12 +485,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         // csharpier-ignore-start
-        public TRuleTypeShouldConjunction NotImplementAny() => NotImplementAny(new ObjectProvider<Interface>());
-        public TRuleTypeShouldConjunction NotImplementAny(params Interface[] interfaces) => NotImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction NotImplementAny(params Type[] interfaces) => NotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction NotImplementAny(IEnumerable<Interface> interfaces) => NotImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction NotImplementAny(IEnumerable<Type> interfaces) => NotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TRuleTypeShouldConjunction NotImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypeConditionsDefinition<TRuleType>.NotImplementAny(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces() => NotImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(params Interface[] interfaces) => NotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(params Type[] interfaces) => NotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(IEnumerable<Interface> interfaces) => NotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(IEnumerable<Type> interfaces) => NotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypeConditionsDefinition<TRuleType>.NotImplementAny(interfaces));
         // csharpier-ignore-end
 
         [Obsolete(

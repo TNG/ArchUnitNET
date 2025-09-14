@@ -146,7 +146,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Use ImplementAny(Interfacs().That().HaveFullName(...)) instead. This will be removed in a future update."
+            "Use ImplementAnyInterfaces(Interfacs().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TGivenRuleTypeConjunction ImplementInterface(
             string pattern,
@@ -175,12 +175,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         // csharpier-ignore-start
-        public TGivenRuleTypeConjunction ImplementAny() => ImplementAny(new ObjectProvider<Interface>());
-        public TGivenRuleTypeConjunction ImplementAny(params Interface[] interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TGivenRuleTypeConjunction ImplementAny(params Type[] interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TGivenRuleTypeConjunction ImplementAny(IEnumerable<Interface> interfaces) => ImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TGivenRuleTypeConjunction ImplementAny(IEnumerable<Type> interfaces) => ImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TGivenRuleTypeConjunction ImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TRuleType>.ImplementAny(interfaces));
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces() => ImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(params Interface[] interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(params Type[] interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(IEnumerable<Interface> interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(IEnumerable<Type> interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TRuleType>.ImplementAny(interfaces));
         // csharpier-ignore-end
 
         [Obsolete(
@@ -420,7 +420,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Use DoNotImplementAny(Interfaces().That().HaveFullName(...)) instead. This will be removed in a future update."
+            "Use DoNotImplementAnyInterfaces(Interfaces().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TGivenRuleTypeConjunction DoNotImplementInterface(
             string pattern,
@@ -453,12 +453,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         // csharpier-ignore-start
-        public TGivenRuleTypeConjunction DoNotImplementAny() => DoNotImplementAny(new ObjectProvider<Interface>());
-        public TGivenRuleTypeConjunction DoNotImplementAny(params Interface[] interfaces) => DoNotImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TGivenRuleTypeConjunction DoNotImplementAny(params Type[] interfaces) => DoNotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TGivenRuleTypeConjunction DoNotImplementAny(IEnumerable<Interface> interfaces) => DoNotImplementAny(new ObjectProvider<Interface>(interfaces));
-        public TGivenRuleTypeConjunction DoNotImplementAny(IEnumerable<Type> interfaces) => DoNotImplementAny(new SystemTypeObjectProvider<Interface>(interfaces));
-        public TGivenRuleTypeConjunction DoNotImplementAny(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TRuleType>.DoNotImplementAny(interfaces));
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces() => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(params Interface[] interfaces) => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(params Type[] interfaces) => DoNotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(IEnumerable<Interface> interfaces) => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(IEnumerable<Type> interfaces) => DoNotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TRuleType>.DoNotImplementAny(interfaces));
         // csharpier-ignore-end
 
         [Obsolete(
