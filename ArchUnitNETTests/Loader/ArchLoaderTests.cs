@@ -14,6 +14,7 @@ using static ArchUnitNETTests.StaticTestArchitectures;
 
 using DuplicateClass = LoaderTestAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
 using OtherDuplicateClass = OtherLoaderTestAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
+using Type = System.Type;
 
 namespace ArchUnitNETTests.Loader
 {

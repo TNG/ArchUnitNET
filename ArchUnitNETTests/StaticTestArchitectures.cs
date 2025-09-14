@@ -27,6 +27,10 @@ namespace ArchUnitNETTests
             .LoadAssemblies(typeof(TypeDependencyNamespace.BaseClass).Assembly)
             .Build();
 
+        public static readonly Architecture GenericArgumentArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(GenericArgumentAssembly.NonGenericClass).Assembly)
+            .Build();
+        
         public static readonly Architecture LoaderTestArchitecture = new ArchLoader()
             .LoadAssemblies(
                 typeof(LoaderTestAssembly.LoaderTestAssembly).Assembly,

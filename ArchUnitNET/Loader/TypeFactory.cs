@@ -63,6 +63,10 @@ namespace ArchUnitNET.Loader
             bool isStub
         )
         {
+            if (typeReference.FullName == "System.Linq.Enumerable")
+            {
+                ;
+            }
             if (typeReference.IsGenericParameter)
             {
                 return GetOrCreateGenericParameterTypeInstanceFromTypeReference(typeReference);
@@ -617,6 +621,10 @@ namespace ArchUnitNET.Loader
 
         internal GenericArgument CreateGenericArgumentFromTypeReference(TypeReference typeReference)
         {
+            if (typeReference.FullName.StartsWith("!"))
+            {
+                ;
+            }
             return new GenericArgument(GetOrCreateStubTypeInstanceFromTypeReference(typeReference));
         }
 

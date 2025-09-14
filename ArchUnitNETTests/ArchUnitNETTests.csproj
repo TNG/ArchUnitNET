@@ -6,8 +6,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <PlatformTarget>ARM64</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj" />
+    <ProjectReference Include="..\GenericArgumentAssembly\GenericArgumentAssembly.csproj" />
     <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
     <ProjectReference Include="..\TestAssemblies\AttributeAssembly\AttributeAssembly.csproj" />
     <ProjectReference Include="..\TestAssemblies\DependencyAssembly\DependencyAssembly.csproj" />
