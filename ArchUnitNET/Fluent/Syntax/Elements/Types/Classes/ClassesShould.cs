@@ -33,12 +33,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             return new ClassesShouldConjunction(_ruleCreator);
         }
 
-        public ClassesShouldConjunction HavePrivateParameterlessConstructor()
-        {
-            _ruleCreator.AddCondition(ClassConditionsDefinition.HavePrivateParameterlessConstructor());
-            return new ClassesShouldConjunction(_ruleCreator);
-        }
-
         //Negations
 
         public ClassesShouldConjunction NotBeAbstract()
@@ -62,12 +56,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         public ClassesShouldConjunction NotBeImmutable()
         {
             _ruleCreator.AddCondition(ClassConditionsDefinition.NotBeImmutable());
-            return new ClassesShouldConjunction(_ruleCreator);
-        }
-        
-        public ClassesShouldConjunction NotHavePrivateParameterlessConstructor()
-        {
-            _ruleCreator.AddCondition(ClassConditionsDefinition.NotHavePrivateParameterlessConstructor());
             return new ClassesShouldConjunction(_ruleCreator);
         }
     }

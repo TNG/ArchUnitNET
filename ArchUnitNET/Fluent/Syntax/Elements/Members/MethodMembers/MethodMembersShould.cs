@@ -11,19 +11,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         public MethodMembersShould(IArchRuleCreator<MethodMember> ruleCreator)
             : base(ruleCreator) { }
 
-        public ShouldRelateToMethodMembersThat<
-            MethodMembersShouldConjunction,
-            MethodMember
-        > BeMethodMembersThat()
+        public ShouldRelateToMethodMembersThat<MethodMembersShouldConjunction, MethodMember> BeMethodMembersThat()
         {
             _ruleCreator.BeginComplexCondition(
                 ArchRuleDefinition.MethodMembers(),
                 MethodMemberConditionsDefinition.BeMethodMembersThat()
             );
-            return new ShouldRelateToMethodMembersThat<
-                MethodMembersShouldConjunction,
-                MethodMember
-            >(_ruleCreator);
+            return new ShouldRelateToMethodMembersThat<MethodMembersShouldConjunction, MethodMember>(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction BeConstructor()
@@ -40,9 +34,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public MethodMembersShouldConjunction BeCalledBy(IType firstType, params IType[] moreTypes)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.BeCalledBy(firstType, moreTypes)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.BeCalledBy(firstType, moreTypes));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -70,10 +62,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(
-            IType firstType,
-            params IType[] moreTypes
-        )
+        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(
                 MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(firstType, moreTypes)
@@ -81,51 +70,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(
-            Type type,
-            params Type[] moreTypes
-        )
+        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(type, moreTypes)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(type, moreTypes));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(
-            IObjectProvider<IType> types
-        )
+        public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(IObjectProvider<IType> types)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(IEnumerable<IType> types)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction HaveDependencyInMethodBodyTo(IEnumerable<Type> types)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveDependencyInMethodBodyTo(types));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction HaveReturnType(
-            IType firstType,
-            params IType[] moreTypes
-        )
+        public MethodMembersShouldConjunction HaveReturnType(IType firstType, params IType[] moreTypes)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveReturnType(firstType, moreTypes)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(firstType, moreTypes));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -143,9 +114,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public MethodMembersShouldConjunction HaveReturnType(Type type, params Type[] moreTypes)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.HaveReturnType(type, moreTypes)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveReturnType(type, moreTypes));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -169,22 +138,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotBeCalledBy(
-            IType firstType,
-            params IType[] moreTypes
-        )
+        public MethodMembersShouldConjunction NotBeCalledBy(IType firstType, params IType[] moreTypes)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotBeCalledBy(firstType, moreTypes)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotBeCalledBy(firstType, moreTypes));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction NotBeCalledBy(Type type, params Type[] moreTypes)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotBeCalledBy(type, moreTypes)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotBeCalledBy(type, moreTypes));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -206,24 +168,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
-            IType firstType,
-            params IType[] moreTypes
-        )
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes)
         {
             _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(
-                    firstType,
-                    moreTypes
-                )
+                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(firstType, moreTypes)
             );
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
-            Type type,
-            params Type[] moreTypes
-        )
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes)
         {
             _ruleCreator.AddCondition(
                 MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(type, moreTypes)
@@ -231,44 +184,27 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
-            IObjectProvider<IType> types
-        )
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(IObjectProvider<IType> types)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
-            IEnumerable<IType> types
-        )
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(IEnumerable<IType> types)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(
-            IEnumerable<Type> types
-        )
+        public MethodMembersShouldConjunction NotHaveDependencyInMethodBodyTo(IEnumerable<Type> types)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveDependencyInMethodBodyTo(types));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
-        public MethodMembersShouldConjunction NotHaveReturnType(
-            IType firstType,
-            params IType[] moreTypes
-        )
+        public MethodMembersShouldConjunction NotHaveReturnType(IType firstType, params IType[] moreTypes)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveReturnType(firstType, moreTypes)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveReturnType(firstType, moreTypes));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
@@ -286,15 +222,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public MethodMembersShouldConjunction NotHaveReturnType(Type type, params Type[] moreTypes)
         {
-            _ruleCreator.AddCondition(
-                MethodMemberConditionsDefinition.NotHaveReturnType(type, moreTypes)
-            );
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveReturnType(type, moreTypes));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
 
         public MethodMembersShouldConjunction NotHaveReturnType(IEnumerable<Type> types)
         {
             _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveReturnType(types));
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction HaveAnyParameters()
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveAnyParameters());
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction NotHaveAnyParameters()
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveAnyParameters());
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
     }

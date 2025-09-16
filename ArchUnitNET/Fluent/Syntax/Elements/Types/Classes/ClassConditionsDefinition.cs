@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
@@ -44,16 +43,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
                 "is not immutable"
             );
         }
-        
-        public static ICondition<Class> HavePrivateParameterlessConstructor()
-        {
-            return new SimpleCondition<Class>(
-                cls => (cls.IsAbstract.HasValue && cls.IsAbstract.Value) || cls.GetConstructors().Any(c => 
-                    c.Visibility == Visibility.Private && !c.Parameters.Any()),
-                "have private parameterless constructor",
-                "does not have private parameterless constructor"
-            );
-        }
 
         //Negations
 
@@ -90,16 +79,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
                 cls => cls.Members.Any(m => m.IsStatic == false && !m.Writability.IsImmutable()),
                 "not be immutable",
                 "is immutable"
-            );
-        }
-
-        public static ICondition<Class> NotHavePrivateParameterlessConstructor()
-        {
-            return new SimpleCondition<Class>(
-                cls => (cls.IsAbstract.HasValue && cls.IsAbstract.Value) || !cls.GetConstructors().Any(c => 
-                    c.Visibility == Visibility.Private && !c.Parameters.Any()),
-                "not have private parameterless constructor",
-                "has private parameterless constructor"
             );
         }
     }
