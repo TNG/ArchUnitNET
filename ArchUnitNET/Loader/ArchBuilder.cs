@@ -113,15 +113,10 @@ namespace ArchUnitNET.Loader
                     }
                 });
 
-            _namespaceRegistry
-                .Namespaces.Where(ns => RegexUtils.MatchNamespaces(namespaceFilter, ns.FullName))
-                .ForEach(ns =>
-                {
-                    _loadTaskRegistry.Add(
-                        typeof(AddTypesToNamespace),
-                        new AddTypesToNamespace(ns, currentTypes)
-                    );
-                });
+            _loadTaskRegistry.Add(
+                typeof(AddTypesToNamespaces),
+                new AddTypesToNamespaces(currentTypes)
+            );
         }
 
         private void UpdateTypeDefinitions()
@@ -138,7 +133,7 @@ namespace ArchUnitNET.Loader
                     typeof(AddGenericArgumentDependencies),
                     typeof(AddClassDependencies),
                     typeof(AddBackwardsDependencies),
-                    typeof(AddTypesToNamespace),
+                    typeof(AddTypesToNamespaces),
                 }
             );
         }
