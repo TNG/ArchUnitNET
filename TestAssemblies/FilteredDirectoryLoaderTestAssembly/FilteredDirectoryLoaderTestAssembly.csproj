@@ -10,4 +10,11 @@
     <PackageReference Include="Serilog" Version="4.2.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FilteredDirectoryAssemblyAttributeAssembly\FilteredDirectoryAssemblyAttributeAssembly.csproj">
+      <!-- Do not copy the referenced assembly to the output directory -->
+      <!-- in order to test handling of unavailable types as attribute assemblies -->
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

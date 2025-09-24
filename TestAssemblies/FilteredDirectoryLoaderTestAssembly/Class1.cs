@@ -1,5 +1,7 @@
 using Serilog;
 
+[assembly: FilteredDirectoryAssemblyAttributeAssembly.AssemblyAttribute]
+
 namespace FilteredDirectoryLoaderTestAssembly;
 
 public class Class1

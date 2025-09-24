@@ -20,7 +20,12 @@ namespace ArchUnitNET.Loader
             var attributeType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
                 attributeTypeReference
             );
-            if (!(attributeType.Type is Attribute attribute))
+            var attribute = attributeType.Type as Attribute;
+            if (attributeType.Type is UnavailableType unavailableType)
+            {
+                attribute = new Attribute(unavailableType, null, null);
+            }
+            if (attribute == null)
             {
                 throw new ArgumentException(
                     $"Attribute type {attributeType.Type.FullName} is not an attribute."
