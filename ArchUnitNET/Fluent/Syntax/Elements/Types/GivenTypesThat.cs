@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Assembly = System.Reflection.Assembly;
 
@@ -144,7 +146,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use ImplementAnyInterfaces(Interfacs().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TGivenRuleTypeConjunction ImplementInterface(
             string pattern,
@@ -171,6 +173,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.ImplementInterface(intf));
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
+
+        // csharpier-ignore-start
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces() => ImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(params Interface[] interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(params Type[] interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(IEnumerable<Interface> interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(IEnumerable<Type> interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction ImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TRuleType>.ImplementAny(interfaces));
+        // csharpier-ignore-end
 
         [Obsolete(
             "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
@@ -409,7 +420,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use DoNotImplementAnyInterfaces(Interfaces().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TGivenRuleTypeConjunction DoNotImplementInterface(
             string pattern,
@@ -440,6 +451,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
+
+        // csharpier-ignore-start
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces() => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(params Interface[] interfaces) => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(params Type[] interfaces) => DoNotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(IEnumerable<Interface> interfaces) => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(IEnumerable<Type> interfaces) => DoNotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TGivenRuleTypeConjunction DoNotImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TRuleType>.DoNotImplementAny(interfaces));
+        // csharpier-ignore-end
 
         [Obsolete(
             "Either DoNotResideInNamespace() without the useRegularExpressions parameter or DoNotResideInNamespaceMatching() should be used"
@@ -564,6 +584,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TGivenRuleTypeConjunction AreNotNested()
         {
             _ruleCreator.AddPredicate(TypePredicatesDefinition<TRuleType>.AreNotNested());
+            return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
+        }
+
+        private TGivenRuleTypeConjunction Handle(IPredicate<TRuleType> predicate)
+        {
+            _ruleCreator.AddPredicate(predicate);
             return Create<TGivenRuleTypeConjunction, TRuleType>(_ruleCreator);
         }
     }

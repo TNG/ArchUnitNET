@@ -34,11 +34,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType BeStructs();
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use ImplementAnyInterfacesThat().HaveFullName(...) instead. This will be removed in a future update."
         )]
         TReturnType ImplementInterface(string pattern, bool useRegularExpressions = false);
         TReturnType ImplementInterface(Interface intf);
         TReturnType ImplementInterface(Type intf);
+
+        TReturnType ImplementAnyInterfaces();
+        TReturnType ImplementAnyInterfaces(params Interface[] interfaces);
+        TReturnType ImplementAnyInterfaces(params Type[] interfaces);
+        TReturnType ImplementAnyInterfaces(IEnumerable<Interface> interfaces);
+        TReturnType ImplementAnyInterfaces(IEnumerable<Type> interfaces);
+        TReturnType ImplementAnyInterfaces(IObjectProvider<Interface> interfaces);
 
         [Obsolete(
             "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
@@ -91,11 +98,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         TReturnType NotBeStructs();
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use NotImplementAnyInterfacesThat().HaveFullName(...) instead. This will be removed in a future update."
         )]
         TReturnType NotImplementInterface(string pattern, bool useRegularExpressions = false);
         TReturnType NotImplementInterface(Interface intf);
         TReturnType NotImplementInterface(Type intf);
+
+        TReturnType NotImplementAnyInterfaces();
+        TReturnType NotImplementAnyInterfaces(params Interface[] interfaces);
+        TReturnType NotImplementAnyInterfaces(params Type[] interfaces);
+        TReturnType NotImplementAnyInterfaces(IEnumerable<Interface> interfaces);
+        TReturnType NotImplementAnyInterfaces(IEnumerable<Type> interfaces);
+        TReturnType NotImplementAnyInterfaces(IObjectProvider<Interface> interfaces);
 
         [Obsolete(
             "Either NotResideInNamespace() without the useRegularExpressions parameter or NotResideInNamespaceMatching() should be used"

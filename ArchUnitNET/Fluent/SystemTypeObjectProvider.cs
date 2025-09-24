@@ -6,15 +6,15 @@ using ArchUnitNET.Domain.Extensions;
 
 namespace ArchUnitNET.Fluent
 {
-    public class SystemTypeListObjectProvider<T> : ISizedObjectProvider<T>
+    public class SystemTypeObjectProvider<T> : ISizedObjectProvider<T>
         where T : IType
     {
         private readonly List<Type> _types;
 
-        public SystemTypeListObjectProvider(List<Type> types)
+        public SystemTypeObjectProvider(IEnumerable<Type> types)
         {
-            _types = types;
-            Description = string.Join(" or ", types.Select(type => $"\"{type.FullName}\""));
+            _types = types.ToList();
+            Description = string.Join(" or ", _types.Select(type => $"\"{type.FullName}\""));
         }
 
         public string Description { get; }
@@ -37,7 +37,7 @@ namespace ArchUnitNET.Fluent
                 );
         }
 
-        private bool Equals(SystemTypeListObjectProvider<T> other)
+        private bool Equals(SystemTypeObjectProvider<T> other)
         {
             return string.Equals(Description, other.Description);
         }
@@ -54,7 +54,7 @@ namespace ArchUnitNET.Fluent
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((SystemTypeListObjectProvider<T>)obj);
+            return obj.GetType() == GetType() && Equals((SystemTypeObjectProvider<T>)obj);
         }
 
         public override int GetHashCode()

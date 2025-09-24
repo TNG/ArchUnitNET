@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Assembly = System.Reflection.Assembly;
 
@@ -171,7 +172,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use ImplementAnyInterfaces(Interfacs().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TRuleTypeShouldConjunction ImplementInterface(
             string pattern,
@@ -202,6 +203,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
+        // csharpier-ignore-start
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces() => ImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(params Interface[] interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(params Type[] interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IEnumerable<Interface> interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IEnumerable<Type> interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TReferenceType>.ImplementAny(interfaces));
+        // csharpier-ignore-end
 
         [Obsolete(
             "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
@@ -454,7 +464,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use DoNotImplementAnyInterfaces(Interfaces().That().HaveFullName(...)) instead. This will be removed in a future update."
         )]
         public TRuleTypeShouldConjunction DoNotImplementInterface(
             string pattern,
@@ -485,6 +495,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
+        // csharpier-ignore-start
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces() => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(params Interface[] interfaces) => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(params Type[] interfaces) => DoNotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(IEnumerable<Interface> interfaces) => DoNotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(IEnumerable<Type> interfaces) => DoNotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction DoNotImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypePredicatesDefinition<TReferenceType>.DoNotImplementAny(interfaces));
+        // csharpier-ignore-end
 
         [Obsolete(
             "Either DoNotResideInNamespace() without the useRegularExpressions parameter or DoNotResideInNamespaceMatching() should be used"
@@ -617,6 +636,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             _ruleCreator.ContinueComplexCondition(
                 TypePredicatesDefinition<TReferenceType>.AreNotNested()
             );
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+        }
+
+        private TRuleTypeShouldConjunction Handle(IPredicate<TReferenceType> predicate)
+        {
+            _ruleCreator.ContinueComplexCondition(predicate);
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }

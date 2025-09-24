@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
+using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Assembly = System.Reflection.Assembly;
 
@@ -155,7 +157,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use ImplementAnyInterfacesThat().HaveFullName(...) instead. This will be removed in a future update."
         )]
         public TRuleTypeShouldConjunction ImplementInterface(
             string pattern,
@@ -182,6 +184,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             _ruleCreator.AddCondition(TypeConditionsDefinition<TRuleType>.ImplementInterface(intf));
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
+        // csharpier-ignore-start
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces() => ImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(params Interface[] interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(params Type[] interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IEnumerable<Interface> interfaces) => ImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IEnumerable<Type> interfaces) => ImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction ImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypeConditionsDefinition<TRuleType>.ImplementAny(interfaces));
+        // csharpier-ignore-end
 
         [Obsolete(
             "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
@@ -321,6 +332,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        public ShouldRelateToInterfacesThat<
+            TRuleTypeShouldConjunction,
+            TRuleType
+        > ImplementAnyInterfacesThat()
+        {
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.Interfaces(true),
+                TypeConditionsDefinition<TRuleType>.ImplementAnyInterfacesThat()
+            );
+            return new ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType>(
+                _ruleCreator
+            );
+        }
+
         //Negations
 
         public TRuleTypeShouldConjunction NotBe(Type firstType, params Type[] moreTypes)
@@ -427,7 +452,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
+            "Use NotImplementAnyInterfacesThat().HaveFullName(...) instead. This will be removed in a future update."
         )]
         public TRuleTypeShouldConjunction NotImplementInterface(
             string pattern,
@@ -458,6 +483,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
+
+        // csharpier-ignore-start
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces() => NotImplementAnyInterfaces(new ObjectProvider<Interface>());
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(params Interface[] interfaces) => NotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(params Type[] interfaces) => NotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(IEnumerable<Interface> interfaces) => NotImplementAnyInterfaces(new ObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(IEnumerable<Type> interfaces) => NotImplementAnyInterfaces(new SystemTypeObjectProvider<Interface>(interfaces));
+        public TRuleTypeShouldConjunction NotImplementAnyInterfaces(IObjectProvider<Interface> interfaces) => Handle(TypeConditionsDefinition<TRuleType>.NotImplementAny(interfaces));
+        // csharpier-ignore-end
 
         [Obsolete(
             "Either NotResideInNamespace() without the useRegularExpressions parameter or NotResideInNamespaceMatching() should be used"
@@ -616,6 +650,26 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType>(
                 _ruleCreator
             );
+        }
+
+        public ShouldRelateToInterfacesThat<
+            TRuleTypeShouldConjunction,
+            TRuleType
+        > NotImplementAnyInterfacesThat()
+        {
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.Interfaces(true),
+                TypeConditionsDefinition<TRuleType>.NotImplementAnyInterfacesThat()
+            );
+            return new ShouldRelateToInterfacesThat<TRuleTypeShouldConjunction, TRuleType>(
+                _ruleCreator
+            );
+        }
+
+        private TRuleTypeShouldConjunction Handle(ICondition<TRuleType> condition)
+        {
+            _ruleCreator.AddCondition(condition);
+            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
         }
     }
 }

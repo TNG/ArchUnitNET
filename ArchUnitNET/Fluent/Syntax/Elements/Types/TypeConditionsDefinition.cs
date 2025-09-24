@@ -7,6 +7,7 @@ using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Domain.PlantUml.Import;
 using ArchUnitNET.Fluent.Conditions;
+using static ArchUnitNET.Fluent.Syntax.DescriptionHelpers;
 using Enum = ArchUnitNET.Domain.Enum;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
@@ -635,6 +636,47 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        public static ICondition<TRuleType> ImplementAny(IObjectProvider<Interface> interfaces)
+        {
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<TRuleType> ruleTypes,
+                Architecture architecture
+            )
+            {
+                var interfaceList = interfaces.GetObjects(architecture).ToList();
+                foreach (var ruleType in ruleTypes)
+                {
+                    if (
+                        interfaceList.Count > 0
+                            ? ruleType.ImplementedInterfaces.Intersect(interfaceList).Any()
+                            : ruleType.ImplementedInterfaces.Any()
+                    )
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        var failDescription = !ruleType.ImplementedInterfaces.Any()
+                            ? "does not implement any interface"
+                            : "only implements "
+                                + string.Join(
+                                    " and ",
+                                    ruleType.ImplementedInterfaces.Select(i => i.FullName)
+                                );
+                        yield return new ConditionResult(ruleType, false, failDescription);
+                    }
+                }
+            }
+
+            var description = SelectDescription(
+                "implement any interface",
+                "implement",
+                "implement any",
+                interfaces
+            );
+            return new ArchitectureCondition<TRuleType>(Condition, description);
+        }
+
         [Obsolete(
             "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
         )]
@@ -871,6 +913,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 BeAssignableTo,
                 "be assignable to types that",
                 "is not assignable to types that"
+            );
+        }
+
+        public static RelationCondition<TRuleType, Interface> ImplementAnyInterfacesThat()
+        {
+            return new RelationCondition<TRuleType, Interface>(
+                ImplementAny,
+                "implement any interfaces that",
+                "does not implement any interfaces that"
             );
         }
 
@@ -1358,6 +1409,45 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        public static ICondition<TRuleType> NotImplementAny(IObjectProvider<Interface> interfaces)
+        {
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<TRuleType> ruleTypes,
+                Architecture architecture
+            )
+            {
+                var interfaceList = interfaces.GetObjects(architecture).ToList();
+                foreach (var ruleType in ruleTypes.ToList())
+                {
+                    var matchingInterfaces =
+                        interfaceList.Count > 0
+                            ? ruleType.ImplementedInterfaces.Intersect(interfaceList).ToList()
+                            : ruleType.ImplementedInterfaces.ToList();
+                    if (matchingInterfaces.Any())
+                    {
+                        yield return new ConditionResult(
+                            ruleType,
+                            false,
+                            "does implement "
+                                + string.Join(" and ", matchingInterfaces.Select(i => i.FullName))
+                        );
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                }
+            }
+
+            var description = SelectDescription(
+                "not implement any interface",
+                "not implement",
+                "not implement any",
+                interfaces
+            );
+            return new ArchitectureCondition<TRuleType>(Condition, description);
+        }
+
         [Obsolete(
             "Either NotResideInNamespace() without the useRegularExpressions parameter or NotResideInNamespaceMatching() should be used"
         )]
@@ -1535,5 +1625,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "is assignable to types that"
             );
         }
+
+        public static RelationCondition<TRuleType, Interface> NotImplementAnyInterfacesThat() =>
+            new RelationCondition<TRuleType, Interface>(
+                NotImplementAny,
+                "not implement any interfaces that",
+                "does implement any interfaces that"
+            );
     }
 }

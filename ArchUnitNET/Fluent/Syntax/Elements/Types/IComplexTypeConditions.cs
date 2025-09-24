@@ -1,4 +1,5 @@
 ﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -14,6 +15,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             TRuleType
         > BeAssignableToTypesThat();
 
+        ShouldRelateToInterfacesThat<
+            TRuleTypeShouldConjunction,
+            TRuleType
+        > ImplementAnyInterfacesThat();
+
         //Negations
 
         ShouldRelateToTypesThat<
@@ -21,5 +27,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IType,
             TRuleType
         > NotBeAssignableToTypesThat();
+
+        ShouldRelateToInterfacesThat<
+            TRuleTypeShouldConjunction,
+            TRuleType
+        > NotImplementAnyInterfacesThat();
     }
 }
