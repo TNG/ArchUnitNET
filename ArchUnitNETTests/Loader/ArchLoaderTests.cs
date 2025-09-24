@@ -2,6 +2,7 @@
 extern alias OtherLoaderTestAssemblyAlias;
 
 using System;
+using System.IO;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
@@ -132,15 +133,18 @@ namespace ArchUnitNETTests.Loader
             // When loading an assembly from a file, there are situations where the assemblies dependencies are not
             // available in the current AppDomain. This test checks that the loader does not throw an exception in this
             // case.
-            var assemblyPath = AppDomain.CurrentDomain.BaseDirectory[
+            var currentAssemblyPath = AppDomain.CurrentDomain.BaseDirectory[
                 ..AppDomain.CurrentDomain.BaseDirectory.IndexOf(
                     @"ArchUnitNETTests",
                     StringComparison.InvariantCulture
                 )
             ];
+            var assemblySearchPath = Path.Combine(
+                [currentAssemblyPath, "TestAssemblies", "FilteredDirectoryLoaderTestAssembly"]
+            );
             var architecture = new ArchLoader()
                 .LoadFilteredDirectory(
-                    assemblyPath,
+                    assemblySearchPath,
                     "FilteredDirectoryLoaderTestAssembly.dll",
                     System.IO.SearchOption.AllDirectories
                 )
