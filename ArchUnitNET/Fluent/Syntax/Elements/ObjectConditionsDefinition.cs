@@ -5,6 +5,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
 using JetBrains.Annotations;
+using static ArchUnitNET.Domain.Extensions.EnumerableExtensions;
 using static ArchUnitNET.Domain.Visibility;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
@@ -26,28 +27,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var objectList = objectProvider.GetObjects(architecture).ToList();
-                var typeList = ruleTypes.ToList();
-                var passedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
-                foreach (var failedObject in typeList.Except(passedObjects))
+                var isAllowedObject = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var ruleType in ruleTypes)
                 {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
-                            ? "does exist"
-                            : "is not " + objectProvider.Description
-                    );
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    if (isAllowedObject(ruleType))
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            ruleType,
+                            false,
+                            (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                                ? "does exist"
+                                : "is not " + objectProvider.Description
+                        );
+                    }
                 }
             }
-
             var description = objectProvider.FormatDescription("not exist", "be", "be");
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> CallAny(IObjectProvider<MethodMember> objectProvider)
@@ -57,27 +59,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var methodList = objectProvider.GetObjects(architecture).ToList();
-                var typeList = ruleTypes.ToList();
-                var passedObjects = typeList
-                    .Where(type => type.GetCalledMethods().Intersect(methodList).Any())
-                    .ToList();
-                foreach (var failedObject in typeList.Except(passedObjects))
+                var isRequiredMethod = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var ruleType in ruleTypes)
                 {
-                    var calledMethods = failedObject.GetCalledMethods().ToList();
-                    var dynamicFailDescription =
-                        calledMethods.Count == 0
-                            ? "does not call any methods"
-                            : "only calls "
-                                + string.Join(
-                                    " and ",
-                                    calledMethods.Select(method => $"\"{method.FullName}\"")
-                                );
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    if (ruleType.GetCalledMethods().Any(isRequiredMethod))
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        var calledMethods = ruleType.GetCalledMethods().ToList();
+                        var dynamicFailDescription =
+                            calledMethods.Count == 0
+                                ? "does not call any methods"
+                                : "only calls "
+                                    + string.Join(
+                                        " and ",
+                                        calledMethods.Select(method => $"\"{method.FullName}\"")
+                                    );
+                        yield return new ConditionResult(ruleType, false, dynamicFailDescription);
+                    }
                 }
             }
             var description = objectProvider.FormatDescription(
@@ -85,7 +88,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "call",
                 "call any"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> DependOnAny(IObjectProvider<IType> objectProvider)
@@ -95,27 +98,28 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var typeList = objectProvider.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type => type.GetTypeDependencies().Intersect(typeList).Any())
-                    .ToList();
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                var isRequiredDependency = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var ruleType in ruleTypes)
                 {
-                    var dependants = failedObject.GetTypeDependencies(architecture).ToList();
-                    var dynamicFailDescription =
-                        dependants.Count == 0
-                            ? "does not depend on any type"
-                            : "only depends on "
-                                + string.Join(
-                                    " and ",
-                                    dependants.Select(type => $"\"{type.FullName}\"")
-                                );
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    if (ruleType.GetTypeDependencies().Any(isRequiredDependency))
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        var dependants = ruleType.GetTypeDependencies(architecture).ToList();
+                        var dynamicFailDescription =
+                            dependants.Count == 0
+                                ? "does not depend on any type"
+                                : "only depends on "
+                                    + string.Join(
+                                        " and ",
+                                        dependants.Select(type => $"\"{type.FullName}\"")
+                                    );
+                        yield return new ConditionResult(ruleType, false, dynamicFailDescription);
+                    }
                 }
             }
             var description = objectProvider.FormatDescription(
@@ -123,7 +127,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "depend on",
                 "depend on any"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> FollowCustomCondition(
@@ -150,38 +154,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var typeList = objectProvider.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.GetTypeDependencies(architecture).Except(typeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
+                var isAllowedDependency = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var ruleType in ruleTypes)
                 {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
+                    if (ruleType.GetTypeDependencies(architecture).All(isAllowedDependency))
                     {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
+                        yield return new ConditionResult(ruleType, true);
                     }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    else
+                    {
+                        var dynamicFailDescription =
+                            "does depend on "
+                            + string.Join(
+                                " and ",
+                                ruleType
+                                    .GetTypeDependencies()
+                                    .Where(t => !isAllowedDependency(t))
+                                    .Distinct()
+                                    .Select(t => t.FullName)
+                            );
+                        yield return new ConditionResult(ruleType, false, dynamicFailDescription);
+                    }
                 }
             }
-
             var description = objectProvider.FormatDescription(
                 "have no dependencies",
                 "only depend on",
                 "only depend on"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> HaveAnyAttributes(
@@ -193,37 +196,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var attributeList = objectProvider.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type => type.Attributes.Intersect(attributeList).Any())
-                    .ToList();
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                var isRequiredAttribute = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var ruleType in ruleTypes)
                 {
-                    var attributes = failedObject.Attributes.ToList();
-                    var failDescription =
-                        attributes.Count == 0
-                            ? "does not have any attributes"
-                            : "only has attributes "
-                                + string.Join(
-                                    " and ",
-                                    attributes.Select(attribute => $"\"{attribute.FullName}\"")
-                                );
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    if (ruleType.Attributes.Any(isRequiredAttribute))
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        var attributes = ruleType.Attributes.ToList();
+                        var dynamicFailDescription =
+                            attributes.Count == 0
+                                ? "does not have any attributes"
+                                : "only has attributes "
+                                    + string.Join(
+                                        " and ",
+                                        attributes.Select(attribute => $"\"{attribute.FullName}\"")
+                                    );
+                        yield return new ConditionResult(ruleType, false, dynamicFailDescription);
+                    }
                 }
             }
-
             var description = objectProvider.FormatDescription(
                 "have any of no attributes (impossible)",
                 "have",
                 "have any"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> OnlyHaveAttributes(
@@ -235,38 +237,35 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var attributeList = objectProvider.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.Attributes.Except(attributeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
+                var isAllowedAttribute = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var ruleType in ruleTypes)
                 {
-                    var dynamicFailDescription = "does have attribute";
-                    var first = true;
-                    foreach (var attribute in failedObject.Attributes.Except(attributeList))
+                    if (ruleType.Attributes.All(isAllowedAttribute))
                     {
-                        dynamicFailDescription += first
-                            ? " " + attribute.FullName
-                            : " and " + attribute.FullName;
-                        first = false;
+                        yield return new ConditionResult(ruleType, true);
                     }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    else
+                    {
+                        var dynamicFailDescription =
+                            "does have attribute "
+                            + string.Join(
+                                " and ",
+                                ruleType
+                                    .Attributes.Where(attr => !isAllowedAttribute(attr))
+                                    .Select(a => a.FullName)
+                            );
+                        yield return new ConditionResult(ruleType, false, dynamicFailDescription);
+                    }
                 }
             }
-
             var description = objectProvider.FormatDescription(
                 "have no attributes",
                 "only have",
                 "only have any"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> HaveAnyAttributesWithArguments(
@@ -324,7 +323,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "have any attributes with argument",
                 "have any attributes with arguments"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> HaveAttributeWithArguments(
@@ -388,7 +387,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 $"have attribute \"{attributeFullName}\" with argument",
                 $"have attribute \"{attributeFullName}\" with arguments"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> HaveAnyAttributesWithNamedArguments(
@@ -449,7 +448,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "have any attributes with named arguments",
                 elementDescription: arg => $"\"{arg.Item1}={arg.Item2}\""
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
@@ -516,7 +515,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 $"have attribute \"{attributeFullName}\" with named arguments",
                 elementDescription: arg => $"\"{arg.Item1}={arg.Item2}\""
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> HaveName(string name)
@@ -760,30 +759,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var objectList = objectProvider.GetObjects(architecture).ToList();
-                var typeList = ruleTypes.ToList();
-                var failedObjects = objectList.OfType<TRuleType>().Intersect(typeList).ToList();
-                foreach (var failedObject in failedObjects)
+                var objects = objectProvider.GetObjects(architecture).ToList();
+                var isForbiddenObject = CreateLookupFn(objects);
+                foreach (var ruleType in ruleTypes)
                 {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        "is " + objectProvider.Description
-                    );
-                }
-
-                foreach (var passedObject in typeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    if (!isForbiddenObject(ruleType))
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            ruleType,
+                            false,
+                            objects.Count == 0 ? "does exist" : "is " + objectProvider.Description
+                        );
+                    }
                 }
             }
-
             var description = objectProvider.FormatDescription(
                 "not be any of no objects (always true)",
                 "not be",
                 "not be"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotCallAny(IObjectProvider<MethodMember> objectProvider)
@@ -793,32 +792,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var methodList = objectProvider.GetObjects(architecture).ToList();
-                var typeList = ruleTypes.ToList();
-                var failedObjects = typeList
-                    .Where(type => type.GetCalledMethods().Intersect(methodList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
+                var isForbiddenMethod = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var ruleType in ruleTypes)
                 {
-                    var calledMethods = failedObject
-                        .GetCalledMethods()
-                        .Intersect(methodList)
-                        .Select(method => $"\"{method.FullName}\"");
-                    var dynamicFailDescription = "does call " + string.Join(" and ", calledMethods);
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-                foreach (var passedObject in typeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    if (!ruleType.GetCalledMethods().Any(isForbiddenMethod))
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        var calledMethods = ruleType
+                            .GetCalledMethods()
+                            .Where(isForbiddenMethod)
+                            .Select(method => $"\"{method.FullName}\"");
+                        var dynamicFailDescription =
+                            "does call " + string.Join(" and ", calledMethods);
+                        yield return new ConditionResult(ruleType, false, dynamicFailDescription);
+                    }
                 }
             }
-
             var description = objectProvider.FormatDescription(
                 "not call any of no methods (always true)",
                 "not call",
                 "not call any"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotDependOnAny(IObjectProvider<IType> objectProvider)
@@ -828,33 +828,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var typeList = objectProvider.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.GetTypeDependencies().Intersect(typeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
+                var isForbiddenDependency = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var ruleType in ruleTypes)
                 {
-                    var dependants = failedObject
-                        .GetTypeDependencies()
-                        .Intersect(typeList)
-                        .Select(type => $"\"{type.FullName}\"");
-                    var dynamicFailDescription =
-                        "does depend on " + string.Join(" and ", dependants);
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    if (!ruleType.GetTypeDependencies().Any(isForbiddenDependency))
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        var dependants = ruleType
+                            .GetTypeDependencies()
+                            .Where(isForbiddenDependency)
+                            .Distinct()
+                            .Select(type => $"\"{type.FullName}\"");
+                        var dynamicFailDescription =
+                            "does depend on " + string.Join(" and ", dependants);
+                        yield return new ConditionResult(ruleType, false, dynamicFailDescription);
+                    }
                 }
             }
-
             var description = objectProvider.FormatDescription(
                 "not depend on any of no types (always true)",
                 "not depend on",
                 "not depend on any"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotHaveAnyAttributes(
@@ -866,38 +867,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 Architecture architecture
             )
             {
-                var attributeList = objectProvider.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.Attributes.Intersect(attributeList).Any())
-                    .ToList();
-                foreach (var failedObject in failedObjects)
+                var isForbiddenAttribute = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var ruleType in ruleTypes)
                 {
-                    var dynamicFailDescription = "does have attribute";
-                    var first = true;
-                    foreach (var attribute in failedObject.Attributes.Intersect(attributeList))
+                    if (!ruleType.Attributes.Any(isForbiddenAttribute))
                     {
-                        dynamicFailDescription += first
-                            ? " " + attribute.FullName
-                            : " and " + attribute.FullName;
-                        first = false;
+                        yield return new ConditionResult(ruleType, true);
                     }
-
-                    yield return new ConditionResult(failedObject, false, dynamicFailDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    else
+                    {
+                        var attributes = ruleType.Attributes.Where(isForbiddenAttribute).ToList();
+                        var dynamicFailDescription =
+                            "does have attribute "
+                            + string.Join(
+                                " and ",
+                                attributes.Select(attribute => attribute.FullName)
+                            );
+                        yield return new ConditionResult(ruleType, false, dynamicFailDescription);
+                    }
                 }
             }
-
             var description = objectProvider.FormatDescription(
                 "not have any of no attributes (always true)",
                 "not have",
                 "not have any"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotHaveAnyAttributesWithArguments(
@@ -956,7 +953,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "not have any attributes with argument",
                 "not have any attributes with arguments"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotHaveAttributeWithArguments(
@@ -1004,7 +1001,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 $"not have attribute \"{attributeFullName}\" with argument",
                 $"not have attribute \"{attributeFullName}\" with arguments"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotHaveAnyAttributesWithNamedArguments(
@@ -1066,7 +1063,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 "not have any attributes with named arguments",
                 elementDescription: arg => $"\"{arg.Item1}={arg.Item2}\""
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
@@ -1120,7 +1117,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 $"not have attribute \"{attributeFullName}\" with named arguments",
                 elementDescription: arg => $"\"{arg.Item1}={arg.Item2}\""
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotHaveName(string name)

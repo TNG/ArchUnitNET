@@ -4,7 +4,7 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Conditions
 {
-    public class ExistsCondition<TRuleType> : ICondition<TRuleType>
+    public class ExistsCondition<TRuleType> : IOrderedCondition<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
         private readonly bool _valueIfExists;
