@@ -4,8 +4,8 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
-using ArchUnitNET.Loader;
 using ArchUnitNETTests.Fluent.Extensions;
+using JetBrains.Annotations;
 using Type = System.Type;
 
 namespace ArchUnitNETTests.Domain.Dependencies.Members
@@ -19,7 +19,9 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             Type originType,
             string nameOfOriginMember,
             Type targetType,
-            string nameOfTargetMember
+            string nameOfTargetMember,
+            [CanBeNull] IEnumerable<Type> declaringGenericArgumentsTypes = null,
+            [CanBeNull] IEnumerable<Type> memberGenericArgumentsTypes = null
         )
         {
             var originClass = Architecture.GetClassOfType(originType);
@@ -30,11 +32,20 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                 originMember,
                 new MethodMemberInstance(
                     targetMember,
-                    Enumerable.Empty<GenericArgument>(),
-                    Enumerable.Empty<GenericArgument>()
+                    CreateGenericArguments(declaringGenericArgumentsTypes ?? []),
+                    CreateGenericArguments(memberGenericArgumentsTypes ?? [])
                 )
             );
             return new object[] { originMember, expectedDependency };
+        }
+
+        private static IEnumerable<GenericArgument> CreateGenericArguments(
+            IEnumerable<Type> classTypes
+        )
+        {
+            return classTypes
+                .Select(x => Architecture.GetClassOfType(x))
+                .Select(x => new GenericArgument(new TypeInstance<Class>(x)));
         }
 
         private static object[] BuildMethodSignatureDependencyTestData(
@@ -163,6 +174,58 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             public IEnumerator<object[]> GetEnumerator()
             {
                 return _methodSignatureDependencyData.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
+        public class MethodCallGenericConstructorArgumentsDependencyTestData : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _methodCallDependencyData = new List<object[]>
+            {
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithMethodWithGenericConstructorArguments),
+                    nameof(ClassWithMethodWithGenericConstructorArguments.Method)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithGenericConstructorArguments<>),
+                    StaticConstants.ConstructorNameBase.BuildMethodMemberName(),
+                    [typeof(ClassForGenericArgument)],
+                    []
+                ),
+            };
+
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                return _methodCallDependencyData.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
+        public class MethodCallGenericMethodArgumentsDependencyTestData : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _methodCallDependencyData = new List<object[]>
+            {
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithMethodWithGenericMethodArguments),
+                    nameof(ClassWithMethodWithGenericMethodArguments.Method)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithGenericMethodArguments),
+                    nameof(ClassWithGenericMethodArguments.Method).BuildMethodMemberName(),
+                    [],
+                    [typeof(ClassForGenericArgument)]
+                ),
+            };
+
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                return _methodCallDependencyData.GetEnumerator();
             }
 
             IEnumerator IEnumerable.GetEnumerator()
