@@ -297,5 +297,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveReturnType(types));
             return new MethodMembersShouldConjunction(_ruleCreator);
         }
+        
+        
+        public MethodMembersShouldConjunction HaveAnyParameters()
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveAnyParameters());
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction NotHaveAnyParameters()
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveAnyParameters());
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
     }
 }
