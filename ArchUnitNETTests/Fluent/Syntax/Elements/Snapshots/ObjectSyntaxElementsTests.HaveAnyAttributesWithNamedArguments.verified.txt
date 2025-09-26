@@ -2,13 +2,13 @@
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
@@ -16,13 +16,13 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
@@ -30,13 +30,13 @@ All Evaluations passed
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
@@ -46,13 +46,13 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter2=Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter2=Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
@@ -60,13 +60,13 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter2=Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter2=Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
@@ -74,13 +74,13 @@ All Evaluations passed
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter2=Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter2=Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Message: 
@@ -90,114 +90,114 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttribute does have no attribute with a named argument
+Description: AttributeNamespace.ClassWithSingleAttribute does only have attribute AttributeNamespace.Attribute1 without named arguments
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttribute does have no attribute with a named argument
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does only have attribute AttributeNamespace.Attribute1 without named arguments
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttribute does have no attribute with a named argument
+Description: AttributeNamespace.ClassWithSingleAttribute does only have attribute AttributeNamespace.Attribute1 without named arguments
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttribute does have no attribute with a named argument
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does only have attribute AttributeNamespace.Attribute1 without named arguments
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named argument "NamedParameter2=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttribute does have no attribute with a named argument
+Description: AttributeNamespace.ClassWithSingleAttribute does only have attribute AttributeNamespace.Attribute1 without named arguments
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named arguments "NamedParameter2=Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttribute does have no attribute with a named argument
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named argument "NamedParameter2=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does only have attribute AttributeNamespace.Attribute1 without named arguments
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named argument "NamedParameter2=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttribute does have no attribute with a named argument
+Description: AttributeNamespace.ClassWithSingleAttribute does only have attribute AttributeNamespace.Attribute1 without named arguments
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named arguments "NamedParameter2=Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttribute does have no attribute with a named argument
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should have any attributes with named argument "NamedParameter2=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute does only have attribute AttributeNamespace.Attribute1 without named arguments
 
 
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Description: AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Description: AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named argument "NamedParameter2=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named arguments "NamedParameter2=Argument1"
+Description: AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named argument "NamedParameter2=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named arguments "NamedParameter2=Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named arguments "NamedParameter2=Argument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named argument "NamedParameter2=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named argument "NamedParameter2=Argument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named argument "NamedParameter2=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named arguments "NamedParameter2=Argument1"
+Description: AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named argument "NamedParameter2=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named arguments "NamedParameter2=Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named arguments "NamedParameter2=Argument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be Types that have any attributes with named argument "NamedParameter2=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttribute is not Types that have any attributes with named argument "NamedParameter2=Argument1"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
 	AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"" failed:
 	AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named argument "NamedParameter2=Argument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named arguments "NamedParameter2=Argument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named argument "NamedParameter2=Argument1"" failed:
 	AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named arguments "NamedParameter2=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named argument "NamedParameter2=Argument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named arguments "NamedParameter2=Argument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttribute" should be types that have any attributes with named argument "NamedParameter2=Argument1"" failed:
 	AttributeNamespace.ClassWithSingleAttribute is not "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 
 
@@ -206,114 +206,114 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "InvalidName=AttributeNamespace.TypeArgument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "InvalidName=AttributeNamespace.TypeArgument1"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.UnusedTypeArgument"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 
 
@@ -322,114 +322,114 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "InvalidName=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "InvalidName=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "InvalidName=Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "InvalidName=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "InvalidName=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "InvalidName=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "InvalidName=Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "InvalidName=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "InvalidName=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "InvalidName=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "InvalidName=Argument1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "InvalidName=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "InvalidName=Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "InvalidName=Argument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "InvalidName=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "InvalidName=Argument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "InvalidName=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "InvalidName=Argument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "InvalidName=Argument1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "InvalidName=Argument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "InvalidName=Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "InvalidName=Argument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "InvalidName=Argument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "InvalidName=Argument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "InvalidName=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "InvalidName=Argument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "InvalidName=Argument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "InvalidName=Argument1"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "InvalidName=Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "InvalidName=Argument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "InvalidName=Argument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "InvalidName=Argument1"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have any attributes with named argument "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does exist
 
 
@@ -438,27 +438,36 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have no or any attributes with named arguments (always true)
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes does not have any attribute
 Message: 
-All Evaluations passed
+"Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes" failed:
+	AttributeNamespace.ClassWithoutAttributes does not have any attribute
+
+
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have no or any attributes with named arguments (always true)
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should be Types that have any attributes
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not Types that have any attributes
 Message: 
-All Evaluations passed
+"Types that are "AttributeNamespace.ClassWithoutAttributes" should be Types that have any attributes" failed:
+	AttributeNamespace.ClassWithoutAttributes is not Types that have any attributes
+
+
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be types that have no or any attributes with named arguments (always true)
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
+Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should be types that have any attributes
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" or "AttributeNamespace.ClassWithThreeAttributesWithArguments" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute"
 Message: 
-All Evaluations passed
+"Types that are "AttributeNamespace.ClassWithoutAttributes" should be types that have any attributes" failed:
+	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" or "AttributeNamespace.ClassWithThreeAttributesWithArguments" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute"
+
+
 
 ===== Multiple arguments =====
 
@@ -478,19 +487,19 @@ All Evaluations passed
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
 "Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Message: 
 "Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
@@ -562,7 +571,7 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Result: True
@@ -570,20 +579,20 @@ Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have any attributes with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have any attributes with named argument "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 Result: True
 Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have any attributes with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does have attributes with named arguments "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter1=ArchUnitNET.Domain.TypeInstance`1[ArchUnitNET.Domain.Class]" and "NamedParameter2=Argument1" and "NamedParameter3=1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should have any attributes with named argument "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments does only have attribute AttributeNamespace.Attribute1 with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument1" and "NamedParameter3=1"
 
 
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Result: True
@@ -591,20 +600,20 @@ Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
+Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: True
 Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be Types that have any attributes with named argument "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named argument "NamedParameter3=AttributeNamespace.TypeArgument2"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be types that have any attributes with named argument "NamedParameter1=AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passed
 Result: True
@@ -612,13 +621,13 @@ Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be types that have any attributes with named argument "NamedParameter3=AttributeNamespace.TypeArgument2"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 Result: True
 Description: AttributeNamespace.ClassWithTwoAttributesWithNamedArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be types that have any attributes with named arguments "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" should be types that have any attributes with named argument "NamedParameter3=AttributeNamespace.TypeArgument2"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 
 
