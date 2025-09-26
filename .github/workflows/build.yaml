@@ -1,5 +1,4 @@
 name: build
-run-name: Build and test
 on:
   pull_request:
     types: [opened, reopened, synchronize]
