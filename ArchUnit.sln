@@ -46,7 +46,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.TUnitTests", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceAssembly", "TestAssemblies\InterfaceAssembly\InterfaceAssembly.csproj", "{076E223C-32D3-4672-8B00-925CDBC1383E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilteredDirectoryAssemblyAttributeAssembly", "TestAssemblies\FilteredDirectoryAssemblyAttributeAssembly\FilteredDirectoryAssemblyAttributeAssembly.csproj", "{AA695589-8CCC-4474-9A7F-01A6376C375A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilteredDirectoryUnavailableTypesAssembly", "TestAssemblies\FilteredDirectoryUnavailableTypesAssembly\FilteredDirectoryUnavailableTypesAssembly.csproj", "{AA695589-8CCC-4474-9A7F-01A6376C375A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
