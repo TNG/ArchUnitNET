@@ -6,7 +6,7 @@ using ArchUnitNET.Domain.Extensions;
 
 namespace ArchUnitNET.Fluent
 {
-    public class SystemTypeObjectProvider<T> : ISizedObjectProvider<T>
+    internal class SystemTypeObjectProvider<T> : ISizedObjectProvider<T>
         where T : IType
     {
         private readonly List<Type> _types;
@@ -37,9 +37,25 @@ namespace ArchUnitNET.Fluent
                 );
         }
 
+        public string FormatDescription(
+            string emptyDescription,
+            string singleDescription,
+            string multipleDescription
+        )
+        {
+            switch (Count)
+            {
+                case 0:
+                    return emptyDescription;
+                case 1:
+                    return $"{singleDescription} {Description}";
+            }
+            return $"{multipleDescription} {Description}";
+        }
+
         private bool Equals(SystemTypeObjectProvider<T> other)
         {
-            return string.Equals(Description, other.Description);
+            return _types.SequenceEqual(other._types);
         }
 
         public override bool Equals(object obj)
@@ -59,7 +75,12 @@ namespace ArchUnitNET.Fluent
 
         public override int GetHashCode()
         {
-            return Description != null ? Description.GetHashCode() : 0;
+            return _types != null
+                ? _types.Aggregate(
+                    0,
+                    (current, type) => (current * 397) ^ (type?.GetHashCode() ?? 0)
+                )
+                : 0;
         }
     }
 }

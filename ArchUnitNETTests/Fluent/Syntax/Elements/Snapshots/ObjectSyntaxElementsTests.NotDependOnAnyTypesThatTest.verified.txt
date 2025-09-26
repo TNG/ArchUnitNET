@@ -10,10 +10,10 @@ All Evaluations passed
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any types that are "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should not depend on any types that are "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 

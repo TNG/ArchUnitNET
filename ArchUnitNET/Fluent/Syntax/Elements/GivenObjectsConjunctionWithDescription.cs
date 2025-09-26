@@ -32,6 +32,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             }
         }
 
+        public string FormatDescription(
+            string emptyDescription,
+            string singleDescription,
+            string multipleDescription
+        )
+        {
+            return $"{multipleDescription} {Description}";
+        }
+
         public TGivenRuleTypeThat And()
         {
             _ruleCreator.AddPredicateConjunction(LogicalConjunctionDefinition.And);

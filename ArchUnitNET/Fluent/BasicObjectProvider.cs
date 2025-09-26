@@ -22,6 +22,15 @@ namespace ArchUnitNET.Fluent
             return architecture.GetOrCreateObjects(this, _objects);
         }
 
+        public string FormatDescription(
+            string emptyDescription,
+            string singleDescription,
+            string multipleDescription
+        )
+        {
+            return $"{multipleDescription} {Description}";
+        }
+
         public override string ToString()
         {
             return Description;
