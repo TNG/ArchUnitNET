@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
     <IsPackable>true</IsPackable>
     <Title>ArchUnit C# xUnit Extension</Title>
     <Description>xUnit Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
