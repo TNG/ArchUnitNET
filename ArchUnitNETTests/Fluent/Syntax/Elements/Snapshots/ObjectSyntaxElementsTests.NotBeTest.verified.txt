@@ -60,7 +60,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be Types that are not "TypeDependencyNamespace.ClassWithoutDependencies"
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be Types that are not Classes that are "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -303,7 +303,15 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that depend on "TypeDependencyNamespace.BaseClass" should exist
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be any of no objects (always true)
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be any of no objects (always true)
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -329,7 +337,15 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be Types that are not no object (always true)
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be Types that are not any of no objects (always true)
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be Types that are not any of no objects (always true)
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -355,7 +371,15 @@ All Evaluations passed
 
 ----- Predicates as conditions -----
 
-Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be types that are not no object (always true)
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be types that are not any of no objects (always true)
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Result: True
+Description: TypeDependencyNamespace.OtherChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be types that are not any of no objects (always true)
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True

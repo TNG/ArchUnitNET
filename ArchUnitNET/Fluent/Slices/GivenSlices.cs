@@ -24,5 +24,14 @@ namespace ArchUnitNET.Fluent.Slices
         {
             return _ruleCreator.GetSlices(architecture);
         }
+
+        public string FormatDescription(
+            string emptyDescription,
+            string singleDescription,
+            string multipleDescription
+        )
+        {
+            return $"{multipleDescription} {Description}";
+        }
     }
 }

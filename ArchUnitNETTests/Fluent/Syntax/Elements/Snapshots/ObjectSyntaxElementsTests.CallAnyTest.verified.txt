@@ -2,13 +2,13 @@
 
 ----- Conditions -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
 Message: 
@@ -64,30 +64,30 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does call
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does not call any methods
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does call
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does not call any methods
 
 
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does call
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does not call any methods
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does call
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does not call any methods
 
 
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does call
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does not call any methods
 Message: 
 "Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does call
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() does not call any methods
 
 
 
@@ -155,30 +155,48 @@ Message:
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any of no methods (impossible)
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 Message: 
 "Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any of no methods (impossible)" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any of no methods (impossible)
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any of no methods (impossible)" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 
 
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any Method members that have full name "NotTheNameOfAnyObject"
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 Message: 
 "Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should call any Method members that have full name "NotTheNameOfAnyObject"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()"
 
 
 
 ----- Predicates -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that call one of no methods (impossible)
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call any method
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that call one of no methods (impossible)
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call any method
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that call one of no methods (impossible)" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that call one of no methods (impossible)
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call any method" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call any method
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call any method
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call any method
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call any method" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() is not Method members that do not call any method
 
 
 
@@ -193,11 +211,20 @@ Message:
 
 ----- Predicates as conditions -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that call one of no methods (impossible)
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call any method
 Result: False
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does exist
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that call one of no methods (impossible)" failed:
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call any method" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does exist
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call any method
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does exist
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be method members that do not call any method" failed:
 	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() does exist
 
 
@@ -217,48 +244,48 @@ Message:
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Metho...
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()"
 Message: 
 "Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Metho..." failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()"
 
 
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Metho...
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()"
 Message: 
 "Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Metho..." failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()"
 
 
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodD...
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()"
 Message: 
 "Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call any Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodD..." failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()"
 
 
 
 ----- Predicates -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDepend...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe...
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDep...
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Metho...
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDepend..." failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDep...
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Metho...
 
 
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDepend...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe...
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDep...
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Metho...
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDepend..." failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.MethodDep...
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe..." failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() is not Method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDependencyNamespace.Metho...
 
 
 
@@ -273,20 +300,20 @@ Message:
 
 ----- Predicates as conditions -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDepend...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe...
 Result: False
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does exist
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDepend..." failed:
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe..." failed:
 	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does exist
 
 
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDepend...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe...
 Result: False
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does exist
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDepend..." failed:
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" or "System.Void MethodDe..." failed:
 	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does exist
 
 
@@ -310,18 +337,18 @@ Description: System.Void MethodDependencyNamespace.MethodDependencyClass::Method
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()"
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call any "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() does call System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2() and System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should call "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() only calls "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod2()" and "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod3()"
 
 
 
 ----- Predicates -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespac...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be Method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyName...
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() passed
 Message: 
@@ -338,7 +365,7 @@ Message:
 
 ----- Predicates as conditions -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyNamespac...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies()" should be method members that call any "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod1()" or "System.Void MethodDependencyName...
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithMultipleDependencies() passed
 Message: 

@@ -90,6 +90,15 @@ Message:
 
 Query: Types that are "TypeDependencyNamespace.BaseClass" should not exist
 Result: False
+Description: TypeDependencyNamespace.BaseClass does exist
+Message: 
+"Types that are "TypeDependencyNamespace.BaseClass" should not exist" failed:
+	TypeDependencyNamespace.BaseClass does exist
+
+
+
+Query: Types that are "TypeDependencyNamespace.BaseClass" should not exist
+Result: False
 Description: TypeDependencyNamespace.BaseClass is TypeDependencyNamespace.BaseClass
 Message: 
 "Types that are "TypeDependencyNamespace.BaseClass" should not exist" failed:

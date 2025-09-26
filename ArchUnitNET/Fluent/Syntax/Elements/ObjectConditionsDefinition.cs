@@ -47,12 +47,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
-                    ? "not exist"
-                    : "be " + objectProvider.Description
-            );
+            var description = objectProvider.FormatDescription("not exist", "be", "be");
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> CallAny(IObjectProvider<MethodMember> objectProvider)
@@ -69,16 +65,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     .ToList();
                 foreach (var failedObject in typeList.Except(passedObjects))
                 {
-                    var dynamicFailDescription = "does call";
-                    var first = true;
-                    foreach (var method in failedObject.GetCalledMethods().Except(methodList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + method.FullName
-                            : " and " + method.FullName;
-                        first = false;
-                    }
-
+                    var calledMethods = failedObject.GetCalledMethods().ToList();
+                    var dynamicFailDescription =
+                        calledMethods.Count == 0
+                            ? "does not call any methods"
+                            : "only calls "
+                                + string.Join(
+                                    " and ",
+                                    calledMethods.Select(method => $"\"{method.FullName}\"")
+                                );
                     yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
                 foreach (var passedObject in passedObjects)
@@ -86,11 +81,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     yield return new ConditionResult(passedObject, true);
                 }
             }
-
-            var description =
-                (objectProvider as ISizedObjectProvider<MethodMember>)?.Count == 0
-                    ? "call any of no methods (impossible)"
-                    : "call any " + objectProvider.Description;
+            var description = objectProvider.FormatDescription(
+                "call any of no methods (impossible)",
+                "call",
+                "call any"
+            );
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -108,29 +103,27 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     .ToList();
                 foreach (var failedObject in ruleTypeList.Except(passedObjects))
                 {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Except(typeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
+                    var dependants = failedObject.GetTypeDependencies(architecture).ToList();
+                    var dynamicFailDescription =
+                        dependants.Count == 0
+                            ? "does not depend on any type"
+                            : "only depends on "
+                                + string.Join(
+                                    " and ",
+                                    dependants.Select(type => $"\"{type.FullName}\"")
+                                );
                     yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
-
                 foreach (var passedObject in passedObjects)
                 {
                     yield return new ConditionResult(passedObject, true);
                 }
             }
-
-            var description =
-                (objectProvider as ISizedObjectProvider<IType>)?.Count == 0
-                    ? "depend on any of no types (impossible)"
-                    : "depend on any " + objectProvider.Description;
+            var description = objectProvider.FormatDescription(
+                "depend on any of no types (impossible)",
+                "depend on",
+                "depend on any"
+            );
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -184,10 +177,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description =
-                (objectProvider as ISizedObjectProvider<IType>)?.Count == 0
-                    ? "have no dependencies"
-                    : "only depend on " + objectProvider.Description;
+            var description = objectProvider.FormatDescription(
+                "have no dependencies",
+                "only depend on",
+                "only depend on"
+            );
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -195,7 +189,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IObjectProvider<Attribute> objectProvider
         )
         {
-            var sizedObjectProvider = objectProvider as ISizedObjectProvider<Attribute>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
                 Architecture architecture
@@ -208,13 +201,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     .ToList();
                 foreach (var failedObject in ruleTypeList.Except(passedObjects))
                 {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
-                            ? "does not have any of no attributes (always true)"
-                            : "does not have any " + objectProvider.Description
-                    );
+                    var attributes = failedObject.Attributes.ToList();
+                    var failDescription =
+                        attributes.Count == 0
+                            ? "does not have any attributes"
+                            : "only has attributes "
+                                + string.Join(
+                                    " and ",
+                                    attributes.Select(attribute => $"\"{attribute.FullName}\"")
+                                );
+                    yield return new ConditionResult(failedObject, false, failDescription);
                 }
 
                 foreach (var passedObject in passedObjects)
@@ -223,10 +219,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description =
-                (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
-                    ? "have one of no attributes (impossible)"
-                    : "have any " + objectProvider.Description;
+            var description = objectProvider.FormatDescription(
+                "have any of no attributes (impossible)",
+                "have",
+                "have any"
+            );
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -265,75 +262,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description =
-                (objectProvider as ISizedObjectProvider<Attribute>)?.Count == 0
-                    ? "have no attributes"
-                    : "does only have " + objectProvider.Description;
+            var description = objectProvider.FormatDescription(
+                "have no attributes",
+                "only have",
+                "only have any"
+            );
             return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> HaveAnyAttributesWithArguments(
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            var argumentValues = new List<object> { firstArgumentValue };
-            argumentValues.AddRange(moreArgumentValues);
-            return HaveAnyAttributesWithArguments(argumentValues);
-        }
-
-        public static ICondition<TRuleType> HaveAttributeWithArguments(
-            Attribute attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            var argumentValues = new List<object> { firstArgumentValue };
-            argumentValues.AddRange(moreArgumentValues);
-            return HaveAttributeWithArguments(attribute, argumentValues);
-        }
-
-        public static ICondition<TRuleType> HaveAttributeWithArguments(
-            Type attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            var argumentValues = new List<object> { firstArgumentValue };
-            argumentValues.AddRange(moreArgumentValues);
-            return HaveAttributeWithArguments(attribute, argumentValues);
-        }
-
-        public static ICondition<TRuleType> HaveAnyAttributesWithNamedArguments(
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
-            attributeArguments.AddRange(moreAttributeArguments);
-            return HaveAnyAttributesWithNamedArguments(attributeArguments);
-        }
-
-        public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
-            Attribute attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
-            attributeArguments.AddRange(moreAttributeArguments);
-            return HaveAttributeWithNamedArguments(attribute, attributeArguments);
-        }
-
-        public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
-            Type attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
-            attributeArguments.AddRange(moreAttributeArguments);
-            return HaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
         public static ICondition<TRuleType> HaveAnyAttributesWithArguments(
@@ -889,24 +823,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveFullName(string name)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.FullNameEquals(name),
-                obj => "does have full name " + obj.FullName,
-                "have full name \"" + name + "\""
-            );
-        }
-
-        public static ICondition<TRuleType> HaveFullNameMatching(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => obj.FullNameMatches(pattern),
-                obj => "does have full name " + obj.FullName,
-                "have full name matching \"" + pattern + "\""
-            );
-        }
-
         public static ICondition<TRuleType> HaveNameStartingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
@@ -934,12 +850,93 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        public static ICondition<TRuleType> HaveFullName(string name)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameEquals(name),
+                obj => "does have full name " + obj.FullName,
+                "have full name \"" + name + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveFullNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameMatches(pattern),
+                obj => "does have full name " + obj.FullName,
+                "have full name matching \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveFullNameStartingWith(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameStartsWith(pattern),
+                obj => "does have full name " + obj.FullName,
+                "have full name starting with \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveFullNameEndingWith(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.FullNameEndsWith(pattern),
+                obj => "does have full name " + obj.FullName,
+                "have full name ending with \"" + pattern + "\""
+            );
+        }
+
         public static ICondition<TRuleType> HaveFullNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullNameContains(pattern),
                 obj => "does have full name " + obj.FullName,
                 "have full name containing \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveAssemblyQualifiedName(string assemblyQualifiedName)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.AssemblyQualifiedNameEquals(assemblyQualifiedName),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "have assembly qualified name \"" + assemblyQualifiedName + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveAssemblyQualifiedNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.AssemblyQualifiedNameMatches(pattern),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "have assembly qualified name matching \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveAssemblyQualifiedNameStartingWith(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.AssemblyQualifiedNameStartsWith(pattern),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "have assembly qualified name starting with \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveAssemblyQualifiedNameEndingWith(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.AssemblyQualifiedNameEndsWith(pattern),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "have assembly qualified name ending with \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> HaveAssemblyQualifiedNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => obj.AssemblyQualifiedNameContains(pattern),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "have assembly qualified name containing \"" + pattern + "\""
             );
         }
 
@@ -1067,12 +1064,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                (objectProvider as ISizedObjectProvider<ICanBeAnalyzed>)?.Count == 0
-                    ? "exist"
-                    : "not be " + objectProvider.Description
+            var description = objectProvider.FormatDescription(
+                "not be any of no objects (always true)",
+                "not be",
+                "not be"
             );
+            return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static ICondition<TRuleType> NotCallAny(IObjectProvider<MethodMember> objectProvider)
@@ -1089,29 +1086,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     .ToList();
                 foreach (var failedObject in failedObjects)
                 {
-                    var dynamicFailDescription = "does call";
-                    var first = true;
-                    foreach (var method in failedObject.GetCalledMethods().Intersect(methodList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + method.FullName
-                            : " and " + method.FullName;
-                        first = false;
-                    }
-
+                    var calledMethods = failedObject
+                        .GetCalledMethods()
+                        .Intersect(methodList)
+                        .Select(method => $"\"{method.FullName}\"");
+                    var dynamicFailDescription = "does call " + string.Join(" and ", calledMethods);
                     yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
-
                 foreach (var passedObject in typeList.Except(failedObjects))
                 {
                     yield return new ConditionResult(passedObject, true);
                 }
             }
 
-            var description =
-                (objectProvider as ISizedObjectProvider<MethodMember>)?.Count == 0
-                    ? "not call any of no methods (always true)"
-                    : "not call any " + objectProvider.Description;
+            var description = objectProvider.FormatDescription(
+                "not call any of no methods (always true)",
+                "not call",
+                "not call any"
+            );
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -1129,29 +1121,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     .ToList();
                 foreach (var failedObject in failedObjects)
                 {
-                    var dynamicFailDescription = "does depend on";
-                    var first = true;
-                    foreach (var type in failedObject.GetTypeDependencies().Intersect(typeList))
-                    {
-                        dynamicFailDescription += first
-                            ? " " + type.FullName
-                            : " and " + type.FullName;
-                        first = false;
-                    }
-
+                    var dependants = failedObject
+                        .GetTypeDependencies()
+                        .Intersect(typeList)
+                        .Select(type => $"\"{type.FullName}\"");
+                    var dynamicFailDescription =
+                        "does depend on " + string.Join(" and ", dependants);
                     yield return new ConditionResult(failedObject, false, dynamicFailDescription);
                 }
-
                 foreach (var passedObject in ruleTypeList.Except(failedObjects))
                 {
                     yield return new ConditionResult(passedObject, true);
                 }
             }
 
-            var description =
-                (objectProvider as ISizedObjectProvider<IType>)?.Count == 0
-                    ? "not depend on any of no types (always true)"
-                    : "not depend on any " + objectProvider.Description;
+            var description = objectProvider.FormatDescription(
+                "not depend on any of no types (always true)",
+                "not depend on",
+                "not depend on any"
+            );
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
@@ -1190,75 +1178,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                 }
             }
 
-            var description =
-                (objectProvider as ISizedObjectProvider<Attribute>)?.Count == 0
-                    ? "not have any of no attributes (always true)"
-                    : "not have any " + objectProvider.Description;
+            var description = objectProvider.FormatDescription(
+                "not have any of no attributes (always true)",
+                "not have",
+                "not have any"
+            );
             return new ArchitectureCondition<TRuleType>(Condition, description);
-        }
-
-        public static ICondition<TRuleType> NotHaveAnyAttributesWithArguments(
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            var argumentValues = new List<object> { firstArgumentValue };
-            argumentValues.AddRange(moreArgumentValues);
-            return NotHaveAnyAttributesWithArguments(argumentValues);
-        }
-
-        public static ICondition<TRuleType> NotHaveAttributeWithArguments(
-            Attribute attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            var argumentValues = new List<object> { firstArgumentValue };
-            argumentValues.AddRange(moreArgumentValues);
-            return NotHaveAttributeWithArguments(attribute, argumentValues);
-        }
-
-        public static ICondition<TRuleType> NotHaveAttributeWithArguments(
-            Type attribute,
-            object firstArgumentValue,
-            params object[] moreArgumentValues
-        )
-        {
-            var argumentValues = new List<object> { firstArgumentValue };
-            argumentValues.AddRange(moreArgumentValues);
-            return NotHaveAttributeWithArguments(attribute, argumentValues);
-        }
-
-        public static ICondition<TRuleType> NotHaveAnyAttributesWithNamedArguments(
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
-            attributeArguments.AddRange(moreAttributeArguments);
-            return NotHaveAnyAttributesWithNamedArguments(attributeArguments);
-        }
-
-        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
-            Attribute attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
-            attributeArguments.AddRange(moreAttributeArguments);
-            return NotHaveAttributeWithNamedArguments(attribute, attributeArguments);
-        }
-
-        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
-            Type attribute,
-            (string, object) firstAttributeArgument,
-            params (string, object)[] moreAttributeArguments
-        )
-        {
-            var attributeArguments = new List<(string, object)> { firstAttributeArgument };
-            attributeArguments.AddRange(moreAttributeArguments);
-            return NotHaveAttributeWithNamedArguments(attribute, attributeArguments);
         }
 
         public static ICondition<TRuleType> NotHaveAnyAttributesWithArguments(
@@ -1816,24 +1741,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveFullName(string fullName)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => !obj.FullNameEquals(fullName),
-                obj => "does have full name " + obj.FullName,
-                "not have full name \"" + fullName + "\""
-            );
-        }
-
-        public static ICondition<TRuleType> NotHaveFullNameMatching(string pattern)
-        {
-            return new SimpleCondition<TRuleType>(
-                obj => !obj.FullNameMatches(pattern),
-                obj => "does have full name " + obj.FullName,
-                "not have full name matching \"" + pattern + "\""
-            );
-        }
-
         public static ICondition<TRuleType> NotHaveNameStartingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
@@ -1861,12 +1768,95 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
+        public static ICondition<TRuleType> NotHaveFullName(string fullName)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.FullNameEquals(fullName),
+                obj => "does have full name " + obj.FullName,
+                "not have full name \"" + fullName + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveFullNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.FullNameMatches(pattern),
+                obj => "does have full name " + obj.FullName,
+                "not have full name matching \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveFullNameStartingWith(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.FullNameStartsWith(pattern),
+                obj => "does have full name " + obj.FullName,
+                "not have full name starting with \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveFullNameEndingWith(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.FullNameEndsWith(pattern),
+                obj => "does have full name " + obj.FullName,
+                "not have full name ending with \"" + pattern + "\""
+            );
+        }
+
         public static ICondition<TRuleType> NotHaveFullNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullNameContains(pattern),
                 obj => "does have full name " + obj.FullName,
                 "not have full name containing \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveAssemblyQualifiedName(
+            string assemblyQualifiedName
+        )
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.AssemblyQualifiedNameEquals(assemblyQualifiedName),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "not have assembly qualified name \"" + assemblyQualifiedName + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveAssemblyQualifiedNameMatching(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.AssemblyQualifiedNameMatches(pattern),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "not have assembly qualified name matching \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveAssemblyQualifiedNameStartingWith(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.AssemblyQualifiedNameStartsWith(pattern),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "not have assembly qualified name starting with \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveAssemblyQualifiedNameEndingWith(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.AssemblyQualifiedNameEndsWith(pattern),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "not have assembly qualified name ending with \"" + pattern + "\""
+            );
+        }
+
+        public static ICondition<TRuleType> NotHaveAssemblyQualifiedNameContaining(string pattern)
+        {
+            return new SimpleCondition<TRuleType>(
+                obj => !obj.AssemblyQualifiedNameContains(pattern),
+                obj => "does have assembly qualified name " + obj.AssemblyQualifiedName,
+                "not have assembly qualified name containing \"" + pattern + "\""
             );
         }
 

@@ -21,5 +21,26 @@ namespace ArchUnitNET.Domain.Extensions
         {
             return source == null || !source.Any();
         }
+
+        public static string FormatDescription<T>(
+            this IEnumerable<T> source,
+            string emptyDescription,
+            string singleDescription,
+            string multipleDescription,
+            Func<T, string> elementDescription = null
+        )
+        {
+            var list = source as IList<T> ?? source.ToList();
+            elementDescription = elementDescription ?? (element => $"\"{element}\"");
+            switch (list.Count)
+            {
+                case 0:
+                    return emptyDescription;
+                case 1:
+                    return $"{singleDescription} {string.Join(" and ", list.Select(elementDescription))}";
+                default:
+                    return $"{multipleDescription} {string.Join(" and ", list.Select(elementDescription))}";
+            }
+        }
     }
 }

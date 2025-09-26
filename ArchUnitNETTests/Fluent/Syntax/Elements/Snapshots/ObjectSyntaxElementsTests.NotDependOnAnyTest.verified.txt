@@ -2,13 +2,13 @@
 
 ----- Conditions -----
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Message: 
@@ -20,13 +20,13 @@ Description: TypeDependencyNamespace.ChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Message: 
@@ -100,48 +100,48 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+"Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+"Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any Classes that are "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should not depend on any Classes that are "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+"Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+"Types that are "TypeDependencyNamespace.ChildClass" should not depend on "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 
@@ -225,24 +225,18 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "AttributeNamespace.ClassWithoutAttributes"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on "AttributeNamespace.ClassWithoutAttributes"
 Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates -----
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates as conditions -----
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ===== Empty arguments =====
 
@@ -260,15 +254,27 @@ Description: TypeDependencyNamespace.ChildClass passed
 Message: 
 All Evaluations passed
 
------ Predicates -----
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on no types (always true)
+Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any of no types (always true)
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on no types (always true)
+----- Predicates -----
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any of no types (always true)
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any of no types (always true)
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any of no types (always true)
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Message: 
@@ -276,13 +282,19 @@ All Evaluations passed
 
 ----- Predicates as conditions -----
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on no types (always true)
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any of no types (always true)
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on no types (always true)
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any of no types (always true)
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any of no types (always true)
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Message: 
@@ -294,112 +306,112 @@ All Evaluations passed
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass does depend on TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.ChildClass does depend on "TypeDependencyNamespace.BaseClass"
 
 
 
 ----- Predicates -----
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is not Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Description: TypeDependencyNamespace.ChildClass is not Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass is not Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+"Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass is not Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is not Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Description: TypeDependencyNamespace.ChildClass is not Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass is not Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+"Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass is not Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is not Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Description: TypeDependencyNamespace.ChildClass is not Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass is not Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+"Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass is not Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is not Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Description: TypeDependencyNamespace.ChildClass is not Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass is not Types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+"Types that are "TypeDependencyNamespace.ChildClass" should be Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+	TypeDependencyNamespace.ChildClass is not Types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
 Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.ChildClassWithMember" or "TypeDependencyNamespace.OtherChildClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.ClassWithMultipleDependencies" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+"Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
 	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.ChildClassWithMember" or "TypeDependencyNamespace.OtherChildClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.ClassWithMultipleDependencies" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
 Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.ChildClassWithMember" or "TypeDependencyNamespace.OtherChildClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.ClassWithMultipleDependencies" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+"Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
 	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.ChildClassWithMember" or "TypeDependencyNamespace.OtherChildClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.ClassWithMultipleDependencies" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
 Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.ChildClassWithMember" or "TypeDependencyNamespace.OtherChildClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.ClassWithMultipleDependencies" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+"Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
 	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.ChildClassWithMember" or "TypeDependencyNamespace.OtherChildClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.ClassWithMultipleDependencies" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
 Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.ChildClassWithMember" or "TypeDependencyNamespace.OtherChildClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.ClassWithMultipleDependencies" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
+"Types that are "TypeDependencyNamespace.ChildClass" should be types that do not depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
 	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.ChildClassWithMember" or "TypeDependencyNamespace.OtherChildClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.ClassWithMultipleDependencies" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 
@@ -410,130 +422,130 @@ Message:
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any Classes that are "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should not depend on any Classes that are "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on TypeDependencyNamespace.BaseClassWithMember and TypeDependencyNamespace.OtherBaseClass
+	TypeDependencyNamespace.ClassWithMultipleDependencies does depend on "TypeDependencyNamespace.BaseClassWithMember" and "TypeDependencyNamespace.OtherBaseClass"
 
 
 
 ----- Predicates -----
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not Types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Classes that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Classes that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Classes that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not Classes that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Classes that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not Classes that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be Classes that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not Classes that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
 Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
 	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
 Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
 	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
 Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
 	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 
 
-Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
+Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"
 Result: False
 Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 Message: 
-"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
+"Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that do not depend on any "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.OtherBaseClass"" failed:
 	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.BaseClass" or "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.BaseClassWithMember" or "TypeDependencyNamespace.BaseClassWithMultipleDependencies" or "TypeDependencyNamespace.ChildClass1" or "TypeDependencyNamespace.ChildClass2" or "TypeDependencyNamespace.OtherBaseClass" or "TypeDependencyNamespace.GenericBaseClass`1" or "TypeDependencyNamespace.ChildClassOfGeneric" or "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.OtherClassWithoutDependencies" or "TypeDependencyNamespace.Issue351" or "MethodDependencyNamespace.MethodDependencyClass" or "System.Object" or "System.Void" or "System.String" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute" or "System.Collections.Generic.List`1" or "System.Func`2" or "System.IntPtr" or "System.Linq.Enumerable" or "System.Collections.Generic.IEnumerable`1" or "System.Linq.IGrouping`2" or "System.Collections.Generic.IReadOnlyCollection`1" or "System.Collections.Generic.Dictionary`2"
 
 
