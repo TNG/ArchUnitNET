@@ -85,87 +85,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use BeAssignableTo(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> BeAssignableTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            var description =
-                "be assignable to types with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + pattern
-                + "\"";
-            var failDescription =
-                "is not assignable to a type with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + pattern
-                + "\"";
-            return new SimpleCondition<TRuleType>(
-                type => type.IsAssignableTo(pattern, useRegularExpressions),
-                description,
-                failDescription
-            );
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use BeAssignableTo(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> BeAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            bool Condition(TRuleType ruleType)
-            {
-                return patternList.Any(pattern =>
-                    ruleType.IsAssignableTo(pattern, useRegularExpressions)
-                );
-            }
-
-            string description;
-            string failDescription;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "be assignable to no types (always false)";
-                failDescription = "is assignable to any type (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "be assignable to types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-                failDescription = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "is not assignable to types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description, failDescription);
-        }
-
         public static RelationCondition<TRuleType, IType> BeTypesThat()
         {
             return new RelationCondition<TRuleType, IType>(
@@ -545,29 +464,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> ImplementInterface(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                type => type.ImplementsInterface(pattern, useRegularExpressions),
-                "implement interface with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "does not implement interface with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
         public static ICondition<TRuleType> ImplementInterface(Interface intf)
         {
             return new SimpleCondition<TRuleType>(
@@ -677,25 +573,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        [Obsolete(
-            "Either ResideInNamespace() without the useRegularExpressions parameter or ResideInNamespaceMatching() should be used"
-        )]
-        public static ICondition<TRuleType> ResideInNamespace(
-            string pattern,
-            bool useRegularExpressions
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                type => type.ResidesInNamespace(pattern, useRegularExpressions),
-                obj => "does reside in " + obj.Namespace.FullName,
-                "reside in namespace with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
         public static ICondition<TRuleType> ResideInNamespace(string fullName)
         {
             return new SimpleCondition<TRuleType>(
@@ -711,25 +588,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 type => type.ResidesInNamespaceMatching(pattern),
                 obj => "does reside in " + obj.Namespace.FullName,
                 "reside in namespace with full name matching \"" + pattern + "\""
-            );
-        }
-
-        [Obsolete(
-            "Either ResideInAssembly() without the useRegularExpressions parameter or ResideInAssemblyMatching() should be used"
-        )]
-        public static ICondition<TRuleType> ResideInAssembly(
-            string pattern,
-            bool useRegularExpressions
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                type => type.ResidesInAssembly(pattern, useRegularExpressions),
-                obj => "does reside in " + obj.Assembly.FullName,
-                "reside in assembly with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
             );
         }
 
@@ -997,93 +855,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeAssignableTo(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> NotBeAssignableTo(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var pass = true;
-                var dynamicFailDescription = "is assignable to";
-                foreach (var type in ruleType.GetAssignableTypes())
-                {
-                    if (type.FullNameMatches(pattern, useRegularExpressions))
-                    {
-                        dynamicFailDescription += (pass ? " " : " and ") + type.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            var description =
-                "not be assignable to types with full name "
-                + (useRegularExpressions ? "matching " : "")
-                + "\""
-                + pattern
-                + "\"";
-            return new SimpleCondition<TRuleType>(Condition, description);
-        }
-
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update. You can use NotBeAssignableTo(Types().That().HaveFullName()) instead"
-        )]
-        public static ICondition<TRuleType> NotBeAssignableTo(
-            IEnumerable<string> patterns,
-            bool useRegularExpressions = false
-        )
-        {
-            var patternList = patterns.ToList();
-
-            ConditionResult Condition(TRuleType ruleType)
-            {
-                var pass = true;
-                var dynamicFailDescription = "is assignable to";
-                foreach (var type in ruleType.GetAssignableTypes())
-                {
-                    if (
-                        patternList.Any(pattern =>
-                            type.FullNameMatches(pattern, useRegularExpressions)
-                        )
-                    )
-                    {
-                        dynamicFailDescription += (pass ? " " : " and ") + type.FullName;
-                        pass = false;
-                    }
-                }
-
-                return new ConditionResult(ruleType, pass, dynamicFailDescription);
-            }
-
-            string description;
-            if (patternList.IsNullOrEmpty())
-            {
-                description = "not be assignable to no types (always true)";
-            }
-            else
-            {
-                var firstPattern = patternList.First();
-                description = patternList
-                    .Where(type => !type.Equals(firstPattern))
-                    .Distinct()
-                    .Aggregate(
-                        "not be assignable to types with full name "
-                            + (useRegularExpressions ? "matching " : "")
-                            + "\""
-                            + firstPattern
-                            + "\"",
-                        (current, pattern) => current + " or \"" + pattern + "\""
-                    );
-            }
-
-            return new SimpleCondition<TRuleType>(Condition, description);
-        }
-
         public static ICondition<TRuleType> NotBeAssignableTo(
             IType firstType,
             params IType[] moreTypes
@@ -1322,29 +1093,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        [Obsolete(
-            "Another overload of this method should be used. This will be removed in a future update."
-        )]
-        public static ICondition<TRuleType> NotImplementInterface(
-            string pattern,
-            bool useRegularExpressions = false
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                type => !type.ImplementsInterface(pattern, useRegularExpressions),
-                "not implement interface with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\"",
-                "does implement interface with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
         public static ICondition<TRuleType> NotImplementInterface(Interface intf)
         {
             return new SimpleCondition<TRuleType>(
@@ -1448,25 +1196,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        [Obsolete(
-            "Either NotResideInNamespace() without the useRegularExpressions parameter or NotResideInNamespaceMatching() should be used"
-        )]
-        public static ICondition<TRuleType> NotResideInNamespace(
-            string pattern,
-            bool useRegularExpressions
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                type => !type.ResidesInNamespace(pattern, useRegularExpressions),
-                obj => "does reside in " + obj.Namespace.FullName,
-                "not reside in namespace with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
-            );
-        }
-
         public static ICondition<TRuleType> NotResideInNamespace(string fullName)
         {
             return new SimpleCondition<TRuleType>(
@@ -1482,25 +1211,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 type => !type.ResidesInNamespaceMatching(pattern),
                 obj => "does reside in " + obj.Namespace.FullName,
                 "not reside in namespace with full name matching \"" + pattern + "\""
-            );
-        }
-
-        [Obsolete(
-            "Either NotResideInAssembly() without the useRegularExpressions parameter or NotResideInAssemblyMatching() should be used"
-        )]
-        public static ICondition<TRuleType> NotResideInAssembly(
-            string pattern,
-            bool useRegularExpressions
-        )
-        {
-            return new SimpleCondition<TRuleType>(
-                type => !type.ResidesInAssembly(pattern, useRegularExpressions),
-                obj => "does reside in " + obj.Assembly.FullName,
-                "not reside in assembly with full name "
-                    + (useRegularExpressions ? "matching " : "")
-                    + "\""
-                    + pattern
-                    + "\""
             );
         }
 
