@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
 using JetBrains.Annotations;
@@ -11,7 +10,7 @@ using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public static class ObjectPredicatesDefinition<T>
+    internal static class ObjectPredicatesDefinition<T>
         where T : ICanBeAnalyzed
     {
         public static IPredicate<T> Are(IObjectProvider<ICanBeAnalyzed> objectProvider)
@@ -123,432 +122,127 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues
         )
         {
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
-            string description;
-            if (argumentValueList.IsNullOrEmpty())
+            var argumentValueList = argumentValues as IList<object> ?? argumentValues.ToList();
+            IEnumerable<T> Predicate(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                description = "have no or any attributes with arguments (always true)";
-            }
-            else
-            {
-                var firstArgument = argumentValueList.First();
-                description = argumentValueList
-                    .Where(attribute => attribute != firstArgument)
-                    .Aggregate(
-                        "have any attributes with arguments \"" + firstArgument + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-            }
-
-            bool Predicate(T obj, Architecture architecture)
-            {
-                var attributeArguments = obj
-                    .AttributeInstances.SelectMany(instance =>
-                        instance.AttributeArguments.Select(arg => arg.Value)
-                    )
+                var resolvedArgumentValueList = argumentValueList
+                    .ResolveAttributeArguments(architecture)
                     .ToList();
-                var typeAttributeArguments = attributeArguments
-                    .OfType<ITypeInstance<IType>>()
-                    .Select(t => t.Type)
-                    .Union(attributeArguments.OfType<IType>())
-                    .ToList();
-                foreach (var arg in argumentValueList)
-                {
-                    if (arg is Type argType)
+                return ruleTypes.Where(ruleType =>
+                    ruleType.AttributeInstances.Any(instance =>
                     {
-                        if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
-                        {
-                            return false;
-                        }
-                    }
-                    else if (!attributeArguments.Contains(arg))
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
+                        var instanceArgumentValues = instance
+                            .GetAllAttributeArgumentValues()
+                            .ToList();
+                        return resolvedArgumentValueList.All(instanceArgumentValues.Contains);
+                    })
+                );
             }
-
+            var description = argumentValueList.FormatDescription(
+                "have any attributes",
+                "have any attributes with argument",
+                "have any attributes with arguments"
+            );
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
         public static IPredicate<T> HaveAttributeWithArguments(
-            [NotNull] Attribute attribute,
+            string attributeFullName,
+            [NotNull] Func<Architecture, Attribute> getAttribute,
             IEnumerable<object> argumentValues
         )
         {
-            string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
-            if (argumentValueList.IsNullOrEmpty())
+            var argumentValueList = argumentValues as IList<object> ?? argumentValues.ToList();
+            IEnumerable<T> Predicate(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                description = "have attribute \"" + attribute.FullName + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentValueList.First();
-                description = argumentValueList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "have attribute \""
-                            + attribute.FullName
-                            + "\" with arguments \""
-                            + firstArgument
-                            + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-            }
-
-            bool Predicate(T obj, Architecture architecture)
-            {
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.Equals(attribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArguments = attributeInstance
-                        .AttributeArguments.Select(arg => arg.Value)
-                        .ToList();
-                    var typeAttributeArguments = attributeArguments
-                        .OfType<ITypeInstance<IType>>()
-                        .Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>())
-                        .ToList();
-                    foreach (var arg in argumentValueList)
-                    {
-                        if (arg is Type argType)
+                var resolvedAttribute = getAttribute(architecture);
+                var resolvedArgumentValueList = argumentValueList
+                    .ResolveAttributeArguments(architecture)
+                    .ToList();
+                return ruleTypes.Where(ruleType =>
+                    ruleType
+                        .AttributeInstances.Where(instance =>
+                            instance.Type.Equals(resolvedAttribute)
+                        )
+                        .Any(instance =>
                         {
-                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArguments.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return true;
-                    NextAttribute:
-                    ;
-                }
-
-                return false;
+                            var instanceArgumentValues = instance
+                                .GetAllAttributeArgumentValues()
+                                .ToList();
+                            return resolvedArgumentValueList.All(instanceArgumentValues.Contains);
+                        })
+                );
             }
-
-            return new ArchitecturePredicate<T>(Predicate, description);
-        }
-
-        public static IPredicate<T> HaveAttributeWithArguments(
-            [NotNull] Type attribute,
-            IEnumerable<object> argumentValues
-        )
-        {
-            string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
-            if (argumentValueList.IsNullOrEmpty())
-            {
-                description = "have attribute \"" + attribute.FullName + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentValueList.First();
-                description = argumentValueList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "have attribute \""
-                            + attribute.FullName
-                            + "\" with arguments \""
-                            + firstArgument
-                            + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-            }
-
-            bool Predicate(T obj, Architecture architecture)
-            {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return false;
-                }
-
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.Equals(archUnitAttribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArguments = attributeInstance
-                        .AttributeArguments.Select(arg => arg.Value)
-                        .ToList();
-                    var typeAttributeArguments = attributeArguments
-                        .OfType<ITypeInstance<IType>>()
-                        .Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>())
-                        .ToList();
-                    foreach (var arg in argumentValueList)
-                    {
-                        if (arg is Type argType)
-                        {
-                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArguments.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return true;
-                    NextAttribute:
-                    ;
-                }
-
-                return false;
-            }
-
+            var description = argumentValueList.FormatDescription(
+                $"have attribute \"{attributeFullName}\"",
+                $"have attribute \"{attributeFullName}\" with argument",
+                $"have attribute \"{attributeFullName}\" with arguments"
+            );
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
         public static IPredicate<T> HaveAnyAttributesWithNamedArguments(
-            IEnumerable<(string, object)> attributeArguments
+            IEnumerable<(string, object)> namedArguments
         )
         {
-            var argumentList = attributeArguments.ToList();
-            string description;
-            if (argumentList.IsNullOrEmpty())
+            var namedArgumentList =
+                namedArguments as IList<(string, object)> ?? namedArguments.ToList();
+            IEnumerable<T> Predicate(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                description = "have no or any attributes with named arguments (always true)";
-            }
-            else
-            {
-                var firstArgument = argumentList.First();
-                description = argumentList
-                    .Where(attribute => attribute != firstArgument)
-                    .Aggregate(
-                        "have any attributes with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-            }
-
-            bool Predicate(T obj, Architecture architecture)
-            {
-                var attArguments = obj
-                    .AttributeInstances.SelectMany(instance =>
-                        instance
-                            .AttributeArguments.OfType<AttributeNamedArgument>()
-                            .Select(arg => (arg.Name, arg.Value))
-                    )
+                var resolvedNamedArgumentList = namedArgumentList
+                    .ResolveNamedAttributeArgumentTuples(architecture)
                     .ToList();
-                var typeAttributeArguments = attArguments
-                    .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
-                    .ToList();
-                foreach (var arg in argumentList)
-                {
-                    if (arg.Item2 is Type argType)
+                return ruleTypes.Where(ruleType =>
+                    ruleType.AttributeInstances.Any(instance =>
                     {
-                        if (
-                            typeAttributeArguments.All(t =>
-                                t.Name != arg.Item1
-                                || t.Value is ITypeInstance<IType> typeInstance
-                                    && typeInstance.Type.FullName != argType.FullName
-                                || t.Value is IType type && type.FullName != argType.FullName
-                            )
-                        )
-                        {
-                            return false;
-                        }
-                    }
-                    else if (!attArguments.Contains(arg))
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
+                        var attArguments = instance.GetAllNamedAttributeArgumentTuples().ToList();
+                        return resolvedNamedArgumentList.All(attArguments.Contains);
+                    })
+                );
             }
-
+            var description = namedArgumentList.FormatDescription(
+                "have any attributes",
+                "have any attributes with named argument",
+                "have any attributes with named arguments",
+                elementDescription: arg => $"\"{arg.Item1}={arg.Item2}\""
+            );
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
         public static IPredicate<T> HaveAttributeWithNamedArguments(
-            [NotNull] Attribute attribute,
-            IEnumerable<(string, object)> attributeArguments
+            string attributeFullName,
+            [NotNull] Func<Architecture, Attribute> getAttribute,
+            IEnumerable<(string, object)> namedArguments
         )
         {
-            string description;
-            var argumentList = attributeArguments.ToList();
-            if (argumentList.IsNullOrEmpty())
+            var namedArgumentList =
+                namedArguments as IList<(string, object)> ?? namedArguments.ToList();
+            IEnumerable<T> Predicate(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                description = "have attribute \"" + attribute.FullName + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentList.First();
-                description = argumentList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "have attribute \""
-                            + attribute.FullName
-                            + "\" with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-            }
-
-            bool Condition(T obj, Architecture architecture)
-            {
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.Equals(attribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArgs = attributeInstance
-                        .AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value))
-                        .ToList();
-                    var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
-                        .ToList();
-                    foreach (var arg in argumentList)
-                    {
-                        if (arg.Item2 is Type argType)
+                var resolvedAttribute = getAttribute(architecture);
+                var resolvedNamedArgumentList = namedArgumentList
+                    .ResolveNamedAttributeArgumentTuples(architecture)
+                    .ToList();
+                return ruleTypes.Where(ruleType =>
+                    ruleType
+                        .AttributeInstances.Where(instance =>
+                            instance.Type.Equals(resolvedAttribute)
+                        )
+                        .Any(instance =>
                         {
-                            if (
-                                typeAttributeArguments.All(t =>
-                                    t.Name != arg.Item1
-                                    || t.Value is ITypeInstance<IType> typeInstance
-                                        && typeInstance.Type.FullName != argType.FullName
-                                    || t.Value is IType type && type.FullName != argType.FullName
-                                )
-                            )
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArgs.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return true;
-                    NextAttribute:
-                    ;
-                }
-
-                return false;
+                            var attArguments = instance
+                                .GetAllNamedAttributeArgumentTuples()
+                                .ToList();
+                            return resolvedNamedArgumentList.All(attArguments.Contains);
+                        })
+                );
             }
-
-            return new ArchitecturePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> HaveAttributeWithNamedArguments(
-            [NotNull] Type attribute,
-            IEnumerable<(string, object)> attributeArguments
-        )
-        {
-            string description;
-            var argumentList = attributeArguments.ToList();
-            if (argumentList.IsNullOrEmpty())
-            {
-                description = "have attribute \"" + attribute.FullName + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentList.First();
-                description = argumentList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "have attribute \""
-                            + attribute.FullName
-                            + "\" with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-            }
-
-            bool Predicate(T obj, Architecture architecture)
-            {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return false;
-                }
-
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.Equals(archUnitAttribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArgs = attributeInstance
-                        .AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value))
-                        .ToList();
-                    var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
-                        .ToList();
-                    foreach (var arg in argumentList)
-                    {
-                        if (arg.Item2 is Type argType)
-                        {
-                            if (
-                                typeAttributeArguments.All(t =>
-                                    t.Name != arg.Item1
-                                    || t.Value is ITypeInstance<IType> typeInstance
-                                        && typeInstance.Type.FullName != argType.FullName
-                                    || t.Value is IType type && type.FullName != argType.FullName
-                                )
-                            )
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArgs.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return true;
-                    NextAttribute:
-                    ;
-                }
-
-                return false;
-            }
-
+            var description = namedArgumentList.FormatDescription(
+                $"have attribute \"{attributeFullName}\"",
+                $"have attribute \"{attributeFullName}\" with named argument",
+                $"have attribute \"{attributeFullName}\" with named arguments",
+                elementDescription: arg => $"\"{arg.Item1}={arg.Item2}\""
+            );
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
@@ -781,437 +475,126 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<object> argumentValues
         )
         {
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { null };
-            string description;
-            if (argumentValueList.IsNullOrEmpty())
+            var argumentValueList = argumentValues as IList<object> ?? argumentValues.ToList();
+            IEnumerable<T> Predicate(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                description = "do not have no or any attributes with arguments (impossible)";
-            }
-            else
-            {
-                var firstArgument = argumentValueList.First();
-                description = argumentValueList
-                    .Where(attribute => attribute != firstArgument)
-                    .Aggregate(
-                        "do not have any attributes with arguments \"" + firstArgument + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-            }
-
-            bool Predicate(T obj, Architecture architecture)
-            {
-                var attributeArguments = obj
-                    .AttributeInstances.SelectMany(instance =>
-                        instance.AttributeArguments.Select(arg => arg.Value)
-                    )
+                var resolvedArgumentValueList = argumentValueList
+                    .ResolveAttributeArguments(architecture)
                     .ToList();
-                var typeAttributeArguments = attributeArguments
-                    .OfType<ITypeInstance<IType>>()
-                    .Select(t => t.Type)
-                    .Union(attributeArguments.OfType<IType>())
-                    .ToList();
-                foreach (var arg in argumentValueList)
+                foreach (var ruleType in ruleTypes)
                 {
-                    if (arg is Type argType)
+                    var attributeArguments = ruleType.GetAllAttributeArgumentValues().ToList();
+                    if (!resolvedArgumentValueList.Any(attributeArguments.Contains))
                     {
-                        if (typeAttributeArguments.Any(t => t.FullName == argType.FullName))
-                        {
-                            return false;
-                        }
-                    }
-                    else if (
-                        attributeArguments.Contains(arg) || typeAttributeArguments.Contains(arg)
-                    )
-                    {
-                        return false;
+                        yield return ruleType;
                     }
                 }
-
-                return true;
             }
-
+            var description = argumentValueList.FormatDescription(
+                "do not have any attributes with any of no arguments (always true)",
+                "do not have any attributes with argument",
+                "do not have any attributes with arguments"
+            );
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
         public static IPredicate<T> DoNotHaveAttributeWithArguments(
-            [NotNull] Attribute attribute,
+            string attributeFullName,
+            [NotNull] Func<Architecture, Attribute> getAttribute,
             IEnumerable<object> argumentValues
         )
         {
-            string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { };
-            if (argumentValueList.IsNullOrEmpty())
-            {
-                description = "do not have attribute \"" + attribute.FullName + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentValueList.First();
-                description = argumentValueList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "do not have attribute \""
-                            + attribute.FullName
-                            + "\" with arguments \""
-                            + firstArgument
-                            + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-            }
+            var argumentValueList = argumentValues as IList<object> ?? argumentValues.ToList();
 
-            bool Predicate(T obj, Architecture architecture)
+            IEnumerable<T> Predicate(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                foreach (var attributeInstance in obj.AttributeInstances)
+                var resolvedAttribute = getAttribute(architecture);
+                var resolvedArgumentValueList = argumentValueList
+                    .ResolveAttributeArguments(architecture)
+                    .ToList();
+                foreach (var ruleType in ruleTypes)
                 {
-                    if (!attributeInstance.Type.Equals(attribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArguments = attributeInstance
-                        .AttributeArguments.Select(arg => arg.Value)
+                    var attributeArguments = ruleType
+                        .GetAllAttributeArgumentValues(resolvedAttribute)
                         .ToList();
-                    var typeAttributeArguments = attributeArguments
-                        .OfType<ITypeInstance<IType>>()
-                        .Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>())
-                        .ToList();
-                    foreach (var arg in argumentValueList)
+                    if (!resolvedArgumentValueList.Any(attributeArguments.Contains))
                     {
-                        if (arg is Type argType)
-                        {
-                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArguments.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
+                        yield return ruleType;
                     }
-
-                    return false;
-                    NextAttribute:
-                    ;
                 }
-
-                return true;
             }
 
-            return new ArchitecturePredicate<T>(Predicate, description);
-        }
-
-        public static IPredicate<T> DoNotHaveAttributeWithArguments(
-            [NotNull] Type attribute,
-            IEnumerable<object> argumentValues
-        )
-        {
-            string description;
-            var argumentValueList = argumentValues?.ToList() ?? new List<object> { };
-            if (argumentValueList.IsNullOrEmpty())
-            {
-                description = "do not have attribute \"" + attribute.FullName + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentValueList.First();
-                description = argumentValueList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "do not have attribute \""
-                            + attribute.FullName
-                            + "\" with arguments \""
-                            + firstArgument
-                            + "\"",
-                        (current, argumentValue) => current + " and \"" + argumentValue + "\""
-                    );
-            }
-
-            bool Predicate(T obj, Architecture architecture)
-            {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return true;
-                }
-
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.Equals(archUnitAttribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArguments = attributeInstance
-                        .AttributeArguments.Select(arg => arg.Value)
-                        .ToList();
-                    var typeAttributeArguments = attributeArguments
-                        .OfType<ITypeInstance<IType>>()
-                        .Select(t => t.Type)
-                        .Union(attributeArguments.OfType<IType>())
-                        .ToList();
-                    foreach (var arg in argumentValueList)
-                    {
-                        if (arg is Type argType)
-                        {
-                            if (typeAttributeArguments.All(t => t.FullName != argType.FullName))
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArguments.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return false;
-                    NextAttribute:
-                    ;
-                }
-
-                return true;
-            }
-
+            var description = argumentValueList.FormatDescription(
+                $"do not have attribute \"{attributeFullName}\" with any of no arguments (always true)",
+                $"do not have attribute \"{attributeFullName}\" with argument",
+                $"do not have attribute \"{attributeFullName}\" with arguments"
+            );
             return new ArchitecturePredicate<T>(Predicate, description);
         }
 
         public static IPredicate<T> DoNotHaveAnyAttributesWithNamedArguments(
-            IEnumerable<(string, object)> attributeArguments
+            IEnumerable<(string, object)> namedArguments
         )
         {
-            var argumentList = attributeArguments.ToList();
-            string description;
-            if (argumentList.IsNullOrEmpty())
+            var namedArgumentList =
+                namedArguments as IList<(string, object)> ?? namedArguments.ToList();
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                description = "do not have no or any attributes with named arguments (impossible)";
-            }
-            else
-            {
-                var firstArgument = argumentList.First();
-                description = argumentList
-                    .Where(attribute => attribute != firstArgument)
-                    .Aggregate(
-                        "do not have any attributes with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-            }
-
-            bool Condition(T obj, Architecture architecture)
-            {
-                var attArguments = obj
-                    .AttributeInstances.SelectMany(instance =>
-                        instance
-                            .AttributeArguments.OfType<AttributeNamedArgument>()
-                            .Select(arg => (arg.Name, arg.Value))
-                    )
+                var resolvedNamedArgumentList = namedArgumentList
+                    .ResolveNamedAttributeArgumentTuples(architecture)
                     .ToList();
-                var typeAttributeArguments = attArguments
-                    .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
-                    .ToList();
-                foreach (var arg in argumentList)
+                foreach (var ruleType in ruleTypes)
                 {
-                    if (arg.Item2 is Type argType)
+                    var attArguments = ruleType.GetAllNamedAttributeArgumentTuples().ToList();
+                    if (!resolvedNamedArgumentList.Any(attArguments.Contains))
                     {
-                        if (
-                            typeAttributeArguments.Any(t =>
-                                t.Name == arg.Item1
-                                && (
-                                    t.Value is ITypeInstance<IType> typeInstance
-                                        && typeInstance.Type.FullName == argType.FullName
-                                    || t.Value is IType type && type.FullName == argType.FullName
-                                )
-                            )
-                        )
-                        {
-                            return false;
-                        }
-                    }
-                    else if (attArguments.Contains(arg))
-                    {
-                        return false;
+                        yield return ruleType;
                     }
                 }
-
-                return true;
             }
 
+            var description = namedArgumentList.FormatDescription(
+                "do not have any attributes with any of no named arguments (always true)",
+                "do not have any attributes with named argument",
+                "do not have any attributes with named arguments",
+                elementDescription: arg => $"\"{arg.Item1}={arg.Item2}\""
+            );
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
-            [NotNull] Attribute attribute,
-            IEnumerable<(string, object)> attributeArguments
+            string attributeFullName,
+            [NotNull] Func<Architecture, Attribute> getAttribute,
+            IEnumerable<(string, object)> namedArguments
         )
         {
-            string description;
-            var argumentList = attributeArguments.ToList();
-            if (argumentList.IsNullOrEmpty())
+            var namedArgumentList =
+                namedArguments as IList<(string, object)> ?? namedArguments.ToList();
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
             {
-                description = "do not have attribute \"" + attribute.FullName + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentList.First();
-                description = argumentList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "do not have attribute \""
-                            + attribute.FullName
-                            + "\" with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-            }
-
-            bool Predicate(T obj, Architecture architecture)
-            {
-                foreach (var attributeInstance in obj.AttributeInstances)
+                var resolvedAttribute = getAttribute(architecture);
+                var resolvedNamedArgumentList = namedArgumentList
+                    .ResolveNamedAttributeArgumentTuples(architecture)
+                    .ToList();
+                foreach (var ruleType in ruleTypes)
                 {
-                    if (!attributeInstance.Type.Equals(attribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArgs = attributeInstance
-                        .AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value))
+                    var attArguments = ruleType
+                        .GetAllNamedAttributeArgumentTuples(resolvedAttribute)
                         .ToList();
-                    var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
-                        .ToList();
-                    foreach (var arg in argumentList)
+                    if (!resolvedNamedArgumentList.Any(attArguments.Contains))
                     {
-                        if (arg.Item2 is Type argType)
-                        {
-                            if (
-                                typeAttributeArguments.All(t =>
-                                    t.Name != arg.Item1
-                                    || t.Value is ITypeInstance<IType> typeInstance
-                                        && typeInstance.Type.FullName != argType.FullName
-                                    || t.Value is IType type && type.FullName != argType.FullName
-                                )
-                            )
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArgs.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
+                        yield return ruleType;
                     }
-
-                    return false;
-                    NextAttribute:
-                    ;
                 }
-
-                return true;
             }
 
-            return new ArchitecturePredicate<T>(Predicate, description);
-        }
-
-        public static IPredicate<T> DoNotHaveAttributeWithNamedArguments(
-            [NotNull] Type attribute,
-            IEnumerable<(string, object)> attributeArguments
-        )
-        {
-            string description;
-            var argumentList = attributeArguments.ToList();
-            if (argumentList.IsNullOrEmpty())
-            {
-                description = "do not have attribute \"" + attribute.FullName + "\"";
-            }
-            else
-            {
-                var firstArgument = argumentList.First();
-                description = argumentList
-                    .Where(att => att != firstArgument)
-                    .Aggregate(
-                        "do not have attribute \""
-                            + attribute.FullName
-                            + "\" with named arguments \""
-                            + firstArgument.Item1
-                            + "="
-                            + firstArgument.Item2
-                            + "\"",
-                        (current, arg) => current + " and \"" + arg.Item1 + "=" + arg.Item2 + "\""
-                    );
-            }
-
-            bool Predicate(T obj, Architecture architecture)
-            {
-                Attribute archUnitAttribute;
-                try
-                {
-                    archUnitAttribute = architecture.GetAttributeOfType(attribute);
-                }
-                catch (TypeDoesNotExistInArchitecture)
-                {
-                    //can't have a dependency
-                    return true;
-                }
-
-                foreach (var attributeInstance in obj.AttributeInstances)
-                {
-                    if (!attributeInstance.Type.Equals(archUnitAttribute))
-                    {
-                        goto NextAttribute;
-                    }
-
-                    var attributeArgs = attributeInstance
-                        .AttributeArguments.OfType<AttributeNamedArgument>()
-                        .Select(arg => (arg.Name, arg.Value))
-                        .ToList();
-                    var typeAttributeArguments = attributeArgs
-                        .Where(arg => arg.Value is ITypeInstance<IType> || arg.Value is IType)
-                        .ToList();
-                    foreach (var arg in argumentList)
-                    {
-                        if (arg.Item2 is Type argType)
-                        {
-                            if (
-                                typeAttributeArguments.All(t =>
-                                    t.Name != arg.Item1
-                                    || t.Value is ITypeInstance<IType> typeInstance
-                                        && typeInstance.Type.FullName != argType.FullName
-                                    || t.Value is IType type && type.FullName != argType.FullName
-                                )
-                            )
-                            {
-                                goto NextAttribute;
-                            }
-                        }
-                        else if (!attributeArgs.Contains(arg))
-                        {
-                            goto NextAttribute;
-                        }
-                    }
-
-                    return false;
-                    NextAttribute:
-                    ;
-                }
-
-                return true;
-            }
-
-            return new ArchitecturePredicate<T>(Predicate, description);
+            var description = namedArgumentList.FormatDescription(
+                $"do not have attribute \"{attributeFullName}\" with any of no named arguments (always true)",
+                $"do not have attribute \"{attributeFullName}\" with named argument",
+                $"do not have attribute \"{attributeFullName}\" with named arguments",
+                elementDescription: arg => $"\"{arg.Item1}={arg.Item2}\""
+            );
+            return new ArchitecturePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> DoNotHaveName(string name)

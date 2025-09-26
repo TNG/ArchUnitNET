@@ -2,25 +2,13 @@
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
@@ -28,25 +16,13 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
@@ -54,25 +30,13 @@ All Evaluations passed
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.TypeArgument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
@@ -82,25 +46,13 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
@@ -108,25 +60,13 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
@@ -134,25 +74,13 @@ All Evaluations passed
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
@@ -162,114 +90,60 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.UnusedAttribute"
 
 
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with arguments "AttributeNamespace.TypeArgument1"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.UnusedAttribute" with argument "AttributeNamespace.TypeArgument1"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 
 
@@ -278,114 +152,60 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does only have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1" and "AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does only have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1" and "AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does only have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1" and "AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does only have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1" and "AttributeNamespace.TypeArgument1"
 
 
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "AttributeNamespace.UnusedTypeArgument"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "AttributeNamespace.UnusedTypeArgument"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 
 
@@ -394,114 +214,60 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does only have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1" and "AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "Argument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does only have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1" and "AttributeNamespace.TypeArgument1"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does only have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1" and "AttributeNamespace.TypeArgument1"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "Argument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does only have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1" and "AttributeNamespace.TypeArgument1"
 
 
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument2"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "Argument2"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
 
 
@@ -510,98 +276,18 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"
-
-
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "TypeDependencyNamespace.BaseClass" with argument "Argument1"
+Exception: Type TypeDependencyNamespace.BaseClass does not exist in provided architecture or is no attribute.
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"
-
-
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "TypeDependencyNamespace.BaseClass" with argument "Argument1"
+Exception: Type TypeDependencyNamespace.BaseClass does not exist in provided architecture or is no attribute.
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "TypeDependencyNamespace.BaseClass" with arguments "Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does exist
-
-
-
-===== Null argument =====
-
------ Conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments ""
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments ""
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments """ failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments ""
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments ""
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments ""
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments """ failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute1" with arguments ""
-
-
-
------ Predicates -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments ""
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments ""
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments """ failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments ""
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments ""
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments ""
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments """ failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute1" with arguments ""
-
-
-
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments ""
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments """ failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments ""
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments """ failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
-
-
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "TypeDependencyNamespace.BaseClass" with argument "Argument1"
+Exception: Type TypeDependencyNamespace.BaseClass does not exist in provided architecture or is no attribute.
 
 ===== Empty arguments =====
 
@@ -663,18 +349,6 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
 ----- Predicates -----
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1"
@@ -689,31 +363,7 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
 ----- Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1" and "1"
 Result: True
@@ -731,7 +381,7 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have attribute "AttributeNamespace.Attribute1" with argument "Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Result: True
@@ -739,20 +389,20 @@ Description: AttributeNamespace.ClassWithTwoAttributesWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have attribute "AttributeNamespace.Attribute2" with arguments "2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have attribute "AttributeNamespace.Attribute2" with argument "2"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute2" with arguments "2"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute2"
 Result: True
 Description: AttributeNamespace.ClassWithTwoAttributesWithArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have attribute "AttributeNamespace.Attribute2" with arguments "2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute2" with arguments "2"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should have attribute "AttributeNamespace.Attribute2" with argument "2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does not have attribute "AttributeNamespace.Attribute2"
 
 
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with argument "Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Result: True
@@ -760,20 +410,20 @@ Description: AttributeNamespace.ClassWithTwoAttributesWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be Types that have attribute "AttributeNamespace.Attribute2" with arguments "2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be Types that have attribute "AttributeNamespace.Attribute2" with argument "2"
 Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute2" with arguments "2"
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute2" with argument "2"
 Result: True
 Description: AttributeNamespace.ClassWithTwoAttributesWithArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be Types that have attribute "AttributeNamespace.Attribute2" with arguments "2"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute2" with arguments "2"
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be Types that have attribute "AttributeNamespace.Attribute2" with argument "2"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that have attribute "AttributeNamespace.Attribute2" with argument "2"
 
 
 
 ----- Predicates as conditions -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with arguments "Argument1"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be types that have attribute "AttributeNamespace.Attribute1" with argument "Argument1"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Result: True
@@ -781,13 +431,13 @@ Description: AttributeNamespace.ClassWithTwoAttributesWithArguments passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be types that have attribute "AttributeNamespace.Attribute2" with arguments "2"
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be types that have attribute "AttributeNamespace.Attribute2" with argument "2"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.ClassWithTwoAttributesWithArguments" or "AttributeNamespace.ClassWithThreeAttributesWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 Result: True
 Description: AttributeNamespace.ClassWithTwoAttributesWithArguments passed
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be types that have attribute "AttributeNamespace.Attribute2" with arguments "2"" failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be types that have attribute "AttributeNamespace.Attribute2" with argument "2"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.ClassWithTwoAttributesWithArguments" or "AttributeNamespace.ClassWithThreeAttributesWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 
 
