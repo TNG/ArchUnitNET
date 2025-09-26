@@ -1,21 +1,27 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
     "group:allNonMajor"
   ],
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^\\.github/workflows/.+?\\.yaml$"],
-      "matchStrings": ["dotnet-version: (?<currentValue>.+?)\\s"],
+      "managerFilePatterns": [
+        "/^\\.github/workflows/.+?\\.yaml$/"
+      ],
+      "matchStrings": [
+        "dotnet-version: (?<currentValue>.+?)\\s"
+      ],
       "datasourceTemplate": "dotnet-version",
       "depNameTemplate": "dotnet-sdk",
       "depTypeTemplate": "action"
     },
     {
       "customType": "regex",
-      "fileMatch": ["(^|/|\\.).*(csproj|pubxml)$"],
+      "managerFilePatterns": [
+        "/(^|/|\\.).*(csproj|pubxml)$/"
+      ],
       "matchStrings": [
         "<TargetFramework>net(?<currentValue>[^<]*)</TargetFramework>"
       ],
@@ -26,7 +32,9 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["nuget"],
+      "matchManagers": [
+        "nuget"
+      ],
       "matchFileNames": [
         "ArchUnitNET.MSTestV2/ArchUnitNET.MSTestV2.csproj",
         "ArchUnitNET.NUnit/ArchUnitNET.NUnit.csproj",
@@ -34,12 +42,21 @@
         "ArchUnitNET.xUnitV3/ArchUnitNET.xUnitV3.csproj",
         "ArchUnitNET.TUnit/ArchUnitNET.TUnit.csproj"
       ],
-      "matchPackagePrefixes": ["xunit", "nunit", "NUnit", "MSTest", "TUnit"],
-      "matchPackageNames": ["Microsoft.NET.Test.Sdk", "JetBrains.Annotations"],
+      "matchPackageNames": [
+        "Microsoft.NET.Test.Sdk",
+        "JetBrains.Annotations",
+        "xunit{/,}**",
+        "nunit{/,}**",
+        "NUnit{/,}**",
+        "MSTest{/,}**",
+        "TUnit{/,}**"
+      ],
       "enabled": false
     },
     {
-      "matchDepNames": ["dotnet-sdk"],
+      "matchDepNames": [
+        "dotnet-sdk"
+      ],
       "groupName": "dotnet version"
     }
   ]
