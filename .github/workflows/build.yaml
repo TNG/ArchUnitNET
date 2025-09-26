@@ -21,7 +21,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
-          dotnet-version: 9.0.304
+          dotnet-version: 9.0.305
       - name: Install tools
         run: dotnet tool restore
       - name: Check formatting
@@ -35,7 +35,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
-          dotnet-version: 9.0.304
+          dotnet-version: 9.0.305
       - name: Run tests
         run: dotnet test -c Debug --collect:"XPlat Code Coverage" --settings coverlet.runsettings ArchUnitNETTests/
       - name: Upload coverage reports to Codecov
@@ -54,7 +54,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
-          dotnet-version: 9.0.304
+          dotnet-version: 9.0.305
       - name: Run tests
         run: dotnet test -c Debug
   publish-docs:
@@ -140,7 +140,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
-          dotnet-version: 9.0.304
+          dotnet-version: 9.0.305
       - name: Build
         run: dotnet build -c Release
       - name: Pack
