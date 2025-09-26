@@ -1,6 +1,7 @@
+using FilteredDirectoryUnavailableTypesAssembly;
 using Serilog;
 
-[assembly: FilteredDirectoryAssemblyAttributeAssembly.AssemblyAttribute]
+[assembly: Assembly]
 
 namespace FilteredDirectoryLoaderTestAssembly;
 
@@ -13,3 +14,8 @@ public class Class1
         this.logger = new LoggerConfiguration().CreateLogger();
     }
 }
+
+public class DerivedAttribute : BaseAttribute { }
+
+[Derived]
+public class ClassWithDerivedAttribute { }

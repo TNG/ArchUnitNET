@@ -21,9 +21,12 @@ namespace ArchUnitNET.Loader
                 attributeTypeReference
             );
             var attribute = attributeType.Type as Attribute;
-            if (attributeType.Type is UnavailableType unavailableType)
+            if (
+                attribute == null
+                && (attributeType.Type is UnavailableType || attributeType.Type is Class)
+            )
             {
-                attribute = new Attribute(unavailableType, null, null);
+                attribute = new Attribute(attributeType.Type, null, null);
             }
             if (attribute == null)
             {
