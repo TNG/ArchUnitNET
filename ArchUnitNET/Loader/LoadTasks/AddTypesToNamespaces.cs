@@ -4,20 +4,21 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class AddTypesToNamespace : ILoadTask
+    internal class AddTypesToNamespaces : ILoadTask
     {
-        private readonly Namespace _ns;
         private readonly List<IType> _types;
 
-        public AddTypesToNamespace(Namespace ns, List<IType> types)
+        public AddTypesToNamespaces(List<IType> types)
         {
-            _ns = ns;
             _types = types;
         }
 
         public void Execute()
         {
-            ((List<IType>)_ns.Types).AddRange(_types.Where(type => type.Namespace.Equals(_ns)));
+            foreach (var type in _types)
+            {
+                ((List<IType>)type.Namespace.Types).Add(type);
+            }
         }
     }
 }
