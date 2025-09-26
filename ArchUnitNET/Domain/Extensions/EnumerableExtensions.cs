@@ -62,5 +62,25 @@ namespace ArchUnitNET.Domain.Extensions
                 (arg.Item1, arg.Item2 is Type type ? architecture.GetITypeOfType(type) : arg.Item2)
             );
         }
+
+        /// <summary>
+        ///   Creates a lookup function for the given collection of elements.
+        ///   For smaller collections, it uses the Contains method of the collection directly.
+        ///   For larger collections, it creates a HashSet for O(1) average time complexity lookups.
+        /// </summary>
+        ///
+        /// <typeparam name="T">The type of elements in the collection.</typeparam>
+        ///
+        /// <param name="elements">The collection of elements to create a lookup function for.</param>
+        ///
+        /// <returns>A function that checks if an element is in the collection.</returns>
+        public static Func<T, bool> CreateLookupFn<T>(ICollection<T> elements)
+        {
+            if (elements.Count < 20)
+            {
+                return elements.Contains;
+            }
+            return new HashSet<T>(elements).Contains;
+        }
     }
 }

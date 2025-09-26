@@ -42,7 +42,7 @@ namespace ArchUnitNET.Domain
             return FullName;
         }
 
-        private bool Equals(Struct other)
+        private bool Equals(UnavailableType other)
         {
             return Equals(Type, other.Type);
         }
