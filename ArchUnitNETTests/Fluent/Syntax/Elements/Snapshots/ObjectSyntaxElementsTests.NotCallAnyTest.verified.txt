@@ -159,6 +159,12 @@ Description: System.Void MethodDependencyNamespace.MethodDependencyClass::Method
 Message: 
 All Evaluations passed
 
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should not call any of no methods (always true)
+Result: True
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency() passed
+Message: 
+All Evaluations passed
+
 ----- Predicates -----
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithSingleDependency()" should be Method members that do not call any of no methods (always true)

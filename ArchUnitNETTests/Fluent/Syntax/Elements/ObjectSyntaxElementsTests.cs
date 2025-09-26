@@ -648,7 +648,7 @@ public class ObjectSyntaxElementsTests
         should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
-        should.HaveAnyAttributes();
+        should.HaveAnyAttributes().AssertOnlyViolations(helper);
         should.HaveAnyAttributes(new List<Attribute>()).AssertOnlyViolations(helper);
         should.HaveAnyAttributes(new List<System.Type>()).AssertOnlyViolations(helper);
         should.HaveAnyAttributes(Attributes().That().HaveFullName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
@@ -1650,7 +1650,7 @@ public class ObjectSyntaxElementsTests
         should = MethodMembers().That().Are(helper.MethodWithSingleDependency).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
-        should.NotCallAny();
+        should.NotCallAny().AssertNoViolations(helper);
         should.NotCallAny(new List<MethodMember>()).AssertNoViolations(helper);
 
         helper.AddSnapshotSubHeader("Predicates");

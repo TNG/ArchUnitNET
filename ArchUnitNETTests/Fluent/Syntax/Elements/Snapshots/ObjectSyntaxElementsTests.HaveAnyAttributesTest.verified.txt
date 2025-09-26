@@ -261,6 +261,15 @@ Message:
 
 
 
+Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should have any of no attributes (impossible)
+Result: False
+Description: AttributeNamespace.ClassWithTwoAttributes only has attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+Message: 
+"Types that are "AttributeNamespace.ClassWithTwoAttributes" should have any of no attributes (impossible)" failed:
+	AttributeNamespace.ClassWithTwoAttributes only has attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
+
+
+
 Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should have any Attributes that have full name "NotTheNameOfAnyObject"
 Result: False
 Description: AttributeNamespace.ClassWithTwoAttributes only has attributes "AttributeNamespace.Attribute1" and "AttributeNamespace.Attribute2"
