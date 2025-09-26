@@ -6,6 +6,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj" />
     <ProjectReference Include="..\TestAssemblies\InterfaceAssembly\InterfaceAssembly.csproj" />
@@ -37,18 +40,19 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Dependencies\cpplib\CppDllTest.dll">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <None Update="Domain\PlantUml\zzz_test_version_with_errors.puml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dependencies\cpplib\" />
     <Folder Include="Fluent\Syntax\Elements\Snapshots\" />
   </ItemGroup>
-  <ItemGroup>
+  <!-- Windows-only C++/CLI dependency -->
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+    <None Update="Dependencies\cpplib\CppDllTest.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <Folder Include="Dependencies\cpplib\" />
     <Reference Include="CppDllTest">
       <HintPath>Dependencies\cpplib\CppDllTest.dll</HintPath>
     </Reference>
