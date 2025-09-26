@@ -31,14 +31,14 @@ namespace ArchUnitNET.MSTestV2Tests
         public void ArchRuleAssertTest()
         {
             ArchRuleAssert.FulfilsRule(_architecture, _trueRule);
-            Assert.ThrowsException<AssertFailedException>(() =>
+            Assert.ThrowsExactly<AssertFailedException>(() =>
                 ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
             );
             Assert.AreEqual(
                 _expectedErrorMessage,
                 RemoveAssertionText(
                     Assert
-                        .ThrowsException<AssertFailedException>(() =>
+                        .ThrowsExactly<AssertFailedException>(() =>
                             ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
                         )
                         .Message
@@ -51,15 +51,13 @@ namespace ArchUnitNET.MSTestV2Tests
         {
             _architecture.CheckRule(_trueRule);
             _trueRule.Check(_architecture);
-            Assert.ThrowsException<AssertFailedException>(() =>
-                _architecture.CheckRule(_falseRule)
-            );
-            Assert.ThrowsException<AssertFailedException>(() => _falseRule.Check(_architecture));
+            Assert.ThrowsExactly<AssertFailedException>(() => _architecture.CheckRule(_falseRule));
+            Assert.ThrowsExactly<AssertFailedException>(() => _falseRule.Check(_architecture));
             Assert.AreEqual(
                 _expectedErrorMessage,
                 RemoveAssertionText(
                     Assert
-                        .ThrowsException<AssertFailedException>(() =>
+                        .ThrowsExactly<AssertFailedException>(() =>
                             _architecture.CheckRule(_falseRule)
                         )
                         .Message
@@ -69,9 +67,7 @@ namespace ArchUnitNET.MSTestV2Tests
                 _expectedErrorMessage,
                 RemoveAssertionText(
                     Assert
-                        .ThrowsException<AssertFailedException>(() =>
-                            _falseRule.Check(_architecture)
-                        )
+                        .ThrowsExactly<AssertFailedException>(() => _falseRule.Check(_architecture))
                         .Message
                 )
             );
