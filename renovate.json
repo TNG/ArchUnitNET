@@ -30,9 +30,11 @@
       "matchFileNames": [
         "ArchUnitNET.MSTestV2/ArchUnitNET.MSTestV2.csproj",
         "ArchUnitNET.NUnit/ArchUnitNET.NUnit.csproj",
-        "ArchUnitNET.XUnit/ArchUnitNET.XUnit.csproj"
+        "ArchUnitNET.xUnit/ArchUnitNET.xUnit.csproj",
+        "ArchUnitNET.xUnitV3/ArchUnitNET.xUnitV3.csproj",
+        "ArchUnitNET.TUnit/ArchUnitNET.TUnit.csproj"
       ],
-      "matchPackagePrefixes": ["xunit", "nunit", "NUnit", "MSTest"],
+      "matchPackagePrefixes": ["xunit", "nunit", "NUnit", "MSTest", "TUnit"],
       "matchPackageNames": ["Microsoft.NET.Test.Sdk", "JetBrains.Annotations"],
       "enabled": false
     },
