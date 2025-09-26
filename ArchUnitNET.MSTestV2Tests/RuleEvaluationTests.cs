@@ -51,7 +51,8 @@ namespace ArchUnitNET.MSTestV2Tests
         {
             _architecture.CheckRule(_trueRule);
             _trueRule.Check(_architecture);
-            Assert.ThrowsException<AssertFailedException>(() => _architecture.CheckRule(_falseRule)
+            Assert.ThrowsException<AssertFailedException>(() =>
+                _architecture.CheckRule(_falseRule)
             );
             Assert.ThrowsException<AssertFailedException>(() => _falseRule.Check(_architecture));
             Assert.AreEqual(

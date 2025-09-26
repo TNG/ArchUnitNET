@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageReference Include="TUnit" Version="0.52.51" />
+    <PackageReference Include="TUnit" Version="0.61.39" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArchUnitNET.TUnit\ArchUnitNET.TUnit.csproj" />
