@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
+using Mono.Cecil;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Extensions;
-using Mono.Cecil;
 using static System.IO.SearchOption;
 using Assembly = System.Reflection.Assembly;
 
@@ -14,14 +14,51 @@ namespace ArchUnitNET.Loader
     {
         private readonly ArchBuilder _archBuilder = new ArchBuilder();
         private DotNetCoreAssemblyResolver _assemblyResolver = new DotNetCoreAssemblyResolver();
-
+        private ArchLoaderCacheConfig _cacheConfig = new ArchLoaderCacheConfig();
+        private readonly List<string> _loadedAssemblyPaths = new List<string>();
         public Architecture Build()
         {
-            var architecture = _archBuilder.Build();
+            var architecture = _archBuilder.Build(_loadedAssemblyPaths, _cacheConfig);
             _assemblyResolver.Dispose();
             _assemblyResolver = new DotNetCoreAssemblyResolver();
 
             return architecture;
+        }
+
+        /// <summary>
+        /// Configure caching behavior for this ArchLoader instance
+        /// </summary>
+        /// <param name="config">Cache configuration</param>
+        /// <returns>This ArchLoader instance for fluent API</returns>
+        public ArchLoader WithCacheConfig(ArchLoaderCacheConfig config)
+        {
+            if (config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
+            _cacheConfig = config.Clone();
+            return this;
+        }
+
+        /// <summary>
+        /// Disable caching for this ArchLoader instance
+        /// </summary>
+        /// <returns>This ArchLoader instance for fluent API</returns>
+        public ArchLoader WithoutCaching()
+        {
+            _cacheConfig = new ArchLoaderCacheConfig { CachingEnabled = false };
+            return this;
+        }
+
+        /// <summary>
+        /// Set a user-defined cache key for fine-grained cache control
+        /// </summary>
+        /// <param name="userCacheKey">Custom cache key</param>
+        /// <returns>This ArchLoader instance for fluent API</returns>
+        public ArchLoader WithUserCacheKey(string userCacheKey)
+        {
+            _cacheConfig.UserCacheKey = userCacheKey;
+            return this;
         }
 
         public ArchLoader LoadAssemblies(params Assembly[] assemblies)
@@ -121,6 +158,15 @@ namespace ArchUnitNET.Loader
         {
             try
             {
+                if (!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
+                {
+                    var fullPath = Path.GetFullPath(fileName);
+                    if (!_loadedAssemblyPaths.Contains(fullPath))
+                    {
+                        _loadedAssemblyPaths.Add(fullPath);
+                    }
+                }
+
                 var module = ModuleDefinition.ReadModule(
                     fileName,
                     new ReaderParameters { AssemblyResolver = _assemblyResolver }
