@@ -47,20 +47,26 @@ namespace ArchUnitNET.Domain
             return Equals(Type, other.Type);
         }
 
-        public override bool Equals(object obj)
+        public bool Equals(UnavailableType other)
         {
-            if (ReferenceEquals(null, obj))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(this, obj))
+            if (ReferenceEquals(this, other))
             {
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((UnavailableType)obj);
+            return Type.Equals(other.Type);
         }
+        
+        public override bool Equals(object obj)
+        {
+            return obj is UnavailableType unavailableType
+                   && Equals(unavailableType);
+        } 
 
         public override int GetHashCode()
         {

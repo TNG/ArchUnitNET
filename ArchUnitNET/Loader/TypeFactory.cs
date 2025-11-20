@@ -347,7 +347,7 @@ namespace ArchUnitNET.Loader
         )
         {
             var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
-                typeReference.Module.Assembly.FullName,
+                typeReference.Scope.Name,
                 typeReference.BuildFullName()
             );
             if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
@@ -361,8 +361,8 @@ namespace ArchUnitNET.Loader
                         typeReference.BuildFullName(),
                         typeReference.Name,
                         _assemblyRegistry.GetOrCreateAssembly(
-                            typeReference.Module.Assembly.Name.Name,
-                            typeReference.Module.Assembly.FullName,
+                            typeReference.Scope.Name,
+                            typeReference.Scope.ToString(),
                             true,
                             null
                         ),
