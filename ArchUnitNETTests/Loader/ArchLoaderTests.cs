@@ -131,8 +131,8 @@ namespace ArchUnitNETTests.Loader
         public void UnavailableTypeTest()
         {
             // When loading an assembly from a file, there are situations where the assemblies dependencies are not
-            // available in the current AppDomain. This test checks that the loader does not throw an exception in this
-            // case.
+            // available in the current AppDomain. This test checks that the loader does not throw an exception
+            // and that the unavailable types contain the correct assembly they come from.
             var currentAssemblyPath = AppDomain.CurrentDomain.BaseDirectory[
                 ..AppDomain.CurrentDomain.BaseDirectory.IndexOf(
                     @"ArchUnitNETTests",
@@ -153,6 +153,7 @@ namespace ArchUnitNETTests.Loader
             var loggerType = architecture.ReferencedTypes.WhereFullNameIs("Serilog.ILogger");
             Assert.NotNull(loggerType);
             Assert.True(loggerType is UnavailableType);
+            Assert.Equal("Serilog", loggerType.Assembly.Name);
         }
     }
 }
