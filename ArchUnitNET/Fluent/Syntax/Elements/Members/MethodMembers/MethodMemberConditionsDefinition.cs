@@ -30,7 +30,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public static ICondition<MethodMember> BeVirtual()
         {
-            return new SimpleCondition<MethodMember>(member => member.IsVirtual, "be virtual", "is not virtual");
+            return new SimpleCondition<MethodMember>(
+                member => member.IsVirtual,
+                "be virtual",
+                "is not virtual"
+            );
         }
 
         public static ICondition<MethodMember> BeCalledBy(IType firstType, params IType[] moreTypes)
@@ -49,7 +53,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public static ICondition<MethodMember> BeCalledBy(IObjectProvider<IType> objectProvider)
         {
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
@@ -134,7 +141,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             var typeList = types.ToList();
             var firstType = typeList.First();
 
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var archUnitTypeList = new List<IType>();
                 foreach (var type in typeList)
@@ -152,7 +162,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
-                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(archUnitTypeList).Any())
+                    .Where(methodMember =>
+                        methodMember.GetCallingTypes().Intersect(archUnitTypeList).Any()
+                    )
                     .ToList();
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
@@ -200,23 +212,34 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes)
+        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return HaveDependencyInMethodBodyTo(types);
         }
 
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(Type firstType, params Type[] moreTypes)
+        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return HaveDependencyInMethodBodyTo(types);
         }
 
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(IObjectProvider<IType> objectProvider)
+        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
+            IObjectProvider<IType> objectProvider
+        )
         {
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
@@ -229,7 +252,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                             .Any()
                     )
                     .ToList();
-                var failDescription = "does not have dependencies in method body to " + objectProvider.Description;
+                var failDescription =
+                    "does not have dependencies in method body to " + objectProvider.Description;
                 foreach (var failedObject in methodMemberList.Except(passedObjects))
                 {
                     yield return new ConditionResult(failedObject, false, failDescription);
@@ -245,7 +269,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(IEnumerable<IType> types)
+        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
+            IEnumerable<IType> types
+        )
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -265,7 +291,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
                 {
-                    failDescription = "does not have dependencies in method body to one of no types (always true)";
+                    failDescription =
+                        "does not have dependencies in method body to one of no types (always true)";
                 }
                 else
                 {
@@ -273,7 +300,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         .Where(type => !type.Equals(firstType))
                         .Distinct()
                         .Aggregate(
-                            "does not have dependencies in method body to \"" + firstType.FullName + "\"",
+                            "does not have dependencies in method body to \""
+                                + firstType.FullName
+                                + "\"",
                             (current, type) => current + " or \"" + type.FullName + "\""
                         );
                 }
@@ -313,7 +342,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             var typeList = types.ToList();
             var firstType = typeList.First();
 
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var archUnitTypeList = new List<IType>();
                 foreach (var type in typeList)
@@ -342,7 +374,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
                 {
-                    failDescription = "does not have dependencies in method body to one of no types (always true)";
+                    failDescription =
+                        "does not have dependencies in method body to one of no types (always true)";
                 }
                 else
                 {
@@ -350,7 +383,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         .Where(type => type != firstType)
                         .Distinct()
                         .Aggregate(
-                            "does not have dependencies in method body to \"" + firstType.FullName + "\"",
+                            "does not have dependencies in method body to \""
+                                + firstType.FullName
+                                + "\"",
                             (current, type) => current + " or \"" + type.FullName + "\""
                         );
                 }
@@ -385,7 +420,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
-        public static ICondition<MethodMember> HaveReturnType(IType firstType, params IType[] moreTypes)
+        public static ICondition<MethodMember> HaveReturnType(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
@@ -396,7 +434,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             var typeList = types.ToList();
             var typeStringList = typeList.Select(type => type.FullName).ToList();
-            var description = "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+            var description =
+                "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             bool Condition(MethodMember member)
             {
@@ -412,12 +451,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public static ICondition<MethodMember> HaveReturnType(IObjectProvider<IType> types)
         {
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var typeList = types.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
-                    .Where(methodMember => typeList.Any(type => methodMember.ReturnType.FullNameEquals(type.FullName)))
+                    .Where(methodMember =>
+                        typeList.Any(type => methodMember.ReturnType.FullNameEquals(type.FullName))
+                    )
                     .ToList();
                 foreach (var failedObject in methodMemberList.Except(passedObjects))
                 {
@@ -438,7 +482,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
-        public static ICondition<MethodMember> HaveReturnType(Type firstType, params Type[] moreTypes)
+        public static ICondition<MethodMember> HaveReturnType(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
@@ -449,7 +496,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             var typeList = types.ToList();
             var typeStringList = typeList.Select(type => type.ToString()).ToList();
-            var description = "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+            var description =
+                "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             bool Condition(MethodMember member)
             {
@@ -476,17 +524,27 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public static ICondition<MethodMember> NotBeVirtual()
         {
-            return new SimpleCondition<MethodMember>(member => !member.IsVirtual, "not be virtual", "is virtual");
+            return new SimpleCondition<MethodMember>(
+                member => !member.IsVirtual,
+                "not be virtual",
+                "is virtual"
+            );
         }
 
-        public static ICondition<MethodMember> NotBeCalledBy(IType firstType, params IType[] moreTypes)
+        public static ICondition<MethodMember> NotBeCalledBy(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return NotBeCalledBy(types);
         }
 
-        public static ICondition<MethodMember> NotBeCalledBy(Type firstType, params Type[] moreTypes)
+        public static ICondition<MethodMember> NotBeCalledBy(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
@@ -495,7 +553,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public static ICondition<MethodMember> NotBeCalledBy(IObjectProvider<IType> objectProvider)
         {
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
@@ -580,7 +641,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             var typeList = types.ToList();
             var firstType = typeList.First();
 
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var archUnitTypeList = new List<IType>();
                 foreach (var type in typeList)
@@ -598,7 +662,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
                 var methodMemberList = methodMembers.ToList();
                 var failedObjects = methodMemberList
-                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(archUnitTypeList).Any())
+                    .Where(methodMember =>
+                        methodMember.GetCallingTypes().Intersect(archUnitTypeList).Any()
+                    )
                     .ToList();
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
@@ -656,16 +722,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return NotHaveDependencyInMethodBodyTo(types);
         }
 
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(Type firstType, params Type[] moreTypes)
+        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return NotHaveDependencyInMethodBodyTo(types);
         }
 
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(IObjectProvider<IType> objectProvider)
+        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+            IObjectProvider<IType> objectProvider
+        )
         {
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
@@ -678,7 +752,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                             .Any()
                     )
                     .ToList();
-                var failDescription = "does have dependencies in method body to " + objectProvider.Description;
+                var failDescription =
+                    "does have dependencies in method body to " + objectProvider.Description;
                 foreach (var failedObject in failedObjects)
                 {
                     yield return new ConditionResult(failedObject, false, failDescription);
@@ -690,11 +765,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 }
             }
 
-            var description = "not have dependencies in method body to " + objectProvider.Description;
+            var description =
+                "not have dependencies in method body to " + objectProvider.Description;
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(IEnumerable<IType> types)
+        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+            IEnumerable<IType> types
+        )
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -714,7 +792,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
                 {
-                    failDescription = "does have dependencies in method body to one of no types (always false)";
+                    failDescription =
+                        "does have dependencies in method body to one of no types (always false)";
                 }
                 else
                 {
@@ -722,7 +801,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         .Where(type => !Equals(type, firstType))
                         .Distinct()
                         .Aggregate(
-                            "does have dependencies in method body to \"" + firstType.FullName + "\"",
+                            "does have dependencies in method body to \""
+                                + firstType.FullName
+                                + "\"",
                             (current, type) => current + " or \"" + type.FullName + "\""
                         );
                 }
@@ -741,7 +822,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             string description;
             if (typeList.IsNullOrEmpty())
             {
-                description = "not have dependencies in method body to one of no types (always true)";
+                description =
+                    "not have dependencies in method body to one of no types (always true)";
             }
             else
             {
@@ -757,12 +839,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new EnumerableCondition<MethodMember>(Condition, description);
         }
 
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(IEnumerable<Type> types)
+        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+            IEnumerable<Type> types
+        )
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
 
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var archUnitTypeList = new List<IType>();
                 foreach (var type in typeList)
@@ -791,7 +878,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 string failDescription;
                 if (typeList.IsNullOrEmpty())
                 {
-                    failDescription = "does have dependencies in method body to one of no types (always false)";
+                    failDescription =
+                        "does have dependencies in method body to one of no types (always false)";
                 }
                 else
                 {
@@ -799,7 +887,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         .Where(type => type != firstType)
                         .Distinct()
                         .Aggregate(
-                            "does have dependencies in method body to \"" + firstType.FullName + "\"",
+                            "does have dependencies in method body to \""
+                                + firstType.FullName
+                                + "\"",
                             (current, type) => current + " or \"" + type.FullName + "\""
                         );
                 }
@@ -818,7 +908,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             string description;
             if (typeList.IsNullOrEmpty())
             {
-                description = "not have dependencies in method body to one of no types (always true)";
+                description =
+                    "not have dependencies in method body to one of no types (always true)";
             }
             else
             {
@@ -834,7 +925,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
-        public static ICondition<MethodMember> NotHaveReturnType(IType firstType, params IType[] moreTypes)
+        public static ICondition<MethodMember> NotHaveReturnType(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
@@ -845,7 +939,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             var typeList = types.ToList();
             var typeStringList = typeList.Select(type => type.FullName).ToList();
-            var description = "not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+            var description =
+                "not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             bool Condition(MethodMember member)
             {
@@ -861,12 +956,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public static ICondition<MethodMember> NotHaveReturnType(IObjectProvider<IType> types)
         {
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers, Architecture architecture)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
                 var typeList = types.GetObjects(architecture).ToList();
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
-                    .Where(methodMember => typeList.All(type => !methodMember.ReturnType.FullNameEquals(type.FullName)))
+                    .Where(methodMember =>
+                        typeList.All(type => !methodMember.ReturnType.FullNameEquals(type.FullName))
+                    )
                     .ToList();
                 foreach (var failedObject in methodMemberList.Except(passedObjects))
                 {
@@ -887,7 +987,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new ArchitectureCondition<MethodMember>(Condition, description);
         }
 
-        public static ICondition<MethodMember> NotHaveReturnType(Type firstType, params Type[] moreTypes)
+        public static ICondition<MethodMember> NotHaveReturnType(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
@@ -898,7 +1001,8 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             var typeList = types.ToList();
             var typeStringList = typeList.Select(type => type.ToString()).ToList();
-            var description = "not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
+            var description =
+                "not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
             bool Condition(MethodMember member)
             {

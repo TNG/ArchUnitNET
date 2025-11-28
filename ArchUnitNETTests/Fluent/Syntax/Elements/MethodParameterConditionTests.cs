@@ -82,7 +82,9 @@ public class MethodParameterConditionTests
     {
         var rule = MethodMembers()
             .That()
-            .AreDeclaredIn(Classes().That().HaveName(nameof(ClassWithOnlyParameterizedConstructors)))
+            .AreDeclaredIn(
+                Classes().That().HaveName(nameof(ClassWithOnlyParameterizedConstructors))
+            )
             .And()
             .AreConstructors()
             .Should()
@@ -96,7 +98,9 @@ public class MethodParameterConditionTests
     {
         var rule = MethodMembers()
             .That()
-            .AreDeclaredIn(Classes().That().HaveName(nameof(ClassWithPublicParameterlessConstructor)))
+            .AreDeclaredIn(
+                Classes().That().HaveName(nameof(ClassWithPublicParameterlessConstructor))
+            )
             .And()
             .AreConstructors()
             .And()
@@ -112,7 +116,9 @@ public class MethodParameterConditionTests
     {
         var rule = MethodMembers()
             .That()
-            .AreDeclaredIn(Classes().That().HaveName(nameof(ClassWithPrivateParameterlessConstructor)))
+            .AreDeclaredIn(
+                Classes().That().HaveName(nameof(ClassWithPrivateParameterlessConstructor))
+            )
             .And()
             .AreConstructors()
             .And()
@@ -128,7 +134,9 @@ public class MethodParameterConditionTests
     {
         var rule = MethodMembers()
             .That()
-            .AreDeclaredIn(Classes().That().HaveName(nameof(ClassWithPrivateParameterlessConstructor)))
+            .AreDeclaredIn(
+                Classes().That().HaveName(nameof(ClassWithPrivateParameterlessConstructor))
+            )
             .And()
             .AreConstructors()
             .And()
@@ -160,7 +168,9 @@ public class MethodParameterConditionTests
     {
         var rule = MethodMembers()
             .That()
-            .AreDeclaredIn(Classes().That().HaveName(nameof(ClassWithOnlyParameterizedConstructors)))
+            .AreDeclaredIn(
+                Classes().That().HaveName(nameof(ClassWithOnlyParameterizedConstructors))
+            )
             .And()
             .AreConstructors()
             .Should()
@@ -174,7 +184,9 @@ public class MethodParameterConditionTests
     {
         var rule = MethodMembers()
             .That()
-            .AreDeclaredIn(Classes().That().HaveName(nameof(ClassWithPublicParameterlessConstructor)))
+            .AreDeclaredIn(
+                Classes().That().HaveName(nameof(ClassWithPublicParameterlessConstructor))
+            )
             .And()
             .AreConstructors()
             .Should()
