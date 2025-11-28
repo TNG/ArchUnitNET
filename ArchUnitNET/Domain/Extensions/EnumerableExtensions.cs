@@ -42,5 +42,25 @@ namespace ArchUnitNET.Domain.Extensions
                     return $"{multipleDescription} {string.Join(" and ", list.Select(elementDescription))}";
             }
         }
+
+        internal static IEnumerable<object> ResolveAttributeArguments(
+            this IEnumerable<object> objects,
+            Architecture architecture
+        )
+        {
+            return objects.Select(obj =>
+                obj is Type type ? architecture.GetITypeOfType(type) : obj
+            );
+        }
+
+        internal static IEnumerable<(string, object)> ResolveNamedAttributeArgumentTuples(
+            this IEnumerable<(string, object)> namedArguments,
+            Architecture architecture
+        )
+        {
+            return namedArguments.Select(arg =>
+                (arg.Item1, arg.Item2 is Type type ? architecture.GetITypeOfType(type) : arg.Item2)
+            );
+        }
     }
 }

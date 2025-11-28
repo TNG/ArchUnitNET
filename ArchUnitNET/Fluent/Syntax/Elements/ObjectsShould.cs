@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
@@ -69,20 +69,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction OnlyHaveAttributes(IEnumerable<Type> attributes) => OnlyHaveAttributes(new SystemTypeObjectProvider<Attribute>(attributes));
 
         public TRuleTypeShouldConjunction HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAnyAttributesWithArguments(argumentValues));
-        public TRuleTypeShouldConjunction HaveAnyAttributesWithArguments(object firstArgumentValue, params object[] moreArgumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAnyAttributesWithArguments(new[] { firstArgumentValue }.Concat(moreArgumentValues)));
 
-        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithArguments(attribute, argumentValues));
-        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Attribute attribute, object firstArgumentValue, params object[] moreArgumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithArguments(attribute, new[] { firstArgumentValue }.Concat(moreArgumentValues)));
-        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithArguments(attribute, argumentValues));
-        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Type attribute, object firstArgumentValue, params object[] moreArgumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithArguments(attribute, new[] { firstArgumentValue }.Concat(moreArgumentValues)));
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithArguments(attribute.FullName, _ => attribute, argumentValues));
+        public TRuleTypeShouldConjunction HaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithArguments(attribute.FullName, architecture => architecture.GetAttributeOfType(attribute), argumentValues));
 
         public TRuleTypeShouldConjunction HaveAnyAttributesWithNamedArguments(IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAnyAttributesWithNamedArguments(attributeArguments));
-        public TRuleTypeShouldConjunction HaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => HaveAnyAttributesWithNamedArguments(new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
+        public TRuleTypeShouldConjunction HaveAnyAttributesWithNamedArguments(params (string, object)[] attributeArguments) => HaveAnyAttributesWithNamedArguments((IEnumerable<(string, object)>)attributeArguments);
 
-        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithNamedArguments(attribute, attributeArguments));
-        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Attribute attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => HaveAttributeWithNamedArguments(attribute, new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
-        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithNamedArguments(attribute, attributeArguments));
-        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Type attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => HaveAttributeWithNamedArguments(attribute, new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithNamedArguments(attribute.FullName, _ => attribute, attributeArguments));
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Attribute attribute, params (string, object)[] attributeArguments) => HaveAttributeWithNamedArguments(attribute, (IEnumerable<(string, object)>)attributeArguments);
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveAttributeWithNamedArguments(attribute.FullName, architecture => architecture.GetAttributeOfType(attribute), attributeArguments));
+        public TRuleTypeShouldConjunction HaveAttributeWithNamedArguments(Type attribute, params (string, object)[] attributeArguments) => HaveAttributeWithNamedArguments(attribute, (IEnumerable<(string, object)>)attributeArguments);
 
         public TRuleTypeShouldConjunction HaveName(string name) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveName(name));
         public TRuleTypeShouldConjunction HaveNameMatching(string pattern) => AddCondition(ObjectConditionsDefinition<TRuleType>.HaveNameMatching(pattern));
@@ -149,20 +146,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction NotHaveAnyAttributes(IEnumerable<Type> attributes) => NotHaveAnyAttributes(new SystemTypeObjectProvider<Attribute>(attributes));
 
         public TRuleTypeShouldConjunction NotHaveAnyAttributesWithArguments(IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributesWithArguments(argumentValues));
-        public TRuleTypeShouldConjunction NotHaveAnyAttributesWithArguments(object firstArgumentValue, params object[] moreArgumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributesWithArguments(new[] { firstArgumentValue }.Concat(moreArgumentValues)));
 
-        public TRuleTypeShouldConjunction NotHaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithArguments(attribute, argumentValues));
-        public TRuleTypeShouldConjunction NotHaveAttributeWithArguments(Attribute attribute, object firstArgumentValue, params object[] moreArgumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithArguments(attribute, new[] { firstArgumentValue }.Concat(moreArgumentValues)));
-        public TRuleTypeShouldConjunction NotHaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithArguments(attribute, argumentValues));
-        public TRuleTypeShouldConjunction NotHaveAttributeWithArguments(Type attribute, object firstArgumentValue, params object[] moreArgumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithArguments(attribute, new[] { firstArgumentValue }.Concat(moreArgumentValues)));
+        public TRuleTypeShouldConjunction NotHaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithArguments(attribute.FullName, _ => attribute, argumentValues));
+        public TRuleTypeShouldConjunction NotHaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithArguments(attribute.FullName, architecture => architecture.GetAttributeOfType(attribute), argumentValues));
 
         public TRuleTypeShouldConjunction NotHaveAnyAttributesWithNamedArguments(IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributesWithNamedArguments(attributeArguments));
-        public TRuleTypeShouldConjunction NotHaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => NotHaveAnyAttributesWithNamedArguments(new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
+        public TRuleTypeShouldConjunction NotHaveAnyAttributesWithNamedArguments(params (string, object)[] attributeArguments) => NotHaveAnyAttributesWithNamedArguments((IEnumerable<(string, object)>)attributeArguments);
 
-        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithNamedArguments(attribute, attributeArguments));
-        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(Attribute attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => NotHaveAttributeWithNamedArguments(attribute, new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
-        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithNamedArguments(attribute, attributeArguments));
-        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(Type attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => NotHaveAttributeWithNamedArguments(attribute, new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
+        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithNamedArguments(attribute.FullName, _ => attribute, attributeArguments));
+        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(Attribute attribute, params (string, object)[] attributeArguments) => NotHaveAttributeWithNamedArguments(attribute, (IEnumerable<(string, object)>)attributeArguments);
+        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAttributeWithNamedArguments(attribute.FullName, architecture => architecture.GetAttributeOfType(attribute), attributeArguments));
+        public TRuleTypeShouldConjunction NotHaveAttributeWithNamedArguments(Type attribute, params (string, object)[] attributeArguments) => NotHaveAttributeWithNamedArguments(attribute, (IEnumerable<(string, object)>)attributeArguments);
 
         public TRuleTypeShouldConjunction NotHaveName(string name) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveName(name));
         public TRuleTypeShouldConjunction NotHaveNameMatching(string pattern) => AddCondition(ObjectConditionsDefinition<TRuleType>.NotHaveNameMatching(pattern));

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 using Attribute = ArchUnitNET.Domain.Attribute;
@@ -59,18 +60,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributesWithArguments(argumentValues));
         public TGivenRuleTypeConjunction HaveAnyAttributesWithArguments(object firstArgumentValue, params object[] moreArgumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributesWithArguments(new[] { firstArgumentValue }.Concat(moreArgumentValues)));
 
-        public TGivenRuleTypeConjunction HaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(attribute, argumentValues));
-        public TGivenRuleTypeConjunction HaveAttributeWithArguments(Attribute attribute, object firstArgumentValue, params object[] moreArgumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(attribute, new[] { firstArgumentValue }.Concat(moreArgumentValues)));
-        public TGivenRuleTypeConjunction HaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(attribute, argumentValues));
-        public TGivenRuleTypeConjunction HaveAttributeWithArguments(Type attribute, object firstArgumentValue, params object[] moreArgumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(attribute, new[] { firstArgumentValue }.Concat(moreArgumentValues)));
+        public TGivenRuleTypeConjunction HaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(attribute.FullName, _ => attribute, argumentValues));
+        public TGivenRuleTypeConjunction HaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(attribute.FullName, architecture => architecture.GetAttributeOfType(attribute), argumentValues));
 
         public TGivenRuleTypeConjunction HaveAnyAttributesWithNamedArguments(IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributesWithNamedArguments(attributeArguments));
-        public TGivenRuleTypeConjunction HaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => HaveAnyAttributesWithNamedArguments(new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
+        public TGivenRuleTypeConjunction HaveAnyAttributesWithNamedArguments(params (string, object)[] attributeArguments) => HaveAnyAttributesWithNamedArguments((IEnumerable<(string, object)>)attributeArguments);
 
-        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithNamedArguments(attribute, attributeArguments));
-        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(Attribute attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => HaveAttributeWithNamedArguments(attribute, new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
-        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithNamedArguments(attribute, attributeArguments));
-        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(Type attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => HaveAttributeWithNamedArguments(attribute, new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
+        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithNamedArguments(attribute.FullName, _ => attribute, attributeArguments));
+        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(Attribute attribute, params (string, object)[] attributeArguments) => HaveAttributeWithNamedArguments(attribute, (IEnumerable<(string, object)>)attributeArguments);
+        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithNamedArguments(attribute.FullName, architecture => architecture.GetAttributeOfType(attribute), attributeArguments));
+        public TGivenRuleTypeConjunction HaveAttributeWithNamedArguments(Type attribute, params (string, object)[] attributeArguments) => HaveAttributeWithNamedArguments(attribute, (IEnumerable<(string, object)>)attributeArguments);
 
         public TGivenRuleTypeConjunction HaveName(string name) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveName(name));
         public TGivenRuleTypeConjunction HaveNameMatching(string pattern) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.HaveNameMatching(pattern));
@@ -122,20 +121,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TGivenRuleTypeConjunction DoNotHaveAnyAttributes(IEnumerable<Type> attributes) => DoNotHaveAnyAttributes(new SystemTypeObjectProvider<Attribute>(attributes));
 
         public TGivenRuleTypeConjunction DoNotHaveAnyAttributesWithArguments(IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributesWithArguments(argumentValues));
-        public TGivenRuleTypeConjunction DoNotHaveAnyAttributesWithArguments(object firstArgumentValue, params object[] moreArgumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributesWithArguments(new[] { firstArgumentValue }.Concat(moreArgumentValues)));
 
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithArguments(attribute, argumentValues));
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(Attribute attribute, object firstArgumentValue, params object[] moreArgumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithArguments(attribute, new[] { firstArgumentValue }.Concat(moreArgumentValues)));
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithArguments(attribute, argumentValues));
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(Type attribute, object firstArgumentValue, params object[] moreArgumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithArguments(attribute, new[] { firstArgumentValue }.Concat(moreArgumentValues)));
+        public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithArguments(attribute.FullName, _ => attribute, argumentValues));
+        public TGivenRuleTypeConjunction DoNotHaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithArguments(attribute.FullName, architecture => architecture.GetAttributeOfType(attribute), argumentValues));
 
         public TGivenRuleTypeConjunction DoNotHaveAnyAttributesWithNamedArguments(IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAnyAttributesWithNamedArguments(attributeArguments));
-        public TGivenRuleTypeConjunction DoNotHaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => DoNotHaveAnyAttributesWithNamedArguments(new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
+        public TGivenRuleTypeConjunction DoNotHaveAnyAttributesWithNamedArguments(params (string, object)[] attributeArguments) => DoNotHaveAnyAttributesWithNamedArguments((IEnumerable<(string, object)>)attributeArguments);
 
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithNamedArguments(attribute, attributeArguments));
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(Attribute attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => DoNotHaveAttributeWithNamedArguments(attribute, new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithNamedArguments(attribute, attributeArguments));
-        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(Type attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments) => DoNotHaveAttributeWithNamedArguments(attribute, new[] { firstAttributeArgument }.Concat(moreAttributeArguments));
+        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithNamedArguments(attribute.FullName, _ => attribute, attributeArguments));
+        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(Attribute attribute, params (string, object)[] attributeArguments) => DoNotHaveAttributeWithNamedArguments(attribute, (IEnumerable<(string, object)>)attributeArguments);
+        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveAttributeWithNamedArguments(attribute.FullName, architecture => architecture.GetAttributeOfType(attribute), attributeArguments));
+        public TGivenRuleTypeConjunction DoNotHaveAttributeWithNamedArguments(Type attribute, params (string, object)[] attributeArguments) => DoNotHaveAttributeWithNamedArguments(attribute, (IEnumerable<(string, object)>)attributeArguments);
 
         public TGivenRuleTypeConjunction DoNotHaveName(string name) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveName(name));
         public TGivenRuleTypeConjunction DoNotHaveNameMatching(string pattern) => AddPredicate(ObjectPredicatesDefinition<TRuleType>.DoNotHaveNameMatching(pattern));

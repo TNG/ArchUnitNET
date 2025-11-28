@@ -51,20 +51,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType OnlyHaveAttributes(IObjectProvider<Attribute> attributes);
 
         TReturnType HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues);
-        TReturnType HaveAnyAttributesWithArguments(object firstArgumentValue, params object[] moreArgumentValues);
 
         TReturnType HaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues);
-        TReturnType HaveAttributeWithArguments(Attribute attribute, object firstArgumentValue, params object[] moreArgumentValues);
         TReturnType HaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues);
-        TReturnType HaveAttributeWithArguments(Type attribute, object firstArgumentValue, params object[] moreArgumentValues);
 
         TReturnType HaveAnyAttributesWithNamedArguments(IEnumerable<(string, object)> attributeArguments);
-        TReturnType HaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments);
+        TReturnType HaveAnyAttributesWithNamedArguments(params (string, object)[] attributeArguments);
 
         TReturnType HaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments);
-        TReturnType HaveAttributeWithNamedArguments(Attribute attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments);
+        TReturnType HaveAttributeWithNamedArguments(Attribute attribute, params (string, object)[] attributeArguments);
         TReturnType HaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments);
-        TReturnType HaveAttributeWithNamedArguments(Type attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments);
+        TReturnType HaveAttributeWithNamedArguments(Type attribute, params (string, object)[] attributeArguments);
 
         TReturnType HaveName(string name);
         TReturnType HaveNameMatching(string pattern);
@@ -116,20 +113,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         TReturnType DoNotHaveAnyAttributes(IEnumerable<Type> attributes);
 
         TReturnType DoNotHaveAnyAttributesWithArguments(IEnumerable<object> argumentValues);
-        TReturnType DoNotHaveAnyAttributesWithArguments(object firstArgumentValue, params object[] moreArgumentValues);
 
         TReturnType DoNotHaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues);
-        TReturnType DoNotHaveAttributeWithArguments(Attribute attribute, object firstArgumentValue, params object[] moreArgumentValues);
         TReturnType DoNotHaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues);
-        TReturnType DoNotHaveAttributeWithArguments(Type attribute, object firstArgumentValue, params object[] moreArgumentValues);
 
         TReturnType DoNotHaveAnyAttributesWithNamedArguments(IEnumerable<(string, object)> attributeArguments);
-        TReturnType DoNotHaveAnyAttributesWithNamedArguments((string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments);
+        TReturnType DoNotHaveAnyAttributesWithNamedArguments(params (string, object)[] attributeArguments);
 
         TReturnType DoNotHaveAttributeWithNamedArguments(Attribute attribute, IEnumerable<(string, object)> attributeArguments);
-        TReturnType DoNotHaveAttributeWithNamedArguments(Attribute attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments);
+        TReturnType DoNotHaveAttributeWithNamedArguments(Attribute attribute, params (string, object)[] attributeArguments);
         TReturnType DoNotHaveAttributeWithNamedArguments(Type attribute, IEnumerable<(string, object)> attributeArguments);
-        TReturnType DoNotHaveAttributeWithNamedArguments(Type attribute, (string, object) firstAttributeArgument, params (string, object)[] moreAttributeArguments);
+        TReturnType DoNotHaveAttributeWithNamedArguments(Type attribute, params (string, object)[] attributeArguments);
 
         TReturnType DoNotHaveName(string name);
         TReturnType DoNotHaveNameMatching(string pattern);
