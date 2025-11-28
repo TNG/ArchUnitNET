@@ -2,14 +2,14 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
     <IsPackable>true</IsPackable>
-    <Title>ArchUnit C# MSTestV2 Extension</Title>
-    <Description>MSTestV2 Extension (compatible with MSTestV3) for the C# Version of ArchUnit (see: archunit.org)</Description>
+    <Title>ArchUnit C# MSTestV4 Extension</Title>
+    <Description>MSTestV4 Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
     <PackageTags>test;arch;archunit;mstest;mstestv2</PackageTags>
     <IncludeSource>False</IncludeSource>
     <Company>TNG Technology Consulting GmbH</Company>
-    <PackageId>TngTech.ArchUnitNET.MSTestV2</PackageId>
+    <PackageId>TngTech.ArchUnitNET.MSTestV4</PackageId>
     <IsTestProject>false</IsTestProject>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -17,7 +17,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArchUnitNET\ArchUnitNET.csproj" />
