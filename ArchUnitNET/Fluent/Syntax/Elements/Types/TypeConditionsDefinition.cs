@@ -625,7 +625,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 (current, asm) => current + " or \"" + asm.FullName + "\""
             );
 
-            return new ArchitectureCondition<TRuleType>(
+            return new OrderedArchitectureCondition<TRuleType>(
                 Condition,
                 (type, architecture) => "does reside in " + type.Assembly.FullName,
                 description
@@ -1247,7 +1247,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 (current, asm) => current + " or \"" + asm.FullName + "\""
             );
 
-            return new ArchitectureCondition<TRuleType>(
+            return new OrderedArchitectureCondition<TRuleType>(
                 Condition,
                 (type, architecture) => "does reside in " + type.Assembly.FullName,
                 description

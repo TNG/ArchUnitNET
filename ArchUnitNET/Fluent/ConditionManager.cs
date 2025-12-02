@@ -106,15 +106,34 @@ namespace ArchUnitNET.Fluent
             var filteredObjectsList = filteredObjects.ToList();
             if (filteredObjectsList.IsNullOrEmpty() && !CheckEmpty())
             {
-                yield return new EvaluationResult(
-                    null,
-                    new StringIdentifier(""),
-                    false,
-                    "There are no objects matching the criteria",
-                    archRuleCreator,
-                    architecture
+                return new[]
+                {
+                    new EvaluationResult(
+                        null,
+                        new StringIdentifier(""),
+                        false,
+                        "There are no objects matching the criteria",
+                        archRuleCreator,
+                        architecture
+                    ),
+                };
+            }
+
+            if (_conditionElements.All(e => e.IsOrdered()))
+            {
+                var conditionResults = _conditionElements
+                    .Select(conditionElement =>
+                        conditionElement.Check(filteredObjectsList, architecture).ToList()
+                    )
+                    .ToList();
+                return filteredObjectsList.Select(
+                    (t, i) =>
+                        CreateEvaluationResult(
+                            conditionResults.Select(results => results[i]),
+                            architecture,
+                            archRuleCreator
+                        )
                 );
-                yield break;
             }
 
             //rough heuristic - if we have small number of comparisons, we are fine with sequential search
@@ -129,14 +148,13 @@ namespace ArchUnitNET.Fluent
                     )
                     .ToList();
 
-                foreach (var t in filteredObjectsList)
-                {
-                    yield return CreateEvaluationResult(
+                return filteredObjectsList.Select(t =>
+                    CreateEvaluationResult(
                         FindResultsForObject(conditionResults, t),
                         architecture,
                         archRuleCreator
-                    );
-                }
+                    )
+                );
             }
             else
             {
@@ -145,15 +163,13 @@ namespace ArchUnitNET.Fluent
                         conditionElement.Check(filteredObjectsList, architecture).ToList()
                     )
                     .ToList();
-
-                foreach (var t in filteredObjectsList)
-                {
-                    yield return CreateEvaluationResult(
+                return filteredObjectsList.Select(t =>
+                    CreateEvaluationResult(
                         FindResultsForObject(conditionResults, t),
                         architecture,
                         archRuleCreator
-                    );
-                }
+                    )
+                );
             }
         }
 
@@ -347,6 +363,11 @@ namespace ArchUnitNET.Fluent
                 return _condition
                     .Check(objects, architecture)
                     .Select(result => new ConditionElementResult(result, _logicalConjunction));
+            }
+
+            public bool IsOrdered()
+            {
+                return _condition is IOrderedCondition<T>;
             }
 
             public bool CheckEmpty(bool currentResult)
