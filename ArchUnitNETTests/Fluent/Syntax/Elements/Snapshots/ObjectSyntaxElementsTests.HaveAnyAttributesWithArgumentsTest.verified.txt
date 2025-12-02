@@ -91,10 +91,10 @@ Message:
 
 Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with argument "1"
 Result: False
-Description: AttributeNamespace.ClassWithoutAttributes does not have any attribute
+Description: AttributeNamespace.ClassWithoutAttributes does not have any attributes
 Message: 
 "Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes with argument "1"" failed:
-	AttributeNamespace.ClassWithoutAttributes does not have any attribute
+	AttributeNamespace.ClassWithoutAttributes does not have any attributes
 
 
 
@@ -126,10 +126,10 @@ Message:
 
 Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes
 Result: False
-Description: AttributeNamespace.ClassWithoutAttributes does not have any attribute
+Description: AttributeNamespace.ClassWithoutAttributes does not have any attributes
 Message: 
 "Types that are "AttributeNamespace.ClassWithoutAttributes" should have any attributes" failed:
-	AttributeNamespace.ClassWithoutAttributes does not have any attribute
+	AttributeNamespace.ClassWithoutAttributes does not have any attributes
 
 
 
