@@ -310,7 +310,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                             return $"{instance.Type.FullName} {argumentsDescription}";
                         });
                         var failDescription = argumentsDescriptions.FormatDescription(
-                            "does not have any attribute",
+                            "does not have any attributes",
                             "does only have attribute",
                             "does only have attributes",
                             elementDescription: str => str
