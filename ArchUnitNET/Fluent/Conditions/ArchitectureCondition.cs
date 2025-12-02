@@ -15,51 +15,11 @@ namespace ArchUnitNET.Fluent.Conditions
         > _condition;
 
         public ArchitectureCondition(
-            Func<TRuleType, Architecture, bool> condition,
-            string description,
-            string failDescription
-        )
-        {
-            _condition = (ruleTypes, architecture) =>
-                ruleTypes.Select(type => new ConditionResult(
-                    type,
-                    condition(type, architecture),
-                    failDescription
-                ));
-            Description = description;
-        }
-
-        public ArchitectureCondition(
-            Func<TRuleType, Architecture, ConditionResult> condition,
-            string description
-        )
-        {
-            _condition = (ruleTypes, architecture) =>
-                ruleTypes.Select(type => condition(type, architecture));
-            Description = description;
-        }
-
-        public ArchitectureCondition(
             Func<IEnumerable<TRuleType>, Architecture, IEnumerable<ConditionResult>> condition,
             string description
         )
         {
             _condition = condition;
-            Description = description;
-        }
-
-        public ArchitectureCondition(
-            Func<TRuleType, Architecture, bool> condition,
-            Func<TRuleType, Architecture, string> dynamicFailDescription,
-            string description
-        )
-        {
-            _condition = (ruleTypes, architecture) =>
-                ruleTypes.Select(type => new ConditionResult(
-                    type,
-                    condition(type, architecture),
-                    dynamicFailDescription(type, architecture)
-                ));
             Description = description;
         }
 

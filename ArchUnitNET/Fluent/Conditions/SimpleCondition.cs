@@ -5,7 +5,7 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Conditions
 {
-    public class SimpleCondition<TRuleType> : ICondition<TRuleType>
+    public class SimpleCondition<TRuleType> : IOrderedCondition<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
         private readonly Func<TRuleType, ConditionResult> _condition;
