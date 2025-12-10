@@ -38,6 +38,12 @@ namespace ArchUnitNETTests
             )
             .Build();
 
+        public static readonly Architecture SlicesTestArchitecture = new ArchLoader()
+            .LoadAssemblies(
+                typeof(SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class).Assembly
+            )
+            .Build();
+
         public static readonly Architecture VisibilityArchitecture = new ArchLoader()
             .LoadAssemblies(typeof(VisibilityNamespace.PublicClass).Assembly)
             .Build();

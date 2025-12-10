@@ -36,13 +36,13 @@ namespace ArchUnitNETTests.Fluent
 
         private readonly IArchRule _frozenSliceRule = SliceRuleDefinition
             .Slices()
-            .Matching("TestAssembly.Slices.(**)")
+            .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)")
             .Should()
             .NotDependOnEachOther();
 
         private readonly IArchRule _failingFrozenSliceRule = SliceRuleDefinition
             .Slices()
-            .Matching("TestAssembly.Slices.(*)..")
+            .Matching("SlicesTestAssembly.MultipleSubnamespaces.(*)..")
             .Should()
             .NotDependOnEachOther();
 
@@ -51,8 +51,7 @@ namespace ArchUnitNETTests.Fluent
         {
             Freeze(_frozenRule).Check(Architecture);
             Freeze(_frozenRule2).Check(Architecture);
-            Freeze(_frozenSliceRule)
-                .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
+            Freeze(_frozenSliceRule).Check(StaticTestArchitectures.SlicesTestArchitecture);
         }
 
         [Fact]
@@ -61,7 +60,7 @@ namespace ArchUnitNETTests.Fluent
             Freeze(_frozenRule, new XmlViolationStore()).Check(Architecture);
             Freeze(_frozenRule2, new XmlViolationStore()).Check(Architecture);
             Freeze(_frozenSliceRule, new XmlViolationStore())
-                .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
+                .Check(StaticTestArchitectures.SlicesTestArchitecture);
         }
 
         [Fact]
@@ -72,7 +71,7 @@ namespace ArchUnitNETTests.Fluent
             );
             Assert.Throws<FailedArchRuleException>(() =>
                 Freeze(_failingFrozenSliceRule)
-                    .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Check(StaticTestArchitectures.SlicesTestArchitecture)
             );
         }
 
@@ -84,7 +83,7 @@ namespace ArchUnitNETTests.Fluent
             );
             Assert.Throws<FailedArchRuleException>(() =>
                 Freeze(_failingFrozenSliceRule, new XmlViolationStore())
-                    .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Check(StaticTestArchitectures.SlicesTestArchitecture)
             );
         }
 
@@ -96,7 +95,7 @@ namespace ArchUnitNETTests.Fluent
             Freeze(_frozenRule2, "../../../ArchUnitNET/Storage/CustomPathFrozenRules.json")
                 .Check(Architecture);
             Freeze(_frozenSliceRule, "../../../ArchUnitNET/Storage/CustomPathFrozenRules.json")
-                .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
+                .Check(StaticTestArchitectures.SlicesTestArchitecture);
         }
 
         private class Violation { }
