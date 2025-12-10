@@ -6,7 +6,7 @@
     <Description>MSTestV4 Extension for the C# Version of ArchUnit (see: archunit.org)</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/TNG/ArchUnitNET</RepositoryUrl>
-    <PackageTags>test;arch;archunit;mstest;mstestv2</PackageTags>
+    <PackageTags>test;arch;archunit;mstest;mstestv4</PackageTags>
     <IncludeSource>False</IncludeSource>
     <Company>TNG Technology Consulting GmbH</Company>
     <PackageId>TngTech.ArchUnitNET.MSTestV4</PackageId>
