@@ -44,6 +44,16 @@ public class ClassWithoutDependencies { }
 
 public class OtherClassWithoutDependencies { }
 
+public class ClassWithGenericMethodCall
+{
+    public void OuterFunc()
+    {
+        LocalFunc<ClassWithoutDependencies>(new OtherClassWithoutDependencies());
+
+        void LocalFunc<T>(OtherClassWithoutDependencies other) { }
+    }
+}
+
 // https://github.com/TNG/ArchUnitNET/issues/351
 class Issue351
 {

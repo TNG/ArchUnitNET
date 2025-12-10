@@ -164,6 +164,8 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             bodyTypes.AddRange(methodDefinition.GetBodyTypes(_typeFactory).ToList());
 
+            var genericArgumentTypes = methodDefinition.GetGenericArguments(_typeFactory).ToList();
+
             var castTypes = methodDefinition.GetCastTypes(_typeFactory).ToList();
 
             var typeCheckTypes = methodDefinition.GetTypeCheckTypes(_typeFactory).ToList();
@@ -177,6 +179,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             var calledMethodMembers = CreateMethodBodyDependenciesRecursive(
                 methodBody,
                 visitedMethodReferences,
+                genericArgumentTypes,
                 bodyTypes,
                 castTypes,
                 typeCheckTypes,
@@ -191,6 +194,15 @@ namespace ArchUnitNET.Loader.LoadTasks
             )
             {
                 yield return new MethodCallDependency(methodMember, calledMethodMember);
+            }
+
+            foreach (
+                var genericArgument in genericArgumentTypes
+                    .Where(instance => !instance.Type.IsCompilerGenerated)
+                    .Distinct()
+            )
+            {
+                yield return new MethodSignatureDependency(methodMember, genericArgument);
             }
 
             foreach (
@@ -242,6 +254,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         private IEnumerable<MethodMemberInstance> CreateMethodBodyDependenciesRecursive(
             MethodBody methodBody,
             ICollection<MethodReference> visitedMethodReferences,
+            List<ITypeInstance<IType>> genericArgumentTypes,
             List<ITypeInstance<IType>> bodyTypes,
             List<ITypeInstance<IType>> castTypes,
             List<ITypeInstance<IType>> typeCheckTypes,
@@ -258,6 +271,9 @@ namespace ArchUnitNET.Loader.LoadTasks
             )
             {
                 visitedMethodReferences.Add(calledMethodReference);
+                genericArgumentTypes.AddRange(
+                    calledMethodReference.GetGenericArguments(_typeFactory)
+                );
 
                 if (calledMethodReference.IsCompilerGenerated())
                 {
@@ -301,6 +317,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                         var dep in CreateMethodBodyDependenciesRecursive(
                             calledMethodBody,
                             visitedMethodReferences,
+                            genericArgumentTypes,
                             bodyTypes,
                             castTypes,
                             typeCheckTypes,
