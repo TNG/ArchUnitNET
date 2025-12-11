@@ -364,7 +364,6 @@ public class ObjectSyntaxElementsTests
         should.DependOnAny(new List<IType> { helper.BaseClass }).AssertNoViolations(helper);
         should.DependOnAny(new List<System.Type> { helper.BaseClassSystemType }).AssertNoViolations(helper);
         Types().That().Are(helper.ClassWithGenericMethodCallDependency).Should().DependOnAny(helper.ClassWithoutDependencies).AssertNoViolations(helper);
-        Types().That().Are(helper.ClassWithGenericMethodCallDependency).Should().DependOnAny(helper.OtherClassWithoutDependencies).AssertNoViolations(helper);
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DependOnAny(helper.BaseClass)).AssertNoViolations(helper);

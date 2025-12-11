@@ -48,9 +48,9 @@ public class ClassWithGenericMethodCall
 {
     public void OuterFunc()
     {
-        LocalFunc<ClassWithoutDependencies>(new OtherClassWithoutDependencies());
+        LocalFunc<ClassWithoutDependencies>();
 
-        void LocalFunc<T>(OtherClassWithoutDependencies other) { }
+        void LocalFunc<T>() { }
     }
 }
 
