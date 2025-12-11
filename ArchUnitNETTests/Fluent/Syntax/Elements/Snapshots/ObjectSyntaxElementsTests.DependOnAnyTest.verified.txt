@@ -32,12 +32,6 @@ Description: TypeDependencyNamespace.ChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.ClassWithGenericMethodCall" should depend on "TypeDependencyNamespace.ClassWithoutDependencies"
-Result: True
-Description: TypeDependencyNamespace.ClassWithGenericMethodCall passed
-Message: 
-All Evaluations passed
-
 ----- Predicates -----
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be Types that depend on "TypeDependencyNamespace.BaseClass"
@@ -202,46 +196,46 @@ Message:
 
 Query: Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 Message: 
 "Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 
 
 
 Query: Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 Message: 
 "Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 
 
 
 Query: Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any Classes that are "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 Message: 
 "Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any Classes that are "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 
 
 
 Query: Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 Message: 
 "Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 
 
 
 Query: Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 Message: 
 "Types that have full name "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.ClassWithMultipleDependencies does exist
 
 
 
@@ -460,37 +454,37 @@ Message:
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on any "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass" or "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.ClassWithMultipleDependencies is not "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.OtherChildClass"
 
 
 
@@ -587,13 +581,39 @@ All Evaluations passed
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: False
-Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.BaseClass does exist
 Result: False
-Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+Description: TypeDependencyNamespace.ChildClass does exist
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" or "TypeDependencyNamespace.BaseClass" should be types that depend on "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
-	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithGenericMethodCall"
+	TypeDependencyNamespace.BaseClass does exist
+	TypeDependencyNamespace.ChildClass does exist
 
 
+
+===== Type with generic argument =====
+
+----- Conditions -----
+
+Query: Types that are "TypeDependencyNamespace.ClassWithGenericMethodCall" should depend on "TypeDependencyNamespace.GenericArgumentClass"
+Result: True
+Description: TypeDependencyNamespace.ClassWithGenericMethodCall passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeDependencyNamespace.ClassWithGenericMethodCall" should be Types that depend on "TypeDependencyNamespace.GenericArgumentClass"
+Result: True
+Description: TypeDependencyNamespace.ClassWithGenericMethodCall passed
+Message: 
+All Evaluations passed
+
+----- Predicates as conditions -----
+
+Query: Types that are "TypeDependencyNamespace.ClassWithGenericMethodCall" should be types that depend on "TypeDependencyNamespace.GenericArgumentClass"
+Result: True
+Description: TypeDependencyNamespace.ClassWithGenericMethodCall passed
+Message: 
+All Evaluations passed
 

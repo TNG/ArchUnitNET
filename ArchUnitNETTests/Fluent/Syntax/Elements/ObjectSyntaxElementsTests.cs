@@ -363,7 +363,6 @@ public class ObjectSyntaxElementsTests
         should.DependOnAny(Classes().That().Are(helper.BaseClass)).AssertNoViolations(helper);
         should.DependOnAny(new List<IType> { helper.BaseClass }).AssertNoViolations(helper);
         should.DependOnAny(new List<System.Type> { helper.BaseClassSystemType }).AssertNoViolations(helper);
-        Types().That().Are(helper.ClassWithGenericMethodCallDependency).Should().DependOnAny(helper.ClassWithoutDependencies).AssertNoViolations(helper);
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DependOnAny(helper.BaseClass)).AssertNoViolations(helper);
@@ -482,6 +481,18 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates as conditions");
         Types().That().Are(helper.ChildClass1, helper.ChildClass2).Should().BeTypesThat().DependOnAny(helper.BaseClassWithMultipleDependenciesSystemType).AssertNoViolations(helper);
         Types().That().Are(helper.ChildClass, helper.BaseClass).Should().BeTypesThat().DependOnAny(helper.ClassWithoutDependencies).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Type with generic argument");
+        should = Types().That().Are(helper.ClassWithGenericMethodCallDependency).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.DependOnAny(helper.GenericArgumentClass).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Types().That().DependOnAny(helper.GenericArgumentClass)).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates as conditions");
+        should.BeTypesThat().DependOnAny(helper.GenericArgumentClass).AssertNoViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }

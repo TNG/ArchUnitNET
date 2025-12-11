@@ -44,11 +44,13 @@ public class ClassWithoutDependencies { }
 
 public class OtherClassWithoutDependencies { }
 
+public class GenericArgumentClass { }
+
 public class ClassWithGenericMethodCall
 {
     public void OuterFunc()
     {
-        LocalFunc<ClassWithoutDependencies>();
+        LocalFunc<GenericArgumentClass>();
 
         void LocalFunc<T>() { }
     }
