@@ -48,7 +48,7 @@ namespace ArchUnitNETTests.Dependencies
         }
     }
 
-    public class ClassWithGenericMethodCall
+    internal class ClassWithGenericMethodCall
     {
         public void OuterFunc()
         {

@@ -164,8 +164,6 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             bodyTypes.AddRange(methodDefinition.GetBodyTypes(_typeFactory).ToList());
 
-            bodyTypes.AddRange(methodDefinition.GetGenericArguments(_typeFactory).ToList());
-
             var castTypes = methodDefinition.GetCastTypes(_typeFactory).ToList();
 
             var typeCheckTypes = methodDefinition.GetTypeCheckTypes(_typeFactory).ToList();
@@ -260,7 +258,16 @@ namespace ArchUnitNET.Loader.LoadTasks
             )
             {
                 visitedMethodReferences.Add(calledMethodReference);
-                bodyTypes.AddRange(calledMethodReference.GetGenericArguments(_typeFactory));
+
+                var calledType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                    calledMethodReference.DeclaringType
+                );
+                var calledMethodMember = _typeFactory.GetOrCreateMethodMemberFromMethodReference(
+                    calledType,
+                    calledMethodReference
+                );
+
+                bodyTypes.AddRange(calledMethodMember.MemberGenericArguments);
 
                 if (calledMethodReference.IsCompilerGenerated())
                 {
@@ -317,14 +324,6 @@ namespace ArchUnitNET.Loader.LoadTasks
                 }
                 else
                 {
-                    var calledType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                        calledMethodReference.DeclaringType
-                    );
-                    var calledMethodMember =
-                        _typeFactory.GetOrCreateMethodMemberFromMethodReference(
-                            calledType,
-                            calledMethodReference
-                        );
                     yield return calledMethodMember;
                 }
             }

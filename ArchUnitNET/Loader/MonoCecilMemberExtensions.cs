@@ -153,25 +153,6 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetGenericArguments(
-            this MethodReference method,
-            TypeFactory typeFactory
-        )
-        {
-            return method is GenericInstanceMethod genericInstanceMethod
-                ? genericInstanceMethod
-                    .GenericArguments.Select(argument =>
-                    {
-                        var typeReference = argument.GetElementType();
-                        return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                            typeReference
-                        );
-                    })
-                    .Distinct()
-                : Enumerable.Empty<ITypeInstance<IType>>();
-        }
-
-        [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetBodyTypes(
             this MethodDefinition methodDefinition,
             TypeFactory typeFactory
