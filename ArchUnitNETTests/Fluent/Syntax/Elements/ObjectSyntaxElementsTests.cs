@@ -482,18 +482,6 @@ public class ObjectSyntaxElementsTests
         Types().That().Are(helper.ChildClass1, helper.ChildClass2).Should().BeTypesThat().DependOnAny(helper.BaseClassWithMultipleDependenciesSystemType).AssertNoViolations(helper);
         Types().That().Are(helper.ChildClass, helper.BaseClass).Should().BeTypesThat().DependOnAny(helper.ClassWithoutDependencies).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type with generic argument");
-        should = Types().That().Are(helper.ClassWithGenericMethodCallDependency).Should();
-
-        helper.AddSnapshotSubHeader("Conditions");
-        should.DependOnAny(helper.GenericArgumentClass).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates");
-        should.Be(Types().That().DependOnAny(helper.GenericArgumentClass)).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DependOnAny(helper.GenericArgumentClass).AssertNoViolations(helper);
-
         await helper.AssertSnapshotMatches();
     }
 

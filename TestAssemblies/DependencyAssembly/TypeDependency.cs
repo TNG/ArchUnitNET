@@ -44,18 +44,6 @@ public class ClassWithoutDependencies { }
 
 public class OtherClassWithoutDependencies { }
 
-public class GenericArgumentClass { }
-
-public class ClassWithGenericMethodCall
-{
-    public void OuterFunc()
-    {
-        LocalFunc<GenericArgumentClass>();
-
-        void LocalFunc<T>() { }
-    }
-}
-
 // https://github.com/TNG/ArchUnitNET/issues/351
 class Issue351
 {

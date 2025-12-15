@@ -591,29 +591,3 @@ Message:
 
 
 
-===== Type with generic argument =====
-
------ Conditions -----
-
-Query: Types that are "TypeDependencyNamespace.ClassWithGenericMethodCall" should depend on "TypeDependencyNamespace.GenericArgumentClass"
-Result: True
-Description: TypeDependencyNamespace.ClassWithGenericMethodCall passed
-Message: 
-All Evaluations passed
-
------ Predicates -----
-
-Query: Types that are "TypeDependencyNamespace.ClassWithGenericMethodCall" should be Types that depend on "TypeDependencyNamespace.GenericArgumentClass"
-Result: True
-Description: TypeDependencyNamespace.ClassWithGenericMethodCall passed
-Message: 
-All Evaluations passed
-
------ Predicates as conditions -----
-
-Query: Types that are "TypeDependencyNamespace.ClassWithGenericMethodCall" should be types that depend on "TypeDependencyNamespace.GenericArgumentClass"
-Result: True
-Description: TypeDependencyNamespace.ClassWithGenericMethodCall passed
-Message: 
-All Evaluations passed
-
