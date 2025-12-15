@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
@@ -9,6 +10,24 @@ namespace ArchUnitNETTests.Dependencies
     public class GenericMemberDependenciesTests
     {
         [Fact]
+        public void GenericArgumentsFromMethodCallLocalFuncTest()
+        {
+            var architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
+            var classWithGenericMethodCall = architecture.GetClassOfType(
+                typeof(ClassWithGenericMethodCall)
+            );
+            var genericArgumentClass = architecture.GetClassOfType(typeof(GenericArgumentClass));
+            var methodMember = (MethodMember)
+                classWithGenericMethodCall.Members.WhereNameIs("OuterFunc()").First();
+            Assert.Contains(
+                methodMember.Dependencies,
+                dependency =>
+                    dependency is BodyTypeMemberDependency bodyTypeMemberDependency
+                    && bodyTypeMemberDependency.Target.Equals(genericArgumentClass)
+            );
+        }
+
+        [Fact]
         public void GenericArgumentsFromMethodCallTest()
         {
             var architecture = StaticTestArchitectures.ArchUnitNETTestArchitecture;
@@ -16,13 +35,16 @@ namespace ArchUnitNETTests.Dependencies
                 typeof(ClassWithGenericMethodCall)
             );
             var genericArgumentClass = architecture.GetClassOfType(
-                typeof(GenericArgumentClass)
+                typeof(OtherGenericArgumentClass)
             );
-            var methodMember = (MethodMember)classWithGenericMethodCall.Members
-                .WhereNameIs("OuterFunc()")
-                .First();
-            Assert.Contains(methodMember.Dependencies, dependency => dependency is MethodSignatureDependency bodyTypeMemberDependency &&
-                                                                     bodyTypeMemberDependency.Target.Equals(genericArgumentClass));
+            var methodMember = (MethodMember)
+                classWithGenericMethodCall.Members.WhereNameIs("OuterFunc()").First();
+            Assert.Contains(
+                methodMember.Dependencies,
+                dependency =>
+                    dependency is BodyTypeMemberDependency bodyTypeMemberDependency
+                    && bodyTypeMemberDependency.Target.Equals(genericArgumentClass)
+            );
         }
     }
 
@@ -31,8 +53,19 @@ namespace ArchUnitNETTests.Dependencies
         public void OuterFunc()
         {
             LocalFunc<GenericArgumentClass>();
+            PrivateFunc<OtherGenericArgumentClass>();
 
-            void LocalFunc<T>() { }
+            void LocalFunc<T>()
+            {
+                throw new NotImplementedException($"Called with type {typeof(T)}");
+            }
+        }
+
+        private static void PrivateFunc<T>()
+        {
+            throw new NotImplementedException($"Called with type {typeof(T)}");
         }
     }
+
+    internal class OtherGenericArgumentClass { }
 }
