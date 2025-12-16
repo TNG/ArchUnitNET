@@ -10,7 +10,7 @@ namespace ArchUnitNET.Fluent
     {
         void AddPredicate(IPredicate<TRuleType> predicate);
         void AddPredicateConjunction(LogicalConjunction logicalConjunction);
-        void AddCondition(ICondition<TRuleType> condition);
+        void AddCondition(IOrderedCondition<TRuleType> condition);
         void AddConditionConjunction(LogicalConjunction logicalConjunction);
         void AddConditionReason(string reason);
         void AddPredicateReason(string reason);
