@@ -1,37 +1,19 @@
 ﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public class GivenAttributesThat
-        : GivenTypesThat<GivenAttributesConjunction, Attribute>,
-            IAttributePredicates<GivenAttributesConjunction, Attribute>
+    public sealed class GivenAttributesThat
+        : AddAttributePredicate<Attribute, GivenAttributesConjunction>
     {
         public GivenAttributesThat(IArchRuleCreator<Attribute> ruleCreator)
             : base(ruleCreator) { }
 
-        public GivenAttributesConjunction AreAbstract()
+        protected override GivenAttributesConjunction CreateNextElement(
+            IPredicate<Attribute> predicate
+        )
         {
-            _ruleCreator.AddPredicate(AttributePredicatesDefinition.AreAbstract());
-            return new GivenAttributesConjunction(_ruleCreator);
-        }
-
-        public GivenAttributesConjunction AreSealed()
-        {
-            _ruleCreator.AddPredicate(AttributePredicatesDefinition.AreSealed());
-            return new GivenAttributesConjunction(_ruleCreator);
-        }
-
-        //Negations
-
-        public GivenAttributesConjunction AreNotAbstract()
-        {
-            _ruleCreator.AddPredicate(AttributePredicatesDefinition.AreNotAbstract());
-            return new GivenAttributesConjunction(_ruleCreator);
-        }
-
-        public GivenAttributesConjunction AreNotSealed()
-        {
-            _ruleCreator.AddPredicate(AttributePredicatesDefinition.AreNotSealed());
+            _ruleCreator.AddPredicate(predicate);
             return new GivenAttributesConjunction(_ruleCreator);
         }
     }

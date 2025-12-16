@@ -9,18 +9,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         where TRuleType : IMember
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
-        ShouldRelateToTypesThat<
-            TRuleTypeShouldConjunction,
-            IType,
-            TRuleType
-        > BeDeclaredInTypesThat();
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, TRuleType> BeDeclaredInTypesThat();
 
         //Negations
 
-        ShouldRelateToTypesThat<
-            TRuleTypeShouldConjunction,
-            IType,
-            TRuleType
-        > NotBeDeclaredInTypesThat();
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, TRuleType> NotBeDeclaredInTypesThat();
     }
 }

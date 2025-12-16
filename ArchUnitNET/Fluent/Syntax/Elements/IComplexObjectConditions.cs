@@ -10,15 +10,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
     {
         // csharpier-ignore-start
-        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> DependOnAnyTypesThat();
-        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> OnlyDependOnTypesThat();
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, TRuleType> DependOnAnyTypesThat();
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, TRuleType> OnlyDependOnTypesThat();
 
         ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> HaveAnyAttributesThat();
         ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> OnlyHaveAttributesThat();
 
         // Negations
 
-        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, IType, TRuleType> NotDependOnAnyTypesThat();
+        ShouldRelateToTypesThat<TRuleTypeShouldConjunction, TRuleType> NotDependOnAnyTypesThat();
         ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAnyAttributesThat();
         // csharpier-ignore-end
     }
