@@ -50,7 +50,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             var propertyMembers = _classWithPropertyA.GetPropertyMembers();
             propertyMembers.ForEach(propertyMember =>
-                Assert.True(_classWithPropertyA.HasDependencies(propertyMember.MemberDependencies))
+                Assert.True(_classWithPropertyA.HasDependencies(propertyMember.Dependencies))
             );
         }
 

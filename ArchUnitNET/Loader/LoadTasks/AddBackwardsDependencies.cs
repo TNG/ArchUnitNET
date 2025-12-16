@@ -21,10 +21,10 @@ namespace ArchUnitNET.Loader.LoadTasks
             );
 
             var memberMemberDependencies = _type
-                .Members.SelectMany(member => member.MemberDependencies)
+                .Members.SelectMany(member => member.Dependencies)
                 .OfType<IMemberMemberDependency>();
             memberMemberDependencies.ForEach(memberDependency =>
-                memberDependency.TargetMember.MemberBackwardsDependencies.Add(memberDependency)
+                memberDependency.TargetMember.BackwardsDependencies.Add(memberDependency)
             );
         }
     }

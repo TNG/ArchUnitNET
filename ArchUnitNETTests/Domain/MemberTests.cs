@@ -112,12 +112,12 @@ namespace ArchUnitNETTests.Domain
         )
         {
             originMember
-                .MemberBackwardsDependencies.OfType<IMemberMemberDependency>()
+                .BackwardsDependencies.OfType<IMemberMemberDependency>()
                 .ForEach(memberMemberBackwardsDependency =>
                 {
                     Assert.Contains(
                         memberMemberBackwardsDependency,
-                        memberMemberBackwardsDependency.OriginMember.MemberDependencies
+                        memberMemberBackwardsDependency.OriginMember.Dependencies
                     );
                 });
         }
@@ -127,7 +127,7 @@ namespace ArchUnitNETTests.Domain
         )
         {
             originMember
-                .MemberBackwardsDependencies.OfType<IMemberTypeDependency>()
+                .BackwardsDependencies.OfType<IMemberTypeDependency>()
                 .ForEach(memberTypeBackwardsDependency =>
                     Assert.Contains(
                         memberTypeBackwardsDependency,

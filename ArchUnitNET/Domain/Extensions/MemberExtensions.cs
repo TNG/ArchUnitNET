@@ -28,8 +28,8 @@ namespace ArchUnitNET.Domain.Extensions
         )
         {
             return getBackwardsDependencies
-                ? member.MemberBackwardsDependencies.OfType<BodyTypeMemberDependency>()
-                : member.MemberDependencies.OfType<BodyTypeMemberDependency>();
+                ? member.BackwardsDependencies.OfType<BodyTypeMemberDependency>()
+                : member.Dependencies.OfType<BodyTypeMemberDependency>();
         }
 
         public static bool HasBodyTypeMemberDependencies(
@@ -46,8 +46,8 @@ namespace ArchUnitNET.Domain.Extensions
         )
         {
             return getBackwardsDependencies
-                ? member.MemberBackwardsDependencies.OfType<MethodCallDependency>()
-                : member.MemberDependencies.OfType<MethodCallDependency>();
+                ? member.BackwardsDependencies.OfType<MethodCallDependency>()
+                : member.Dependencies.OfType<MethodCallDependency>();
         }
 
         public static bool HasMethodCallDependencies(
@@ -75,7 +75,7 @@ namespace ArchUnitNET.Domain.Extensions
         public static IEnumerable<IType> GetCallingTypes(this MethodMember member)
         {
             return member
-                .MemberBackwardsDependencies.OfType<MethodCallDependency>()
+                .BackwardsDependencies.OfType<MethodCallDependency>()
                 .Select(dependency => dependency.Origin)
                 .Distinct();
         }
@@ -123,10 +123,10 @@ namespace ArchUnitNET.Domain.Extensions
         {
             return getBackwardsDependencies
                 ? member
-                    .MemberBackwardsDependencies.OfType<MethodSignatureDependency>()
+                    .BackwardsDependencies.OfType<MethodSignatureDependency>()
                     .Contains(methodSignatureDependency)
                 : member
-                    .MemberDependencies.OfType<MethodSignatureDependency>()
+                    .Dependencies.OfType<MethodSignatureDependency>()
                     .Contains(methodSignatureDependency);
         }
 
@@ -137,8 +137,8 @@ namespace ArchUnitNET.Domain.Extensions
         )
         {
             return getBackwardsDependencies
-                ? member.MemberBackwardsDependencies.Contains(memberDependency)
-                : member.MemberDependencies.Contains(memberDependency);
+                ? member.BackwardsDependencies.Contains(memberDependency)
+                : member.Dependencies.Contains(memberDependency);
         }
 
         public static bool HasDependency(

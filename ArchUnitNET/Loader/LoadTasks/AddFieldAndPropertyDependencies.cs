@@ -34,9 +34,9 @@ namespace ArchUnitNET.Loader.LoadTasks
 
         private static void AddDependencyIfMissing(IMember member, IMemberTypeDependency dependency)
         {
-            if (!member.MemberDependencies.Contains(dependency))
+            if (!member.Dependencies.Contains(dependency))
             {
-                member.MemberDependencies.Add(dependency);
+                member.Dependencies.Add(dependency);
             }
         }
     }

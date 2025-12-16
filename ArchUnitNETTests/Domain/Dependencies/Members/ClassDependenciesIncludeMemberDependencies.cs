@@ -17,7 +17,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             var methodMembers = clazz.GetMethodMembers();
             methodMembers.ForEach(methodMember =>
-                Assert.True(clazz.HasDependencies(methodMember.MemberDependencies))
+                Assert.True(clazz.HasDependencies(methodMember.Dependencies))
             );
         }
     }

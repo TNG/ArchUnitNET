@@ -60,7 +60,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 .ForEach(tuple =>
                 {
                     var (methodMember, dependencies) = tuple;
-                    methodMember.MemberDependencies.AddRange(dependencies);
+                    methodMember.Dependencies.AddRange(dependencies);
                 });
         }
 

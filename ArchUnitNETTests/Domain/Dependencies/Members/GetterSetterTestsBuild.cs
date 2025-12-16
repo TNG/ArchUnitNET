@@ -141,7 +141,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
                     Enumerable.Empty<GenericArgument>()
                 )
             );
-            methodCallDependency.TargetMember.MemberBackwardsDependencies.Add(methodCallDependency);
+            methodCallDependency.TargetMember.BackwardsDependencies.Add(methodCallDependency);
             return methodCallDependency;
         }
 

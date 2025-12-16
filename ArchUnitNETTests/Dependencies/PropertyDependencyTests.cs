@@ -48,8 +48,8 @@ namespace ArchUnitNETTests.Dependencies
             if (_testStringProperty.Getter != null)
             {
                 Assert.Equal(
-                    _testStringPropertyGetter.MemberDependencies,
-                    _testStringProperty.Getter.MemberDependencies
+                    _testStringPropertyGetter.Dependencies,
+                    _testStringProperty.Getter.Dependencies
                 );
             }
             else
@@ -72,7 +72,7 @@ namespace ArchUnitNETTests.Dependencies
         {
             Assert.Contains(
                 _dependOnClass,
-                _testStringProperty.MemberDependencies.Select(d => d.Target)
+                _testStringProperty.Dependencies.Select(d => d.Target)
             );
         }
 
@@ -81,7 +81,7 @@ namespace ArchUnitNETTests.Dependencies
         {
             Assert.Contains(
                 _dependOnClass,
-                _testStringPropertyGetter.MemberDependencies.Select(d => d.Target)
+                _testStringPropertyGetter.Dependencies.Select(d => d.Target)
             );
         }
 
@@ -102,7 +102,7 @@ namespace ArchUnitNETTests.Dependencies
         public void PropertyHasMethodCallDependencyFromProperty()
         {
             var methodCalls = _testStringProperty
-                .MemberDependencies.Where(d => d is MethodCallDependency)
+                .Dependencies.Where(d => d is MethodCallDependency)
                 .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
@@ -115,7 +115,7 @@ namespace ArchUnitNETTests.Dependencies
         public void GetterHasMethodCallDependencyFromProperty()
         {
             var methodCalls = _testStringPropertyGetter
-                .MemberDependencies.Where(d => d is MethodCallDependency)
+                .Dependencies.Where(d => d is MethodCallDependency)
                 .ToList();
             if (methodCalls.IsNullOrEmpty())
             {
@@ -128,14 +128,14 @@ namespace ArchUnitNETTests.Dependencies
         public void PropertyDependencyPassedOn()
         {
             Assert.Equal(
-                _testStringPropertyGetter.MemberDependencies,
-                _testStringPropertyGetter.MemberDependencies.Intersect(
-                    _testStringProperty.MemberDependencies
+                _testStringPropertyGetter.Dependencies,
+                _testStringPropertyGetter.Dependencies.Intersect(
+                    _testStringProperty.Dependencies
                 )
             );
             Assert.Equal(
-                _testStringProperty.MemberDependencies,
-                _testStringProperty.MemberDependencies.Intersect(
+                _testStringProperty.Dependencies,
+                _testStringProperty.Dependencies.Intersect(
                     _propertyTestDataClass.Dependencies
                 )
             );

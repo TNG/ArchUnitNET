@@ -48,7 +48,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             MethodCallDependency expectedDependency
         )
         {
-            Assert.NotEmpty(propertyMember.MemberDependencies);
+            Assert.NotEmpty(propertyMember.Dependencies);
             Assert.Single(propertyMember.GetMethodCallDependencies());
             Assert.Contains(
                 mockTargetType,
@@ -69,9 +69,9 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             MethodMember accessorMethod
         )
         {
-            accessorMethod.MemberDependencies.ForEach(dependency =>
+            accessorMethod.Dependencies.ForEach(dependency =>
             {
-                Assert.Contains(dependency, accessedProperty.MemberDependencies);
+                Assert.Contains(dependency, accessedProperty.Dependencies);
             });
         }
     }

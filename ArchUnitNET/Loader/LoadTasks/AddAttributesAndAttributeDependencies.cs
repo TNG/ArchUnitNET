@@ -93,7 +93,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             CollectMemberAttributesAndDependencies(
                 fieldMember,
                 fieldDefinition.CustomAttributes.ToList(),
-                fieldMember.MemberDependencies
+                fieldMember.Dependencies
             );
         }
 
@@ -121,7 +121,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             CollectMemberAttributesAndDependencies(
                 methodMember,
                 memberCustomAttributes,
-                methodMember.MemberDependencies
+                methodMember.Dependencies
             );
         }
 
@@ -147,14 +147,14 @@ namespace ArchUnitNET.Loader.LoadTasks
                         attributeInstance
                     )
                 );
-                methodMember.MemberDependencies.AddRange(genericParameterAttributeDependencies);
+                methodMember.Dependencies.AddRange(genericParameterAttributeDependencies);
             }
         }
 
         private void CollectMemberAttributesAndDependencies(
             IMember methodMember,
             List<CustomAttribute> memberCustomAttributes,
-            List<IMemberTypeDependency> attributeDependencies
+            List<ITypeDependency> attributeDependencies
         )
         {
             memberCustomAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);

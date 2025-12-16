@@ -47,8 +47,8 @@ namespace ArchUnitNET.Domain
 
         public Writability? Writability { get; }
 
-        public List<IMemberTypeDependency> AttributeDependencies { get; } =
-            new List<IMemberTypeDependency>();
+        public List<ITypeDependency> AttributeDependencies { get; } =
+            new List<ITypeDependency>();
 
         public IMemberTypeDependency PropertyTypeDependency { get; }
         public bool IsCompilerGenerated { get; }
@@ -70,14 +70,14 @@ namespace ArchUnitNET.Domain
             AttributeInstances.Select(instance => instance.Type);
         public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
 
-        public List<IMemberTypeDependency> MemberDependencies
+        public List<ITypeDependency> Dependencies
         {
             get
             {
                 var setterDependencies =
-                    Setter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
+                    Setter?.Dependencies ?? Enumerable.Empty<ITypeDependency>();
                 var getterDependencies =
-                    Getter?.MemberDependencies ?? Enumerable.Empty<IMemberTypeDependency>();
+                    Getter?.Dependencies ?? Enumerable.Empty<ITypeDependency>();
                 return setterDependencies
                     .Concat(getterDependencies)
                     .Concat(AttributeDependencies)
@@ -86,14 +86,8 @@ namespace ArchUnitNET.Domain
             }
         }
 
-        public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } =
-            new List<IMemberTypeDependency>();
-
-        public List<ITypeDependency> Dependencies =>
-            MemberDependencies.Cast<ITypeDependency>().ToList();
-
-        public List<ITypeDependency> BackwardsDependencies =>
-            MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
+        public List<ITypeDependency> BackwardsDependencies { get; } =
+            new List<ITypeDependency>();
 
         public IType Type => _typeInstance.Type;
         public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;

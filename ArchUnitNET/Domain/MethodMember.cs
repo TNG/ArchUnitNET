@@ -57,15 +57,10 @@ namespace ArchUnitNET.Domain
         public IEnumerable<Attribute> Attributes =>
             AttributeInstances.Select(instance => instance.Type);
         public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
-        public List<IMemberTypeDependency> MemberDependencies { get; } =
-            new List<IMemberTypeDependency>();
-        public List<IMemberTypeDependency> MemberBackwardsDependencies { get; } =
-            new List<IMemberTypeDependency>();
-        public List<ITypeDependency> Dependencies =>
-            MemberDependencies.Cast<ITypeDependency>().ToList();
-
-        public List<ITypeDependency> BackwardsDependencies =>
-            MemberBackwardsDependencies.Cast<ITypeDependency>().ToList();
+        public List<ITypeDependency> Dependencies { get; } =
+            new List<ITypeDependency>();
+        public List<ITypeDependency> BackwardsDependencies { get; } =
+            new List<ITypeDependency>();
 
         public Assembly Assembly => DeclaringType.Assembly;
         public Namespace Namespace => DeclaringType.Namespace;
