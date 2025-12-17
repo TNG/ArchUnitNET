@@ -44,6 +44,11 @@ public class ClassWithoutDependencies { }
 
 public class OtherClassWithoutDependencies { }
 
+public class ClassWithReferencedTypeDependency
+{
+    List<string> _referencedTypeDependency = [];
+}
+
 // https://github.com/TNG/ArchUnitNET/issues/351
 class Issue351
 {
