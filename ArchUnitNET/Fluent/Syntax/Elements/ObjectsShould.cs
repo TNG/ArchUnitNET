@@ -43,7 +43,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TRuleTypeShouldConjunction DependOnAny(IEnumerable<IType> types) => DependOnAny(new ObjectProvider<IType>(types));
         public TRuleTypeShouldConjunction DependOnAny(IEnumerable<Type> types) => DependOnAny(new SystemTypeObjectProvider<IType>(types));
 
-        public TRuleTypeShouldConjunction FollowCustomCondition(ICondition<TRuleType> condition) => AddCondition(condition);
+        public TRuleTypeShouldConjunction FollowCustomCondition(ICondition<TRuleType> condition) => AddCondition(condition.AsOrderedCondition());
         public TRuleTypeShouldConjunction FollowCustomCondition(Func<TRuleType, ConditionResult> condition, string description) => AddCondition(ObjectConditionsDefinition<TRuleType>.FollowCustomCondition(condition, description));
         public TRuleTypeShouldConjunction FollowCustomCondition(Func<TRuleType, bool> condition, string description, string failDescription) => AddCondition(ObjectConditionsDefinition<TRuleType>.FollowCustomCondition(condition, description, failDescription));
 
@@ -189,7 +189,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public ShouldRelateToAttributesThat<TRuleTypeShouldConjunction, TRuleType> NotHaveAnyAttributesThat() => BeginComplexAttributeCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributesThat());
         // csharpier-ignore-end
 
-        private TRuleTypeShouldConjunction AddCondition(ICondition<TRuleType> condition)
+        private TRuleTypeShouldConjunction AddCondition(IOrderedCondition<TRuleType> condition)
         {
             _ruleCreator.AddCondition(condition);
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);

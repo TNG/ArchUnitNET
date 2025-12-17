@@ -14,14 +14,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
     public static class TypeConditionsDefinition<TRuleType>
         where TRuleType : IType
     {
-        public static ICondition<TRuleType> Be(Type firstType, params Type[] moreTypes)
+        public static IOrderedCondition<TRuleType> Be(Type firstType, params Type[] moreTypes)
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return Be(types);
         }
 
-        public static ICondition<TRuleType> Be(IEnumerable<Type> types)
+        public static IOrderedCondition<TRuleType> Be(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -81,7 +81,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     );
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
         public static RelationCondition<TRuleType, IType> BeTypesThat()
@@ -93,7 +96,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> BeAssignableTo(
+        public static IOrderedCondition<TRuleType> BeAssignableTo(
             IType firstType,
             params IType[] moreTypes
         )
@@ -103,14 +106,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return BeAssignableTo(types);
         }
 
-        public static ICondition<TRuleType> BeAssignableTo(Type firstType, params Type[] moreTypes)
+        public static IOrderedCondition<TRuleType> BeAssignableTo(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return BeAssignableTo(types);
         }
 
-        public static ICondition<TRuleType> BeAssignableTo(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<TRuleType> BeAssignableTo(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -135,10 +143,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = "be assignable to " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> BeAssignableTo(IEnumerable<IType> types)
+        public static IOrderedCondition<TRuleType> BeAssignableTo(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -192,10 +203,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     );
             }
 
-            return new EnumerableCondition<TRuleType>(Condition, description);
+            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> BeAssignableTo(IEnumerable<Type> types)
+        public static IOrderedCondition<TRuleType> BeAssignableTo(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -266,24 +277,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     );
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> BeNestedIn(IType firstType, params IType[] moreTypes)
+        public static IOrderedCondition<TRuleType> BeNestedIn(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return BeNestedIn(types);
         }
 
-        public static ICondition<TRuleType> BeNestedIn(Type firstType, params Type[] moreTypes)
+        public static IOrderedCondition<TRuleType> BeNestedIn(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return BeNestedIn(types);
         }
 
-        public static ICondition<TRuleType> BeNestedIn(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<TRuleType> BeNestedIn(IObjectProvider<IType> objectProvider)
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -312,10 +332,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = "be nested in " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> BeNestedIn(IEnumerable<IType> types)
+        public static IOrderedCondition<TRuleType> BeNestedIn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -373,10 +396,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     );
             }
 
-            return new EnumerableCondition<TRuleType>(Condition, description);
+            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> BeNestedIn(IEnumerable<Type> types)
+        public static IOrderedCondition<TRuleType> BeNestedIn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -437,10 +460,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     );
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> BeValueTypes()
+        public static IOrderedCondition<TRuleType> BeValueTypes()
         {
             return new SimpleCondition<TRuleType>(
                 type => type is Enum || type is Struct,
@@ -449,12 +475,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> BeEnums()
+        public static IOrderedCondition<TRuleType> BeEnums()
         {
             return new SimpleCondition<TRuleType>(type => type is Enum, "be enums", "is no enum");
         }
 
-        public static ICondition<TRuleType> BeStructs()
+        public static IOrderedCondition<TRuleType> BeStructs()
         {
             return new SimpleCondition<TRuleType>(
                 type => type is Struct,
@@ -463,7 +489,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> ImplementInterface(Interface intf)
+        public static IOrderedCondition<TRuleType> ImplementInterface(Interface intf)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ImplementsInterface(intf),
@@ -472,7 +498,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> ImplementInterface(Type intf)
+        public static IOrderedCondition<TRuleType> ImplementInterface(Type intf)
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -528,10 +554,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(
                 Condition,
                 "implement interface \"" + intf.FullName + "\""
-            );
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> ImplementAny(IObjectProvider<Interface> interfaces)
+        public static IOrderedCondition<TRuleType> ImplementAny(
+            IObjectProvider<Interface> interfaces
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -568,10 +596,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "implement",
                 "implement any"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> ResideInNamespace(string fullName)
+        public static IOrderedCondition<TRuleType> ResideInNamespace(string fullName)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInNamespace(fullName),
@@ -580,7 +611,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> ResideInNamespaceMatching(string pattern)
+        public static IOrderedCondition<TRuleType> ResideInNamespaceMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInNamespaceMatching(pattern),
@@ -589,7 +620,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> ResideInAssembly(string fullName)
+        public static IOrderedCondition<TRuleType> ResideInAssembly(string fullName)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInAssembly(fullName),
@@ -598,7 +629,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> ResideInAssemblyMatching(string pattern)
+        public static IOrderedCondition<TRuleType> ResideInAssemblyMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInAssemblyMatching(pattern),
@@ -607,7 +638,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> ResideInAssembly(
+        public static IOrderedCondition<TRuleType> ResideInAssembly(
             System.Reflection.Assembly assembly,
             params System.Reflection.Assembly[] moreAssemblies
         )
@@ -632,7 +663,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> ResideInAssembly(
+        public static IOrderedCondition<TRuleType> ResideInAssembly(
             Assembly assembly,
             Assembly[] moreAssemblies
         )
@@ -655,7 +686,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> HavePropertyMemberWithName(string name)
+        public static IOrderedCondition<TRuleType> HavePropertyMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.HasPropertyMemberWithName(name),
@@ -664,19 +695,21 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> AdhereToPlantUmlDiagram(Stream stream)
+        public static IOrderedCondition<TRuleType> AdhereToPlantUmlDiagram(Stream stream)
         {
             PlantUmlParsedDiagram diagram = new PlantUmlParser().Parse(stream);
             return createPlantUmlCondition(diagram);
         }
 
-        public static ICondition<TRuleType> AdhereToPlantUmlDiagram(string file)
+        public static IOrderedCondition<TRuleType> AdhereToPlantUmlDiagram(string file)
         {
             PlantUmlParsedDiagram diagram = new PlantUmlParser().Parse(file);
             return createPlantUmlCondition(diagram);
         }
 
-        private static ICondition<TRuleType> createPlantUmlCondition(PlantUmlParsedDiagram diagram)
+        private static IOrderedCondition<TRuleType> createPlantUmlCondition(
+            PlantUmlParsedDiagram diagram
+        )
         {
             ClassDiagramAssociation classDiagramAssociation = new ClassDiagramAssociation(diagram);
 
@@ -725,7 +758,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimpleCondition<TRuleType>(Condition, "adhere to PlantUML diagram.");
         }
 
-        public static ICondition<TRuleType> HaveFieldMemberWithName(string name)
+        public static IOrderedCondition<TRuleType> HaveFieldMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.HasFieldMemberWithName(name),
@@ -734,7 +767,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> HaveMethodMemberWithName(string name)
+        public static IOrderedCondition<TRuleType> HaveMethodMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.HasMethodMemberWithName(name),
@@ -743,7 +776,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> HaveMemberWithName(string name)
+        public static IOrderedCondition<TRuleType> HaveMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.HasMemberWithName(name),
@@ -752,7 +785,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> BeNested()
+        public static IOrderedCondition<TRuleType> BeNested()
         {
             return new SimpleCondition<TRuleType>(
                 type => type.IsNested,
@@ -783,14 +816,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-        public static ICondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
+        public static IOrderedCondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return NotBe(types);
         }
 
-        public static ICondition<TRuleType> NotBe(IEnumerable<Type> types)
+        public static IOrderedCondition<TRuleType> NotBe(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -850,10 +883,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     );
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> NotBeAssignableTo(
+        public static IOrderedCondition<TRuleType> NotBeAssignableTo(
             IType firstType,
             params IType[] moreTypes
         )
@@ -863,7 +899,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return NotBeAssignableTo(types);
         }
 
-        public static ICondition<TRuleType> NotBeAssignableTo(
+        public static IOrderedCondition<TRuleType> NotBeAssignableTo(
             Type firstType,
             params Type[] moreTypes
         )
@@ -873,7 +909,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return NotBeAssignableTo(types);
         }
 
-        public static ICondition<TRuleType> NotBeAssignableTo(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<TRuleType> NotBeAssignableTo(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -898,10 +936,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = "not be assignable to " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> NotBeAssignableTo(IEnumerable<IType> types)
+        public static IOrderedCondition<TRuleType> NotBeAssignableTo(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -969,10 +1010,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     );
             }
 
-            return new EnumerableCondition<TRuleType>(Condition, description);
+            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> NotBeAssignableTo(IEnumerable<Type> types)
+        public static IOrderedCondition<TRuleType> NotBeAssignableTo(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -1061,10 +1102,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     );
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> NotBeValueTypes()
+        public static IOrderedCondition<TRuleType> NotBeValueTypes()
         {
             return new SimpleCondition<TRuleType>(
                 type => !(type is Enum) && !(type is Struct),
@@ -1073,7 +1117,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotBeEnums()
+        public static IOrderedCondition<TRuleType> NotBeEnums()
         {
             return new SimpleCondition<TRuleType>(
                 type => !(type is Enum),
@@ -1082,7 +1126,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotBeStructs()
+        public static IOrderedCondition<TRuleType> NotBeStructs()
         {
             return new SimpleCondition<TRuleType>(
                 type => !(type is Struct),
@@ -1091,7 +1135,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotImplementInterface(Interface intf)
+        public static IOrderedCondition<TRuleType> NotImplementInterface(Interface intf)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ImplementsInterface(intf),
@@ -1100,7 +1144,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotImplementInterface(Type intf)
+        public static IOrderedCondition<TRuleType> NotImplementInterface(Type intf)
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -1152,10 +1196,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitectureCondition<TRuleType>(
                 Condition,
                 "not implement interface \"" + intf.FullName + "\""
-            );
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> NotImplementAny(IObjectProvider<Interface> interfaces)
+        public static IOrderedCondition<TRuleType> NotImplementAny(
+            IObjectProvider<Interface> interfaces
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -1190,10 +1236,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "not implement",
                 "not implement any"
             );
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> NotResideInNamespace(string fullName)
+        public static IOrderedCondition<TRuleType> NotResideInNamespace(string fullName)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInNamespace(fullName),
@@ -1202,7 +1251,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotResideInNamespaceMatching(string pattern)
+        public static IOrderedCondition<TRuleType> NotResideInNamespaceMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInNamespaceMatching(pattern),
@@ -1211,7 +1260,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotResideInAssembly(string fullName)
+        public static IOrderedCondition<TRuleType> NotResideInAssembly(string fullName)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInAssembly(fullName),
@@ -1220,7 +1269,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotResideInAssemblyMatching(string pattern)
+        public static IOrderedCondition<TRuleType> NotResideInAssemblyMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInAssemblyMatching(pattern),
@@ -1229,7 +1278,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotResideInAssembly(
+        public static IOrderedCondition<TRuleType> NotResideInAssembly(
             System.Reflection.Assembly assembly,
             params System.Reflection.Assembly[] moreAssemblies
         )
@@ -1254,7 +1303,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotResideInAssembly(
+        public static IOrderedCondition<TRuleType> NotResideInAssembly(
             Assembly assembly,
             params Assembly[] moreAssemblies
         )
@@ -1277,7 +1326,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotHavePropertyMemberWithName(string name)
+        public static IOrderedCondition<TRuleType> NotHavePropertyMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.HasPropertyMemberWithName(name),
@@ -1286,7 +1335,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotHaveFieldMemberWithName(string name)
+        public static IOrderedCondition<TRuleType> NotHaveFieldMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.HasFieldMemberWithName(name),
@@ -1295,7 +1344,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotHaveMethodMemberWithName(string name)
+        public static IOrderedCondition<TRuleType> NotHaveMethodMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.HasMethodMemberWithName(name),
@@ -1304,7 +1353,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotHaveMemberWithName(string name)
+        public static IOrderedCondition<TRuleType> NotHaveMemberWithName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.HasMemberWithName(name),
@@ -1313,7 +1362,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        public static ICondition<TRuleType> NotBeNested()
+        public static IOrderedCondition<TRuleType> NotBeNested()
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.IsNested,

@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
     public static class PropertyMemberConditionsDefinition
     {
-        public static ICondition<PropertyMember> HaveGetter()
+        public static IOrderedCondition<PropertyMember> HaveGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility != NotAccessible,
@@ -15,7 +15,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HavePrivateGetter()
+        public static IOrderedCondition<PropertyMember> HavePrivateGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility == Private,
@@ -27,7 +27,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HavePublicGetter()
+        public static IOrderedCondition<PropertyMember> HavePublicGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility == Public,
@@ -39,7 +39,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HaveProtectedGetter()
+        public static IOrderedCondition<PropertyMember> HaveProtectedGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility == Protected,
@@ -51,7 +51,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HaveInternalGetter()
+        public static IOrderedCondition<PropertyMember> HaveInternalGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility == Internal,
@@ -63,7 +63,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HaveProtectedInternalGetter()
+        public static IOrderedCondition<PropertyMember> HaveProtectedInternalGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility == ProtectedInternal,
@@ -75,7 +75,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HavePrivateProtectedGetter()
+        public static IOrderedCondition<PropertyMember> HavePrivateProtectedGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility == PrivateProtected,
@@ -85,7 +85,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HaveSetter()
+        public static IOrderedCondition<PropertyMember> HaveSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility != NotAccessible,
@@ -94,7 +94,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HavePrivateSetter()
+        public static IOrderedCondition<PropertyMember> HavePrivateSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == Private,
@@ -106,7 +106,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HavePublicSetter()
+        public static IOrderedCondition<PropertyMember> HavePublicSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == Public,
@@ -118,7 +118,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HaveProtectedSetter()
+        public static IOrderedCondition<PropertyMember> HaveProtectedSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == Protected,
@@ -130,7 +130,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HaveInternalSetter()
+        public static IOrderedCondition<PropertyMember> HaveInternalSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == Internal,
@@ -142,7 +142,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HaveProtectedInternalSetter()
+        public static IOrderedCondition<PropertyMember> HaveProtectedInternalSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == ProtectedInternal,
@@ -154,7 +154,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HavePrivateProtectedSetter()
+        public static IOrderedCondition<PropertyMember> HavePrivateProtectedSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == PrivateProtected,
@@ -164,7 +164,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> HaveInitSetter()
+        public static IOrderedCondition<PropertyMember> HaveInitSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.Writability == Writability.InitOnly,
@@ -173,7 +173,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> BeVirtual()
+        public static IOrderedCondition<PropertyMember> BeVirtual()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.IsVirtual,
@@ -184,7 +184,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 
         //Negations
 
-        public static ICondition<PropertyMember> NotHaveGetter()
+        public static IOrderedCondition<PropertyMember> NotHaveGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility == NotAccessible,
@@ -193,7 +193,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHavePrivateGetter()
+        public static IOrderedCondition<PropertyMember> NotHavePrivateGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility != Private,
@@ -202,7 +202,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHavePublicGetter()
+        public static IOrderedCondition<PropertyMember> NotHavePublicGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility != Public,
@@ -211,7 +211,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHaveProtectedGetter()
+        public static IOrderedCondition<PropertyMember> NotHaveProtectedGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility != Protected,
@@ -220,7 +220,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHaveInternalGetter()
+        public static IOrderedCondition<PropertyMember> NotHaveInternalGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility != Internal,
@@ -229,7 +229,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHaveProtectedInternalGetter()
+        public static IOrderedCondition<PropertyMember> NotHaveProtectedInternalGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility != ProtectedInternal,
@@ -238,7 +238,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHavePrivateProtectedGetter()
+        public static IOrderedCondition<PropertyMember> NotHavePrivateProtectedGetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.GetterVisibility != PrivateProtected,
@@ -247,7 +247,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHaveSetter()
+        public static IOrderedCondition<PropertyMember> NotHaveSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility == NotAccessible,
@@ -256,7 +256,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHavePrivateSetter()
+        public static IOrderedCondition<PropertyMember> NotHavePrivateSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility != Private,
@@ -265,7 +265,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHavePublicSetter()
+        public static IOrderedCondition<PropertyMember> NotHavePublicSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility != Public,
@@ -274,7 +274,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHaveProtectedSetter()
+        public static IOrderedCondition<PropertyMember> NotHaveProtectedSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility != Protected,
@@ -283,7 +283,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHaveInternalSetter()
+        public static IOrderedCondition<PropertyMember> NotHaveInternalSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility != Internal,
@@ -292,7 +292,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHaveProtectedInternalSetter()
+        public static IOrderedCondition<PropertyMember> NotHaveProtectedInternalSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility != ProtectedInternal,
@@ -301,7 +301,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHavePrivateProtectedSetter()
+        public static IOrderedCondition<PropertyMember> NotHavePrivateProtectedSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.SetterVisibility != PrivateProtected,
@@ -310,7 +310,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotHaveInitSetter()
+        public static IOrderedCondition<PropertyMember> NotHaveInitSetter()
         {
             return new SimpleCondition<PropertyMember>(
                 member => member.Writability != Writability.InitOnly,
@@ -319,7 +319,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static ICondition<PropertyMember> NotBeVirtual()
+        public static IOrderedCondition<PropertyMember> NotBeVirtual()
         {
             return new SimpleCondition<PropertyMember>(
                 member => !member.IsVirtual,

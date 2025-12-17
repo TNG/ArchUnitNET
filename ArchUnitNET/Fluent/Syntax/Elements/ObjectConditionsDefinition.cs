@@ -14,12 +14,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     internal static class ObjectConditionsDefinition<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        public static ICondition<TRuleType> Exist()
+        public static IOrderedCondition<TRuleType> Exist()
         {
             return new ExistsCondition<TRuleType>(true);
         }
 
-        public static ICondition<TRuleType> Be(IObjectProvider<ICanBeAnalyzed> objectProvider)
+        public static IOrderedCondition<TRuleType> Be(
+            IObjectProvider<ICanBeAnalyzed> objectProvider
+        )
         {
             var sizedObjectProvider = objectProvider as ISizedObjectProvider<ICanBeAnalyzed>;
             IEnumerable<ConditionResult> Condition(
@@ -52,7 +54,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> CallAny(IObjectProvider<MethodMember> objectProvider)
+        public static IOrderedCondition<TRuleType> CallAny(
+            IObjectProvider<MethodMember> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -91,7 +95,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> DependOnAny(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<TRuleType> DependOnAny(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -130,7 +136,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> FollowCustomCondition(
+        public static IOrderedCondition<TRuleType> FollowCustomCondition(
             Func<TRuleType, ConditionResult> condition,
             string description
         )
@@ -138,7 +144,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(condition, description);
         }
 
-        public static ICondition<TRuleType> FollowCustomCondition(
+        public static IOrderedCondition<TRuleType> FollowCustomCondition(
             Func<TRuleType, bool> condition,
             string description,
             string failDescription
@@ -147,7 +153,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new SimpleCondition<TRuleType>(condition, description, failDescription);
         }
 
-        public static ICondition<TRuleType> OnlyDependOn(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<TRuleType> OnlyDependOn(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -187,7 +195,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> HaveAnyAttributes(
+        public static IOrderedCondition<TRuleType> HaveAnyAttributes(
             IObjectProvider<Attribute> objectProvider
         )
         {
@@ -228,7 +236,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> OnlyHaveAttributes(
+        public static IOrderedCondition<TRuleType> OnlyHaveAttributes(
             IObjectProvider<Attribute> objectProvider
         )
         {
@@ -268,7 +276,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> HaveAnyAttributesWithArguments(
+        public static IOrderedCondition<TRuleType> HaveAnyAttributesWithArguments(
             IEnumerable<object> argumentValues
         )
         {
@@ -326,7 +334,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> HaveAttributeWithArguments(
+        public static IOrderedCondition<TRuleType> HaveAttributeWithArguments(
             string attributeFullName,
             [NotNull] Func<Architecture, Attribute> getAttribute,
             [NotNull] IEnumerable<object> argumentValues
@@ -390,7 +398,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> HaveAnyAttributesWithNamedArguments(
+        public static IOrderedCondition<TRuleType> HaveAnyAttributesWithNamedArguments(
             IEnumerable<(string, object)> namedArguments
         )
         {
@@ -451,7 +459,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> HaveAttributeWithNamedArguments(
+        public static IOrderedCondition<TRuleType> HaveAttributeWithNamedArguments(
             string attributeFullName,
             [NotNull] Func<Architecture, Attribute> getAttribute,
             IEnumerable<(string, object)> namedArguments
@@ -518,7 +526,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> HaveName(string name)
+        public static IOrderedCondition<TRuleType> HaveName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameEquals(name),
@@ -527,7 +535,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveNameMatching(string pattern)
+        public static IOrderedCondition<TRuleType> HaveNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameMatches(pattern),
@@ -536,7 +544,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveNameStartingWith(string pattern)
+        public static IOrderedCondition<TRuleType> HaveNameStartingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameStartsWith(pattern),
@@ -545,7 +553,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveNameEndingWith(string pattern)
+        public static IOrderedCondition<TRuleType> HaveNameEndingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameEndsWith(pattern),
@@ -554,7 +562,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveNameContaining(string pattern)
+        public static IOrderedCondition<TRuleType> HaveNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.NameContains(pattern),
@@ -563,7 +571,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveFullName(string name)
+        public static IOrderedCondition<TRuleType> HaveFullName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullNameEquals(name),
@@ -572,7 +580,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveFullNameMatching(string pattern)
+        public static IOrderedCondition<TRuleType> HaveFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullNameMatches(pattern),
@@ -581,7 +589,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveFullNameStartingWith(string pattern)
+        public static IOrderedCondition<TRuleType> HaveFullNameStartingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullNameStartsWith(pattern),
@@ -590,7 +598,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveFullNameEndingWith(string pattern)
+        public static IOrderedCondition<TRuleType> HaveFullNameEndingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullNameEndsWith(pattern),
@@ -599,7 +607,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveFullNameContaining(string pattern)
+        public static IOrderedCondition<TRuleType> HaveFullNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.FullNameContains(pattern),
@@ -608,7 +616,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveAssemblyQualifiedName(string assemblyQualifiedName)
+        public static IOrderedCondition<TRuleType> HaveAssemblyQualifiedName(
+            string assemblyQualifiedName
+        )
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.AssemblyQualifiedNameEquals(assemblyQualifiedName),
@@ -617,7 +627,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveAssemblyQualifiedNameMatching(string pattern)
+        public static IOrderedCondition<TRuleType> HaveAssemblyQualifiedNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.AssemblyQualifiedNameMatches(pattern),
@@ -626,7 +636,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveAssemblyQualifiedNameStartingWith(string pattern)
+        public static IOrderedCondition<TRuleType> HaveAssemblyQualifiedNameStartingWith(
+            string pattern
+        )
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.AssemblyQualifiedNameStartsWith(pattern),
@@ -635,7 +647,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveAssemblyQualifiedNameEndingWith(string pattern)
+        public static IOrderedCondition<TRuleType> HaveAssemblyQualifiedNameEndingWith(
+            string pattern
+        )
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.AssemblyQualifiedNameEndsWith(pattern),
@@ -644,7 +658,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> HaveAssemblyQualifiedNameContaining(string pattern)
+        public static IOrderedCondition<TRuleType> HaveAssemblyQualifiedNameContaining(
+            string pattern
+        )
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.AssemblyQualifiedNameContains(pattern),
@@ -653,7 +669,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> BePrivate()
+        public static IOrderedCondition<TRuleType> BePrivate()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility == Private,
@@ -662,7 +678,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> BePublic()
+        public static IOrderedCondition<TRuleType> BePublic()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility == Public,
@@ -671,7 +687,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> BeProtected()
+        public static IOrderedCondition<TRuleType> BeProtected()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility == Protected,
@@ -680,7 +696,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> BeInternal()
+        public static IOrderedCondition<TRuleType> BeInternal()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility == Internal,
@@ -689,7 +705,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> BeProtectedInternal()
+        public static IOrderedCondition<TRuleType> BeProtectedInternal()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility == ProtectedInternal,
@@ -698,7 +714,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> BePrivateProtected()
+        public static IOrderedCondition<TRuleType> BePrivateProtected()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility == PrivateProtected,
@@ -747,12 +763,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         //Negations
 
-        public static ICondition<TRuleType> NotExist()
+        public static IOrderedCondition<TRuleType> NotExist()
         {
             return new ExistsCondition<TRuleType>(false);
         }
 
-        public static ICondition<TRuleType> NotBe(IObjectProvider<ICanBeAnalyzed> objectProvider)
+        public static IOrderedCondition<TRuleType> NotBe(
+            IObjectProvider<ICanBeAnalyzed> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -785,7 +803,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotCallAny(IObjectProvider<MethodMember> objectProvider)
+        public static IOrderedCondition<TRuleType> NotCallAny(
+            IObjectProvider<MethodMember> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -821,7 +841,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotDependOnAny(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<TRuleType> NotDependOnAny(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
@@ -858,7 +880,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotHaveAnyAttributes(
+        public static IOrderedCondition<TRuleType> NotHaveAnyAttributes(
             IObjectProvider<Attribute> objectProvider
         )
         {
@@ -897,7 +919,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotHaveAnyAttributesWithArguments(
+        public static IOrderedCondition<TRuleType> NotHaveAnyAttributesWithArguments(
             IEnumerable<object> argumentValues
         )
         {
@@ -956,7 +978,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotHaveAttributeWithArguments(
+        public static IOrderedCondition<TRuleType> NotHaveAttributeWithArguments(
             string attributeFullName,
             [NotNull] Func<Architecture, Attribute> getAttribute,
             IEnumerable<object> argumentValues
@@ -1004,7 +1026,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotHaveAnyAttributesWithNamedArguments(
+        public static IOrderedCondition<TRuleType> NotHaveAnyAttributesWithNamedArguments(
             IEnumerable<(string, object)> namedArguments
         )
         {
@@ -1066,7 +1088,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotHaveAttributeWithNamedArguments(
+        public static IOrderedCondition<TRuleType> NotHaveAttributeWithNamedArguments(
             string attributeFullName,
             [NotNull] Func<Architecture, Attribute> getAttribute,
             IEnumerable<(string, object)> namedArguments
@@ -1120,7 +1142,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
-        public static ICondition<TRuleType> NotHaveName(string name)
+        public static IOrderedCondition<TRuleType> NotHaveName(string name)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.NameEquals(name),
@@ -1129,7 +1151,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveNameMatching(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.NameMatches(pattern),
@@ -1138,7 +1160,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveNameStartingWith(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveNameStartingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.NameStartsWith(pattern),
@@ -1147,7 +1169,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveNameEndingWith(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveNameEndingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.NameEndsWith(pattern),
@@ -1156,7 +1178,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveNameContaining(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.NameContains(pattern),
@@ -1165,7 +1187,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveFullName(string fullName)
+        public static IOrderedCondition<TRuleType> NotHaveFullName(string fullName)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullNameEquals(fullName),
@@ -1174,7 +1196,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveFullNameMatching(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveFullNameMatching(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullNameMatches(pattern),
@@ -1183,7 +1205,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveFullNameStartingWith(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveFullNameStartingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullNameStartsWith(pattern),
@@ -1192,7 +1214,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveFullNameEndingWith(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveFullNameEndingWith(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullNameEndsWith(pattern),
@@ -1201,7 +1223,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveFullNameContaining(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveFullNameContaining(string pattern)
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.FullNameContains(pattern),
@@ -1210,7 +1232,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveAssemblyQualifiedName(
+        public static IOrderedCondition<TRuleType> NotHaveAssemblyQualifiedName(
             string assemblyQualifiedName
         )
         {
@@ -1221,7 +1243,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveAssemblyQualifiedNameMatching(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveAssemblyQualifiedNameMatching(
+            string pattern
+        )
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.AssemblyQualifiedNameMatches(pattern),
@@ -1230,7 +1254,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveAssemblyQualifiedNameStartingWith(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveAssemblyQualifiedNameStartingWith(
+            string pattern
+        )
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.AssemblyQualifiedNameStartsWith(pattern),
@@ -1239,7 +1265,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveAssemblyQualifiedNameEndingWith(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveAssemblyQualifiedNameEndingWith(
+            string pattern
+        )
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.AssemblyQualifiedNameEndsWith(pattern),
@@ -1248,7 +1276,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotHaveAssemblyQualifiedNameContaining(string pattern)
+        public static IOrderedCondition<TRuleType> NotHaveAssemblyQualifiedNameContaining(
+            string pattern
+        )
         {
             return new SimpleCondition<TRuleType>(
                 obj => !obj.AssemblyQualifiedNameContains(pattern),
@@ -1257,7 +1287,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotBePrivate()
+        public static IOrderedCondition<TRuleType> NotBePrivate()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility != Private,
@@ -1266,7 +1296,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotBePublic()
+        public static IOrderedCondition<TRuleType> NotBePublic()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility != Public,
@@ -1275,7 +1305,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotBeProtected()
+        public static IOrderedCondition<TRuleType> NotBeProtected()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility != Protected,
@@ -1284,7 +1314,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotBeInternal()
+        public static IOrderedCondition<TRuleType> NotBeInternal()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility != Internal,
@@ -1293,7 +1323,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotBeProtectedInternal()
+        public static IOrderedCondition<TRuleType> NotBeProtectedInternal()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility != ProtectedInternal,
@@ -1302,7 +1332,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             );
         }
 
-        public static ICondition<TRuleType> NotBePrivateProtected()
+        public static IOrderedCondition<TRuleType> NotBePrivateProtected()
         {
             return new SimpleCondition<TRuleType>(
                 obj => obj.Visibility != PrivateProtected,

@@ -5,7 +5,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
     public static class AttributeConditionsDefinition
     {
-        public static ICondition<Attribute> BeAbstract()
+        public static IOrderedCondition<Attribute> BeAbstract()
         {
             return new SimpleCondition<Attribute>(
                 attribute => !attribute.IsAbstract.HasValue || attribute.IsAbstract.Value,
@@ -14,7 +14,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
             );
         }
 
-        public static ICondition<Attribute> BeSealed()
+        public static IOrderedCondition<Attribute> BeSealed()
         {
             return new SimpleCondition<Attribute>(
                 attribute => !attribute.IsSealed.HasValue || attribute.IsSealed.Value,
@@ -25,7 +25,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 
         //Negations
 
-        public static ICondition<Attribute> NotBeAbstract()
+        public static IOrderedCondition<Attribute> NotBeAbstract()
         {
             return new SimpleCondition<Attribute>(
                 attribute => !attribute.IsAbstract.HasValue || !attribute.IsAbstract.Value,
@@ -34,7 +34,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
             );
         }
 
-        public static ICondition<Attribute> NotBeSealed()
+        public static IOrderedCondition<Attribute> NotBeSealed()
         {
             return new SimpleCondition<Attribute>(
                 attribute => !attribute.IsSealed.HasValue || !attribute.IsSealed.Value,

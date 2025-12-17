@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
     public static class ClassConditionsDefinition
     {
-        public static ICondition<Class> BeAbstract()
+        public static IOrderedCondition<Class> BeAbstract()
         {
             return new SimpleCondition<Class>(
                 cls => !cls.IsAbstract.HasValue || cls.IsAbstract.Value,
@@ -15,7 +15,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             );
         }
 
-        public static ICondition<Class> BeSealed()
+        public static IOrderedCondition<Class> BeSealed()
         {
             return new SimpleCondition<Class>(
                 cls => !cls.IsSealed.HasValue || cls.IsSealed.Value,
@@ -24,7 +24,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             );
         }
 
-        public static ICondition<Class> BeRecord()
+        public static IOrderedCondition<Class> BeRecord()
         {
             return new SimpleCondition<Class>(
                 cls => !cls.IsRecord.HasValue || cls.IsRecord.Value,
@@ -33,7 +33,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             );
         }
 
-        public static ICondition<Class> BeImmutable()
+        public static IOrderedCondition<Class> BeImmutable()
         {
             return new SimpleCondition<Class>(
                 cls =>
@@ -46,7 +46,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 
         //Negations
 
-        public static ICondition<Class> NotBeAbstract()
+        public static IOrderedCondition<Class> NotBeAbstract()
         {
             return new SimpleCondition<Class>(
                 cls => !cls.IsAbstract.HasValue || !cls.IsAbstract.Value,
@@ -55,7 +55,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             );
         }
 
-        public static ICondition<Class> NotBeSealed()
+        public static IOrderedCondition<Class> NotBeSealed()
         {
             return new SimpleCondition<Class>(
                 cls => !cls.IsSealed.HasValue || !cls.IsSealed.Value,
@@ -64,7 +64,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             );
         }
 
-        public static ICondition<Class> NotBeRecord()
+        public static IOrderedCondition<Class> NotBeRecord()
         {
             return new SimpleCondition<Class>(
                 cls => !cls.IsRecord.HasValue || !cls.IsRecord.Value,
@@ -73,7 +73,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
             );
         }
 
-        public static ICondition<Class> NotBeImmutable()
+        public static IOrderedCondition<Class> NotBeImmutable()
         {
             return new SimpleCondition<Class>(
                 cls => cls.Members.Any(m => m.IsStatic == false && !m.Writability.IsImmutable()),

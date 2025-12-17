@@ -19,7 +19,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
-        public static ICondition<MethodMember> BeConstructor()
+        public static IOrderedCondition<MethodMember> BeConstructor()
         {
             return new SimpleCondition<MethodMember>(
                 member => member.IsConstructor(),
@@ -28,7 +28,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
-        public static ICondition<MethodMember> BeVirtual()
+        public static IOrderedCondition<MethodMember> BeVirtual()
         {
             return new SimpleCondition<MethodMember>(
                 member => member.IsVirtual,
@@ -37,21 +37,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
-        public static ICondition<MethodMember> BeCalledBy(IType firstType, params IType[] moreTypes)
+        public static IOrderedCondition<MethodMember> BeCalledBy(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return BeCalledBy(types);
         }
 
-        public static ICondition<MethodMember> BeCalledBy(Type firstType, params Type[] moreTypes)
+        public static IOrderedCondition<MethodMember> BeCalledBy(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return BeCalledBy(types);
         }
 
-        public static ICondition<MethodMember> BeCalledBy(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<MethodMember> BeCalledBy(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<MethodMember> methodMembers,
@@ -76,10 +84,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             }
 
             var description = "be called by " + objectProvider.Description;
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> BeCalledBy(IEnumerable<IType> types)
+        public static IOrderedCondition<MethodMember> BeCalledBy(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -133,10 +144,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     );
             }
 
-            return new EnumerableCondition<MethodMember>(Condition, description);
+            return new EnumerableCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> BeCalledBy(IEnumerable<Type> types)
+        public static IOrderedCondition<MethodMember> BeCalledBy(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -208,10 +222,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     );
             }
 
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
+        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
             IType firstType,
             params IType[] moreTypes
         )
@@ -221,7 +238,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return HaveDependencyInMethodBodyTo(types);
         }
 
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
+        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
             Type firstType,
             params Type[] moreTypes
         )
@@ -231,7 +248,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return HaveDependencyInMethodBodyTo(types);
         }
 
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
+        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
             IObjectProvider<IType> objectProvider
         )
         {
@@ -265,10 +282,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             }
 
             var description = "have dependencies in method body to " + objectProvider.Description;
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(
+        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
             IEnumerable<IType> types
         )
         {
@@ -333,10 +353,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     );
             }
 
-            return new EnumerableCondition<MethodMember>(Condition, description);
+            return new EnumerableCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> HaveDependencyInMethodBodyTo(IEnumerable<Type> types)
+        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
+            IEnumerable<Type> types
+        )
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -415,10 +440,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     );
             }
 
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> HaveReturnType(
+        public static IOrderedCondition<MethodMember> HaveReturnType(
             IType firstType,
             params IType[] moreTypes
         )
@@ -428,7 +456,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return HaveReturnType(types);
         }
 
-        public static ICondition<MethodMember> HaveReturnType(IEnumerable<IType> types)
+        public static IOrderedCondition<MethodMember> HaveReturnType(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
             var typeStringList = typeList.Select(type => type.FullName).ToList();
@@ -447,7 +475,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
-        public static ICondition<MethodMember> HaveReturnType(IObjectProvider<IType> types)
+        public static IOrderedCondition<MethodMember> HaveReturnType(IObjectProvider<IType> types)
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<MethodMember> methodMembers,
@@ -477,10 +505,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             }
 
             var description = "have return type " + types.Description;
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> HaveReturnType(
+        public static IOrderedCondition<MethodMember> HaveReturnType(
             Type firstType,
             params Type[] moreTypes
         )
@@ -490,7 +521,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return HaveReturnType(types);
         }
 
-        public static ICondition<MethodMember> HaveReturnType(IEnumerable<Type> types)
+        public static IOrderedCondition<MethodMember> HaveReturnType(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
             var typeStringList = typeList.Select(type => type.ToString()).ToList();
@@ -511,7 +542,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         //Negations
 
-        public static ICondition<MethodMember> BeNoConstructor()
+        public static IOrderedCondition<MethodMember> BeNoConstructor()
         {
             return new SimpleCondition<MethodMember>(
                 member => !member.IsConstructor(),
@@ -520,7 +551,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
-        public static ICondition<MethodMember> NotBeVirtual()
+        public static IOrderedCondition<MethodMember> NotBeVirtual()
         {
             return new SimpleCondition<MethodMember>(
                 member => !member.IsVirtual,
@@ -529,7 +560,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
-        public static ICondition<MethodMember> NotBeCalledBy(
+        public static IOrderedCondition<MethodMember> NotBeCalledBy(
             IType firstType,
             params IType[] moreTypes
         )
@@ -539,7 +570,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return NotBeCalledBy(types);
         }
 
-        public static ICondition<MethodMember> NotBeCalledBy(
+        public static IOrderedCondition<MethodMember> NotBeCalledBy(
             Type firstType,
             params Type[] moreTypes
         )
@@ -549,7 +580,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return NotBeCalledBy(types);
         }
 
-        public static ICondition<MethodMember> NotBeCalledBy(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<MethodMember> NotBeCalledBy(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<MethodMember> methodMembers,
@@ -574,10 +607,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             }
 
             var description = "not be called by " + objectProvider.Description;
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> NotBeCalledBy(IEnumerable<IType> types)
+        public static IOrderedCondition<MethodMember> NotBeCalledBy(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -631,10 +667,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     );
             }
 
-            return new EnumerableCondition<MethodMember>(Condition, description);
+            return new EnumerableCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> NotBeCalledBy(IEnumerable<Type> types)
+        public static IOrderedCondition<MethodMember> NotBeCalledBy(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
             var firstType = typeList.First();
@@ -706,10 +745,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     );
             }
 
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
             IType firstType,
             params IType[] moreTypes
         )
@@ -719,7 +761,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return NotHaveDependencyInMethodBodyTo(types);
         }
 
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
             Type firstType,
             params Type[] moreTypes
         )
@@ -729,7 +771,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return NotHaveDependencyInMethodBodyTo(types);
         }
 
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
             IObjectProvider<IType> objectProvider
         )
         {
@@ -764,10 +806,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             var description =
                 "not have dependencies in method body to " + objectProvider.Description;
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
             IEnumerable<IType> types
         )
         {
@@ -833,10 +878,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     );
             }
 
-            return new EnumerableCondition<MethodMember>(Condition, description);
+            return new EnumerableCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
             IEnumerable<Type> types
         )
         {
@@ -918,10 +966,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     );
             }
 
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> NotHaveReturnType(
+        public static IOrderedCondition<MethodMember> NotHaveReturnType(
             IType firstType,
             params IType[] moreTypes
         )
@@ -931,7 +982,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return NotHaveReturnType(types);
         }
 
-        public static ICondition<MethodMember> NotHaveReturnType(IEnumerable<IType> types)
+        public static IOrderedCondition<MethodMember> NotHaveReturnType(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
             var typeStringList = typeList.Select(type => type.FullName).ToList();
@@ -950,7 +1001,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             );
         }
 
-        public static ICondition<MethodMember> NotHaveReturnType(IObjectProvider<IType> types)
+        public static IOrderedCondition<MethodMember> NotHaveReturnType(
+            IObjectProvider<IType> types
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<MethodMember> methodMembers,
@@ -980,10 +1033,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             }
 
             var description = "not have return type " + types.Description;
-            return new ArchitectureCondition<MethodMember>(Condition, description);
+            return new ArchitectureCondition<MethodMember>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<MethodMember> NotHaveReturnType(
+        public static IOrderedCondition<MethodMember> NotHaveReturnType(
             Type firstType,
             params Type[] moreTypes
         )
@@ -993,7 +1049,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return NotHaveReturnType(types);
         }
 
-        public static ICondition<MethodMember> NotHaveReturnType(IEnumerable<Type> types)
+        public static IOrderedCondition<MethodMember> NotHaveReturnType(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
             var typeStringList = typeList.Select(type => type.ToString()).ToList();

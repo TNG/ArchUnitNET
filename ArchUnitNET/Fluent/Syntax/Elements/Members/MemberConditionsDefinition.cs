@@ -11,21 +11,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
     public static class MemberConditionsDefinition<TRuleType>
         where TRuleType : IMember
     {
-        public static ICondition<TRuleType> BeDeclaredIn(IType firstType, params IType[] moreTypes)
+        public static IOrderedCondition<TRuleType> BeDeclaredIn(
+            IType firstType,
+            params IType[] moreTypes
+        )
         {
             var types = new List<IType> { firstType };
             types.AddRange(moreTypes);
             return BeDeclaredIn(types);
         }
 
-        public static ICondition<TRuleType> BeDeclaredIn(Type firstType, params Type[] moreTypes)
+        public static IOrderedCondition<TRuleType> BeDeclaredIn(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return BeDeclaredIn(types);
         }
 
-        public static ICondition<TRuleType> BeDeclaredIn(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<TRuleType> BeDeclaredIn(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> methods,
@@ -50,10 +58,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             var description = "be declared in " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> BeDeclaredIn(IEnumerable<IType> types)
+        public static IOrderedCondition<TRuleType> BeDeclaredIn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -92,10 +103,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                     );
             }
 
-            return new EnumerableCondition<TRuleType>(Condition, description);
+            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> BeDeclaredIn(IEnumerable<Type> types)
+        public static IOrderedCondition<TRuleType> BeDeclaredIn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -151,10 +162,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                     );
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> BeStatic()
+        public static IOrderedCondition<TRuleType> BeStatic()
         {
             return new SimpleCondition<TRuleType>(
                 member => !member.IsStatic.HasValue || member.IsStatic.Value,
@@ -163,7 +177,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             );
         }
 
-        public static ICondition<TRuleType> BeReadOnly()
+        public static IOrderedCondition<TRuleType> BeReadOnly()
         {
             return new SimpleCondition<TRuleType>(
                 member => member.Writability == Writability.ReadOnly,
@@ -172,7 +186,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             );
         }
 
-        public static ICondition<TRuleType> BeImmutable()
+        public static IOrderedCondition<TRuleType> BeImmutable()
         {
             return new SimpleCondition<TRuleType>(
                 member => member.Writability.IsImmutable(),
@@ -194,7 +208,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Negations
 
-        public static ICondition<TRuleType> NotBeDeclaredIn(
+        public static IOrderedCondition<TRuleType> NotBeDeclaredIn(
             IType firstType,
             params IType[] moreTypes
         )
@@ -204,14 +218,19 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             return NotBeDeclaredIn(types);
         }
 
-        public static ICondition<TRuleType> NotBeDeclaredIn(Type firstType, params Type[] moreTypes)
+        public static IOrderedCondition<TRuleType> NotBeDeclaredIn(
+            Type firstType,
+            params Type[] moreTypes
+        )
         {
             var types = new List<Type> { firstType };
             types.AddRange(moreTypes);
             return NotBeDeclaredIn(types);
         }
 
-        public static ICondition<TRuleType> NotBeDeclaredIn(IObjectProvider<IType> objectProvider)
+        public static IOrderedCondition<TRuleType> NotBeDeclaredIn(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> methods,
@@ -236,10 +255,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             }
 
             var description = "not be declared in " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<IType> types)
+        public static IOrderedCondition<TRuleType> NotBeDeclaredIn(IEnumerable<IType> types)
         {
             var typeList = types.ToList();
 
@@ -278,10 +300,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                     );
             }
 
-            return new EnumerableCondition<TRuleType>(Condition, description);
+            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> NotBeDeclaredIn(IEnumerable<Type> types)
+        public static IOrderedCondition<TRuleType> NotBeDeclaredIn(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
 
@@ -337,10 +359,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
                     );
             }
 
-            return new ArchitectureCondition<TRuleType>(Condition, description);
+            return new ArchitectureCondition<TRuleType>(
+                Condition,
+                description
+            ).AsOrderedCondition();
         }
 
-        public static ICondition<TRuleType> NotBeStatic()
+        public static IOrderedCondition<TRuleType> NotBeStatic()
         {
             return new SimpleCondition<TRuleType>(
                 member => !member.IsStatic.HasValue || !member.IsStatic.Value,
@@ -349,7 +374,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             );
         }
 
-        public static ICondition<TRuleType> NotBeReadOnly()
+        public static IOrderedCondition<TRuleType> NotBeReadOnly()
         {
             return new SimpleCondition<TRuleType>(
                 member => member.Writability != Writability.ReadOnly,
@@ -358,7 +383,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             );
         }
 
-        public static ICondition<TRuleType> NotBeImmutable()
+        public static IOrderedCondition<TRuleType> NotBeImmutable()
         {
             return new SimpleCondition<TRuleType>(
                 member => !member.Writability.IsImmutable(),

@@ -59,7 +59,7 @@ namespace ArchUnitNET.Fluent
             _currentArchRuleCreator.AddPredicateConjunction(logicalConjunction);
         }
 
-        public void AddCondition(ICondition<TRuleType> condition)
+        public void AddCondition(IOrderedCondition<TRuleType> condition)
         {
             _currentArchRuleCreator.AddCondition(condition);
         }

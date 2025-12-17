@@ -43,7 +43,7 @@ namespace ArchUnitNET.Fluent
             _predicateManager.SetNextLogicalConjunction(logicalConjunction);
         }
 
-        public void AddCondition(ICondition<TRuleType> condition)
+        public void AddCondition(IOrderedCondition<TRuleType> condition)
         {
             _conditionManager.AddCondition(condition);
         }
