@@ -76,7 +76,7 @@ jobs:
           mkdir -p $tmpdir
           relative_path=$(realpath --relative-to="$GITHUB_WORKSPACE" "$tmpdir")
           echo "Created temporary directory $tmpdir ($relative_path relative to $GITHUB_WORKSPACE)"
-          echo "DOCS_TEMP_DIR=$relative_path" >> "$GITHUB_ENV"
+          echo "DOCS_REPOSITORY_DIR=$relative_path" >> "$GITHUB_ENV"
           if [[ "$GITHUB_REF" =~ ^"refs/tags/"[0-9]+.[0-9]+.[0-9]+$ ]]; then
             echo "DOCS_TEMP_DIR_SUBPATH=stable" >> "$GITHUB_ENV"
           else 
@@ -86,16 +86,19 @@ jobs:
               echo "DOCS_TEMP_DIR_SUBPATH=latest" >> "$GITHUB_ENV"
             fi
           fi
+          echo "DOCS_OUTPUT_DIR=$tmpdir/$DOCS_TEMP_DIR_SUBPATH" >> "$GITHUB_ENV"
+          
       - name: Checkout gh-pages branch
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
         with:
           ref: gh-pages
-          path: ${{ env.DOCS_TEMP_DIR }}
+          path: ${{ env.DOCS_REPOSITORY_DIR }}
       - name: Generate documentation
-        working-directory: ${{ env.DOCS_TEMP_DIR }}/${{ env.DOCS_TEMP_DIR_SUBPATH }}
+        working-directory: ./documentation
         run: |
-          rm -rf '*' 
-          doxygen "$GITHUB_WORKSPACE/documentation/Doxyfile"
+          set -eo pipefail
+          rm -rf "${{ env.DOCS_OUTPUT_DIR }}"
+          doxygen
           touch .nojekyll
       - name: Check release conditions
         run: |
@@ -106,7 +109,7 @@ jobs:
           fi
       - name: Commit and push changes
         if: env.CREATE_RELEASE == 'true'
-        working-directory: ${{ env.DOCS_TEMP_DIR }}
+        working-directory: ${{ env.DOCS_REPOSITORY_DIR }}
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "publish-docs@github.com"
