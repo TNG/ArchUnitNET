@@ -27,6 +27,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 .CustomAttributes.Select(attr =>
                     attr.CreateAttributeFromCustomAttribute(_typeFactory)
                 )
+                .Where(attributeInstance => attributeInstance != null)
                 .ToList();
             _assembly.AttributeInstances.AddRange(attributeInstances);
         }

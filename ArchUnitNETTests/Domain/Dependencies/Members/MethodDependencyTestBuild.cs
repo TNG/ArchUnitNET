@@ -31,8 +31,11 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             var expectedDependency = new MethodCallDependency(
                 originMember,
                 new MethodMemberInstance(
+                    new TypeInstance<Class>(
+                        targetClass,
+                        CreateGenericArguments(declaringGenericArgumentsTypes ?? [])
+                    ),
                     targetMember,
-                    CreateGenericArguments(declaringGenericArgumentsTypes ?? []),
                     CreateGenericArguments(memberGenericArgumentsTypes ?? [])
                 )
             );

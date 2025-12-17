@@ -57,7 +57,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             Assert.Equal(_classWithFieldA, _fieldAMember?.DeclaringType);
             Assert.Equal(Public, _fieldAMember?.Visibility);
-            Assert.Equal(_fieldType, _fieldAMember?.Type);
+            Assert.Equal(_fieldType, _fieldAMember?.Type.Type);
         }
 
         [Fact]

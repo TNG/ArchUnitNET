@@ -184,7 +184,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                     && customAttribute.AttributeType.FullName
                         != "System.Runtime.CompilerServices.NullableContextAttribute"
                 )
-                .Select(attr => attr.CreateAttributeFromCustomAttribute(_typeFactory));
+                .Select(attr => attr.CreateAttributeFromCustomAttribute(_typeFactory))
+                .Where(attributeInstance => attributeInstance != null);
         }
 
         [NotNull]

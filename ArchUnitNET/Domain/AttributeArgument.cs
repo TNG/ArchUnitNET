@@ -2,26 +2,21 @@
 
 namespace ArchUnitNET.Domain
 {
-    public class AttributeArgument : ITypeInstance<IType>
+    public class AttributeArgument
     {
-        private readonly ITypeInstance<IType> _typeInstance;
-
         public AttributeArgument(object value, ITypeInstance<IType> typeInstance)
         {
             Value = value;
-            _typeInstance = typeInstance;
+            Type = typeInstance;
         }
 
         public readonly object Value;
 
-        public IType Type => _typeInstance.Type;
-        public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;
-        public bool IsArray => _typeInstance.IsArray;
-        public IEnumerable<int> ArrayDimensions => _typeInstance.ArrayDimensions;
+        public ITypeInstance<IType> Type { get; }
 
         private bool Equals(AttributeArgument other)
         {
-            return Equals(_typeInstance, other._typeInstance) && Equals(Value, other.Value);
+            return Equals(Type, other.Type) && Equals(Value, other.Value);
         }
 
         public override bool Equals(object obj)
@@ -43,7 +38,7 @@ namespace ArchUnitNET.Domain
         {
             unchecked
             {
-                var hashCode = _typeInstance != null ? Type.GetHashCode() : 0;
+                var hashCode = Type != null ? Type.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Value != null ? Value.GetHashCode() : 0);
                 return hashCode;
             }

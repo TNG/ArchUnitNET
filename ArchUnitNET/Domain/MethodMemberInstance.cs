@@ -3,25 +3,22 @@ using System.Linq;
 
 namespace ArchUnitNET.Domain
 {
-    public class MethodMemberInstance : ITypeInstance<IType>
+    public class MethodMemberInstance
     {
         public MethodMemberInstance(
+            ITypeInstance<IType> declaringTypeInstance,
             MethodMember member,
-            IEnumerable<GenericArgument> declaringTypeGenericArguments,
             IEnumerable<GenericArgument> memberGenericArguments
         )
         {
+            DeclaringTypeInstance = declaringTypeInstance;
             Member = member;
-            GenericArguments = declaringTypeGenericArguments;
             MemberGenericArguments = memberGenericArguments;
         }
 
+        public ITypeInstance<IType> DeclaringTypeInstance { get; }
         public MethodMember Member { get; }
         public IEnumerable<GenericArgument> MemberGenericArguments { get; }
-        public IType Type => Member.DeclaringType;
-        public IEnumerable<GenericArgument> GenericArguments { get; }
-        public bool IsArray => false;
-        public IEnumerable<int> ArrayDimensions => Enumerable.Empty<int>();
 
         public bool Equals(MethodMemberInstance other)
         {
@@ -35,8 +32,8 @@ namespace ArchUnitNET.Domain
                 return true;
             }
 
-            return Equals(Member, other.Member)
-                && GenericArguments.SequenceEqual(other.GenericArguments)
+            return DeclaringTypeInstance.Equals(other.DeclaringTypeInstance)
+                && Equals(Member, other.Member)
                 && MemberGenericArguments.SequenceEqual(other.MemberGenericArguments);
         }
 
@@ -64,11 +61,8 @@ namespace ArchUnitNET.Domain
         {
             unchecked
             {
-                var hashCode = Member != null ? Member.GetHashCode() : 0;
-                hashCode = GenericArguments.Aggregate(
-                    hashCode,
-                    (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0)
-                );
+                var hashCode = DeclaringTypeInstance.GetHashCode();
+                hashCode = Member != null ? (hashCode * 397) ^ Member.GetHashCode() : hashCode;
                 hashCode = MemberGenericArguments.Aggregate(
                     hashCode,
                     (current, type) => (current * 397) ^ (type != null ? type.GetHashCode() : 0)

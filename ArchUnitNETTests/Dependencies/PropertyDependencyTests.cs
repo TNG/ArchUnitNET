@@ -70,10 +70,7 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void PropertyHasDependencyFromProperty()
         {
-            Assert.Contains(
-                _dependOnClass,
-                _testStringProperty.Dependencies.Select(d => d.Target)
-            );
+            Assert.Contains(_dependOnClass, _testStringProperty.Dependencies.Select(d => d.Target));
         }
 
         [Fact]
@@ -127,17 +124,15 @@ namespace ArchUnitNETTests.Dependencies
         [Fact]
         public void PropertyDependencyPassedOn()
         {
+            var test = _testStringPropertyGetter.Dependencies[2].GetHashCode();
+            var test2 = _testStringProperty.Dependencies[2].GetHashCode();
             Assert.Equal(
                 _testStringPropertyGetter.Dependencies,
-                _testStringPropertyGetter.Dependencies.Intersect(
-                    _testStringProperty.Dependencies
-                )
+                _testStringPropertyGetter.Dependencies.Intersect(_testStringProperty.Dependencies)
             );
             Assert.Equal(
                 _testStringProperty.Dependencies,
-                _testStringProperty.Dependencies.Intersect(
-                    _propertyTestDataClass.Dependencies
-                )
+                _testStringProperty.Dependencies.Intersect(_propertyTestDataClass.Dependencies)
             );
         }
     }

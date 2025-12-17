@@ -37,7 +37,7 @@ namespace ArchUnitNETTests.Dependencies
                 _classWithBoolArrayFields.Dependencies.OfType<FieldTypeDependency>();
             var fieldMembers = _classWithBoolArrayFields.GetFieldMembers();
 
-            Assert.DoesNotContain(fieldMembers, member => !Equals(member.Type, _bool));
+            Assert.DoesNotContain(fieldMembers, member => !Equals(member.Type.Type, _bool));
             Assert.DoesNotContain(
                 fieldTypeDependencies,
                 dependency => !dependency.Target.Equals(_bool)
@@ -80,17 +80,17 @@ namespace ArchUnitNETTests.Dependencies
                 .GetFieldMembersWithName("_bool412Array")
                 .First();
 
-            Assert.True(bool1Array.IsArray);
-            Assert.True(bool11Array.IsArray);
-            Assert.True(bool2Array.IsArray);
-            Assert.True(bool21Array.IsArray);
-            Assert.True(bool412Array.IsArray);
+            Assert.True(bool1Array.Type.IsArray);
+            Assert.True(bool11Array.Type.IsArray);
+            Assert.True(bool2Array.Type.IsArray);
+            Assert.True(bool21Array.Type.IsArray);
+            Assert.True(bool412Array.Type.IsArray);
 
-            Assert.Equal(new[] { 1 }, bool1Array.ArrayDimensions);
-            Assert.Equal(new[] { 1, 1 }, bool11Array.ArrayDimensions);
-            Assert.Equal(new[] { 2 }, bool2Array.ArrayDimensions);
-            Assert.Equal(new[] { 2, 1 }, bool21Array.ArrayDimensions);
-            Assert.Equal(new[] { 4, 1, 2 }, bool412Array.ArrayDimensions);
+            Assert.Equal(new[] { 1 }, bool1Array.Type.ArrayDimensions);
+            Assert.Equal(new[] { 1, 1 }, bool11Array.Type.ArrayDimensions);
+            Assert.Equal(new[] { 2 }, bool2Array.Type.ArrayDimensions);
+            Assert.Equal(new[] { 2, 1 }, bool21Array.Type.ArrayDimensions);
+            Assert.Equal(new[] { 4, 1, 2 }, bool412Array.Type.ArrayDimensions);
         }
     }
 

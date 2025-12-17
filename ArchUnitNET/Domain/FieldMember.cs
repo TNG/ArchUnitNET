@@ -4,10 +4,8 @@ using ArchUnitNET.Domain.Dependencies;
 
 namespace ArchUnitNET.Domain
 {
-    public class FieldMember : IMember, ITypeInstance<IType>
+    public class FieldMember : IMember
     {
-        private readonly ITypeInstance<IType> _typeInstance;
-
         public FieldMember(
             IType declaringType,
             string name,
@@ -28,10 +26,12 @@ namespace ArchUnitNET.Domain
             );
             Visibility = visibility;
             IsCompilerGenerated = isCompilerGenerated;
-            _typeInstance = typeInstance;
+            Type = typeInstance;
             IsStatic = isStatic;
             Writability = writability;
         }
+
+        public ITypeInstance<IType> Type { get; }
 
         public Assembly Assembly => DeclaringType.Assembly;
         public Namespace Namespace => DeclaringType.Namespace;
@@ -49,15 +49,8 @@ namespace ArchUnitNET.Domain
         public IEnumerable<Attribute> Attributes =>
             AttributeInstances.Select(instance => instance.Type);
         public List<AttributeInstance> AttributeInstances { get; } = new List<AttributeInstance>();
-        public List<ITypeDependency> Dependencies { get; } =
-            new List<ITypeDependency>();
-        public List<ITypeDependency> BackwardsDependencies { get; } =
-            new List<ITypeDependency>();
-
-        public IType Type => _typeInstance.Type;
-        public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;
-        public IEnumerable<int> ArrayDimensions => _typeInstance.ArrayDimensions;
-        public bool IsArray => _typeInstance.IsArray;
+        public List<ITypeDependency> Dependencies { get; } = new List<ITypeDependency>();
+        public List<ITypeDependency> BackwardsDependencies { get; } = new List<ITypeDependency>();
 
         public override string ToString()
         {

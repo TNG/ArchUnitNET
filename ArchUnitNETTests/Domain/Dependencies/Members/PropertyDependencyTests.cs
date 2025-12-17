@@ -59,7 +59,7 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             Assert.Equal(_classWithPropertyA, _propertyAMember?.DeclaringType);
             Assert.Equal(Public, _propertyAMember?.Visibility);
-            Assert.Equal(_propertyType, _propertyAMember?.Type);
+            Assert.Equal(_propertyType, _propertyAMember?.Type.Type);
         }
     }
 

@@ -51,7 +51,9 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void GenericTypeArgumentsAsExpected()
         {
-            var genericTypeArgumentClass = _genericallyTypedField.GenericArguments.First().Type;
+            var genericTypeArgumentClass = _genericallyTypedField
+                .Type.GenericArguments.First()
+                .Type;
 
             Assert.NotNull(genericTypeArgumentClass);
             Assert.Equal(_expectedGenericArgument, genericTypeArgumentClass);
@@ -60,7 +62,7 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void GenericTypeArgumentsFound()
         {
-            Assert.Single(_genericallyTypedField.GenericArguments);
+            Assert.Single(_genericallyTypedField.Type.GenericArguments);
         }
 
         [Fact]
@@ -68,7 +70,7 @@ namespace ArchUnitNETTests.Domain
         {
             var invokedGenericType = _genericallyTypedField.Type;
 
-            Assert.Equal(_classWithGenericParameters, invokedGenericType);
+            Assert.Equal(_classWithGenericParameters, invokedGenericType.Type);
         }
 
         [Fact]

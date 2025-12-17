@@ -59,8 +59,8 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             var methodCallDependency = new MethodCallDependency(
                 targetMember,
                 new MethodMemberInstance(
+                    new TypeInstance<IType>(targetMember.DeclaringType, []),
                     targetMember,
-                    Enumerable.Empty<GenericArgument>(),
                     [memberGenericArgument]
                 )
             );

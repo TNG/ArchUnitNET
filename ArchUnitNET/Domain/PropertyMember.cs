@@ -6,10 +6,8 @@ using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Domain
 {
-    public class PropertyMember : IMember, ITypeInstance<IType>
+    public class PropertyMember : IMember
     {
-        private readonly ITypeInstance<IType> _typeInstance;
-
         public PropertyMember(
             IType declaringType,
             string name,
@@ -26,13 +24,15 @@ namespace ArchUnitNET.Domain
                 declaringType.Assembly.FullName,
                 fullName
             );
-            _typeInstance = type;
+            Type = type;
             DeclaringType = declaringType;
             IsCompilerGenerated = isCompilerGenerated;
             PropertyTypeDependency = new PropertyTypeDependency(this);
             IsStatic = isStatic;
             Writability = writability;
         }
+
+        public ITypeInstance<IType> Type { get; }
 
         public bool IsVirtual { get; internal set; }
         public bool IsAutoProperty { get; internal set; } = true;
@@ -47,8 +47,7 @@ namespace ArchUnitNET.Domain
 
         public Writability? Writability { get; }
 
-        public List<ITypeDependency> AttributeDependencies { get; } =
-            new List<ITypeDependency>();
+        public List<ITypeDependency> AttributeDependencies { get; } = new List<ITypeDependency>();
 
         public IMemberTypeDependency PropertyTypeDependency { get; }
         public bool IsCompilerGenerated { get; }
@@ -86,13 +85,7 @@ namespace ArchUnitNET.Domain
             }
         }
 
-        public List<ITypeDependency> BackwardsDependencies { get; } =
-            new List<ITypeDependency>();
-
-        public IType Type => _typeInstance.Type;
-        public IEnumerable<GenericArgument> GenericArguments => _typeInstance.GenericArguments;
-        public IEnumerable<int> ArrayDimensions => _typeInstance.ArrayDimensions;
-        public bool IsArray => _typeInstance.IsArray;
+        public List<ITypeDependency> BackwardsDependencies { get; } = new List<ITypeDependency>();
 
         public override string ToString()
         {

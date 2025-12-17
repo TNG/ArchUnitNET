@@ -105,17 +105,17 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             var memberTypeDependency = new MethodCallDependency(
                 classMemberInfo.OriginMember,
                 new MethodMemberInstance(
+                    new TypeInstance<IType>(targetMember.DeclaringType, []),
                     targetMember,
-                    Enumerable.Empty<GenericArgument>(),
-                    Enumerable.Empty<GenericArgument>()
+                    []
                 )
             );
             object duplicateMemberTypeDependency = new MethodCallDependency(
                 classMemberInfo.OriginMember,
                 new MethodMemberInstance(
+                    new TypeInstance<IType>(targetMember.DeclaringType, []),
                     targetMember,
-                    Enumerable.Empty<GenericArgument>(),
-                    Enumerable.Empty<GenericArgument>()
+                    []
                 )
             );
             var dependencyReferenceDuplicate = memberTypeDependency;

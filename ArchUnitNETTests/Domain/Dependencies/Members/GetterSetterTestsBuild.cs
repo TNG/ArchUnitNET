@@ -136,9 +136,9 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             var methodCallDependency = new MethodCallDependency(
                 originMember,
                 new MethodMemberInstance(
+                    new TypeInstance<IType>(targetMember.DeclaringType, []),
                     targetMember,
-                    Enumerable.Empty<GenericArgument>(),
-                    Enumerable.Empty<GenericArgument>()
+                    []
                 )
             );
             methodCallDependency.TargetMember.BackwardsDependencies.Add(methodCallDependency);

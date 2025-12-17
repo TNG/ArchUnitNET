@@ -529,8 +529,8 @@ namespace ArchUnitNET.Loader
             );
 
             var result = new MethodMemberInstance(
+                typeInstance,
                 methodMember,
-                typeInstance.GenericArguments,
                 Enumerable.Empty<GenericArgument>()
             );
 
@@ -565,11 +565,7 @@ namespace ArchUnitNET.Loader
                 .GenericArguments.Select(CreateGenericArgumentFromTypeReference)
                 .Where(argument => !argument.Type.IsCompilerGenerated);
 
-            return new MethodMemberInstance(
-                elementMethod,
-                typeInstance.GenericArguments,
-                genericArguments
-            );
+            return new MethodMemberInstance(typeInstance, elementMethod, genericArguments);
         }
 
         [NotNull]
