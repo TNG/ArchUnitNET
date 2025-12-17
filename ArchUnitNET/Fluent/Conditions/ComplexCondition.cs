@@ -4,7 +4,7 @@ using ArchUnitNET.Fluent.Predicates;
 
 namespace ArchUnitNET.Fluent.Conditions
 {
-    public class ComplexCondition<TRuleType, TRelatedType> : ICondition<TRuleType>
+    public class ComplexCondition<TRuleType, TRelatedType> : IOrderedCondition<TRuleType>
         where TRuleType : ICanBeAnalyzed
         where TRelatedType : ICanBeAnalyzed
     {

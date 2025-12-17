@@ -505,7 +505,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
-        private TRuleTypeShouldConjunction Handle(ICondition<TRuleType> condition)
+        private TRuleTypeShouldConjunction Handle(IOrderedCondition<TRuleType> condition)
         {
             _ruleCreator.AddCondition(condition);
             return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);

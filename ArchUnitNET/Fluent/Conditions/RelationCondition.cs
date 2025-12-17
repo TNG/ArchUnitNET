@@ -9,10 +9,13 @@ namespace ArchUnitNET.Fluent.Conditions
         where TRuleType : ICanBeAnalyzed
         where TRelatedType : ICanBeAnalyzed
     {
-        private readonly Func<IObjectProvider<TRelatedType>, ICondition<TRuleType>> _relation;
+        private readonly Func<
+            IObjectProvider<TRelatedType>,
+            IOrderedCondition<TRuleType>
+        > _relation;
 
         public RelationCondition(
-            Func<IObjectProvider<TRelatedType>, ICondition<TRuleType>> relation,
+            Func<IObjectProvider<TRelatedType>, IOrderedCondition<TRuleType>> relation,
             string description,
             string failDescription
         )
@@ -26,7 +29,7 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public string Description { get; }
 
-        public ICondition<TRuleType> GetCondition(IEnumerable<TRelatedType> objects)
+        public IOrderedCondition<TRuleType> GetCondition(IEnumerable<TRelatedType> objects)
         {
             return _relation(new ObjectProvider<TRelatedType>(objects.ToList()));
         }
