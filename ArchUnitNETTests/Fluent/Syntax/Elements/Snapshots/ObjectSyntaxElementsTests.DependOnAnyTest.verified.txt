@@ -256,6 +256,32 @@ Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in prov
 Query: Types that are "TypeDependencyNamespace.ClassWithMultipleDependencies" should be types that depend on "AttributeNamespace.ClassWithoutAttributes"
 Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
+===== Referenced type =====
+
+----- Conditions -----
+
+Query: Types that are "TypeDependencyNamespace.ClassWithReferencedTypeDependency" should depend on "System.Collections.Generic.List`1"
+Result: True
+Description: TypeDependencyNamespace.ClassWithReferencedTypeDependency passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeDependencyNamespace.ClassWithReferencedTypeDependency" should be Types that depend on "System.Collections.Generic.List`1"
+Result: True
+Description: TypeDependencyNamespace.ClassWithReferencedTypeDependency passed
+Message: 
+All Evaluations passed
+
+----- Predicates as conditions -----
+
+Query: Types that are "TypeDependencyNamespace.ClassWithReferencedTypeDependency" should be types that depend on "System.Collections.Generic.List`1"
+Result: True
+Description: TypeDependencyNamespace.ClassWithReferencedTypeDependency passed
+Message: 
+All Evaluations passed
+
 ===== Empty arguments =====
 
 ----- Conditions -----

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
@@ -57,6 +58,12 @@ public class DependencyAssemblyTestHelper : AssemblyTestHelper
     public Class OtherClassWithoutDependencies;
     public Type OtherClassWithoutDependenciesSystemType = typeof(OtherClassWithoutDependencies);
 
+    public Class ClassWithReferencedTypeDependency;
+    public Type ClassWithReferencedTypeDependencySystemType =
+        typeof(ClassWithReferencedTypeDependency);
+
+    public Type ReferencedType = typeof(List<>);
+
     public MethodMember MethodWithSingleDependency;
 
     public MethodMember CalledMethod;
@@ -95,6 +102,9 @@ public class DependencyAssemblyTestHelper : AssemblyTestHelper
         ClassWithoutDependencies = Architecture.GetClassOfType(typeof(ClassWithoutDependencies));
         OtherClassWithoutDependencies = Architecture.GetClassOfType(
             typeof(OtherClassWithoutDependencies)
+        );
+        ClassWithReferencedTypeDependency = Architecture.GetClassOfType(
+            typeof(ClassWithReferencedTypeDependency)
         );
         MethodWithSingleDependency = Architecture
             .MethodMembers.WhereNameIs("MethodWithSingleDependency()")

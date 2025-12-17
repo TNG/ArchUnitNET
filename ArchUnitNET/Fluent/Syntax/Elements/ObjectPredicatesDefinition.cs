@@ -440,9 +440,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
             IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
                 var types = objectProvider.GetObjects(architecture);
-                return objects.Where(obj =>
-                    !obj.GetTypeDependencies(architecture).Intersect(types).Any()
-                );
+                return objects.Where(obj => !obj.GetTypeDependencies().Intersect(types).Any());
             }
 
             var description = objectProvider.FormatDescription(

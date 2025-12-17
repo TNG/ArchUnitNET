@@ -414,6 +414,18 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates as conditions");
         should.BeTypesThat().DependOnAny(typeof(AttributeNamespace.ClassWithoutAttributes)).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
+        helper.AddSnapshotHeader("Referenced type");
+        should = Types().That().Are(helper.ClassWithReferencedTypeDependency).Should();
+        
+        helper.AddSnapshotSubHeader("Conditions");
+        should.DependOnAny(helper.ReferencedType).AssertNoViolations(helper);
+        
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Types().That().DependOnAny(helper.ReferencedType)).AssertNoViolations(helper);
+        
+        helper.AddSnapshotSubHeader("Predicates as conditions");
+        should.BeTypesThat().DependOnAny(helper.ReferencedType).AssertNoViolations(helper);
+        
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
 
@@ -1692,6 +1704,18 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates as conditions");
         should.BeTypesThat().DoNotDependOnAny(typeof(AttributeNamespace.ClassWithoutAttributes)).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
+        helper.AddSnapshotHeader("Referenced type");
+        should = Types().That().Are(helper.ClassWithReferencedTypeDependency).Should();
+        
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotDependOnAny(helper.ReferencedType).AssertOnlyViolations(helper);
+        
+        helper.AddSnapshotHeader("Predicates");
+        should.Be(Types().That().DoNotDependOnAny(helper.ReferencedType)).AssertOnlyViolations(helper);
+        
+        helper.AddSnapshotSubHeader("Predicates as conditions");
+        should.BeTypesThat().DoNotDependOnAny(helper.ReferencedType).AssertOnlyViolations(helper);
+        
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ChildClass).Should();
 
