@@ -1,4 +1,4 @@
-<img src="Logo/ArchUnitNET-Logo.png" height="64" alt="ArchUnit">
+<img src="https://raw.githubusercontent.com/TNG/ArchUnitNET/refs/heads/main/Logo/ArchUnitNET-Logo.png" height="64" alt="ArchUnit">
 
 # ArchUnitNET [![Build Status](https://github.com/TNG/ArchUnitNET/actions/workflows/build.yaml/badge.svg)](https://github.com/TNG/ArchUnitNET/actions/workflows/build.yaml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/TNG/ArchUnitNET/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/TngTech.ArchUnitNET)](https://www.nuget.org/packages/TngTech.ArchUnitNET/) [![codecov](https://codecov.io/gh/TNG/ArchUnitNET/graph/badge.svg?token=HgiEXfA0K7)](https://codecov.io/gh/TNG/ArchUnitNET)
 
