@@ -1,53 +1,20 @@
 ﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
 {
-    public class ShouldRelateToClassesThat<TRuleTypeShouldConjunction, TRuleType>
-        : ShouldRelateToTypesThat<TRuleTypeShouldConjunction, Class, TRuleType>,
-            IClassPredicates<TRuleTypeShouldConjunction, Class>
-        where TRuleTypeShouldConjunction : SyntaxElement<TRuleType>
+    public sealed class ShouldRelateToClassesThat<TNextElement, TRuleType>
+        : AddClassPredicate<TNextElement, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
         public ShouldRelateToClassesThat(IArchRuleCreator<TRuleType> ruleCreator)
             : base(ruleCreator) { }
 
-        public TRuleTypeShouldConjunction AreAbstract()
+        protected override TNextElement CreateNextElement(IPredicate<Class> predicate)
         {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreAbstract());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreSealed()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreSealed());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreImmutable()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreImmutable());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        //Negations
-
-        public TRuleTypeShouldConjunction AreNotAbstract()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotAbstract());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreNotSealed()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotSealed());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunction AreNotImmutable()
-        {
-            _ruleCreator.ContinueComplexCondition(ClassPredicatesDefinition.AreNotImmutable());
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            _ruleCreator.ContinueComplexCondition(predicate);
+            return Create<TNextElement, TRuleType>(_ruleCreator);
         }
     }
 }

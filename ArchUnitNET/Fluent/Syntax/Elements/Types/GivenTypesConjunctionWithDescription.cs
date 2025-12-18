@@ -3,11 +3,7 @@
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public class GivenTypesConjunctionWithDescription
-        : GivenObjectsConjunctionWithDescription<
-            GivenTypesThat<GivenTypesConjunction, IType>,
-            TypesShould<TypesShouldConjunction, IType>,
-            IType
-        >
+        : GivenObjectsConjunctionWithDescription<GivenTypesThat, TypesShould, IType>
     {
         public GivenTypesConjunctionWithDescription(IArchRuleCreator<IType> ruleCreator)
             : base(ruleCreator) { }
