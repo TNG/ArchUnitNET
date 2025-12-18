@@ -16,14 +16,6 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that do not have any attributes with argument "AttributeNamespace.UnusedTypeArgument"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
 ===== No violations with value arguments =====
 
 ----- Conditions -----
@@ -37,14 +29,6 @@ All Evaluations passed
 ----- Predicates -----
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that do not have any attributes with argument "NotTheValueOfAnyAttribute"
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that do not have any attributes with argument "NotTheValueOfAnyAttribute"
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
@@ -74,17 +58,6 @@ Message:
 
 
 
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that do not have any attributes with argument "AttributeNamespace.TypeArgument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that do not have any attributes with argument "AttributeNamespace.TypeArgument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
 ===== Violations with value arguments =====
 
 ----- Conditions -----
@@ -109,17 +82,6 @@ Message:
 
 
 
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that do not have any attributes with argument "1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that do not have any attributes with argument "1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
 ===== Type without attributes =====
 
 ----- Conditions -----
@@ -138,14 +100,6 @@ Description: AttributeNamespace.ClassWithoutAttributes passed
 Message: 
 All Evaluations passed
 
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithoutAttributes" should be types that do not have any attributes with argument "Argument1"
-Result: True
-Description: AttributeNamespace.ClassWithoutAttributes passed
-Message: 
-All Evaluations passed
-
 ===== Empty arguments =====
 
 ----- Conditions -----
@@ -159,14 +113,6 @@ All Evaluations passed
 ----- Predicates -----
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that do not have any attributes with any of no arguments (always true)
-Result: True
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
-Message: 
-All Evaluations passed
-
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that do not have any attributes with any of no arguments (always true)
 Result: True
 Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
@@ -193,17 +139,6 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Typ
 Message: 
 "Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that do not have any attributes with arguments "AttributeNamespace.UnusedTypeArgument" and "Argument1"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that do not have any attributes with arguments "AttributeNamespace.UnusedTypeArgument" and "Argument1"
-
-
-
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that do not have any attributes with arguments "AttributeNamespace.UnusedTypeArgument" and "Argument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be types that do not have any attributes with arguments "AttributeNamespace.UnusedTypeArgument" and "Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
 
 
 
@@ -234,20 +169,6 @@ Message:
 "Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be Types that do not have any attributes with argument "Argument1"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that do not have any attributes with argument "Argument1"
 	AttributeNamespace.ClassWithTwoAttributesWithArguments is not Types that do not have any attributes with argument "Argument1"
-
-
-
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be types that do not have any attributes with argument "Argument1"
-Result: False
-Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributesWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" should be types that do not have any attributes with argument "Argument1"" failed:
-	AttributeNamespace.ClassWithSingleAttributeWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-	AttributeNamespace.ClassWithTwoAttributesWithArguments is not "AttributeNamespace.Attribute1" or "AttributeNamespace.Attribute2" or "AttributeNamespace.Attribute3" or "AttributeNamespace.UnusedAttribute" or "AttributeNamespace.ClassWithoutAttributes" or "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.TypeArgument1" or "AttributeNamespace.TypeArgument2" or "AttributeNamespace.TypeArgument3" or "AttributeNamespace.UnusedTypeArgument" or "AttributeNamespace.OnceUsedAttribute" or "AttributeNamespace.ClassWithSingleUniquelyUsedAttribute" or "System.Attribute" or "System.Object" or "System.Type" or "System.String" or "System.Int32" or "System.Void" or "System.AttributeUsageAttribute" or "System.AttributeTargets" or "System.Runtime.CompilerServices.CompilerGeneratedAttribute" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
 
 
 

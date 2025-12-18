@@ -7,33 +7,3 @@ Message:
 
 
 
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are Classes that are "TypeDependencyNamespace.ChildClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
-Result: True
-Description: TypeDependencyNamespace.ChildClass passed
-Message: 
-All Evaluations passed
-

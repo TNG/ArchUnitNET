@@ -56,14 +56,6 @@ public class ObjectSyntaxElementsTests
         // Empty inputs
         Types().That().Are([]).Should().BeTypesThat().Are(helper.ChildClass).AssertOnlyViolations(helper);
 
-        // Predicates as conditions
-        var should = Types().That().Are(helper.ChildClass).Should();
-        should.BeTypesThat().Are(helper.ChildClass).AssertNoViolations(helper);
-        should.BeTypesThat().Are(helper.ChildClassSystemType).AssertNoViolations(helper);
-        should.BeTypesThat().Are(Classes().That().Are(helper.ChildClass)).AssertNoViolations(helper);
-        should.BeTypesThat().Are(new List<ICanBeAnalyzed> { helper.ChildClass }).AssertNoViolations(helper);
-        should.BeTypesThat().Are(new List<System.Type> { helper.ChildClassSystemType }).AssertNoViolations(helper);
-
         await helper.AssertSnapshotMatches();
     }
 
@@ -272,11 +264,6 @@ public class ObjectSyntaxElementsTests
         should.Be(MethodMembers().That().CallAny(new List<MethodMember> { helper.CalledMethod })).AssertNoViolations(helper);
         should.Be(MethodMembers().That().CallAny(MethodMembers().That().Are(helper.CalledMethod))).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().CallAny(helper.CalledMethod).AssertNoViolations(helper);
-        should.BeMethodMembersThat().CallAny(new List<MethodMember> { helper.CalledMethod }).AssertNoViolations(helper);
-        should.BeMethodMembersThat().CallAny(MethodMembers().That().Are(helper.CalledMethod)).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations");
         should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
 
@@ -289,11 +276,6 @@ public class ObjectSyntaxElementsTests
         should.Be(MethodMembers().That().CallAny(helper.CalledMethod)).AssertOnlyViolations(helper);
         should.Be(MethodMembers().That().CallAny(new List<MethodMember> { helper.CalledMethod })).AssertOnlyViolations(helper);
         should.Be(MethodMembers().That().CallAny(MethodMembers().That().Are(helper.CalledMethod))).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().CallAny(helper.CalledMethod).AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().CallAny(new List<MethodMember> { helper.CalledMethod }).AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().CallAny(MethodMembers().That().Are(helper.CalledMethod)).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = MethodMembers().That().Are(helper.MethodWithSingleDependency).Should();
@@ -308,11 +290,6 @@ public class ObjectSyntaxElementsTests
         should.Be(MethodMembers().That().CallAny(new List<MethodMember>())).AssertOnlyViolations(helper);
         should.Be(MethodMembers().That().CallAny(MethodMembers().That().HaveFullName(helper.NonExistentObjectName))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().CallAny().AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().CallAny(new List<MethodMember>()).AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().CallAny(MethodMembers().That().HaveFullName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple arguments");
         should = MethodMembers().That().Are(helper.MethodWithMultipleDependencies).Should();
 
@@ -326,11 +303,6 @@ public class ObjectSyntaxElementsTests
         should.Be(MethodMembers().That().CallAny(new List<MethodMember> { helper.MethodWithoutDependencies, helper.MethodWithMultipleDependencies })).AssertOnlyViolations(helper);
         should.Be(MethodMembers().That().CallAny(MethodMembers().That().Are(helper.MethodWithoutDependencies, helper.MethodWithMultipleDependencies))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().CallAny(helper.MethodWithoutDependencies, helper.MethodWithMultipleDependencies).AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().CallAny(new List<MethodMember> { helper.MethodWithoutDependencies, helper.MethodWithMultipleDependencies }).AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().CallAny(MethodMembers().That().Are(helper.MethodWithoutDependencies, helper.MethodWithMultipleDependencies)).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Input with multiple dependencies");
         should = MethodMembers().That().Are(helper.MethodWithMultipleDependencies).Should();
         
@@ -341,10 +313,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(MethodMembers().That().CallAny(helper.CalledMethod1, helper.MethodWithoutDependencies)).AssertNoViolations(helper);
         should.Be(MethodMembers().That().CallAny(helper.MethodWithoutDependencies)).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().CallAny(helper.CalledMethod1, helper.MethodWithoutDependencies).AssertNoViolations(helper);
-        should.BeMethodMembersThat().CallAny(helper.MethodWithoutDependencies).AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -371,13 +339,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DependOnAny(new List<IType> { helper.BaseClass })).AssertNoViolations(helper);
         should.Be(Types().That().DependOnAny(new List<System.Type> { helper.BaseClassSystemType })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DependOnAny(helper.BaseClass).AssertNoViolations(helper);
-        should.BeTypesThat().DependOnAny(helper.BaseClassSystemType).AssertNoViolations(helper);
-        should.BeTypesThat().DependOnAny(Classes().That().Are(helper.BaseClass)).AssertNoViolations(helper);
-        should.BeTypesThat().DependOnAny(new List<IType> { helper.BaseClass }).AssertNoViolations(helper);
-        should.BeTypesThat().DependOnAny(new List<System.Type> { helper.BaseClassSystemType }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations");
         should = Types().That().HaveFullName(helper.ClassWithMultipleDependencies.FullName).Should();
 
@@ -395,13 +356,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DependOnAny(new List<IType> { helper.ClassWithoutDependencies })).AssertOnlyViolations(helper);
         should.Be(Types().That().DependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DependOnAny(helper.ClassWithoutDependencies).AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(helper.ClassWithoutDependenciesSystemType).AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(Classes().That().Are(helper.ClassWithoutDependencies)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(new List<IType> { helper.ClassWithoutDependencies }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Type outside of architecture");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
 
@@ -410,9 +364,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DependOnAny(typeof(AttributeNamespace.ClassWithoutAttributes))).AssertException<TypeDoesNotExistInArchitecture>(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DependOnAny(typeof(AttributeNamespace.ClassWithoutAttributes)).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
@@ -429,12 +380,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DependOnAny(new List<System.Type>())).AssertOnlyViolations(helper);
         should.Be(Types().That().DependOnAny(Classes().That().HaveFullName(helper.NonExistentObjectName))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DependOnAny().AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(new List<IType>()).AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(new List<System.Type>()).AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(Classes().That().HaveFullName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
 
@@ -450,12 +395,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DependOnAny(helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType)).AssertOnlyViolations(helper);
         should.Be(Types().That().DependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DependOnAny(helper.ClassWithoutDependencies, helper.BaseClass).AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(new List<IType> { helper.ClassWithoutDependencies, helper.BaseClass }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType).AssertOnlyViolations(helper);
-        should.BeTypesThat().DependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Input without dependencies");
         should = Types().That().Are(helper.ClassWithoutDependencies).Should();
 
@@ -464,9 +403,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DependOnAny(new List<IType> { helper.BaseClass, helper.ChildClass })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DependOnAny(new List<IType> { helper.BaseClass, helper.ChildClass }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
 
@@ -477,10 +413,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         Types().That().Are(helper.ChildClass1, helper.ChildClass2).Should().Be(Types().That().DependOnAny(helper.BaseClassWithMultipleDependenciesSystemType)).AssertNoViolations(helper);
         Types().That().Are(helper.ChildClass, helper.BaseClass).Should().Be(Types().That().DependOnAny(helper.ClassWithoutDependencies)).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        Types().That().Are(helper.ChildClass1, helper.ChildClass2).Should().BeTypesThat().DependOnAny(helper.BaseClassWithMultipleDependenciesSystemType).AssertNoViolations(helper);
-        Types().That().Are(helper.ChildClass, helper.BaseClass).Should().BeTypesThat().DependOnAny(helper.ClassWithoutDependencies).AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -613,13 +545,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType })).AssertNoViolations(helper);
         should.Be(Types().That().HaveAnyAttributes(Attributes().That().Are(helper.Attribute1))).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributes(helper.Attribute1).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(new List<Attribute> { helper.Attribute1 }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(helper.Attribute1SystemType).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(Attributes().That().Are(helper.Attribute1)).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
 
@@ -637,13 +562,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAnyAttributes(new List<System.Type> { helper.UnusedAttributeSystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAnyAttributes(Attributes().That().Are(helper.UnusedAttribute))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributes(helper.UnusedAttribute).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(new List<Attribute> { helper.UnusedAttribute }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(helper.UnusedAttributeSystemType).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(new List<System.Type> { helper.UnusedAttributeSystemType }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(Attributes().That().Are(helper.UnusedAttribute)).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
 
@@ -658,12 +576,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAnyAttributes(new List<Attribute>())).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAnyAttributes(new List<System.Type>())).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAnyAttributes(Attributes().That().HaveFullName(helper.NonExistentObjectName))).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributes().AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(new List<Attribute>()).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(new List<System.Type>()).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(Attributes().That().HaveFullName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
@@ -682,13 +594,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType, helper.UnusedAttributeSystemType })).AssertNoViolations(helper);
         should.Be(Types().That().HaveAnyAttributes(Attributes().That().Are(helper.Attribute1, helper.UnusedAttribute))).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributes(helper.Attribute1, helper.UnusedAttribute).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(new List<Attribute> { helper.Attribute1, helper.UnusedAttribute }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(helper.Attribute1SystemType, helper.UnusedAttributeSystemType).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType, helper.UnusedAttributeSystemType }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributes(Attributes().That().Are(helper.Attribute1, helper.UnusedAttribute)).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -698,10 +603,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         Types().That().Are(helper.ClassWithTwoAttributes, helper.ClassWithThreeAttributes).Should().Be(Types().That().HaveAnyAttributes(helper.Attribute1)).AssertNoViolations(helper);
         Types().That().Are(helper.ClassWithTwoAttributes, helper.ClassWithoutAttributes).Should().Be(Types().That().HaveAnyAttributes(helper.Attribute1)).AssertAnyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        Types().That().Are(helper.ClassWithTwoAttributes, helper.ClassWithThreeAttributes).Should().BeTypesThat().HaveAnyAttributes(helper.Attribute1).AssertNoViolations(helper);
-        Types().That().Are(helper.ClassWithTwoAttributes, helper.ClassWithoutAttributes).Should().BeTypesThat().HaveAnyAttributes(helper.Attribute1).AssertAnyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -734,9 +635,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAnyAttributesWithArguments(new List<object> { helper.Attribute1TypeArgumentSystemType })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithArguments(new List<object> { helper.Attribute1TypeArgumentSystemType }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("No violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -745,9 +643,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAnyAttributesWithArguments(new List<object> { helper.Attribute1IntegerArgument })).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithArguments(new List<object> { helper.Attribute1IntegerArgument }).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -758,9 +653,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAnyAttributesWithArguments(new List<object> { helper.UnusedTypeArgumentSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithArguments(new List<object> { helper.UnusedTypeArgumentSystemType }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Violations with value arguments");
         should = Types().That().Are(helper.ClassWithoutAttributes).Should();
 
@@ -769,9 +661,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAnyAttributesWithArguments(new List<object> { helper.Attribute1IntegerArgument })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithArguments(new List<object> { helper.Attribute1IntegerArgument }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithoutAttributes).Should();
@@ -782,9 +671,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAnyAttributesWithArguments(new List<object>())).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithArguments(new List<object>()).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -793,9 +679,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAnyAttributesWithArguments(new List<object> { helper.UnusedAttributeIntValue, helper.UnusedAttributeStringValue })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithArguments(new List<object> { helper.UnusedAttributeIntValue, helper.UnusedAttributeStringValue }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
 
@@ -806,10 +689,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         Types().That().Are(helper.ClassWithSingleAttributeWithArguments, helper.ClassWithTwoAttributesWithArguments).Should().Be(Types().That().HaveAnyAttributesWithArguments([helper.Attribute1StringArgument])).AssertNoViolations(helper);
         Types().That().Are(helper.ClassWithSingleAttributeWithArguments, helper.ClassWithTwoAttributesWithArguments).Should().Be(Types().That().HaveAnyAttributesWithArguments([helper.Attribute2IntegerArgument])).AssertAnyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        Types().That().Are(helper.ClassWithSingleAttributeWithArguments, helper.ClassWithTwoAttributesWithArguments).Should().BeTypesThat().HaveAnyAttributesWithArguments([helper.Attribute1StringArgument]).AssertNoViolations(helper);
-        Types().That().Are(helper.ClassWithSingleAttributeWithArguments, helper.ClassWithTwoAttributesWithArguments).Should().BeTypesThat().HaveAnyAttributesWithArguments([helper.Attribute2IntegerArgument]).AssertAnyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -830,10 +709,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType))).AssertNoViolations(helper);
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("No violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -844,10 +719,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.Attribute1StringArgument))).AssertNoViolations(helper);
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) })).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.Attribute1StringArgument)).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) }).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations for attribute without named arguments");
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
@@ -864,12 +735,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.Attribute1StringArgument))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.Attribute1StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Violations with type arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -884,12 +749,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("InvalidName", helper.Attribute1TypeArgumentSystemType) })).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.UnusedTypeArgumentSystemType))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.UnusedTypeArgumentSystemType) })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("InvalidName", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("InvalidName", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.UnusedTypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.UnusedTypeArgumentSystemType) }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -906,12 +765,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.UnusedAttributeStringValue))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.UnusedAttributeStringValue) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("InvalidName", helper.Attribute1StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("InvalidName", helper.Attribute1StringArgument) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.UnusedAttributeStringValue)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.UnusedAttributeStringValue) }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithoutAttributes).Should();
 
@@ -920,9 +773,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(new List<(string, object)>())).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)>()).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -939,12 +789,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.UnusedAttributeStringValue))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.UnusedAttributeStringValue) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.Attribute1StringArgument)).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.Attribute1StringArgument) }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.UnusedAttributeStringValue)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.UnusedAttributeStringValue) }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments, helper.ClassWithTwoAttributesWithNamedArguments).Should();
 
@@ -955,10 +799,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType))).AssertNoViolations(helper);
         should.Be(Types().That().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter3", helper.Attribute2TypeArgumentSystemType) })).AssertAnyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter3", helper.Attribute2TypeArgumentSystemType) }).AssertAnyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -979,10 +819,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1TypeArgumentSystemType })).AssertNoViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1TypeArgumentSystemType })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1TypeArgumentSystemType }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1TypeArgumentSystemType }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("No violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -993,10 +829,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1StringArgument })).AssertNoViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1StringArgument })).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1StringArgument }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1StringArgument }).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations for wrong attribute");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -1009,10 +841,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithArguments(helper.UnusedAttribute, new List<object> { helper.Attribute1TypeArgumentSystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.UnusedAttributeSystemType, new List<object> { helper.Attribute1TypeArgumentSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithArguments(helper.UnusedAttribute, new List<object> { helper.Attribute1TypeArgumentSystemType }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithArguments(helper.UnusedAttributeSystemType, new List<object> { helper.Attribute1TypeArgumentSystemType }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Violations with type arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -1023,10 +851,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.UnusedTypeArgumentSystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.UnusedTypeArgumentSystemType })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.UnusedTypeArgumentSystemType }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.UnusedTypeArgumentSystemType }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -1039,10 +863,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute2StringArgument })).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute2StringArgument })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute2StringArgument }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute2StringArgument }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Type outside of architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -1051,9 +871,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAttributeWithArguments(typeof(TypeDependencyNamespace.BaseClass), [helper.Attribute1StringArgument])).AssertException<TypeDoesNotExistInArchitecture>(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithArguments(typeof(TypeDependencyNamespace.BaseClass), [helper.Attribute1StringArgument]).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -1066,10 +883,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1, new List<object>())).AssertNoViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object>())).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1, new List<object>()).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object>()).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -1081,10 +894,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1StringArgument, helper.Attribute1IntegerArgument })).AssertNoViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1StringArgument, helper.Attribute1IntegerArgument })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1StringArgument, helper.Attribute1IntegerArgument }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1StringArgument, helper.Attribute1IntegerArgument }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments, helper.ClassWithTwoAttributesWithArguments).Should();
 
@@ -1095,10 +904,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1StringArgument])).AssertNoViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute2, [helper.Attribute2IntegerArgument])).AssertAnyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute1, [helper.Attribute1StringArgument]).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithArguments(helper.Attribute2, [helper.Attribute2IntegerArgument]).AssertAnyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -1123,12 +928,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType))).AssertNoViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("No violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -1144,12 +943,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter2", helper.Attribute1StringArgument))).AssertNoViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter2", helper.Attribute1StringArgument)).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) }).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter2", helper.Attribute1StringArgument)).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations for attribute without named arguments");
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
 
@@ -1164,12 +957,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) })).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -1190,14 +977,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.UnusedTypeArgumentSystemType))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.UnusedTypeArgumentSystemType) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, ("InvalidName", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("InvalidName", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter1", helper.UnusedTypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.UnusedTypeArgumentSystemType) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.UnusedTypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.UnusedTypeArgumentSystemType) }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -1212,12 +991,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("InvalidName", helper.Attribute1StringArgument) })).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter2", helper.UnusedAttributeStringValue))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter2", helper.UnusedAttributeStringValue) })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, ("InvalidName", helper.Attribute1StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("InvalidName", helper.Attribute1StringArgument) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter2", helper.UnusedAttributeStringValue)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter2", helper.UnusedAttributeStringValue) }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Unused attribute");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -1234,12 +1007,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, ("NamedParameter1", helper.Attribute1TypeArgument))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.UnusedAttribute, ("NamedParameter1", helper.Attribute1TypeArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.UnusedAttribute, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, ("NamedParameter1", helper.Attribute1TypeArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Type outside of architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -1248,9 +1015,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAttributeWithNamedArguments(typeof(TypeDependencyNamespace.BaseClass), ("NamedParameter1", helper.Attribute1TypeArgument))).AssertException<TypeDoesNotExistInArchitecture>(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(typeof(TypeDependencyNamespace.BaseClass), ("NamedParameter1", helper.Attribute1TypeArgument)).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -1262,10 +1026,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)>())).AssertNoViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)>())).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)>()).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)>()).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -1282,12 +1042,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgument), ("NamedParameter2", helper.Attribute2StringArgument))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument), ("NamedParameter2", helper.Attribute2StringArgument) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter1", helper.Attribute1TypeArgument), ("NamedParameter2", helper.Attribute2StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument), ("NamedParameter2", helper.Attribute2StringArgument) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgument), ("NamedParameter2", helper.Attribute2StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument), ("NamedParameter2", helper.Attribute2StringArgument) }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments, helper.ClassWithTwoAttributesWithNamedArguments).Should();
 
@@ -1302,12 +1056,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute2, new List<(string, object)> { ("NamedParameter3", helper.Attribute2TypeArgumentSystemType) })).AssertAnyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute2SystemType, ("NamedParameter3", helper.Attribute2TypeArgumentSystemType))).AssertAnyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.Attribute2SystemType, new List<(string, object)> { ("NamedParameter3", helper.Attribute2TypeArgumentSystemType) })).AssertAnyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute2, ("NamedParameter3", helper.Attribute2TypeArgumentSystemType)).AssertAnyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute2, new List<(string, object)> { ("NamedParameter3", helper.Attribute2TypeArgumentSystemType) }).AssertAnyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute2SystemType, ("NamedParameter3", helper.Attribute2TypeArgumentSystemType)).AssertAnyViolations(helper);
-        should.BeTypesThat().HaveAttributeWithNamedArguments(helper.Attribute2SystemType, new List<(string, object)> { ("NamedParameter3", helper.Attribute2TypeArgumentSystemType) }).AssertAnyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -1353,23 +1101,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAssemblyQualifiedNameEndingWith(helper.BaseClass.Assembly.FullName)).AssertNoViolations(helper);
         should.Be(Types().That().HaveAssemblyQualifiedNameContaining(helper.BaseClass.Assembly.Name)).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveName(helper.BaseClass.Name).AssertNoViolations(helper);
-        should.BeTypesThat().HaveNameMatching("^Base.*$").AssertNoViolations(helper);
-        should.BeTypesThat().HaveNameStartingWith("Base").AssertNoViolations(helper);
-        should.BeTypesThat().HaveNameEndingWith("Class").AssertNoViolations(helper);
-        should.BeTypesThat().HaveNameContaining("Base").AssertNoViolations(helper);
-        should.BeTypesThat().HaveFullName(helper.BaseClass.FullName).AssertNoViolations(helper);
-        should.BeTypesThat().HaveFullNameMatching("^.*\\.Base.*$").AssertNoViolations(helper);
-        should.BeTypesThat().HaveFullNameStartingWith(helper.BaseClass.Namespace.FullName).AssertNoViolations(helper);
-        should.BeTypesThat().HaveFullNameEndingWith("BaseClass").AssertNoViolations(helper);
-        should.BeTypesThat().HaveFullNameContaining(helper.BaseClass.Namespace.Name).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedName(helper.BaseClass.AssemblyQualifiedName).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedNameMatching($"^{helper.BaseClass.FullName}, .*{helper.BaseClass.Assembly.Name}.*$").AssertNoViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedNameStartingWith(helper.BaseClass.FullName).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedNameEndingWith(helper.BaseClass.Assembly.FullName).AssertNoViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedNameContaining(helper.BaseClass.Assembly.Name).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.BaseClass).Should();
 
@@ -1407,23 +1138,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAssemblyQualifiedNameEndingWith(helper.BaseClass.Namespace.FullName)).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAssemblyQualifiedNameContaining(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
         
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().HaveName(helper.BaseClass.FullName).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveName("^.*\\.Base.*$").AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveNameStartingWith(helper.BaseClass.Namespace.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveNameEndingWith("Base").AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveNameContaining(helper.BaseClass.Namespace.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveFullName(helper.BaseClass.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveFullName("^Base.*$").AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveFullNameStartingWith("Base").AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveFullNameEndingWith(helper.BaseClass.Namespace.FullName).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveFullNameContaining(helper.NonExistentObjectName).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedName(helper.BaseClass.FullName).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedName($"^{helper.BaseClass.FullName}, .*{helper.NonExistentObjectName}.*$").AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedNameStartingWith(helper.BaseClass.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedNameEndingWith(helper.BaseClass.Namespace.FullName).AssertOnlyViolations(helper);
-        should.BeTypesThat().HaveAssemblyQualifiedNameContaining(helper.NonExistentObjectName).AssertOnlyViolations(helper);
-        
         await helper.AssertSnapshotMatches();
     }
 
@@ -1449,13 +1163,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().AreNot(new List<ICanBeAnalyzed> { helper.ClassWithoutDependencies })).AssertNoViolations(helper);
         should.Be(Types().That().AreNot(new List<System.Type> { helper.ClassWithoutDependenciesSystemType })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().AreNot(helper.ClassWithoutDependencies).AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(helper.ClassWithoutDependenciesSystemType).AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(Classes().That().Are(helper.ClassWithoutDependencies)).AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(new List<ICanBeAnalyzed> { helper.ClassWithoutDependencies }).AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(new List<System.Type> { helper.ClassWithoutDependenciesSystemType }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations");
         should = Types().That().DependOnAny(helper.BaseClass).Should();
 
@@ -1473,13 +1180,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().AreNot(new List<ICanBeAnalyzed> { helper.ChildClass })).AssertAnyViolations(helper);
         should.Be(Types().That().AreNot(new List<System.Type> { helper.ChildClassSystemType })).AssertAnyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().AreNot(helper.ChildClass).AssertAnyViolations(helper);
-        should.BeTypesThat().AreNot(helper.ChildClassSystemType).AssertAnyViolations(helper);
-        should.BeTypesThat().AreNot(Classes().That().Are(helper.ChildClass)).AssertAnyViolations(helper);
-        should.BeTypesThat().AreNot(new List<ICanBeAnalyzed> { helper.ChildClass }).AssertAnyViolations(helper);
-        should.BeTypesThat().AreNot(new List<System.Type> { helper.ChildClassSystemType }).AssertAnyViolations(helper);
-
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().DependOnAny(helper.BaseClass).Should();
 
@@ -1495,12 +1195,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().AreNot(new List<System.Type>())).AssertNoViolations(helper);
         should.Be(Types().That().AreNot(Classes().That().HaveFullName(helper.NonExistentObjectName))).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().AreNot().AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(new List<IType>()).AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(new List<System.Type>()).AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(Classes().That().HaveFullName(helper.NonExistentObjectName)).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().DependOnAny(helper.BaseClass).Should();
 
@@ -1515,12 +1209,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().AreNot(new List<ICanBeAnalyzed> { helper.ClassWithoutDependencies, helper.BaseClass })).AssertNoViolations(helper);
         should.Be(Types().That().AreNot(helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType)).AssertNoViolations(helper);
         should.Be(Types().That().AreNot(new List<System.Type> { helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType })).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().AreNot(helper.ClassWithoutDependencies, helper.BaseClass).AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(new List<ICanBeAnalyzed> { helper.ClassWithoutDependencies, helper.BaseClass }).AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType).AssertNoViolations(helper);
-        should.BeTypesThat().AreNot(new List<System.Type> { helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType }).AssertNoViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -1543,11 +1231,6 @@ public class ObjectSyntaxElementsTests
         should.Be(MethodMembers().That().DoNotCallAny(new List<MethodMember> { helper.MethodWithoutDependencies })).AssertNoViolations(helper);
         should.Be(MethodMembers().That().DoNotCallAny(MethodMembers().That().Are(helper.MethodWithoutDependencies))).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().DoNotCallAny(helper.MethodWithoutDependencies).AssertNoViolations(helper);
-        should.BeMethodMembersThat().DoNotCallAny(new List<MethodMember> { helper.MethodWithoutDependencies }).AssertNoViolations(helper);
-        should.BeMethodMembersThat().DoNotCallAny(MethodMembers().That().Are(helper.MethodWithoutDependencies)).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations");
         should = MethodMembers().That().Are(helper.MethodWithSingleDependency).Should();
 
@@ -1561,11 +1244,6 @@ public class ObjectSyntaxElementsTests
         should.Be(MethodMembers().That().DoNotCallAny(new List<MethodMember> { helper.CalledMethod })).AssertOnlyViolations(helper);
         should.Be(MethodMembers().That().DoNotCallAny(MethodMembers().That().Are(helper.CalledMethod))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().DoNotCallAny(helper.CalledMethod).AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().DoNotCallAny(new List<MethodMember> { helper.CalledMethod }).AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().DoNotCallAny(MethodMembers().That().Are(helper.CalledMethod)).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Empty arguments");
         should = MethodMembers().That().Are(helper.MethodWithSingleDependency).Should();
 
@@ -1576,10 +1254,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(MethodMembers().That().DoNotCallAny()).AssertNoViolations(helper);
         should.Be(MethodMembers().That().DoNotCallAny(new List<MethodMember>())).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().DoNotCallAny().AssertNoViolations(helper);
-        should.BeMethodMembersThat().DoNotCallAny(new List<MethodMember>()).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = MethodMembers().That().Are(helper.MethodWithMultipleDependencies).Should();
@@ -1594,11 +1268,6 @@ public class ObjectSyntaxElementsTests
         should.Be(MethodMembers().That().DoNotCallAny(new List<MethodMember> { helper.MethodWithoutDependencies, helper.CalledMethod1, helper.CalledMethod2 })).AssertOnlyViolations(helper);
         should.Be(MethodMembers().That().DoNotCallAny(MethodMembers().That().Are(helper.MethodWithoutDependencies, helper.CalledMethod1, helper.CalledMethod2))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().DoNotCallAny(helper.MethodWithoutDependencies, helper.CalledMethod1, helper.CalledMethod2).AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().DoNotCallAny(new List<MethodMember> { helper.MethodWithoutDependencies, helper.CalledMethod1, helper.CalledMethod2 }).AssertOnlyViolations(helper);
-        should.BeMethodMembersThat().DoNotCallAny(MethodMembers().That().Are(helper.MethodWithoutDependencies, helper.CalledMethod1, helper.CalledMethod2)).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
         should = MethodMembers().That().Are(helper.MethodWithSingleDependency, helper.MethodWithMultipleDependencies).Should();
 
@@ -1609,10 +1278,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(MethodMembers().That().DoNotCallAny(helper.MethodWithoutDependencies)).AssertNoViolations(helper);
         should.Be(MethodMembers().That().DoNotCallAny(helper.CalledMethod, helper.CalledMethod1, helper.CalledMethod2)).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeMethodMembersThat().DoNotCallAny(helper.MethodWithoutDependencies).AssertNoViolations(helper);
-        should.BeMethodMembersThat().DoNotCallAny(helper.CalledMethod, helper.CalledMethod1, helper.CalledMethod2).AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -1651,13 +1316,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotDependOnAny(new List<IType> { helper.ClassWithoutDependencies })).AssertNoViolations(helper);
         should.Be(Types().That().DoNotDependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotDependOnAny(helper.ClassWithoutDependencies).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(helper.ClassWithoutDependenciesSystemType).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(Classes().That().Are(helper.ClassWithoutDependencies)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<IType> { helper.ClassWithoutDependencies }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.ChildClass).Should();
 
@@ -1673,13 +1331,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotDependOnAny(helper.BaseClassSystemType)).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotDependOnAny(Classes().That().Are(helper.BaseClass))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotDependOnAny(helper.BaseClass).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(helper.BaseClassSystemType).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(Classes().That().Are(helper.BaseClass)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<IType> { helper.BaseClass }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<System.Type> { helper.BaseClassSystemType }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Type outside of architecture");
         should = Types().That().Are(helper.ChildClass).Should();
 
@@ -1688,9 +1339,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotDependOnAny(typeof(AttributeNamespace.ClassWithoutAttributes))).AssertException<TypeDoesNotExistInArchitecture>(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotDependOnAny(typeof(AttributeNamespace.ClassWithoutAttributes)).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ChildClass).Should();
@@ -1704,11 +1352,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotDependOnAny()).AssertNoViolations(helper);
         should.Be(Types().That().DoNotDependOnAny(new List<IType>())).AssertNoViolations(helper);
         should.Be(Types().That().DoNotDependOnAny(new List<System.Type>())).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotDependOnAny().AssertNoViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<IType>()).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<System.Type>()).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ChildClass).Should();
@@ -1724,12 +1367,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotDependOnAny(new List<IType> { helper.ClassWithoutDependencies, helper.BaseClass })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotDependOnAny(helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType)).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotDependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotDependOnAny(helper.ClassWithoutDependencies, helper.BaseClass).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<IType> { helper.ClassWithoutDependencies, helper.BaseClass }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType, helper.BaseClassSystemType }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Input with multiple dependencies");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
@@ -1747,13 +1384,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotDependOnAny(helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType)).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotDependOnAny(new List<System.Type> { helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType })).AssertOnlyViolations(helper);
         should.Be(Classes().That().DoNotDependOnAny(helper.BaseClassWithMember, helper.OtherBaseClass)).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotDependOnAny(helper.BaseClassWithMember, helper.OtherBaseClass).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<IType> { helper.BaseClassWithMember, helper.OtherBaseClass }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(new List<System.Type> { helper.BaseClassWithMemberSystemType, helper.OtherBaseClassSystemType }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotDependOnAny(Classes().That().Are(helper.BaseClassWithMember, helper.OtherBaseClass)).AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -1794,13 +1424,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributes(new List<System.Type> { helper.UnusedAttributeSystemType })).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributes(Attributes().That().Are(helper.UnusedAttribute))).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributes(helper.UnusedAttribute).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(new List<Attribute> { helper.UnusedAttribute }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(helper.UnusedAttributeSystemType).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(new List<System.Type> { helper.UnusedAttributeSystemType }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(Attributes().That().Are(helper.UnusedAttribute)).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
 
@@ -1818,13 +1441,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributes(Attributes().That().Are(helper.Attribute1))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributes(helper.Attribute1).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(new List<Attribute> { helper.Attribute1 }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(helper.Attribute1SystemType).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(Attributes().That().Are(helper.Attribute1)).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Type outside of architecture");
         should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
 
@@ -1833,9 +1449,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributes(typeof(TypeDependencyNamespace.BaseClass))).AssertException<TypeDoesNotExistInArchitecture>(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributes(typeof(TypeDependencyNamespace.BaseClass)).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithoutAttributes).Should();
@@ -1851,12 +1464,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributes(new List<Attribute>())).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributes(new List<System.Type>())).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributes(Attributes().That().HaveFullName(helper.NonExistentObjectName))).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributes().AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(new List<Attribute>()).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(new List<System.Type>()).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(Attributes().That().HaveFullName(helper.NonExistentObjectName)).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
@@ -1875,13 +1482,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType, helper.Attribute2SystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributes(Attributes().That().Are(helper.Attribute1, helper.Attribute2))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributes(helper.Attribute1, helper.Attribute2).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(new List<Attribute> { helper.Attribute1, helper.Attribute2 }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(helper.Attribute1SystemType, helper.Attribute2SystemType).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType, helper.Attribute2SystemType }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(Attributes().That().Are(helper.Attribute1, helper.Attribute2)).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
         should = Types().That().Are(helper.ClassWithoutAttributes, helper.ClassWithSingleAttribute).Should();
 
@@ -1892,10 +1492,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributes(helper.Attribute2)).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributes(helper.Attribute1)).AssertAnyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributes(helper.Attribute2).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributes(helper.Attribute1).AssertAnyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -1928,9 +1524,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.UnusedTypeArgumentSystemType })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.UnusedTypeArgumentSystemType }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("No violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -1939,9 +1532,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.UnusedAttributeStringValue })).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.UnusedAttributeStringValue }).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -1952,9 +1542,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.Attribute1TypeArgumentSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.Attribute1TypeArgumentSystemType }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -1963,9 +1550,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.Attribute1IntegerArgument })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.Attribute1IntegerArgument }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Type without attributes");
         should = Types().That().Are(helper.ClassWithoutAttributes).Should();
@@ -1976,9 +1560,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithArguments([helper.Attribute1StringArgument])).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithArguments([helper.Attribute1StringArgument]).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -1987,9 +1568,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithArguments(new List<object>())).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithArguments(new List<object>()).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -2000,9 +1578,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.UnusedTypeArgument, helper.Attribute1StringArgument })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.UnusedTypeArgument, helper.Attribute1StringArgument }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments, helper.ClassWithTwoAttributesWithArguments).Should();
 
@@ -2011,9 +1586,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.Attribute1StringArgument })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.Attribute1StringArgument }).AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -2038,12 +1610,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.UnusedTypeArgumentSystemType))).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.UnusedTypeArgumentSystemType) })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(("InvalidName", helper.Attribute1TypeArgumentSystemType)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("InvalidName", helper.Attribute1TypeArgumentSystemType) }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.UnusedTypeArgumentSystemType)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.UnusedTypeArgumentSystemType) }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("No violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -2059,12 +1625,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.UnusedAttributeStringValue))).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.UnusedAttributeStringValue) })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(("InvalidName", helper.Attribute1StringArgument)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("InvalidName", helper.Attribute1StringArgument) }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.UnusedAttributeStringValue)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.UnusedAttributeStringValue) }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations with type arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -2075,10 +1635,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType))).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -2091,10 +1647,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.Attribute1StringArgument))).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter2", helper.Attribute1StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -2103,9 +1655,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)>())).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)>()).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -2129,10 +1678,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType))).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAnyAttributesWithNamedArguments(new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
-
         await helper.AssertSnapshotMatches();
     }
 
@@ -2152,10 +1697,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute2TypeArgumentSystemType })).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute2TypeArgumentSystemType })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute2TypeArgumentSystemType }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute2TypeArgumentSystemType }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("No violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -2166,10 +1707,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute2StringArgument })).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute2StringArgument })).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute2StringArgument }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute2StringArgument }).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -2182,10 +1719,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1TypeArgumentSystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1TypeArgumentSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1TypeArgumentSystemType }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1TypeArgumentSystemType }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -2196,10 +1729,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1IntegerArgument })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1IntegerArgument })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1IntegerArgument }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1IntegerArgument }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Unused attribute");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -2212,10 +1741,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.UnusedAttribute, new List<object> { helper.Attribute1StringArgument })).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.UnusedAttributeSystemType, new List<object> { helper.Attribute1StringArgument })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.UnusedAttribute, new List<object> { helper.Attribute1StringArgument }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.UnusedAttributeSystemType, new List<object> { helper.Attribute1StringArgument }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Type outside of architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
@@ -2224,9 +1749,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAttributeWithArguments(typeof(TypeDependencyNamespace.BaseClass), [1])).AssertException<TypeDoesNotExistInArchitecture>(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(typeof(TypeDependencyNamespace.BaseClass), [1]).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -2246,10 +1768,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1TypeArgumentSystemType, helper.Attribute1IntegerArgument })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1TypeArgumentSystemType, helper.Attribute1IntegerArgument })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1TypeArgumentSystemType, helper.Attribute1IntegerArgument }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1TypeArgumentSystemType, helper.Attribute1IntegerArgument }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments, helper.ClassWithTwoAttributesWithNamedArguments).Should();
 
@@ -2260,10 +1778,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1StringArgument })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1StringArgument })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute1StringArgument }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute1StringArgument }).AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -2288,12 +1802,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute2TypeArgumentSystemType))).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute2TypeArgumentSystemType) })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter1", helper.Attribute2TypeArgumentSystemType)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.Attribute2TypeArgumentSystemType) }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute2TypeArgumentSystemType)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute2TypeArgumentSystemType) }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("No violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -2308,12 +1816,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter2", helper.Attribute2StringArgument) })).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter2", helper.Attribute2StringArgument))).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter2", helper.Attribute2StringArgument) })).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter2", helper.Attribute2StringArgument)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter2", helper.Attribute2StringArgument) }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter2", helper.Attribute2StringArgument)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter2", helper.Attribute2StringArgument) }).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations with type arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -2330,12 +1832,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType))).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Violations with value arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -2350,12 +1846,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter2", helper.Attribute1StringArgument))).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter2", helper.Attribute1StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter2", helper.Attribute1StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter2", helper.Attribute1StringArgument) }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Unused attribute");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -2372,12 +1862,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, ("NamedParameter1", helper.Attribute1TypeArgument))).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) })).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttribute, ("NamedParameter1", helper.Attribute1TypeArgument)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttribute, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) }).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, ("NamedParameter1", helper.Attribute1TypeArgument)).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) }).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Type outside of architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
@@ -2386,9 +1870,6 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(typeof(TypeDependencyNamespace.BaseClass), ("NamedParameter1", helper.Attribute1TypeArgument))).AssertException<TypeDoesNotExistInArchitecture>(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(typeof(TypeDependencyNamespace.BaseClass), ("NamedParameter1", helper.Attribute1TypeArgument)).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -2400,10 +1881,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)>())).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)>())).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)>()).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)>()).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -2420,12 +1897,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.Attribute1StringArgument))).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.Attribute1StringArgument) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.Attribute1StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.Attribute1StringArgument) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.Attribute1StringArgument)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType), ("NamedParameter2", helper.Attribute1StringArgument) }).AssertOnlyViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments, helper.ClassWithTwoAttributesWithNamedArguments).Should();
 
@@ -2440,12 +1911,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType))).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) })).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, ("NamedParameter1", helper.Attribute1TypeArgumentSystemType)).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAttributeWithNamedArguments(helper.Attribute1SystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgumentSystemType) }).AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -2492,23 +1957,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameEndingWith("Test")).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameContaining(helper.NonExistentObjectName)).AssertNoViolations(helper);
         
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveName(helper.BaseClass.FullName).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveNameMatching("^.*\\.Base.*$").AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveNameStartingWith(helper.BaseClass.Namespace.Name).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveNameEndingWith("Test").AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveNameContaining(helper.BaseClass.Namespace.Name).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveFullName(helper.BaseClass.Name).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveFullNameMatching("^Base.*$").AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveFullNameStartingWith(helper.BaseClass.Name).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveFullNameEndingWith("Test").AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveFullNameContaining(helper.NonExistentObjectName).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedName(helper.ChildClass.AssemblyQualifiedName).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedNameMatching("^.*\\.Child.*$").AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedNameStartingWith(helper.BaseClass.Name).AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedNameEndingWith("Test").AssertNoViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedNameContaining(helper.NonExistentObjectName).AssertNoViolations(helper);
-        
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.BaseClass).Should();
 
@@ -2546,23 +1994,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameEndingWith(helper.BaseClass.Assembly.FullName)).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameContaining(helper.BaseClass.Namespace.Name)).AssertOnlyViolations(helper);
         
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().DoNotHaveName(helper.BaseClass.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveNameMatching("^Base.*$").AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveNameStartingWith(helper.BaseClass.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveNameEndingWith(helper.BaseClass.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveNameContaining(helper.BaseClass.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveFullName(helper.BaseClass.FullName).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveFullNameMatching("^.*\\.Base.*$").AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveFullNameStartingWith(helper.BaseClass.Namespace.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveFullNameEndingWith(helper.BaseClass.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveFullNameContaining(helper.BaseClass.Namespace.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedName(helper.BaseClass.AssemblyQualifiedName).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedNameMatching("^.*\\.Base.*$").AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedNameStartingWith(helper.BaseClass.Namespace.Name).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedNameEndingWith(helper.BaseClass.Assembly.FullName).AssertOnlyViolations(helper);
-        should.BeTypesThat().DoNotHaveAssemblyQualifiedNameContaining(helper.BaseClass.Namespace.Name).AssertOnlyViolations(helper);
-        
         await helper.AssertSnapshotMatches();
     }
 
@@ -2587,13 +2018,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyDependOn(Classes().That().Are(helper.BaseClass))).AssertNoViolations(helper);
         should.Be(Types().That().OnlyDependOn(new List<IType> { helper.BaseClass })).AssertNoViolations(helper);
         should.Be(Types().That().OnlyDependOn(new List<System.Type> { helper.BaseClassSystemType })).AssertNoViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().OnlyDependOn(helper.BaseClass).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyDependOn(helper.BaseClassSystemType).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyDependOn(Classes().That().Are(helper.BaseClass)).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyDependOn(new List<IType> { helper.BaseClass }).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyDependOn(new List<System.Type> { helper.BaseClassSystemType }).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
@@ -2621,9 +2045,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().OnlyDependOn(typeof(AttributeNamespace.ClassWithoutAttributes))).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().OnlyDependOn(typeof(AttributeNamespace.ClassWithoutAttributes)).AssertException<TypeDoesNotExistInArchitecture>(helper);
-
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
 
@@ -2638,12 +2059,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyDependOn(new List<IType>())).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyDependOn(new List<System.Type>())).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyDependOn(Classes().That().HaveFullName(helper.NonExistentObjectName))).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().OnlyDependOn().AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyDependOn(new List<IType>()).AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyDependOn(new List<System.Type>()).AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyDependOn(Classes().That().HaveFullName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
@@ -2661,13 +2076,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyDependOn(helper.BaseClassSystemType, helper.OtherBaseClassSystemType)).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyDependOn(new List<System.Type> { helper.BaseClassSystemType, helper.OtherBaseClassSystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyDependOn(Classes().That().Are(helper.BaseClass, helper.OtherBaseClass))).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().OnlyDependOn(helper.BaseClass, helper.OtherBaseClass).AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyDependOn(new List<IType> { helper.BaseClass, helper.OtherBaseClass }).AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyDependOn(helper.BaseClassSystemType, helper.OtherBaseClassSystemType).AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyDependOn(new List<System.Type> { helper.BaseClassSystemType, helper.OtherBaseClassSystemType }).AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyDependOn(Classes().That().Are(helper.BaseClass, helper.OtherBaseClass)).AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }
@@ -2708,13 +2116,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyHaveAttributes(new List<System.Type> { helper.Attribute1SystemType })).AssertNoViolations(helper);
         should.Be(Types().That().OnlyHaveAttributes(Attributes().That().Are(helper.Attribute1))).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().OnlyHaveAttributes(helper.Attribute1).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(new List<Attribute> { helper.Attribute1 }).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(helper.Attribute1SystemType).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(new List<System.Type> { helper.Attribute1SystemType }).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(Attributes().That().Are(helper.Attribute1)).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
 
@@ -2741,9 +2142,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().OnlyHaveAttributes(typeof(TypeDependencyNamespace.BaseClass))).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().OnlyHaveAttributes(typeof(TypeDependencyNamespace.BaseClass)).AssertException<TypeDoesNotExistInArchitecture>(helper);
-
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
 
@@ -2758,12 +2156,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyHaveAttributes(new List<Attribute>())).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyHaveAttributes(new List<System.Type>())).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyHaveAttributes(Attributes().That().HaveFullName(helper.NonExistentObjectName))).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().OnlyHaveAttributes().AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(new List<Attribute>()).AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(new List<System.Type>()).AssertOnlyViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(Attributes().That().HaveFullName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple arguments");
         should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
@@ -2782,13 +2174,6 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyHaveAttributes(new List<System.Type> { helper.Attribute1SystemType, helper.Attribute2SystemType })).AssertNoViolations(helper);
         should.Be(Types().That().OnlyHaveAttributes(Attributes().That().Are(helper.Attribute1, helper.Attribute2))).AssertNoViolations(helper);
 
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().OnlyHaveAttributes(helper.Attribute1, helper.Attribute2).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(new List<Attribute> { helper.Attribute1, helper.Attribute2 }).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(helper.Attribute1SystemType, helper.Attribute2SystemType).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(new List<System.Type> { helper.Attribute1SystemType, helper.Attribute2SystemType }).AssertNoViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(Attributes().That().Are(helper.Attribute1, helper.Attribute2)).AssertNoViolations(helper);
-
         helper.AddSnapshotHeader("Multiple inputs");
         should = Types().That().Are(helper.ClassWithSingleAttribute, helper.ClassWithTwoAttributes).Should();
 
@@ -2799,10 +2184,6 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().OnlyHaveAttributes(helper.Attribute1)).AssertAnyViolations(helper);
         should.Be(Types().That().OnlyHaveAttributes(helper.Attribute2)).AssertOnlyViolations(helper);
-
-        helper.AddSnapshotSubHeader("Predicates as conditions");
-        should.BeTypesThat().OnlyHaveAttributes(helper.Attribute1).AssertAnyViolations(helper);
-        should.BeTypesThat().OnlyHaveAttributes(helper.Attribute2).AssertOnlyViolations(helper);
 
         await helper.AssertSnapshotMatches();
     }

@@ -64,38 +64,6 @@ Description: AttributeNamespace.ClassWithTwoAttributes passed
 Message: 
 All Evaluations passed
 
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.Attribute1"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.Attribute1"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.Attribute1"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.Attribute1"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any Attributes that are "AttributeNamespace.Attribute1"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
 ===== Violations =====
 
 ----- Conditions -----
@@ -192,53 +160,6 @@ Message:
 
 
 
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.UnusedAttribute"
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributes does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithTwoAttributes does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.UnusedAttribute"
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributes does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithTwoAttributes does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.UnusedAttribute"
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributes does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithTwoAttributes does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.UnusedAttribute"
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributes does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithTwoAttributes does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any Attributes that are "AttributeNamespace.UnusedAttribute"
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributes does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any Attributes that are "AttributeNamespace.UnusedAttribute"" failed:
-	AttributeNamespace.ClassWithTwoAttributes does exist
-
-
-
 ===== Empty arguments =====
 
 ----- Conditions -----
@@ -317,44 +238,6 @@ Message:
 
 
 
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any of no attributes (always empty)
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributes does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any of no attributes (always empty)" failed:
-	AttributeNamespace.ClassWithTwoAttributes does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any of no attributes (always empty)
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributes does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any of no attributes (always empty)" failed:
-	AttributeNamespace.ClassWithTwoAttributes does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any of no attributes (always empty)
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributes does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any of no attributes (always empty)" failed:
-	AttributeNamespace.ClassWithTwoAttributes does exist
-
-
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any Attributes that have full name "NotTheNameOfAnyObject"
-Result: False
-Description: AttributeNamespace.ClassWithTwoAttributes does exist
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any Attributes that have full name "NotTheNameOfAnyObject"" failed:
-	AttributeNamespace.ClassWithTwoAttributes does exist
-
-
-
 ===== Multiple arguments =====
 
 ----- Conditions -----
@@ -421,38 +304,6 @@ Description: AttributeNamespace.ClassWithTwoAttributes passed
 Message: 
 All Evaluations passed
 
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should be types that have any Attributes that are "AttributeNamespace.Attribute1" or "AttributeNamespace.UnusedAttribute"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-All Evaluations passed
-
 ===== Multiple inputs =====
 
 ----- Conditions -----
@@ -494,27 +345,6 @@ Description: AttributeNamespace.ClassWithTwoAttributes passed
 Message: 
 "Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithoutAttributes" should be Types that have "AttributeNamespace.Attribute1"" failed:
 	AttributeNamespace.ClassWithoutAttributes is not Types that have "AttributeNamespace.Attribute1"
-
-
-
------ Predicates as conditions -----
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" should be types that have "AttributeNamespace.Attribute1"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Result: True
-Description: AttributeNamespace.ClassWithThreeAttributes passed
-Message: 
-All Evaluations passed
-
-Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithoutAttributes" should be types that have "AttributeNamespace.Attribute1"
-Result: False
-Description: AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" or "AttributeNamespace.ClassWithThreeAttributesWithArguments" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
-Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Message: 
-"Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithoutAttributes" should be types that have "AttributeNamespace.Attribute1"" failed:
-	AttributeNamespace.ClassWithoutAttributes is not "AttributeNamespace.ClassWithSingleAttribute" or "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" or "AttributeNamespace.ClassWithSingleAttributeWithArguments" or "AttributeNamespace.ClassWithTwoAttributesWithArguments" or "AttributeNamespace.ClassWithThreeAttributesWithArguments" or "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" or "AttributeNamespace.ClassWithTwoAttributesWithNamedArguments" or "AttributeNamespace.ClassWithThreeAttributesWithNamedArguments"
 
 
 
