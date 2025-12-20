@@ -1,6 +1,9 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using System.Linq;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent;
+using ArchUnitNETTests.AssemblyTestHelper;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
@@ -679,6 +682,301 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.True(thisCondition1OrOtherCondition1.HasNoViolations(Architecture));
             Assert.True(otherCondition2OrThisCondition2.HasNoViolations(Architecture));
             Assert.True(falseThisCondition1OrFalseThisCondition2.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void NoPositiveResultsEqualityOrTest()
+        {
+            var helper = new DependencyAssemblyTestHelper();
+            var nonExistentTypeName = helper.NonExistentObjectName;
+
+            var noPositiveResultsFluent = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .Or()
+                .Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName);
+
+            var noPositiveResultsCombined = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .Or(
+                    Types()
+                        .That()
+                        .HaveName(nonExistentTypeName)
+                        .Should()
+                        .HaveName(nonExistentTypeName)
+                );
+
+            Assert.Equal(
+                noPositiveResultsFluent.HasNoViolations(helper.Architecture),
+                noPositiveResultsCombined.HasNoViolations(helper.Architecture)
+            );
+        }
+
+        [Fact]
+        public void NoPositiveResultsEqualityAndTest()
+        {
+            var helper = new DependencyAssemblyTestHelper();
+            var nonExistentTypeName = helper.NonExistentObjectName;
+
+            var noPositiveResultsFluent = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .And()
+                .Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName);
+
+            var noPositiveResultsCombined = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .And(
+                    Types()
+                        .That()
+                        .HaveName(nonExistentTypeName)
+                        .Should()
+                        .HaveName(nonExistentTypeName)
+                );
+
+            Assert.Equal(
+                noPositiveResultsFluent.HasNoViolations(helper.Architecture),
+                noPositiveResultsCombined.HasNoViolations(helper.Architecture)
+            );
+        }
+        
+        [Fact]
+        public void OneSideNoPositiveResultsCommutativityOrTest()
+        {
+            var helper = new DependencyAssemblyTestHelper();
+            var nonExistentTypeName = helper.NonExistentObjectName;
+
+            var oneSideNoPositiveResultsFluent = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .Or()
+                .Types()
+                .That()
+                .HaveName(helper.BaseClass.Name)
+                .Should()
+                .HaveName(helper.BaseClass.Name);
+
+            var oneSideNoPositiveResultsCombined = Types()
+                .That()
+                .HaveName(helper.BaseClass.Name)
+                .Should()
+                .HaveName(helper.BaseClass.Name)
+                .Or(
+                    Types()
+                        .That()
+                        .HaveName(nonExistentTypeName)
+                        .Should()
+                        .HaveName(nonExistentTypeName)
+                );
+
+            Assert.Equal(
+                oneSideNoPositiveResultsFluent.HasNoViolations(helper.Architecture),
+                oneSideNoPositiveResultsCombined.HasNoViolations(helper.Architecture)
+            );
+        }
+        
+        [Fact]
+        public void OneSideNoPositiveResultsCommutativityAndTest()
+        {
+            var helper = new DependencyAssemblyTestHelper();
+            var nonExistentTypeName = helper.NonExistentObjectName;
+
+            var oneSideNoPositiveResultsFluent = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .And()
+                .Types()
+                .That()
+                .HaveName(helper.BaseClass.Name)
+                .Should()
+                .HaveName(helper.BaseClass.Name);
+
+            var oneSideNoPositiveResultsCombined = Types()
+                .That()
+                .HaveName(helper.BaseClass.Name)
+                .Should()
+                .HaveName(helper.BaseClass.Name)
+                .And(
+                    Types()
+                        .That()
+                        .HaveName(nonExistentTypeName)
+                        .Should()
+                        .HaveName(nonExistentTypeName)
+                );
+
+            Assert.Equal(
+                oneSideNoPositiveResultsFluent.HasNoViolations(helper.Architecture),
+                oneSideNoPositiveResultsCombined.HasNoViolations(helper.Architecture)
+            );
+        }
+
+        [Fact]
+        public void HavaNoViolationsShouldEqualEvaluateAllPassedTest()
+        {
+            var helper = new DependencyAssemblyTestHelper();
+            var nonExistentTypeName = helper.NonExistentObjectName;
+
+            var noPositiveResultsFluentOr = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .Or()
+                .Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName);
+            
+            Assert.Equal(
+                noPositiveResultsFluentOr.HasNoViolations(helper.Architecture),
+                noPositiveResultsFluentOr.Evaluate(helper.Architecture).All(result => result.Passed)
+            );
+            
+            var noPositiveResultsCombinedOr = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .Or(
+                    Types()
+                        .That()
+                        .HaveName(nonExistentTypeName)
+                        .Should()
+                        .HaveName(nonExistentTypeName)
+                );
+            
+            // Assert.Equal(
+            //     noPositiveResultsCombinedOr.HasNoViolations(helper.Architecture),
+            //     noPositiveResultsCombinedOr.Evaluate(helper.Architecture).All(result => result.Passed)
+            // );
+
+            var noPositiveResultsFluentAnd = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .And()
+                .Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName);
+            
+            Assert.Equal(
+                noPositiveResultsFluentAnd.HasNoViolations(helper.Architecture),
+                noPositiveResultsFluentAnd.Evaluate(helper.Architecture).All(result => result.Passed)
+            );
+
+            var noPositiveResultsCombinedAnd = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .And(
+                    Types()
+                        .That()
+                        .HaveName(nonExistentTypeName)
+                        .Should()
+                        .HaveName(nonExistentTypeName)
+                );
+            
+            Assert.Equal(
+                noPositiveResultsCombinedAnd.HasNoViolations(helper.Architecture),
+                noPositiveResultsCombinedAnd.Evaluate(helper.Architecture).All(result => result.Passed)
+            );
+
+            var oneSideNoPositiveResultsFluentOr = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .Or()
+                .Types()
+                .That()
+                .HaveName(helper.BaseClass.Name)
+                .Should()
+                .HaveName(helper.BaseClass.Name);
+            
+            Assert.Equal(
+                oneSideNoPositiveResultsFluentOr.HasNoViolations(helper.Architecture),
+                oneSideNoPositiveResultsFluentOr.Evaluate(helper.Architecture).All(result => result.Passed)
+            );
+
+            var oneSideNoPositiveResultsCombinedOr = Types()
+                .That()
+                .HaveName(helper.BaseClass.Name)
+                .Should()
+                .HaveName(helper.BaseClass.Name)
+                .Or(
+                    Types()
+                        .That()
+                        .HaveName(nonExistentTypeName)
+                        .Should()
+                        .HaveName(nonExistentTypeName)
+                );
+            
+            // Assert.Equal(
+            //     oneSideNoPositiveResultsCombinedOr.HasNoViolations(helper.Architecture),
+            //     oneSideNoPositiveResultsCombinedOr.Evaluate(helper.Architecture).All(result => result.Passed)
+            // );
+
+            var oneSideNoPositiveResultsFluentAnd = Types()
+                .That()
+                .HaveName(nonExistentTypeName)
+                .Should()
+                .HaveName(nonExistentTypeName)
+                .And()
+                .Types()
+                .That()
+                .HaveName(helper.BaseClass.Name)
+                .Should()
+                .HaveName(helper.BaseClass.Name);
+            
+            Assert.Equal(
+                oneSideNoPositiveResultsFluentAnd.HasNoViolations(helper.Architecture),
+                oneSideNoPositiveResultsFluentAnd.Evaluate(helper.Architecture).All(result => result.Passed)
+            );
+
+            var oneSideNoPositiveResultsCombinedAnd = Types()
+                .That()
+                .HaveName(helper.BaseClass.Name)
+                .Should()
+                .HaveName(helper.BaseClass.Name)
+                .And(
+                    Types()
+                        .That()
+                        .HaveName(nonExistentTypeName)
+                        .Should()
+                        .HaveName(nonExistentTypeName)
+                );
+            
+            Assert.Equal(
+                oneSideNoPositiveResultsCombinedAnd.HasNoViolations(helper.Architecture),
+                oneSideNoPositiveResultsCombinedAnd.Evaluate(helper.Architecture).All(result => result.Passed)
+            );
         }
     }
 
