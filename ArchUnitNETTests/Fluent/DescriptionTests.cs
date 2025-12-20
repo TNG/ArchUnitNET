@@ -29,7 +29,7 @@ namespace ArchUnitNETTests.Fluent
             .That()
             .ArePublic()
             .As(CustomDescription)
-            .And()
+            .That()
             .AreProtected()
             .Should()
             .BePublic()
@@ -56,19 +56,25 @@ namespace ArchUnitNETTests.Fluent
         public void CustomDescriptionTest()
         {
             Assert.Equal(
-                CustomDescription + " and are protected " + CustomDescription,
+                CustomDescription + " that are protected should " + CustomDescription,
                 _customDescriptionTestRule2.Description
             );
             Assert.Equal(
-                CustomDescription + " and are protected " + CustomDescription,
+                CustomDescription + " that are protected should " + CustomDescription,
                 _customDescriptionTestRule2.ToString()
             );
             Assert.Equal(
-                "Classes " + CustomDescription + " and Attributes " + CustomDescription,
+                "Classes should "
+                    + CustomDescription
+                    + " and Attributes should "
+                    + CustomDescription,
                 _combinedCustomDescriptionTestRule.Description
             );
             Assert.Equal(
-                "Classes " + CustomDescription + " and Attributes " + CustomDescription,
+                "Classes should "
+                    + CustomDescription
+                    + " and Attributes should "
+                    + CustomDescription,
                 _combinedCustomDescriptionTestRule.ToString()
             );
         }
@@ -88,7 +94,7 @@ namespace ArchUnitNETTests.Fluent
                 Classes().That().FollowCustomPredicate(c => true, "exist").As(CustomDescription).Description
             );
             Assert.Equal(
-                "Classes " + CustomDescription,
+                "Classes should " + CustomDescription,
                 Classes().Should().Exist().As(CustomDescription).Description
             );
 
@@ -97,7 +103,7 @@ namespace ArchUnitNETTests.Fluent
                 Types().That().FollowCustomPredicate(t => true, "exist").As(CustomDescription).Description
             );
             Assert.Equal(
-                "Types " + CustomDescription,
+                "Types should " + CustomDescription,
                 Types().Should().Exist().As(CustomDescription).Description
             );
 
@@ -106,7 +112,7 @@ namespace ArchUnitNETTests.Fluent
                 Interfaces().That().FollowCustomPredicate(i => true, "exist").As(CustomDescription).Description
             );
             Assert.Equal(
-                "Interfaces " + CustomDescription,
+                "Interfaces should " + CustomDescription,
                 Interfaces().Should().Exist().As(CustomDescription).Description
             );
 
@@ -115,7 +121,7 @@ namespace ArchUnitNETTests.Fluent
                 Attributes().That().FollowCustomPredicate(a => true, "exist").As(CustomDescription).Description
             );
             Assert.Equal(
-                "Attributes " + CustomDescription,
+                "Attributes should " + CustomDescription,
                 Attributes().Should().Exist().As(CustomDescription).Description
             );
 
@@ -124,7 +130,7 @@ namespace ArchUnitNETTests.Fluent
                 Members().That().FollowCustomPredicate(m => true, "exist").As(CustomDescription).Description
             );
             Assert.Equal(
-                "Members " + CustomDescription,
+                "Members should " + CustomDescription,
                 Members().Should().Exist().As(CustomDescription).Description
             );
 
@@ -133,7 +139,7 @@ namespace ArchUnitNETTests.Fluent
                 MethodMembers().That().FollowCustomPredicate(m => true, "exist").As(CustomDescription).Description
             );
             Assert.Equal(
-                "Method members " + CustomDescription,
+                "Method members should " + CustomDescription,
                 MethodMembers().Should().Exist().As(CustomDescription).Description
             );
 
@@ -142,7 +148,7 @@ namespace ArchUnitNETTests.Fluent
                 PropertyMembers().That().FollowCustomPredicate(p => true, "exist").As(CustomDescription).Description
             );
             Assert.Equal(
-                "Property members " + CustomDescription,
+                "Property members should " + CustomDescription,
                 PropertyMembers().Should().Exist().As(CustomDescription).Description
             );
 
@@ -151,7 +157,7 @@ namespace ArchUnitNETTests.Fluent
                 FieldMembers().That().FollowCustomPredicate(f => true, "exist").As(CustomDescription).Description
             );
             Assert.Equal(
-                "Field members " + CustomDescription,
+                "Field members should " + CustomDescription,
                 FieldMembers().Should().Exist().As(CustomDescription).Description
             );
         }

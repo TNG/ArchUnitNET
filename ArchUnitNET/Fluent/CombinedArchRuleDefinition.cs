@@ -10,98 +10,58 @@ using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
 
 namespace ArchUnitNET.Fluent
 {
-    public class CombinedArchRuleDefinition
+    public class CombinedArchRuleDefinition : PartialArchRuleConjunction
     {
-        private readonly LogicalConjunction _logicalConjunction;
-        private readonly ICanBeEvaluated _oldRule;
+        internal override ICanBeEvaluated LeftArchRule { get; }
+        internal override LogicalConjunction LogicalConjunction { get; }
 
         public CombinedArchRuleDefinition(
-            ICanBeEvaluated oldRule,
+            ICanBeEvaluated leftRule,
             LogicalConjunction logicalConjunction
         )
         {
-            _oldRule = oldRule;
-            _logicalConjunction = logicalConjunction;
+            LeftArchRule = leftRule;
+            LogicalConjunction = logicalConjunction;
         }
 
         public GivenTypes Types()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<IType>(
-                _oldRule,
-                _logicalConjunction,
-                BasicObjectProviderDefinition.Types
-            );
-            return new GivenTypes(combinedRuleCreator);
+            return new GivenTypes(this, BasicObjectProviderDefinition.Types);
         }
 
         public GivenAttributes Attributes()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<Attribute>(
-                _oldRule,
-                _logicalConjunction,
-                BasicObjectProviderDefinition.Attributes
-            );
-            return new GivenAttributes(combinedRuleCreator);
+            return new GivenAttributes(this, BasicObjectProviderDefinition.Attributes);
         }
 
         public GivenClasses Classes()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<Class>(
-                _oldRule,
-                _logicalConjunction,
-                BasicObjectProviderDefinition.Classes
-            );
-            return new GivenClasses(combinedRuleCreator);
+            return new GivenClasses(this, BasicObjectProviderDefinition.Classes);
         }
 
         public GivenInterfaces Interfaces()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<Interface>(
-                _oldRule,
-                _logicalConjunction,
-                BasicObjectProviderDefinition.Interfaces
-            );
-            return new GivenInterfaces(combinedRuleCreator);
+            return new GivenInterfaces(this, BasicObjectProviderDefinition.Interfaces);
         }
 
         public GivenMembers Members()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<IMember>(
-                _oldRule,
-                _logicalConjunction,
-                BasicObjectProviderDefinition.Members
-            );
-            return new GivenMembers(combinedRuleCreator);
+            return new GivenMembers(this, BasicObjectProviderDefinition.Members);
         }
 
         public GivenFieldMembers FieldMembers()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<FieldMember>(
-                _oldRule,
-                _logicalConjunction,
-                BasicObjectProviderDefinition.FieldMembers
-            );
-            return new GivenFieldMembers(combinedRuleCreator);
+            return new GivenFieldMembers(this, BasicObjectProviderDefinition.FieldMembers);
         }
 
         public GivenMethodMembers MethodMembers()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<MethodMember>(
-                _oldRule,
-                _logicalConjunction,
-                BasicObjectProviderDefinition.MethodMembers
-            );
-            return new GivenMethodMembers(combinedRuleCreator);
+            return new GivenMethodMembers(this, BasicObjectProviderDefinition.MethodMembers);
         }
 
         public GivenPropertyMembers PropertyMembers()
         {
-            var combinedRuleCreator = new CombinedArchRuleCreator<PropertyMember>(
-                _oldRule,
-                _logicalConjunction,
-                BasicObjectProviderDefinition.PropertyMembers
-            );
-            return new GivenPropertyMembers(combinedRuleCreator);
+            return new GivenPropertyMembers(this, BasicObjectProviderDefinition.PropertyMembers);
         }
     }
 }

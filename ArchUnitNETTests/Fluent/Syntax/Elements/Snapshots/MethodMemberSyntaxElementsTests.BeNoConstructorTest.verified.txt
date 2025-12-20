@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::No... should be no constructor
+Query: Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" should be no constructor
 Result: True
 Description: System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() passed
 Result: True

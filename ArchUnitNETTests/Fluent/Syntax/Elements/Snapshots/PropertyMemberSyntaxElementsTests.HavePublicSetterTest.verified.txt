@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.OtherClassWithW... should have a public setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.OtherClassWithWritableProperty::OtherWritableProperty()" should have a public setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Result: True
@@ -50,13 +50,13 @@ Description: System.String PropertyMemberNamespace.OtherClassWithWritablePropert
 Message: 
 All Evaluations passed
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivat... should have a public setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" should have a public setter
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter() does have a private setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
-"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivat... should have a public setter" failed:
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" should have a public setter" failed:
 	System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter() does have a private setter
 
 

@@ -1,25 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+using System;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
-using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
-using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
-using Assembly = System.Reflection.Assembly;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
     public sealed class TypesShould : AddTypeCondition<TypesShouldConjunction, IType>
     {
-        public TypesShould(IArchRuleCreator<IType> ruleCreator)
-            : base(ruleCreator) { }
+        private readonly IOrderedCondition<IType> _leftCondition;
+        private readonly LogicalConjunction _logicalConjunction;
 
-        protected override TypesShouldConjunction CreateNextElement(
+        public TypesShould(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<IType> objectProvider
+        )
+            : this(partialArchRuleConjunction, objectProvider, null, null) { }
+
+        public TypesShould(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<IType> objectProvider,
+            IOrderedCondition<IType> leftCondition,
+            LogicalConjunction logicalConjunction
+        )
+            : base(partialArchRuleConjunction, objectProvider)
+        {
+            _leftCondition = leftCondition;
+            _logicalConjunction = logicalConjunction;
+        }
+
+        internal override TypesShouldConjunction CreateNextElement(
             IOrderedCondition<IType> condition
         )
         {
-            _ruleCreator.AddCondition(condition);
-            return new TypesShouldConjunction(_ruleCreator);
+            return new TypesShouldConjunction(
+                PartialArchRuleConjunction,
+                ObjectProvider,
+                _leftCondition == null
+                    ? condition
+                    : new CombinedCondition<IType>(_leftCondition, _logicalConjunction, condition)
+            );
         }
     }
 }

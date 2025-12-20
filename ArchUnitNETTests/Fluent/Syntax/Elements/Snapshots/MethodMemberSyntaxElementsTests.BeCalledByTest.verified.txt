@@ -288,7 +288,7 @@ Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in prov
 
 ===== Multiple inputs =====
 
-Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodMemberNamespace.MethodDependencyClass::OtherCal... should be called by "MethodMemberNamespace.MethodDependencyClass"
+Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodMemberNamespace.MethodDependencyClass::OtherCalledMethod()" should be called by "MethodMemberNamespace.MethodDependencyClass"
 Result: True
 Description: System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod() passed
 Result: True
@@ -296,13 +296,13 @@ Description: System.Void MethodMemberNamespace.MethodDependencyClass::OtherCalle
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodMemberNamespace.MethodDependencyClass::MethodWi... should be called by "MethodMemberNamespace.MethodDependencyClass"
+Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodMemberNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be called by "MethodMemberNamespace.MethodDependencyClass"
 Result: True
 Description: System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod() passed
 Result: False
 Description: System.Void MethodMemberNamespace.MethodDependencyClass::MethodWithoutDependencies() is not called by "MethodMemberNamespace.MethodDependencyClass"
 Message: 
-"Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodMemberNamespace.MethodDependencyClass::MethodWi... should be called by "MethodMemberNamespace.MethodDependencyClass"" failed:
+"Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" or "System.Void MethodMemberNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be called by "MethodMemberNamespace.MethodDependencyClass"" failed:
 	System.Void MethodMemberNamespace.MethodDependencyClass::MethodWithoutDependencies() is not called by "MethodMemberNamespace.MethodDependencyClass"
 
 

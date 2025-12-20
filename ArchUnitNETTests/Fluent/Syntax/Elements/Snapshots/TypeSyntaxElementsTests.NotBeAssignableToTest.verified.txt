@@ -172,10 +172,10 @@ Message:
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to types that are "TypeNamespace.BaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
+Description: TypeNamespace.DerivedClassForAssign is assignable to types that are "TypeNamespace.BaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to types that are "TypeNamespace.BaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
+	TypeNamespace.DerivedClassForAssign is assignable to types that are "TypeNamespace.BaseClassForAssign"
 
 
 
@@ -279,10 +279,10 @@ Message:
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Description: TypeNamespace.DerivedClassForAssign is assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+	TypeNamespace.DerivedClassForAssign is assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 
 
 

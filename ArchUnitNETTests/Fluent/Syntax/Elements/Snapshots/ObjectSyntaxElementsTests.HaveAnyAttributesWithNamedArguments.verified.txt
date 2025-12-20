@@ -364,20 +364,20 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passe
 Message: 
 All Evaluations passed
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttr...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttr..." failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttr...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttr..." failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have any attributes with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=NotTheValueOfAnyAttribute"
 
 

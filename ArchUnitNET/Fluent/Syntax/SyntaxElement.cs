@@ -6,15 +6,21 @@ namespace ArchUnitNET.Fluent.Syntax
     public abstract class SyntaxElement<TRuleType> : IHasDescription
         where TRuleType : ICanBeAnalyzed
     {
-        // ReSharper disable once InconsistentNaming
-        protected readonly IArchRuleCreator<TRuleType> _ruleCreator;
-
-        protected SyntaxElement([NotNull] IArchRuleCreator<TRuleType> ruleCreator)
+        protected SyntaxElement(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider
+        )
         {
-            _ruleCreator = ruleCreator;
+            PartialArchRuleConjunction = partialArchRuleConjunction;
+            ObjectProvider = objectProvider;
         }
 
-        public string Description => _ruleCreator.Description;
+        [CanBeNull]
+        protected PartialArchRuleConjunction PartialArchRuleConjunction { get; }
+
+        protected IObjectProvider<TRuleType> ObjectProvider { get; }
+
+        public abstract string Description { get; }
 
         public override string ToString()
         {
@@ -38,12 +44,21 @@ namespace ArchUnitNET.Fluent.Syntax
 
         private bool Equals(SyntaxElement<TRuleType> other)
         {
-            return _ruleCreator.Equals(other._ruleCreator);
+            return Equals(PartialArchRuleConjunction, other.PartialArchRuleConjunction)
+                && Equals(ObjectProvider, other.ObjectProvider);
         }
 
         public override int GetHashCode()
         {
-            return _ruleCreator != null ? _ruleCreator.GetHashCode() : 0;
+            unchecked
+            {
+                var hashCode =
+                    PartialArchRuleConjunction != null
+                        ? PartialArchRuleConjunction.GetHashCode()
+                        : 0;
+                hashCode = (hashCode * 397) ^ (ObjectProvider != null ? ObjectProvider.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

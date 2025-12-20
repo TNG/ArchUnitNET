@@ -1,23 +1,40 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Predicates;
-using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
-using Assembly = System.Reflection.Assembly;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public sealed class ShouldRelateToTypesThat<TRuleTypeShouldConjunction, TRuleType>
-        : AddTypePredicate<TRuleTypeShouldConjunction, TRuleType, IType>
+    public sealed class ShouldRelateToTypesThat<TNextElement, TRuleType>
+        : AddTypePredicate<TNextElement, IType>
         where TRuleType : ICanBeAnalyzed
     {
-        public ShouldRelateToTypesThat(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        private readonly PartialConditionConjunction<
+            TNextElement,
+            TRuleType
+        > _partialConditionConjunction;
 
-        protected override TRuleTypeShouldConjunction CreateNextElement(IPredicate<IType> predicate)
+        private readonly RelationCondition<TRuleType, IType> _relationCondition;
+
+        public ShouldRelateToTypesThat(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<IType> relatedObjectProvider,
+            PartialConditionConjunction<TNextElement, TRuleType> partialConditionConjunction,
+            RelationCondition<TRuleType, IType> relationCondition
+        )
+            : base(partialArchRuleConjunction, relatedObjectProvider)
         {
-            _ruleCreator.ContinueComplexCondition(predicate);
-            return Create<TRuleTypeShouldConjunction, TRuleType>(_ruleCreator);
+            _partialConditionConjunction = partialConditionConjunction;
+            _relationCondition = relationCondition;
         }
+
+        protected override TNextElement CreateNextElement(IPredicate<IType> predicate) =>
+            _partialConditionConjunction.CreateNextElement(
+                _relationCondition.GetCondition(
+                    new PredicateObjectProvider<IType>(ObjectProvider, predicate)
+                )
+            );
     }
 }

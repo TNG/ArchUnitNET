@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.OtherClassWithW... should not have an internal setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.OtherClassWithWritableProperty::OtherWritableProperty()" should not have an internal setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Result: True
@@ -50,13 +50,13 @@ Description: System.String PropertyMemberNamespace.OtherClassWithWritablePropert
 Message: 
 All Evaluations passed
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithIntern... should not have an internal setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter()" should not have an internal setter
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter() does have an internal setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
-"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithIntern... should not have an internal setter" failed:
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter()" should not have an internal setter" failed:
 	System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter() does have an internal setter
 
 

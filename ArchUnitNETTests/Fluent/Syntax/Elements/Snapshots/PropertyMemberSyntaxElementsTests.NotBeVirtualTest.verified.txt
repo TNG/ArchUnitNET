@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithWr... should not be virtual
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should not be virtual
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() passed
 Result: True
@@ -50,13 +50,13 @@ Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::Wr
 Message: 
 All Evaluations passed
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithVi... should not be virtual
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty()" should not be virtual
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() passed
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty() is virtual
 Message: 
-"Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithVi... should not be virtual" failed:
+"Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty()" should not be virtual" failed:
 	System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty() is virtual
 
 

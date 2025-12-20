@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
@@ -7,25 +7,28 @@ using ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
+using JetBrains.Annotations;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public abstract class AddObjectCondition<TNextElement, TRuleType>
-        : SyntaxElement<TRuleType>,
+        : PartialConditionConjunction<TNextElement, TRuleType>,
             IAddObjectCondition<TNextElement, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        internal AddObjectCondition(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        protected AddObjectCondition(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
-        public TNextElement Exist()
-        {
-            _ruleCreator.RequirePositiveResults = false;
-            return CreateNextElement(ObjectConditionsDefinition<TRuleType>.Exist());
-        }
+        public override string Description { get; } = "";
 
         // csharpier-ignore-start
+
+        public TNextElement Exist() => CreateNextElement(ObjectConditionsDefinition<TRuleType>.Exist());
+
         public TNextElement Be(params ICanBeAnalyzed[] objects) => Be(new ObjectProvider<ICanBeAnalyzed>(objects));
         public TNextElement Be(IEnumerable<ICanBeAnalyzed> objects) => Be(new ObjectProvider<ICanBeAnalyzed>(objects));
         public TNextElement Be(IObjectProvider<ICanBeAnalyzed> objects) => CreateNextElement(ObjectConditionsDefinition<TRuleType>.Be(objects));
@@ -114,11 +117,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
 
         // Negations
 
-        public TNextElement NotExist()
-        {
-            _ruleCreator.RequirePositiveResults = false;
-            return CreateNextElement(ObjectConditionsDefinition<TRuleType>.NotExist());
-        }
+        public TNextElement NotExist() => CreateNextElement(ObjectConditionsDefinition<TRuleType>.NotExist());
 
         public TNextElement NotBe(params ICanBeAnalyzed[] objects) => NotBe(new ObjectProvider<ICanBeAnalyzed>(objects));
         public TNextElement NotBe(IEnumerable<ICanBeAnalyzed> objects) => NotBe(new ObjectProvider<ICanBeAnalyzed>(objects));
@@ -179,59 +178,59 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TNextElement NotBeInternal() => CreateNextElement(ObjectConditionsDefinition<TRuleType>.NotBeInternal());
         public TNextElement NotBeProtectedInternal() => CreateNextElement(ObjectConditionsDefinition<TRuleType>.NotBeProtectedInternal());
         public TNextElement NotBePrivateProtected() => CreateNextElement(ObjectConditionsDefinition<TRuleType>.NotBePrivateProtected());
-
         // Relation Condition Negations
 
         public ShouldRelateToTypesThat<TNextElement, TRuleType> NotDependOnAnyTypesThat() => BeginComplexTypeCondition(ObjectConditionsDefinition<TRuleType>.NotDependOnAnyTypesThat());
         public ShouldRelateToAttributesThat<TNextElement, TRuleType> NotHaveAnyAttributesThat() => BeginComplexAttributeCondition(ObjectConditionsDefinition<TRuleType>.NotHaveAnyAttributesThat());
         // csharpier-ignore-end
 
-        protected abstract TNextElement CreateNextElement(IOrderedCondition<TRuleType> condition);
-
         protected ShouldRelateToTypesThat<TNextElement, TRuleType> BeginComplexTypeCondition(
             RelationCondition<TRuleType, IType> relationCondition
-        )
-        {
-            _ruleCreator.BeginComplexCondition(ArchRuleDefinition.Types(true), relationCondition);
-            return new ShouldRelateToTypesThat<TNextElement, TRuleType>(_ruleCreator);
-        }
-
-        protected ShouldRelateToAttributesThat<
-            TNextElement,
-            TRuleType
-        > BeginComplexAttributeCondition(RelationCondition<TRuleType, Attribute> relationCondition)
-        {
-            _ruleCreator.BeginComplexCondition(
-                ArchRuleDefinition.Attributes(true),
+        ) =>
+            new ShouldRelateToTypesThat<TNextElement, TRuleType>(
+                PartialArchRuleConjunction,
+                ArchRuleDefinition.Types(true).WithDescription("types that"),
+                this,
                 relationCondition
             );
-            return new ShouldRelateToAttributesThat<TNextElement, TRuleType>(_ruleCreator);
-        }
 
         protected ShouldRelateToInterfacesThat<
             TNextElement,
             TRuleType
-        > BeginComplexInterfaceCondition(RelationCondition<TRuleType, Interface> relationCondition)
-        {
-            _ruleCreator.BeginComplexCondition(
-                ArchRuleDefinition.Interfaces(true),
+        > BeginComplexInterfaceCondition(
+            RelationCondition<TRuleType, Interface> relationCondition
+        ) =>
+            new ShouldRelateToInterfacesThat<TNextElement, TRuleType>(
+                PartialArchRuleConjunction,
+                ArchRuleDefinition.Interfaces(true).WithDescription("interfaces that"),
+                this,
                 relationCondition
             );
-            return new ShouldRelateToInterfacesThat<TNextElement, TRuleType>(_ruleCreator);
-        }
+
+        protected ShouldRelateToAttributesThat<
+            TNextElement,
+            TRuleType
+        > BeginComplexAttributeCondition(
+            RelationCondition<TRuleType, Attribute> relationCondition
+        ) =>
+            new ShouldRelateToAttributesThat<TNextElement, TRuleType>(
+                PartialArchRuleConjunction,
+                ArchRuleDefinition.Attributes(true).WithDescription("attributes that"),
+                this,
+                relationCondition
+            );
 
         protected ShouldRelateToMethodMembersThat<
             TNextElement,
             TRuleType
         > BeginComplexMethodMemberCondition(
             RelationCondition<TRuleType, MethodMember> relationCondition
-        )
-        {
-            _ruleCreator.BeginComplexCondition(
-                ArchRuleDefinition.MethodMembers(),
+        ) =>
+            new ShouldRelateToMethodMembersThat<TNextElement, TRuleType>(
+                PartialArchRuleConjunction,
+                ArchRuleDefinition.MethodMembers().WithDescription("method members that"),
+                this,
                 relationCondition
             );
-            return new ShouldRelateToMethodMembersThat<TNextElement, TRuleType>(_ruleCreator);
-        }
     }
 }

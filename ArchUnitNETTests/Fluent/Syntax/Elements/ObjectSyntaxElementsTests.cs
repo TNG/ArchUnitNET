@@ -493,7 +493,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             public string Description => "follow custom condition";
 
-            public IEnumerable<ConditionResult> Check(
+            public IEnumerable<IConditionResult> Check(
                 IEnumerable<IType> objects,
                 Architecture architecture
             )

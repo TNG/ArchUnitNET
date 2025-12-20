@@ -6,8 +6,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
         : AddTypeCondition<TNextElement, Class>,
             IAddClassCondition<TNextElement, Class>
     {
-        public AddClassCondition(IArchRuleCreator<Class> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddClassCondition(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<Class> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         public TNextElement BeAbstract() =>
             CreateNextElement(ClassConditionsDefinition.BeAbstract());

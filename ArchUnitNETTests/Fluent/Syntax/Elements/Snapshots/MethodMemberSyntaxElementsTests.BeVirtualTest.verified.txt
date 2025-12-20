@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.OtherClassWithVirtualMethod::... should be virtual
+Query: Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.OtherClassWithVirtualMethod::OtherVirtualMethod()" should be virtual
 Result: True
 Description: System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod() passed
 Result: True
@@ -50,13 +50,13 @@ Description: System.Void MethodMemberNamespace.OtherClassWithVirtualMethod::Othe
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::No... should be virtual
+Query: Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" should be virtual
 Result: False
 Description: System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not virtual
 Result: True
 Description: System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod() passed
 Message: 
-"Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::No... should be virtual" failed:
+"Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" should be virtual" failed:
 	System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not virtual
 
 

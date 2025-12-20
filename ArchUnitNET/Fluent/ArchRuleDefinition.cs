@@ -14,70 +14,62 @@ namespace ArchUnitNET.Fluent
     {
         public static GivenTypes Types(bool includeReferenced = false)
         {
-            var ruleCreator = includeReferenced
-                ? new ArchRuleCreator<IType>(BasicObjectProviderDefinition.TypesIncludingReferenced)
-                : new ArchRuleCreator<IType>(BasicObjectProviderDefinition.Types);
-            return new GivenTypes(ruleCreator);
+            return new GivenTypes(
+                null,
+                includeReferenced
+                    ? BasicObjectProviderDefinition.TypesIncludingReferenced
+                    : BasicObjectProviderDefinition.Types
+            );
         }
 
         public static GivenAttributes Attributes(bool includeReferenced = false)
         {
-            var ruleCreator = includeReferenced
-                ? new ArchRuleCreator<Attribute>(
-                    BasicObjectProviderDefinition.AttributesIncludingReferenced
-                )
-                : new ArchRuleCreator<Attribute>(BasicObjectProviderDefinition.Attributes);
-            return new GivenAttributes(ruleCreator);
+            return new GivenAttributes(
+                null,
+                includeReferenced
+                    ? BasicObjectProviderDefinition.AttributesIncludingReferenced
+                    : BasicObjectProviderDefinition.Attributes
+            );
         }
 
         public static GivenClasses Classes(bool includeReferenced = false)
         {
-            var ruleCreator = includeReferenced
-                ? new ArchRuleCreator<Class>(
-                    BasicObjectProviderDefinition.ClassesIncludingReferenced
-                )
-                : new ArchRuleCreator<Class>(BasicObjectProviderDefinition.Classes);
-            return new GivenClasses(ruleCreator);
+            return new GivenClasses(
+                null,
+                includeReferenced
+                    ? BasicObjectProviderDefinition.ClassesIncludingReferenced
+                    : BasicObjectProviderDefinition.Classes
+            );
         }
 
         public static GivenInterfaces Interfaces(bool includeReferenced = false)
         {
-            var ruleCreator = includeReferenced
-                ? new ArchRuleCreator<Interface>(
-                    BasicObjectProviderDefinition.InterfacesIncludingReferenced
-                )
-                : new ArchRuleCreator<Interface>(BasicObjectProviderDefinition.Interfaces);
-            return new GivenInterfaces(ruleCreator);
+            return new GivenInterfaces(
+                null,
+                includeReferenced
+                    ? BasicObjectProviderDefinition.InterfacesIncludingReferenced
+                    : BasicObjectProviderDefinition.Interfaces
+            );
         }
 
         public static GivenMembers Members()
         {
-            var ruleCreator = new ArchRuleCreator<IMember>(BasicObjectProviderDefinition.Members);
-            return new GivenMembers(ruleCreator);
+            return new GivenMembers(null, BasicObjectProviderDefinition.Members);
         }
 
         public static GivenFieldMembers FieldMembers()
         {
-            var ruleCreator = new ArchRuleCreator<FieldMember>(
-                BasicObjectProviderDefinition.FieldMembers
-            );
-            return new GivenFieldMembers(ruleCreator);
+            return new GivenFieldMembers(null, BasicObjectProviderDefinition.FieldMembers);
         }
 
         public static GivenMethodMembers MethodMembers()
         {
-            var ruleCreator = new ArchRuleCreator<MethodMember>(
-                BasicObjectProviderDefinition.MethodMembers
-            );
-            return new GivenMethodMembers(ruleCreator);
+            return new GivenMethodMembers(null, BasicObjectProviderDefinition.MethodMembers);
         }
 
         public static GivenPropertyMembers PropertyMembers()
         {
-            var ruleCreator = new ArchRuleCreator<PropertyMember>(
-                BasicObjectProviderDefinition.PropertyMembers
-            );
-            return new GivenPropertyMembers(ruleCreator);
+            return new GivenPropertyMembers(null, BasicObjectProviderDefinition.PropertyMembers);
         }
     }
 }

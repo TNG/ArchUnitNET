@@ -115,7 +115,7 @@ public abstract class AssemblyTestHelper
     public void AssertException<T>(IArchRule rule)
         where T : Exception
     {
-        var exception = Assert.Throws<T>(() => rule.Evaluate(Architecture));
+        var exception = Assert.Throws<T>(() => rule.Evaluate(Architecture).ToList());
         _snapshot.AppendLine("Query: " + rule.Description);
         _snapshot.AppendLine("Exception: " + exception.Message);
         _snapshot.AppendLine();

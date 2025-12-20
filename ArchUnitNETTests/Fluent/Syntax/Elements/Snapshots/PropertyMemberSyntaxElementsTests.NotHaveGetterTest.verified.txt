@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" or "System.String PropertyMemberNamespace.OtherClassWit... should have no getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" or "System.String PropertyMemberNamespace.OtherClassWithWriteOnlyProperty::OtherWriteOnlyProperty()" should have no getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty() passed
 Result: True
@@ -50,13 +50,13 @@ Description: System.String PropertyMemberNamespace.OtherClassWithWriteOnlyProper
 Message: 
 All Evaluations passed
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" or "System.String PropertyMemberNamespace.ClassWithWrit... should have no getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" or "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have no getter
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty() passed
 Message: 
-"Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" or "System.String PropertyMemberNamespace.ClassWithWrit... should have no getter" failed:
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" or "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have no getter" failed:
 	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a getter
 
 

@@ -2,13 +2,13 @@
 
 Query: Types that are "TypeDependencyNamespace.BaseClass" should exist
 Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+Description: TypeDependencyNamespace.BaseClass does exist
 Message: 
 All Evaluations passed
 
 Query: Types that are "TypeDependencyNamespace.BaseClass" should exist
 Result: True
-Description: TypeDependencyNamespace.BaseClass passed
+Description: TypeDependencyNamespace.BaseClass does exist
 Message: 
 All Evaluations passed
 

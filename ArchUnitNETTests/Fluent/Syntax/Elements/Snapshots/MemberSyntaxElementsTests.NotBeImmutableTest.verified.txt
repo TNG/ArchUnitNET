@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.OtherClassWithWritableProperty::Oth... should not be immutable
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.OtherClassWithWritableProperty::OtherWritableProperty()" should not be immutable
 Result: True
 Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
 Result: True

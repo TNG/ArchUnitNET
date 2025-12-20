@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter()" or "System.String PropertyMemberNamespace... should have an internal getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter()" or "System.String PropertyMemberNamespace.OtherClassWithInternalGetterProperty::OtherPropertyWithInternalGetter()" should have an internal getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter() passed
 Result: True
@@ -50,13 +50,13 @@ Description: System.String PropertyMemberNamespace.OtherClassWithInternalGetterP
 Message: 
 All Evaluations passed
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter()" or "System.String PropertyMemberNamespace... should have an internal getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter()" or "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have an internal getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter() passed
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public getter
 Message: 
-"Property members that are "System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter()" or "System.String PropertyMemberNamespace... should have an internal getter" failed:
+"Property members that are "System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter()" or "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have an internal getter" failed:
 	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public getter
 
 

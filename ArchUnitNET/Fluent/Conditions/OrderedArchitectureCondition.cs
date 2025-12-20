@@ -17,11 +17,11 @@ namespace ArchUnitNET.Fluent.Conditions
         )
             : base(
                 (ruleTypes, architecture) =>
-                    ruleTypes.Select(type => new ConditionResult(
-                        type,
-                        condition(type, architecture),
-                        failDescription
-                    )),
+                    ruleTypes.Select(type =>
+                    {
+                        var passed = condition(type, architecture);
+                        return new ConditionResult(type, passed, passed ? null : failDescription);
+                    }),
                 description
             ) { }
 
@@ -32,11 +32,15 @@ namespace ArchUnitNET.Fluent.Conditions
         )
             : base(
                 (ruleTypes, architecture) =>
-                    ruleTypes.Select(type => new ConditionResult(
-                        type,
-                        condition(type, architecture),
-                        dynamicFailDescription(type, architecture)
-                    )),
+                    ruleTypes.Select(type =>
+                    {
+                        var passed = condition(type, architecture);
+                        return new ConditionResult(
+                            type,
+                            passed,
+                            passed ? null : dynamicFailDescription(type, architecture)
+                        );
+                    }),
                 description
             ) { }
 

@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter()" or "System.String PropertyMemberNamespace... should have an internal setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter()" or "System.String PropertyMemberNamespace.OtherClassWithInternalSetterProperty::OtherPropertyWithInternalSetter()" should have an internal setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter() passed
 Result: True
@@ -50,13 +50,13 @@ Description: System.String PropertyMemberNamespace.OtherClassWithInternalSetterP
 Message: 
 All Evaluations passed
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter()" or "System.String PropertyMemberNamespace... should have an internal setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter()" or "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have an internal setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter() passed
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 Message: 
-"Property members that are "System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter()" or "System.String PropertyMemberNamespace... should have an internal setter" failed:
+"Property members that are "System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter()" or "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have an internal setter" failed:
 	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 
 

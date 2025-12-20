@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.ClassWithInitOnlyProperty::InitOnly... should not be read only
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.ClassWithInitOnlyProperty::InitOnlyProperty()" should not be read only
 Result: True
 Description: System.String TypeNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() passed
 Result: True

@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter()" or "System.String PropertyMemberNamespa... should have a protected setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter()" or "System.String PropertyMemberNamespace.OtherClassWithProtectedSetterProperty::OtherPropertyWithProtectedSetter()" should have a protected setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter() passed
 Result: True
@@ -50,13 +50,13 @@ Description: System.String PropertyMemberNamespace.OtherClassWithProtectedSetter
 Message: 
 All Evaluations passed
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter()" or "System.String PropertyMemberNamespa... should have a protected setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter()" or "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have a protected setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter() passed
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 Message: 
-"Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter()" or "System.String PropertyMemberNamespa... should have a protected setter" failed:
+"Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter()" or "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have a protected setter" failed:
 	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 
 

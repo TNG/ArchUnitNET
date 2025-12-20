@@ -294,18 +294,18 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should have return type "MethodMemberNamespace.RegularClass"
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass()" should have return type "MethodMemberNamespace.RegularClass"
 Result: False
 Description: MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() has return type "MethodMemberNamespace.OtherRegularClass"
 Result: True
 Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
 Message: 
-"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should have return type "MethodMemberNamespace.RegularClass"" failed:
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass()" should have return type "MethodMemberNamespace.RegularClass"" failed:
 	MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() has return type "MethodMemberNamespace.OtherRegularClass"
 
 
 
-Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass()" should have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
 Result: True
 Description: MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() passed
 Result: True
@@ -317,13 +317,13 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1"
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "MethodMemberNamespace.GenericClass`1"
 Result: True
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1"
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "MethodMemberNamespace.GenericClass`1"
 Result: True
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
@@ -331,13 +331,13 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1"
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should be Method members that have return type "MethodMemberNamespace.GenericClass`1"
 Result: True
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1"
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should be Method members that have return type "MethodMemberNamespace.GenericClass`1"
 Result: True
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
@@ -347,13 +347,13 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
 Result: True
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
 Result: True
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
@@ -361,13 +361,13 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.RegularClass, MethodMemberAssembly, Version=1....
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.RegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"
 Result: True
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.RegularClass, MethodMemberAssembly, Version=1....
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.RegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"
 Result: True
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
@@ -377,41 +377,41 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"
 Result: False
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
 Message: 
-"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"" failed:
+"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"" failed:
 	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
 
 
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"
 Result: False
 Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
 Message: 
-"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"" failed:
+"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"" failed:
 	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
 
 
 
 ----- Predicates -----
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Versi...
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"
 Result: False
-Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neu...
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"
 Message: 
-"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Versi..." failed:
-	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neu...
+"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"" failed:
+	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"
 
 
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Versi...
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"
 Result: False
-Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neu...
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"
 Message: 
-"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Versi..." failed:
-	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neu...
+"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"" failed:
+	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4]]"
 
 
 
@@ -419,7 +419,7 @@ Message:
 
 ----- Conditions -----
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWi... should have return type "MethodMemberNamespace.GenericClass`2"
+Query: Method members that are "MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningTwoArgGenericClass()" should have return type "MethodMemberNamespace.GenericClass`2"
 Result: True
 Description: MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningTwoArgGenericClass() passed
 Message: 
@@ -427,7 +427,7 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Method members that are "MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWi... should be Method members that have return type "MethodMemberNamespace.GenericClass`2"
+Query: Method members that are "MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningTwoArgGenericClass()" should be Method members that have return type "MethodMemberNamespace.GenericClass`2"
 Result: True
 Description: MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningTwoArgGenericClass() passed
 Message: 

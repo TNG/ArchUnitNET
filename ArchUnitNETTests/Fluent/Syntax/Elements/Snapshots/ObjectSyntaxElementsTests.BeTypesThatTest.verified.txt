@@ -10,10 +10,10 @@ All Evaluations passed
 
 Query: Types that are "TypeDependencyNamespace.BaseClass" should be types that are "TypeDependencyNamespace.ChildClass"
 Result: False
-Description: TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+Description: TypeDependencyNamespace.BaseClass is not types that are "TypeDependencyNamespace.ChildClass"
 Message: 
 "Types that are "TypeDependencyNamespace.BaseClass" should be types that are "TypeDependencyNamespace.ChildClass"" failed:
-	TypeDependencyNamespace.BaseClass is not "TypeDependencyNamespace.ChildClass"
+	TypeDependencyNamespace.BaseClass is not types that are "TypeDependencyNamespace.ChildClass"
 
 
 

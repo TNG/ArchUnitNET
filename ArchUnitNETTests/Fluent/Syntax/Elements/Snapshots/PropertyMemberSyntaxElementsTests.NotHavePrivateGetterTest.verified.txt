@@ -42,7 +42,7 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithGetOnl... should not have a private getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty()" should not have a private getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
 Result: True
@@ -50,13 +50,13 @@ Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::Wr
 Message: 
 All Evaluations passed
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivat... should not have a private getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivateGetterProperty::PropertyWithPrivateGetter()" should not have a private getter
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithPrivateGetterProperty::PropertyWithPrivateGetter() does have a private getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
-"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivat... should not have a private getter" failed:
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivateGetterProperty::PropertyWithPrivateGetter()" should not have a private getter" failed:
 	System.String PropertyMemberNamespace.ClassWithPrivateGetterProperty::PropertyWithPrivateGetter() does have a private getter
 
 

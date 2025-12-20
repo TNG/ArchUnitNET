@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Exceptions;
-using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using ArchUnitNET.Fluent.Predicates;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -12,50 +13,89 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     > : SyntaxElement<TRuleType>, IObjectProvider<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        protected GivenObjectsConjunctionWithDescription(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        protected GivenObjectsConjunctionWithDescription(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider,
+            IPredicate<TRuleType> predicate
+        )
+            : base(partialArchRuleConjunction, objectProvider)
+        {
+            Predicate = predicate;
+        }
+
+        protected IPredicate<TRuleType> Predicate { get; }
+
+        public abstract TGivenRuleTypeThat And();
+        public abstract TGivenRuleTypeThat Or();
+        public abstract TRuleTypeShould Should();
+
+        public override string Description =>
+            $"{ObjectProvider.Description} {Predicate.Description}";
 
         public IEnumerable<TRuleType> GetObjects(Architecture architecture)
         {
-            try
-            {
-                return architecture.GetOrCreateObjects(this, _ruleCreator.GetAnalyzedObjects);
-            }
-            catch (CannotGetObjectsOfCombinedArchRuleCreatorException exception)
+            if (PartialArchRuleConjunction != null)
             {
                 throw new CannotGetObjectsOfCombinedArchRuleException(
-                    "GetObjects() can't be used with CombinedArchRule \""
-                        + ToString()
-                        + "\" because the analyzed objects might be of different type. Try to use simple ArchRules instead.",
-                    exception
+                    "GetObjects cannot be called on a combined arch rule, because the analyzed objects may be of different types."
                 );
             }
+            return Predicate.GetMatchingObjects(
+                ObjectProvider.GetObjects(architecture),
+                architecture
+            );
         }
 
         public string FormatDescription(
             string emptyDescription,
             string singleDescription,
             string multipleDescription
+        ) => $"{multipleDescription} {Description}";
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType()
+                && Equals(
+                    (GivenObjectsConjunctionWithDescription<
+                        TGivenRuleTypeThat,
+                        TRuleTypeShould,
+                        TRuleType
+                    >)obj
+                );
+        }
+
+        private bool Equals(
+            GivenObjectsConjunctionWithDescription<TGivenRuleTypeThat, TRuleTypeShould, TRuleType> other
         )
         {
-            return $"{multipleDescription} {Description}";
+            return Equals(PartialArchRuleConjunction, other.PartialArchRuleConjunction)
+                && Equals(ObjectProvider, other.ObjectProvider)
+                && Equals(Predicate, other.Predicate);
         }
 
-        public TGivenRuleTypeThat And()
+        public override int GetHashCode()
         {
-            _ruleCreator.AddPredicateConjunction(LogicalConjunctionDefinition.And);
-            return Create<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeThat Or()
-        {
-            _ruleCreator.AddPredicateConjunction(LogicalConjunctionDefinition.Or);
-            return Create<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShould Should()
-        {
-            return Create<TRuleTypeShould, TRuleType>(_ruleCreator);
+            unchecked
+            {
+                var hashCode =
+                    PartialArchRuleConjunction != null
+                        ? PartialArchRuleConjunction.GetHashCode()
+                        : 0;
+                hashCode =
+                    (hashCode * 397) ^ (ObjectProvider != null ? ObjectProvider.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Predicate != null ? Predicate.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

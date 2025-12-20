@@ -172,10 +172,10 @@ Message:
 
 Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to types that are "TypeNamespace.BaseClassForAssign"
 Result: False
-Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to types that are "TypeNamespace.BaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to types that are "TypeNamespace.BaseClassForAssign"" failed:
-	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+	TypeNamespace.UnrelatedClassForAssign is not assignable to types that are "TypeNamespace.BaseClassForAssign"
 
 
 
@@ -279,10 +279,10 @@ Message:
 
 Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Result: False
-Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
-	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+	TypeNamespace.UnrelatedClassForAssign is not assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 
 
 
