@@ -538,38 +538,38 @@ Message:
 
 ----- Predicates -----
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedPara...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedPara..." failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedPara...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedPara..." failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedPara...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedPara..." failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 
 
 
-Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedPara...
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 Result: False
 Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 Message: 
-"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedPara..." failed:
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithNamedArguments" should be Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"" failed:
 	AttributeNamespace.ClassWithSingleAttributeWithNamedArguments is not Types that have attribute "AttributeNamespace.Attribute1" with named arguments "NamedParameter1=AttributeNamespace.TypeArgument1" and "NamedParameter2=Argument2"
 
 

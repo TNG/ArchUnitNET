@@ -16,7 +16,7 @@ namespace ArchUnitNET.Fluent.Conditions
         /// <param name="objects">Objects to check the condition against.</param>
         /// <param name="architecture">The architecture context for the check.</param>
         /// <returns>A collection of ConditionResults indicating the outcome for each object.</returns>
-        IEnumerable<ConditionResult> Check(
+        IEnumerable<IConditionResult> Check(
             IEnumerable<TRuleType> objects,
             Architecture architecture
         );

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Exceptions;
-using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using ArchUnitNET.Fluent.Predicates;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -12,50 +13,43 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     > : SyntaxElement<TRuleType>, IObjectProvider<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        protected GivenObjectsConjunctionWithDescription(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        protected GivenObjectsConjunctionWithDescription(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider,
+            IPredicate<TRuleType> predicate
+        )
+            : base(partialArchRuleConjunction, objectProvider)
+        {
+            Predicate = predicate;
+        }
+
+        protected IPredicate<TRuleType> Predicate { get; }
+
+        public abstract TGivenRuleTypeThat And();
+        public abstract TGivenRuleTypeThat Or();
+        public abstract TRuleTypeShould Should();
+
+        public override string Description =>
+            $"{ObjectProvider.Description} {Predicate.Description}";
 
         public IEnumerable<TRuleType> GetObjects(Architecture architecture)
         {
-            try
-            {
-                return architecture.GetOrCreateObjects(this, _ruleCreator.GetAnalyzedObjects);
-            }
-            catch (CannotGetObjectsOfCombinedArchRuleCreatorException exception)
+            if (PartialArchRuleConjunction != null)
             {
                 throw new CannotGetObjectsOfCombinedArchRuleException(
-                    "GetObjects() can't be used with CombinedArchRule \""
-                        + ToString()
-                        + "\" because the analyzed objects might be of different type. Try to use simple ArchRules instead.",
-                    exception
+                    "GetObjects cannot be called on a combined arch rule, because the analyzed objects may be of different types."
                 );
             }
+            return Predicate.GetMatchingObjects(
+                ObjectProvider.GetObjects(architecture),
+                architecture
+            );
         }
 
         public string FormatDescription(
             string emptyDescription,
             string singleDescription,
             string multipleDescription
-        )
-        {
-            return $"{multipleDescription} {Description}";
-        }
-
-        public TGivenRuleTypeThat And()
-        {
-            _ruleCreator.AddPredicateConjunction(LogicalConjunctionDefinition.And);
-            return Create<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeThat Or()
-        {
-            _ruleCreator.AddPredicateConjunction(LogicalConjunctionDefinition.Or);
-            return Create<TGivenRuleTypeThat, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShould Should()
-        {
-            return Create<TRuleTypeShould, TRuleType>(_ruleCreator);
-        }
+        ) => $"{multipleDescription} {Description}";
     }
 }

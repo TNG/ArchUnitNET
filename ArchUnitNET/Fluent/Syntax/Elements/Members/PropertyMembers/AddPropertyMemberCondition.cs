@@ -6,8 +6,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
         : AddMemberCondition<TNextElement, PropertyMember>,
             IAddPropertyMemberCondition<TNextElement, PropertyMember>
     {
-        internal AddPropertyMemberCondition(IArchRuleCreator<PropertyMember> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddPropertyMemberCondition(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<PropertyMember> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         // csharpier-ignore-start
         public TNextElement HaveGetter() => CreateNextElement(PropertyMemberConditionsDefinition.HaveGetter());

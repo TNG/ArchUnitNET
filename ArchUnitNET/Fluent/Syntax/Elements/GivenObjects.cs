@@ -1,52 +1,41 @@
 ﻿using System.Collections.Generic;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Exceptions;
-using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public abstract class GivenObjects<TRuleTypeThat, TRuleTypeShould, TRuleType>
+    public abstract class GivenObjects<TGivenRuleTypeThat, TRuleTypeShould, TRuleType>
         : SyntaxElement<TRuleType>,
             IObjectProvider<TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        protected GivenObjects(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        protected GivenObjects(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
+
+        public abstract TGivenRuleTypeThat That();
+        public abstract TRuleTypeShould Should();
+
+        public override string Description => ObjectProvider.Description;
 
         public IEnumerable<TRuleType> GetObjects(Architecture architecture)
         {
-            try
-            {
-                return architecture.GetOrCreateObjects(this, _ruleCreator.GetAnalyzedObjects);
-            }
-            catch (CannotGetObjectsOfCombinedArchRuleCreatorException exception)
+            if (PartialArchRuleConjunction != null)
             {
                 throw new CannotGetObjectsOfCombinedArchRuleException(
-                    "GetObjects() can't be used with CombinedArchRule \""
-                        + ToString()
-                        + "\" because the analyzed objects might be of different type. Try to use simple ArchRules instead.",
-                    exception
+                    "GetObjects cannot be called on a combined arch rule, because the analyzed objects may be of different types."
                 );
             }
+            return ObjectProvider.GetObjects(architecture);
         }
 
         public string FormatDescription(
             string emptyDescription,
             string singleDescription,
             string multipleDescription
-        )
-        {
-            return $"{multipleDescription} {Description}";
-        }
-
-        public TRuleTypeThat That()
-        {
-            return Create<TRuleTypeThat, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShould Should()
-        {
-            return Create<TRuleTypeShould, TRuleType>(_ruleCreator);
-        }
+        ) => $"{multipleDescription} {Description}";
     }
 }

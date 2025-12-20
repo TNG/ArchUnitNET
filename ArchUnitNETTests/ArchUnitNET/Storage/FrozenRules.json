@@ -32,5 +32,25 @@
   {
     "ArchRuleDescription": "Slices matching \"TestAssembly.Slices.(*)..\" should not depend on each other",
     "Violations": []
+  },
+  {
+    "ArchRuleDescription": "Types are \"ArchUnitNETTests.Fluent.FreezeTests+Violation\" or \"ArchUnitNETTests.Fluent.FreezeTests+Violation2\" not be private",
+    "Violations": [
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation",
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation2"
+    ]
+  },
+  {
+    "ArchRuleDescription": "Types are \"ArchUnitNETTests.Fluent.FreezeTests+Violation\" be protected",
+    "Violations": [
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation"
+    ]
+  },
+  {
+    "ArchRuleDescription": "Types are \"ArchUnitNETTests.Fluent.FreezeTests+Violation\" or \"ArchUnitNETTests.Fluent.FreezeTests+Violation2\" be public",
+    "Violations": [
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation",
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation2"
+    ]
   }
 ]

@@ -2,13 +2,13 @@
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should follow custom condition
 Result: True
-Description: TypeDependencyNamespace.ChildClass passed
+Description: TypeDependencyNamespace.ChildClass does not follow custom condition
 Message: 
 All Evaluations passed
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should follow custom condition
 Result: True
-Description: TypeDependencyNamespace.ChildClass passed
+Description: TypeDependencyNamespace.ChildClass does not follow custom condition
 Message: 
 All Evaluations passed
 

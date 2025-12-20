@@ -16,12 +16,31 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public string Description => _valueIfExists ? "exist" : "not exist";
 
-        public IEnumerable<ConditionResult> Check(
+        public IEnumerable<IConditionResult> Check(
             IEnumerable<TRuleType> objects,
             Architecture architecture
         )
         {
-            return objects.Select(obj => new ConditionResult(obj, _valueIfExists, "does exist"));
+            if (!(objects is ICollection<TRuleType> objectCollection))
+            {
+                objectCollection = objects.ToList();
+            }
+            if (!objectCollection.Any())
+            {
+                return new[]
+                {
+                    new ConditionResult(
+                        null,
+                        !_valueIfExists,
+                        "There are no objects matching the criteria"
+                    ),
+                };
+            }
+            return objectCollection.Select(obj => new ConditionResult(
+                obj,
+                _valueIfExists,
+                "does exist"
+            ));
         }
 
         public bool CheckEmpty()

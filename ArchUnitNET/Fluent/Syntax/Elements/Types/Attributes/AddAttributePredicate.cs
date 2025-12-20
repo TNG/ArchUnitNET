@@ -2,13 +2,15 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
-    public abstract class AddAttributePredicate<TNextElement, TRelatedType>
-        : AddTypePredicate<TNextElement, TRelatedType, Attribute>,
+    public abstract class AddAttributePredicate<TNextElement>
+        : AddTypePredicate<TNextElement, Attribute>,
             IAddAttributePredicate<TNextElement, Attribute>
-        where TRelatedType : ICanBeAnalyzed
     {
-        internal AddAttributePredicate(IArchRuleCreator<TRelatedType> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddAttributePredicate(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<Attribute> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         // csharpier-ignore-start
 

@@ -9,8 +9,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         : AddMemberCondition<TNextElement, MethodMember>,
             IAddMethodMemberCondition<TNextElement, MethodMember>
     {
-        internal AddMethodMemberCondition(IArchRuleCreator<MethodMember> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddMethodMemberCondition(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<MethodMember> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         // csharpier-ignore-start
         public TNextElement BeConstructor() => CreateNextElement(MethodMemberConditionsDefinition.BeConstructor());

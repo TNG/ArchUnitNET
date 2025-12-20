@@ -6,7 +6,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
         : AddTypeCondition<TNextElement, Interface>,
             IAddInterfaceCondition<TNextElement, Interface>
     {
-        internal AddInterfaceCondition(IArchRuleCreator<Interface> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddInterfaceCondition(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<Interface> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
     }
 }

@@ -4,18 +4,23 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
+using JetBrains.Annotations;
 using Attribute = ArchUnitNET.Domain.Attribute;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
-    public abstract class AddObjectPredicate<TNextElement, TRelatedType, TRuleType>
-        : SyntaxElement<TRelatedType>,
+    public abstract class AddObjectPredicate<TNextElement, TRuleType>
+        : SyntaxElement<TRuleType>,
             IAddObjectPredicate<TNextElement, TRuleType>
         where TRuleType : ICanBeAnalyzed
-        where TRelatedType : ICanBeAnalyzed
     {
-        internal AddObjectPredicate(IArchRuleCreator<TRelatedType> archRuleCreator)
-            : base(archRuleCreator) { }
+        protected AddObjectPredicate(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
+
+        public override string Description { get; } = "";
 
         // csharpier-ignore-start
         public TNextElement FollowCustomPredicate(IPredicate<TRuleType> predicate) => CreateNextElement(predicate);

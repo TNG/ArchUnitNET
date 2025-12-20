@@ -455,10 +455,8 @@ public class ObjectSyntaxElementsTests
     {
         public string Description => "follow custom condition";
 
-        public IEnumerable<ConditionResult> Check(
-            IEnumerable<IType> objects,
-            Architecture architecture
-        )
+        public IEnumerable<IConditionResult> Check(IEnumerable<IType> objects,
+            Architecture architecture)
         {
             return objects.Select(t => new ConditionResult(
                 t,

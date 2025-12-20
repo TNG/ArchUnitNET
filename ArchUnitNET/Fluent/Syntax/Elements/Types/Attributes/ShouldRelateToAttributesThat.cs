@@ -1,20 +1,37 @@
 ﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Predicates;
-using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes
 {
     public sealed class ShouldRelateToAttributesThat<TNextElement, TRuleType>
-        : AddAttributePredicate<TNextElement, TRuleType>
+        : AddAttributePredicate<TNextElement>
         where TRuleType : ICanBeAnalyzed
     {
-        public ShouldRelateToAttributesThat(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        private readonly PartialConditionConjunction<
+            TNextElement,
+            TRuleType
+        > _partialConditionConjunction;
 
-        protected override TNextElement CreateNextElement(IPredicate<Attribute> predicate)
+        private readonly RelationCondition<TRuleType, Attribute> _relationCondition;
+
+        public ShouldRelateToAttributesThat(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<Attribute> relatedObjectProvider,
+            PartialConditionConjunction<TNextElement, TRuleType> partialConditionConjunction,
+            RelationCondition<TRuleType, Attribute> relationCondition
+        )
+            : base(partialArchRuleConjunction, relatedObjectProvider)
         {
-            _ruleCreator.ContinueComplexCondition(predicate);
-            return Create<TNextElement, TRuleType>(_ruleCreator);
+            _partialConditionConjunction = partialConditionConjunction;
+            _relationCondition = relationCondition;
         }
+
+        protected override TNextElement CreateNextElement(IPredicate<Attribute> predicate) =>
+            _partialConditionConjunction.CreateNextElement(
+                _relationCondition.GetCondition(
+                    new PredicateObjectProvider<Attribute>(ObjectProvider, predicate)
+                )
+            );
     }
 }

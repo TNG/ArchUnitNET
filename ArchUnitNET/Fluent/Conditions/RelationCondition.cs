@@ -29,9 +29,11 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public string Description { get; }
 
-        public IOrderedCondition<TRuleType> GetCondition(IEnumerable<TRelatedType> objects)
+        public IOrderedCondition<TRuleType> GetCondition(
+            IObjectProvider<TRelatedType> objectProvider
+        )
         {
-            return _relation(new ObjectProvider<TRelatedType>(objects.ToList()));
+            return _relation(objectProvider);
         }
 
         private bool Equals(RelationCondition<TRuleType, TRelatedType> other)

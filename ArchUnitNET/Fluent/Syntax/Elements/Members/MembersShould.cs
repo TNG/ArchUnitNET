@@ -1,23 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
-using ArchUnitNET.Fluent.Syntax.Elements.Types;
-using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
     public sealed class MembersShould : AddMemberCondition<MembersShouldConjunction, IMember>
     {
-        public MembersShould(IArchRuleCreator<IMember> ruleCreator)
-            : base(ruleCreator) { }
+        private readonly IOrderedCondition<IMember> _leftCondition;
+        private readonly LogicalConjunction _logicalConjunction;
 
-        protected override MembersShouldConjunction CreateNextElement(
-            IOrderedCondition<IMember> condition
+        public MembersShould(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<IMember> objectProvider
         )
+            : this(partialArchRuleConjunction, objectProvider, null, null) { }
+
+        public MembersShould(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<IMember> objectProvider,
+            IOrderedCondition<IMember> leftCondition,
+            LogicalConjunction logicalConjunction
+        )
+            : base(partialArchRuleConjunction, objectProvider)
         {
-            _ruleCreator.AddCondition(condition);
-            return new MembersShouldConjunction(_ruleCreator);
+            _leftCondition = leftCondition;
+            _logicalConjunction = logicalConjunction;
         }
+
+        internal override MembersShouldConjunction CreateNextElement(
+            IOrderedCondition<IMember> condition
+        ) =>
+            new MembersShouldConjunction(
+                PartialArchRuleConjunction,
+                ObjectProvider,
+                _leftCondition == null
+                    ? condition
+                    : new CombinedCondition<IMember>(_leftCondition, _logicalConjunction, condition)
+            );
     }
 }

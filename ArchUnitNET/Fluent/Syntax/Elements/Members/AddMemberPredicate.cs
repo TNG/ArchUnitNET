@@ -4,14 +4,16 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
-    public abstract class AddMemberPredicate<TNextElement, TRelatedType, TRuleType>
-        : AddObjectPredicate<TNextElement, TRelatedType, TRuleType>,
+    public abstract class AddMemberPredicate<TNextElement, TRuleType>
+        : AddObjectPredicate<TNextElement, TRuleType>,
             IAddMemberPredicate<TNextElement, TRuleType>
         where TRuleType : IMember
-        where TRelatedType : ICanBeAnalyzed
     {
-        internal AddMemberPredicate(IArchRuleCreator<TRelatedType> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddMemberPredicate(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         // csharpier-ignore-start
         public TNextElement AreDeclaredIn(IType firstType, params IType[] moreTypes) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(firstType, moreTypes));
