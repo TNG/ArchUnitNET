@@ -1,6 +1,8 @@
 ﻿===== No violations =====
 
 Query: Types that depend on "TypeDependencyNamespace.ChildClass" should not exist
+Result: True
+Description: There are no objects matching the criteria
 Message: 
 All Evaluations passed
 

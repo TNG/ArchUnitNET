@@ -4,13 +4,15 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
-    public abstract class AddMethodMemberPredicate<TNextElement, TRelatedType>
-        : AddMemberPredicate<TNextElement, TRelatedType, MethodMember>,
+    public abstract class AddMethodMemberPredicate<TNextElement>
+        : AddMemberPredicate<TNextElement, MethodMember>,
             IAddMethodMemberPredicate<TNextElement, MethodMember>
-        where TRelatedType : ICanBeAnalyzed
     {
-        internal AddMethodMemberPredicate(IArchRuleCreator<TRelatedType> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddMethodMemberPredicate(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<MethodMember> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         // csharpier-ignore-start
         public TNextElement AreConstructors() => CreateNextElement(MethodMemberPredicatesDefinition.AreConstructors());

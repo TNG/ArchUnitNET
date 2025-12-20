@@ -16,7 +16,11 @@ namespace ArchUnitNET.Fluent.Conditions
             string failDescription
         )
         {
-            _condition = obj => new ConditionResult(obj, condition(obj), failDescription);
+            _condition = obj =>
+            {
+                var passed = condition(obj);
+                return new ConditionResult(obj, condition(obj), passed ? null : failDescription);
+            };
             Description = description;
         }
 
@@ -32,17 +36,21 @@ namespace ArchUnitNET.Fluent.Conditions
             string description
         )
         {
-            _condition = obj => new ConditionResult(
-                obj,
-                condition(obj),
-                dynamicFailDescription(obj)
-            );
+            _condition = obj =>
+            {
+                var passed = condition(obj);
+                return new ConditionResult(
+                    obj,
+                    passed,
+                    passed ? null : dynamicFailDescription(obj)
+                );
+            };
             Description = description;
         }
 
         public string Description { get; }
 
-        public IEnumerable<ConditionResult> Check(
+        public IEnumerable<IConditionResult> Check(
             IEnumerable<TRuleType> objects,
             Architecture architecture
         )

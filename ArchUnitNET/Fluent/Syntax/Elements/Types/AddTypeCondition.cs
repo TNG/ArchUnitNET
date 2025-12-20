@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
@@ -12,10 +13,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IAddTypeCondition<TNextElement, TRuleType>
         where TRuleType : IType
     {
-        internal AddTypeCondition(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        protected AddTypeCondition(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         // csharpier-ignore-start
+
         public TNextElement Be(Type firstType, params Type[] moreTypes) => CreateNextElement(TypeConditionsDefinition<TRuleType>.Be(firstType, moreTypes));
         public TNextElement Be(IEnumerable<Type> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.Be(types));
 
@@ -113,6 +118,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public ShouldRelateToTypesThat<TNextElement, TRuleType> NotBeAssignableToTypesThat() => BeginComplexTypeCondition(TypeConditionsDefinition<TRuleType>.NotBeAssignableToTypesThat());
         public ShouldRelateToInterfacesThat<TNextElement, TRuleType> NotImplementAnyInterfacesThat() => BeginComplexInterfaceCondition(TypeConditionsDefinition<TRuleType>.NotImplementAnyInterfacesThat());
+
         // csharpier-ignore-end
     }
 }

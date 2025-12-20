@@ -58,7 +58,7 @@ public abstract class AssemblyTestHelper
 
     public void AssertAnyViolations(IArchRule rule)
     {
-        var results = rule.Evaluate(Architecture);
+        var results = rule.Evaluate(Architecture).ToList();
         var output = FormatSnapshot(rule, results);
         if (results.All(result => !result.Passed))
         {
@@ -73,7 +73,7 @@ public abstract class AssemblyTestHelper
 
     public void AssertOnlyViolations(IArchRule rule)
     {
-        var results = rule.Evaluate(Architecture);
+        var results = rule.Evaluate(Architecture).ToList();
         var output = FormatSnapshot(rule, results);
         if (results.Any(result => result.Passed))
         {
@@ -85,7 +85,7 @@ public abstract class AssemblyTestHelper
     public void AssertException<T>(IArchRule rule)
         where T : Exception
     {
-        var exception = Assert.Throws<T>(() => rule.Evaluate(Architecture));
+        var exception = Assert.Throws<T>(() => rule.Evaluate(Architecture).ToList());
         snapshot.AppendLine("Query: " + rule.Description);
         snapshot.AppendLine("Exception: " + exception.Message);
         snapshot.AppendLine();

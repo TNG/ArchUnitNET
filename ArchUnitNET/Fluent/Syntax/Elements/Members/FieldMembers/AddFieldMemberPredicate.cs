@@ -2,12 +2,14 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers
 {
-    public abstract class AddFieldMemberPredicate<TNextElement, TRelatedType>
-        : AddMemberPredicate<TNextElement, TRelatedType, FieldMember>,
+    public abstract class AddFieldMemberPredicate<TNextElement>
+        : AddMemberPredicate<TNextElement, FieldMember>,
             IAddFieldMemberPredicate<TNextElement, FieldMember>
-        where TRelatedType : ICanBeAnalyzed
     {
-        internal AddFieldMemberPredicate(IArchRuleCreator<TRelatedType> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddFieldMemberPredicate(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<FieldMember> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
     }
 }

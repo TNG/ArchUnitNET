@@ -19,7 +19,7 @@ namespace ArchUnitNET.Fluent.Conditions
 
             public string Description => _condition.Description;
 
-            public IEnumerable<ConditionResult> Check(
+            public IEnumerable<IConditionResult> Check(
                 IEnumerable<TRuleType> objects,
                 Architecture architecture
             )
@@ -31,7 +31,7 @@ namespace ArchUnitNET.Fluent.Conditions
 
             public bool CheckEmpty() => _condition.CheckEmpty();
 
-            private static Func<TRuleType, ConditionResult> Check(
+            private static Func<TRuleType, IConditionResult> Check(
                 Architecture architecture,
                 ICollection<TRuleType> objects,
                 ICondition<TRuleType> condition
@@ -67,6 +67,82 @@ namespace ArchUnitNET.Fluent.Conditions
                 return orderedCondition;
             }
             return new OrderedConditionWrapper<TRuleType>(condition);
+        }
+
+        private class ConditionWithDescription<TRuleType> : IOrderedCondition<TRuleType>
+            where TRuleType : ICanBeAnalyzed
+        {
+            private readonly IOrderedCondition<TRuleType> _condition;
+
+            public ConditionWithDescription(
+                IOrderedCondition<TRuleType> condition,
+                string description
+            )
+            {
+                _condition = condition;
+                Description = description;
+            }
+
+            public string Description { get; }
+
+            public IEnumerable<IConditionResult> Check(
+                IEnumerable<TRuleType> objects,
+                Architecture architecture
+            )
+            {
+                return _condition.Check(objects, architecture);
+            }
+
+            public bool CheckEmpty()
+            {
+                return _condition.CheckEmpty();
+            }
+        }
+
+        public static IOrderedCondition<TRuleType> As<TRuleType>(
+            this IOrderedCondition<TRuleType> condition,
+            string description
+        )
+            where TRuleType : ICanBeAnalyzed
+        {
+            return new ConditionWithDescription<TRuleType>(condition, description);
+        }
+
+        private class ConditionWithReason<TRuleType> : IOrderedCondition<TRuleType>
+            where TRuleType : ICanBeAnalyzed
+        {
+            private readonly IOrderedCondition<TRuleType> _condition;
+            private readonly string _reason;
+
+            public ConditionWithReason(IOrderedCondition<TRuleType> condition, string reason)
+            {
+                _condition = condition;
+                _reason = reason;
+            }
+
+            public string Description => $"{_condition.Description} because {_reason}";
+
+            public IEnumerable<IConditionResult> Check(
+                IEnumerable<TRuleType> objects,
+                Architecture architecture
+            )
+            {
+                return _condition.Check(objects, architecture);
+            }
+
+            public bool CheckEmpty()
+            {
+                return _condition.CheckEmpty();
+            }
+        }
+
+        public static IOrderedCondition<TRuleType> Because<TRuleType>(
+            this IOrderedCondition<TRuleType> condition,
+            string reason
+        )
+            where TRuleType : ICanBeAnalyzed
+        {
+            return new ConditionWithReason<TRuleType>(condition, reason);
         }
     }
 }

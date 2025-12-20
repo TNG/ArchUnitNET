@@ -1,5 +1,5 @@
 ﻿using ArchUnitNET.Domain;
-using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using ArchUnitNET.Fluent.Conditions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
@@ -10,19 +10,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     > : ObjectsShouldConjunctionWithDescription<TRuleTypeShould, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        protected ObjectsShouldConjunction(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        protected ObjectsShouldConjunction(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider,
+            IOrderedCondition<TRuleType> condition
+        )
+            : base(partialArchRuleConjunction, objectProvider, condition) { }
 
-        public TRuleTypeShouldConjunctionWithReason Because(string reason)
-        {
-            _ruleCreator.AddConditionReason(reason);
-            return Create<TRuleTypeShouldConjunctionWithReason, TRuleType>(_ruleCreator);
-        }
-
-        public TRuleTypeShouldConjunctionWithReason As(string description)
-        {
-            _ruleCreator.SetCustomConditionDescription(description);
-            return Create<TRuleTypeShouldConjunctionWithReason, TRuleType>(_ruleCreator);
-        }
+        public abstract TRuleTypeShouldConjunctionWithReason Because(string reason);
+        public abstract TRuleTypeShouldConjunctionWithReason As(string description);
     }
 }

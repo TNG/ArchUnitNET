@@ -33,7 +33,7 @@ namespace ArchUnitNETTests.Fluent
             .That()
             .ArePublic()
             .As(CustomDescription)
-            .And()
+            .That()
             .AreProtected()
             .Should()
             .BePublic()
@@ -59,22 +59,34 @@ namespace ArchUnitNETTests.Fluent
         [Fact]
         public void CustomDescriptionTest()
         {
-            Assert.Equal("Classes " + CustomDescription, _customDescriptionTestRule1.Description);
-            Assert.Equal("Classes " + CustomDescription, _customDescriptionTestRule1.ToString());
             Assert.Equal(
-                CustomDescription + " and are protected " + CustomDescription,
+                "Classes should " + CustomDescription,
+                _customDescriptionTestRule1.Description
+            );
+            Assert.Equal(
+                "Classes should " + CustomDescription,
+                _customDescriptionTestRule1.ToString()
+            );
+            Assert.Equal(
+                CustomDescription + " that are protected should " + CustomDescription,
                 _customDescriptionTestRule2.Description
             );
             Assert.Equal(
-                CustomDescription + " and are protected " + CustomDescription,
+                CustomDescription + " that are protected should " + CustomDescription,
                 _customDescriptionTestRule2.ToString()
             );
             Assert.Equal(
-                "Classes " + CustomDescription + " and Attributes " + CustomDescription,
+                "Classes should "
+                    + CustomDescription
+                    + " and Attributes should "
+                    + CustomDescription,
                 _combinedCustomDescriptionTestRule.Description
             );
             Assert.Equal(
-                "Classes " + CustomDescription + " and Attributes " + CustomDescription,
+                "Classes should "
+                    + CustomDescription
+                    + " and Attributes should "
+                    + CustomDescription,
                 _combinedCustomDescriptionTestRule.ToString()
             );
         }

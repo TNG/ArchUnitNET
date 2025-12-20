@@ -1,21 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using ArchUnitNET.Domain;
+﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
     public class MethodMembersShould : AddMethodMemberCondition<MethodMembersShouldConjunction>
     {
-        public MethodMembersShould(IArchRuleCreator<MethodMember> ruleCreator)
-            : base(ruleCreator) { }
+        private readonly IOrderedCondition<MethodMember> _leftCondition;
+        private readonly LogicalConjunction _logicalConjunction;
 
-        protected override MethodMembersShouldConjunction CreateNextElement(
-            IOrderedCondition<MethodMember> condition
+        public MethodMembersShould(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<MethodMember> objectProvider
         )
+            : this(partialArchRuleConjunction, objectProvider, null, null) { }
+
+        public MethodMembersShould(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<MethodMember> objectProvider,
+            IOrderedCondition<MethodMember> leftCondition,
+            LogicalConjunction logicalConjunction
+        )
+            : base(partialArchRuleConjunction, objectProvider)
         {
-            _ruleCreator.AddCondition(condition);
-            return new MethodMembersShouldConjunction(_ruleCreator);
+            _leftCondition = leftCondition;
+            _logicalConjunction = logicalConjunction;
         }
+
+        internal override MethodMembersShouldConjunction CreateNextElement(
+            IOrderedCondition<MethodMember> condition
+        ) =>
+            new MethodMembersShouldConjunction(
+                PartialArchRuleConjunction,
+                ObjectProvider,
+                _leftCondition == null
+                    ? condition
+                    : new CombinedCondition<MethodMember>(
+                        _leftCondition,
+                        _logicalConjunction,
+                        condition
+                    )
+            );
     }
 }

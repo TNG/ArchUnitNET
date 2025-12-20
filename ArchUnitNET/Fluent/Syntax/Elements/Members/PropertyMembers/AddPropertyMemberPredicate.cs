@@ -2,13 +2,15 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public abstract class AddPropertyMemberPredicate<TNextElement, TRelatedType>
-        : AddMemberPredicate<TNextElement, TRelatedType, PropertyMember>,
+    public abstract class AddPropertyMemberPredicate<TNextElement>
+        : AddMemberPredicate<TNextElement, PropertyMember>,
             IAddPropertyMemberPredicate<TNextElement, PropertyMember>
-        where TRelatedType : ICanBeAnalyzed
     {
-        internal AddPropertyMemberPredicate(IArchRuleCreator<TRelatedType> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddPropertyMemberPredicate(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<PropertyMember> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         // csharpier-ignore-start
         public TNextElement HaveGetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveGetter());

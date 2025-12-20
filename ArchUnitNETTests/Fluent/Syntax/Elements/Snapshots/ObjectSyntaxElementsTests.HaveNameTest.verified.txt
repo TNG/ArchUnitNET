@@ -154,7 +154,7 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken...
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 

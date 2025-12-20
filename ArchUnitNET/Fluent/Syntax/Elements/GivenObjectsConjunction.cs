@@ -1,9 +1,11 @@
 ﻿using ArchUnitNET.Domain;
-using static ArchUnitNET.Fluent.Syntax.ConjunctionFactory;
+using ArchUnitNET.Fluent.Predicates;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements
 {
     public abstract class GivenObjectsConjunction<
+        TGivenRuleType,
         TGivenRuleTypeThat,
         TRuleTypeShould,
         TGivenRuleTypeConjunctionWithReason,
@@ -11,19 +13,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
     > : GivenObjectsConjunctionWithDescription<TGivenRuleTypeThat, TRuleTypeShould, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        protected GivenObjectsConjunction(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        protected GivenObjectsConjunction(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider,
+            IPredicate<TRuleType> predicate
+        )
+            : base(partialArchRuleConjunction, objectProvider, predicate) { }
 
-        public TGivenRuleTypeConjunctionWithReason Because(string reason)
-        {
-            _ruleCreator.AddPredicateReason(reason);
-            return Create<TGivenRuleTypeConjunctionWithReason, TRuleType>(_ruleCreator);
-        }
-
-        public TGivenRuleTypeConjunctionWithReason As(string description)
-        {
-            _ruleCreator.SetCustomPredicateDescription(description);
-            return Create<TGivenRuleTypeConjunctionWithReason, TRuleType>(_ruleCreator);
-        }
+        public abstract TGivenRuleType As(string description);
+        public abstract TGivenRuleTypeConjunctionWithReason Because(string reason);
     }
 }

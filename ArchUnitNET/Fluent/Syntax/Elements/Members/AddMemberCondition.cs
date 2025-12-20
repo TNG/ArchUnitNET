@@ -10,8 +10,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             IAddMemberCondition<TNextElement, TRuleType>
         where TRuleType : IMember
     {
-        internal AddMemberCondition(IArchRuleCreator<TRuleType> ruleCreator)
-            : base(ruleCreator) { }
+        internal AddMemberCondition(
+            PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         // csharpier-ignore-start
         public TNextElement BeDeclaredIn(IType firstType, params IType[] moreTypes) => CreateNextElement(MemberConditionsDefinition<TRuleType>.BeDeclaredIn(firstType, moreTypes));

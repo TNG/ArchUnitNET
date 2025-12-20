@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Predicates;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public abstract class AddTypePredicate<TNextElement, TRelatedType, TRuleType>
-        : AddObjectPredicate<TNextElement, TRelatedType, TRuleType>,
+    public abstract class AddTypePredicate<TNextElement, TRuleType>
+        : AddObjectPredicate<TNextElement, TRuleType>,
             IAddTypePredicate<TNextElement, TRuleType>
         where TRuleType : IType
-        where TRelatedType : ICanBeAnalyzed
     {
-        internal AddTypePredicate(IArchRuleCreator<TRelatedType> archRuleCreator)
-            : base(archRuleCreator) { }
+        protected AddTypePredicate(
+            [CanBeNull] PartialArchRuleConjunction partialArchRuleConjunction,
+            IObjectProvider<TRuleType> objectProvider
+        )
+            : base(partialArchRuleConjunction, objectProvider) { }
 
         // csharpier-ignore-start
         public TNextElement Are(Type firstType, params Type[] moreTypes) => CreateNextElement(TypePredicatesDefinition<TRuleType>.Are(firstType, moreTypes));

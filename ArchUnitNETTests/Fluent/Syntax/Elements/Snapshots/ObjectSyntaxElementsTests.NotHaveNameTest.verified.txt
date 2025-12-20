@@ -154,7 +154,7 @@ Description: TypeDependencyNamespace.BaseClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that do not have assembly qualified name "TypeDependencyNamespace.ChildClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, Public...
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that do not have assembly qualified name "TypeDependencyNamespace.ChildClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 Result: True
 Description: TypeDependencyNamespace.BaseClass passed
 Message: 
@@ -415,11 +415,11 @@ Message:
 
 
 
-Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that do not have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicK...
+Query: Types that are "TypeDependencyNamespace.BaseClass" should be Types that do not have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 Result: False
 Description: TypeDependencyNamespace.BaseClass is not Types that do not have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 Message: 
-"Types that are "TypeDependencyNamespace.BaseClass" should be Types that do not have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicK..." failed:
+"Types that are "TypeDependencyNamespace.BaseClass" should be Types that do not have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"" failed:
 	TypeDependencyNamespace.BaseClass is not Types that do not have assembly qualified name "TypeDependencyNamespace.BaseClass, DependencyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 
 

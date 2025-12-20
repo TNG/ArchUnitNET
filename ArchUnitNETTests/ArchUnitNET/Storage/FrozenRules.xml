@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FrozenRules>
+  <FrozenRule ArchRule="Types are &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation&quot; or &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation2&quot; be public">
+    <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation</Violation>
+    <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation2</Violation>
+  </FrozenRule>
+  <FrozenRule ArchRule="Types are &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation&quot; or &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation2&quot; not be private">
+    <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation</Violation>
+    <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation2</Violation>
+  </FrozenRule>
+  <FrozenRule ArchRule="Types are &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation&quot; be protected">
+    <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation</Violation>
+  </FrozenRule>
   <FrozenRule ArchRule="Types that are &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation&quot; or &quot;ArchUnitNETTests.Fluent.FreezeTests+Violation2&quot; should be public">
     <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation</Violation>
   </FrozenRule>

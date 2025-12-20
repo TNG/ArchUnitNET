@@ -3,23 +3,19 @@ using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent.Conditions
 {
-    public class ConditionResult
+    public class ConditionResult : IConditionResult
     {
-        public readonly ICanBeAnalyzed AnalyzedObject;
+        public ICanBeAnalyzed AnalyzedObject { get; }
 
-        [CanBeNull]
-        public readonly string FailDescription;
-        public readonly bool Pass;
+        public bool Pass { get; }
 
-        public ConditionResult(
-            ICanBeAnalyzed analyzedObject,
-            bool pass,
-            string failDescription = null
-        )
+        public string Description { get; }
+
+        public ConditionResult(ICanBeAnalyzed analyzedObject, bool pass, string description = null)
         {
             Pass = pass;
             AnalyzedObject = analyzedObject;
-            FailDescription = pass ? null : failDescription;
+            Description = pass ? (description ?? "passed") : description;
         }
     }
 }

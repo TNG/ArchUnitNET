@@ -22,5 +22,18 @@
       "Slice1",
       "Slice1.Service"
     ]
+  },
+  {
+    "ArchRuleDescription": "Types are \"ArchUnitNETTests.Fluent.FreezeTests+Violation\" or \"ArchUnitNETTests.Fluent.FreezeTests+Violation2\" not be private",
+    "Violations": [
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation",
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation2"
+    ]
+  },
+  {
+    "ArchRuleDescription": "Types are \"ArchUnitNETTests.Fluent.FreezeTests+Violation\" be protected",
+    "Violations": [
+      "ArchUnitNETTests.Fluent.FreezeTests+Violation"
+    ]
   }
 ]

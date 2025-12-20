@@ -25,7 +25,7 @@ namespace ArchUnitNET.Fluent.Conditions
 
         public string Description { get; }
 
-        public IEnumerable<ConditionResult> Check(
+        public IEnumerable<IConditionResult> Check(
             IEnumerable<TRuleType> objects,
             Architecture architecture
         )
