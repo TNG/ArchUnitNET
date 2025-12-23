@@ -28,11 +28,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         TReturnType HaveReturnType(IObjectProvider<IType> types);
         TReturnType HaveReturnType(Type type, params Type[] moreTypes);
         TReturnType HaveReturnType(IEnumerable<Type> types);
+        TReturnType HaveAnyParameters();
 
         //Negations
 
         TReturnType BeNoConstructor();
         TReturnType NotBeVirtual();
+        TReturnType NotHaveAnyParameters();
 
         TReturnType NotBeCalledBy(IType firstType, params IType[] moreTypes);
         TReturnType NotBeCalledBy(Type type, params Type[] moreTypes);

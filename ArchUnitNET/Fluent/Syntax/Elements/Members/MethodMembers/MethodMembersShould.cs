@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+
+#endregion
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
@@ -10,21 +14,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
     {
         public MethodMembersShould(IArchRuleCreator<MethodMember> ruleCreator)
             : base(ruleCreator) { }
-
-        public ShouldRelateToMethodMembersThat<
-            MethodMembersShouldConjunction,
-            MethodMember
-        > BeMethodMembersThat()
-        {
-            _ruleCreator.BeginComplexCondition(
-                ArchRuleDefinition.MethodMembers(),
-                MethodMemberConditionsDefinition.BeMethodMembersThat()
-            );
-            return new ShouldRelateToMethodMembersThat<
-                MethodMembersShouldConjunction,
-                MethodMember
-            >(_ruleCreator);
-        }
 
         public MethodMembersShouldConjunction BeConstructor()
         {
@@ -296,6 +285,33 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         {
             _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveReturnType(types));
             return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction HaveAnyParameters()
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.HaveAnyParameters());
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public MethodMembersShouldConjunction NotHaveAnyParameters()
+        {
+            _ruleCreator.AddCondition(MethodMemberConditionsDefinition.NotHaveAnyParameters());
+            return new MethodMembersShouldConjunction(_ruleCreator);
+        }
+
+        public ShouldRelateToMethodMembersThat<
+            MethodMembersShouldConjunction,
+            MethodMember
+        > BeMethodMembersThat()
+        {
+            _ruleCreator.BeginComplexCondition(
+                ArchRuleDefinition.MethodMembers(),
+                MethodMemberConditionsDefinition.BeMethodMembersThat()
+            );
+            return new ShouldRelateToMethodMembersThat<
+                MethodMembersShouldConjunction,
+                MethodMember
+            >(_ruleCreator);
         }
     }
 }
