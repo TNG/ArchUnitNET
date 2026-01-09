@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using ArchUnitNET.Fluent.Slices;
-using ArchUnitNET.xUnit;
+using ArchUnitNET.xUnitV3;
 using Xunit;
 
 namespace ArchUnitNETTests.Fluent.Slices

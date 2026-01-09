@@ -181,7 +181,8 @@ namespace ArchUnitNET.Loader
                         return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
                             variableTypeReference
                         );
-                    }) ?? Enumerable.Empty<TypeInstance<IType>>()
+                    })
+                        ?? Enumerable.Empty<TypeInstance<IType>>()
                 )
                 .Distinct();
 

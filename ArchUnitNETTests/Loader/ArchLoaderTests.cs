@@ -7,7 +7,7 @@ using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
-using ArchUnitNET.xUnit;
+using ArchUnitNET.xUnitV3;
 using ArchUnitNETTests.Domain.Dependencies.Members;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
@@ -139,9 +139,11 @@ namespace ArchUnitNETTests.Loader
                     StringComparison.InvariantCulture
                 )
             ];
-            var assemblySearchPath = Path.Combine(
-                [currentAssemblyPath, "TestAssemblies", "FilteredDirectoryLoaderTestAssembly"]
-            );
+            var assemblySearchPath = Path.Combine([
+                currentAssemblyPath,
+                "TestAssemblies",
+                "FilteredDirectoryLoaderTestAssembly",
+            ]);
             var architecture = new ArchLoader()
                 .LoadFilteredDirectory(
                     assemblySearchPath,

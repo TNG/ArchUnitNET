@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
-using ArchUnitNET.xUnit;
+using ArchUnitNET.xUnitV3;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
