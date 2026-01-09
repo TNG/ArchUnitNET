@@ -139,9 +139,11 @@ namespace ArchUnitNETTests.Loader
                     StringComparison.InvariantCulture
                 )
             ];
-            var assemblySearchPath = Path.Combine(
-                [currentAssemblyPath, "TestAssemblies", "FilteredDirectoryLoaderTestAssembly"]
-            );
+            var assemblySearchPath = Path.Combine([
+                currentAssemblyPath,
+                "TestAssemblies",
+                "FilteredDirectoryLoaderTestAssembly",
+            ]);
             var architecture = new ArchLoader()
                 .LoadFilteredDirectory(
                     assemblySearchPath,
