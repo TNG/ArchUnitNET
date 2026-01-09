@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Loader_1_1LoadTasks_1_1AddGenericParameterDependencies.html" title=" " alt="" coords="5,5,238,46"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,13,144,38"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Loader_1_1ArchLoaderException.html" title=" " alt="" coords="192,5,419,45"/>
+<area shape="poly" id="edge254_Node000000_Node000001" title=" " alt="" coords="158,23,192,23,192,28,158,28"/>
 </map>

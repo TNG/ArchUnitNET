@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xmlviolationstore_0',['XmlViolationStore',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1XmlViolationStore.html',1,'ArchUnitNET::Fluent::Freeze']]]
+  ['withoutrequiringpositiveresults_0',['WithoutRequiringPositiveResults',['../classArchUnitNET_1_1Fluent_1_1ArchRule.html#acb00ed05764ea20f0ed4b4609374d9d2',1,'ArchUnitNET::Fluent::ArchRule']]]
 ];

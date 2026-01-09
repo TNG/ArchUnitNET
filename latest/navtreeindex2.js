@@ -1,4 +1,24 @@
 var NAVTREEINDEX2 =
 {
-"structArchUnitNET_1_1Loader_1_1FilterResult.html":[1,0,0,2,2]
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax.html":[0,0,0,1,7],
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements.html":[0,0,0,1,7,0],
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members.html":[0,0,0,1,7,0,0],
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers.html":[0,0,0,1,7,0,0,0],
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers.html":[0,0,0,1,7,0,0,1],
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers.html":[0,0,0,1,7,0,0,2],
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types.html":[0,0,0,1,7,0,1],
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes.html":[0,0,0,1,7,0,1,0],
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes.html":[0,0,0,1,7,0,1,1],
+"namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces.html":[0,0,0,1,7,0,1,2],
+"namespaceArchUnitNET_1_1Library.html":[0,0,0,2],
+"namespaceArchUnitNET_1_1Library_1_1Rules.html":[0,0,0,2,0],
+"namespaceArchUnitNET_1_1Loader.html":[0,0,0,3],
+"namespaceArchUnitNET_1_1Loader.html#aea62e93f76e6f80bae858e96178e600a":[0,0,0,3,5],
+"namespaceArchUnitNET_1_1Loader_1_1LoadTasks.html":[0,0,0,3,0],
+"namespacemembers.html":[0,1,0],
+"namespacemembers_func.html":[0,1,1],
+"namespaces.html":[0,0],
+"pages.html":[],
+"structArchUnitNET_1_1Loader_1_1FilterResult.html":[1,0,0,2,3],
+"structArchUnitNET_1_1Loader_1_1FilterResult.html":[0,0,0,3,3]
 };

@@ -1,16 +1,14 @@
 <map id="ArchUnitNET.Domain.Slice" name="ArchUnitNET.Domain.Slice">
-<area shape="rect" id="Node000001" title=" " alt="" coords="107,303,286,328"/>
-<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,103,121,128"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="67,143,76,190,85,215,97,238,114,258,133,275,173,300,170,304,130,279,110,262,93,241,80,217,71,192,62,144"/>
-<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Domain_1_1SliceIdentifier.html" title=" " alt="" coords="107,199,286,240"/>
-<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="92,136,172,196,169,201,89,140"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html" title=" " alt="" coords="310,206,442,232"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="341,242,221,305,218,300,339,237"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="199,255,199,302,194,302,194,255"/>
-<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Domain_1_1StringIdentifier.html" title=" " alt="" coords="145,103,250,128"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="200,144,199,198,194,198,195,144"/>
-<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Domain_1_1SliceIdentifierComparer.html" title=" " alt="" coords="275,95,454,136"/>
-<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="320,147,230,201,227,196,318,142"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="296,5,433,46"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="367,62,367,95,362,95,362,62"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="115,196,309,221"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,5,131,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,44,83,88,92,111,105,132,123,152,144,169,187,194,184,198,141,173,119,156,101,135,88,113,78,89,68,45"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Domain_1_1SliceIdentifier.html" title=" " alt="" coords="115,93,309,133"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="98,36,184,91,181,95,95,40"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html" title=" " alt="" coords="333,101,475,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="369,134,237,198,235,193,367,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="215,147,215,196,209,196,209,147"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Domain_1_1StringIdentifier.html" title=" " alt="" coords="155,5,274,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="217,44,215,93,210,93,211,44"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="297,5,356,31"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="304,41,237,95,234,91,300,37"/>
 </map>

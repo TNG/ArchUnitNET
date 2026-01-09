@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Loader_1_1ArchLoader.html" title=" " alt="" coords="5,5,215,31"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,45,148,70"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Domain_1_1SliceIdentifierComparer.html" title=" " alt="" coords="236,5,429,45"/>
+<area shape="poly" id="edge250_Node000000_Node000001" title=" " alt="" coords="162,44,235,35,236,40,162,49"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1TypeDependencyComparer.html" title=" " alt="" coords="196,69,469,109"/>
+<area shape="poly" id="edge251_Node000000_Node000002" title=" " alt="" coords="162,65,196,70,196,75,161,71"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="ArchUnitNET.Domain.ISizedObjectProvider&lt; out T &gt;" name="ArchUnitNET.Domain.ISizedObjectProvider&lt; out T &gt;">
+<area shape="rect" id="Node000001" title="An interface for object providers that can provide a size independent of the used architecture." alt="" coords="5,79,207,119"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html" title=" " alt="" coords="26,5,186,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,44,109,79,103,79,103,44"/>
+</map>

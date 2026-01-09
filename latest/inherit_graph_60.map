@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectConditions.html" title=" " alt="" coords="5,5,241,61"/>
+<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersThat.html" title=" " alt="" coords="15,5,295,75"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1GivenMethodMembersThat.html" title=" " alt="" coords="352,59,619,114"/>
+<area shape="poly" id="edge170_Node000000_Node000001" title=" " alt="" coords="309,59,352,65,352,71,308,64"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IMethodMemberPredicates.html" title=" " alt="" coords="5,99,304,168"/>
+<area shape="poly" id="edge171_Node000002_Node000001" title=" " alt="" coords="317,108,351,103,352,108,318,113"/>
 </map>

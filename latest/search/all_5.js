@@ -9,5 +9,6 @@ var searchData=
   ['filterfunc_6',['FilterFunc',['../namespaceArchUnitNET_1_1Loader.html#aea62e93f76e6f80bae858e96178e600a',1,'ArchUnitNET::Loader']]],
   ['filterresult_7',['FilterResult',['../structArchUnitNET_1_1Loader_1_1FilterResult.html',1,'ArchUnitNET::Loader']]],
   ['freezingarchrule_8',['FreezingArchRule',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1FreezingArchRule.html',1,'ArchUnitNET::Fluent::Freeze']]],
-  ['frozenrule_9',['FrozenRule',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1FrozenRule.html',1,'ArchUnitNET::Fluent::Freeze']]]
+  ['frozenrule_9',['FrozenRule',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1FrozenRule.html',1,'ArchUnitNET::Fluent::Freeze']]],
+  ['functionpointer_10',['FunctionPointer',['../classArchUnitNET_1_1Domain_1_1FunctionPointer.html',1,'ArchUnitNET::Domain']]]
 ];

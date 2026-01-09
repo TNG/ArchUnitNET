@@ -16,11 +16,13 @@ var namespaceArchUnitNET_1_1Domain =
     [ "Enum", "classArchUnitNET_1_1Domain_1_1Enum.html", null ],
     [ "EnumerableIdentifier", "classArchUnitNET_1_1Domain_1_1EnumerableIdentifier.html", null ],
     [ "FieldMember", "classArchUnitNET_1_1Domain_1_1FieldMember.html", null ],
+    [ "FunctionPointer", "classArchUnitNET_1_1Domain_1_1FunctionPointer.html", null ],
     [ "GenericArgument", "classArchUnitNET_1_1Domain_1_1GenericArgument.html", null ],
     [ "GenericParameter", "classArchUnitNET_1_1Domain_1_1GenericParameter.html", null ],
     [ "ICanBeAnalyzed", "interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html", null ],
     [ "ICanBeCompilerGenerated", "interfaceArchUnitNET_1_1Domain_1_1ICanBeCompilerGenerated.html", null ],
     [ "ICanBeGeneric", "interfaceArchUnitNET_1_1Domain_1_1ICanBeGeneric.html", null ],
+    [ "IHasAssemblyQualifiedName", "interfaceArchUnitNET_1_1Domain_1_1IHasAssemblyQualifiedName.html", null ],
     [ "IHasAttributes", "interfaceArchUnitNET_1_1Domain_1_1IHasAttributes.html", null ],
     [ "IHasDependencies", "interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html", null ],
     [ "IHasDescription", "interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html", null ],
@@ -29,6 +31,9 @@ var namespaceArchUnitNET_1_1Domain =
     [ "IMember", "interfaceArchUnitNET_1_1Domain_1_1IMember.html", null ],
     [ "Interface", "classArchUnitNET_1_1Domain_1_1Interface.html", null ],
     [ "IObjectProvider", "interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html", null ],
+    [ "IResidesInAssembly", "interfaceArchUnitNET_1_1Domain_1_1IResidesInAssembly.html", null ],
+    [ "IResidesInNamespace", "interfaceArchUnitNET_1_1Domain_1_1IResidesInNamespace.html", null ],
+    [ "ISizedObjectProvider", "interfaceArchUnitNET_1_1Domain_1_1ISizedObjectProvider.html", null ],
     [ "IType", "interfaceArchUnitNET_1_1Domain_1_1IType.html", null ],
     [ "ITypeInstance", "interfaceArchUnitNET_1_1Domain_1_1ITypeInstance.html", null ],
     [ "MemberList", "classArchUnitNET_1_1Domain_1_1MemberList.html", null ],
@@ -44,5 +49,6 @@ var namespaceArchUnitNET_1_1Domain =
     [ "StringIdentifierComparer", "classArchUnitNET_1_1Domain_1_1StringIdentifierComparer.html", null ],
     [ "Struct", "classArchUnitNET_1_1Domain_1_1Struct.html", null ],
     [ "TypeDependencyComparer", "classArchUnitNET_1_1Domain_1_1TypeDependencyComparer.html", null ],
-    [ "TypeInstance", "classArchUnitNET_1_1Domain_1_1TypeInstance.html", null ]
+    [ "TypeInstance", "classArchUnitNET_1_1Domain_1_1TypeInstance.html", null ],
+    [ "UnavailableType", "classArchUnitNET_1_1Domain_1_1UnavailableType.html", null ]
 ];

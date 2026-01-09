@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xmlviolationstore_0',['XmlViolationStore',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1XmlViolationStore.html',1,'ArchUnitNET::Fluent::Freeze']]]
+  ['unavailabletype_0',['UnavailableType',['../classArchUnitNET_1_1Domain_1_1UnavailableType.html',1,'ArchUnitNET::Domain']]]
 ];

@@ -1,11 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassConditions.html" title=" " alt="" coords="5,5,277,61"/>
-<area shape="rect" id="Node000001" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IComplexClassConditions.html" title=" " alt="" coords="325,45,552,101"/>
-<area shape="poly" id="edge209_Node000000_Node000001" title=" " alt="" coords="293,51,325,55,324,61,292,56"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShould.html" title=" " alt="" coords="600,89,819,145"/>
-<area shape="poly" id="edge210_Node000001_Node000002" title=" " alt="" coords="568,91,600,97,599,102,567,97"/>
-<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IComplexTypeConditions.html" title=" " alt="" coords="8,85,274,141"/>
-<area shape="poly" id="edge211_Node000004_Node000001" title=" " alt="" coords="289,91,324,86,325,91,289,96"/>
-<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html" title=" " alt="" coords="341,124,536,195"/>
-<area shape="poly" id="edge212_Node000003_Node000002" title=" " alt="" coords="550,140,599,132,600,137,551,145"/>
+<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypeConditions.html" title=" " alt="" coords="5,99,236,154"/>
+<area shape="rect" id="Node000001" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributeConditions.html" title=" " alt="" coords="301,5,558,75"/>
+<area shape="poly" id="edge236_Node000000_Node000001" title=" " alt="" coords="231,93,305,72,306,77,233,98"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassConditions.html" title=" " alt="" coords="284,99,575,154"/>
+<area shape="poly" id="edge237_Node000000_Node000002" title=" " alt="" coords="250,124,284,124,284,129,250,129"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfaceConditions.html" title=" " alt="" coords="300,179,559,248"/>
+<area shape="poly" id="edge238_Node000000_Node000003" title=" " alt="" coords="233,155,306,176,305,181,231,160"/>
 </map>

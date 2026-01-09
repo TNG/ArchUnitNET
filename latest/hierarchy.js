@@ -5,14 +5,6 @@ var hierarchy =
     [ "ArchUnitNET.Domain.Architecture", "classArchUnitNET_1_1Domain_1_1Architecture.html", null ],
     [ "ArchUnitNET.Domain.ArchitectureCache", "classArchUnitNET_1_1Domain_1_1ArchitectureCache.html", null ],
     [ "ArchUnitNET.Loader.ArchLoader", "classArchUnitNET_1_1Loader_1_1ArchLoader.html", null ],
-    [ "ArchUnitNET.Fluent.BasicObjectProvider< Attribute >", "classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html", null ],
-    [ "ArchUnitNET.Fluent.BasicObjectProvider< Class >", "classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html", null ],
-    [ "ArchUnitNET.Fluent.BasicObjectProvider< FieldMember >", "classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html", null ],
-    [ "ArchUnitNET.Fluent.BasicObjectProvider< IMember >", "classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html", null ],
-    [ "ArchUnitNET.Fluent.BasicObjectProvider< Interface >", "classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html", null ],
-    [ "ArchUnitNET.Fluent.BasicObjectProvider< IType >", "classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html", null ],
-    [ "ArchUnitNET.Fluent.BasicObjectProvider< MethodMember >", "classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html", null ],
-    [ "ArchUnitNET.Fluent.BasicObjectProvider< PropertyMember >", "classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html", null ],
     [ "ArchUnitNET.Fluent.CombinedArchRuleDefinition", "classArchUnitNET_1_1Fluent_1_1CombinedArchRuleDefinition.html", null ],
     [ "ArchUnitNET.Fluent.Conditions.ConditionResult", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ConditionResult.html", null ],
     [ "EqualityComparer", null, [
@@ -26,6 +18,9 @@ var hierarchy =
       [ "ArchUnitNET.Domain.PlantUml.Exceptions.FileAlreadyExistsException", "classArchUnitNET_1_1Domain_1_1PlantUml_1_1Exceptions_1_1FileAlreadyExistsException.html", null ],
       [ "ArchUnitNET.Fluent.Exceptions.CannotGetObjectsOfCombinedArchRuleCreatorException", "classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleCreatorException.html", null ],
       [ "ArchUnitNET.Fluent.Exceptions.CannotGetObjectsOfCombinedArchRuleException", "classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleException.html", null ]
+    ] ],
+    [ "System.Exception", null, [
+      [ "ArchUnitNET.Loader.ArchLoaderException", "classArchUnitNET_1_1Loader_1_1ArchLoaderException.html", null ]
     ] ],
     [ "ArchUnitNET.Loader.FilterResult", "structArchUnitNET_1_1Loader_1_1FilterResult.html", null ],
     [ "ArchUnitNET.Fluent.Freeze.FrozenRule", "classArchUnitNET_1_1Fluent_1_1Freeze_1_1FrozenRule.html", null ],
@@ -144,9 +139,11 @@ var hierarchy =
             [ "ArchUnitNET.Domain.Attribute", "classArchUnitNET_1_1Domain_1_1Attribute.html", null ]
           ] ],
           [ "ArchUnitNET.Domain.Enum", "classArchUnitNET_1_1Domain_1_1Enum.html", null ],
+          [ "ArchUnitNET.Domain.FunctionPointer", "classArchUnitNET_1_1Domain_1_1FunctionPointer.html", null ],
           [ "ArchUnitNET.Domain.GenericParameter", "classArchUnitNET_1_1Domain_1_1GenericParameter.html", null ],
           [ "ArchUnitNET.Domain.Interface", "classArchUnitNET_1_1Domain_1_1Interface.html", null ],
           [ "ArchUnitNET.Domain.Struct", "classArchUnitNET_1_1Domain_1_1Struct.html", null ],
+          [ "ArchUnitNET.Domain.UnavailableType", "classArchUnitNET_1_1Domain_1_1UnavailableType.html", null ],
           [ "ArchUnitNET.Loader.Type", "classArchUnitNET_1_1Loader_1_1Type.html", null ]
         ] ]
       ] ]
@@ -191,13 +188,12 @@ var hierarchy =
         [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.InterfacesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShould.html", null ]
       ] ]
     ] ],
-    [ "ArchUnitNET.Fluent.Conditions.ICondition< T >", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition.html", null ],
     [ "ArchUnitNET.Fluent.Conditions.ICondition< TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition.html", [
-      [ "ArchUnitNET.Fluent.Conditions.ArchitectureCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ArchitectureCondition.html", null ],
-      [ "ArchUnitNET.Fluent.Conditions.ComplexCondition< TRuleType, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition.html", null ],
+      [ "ArchUnitNET.Fluent.Conditions.ArchitectureCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ArchitectureCondition.html", [
+        [ "ArchUnitNET.Fluent.Conditions.OrderedArchitectureCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1OrderedArchitectureCondition.html", null ]
+      ] ],
       [ "ArchUnitNET.Fluent.Conditions.EnumerableCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1EnumerableCondition.html", null ],
-      [ "ArchUnitNET.Fluent.Conditions.ExistsCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ExistsCondition.html", null ],
-      [ "ArchUnitNET.Fluent.Conditions.SimpleCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition.html", null ]
+      [ "ArchUnitNET.Fluent.Conditions.IOrderedCondition< in TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1IOrderedCondition.html", null ]
     ] ],
     [ "IEqualityComparer", null, [
       [ "ArchUnitNET.Domain.SliceIdentifierComparer", "classArchUnitNET_1_1Domain_1_1SliceIdentifierComparer.html", null ],
@@ -279,7 +275,9 @@ var hierarchy =
     ] ],
     [ "ArchUnitNET.Domain.IHasName", "interfaceArchUnitNET_1_1Domain_1_1IHasName.html", [
       [ "ArchUnitNET.Domain.Assembly", "classArchUnitNET_1_1Domain_1_1Assembly.html", null ],
-      [ "ArchUnitNET.Domain.ICanBeAnalyzed", "interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html", null ],
+      [ "ArchUnitNET.Domain.IHasAssemblyQualifiedName", "interfaceArchUnitNET_1_1Domain_1_1IHasAssemblyQualifiedName.html", [
+        [ "ArchUnitNET.Domain.ICanBeAnalyzed", "interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html", null ]
+      ] ],
       [ "ArchUnitNET.Domain.Namespace", "classArchUnitNET_1_1Domain_1_1Namespace.html", null ]
     ] ],
     [ "ArchUnitNET.Domain.IHasVisibility", "interfaceArchUnitNET_1_1Domain_1_1IHasVisibility.html", [
@@ -358,12 +356,20 @@ var hierarchy =
       [ "ArchUnitNET.Fluent.Slices.GivenSlices", "classArchUnitNET_1_1Fluent_1_1Slices_1_1GivenSlices.html", null ]
     ] ],
     [ "ArchUnitNET.Domain.IObjectProvider< T >", "interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html", [
+      [ "ArchUnitNET.Domain.ISizedObjectProvider< out T >", "interfaceArchUnitNET_1_1Domain_1_1ISizedObjectProvider.html", null ],
       [ "ArchUnitNET.Fluent.BasicObjectProvider< T >", "classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html", null ]
     ] ],
     [ "ArchUnitNET.Domain.IObjectProvider< TRelatedType >", "interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html", null ],
     [ "ArchUnitNET.Domain.IObjectProvider< TRuleType >", "interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< TRuleTypeThat, TRuleTypeShould, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", null ],
       [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< TGivenRuleTypeThat, TRuleTypeShould, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Conditions.IOrderedCondition< T >", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1IOrderedCondition.html", null ],
+    [ "ArchUnitNET.Fluent.Conditions.IOrderedCondition< TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1IOrderedCondition.html", [
+      [ "ArchUnitNET.Fluent.Conditions.ComplexCondition< TRuleType, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition.html", null ],
+      [ "ArchUnitNET.Fluent.Conditions.ExistsCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ExistsCondition.html", null ],
+      [ "ArchUnitNET.Fluent.Conditions.OrderedArchitectureCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1OrderedArchitectureCondition.html", null ],
+      [ "ArchUnitNET.Fluent.Conditions.SimpleCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition.html", null ]
     ] ],
     [ "ArchUnitNET.Domain.PlantUml.Export.IPlantUmlElement", "interfaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1IPlantUmlElement.html", [
       [ "ArchUnitNET.Domain.PlantUml.Export.IPlantUmlContainer", "interfaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1IPlantUmlContainer.html", [
@@ -386,6 +392,13 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IPropertyMemberPredicates< TRuleTypeShouldConjunction, PropertyMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IPropertyMemberPredicates.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.ShouldRelateToPropertyMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1ShouldRelateToPropertyMembersThat.html", null ]
     ] ],
+    [ "ArchUnitNET.Domain.IResidesInAssembly", "interfaceArchUnitNET_1_1Domain_1_1IResidesInAssembly.html", [
+      [ "ArchUnitNET.Domain.IHasAssemblyQualifiedName", "interfaceArchUnitNET_1_1Domain_1_1IHasAssemblyQualifiedName.html", null ]
+    ] ],
+    [ "ArchUnitNET.Domain.IResidesInNamespace", "interfaceArchUnitNET_1_1Domain_1_1IResidesInNamespace.html", [
+      [ "ArchUnitNET.Domain.ICanBeAnalyzed", "interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html", null ]
+    ] ],
+    [ "ArchUnitNET.Domain.ISizedObjectProvider< T >", "interfaceArchUnitNET_1_1Domain_1_1ISizedObjectProvider.html", null ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ITypeConditions< TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypeConditions.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAttributeConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributeConditions.html", null ],
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IClassConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassConditions.html", null ],

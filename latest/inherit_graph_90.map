@@ -1,5 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html" title=" " alt="" coords="5,5,279,76"/>
-<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembercbe5c60298a4477121e1e7b307af6b72.html" title=" " alt="" coords="327,13,653,68"/>
-<area shape="poly" id="edge201_Node000000_Node000001" title=" " alt="" coords="295,38,326,38,326,43,295,43"/>
+<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html" title=" " alt="" coords="20,5,280,60"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1GivenClassesThat.html" title=" " alt="" coords="343,53,641,93"/>
+<area shape="poly" id="edge226_Node000000_Node000001" title=" " alt="" coords="294,47,343,53,342,58,293,52"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassPredicates.html" title=" " alt="" coords="5,84,295,139"/>
+<area shape="poly" id="edge227_Node000002_Node000001" title=" " alt="" coords="308,91,342,87,343,92,308,96"/>
 </map>
