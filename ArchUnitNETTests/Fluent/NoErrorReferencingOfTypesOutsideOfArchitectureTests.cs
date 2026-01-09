@@ -4,7 +4,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
-using ArchUnitNET.xUnit;
+using ArchUnitNET.xUnitV3;
 using TestAssembly;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;

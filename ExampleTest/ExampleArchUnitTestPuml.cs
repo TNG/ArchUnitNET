@@ -4,7 +4,7 @@ using System.Text;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Loader;
-using ArchUnitNET.xUnit;
+using ArchUnitNET.xUnitV3;
 using ExampleTest.PlantUml.Addresses;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;

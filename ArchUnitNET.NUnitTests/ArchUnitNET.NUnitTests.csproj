@@ -4,6 +4,8 @@
     <IsPackable>false</IsPackable>
     <Company>TNG Technology Consulting GmbH</Company>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnableNUnitRunner>true</EnableNUnitRunner>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />

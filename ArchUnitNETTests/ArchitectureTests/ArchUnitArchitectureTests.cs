@@ -2,7 +2,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
-using ArchUnitNET.xUnit;
+using ArchUnitNET.xUnitV3;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 

@@ -1,7 +1,7 @@
 ﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Extensions;
-using ArchUnitNET.xUnit;
+using ArchUnitNET.xUnitV3;
 using ArchUnitNETTests.Domain;
 using Xunit;
 using static System.Environment;

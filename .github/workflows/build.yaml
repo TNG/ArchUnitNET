@@ -36,7 +36,7 @@ jobs:
         with:
           dotnet-version: 10.0.100
       - name: Run tests
-        run: dotnet test -c Debug --collect:"XPlat Code Coverage" --settings coverlet.runsettings ArchUnitNETTests/
+        run: dotnet test -c Debug --collect:"XPlat Code Coverage" --settings coverlet.runsettings --project ArchUnitNETTests/
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5.5.2
         with:

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
-using ArchUnitNET.xUnit;
+using ArchUnitNET.xUnitV3;
 using ArchUnitNETTests.AssemblyTestHelper;
 using ArchUnitNETTests.Domain;
 using Xunit;

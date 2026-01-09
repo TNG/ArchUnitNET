@@ -1,6 +1,6 @@
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader;
-using ArchUnitNET.xUnit;
+using ArchUnitNET.xUnitV3;
 using ArchUnitNETTests.Domain.Dependencies.Attributes;
 using ArchUnitNETTests.Domain.Dependencies.Members;
 using TestAssembly;
