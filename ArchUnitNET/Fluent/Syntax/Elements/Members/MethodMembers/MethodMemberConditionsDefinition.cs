@@ -173,6 +173,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         //ignore, can't have a dependency anyways
                     }
                 }
+
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
@@ -384,6 +385,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         //ignore, can't have a dependency anyways
                     }
                 }
+
                 var methodMemberList = methodMembers.ToList();
                 var passedObjects = methodMemberList
                     .Where(methodMember =>
@@ -696,6 +698,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         //ignore, can't have a dependency anyways
                     }
                 }
+
                 var methodMemberList = methodMembers.ToList();
                 var failedObjects = methodMemberList
                     .Where(methodMember =>
@@ -909,6 +912,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         //ignore, can't have a dependency anyways
                     }
                 }
+
                 var methodMemberList = methodMembers.ToList();
                 var failedObjects = methodMemberList
                     .Where(methodMember =>
@@ -1065,6 +1069,32 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Condition,
                 member => "has return type \"" + member.ReturnType.FullName + "\"",
                 description
+            );
+        }
+
+        /// <summary>
+        /// Selects method members that have any parameters
+        /// </summary>
+        /// <returns>A condition that can be applied to method members</returns>
+        public static ICondition<MethodMember> HaveAnyParameters()
+        {
+            return new SimpleCondition<MethodMember>(
+                method => method.Parameters.Any(),
+                "have any parameters",
+                "does not have any parameters"
+            );
+        }
+
+        /// <summary>
+        /// Selects method members that do not have any parameters (parameterless)
+        /// </summary>
+        /// <returns>A condition that can be applied to method members</returns>
+        public static ICondition<MethodMember> NotHaveAnyParameters()
+        {
+            return new SimpleCondition<MethodMember>(
+                method => !method.Parameters.Any(),
+                "not have any parameters",
+                "has parameters"
             );
         }
     }
