@@ -1,4 +1,5 @@
 <map id="ArchUnitNET.Loader.FilterResult" name="ArchUnitNET.Loader.FilterResult">
-<area shape="rect" id="node1" title="Filter function result options" alt="" coords="5,139,192,180"/>
-<area shape="rect" id="node2" title=" " alt="" coords="69,5,128,32"/>
+<area shape="rect" id="Node000001" title="Filter function result options." alt="" coords="5,137,192,177"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="69,5,128,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,44,101,137,96,137,96,44"/>
 </map>

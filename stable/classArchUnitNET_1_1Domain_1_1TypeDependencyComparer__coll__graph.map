@@ -1,4 +1,5 @@
 <map id="ArchUnitNET.Domain.TypeDependencyComparer" name="ArchUnitNET.Domain.TypeDependencyComparer">
-<area shape="rect" id="node1" title=" " alt="" coords="5,95,279,136"/>
-<area shape="rect" id="node2" title=" " alt="" coords="64,5,220,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,279,133"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="64,5,220,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,59,145,93,139,93,139,59"/>
 </map>

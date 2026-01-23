@@ -1,4 +1,0 @@
-var classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShouldConjunctionWithDescription =
-[
-    [ "ClassesShouldConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShouldConjunctionWithDescription.html#a2120e998e575feac1dc15657a7f4b7f7", null ]
-];

@@ -1,4 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html" title=" " alt="" coords="5,5,347,91"/>
-<area shape="rect" id="node2" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypes.html" title=" " alt="" coords="395,27,597,69"/>
+<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html" title=" " alt="" coords="5,5,316,89"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersConjunction.html" title=" " alt="" coords="364,27,692,67"/>
+<area shape="poly" id="edge59_Node000000_Node000001" title=" " alt="" coords="329,45,364,45,364,50,329,50"/>
 </map>

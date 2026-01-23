@@ -1,4 +1,5 @@
 <map id="ArchUnitNET.Fluent.Conditions.SimpleCondition&lt; TRuleType &gt;" name="ArchUnitNET.Fluent.Conditions.SimpleCondition&lt; TRuleType &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,232,121"/>
-<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition.html" title=" " alt="" coords="26,5,211,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,232,133"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1IOrderedCondition.html" title=" " alt="" coords="43,5,194,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,59,121,93,116,93,116,59"/>
 </map>

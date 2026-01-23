@@ -1,7 +1,12 @@
 <map id="ArchUnitNET.Domain.Dependencies.GenericArgumentMemberDependency" name="ArchUnitNET.Domain.Dependencies.GenericArgumentMemberDependency">
-<area shape="rect" id="node1" title=" " alt="" coords="71,229,341,271"/>
-<area shape="rect" id="node2" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html" title=" " alt="" coords="85,155,327,181"/>
-<area shape="rect" id="node3" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html" title=" " alt="" coords="5,80,193,107"/>
-<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title=" " alt="" coords="137,5,275,32"/>
-<area shape="rect" id="node5" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html" title=" " alt="" coords="217,80,408,107"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="71,225,341,265"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html" title=" " alt="" coords="85,152,327,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,191,209,225,203,225,203,191"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html" title=" " alt="" coords="5,79,193,104"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="129,109,190,150,187,154,126,114"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title=" " alt="" coords="137,5,275,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="179,40,118,81,115,76,176,36"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html" title=" " alt="" coords="217,79,408,104"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="236,36,297,76,294,81,233,40"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="286,114,225,154,222,150,283,109"/>
 </map>

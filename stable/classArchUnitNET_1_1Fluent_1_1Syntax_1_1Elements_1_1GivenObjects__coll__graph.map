@@ -1,6 +1,9 @@
 <map id="ArchUnitNET.Fluent.Syntax.Elements.GivenObjects&lt; TRuleTypeThat, TRuleTypeShould, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.GivenObjects&lt; TRuleTypeThat, TRuleTypeShould, TRuleType &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="113,155,359,225"/>
-<area shape="rect" id="node2" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="5,80,224,107"/>
-<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="52,5,177,32"/>
-<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html" title=" " alt="" coords="248,80,467,107"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="113,152,359,221"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="5,79,224,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,110,194,150,191,154,139,115"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="52,5,177,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="117,44,117,79,112,79,112,44"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html" title=" " alt="" coords="248,79,467,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="333,115,281,154,278,150,330,110"/>
 </map>

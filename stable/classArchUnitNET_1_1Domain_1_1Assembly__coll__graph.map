@@ -1,5 +1,7 @@
 <map id="ArchUnitNET.Domain.Assembly" name="ArchUnitNET.Domain.Assembly">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,232,107"/>
-<area shape="rect" id="node2" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title=" " alt="" coords="11,5,101,32"/>
-<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1IHasAttributes.html" title=" " alt="" coords="125,5,240,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,232,104"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title=" " alt="" coords="11,5,101,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,39,111,77,107,80,73,43"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IHasAttributes.html" title=" " alt="" coords="125,5,240,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,43,131,80,127,77,161,39"/>
 </map>

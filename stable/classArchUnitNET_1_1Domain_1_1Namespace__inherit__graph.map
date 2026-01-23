@@ -1,7 +1,11 @@
 <map id="ArchUnitNET.Domain.Namespace" name="ArchUnitNET.Domain.Namespace">
-<area shape="rect" id="node1" title=" " alt="" coords="75,155,314,181"/>
-<area shape="rect" id="node2" href="$classArchUnitNET_1_1Domain_1_1Slice.html" title=" " alt="" coords="120,80,173,107"/>
-<area shape="rect" id="node3" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,5,131,32"/>
-<area shape="rect" id="node4" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html" title=" " alt="" coords="155,5,298,32"/>
-<area shape="rect" id="node5" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title=" " alt="" coords="197,80,288,107"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="75,152,314,177"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1Slice.html" title=" " alt="" coords="120,79,173,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,114,189,150,185,153,160,117"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,5,131,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,38,136,76,132,80,89,42"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html" title=" " alt="" coords="155,5,298,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="206,42,162,80,158,76,202,38"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title=" " alt="" coords="197,79,288,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="229,117,205,153,200,150,225,114"/>
 </map>

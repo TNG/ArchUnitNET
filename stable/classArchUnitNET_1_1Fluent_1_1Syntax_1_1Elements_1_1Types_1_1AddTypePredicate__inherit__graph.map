@@ -1,0 +1,11 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypePredicate&lt; TNextElement, TRelatedType, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypePredicate&lt; TNextElement, TRelatedType, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="571,47,815,117"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1AddObjectPredicate.html" title=" " alt="" coords="292,19,523,73"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="536,60,571,64,570,69,536,65"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="5,5,244,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="258,29,292,32,291,37,257,34"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectPredicate.html" title=" " alt="" coords="15,55,235,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="248,60,291,55,292,61,249,65"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypePredicate.html" title=" " alt="" coords="303,98,512,138"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="525,100,570,95,571,100,526,106"/>
+</map>

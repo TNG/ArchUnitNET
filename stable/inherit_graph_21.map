@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classArchUnitNET_1_1Fluent_1_1CombinedArchRuleDefinition.html" title=" " alt="" coords="5,5,224,47"/>
+<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Fluent_1_1Freeze_1_1IViolationStore.html" title=" " alt="" coords="5,37,204,77"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Freeze_1_1JsonViolationStore.html" title=" " alt="" coords="252,5,451,45"/>
+<area shape="poly" id="edge45_Node000000_Node000001" title=" " alt="" coords="217,40,251,36,252,41,218,45"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Freeze_1_1XmlViolationStore.html" title=" " alt="" coords="252,69,451,109"/>
+<area shape="poly" id="edge46_Node000000_Node000002" title=" " alt="" coords="218,69,252,74,251,79,217,75"/>
 </map>
