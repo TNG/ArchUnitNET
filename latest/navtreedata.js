@@ -48,8 +48,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1GivenMethodMembersThat.html",
-"namespaceArchUnitNET_1_1Fluent_1_1Syntax.html"
+"classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShouldConjunction.html",
+"namespaceArchUnitNET_1_1Domain_1_1PlantUml.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,18 +1,5 @@
-<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould&lt; TRuleTypeShouldConjunction, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould&lt; TRuleTypeShouldConjunction, TRuleType &gt;">
-<area shape="rect" id="Node000001" title=" " alt="" coords="831,51,1088,121"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShould.html" title=" " alt="" coords="549,30,783,70"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="797,63,831,68,830,73,796,69"/>
-<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="277,5,496,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="510,29,550,34,549,39,509,35"/>
-<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="52,5,177,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="191,15,277,15,277,21,191,21"/>
-<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IComplexObjectConditions.html" title=" " alt="" coords="272,55,501,109"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="515,65,549,61,549,66,515,70"/>
-<area shape="rect" id="Node000007" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IComplexMemberConditions.html" title=" " alt="" coords="551,95,781,149"/>
-<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="516,98,551,103,551,108,515,103"/>
-<area shape="rect" id="Node000006" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectConditions.html" title=" " alt="" coords="5,55,224,109"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="238,79,272,79,272,85,238,85"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="794,104,830,99,831,104,795,109"/>
-<area shape="rect" id="Node000008" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberConditions.html" title=" " alt="" coords="277,133,496,188"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="509,141,551,135,551,141,510,146"/>
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould" name="ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,108,263,148"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition.html" title=" " alt="" coords="23,5,245,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,74,137,108,131,108,131,74"/>
 </map>

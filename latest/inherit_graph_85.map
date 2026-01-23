@@ -1,11 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributeConditions.html" title=" " alt="" coords="5,5,300,75"/>
-<area shape="rect" id="Node000001" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IComplexAttributeConditions.html" title=" " alt="" coords="348,59,607,114"/>
-<area shape="poly" id="edge212_Node000000_Node000001" title=" " alt="" coords="314,61,348,65,347,71,313,66"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AttributesShould.html" title=" " alt="" coords="655,103,915,158"/>
-<area shape="poly" id="edge213_Node000001_Node000002" title=" " alt="" coords="621,104,655,109,654,115,620,110"/>
-<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IComplexTypeConditions.html" title=" " alt="" coords="8,99,297,168"/>
-<area shape="poly" id="edge214_Node000004_Node000001" title=" " alt="" coords="311,108,348,103,348,108,311,113"/>
-<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html" title=" " alt="" coords="364,139,591,208"/>
-<area shape="poly" id="edge215_Node000003_Node000002" title=" " alt="" coords="604,153,654,146,655,151,604,158"/>
+<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html" title=" " alt="" coords="5,5,263,75"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShouldConjunctionWithDescription.html" title=" " alt="" coords="311,13,568,67"/>
+<area shape="poly" id="edge203_Node000000_Node000001" title=" " alt="" coords="276,37,311,37,311,43,276,43"/>
 </map>

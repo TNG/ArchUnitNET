@@ -1,11 +1,5 @@
 <map id="ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.FieldMembersShould" name="ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.FieldMembersShould">
-<area shape="rect" id="Node000001" title=" " alt="" coords="607,27,855,82"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html" title=" " alt="" coords="308,5,559,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="572,36,607,40,606,45,572,42"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IComplexFieldMemberConditions.html" title=" " alt="" coords="314,70,553,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="566,68,606,64,607,69,566,73"/>
-<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IComplexMemberConditions.html" title=" " alt="" coords="5,15,260,70"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="274,59,338,67,337,73,273,64"/>
-<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IFieldMemberConditions.html" title=" " alt="" coords="5,94,260,149"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="273,101,334,93,335,98,274,106"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,253,148"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberCondition.html" title=" " alt="" coords="32,5,227,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,59,132,93,127,93,127,59"/>
 </map>

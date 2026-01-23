@@ -1,13 +1,5 @@
-<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat&lt; TGivenRuleTypeConjunction, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat&lt; TGivenRuleTypeConjunction, TRuleType &gt;">
-<area shape="rect" id="Node000001" title=" " alt="" coords="741,51,1021,121"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsThat.html" title=" " alt="" coords="445,30,693,70"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="707,63,741,67,741,72,706,68"/>
-<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="179,5,397,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="411,29,445,33,445,39,410,35"/>
-<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,5,131,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="145,15,178,15,178,21,145,21"/>
-<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectPredicates.html" title=" " alt="" coords="182,55,394,109"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="407,66,445,61,445,67,408,71"/>
-<area shape="rect" id="Node000006" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberPredicates.html" title=" " alt="" coords="463,95,675,149"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="689,106,741,100,741,105,689,111"/>
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat" name="ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,108,285,148"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate.html" title=" " alt="" coords="37,5,254,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,74,148,108,143,108,143,74"/>
 </map>

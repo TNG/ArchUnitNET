@@ -1,7 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html" title=" " alt="" coords="34,5,266,75"/>
-<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesThat.html" title=" " alt="" coords="343,59,577,114"/>
-<area shape="poly" id="edge228_Node000000_Node000001" title=" " alt="" coords="280,57,343,66,342,72,279,62"/>
-<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfacePredicates.html" title=" " alt="" coords="5,99,295,168"/>
-<area shape="poly" id="edge229_Node000002_Node000001" title=" " alt="" coords="308,107,342,102,343,107,309,112"/>
+<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypeCondition.html" title=" " alt="" coords="10,5,255,60"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfaceCondition.html" title=" " alt="" coords="308,49,588,104"/>
+<area shape="poly" id="edge211_Node000000_Node000001" title=" " alt="" coords="269,49,308,54,307,60,269,54"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfaceCondition.html" title=" " alt="" coords="5,85,260,154"/>
+<area shape="poly" id="edge212_Node000002_Node000001" title=" " alt="" coords="273,98,307,93,308,98,274,103"/>
 </map>

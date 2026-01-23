@@ -1,13 +1,5 @@
-<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat&lt; TRuleTypeShouldConjunction, TReferenceType, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat&lt; TRuleTypeShouldConjunction, TReferenceType, TRuleType &gt;">
-<area shape="rect" id="Node000001" title=" " alt="" coords="723,55,1041,125"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ShouldRelateToObjectsThat.html" title=" " alt="" coords="445,23,675,77"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="689,63,723,68,722,73,688,69"/>
-<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html" title=" " alt="" coords="179,5,397,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="410,30,446,34,445,39,409,35"/>
-<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,5,131,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="145,15,178,15,178,21,145,21"/>
-<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectPredicates.html" title=" " alt="" coords="179,55,397,109"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="411,65,445,61,446,66,411,70"/>
-<area shape="rect" id="Node000006" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberPredicates.html" title=" " alt="" coords="451,101,669,156"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="682,111,722,107,723,112,683,117"/>
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat&lt; TRuleTypeShouldConjunction, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat&lt; TRuleTypeShouldConjunction, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,108,324,177"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate.html" title=" " alt="" coords="50,5,279,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,74,167,108,162,108,162,74"/>
 </map>

@@ -1,11 +1,5 @@
 <map id="ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ClassesShould" name="ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ClassesShould">
-<area shape="rect" id="Node000001" title=" " alt="" coords="525,27,757,82"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html" title=" " alt="" coords="265,5,477,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="491,36,526,39,525,45,491,41"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IComplexClassConditions.html" title=" " alt="" coords="277,70,465,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="478,69,525,64,526,69,479,74"/>
-<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IComplexTypeConditions.html" title=" " alt="" coords="5,19,217,74"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="231,61,280,67,279,73,231,66"/>
-<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassConditions.html" title=" " alt="" coords="11,99,212,139"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="225,100,279,93,280,98,226,105"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,237,148"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassCondition.html" title=" " alt="" coords="15,5,227,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,59,124,93,119,93,119,59"/>
 </map>

@@ -1,5 +1,17 @@
 var NAVTREEINDEX2 =
 {
+"namespaceArchUnitNET_1_1Domain_1_1PlantUml.html":[0,0,0,0,3],
+"namespaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Exceptions.html":[0,0,0,0,3,0],
+"namespaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export.html":[0,0,0,0,3,1],
+"namespaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Import.html":[0,0,0,0,3,2],
+"namespaceArchUnitNET_1_1Fluent.html":[0,0,0,1],
+"namespaceArchUnitNET_1_1Fluent_1_1Conditions.html":[0,0,0,1,0],
+"namespaceArchUnitNET_1_1Fluent_1_1Exceptions.html":[0,0,0,1,1],
+"namespaceArchUnitNET_1_1Fluent_1_1Extensions.html":[0,0,0,1,2],
+"namespaceArchUnitNET_1_1Fluent_1_1Freeze.html":[0,0,0,1,3],
+"namespaceArchUnitNET_1_1Fluent_1_1PlantUml.html":[0,0,0,1,4],
+"namespaceArchUnitNET_1_1Fluent_1_1Predicates.html":[0,0,0,1,5],
+"namespaceArchUnitNET_1_1Fluent_1_1Slices.html":[0,0,0,1,6],
 "namespaceArchUnitNET_1_1Fluent_1_1Syntax.html":[0,0,0,1,7],
 "namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements.html":[0,0,0,1,7,0],
 "namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members.html":[0,0,0,1,7,0,0],

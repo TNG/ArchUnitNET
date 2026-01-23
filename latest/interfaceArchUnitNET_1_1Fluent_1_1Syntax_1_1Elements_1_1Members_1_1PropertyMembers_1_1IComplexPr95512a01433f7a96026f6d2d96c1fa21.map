@@ -1,9 +1,0 @@
-<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IComplexPropertyMemberConditions" name="ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IComplexPropertyMemberConditions">
-<area shape="rect" id="Node000001" title=" " alt="" coords="332,45,604,100"/>
-<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembersShould.html" title=" " alt="" coords="652,45,924,100"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="618,70,652,70,652,75,618,75"/>
-<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IComplexMemberConditions.html" title=" " alt="" coords="5,5,284,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="298,49,332,53,332,58,297,54"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IPropertyMemberConditions.html" title=" " alt="" coords="5,84,284,139"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="297,90,332,86,332,92,298,96"/>
-</map>

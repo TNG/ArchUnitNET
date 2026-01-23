@@ -1,9 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypeConditions.html" title=" " alt="" coords="5,99,236,154"/>
-<area shape="rect" id="Node000001" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributeConditions.html" title=" " alt="" coords="301,5,558,75"/>
-<area shape="poly" id="edge236_Node000000_Node000001" title=" " alt="" coords="231,93,305,72,306,77,233,98"/>
-<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassConditions.html" title=" " alt="" coords="284,99,575,154"/>
-<area shape="poly" id="edge237_Node000000_Node000002" title=" " alt="" coords="250,124,284,124,284,129,250,129"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfaceConditions.html" title=" " alt="" coords="300,179,559,248"/>
-<area shape="poly" id="edge238_Node000000_Node000003" title=" " alt="" coords="233,155,306,176,305,181,231,160"/>
+<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate.html" title=" " alt="" coords="9,5,253,75"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributePredicate.html" title=" " alt="" coords="305,59,608,114"/>
+<area shape="poly" id="edge215_Node000000_Node000001" title=" " alt="" coords="268,57,306,62,305,68,267,62"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAddAttributePredicate.html" title=" " alt="" coords="5,99,257,168"/>
+<area shape="poly" id="edge216_Node000002_Node000001" title=" " alt="" coords="270,111,305,106,305,111,271,116"/>
 </map>

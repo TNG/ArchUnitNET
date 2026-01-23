@@ -1,7 +1,5 @@
 <map id="ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.ShouldRelateToFieldMembersThat&lt; TRuleTypeShouldConjunction, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.ShouldRelateToFieldMembersThat&lt; TRuleTypeShouldConjunction, TRuleType &gt;">
-<area shape="rect" id="Node000001" title=" " alt="" coords="283,31,531,115"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat.html" title=" " alt="" coords="5,5,235,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,48,283,53,282,58,248,53"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IFieldMemberPredicates.html" title=" " alt="" coords="5,84,235,139"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,91,282,87,283,92,248,97"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,108,253,192"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberPredicate.html" title=" " alt="" coords="15,5,244,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,73,132,108,127,108,127,73"/>
 </map>

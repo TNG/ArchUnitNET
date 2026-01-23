@@ -10,9 +10,6 @@ var searchData=
   ['typeinstancedependency_7',['TypeInstanceDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
   ['typereferencedependency_8',['TypeReferenceDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeReferenceDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
   ['typesshould_9',['TypesShould',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
-  ['typesshould_3c_20attributesshouldconjunction_2c_20attribute_20_3e_10',['TypesShould&lt; AttributesShouldConjunction, Attribute &gt;',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
-  ['typesshould_3c_20classesshouldconjunction_2c_20class_20_3e_11',['TypesShould&lt; ClassesShouldConjunction, Class &gt;',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
-  ['typesshould_3c_20interfacesshouldconjunction_2c_20interface_20_3e_12',['TypesShould&lt; InterfacesShouldConjunction, Interface &gt;',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
-  ['typesshouldconjunction_13',['TypesShouldConjunction',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunction.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
-  ['typesshouldconjunctionwithdescription_14',['TypesShouldConjunctionWithDescription',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunctionWithDescription.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]]
+  ['typesshouldconjunction_10',['TypesShouldConjunction',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunction.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
+  ['typesshouldconjunctionwithdescription_11',['TypesShouldConjunctionWithDescription',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunctionWithDescription.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]]
 ];

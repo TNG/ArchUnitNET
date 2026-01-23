@@ -1,7 +1,115 @@
 var hierarchy =
 [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AddAttributeCondition< AttributesShouldConjunction >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributeCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AttributesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AttributesShould.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AddAttributePredicate< GivenAttributesConjunction, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.GivenAttributesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1GivenAttributesThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AddAttributePredicate< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.ShouldRelateToAttributesThat< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1ShouldRelateToAttributesThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.AddClassCondition< ClassesShouldConjunction >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ClassesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShould.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.AddClassPredicate< GivenClassesConjunction, Class >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.GivenClassesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1GivenClassesThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.AddClassPredicate< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ShouldRelateToClassesThat< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ShouldRelateToClassesThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberCondition< FieldMembersShould >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.FieldMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1FieldMembersShould.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberPredicate< GivenFieldMembersConjunction, FieldMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.GivenFieldMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembersThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberPredicate< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.ShouldRelateToFieldMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1ShouldRelateToFieldMembersThat.html", null ]
+    ] ],
     [ "ArchUnitNET.Loader.LoadTasks.AddGenericArgumentDependencies", "classArchUnitNET_1_1Loader_1_1LoadTasks_1_1AddGenericArgumentDependencies.html", null ],
     [ "ArchUnitNET.Loader.LoadTasks.AddGenericParameterDependencies", "classArchUnitNET_1_1Loader_1_1LoadTasks_1_1AddGenericParameterDependencies.html", null ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.AddInterfaceCondition< InterfacesShouldConjunction >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfaceCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.InterfacesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShould.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.AddInterfacePredicate< GivenInterfacesConjunction, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfacePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.GivenInterfacesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.AddInterfacePredicate< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfacePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.ShouldRelateToInterfacesThat< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1ShouldRelateToInterfacesThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberCondition< MembersShouldConjunction, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberCondition< TNextElement, FieldMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberCondition< TNextElement, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.AddMethodMemberCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberCondition< TNextElement, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.AddPropertyMemberCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberPredicate< GivenMembersConjunction, IMember, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberPredicate< TNextElement, TRelatedType, FieldMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberPredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberPredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberPredicate< TNextElement, TRelatedType, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.AddMethodMemberPredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberPredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberPredicate< TNextElement, TRelatedType, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.AddPropertyMemberPredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberPredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberPredicate< TRuleTypeShouldConjunction, TRuleType, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.AddMethodMemberCondition< MethodMembersShouldConjunction >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.MethodMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShould.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.AddMethodMemberPredicate< GivenMethodMembersConjunction, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.GivenMethodMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1GivenMethodMembersThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.AddMethodMemberPredicate< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.ShouldRelateToMethodMembersThat< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1ShouldRelateToMethodMembersThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.AddPropertyMemberCondition< PropertyMembersShouldConjunction >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.PropertyMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembersShould.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.AddPropertyMemberPredicate< GivenPropertyMembersConjunction, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.GivenPropertyMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembersThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.AddPropertyMemberPredicate< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.ShouldRelateToPropertyMembersThat< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1ShouldRelateToPropertyMembersThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypeCondition< TNextElement, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypeCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AddAttributeCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributeCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypeCondition< TNextElement, Class >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypeCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.AddClassCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypeCondition< TNextElement, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypeCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.AddInterfaceCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfaceCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypeCondition< TypesShouldConjunction, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypeCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.TypesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypePredicate< GivenTypesConjunction, IType, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.GivenTypesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypePredicate< TNextElement, TRelatedType, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AddAttributePredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributePredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypePredicate< TNextElement, TRelatedType, Class >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.AddClassPredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassPredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypePredicate< TNextElement, TRelatedType, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.AddInterfacePredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfacePredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypePredicate< TRuleTypeShouldConjunction, TRuleType, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ShouldRelateToTypesThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat.html", null ]
+    ] ],
     [ "ArchUnitNET.Domain.Architecture", "classArchUnitNET_1_1Domain_1_1Architecture.html", null ],
     [ "ArchUnitNET.Domain.ArchitectureCache", "classArchUnitNET_1_1Domain_1_1ArchitectureCache.html", null ],
     [ "ArchUnitNET.Loader.ArchLoader", "classArchUnitNET_1_1Loader_1_1ArchLoader.html", null ],
@@ -25,15 +133,6 @@ var hierarchy =
     [ "ArchUnitNET.Loader.FilterResult", "structArchUnitNET_1_1Loader_1_1FilterResult.html", null ],
     [ "ArchUnitNET.Fluent.Freeze.FrozenRule", "classArchUnitNET_1_1Fluent_1_1Freeze_1_1FrozenRule.html", null ],
     [ "ArchUnitNET.Domain.PlantUml.Export.GenerationOptions", "classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1GenerationOptions.html", null ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat< GivenFieldMembersConjunction, FieldMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.GivenFieldMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat< GivenMethodMembersConjunction, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.GivenMethodMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1GivenMethodMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat< GivenPropertyMembersConjunction, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.GivenPropertyMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembersThat.html", null ]
-    ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< GivenAttributesThat, AttributesShould, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.GivenAttributes", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1GivenAttributes.html", null ]
     ] ],
@@ -46,7 +145,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< GivenInterfacesThat, InterfacesShould, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.GivenInterfaces", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfaces.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< GivenMembersThat< GivenMembersConjunction, IMember >, MembersShould< MembersShouldConjunction, IMember >, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< GivenMembersThat, MembersShould, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembers", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembers.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< GivenMethodMembersThat, MethodMembersShould, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", [
@@ -55,7 +154,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< GivenPropertyMembersThat, PropertyMembersShould, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.GivenPropertyMembers", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembers.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< GivenTypesThat< GivenTypesConjunction, IType >, TypesShould< TypesShouldConjunction, IType >, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< GivenTypesThat, TypesShould, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.GivenTypes", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypes.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenAttributesThat, AttributesShould, GivenAttributesConjunctionWithDescription, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
@@ -70,7 +169,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenInterfacesThat, InterfacesShould, GivenInterfacesConjunction, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.GivenInterfacesConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesConjunction.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenMembersThat< GivenMembersConjunction, IMember >, MembersShould< MembersShouldConjunction, IMember >, GivenMembersConjunctionWithDescription, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenMembersThat, MembersShould, GivenMembersConjunctionWithDescription, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersConjunction.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenMethodMembersThat, MethodMembersShould, GivenMethodMembersConjunctionWithDescription, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
@@ -79,7 +178,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenPropertyMembersThat, PropertyMembersShould, GivenPropertyMembersConjunctionWithDescription, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.GivenPropertyMembersConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembersConjunction.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenTypesThat< GivenTypesConjunction, IType >, TypesShould< TypesShouldConjunction, IType >, GivenTypesConjunctionWithDescription, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenTypesThat, TypesShould, GivenTypesConjunctionWithDescription, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.GivenTypesConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesConjunction.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< GivenAttributesThat, AttributesShould, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", [
@@ -94,7 +193,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< GivenInterfacesThat, InterfacesShould, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.GivenInterfacesConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesConjunctionWithDescription.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< GivenMembersThat< GivenMembersConjunction, IMember >, MembersShould< MembersShouldConjunction, IMember >, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< GivenMembersThat, MembersShould, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersConjunctionWithDescription.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< GivenMethodMembersThat, MethodMembersShould, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", [
@@ -103,29 +202,84 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< GivenPropertyMembersThat, PropertyMembersShould, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.GivenPropertyMembersConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyM539792d9549d09ca006fd2d2747f42dc.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< GivenTypesThat< GivenTypesConjunction, IType >, TypesShould< TypesShouldConjunction, IType >, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< GivenTypesThat, TypesShould, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.GivenTypesConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesConjunctionWithDescription.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.PlantUml.GivenPlantUmlFluentComponentDiagram", "classArchUnitNET_1_1Fluent_1_1PlantUml_1_1GivenPlantUmlFluentComponentDiagram.html", null ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.GivenTypesThat< GivenAttributesConjunction, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.GivenAttributesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1GivenAttributesThat.html", null ]
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAddAttributeCondition< TNextElement, Attribute >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAddAttributeCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AddAttributeCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributeCondition.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.GivenTypesThat< GivenClassesConjunction, Class >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.GivenClassesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1GivenClassesThat.html", null ]
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAddAttributePredicate< TNextElement, Attribute >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAddAttributePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AddAttributePredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributePredicate.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.GivenTypesThat< GivenInterfacesConjunction, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.GivenInterfacesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesThat.html", null ]
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IAddClassCondition< TNextElement, Class >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IAddClassCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.AddClassCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassCondition.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAttributeConditions< AttributesShouldConjunction, Attribute >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributeConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IComplexAttributeConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IComplexAttributeConditions.html", [
-        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AttributesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AttributesShould.html", null ]
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IAddClassPredicate< TNextElement, Class >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IAddClassPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.AddClassPredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassPredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IAddFieldMemberCondition< TNextElement, FieldMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IAddFieldMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IAddFieldMemberPredicate< TNextElement, FieldMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IAddFieldMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberPredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberPredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IAddInterfaceCondition< TNextElement, Interface >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfaceCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.AddInterfaceCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfaceCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IAddInterfacePredicate< TNextElement, Interface >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfacePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.AddInterfacePredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfacePredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IAddMemberPredicate< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IAddMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberPredicate< TNextElement, TRelatedType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate.html", null ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IAddFieldMemberPredicate< out TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IAddFieldMemberPredicate.html", null ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IAddMethodMemberPredicate< out TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IAddMethodMemberPredicate.html", null ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IAddPropertyMemberPredicate< out TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IAddPropertyMemberPredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IAddMethodMemberCondition< TNextElement, MethodMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IAddMethodMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.AddMethodMemberCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IAddMethodMemberPredicate< TNextElement, MethodMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IAddMethodMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.AddMethodMemberPredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberPredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.IAddObjectCondition< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.AddObjectCondition< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1AddObjectCondition.html", [
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberCondition< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition.html", null ],
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypeCondition< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypeCondition.html", null ]
+      ] ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IAddMemberCondition< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IAddMemberCondition.html", [
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberCondition< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition.html", null ],
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IAddFieldMemberCondition< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IAddFieldMemberCondition.html", null ],
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IAddMethodMemberCondition< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IAddMethodMemberCondition.html", null ],
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IAddPropertyMemberCondition< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IAddPropertyMemberCondition.html", null ]
+      ] ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.IAddTypeCondition< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypeCondition.html", [
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypeCondition< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypeCondition.html", null ],
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAddAttributeCondition< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAddAttributeCondition.html", null ],
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IAddClassCondition< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IAddClassCondition.html", null ],
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IAddInterfaceCondition< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfaceCondition.html", null ]
       ] ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAttributePredicates< GivenAttributesConjunction, Attribute >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributePredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.GivenAttributesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1GivenAttributesThat.html", null ]
+    [ "ArchUnitNET.Fluent.Syntax.Elements.IAddObjectPredicate< out TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectPredicate.html", null ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.IAddObjectPredicate< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.AddObjectPredicate< TNextElement, TRelatedType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1AddObjectPredicate.html", [
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.AddMemberPredicate< TNextElement, TRelatedType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate.html", null ],
+        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypePredicate< TNextElement, TRelatedType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate.html", null ]
+      ] ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IAddMemberPredicate< out TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IAddMemberPredicate.html", null ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.IAddTypePredicate< out TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypePredicate.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAttributePredicates< TRuleTypeShouldConjunction, Attribute >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributePredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.ShouldRelateToAttributesThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1ShouldRelateToAttributesThat.html", null ]
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IAddPropertyMemberCondition< TNextElement, PropertyMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IAddPropertyMemberCondition.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.AddPropertyMemberCondition< TNextElement >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberCondition.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IAddPropertyMemberPredicate< TNextElement, PropertyMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IAddPropertyMemberPredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.AddPropertyMemberPredicate< TNextElement, TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberPredicate.html", null ]
+    ] ],
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.IAddTypePredicate< TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypePredicate.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.AddTypePredicate< TNextElement, TRelatedType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate.html", null ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAddAttributePredicate< out TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAddAttributePredicate.html", null ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IAddClassPredicate< out TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IAddClassPredicate.html", null ],
+      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IAddInterfacePredicate< out TNextElement, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfacePredicate.html", null ]
     ] ],
     [ "ArchUnitNET.Domain.ICanBeCompilerGenerated", "interfaceArchUnitNET_1_1Domain_1_1ICanBeCompilerGenerated.html", [
       [ "ArchUnitNET.Domain.ICanBeAnalyzed", "interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html", [
@@ -151,43 +305,6 @@ var hierarchy =
     [ "ArchUnitNET.Domain.ICanBeGeneric", "interfaceArchUnitNET_1_1Domain_1_1ICanBeGeneric.html", [
       [ "ArchUnitNET.Domain.ICanBeAnalyzed", "interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IClassConditions< ClassesShouldConjunction, Class >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IComplexClassConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IComplexClassConditions.html", [
-        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ClassesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShould.html", null ]
-      ] ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IClassPredicates< GivenClassesConjunction, Class >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.GivenClassesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1GivenClassesThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IClassPredicates< TRuleTypeShouldConjunction, Class >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ShouldRelateToClassesThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ShouldRelateToClassesThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IComplexMemberConditions< FieldMembersShouldConjunction, FieldMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IComplexMemberConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IComplexFieldMemberConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IComplexFieldMemberConditions.html", [
-        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.FieldMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1FieldMembersShould.html", null ]
-      ] ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IComplexMemberConditions< MethodMembersShouldConjunction, MethodMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IComplexMemberConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IComplexMethodMemberConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IComplexMethodMemberConditions.html", [
-        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.MethodMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShould.html", null ]
-      ] ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IComplexMemberConditions< PropertyMembersShouldConjunction, PropertyMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IComplexMemberConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IComplexPropertyMemberConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IComplexPropertyMemberConditions.html", [
-        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.PropertyMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembersShould.html", null ]
-      ] ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.IComplexTypeConditions< AttributesShouldConjunction, Attribute >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IComplexTypeConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IComplexAttributeConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IComplexAttributeConditions.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.IComplexTypeConditions< ClassesShouldConjunction, Class >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IComplexTypeConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IComplexClassConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IComplexClassConditions.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.IComplexTypeConditions< InterfacesShouldConjunction, Interface >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IComplexTypeConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IComplexInterfaceConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IComplexInterfaceConditions.html", [
-        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.InterfacesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShould.html", null ]
-      ] ]
-    ] ],
     [ "ArchUnitNET.Fluent.Conditions.ICondition< TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition.html", [
       [ "ArchUnitNET.Fluent.Conditions.ArchitectureCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ArchitectureCondition.html", [
         [ "ArchUnitNET.Fluent.Conditions.OrderedArchitectureCondition< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1OrderedArchitectureCondition.html", null ]
@@ -201,15 +318,6 @@ var hierarchy =
     ] ],
     [ "IEquatable", null, [
       [ "ArchUnitNET.Domain.ArchitectureCacheKey", "classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IFieldMemberConditions< FieldMembersShouldConjunction, FieldMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IFieldMemberConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IComplexFieldMemberConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IComplexFieldMemberConditions.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IFieldMemberPredicates< GivenFieldMembersConjunction, FieldMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IFieldMemberPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.GivenFieldMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IFieldMemberPredicates< TRuleTypeShouldConjunction, FieldMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IFieldMemberPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.ShouldRelateToFieldMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1ShouldRelateToFieldMembersThat.html", null ]
     ] ],
     [ "ArchUnitNET.Domain.IHasAttributes", "interfaceArchUnitNET_1_1Domain_1_1IHasAttributes.html", [
       [ "ArchUnitNET.Domain.Assembly", "classArchUnitNET_1_1Domain_1_1Assembly.html", null ],
@@ -255,21 +363,10 @@ var hierarchy =
       [ "ArchUnitNET.Fluent.Slices.SliceAssignment", "classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceAssignment.html", null ],
       [ "ArchUnitNET.Fluent.Syntax.SyntaxElement< TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html", [
         [ "ArchUnitNET.Fluent.ArchRule< TRuleType >", "classArchUnitNET_1_1Fluent_1_1ArchRule.html", null ],
+        [ "ArchUnitNET.Fluent.Syntax.Elements.AddObjectCondition< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1AddObjectCondition.html", null ],
         [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjects< TRuleTypeThat, TRuleTypeShould, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html", null ],
         [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunctionWithDescription< TGivenRuleTypeThat, TRuleTypeShould, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription.html", [
           [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< TGivenRuleTypeThat, TRuleTypeShould, TGivenRuleTypeConjunctionWithReason, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", null ]
-        ] ],
-        [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsThat< TGivenRuleTypeConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsThat.html", [
-          [ "ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat< TGivenRuleTypeConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersThat.html", null ],
-          [ "ArchUnitNET.Fluent.Syntax.Elements.Types.GivenTypesThat< TGivenRuleTypeConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html", null ]
-        ] ],
-        [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShould< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShould.html", [
-          [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html", null ],
-          [ "ArchUnitNET.Fluent.Syntax.Elements.Types.TypesShould< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html", null ]
-        ] ],
-        [ "ArchUnitNET.Fluent.Syntax.Elements.ShouldRelateToObjectsThat< TRuleTypeShouldConjunction, TReferenceType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ShouldRelateToObjectsThat.html", [
-          [ "ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat< TRuleTypeShouldConjunction, TReferenceType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat.html", null ],
-          [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ShouldRelateToTypesThat< TRuleTypeShouldConjunction, TReferenceType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat.html", null ]
         ] ]
       ] ]
     ] ],
@@ -283,74 +380,8 @@ var hierarchy =
     [ "ArchUnitNET.Domain.IHasVisibility", "interfaceArchUnitNET_1_1Domain_1_1IHasVisibility.html", [
       [ "ArchUnitNET.Domain.ICanBeAnalyzed", "interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IInterfaceConditions< InterfacesShouldConjunction, Interface >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfaceConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IComplexInterfaceConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IComplexInterfaceConditions.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IInterfacePredicates< GivenInterfacesConjunction, Interface >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfacePredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.GivenInterfacesThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IInterfacePredicates< TRuleTypeShouldConjunction, Interface >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfacePredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.ShouldRelateToInterfacesThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1ShouldRelateToInterfacesThat.html", null ]
-    ] ],
     [ "IList", null, [
       [ "ArchUnitNET.Domain.MemberList", "classArchUnitNET_1_1Domain_1_1MemberList.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IMemberConditions< TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IFieldMemberConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IFieldMemberConditions.html", null ],
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IMethodMemberConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IMethodMemberConditions.html", null ],
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IPropertyMemberConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IPropertyMemberConditions.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IMemberConditions< TRuleTypeShouldConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IComplexMemberConditions< TRuleTypeShouldConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IComplexMemberConditions.html", [
-        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html", null ]
-      ] ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IMemberPredicates< TGivenRuleTypeConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.GivenMembersThat< TGivenRuleTypeConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IMemberPredicates< TRuleTypeConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.IFieldMemberPredicates< out TRuleTypeConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IFieldMemberPredicates.html", null ],
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IMethodMemberPredicates< out TRuleTypeConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IMethodMemberPredicates.html", null ],
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IPropertyMemberPredicates< out TRuleTypeConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IPropertyMemberPredicates.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IMemberPredicates< TRuleTypeShouldConjunction, TReferenceType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat< TRuleTypeShouldConjunction, TReferenceType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IMethodMemberConditions< MethodMembersShouldConjunction, MethodMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IMethodMemberConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IComplexMethodMemberConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IComplexMethodMemberConditions.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IMethodMemberPredicates< GivenMethodMembersConjunction, MethodMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IMethodMemberPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.GivenMethodMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1GivenMethodMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.IMethodMemberPredicates< TRuleTypeShouldConjunction, MethodMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IMethodMemberPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.ShouldRelateToMethodMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1ShouldRelateToMethodMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.IObjectConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectConditions.html", null ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.IObjectConditions< TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IMemberConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberConditions.html", null ],
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ITypeConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypeConditions.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.IObjectConditions< TRuleTypeShouldConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.IComplexObjectConditions< TRuleTypeShouldConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IComplexObjectConditions.html", [
-        [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IComplexMemberConditions< TRuleTypeShouldConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IComplexMemberConditions.html", null ],
-        [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShould< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShould.html", null ],
-        [ "ArchUnitNET.Fluent.Syntax.Elements.Types.IComplexTypeConditions< TRuleTypeShouldConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IComplexTypeConditions.html", [
-          [ "ArchUnitNET.Fluent.Syntax.Elements.Types.TypesShould< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html", null ]
-        ] ]
-      ] ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.IObjectPredicates< out TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectPredicates.html", null ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.IObjectPredicates< TGivenRuleTypeConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsThat< TGivenRuleTypeConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.IObjectPredicates< TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ITypePredicates< out TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypePredicates.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.IObjectPredicates< TRuleTypeConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.IMemberPredicates< out TRuleTypeConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IMemberPredicates.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.IObjectPredicates< TRuleTypeShouldConjunction, TReferenceType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IObjectPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.ShouldRelateToObjectsThat< TRuleTypeShouldConjunction, TReferenceType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ShouldRelateToObjectsThat.html", null ]
     ] ],
     [ "ArchUnitNET.Domain.IObjectProvider< Slice >", "interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html", [
       [ "ArchUnitNET.Fluent.Slices.GivenSlices", "classArchUnitNET_1_1Fluent_1_1Slices_1_1GivenSlices.html", null ]
@@ -383,15 +414,6 @@ var hierarchy =
     ] ],
     [ "ArchUnitNET.Fluent.Predicates.IPredicate< T >", "interfaceArchUnitNET_1_1Fluent_1_1Predicates_1_1IPredicate.html", null ],
     [ "ArchUnitNET.Fluent.Predicates.IPredicate< TRelatedType >", "interfaceArchUnitNET_1_1Fluent_1_1Predicates_1_1IPredicate.html", null ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IPropertyMemberConditions< PropertyMembersShouldConjunction, PropertyMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IPropertyMemberConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IComplexPropertyMemberConditions", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IComplexPropertyMemberConditions.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IPropertyMemberPredicates< GivenPropertyMembersConjunction, PropertyMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IPropertyMemberPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.GivenPropertyMembersThat", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IPropertyMemberPredicates< TRuleTypeShouldConjunction, PropertyMember >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IPropertyMemberPredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.ShouldRelateToPropertyMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1ShouldRelateToPropertyMembersThat.html", null ]
-    ] ],
     [ "ArchUnitNET.Domain.IResidesInAssembly", "interfaceArchUnitNET_1_1Domain_1_1IResidesInAssembly.html", [
       [ "ArchUnitNET.Domain.IHasAssemblyQualifiedName", "interfaceArchUnitNET_1_1Domain_1_1IHasAssemblyQualifiedName.html", null ]
     ] ],
@@ -399,14 +421,6 @@ var hierarchy =
       [ "ArchUnitNET.Domain.ICanBeAnalyzed", "interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html", null ]
     ] ],
     [ "ArchUnitNET.Domain.ISizedObjectProvider< T >", "interfaceArchUnitNET_1_1Domain_1_1ISizedObjectProvider.html", null ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ITypeConditions< TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypeConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAttributeConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributeConditions.html", null ],
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IClassConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassConditions.html", null ],
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IInterfaceConditions< out TReturnType, out TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfaceConditions.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ITypeConditions< TRuleTypeShouldConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypeConditions.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.IComplexTypeConditions< TRuleTypeShouldConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IComplexTypeConditions.html", null ]
-    ] ],
     [ "ArchUnitNET.Domain.Dependencies.ITypeDependency", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html", [
       [ "ArchUnitNET.Domain.Dependencies.IMemberTypeDependency", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html", [
         [ "ArchUnitNET.Domain.Dependencies.IMemberMemberDependency", "interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberMemberDependency.html", [
@@ -451,31 +465,11 @@ var hierarchy =
     [ "ArchUnitNET.Domain.ITypeInstance< T >", "interfaceArchUnitNET_1_1Domain_1_1ITypeInstance.html", [
       [ "ArchUnitNET.Domain.TypeInstance< T >", "classArchUnitNET_1_1Domain_1_1TypeInstance.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ITypePredicates< TGivenRuleTypeConjunction, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypePredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.GivenTypesThat< TGivenRuleTypeConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ITypePredicates< TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypePredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.IAttributePredicates< out TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAttributePredicates.html", null ],
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IClassPredicates< out TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassPredicates.html", null ],
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IInterfacePredicates< out TReturnType, TRuleType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfacePredicates.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ITypePredicates< TRuleTypeShouldConjunction, TReferenceType >", "interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ITypePredicates.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ShouldRelateToTypesThat< TRuleTypeShouldConjunction, TReferenceType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat.html", null ]
-    ] ],
     [ "ArchUnitNET.Fluent.Freeze.IViolationStore", "interfaceArchUnitNET_1_1Fluent_1_1Freeze_1_1IViolationStore.html", [
       [ "ArchUnitNET.Fluent.Freeze.JsonViolationStore", "classArchUnitNET_1_1Fluent_1_1Freeze_1_1JsonViolationStore.html", null ],
       [ "ArchUnitNET.Fluent.Freeze.XmlViolationStore", "classArchUnitNET_1_1Fluent_1_1Freeze_1_1XmlViolationStore.html", null ]
     ] ],
     [ "ArchUnitNET.Loader.LoadTasks.MatchFunction", "classArchUnitNET_1_1Loader_1_1LoadTasks_1_1MatchFunction.html", null ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould< FieldMembersShouldConjunction, FieldMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.FieldMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1FieldMembersShould.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould< MethodMembersShouldConjunction, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.MethodMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShould.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould< PropertyMembersShouldConjunction, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.PropertyMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembersShould.html", null ]
-    ] ],
     [ "ArchUnitNET.Domain.ObjectProviderCache", "classArchUnitNET_1_1Domain_1_1ObjectProviderCache.html", null ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction< AttributesShould, AttributesShouldConjunctionWithDescription, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AttributesShouldConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AttributesShouldConjunction.html", null ]
@@ -489,7 +483,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction< InterfacesShould, InterfacesShouldConjunctionWithDescription, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.InterfacesShouldConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShouldConjunction.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction< MembersShould< MembersShouldConjunction, IMember >, MembersShouldConjunctionWithDescription, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction< MembersShould, MembersShouldConjunctionWithDescription, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShouldConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShouldConjunction.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction< MethodMembersShould, MethodMembersShouldConjunctionWithDescription, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html", [
@@ -498,7 +492,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction< PropertyMembersShould, PropertyMembersShouldConjunctionWithDescription, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.PropertyMembersShouldConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembersShouldConjunction.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction< TypesShould< TypesShouldConjunction, IType >, TypesShouldConjunctionWithDescription, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction< TypesShould, TypesShouldConjunctionWithDescription, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.TypesShouldConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunction.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunctionWithDescription< AttributesShould, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html", [
@@ -513,7 +507,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunctionWithDescription< InterfacesShould, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.InterfacesShouldConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShouldConjunctionWithDescription.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunctionWithDescription< MembersShould< MembersShouldConjunction, IMember >, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunctionWithDescription< MembersShould, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShouldConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShouldConjunctionWithDescription.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunctionWithDescription< MethodMembersShould, MethodMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html", [
@@ -522,46 +516,22 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunctionWithDescription< PropertyMembersShould, PropertyMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.PropertyMembersShouldConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembercbe5c60298a4477121e1e7b307af6b72.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunctionWithDescription< TypesShould< TypesShouldConjunction, IType >, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunctionWithDescription< TypesShould, IType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.TypesShouldConjunctionWithDescription", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunctionWithDescription.html", null ]
     ] ],
     [ "ArchUnitNET.Domain.PlantUml.Export.PlantUmlFileBuilder", "classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlFileBuilder.html", null ],
     [ "ArchUnitNET.Fluent.PlantUml.PlantUmlFluentComponentDiagramInitializer", "classArchUnitNET_1_1Fluent_1_1PlantUml_1_1PlantUmlFluentComponentDiagramInitializer.html", null ],
     [ "ArchUnitNET.Domain.PlantUml.Export.RenderOptions", "classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1RenderOptions.html", null ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat< TRuleTypeShouldConjunction, FieldMember, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.ShouldRelateToFieldMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1ShouldRelateToFieldMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat< TRuleTypeShouldConjunction, MethodMember, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.ShouldRelateToMethodMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1ShouldRelateToMethodMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.ShouldRelateToMembersThat< TRuleTypeShouldConjunction, PropertyMember, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.ShouldRelateToPropertyMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1ShouldRelateToPropertyMembersThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ShouldRelateToTypesThat< TRuleTypeShouldConjunction, Attribute, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.ShouldRelateToAttributesThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1ShouldRelateToAttributesThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ShouldRelateToTypesThat< TRuleTypeShouldConjunction, Class, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ShouldRelateToClassesThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ShouldRelateToClassesThat.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.ShouldRelateToTypesThat< TRuleTypeShouldConjunction, Interface, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.ShouldRelateToInterfacesThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1ShouldRelateToInterfacesThat.html", null ]
-    ] ],
     [ "ArchUnitNET.Fluent.Slices.SliceRuleInitializer", "classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRuleInitializer.html", null ],
     [ "ArchUnitNET.Fluent.Slices.SlicesShould", "classArchUnitNET_1_1Fluent_1_1Slices_1_1SlicesShould.html", null ],
     [ "ArchUnitNET.Domain.StringIdentifier", "classArchUnitNET_1_1Domain_1_1StringIdentifier.html", [
       [ "ArchUnitNET.Domain.EnumerableIdentifier", "classArchUnitNET_1_1Domain_1_1EnumerableIdentifier.html", null ],
       [ "ArchUnitNET.Domain.SliceIdentifier", "classArchUnitNET_1_1Domain_1_1SliceIdentifier.html", null ]
     ] ],
+    [ "ArchUnitNET.Fluent.Syntax.SyntaxElement< TRelatedType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html", [
+      [ "ArchUnitNET.Fluent.Syntax.Elements.AddObjectPredicate< TNextElement, TRelatedType, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1AddObjectPredicate.html", null ]
+    ] ],
     [ "ArchUnitNET.Domain.TypeInstance< Attribute >", "classArchUnitNET_1_1Domain_1_1TypeInstance.html", [
       [ "ArchUnitNET.Domain.AttributeInstance", "classArchUnitNET_1_1Domain_1_1AttributeInstance.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.TypesShould< AttributesShouldConjunction, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AttributesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AttributesShould.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.TypesShould< ClassesShouldConjunction, Class >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ClassesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShould.html", null ]
-    ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Types.TypesShould< InterfacesShouldConjunction, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html", [
-      [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.InterfacesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShould.html", null ]
     ] ]
 ];

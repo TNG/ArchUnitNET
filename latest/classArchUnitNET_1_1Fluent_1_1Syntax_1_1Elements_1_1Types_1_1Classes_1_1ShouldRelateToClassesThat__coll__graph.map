@@ -1,7 +1,5 @@
-<map id="ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ShouldRelateToClassesThat&lt; TRuleTypeShouldConjunction, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ShouldRelateToClassesThat&lt; TRuleTypeShouldConjunction, TRuleType &gt;">
-<area shape="rect" id="Node000001" title=" " alt="" coords="283,34,605,103"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat.html" title=" " alt="" coords="5,5,235,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,44,283,48,282,53,248,50"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IClassPredicates.html" title=" " alt="" coords="15,85,225,125"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="239,89,282,84,283,89,239,94"/>
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ShouldRelateToClassesThat&lt; TNextElement, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ShouldRelateToClassesThat&lt; TNextElement, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,319,148"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassPredicate.html" title=" " alt="" coords="57,5,267,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,59,165,93,159,93,159,59"/>
 </map>

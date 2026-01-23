@@ -1,0 +1,7 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IAddPropertyMemberCondition&lt; TNextElement, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IAddPropertyMemberCondition&lt; TNextElement, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,181,277,251"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IAddMemberCondition.html" title=" " alt="" coords="31,93,251,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,147,144,181,139,181,139,147"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectCondition.html" title=" " alt="" coords="31,5,251,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="144,59,144,93,139,93,139,59"/>
+</map>

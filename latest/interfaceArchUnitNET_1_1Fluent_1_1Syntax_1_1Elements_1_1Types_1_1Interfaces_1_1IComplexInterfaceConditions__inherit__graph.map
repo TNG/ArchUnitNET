@@ -1,9 +1,0 @@
-<map id="ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IComplexInterfaceConditions" name="ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IComplexInterfaceConditions">
-<area shape="rect" id="Node000001" title=" " alt="" coords="280,45,539,100"/>
-<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShould.html" title=" " alt="" coords="587,45,849,100"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="553,70,587,70,587,75,553,75"/>
-<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IComplexTypeConditions.html" title=" " alt="" coords="5,5,232,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,47,280,52,280,58,245,53"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IInterfaceConditions.html" title=" " alt="" coords="5,84,232,139"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,92,280,87,280,93,246,97"/>
-</map>
