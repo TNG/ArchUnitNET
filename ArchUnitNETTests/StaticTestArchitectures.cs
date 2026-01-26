@@ -25,7 +25,7 @@ namespace ArchUnitNETTests
             .LoadAssemblies(typeof(AttributeNamespace.ClassWithoutAttributes).Assembly)
             .Build();
 
-        public static readonly Architecture DependencyArchitecture = new ArchLoader()
+        public static readonly Architecture TypeDependencyArchitecture = new ArchLoader()
             .WithoutRuleEvaluationCache()
             .WithoutArchitectureCache()
             .LoadAssemblies(typeof(TypeDependencyNamespace.BaseClass).Assembly)
