@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using TypeDependencyNamespace;
 
 namespace ArchUnitNETTests.AssemblyTestHelper;
 
-public class DependencyAssemblyTestHelper : AssemblyTestHelper
+public class TypeDependencyAssemblyTestHelper : AssemblyTestHelper
 {
     public sealed override Architecture Architecture =>
-        StaticTestArchitectures.DependencyArchitecture;
+        StaticTestArchitectures.TypeDependencyArchitecture;
 
     public Class BaseClass;
     public Type BaseClassSystemType = typeof(BaseClass);
@@ -64,23 +63,7 @@ public class DependencyAssemblyTestHelper : AssemblyTestHelper
 
     public Type ReferencedType = typeof(List<>);
 
-    public MethodMember MethodWithSingleDependency;
-
-    public MethodMember CalledMethod;
-
-    public MethodMember MethodWithMultipleDependencies;
-
-    public MethodMember CalledMethod1;
-
-    public MethodMember CalledMethod2;
-
-    public MethodMember CalledMethod3;
-
-    public MethodMember UnusedMethod;
-
-    public MethodMember MethodWithoutDependencies;
-
-    public DependencyAssemblyTestHelper()
+    public TypeDependencyAssemblyTestHelper()
     {
         BaseClass = Architecture.GetClassOfType(typeof(BaseClass));
         ChildClass = Architecture.GetClassOfType(typeof(ChildClass));
@@ -106,18 +89,5 @@ public class DependencyAssemblyTestHelper : AssemblyTestHelper
         ClassWithReferencedTypeDependency = Architecture.GetClassOfType(
             typeof(ClassWithReferencedTypeDependency)
         );
-        MethodWithSingleDependency = Architecture
-            .MethodMembers.WhereNameIs("MethodWithSingleDependency()")
-            .First();
-        CalledMethod = Architecture.MethodMembers.WhereNameIs("CalledMethod()").First();
-        MethodWithMultipleDependencies = Architecture
-            .MethodMembers.WhereNameIs("MethodWithMultipleDependencies()")
-            .First();
-        CalledMethod1 = Architecture.MethodMembers.WhereNameIs("CalledMethod1()").First();
-        CalledMethod2 = Architecture.MethodMembers.WhereNameIs("CalledMethod2()").First();
-        CalledMethod3 = Architecture.MethodMembers.WhereNameIs("CalledMethod3()").First();
-        MethodWithoutDependencies = Architecture
-            .MethodMembers.WhereNameIs("MethodWithoutDependencies()")
-            .First();
     }
 }
