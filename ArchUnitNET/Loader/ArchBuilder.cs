@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
+using System.Collections.Generic;
+using System.Linq;
 using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
@@ -159,6 +159,67 @@ namespace ArchUnitNET.Loader
                 referencedTypes
             );
             _architectureCache.Add(_architectureCacheKey, newArchitecture);
+            return newArchitecture;
+        }
+
+        public Architecture Build(List<string> assemblyPaths, ArchLoaderCacheConfig cacheConfig)
+        {
+            var enhancedCacheManager = ArchitectureCacheManager.Instance;
+
+            List<AssemblyMetadata> assemblyMetadata = null;
+            if (cacheConfig.UseFileBasedInvalidation && assemblyPaths != null && assemblyPaths.Count > 0)
+            {
+                assemblyMetadata = new List<AssemblyMetadata>();
+                foreach (var path in assemblyPaths)
+                {
+                    try
+                    {
+                        if (System.IO.File.Exists(path))
+                        {
+                            assemblyMetadata.Add(new AssemblyMetadata(path));
+                        }
+                    }
+                    catch
+                    {
+                        assemblyMetadata = null;
+                        break;
+                    }
+                }
+            }
+
+            var architecture = enhancedCacheManager.TryGetArchitecture(
+                _architectureCacheKey,
+                assemblyMetadata,
+                cacheConfig
+            );
+
+            if (architecture != null)
+            {
+                return architecture;
+            }
+
+            UpdateTypeDefinitions();
+            var allTypes = _typeFactory.GetAllNonCompilerGeneratedTypes().ToList();
+            var genericParameters = allTypes.OfType<GenericParameter>().ToList();
+            var referencedTypes = allTypes.Except(Types).Except(genericParameters);
+            var namespaces = Namespaces.Where(ns => ns.Types.Any());
+            var newArchitecture = new Architecture(
+                Assemblies,
+                namespaces,
+                Types,
+                genericParameters,
+                referencedTypes
+            );
+
+            enhancedCacheManager.Add(
+                _architectureCacheKey,
+                newArchitecture,
+                assemblyMetadata,
+                cacheConfig
+            );
+
+            _architectureCache.Add(_architectureCacheKey, newArchitecture);
+
             return newArchitecture;
         }
     }
