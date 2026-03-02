@@ -720,39 +720,15 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotSubHeader("Complex conditions");
             should.ImplementAnyInterfacesThat().Are(helper.OtherBaseInterface).AssertOnlyViolations(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments (No Violations)");
-            should = Interfaces().That().Are(helper.ChildInterface).Should();
-            
-            helper.AddSnapshotSubHeader("Conditions");
-            should.ImplementAnyInterfaces().AssertNoViolations(helper);
-            should.ImplementAnyInterfaces(new List<Interface>()).AssertNoViolations(helper);
-            should.ImplementAnyInterfaces(new List<Type>()).AssertNoViolations(helper);
-            should.ImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName)).AssertNoViolations(helper);
-           
-            helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Interfaces().That().ImplementAnyInterfaces()).AssertNoViolations(helper);
-            should.Be(Interfaces().That().ImplementAnyInterfaces(new List<Interface>())).AssertNoViolations(helper);
-            should.Be(Interfaces().That().ImplementAnyInterfaces(new List<Type>())).AssertNoViolations(helper);
-            should.Be(Interfaces().That().ImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName))).AssertNoViolations(helper);
-            
-            helper.AddSnapshotSubHeader("Predicates as conditions");
-            should.BeTypesThat().ImplementAnyInterfaces();
-            should.BeTypesThat().ImplementAnyInterfaces(new List<Interface>()).AssertNoViolations(helper);
-            should.BeTypesThat().ImplementAnyInterfaces(new List<Type>()).AssertNoViolations(helper);
-            should.BeTypesThat().ImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName)).AssertNoViolations(helper);
-            
-            helper.AddSnapshotSubHeader("Complex conditions");
-            should.ImplementAnyInterfacesThat().Are(new List<Interface>()).AssertNoViolations(helper);
-            
-            helper.AddSnapshotHeader("Empty Arguments (Violations)");
-            should = Interfaces().That().Are(helper.BaseInterface).Should();
+            helper.AddSnapshotHeader("Empty Arguments (Only Violations)");
+            should = Interfaces().That().Are(helper.BaseInterface, helper.ChildInterface).Should();
             
             helper.AddSnapshotSubHeader("Conditions");
             should.ImplementAnyInterfaces().AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(new List<Interface>()).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(new List<Type>()).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
-            
+           
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Interfaces().That().ImplementAnyInterfaces()).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces(new List<Interface>())).AssertOnlyViolations(helper);
@@ -865,7 +841,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.NotImplementAnyInterfacesThat().Are(helper.BaseInterface).AssertOnlyViolations(helper);
             
             helper.AddSnapshotHeader("Empty Arguments (No Violations)");
-            should = Interfaces().That().Are(helper.BaseInterface).Should();
+            should = Interfaces().That().Are(helper.BaseInterface, helper.ChildInterface).Should();
             
             helper.AddSnapshotSubHeader("Conditions");
             should.NotImplementAnyInterfaces().AssertNoViolations(helper);
@@ -888,30 +864,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotSubHeader("Complex conditions");
             should.NotImplementAnyInterfacesThat().Are(new List<Interface>()).AssertNoViolations(helper);
             
-            helper.AddSnapshotHeader("Empty Arguments (Violations)");
-            should = Interfaces().That().Are(helper.ChildInterface).Should();
-            
-            helper.AddSnapshotSubHeader("Conditions");
-            should.NotImplementAnyInterfaces().AssertOnlyViolations(helper);
-            should.NotImplementAnyInterfaces(new List<Interface>()).AssertOnlyViolations(helper);
-            should.NotImplementAnyInterfaces(new List<Type>()).AssertOnlyViolations(helper);
-            should.NotImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
-            
-            helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Interfaces().That().DoNotImplementAnyInterfaces()).AssertOnlyViolations(helper);
-            should.Be(Interfaces().That().DoNotImplementAnyInterfaces(new List<Interface>())).AssertOnlyViolations(helper);
-            should.Be(Interfaces().That().DoNotImplementAnyInterfaces(new List<Type>())).AssertOnlyViolations(helper);
-            should.Be(Interfaces().That().DoNotImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName))).AssertOnlyViolations(helper);
-            
-            helper.AddSnapshotSubHeader("Predicates as conditions");
-            should.BeTypesThat().DoNotImplementAnyInterfaces().AssertOnlyViolations(helper);
-            should.BeTypesThat().DoNotImplementAnyInterfaces(new List<Interface>()).AssertOnlyViolations(helper);
-            should.BeTypesThat().DoNotImplementAnyInterfaces(new List<Type>()).AssertOnlyViolations(helper);
-            should.BeTypesThat().DoNotImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
-            
-            helper.AddSnapshotSubHeader("Complex conditions");
-            should.NotImplementAnyInterfacesThat().Are(new List<Interface>()).AssertOnlyViolations(helper);
-
             helper.AddSnapshotHeader("Multiple arguments");
             should = Interfaces().That().Are(helper.ChildInterface).Should();
             
