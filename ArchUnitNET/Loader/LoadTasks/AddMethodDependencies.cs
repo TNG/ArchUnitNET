@@ -119,8 +119,11 @@ namespace ArchUnitNET.Loader.LoadTasks
             MethodMember methodMember
         )
         {
-            return methodReference
-                .GetSignatureTypes(_typeFactory)
+            var returnType = methodReference.GetReturnType(_typeFactory);
+            return (returnType != null ? new[] { returnType } : Array.Empty<ITypeInstance<IType>>())
+                .Concat(methodReference.GetParameters(_typeFactory))
+                .Concat(methodReference.GetGenericParameters(_typeFactory))
+                .Distinct()
                 .Select(signatureType => new MethodSignatureDependency(
                     methodMember,
                     signatureType
