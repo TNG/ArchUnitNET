@@ -82,75 +82,33 @@ namespace ArchUnitNET.Loader
                 .Concat(methodDefinition.MethodReturnType.CustomAttributes);
         }
 
-        [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetSignatureTypes(
+        internal static ITypeInstance<IType> GetReturnType(
             this MethodReference methodReference,
             TypeFactory typeFactory
-        )
-        {
-            var parameters = GetAllParameters(methodReference, typeFactory).ToList();
-            var returnType = GetReturnType(methodReference, typeFactory);
-            if (returnType != null)
-            {
-                parameters.Insert(0, returnType);
-            }
-
-            return parameters;
-        }
-
-        private static ITypeInstance<IType> GetReturnType(
-            this MethodReference methodReference,
-            TypeFactory typeFactory
-        )
-        {
-            return ReturnsVoid(methodReference)
+        ) =>
+            ReturnsVoid(methodReference)
                 ? null
                 : typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
                     methodReference.MethodReturnType.ReturnType
                 );
-        }
-
-        [NotNull]
-        private static IEnumerable<ITypeInstance<IType>> GetAllParameters(
-            this MethodReference methodReference,
-            TypeFactory typeFactory
-        )
-        {
-            var parameters = methodReference.GetParameters(typeFactory).ToList();
-            var genericParameters = methodReference.GetGenericParameters(typeFactory).ToList();
-            parameters.AddRange(genericParameters);
-            return parameters;
-        }
 
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetParameters(
             this MethodReference method,
             TypeFactory typeFactory
-        )
-        {
-            return method
-                .Parameters.Select(parameter =>
-                {
-                    var typeReference = parameter.ParameterType;
-                    return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
-                })
-                .Distinct();
-        }
+        ) =>
+            method.Parameters.Select(parameter =>
+                typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(parameter.ParameterType)
+            );
 
         [NotNull]
-        private static IEnumerable<ITypeInstance<IType>> GetGenericParameters(
+        internal static IEnumerable<ITypeInstance<IType>> GetGenericParameters(
             this MethodReference method,
             TypeFactory typeFactory
-        )
-        {
-            return method
-                .GenericParameters.Select(parameter =>
-                {
-                    var typeReference = parameter.GetElementType();
-                    return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
-                })
-                .Distinct();
-        }
+        ) =>
+            method.GenericParameters.Select(
+                typeFactory.GetOrCreateStubTypeInstanceFromTypeReference
+            );
 
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetBodyTypes(
