@@ -18,7 +18,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.AddClassPredicate< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassPredicate.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.ShouldRelateToClassesThat< TNextElement, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ShouldRelateToClassesThat.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberCondition< FieldMembersShould >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberCondition.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberCondition< FieldMembersShouldConjunction >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberCondition.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.FieldMembersShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1FieldMembersShould.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberPredicate< GivenFieldMembersConjunction, FieldMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberPredicate.html", [
