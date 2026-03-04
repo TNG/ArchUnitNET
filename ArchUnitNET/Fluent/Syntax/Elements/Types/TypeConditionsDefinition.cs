@@ -571,8 +571,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 {
                     if (
                         interfaceList.Count > 0
-                            ? ruleType.ImplementedInterfaces.Intersect(interfaceList).Any()
-                            : ruleType.ImplementedInterfaces.Any()
+                        && ruleType.ImplementedInterfaces.Intersect(interfaceList).Any()
                     )
                     {
                         yield return new ConditionResult(ruleType, true);
@@ -592,7 +591,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = interfaces.FormatDescription(
-                "implement any interface",
+                "implement any of no interfaces (always false)",
                 "implement",
                 "implement any"
             );
@@ -1211,11 +1210,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 var interfaceList = interfaces.GetObjects(architecture).ToList();
                 foreach (var ruleType in ruleTypes.ToList())
                 {
-                    var matchingInterfaces =
-                        interfaceList.Count > 0
-                            ? ruleType.ImplementedInterfaces.Intersect(interfaceList).ToList()
-                            : ruleType.ImplementedInterfaces.ToList();
-                    if (matchingInterfaces.Any())
+                    var matchingInterfaces = ruleType.ImplementedInterfaces.Intersect(
+                        interfaceList
+                    );
+                    if (interfaceList.Count > 0 && matchingInterfaces.Any())
                     {
                         yield return new ConditionResult(
                             ruleType,
@@ -1232,7 +1230,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             }
 
             var description = interfaces.FormatDescription(
-                "not implement any interface",
+                "not implement any of no interfaces (always true)",
                 "not implement",
                 "not implement any"
             );

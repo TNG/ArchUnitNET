@@ -348,12 +348,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 var interfaceList = interfaces.GetObjects(architecture).ToList();
                 return ruleTypes.Where(type =>
                     interfaceList.Count > 0
-                        ? type.ImplementedInterfaces.Intersect(interfaceList).Any()
-                        : type.ImplementedInterfaces.Any()
+                    && type.ImplementedInterfaces.Intersect(interfaceList).Any()
                 );
             }
             var description = interfaces.FormatDescription(
-                "implement any interface",
+                "implement any of no interfaces (always false)",
                 "implement",
                 "implement any"
             );
@@ -695,13 +694,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             {
                 var interfaceList = interfaces.GetObjects(architecture).ToList();
                 return ruleTypes.Where(type =>
-                    interfaceList.Count > 0
-                        ? !type.ImplementedInterfaces.Intersect(interfaceList).Any()
-                        : !type.ImplementedInterfaces.Any()
+                    interfaceList.Count <= 0
+                    || !type.ImplementedInterfaces.Intersect(interfaceList).Any()
                 );
             }
             var description = interfaces.FormatDescription(
-                "do not implement any interface",
+                "do not implement any of no interfaces (always true)",
                 "do not implement",
                 "do not implement any"
             );
