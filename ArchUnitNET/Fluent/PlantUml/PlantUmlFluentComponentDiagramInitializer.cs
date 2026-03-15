@@ -6,29 +6,24 @@ namespace ArchUnitNET.Fluent.PlantUml
 {
     public class PlantUmlFluentComponentDiagramInitializer
     {
-        private readonly PlantUmlFluentComponentDiagramCreator _fluentComponentDiagramCreator;
-
-        internal PlantUmlFluentComponentDiagramInitializer(
-            PlantUmlFluentComponentDiagramCreator fluentComponentDiagramCreator
-        )
+        internal PlantUmlFluentComponentDiagramInitializer()
         {
-            _fluentComponentDiagramCreator = fluentComponentDiagramCreator;
         }
 
         public GivenPlantUmlFluentComponentDiagram WithElements(
             IEnumerable<IPlantUmlElement> elements
         )
         {
-            _fluentComponentDiagramCreator.Builder.WithElements(elements);
-            _fluentComponentDiagramCreator.AddToDescription("with custom elements");
-            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            var builder = new PlantUmlFileBuilder();
+            builder.WithElements(elements);
+            return new GivenPlantUmlFluentComponentDiagram(builder, "with custom elements");
         }
 
         public GivenPlantUmlFluentComponentDiagram WithElements(params IPlantUmlElement[] elements)
         {
-            _fluentComponentDiagramCreator.Builder.WithElements(elements);
-            _fluentComponentDiagramCreator.AddToDescription("with custom elements");
-            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            var builder = new PlantUmlFileBuilder();
+            builder.WithElements(elements);
+            return new GivenPlantUmlFluentComponentDiagram(builder, "with custom elements");
         }
 
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(
@@ -36,9 +31,9 @@ namespace ArchUnitNET.Fluent.PlantUml
             GenerationOptions generationOptions = null
         )
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(types, generationOptions);
-            _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
-            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            var builder = new PlantUmlFileBuilder();
+            builder.WithDependenciesFrom(types, generationOptions);
+            return new GivenPlantUmlFluentComponentDiagram(builder, "with dependencies from types");
         }
 
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromTypes(
@@ -47,12 +42,12 @@ namespace ArchUnitNET.Fluent.PlantUml
             GenerationOptions generationOptions = null
         )
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(
+            var builder = new PlantUmlFileBuilder();
+            builder.WithDependenciesFrom(
                 types.GetObjects(architecture),
                 generationOptions
             );
-            _fluentComponentDiagramCreator.AddToDescription("with dependencies from types");
-            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            return new GivenPlantUmlFluentComponentDiagram(builder, "with dependencies from types");
         }
 
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(
@@ -60,9 +55,9 @@ namespace ArchUnitNET.Fluent.PlantUml
             GenerationOptions generationOptions = null
         )
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(slices, generationOptions);
-            _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
-            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            var builder = new PlantUmlFileBuilder();
+            builder.WithDependenciesFrom(slices, generationOptions);
+            return new GivenPlantUmlFluentComponentDiagram(builder, "with dependencies from slices");
         }
 
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(
@@ -70,12 +65,12 @@ namespace ArchUnitNET.Fluent.PlantUml
             string focusOnPackage
         )
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFromFocusOn(
+            var builder = new PlantUmlFileBuilder();
+            builder.WithDependenciesFromFocusOn(
                 slices,
                 focusOnPackage
             );
-            _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
-            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            return new GivenPlantUmlFluentComponentDiagram(builder, "with dependencies from slices");
         }
 
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(
@@ -83,11 +78,11 @@ namespace ArchUnitNET.Fluent.PlantUml
             Architecture architecture
         )
         {
-            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(
+            var builder = new PlantUmlFileBuilder();
+            builder.WithDependenciesFrom(
                 slices.GetObjects(architecture)
             );
-            _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
-            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+            return new GivenPlantUmlFluentComponentDiagram(builder, "with dependencies from slices");
         }
     }
 }

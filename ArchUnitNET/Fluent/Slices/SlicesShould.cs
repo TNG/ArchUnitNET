@@ -9,11 +9,11 @@ namespace ArchUnitNET.Fluent.Slices
 {
     public class SlicesShould
     {
-        private readonly SliceRuleCreator _ruleCreator;
+        private readonly SliceAssignment _sliceAssignment;
 
-        public SlicesShould(SliceRuleCreator ruleCreator)
+        public SlicesShould(SliceAssignment sliceAssignment)
         {
-            _ruleCreator = ruleCreator;
+            _sliceAssignment = sliceAssignment;
         }
 
         private static IEnumerable<Slice> FindDependencies(
@@ -31,9 +31,7 @@ namespace ArchUnitNET.Fluent.Slices
 
         public SliceRule BeFreeOfCycles()
         {
-            _ruleCreator.SetEvaluationFunction(EvaluateBeFreeOfCycles);
-            _ruleCreator.AddToDescription("be free of cycles");
-            return new SliceRule(_ruleCreator);
+            return new SliceRule(_sliceAssignment, EvaluateBeFreeOfCycles, "be free of cycles");
         }
 
         private static IEnumerable<EvaluationResult> EvaluateBeFreeOfCycles(
@@ -121,9 +119,7 @@ namespace ArchUnitNET.Fluent.Slices
 
         public SliceRule NotDependOnEachOther()
         {
-            _ruleCreator.SetEvaluationFunction(EvaluateNotDependOnEachOther);
-            _ruleCreator.AddToDescription("not depend on each other");
-            return new SliceRule(_ruleCreator);
+            return new SliceRule(_sliceAssignment, EvaluateNotDependOnEachOther, "not depend on each other");
         }
 
         private static IEnumerable<EvaluationResult> EvaluateNotDependOnEachOther(

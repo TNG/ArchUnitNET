@@ -4,23 +4,26 @@ namespace ArchUnitNET.Fluent.PlantUml
 {
     public class GivenPlantUmlFluentComponentDiagram
     {
-        private readonly PlantUmlFluentComponentDiagramCreator _fluentComponentDiagramCreator;
+        private readonly PlantUmlFileBuilder _builder;
+        private readonly string _description;
 
         internal GivenPlantUmlFluentComponentDiagram(
-            PlantUmlFluentComponentDiagramCreator fluentComponentDiagramCreator
+            PlantUmlFileBuilder builder,
+            string description
         )
         {
-            _fluentComponentDiagramCreator = fluentComponentDiagramCreator;
+            _builder = builder;
+            _description = description;
         }
 
         public string AsString(RenderOptions renderOptions = null)
         {
-            return _fluentComponentDiagramCreator.Builder.AsString(renderOptions);
+            return _builder.AsString(renderOptions);
         }
 
         public void WriteToFile(string path, RenderOptions renderOptions = null)
         {
-            _fluentComponentDiagramCreator.Builder.WriteToFile(path, renderOptions);
+            _builder.WriteToFile(path, renderOptions);
         }
     }
 }

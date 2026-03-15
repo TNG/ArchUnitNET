@@ -5,11 +5,8 @@ namespace ArchUnitNET.Fluent.Slices
 {
     public class SliceRuleInitializer
     {
-        private readonly SliceRuleCreator _ruleCreator;
-
-        public SliceRuleInitializer(SliceRuleCreator ruleCreator)
+        public SliceRuleInitializer()
         {
-            _ruleCreator = ruleCreator;
         }
 
         /// <summary>
@@ -21,32 +18,28 @@ namespace ArchUnitNET.Fluent.Slices
         /// <returns></returns>
         public GivenSlices Matching(string pattern)
         {
-            _ruleCreator.SetSliceAssignment(
-                new SliceAssignment(
-                    t =>
-                    {
-                        var parseResult = Parse(pattern);
-                        return AssignFunc(t, parseResult.pattern, parseResult.asterisk);
-                    },
-                    "matching \"" + pattern + "\""
-                )
+            var sliceAssignment = new SliceAssignment(
+                t =>
+                {
+                    var parseResult = Parse(pattern);
+                    return AssignFunc(t, parseResult.pattern, parseResult.asterisk);
+                },
+                "matching \"" + pattern + "\""
             );
-            return new GivenSlices(_ruleCreator);
+            return new GivenSlices(sliceAssignment);
         }
 
         public GivenSlices MatchingWithPackages(string pattern)
         {
-            _ruleCreator.SetSliceAssignment(
-                new SliceAssignment(
-                    t =>
-                    {
-                        var parseResult = Parse(pattern);
-                        return AssignFunc(t, parseResult.pattern, parseResult.asterisk, true);
-                    },
-                    "matching \"" + pattern + "\""
-                )
+            var sliceAssignment = new SliceAssignment(
+                t =>
+                {
+                    var parseResult = Parse(pattern);
+                    return AssignFunc(t, parseResult.pattern, parseResult.asterisk, true);
+                },
+                "matching \"" + pattern + "\""
             );
-            return new GivenSlices(_ruleCreator);
+            return new GivenSlices(sliceAssignment);
         }
 
         private static (string pattern, int? asterisk) Parse(string pattern)
