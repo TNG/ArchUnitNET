@@ -1,47 +1,65 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Slices
 {
     public class SliceRule : IArchRule
     {
-        private readonly SliceRuleCreator _ruleCreator;
+        private readonly SliceAssignment _sliceAssignment;
+        private readonly Func<IEnumerable<Slice>, ICanBeEvaluated, Architecture, IEnumerable<EvaluationResult>> _evaluationFunc;
+        private readonly string _description;
 
-        public SliceRule(SliceRuleCreator ruleCreator)
+        public SliceRule(
+            SliceAssignment sliceAssignment,
+            Func<IEnumerable<Slice>, ICanBeEvaluated, Architecture, IEnumerable<EvaluationResult>> evaluationFunc,
+            string description
+        )
         {
-            _ruleCreator = ruleCreator;
+            _sliceAssignment = sliceAssignment;
+            _evaluationFunc = evaluationFunc;
+            _description = description;
         }
 
-        public string Description => _ruleCreator.Description;
+        public string Description => "Slices " + _sliceAssignment.Description + " should " + _description;
 
         public bool HasNoViolations(Architecture architecture)
         {
-            return _ruleCreator.HasNoViolations(architecture);
+            return Evaluate(architecture).All(result => result.Passed);
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
-            return _ruleCreator.Evaluate(architecture);
+            var slices = GetSlices(architecture);
+            return _evaluationFunc(slices, this, architecture);
         }
 
         public CombinedArchRuleDefinition And()
         {
-            return new CombinedArchRuleDefinition(_ruleCreator, LogicalConjunctionDefinition.And);
+            return new CombinedArchRuleDefinition(this, LogicalConjunctionDefinition.And);
         }
 
         public CombinedArchRuleDefinition Or()
         {
-            return new CombinedArchRuleDefinition(_ruleCreator, LogicalConjunctionDefinition.Or);
+            return new CombinedArchRuleDefinition(this, LogicalConjunctionDefinition.Or);
         }
 
         public IArchRule And(IArchRule archRule)
         {
-            return new CombinedArchRule(_ruleCreator, LogicalConjunctionDefinition.And, archRule);
+            return new CombinedArchRule(this, LogicalConjunctionDefinition.And, archRule);
         }
 
         public IArchRule Or(IArchRule archRule)
         {
-            return new CombinedArchRule(_ruleCreator, LogicalConjunctionDefinition.Or, archRule);
+            return new CombinedArchRule(this, LogicalConjunctionDefinition.Or, archRule);
+        }
+
+        private IEnumerable<Slice> GetSlices(Architecture architecture)
+        {
+            return _sliceAssignment
+                .Apply(architecture.Types)
+                .Where(slice => !slice.Identifier.Ignored);
         }
     }
 }

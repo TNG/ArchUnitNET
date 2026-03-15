@@ -1,28 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Slices
 {
     public class GivenSlices : IObjectProvider<Slice>
     {
-        private readonly SliceRuleCreator _ruleCreator;
+        private readonly SliceAssignment _sliceAssignment;
 
-        public GivenSlices(SliceRuleCreator ruleCreator)
+        public GivenSlices(SliceAssignment sliceAssignment)
         {
-            _ruleCreator = ruleCreator;
+            _sliceAssignment = sliceAssignment;
         }
 
-        public string Description => _ruleCreator.Description;
+        public string Description => _sliceAssignment.Description;
 
         public SlicesShould Should()
         {
-            _ruleCreator.AddToDescription("should");
-            return new SlicesShould(_ruleCreator);
+            return new SlicesShould(_sliceAssignment);
         }
 
         public IEnumerable<Slice> GetObjects(Architecture architecture)
         {
-            return _ruleCreator.GetSlices(architecture);
+            return GetSlices(architecture);
         }
 
         public string FormatDescription(
@@ -32,6 +32,13 @@ namespace ArchUnitNET.Fluent.Slices
         )
         {
             return $"{multipleDescription} {Description}";
+        }
+
+        private IEnumerable<Slice> GetSlices(Architecture architecture)
+        {
+            return _sliceAssignment
+                .Apply(architecture.Types)
+                .Where(slice => !slice.Identifier.Ignored);
         }
     }
 }

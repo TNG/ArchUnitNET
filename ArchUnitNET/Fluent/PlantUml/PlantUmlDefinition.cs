@@ -4,8 +4,7 @@
     {
         public static PlantUmlFluentComponentDiagramInitializer ComponentDiagram()
         {
-            var fluentCreator = new PlantUmlFluentComponentDiagramCreator();
-            return new PlantUmlFluentComponentDiagramInitializer(fluentCreator);
+            return new PlantUmlFluentComponentDiagramInitializer();
         }
     }
 }

@@ -4,8 +4,7 @@
     {
         public static SliceRuleInitializer Slices()
         {
-            var ruleCreator = new SliceRuleCreator();
-            return new SliceRuleInitializer(ruleCreator);
+            return new SliceRuleInitializer();
         }
     }
 }
