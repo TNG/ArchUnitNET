@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,8 @@ namespace ArchUnitNET.Domain
     public class Architecture
     {
         private readonly IEnumerable<Assembly> _allAssemblies;
-        private readonly ObjectProviderCache _objectProviderCache;
+        private readonly ConcurrentDictionary<int, object> _ruleEvaluationCache =
+            new ConcurrentDictionary<int, object>();
 
         public Architecture(
             IEnumerable<Assembly> allAssemblies,
@@ -22,7 +24,6 @@ namespace ArchUnitNET.Domain
             Types = types;
             GenericParameters = genericParameters;
             ReferencedTypes = referencedTypes;
-            _objectProviderCache = new ObjectProviderCache(this);
         }
 
         public IEnumerable<Assembly> Assemblies =>
@@ -50,7 +51,13 @@ namespace ArchUnitNET.Domain
         )
             where T : ICanBeAnalyzed
         {
-            return _objectProviderCache.GetOrCreateObjects(objectProvider, providingFunction);
+            unchecked
+            {
+                var key =
+                    (objectProvider.GetHashCode() * 397) ^ objectProvider.GetType().GetHashCode();
+                return (IEnumerable<T>)
+                    _ruleEvaluationCache.GetOrAdd(key, _ => providingFunction(this));
+            }
         }
 
         public override bool Equals(object obj)
