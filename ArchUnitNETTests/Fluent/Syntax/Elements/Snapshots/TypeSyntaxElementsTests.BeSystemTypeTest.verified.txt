@@ -42,19 +42,19 @@ All Evaluations passed
 
 Query: Types that are "TypeNamespace.OtherRegularClass" should be "TypeNamespace.RegularClass"
 Result: False
-Description: TypeNamespace.OtherRegularClass is TypeNamespace.OtherRegularClass
+Description: TypeNamespace.OtherRegularClass is not "TypeNamespace.RegularClass"
 Message: 
 "Types that are "TypeNamespace.OtherRegularClass" should be "TypeNamespace.RegularClass"" failed:
-	TypeNamespace.OtherRegularClass is TypeNamespace.OtherRegularClass
+	TypeNamespace.OtherRegularClass is not "TypeNamespace.RegularClass"
 
 
 
 Query: Types that are "TypeNamespace.OtherRegularClass" should be "TypeNamespace.RegularClass"
 Result: False
-Description: TypeNamespace.OtherRegularClass is TypeNamespace.OtherRegularClass
+Description: TypeNamespace.OtherRegularClass is not "TypeNamespace.RegularClass"
 Message: 
 "Types that are "TypeNamespace.OtherRegularClass" should be "TypeNamespace.RegularClass"" failed:
-	TypeNamespace.OtherRegularClass is TypeNamespace.OtherRegularClass
+	TypeNamespace.OtherRegularClass is not "TypeNamespace.RegularClass"
 
 
 
@@ -84,10 +84,10 @@ Message:
 
 Query: Types that are "TypeNamespace.RegularClass" should not exist
 Result: False
-Description: TypeNamespace.RegularClass is TypeNamespace.RegularClass
+Description: TypeNamespace.RegularClass does exist
 Message: 
 "Types that are "TypeNamespace.RegularClass" should not exist" failed:
-	TypeNamespace.RegularClass is TypeNamespace.RegularClass
+	TypeNamespace.RegularClass does exist
 
 
 
@@ -107,42 +107,18 @@ Message:
 ----- Conditions -----
 
 Query: Types that are "TypeNamespace.RegularClass" should be "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: TypeNamespace.RegularClass is TypeNamespace.RegularClass
-Message: 
-"Types that are "TypeNamespace.RegularClass" should be "AttributeNamespace.ClassWithoutAttributes"" failed:
-	TypeNamespace.RegularClass is TypeNamespace.RegularClass
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 Query: Types that are "TypeNamespace.RegularClass" should be "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: TypeNamespace.RegularClass is TypeNamespace.RegularClass
-Message: 
-"Types that are "TypeNamespace.RegularClass" should be "AttributeNamespace.ClassWithoutAttributes"" failed:
-	TypeNamespace.RegularClass is TypeNamespace.RegularClass
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates -----
 
 Query: Types that are "TypeNamespace.RegularClass" should be Types that are "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: TypeNamespace.RegularClass is not Types that are "AttributeNamespace.ClassWithoutAttributes"
-Message: 
-"Types that are "TypeNamespace.RegularClass" should be Types that are "AttributeNamespace.ClassWithoutAttributes"" failed:
-	TypeNamespace.RegularClass is not Types that are "AttributeNamespace.ClassWithoutAttributes"
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 Query: Types that are "TypeNamespace.RegularClass" should be Types that are "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: TypeNamespace.RegularClass is not Types that are "AttributeNamespace.ClassWithoutAttributes"
-Message: 
-"Types that are "TypeNamespace.RegularClass" should be Types that are "AttributeNamespace.ClassWithoutAttributes"" failed:
-	TypeNamespace.RegularClass is not Types that are "AttributeNamespace.ClassWithoutAttributes"
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ===== Multiple arguments =====
 
@@ -180,10 +156,10 @@ Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegula
 Result: True
 Description: TypeNamespace.RegularClass passed
 Result: False
-Description: TypeNamespace.OtherRegularClass is TypeNamespace.OtherRegularClass
+Description: TypeNamespace.OtherRegularClass is not "TypeNamespace.RegularClass"
 Message: 
 "Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should be "TypeNamespace.RegularClass"" failed:
-	TypeNamespace.OtherRegularClass is TypeNamespace.OtherRegularClass
+	TypeNamespace.OtherRegularClass is not "TypeNamespace.RegularClass"
 
 
 

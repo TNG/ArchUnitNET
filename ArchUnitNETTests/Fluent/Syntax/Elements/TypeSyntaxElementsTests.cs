@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Loader;
 using ArchUnitNETTests.AssemblyTestHelper;
 using ArchUnitNETTests.Domain.PlantUml;
@@ -59,12 +60,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.Be(typeof(AttributeNamespace.ClassWithoutAttributes)).AssertOnlyViolations(helper);
-            should.Be(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertOnlyViolations(helper);
+            should.Be(typeof(AttributeNamespace.ClassWithoutAttributes)).AssertException<TypeDoesNotExistInArchitecture>(helper);
+            should.Be(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Types().That().Are(typeof(AttributeNamespace.ClassWithoutAttributes))).AssertOnlyViolations(helper);
-            should.Be(Types().That().Are(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertOnlyViolations(helper);
+            should.Be(Types().That().Are(typeof(AttributeNamespace.ClassWithoutAttributes))).AssertException<TypeDoesNotExistInArchitecture>(helper);
+            should.Be(Types().That().Are(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Multiple arguments");
             should = Types().That().Are(helper.RegularClass).Should();
@@ -123,12 +124,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.NotBe(typeof(AttributeNamespace.ClassWithoutAttributes)).AssertNoViolations(helper);
-            should.NotBe(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertNoViolations(helper);
+            should.NotBe(typeof(AttributeNamespace.ClassWithoutAttributes)).AssertException<TypeDoesNotExistInArchitecture>(helper);
+            should.NotBe(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Types().That().AreNot(typeof(AttributeNamespace.ClassWithoutAttributes))).AssertNoViolations(helper);
-            should.Be(Types().That().AreNot(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertNoViolations(helper);
+            should.Be(Types().That().AreNot(typeof(AttributeNamespace.ClassWithoutAttributes))).AssertException<TypeDoesNotExistInArchitecture>(helper);
+            should.Be(Types().That().AreNot(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Multiple arguments");
             should = Types().That().Are(helper.OtherRegularClass).Should();
@@ -220,10 +221,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.BaseClassForAssign).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.BeAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertOnlyViolations(helper);
+            should.BeAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Types().That().AreAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertOnlyViolations(helper);
+            should.Be(Types().That().AreAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Empty Arguments (Predicates only)");
             should = Types().That().Are(helper.BaseClassForAssign).Should();
@@ -306,18 +307,17 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.BaseClassForAssign).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.NotBeAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertNoViolations(helper);
+            should.NotBeAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Types().That().AreNotAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Empty Arguments");
             should = Types().That().Are(helper.BaseClassForAssign).Should();
             
             helper.AddSnapshotSubHeader("Conditions");
-            // TODO throws InvalidOperationException
-            // should.NotBeAssignableTo(new List<IType>()).AssertNoViolations(helper);
-            // should.NotBeAssignableTo(new List<System.Type>()).AssertNoViolations(helper);
+            should.NotBeAssignableTo(new List<IType>()).AssertNoViolations(helper);
+            should.NotBeAssignableTo(new List<System.Type>()).AssertNoViolations(helper);
             
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Types().That().AreNotAssignableTo(new List<IType>())).AssertNoViolations(helper);
@@ -388,9 +388,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.InnerClassA).Should();
             
             helper.AddSnapshotSubHeader("Conditions");
-            // TODO throws InvalidOperationException
-            // should.BeNestedIn(new List<IType>()).AssertOnlyViolations(helper);
-            // should.BeNestedIn(new List<System.Type>()).AssertOnlyViolations(helper);
+            should.BeNestedIn(new List<IType>()).AssertOnlyViolations(helper);
+            should.BeNestedIn(new List<System.Type>()).AssertOnlyViolations(helper);
             
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Types().That().AreNestedIn(new List<IType>())).AssertOnlyViolations(helper);

@@ -10,89 +10,19 @@ using Enum = ArchUnitNET.Domain.Enum;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public static class TypePredicatesDefinition<T>
+    internal static class TypePredicatesDefinition<T>
         where T : IType
     {
-        public static IPredicate<T> Are(Type firstType, params Type[] moreTypes)
+        public static IPredicate<T> Are(IObjectProvider<IType> objectProvider)
         {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return Are(types);
-        }
-
-        public static IPredicate<T> Are(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't be equal anyways
-                    }
-                }
-
-                return ruleTypes.Intersect(archUnitTypeList.OfType<T>());
+                var typeList = objectProvider.GetObjects(architecture).ToList();
+                return objects.OfType<IType>().Intersect(typeList).Cast<T>();
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "do not exist";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(obj => obj != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "are \"" + firstType.FullName + "\"",
-                        (current, obj) => current + " or \"" + obj.FullName + "\""
-                    );
-            }
-
+            var description = objectProvider.FormatDescription("do not exist", "are", "are");
             return new ArchitecturePredicate<T>(Filter, description);
-        }
-
-        public static IPredicate<T> AreAssignableTo(IType firstType, params IType[] moreTypes)
-        {
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
-            {
-                var types = moreTypes.Concat(new[] { firstType });
-                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
-            }
-
-            var description = moreTypes.Aggregate(
-                "are assignable to \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\""
-            );
-            return new EnumerablePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreAssignableTo(Type firstType, params Type[] moreTypes)
-        {
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
-            {
-                var types = moreTypes
-                    .Concat(new[] { firstType })
-                    .Select(architecture.GetITypeOfType);
-                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
-            }
-
-            var description = moreTypes.Aggregate(
-                "are assignable to \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\""
-            );
-            return new ArchitecturePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreAssignableTo(IObjectProvider<IType> objectProvider)
@@ -103,114 +33,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(types).Any());
             }
 
-            var description = "are assignable to " + objectProvider.Description;
-            return new ArchitecturePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreAssignableTo(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
-            {
-                return ruleTypes.Where(type => type.GetAssignableTypes().Intersect(typeList).Any());
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are assignable to no types (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "are assignable to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerablePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreAssignableTo(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
-                return ruleTypes.Where(type =>
-                    type.GetAssignableTypes().Intersect(archUnitTypeList).Any()
-                );
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are assignable to no types (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "are assignable to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-            return new ArchitecturePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreNestedIn(IType firstType, params IType[] moreTypes)
-        {
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
-            {
-                var types = moreTypes.Concat(new[] { firstType });
-                return ruleTypes.Where(type =>
-                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
-                );
-            }
-
-            var description = moreTypes.Aggregate(
-                "are nested in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\""
-            );
-            return new EnumerablePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreNestedIn(Type firstType, params Type[] moreTypes)
-        {
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
-            {
-                var types = moreTypes
-                    .Concat(new[] { firstType })
-                    .Select(architecture.GetITypeOfType);
-                return ruleTypes.Where(type =>
-                    types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
-                );
-            }
-            var description = moreTypes.Aggregate(
-                "are nested in \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\""
+            var description = objectProvider.FormatDescription(
+                "are assignable to no types (always false)",
+                "are assignable to",
+                "are assignable to"
             );
             return new ArchitecturePredicate<T>(Condition, description);
         }
@@ -225,69 +51,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 );
             }
 
-            var description = "are nested in " + objectProvider.Description;
-            return new ArchitecturePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreNestedIn(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
-            {
-                return ruleTypes.Where(type =>
-                    typeList.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
-                );
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are nested in no types (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "are nested in \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerablePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreNestedIn(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
-            {
-                return ruleTypes.Where(type =>
-                    typeList.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
-                );
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are nested in no types (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "are nested in \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
+            var description = objectProvider.FormatDescription(
+                "are nested in no types (always false)",
+                "are nested in",
+                "are nested in"
+            );
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
@@ -470,84 +238,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-        public static IPredicate<T> AreNot(Type firstType, params Type[] moreTypes)
+        public static IPredicate<T> AreNot(IObjectProvider<IType> objectProvider)
         {
-            return AreNot(new List<Type>() { firstType }.Concat(moreTypes));
-        }
-
-        public static IPredicate<T> AreNot(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<T> Filter(IEnumerable<T> ruleTypes, Architecture architecture)
+            IEnumerable<T> Filter(IEnumerable<T> objects, Architecture architecture)
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't be equal anyways
-                    }
-                }
-
-                return ruleTypes.Except(archUnitTypeList.OfType<T>());
+                var typeList = objectProvider.GetObjects(architecture).ToList();
+                return objects.Except(typeList.OfType<T>());
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are not no types (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(obj => obj != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "are not \"" + firstType.FullName + "\"",
-                        (current, obj) => current + " or \"" + obj.FullName + "\""
-                    );
-            }
-
+            var description = objectProvider.FormatDescription(
+                "are all types",
+                "are not",
+                "are not"
+            );
             return new ArchitecturePredicate<T>(Filter, description);
-        }
-
-        public static IPredicate<T> AreNotAssignableTo(IType firstType, params IType[] moreTypes)
-        {
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
-            {
-                var types = moreTypes.Concat(new[] { firstType });
-                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
-            }
-
-            var description = moreTypes.Aggregate(
-                "are not assignable to \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\""
-            );
-            return new EnumerablePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreNotAssignableTo(Type firstType, params Type[] moreTypes)
-        {
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
-            {
-                var types = moreTypes
-                    .Concat(new[] { firstType })
-                    .Select(architecture.GetITypeOfType);
-                return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
-            }
-
-            var description = moreTypes.Aggregate(
-                "are not assignable to \"" + firstType.FullName + "\"",
-                (current, type) => current + " or \"" + type.FullName + "\""
-            );
-            return new ArchitecturePredicate<T>(Condition, description);
         }
 
         public static IPredicate<T> AreNotAssignableTo(IObjectProvider<IType> objectProvider)
@@ -558,83 +262,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 return ruleTypes.Where(type => !type.GetAssignableTypes().Intersect(types).Any());
             }
 
-            var description = "are not assignable to " + objectProvider.Description;
-            return new ArchitecturePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreNotAssignableTo(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes)
-            {
-                return ruleTypes.Where(type =>
-                    !type.GetAssignableTypes().Intersect(typeList).Any()
-                );
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are not assignable to no types (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "are not assignable to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerablePredicate<T>(Condition, description);
-        }
-
-        public static IPredicate<T> AreNotAssignableTo(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
-                return ruleTypes.Where(type =>
-                    !type.GetAssignableTypes().Intersect(archUnitTypeList).Any()
-                );
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are not assignable to no types (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "are not assignable to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
+            var description = objectProvider.FormatDescription(
+                "are not assignable to no types (always true)",
+                "are not assignable to",
+                "are not assignable to"
+            );
             return new ArchitecturePredicate<T>(Condition, description);
         }
 

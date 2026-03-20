@@ -7,84 +7,45 @@ using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Domain.PlantUml.Import;
 using ArchUnitNET.Fluent.Conditions;
+using static ArchUnitNET.Domain.Extensions.EnumerableExtensions;
 using Enum = ArchUnitNET.Domain.Enum;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 {
-    public static class TypeConditionsDefinition<TRuleType>
+    internal static class TypeConditionsDefinition<TRuleType>
         where TRuleType : IType
     {
-        public static IOrderedCondition<TRuleType> Be(Type firstType, params Type[] moreTypes)
+        public static IOrderedCondition<TRuleType> Be(IObjectProvider<IType> objectProvider)
         {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return Be(types);
-        }
-
-        public static IOrderedCondition<TRuleType> Be(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
+                var typeList = objectProvider.GetObjects(architecture).ToList();
+                var isAllowedType = CreateLookupFn(typeList);
+                foreach (var ruleType in ruleTypes)
                 {
-                    try
+                    if (isAllowedType(ruleType))
                     {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
+                        yield return new ConditionResult(ruleType, true);
                     }
-                    catch (TypeDoesNotExistInArchitecture)
+                    else
                     {
-                        //ignore, can't be equal anyways
+                        yield return new ConditionResult(
+                            ruleType,
+                            false,
+                            (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                                ? "does exist"
+                                : "is not " + objectProvider.Description
+                        );
                     }
                 }
-
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .OfType<IType>()
-                    .Intersect(archUnitTypeList)
-                    .ToList();
-                foreach (var failedObject in ruleTypeList.Cast<IType>().Except(passedObjects))
-                {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        "is " + failedObject.FullName
-                    );
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not exist";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "be \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
+            var description = objectProvider.FormatDescription("not exist", "be", "be");
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static RelationCondition<TRuleType, IType> BeTypesThat()
@@ -97,26 +58,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         }
 
         public static IOrderedCondition<TRuleType> BeAssignableTo(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return BeAssignableTo(types);
-        }
-
-        public static IOrderedCondition<TRuleType> BeAssignableTo(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return BeAssignableTo(types);
-        }
-
-        public static IOrderedCondition<TRuleType> BeAssignableTo(
             IObjectProvider<IType> objectProvider
         )
         {
@@ -125,182 +66,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 Architecture architecture
             )
             {
-                var typeList = objectProvider.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type => type.GetAssignableTypes().Intersect(typeList).Any())
-                    .ToList();
+                var isExpectedType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
                 var failDescription = "is not assignable to " + objectProvider.Description;
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                foreach (var ruleType in ruleTypes)
                 {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            var description = "be assignable to " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> BeAssignableTo(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type => type.GetAssignableTypes().Intersect(typeList).Any())
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription = "is assignable to any type (always true)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => !type.Equals(firstType))
-                        .Distinct()
-                        .Aggregate(
-                            "is not assignable to \"" + firstType.FullName + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "be assignable to no types (always false)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "be assignable to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> BeAssignableTo(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
+                    if (ruleType.GetAssignableTypes().Any(isExpectedType))
                     {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
+                        yield return new ConditionResult(ruleType, true);
                     }
-                    catch (TypeDoesNotExistInArchitecture)
+                    else
                     {
-                        //ignore, can't have a dependency anyways
+                        yield return new ConditionResult(ruleType, false, failDescription);
                     }
                 }
-
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type => type.GetAssignableTypes().Intersect(archUnitTypeList).Any())
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription = "is assignable to any type (always true)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => type != firstType)
-                        .Distinct()
-                        .Aggregate(
-                            "is not assignable to \"" + firstType.FullName + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "be assignable to no types (always false)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "be assignable to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> BeNestedIn(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return BeNestedIn(types);
-        }
-
-        public static IOrderedCondition<TRuleType> BeNestedIn(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return BeNestedIn(types);
+            var description = objectProvider.FormatDescription(
+                "be assignable to no types (always false)",
+                "be assignable to",
+                "be assignable to"
+            );
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static IOrderedCondition<TRuleType> BeNestedIn(IObjectProvider<IType> objectProvider)
@@ -311,159 +99,30 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             )
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type =>
-                        typeList.Any(outerType =>
-                            type.FullName.StartsWith(outerType.FullName + "+")
-                        )
-                    )
-                    .ToList();
                 var failDescription = "is not nested in " + objectProvider.Description;
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
+                foreach (var ruleType in ruleTypes)
                 {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            var description = "be nested in " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> BeNestedIn(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type =>
+                    if (
                         typeList.Any(outerType =>
-                            type.FullName.StartsWith(outerType.FullName + "+")
+                            ruleType.FullName.StartsWith(outerType.FullName + "+")
                         )
                     )
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription = "is nested in any type (always true)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => !type.Equals(firstType))
-                        .Distinct()
-                        .Aggregate(
-                            "is not nested in \"" + firstType.FullName + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(ruleType, false, failDescription);
+                    }
                 }
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "be nested in no types (always false)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "be nested in \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> BeNestedIn(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var passedObjects = ruleTypeList
-                    .Where(type =>
-                        typeList.Any(outerType =>
-                            type.FullName.StartsWith(outerType.FullName + "+")
-                        )
-                    )
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription = "is nested in any type (always true)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => type != firstType)
-                        .Distinct()
-                        .Aggregate(
-                            "is not nested in \"" + firstType.FullName + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "be nested in no types (always false)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "be nested in \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
+            var description = objectProvider.FormatDescription(
+                "be nested in no types (always false)",
+                "be nested in",
+                "be nested in"
+            );
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static IOrderedCondition<TRuleType> BeValueTypes()
@@ -505,7 +164,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 Architecture architecture
             )
             {
-                var ruleTypeList = ruleTypes.ToList();
                 Interface archUnitInterface = null;
                 var interfaceNotInArchitecture = false;
                 try
@@ -518,9 +176,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     interfaceNotInArchitecture = true;
                 }
 
-                if (interfaceNotInArchitecture)
+                foreach (var ruleType in ruleTypes)
                 {
-                    foreach (var ruleType in ruleTypeList)
+                    if (interfaceNotInArchitecture)
                     {
                         yield return new ConditionResult(
                             ruleType,
@@ -528,33 +186,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                             "does not implement interface \"" + intf.FullName + "\""
                         );
                     }
-
-                    yield break;
-                }
-
-                var passedObjects = ruleTypeList
-                    .Where(type => type.ImplementsInterface(archUnitInterface))
-                    .ToList();
-
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        "does not implement interface \"" + intf.FullName + "\""
-                    );
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    else if (ruleType.ImplementsInterface(archUnitInterface))
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            ruleType,
+                            false,
+                            "does not implement interface \"" + intf.FullName + "\""
+                        );
+                    }
                 }
             }
 
-            return new ArchitectureCondition<TRuleType>(
+            return new OrderedArchitectureCondition<TRuleType>(
                 Condition,
                 "implement interface \"" + intf.FullName + "\""
-            ).AsOrderedCondition();
+            );
         }
 
         public static IOrderedCondition<TRuleType> ImplementAny(
@@ -595,10 +245,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "implement",
                 "implement any"
             );
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static IOrderedCondition<TRuleType> ResideInNamespace(string fullName)
@@ -815,97 +462,37 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-        public static IOrderedCondition<TRuleType> NotBe(Type firstType, params Type[] moreTypes)
+        public static IOrderedCondition<TRuleType> NotBe(IObjectProvider<IType> objectProvider)
         {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return NotBe(types);
-        }
-
-        public static IOrderedCondition<TRuleType> NotBe(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
                 Architecture architecture
             )
             {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
+                var typeList = objectProvider.GetObjects(architecture).ToList();
+                var isForbiddenType = CreateLookupFn(typeList);
+                foreach (var ruleType in ruleTypes)
                 {
-                    try
+                    if (!isForbiddenType(ruleType))
                     {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
+                        yield return new ConditionResult(ruleType, true);
                     }
-                    catch (TypeDoesNotExistInArchitecture)
+                    else
                     {
-                        //ignore, can't be equal anyways
+                        yield return new ConditionResult(
+                            ruleType,
+                            false,
+                            (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                                ? "does exist"
+                                : "is " + objectProvider.Description
+                        );
                     }
                 }
-
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .OfType<IType>()
-                    .Intersect(archUnitTypeList)
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        "is " + failedObject.FullName
-                    );
-                }
-
-                foreach (var passedObject in ruleTypeList.Cast<IType>().Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not be no type (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "not be \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> NotBeAssignableTo(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return NotBeAssignableTo(types);
-        }
-
-        public static IOrderedCondition<TRuleType> NotBeAssignableTo(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return NotBeAssignableTo(types);
+            var description = objectProvider.FormatDescription("exist", "not be", "not be");
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static IOrderedCondition<TRuleType> NotBeAssignableTo(
@@ -917,194 +504,29 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 Architecture architecture
             )
             {
-                var typeList = objectProvider.GetObjects(architecture).ToList();
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.GetAssignableTypes().Intersect(typeList).Any())
-                    .ToList();
+                var isForbiddenType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
                 var failDescription = "is assignable to " + objectProvider.Description;
-                foreach (var failedObject in failedObjects)
+                foreach (var ruleType in ruleTypes)
                 {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            var description = "not be assignable to " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> NotBeAssignableTo(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> ruleTypes)
-            {
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.GetAssignableTypes().Intersect(typeList).Any())
-                    .ToList();
-                string dynamicFailDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    dynamicFailDescription = "is assignable to any type (always true)";
-                    foreach (var failedObject in failedObjects)
+                    if (ruleType.GetAssignableTypes().Any(isForbiddenType))
                     {
-                        yield return new ConditionResult(
-                            failedObject,
-                            false,
-                            dynamicFailDescription
-                        );
+                        yield return new ConditionResult(ruleType, false, failDescription);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(ruleType, true);
                     }
                 }
-                else
-                {
-                    foreach (var failedObject in failedObjects)
-                    {
-                        dynamicFailDescription = "is assignable to";
-                        var first = true;
-                        foreach (var type in failedObject.GetAssignableTypes().Intersect(typeList))
-                        {
-                            dynamicFailDescription += first
-                                ? " " + type.FullName
-                                : " and " + type.FullName;
-                            first = false;
-                        }
-
-                        yield return new ConditionResult(
-                            failedObject,
-                            false,
-                            dynamicFailDescription
-                        );
-                    }
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not be assignable to no types (always true)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "not be assignable to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> NotBeAssignableTo(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-
-                var ruleTypeList = ruleTypes.ToList();
-                var failedObjects = ruleTypeList
-                    .Where(type => type.GetAssignableTypes().Intersect(archUnitTypeList).Any())
-                    .ToList();
-                string dynamicFailDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    dynamicFailDescription = "is assignable to any type (always true)";
-                    foreach (var failedObject in failedObjects)
-                    {
-                        yield return new ConditionResult(
-                            failedObject,
-                            false,
-                            dynamicFailDescription
-                        );
-                    }
-                }
-                else
-                {
-                    foreach (var failedObject in failedObjects)
-                    {
-                        dynamicFailDescription = "is assignable to";
-                        var first = true;
-                        foreach (
-                            var type in failedObject
-                                .GetAssignableTypes()
-                                .Intersect(archUnitTypeList)
-                        )
-                        {
-                            dynamicFailDescription += first
-                                ? " " + type.FullName
-                                : " and " + type.FullName;
-                            first = false;
-                        }
-
-                        yield return new ConditionResult(
-                            failedObject,
-                            false,
-                            dynamicFailDescription
-                        );
-                    }
-                }
-
-                foreach (var passedObject in ruleTypeList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not be assignable to no types (always true)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "not be assignable to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
+            var description = objectProvider.FormatDescription(
+                "not be assignable to no types (always true)",
+                "not be assignable to",
+                "not be assignable to"
+            );
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static IOrderedCondition<TRuleType> NotBeValueTypes()
@@ -1150,7 +572,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 Architecture architecture
             )
             {
-                var ruleTypeList = ruleTypes.ToList();
                 Interface archUnitInterface = null;
                 var interfaceNotInArchitecture = false;
                 try
@@ -1163,39 +584,31 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                     interfaceNotInArchitecture = true;
                 }
 
-                if (interfaceNotInArchitecture)
+                foreach (var ruleType in ruleTypes)
                 {
-                    foreach (var ruleType in ruleTypeList)
+                    if (interfaceNotInArchitecture)
                     {
                         yield return new ConditionResult(ruleType, true);
                     }
-
-                    yield break;
-                }
-
-                var passedObjects = ruleTypeList
-                    .Where(type => !type.ImplementsInterface(archUnitInterface))
-                    .ToList();
-
-                foreach (var failedObject in ruleTypeList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        "does implement interface \"" + intf.FullName + "\""
-                    );
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    else if (!ruleType.ImplementsInterface(archUnitInterface))
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            ruleType,
+                            false,
+                            "does implement interface \"" + intf.FullName + "\""
+                        );
+                    }
                 }
             }
 
-            return new ArchitectureCondition<TRuleType>(
+            return new OrderedArchitectureCondition<TRuleType>(
                 Condition,
                 "not implement interface \"" + intf.FullName + "\""
-            ).AsOrderedCondition();
+            );
         }
 
         public static IOrderedCondition<TRuleType> NotImplementAny(
@@ -1208,7 +621,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             )
             {
                 var interfaceList = interfaces.GetObjects(architecture).ToList();
-                foreach (var ruleType in ruleTypes.ToList())
+                foreach (var ruleType in ruleTypes)
                 {
                     var matchingInterfaces = ruleType.ImplementedInterfaces.Intersect(
                         interfaceList
@@ -1234,10 +647,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 "not implement",
                 "not implement any"
             );
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static IOrderedCondition<TRuleType> NotResideInNamespace(string fullName)
