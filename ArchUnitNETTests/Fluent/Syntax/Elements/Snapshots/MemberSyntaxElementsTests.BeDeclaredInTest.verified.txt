@@ -1,0 +1,322 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in Types that are "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in Types that are "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+----- Complex conditions -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in types that are "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in Types that are "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in Types that are "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+
+----- Predicates -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in Types that are "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in Types that are "TypeNamespace.ClassWithNonStaticField"
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in Types that are "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in Types that are "TypeNamespace.ClassWithNonStaticField"
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "TypeNamespace.ClassWithNonStaticField"
+
+
+
+----- Complex conditions -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in types that are "TypeNamespace.ClassWithNonStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in types that are "TypeNamespace.ClassWithNonStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+
+===== Multiple arguments =====
+
+----- Conditions -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithStaticField" or "TypeNamespace.ClassWithNonStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithStaticField" or "TypeNamespace.ClassWithNonStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithStaticField" or "TypeNamespace.ClassWithNonStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "TypeNamespace.ClassWithStaticField" or "TypeNamespace.ClassWithNonStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithStaticField" or "TypeNamespace.ClassWithNonStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithStaticField" or "TypeNamespace.ClassWithNonStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithStaticField" or "TypeNamespace.ClassWithNonStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "TypeNamespace.ClassWithStaticField" or "TypeNamespace.ClassWithNonStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+===== Empty arguments =====
+
+----- Conditions -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in no type (always false)
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in no type (always false)" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in no type (always false)
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in no type (always false)" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+
+----- Predicates -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in no type (always false)
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in no type (always false)
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in no type (always false)" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in no type (always false)
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in no type (always false)
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in no type (always false)
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in no type (always false)" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in no type (always false)
+
+
+
+===== Type not in architecture =====
+
+----- Conditions -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "AttributeNamespace.ClassWithoutAttributes"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be declared in "AttributeNamespace.ClassWithoutAttributes"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+
+----- Predicates -----
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "AttributeNamespace.ClassWithoutAttributes"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "AttributeNamespace.ClassWithoutAttributes"
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in "AttributeNamespace.ClassWithoutAttributes"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is not Members that are declared in "AttributeNamespace.ClassWithoutAttributes"
+
+
+
+===== Multiple inputs =====
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.Int32 TypeNamespace.OtherClassWithStaticField::OtherStaticField" should be declared in "TypeNamespace.ClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Result: False
+Description: System.Int32 TypeNamespace.OtherClassWithStaticField::OtherStaticField is declared in TypeNamespace.OtherClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.Int32 TypeNamespace.OtherClassWithStaticField::OtherStaticField" should be declared in "TypeNamespace.ClassWithStaticField"" failed:
+	System.Int32 TypeNamespace.OtherClassWithStaticField::OtherStaticField is declared in TypeNamespace.OtherClassWithStaticField
+
+
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.Int32 TypeNamespace.OtherClassWithStaticField::OtherStaticField" should be declared in "TypeNamespace.ClassWithStaticField" or "TypeNamespace.OtherClassWithStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Result: True
+Description: System.Int32 TypeNamespace.OtherClassWithStaticField::OtherStaticField passed
+Message: 
+All Evaluations passed
+

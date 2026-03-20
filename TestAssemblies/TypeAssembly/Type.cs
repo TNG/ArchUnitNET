@@ -101,3 +101,54 @@ public class OtherDerivedClassForAssign : BaseClassForAssign { }
 public class UnrelatedClassForAssign { }
 
 public class OtherUnrelatedClassForAssign { }
+
+// Member test classes
+public class ClassWithStaticField
+{
+    public static int StaticField;
+}
+
+public class ClassWithNonStaticField
+{
+    public int NonStaticField;
+}
+
+public class ClassWithReadOnlyField
+{
+    public readonly string ReadOnlyField = "";
+}
+
+public class ClassWithWritableProperty
+{
+    public string WritableProperty { get; set; } = "";
+}
+
+public class OtherClassWithWritableProperty
+{
+    public string OtherWritableProperty { get; set; } = "";
+}
+
+public class ClassWithInitOnlyProperty
+{
+    public string InitOnlyProperty { get; init; } = "";
+}
+
+public class ClassWithGetOnlyProperty
+{
+    public string GetOnlyProperty { get; } = "";
+}
+
+public class OtherClassWithStaticField
+{
+    public static int OtherStaticField;
+}
+
+public class ClassWithStaticProperty
+{
+    public static string StaticProperty { get; set; } = "";
+}
+
+public class ClassWithStaticMethod
+{
+    public static void StaticMethod() { }
+}
