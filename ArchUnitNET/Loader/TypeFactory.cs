@@ -432,7 +432,7 @@ namespace ArchUnitNET.Loader
                 Public,
                 false,
                 false,
-                false,
+                true,
                 false
             );
             var returnTypeInstance = GetOrCreateStubTypeInstanceFromTypeReference(
