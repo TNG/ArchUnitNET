@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" should not be immutable
+Result: True
+Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" should be Members that are not immutablee
+Result: True
+Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should not be immutable
+Result: False
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is immutable
+Message: 
+"Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should not be immutable" failed:
+	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is immutable
+
+
+
+----- Predicates -----
+
+Query: Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should be Members that are not immutablee
+Result: False
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Members that are not immutablee
+Message: 
+"Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should be Members that are not immutablee" failed:
+	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Members that are not immutablee
+
+
+
+===== Multiple inputs =====
+
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.OtherClassWithWritableProperty::Oth... should not be immutable
+Result: True
+Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
+Result: True
+Description: System.String TypeNamespace.OtherClassWithWritableProperty::OtherWritableProperty() passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should not be immutable
+Result: False
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is immutable
+Result: True
+Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+"Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should not be immutable" failed:
+	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is immutable
+
+
+

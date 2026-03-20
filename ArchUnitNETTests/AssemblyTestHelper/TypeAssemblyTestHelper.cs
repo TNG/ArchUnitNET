@@ -111,6 +111,49 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
     public Class OtherUnrelatedClassForAssign;
     public Type OtherUnrelatedClassForAssignSystemType = typeof(OtherUnrelatedClassForAssign);
 
+    // Member test classes
+    public Class ClassWithStaticField;
+    public Type ClassWithStaticFieldSystemType = typeof(ClassWithStaticField);
+
+    public Class ClassWithNonStaticField;
+    public Type ClassWithNonStaticFieldSystemType = typeof(ClassWithNonStaticField);
+
+    public Class ClassWithReadOnlyField;
+    public Type ClassWithReadOnlyFieldSystemType = typeof(ClassWithReadOnlyField);
+
+    public Class ClassWithWritableProperty;
+    public Type ClassWithWritablePropertySystemType = typeof(ClassWithWritableProperty);
+
+    public Class OtherClassWithWritableProperty;
+    public Type OtherClassWithWritablePropertySystemType = typeof(OtherClassWithWritableProperty);
+
+    public Class ClassWithInitOnlyProperty;
+    public Type ClassWithInitOnlyPropertySystemType = typeof(ClassWithInitOnlyProperty);
+
+    public Class ClassWithGetOnlyProperty;
+    public Type ClassWithGetOnlyPropertySystemType = typeof(ClassWithGetOnlyProperty);
+
+    public Class OtherClassWithStaticField;
+    public Type OtherClassWithStaticFieldSystemType = typeof(OtherClassWithStaticField);
+
+    public Class ClassWithStaticProperty;
+    public Type ClassWithStaticPropertySystemType = typeof(ClassWithStaticProperty);
+
+    public Class ClassWithStaticMethod;
+    public Type ClassWithStaticMethodSystemType = typeof(ClassWithStaticMethod);
+
+    // Individual members
+    public IMember StaticField;
+    public IMember NonStaticField;
+    public IMember ReadOnlyField;
+    public IMember WritableProperty;
+    public IMember OtherWritableProperty;
+    public IMember InitOnlyProperty;
+    public IMember GetOnlyProperty;
+    public IMember OtherStaticField;
+    public IMember StaticProperty;
+    public IMember StaticMethod;
+
     public TypeAssemblyTestHelper()
     {
         SimpleEnum = Architecture.GetITypeOfType(typeof(SimpleEnum));
@@ -160,5 +203,51 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
         OtherUnrelatedClassForAssign = Architecture.GetClassOfType(
             typeof(OtherUnrelatedClassForAssign)
         );
+
+        // Member test classes
+        ClassWithStaticField = Architecture.GetClassOfType(typeof(ClassWithStaticField));
+        ClassWithNonStaticField = Architecture.GetClassOfType(typeof(ClassWithNonStaticField));
+        ClassWithReadOnlyField = Architecture.GetClassOfType(typeof(ClassWithReadOnlyField));
+        ClassWithWritableProperty = Architecture.GetClassOfType(typeof(ClassWithWritableProperty));
+        OtherClassWithWritableProperty = Architecture.GetClassOfType(
+            typeof(OtherClassWithWritableProperty)
+        );
+        ClassWithInitOnlyProperty = Architecture.GetClassOfType(typeof(ClassWithInitOnlyProperty));
+        ClassWithGetOnlyProperty = Architecture.GetClassOfType(typeof(ClassWithGetOnlyProperty));
+        OtherClassWithStaticField = Architecture.GetClassOfType(
+            typeof(OtherClassWithStaticField)
+        );
+        ClassWithStaticProperty = Architecture.GetClassOfType(typeof(ClassWithStaticProperty));
+        ClassWithStaticMethod = Architecture.GetClassOfType(typeof(ClassWithStaticMethod));
+
+        // Individual members
+        StaticField = ClassWithStaticField.GetFieldMembersWithName("StaticField").First();
+        NonStaticField = ClassWithNonStaticField
+            .GetFieldMembersWithName("NonStaticField")
+            .First();
+        ReadOnlyField = ClassWithReadOnlyField
+            .GetFieldMembersWithName("ReadOnlyField")
+            .First();
+        WritableProperty = ClassWithWritableProperty
+            .GetPropertyMembersWithName("WritableProperty")
+            .First();
+        OtherWritableProperty = OtherClassWithWritableProperty
+            .GetPropertyMembersWithName("OtherWritableProperty")
+            .First();
+        InitOnlyProperty = ClassWithInitOnlyProperty
+            .GetPropertyMembersWithName("InitOnlyProperty")
+            .First();
+        GetOnlyProperty = ClassWithGetOnlyProperty
+            .GetPropertyMembersWithName("GetOnlyProperty")
+            .First();
+        OtherStaticField = OtherClassWithStaticField
+            .GetFieldMembersWithName("OtherStaticField")
+            .First();
+        StaticProperty = ClassWithStaticProperty
+            .GetPropertyMembersWithName("StaticProperty")
+            .First();
+        StaticMethod = ClassWithStaticMethod
+            .GetMethodMembersWithName("StaticMethod()")
+            .First();
     }
 }

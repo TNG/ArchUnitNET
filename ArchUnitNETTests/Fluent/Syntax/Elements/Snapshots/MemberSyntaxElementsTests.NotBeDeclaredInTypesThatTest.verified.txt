@@ -1,0 +1,19 @@
+﻿===== No Violations =====
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should not be declared in types that are "TypeNamespace.ClassWithNonStaticField"
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should not be declared in types that are "TypeNamespace.ClassWithStaticField"
+Result: False
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+Message: 
+"Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should not be declared in types that are "TypeNamespace.ClassWithStaticField"" failed:
+	System.Int32 TypeNamespace.ClassWithStaticField::StaticField is declared in TypeNamespace.ClassWithStaticField
+
+
+

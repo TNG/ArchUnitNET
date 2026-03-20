@@ -1,305 +1,399 @@
-﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ArchUnitNET.Domain;
-using ArchUnitNETTests.Domain;
+using ArchUnitNETTests.AssemblyTestHelper;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
+using AttributeNamespace;
 
-namespace ArchUnitNETTests.Fluent.Syntax.Elements
+namespace ArchUnitNETTests.Fluent.Syntax.Elements;
+
+// csharpier-ignore
+public class MemberSyntaxElementsTests
 {
-    public class MemberSyntaxElementsTests
+    [Fact]
+    public async Task BeStaticTest()
     {
-        public MemberSyntaxElementsTests()
-        {
-            _members = Architecture.Members;
-            _types = Architecture.Types;
-        }
+        var helper = new TypeAssemblyTestHelper();
 
-        private static readonly Architecture Architecture =
-            StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly IEnumerable<IMember> _members;
-        private readonly IEnumerable<IType> _types;
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.StaticField).Should();
 
-        private readonly List<IType> _falseTypes1 = new List<IType>
-        {
-            StaticTestTypes.PublicTestClass,
-            StaticTestTypes.InternalTestClass,
-        };
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeStatic().AssertNoViolations(helper);
 
-        private readonly List<Type> _falseTypes2 = new List<Type>
-        {
-            typeof(PublicTestClass),
-            typeof(InternalTestClass),
-        };
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreStatic()).AssertNoViolations(helper);
 
-        private static readonly IObjectProvider<MethodMember> FalseTypeConstructors =
-            MethodMembers()
-                .That()
-                .HaveFullName("System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()")
-                .Or()
-                .HaveFullName("System.Void ArchUnitNETTests.Domain.InternalTestClass::.ctor()");
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.NonStaticField).Should();
 
-        private static readonly IObjectProvider<MethodMember> PublicTestClassConstructor =
-            MethodMembers()
-                .That()
-                .HaveFullName("System.Void ArchUnitNETTests.Domain.PublicTestClass::.ctor()");
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeStatic().AssertOnlyViolations(helper);
 
-        [Fact]
-        public void DeclaredInTest()
-        {
-            foreach (var member in _members)
-            {
-                //One Argument
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreStatic()).AssertOnlyViolations(helper);
 
-                var declaredInRightType = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .BeDeclaredIn(member.DeclaringType);
-                var notDeclaredInRightType = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .NotBeDeclaredIn(member.DeclaringType);
-                var declaredInOtherType1 = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .BeDeclaredIn(typeof(PublicTestClass))
-                    .AndShould()
-                    .NotBe(PublicTestClassConstructor);
-                var notDeclaredInOtherType1 = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .NotBeDeclaredIn(typeof(PublicTestClass))
-                    .OrShould()
-                    .Be(PublicTestClassConstructor);
-                var declaredInOtherType2 = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .BeDeclaredIn(StaticTestTypes.PublicTestClass)
-                    .AndShould()
-                    .NotBe(PublicTestClassConstructor);
-                var notDeclaredInOtherType2 = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .NotBeDeclaredIn(StaticTestTypes.PublicTestClass)
-                    .OrShould()
-                    .Be(PublicTestClassConstructor);
+        helper.AddSnapshotHeader("Multiple inputs");
+        Members().That().Are(helper.StaticField, helper.OtherStaticField).Should().BeStatic().AssertNoViolations(helper);
+        Members().That().Are(helper.StaticField, helper.NonStaticField).Should().BeStatic().AssertAnyViolations(helper);
 
-                Assert.True(declaredInRightType.HasNoViolations(Architecture));
-                Assert.False(notDeclaredInRightType.HasNoViolations(Architecture));
-                Assert.False(declaredInOtherType1.HasNoViolations(Architecture));
-                Assert.True(notDeclaredInOtherType1.HasNoViolations(Architecture));
-                Assert.False(declaredInOtherType2.HasNoViolations(Architecture));
-                Assert.True(notDeclaredInOtherType2.HasNoViolations(Architecture));
+        await helper.AssertSnapshotMatches();
+    }
 
-                //Multiple Arguments
+    [Fact]
+    public async Task NotBeStaticTest()
+    {
+        var helper = new TypeAssemblyTestHelper();
 
-                var declaredInRightTypeFluent = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .BeDeclaredIn(Types().That().HaveMemberWithName(member.Name));
-                var notDeclaredInRightTypeFluent = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .NotBeDeclaredIn(Types().That().HaveMemberWithName(member.Name));
-                var declaredInOtherTypeMultiple1 = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .BeDeclaredIn(_falseTypes1)
-                    .AndShould()
-                    .NotBe(FalseTypeConstructors);
-                var notDeclaredInOtherTypeMultiple1 = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .NotBeDeclaredIn(_falseTypes1)
-                    .OrShould()
-                    .Be(FalseTypeConstructors);
-                var declaredInOtherTypeMultiple2 = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .BeDeclaredIn(_falseTypes2)
-                    .AndShould()
-                    .NotBe(FalseTypeConstructors);
-                var notDeclaredInOtherTypeMultiple2 = Members()
-                    .That()
-                    .Are(member)
-                    .Should()
-                    .NotBeDeclaredIn(_falseTypes2)
-                    .OrShould()
-                    .Be(FalseTypeConstructors);
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.NonStaticField).Should();
 
-                Assert.True(declaredInRightTypeFluent.HasNoViolations(Architecture));
-                Assert.False(notDeclaredInRightTypeFluent.HasNoViolations(Architecture));
-                Assert.False(declaredInOtherTypeMultiple1.HasNoViolations(Architecture));
-                Assert.True(notDeclaredInOtherTypeMultiple1.HasNoViolations(Architecture));
-                Assert.False(declaredInOtherTypeMultiple2.HasNoViolations(Architecture));
-                Assert.True(notDeclaredInOtherTypeMultiple2.HasNoViolations(Architecture));
-            }
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeStatic().AssertNoViolations(helper);
 
-            foreach (var type in _types)
-            {
-                var membersShouldBeDeclaredInOwnType = Members()
-                    .That()
-                    .AreDeclaredIn(type)
-                    .Should()
-                    .BeDeclaredIn(type)
-                    .WithoutRequiringPositiveResults();
-                var membersShouldNotBeDeclaredInOwnType = Members()
-                    .That()
-                    .AreNotDeclaredIn(type)
-                    .Should()
-                    .BeDeclaredIn(type)
-                    .WithoutRequiringPositiveResults();
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotStatic()).AssertNoViolations(helper);
 
-                Assert.True(membersShouldBeDeclaredInOwnType.HasNoViolations(Architecture));
-                Assert.False(membersShouldNotBeDeclaredInOwnType.HasNoViolations(Architecture));
-            }
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.StaticField).Should();
 
-            //One Argument
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeStatic().AssertOnlyViolations(helper);
 
-            var emptyTypeHasOnlyConstructor1 = Members()
-                .That()
-                .AreDeclaredIn(typeof(PublicTestClass))
-                .Should()
-                .Be(PublicTestClassConstructor);
-            var emptyTypeHasOnlyConstructor2 = Members()
-                .That()
-                .AreDeclaredIn(StaticTestTypes.PublicTestClass)
-                .Should()
-                .Be(PublicTestClassConstructor);
-            var allMembersAreNotDeclaredInEmptyType1 = Members()
-                .That()
-                .AreNotDeclaredIn(typeof(PublicTestClass))
-                .Should()
-                .Be(Members().That().AreNot(PublicTestClassConstructor));
-            var allMembersAreNotDeclaredInEmptyType2 = Members()
-                .That()
-                .AreNotDeclaredIn(StaticTestTypes.PublicTestClass)
-                .Should()
-                .Be(Members().That().AreNot(PublicTestClassConstructor));
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotStatic()).AssertOnlyViolations(helper);
 
-            Assert.True(emptyTypeHasOnlyConstructor1.HasNoViolations(Architecture));
-            Assert.True(emptyTypeHasOnlyConstructor2.HasNoViolations(Architecture));
-            Assert.True(allMembersAreNotDeclaredInEmptyType1.HasNoViolations(Architecture));
-            Assert.True(allMembersAreNotDeclaredInEmptyType2.HasNoViolations(Architecture));
+        helper.AddSnapshotHeader("Multiple inputs");
+        Members().That().Are(helper.NonStaticField, helper.ReadOnlyField).Should().NotBeStatic().AssertNoViolations(helper);
+        Members().That().Are(helper.NonStaticField, helper.StaticField).Should().NotBeStatic().AssertAnyViolations(helper);
 
-            //Multiple Arguments
+        await helper.AssertSnapshotMatches();
+    }
 
-            var emptyTypeHasOnlyConstructorMultiple1 = Members()
-                .That()
-                .AreDeclaredIn(_falseTypes1)
-                .Should()
-                .Be(FalseTypeConstructors);
-            var emptyTypeHasOnlyConstructorMultiple2 = Members()
-                .That()
-                .AreDeclaredIn(_falseTypes2)
-                .Should()
-                .Be(FalseTypeConstructors);
-            var allMembersAreNotDeclaredInEmptyTypeMultiple1 = Members()
-                .That()
-                .AreNotDeclaredIn(_falseTypes1)
-                .Should()
-                .Be(Members().That().AreNot(FalseTypeConstructors));
-            var allMembersAreNotDeclaredInEmptyTypeMultiple2 = Members()
-                .That()
-                .AreNotDeclaredIn(_falseTypes2)
-                .Should()
-                .Be(Members().That().AreNot(FalseTypeConstructors));
+    [Fact]
+    public async Task BeReadOnlyTest()
+    {
+        var helper = new TypeAssemblyTestHelper();
 
-            Assert.True(emptyTypeHasOnlyConstructorMultiple1.HasNoViolations(Architecture));
-            Assert.True(emptyTypeHasOnlyConstructorMultiple2.HasNoViolations(Architecture));
-            Assert.True(allMembersAreNotDeclaredInEmptyTypeMultiple1.HasNoViolations(Architecture));
-            Assert.True(allMembersAreNotDeclaredInEmptyTypeMultiple2.HasNoViolations(Architecture));
-        }
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.ReadOnlyField).Should();
 
-        [Fact]
-        public void IsStaticTest()
-        {
-            var correctIsStatic = Members().That().AreStatic().Should().BeStatic();
-            var correctIsStatic2 = Members().That().AreNotStatic().Should().NotBeStatic();
-            var wrongStatic = Members().That().AreStatic().Should().NotBeStatic();
-            var wrongStatic2 = Members().That().AreNotStatic().Should().BeStatic();
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeReadOnly().AssertNoViolations(helper);
 
-            Assert.True(correctIsStatic.HasNoViolations(Architecture));
-            Assert.True(correctIsStatic2.HasNoViolations(Architecture));
-            Assert.False(wrongStatic.HasNoViolations(Architecture));
-            Assert.False(wrongStatic2.HasNoViolations(Architecture));
-        }
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreReadOnly()).AssertNoViolations(helper);
 
-        [Fact]
-        public void AreImmutableTest()
-        {
-            foreach (var member in _members)
-            {
-                var memberIsImmutable = Members().That().Are(member).Should().BeImmutable();
-                var memberIsNotImmutable = Members().That().Are(member).Should().NotBeImmutable();
-                var membersThatAreImmutableDoNotIncludeMember = Members()
-                    .That()
-                    .AreImmutable()
-                    .Should()
-                    .NotBe(member)
-                    .OrShould()
-                    .NotExist();
-                var membersThatAreNotImmutableDoNotIncludeMember = Members()
-                    .That()
-                    .AreNotImmutable()
-                    .Should()
-                    .NotBe(member)
-                    .AndShould()
-                    .Exist();
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.WritableProperty).Should();
 
-                bool isImmutable = member.Writability.IsImmutable();
-                Assert.Equal(isImmutable, memberIsImmutable.HasNoViolations(Architecture));
-                Assert.Equal(!isImmutable, memberIsNotImmutable.HasNoViolations(Architecture));
-                Assert.Equal(
-                    !isImmutable,
-                    membersThatAreImmutableDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    isImmutable,
-                    membersThatAreNotImmutableDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-            }
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeReadOnly().AssertOnlyViolations(helper);
 
-            var membersThatAreImmutableAreImmutable = Members()
-                .That()
-                .AreImmutable()
-                .Should()
-                .BeImmutable();
-            var membersThatAreImmutableAreNotImmutable = Members()
-                .That()
-                .AreImmutable()
-                .Should()
-                .NotBeImmutable()
-                .AndShould()
-                .Exist();
-            var membersThatAreNotImmutableAreImmutable = Members()
-                .That()
-                .AreNotImmutable()
-                .Should()
-                .BeImmutable()
-                .AndShould()
-                .Exist();
-            var membersThatAreNotImmutableAreNotImmutable = Members()
-                .That()
-                .AreNotImmutable()
-                .Should()
-                .NotBeImmutable();
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreReadOnly()).AssertOnlyViolations(helper);
 
-            Assert.True(membersThatAreImmutableAreImmutable.HasNoViolations(Architecture));
-            Assert.False(membersThatAreImmutableAreNotImmutable.HasNoViolations(Architecture));
-            Assert.False(membersThatAreNotImmutableAreImmutable.HasNoViolations(Architecture));
-            Assert.True(membersThatAreNotImmutableAreNotImmutable.HasNoViolations(Architecture));
-        }
+        helper.AddSnapshotHeader("Multiple inputs");
+        Members().That().Are(helper.ReadOnlyField, helper.GetOnlyProperty).Should().BeReadOnly().AssertNoViolations(helper);
+        Members().That().Are(helper.ReadOnlyField, helper.WritableProperty).Should().BeReadOnly().AssertAnyViolations(helper);
+
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
+    public async Task NotBeReadOnlyTest()
+    {
+        var helper = new TypeAssemblyTestHelper();
+
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.WritableProperty).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeReadOnly().AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotReadOnly()).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.ReadOnlyField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeReadOnly().AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotReadOnly()).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Multiple inputs");
+        Members().That().Are(helper.WritableProperty, helper.InitOnlyProperty).Should().NotBeReadOnly().AssertNoViolations(helper);
+        Members().That().Are(helper.WritableProperty, helper.ReadOnlyField).Should().NotBeReadOnly().AssertAnyViolations(helper);
+
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
+    public async Task BeImmutableTest()
+    {
+        var helper = new TypeAssemblyTestHelper();
+
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.ReadOnlyField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeImmutable().AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreImmutable()).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.WritableProperty).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeImmutable().AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreImmutable()).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Multiple inputs");
+        Members().That().Are(helper.ReadOnlyField, helper.GetOnlyProperty).Should().BeImmutable().AssertNoViolations(helper);
+        Members().That().Are(helper.ReadOnlyField, helper.WritableProperty).Should().BeImmutable().AssertAnyViolations(helper);
+
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
+    public async Task NotBeImmutableTest()
+    {
+        var helper = new TypeAssemblyTestHelper();
+
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.WritableProperty).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeImmutable().AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotImmutable()).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.ReadOnlyField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeImmutable().AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotImmutable()).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Multiple inputs");
+        Members().That().Are(helper.WritableProperty, helper.OtherWritableProperty).Should().NotBeImmutable().AssertNoViolations(helper);
+        Members().That().Are(helper.WritableProperty, helper.ReadOnlyField).Should().NotBeImmutable().AssertAnyViolations(helper);
+
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
+    public async Task BeDeclaredInTest()
+    {
+        var helper = new TypeAssemblyTestHelper();
+
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeDeclaredIn(helper.ClassWithStaticField).AssertNoViolations(helper);
+        should.BeDeclaredIn(helper.ClassWithStaticFieldSystemType).AssertNoViolations(helper);
+        should.BeDeclaredIn(Types().That().Are(helper.ClassWithStaticField)).AssertNoViolations(helper);
+        should.BeDeclaredIn(new List<IType> { helper.ClassWithStaticField }).AssertNoViolations(helper);
+        should.BeDeclaredIn(new List<System.Type> { helper.ClassWithStaticFieldSystemType }).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreDeclaredIn(helper.ClassWithStaticField)).AssertNoViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(helper.ClassWithStaticFieldSystemType)).AssertNoViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(Types().That().Are(helper.ClassWithStaticField))).AssertNoViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(new List<IType> { helper.ClassWithStaticField })).AssertNoViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(new List<System.Type> { helper.ClassWithStaticFieldSystemType })).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Complex conditions");
+        should.BeDeclaredInTypesThat().Are(helper.ClassWithStaticField).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeDeclaredIn(helper.ClassWithNonStaticField).AssertOnlyViolations(helper);
+        should.BeDeclaredIn(helper.ClassWithNonStaticFieldSystemType).AssertOnlyViolations(helper);
+        should.BeDeclaredIn(Types().That().Are(helper.ClassWithNonStaticField)).AssertOnlyViolations(helper);
+        should.BeDeclaredIn(new List<IType> { helper.ClassWithNonStaticField }).AssertOnlyViolations(helper);
+        should.BeDeclaredIn(new List<System.Type> { helper.ClassWithNonStaticFieldSystemType }).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreDeclaredIn(helper.ClassWithNonStaticField)).AssertOnlyViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(helper.ClassWithNonStaticFieldSystemType)).AssertOnlyViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(Types().That().Are(helper.ClassWithNonStaticField))).AssertOnlyViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(new List<IType> { helper.ClassWithNonStaticField })).AssertOnlyViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(new List<System.Type> { helper.ClassWithNonStaticFieldSystemType })).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Complex conditions");
+        should.BeDeclaredInTypesThat().Are(helper.ClassWithNonStaticField).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Multiple arguments");
+        should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeDeclaredIn(helper.ClassWithStaticField, helper.ClassWithNonStaticField).AssertNoViolations(helper);
+        should.BeDeclaredIn(new List<IType> { helper.ClassWithStaticField, helper.ClassWithNonStaticField }).AssertNoViolations(helper);
+        should.BeDeclaredIn(helper.ClassWithStaticFieldSystemType, helper.ClassWithNonStaticFieldSystemType).AssertNoViolations(helper);
+        should.BeDeclaredIn(new List<System.Type> { helper.ClassWithStaticFieldSystemType, helper.ClassWithNonStaticFieldSystemType }).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreDeclaredIn(helper.ClassWithStaticField, helper.ClassWithNonStaticField)).AssertNoViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(new List<IType> { helper.ClassWithStaticField, helper.ClassWithNonStaticField })).AssertNoViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(helper.ClassWithStaticFieldSystemType, helper.ClassWithNonStaticFieldSystemType)).AssertNoViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(new List<System.Type> { helper.ClassWithStaticFieldSystemType, helper.ClassWithNonStaticFieldSystemType })).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Empty arguments");
+        should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeDeclaredIn(new List<IType>()).AssertOnlyViolations(helper);
+        should.BeDeclaredIn(new List<System.Type>()).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreDeclaredIn(new List<IType>())).AssertOnlyViolations(helper);
+        should.Be(Members().That().AreDeclaredIn(new List<System.Type>())).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Type not in architecture");
+        should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.BeDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) }).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) })).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Multiple inputs");
+        Members().That().Are(helper.StaticField, helper.OtherStaticField).Should().BeDeclaredIn(helper.ClassWithStaticField).AssertAnyViolations(helper);
+        Members().That().Are(helper.StaticField, helper.OtherStaticField).Should().BeDeclaredIn(helper.ClassWithStaticField, helper.OtherClassWithStaticField).AssertNoViolations(helper);
+
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
+    public async Task NotBeDeclaredInTest()
+    {
+        var helper = new TypeAssemblyTestHelper();
+
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeDeclaredIn(helper.ClassWithNonStaticField).AssertNoViolations(helper);
+        should.NotBeDeclaredIn(helper.ClassWithNonStaticFieldSystemType).AssertNoViolations(helper);
+        should.NotBeDeclaredIn(Types().That().Are(helper.ClassWithNonStaticField)).AssertNoViolations(helper);
+        should.NotBeDeclaredIn(new List<IType> { helper.ClassWithNonStaticField }).AssertNoViolations(helper);
+        should.NotBeDeclaredIn(new List<System.Type> { helper.ClassWithNonStaticFieldSystemType }).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotDeclaredIn(helper.ClassWithNonStaticField)).AssertNoViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(helper.ClassWithNonStaticFieldSystemType)).AssertNoViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(Types().That().Are(helper.ClassWithNonStaticField))).AssertNoViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(new List<IType> { helper.ClassWithNonStaticField })).AssertNoViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(new List<System.Type> { helper.ClassWithNonStaticFieldSystemType })).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Complex conditions");
+        should.NotBeDeclaredInTypesThat().Are(helper.ClassWithNonStaticField).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeDeclaredIn(helper.ClassWithStaticField).AssertOnlyViolations(helper);
+        should.NotBeDeclaredIn(helper.ClassWithStaticFieldSystemType).AssertOnlyViolations(helper);
+        should.NotBeDeclaredIn(Types().That().Are(helper.ClassWithStaticField)).AssertOnlyViolations(helper);
+        should.NotBeDeclaredIn(new List<IType> { helper.ClassWithStaticField }).AssertOnlyViolations(helper);
+        should.NotBeDeclaredIn(new List<System.Type> { helper.ClassWithStaticFieldSystemType }).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotDeclaredIn(helper.ClassWithStaticField)).AssertOnlyViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(helper.ClassWithStaticFieldSystemType)).AssertOnlyViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(Types().That().Are(helper.ClassWithStaticField))).AssertOnlyViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(new List<IType> { helper.ClassWithStaticField })).AssertOnlyViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(new List<System.Type> { helper.ClassWithStaticFieldSystemType })).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Complex conditions");
+        should.NotBeDeclaredInTypesThat().Are(helper.ClassWithStaticField).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotHeader("Multiple arguments");
+        should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeDeclaredIn(helper.ClassWithNonStaticField, helper.ClassWithReadOnlyField).AssertNoViolations(helper);
+        should.NotBeDeclaredIn(new List<IType> { helper.ClassWithNonStaticField, helper.ClassWithReadOnlyField }).AssertNoViolations(helper);
+        should.NotBeDeclaredIn(helper.ClassWithNonStaticFieldSystemType, helper.ClassWithReadOnlyFieldSystemType).AssertNoViolations(helper);
+        should.NotBeDeclaredIn(new List<System.Type> { helper.ClassWithNonStaticFieldSystemType, helper.ClassWithReadOnlyFieldSystemType }).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotDeclaredIn(helper.ClassWithNonStaticField, helper.ClassWithReadOnlyField)).AssertNoViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(new List<IType> { helper.ClassWithNonStaticField, helper.ClassWithReadOnlyField })).AssertNoViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(helper.ClassWithNonStaticFieldSystemType, helper.ClassWithReadOnlyFieldSystemType)).AssertNoViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(new List<System.Type> { helper.ClassWithNonStaticFieldSystemType, helper.ClassWithReadOnlyFieldSystemType })).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Empty arguments");
+        should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeDeclaredIn(new List<IType>()).AssertNoViolations(helper);
+        should.NotBeDeclaredIn(new List<System.Type>()).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotDeclaredIn(new List<IType>())).AssertNoViolations(helper);
+        should.Be(Members().That().AreNotDeclaredIn(new List<System.Type>())).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Type not in architecture");
+        should = Members().That().Are(helper.StaticField).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotBeDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) }).AssertNoViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Members().That().AreNotDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) })).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Multiple inputs");
+        Members().That().Are(helper.StaticField, helper.NonStaticField).Should().NotBeDeclaredIn(helper.ClassWithReadOnlyField).AssertNoViolations(helper);
+        Members().That().Are(helper.StaticField, helper.NonStaticField).Should().NotBeDeclaredIn(helper.ClassWithStaticField).AssertAnyViolations(helper);
+
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
+    public async Task BeDeclaredInTypesThatTest()
+    {
+        var helper = new TypeAssemblyTestHelper();
+
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.StaticField).Should();
+        should.BeDeclaredInTypesThat().Are(helper.ClassWithStaticField).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.StaticField).Should();
+        should.BeDeclaredInTypesThat().Are(helper.ClassWithNonStaticField).AssertOnlyViolations(helper);
+
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
+    public async Task NotBeDeclaredInTypesThatTest()
+    {
+        var helper = new TypeAssemblyTestHelper();
+
+        helper.AddSnapshotHeader("No Violations");
+        var should = Members().That().Are(helper.StaticField).Should();
+        should.NotBeDeclaredInTypesThat().Are(helper.ClassWithNonStaticField).AssertNoViolations(helper);
+
+        helper.AddSnapshotHeader("Violations");
+        should = Members().That().Are(helper.StaticField).Should();
+        should.NotBeDeclaredInTypesThat().Are(helper.ClassWithStaticField).AssertOnlyViolations(helper);
+
+        await helper.AssertSnapshotMatches();
     }
 }
