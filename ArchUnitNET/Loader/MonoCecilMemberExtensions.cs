@@ -250,7 +250,7 @@ namespace ArchUnitNET.Loader
                 switch (matchingFieldMembers.Count)
                 {
                     case 0:
-                        var stubFieldMember = domainResolver.CreateStubFieldMemberFromFieldReference(
+                        var stubFieldMember = domainResolver.GetOrCreateFieldMember(
                             declaringType.Type,
                             fieldReference
                         );

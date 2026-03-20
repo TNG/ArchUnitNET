@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using ArchUnitNET.Domain;
 using JetBrains.Annotations;
 using Mono.Cecil;
-using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
@@ -40,7 +37,9 @@ namespace ArchUnitNET.Loader.LoadTasks
         {
             return typeDefinition
                 .Fields.Where(fieldDefinition => !fieldDefinition.IsBackingField())
-                .Select(CreateFieldMember)
+                .Select(fieldDef =>
+                    (IMember)_domainResolver.GetOrCreateFieldMember(_typeInstance.Type, fieldDef)
+                )
                 .Concat(
                     typeDefinition
                         .Properties.Select(CreatePropertyMember)
@@ -56,28 +55,6 @@ namespace ArchUnitNET.Loader.LoadTasks
                         )
                 )
                 .Where(member => !member.IsCompilerGenerated);
-        }
-
-        [NotNull]
-        private IMember CreateFieldMember([NotNull] FieldDefinition fieldDefinition)
-        {
-            var typeReference = fieldDefinition.FieldType;
-            var fieldType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
-                typeReference
-            );
-            var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
-            var isCompilerGenerated = fieldDefinition.IsCompilerGenerated();
-            var writeAccessor = GetWriteAccessor(fieldDefinition);
-            return new FieldMember(
-                _typeInstance.Type,
-                fieldDefinition.Name,
-                fieldDefinition.FullName,
-                visibility,
-                fieldType,
-                isCompilerGenerated,
-                fieldDefinition.IsStatic,
-                writeAccessor
-            );
         }
 
         [NotNull]
@@ -101,48 +78,6 @@ namespace ArchUnitNET.Loader.LoadTasks
                 isStatic,
                 writeAccessor
             );
-        }
-
-        private static Visibility GetVisibilityFromFieldDefinition(
-            [NotNull] FieldDefinition fieldDefinition
-        )
-        {
-            if (fieldDefinition.IsPublic)
-            {
-                return Public;
-            }
-
-            if (fieldDefinition.IsPrivate)
-            {
-                return Private;
-            }
-
-            if (fieldDefinition.IsFamily)
-            {
-                return Protected;
-            }
-
-            if (fieldDefinition.IsAssembly)
-            {
-                return Internal;
-            }
-
-            if (fieldDefinition.IsFamilyOrAssembly)
-            {
-                return ProtectedInternal;
-            }
-
-            if (fieldDefinition.IsFamilyAndAssembly)
-            {
-                return PrivateProtected;
-            }
-
-            throw new ArgumentException("The field definition seems to have no visibility.");
-        }
-
-        private static Writability GetWriteAccessor([NotNull] FieldDefinition fieldDefinition)
-        {
-            return fieldDefinition.IsInitOnly ? Writability.ReadOnly : Writability.Writable;
         }
 
         private static Writability GetWriteAccessor([NotNull] PropertyDefinition propertyDefinition)

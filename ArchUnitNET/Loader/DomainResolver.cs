@@ -29,6 +29,9 @@ namespace ArchUnitNET.Loader
         private readonly Dictionary<string, MethodMemberInstance> _allMethods =
             new Dictionary<string, MethodMemberInstance>();
 
+        private readonly Dictionary<string, FieldMember> _allFields =
+            new Dictionary<string, FieldMember>();
+
         public DomainResolver(
             LoadTaskRegistry loadTaskRegistry
         )
@@ -620,33 +623,89 @@ namespace ArchUnitNET.Loader
         }
 
         [NotNull]
-        internal FieldMember CreateStubFieldMemberFromFieldReference(
+        internal FieldMember GetOrCreateFieldMember(
             [NotNull] IType type,
             [NotNull] FieldReference fieldReference
         )
         {
+            var fullName = fieldReference.FullName;
+            if (_allFields.TryGetValue(fullName, out var existing))
+            {
+                return existing;
+            }
+
             var typeReference = fieldReference.FieldType;
             var fieldType = GetOrCreateStubTypeInstanceFromTypeReference(typeReference);
             var isCompilerGenerated = fieldReference.IsCompilerGenerated();
-            bool? isStatic = null;
-            var isReadOnly = false;
+            Visibility visibility;
+            bool? isStatic;
+            Writability writeAccessor;
 
             if (fieldReference is FieldDefinition fieldDefinition)
             {
+                visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
                 isStatic = fieldDefinition.IsStatic;
-                isReadOnly = fieldDefinition.IsInitOnly;
+                writeAccessor = fieldDefinition.IsInitOnly
+                    ? Writability.ReadOnly
+                    : Writability.Writable;
+            }
+            else
+            {
+                visibility = Public;
+                isStatic = null;
+                writeAccessor = Writability.Writable;
             }
 
-            return new FieldMember(
+            var fieldMember = new FieldMember(
                 type,
                 fieldReference.Name,
-                fieldReference.FullName,
-                Public,
+                fullName,
+                visibility,
                 fieldType,
                 isCompilerGenerated,
                 isStatic,
-                isReadOnly ? Writability.ReadOnly : Writability.Writable
+                writeAccessor
             );
+
+            _allFields.Add(fullName, fieldMember);
+            return fieldMember;
+        }
+
+        private static Visibility GetVisibilityFromFieldDefinition(
+            [NotNull] FieldDefinition fieldDefinition
+        )
+        {
+            if (fieldDefinition.IsPublic)
+            {
+                return Public;
+            }
+
+            if (fieldDefinition.IsPrivate)
+            {
+                return Private;
+            }
+
+            if (fieldDefinition.IsFamily)
+            {
+                return Protected;
+            }
+
+            if (fieldDefinition.IsAssembly)
+            {
+                return Internal;
+            }
+
+            if (fieldDefinition.IsFamilyOrAssembly)
+            {
+                return ProtectedInternal;
+            }
+
+            if (fieldDefinition.IsFamilyAndAssembly)
+            {
+                return PrivateProtected;
+            }
+
+            throw new ArgumentException("The field definition seems to have no visibility.");
         }
 
         public IEnumerable<GenericParameter> GetGenericParameters(
