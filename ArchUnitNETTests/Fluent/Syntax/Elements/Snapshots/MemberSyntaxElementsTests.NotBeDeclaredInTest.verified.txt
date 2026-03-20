@@ -257,7 +257,7 @@ Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
 Message: 
 All Evaluations passed
 
-Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in any type (always true9
+Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are declared in any type (always true)
 Result: True
 Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
 Message: 
@@ -268,18 +268,12 @@ All Evaluations passed
 ----- Conditions -----
 
 Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should not be declared in "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates -----
 
 Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" should be Members that are not declared in "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ===== Multiple inputs =====
 

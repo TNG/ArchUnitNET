@@ -10,7 +10,7 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" should be Members that are not immutablee
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" should be Members that are not immutable
 Result: True
 Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
@@ -31,12 +31,12 @@ Message:
 
 ----- Predicates -----
 
-Query: Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should be Members that are not immutablee
+Query: Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should be Members that are not immutable
 Result: False
-Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Members that are not immutablee
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Members that are not immutable
 Message: 
-"Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should be Members that are not immutablee" failed:
-	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Members that are not immutablee
+"Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should be Members that are not immutable" failed:
+	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Members that are not immutable
 
 
 

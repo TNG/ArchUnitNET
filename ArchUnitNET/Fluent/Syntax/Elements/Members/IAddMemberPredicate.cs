@@ -8,8 +8,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         : IAddObjectPredicate<TNextElement, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        TNextElement AreDeclaredIn(IType firstType, params IType[] moreTypes);
-        TNextElement AreDeclaredIn(Type firstType, params Type[] moreTypes);
+        // csharpier-ignore-start
+        TNextElement AreDeclaredIn();
+        TNextElement AreDeclaredIn(params IType[] types);
+        TNextElement AreDeclaredIn(params Type[] types);
         TNextElement AreDeclaredIn(IObjectProvider<IType> types);
         TNextElement AreDeclaredIn(IEnumerable<IType> types);
         TNextElement AreDeclaredIn(IEnumerable<Type> types);
@@ -18,12 +20,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Negations
 
-        TNextElement AreNotDeclaredIn(IType firstType, params IType[] moreTypes);
-        TNextElement AreNotDeclaredIn(Type firstType, params Type[] moreTypes);
+        TNextElement AreNotDeclaredIn();
+        TNextElement AreNotDeclaredIn(params IType[] types);
+        TNextElement AreNotDeclaredIn(params Type[] types);
         TNextElement AreNotDeclaredIn(IObjectProvider<IType> types);
         TNextElement AreNotDeclaredIn(IEnumerable<IType> types);
         TNextElement AreNotDeclaredIn(IEnumerable<Type> types);
         TNextElement AreNotStatic();
         TNextElement AreNotImmutable();
+        // csharpier-ignore-end
     }
 }

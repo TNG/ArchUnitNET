@@ -9,8 +9,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         : IAddObjectCondition<TNextElement, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        TNextElement BeDeclaredIn(IType firstType, params IType[] moreTypes);
-        TNextElement BeDeclaredIn(Type firstType, params Type[] moreTypes);
+        TNextElement BeDeclaredIn();
+        TNextElement BeDeclaredIn(params IType[] types);
+        TNextElement BeDeclaredIn(params Type[] types);
         TNextElement BeDeclaredIn(IObjectProvider<IType> types);
         TNextElement BeDeclaredIn(IEnumerable<IType> types);
         TNextElement BeDeclaredIn(IEnumerable<Type> types);
@@ -20,8 +21,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         TNextElement BeImmutable();
 
         //Negations
-        TNextElement NotBeDeclaredIn(IType firstType, params IType[] moreTypes);
-        TNextElement NotBeDeclaredIn(Type firstType, params Type[] moreTypes);
+        TNextElement NotBeDeclaredIn();
+        TNextElement NotBeDeclaredIn(params IType[] types);
+        TNextElement NotBeDeclaredIn(params Type[] types);
         TNextElement NotBeDeclaredIn(IObjectProvider<IType> types);
         TNextElement NotBeDeclaredIn(IEnumerable<IType> types);
         TNextElement NotBeDeclaredIn(IEnumerable<Type> types);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNETTests.AssemblyTestHelper;
 using AttributeNamespace;
 using Xunit;
@@ -266,10 +267,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Members().That().Are(helper.StaticField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.BeDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) }).AssertOnlyViolations(helper);
+            should.BeDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Members().That().AreDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) })).AssertOnlyViolations(helper);
+            should.Be(Members().That().AreDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             Members().That().Are(helper.StaticField, helper.OtherStaticField).Should().BeDeclaredIn(helper.ClassWithStaticField).AssertAnyViolations(helper);
@@ -353,10 +354,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Members().That().Are(helper.StaticField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.NotBeDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) }).AssertNoViolations(helper);
+            should.NotBeDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Members().That().AreNotDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) })).AssertNoViolations(helper);
+            should.Be(Members().That().AreNotDeclaredIn(new List<System.Type> { typeof(ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             Members().That().Are(helper.StaticField, helper.NonStaticField).Should().NotBeDeclaredIn(helper.ClassWithReadOnlyField).AssertNoViolations(helper);

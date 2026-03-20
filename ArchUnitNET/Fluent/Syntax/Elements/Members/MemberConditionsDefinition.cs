@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
+using static ArchUnitNET.Domain.Extensions.EnumerableExtensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 {
@@ -12,160 +11,39 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         where TRuleType : IMember
     {
         public static IOrderedCondition<TRuleType> BeDeclaredIn(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return BeDeclaredIn(types);
-        }
-
-        public static IOrderedCondition<TRuleType> BeDeclaredIn(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return BeDeclaredIn(types);
-        }
-
-        public static IOrderedCondition<TRuleType> BeDeclaredIn(
             IObjectProvider<IType> objectProvider
         )
         {
             IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> methods,
+                IEnumerable<TRuleType> members,
                 Architecture architecture
             )
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
-                var methodList = methods.ToList();
-                var passedObjects = methodList
-                    .Where(method => typeList.Contains(method.DeclaringType))
-                    .ToList();
-                foreach (var failedObject in methodList.Except(passedObjects))
+                var isExpectedType = CreateLookupFn(typeList);
+                foreach (var member in members)
                 {
-                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            var description = "be declared in " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> BeDeclaredIn(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods)
-            {
-                var methodList = methods.ToList();
-                var passedObjects = methodList
-                    .Where(method => typeList.Contains(method.DeclaringType))
-                    .ToList();
-                foreach (var failedObject in methodList.Except(passedObjects))
-                {
-                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "be declared in no type (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(obj => !obj.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "be declared in \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> BeDeclaredIn(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> methods,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
+                    if (isExpectedType(member.DeclaringType))
                     {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
+                        yield return new ConditionResult(member, true);
                     }
-                    catch (TypeDoesNotExistInArchitecture)
+                    else
                     {
-                        //ignore, can't have a dependency anyways
+                        yield return new ConditionResult(
+                            member,
+                            false,
+                            "is declared in " + member.DeclaringType.FullName
+                        );
                     }
                 }
-
-                var methodList = methods.ToList();
-                var passedObjects = methodList
-                    .Where(method => archUnitTypeList.Contains(method.DeclaringType))
-                    .ToList();
-                foreach (var failedObject in methodList.Except(passedObjects))
-                {
-                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "be declared in no type (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(obj => obj != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "be declared in \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
+            var description = objectProvider.FormatDescription(
+                "be declared in no type (always false)",
+                "be declared in",
+                "be declared in"
+            );
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static IOrderedCondition<TRuleType> BeStatic()
@@ -209,160 +87,39 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         //Negations
 
         public static IOrderedCondition<TRuleType> NotBeDeclaredIn(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return NotBeDeclaredIn(types);
-        }
-
-        public static IOrderedCondition<TRuleType> NotBeDeclaredIn(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return NotBeDeclaredIn(types);
-        }
-
-        public static IOrderedCondition<TRuleType> NotBeDeclaredIn(
             IObjectProvider<IType> objectProvider
         )
         {
             IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> methods,
+                IEnumerable<TRuleType> members,
                 Architecture architecture
             )
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
-                var methodList = methods.ToList();
-                var failedObjects = methodList
-                    .Where(method => typeList.Contains(method.DeclaringType))
-                    .ToList();
-                foreach (var failedObject in failedObjects)
+                var isForbiddenType = CreateLookupFn(typeList);
+                foreach (var member in members)
                 {
-                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in methodList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            var description = "not be declared in " + objectProvider.Description;
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> NotBeDeclaredIn(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<TRuleType> methods)
-            {
-                var methodList = methods.ToList();
-                var failedObjects = methodList
-                    .Where(method => typeList.Contains(method.DeclaringType))
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in methodList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not be declared in no type (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(obj => !obj.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "not be declared in \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<TRuleType>(Condition, description).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<TRuleType> NotBeDeclaredIn(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<TRuleType> methods,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
+                    if (!isForbiddenType(member.DeclaringType))
                     {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
+                        yield return new ConditionResult(member, true);
                     }
-                    catch (TypeDoesNotExistInArchitecture)
+                    else
                     {
-                        //ignore, can't have a dependency anyways
+                        yield return new ConditionResult(
+                            member,
+                            false,
+                            "is declared in " + member.DeclaringType.FullName
+                        );
                     }
                 }
-
-                var methodList = methods.ToList();
-                var failedObjects = methodList
-                    .Where(method => archUnitTypeList.Contains(method.DeclaringType))
-                    .ToList();
-                foreach (var failedObject in failedObjects)
-                {
-                    var failDescription = "is declared in " + failedObject.DeclaringType.FullName;
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in methodList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not be declared in no type (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(obj => obj != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "not be declared in \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<TRuleType>(
-                Condition,
-                description
-            ).AsOrderedCondition();
+            var description = objectProvider.FormatDescription(
+                "not be declared in no type (always true)",
+                "not be declared in",
+                "not be declared in"
+            );
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
         public static IOrderedCondition<TRuleType> NotBeStatic()
