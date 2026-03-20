@@ -13,7 +13,7 @@ namespace ArchUnitNET.Loader
     /// Internal builder that constructs an <see cref="Architecture"/> from loaded modules.
     /// Coordinates type discovery (via <see cref="DomainResolver"/>), type processing
     /// (via the <c>LoadTasks</c> static classes), and architecture assembly. Manages the
-    /// <see cref="ArchitectureCache"/> lookup.
+    /// <see cref="ArchitectureCache"/> lookup and supports disabling rule-evaluation caching.
     /// </summary>
     internal class ArchBuilder
     {
@@ -146,14 +146,22 @@ namespace ArchUnitNET.Loader
 
         /// <summary>
         /// Builds the <see cref="Architecture"/> from all loaded modules. Returns a cached
-        /// instance when available.
+        /// instance when available (unless <paramref name="skipArchitectureCache"/> is set).
         /// </summary>
-        public Architecture Build()
+        public Architecture Build(bool skipRuleEvaluationCache, bool skipArchitectureCache)
         {
-            var architecture = _architectureCache.TryGetArchitecture(_architectureCacheKey);
-            if (architecture != null)
+            if (skipRuleEvaluationCache)
             {
-                return architecture;
+                _architectureCacheKey.SetRuleEvaluationCacheDisabled();
+            }
+
+            if (!skipArchitectureCache)
+            {
+                var architecture = _architectureCache.TryGetArchitecture(_architectureCacheKey);
+                if (architecture != null)
+                {
+                    return architecture;
+                }
             }
 
             ProcessTypes();
@@ -176,10 +184,14 @@ namespace ArchUnitNET.Loader
                 namespaces,
                 types,
                 genericParameters,
-                referencedTypes
+                referencedTypes,
+                !skipRuleEvaluationCache
             );
 
-            _architectureCache.Add(_architectureCacheKey, newArchitecture);
+            if (!skipArchitectureCache)
+            {
+                _architectureCache.Add(_architectureCacheKey, newArchitecture);
+            }
 
             return newArchitecture;
         }

@@ -12,10 +12,12 @@ namespace ArchUnitNET.Loader
 {
     public class ArchLoader
     {
+        private bool _skipRuleEvaluationCache;
+        private bool _skipArchitectureCache;
         private readonly List<LoadInstruction> _loadInstructions = new List<LoadInstruction>();
 
         // ---------------------------------------------------------------------------
-        // LoadInstruction hierarchy
+        // LoadInstruction hierarchy — replaces the old tagged-union struct
         // ---------------------------------------------------------------------------
 
         private abstract class LoadInstruction
@@ -73,6 +75,34 @@ namespace ArchUnitNET.Loader
         }
 
         // ---------------------------------------------------------------------------
+        // Cache configuration
+        // ---------------------------------------------------------------------------
+
+        /// <summary>
+        /// Configures this loader to disable rule evaluation caching in the built architecture.
+        /// Each call to <see cref="Architecture.GetOrCreateObjects{T}"/> will invoke the providing
+        /// function directly instead of returning a cached result.
+        /// </summary>
+        /// <returns>This loader instance for method chaining.</returns>
+        public ArchLoader WithoutRuleEvaluationCache()
+        {
+            _skipRuleEvaluationCache = true;
+            return this;
+        }
+
+        /// <summary>
+        /// Configures this loader to skip the global <see cref="ArchitectureCache"/> when
+        /// building the architecture. Each call to <see cref="Build"/> will create a fresh
+        /// architecture instance instead of returning a cached one.
+        /// </summary>
+        /// <returns>This loader instance for method chaining.</returns>
+        public ArchLoader WithoutArchitectureCache()
+        {
+            _skipArchitectureCache = true;
+            return this;
+        }
+
+        // ---------------------------------------------------------------------------
         // Build
         // ---------------------------------------------------------------------------
 
@@ -98,7 +128,7 @@ namespace ArchUnitNET.Loader
                     }
                 }
 
-                return archBuilder.Build();
+                return archBuilder.Build(_skipRuleEvaluationCache, _skipArchitectureCache);
             }
             finally
             {
