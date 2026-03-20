@@ -8,24 +8,24 @@ namespace ArchUnitNET.Loader.LoadTasks
     {
         private readonly Assembly _assembly;
         private readonly AssemblyDefinition _assemblyDefinition;
-        private readonly TypeFactory _typeFactory;
+        private readonly DomainResolver _domainResolver;
 
         public CollectAssemblyAttributes(
             Assembly assembly,
             AssemblyDefinition assemblyDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             _assembly = assembly;
             _assemblyDefinition = assemblyDefinition;
-            _typeFactory = typeFactory;
+            _domainResolver = domainResolver;
         }
 
         public void Execute()
         {
             var attributeInstances = _assemblyDefinition
                 .CustomAttributes.Select(attr =>
-                    attr.CreateAttributeFromCustomAttribute(_typeFactory)
+                    attr.CreateAttributeFromCustomAttribute(_domainResolver)
                 )
                 .ToList();
             _assembly.AttributeInstances.AddRange(attributeInstances);

@@ -13,7 +13,7 @@ using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
 {
-    internal class TypeFactory
+    internal class DomainResolver
     {
         private readonly AssemblyRegistry _assemblyRegistry;
         private readonly LoadTaskRegistry _loadTaskRegistry;
@@ -25,7 +25,7 @@ namespace ArchUnitNET.Loader
         private readonly Dictionary<string, MethodMemberInstance> _allMethods =
             new Dictionary<string, MethodMemberInstance>();
 
-        public TypeFactory(
+        public DomainResolver(
             LoadTaskRegistry loadTaskRegistry,
             AssemblyRegistry assemblyRegistry,
             NamespaceRegistry namespaceRegistry

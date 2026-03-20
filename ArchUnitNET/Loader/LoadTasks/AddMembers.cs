@@ -14,18 +14,18 @@ namespace ArchUnitNET.Loader.LoadTasks
         private readonly MemberList _memberList;
         private readonly ITypeInstance<IType> _typeInstance;
         private readonly TypeDefinition _typeDefinition;
-        private readonly TypeFactory _typeFactory;
+        private readonly DomainResolver _domainResolver;
 
         public AddMembers(
             ITypeInstance<IType> typeInstance,
             TypeDefinition typeDefinition,
-            TypeFactory typeFactory,
+            DomainResolver domainResolver,
             MemberList memberList
         )
         {
             _typeInstance = typeInstance;
             _typeDefinition = typeDefinition;
-            _typeFactory = typeFactory;
+            _domainResolver = domainResolver;
             _memberList = memberList;
         }
 
@@ -46,7 +46,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                         .Properties.Select(CreatePropertyMember)
                         .Concat(
                             typeDefinition.Methods.Select(method =>
-                                _typeFactory
+                                _domainResolver
                                     .GetOrCreateMethodMemberFromMethodReference(
                                         _typeInstance,
                                         method
@@ -62,7 +62,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         private IMember CreateFieldMember([NotNull] FieldDefinition fieldDefinition)
         {
             var typeReference = fieldDefinition.FieldType;
-            var fieldType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+            var fieldType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                 typeReference
             );
             var visibility = GetVisibilityFromFieldDefinition(fieldDefinition);
@@ -84,7 +84,7 @@ namespace ArchUnitNET.Loader.LoadTasks
         private IMember CreatePropertyMember(PropertyDefinition propertyDefinition)
         {
             var typeReference = propertyDefinition.PropertyType;
-            var propertyType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+            var propertyType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                 typeReference
             );
             var isCompilerGenerated = propertyDefinition.IsCompilerGenerated();

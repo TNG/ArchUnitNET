@@ -18,14 +18,14 @@ namespace ArchUnitNET.Loader
         private readonly AssemblyRegistry _assemblyRegistry;
         private readonly LoadTaskRegistry _loadTaskRegistry;
         private readonly NamespaceRegistry _namespaceRegistry;
-        private readonly TypeFactory _typeFactory;
+        private readonly DomainResolver _domainResolver;
 
         public ArchBuilder()
         {
             _assemblyRegistry = new AssemblyRegistry();
             _namespaceRegistry = new NamespaceRegistry();
             _loadTaskRegistry = new LoadTaskRegistry();
-            _typeFactory = new TypeFactory(
+            _domainResolver = new DomainResolver(
                 _loadTaskRegistry,
                 _assemblyRegistry,
                 _namespaceRegistry
@@ -54,7 +54,7 @@ namespace ArchUnitNET.Loader
                 );
                 _loadTaskRegistry.Add(
                     typeof(CollectAssemblyAttributes),
-                    new CollectAssemblyAttributes(assembly, moduleAssembly, _typeFactory)
+                    new CollectAssemblyAttributes(assembly, moduleAssembly, _domainResolver)
                 );
             }
         }
@@ -101,7 +101,7 @@ namespace ArchUnitNET.Loader
                 )
                 .ForEach(typeDefinition =>
                 {
-                    var type = _typeFactory.GetOrCreateTypeFromTypeReference(typeDefinition);
+                    var type = _domainResolver.GetOrCreateTypeFromTypeReference(typeDefinition);
                     var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
                         module.Assembly.Name.Name,
                         typeDefinition.FullName
@@ -150,7 +150,7 @@ namespace ArchUnitNET.Loader
             }
 
             UpdateTypeDefinitions();
-            var allTypes = _typeFactory.GetAllNonCompilerGeneratedTypes().ToList();
+            var allTypes = _domainResolver.GetAllNonCompilerGeneratedTypes().ToList();
             var genericParameters = allTypes.OfType<GenericParameter>().ToList();
             var referencedTypes = allTypes.Except(Types).Except(genericParameters);
             var namespaces = Namespaces.Where(ns => ns.Types.Any());

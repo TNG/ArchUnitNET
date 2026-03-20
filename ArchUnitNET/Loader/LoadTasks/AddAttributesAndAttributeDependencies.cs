@@ -18,17 +18,17 @@ namespace ArchUnitNET.Loader.LoadTasks
     {
         private readonly IType _type;
         private readonly TypeDefinition _typeDefinition;
-        private readonly TypeFactory _typeFactory;
+        private readonly DomainResolver _domainResolver;
 
         public AddAttributesAndAttributeDependencies(
             IType type,
             TypeDefinition typeDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             _type = type;
             _typeDefinition = typeDefinition;
-            _typeFactory = typeFactory;
+            _domainResolver = domainResolver;
         }
 
         public void Execute()
@@ -184,7 +184,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                     && customAttribute.AttributeType.FullName
                         != "System.Runtime.CompilerServices.NullableContextAttribute"
                 )
-                .Select(attr => attr.CreateAttributeFromCustomAttribute(_typeFactory));
+                .Select(attr => attr.CreateAttributeFromCustomAttribute(_domainResolver));
         }
 
         [NotNull]
@@ -219,7 +219,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 )
                 .ForEach(tuple =>
                 {
-                    var argumentType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                    var argumentType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                         tuple.typeReference
                     );
                     var dependency = new TypeReferenceDependency(_type, argumentType);

@@ -16,17 +16,17 @@ namespace ArchUnitNET.Loader.LoadTasks
     {
         private readonly IType _type;
         private readonly TypeDefinition _typeDefinition;
-        private readonly TypeFactory _typeFactory;
+        private readonly DomainResolver _domainResolver;
 
         public AddMethodDependencies(
             IType type,
             TypeDefinition typeDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             _type = type;
             _typeDefinition = typeDefinition;
-            _typeFactory = typeFactory;
+            _domainResolver = domainResolver;
         }
 
         public void Execute()
@@ -119,10 +119,10 @@ namespace ArchUnitNET.Loader.LoadTasks
             MethodMember methodMember
         )
         {
-            var returnType = methodReference.GetReturnType(_typeFactory);
+            var returnType = methodReference.GetReturnType(_domainResolver);
             return (returnType != null ? new[] { returnType } : Array.Empty<ITypeInstance<IType>>())
-                .Concat(methodReference.GetParameters(_typeFactory))
-                .Concat(methodReference.GetGenericParameters(_typeFactory))
+                .Concat(methodReference.GetParameters(_domainResolver))
+                .Concat(methodReference.GetGenericParameters(_domainResolver))
                 .Distinct()
                 .Select(signatureType => new MethodSignatureDependency(
                     methodMember,
@@ -165,16 +165,16 @@ namespace ArchUnitNET.Loader.LoadTasks
                 );
             }
 
-            bodyTypes.AddRange(methodDefinition.GetBodyTypes(_typeFactory).ToList());
+            bodyTypes.AddRange(methodDefinition.GetBodyTypes(_domainResolver).ToList());
 
-            var castTypes = methodDefinition.GetCastTypes(_typeFactory).ToList();
+            var castTypes = methodDefinition.GetCastTypes(_domainResolver).ToList();
 
-            var typeCheckTypes = methodDefinition.GetTypeCheckTypes(_typeFactory).ToList();
+            var typeCheckTypes = methodDefinition.GetTypeCheckTypes(_domainResolver).ToList();
 
-            var metaDataTypes = methodDefinition.GetMetaDataTypes(_typeFactory).ToList();
+            var metaDataTypes = methodDefinition.GetMetaDataTypes(_domainResolver).ToList();
 
             var accessedFieldMembers = methodDefinition
-                .GetAccessedFieldMembers(_typeFactory)
+                .GetAccessedFieldMembers(_domainResolver)
                 .ToList();
 
             var calledMethodMembers = CreateMethodBodyDependenciesRecursive(
@@ -262,10 +262,10 @@ namespace ArchUnitNET.Loader.LoadTasks
             {
                 visitedMethodReferences.Add(calledMethodReference);
 
-                var calledType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                var calledType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                     calledMethodReference.DeclaringType
                 );
-                var calledMethodMember = _typeFactory.GetOrCreateMethodMemberFromMethodReference(
+                var calledMethodMember = _domainResolver.GetOrCreateMethodMemberFromMethodReference(
                     calledType,
                     calledMethodReference
                 );
@@ -302,12 +302,12 @@ namespace ArchUnitNET.Loader.LoadTasks
                         );
                     }
 
-                    bodyTypes.AddRange(calledMethodDefinition.GetBodyTypes(_typeFactory));
-                    castTypes.AddRange(calledMethodDefinition.GetCastTypes(_typeFactory));
-                    typeCheckTypes.AddRange(calledMethodDefinition.GetTypeCheckTypes(_typeFactory));
-                    metaDataTypes.AddRange(calledMethodDefinition.GetMetaDataTypes(_typeFactory));
+                    bodyTypes.AddRange(calledMethodDefinition.GetBodyTypes(_domainResolver));
+                    castTypes.AddRange(calledMethodDefinition.GetCastTypes(_domainResolver));
+                    typeCheckTypes.AddRange(calledMethodDefinition.GetTypeCheckTypes(_domainResolver));
+                    metaDataTypes.AddRange(calledMethodDefinition.GetMetaDataTypes(_domainResolver));
                     accessedFieldMembers.AddRange(
-                        calledMethodDefinition.GetAccessedFieldMembers(_typeFactory)
+                        calledMethodDefinition.GetAccessedFieldMembers(_domainResolver)
                     );
 
                     foreach (
@@ -360,7 +360,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             bodyTypes.AddRange(
                 fieldsExceptGeneratorStateInfo.Select(bodyField =>
-                    _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)
+                    _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)
                 )
             );
         }
@@ -402,7 +402,7 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             bodyTypes.AddRange(
                 fieldsExceptGeneratorStateInfo.Select(bodyField =>
-                    _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)
+                    _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)
                 )
             );
         }

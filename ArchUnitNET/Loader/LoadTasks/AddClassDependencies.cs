@@ -12,18 +12,18 @@ namespace ArchUnitNET.Loader.LoadTasks
         private readonly List<ITypeDependency> _dependencies;
         private readonly IType _type;
         private readonly TypeDefinition _typeDefinition;
-        private readonly TypeFactory _typeFactory;
+        private readonly DomainResolver _domainResolver;
 
         public AddClassDependencies(
             IType type,
             TypeDefinition typeDefinition,
-            TypeFactory typeFactory,
+            DomainResolver domainResolver,
             List<ITypeDependency> dependencies
         )
         {
             _type = type;
             _typeDefinition = typeDefinition;
-            _typeFactory = typeFactory;
+            _domainResolver = domainResolver;
             _dependencies = dependencies;
         }
 
@@ -46,7 +46,7 @@ namespace ArchUnitNET.Loader.LoadTasks
             GetInterfacesImplementedByClass(_typeDefinition)
                 .ForEach(target =>
                 {
-                    var targetType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                    var targetType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                         target
                     );
                     _dependencies.Add(new ImplementsInterfaceDependency(_type, targetType));

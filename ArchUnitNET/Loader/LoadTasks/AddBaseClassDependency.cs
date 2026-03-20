@@ -9,19 +9,19 @@ namespace ArchUnitNET.Loader.LoadTasks
         private readonly IType _cls;
         private readonly Type _type;
         private readonly TypeDefinition _typeDefinition;
-        private readonly TypeFactory _typeFactory;
+        private readonly DomainResolver _domainResolver;
 
         public AddBaseClassDependency(
             IType cls,
             Type type,
             TypeDefinition typeDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             _cls = cls;
             _type = type;
             _typeDefinition = typeDefinition;
-            _typeFactory = typeFactory;
+            _domainResolver = domainResolver;
         }
 
         public void Execute()
@@ -33,7 +33,7 @@ namespace ArchUnitNET.Loader.LoadTasks
                 return;
             }
 
-            var baseType = _typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+            var baseType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                 typeDefinitionBaseType
             );
             if (!(baseType.Type is Class baseClass))

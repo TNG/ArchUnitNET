@@ -91,36 +91,36 @@ namespace ArchUnitNET.Loader
 
         internal static ITypeInstance<IType> GetReturnType(
             this MethodReference methodReference,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         ) =>
             ReturnsVoid(methodReference)
                 ? null
-                : typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                : domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                     methodReference.MethodReturnType.ReturnType
                 );
 
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetParameters(
             this MethodReference method,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         ) =>
             method.Parameters.Select(parameter =>
-                typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(parameter.ParameterType)
+                domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(parameter.ParameterType)
             );
 
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetGenericParameters(
             this MethodReference method,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         ) =>
             method.GenericParameters.Select(
-                typeFactory.GetOrCreateStubTypeInstanceFromTypeReference
+                domainResolver.GetOrCreateStubTypeInstanceFromTypeReference
             );
 
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetBodyTypes(
             this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             var instructions =
@@ -131,7 +131,7 @@ namespace ArchUnitNET.Loader
                     BodyTypeOpCodes.Contains(inst.OpCode) && inst.Operand is TypeReference
                 )
                 .Select(inst =>
-                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                    domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                         (TypeReference)inst.Operand
                     )
                 );
@@ -143,7 +143,7 @@ namespace ArchUnitNET.Loader
                     methodDefinition.Body?.Variables.Select(variableDefinition =>
                     {
                         var variableTypeReference = variableDefinition.VariableType;
-                        return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                        return domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                             variableTypeReference
                         );
                     }) ?? Enumerable.Empty<TypeInstance<IType>>()
@@ -156,7 +156,7 @@ namespace ArchUnitNET.Loader
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetCastTypes(
             this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             var instructions =
@@ -165,7 +165,7 @@ namespace ArchUnitNET.Loader
             return instructions
                 .Where(inst => inst.OpCode == OpCodes.Castclass && inst.Operand is TypeReference)
                 .Select(inst =>
-                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                    domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                         (TypeReference)inst.Operand
                     )
                 );
@@ -174,7 +174,7 @@ namespace ArchUnitNET.Loader
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetMetaDataTypes(
             this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             var instructions =
@@ -183,7 +183,7 @@ namespace ArchUnitNET.Loader
             return instructions
                 .Where(inst => inst.OpCode == OpCodes.Ldtoken && inst.Operand is TypeReference)
                 .Select(inst =>
-                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                    domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                         (TypeReference)inst.Operand
                     )
                 );
@@ -192,7 +192,7 @@ namespace ArchUnitNET.Loader
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetTypeCheckTypes(
             this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             var instructions =
@@ -201,7 +201,7 @@ namespace ArchUnitNET.Loader
             return instructions
                 .Where(inst => inst.OpCode == OpCodes.Isinst && inst.Operand is TypeReference)
                 .Select(inst =>
-                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                    domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                         (TypeReference)inst.Operand
                     )
                 );
@@ -226,7 +226,7 @@ namespace ArchUnitNET.Loader
         [NotNull]
         internal static IEnumerable<FieldMember> GetAccessedFieldMembers(
             this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             var accessedFieldMembers = new List<FieldMember>();
@@ -239,7 +239,7 @@ namespace ArchUnitNET.Loader
 
             foreach (var fieldReference in accessedFieldReferences)
             {
-                var declaringType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                var declaringType = domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                     fieldReference.DeclaringType
                 );
                 var matchingFieldMembers = declaringType
@@ -250,7 +250,7 @@ namespace ArchUnitNET.Loader
                 switch (matchingFieldMembers.Count)
                 {
                     case 0:
-                        var stubFieldMember = typeFactory.CreateStubFieldMemberFromFieldReference(
+                        var stubFieldMember = domainResolver.CreateStubFieldMemberFromFieldReference(
                             declaringType.Type,
                             fieldReference
                         );
