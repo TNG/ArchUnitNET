@@ -152,3 +152,51 @@ public class ClassWithStaticMethod
 {
     public static void StaticMethod() { }
 }
+
+// Method member test classes
+public class ClassWithVirtualMethod
+{
+    public virtual void VirtualMethod() { }
+}
+
+public class OtherClassWithVirtualMethod
+{
+    public virtual void OtherVirtualMethod() { }
+}
+
+public class ClassWithNonVirtualMethod
+{
+    public void NonVirtualMethod() { }
+}
+
+public class ClassWithStringReturnType
+{
+    public string MethodReturningString()
+    {
+        return "";
+    }
+}
+
+public class ClassWithIntReturnType
+{
+    public int MethodReturningInt()
+    {
+        return 0;
+    }
+}
+
+public class ClassWithRegularClassReturnType
+{
+    public RegularClass MethodReturningRegularClass()
+    {
+        return new RegularClass();
+    }
+}
+
+public class ClassWithOtherRegularClassReturnType
+{
+    public OtherRegularClass MethodReturningOtherRegularClass()
+    {
+        return new OtherRegularClass();
+    }
+}

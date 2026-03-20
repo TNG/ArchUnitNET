@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::.ctor()" should be a constructor
+Result: True
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::.ctor() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::.ctor()" should be Method members that are constructors
+Result: True
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::.ctor() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" should be a constructor
+Result: False
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() is no constructor
+Message: 
+"Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" should be a constructor" failed:
+	System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() is no constructor
+
+
+
+----- Predicates -----
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" should be Method members that are constructors
+Result: False
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() is not Method members that are constructors
+Message: 
+"Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" should be Method members that are constructors" failed:
+	System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() is not Method members that are constructors
+
+
+
+===== Multiple inputs =====
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::.ctor()" or "System.Void TypeNamespace.ClassWithNonVirtualMethod::.ctor()" should be a constructor
+Result: True
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::.ctor() passed
+Result: True
+Description: System.Void TypeNamespace.ClassWithNonVirtualMethod::.ctor() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::.ctor()" or "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" should be a constructor
+Result: False
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() is no constructor
+Result: True
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::.ctor() passed
+Message: 
+"Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::.ctor()" or "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" should be a constructor" failed:
+	System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() is no constructor
+
+
+

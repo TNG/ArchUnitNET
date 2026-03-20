@@ -9,6 +9,14 @@ public class MethodDependencyAssemblyTestHelper : AssemblyTestHelper
     public sealed override Architecture Architecture =>
         StaticTestArchitectures.MethodDependencyArchitecture;
 
+    public Class MethodDependencyClass;
+    public System.Type MethodDependencyClassSystemType =
+        typeof(MethodDependencyNamespace.MethodDependencyClass);
+
+    public Class OtherCallingClass;
+    public System.Type OtherCallingClassSystemType =
+        typeof(MethodDependencyNamespace.OtherCallingClass);
+
     public MethodMember MethodWithSingleDependency;
 
     public MethodMember CalledMethod;
@@ -23,8 +31,18 @@ public class MethodDependencyAssemblyTestHelper : AssemblyTestHelper
 
     public MethodMember MethodWithoutDependencies;
 
+    public MethodMember MethodCallingCalledMethod;
+
+    public MethodMember AnotherMethodCallingCalledMethod;
+
     public MethodDependencyAssemblyTestHelper()
     {
+        MethodDependencyClass = Architecture.GetClassOfType(
+            typeof(MethodDependencyNamespace.MethodDependencyClass)
+        );
+        OtherCallingClass = Architecture.GetClassOfType(
+            typeof(MethodDependencyNamespace.OtherCallingClass)
+        );
         MethodWithSingleDependency = Architecture
             .MethodMembers.WhereNameIs("MethodWithSingleDependency()")
             .First();
@@ -37,6 +55,12 @@ public class MethodDependencyAssemblyTestHelper : AssemblyTestHelper
         CalledMethod3 = Architecture.MethodMembers.WhereNameIs("CalledMethod3()").First();
         MethodWithoutDependencies = Architecture
             .MethodMembers.WhereNameIs("MethodWithoutDependencies()")
+            .First();
+        MethodCallingCalledMethod = Architecture
+            .MethodMembers.WhereNameIs("MethodCallingCalledMethod()")
+            .First();
+        AnotherMethodCallingCalledMethod = Architecture
+            .MethodMembers.WhereNameIs("AnotherMethodCallingCalledMethod()")
             .First();
     }
 }

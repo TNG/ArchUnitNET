@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" should be virtual
+Result: True
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" should be Method members that are virtual
+Result: True
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" should be virtual
+Result: False
+Description: System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not virtual
+Message: 
+"Method members that are "System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" should be virtual" failed:
+	System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not virtual
+
+
+
+----- Predicates -----
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" should be Method members that are virtual
+Result: False
+Description: System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not Method members that are virtual
+Message: 
+"Method members that are "System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" should be Method members that are virtual" failed:
+	System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not Method members that are virtual
+
+
+
+===== Multiple inputs =====
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void TypeNamespace.OtherClassWithVirtualMethod::OtherVirtualMeth... should be virtual
+Result: True
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() passed
+Result: True
+Description: System.Void TypeNamespace.OtherClassWithVirtualMethod::OtherVirtualMethod() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" should be virtual
+Result: True
+Description: System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod() passed
+Result: False
+Description: System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not virtual
+Message: 
+"Method members that are "System.Void TypeNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" should be virtual" failed:
+	System.Void TypeNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not virtual
+
+
+

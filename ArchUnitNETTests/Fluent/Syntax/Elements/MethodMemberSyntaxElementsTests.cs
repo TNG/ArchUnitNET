@@ -1,472 +1,606 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Extensions;
-using ArchUnitNETTests.Domain;
+using ArchUnitNETTests.AssemblyTestHelper;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
+    // csharpier-ignore
     public class MethodMemberSyntaxElementsTests
     {
-        private static readonly Architecture Architecture =
-            StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly IEnumerable<MethodMember> _methodMembers;
-        private readonly IEnumerable<IType> _types;
-
-        public MethodMemberSyntaxElementsTests()
+        [Fact]
+        public async Task BeConstructorTest()
         {
-            _methodMembers = Architecture.MethodMembers;
-            _types = Architecture.Types;
+            var helper = new TypeAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.ClassWithVirtualMethodConstructor).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeConstructor().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreConstructors()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.VirtualMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeConstructor().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreConstructors()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.ClassWithVirtualMethodConstructor, helper.ClassWithNonVirtualMethodConstructor).Should().BeConstructor().AssertNoViolations(helper);
+            MethodMembers().That().Are(helper.ClassWithVirtualMethodConstructor, helper.VirtualMethod).Should().BeConstructor().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void AreConstructorsTest()
+        public async Task BeNoConstructorTest()
         {
-            foreach (var methodMember in _methodMembers)
-            {
-                var methodMemberIsConstructor = MethodMembers()
-                    .That()
-                    .Are(methodMember)
-                    .Should()
-                    .BeConstructor();
-                var methodMemberIsNoConstructor = MethodMembers()
-                    .That()
-                    .Are(methodMember)
-                    .Should()
-                    .BeNoConstructor();
-                var constructorMethodMembersDoNotIncludeMember = MethodMembers()
-                    .That()
-                    .AreConstructors()
-                    .Should()
-                    .NotBe(methodMember)
-                    .OrShould()
-                    .NotExist();
-                var noConstructorMethodMembersDoNotIncludeMember = MethodMembers()
-                    .That()
-                    .AreNoConstructors()
-                    .Should()
-                    .NotBe(methodMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new TypeAssemblyTestHelper();
 
-                Assert.Equal(
-                    methodMember.IsConstructor(),
-                    methodMemberIsConstructor.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    !methodMember.IsConstructor(),
-                    methodMemberIsNoConstructor.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    !methodMember.IsConstructor(),
-                    constructorMethodMembersDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    methodMember.IsConstructor(),
-                    noConstructorMethodMembersDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.VirtualMethod).Should();
 
-            var constructorMethodMembersShouldBeConstructor = MethodMembers()
-                .That()
-                .AreConstructors()
-                .Should()
-                .BeConstructor();
-            var constructorMethodMembersAreNoConstructors = MethodMembers()
-                .That()
-                .AreConstructors()
-                .Should()
-                .BeNoConstructor()
-                .AndShould()
-                .Exist();
-            var noConstructorMethodMembersShouldBeConstructor = MethodMembers()
-                .That()
-                .AreNoConstructors()
-                .Should()
-                .BeConstructor()
-                .AndShould()
-                .Exist();
-            var noConstructorMethodMembersAreNoConstructors = MethodMembers()
-                .That()
-                .AreNoConstructors()
-                .Should()
-                .BeNoConstructor();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeNoConstructor().AssertNoViolations(helper);
 
-            Assert.True(constructorMethodMembersShouldBeConstructor.HasNoViolations(Architecture));
-            Assert.False(constructorMethodMembersAreNoConstructors.HasNoViolations(Architecture));
-            Assert.False(
-                noConstructorMethodMembersShouldBeConstructor.HasNoViolations(Architecture)
-            );
-            Assert.True(noConstructorMethodMembersAreNoConstructors.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNoConstructors()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.ClassWithVirtualMethodConstructor).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeNoConstructor().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNoConstructors()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.VirtualMethod, helper.NonVirtualMethod).Should().BeNoConstructor().AssertNoViolations(helper);
+            MethodMembers().That().Are(helper.VirtualMethod, helper.ClassWithVirtualMethodConstructor).Should().BeNoConstructor().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void AreVirtualTest()
+        public async Task BeVirtualTest()
         {
-            foreach (var methodMember in _methodMembers)
-            {
-                var methodMemberIsVirtual = MethodMembers()
-                    .That()
-                    .Are(methodMember)
-                    .Should()
-                    .BeVirtual();
-                var methodMemberIsNotVirtual = MethodMembers()
-                    .That()
-                    .Are(methodMember)
-                    .Should()
-                    .NotBeVirtual();
-                var virtualMethodMembersDoNotIncludeMember = MethodMembers()
-                    .That()
-                    .AreVirtual()
-                    .Should()
-                    .NotBe(methodMember)
-                    .OrShould()
-                    .NotExist();
-                var notVirtualMethodMembersDoNotIncludeMember = MethodMembers()
-                    .That()
-                    .AreNotVirtual()
-                    .Should()
-                    .NotBe(methodMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new TypeAssemblyTestHelper();
 
-                Assert.Equal(
-                    methodMember.IsVirtual,
-                    methodMemberIsVirtual.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    !methodMember.IsVirtual,
-                    methodMemberIsNotVirtual.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    !methodMember.IsVirtual,
-                    virtualMethodMembersDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    methodMember.IsVirtual,
-                    notVirtualMethodMembersDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.VirtualMethod).Should();
 
-            var virtualMethodMembersShouldBeVirtual = MethodMembers()
-                .That()
-                .AreVirtual()
-                .Should()
-                .BeVirtual()
-                .WithoutRequiringPositiveResults();
-            var virtualMethodMembersAreNotVirtual = MethodMembers()
-                .That()
-                .AreVirtual()
-                .Should()
-                .NotBeVirtual()
-                .AndShould()
-                .Exist();
-            var notVirtualMethodMembersShouldBeVirtual = MethodMembers()
-                .That()
-                .AreNotVirtual()
-                .Should()
-                .BeVirtual()
-                .AndShould()
-                .Exist();
-            var notVirtualMethodMembersAreNotVirtual = MethodMembers()
-                .That()
-                .AreNotVirtual()
-                .Should()
-                .NotBeVirtual();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeVirtual().AssertNoViolations(helper);
 
-            Assert.True(virtualMethodMembersShouldBeVirtual.HasNoViolations(Architecture));
-            Assert.False(virtualMethodMembersAreNotVirtual.HasNoViolations(Architecture));
-            Assert.False(notVirtualMethodMembersShouldBeVirtual.HasNoViolations(Architecture));
-            Assert.True(notVirtualMethodMembersAreNotVirtual.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreVirtual()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.NonVirtualMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeVirtual().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreVirtual()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.VirtualMethod, helper.OtherVirtualMethod).Should().BeVirtual().AssertNoViolations(helper);
+            MethodMembers().That().Are(helper.VirtualMethod, helper.NonVirtualMethod).Should().BeVirtual().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void CalledByTest()
+        public async Task NotBeVirtualTest()
         {
-            foreach (var methodMember in _methodMembers)
-            {
-                foreach (
-                    var callingType in methodMember
-                        .GetMethodCallDependencies(true)
-                        .Select(dependency => dependency.Origin)
-                )
-                {
-                    var methodIsCalledByRightType = MethodMembers()
-                        .That()
-                        .Are(methodMember)
-                        .Should()
-                        .BeCalledBy(callingType);
-                    var methodIsNotCalledByRightType = MethodMembers()
-                        .That()
-                        .Are(methodMember)
-                        .Should()
-                        .NotBeCalledBy(callingType);
+            var helper = new TypeAssemblyTestHelper();
 
-                    Assert.True(methodIsCalledByRightType.HasNoViolations(Architecture));
-                    Assert.False(methodIsNotCalledByRightType.HasNoViolations(Architecture));
-                }
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.NonVirtualMethod).Should();
 
-                var methodIsCalledByFalseType = MethodMembers()
-                    .That()
-                    .Are(methodMember)
-                    .Should()
-                    .BeCalledBy(typeof(PublicTestClass));
-                var methodIsNotCalledByFalseType = MethodMembers()
-                    .That()
-                    .Are(methodMember)
-                    .Should()
-                    .NotBeCalledBy(typeof(PublicTestClass));
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeVirtual().AssertNoViolations(helper);
 
-                Assert.False(methodIsCalledByFalseType.HasNoViolations(Architecture));
-                Assert.True(methodIsNotCalledByFalseType.HasNoViolations(Architecture));
-            }
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNotVirtual()).AssertNoViolations(helper);
 
-            foreach (var type in _types)
-            {
-                var calledMethodsShouldBeCalled = MethodMembers()
-                    .That()
-                    .AreCalledBy(type)
-                    .Should()
-                    .BeCalledBy(type)
-                    .WithoutRequiringPositiveResults();
-                var notCalledMethodsShouldNotBeCalled = MethodMembers()
-                    .That()
-                    .AreNotCalledBy(type)
-                    .Should()
-                    .NotBeCalledBy(type);
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.VirtualMethod).Should();
 
-                Assert.True(calledMethodsShouldBeCalled.HasNoViolations(Architecture));
-                Assert.True(notCalledMethodsShouldNotBeCalled.HasNoViolations(Architecture));
-            }
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeVirtual().AssertOnlyViolations(helper);
 
-            var emptyTypeCallsNoMethods = MethodMembers()
-                .That()
-                .AreCalledBy(typeof(PublicTestClass))
-                .Should()
-                .NotExist();
-            var methodsNotCalledByEmptyTypeShouldExist = MethodMembers()
-                .That()
-                .AreNotCalledBy(typeof(PublicTestClass))
-                .Should()
-                .Exist();
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNotVirtual()).AssertOnlyViolations(helper);
 
-            Assert.True(emptyTypeCallsNoMethods.HasNoViolations(Architecture));
-            Assert.True(methodsNotCalledByEmptyTypeShouldExist.HasNoViolations(Architecture));
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.NonVirtualMethod, helper.MethodReturningString).Should().NotBeVirtual().AssertNoViolations(helper);
+            MethodMembers().That().Are(helper.NonVirtualMethod, helper.VirtualMethod).Should().NotBeVirtual().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveDependencyInMethodBodyTest()
+        public async Task BeCalledByTest()
         {
-            foreach (var methodMember in _methodMembers)
-            {
-                foreach (
-                    var dependency in methodMember
-                        .GetBodyTypeMemberDependencies()
-                        .Select(dependency => dependency.Target)
-                )
-                {
-                    var hasRightDependency = MethodMembers()
-                        .That()
-                        .Are(methodMember)
-                        .Should()
-                        .HaveDependencyInMethodBodyTo(dependency);
-                    var doesNotHaveRightDependency = MethodMembers()
-                        .That()
-                        .Are(methodMember)
-                        .Should()
-                        .NotHaveDependencyInMethodBodyTo(dependency);
+            var helper = new MethodDependencyAssemblyTestHelper();
 
-                    Assert.True(hasRightDependency.HasNoViolations(Architecture));
-                    Assert.False(doesNotHaveRightDependency.HasNoViolations(Architecture));
-                }
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.CalledMethod).Should();
 
-            foreach (var type in _types)
-            {
-                var dependentMethodsShouldBeDependent = MethodMembers()
-                    .That()
-                    .HaveDependencyInMethodBodyTo(type)
-                    .Should()
-                    .HaveDependencyInMethodBodyTo(type)
-                    .WithoutRequiringPositiveResults();
-                var notDependentMethodsShouldNotBeDependent = MethodMembers()
-                    .That()
-                    .DoNotHaveDependencyInMethodBodyTo(type)
-                    .Should()
-                    .NotHaveDependencyInMethodBodyTo(type);
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeCalledBy(helper.MethodDependencyClass).AssertNoViolations(helper);
+            should.BeCalledBy(helper.MethodDependencyClassSystemType).AssertNoViolations(helper);
+            should.BeCalledBy(Types().That().Are(helper.MethodDependencyClass)).AssertNoViolations(helper);
+            should.BeCalledBy(new List<IType> { helper.MethodDependencyClass }).AssertNoViolations(helper);
+            should.BeCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType }).AssertNoViolations(helper);
 
-                Assert.True(dependentMethodsShouldBeDependent.HasNoViolations(Architecture));
-                Assert.True(notDependentMethodsShouldNotBeDependent.HasNoViolations(Architecture));
-            }
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreCalledBy(helper.MethodDependencyClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(helper.MethodDependencyClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(Types().That().Are(helper.MethodDependencyClass))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(new List<IType> { helper.MethodDependencyClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeCalledBy(helper.MethodDependencyClass).AssertOnlyViolations(helper);
+            should.BeCalledBy(helper.MethodDependencyClassSystemType).AssertOnlyViolations(helper);
+            should.BeCalledBy(Types().That().Are(helper.MethodDependencyClass)).AssertOnlyViolations(helper);
+            should.BeCalledBy(new List<IType> { helper.MethodDependencyClass }).AssertOnlyViolations(helper);
+            should.BeCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreCalledBy(helper.MethodDependencyClass)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(helper.MethodDependencyClassSystemType)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(Types().That().Are(helper.MethodDependencyClass))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(new List<IType> { helper.MethodDependencyClass })).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple arguments");
+            should = MethodMembers().That().Are(helper.CalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeCalledBy(helper.MethodDependencyClass, helper.OtherCallingClass).AssertNoViolations(helper);
+            should.BeCalledBy(new List<IType> { helper.MethodDependencyClass, helper.OtherCallingClass }).AssertNoViolations(helper);
+            should.BeCalledBy(helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType).AssertNoViolations(helper);
+            should.BeCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreCalledBy(helper.MethodDependencyClass, helper.OtherCallingClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(new List<IType> { helper.MethodDependencyClass, helper.OtherCallingClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Empty arguments");
+            should = MethodMembers().That().Are(helper.CalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            // TODO: Empty IEnumerable<IType>/<Type> crashes with InvalidOperationException
+            // (.First() on empty list) — uncomment when AssertException supports lazy evaluation
+            // should.BeCalledBy(new List<IType>()).AssertException<InvalidOperationException>(helper);
+            // should.BeCalledBy(new List<System.Type>()).AssertException<InvalidOperationException>(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreCalledBy(new List<IType>())).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(new List<System.Type>())).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Type not in architecture");
+            should = MethodMembers().That().Are(helper.CalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.CalledMethod, helper.CalledMethod1).Should().BeCalledBy(helper.MethodDependencyClass).AssertNoViolations(helper);
+            MethodMembers().That().Are(helper.CalledMethod, helper.MethodWithoutDependencies).Should().BeCalledBy(helper.MethodDependencyClass).AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveReturnTypeConditionTest()
+        public async Task NotBeCalledByTest()
         {
-            var retTypeWithType = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .HaveReturnType(typeof(ReturnTypeClass), typeof(void), typeof(string));
-            var retTypeWithTypeFail = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .HaveReturnType(typeof(bool));
+            var helper = new MethodDependencyAssemblyTestHelper();
 
-            Assert.True(retTypeWithType.HasNoViolations(Architecture));
-            Assert.False(retTypeWithTypeFail.HasNoViolations(Architecture));
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
 
-            var objectProviderClass = Classes().That().HaveFullNameContaining("ReturnTypeClass");
-            var retTypeWithObjectProvider = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethodClass")
-                .Should()
-                .HaveReturnType(objectProviderClass);
-            var retTypeWithObjectProviderFail = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethodVoid")
-                .Should()
-                .HaveReturnType(objectProviderClass);
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeCalledBy(helper.MethodDependencyClass).AssertNoViolations(helper);
+            should.NotBeCalledBy(helper.MethodDependencyClassSystemType).AssertNoViolations(helper);
+            should.NotBeCalledBy(Types().That().Are(helper.MethodDependencyClass)).AssertNoViolations(helper);
+            should.NotBeCalledBy(new List<IType> { helper.MethodDependencyClass }).AssertNoViolations(helper);
+            should.NotBeCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType }).AssertNoViolations(helper);
 
-            Assert.True(retTypeWithObjectProvider.HasNoViolations(Architecture));
-            Assert.False(retTypeWithObjectProviderFail.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNotCalledBy(helper.MethodDependencyClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(helper.MethodDependencyClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(Types().That().Are(helper.MethodDependencyClass))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<IType> { helper.MethodDependencyClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType })).AssertNoViolations(helper);
 
-            var retTypeWithIType = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethodClass")
-                .Should()
-                .HaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First());
-            var retTypeWithITypeFail = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethodString")
-                .Should()
-                .HaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First());
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.CalledMethod).Should();
 
-            Assert.True(retTypeWithIType.HasNoViolations(Architecture));
-            Assert.False(retTypeWithITypeFail.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeCalledBy(helper.MethodDependencyClass).AssertOnlyViolations(helper);
+            should.NotBeCalledBy(helper.MethodDependencyClassSystemType).AssertOnlyViolations(helper);
+            should.NotBeCalledBy(Types().That().Are(helper.MethodDependencyClass)).AssertOnlyViolations(helper);
+            should.NotBeCalledBy(new List<IType> { helper.MethodDependencyClass }).AssertOnlyViolations(helper);
+            should.NotBeCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNotCalledBy(helper.MethodDependencyClass)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(helper.MethodDependencyClassSystemType)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(Types().That().Are(helper.MethodDependencyClass))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<IType> { helper.MethodDependencyClass })).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple arguments");
+            should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeCalledBy(helper.MethodDependencyClass, helper.OtherCallingClass).AssertNoViolations(helper);
+            should.NotBeCalledBy(new List<IType> { helper.MethodDependencyClass, helper.OtherCallingClass }).AssertNoViolations(helper);
+            should.NotBeCalledBy(helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType).AssertNoViolations(helper);
+            should.NotBeCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNotCalledBy(helper.MethodDependencyClass, helper.OtherCallingClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<IType> { helper.MethodDependencyClass, helper.OtherCallingClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<System.Type> { helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Empty arguments");
+            should = MethodMembers().That().Are(helper.CalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            // TODO: Empty IEnumerable<IType>/<Type> crashes with InvalidOperationException
+            // (.First() on empty list) — uncomment when AssertException supports lazy evaluation
+            // should.NotBeCalledBy(new List<IType>()).AssertException<InvalidOperationException>(helper);
+            // should.NotBeCalledBy(new List<System.Type>()).AssertException<InvalidOperationException>(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<IType>())).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<System.Type>())).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Type not in architecture");
+            should = MethodMembers().That().Are(helper.CalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.MethodWithoutDependencies, helper.MethodCallingCalledMethod).Should().NotBeCalledBy(helper.MethodDependencyClass).AssertNoViolations(helper);
+            MethodMembers().That().Are(helper.CalledMethod, helper.MethodWithoutDependencies).Should().NotBeCalledBy(helper.MethodDependencyClass).AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void NotHaveReturnTypeConditionTest()
+        public async Task HaveDependencyInMethodBodyToTest()
         {
-            var retTypeWithType = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .NotHaveReturnType(typeof(bool));
-            var retTypeWithTypeFail = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .NotHaveReturnType(typeof(ReturnTypeClass), typeof(void), typeof(string));
+            var helper = new MethodDependencyAssemblyTestHelper();
 
-            Assert.True(retTypeWithType.HasNoViolations(Architecture));
-            Assert.False(retTypeWithTypeFail.HasNoViolations(Architecture));
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
 
-            var objectProviderClass = Classes().That().HaveFullNameContaining("ReturnTypeClass");
-            var retTypeWithObjectProvider = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethodVoid")
-                .Should()
-                .NotHaveReturnType(objectProviderClass);
-            var retTypeWithObjectProviderFail = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethodClass")
-                .Should()
-                .NotHaveReturnType(objectProviderClass);
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveDependencyInMethodBodyTo(helper.MethodDependencyClass).AssertNoViolations(helper);
+            should.HaveDependencyInMethodBodyTo(helper.MethodDependencyClassSystemType).AssertNoViolations(helper);
+            should.HaveDependencyInMethodBodyTo(Types().That().Are(helper.MethodDependencyClass)).AssertNoViolations(helper);
+            should.HaveDependencyInMethodBodyTo(new List<IType> { helper.MethodDependencyClass }).AssertNoViolations(helper);
+            should.HaveDependencyInMethodBodyTo(new List<System.Type> { helper.MethodDependencyClassSystemType }).AssertNoViolations(helper);
 
-            Assert.True(retTypeWithObjectProvider.HasNoViolations(Architecture));
-            Assert.False(retTypeWithObjectProviderFail.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(helper.MethodDependencyClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(helper.MethodDependencyClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(Types().That().Are(helper.MethodDependencyClass))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<IType> { helper.MethodDependencyClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<System.Type> { helper.MethodDependencyClassSystemType })).AssertNoViolations(helper);
 
-            var retTypeWithIType = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethodString")
-                .Should()
-                .NotHaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First());
-            var retTypeWithITypeFail = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethodClass")
-                .Should()
-                .NotHaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First());
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
 
-            Assert.True(retTypeWithIType.HasNoViolations(Architecture));
-            Assert.False(retTypeWithITypeFail.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveDependencyInMethodBodyTo(helper.OtherCallingClass).AssertOnlyViolations(helper);
+            should.HaveDependencyInMethodBodyTo(helper.OtherCallingClassSystemType).AssertOnlyViolations(helper);
+            should.HaveDependencyInMethodBodyTo(Types().That().Are(helper.OtherCallingClass)).AssertOnlyViolations(helper);
+            should.HaveDependencyInMethodBodyTo(new List<IType> { helper.OtherCallingClass }).AssertOnlyViolations(helper);
+            should.HaveDependencyInMethodBodyTo(new List<System.Type> { helper.OtherCallingClassSystemType }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(helper.OtherCallingClass)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(helper.OtherCallingClassSystemType)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(Types().That().Are(helper.OtherCallingClass))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<IType> { helper.OtherCallingClass })).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<System.Type> { helper.OtherCallingClassSystemType })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple arguments");
+            should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveDependencyInMethodBodyTo(helper.MethodDependencyClass, helper.OtherCallingClass).AssertNoViolations(helper);
+            should.HaveDependencyInMethodBodyTo(new List<IType> { helper.MethodDependencyClass, helper.OtherCallingClass }).AssertNoViolations(helper);
+            should.HaveDependencyInMethodBodyTo(helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType).AssertNoViolations(helper);
+            should.HaveDependencyInMethodBodyTo(new List<System.Type> { helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(helper.MethodDependencyClass, helper.OtherCallingClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<IType> { helper.MethodDependencyClass, helper.OtherCallingClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<System.Type> { helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Empty arguments");
+            should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            // TODO: Empty IEnumerable<IType>/<Type> crashes with InvalidOperationException
+            // (.First() on empty list) — uncomment when AssertException supports lazy evaluation
+            // should.HaveDependencyInMethodBodyTo(new List<IType>()).AssertException<InvalidOperationException>(helper);
+            // should.HaveDependencyInMethodBodyTo(new List<System.Type>()).AssertException<InvalidOperationException>(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<IType>())).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<System.Type>())).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Type not in architecture");
+            should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.MethodCallingCalledMethod, helper.AnotherMethodCallingCalledMethod).Should().HaveDependencyInMethodBodyTo(helper.MethodDependencyClass).AssertNoViolations(helper);
+            MethodMembers().That().Are(helper.MethodCallingCalledMethod, helper.MethodWithoutDependencies).Should().HaveDependencyInMethodBodyTo(helper.MethodDependencyClass).AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveReturnTypePredicateTest()
+        public async Task NotHaveDependencyInMethodBodyToTest()
         {
-            var retTypeWithType = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .And()
-                .HaveReturnType(typeof(ReturnTypeClass))
-                .Should()
-                .HaveFullNameContaining("Class");
-            var retTypeWithTypeFail = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .And()
-                .DoNotHaveReturnType(typeof(ReturnTypeClass))
-                .Should()
-                .HaveNameContaining("Class");
+            var helper = new MethodDependencyAssemblyTestHelper();
 
-            Assert.True(retTypeWithType.HasNoViolations(Architecture));
-            Assert.False(retTypeWithTypeFail.HasNoViolations(Architecture));
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
 
-            var objectProviderClass = Classes().That().HaveFullNameContaining("ReturnTypeClass");
-            var retTypeWithObjectProvider = MethodMembers()
-                .That()
-                .HaveReturnType(objectProviderClass)
-                .Should()
-                .HaveFullNameContaining("ReturnTypeMethodClass");
-            var retTypeWithObjectProviderFail = MethodMembers()
-                .That()
-                .DoNotHaveReturnType(objectProviderClass)
-                .And()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .Should()
-                .HaveFullNameContaining("ReturnTypeMethodClass");
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveDependencyInMethodBodyTo(helper.OtherCallingClass).AssertNoViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(helper.OtherCallingClassSystemType).AssertNoViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(Types().That().Are(helper.OtherCallingClass)).AssertNoViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(new List<IType> { helper.OtherCallingClass }).AssertNoViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(new List<System.Type> { helper.OtherCallingClassSystemType }).AssertNoViolations(helper);
 
-            Assert.True(retTypeWithObjectProvider.HasNoViolations(Architecture));
-            Assert.False(retTypeWithObjectProviderFail.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(helper.OtherCallingClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(helper.OtherCallingClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(Types().That().Are(helper.OtherCallingClass))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<IType> { helper.OtherCallingClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<System.Type> { helper.OtherCallingClassSystemType })).AssertNoViolations(helper);
 
-            var retTypeWithITypeFail = MethodMembers()
-                .That()
-                .HaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First())
-                .Should()
-                .HaveFullNameContaining("ReturnTypeMethodVoid");
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
 
-            var retTypeWithITypeNegate = MethodMembers()
-                .That()
-                .HaveFullNameContaining("ReturnTypeMethod")
-                .And()
-                .DoNotHaveReturnType(objectProviderClass.GetObjects(Architecture).ToList().First())
-                .Should()
-                .HaveFullNameContaining("String")
-                .OrShould()
-                .HaveFullNameContaining("Void");
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveDependencyInMethodBodyTo(helper.MethodDependencyClass).AssertOnlyViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(helper.MethodDependencyClassSystemType).AssertOnlyViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(Types().That().Are(helper.MethodDependencyClass)).AssertOnlyViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(new List<IType> { helper.MethodDependencyClass }).AssertOnlyViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(new List<System.Type> { helper.MethodDependencyClassSystemType }).AssertOnlyViolations(helper);
 
-            Assert.False(retTypeWithITypeFail.HasNoViolations(Architecture));
-            Assert.True(retTypeWithITypeNegate.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(helper.MethodDependencyClass)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(helper.MethodDependencyClassSystemType)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(Types().That().Are(helper.MethodDependencyClass))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<IType> { helper.MethodDependencyClass })).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<System.Type> { helper.MethodDependencyClassSystemType })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple arguments");
+            should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveDependencyInMethodBodyTo(helper.MethodDependencyClass, helper.OtherCallingClass).AssertNoViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(new List<IType> { helper.MethodDependencyClass, helper.OtherCallingClass }).AssertNoViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType).AssertNoViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(new List<System.Type> { helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(helper.MethodDependencyClass, helper.OtherCallingClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<IType> { helper.MethodDependencyClass, helper.OtherCallingClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<System.Type> { helper.MethodDependencyClassSystemType, helper.OtherCallingClassSystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Empty arguments");
+            should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            // TODO: Empty IEnumerable<IType>/<Type> crashes with InvalidOperationException
+            // (.First() on empty list) — uncomment when AssertException supports lazy evaluation
+            // should.NotHaveDependencyInMethodBodyTo(new List<IType>()).AssertException<InvalidOperationException>(helper);
+            // should.NotHaveDependencyInMethodBodyTo(new List<System.Type>()).AssertException<InvalidOperationException>(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<IType>())).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<System.Type>())).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Type not in architecture");
+            should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.MethodWithoutDependencies, helper.CalledMethod).Should().NotHaveDependencyInMethodBodyTo(helper.OtherCallingClass).AssertNoViolations(helper);
+            MethodMembers().That().Are(helper.MethodCallingCalledMethod, helper.MethodWithoutDependencies).Should().NotHaveDependencyInMethodBodyTo(helper.MethodDependencyClass).AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
-    }
 
-    internal class ReturnTypeClass
-    {
-        public void ReturnTypeMethodVoid() { }
-
-        public string ReturnTypeMethodString()
+        [Fact]
+        public async Task HaveReturnTypeTest()
         {
-            return "";
+            var helper = new TypeAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveReturnType(helper.RegularClass).AssertNoViolations(helper);
+            should.HaveReturnType(helper.RegularClassSystemType).AssertNoViolations(helper);
+            should.HaveReturnType(Types().That().Are(helper.RegularClass)).AssertNoViolations(helper);
+            should.HaveReturnType(new List<IType> { helper.RegularClass }).AssertNoViolations(helper);
+            should.HaveReturnType(new List<System.Type> { helper.RegularClassSystemType }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveReturnType(helper.RegularClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(helper.RegularClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(Types().That().Are(helper.RegularClass))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<IType> { helper.RegularClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<System.Type> { helper.RegularClassSystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveReturnType(helper.OtherRegularClass).AssertOnlyViolations(helper);
+            should.HaveReturnType(helper.OtherRegularClassSystemType).AssertOnlyViolations(helper);
+            should.HaveReturnType(Types().That().Are(helper.OtherRegularClass)).AssertOnlyViolations(helper);
+            should.HaveReturnType(new List<IType> { helper.OtherRegularClass }).AssertOnlyViolations(helper);
+            should.HaveReturnType(new List<System.Type> { helper.OtherRegularClassSystemType }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveReturnType(helper.OtherRegularClass)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(helper.OtherRegularClassSystemType)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(Types().That().Are(helper.OtherRegularClass))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<IType> { helper.OtherRegularClass })).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<System.Type> { helper.OtherRegularClassSystemType })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple arguments");
+            should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveReturnType(helper.RegularClass, helper.OtherRegularClass).AssertNoViolations(helper);
+            should.HaveReturnType(new List<IType> { helper.RegularClass, helper.OtherRegularClass }).AssertNoViolations(helper);
+            should.HaveReturnType(helper.RegularClassSystemType, helper.OtherRegularClassSystemType).AssertNoViolations(helper);
+            should.HaveReturnType(new List<System.Type> { helper.RegularClassSystemType, helper.OtherRegularClassSystemType }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveReturnType(helper.RegularClass, helper.OtherRegularClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<IType> { helper.RegularClass, helper.OtherRegularClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(helper.RegularClassSystemType, helper.OtherRegularClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<System.Type> { helper.RegularClassSystemType, helper.OtherRegularClassSystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.MethodReturningRegularClass, helper.MethodReturningOtherRegularClass).Should().HaveReturnType(helper.RegularClass).AssertAnyViolations(helper);
+            MethodMembers().That().Are(helper.MethodReturningRegularClass, helper.MethodReturningOtherRegularClass).Should().HaveReturnType(helper.RegularClass, helper.OtherRegularClass).AssertNoViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
-        public ReturnTypeClass ReturnTypeMethodClass()
+        [Fact]
+        public async Task DoNotHaveReturnTypeTest()
         {
-            return new ReturnTypeClass();
+            var helper = new TypeAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveReturnType(helper.OtherRegularClass).AssertNoViolations(helper);
+            should.NotHaveReturnType(helper.OtherRegularClassSystemType).AssertNoViolations(helper);
+            should.NotHaveReturnType(Types().That().Are(helper.OtherRegularClass)).AssertNoViolations(helper);
+            should.NotHaveReturnType(new List<IType> { helper.OtherRegularClass }).AssertNoViolations(helper);
+            should.NotHaveReturnType(new List<System.Type> { helper.OtherRegularClassSystemType }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveReturnType(helper.OtherRegularClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(helper.OtherRegularClassSystemType)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(Types().That().Are(helper.OtherRegularClass))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<IType> { helper.OtherRegularClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type> { helper.OtherRegularClassSystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveReturnType(helper.RegularClass).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(helper.RegularClassSystemType).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(Types().That().Are(helper.RegularClass)).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(new List<IType> { helper.RegularClass }).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(new List<System.Type> { helper.RegularClassSystemType }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveReturnType(helper.RegularClass)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(helper.RegularClassSystemType)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(Types().That().Are(helper.RegularClass))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<IType> { helper.RegularClass })).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type> { helper.RegularClassSystemType })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple arguments");
+            should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
+
+            // NotHaveReturnType(IEnumerable<IType>) condition uses .All(type => !match) — fails if ANY type matches
+            // With {OtherRegularClass, RegularClass}: OtherRegularClass doesn't match (true) AND RegularClass matches (false) => All = false => violation
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveReturnType(helper.OtherRegularClass, helper.RegularClass).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(new List<IType> { helper.OtherRegularClass, helper.RegularClass }).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(helper.OtherRegularClassSystemType, helper.RegularClassSystemType).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(new List<System.Type> { helper.OtherRegularClassSystemType, helper.RegularClassSystemType }).AssertOnlyViolations(helper);
+
+            // DoNotHaveReturnType predicate uses .Any(type => !match) for IEnumerable<IType> — passes if ANY type doesn't match
+            // With {OtherRegularClass, RegularClass}: OtherRegularClass doesn't match (true) => Any = true => passes
+            // BUT: IEnumerable<Type> and IObjectProvider overloads use .All(type => !match) — fails if ANY type matches
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveReturnType(helper.OtherRegularClass, helper.RegularClass)).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<IType> { helper.OtherRegularClass, helper.RegularClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(helper.OtherRegularClassSystemType, helper.RegularClassSystemType)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type> { helper.OtherRegularClassSystemType, helper.RegularClassSystemType })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            MethodMembers().That().Are(helper.MethodReturningRegularClass, helper.MethodReturningOtherRegularClass).Should().NotHaveReturnType(helper.RegularClass).AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task BeMethodMembersThatTest()
+        {
+            var helper = new TypeAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            MethodMembers().That().Are(helper.ClassWithVirtualMethodConstructor).Should().BeMethodMembersThat().AreConstructors().AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            MethodMembers().That().Are(helper.VirtualMethod).Should().BeMethodMembersThat().AreConstructors().AssertOnlyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
     }
 }
