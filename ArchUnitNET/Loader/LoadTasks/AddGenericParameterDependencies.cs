@@ -1,30 +1,20 @@
-﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using JetBrains.Annotations;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    public class AddGenericParameterDependencies : ILoadTask
+    /// <summary>
+    /// Assigns declarers to generic parameters and creates type-constraint dependencies
+    /// for both type-level and member-level generic parameters.
+    /// </summary>
+    internal static class AddGenericParameterDependencies
     {
-        [NotNull]
-        private readonly IType _type;
-
-        public AddGenericParameterDependencies([NotNull] IType type)
+        internal static void Execute(IType type)
         {
-            _type = type;
-        }
-
-        public void Execute()
-        {
-            AddTypeGenericParameterDependencies();
-            AddMemberGenericParameterDependencies();
-        }
-
-        private void AddTypeGenericParameterDependencies()
-        {
-            foreach (var genericParameter in _type.GenericParameters)
+            // Type-level generic parameters
+            foreach (var genericParameter in type.GenericParameters)
             {
-                genericParameter.AssignDeclarer(_type);
+                genericParameter.AssignDeclarer(type);
                 foreach (var typeInstanceConstraint in genericParameter.TypeInstanceConstraints)
                 {
                     var dependency = new TypeGenericParameterTypeConstraintDependency(
@@ -34,11 +24,9 @@ namespace ArchUnitNET.Loader.LoadTasks
                     genericParameter.Dependencies.Add(dependency);
                 }
             }
-        }
 
-        private void AddMemberGenericParameterDependencies()
-        {
-            foreach (var member in _type.Members)
+            // Member-level generic parameters
+            foreach (var member in type.Members)
             {
                 foreach (var genericParameter in member.GenericParameters)
                 {

@@ -1,21 +1,17 @@
 using System.Collections.Generic;
-using System.Linq;
 using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class AddTypesToNamespaces : ILoadTask
+    /// <summary>
+    /// Adds each type to its namespace's type list. Must run after all types have been
+    /// fully populated so that namespace queries return complete results.
+    /// </summary>
+    internal static class AddTypesToNamespaces
     {
-        private readonly List<IType> _types;
-
-        public AddTypesToNamespaces(List<IType> types)
+        internal static void Execute(IEnumerable<IType> types)
         {
-            _types = types;
-        }
-
-        public void Execute()
-        {
-            foreach (var type in _types)
+            foreach (var type in types)
             {
                 ((List<IType>)type.Namespace.Types).Add(type);
             }

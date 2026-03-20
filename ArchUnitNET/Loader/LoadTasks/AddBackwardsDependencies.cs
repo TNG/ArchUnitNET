@@ -5,22 +5,20 @@ using ArchUnitNET.Domain.Extensions;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class AddBackwardsDependencies : ILoadTask
+    /// <summary>
+    /// Registers each of the type's dependencies as a backwards dependency on the
+    /// target type, and each member-member dependency as a backwards dependency on
+    /// the target member.
+    /// </summary>
+    internal static class AddBackwardsDependencies
     {
-        private readonly IType _type;
-
-        public AddBackwardsDependencies(IType type)
+        internal static void Execute(IType type)
         {
-            _type = type;
-        }
-
-        public void Execute()
-        {
-            _type.Dependencies.ForEach(dependency =>
+            type.Dependencies.ForEach(dependency =>
                 dependency.Target.BackwardsDependencies.Add(dependency)
             );
 
-            var memberMemberDependencies = _type
+            var memberMemberDependencies = type
                 .Members.SelectMany(member => member.MemberDependencies)
                 .OfType<IMemberMemberDependency>();
             memberMemberDependencies.ForEach(memberDependency =>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using static ArchUnitNET.Domain.Visibility;
@@ -13,10 +12,15 @@ using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
 {
+    /// <summary>
+    /// Resolves Mono.Cecil type, method, and field references into cached domain objects.
+    /// Creates and deduplicates <see cref="IType"/>, <see cref="MethodMember"/>,
+    /// <see cref="FieldMember"/>, <see cref="Assembly"/>, and <see cref="Namespace"/>
+    /// instances. Passed into every load-task phase as the single source of truth for
+    /// domain object resolution.
+    /// </summary>
     internal class DomainResolver
     {
-        private readonly LoadTaskRegistry _loadTaskRegistry;
-
         private readonly Dictionary<string, Assembly> _assemblies =
             new Dictionary<string, Assembly>();
 
@@ -32,19 +36,25 @@ namespace ArchUnitNET.Loader
         private readonly Dictionary<string, FieldMember> _allFields =
             new Dictionary<string, FieldMember>();
 
-        public DomainResolver(
-            LoadTaskRegistry loadTaskRegistry
-        )
-        {
-            _loadTaskRegistry = loadTaskRegistry;
-        }
-
+        /// <summary>
+        /// All assemblies that have been created or cached.
+        /// </summary>
         public IEnumerable<Assembly> Assemblies => _assemblies.Values;
 
+        /// <summary>
+        /// All namespaces that have been created or cached.
+        /// </summary>
         public IEnumerable<Namespace> Namespaces => _namespaces.Values;
 
+        /// <summary>
+        /// All types that have been created or cached.
+        /// </summary>
         public IEnumerable<ITypeInstance<IType>> Types => _allTypes.Values;
 
+        /// <summary>
+        /// Returns the existing <see cref="Assembly"/> for the given full name, or creates
+        /// and caches a new one.
+        /// </summary>
         internal Assembly GetOrCreateAssembly(
             string assemblyName,
             string assemblyFullName,
@@ -67,11 +77,10 @@ namespace ArchUnitNET.Loader
             return assembly;
         }
 
-        internal bool ContainsAssembly(string assemblyFullName)
-        {
-            return _assemblies.ContainsKey(assemblyFullName);
-        }
-
+        /// <summary>
+        /// Returns the existing <see cref="Namespace"/> for the given name, or creates
+        /// and caches a new one.
+        /// </summary>
         internal Namespace GetOrCreateNamespace(string namespaceName)
         {
             if (_namespaces.TryGetValue(namespaceName, out var existing))
@@ -84,20 +93,23 @@ namespace ArchUnitNET.Loader
             return ns;
         }
 
-        public IEnumerable<IType> GetAllNonCompilerGeneratedTypes()
-        {
-            return _allTypes
-                .Values.Select(instance => instance.Type)
-                .Distinct()
-                .Where(type => !type.IsCompilerGenerated);
-        }
-
+        /// <summary>
+        /// Returns (or creates and caches) a type instance for the given type reference.
+        /// Used during type discovery in <see cref="ArchBuilder.LoadTypesForModule"/>.
+        /// </summary>
         [NotNull]
-        internal IType GetOrCreateTypeFromTypeReference(TypeReference typeReference)
+        internal ITypeInstance<IType> GetOrCreateTypeInstanceFromTypeReference(
+            TypeReference typeReference
+        )
         {
-            return GetOrCreateTypeInstanceFromTypeReference(typeReference, false).Type;
+            return GetOrCreateTypeInstanceFromTypeReference(typeReference, false);
         }
 
+        /// <summary>
+        /// Returns (or creates and caches) a stub type instance for the given type reference.
+        /// Used by load task phases when resolving dependency targets that may not have
+        /// been discovered during module loading.
+        /// </summary>
         [NotNull]
         internal ITypeInstance<IType> GetOrCreateStubTypeInstanceFromTypeReference(
             TypeReference typeReference
@@ -144,23 +156,10 @@ namespace ArchUnitNET.Loader
                 return GetOrCreateTypeInstanceFromTypeDefinition(typeDefinition, isStub);
             }
 
-            var resolvedTypeDefinition = ResolveTypeReferenceToTypeDefinition(typeReference);
-            if (resolvedTypeDefinition == null)
-            {
-                // When assemblies are loaded by path, there are cases where a dependent type cannot be resolved because
-                // the assembly dependency is not loaded in the current application domain. In this case, we create a
-                // stub type.
-                return GetOrCreateUnavailableTypeFromTypeReference(typeReference);
-            }
-            return GetOrCreateTypeInstanceFromTypeDefinition(resolvedTypeDefinition, isStub);
-        }
-
-        private TypeDefinition ResolveTypeReferenceToTypeDefinition(TypeReference typeReference)
-        {
-            TypeDefinition typeDefinition;
+            TypeDefinition resolvedTypeDefinition;
             try
             {
-                typeDefinition = typeReference.Resolve();
+                resolvedTypeDefinition = typeReference.Resolve();
             }
             catch (AssemblyResolutionException e)
             {
@@ -169,7 +168,15 @@ namespace ArchUnitNET.Loader
                     e
                 );
             }
-            return typeDefinition;
+
+            if (resolvedTypeDefinition == null)
+            {
+                // When assemblies are loaded by path, there are cases where a dependent type cannot be resolved because
+                // the assembly dependency is not loaded in the current application domain. In this case, we create a
+                // stub type.
+                return GetOrCreateUnavailableTypeFromTypeReference(typeReference);
+            }
+            return GetOrCreateTypeInstanceFromTypeDefinition(resolvedTypeDefinition, isStub);
         }
 
         private ITypeInstance<IType> GetOrCreateGenericParameterTypeInstanceFromTypeReference(
@@ -311,9 +318,7 @@ namespace ArchUnitNET.Loader
             {
                 declaringTypeReference = declaringTypeReference.DeclaringType;
             }
-            var currentNamespace = GetOrCreateNamespace(
-                declaringTypeReference.Namespace
-            );
+            var currentNamespace = GetOrCreateNamespace(declaringTypeReference.Namespace);
             var currentAssembly = GetOrCreateAssembly(
                 assemblyFullName,
                 assemblyFullName,
@@ -371,16 +376,6 @@ namespace ArchUnitNET.Loader
                 );
             }
 
-            if (!isStub && !isCompilerGenerated)
-            {
-                if (!typeDefinition.IsInterface)
-                {
-                    LoadBaseTask(createdTypeInstance.Type, type, typeDefinition);
-                }
-
-                LoadNonBaseTasks(createdTypeInstance, type, typeDefinition);
-            }
-
             _allTypes.Add(assemblyQualifiedName, createdTypeInstance);
 
             var genericParameters = GetGenericParameters(typeDefinition);
@@ -394,9 +389,10 @@ namespace ArchUnitNET.Loader
             TypeReference typeReference
         )
         {
+            var typeReferenceFullName = typeReference.BuildFullName();
             var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
                 typeReference.Scope.Name,
-                typeReference.BuildFullName()
+                typeReferenceFullName
             );
             if (_allTypes.TryGetValue(assemblyQualifiedName, out var existingTypeInstance))
             {
@@ -406,7 +402,7 @@ namespace ArchUnitNET.Loader
             var result = new TypeInstance<UnavailableType>(
                 new UnavailableType(
                     new Type(
-                        typeReference.BuildFullName(),
+                        typeReferenceFullName,
                         typeReference.Name,
                         GetOrCreateAssembly(
                             typeReference.Scope.Name,
@@ -498,6 +494,10 @@ namespace ArchUnitNET.Loader
             return result;
         }
 
+        /// <summary>
+        /// Returns (or creates and caches) a <see cref="MethodMemberInstance"/> for the
+        /// given method reference. Handles both generic and non-generic method references.
+        /// </summary>
         [NotNull]
         public MethodMemberInstance GetOrCreateMethodMemberFromMethodReference(
             [NotNull] ITypeInstance<IType> typeInstance,
@@ -507,17 +507,22 @@ namespace ArchUnitNET.Loader
             var methodReferenceFullName = methodReference.BuildFullName();
             if (methodReference.IsGenericInstance)
             {
-                if (_allMethods.TryGetValue(methodReferenceFullName, out var existingGenericInstance))
+                if (
+                    _allMethods.TryGetValue(
+                        methodReferenceFullName,
+                        out var existingGenericInstance
+                    )
+                )
                 {
                     return existingGenericInstance;
                 }
 
-                var genericInstance = CreateGenericInstanceMethodMemberFromMethodReference(
+                var genericResult = CreateGenericInstanceMethodMemberFromMethodReference(
                     typeInstance,
                     methodReference
                 );
-                _allMethods.Add(methodReferenceFullName, genericInstance);
-                return genericInstance;
+                _allMethods.Add(methodReferenceFullName, genericResult);
+                return genericResult;
             }
 
             if (_allMethods.TryGetValue(methodReferenceFullName, out var existingMethodInstance))
@@ -526,7 +531,7 @@ namespace ArchUnitNET.Loader
             }
 
             var name = methodReference.BuildMethodMemberName();
-            var fullName = methodReference.BuildFullName();
+            var fullName = methodReferenceFullName;
             var isGeneric = methodReference.HasGenericParameters;
             var isCompilerGenerated = methodReference.IsCompilerGenerated();
             MethodForm methodForm;
@@ -622,6 +627,12 @@ namespace ArchUnitNET.Loader
             );
         }
 
+        /// <summary>
+        /// Returns (or creates and caches) a <see cref="FieldMember"/> for the given field
+        /// reference. When the reference is a <see cref="FieldDefinition"/>, the field is
+        /// created with full fidelity (visibility, exact writability). Otherwise a stub with
+        /// default visibility (<see cref="Public"/>) is created.
+        /// </summary>
         [NotNull]
         internal FieldMember GetOrCreateFieldMember(
             [NotNull] IType type,
@@ -708,6 +719,10 @@ namespace ArchUnitNET.Loader
             throw new ArgumentException("The field definition seems to have no visibility.");
         }
 
+        /// <summary>
+        /// Extracts generic parameters from a Cecil generic parameter provider (type or method)
+        /// and returns them as domain <see cref="GenericParameter"/> instances.
+        /// </summary>
         public IEnumerable<GenericParameter> GetGenericParameters(
             IGenericParameterProvider genericParameterProvider
         )
@@ -721,76 +736,9 @@ namespace ArchUnitNET.Loader
                     .Cast<GenericParameter>();
         }
 
-        internal GenericArgument CreateGenericArgumentFromTypeReference(TypeReference typeReference)
+        private GenericArgument CreateGenericArgumentFromTypeReference(TypeReference typeReference)
         {
             return new GenericArgument(GetOrCreateStubTypeInstanceFromTypeReference(typeReference));
-        }
-
-        private void LoadBaseTask(IType cls, Type type, TypeDefinition typeDefinition)
-        {
-            if (typeDefinition == null)
-            {
-                return;
-            }
-
-            _loadTaskRegistry.Add(
-                typeof(AddBaseClassDependency),
-                new AddBaseClassDependency(cls, type, typeDefinition, this)
-            );
-        }
-
-        private void LoadNonBaseTasks(
-            ITypeInstance<IType> createdTypeInstance,
-            Type type,
-            TypeDefinition typeDefinition
-        )
-        {
-            if (typeDefinition == null)
-            {
-                return;
-            }
-
-            _loadTaskRegistry.Add(
-                typeof(AddMembers),
-                new AddMembers(createdTypeInstance, typeDefinition, this, type.Members)
-            );
-            _loadTaskRegistry.Add(
-                typeof(AddGenericParameterDependencies),
-                new AddGenericParameterDependencies(type)
-            );
-            _loadTaskRegistry.Add(
-                typeof(AddAttributesAndAttributeDependencies),
-                new AddAttributesAndAttributeDependencies(
-                    createdTypeInstance.Type,
-                    typeDefinition,
-                    this
-                )
-            );
-            _loadTaskRegistry.Add(
-                typeof(AddFieldAndPropertyDependencies),
-                new AddFieldAndPropertyDependencies(createdTypeInstance.Type)
-            );
-            _loadTaskRegistry.Add(
-                typeof(AddMethodDependencies),
-                new AddMethodDependencies(createdTypeInstance.Type, typeDefinition, this)
-            );
-            _loadTaskRegistry.Add(
-                typeof(AddGenericArgumentDependencies),
-                new AddGenericArgumentDependencies(type)
-            );
-            _loadTaskRegistry.Add(
-                typeof(AddClassDependencies),
-                new AddClassDependencies(
-                    createdTypeInstance.Type,
-                    typeDefinition,
-                    this,
-                    type.Dependencies
-                )
-            );
-            _loadTaskRegistry.Add(
-                typeof(AddBackwardsDependencies),
-                new AddBackwardsDependencies(createdTypeInstance.Type)
-            );
         }
     }
 }

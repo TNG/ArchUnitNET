@@ -4,52 +4,40 @@ using Mono.Cecil;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class AddBaseClassDependency : ILoadTask
+    /// <summary>
+    /// If the type has a base class, creates an <see cref="InheritsBaseClassDependency"/>
+    /// and adds it to the type's dependency list. Skipped for interfaces and types
+    /// whose base is not a <see cref="Class"/>.
+    /// </summary>
+    internal static class AddBaseClassDependency
     {
-        private readonly IType _cls;
-        private readonly Type _type;
-        private readonly TypeDefinition _typeDefinition;
-        private readonly DomainResolver _domainResolver;
-
-        public AddBaseClassDependency(
-            IType cls,
-            Type type,
+        internal static void Execute(
+            IType type,
             TypeDefinition typeDefinition,
             DomainResolver domainResolver
         )
         {
-            _cls = cls;
-            _type = type;
-            _typeDefinition = typeDefinition;
-            _domainResolver = domainResolver;
-        }
-
-        public void Execute()
-        {
-            var typeDefinitionBaseType = _typeDefinition?.BaseType;
-
-            if (typeDefinitionBaseType == null)
+            var baseTypeRef = typeDefinition.BaseType;
+            if (baseTypeRef == null)
             {
                 return;
             }
 
-            var baseType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
-                typeDefinitionBaseType
-            );
+            var baseType = domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(baseTypeRef);
             if (!(baseType.Type is Class baseClass))
             {
                 return;
             }
 
             var dependency = new InheritsBaseClassDependency(
-                _cls,
+                type,
                 new TypeInstance<Class>(
                     baseClass,
                     baseType.GenericArguments,
                     baseType.ArrayDimensions
                 )
             );
-            _type.Dependencies.Add(dependency);
+            type.Dependencies.Add(dependency);
         }
     }
 }

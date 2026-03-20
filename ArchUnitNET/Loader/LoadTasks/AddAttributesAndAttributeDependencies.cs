@@ -1,9 +1,3 @@
-//  Copyright 2019 Florian Gather <florian.gather@tngtech.com>
-// 	Copyright 2019 Paula Ruiz <paularuiz22@gmail.com>
-// 	Copyright 2019 Fritz Brandhuber <fritz.brandhuber@tngtech.com>
-//
-// 	SPDX-License-Identifier: Apache-2.0
-
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -14,120 +8,169 @@ using Mono.Cecil;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class AddAttributesAndAttributeDependencies : ILoadTask
+    /// <summary>
+    /// Creates attribute instances from Cecil custom attributes on the type, its generic
+    /// parameters, and its members, then adds corresponding attribute-type dependencies.
+    /// </summary>
+    internal static class AddAttributesAndAttributeDependencies
     {
-        private readonly IType _type;
-        private readonly TypeDefinition _typeDefinition;
-        private readonly DomainResolver _domainResolver;
+        internal static void Execute(
+            IType type,
+            TypeDefinition typeDefinition,
+            DomainResolver domainResolver,
+            IReadOnlyList<(MethodMember Member, MethodDefinition Definition)> methodPairs
+        )
+        {
+            typeDefinition.CustomAttributes.ForEach(attr =>
+                AddAttributeArgumentReferenceDependencies(type, attr, domainResolver)
+            );
+            var typeAttributeInstances = CreateAttributesFromCustomAttributes(
+                    typeDefinition.CustomAttributes,
+                    domainResolver
+                )
+                .ToList();
+            type.AttributeInstances.AddRange(typeAttributeInstances);
+            var typeAttributeDependencies = typeAttributeInstances.Select(
+                attributeInstance => new AttributeTypeDependency(type, attributeInstance)
+            );
+            type.Dependencies.AddRange(typeAttributeDependencies);
 
-        public AddAttributesAndAttributeDependencies(
+            SetUpAttributesForTypeGenericParameters(type, typeDefinition, domainResolver);
+            CollectAttributesForMembers(type, typeDefinition, domainResolver, methodPairs);
+        }
+
+        private static void SetUpAttributesForTypeGenericParameters(
             IType type,
             TypeDefinition typeDefinition,
             DomainResolver domainResolver
         )
         {
-            _type = type;
-            _typeDefinition = typeDefinition;
-            _domainResolver = domainResolver;
-        }
-
-        public void Execute()
-        {
-            _typeDefinition.CustomAttributes.ForEach(
-                AddAttributeArgumentReferenceDependenciesToOriginType
-            );
-            var typeAttributeInstances = CreateAttributesFromCustomAttributes(
-                    _typeDefinition.CustomAttributes
-                )
-                .ToList();
-            _type.AttributeInstances.AddRange(typeAttributeInstances);
-            var typeAttributeDependencies = typeAttributeInstances.Select(
-                attributeInstance => new AttributeTypeDependency(_type, attributeInstance)
-            );
-            _type.Dependencies.AddRange(typeAttributeDependencies);
-            SetUpAttributesForTypeGenericParameters();
-            CollectAttributesForMembers();
-        }
-
-        private void SetUpAttributesForTypeGenericParameters()
-        {
-            foreach (var genericParameter in _typeDefinition.GenericParameters)
+            foreach (var genericParameter in typeDefinition.GenericParameters)
             {
-                var param = _type.GenericParameters.First(parameter =>
+                var param = type.GenericParameters.First(parameter =>
                     parameter.Name == genericParameter.Name
                 );
                 var attributeInstances = CreateAttributesFromCustomAttributes(
-                        genericParameter.CustomAttributes
+                        genericParameter.CustomAttributes,
+                        domainResolver
                     )
                     .ToList();
-                _type.AttributeInstances.AddRange(attributeInstances);
+                type.AttributeInstances.AddRange(attributeInstances);
                 param.AttributeInstances.AddRange(attributeInstances);
                 var genericParameterAttributeDependencies = attributeInstances.Select(
-                    attributeInstance => new AttributeTypeDependency(_type, attributeInstance)
+                    attributeInstance => new AttributeTypeDependency(type, attributeInstance)
                 );
-                _type.Dependencies.AddRange(genericParameterAttributeDependencies);
+                type.Dependencies.AddRange(genericParameterAttributeDependencies);
             }
         }
 
-        private void CollectAttributesForMembers()
+        private static void CollectAttributesForMembers(
+            IType type,
+            TypeDefinition typeDefinition,
+            DomainResolver domainResolver,
+            IReadOnlyList<(MethodMember Member, MethodDefinition Definition)> methodPairs
+        )
         {
-            _typeDefinition
+            typeDefinition
                 .Fields.Where(x => !x.IsBackingField() && !x.IsCompilerGenerated())
-                .ForEach(SetUpAttributesForFields);
+                .ForEach(fieldDef => SetUpAttributesForField(type, fieldDef, domainResolver));
 
-            _typeDefinition
+            typeDefinition
                 .Properties.Where(x => !x.IsCompilerGenerated())
-                .ForEach(SetUpAttributesForProperties);
+                .ForEach(propDef => SetUpAttributesForProperty(type, propDef, domainResolver));
 
-            _typeDefinition
+            // Build a lookup from method full-name -> MethodMember to avoid O(n) scans
+            var methodMemberByFullName = new Dictionary<string, MethodMember>(methodPairs.Count);
+            foreach (var pair in methodPairs)
+            {
+                var key = pair.Definition.BuildFullName();
+                if (!methodMemberByFullName.ContainsKey(key))
+                {
+                    methodMemberByFullName[key] = pair.Member;
+                }
+            }
+
+            typeDefinition
                 .Methods.Where(x => !x.IsCompilerGenerated())
-                .ForEach(SetUpAttributesForMethods);
+                .ForEach(methodDef =>
+                {
+                    MethodMember methodMember;
+                    if (
+                        !methodMemberByFullName.TryGetValue(
+                            methodDef.BuildFullName(),
+                            out methodMember
+                        )
+                    )
+                    {
+                        return;
+                    }
+
+                    SetUpAttributesForMethod(methodDef, methodMember, type, domainResolver);
+                });
         }
 
-        private void SetUpAttributesForFields(FieldDefinition fieldDefinition)
+        private static void SetUpAttributesForField(
+            IType type,
+            FieldDefinition fieldDefinition,
+            DomainResolver domainResolver
+        )
         {
-            var fieldMember = _type
-                .GetFieldMembers()
+            var fieldMember = type.GetFieldMembers()
                 .WhereFullNameIs(fieldDefinition.FullName)
                 .RequiredNotNull();
             CollectMemberAttributesAndDependencies(
+                type,
                 fieldMember,
                 fieldDefinition.CustomAttributes.ToList(),
-                fieldMember.MemberDependencies
+                fieldMember.MemberDependencies,
+                domainResolver
             );
         }
 
-        private void SetUpAttributesForProperties(PropertyDefinition propertyDefinition)
+        private static void SetUpAttributesForProperty(
+            IType type,
+            PropertyDefinition propertyDefinition,
+            DomainResolver domainResolver
+        )
         {
-            var propertyMember = _type
-                .GetPropertyMembers()
+            var propertyMember = type.GetPropertyMembers()
                 .WhereFullNameIs(propertyDefinition.FullName)
                 .RequiredNotNull();
             CollectMemberAttributesAndDependencies(
+                type,
                 propertyMember,
                 propertyDefinition.CustomAttributes.ToList(),
-                propertyMember.AttributeDependencies
+                propertyMember.AttributeDependencies,
+                domainResolver
             );
         }
 
-        private void SetUpAttributesForMethods(MethodDefinition methodDefinition)
+        private static void SetUpAttributesForMethod(
+            MethodDefinition methodDefinition,
+            MethodMember methodMember,
+            IType type,
+            DomainResolver domainResolver
+        )
         {
-            var methodMember = _type
-                .GetMethodMembers()
-                .WhereFullNameIs(methodDefinition.BuildFullName())
-                .RequiredNotNull();
             var memberCustomAttributes = methodDefinition.GetAllMethodCustomAttributes().ToList();
-            SetUpAttributesForMethodGenericParameters(methodDefinition, methodMember);
+            SetUpAttributesForMethodGenericParameters(
+                methodDefinition,
+                methodMember,
+                domainResolver
+            );
             CollectMemberAttributesAndDependencies(
+                type,
                 methodMember,
                 memberCustomAttributes,
-                methodMember.MemberDependencies
+                methodMember.MemberDependencies,
+                domainResolver
             );
         }
 
-        private void SetUpAttributesForMethodGenericParameters(
+        private static void SetUpAttributesForMethodGenericParameters(
             MethodDefinition methodDefinition,
-            MethodMember methodMember
+            MethodMember methodMember,
+            DomainResolver domainResolver
         )
         {
             foreach (var genericParameter in methodDefinition.GenericParameters)
@@ -136,8 +179,17 @@ namespace ArchUnitNET.Loader.LoadTasks
                     parameter.Name == genericParameter.Name
                 );
                 var customAttributes = genericParameter.CustomAttributes;
-                customAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
-                var attributeInstances = CreateAttributesFromCustomAttributes(customAttributes)
+                customAttributes.ForEach(attr =>
+                    AddAttributeArgumentReferenceDependencies(
+                        methodMember.DeclaringType,
+                        attr,
+                        domainResolver
+                    )
+                );
+                var attributeInstances = CreateAttributesFromCustomAttributes(
+                        customAttributes,
+                        domainResolver
+                    )
                     .ToList();
                 methodMember.AttributeInstances.AddRange(attributeInstances);
                 param.AttributeInstances.AddRange(attributeInstances);
@@ -151,28 +203,33 @@ namespace ArchUnitNET.Loader.LoadTasks
             }
         }
 
-        private void CollectMemberAttributesAndDependencies(
-            IMember methodMember,
+        private static void CollectMemberAttributesAndDependencies(
+            IType type,
+            IMember member,
             List<CustomAttribute> memberCustomAttributes,
-            List<IMemberTypeDependency> attributeDependencies
+            List<IMemberTypeDependency> attributeDependencies,
+            DomainResolver domainResolver
         )
         {
-            memberCustomAttributes.ForEach(AddAttributeArgumentReferenceDependenciesToOriginType);
+            memberCustomAttributes.ForEach(attr =>
+                AddAttributeArgumentReferenceDependencies(type, attr, domainResolver)
+            );
             var memberAttributeInstances = CreateAttributesFromCustomAttributes(
-                    memberCustomAttributes
+                    memberCustomAttributes,
+                    domainResolver
                 )
                 .ToList();
-            methodMember.AttributeInstances.AddRange(memberAttributeInstances);
-            var methodAttributeDependencies = CreateMemberAttributeDependencies(
-                methodMember,
-                memberAttributeInstances
+            member.AttributeInstances.AddRange(memberAttributeInstances);
+            var methodAttributeDependencies = memberAttributeInstances.Select(
+                attributeInstance => new AttributeMemberDependency(member, attributeInstance)
             );
             attributeDependencies.AddRange(methodAttributeDependencies);
         }
 
         [NotNull]
-        public IEnumerable<AttributeInstance> CreateAttributesFromCustomAttributes(
-            IEnumerable<CustomAttribute> customAttributes
+        private static IEnumerable<AttributeInstance> CreateAttributesFromCustomAttributes(
+            IEnumerable<CustomAttribute> customAttributes,
+            DomainResolver domainResolver
         )
         {
             return customAttributes
@@ -184,23 +241,13 @@ namespace ArchUnitNET.Loader.LoadTasks
                     && customAttribute.AttributeType.FullName
                         != "System.Runtime.CompilerServices.NullableContextAttribute"
                 )
-                .Select(attr => attr.CreateAttributeFromCustomAttribute(_domainResolver));
+                .Select(attr => attr.CreateAttributeFromCustomAttribute(domainResolver));
         }
 
-        [NotNull]
-        private static IEnumerable<AttributeMemberDependency> CreateMemberAttributeDependencies(
-            IMember member,
-            IEnumerable<AttributeInstance> attributes
-        )
-        {
-            return attributes.Select(attributeInstance => new AttributeMemberDependency(
-                member,
-                attributeInstance
-            ));
-        }
-
-        private void AddAttributeArgumentReferenceDependenciesToOriginType(
-            ICustomAttribute customAttribute
+        private static void AddAttributeArgumentReferenceDependencies(
+            IType type,
+            ICustomAttribute customAttribute,
+            DomainResolver domainResolver
         )
         {
             if (!customAttribute.HasConstructorArguments)
@@ -219,11 +266,11 @@ namespace ArchUnitNET.Loader.LoadTasks
                 )
                 .ForEach(tuple =>
                 {
-                    var argumentType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+                    var argumentType = domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                         tuple.typeReference
                     );
-                    var dependency = new TypeReferenceDependency(_type, argumentType);
-                    _type.Dependencies.Add(dependency);
+                    var dependency = new TypeReferenceDependency(type, argumentType);
+                    type.Dependencies.Add(dependency);
                 });
         }
     }

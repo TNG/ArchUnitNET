@@ -1,34 +1,28 @@
-﻿using System.Linq;
+using System.Linq;
 using ArchUnitNET.Domain;
 using Mono.Cecil;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class CollectAssemblyAttributes : ILoadTask
+    /// <summary>
+    /// Creates attribute instances from the assembly-level custom attributes of the
+    /// given <see cref="AssemblyDefinition"/> and adds them to the domain
+    /// <see cref="Assembly"/>.
+    /// </summary>
+    internal static class CollectAssemblyAttributes
     {
-        private readonly Assembly _assembly;
-        private readonly AssemblyDefinition _assemblyDefinition;
-        private readonly DomainResolver _domainResolver;
-
-        public CollectAssemblyAttributes(
+        internal static void Execute(
             Assembly assembly,
             AssemblyDefinition assemblyDefinition,
             DomainResolver domainResolver
         )
         {
-            _assembly = assembly;
-            _assemblyDefinition = assemblyDefinition;
-            _domainResolver = domainResolver;
-        }
-
-        public void Execute()
-        {
-            var attributeInstances = _assemblyDefinition
+            var attributeInstances = assemblyDefinition
                 .CustomAttributes.Select(attr =>
-                    attr.CreateAttributeFromCustomAttribute(_domainResolver)
+                    attr.CreateAttributeFromCustomAttribute(domainResolver)
                 )
                 .ToList();
-            _assembly.AttributeInstances.AddRange(attributeInstances);
+            assembly.AttributeInstances.AddRange(attributeInstances);
         }
     }
 }

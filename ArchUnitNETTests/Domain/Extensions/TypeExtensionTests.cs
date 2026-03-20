@@ -28,7 +28,7 @@ namespace ArchUnitNETTests.Domain.Extensions
                 .SingleOrDefault();
 
             _exampleAttribute = Architecture.GetClassOfType(typeof(ExampleAttribute));
-            _regexUtilsTests = Architecture.GetClassOfType(typeof(RegexUtilsTest));
+            _regexUtilsTests = Architecture.GetClassOfType(typeof(BackingFieldExamples));
         }
 
         private static readonly Architecture Architecture =

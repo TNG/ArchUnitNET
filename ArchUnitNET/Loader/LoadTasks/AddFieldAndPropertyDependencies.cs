@@ -4,40 +4,33 @@ using ArchUnitNET.Domain.Extensions;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class AddFieldAndPropertyDependencies : ILoadTask
+    /// <summary>
+    /// Creates <see cref="FieldTypeDependency"/> and <see cref="PropertyTypeDependency"/>
+    /// instances for each field and property member of the type.
+    /// </summary>
+    internal static class AddFieldAndPropertyDependencies
     {
-        private readonly IType _type;
-
-        public AddFieldAndPropertyDependencies(IType type)
+        internal static void Execute(IType type)
         {
-            _type = type;
-        }
-
-        public void Execute()
-        {
-            _type
-                .GetFieldMembers()
+            type.GetFieldMembers()
                 .ForEach(field =>
                 {
                     var dependency = new FieldTypeDependency(field);
-                    AddDependencyIfMissing(field, dependency);
+                    if (!field.MemberDependencies.Contains(dependency))
+                    {
+                        field.MemberDependencies.Add(dependency);
+                    }
                 });
 
-            _type
-                .GetPropertyMembers()
+            type.GetPropertyMembers()
                 .ForEach(property =>
                 {
                     var dependency = new PropertyTypeDependency(property);
-                    AddDependencyIfMissing(property, dependency);
+                    if (!property.MemberDependencies.Contains(dependency))
+                    {
+                        property.MemberDependencies.Add(dependency);
+                    }
                 });
-        }
-
-        private static void AddDependencyIfMissing(IMember member, IMemberTypeDependency dependency)
-        {
-            if (!member.MemberDependencies.Contains(dependency))
-            {
-                member.MemberDependencies.Add(dependency);
-            }
         }
     }
 }

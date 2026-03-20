@@ -7,50 +7,34 @@ using Mono.Cecil;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class AddClassDependencies : ILoadTask
+    /// <summary>
+    /// Creates <see cref="ImplementsInterfaceDependency"/> for each interface the type
+    /// implements (including inherited interfaces), then rolls up all member-level
+    /// dependencies to the type's dependency list.
+    /// </summary>
+    internal static class AddClassDependencies
     {
-        private readonly List<ITypeDependency> _dependencies;
-        private readonly IType _type;
-        private readonly TypeDefinition _typeDefinition;
-        private readonly DomainResolver _domainResolver;
-
-        public AddClassDependencies(
+        internal static void Execute(
             IType type,
             TypeDefinition typeDefinition,
-            DomainResolver domainResolver,
-            List<ITypeDependency> dependencies
+            DomainResolver domainResolver
         )
         {
-            _type = type;
-            _typeDefinition = typeDefinition;
-            _domainResolver = domainResolver;
-            _dependencies = dependencies;
-        }
-
-        public void Execute()
-        {
-            AddInterfaceDependencies();
-            AddMemberDependencies();
-        }
-
-        private void AddMemberDependencies()
-        {
-            _type.Members.ForEach(member =>
-            {
-                _dependencies.AddRange(member.Dependencies);
-            });
-        }
-
-        private void AddInterfaceDependencies()
-        {
-            GetInterfacesImplementedByClass(_typeDefinition)
+            // Interface dependencies
+            GetInterfacesImplementedByClass(typeDefinition)
                 .ForEach(target =>
                 {
-                    var targetType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+                    var targetType = domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                         target
                     );
-                    _dependencies.Add(new ImplementsInterfaceDependency(_type, targetType));
+                    type.Dependencies.Add(new ImplementsInterfaceDependency(type, targetType));
                 });
+
+            // Member dependencies rolled up to type level
+            type.Members.ForEach(member =>
+            {
+                type.Dependencies.AddRange(member.Dependencies);
+            });
         }
 
         private static IEnumerable<TypeReference> GetInterfacesImplementedByClass(

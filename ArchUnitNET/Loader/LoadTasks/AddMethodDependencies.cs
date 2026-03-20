@@ -12,50 +12,47 @@ using Mono.Cecil.Cil;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class AddMethodDependencies : ILoadTask
+    /// <summary>
+    /// Resolves method signature and body dependencies for each method in the type,
+    /// including method calls, body types, cast types, type checks, metadata types,
+    /// and accessed fields. Also links getter/setter methods to their properties.
+    /// </summary>
+    internal static class AddMethodDependencies
     {
-        private readonly IType _type;
-        private readonly TypeDefinition _typeDefinition;
-        private readonly DomainResolver _domainResolver;
-
-        public AddMethodDependencies(
+        internal static void Execute(
             IType type,
-            TypeDefinition typeDefinition,
-            DomainResolver domainResolver
+            DomainResolver domainResolver,
+            IReadOnlyList<(MethodMember Member, MethodDefinition Definition)> methodPairs,
+            IReadOnlyDictionary<MethodDefinition, PropertyMember> propertyByAccessor
         )
         {
-            _type = type;
-            _typeDefinition = typeDefinition;
-            _domainResolver = domainResolver;
-        }
-
-        public void Execute()
-        {
-            _typeDefinition
-                .Methods.Where(methodDefinition =>
-                    _type.GetMemberWithFullName(methodDefinition.BuildFullName()) is MethodMember
-                )
-                .Select(definition =>
-                    (
-                        methodMember: _type.GetMemberWithFullName(definition.BuildFullName())
-                            as MethodMember,
-                        methodDefinition: definition
-                    )
-                )
-                .Select(tuple =>
+            methodPairs
+                .Where(pair => pair.Member != null && !pair.Member.IsCompilerGenerated)
+                .Select(pair =>
                 {
-                    var (methodMember, methodDefinition) = tuple;
                     var dependencies = CreateMethodSignatureDependencies(
-                            methodDefinition,
-                            methodMember
+                            pair.Definition,
+                            pair.Member,
+                            domainResolver
                         )
-                        .Concat(CreateMethodBodyDependencies(methodDefinition, methodMember));
-                    if (methodDefinition.IsSetter || methodDefinition.IsGetter)
+                        .Concat(
+                            CreateMethodBodyDependencies(
+                                type,
+                                pair.Definition,
+                                pair.Member,
+                                domainResolver
+                            )
+                        );
+                    if (pair.Definition.IsSetter || pair.Definition.IsGetter)
                     {
-                        AssignDependenciesToProperty(methodMember, methodDefinition);
+                        AssignDependenciesToProperty(
+                            pair.Member,
+                            pair.Definition,
+                            propertyByAccessor
+                        );
                     }
 
-                    return (methodMember, dependencies);
+                    return (pair.Member, dependencies);
                 })
                 .ForEach(tuple =>
                 {
@@ -64,27 +61,20 @@ namespace ArchUnitNET.Loader.LoadTasks
                 });
         }
 
-        private void AssignDependenciesToProperty(
+        private static void AssignDependenciesToProperty(
             MethodMember methodMember,
-            MethodDefinition methodDefinition
+            MethodDefinition methodDefinition,
+            IReadOnlyDictionary<MethodDefinition, PropertyMember> propertyByAccessor
         )
         {
-            var methodForm = methodDefinition.GetMethodForm();
-            var matchFunction = GetMatchFunction(methodForm);
-            matchFunction.RequiredNotNull();
-
-            var accessedProperty = MatchToPropertyMember(
-                methodMember.Name,
-                methodMember.FullName,
-                matchFunction
-            );
-            if (accessedProperty == null)
+            if (!propertyByAccessor.TryGetValue(methodDefinition, out var accessedProperty))
             {
                 return;
             }
 
-            accessedProperty.IsVirtual = accessedProperty.IsVirtual || methodMember.IsVirtual;
+            accessedProperty.IsVirtual |= methodMember.IsVirtual;
 
+            var methodForm = methodDefinition.GetMethodForm();
             switch (methodForm)
             {
                 case MethodForm.Getter:
@@ -114,15 +104,16 @@ namespace ArchUnitNET.Loader.LoadTasks
         }
 
         [NotNull]
-        private IEnumerable<MethodSignatureDependency> CreateMethodSignatureDependencies(
+        private static IEnumerable<MethodSignatureDependency> CreateMethodSignatureDependencies(
             MethodReference methodReference,
-            MethodMember methodMember
+            MethodMember methodMember,
+            DomainResolver domainResolver
         )
         {
-            var returnType = methodReference.GetReturnType(_domainResolver);
+            var returnType = methodReference.GetReturnType(domainResolver);
             return (returnType != null ? new[] { returnType } : Array.Empty<ITypeInstance<IType>>())
-                .Concat(methodReference.GetParameters(_domainResolver))
-                .Concat(methodReference.GetGenericParameters(_domainResolver))
+                .Concat(methodReference.GetParameters(domainResolver))
+                .Concat(methodReference.GetGenericParameters(domainResolver))
                 .Distinct()
                 .Select(signatureType => new MethodSignatureDependency(
                     methodMember,
@@ -131,9 +122,11 @@ namespace ArchUnitNET.Loader.LoadTasks
         }
 
         [NotNull]
-        private IEnumerable<IMemberTypeDependency> CreateMethodBodyDependencies(
+        private static IEnumerable<IMemberTypeDependency> CreateMethodBodyDependencies(
+            IType type,
             MethodDefinition methodDefinition,
-            MethodMember methodMember
+            MethodMember methodMember,
+            DomainResolver domainResolver
         )
         {
             var methodBody = methodDefinition.Body;
@@ -151,7 +144,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                     out methodDefinition,
                     ref methodBody,
                     bodyTypes,
-                    visitedMethodReferences
+                    visitedMethodReferences,
+                    domainResolver
                 );
             }
 
@@ -161,11 +155,12 @@ namespace ArchUnitNET.Loader.LoadTasks
                     out methodDefinition,
                     ref methodBody,
                     bodyTypes,
-                    visitedMethodReferences
+                    visitedMethodReferences,
+                    domainResolver
                 );
             }
 
-            var scan = methodDefinition.ScanMethodBody(_domainResolver);
+            var scan = methodDefinition.ScanMethodBody(domainResolver);
             bodyTypes.AddRange(scan.BodyTypes);
 
             var castTypes = scan.CastTypes;
@@ -183,7 +178,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                 castTypes,
                 typeCheckTypes,
                 metaDataTypes,
-                accessedFieldMembers
+                accessedFieldMembers,
+                domainResolver
             );
 
             foreach (
@@ -241,14 +237,15 @@ namespace ArchUnitNET.Loader.LoadTasks
             }
         }
 
-        private IEnumerable<MethodMemberInstance> CreateMethodBodyDependenciesRecursive(
+        private static IEnumerable<MethodMemberInstance> CreateMethodBodyDependenciesRecursive(
             MethodBody methodBody,
             ICollection<MethodReference> visitedMethodReferences,
             List<ITypeInstance<IType>> bodyTypes,
             List<ITypeInstance<IType>> castTypes,
             List<ITypeInstance<IType>> typeCheckTypes,
             List<ITypeInstance<IType>> metaDataTypes,
-            List<FieldMember> accessedFieldMembers
+            List<FieldMember> accessedFieldMembers,
+            DomainResolver domainResolver
         )
         {
             var calledMethodReferences = methodBody
@@ -261,10 +258,10 @@ namespace ArchUnitNET.Loader.LoadTasks
             {
                 visitedMethodReferences.Add(calledMethodReference);
 
-                var calledType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+                var calledType = domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                     calledMethodReference.DeclaringType
                 );
-                var calledMethodMember = _domainResolver.GetOrCreateMethodMemberFromMethodReference(
+                var calledMethodMember = domainResolver.GetOrCreateMethodMemberFromMethodReference(
                     calledType,
                     calledMethodReference
                 );
@@ -297,11 +294,12 @@ namespace ArchUnitNET.Loader.LoadTasks
                             out calledMethodDefinition,
                             ref calledMethodBody,
                             bodyTypes,
-                            visitedMethodReferences
+                            visitedMethodReferences,
+                            domainResolver
                         );
                     }
 
-                    var calledScan = calledMethodDefinition.ScanMethodBody(_domainResolver);
+                    var calledScan = calledMethodDefinition.ScanMethodBody(domainResolver);
                     bodyTypes.AddRange(calledScan.BodyTypes);
                     castTypes.AddRange(calledScan.CastTypes);
                     typeCheckTypes.AddRange(calledScan.TypeCheckTypes);
@@ -316,7 +314,8 @@ namespace ArchUnitNET.Loader.LoadTasks
                             castTypes,
                             typeCheckTypes,
                             metaDataTypes,
-                            accessedFieldMembers
+                            accessedFieldMembers,
+                            domainResolver
                         )
                     )
                     {
@@ -330,11 +329,12 @@ namespace ArchUnitNET.Loader.LoadTasks
             }
         }
 
-        private void HandleIterator(
+        private static void HandleIterator(
             out MethodDefinition methodDefinition,
             ref MethodBody methodBody,
             List<ITypeInstance<IType>> bodyTypes,
-            ICollection<MethodReference> visitedMethodReferences
+            ICollection<MethodReference> visitedMethodReferences,
+            DomainResolver domainResolver
         )
         {
             var compilerGeneratedGeneratorObject = (
@@ -358,16 +358,17 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             bodyTypes.AddRange(
                 fieldsExceptGeneratorStateInfo.Select(bodyField =>
-                    _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)
+                    domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)
                 )
             );
         }
 
-        private void HandleAsync(
+        private static void HandleAsync(
             out MethodDefinition methodDefinition,
             ref MethodBody methodBody,
             List<ITypeInstance<IType>> bodyTypes,
-            ICollection<MethodReference> visitedMethodReferences
+            ICollection<MethodReference> visitedMethodReferences,
+            DomainResolver domainResolver
         )
         {
             var compilerGeneratedGeneratorObject = (
@@ -400,76 +401,9 @@ namespace ArchUnitNET.Loader.LoadTasks
 
             bodyTypes.AddRange(
                 fieldsExceptGeneratorStateInfo.Select(bodyField =>
-                    _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)
+                    domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(bodyField.FieldType)
                 )
             );
         }
-
-        private static MatchFunction GetMatchFunction(MethodForm methodForm)
-        {
-            MatchFunction matchFunction;
-            switch (methodForm)
-            {
-                case MethodForm.Getter:
-                    matchFunction = new MatchFunction(RegexUtils.MatchGetPropertyName);
-                    break;
-                case MethodForm.Setter:
-                    matchFunction = new MatchFunction(RegexUtils.MatchSetPropertyName);
-                    break;
-                default:
-                    matchFunction = null;
-                    break;
-            }
-
-            return matchFunction.RequiredNotNull();
-        }
-
-        private PropertyMember MatchToPropertyMember(
-            string name,
-            string fullName,
-            MatchFunction matchFunction
-        )
-        {
-            try
-            {
-                var accessedMemberName = matchFunction.MatchNameFunction(name);
-                if (accessedMemberName != null)
-                {
-                    var foundNameMatches = _type
-                        .GetPropertyMembersWithName(accessedMemberName)
-                        .SingleOrDefault();
-                    if (foundNameMatches != null)
-                    {
-                        return foundNameMatches;
-                    }
-                }
-            }
-            catch (InvalidOperationException) { }
-
-            var accessedMemberFullName = matchFunction.MatchNameFunction(fullName);
-            return accessedMemberFullName != null
-                ? GetPropertyMemberWithFullNameEndingWith(_type, accessedMemberFullName)
-                : null;
-        }
-
-        private PropertyMember GetPropertyMemberWithFullNameEndingWith(
-            IType type,
-            string detailedName
-        )
-        {
-            return type
-                .Members.OfType<PropertyMember>()
-                .FirstOrDefault(propertyMember => propertyMember.FullName.EndsWith(detailedName));
-        }
-    }
-
-    public class MatchFunction
-    {
-        public MatchFunction(Func<string, string> matchNameFunction)
-        {
-            MatchNameFunction = matchNameFunction;
-        }
-
-        public Func<string, string> MatchNameFunction { get; }
     }
 }

@@ -9,50 +9,82 @@ using GenericParameter = ArchUnitNET.Domain.GenericParameter;
 
 namespace ArchUnitNET.Loader
 {
+    /// <summary>
+    /// Internal builder that constructs an <see cref="Architecture"/> from loaded modules.
+    /// Coordinates type discovery (via <see cref="DomainResolver"/>), type processing
+    /// (via the <c>LoadTasks</c> static classes), and architecture assembly. Manages the
+    /// <see cref="ArchitectureCache"/> lookup.
+    /// </summary>
     internal class ArchBuilder
     {
         private readonly ArchitectureCache _architectureCache;
         private readonly ArchitectureCacheKey _architectureCacheKey;
-        private readonly IDictionary<string, IType> _architectureTypes =
-            new Dictionary<string, IType>();
-        private readonly LoadTaskRegistry _loadTaskRegistry;
         private readonly DomainResolver _domainResolver;
+
+        /// <summary>
+        /// Non-compiler-generated types paired with their Cecil <see cref="TypeDefinition"/>s,
+        /// collected during <see cref="LoadTypesForModule"/> and consumed by
+        /// <see cref="ProcessTypes"/> to populate members, dependencies, and attributes.
+        /// Keyed by assembly-qualified name for deduplication.
+        /// </summary>
+        private readonly Dictionary<
+            string,
+            (ITypeInstance<IType> TypeInstance, TypeDefinition Definition)
+        > _typesToProcess =
+            new Dictionary<
+                string,
+                (ITypeInstance<IType> TypeInstance, TypeDefinition Definition)
+            >();
+
+        /// <summary>
+        /// Assemblies paired with their Cecil <see cref="AssemblyDefinition"/>s,
+        /// registered via <see cref="AddAssembly"/>. Keyed by assembly full name
+        /// for deduplication. Consumed by Phase 5 (assembly attribute collection).
+        /// </summary>
+        private readonly Dictionary<
+            string,
+            (Assembly Assembly, AssemblyDefinition Definition)
+        > _assemblyData =
+            new Dictionary<string, (Assembly Assembly, AssemblyDefinition Definition)>();
 
         public ArchBuilder()
         {
-            _loadTaskRegistry = new LoadTaskRegistry();
-            _domainResolver = new DomainResolver(
-                _loadTaskRegistry
-            );
+            _domainResolver = new DomainResolver();
             _architectureCacheKey = new ArchitectureCacheKey();
             _architectureCache = ArchitectureCache.Instance;
         }
 
-        public IEnumerable<IType> Types => _architectureTypes.Values;
-        public IEnumerable<Assembly> Assemblies => _domainResolver.Assemblies;
-        public IEnumerable<Namespace> Namespaces => _domainResolver.Namespaces;
-
+        /// <summary>
+        /// Registers an assembly for attribute collection during <see cref="ProcessTypes"/>.
+        /// Skips assemblies that have already been registered.
+        /// </summary>
         public void AddAssembly([NotNull] AssemblyDefinition moduleAssembly, bool isOnlyReferenced)
         {
+            if (_assemblyData.ContainsKey(moduleAssembly.FullName))
+            {
+                return;
+            }
+
             var references = moduleAssembly
                 .MainModule.AssemblyReferences.Select(reference => reference.Name)
                 .ToList();
 
-            if (!_domainResolver.ContainsAssembly(moduleAssembly.FullName))
-            {
-                var assembly = _domainResolver.GetOrCreateAssembly(
-                    moduleAssembly.Name.Name,
-                    moduleAssembly.FullName,
-                    isOnlyReferenced,
-                    references
-                );
-                _loadTaskRegistry.Add(
-                    typeof(CollectAssemblyAttributes),
-                    new CollectAssemblyAttributes(assembly, moduleAssembly, _domainResolver)
-                );
-            }
+            var assembly = _domainResolver.GetOrCreateAssembly(
+                moduleAssembly.Name.Name,
+                moduleAssembly.FullName,
+                isOnlyReferenced,
+                references
+            );
+            _assemblyData.Add(moduleAssembly.FullName, (assembly, moduleAssembly));
         }
 
+        /// <summary>
+        /// Discovers types in the given <paramref name="module"/>, creates domain type instances
+        /// via <see cref="DomainResolver"/>, and records them for later processing.
+        /// Filters out compiler-generated types, code-coverage instrumentation types,
+        /// nullable context attributes, and types outside the optional
+        /// <paramref name="namespaceFilter"/>.
+        /// </summary>
         public void LoadTypesForModule(ModuleDefinition module, string namespaceFilter)
         {
             _architectureCacheKey.Add(module.Name, namespaceFilter);
@@ -81,7 +113,6 @@ namespace ArchUnitNET.Loader
                 types.AddRange(nestedTypes);
             }
 
-            var currentTypes = new List<IType>(types.Count);
             types
                 .Where(typeDefinition =>
                     (
@@ -95,46 +126,28 @@ namespace ArchUnitNET.Loader
                 )
                 .ForEach(typeDefinition =>
                 {
-                    var type = _domainResolver.GetOrCreateTypeFromTypeReference(typeDefinition);
+                    var typeInstance = _domainResolver.GetOrCreateTypeInstanceFromTypeReference(
+                        typeDefinition
+                    );
+                    var type = typeInstance.Type;
                     var assemblyQualifiedName = System.Reflection.Assembly.CreateQualifiedName(
                         module.Assembly.Name.Name,
                         typeDefinition.FullName
                     );
                     if (
-                        !_architectureTypes.ContainsKey(assemblyQualifiedName)
+                        !_typesToProcess.ContainsKey(assemblyQualifiedName)
                         && !type.IsCompilerGenerated
                     )
                     {
-                        currentTypes.Add(type);
-                        _architectureTypes.Add(assemblyQualifiedName, type);
+                        _typesToProcess.Add(assemblyQualifiedName, (typeInstance, typeDefinition));
                     }
                 });
-
-            _loadTaskRegistry.Add(
-                typeof(AddTypesToNamespaces),
-                new AddTypesToNamespaces(currentTypes)
-            );
         }
 
-        private void UpdateTypeDefinitions()
-        {
-            _loadTaskRegistry.ExecuteTasks(
-                new List<System.Type>
-                {
-                    typeof(AddMembers),
-                    typeof(AddGenericParameterDependencies),
-                    typeof(AddAttributesAndAttributeDependencies),
-                    typeof(CollectAssemblyAttributes),
-                    typeof(AddFieldAndPropertyDependencies),
-                    typeof(AddMethodDependencies),
-                    typeof(AddGenericArgumentDependencies),
-                    typeof(AddClassDependencies),
-                    typeof(AddBackwardsDependencies),
-                    typeof(AddTypesToNamespaces),
-                }
-            );
-        }
-
+        /// <summary>
+        /// Builds the <see cref="Architecture"/> from all loaded modules. Returns a cached
+        /// instance when available.
+        /// </summary>
         public Architecture Build()
         {
             var architecture = _architectureCache.TryGetArchitecture(_architectureCacheKey);
@@ -143,20 +156,144 @@ namespace ArchUnitNET.Loader
                 return architecture;
             }
 
-            UpdateTypeDefinitions();
-            var allTypes = _domainResolver.GetAllNonCompilerGeneratedTypes().ToList();
+            ProcessTypes();
+
+            var allTypes = _domainResolver
+                .Types.Select(instance => instance.Type)
+                .Where(type => !type.IsCompilerGenerated)
+                .Distinct()
+                .ToList();
+            var types = allTypes
+                .Where(type => !type.IsStub && !(type is GenericParameter))
+                .ToList();
             var genericParameters = allTypes.OfType<GenericParameter>().ToList();
-            var referencedTypes = allTypes.Except(Types).Except(genericParameters);
-            var namespaces = Namespaces.Where(ns => ns.Types.Any());
+            var referencedTypes = allTypes
+                .Where(type => type.IsStub && !(type is GenericParameter))
+                .ToList();
+            var namespaces = _domainResolver.Namespaces.Where(ns => ns.Types.Any());
             var newArchitecture = new Architecture(
-                Assemblies,
+                _domainResolver.Assemblies,
                 namespaces,
-                Types,
+                types,
                 genericParameters,
                 referencedTypes
             );
+
             _architectureCache.Add(_architectureCacheKey, newArchitecture);
+
             return newArchitecture;
+        }
+
+        /// <summary>
+        /// Runs all type-processing phases in the required order across every discovered type.
+        /// Each phase must complete for all types before the next phase begins, because later
+        /// phases depend on data populated by earlier ones (e.g. members must exist before
+        /// method dependencies can be resolved).
+        /// </summary>
+        private void ProcessTypes()
+        {
+            var typesToProcess = _typesToProcess.Values;
+
+            // Phase 1: Base class dependency (non-interface types only)
+            foreach (var entry in typesToProcess.Where(entry => !entry.Definition.IsInterface))
+            {
+                AddBaseClassDependency.Execute(
+                    entry.TypeInstance.Type,
+                    entry.Definition,
+                    _domainResolver
+                );
+            }
+
+            // Phase 2: Members (fields, properties, methods)
+            // Collect (TypeInstance, Definition, MemberData) for use in Phases 4 and 7.
+            var typesWithMemberData = new List<(
+                ITypeInstance<IType> TypeInstance,
+                TypeDefinition TypeDef,
+                MemberData MemberData
+            )>(_typesToProcess.Count);
+            typesWithMemberData.AddRange(
+                from entry in typesToProcess
+                let memberData = AddMembers.Execute(
+                    entry.TypeInstance,
+                    entry.Definition,
+                    _domainResolver
+                )
+                select (entry.TypeInstance, entry.Definition, memberData)
+            );
+
+            // Phase 3: Generic parameter dependencies
+            foreach (var entry in typesToProcess)
+            {
+                AddGenericParameterDependencies.Execute(entry.TypeInstance.Type);
+            }
+
+            // Phase 4: Attributes and attribute dependencies
+            foreach (var entry in typesWithMemberData)
+            {
+                AddAttributesAndAttributeDependencies.Execute(
+                    entry.TypeInstance.Type,
+                    entry.TypeDef,
+                    _domainResolver,
+                    entry.MemberData.MethodPairs
+                );
+            }
+
+            // Phase 5: Assembly-level attributes
+            // Materialized to a list because CollectAssemblyAttributes can trigger
+            // GetOrCreateAssembly in DomainResolver, which would invalidate a lazy query.
+            var assemblyData = _assemblyData.Values.ToList();
+            foreach (var entry in assemblyData)
+            {
+                CollectAssemblyAttributes.Execute(
+                    entry.Assembly,
+                    entry.Definition,
+                    _domainResolver
+                );
+            }
+
+            // Phase 6: Field and property type dependencies
+            foreach (var entry in typesToProcess)
+            {
+                AddFieldAndPropertyDependencies.Execute(entry.TypeInstance.Type);
+            }
+
+            // Phase 7: Method signature and body dependencies
+            foreach (var entry in typesWithMemberData)
+            {
+                AddMethodDependencies.Execute(
+                    entry.TypeInstance.Type,
+                    _domainResolver,
+                    entry.MemberData.MethodPairs,
+                    entry.MemberData.PropertyByAccessor
+                );
+            }
+
+            // Phase 8: Generic argument dependencies
+            foreach (var entry in typesToProcess)
+            {
+                AddGenericArgumentDependencies.Execute(entry.TypeInstance.Type);
+            }
+
+            // Phase 9: Interface and member-to-type dependencies
+            foreach (var entry in typesToProcess)
+            {
+                AddClassDependencies.Execute(
+                    entry.TypeInstance.Type,
+                    entry.Definition,
+                    _domainResolver
+                );
+            }
+
+            // Phase 10: Backwards dependencies
+            foreach (var entry in typesToProcess)
+            {
+                AddBackwardsDependencies.Execute(entry.TypeInstance.Type);
+            }
+
+            // Phase 11: Register types with their namespaces
+            AddTypesToNamespaces.Execute(
+                _typesToProcess.Values.Select(entry => entry.TypeInstance.Type)
+            );
         }
     }
 }

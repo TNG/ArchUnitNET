@@ -1,38 +1,51 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
-using JetBrains.Annotations;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    public class AddGenericArgumentDependencies : ILoadTask
+    /// <summary>
+    /// Propagates generic-parameter dependencies to the owning type and member,
+    /// then recursively discovers nested generic-argument dependencies in all
+    /// existing type and member dependencies.
+    /// </summary>
+    internal static class AddGenericArgumentDependencies
     {
-        [NotNull]
-        private readonly IType _type;
-
-        public AddGenericArgumentDependencies([NotNull] IType type)
+        internal static void Execute(IType type)
         {
-            _type = type;
-        }
+            // Type-level generic argument dependencies
+            foreach (var parameter in type.GenericParameters)
+            {
+                type.Dependencies.AddRange(parameter.Dependencies);
+            }
 
-        public void Execute()
-        {
-            AddTypeGenericArgumentDependencies();
-            AddMemberGenericArgumentDependencies();
+            // Member-level generic argument dependencies
+            foreach (var member in type.Members)
+            {
+                foreach (var parameter in member.GenericParameters)
+                {
+                    member.MemberDependencies.AddRange(
+                        parameter.Dependencies.Cast<IMemberTypeDependency>()
+                    );
+                }
+            }
 
+            // Recursive generic arguments in type dependencies
             var typeDependencies = new List<GenericArgumentTypeDependency>();
-            foreach (var dependency in _type.Dependencies)
+            foreach (var dependency in type.Dependencies)
             {
                 FindGenericArgumentsInTypeDependenciesRecursive(
+                    type,
                     dependency.TargetGenericArguments,
                     typeDependencies
                 );
             }
 
-            _type.Dependencies.AddRange(typeDependencies);
+            type.Dependencies.AddRange(typeDependencies);
 
-            foreach (var member in _type.Members)
+            // Recursive generic arguments in member dependencies
+            foreach (var member in type.Members)
             {
                 var memberDependencies = new List<GenericArgumentMemberDependency>();
                 foreach (var dependency in member.Dependencies)
@@ -48,15 +61,8 @@ namespace ArchUnitNET.Loader.LoadTasks
             }
         }
 
-        private void AddTypeGenericArgumentDependencies()
-        {
-            foreach (var parameter in _type.GenericParameters)
-            {
-                _type.Dependencies.AddRange(parameter.Dependencies);
-            }
-        }
-
-        private void FindGenericArgumentsInTypeDependenciesRecursive(
+        private static void FindGenericArgumentsInTypeDependenciesRecursive(
+            IType type,
             IEnumerable<GenericArgument> targetGenericArguments,
             ICollection<GenericArgumentTypeDependency> createdDependencies
         )
@@ -67,24 +73,12 @@ namespace ArchUnitNET.Loader.LoadTasks
                 )
             )
             {
-                createdDependencies.Add(new GenericArgumentTypeDependency(_type, genericArgument));
+                createdDependencies.Add(new GenericArgumentTypeDependency(type, genericArgument));
                 FindGenericArgumentsInTypeDependenciesRecursive(
+                    type,
                     genericArgument.GenericArguments,
                     createdDependencies
                 );
-            }
-        }
-
-        private void AddMemberGenericArgumentDependencies()
-        {
-            foreach (var member in _type.Members)
-            {
-                foreach (var parameter in member.GenericParameters)
-                {
-                    member.MemberDependencies.AddRange(
-                        parameter.Dependencies.Cast<IMemberTypeDependency>()
-                    );
-                }
             }
         }
 

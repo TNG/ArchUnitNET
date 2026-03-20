@@ -1,76 +1,104 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
 
 namespace ArchUnitNET.Loader.LoadTasks
 {
-    internal class AddMembers : ILoadTask
+    /// <summary>
+    /// Creates field, property, and method members from the Cecil
+    /// <see cref="TypeDefinition"/> and adds them to the domain type.
+    /// Returns a <see cref="MemberData"/> containing method pairs and
+    /// a mapping from getter/setter <see cref="MethodDefinition"/>s to
+    /// their <see cref="PropertyMember"/>s.
+    /// </summary>
+    internal static class AddMembers
     {
-        private readonly MemberList _memberList;
-        private readonly ITypeInstance<IType> _typeInstance;
-        private readonly TypeDefinition _typeDefinition;
-        private readonly DomainResolver _domainResolver;
-
-        public AddMembers(
+        internal static MemberData Execute(
             ITypeInstance<IType> typeInstance,
             TypeDefinition typeDefinition,
-            DomainResolver domainResolver,
-            MemberList memberList
+            DomainResolver domainResolver
         )
         {
-            _typeInstance = typeInstance;
-            _typeDefinition = typeDefinition;
-            _domainResolver = domainResolver;
-            _memberList = memberList;
-        }
-
-        public void Execute()
-        {
-            var members = CreateMembers(_typeDefinition);
-            _memberList.AddRange(members);
+            var methodPairs = new List<(MethodMember Member, MethodDefinition Definition)>();
+            var propertyByAccessor = new Dictionary<MethodDefinition, PropertyMember>();
+            var members = CreateMembers(
+                typeInstance,
+                typeDefinition,
+                domainResolver,
+                methodPairs,
+                propertyByAccessor
+            );
+            typeInstance.Type.Members.AddRange(members);
+            return new MemberData(methodPairs, propertyByAccessor);
         }
 
         [NotNull]
-        private IEnumerable<IMember> CreateMembers([NotNull] TypeDefinition typeDefinition)
+        private static IEnumerable<IMember> CreateMembers(
+            ITypeInstance<IType> typeInstance,
+            [NotNull] TypeDefinition typeDefinition,
+            DomainResolver domainResolver,
+            List<(MethodMember Member, MethodDefinition Definition)> methodPairs,
+            Dictionary<MethodDefinition, PropertyMember> propertyByAccessor
+        )
         {
-            return typeDefinition
+            var fieldMembers = typeDefinition
                 .Fields.Where(fieldDefinition => !fieldDefinition.IsBackingField())
                 .Select(fieldDef =>
-                    (IMember)_domainResolver.GetOrCreateFieldMember(_typeInstance.Type, fieldDef)
-                )
-                .Concat(
-                    typeDefinition
-                        .Properties.Select(CreatePropertyMember)
-                        .Concat(
-                            typeDefinition.Methods.Select(method =>
-                                _domainResolver
-                                    .GetOrCreateMethodMemberFromMethodReference(
-                                        _typeInstance,
-                                        method
-                                    )
-                                    .Member
-                            )
-                        )
-                )
+                    (IMember)domainResolver.GetOrCreateFieldMember(typeInstance.Type, fieldDef)
+                );
+
+            var propertyMembers = typeDefinition.Properties.Select(propDef =>
+            {
+                var propertyMember = CreatePropertyMember(typeInstance, propDef, domainResolver);
+                if (propDef.GetMethod != null)
+                {
+                    propertyByAccessor[propDef.GetMethod] = propertyMember;
+                }
+
+                if (propDef.SetMethod != null)
+                {
+                    propertyByAccessor[propDef.SetMethod] = propertyMember;
+                }
+
+                return (IMember)propertyMember;
+            });
+
+            var methodMembers = typeDefinition.Methods.Select(method =>
+            {
+                var member = domainResolver
+                    .GetOrCreateMethodMemberFromMethodReference(typeInstance, method)
+                    .Member;
+                methodPairs.Add((member, method));
+                return (IMember)member;
+            });
+
+            return fieldMembers
+                .Concat(propertyMembers)
+                .Concat(methodMembers)
                 .Where(member => !member.IsCompilerGenerated);
         }
 
         [NotNull]
-        private IMember CreatePropertyMember(PropertyDefinition propertyDefinition)
+        private static PropertyMember CreatePropertyMember(
+            ITypeInstance<IType> typeInstance,
+            PropertyDefinition propertyDefinition,
+            DomainResolver domainResolver
+        )
         {
             var typeReference = propertyDefinition.PropertyType;
-            var propertyType = _domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+            var propertyType = domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                 typeReference
             );
             var isCompilerGenerated = propertyDefinition.IsCompilerGenerated();
             var isStatic =
                 (propertyDefinition.SetMethod != null && propertyDefinition.SetMethod.IsStatic)
                 || (propertyDefinition.GetMethod != null && propertyDefinition.GetMethod.IsStatic);
-            var writeAccessor = GetWriteAccessor(propertyDefinition);
+            var writeAccessor = GetPropertyWriteAccessor(propertyDefinition);
             return new PropertyMember(
-                _typeInstance.Type,
+                typeInstance.Type,
                 propertyDefinition.Name,
                 propertyDefinition.FullName,
                 propertyType,
@@ -80,19 +108,21 @@ namespace ArchUnitNET.Loader.LoadTasks
             );
         }
 
-        private static Writability GetWriteAccessor([NotNull] PropertyDefinition propertyDefinition)
+        private static Writability GetPropertyWriteAccessor(
+            [NotNull] PropertyDefinition propertyDefinition
+        )
         {
-            bool isReadOnly = propertyDefinition.SetMethod == null;
-
-            if (isReadOnly)
+            if (propertyDefinition.SetMethod == null)
             {
                 return Writability.ReadOnly;
             }
 
-            bool isInitSetter = CheckPropertyHasInitSetterInNetStandardCompatibleWay(
-                propertyDefinition
-            );
-            return isInitSetter ? Writability.InitOnly : Writability.Writable;
+            if (CheckPropertyHasInitSetterInNetStandardCompatibleWay(propertyDefinition))
+            {
+                return Writability.InitOnly;
+            }
+
+            return Writability.Writable;
         }
 
         private static bool CheckPropertyHasInitSetterInNetStandardCompatibleWay(
@@ -104,5 +134,27 @@ namespace ArchUnitNET.Loader.LoadTasks
                     .ModifierType
                     .FullName == "System.Runtime.CompilerServices.IsExternalInit";
         }
+    }
+
+    /// <summary>
+    /// Bundles the results of member creation: method (MethodMember, MethodDefinition) pairs
+    /// and a mapping from getter/setter MethodDefinitions to their PropertyMembers.
+    /// </summary>
+    internal sealed class MemberData
+    {
+        public MemberData(
+            IReadOnlyList<(MethodMember Member, MethodDefinition Definition)> methodPairs,
+            IReadOnlyDictionary<MethodDefinition, PropertyMember> propertyByAccessor
+        )
+        {
+            MethodPairs = methodPairs;
+            PropertyByAccessor = propertyByAccessor;
+        }
+
+        public IReadOnlyList<(
+            MethodMember Member,
+            MethodDefinition Definition
+        )> MethodPairs { get; }
+        public IReadOnlyDictionary<MethodDefinition, PropertyMember> PropertyByAccessor { get; }
     }
 }
