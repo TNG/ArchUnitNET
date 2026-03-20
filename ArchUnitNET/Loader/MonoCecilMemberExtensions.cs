@@ -30,11 +30,18 @@ namespace ArchUnitNET.Loader
 
         internal static string BuildFullName(this MethodReference methodReference)
         {
-            return methodReference.FullName
-                + methodReference.GenericParameters.Aggregate(
-                    string.Empty,
-                    (current, newElement) => current + "<" + newElement.Name + ">"
-                );
+            if (!methodReference.HasGenericParameters)
+            {
+                return methodReference.FullName;
+            }
+
+            var sb = new StringBuilder(methodReference.FullName);
+            foreach (var p in methodReference.GenericParameters)
+            {
+                sb.Append('<').Append(p.Name).Append('>');
+            }
+
+            return sb.ToString();
         }
 
         [NotNull]

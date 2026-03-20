@@ -16,22 +16,22 @@ namespace ArchUnitNET.Loader
         /// <summary>
         /// Load this assembly and traverse its dependencies
         /// </summary>
-        public static FilterResult LoadAndContinue = new FilterResult(true, true);
+        public static readonly FilterResult LoadAndContinue = new FilterResult(true, true);
 
         /// <summary>
         /// Do not load this assembly, but traverse its dependencies
         /// </summary>
-        public static FilterResult SkipAndContinue = new FilterResult(true, false);
+        public static readonly FilterResult SkipAndContinue = new FilterResult(true, false);
 
         /// <summary>
         /// Load this assembly and do not traverse its dependencies
         /// </summary>
-        public static FilterResult LoadAndStop = new FilterResult(false, true);
+        public static readonly FilterResult LoadAndStop = new FilterResult(false, true);
 
         /// <summary>
         /// Do not load this assembly and do not traverse its dependencies
         /// </summary>
-        public static FilterResult DontLoadAndStop = new FilterResult(false, false);
+        public static readonly FilterResult DontLoadAndStop = new FilterResult(false, false);
 
         private FilterResult(bool traverseDependencies, bool loadThisAssembly)
         {

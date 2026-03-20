@@ -12,7 +12,7 @@ namespace ArchUnitNET.Loader
     {
         private readonly DefaultAssemblyResolver _defaultAssemblyResolver;
         private readonly Dictionary<string, AssemblyDefinition> _libraries;
-        public string AssemblyPath = "";
+        public string AssemblyPath { get; set; } = "";
 
         public DotNetCoreAssemblyResolver()
         {
