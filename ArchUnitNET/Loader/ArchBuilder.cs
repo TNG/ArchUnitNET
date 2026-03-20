@@ -15,28 +15,22 @@ namespace ArchUnitNET.Loader
         private readonly ArchitectureCacheKey _architectureCacheKey;
         private readonly IDictionary<string, IType> _architectureTypes =
             new Dictionary<string, IType>();
-        private readonly AssemblyRegistry _assemblyRegistry;
         private readonly LoadTaskRegistry _loadTaskRegistry;
-        private readonly NamespaceRegistry _namespaceRegistry;
         private readonly DomainResolver _domainResolver;
 
         public ArchBuilder()
         {
-            _assemblyRegistry = new AssemblyRegistry();
-            _namespaceRegistry = new NamespaceRegistry();
             _loadTaskRegistry = new LoadTaskRegistry();
             _domainResolver = new DomainResolver(
-                _loadTaskRegistry,
-                _assemblyRegistry,
-                _namespaceRegistry
+                _loadTaskRegistry
             );
             _architectureCacheKey = new ArchitectureCacheKey();
             _architectureCache = ArchitectureCache.Instance;
         }
 
         public IEnumerable<IType> Types => _architectureTypes.Values;
-        public IEnumerable<Assembly> Assemblies => _assemblyRegistry.Assemblies;
-        public IEnumerable<Namespace> Namespaces => _namespaceRegistry.Namespaces;
+        public IEnumerable<Assembly> Assemblies => _domainResolver.Assemblies;
+        public IEnumerable<Namespace> Namespaces => _domainResolver.Namespaces;
 
         public void AddAssembly([NotNull] AssemblyDefinition moduleAssembly, bool isOnlyReferenced)
         {
@@ -44,9 +38,9 @@ namespace ArchUnitNET.Loader
                 .MainModule.AssemblyReferences.Select(reference => reference.Name)
                 .ToList();
 
-            if (!_assemblyRegistry.ContainsAssembly(moduleAssembly.FullName))
+            if (!_domainResolver.ContainsAssembly(moduleAssembly.FullName))
             {
-                var assembly = _assemblyRegistry.GetOrCreateAssembly(
+                var assembly = _domainResolver.GetOrCreateAssembly(
                     moduleAssembly.Name.Name,
                     moduleAssembly.FullName,
                     isOnlyReferenced,

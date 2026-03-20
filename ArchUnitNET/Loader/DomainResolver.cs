@@ -15,9 +15,13 @@ namespace ArchUnitNET.Loader
 {
     internal class DomainResolver
     {
-        private readonly AssemblyRegistry _assemblyRegistry;
         private readonly LoadTaskRegistry _loadTaskRegistry;
-        private readonly NamespaceRegistry _namespaceRegistry;
+
+        private readonly Dictionary<string, Assembly> _assemblies =
+            new Dictionary<string, Assembly>();
+
+        private readonly Dictionary<string, Namespace> _namespaces =
+            new Dictionary<string, Namespace>();
 
         private readonly Dictionary<string, ITypeInstance<IType>> _allTypes =
             new Dictionary<string, ITypeInstance<IType>>();
@@ -26,14 +30,55 @@ namespace ArchUnitNET.Loader
             new Dictionary<string, MethodMemberInstance>();
 
         public DomainResolver(
-            LoadTaskRegistry loadTaskRegistry,
-            AssemblyRegistry assemblyRegistry,
-            NamespaceRegistry namespaceRegistry
+            LoadTaskRegistry loadTaskRegistry
         )
         {
             _loadTaskRegistry = loadTaskRegistry;
-            _assemblyRegistry = assemblyRegistry;
-            _namespaceRegistry = namespaceRegistry;
+        }
+
+        public IEnumerable<Assembly> Assemblies => _assemblies.Values;
+
+        public IEnumerable<Namespace> Namespaces => _namespaces.Values;
+
+        public IEnumerable<ITypeInstance<IType>> Types => _allTypes.Values;
+
+        internal Assembly GetOrCreateAssembly(
+            string assemblyName,
+            string assemblyFullName,
+            bool isOnlyReferenced,
+            List<string> assemblyReferences
+        )
+        {
+            if (_assemblies.TryGetValue(assemblyFullName, out var existing))
+            {
+                return existing;
+            }
+
+            var assembly = new Assembly(
+                assemblyName,
+                assemblyFullName,
+                isOnlyReferenced,
+                assemblyReferences
+            );
+            _assemblies.Add(assemblyFullName, assembly);
+            return assembly;
+        }
+
+        internal bool ContainsAssembly(string assemblyFullName)
+        {
+            return _assemblies.ContainsKey(assemblyFullName);
+        }
+
+        internal Namespace GetOrCreateNamespace(string namespaceName)
+        {
+            if (_namespaces.TryGetValue(namespaceName, out var existing))
+            {
+                return existing;
+            }
+
+            var ns = new Namespace(namespaceName, new List<IType>());
+            _namespaces.Add(namespaceName, ns);
+            return ns;
         }
 
         public IEnumerable<IType> GetAllNonCompilerGeneratedTypes()
@@ -263,10 +308,10 @@ namespace ArchUnitNET.Loader
             {
                 declaringTypeReference = declaringTypeReference.DeclaringType;
             }
-            var currentNamespace = _namespaceRegistry.GetOrCreateNamespace(
+            var currentNamespace = GetOrCreateNamespace(
                 declaringTypeReference.Namespace
             );
-            var currentAssembly = _assemblyRegistry.GetOrCreateAssembly(
+            var currentAssembly = GetOrCreateAssembly(
                 assemblyFullName,
                 assemblyFullName,
                 true,
@@ -360,13 +405,13 @@ namespace ArchUnitNET.Loader
                     new Type(
                         typeReference.BuildFullName(),
                         typeReference.Name,
-                        _assemblyRegistry.GetOrCreateAssembly(
+                        GetOrCreateAssembly(
                             typeReference.Scope.Name,
                             typeReference.Scope.ToString(),
                             true,
                             null
                         ),
-                        _namespaceRegistry.GetOrCreateNamespace(typeReference.Namespace),
+                        GetOrCreateNamespace(typeReference.Namespace),
                         NotAccessible,
                         typeReference.IsNested,
                         typeReference.HasGenericParameters,
@@ -459,15 +504,17 @@ namespace ArchUnitNET.Loader
             var methodReferenceFullName = methodReference.BuildFullName();
             if (methodReference.IsGenericInstance)
             {
-                return RegistryUtils.GetFromDictOrCreateAndAdd(
-                    methodReferenceFullName,
-                    _allMethods,
-                    _ =>
-                        CreateGenericInstanceMethodMemberFromMethodReference(
-                            typeInstance,
-                            methodReference
-                        )
+                if (_allMethods.TryGetValue(methodReferenceFullName, out var existingGenericInstance))
+                {
+                    return existingGenericInstance;
+                }
+
+                var genericInstance = CreateGenericInstanceMethodMemberFromMethodReference(
+                    typeInstance,
+                    methodReference
                 );
+                _allMethods.Add(methodReferenceFullName, genericInstance);
+                return genericInstance;
             }
 
             if (_allMethods.TryGetValue(methodReferenceFullName, out var existingMethodInstance))
