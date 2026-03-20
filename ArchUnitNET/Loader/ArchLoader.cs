@@ -125,7 +125,7 @@ namespace ArchUnitNET.Loader
                     fileName,
                     new ReaderParameters { AssemblyResolver = _assemblyResolver }
                 );
-                var processedAssemblies = new List<AssemblyNameReference> { module.Assembly.Name };
+                var processedAssemblies = new HashSet<string> { module.Assembly.Name.FullName };
                 var resolvedModules = new List<ModuleDefinition>();
                 _assemblyResolver.AddLib(module.Assembly);
                 _archBuilder.AddAssembly(module.Assembly, false);
@@ -144,7 +144,7 @@ namespace ArchUnitNET.Loader
                     {
                         try
                         {
-                            processedAssemblies.Add(assemblyReference);
+                            processedAssemblies.Add(assemblyReference.FullName);
                             _assemblyResolver.AddLib(assemblyReference);
                             if (includeDependencies)
                             {
@@ -176,17 +176,17 @@ namespace ArchUnitNET.Loader
 
         private void AddReferencedAssembliesRecursively(
             AssemblyNameReference currentAssemblyReference,
-            ICollection<AssemblyNameReference> processedAssemblies,
+            ICollection<string> processedAssemblies,
             List<ModuleDefinition> resolvedModules,
             FilterFunc filterFunc
         )
         {
-            if (processedAssemblies.Contains(currentAssemblyReference))
+            if (processedAssemblies.Contains(currentAssemblyReference.FullName))
             {
                 return;
             }
 
-            processedAssemblies.Add(currentAssemblyReference);
+            processedAssemblies.Add(currentAssemblyReference.FullName);
             try
             {
                 _assemblyResolver.AddLib(currentAssemblyReference);
