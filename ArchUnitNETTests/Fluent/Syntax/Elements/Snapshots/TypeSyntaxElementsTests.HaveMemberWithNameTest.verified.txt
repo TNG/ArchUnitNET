@@ -1,0 +1,55 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithAllMembers" should have a member with name "PropertyB"
+Result: True
+Description: TypeNamespace.ClassWithAllMembers passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithAllMembers" should be Types that have member with name "PropertyB"
+Result: True
+Description: TypeNamespace.ClassWithAllMembers passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should have a member with name "PropertyB"
+Result: False
+Description: TypeNamespace.ClassWithoutMembers does not have a member with name "PropertyB"
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" should have a member with name "PropertyB"" failed:
+	TypeNamespace.ClassWithoutMembers does not have a member with name "PropertyB"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should be Types that have member with name "PropertyB"
+Result: False
+Description: TypeNamespace.ClassWithoutMembers is not Types that have member with name "PropertyB"
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" should be Types that have member with name "PropertyB"" failed:
+	TypeNamespace.ClassWithoutMembers is not Types that have member with name "PropertyB"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.ClassWithAllMembers" or "TypeNamespace.ClassWithoutMembers" should have a member with name "PropertyB"
+Result: True
+Description: TypeNamespace.ClassWithAllMembers passed
+Result: False
+Description: TypeNamespace.ClassWithoutMembers does not have a member with name "PropertyB"
+Message: 
+"Types that are "TypeNamespace.ClassWithAllMembers" or "TypeNamespace.ClassWithoutMembers" should have a member with name "PropertyB"" failed:
+	TypeNamespace.ClassWithoutMembers does not have a member with name "PropertyB"
+
+
+

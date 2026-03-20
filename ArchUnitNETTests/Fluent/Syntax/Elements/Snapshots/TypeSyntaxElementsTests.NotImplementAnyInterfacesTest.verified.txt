@@ -2,105 +2,73 @@
 
 ----- Conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any Interfaces that are "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
 ----- Predicates -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any Interfaces that are "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
-Message: 
-All Evaluations passed
-
------ Predicates as conditions -----
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IOtherBaseInterface"
-Result: True
-Description: InterfaceAssembly.IChildInterface passed
-Message: 
-All Evaluations passed
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IOtherBaseInterface"
-Result: True
-Description: InterfaceAssembly.IChildInterface passed
-Message: 
-All Evaluations passed
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IOtherBaseInterface"
-Result: True
-Description: InterfaceAssembly.IChildInterface passed
-Message: 
-All Evaluations passed
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IOtherBaseInterface"
-Result: True
-Description: InterfaceAssembly.IChildInterface passed
-Message: 
-All Evaluations passed
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any Interfaces that are "InterfaceAssembly.IOtherBaseInterface"
-Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
 ----- Complex conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any interfaces that are "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any interfaces that are "TypeNamespace.IOtherTestInterface"
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
@@ -108,153 +76,106 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any Interfaces that are "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any Interfaces that are "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any Interfaces that are "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any Interfaces that are "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
 ----- Predicates -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement "TypeNamespace.ITestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement "TypeNamespace.ITestInterface"
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement "TypeNamespace.ITestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement "TypeNamespace.ITestInterface"
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement "TypeNamespace.ITestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement "TypeNamespace.ITestInterface"
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement "TypeNamespace.ITestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement "InterfaceAssembly.IBaseInterface"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement "TypeNamespace.ITestInterface"
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any Interfaces that are "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement any Interfaces that are "TypeNamespace.ITestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface"
-
-
-
------ Predicates as conditions -----
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IOtherChildInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any Interfaces that are "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement any Interfaces that are "TypeNamespace.ITestInterface"
 
 
 
 ----- Complex conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any interfaces that are "InterfaceAssembly.IBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any interfaces that are "TypeNamespace.ITestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any interfaces that are "InterfaceAssembly.IBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any interfaces that are "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
@@ -262,113 +183,79 @@ Message:
 
 ----- Conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should not implement any of no interfaces (always true)
+Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any of no interfaces (always true)
 Result: True
-Description: InterfaceAssembly.IBaseInterface passed
+Description: TypeNamespace.ITestInterface passed
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should not implement any of no interfaces (always true)
+Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any of no interfaces (always true)
 Result: True
-Description: InterfaceAssembly.IBaseInterface passed
+Description: TypeNamespace.ITestInterface passed
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should not implement any of no interfaces (always true)
+Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any of no interfaces (always true)
 Result: True
-Description: InterfaceAssembly.IBaseInterface passed
+Description: TypeNamespace.ITestInterface passed
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should not implement any Interfaces that have name "NotTheNameOfAnyObject"
+Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any Interfaces that have name "NotTheNameOfAnyObject"
 Result: True
-Description: InterfaceAssembly.IBaseInterface passed
+Description: TypeNamespace.ITestInterface passed
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
 ----- Predicates -----
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any of no interfaces (always true)
+Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any of no interfaces (always true)
 Result: True
-Description: InterfaceAssembly.IBaseInterface passed
+Description: TypeNamespace.ITestInterface passed
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any of no interfaces (always true)
+Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any of no interfaces (always true)
 Result: True
-Description: InterfaceAssembly.IBaseInterface passed
+Description: TypeNamespace.ITestInterface passed
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any of no interfaces (always true)
+Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any of no interfaces (always true)
 Result: True
-Description: InterfaceAssembly.IBaseInterface passed
+Description: TypeNamespace.ITestInterface passed
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any Interfaces that have name "NotTheNameOfAnyObject"
+Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any Interfaces that have name "NotTheNameOfAnyObject"
 Result: True
-Description: InterfaceAssembly.IBaseInterface passed
+Description: TypeNamespace.ITestInterface passed
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
-Message: 
-All Evaluations passed
-
------ Predicates as conditions -----
-
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should be types that do not implement any of no interfaces (always true)
-Result: True
-Description: InterfaceAssembly.IBaseInterface passed
-Result: True
-Description: InterfaceAssembly.IChildInterface passed
-Message: 
-All Evaluations passed
-
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should be types that do not implement any of no interfaces (always true)
-Result: True
-Description: InterfaceAssembly.IBaseInterface passed
-Result: True
-Description: InterfaceAssembly.IChildInterface passed
-Message: 
-All Evaluations passed
-
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should be types that do not implement any of no interfaces (always true)
-Result: True
-Description: InterfaceAssembly.IBaseInterface passed
-Result: True
-Description: InterfaceAssembly.IChildInterface passed
-Message: 
-All Evaluations passed
-
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should be types that do not implement any Interfaces that have name "NotTheNameOfAnyObject"
-Result: True
-Description: InterfaceAssembly.IBaseInterface passed
-Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
 ----- Complex conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IChildInterface" should not implement any interfaces that are any of no objects (always empty)
+Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any interfaces that are any of no objects (always empty)
 Result: True
-Description: InterfaceAssembly.IBaseInterface passed
+Description: TypeNamespace.ITestInterface passed
 Result: True
-Description: InterfaceAssembly.IChildInterface passed
+Description: TypeNamespace.IChildTestInterface passed
 Message: 
 All Evaluations passed
 
@@ -376,153 +263,106 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 
 ----- Predicates -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement any "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 
 
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface is not Interfaces that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Description: TypeNamespace.IChildTestInterface is not Interfaces that do not implement any Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be Interfaces that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not Interfaces that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
-
-
-
------ Predicates as conditions -----
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-
-
-
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
-Result: False
-Description: InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
-Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should be types that do not implement any Interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface is not "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface" or "InterfaceAssembly.IInterfaceWithoutDependencies" or "System.Runtime.CompilerServices.CompilationRelaxationsAttribute" or "System.Int32" or "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" or "System.Boolean" or "System.Diagnostics.DebuggableAttribute" or "System.Diagnostics.DebuggableAttribute+DebuggingModes" or "System.Runtime.Versioning.TargetFrameworkAttribute" or "System.String" or "System.Reflection.AssemblyCompanyAttribute" or "System.Reflection.AssemblyConfigurationAttribute" or "System.Reflection.AssemblyFileVersionAttribute" or "System.Reflection.AssemblyInformationalVersionAttribute" or "System.Reflection.AssemblyProductAttribute" or "System.Reflection.AssemblyTitleAttribute"
+"Interfaces that are "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface is not Interfaces that do not implement any Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 
 
 
 ----- Complex conditions -----
 
-Query: Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"
+Query: Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"
 Result: False
-Description: InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+Description: TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 Message: 
-"Interfaces that are "InterfaceAssembly.IChildInterface" should not implement any interfaces that are "InterfaceAssembly.IBaseInterface" or "InterfaceAssembly.IOtherBaseInterface"" failed:
-	InterfaceAssembly.IChildInterface does implement InterfaceAssembly.IBaseInterface
+"Interfaces that are "TypeNamespace.IChildTestInterface" should not implement any interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IOtherTestInterface"" failed:
+	TypeNamespace.IChildTestInterface does implement TypeNamespace.ITestInterface
 
 
 

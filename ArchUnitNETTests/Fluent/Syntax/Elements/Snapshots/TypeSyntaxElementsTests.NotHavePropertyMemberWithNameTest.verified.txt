@@ -1,0 +1,55 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should not have property member with name "PropertyA"
+Result: True
+Description: TypeNamespace.ClassWithoutMembers passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should be Types that do not have property member with name "PropertyA"
+Result: True
+Description: TypeNamespace.ClassWithoutMembers passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithProperty" should not have property member with name "PropertyA"
+Result: False
+Description: TypeNamespace.ClassWithProperty does have property member with name "PropertyA"
+Message: 
+"Types that are "TypeNamespace.ClassWithProperty" should not have property member with name "PropertyA"" failed:
+	TypeNamespace.ClassWithProperty does have property member with name "PropertyA"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithProperty" should be Types that do not have property member with name "PropertyA"
+Result: False
+Description: TypeNamespace.ClassWithProperty is not Types that do not have property member with name "PropertyA"
+Message: 
+"Types that are "TypeNamespace.ClassWithProperty" should be Types that do not have property member with name "PropertyA"" failed:
+	TypeNamespace.ClassWithProperty is not Types that do not have property member with name "PropertyA"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" or "TypeNamespace.ClassWithProperty" should not have property member with name "PropertyA"
+Result: False
+Description: TypeNamespace.ClassWithProperty does have property member with name "PropertyA"
+Result: True
+Description: TypeNamespace.ClassWithoutMembers passed
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" or "TypeNamespace.ClassWithProperty" should not have property member with name "PropertyA"" failed:
+	TypeNamespace.ClassWithProperty does have property member with name "PropertyA"
+
+
+

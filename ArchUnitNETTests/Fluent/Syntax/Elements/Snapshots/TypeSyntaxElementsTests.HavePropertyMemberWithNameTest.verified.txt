@@ -1,0 +1,55 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithProperty" should have a property member with name "PropertyA"
+Result: True
+Description: TypeNamespace.ClassWithProperty passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithProperty" should be Types that have property member with name"PropertyA"
+Result: True
+Description: TypeNamespace.ClassWithProperty passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should have a property member with name "PropertyA"
+Result: False
+Description: TypeNamespace.ClassWithoutMembers does not have a property member with name "PropertyA"
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" should have a property member with name "PropertyA"" failed:
+	TypeNamespace.ClassWithoutMembers does not have a property member with name "PropertyA"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should be Types that have property member with name"PropertyA"
+Result: False
+Description: TypeNamespace.ClassWithoutMembers is not Types that have property member with name"PropertyA"
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" should be Types that have property member with name"PropertyA"" failed:
+	TypeNamespace.ClassWithoutMembers is not Types that have property member with name"PropertyA"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.ClassWithProperty" or "TypeNamespace.ClassWithoutMembers" should have a property member with name "PropertyA"
+Result: True
+Description: TypeNamespace.ClassWithProperty passed
+Result: False
+Description: TypeNamespace.ClassWithoutMembers does not have a property member with name "PropertyA"
+Message: 
+"Types that are "TypeNamespace.ClassWithProperty" or "TypeNamespace.ClassWithoutMembers" should have a property member with name "PropertyA"" failed:
+	TypeNamespace.ClassWithoutMembers does not have a property member with name "PropertyA"
+
+
+
