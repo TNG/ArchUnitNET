@@ -9,11 +9,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         : IAddObjectPredicate<TNextElement, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        TNextElement Are(Type firstType, params Type[] moreTypes);
+        TNextElement Are(params Type[] types);
         TNextElement Are(IEnumerable<Type> types);
 
-        TNextElement AreAssignableTo(IType firstType, params IType[] moreTypes);
-        TNextElement AreAssignableTo(Type type, params Type[] moreTypes);
+        TNextElement AreAssignableTo();
+        TNextElement AreAssignableTo(params IType[] types);
+        TNextElement AreAssignableTo(params Type[] types);
         TNextElement AreAssignableTo(IObjectProvider<IType> types);
         TNextElement AreAssignableTo(IEnumerable<IType> types);
         TNextElement AreAssignableTo(IEnumerable<Type> types);
@@ -49,11 +50,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-        TNextElement AreNot(Type firstType, params Type[] moreTypes);
+        TNextElement AreNot(params Type[] types);
         TNextElement AreNot(IEnumerable<Type> types);
 
-        TNextElement AreNotAssignableTo(IType type, params IType[] moreTypes);
-        TNextElement AreNotAssignableTo(Type type, params Type[] moreTypes);
+        TNextElement AreNotAssignableTo();
+        TNextElement AreNotAssignableTo(params IType[] types);
+        TNextElement AreNotAssignableTo(params Type[] types);
         TNextElement AreNotAssignableTo(IObjectProvider<IType> types);
         TNextElement AreNotAssignableTo(IEnumerable<IType> types);
         TNextElement AreNotAssignableTo(IEnumerable<Type> types);

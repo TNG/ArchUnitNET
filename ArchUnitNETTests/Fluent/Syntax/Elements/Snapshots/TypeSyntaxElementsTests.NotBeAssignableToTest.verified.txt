@@ -78,19 +78,19 @@ All Evaluations passed
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 
 
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 
 
 
@@ -105,19 +105,19 @@ Message:
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 
 
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 
 
 
@@ -185,19 +185,19 @@ Message:
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 
 
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 
 
 
@@ -212,19 +212,19 @@ Message:
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 
 
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
 
 
 
@@ -298,12 +298,12 @@ All Evaluations passed
 
 Query: Types that are "TypeNamespace.DerivedClassForAssign" or "TypeNamespace.UnrelatedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"
 Result: False
-Description: TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+Description: TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 Result: True
 Description: TypeNamespace.UnrelatedClassForAssign passed
 Message: 
 "Types that are "TypeNamespace.DerivedClassForAssign" or "TypeNamespace.UnrelatedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"" failed:
-	TypeNamespace.DerivedClassForAssign is assignable to TypeNamespace.BaseClassForAssign
+	TypeNamespace.DerivedClassForAssign is assignable to "TypeNamespace.BaseClassForAssign"
 
 
 
@@ -312,22 +312,28 @@ Message:
 ----- Conditions -----
 
 Query: Types that are "TypeNamespace.BaseClassForAssign" should not be assignable to "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: TypeNamespace.BaseClassForAssign passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates -----
 
 Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are not assignable to "AttributeNamespace.ClassWithoutAttributes"
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
+
+===== Empty Arguments =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.BaseClassForAssign" should not be assignable to no types (always true)
 Result: True
 Description: TypeNamespace.BaseClassForAssign passed
 Message: 
 All Evaluations passed
 
-===== Empty Arguments =====
-
------ Conditions -----
+Query: Types that are "TypeNamespace.BaseClassForAssign" should not be assignable to no types (always true)
+Result: True
+Description: TypeNamespace.BaseClassForAssign passed
+Message: 
+All Evaluations passed
 
 ----- Predicates -----
 

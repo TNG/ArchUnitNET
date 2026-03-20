@@ -43,10 +43,10 @@ Message:
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
 
 
 
@@ -70,10 +70,10 @@ Message:
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies"
 
 
 
@@ -99,10 +99,10 @@ Message:
 
 Query: Types that are "TypeDependencyNamespace.BaseClass" should not exist
 Result: False
-Description: TypeDependencyNamespace.BaseClass is TypeDependencyNamespace.BaseClass
+Description: TypeDependencyNamespace.BaseClass does exist
 Message: 
 "Types that are "TypeDependencyNamespace.BaseClass" should not exist" failed:
-	TypeDependencyNamespace.BaseClass is TypeDependencyNamespace.BaseClass
+	TypeDependencyNamespace.BaseClass does exist
 
 
 
@@ -137,19 +137,19 @@ Message:
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 
 
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+Description: TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 Message: 
 "Types that are "TypeDependencyNamespace.ChildClass" should be "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+	TypeDependencyNamespace.ChildClass is not "TypeDependencyNamespace.ClassWithoutDependencies" or "TypeDependencyNamespace.BaseClass"
 
 
 

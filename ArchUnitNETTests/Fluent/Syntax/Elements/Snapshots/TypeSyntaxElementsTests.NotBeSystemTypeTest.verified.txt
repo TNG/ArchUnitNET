@@ -34,19 +34,19 @@ All Evaluations passed
 
 Query: Types that are "TypeNamespace.RegularClass" should not be "TypeNamespace.RegularClass"
 Result: False
-Description: TypeNamespace.RegularClass is TypeNamespace.RegularClass
+Description: TypeNamespace.RegularClass is "TypeNamespace.RegularClass"
 Message: 
 "Types that are "TypeNamespace.RegularClass" should not be "TypeNamespace.RegularClass"" failed:
-	TypeNamespace.RegularClass is TypeNamespace.RegularClass
+	TypeNamespace.RegularClass is "TypeNamespace.RegularClass"
 
 
 
 Query: Types that are "TypeNamespace.RegularClass" should not be "TypeNamespace.RegularClass"
 Result: False
-Description: TypeNamespace.RegularClass is TypeNamespace.RegularClass
+Description: TypeNamespace.RegularClass is "TypeNamespace.RegularClass"
 Message: 
 "Types that are "TypeNamespace.RegularClass" should not be "TypeNamespace.RegularClass"" failed:
-	TypeNamespace.RegularClass is TypeNamespace.RegularClass
+	TypeNamespace.RegularClass is "TypeNamespace.RegularClass"
 
 
 
@@ -74,7 +74,7 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that are "TypeNamespace.RegularClass" should not be no type (always true)
+Query: Types that are "TypeNamespace.RegularClass" should exist
 Result: True
 Description: TypeNamespace.RegularClass passed
 Message: 
@@ -82,7 +82,7 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Types that are "TypeNamespace.RegularClass" should be Types that are not no types (always true)
+Query: Types that are "TypeNamespace.RegularClass" should be Types that are all types
 Result: True
 Description: TypeNamespace.RegularClass passed
 Message: 
@@ -93,30 +93,18 @@ All Evaluations passed
 ----- Conditions -----
 
 Query: Types that are "TypeNamespace.RegularClass" should not be "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: TypeNamespace.RegularClass passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 Query: Types that are "TypeNamespace.RegularClass" should not be "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: TypeNamespace.RegularClass passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates -----
 
 Query: Types that are "TypeNamespace.RegularClass" should be Types that are not "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: TypeNamespace.RegularClass passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 Query: Types that are "TypeNamespace.RegularClass" should be Types that are not "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: TypeNamespace.RegularClass passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ===== Multiple arguments =====
 
@@ -152,12 +140,12 @@ All Evaluations passed
 
 Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should not be "TypeNamespace.RegularClass"
 Result: False
-Description: TypeNamespace.RegularClass is TypeNamespace.RegularClass
+Description: TypeNamespace.RegularClass is "TypeNamespace.RegularClass"
 Result: True
 Description: TypeNamespace.OtherRegularClass passed
 Message: 
 "Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should not be "TypeNamespace.RegularClass"" failed:
-	TypeNamespace.RegularClass is TypeNamespace.RegularClass
+	TypeNamespace.RegularClass is "TypeNamespace.RegularClass"
 
 
 

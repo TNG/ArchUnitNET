@@ -312,24 +312,12 @@ Message:
 ----- Conditions -----
 
 Query: Types that are "TypeNamespace.BaseClassForAssign" should be assignable to "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: TypeNamespace.BaseClassForAssign is not assignable to "AttributeNamespace.ClassWithoutAttributes"
-Message: 
-"Types that are "TypeNamespace.BaseClassForAssign" should be assignable to "AttributeNamespace.ClassWithoutAttributes"" failed:
-	TypeNamespace.BaseClassForAssign is not assignable to "AttributeNamespace.ClassWithoutAttributes"
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates -----
 
 Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: TypeNamespace.BaseClassForAssign is not Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"
-Message: 
-"Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"" failed:
-	TypeNamespace.BaseClassForAssign is not Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ===== Empty Arguments (Predicates only) =====
 
