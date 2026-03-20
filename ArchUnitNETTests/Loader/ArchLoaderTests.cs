@@ -2,10 +2,12 @@
 extern alias OtherLoaderTestAssemblyAlias;
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
+using ArchUnitNET.Fluent;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
 using ArchUnitNETTests.Domain.Dependencies.Members;
@@ -20,6 +22,168 @@ namespace ArchUnitNETTests.Loader
 {
     public class ArchLoaderTests
     {
+        [Fact]
+        public void WithoutRuleEvaluationCacheDisablesCaching()
+        {
+            // Build an architecture with caching disabled and verify that
+            // GetOrCreateObjects always invokes the providing function.
+            var architecture = new ArchLoader()
+                .WithoutRuleEvaluationCache()
+                .WithoutArchitectureCache()
+                .LoadAssembly(typeof(BaseClass).Assembly)
+                .Build();
+
+            var callCount = 0;
+            var provider = new TestObjectProvider("same-description");
+
+            architecture.GetOrCreateObjects(
+                provider,
+                _ =>
+                {
+                    callCount++;
+                    return Enumerable.Empty<IType>();
+                }
+            );
+            architecture.GetOrCreateObjects(
+                provider,
+                _ =>
+                {
+                    callCount++;
+                    return Enumerable.Empty<IType>();
+                }
+            );
+
+            // Caching disabled — function should be invoked every time
+            Assert.Equal(2, callCount);
+        }
+
+        [Fact]
+        public void DefaultCacheCachesRuleEvaluationResults()
+        {
+            // Build an architecture with the default cache and verify that
+            // GetOrCreateObjects caches the result for the same provider.
+            var architecture = new ArchLoader()
+                .WithoutArchitectureCache()
+                .LoadAssembly(typeof(BaseClass).Assembly)
+                .Build();
+
+            var callCount = 0;
+            var provider = new TestObjectProvider("default-cache-test");
+
+            architecture.GetOrCreateObjects(
+                provider,
+                _ =>
+                {
+                    callCount++;
+                    return Enumerable.Empty<IType>();
+                }
+            );
+            architecture.GetOrCreateObjects(
+                provider,
+                _ =>
+                {
+                    callCount++;
+                    return Enumerable.Empty<IType>();
+                }
+            );
+
+            // Default caching — function should be invoked only once
+            Assert.Equal(1, callCount);
+        }
+
+        [Fact]
+        public void WithoutArchitectureCacheCreatesFreshArchitecture()
+        {
+            // Two architectures built with WithoutArchitectureCache for the same assembly
+            // should be distinct object instances.
+            var arch1 = new ArchLoader()
+                .WithoutArchitectureCache()
+                .LoadAssembly(typeof(BaseClass).Assembly)
+                .Build();
+
+            var arch2 = new ArchLoader()
+                .WithoutArchitectureCache()
+                .LoadAssembly(typeof(BaseClass).Assembly)
+                .Build();
+
+            Assert.NotSame(arch1, arch2);
+        }
+
+        [Fact]
+        public void WithoutRuleEvaluationCacheAndWithoutArchitectureCacheCombined()
+        {
+            // Build two architectures with caching disabled + WithoutArchitectureCache
+            // from the same assembly. They should be distinct instances, each with no caching.
+            var arch1 = new ArchLoader()
+                .WithoutRuleEvaluationCache()
+                .WithoutArchitectureCache()
+                .LoadAssembly(typeof(BaseClass).Assembly)
+                .Build();
+
+            var arch2 = new ArchLoader()
+                .WithoutRuleEvaluationCache()
+                .WithoutArchitectureCache()
+                .LoadAssembly(typeof(BaseClass).Assembly)
+                .Build();
+
+            Assert.NotSame(arch1, arch2);
+
+            // Verify caching is disabled
+            var callCount = 0;
+            var provider = new TestObjectProvider("combined-test");
+
+            arch1.GetOrCreateObjects(
+                provider,
+                _ =>
+                {
+                    callCount++;
+                    return Enumerable.Empty<IType>();
+                }
+            );
+            arch1.GetOrCreateObjects(
+                provider,
+                _ =>
+                {
+                    callCount++;
+                    return Enumerable.Empty<IType>();
+                }
+            );
+
+            Assert.Equal(2, callCount);
+        }
+
+        /// <summary>
+        /// Minimal IObjectProvider implementation for ArchLoader integration tests.
+        /// </summary>
+        private class TestObjectProvider : IObjectProvider<IType>
+        {
+            public TestObjectProvider(string description)
+            {
+                Description = description;
+            }
+
+            public string Description { get; }
+
+            public IEnumerable<IType> GetObjects(Architecture architecture)
+            {
+                return Enumerable.Empty<IType>();
+            }
+
+            public string FormatDescription(
+                string emptyDescription,
+                string singleDescription,
+                string multipleDescription
+            )
+            {
+                return Description;
+            }
+
+            public override int GetHashCode()
+            {
+                return Description != null ? Description.GetHashCode() : 0;
+            }
+        }
+
         [Fact]
         public void LoadAssemblies()
         {
