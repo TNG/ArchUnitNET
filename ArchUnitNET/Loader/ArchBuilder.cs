@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
-using ArchUnitNET.Loader.LoadTasks;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using GenericParameter = ArchUnitNET.Domain.GenericParameter;
@@ -12,7 +11,7 @@ namespace ArchUnitNET.Loader
     /// <summary>
     /// Internal builder that constructs an <see cref="Architecture"/> from loaded modules.
     /// Coordinates type discovery (via <see cref="DomainResolver"/>), type processing
-    /// (via the <c>LoadTasks</c> static classes), and architecture assembly. Manages the
+    /// (via <see cref="TypeProcessor"/>), and architecture assembly. Manages the
     /// <see cref="ArchitectureCache"/> lookup and supports disabling rule-evaluation caching.
     /// </summary>
     internal class ArchBuilder
@@ -209,7 +208,7 @@ namespace ArchUnitNET.Loader
             // Phase 1: Base class dependency (non-interface types only)
             foreach (var entry in typesToProcess.Where(entry => !entry.Definition.IsInterface))
             {
-                AddBaseClassDependency.Execute(
+                TypeProcessor.AddBaseClassDependency(
                     entry.TypeInstance.Type,
                     entry.Definition,
                     _domainResolver
@@ -225,7 +224,7 @@ namespace ArchUnitNET.Loader
             )>(_typesToProcess.Count);
             typesWithMemberData.AddRange(
                 from entry in typesToProcess
-                let memberData = AddMembers.Execute(
+                let memberData = TypeProcessor.AddMembers(
                     entry.TypeInstance,
                     entry.Definition,
                     _domainResolver
@@ -236,13 +235,13 @@ namespace ArchUnitNET.Loader
             // Phase 3: Generic parameter dependencies
             foreach (var entry in typesToProcess)
             {
-                AddGenericParameterDependencies.Execute(entry.TypeInstance.Type);
+                TypeProcessor.AddGenericParameterDependencies(entry.TypeInstance.Type);
             }
 
             // Phase 4: Attributes and attribute dependencies
             foreach (var entry in typesWithMemberData)
             {
-                AddAttributesAndAttributeDependencies.Execute(
+                TypeProcessor.AddAttributesAndAttributeDependencies(
                     entry.TypeInstance.Type,
                     entry.TypeDef,
                     _domainResolver,
@@ -256,7 +255,7 @@ namespace ArchUnitNET.Loader
             var assemblyData = _assemblyData.Values.ToList();
             foreach (var entry in assemblyData)
             {
-                CollectAssemblyAttributes.Execute(
+                TypeProcessor.CollectAssemblyAttributes(
                     entry.Assembly,
                     entry.Definition,
                     _domainResolver
@@ -266,13 +265,13 @@ namespace ArchUnitNET.Loader
             // Phase 6: Field and property type dependencies
             foreach (var entry in typesToProcess)
             {
-                AddFieldAndPropertyDependencies.Execute(entry.TypeInstance.Type);
+                TypeProcessor.AddFieldAndPropertyDependencies(entry.TypeInstance.Type);
             }
 
             // Phase 7: Method signature and body dependencies
             foreach (var entry in typesWithMemberData)
             {
-                AddMethodDependencies.Execute(
+                TypeProcessor.AddMethodDependencies(
                     entry.TypeInstance.Type,
                     _domainResolver,
                     entry.MemberData.MethodPairs,
@@ -283,13 +282,13 @@ namespace ArchUnitNET.Loader
             // Phase 8: Generic argument dependencies
             foreach (var entry in typesToProcess)
             {
-                AddGenericArgumentDependencies.Execute(entry.TypeInstance.Type);
+                TypeProcessor.AddGenericArgumentDependencies(entry.TypeInstance.Type);
             }
 
             // Phase 9: Interface and member-to-type dependencies
             foreach (var entry in typesToProcess)
             {
-                AddClassDependencies.Execute(
+                TypeProcessor.AddClassDependencies(
                     entry.TypeInstance.Type,
                     entry.Definition,
                     _domainResolver
@@ -299,11 +298,11 @@ namespace ArchUnitNET.Loader
             // Phase 10: Backwards dependencies
             foreach (var entry in typesToProcess)
             {
-                AddBackwardsDependencies.Execute(entry.TypeInstance.Type);
+                TypeProcessor.AddBackwardsDependencies(entry.TypeInstance.Type);
             }
 
             // Phase 11: Register types with their namespaces
-            AddTypesToNamespaces.Execute(
+            TypeProcessor.AddTypesToNamespaces(
                 _typesToProcess.Values.Select(entry => entry.TypeInstance.Type)
             );
         }
