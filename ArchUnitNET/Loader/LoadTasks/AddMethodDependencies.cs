@@ -165,17 +165,16 @@ namespace ArchUnitNET.Loader.LoadTasks
                 );
             }
 
-            bodyTypes.AddRange(methodDefinition.GetBodyTypes(_domainResolver).ToList());
+            var scan = methodDefinition.ScanMethodBody(_domainResolver);
+            bodyTypes.AddRange(scan.BodyTypes);
 
-            var castTypes = methodDefinition.GetCastTypes(_domainResolver).ToList();
+            var castTypes = scan.CastTypes;
 
-            var typeCheckTypes = methodDefinition.GetTypeCheckTypes(_domainResolver).ToList();
+            var typeCheckTypes = scan.TypeCheckTypes;
 
-            var metaDataTypes = methodDefinition.GetMetaDataTypes(_domainResolver).ToList();
+            var metaDataTypes = scan.MetaDataTypes;
 
-            var accessedFieldMembers = methodDefinition
-                .GetAccessedFieldMembers(_domainResolver)
-                .ToList();
+            var accessedFieldMembers = scan.AccessedFieldMembers;
 
             var calledMethodMembers = CreateMethodBodyDependenciesRecursive(
                 methodBody,
@@ -302,13 +301,12 @@ namespace ArchUnitNET.Loader.LoadTasks
                         );
                     }
 
-                    bodyTypes.AddRange(calledMethodDefinition.GetBodyTypes(_domainResolver));
-                    castTypes.AddRange(calledMethodDefinition.GetCastTypes(_domainResolver));
-                    typeCheckTypes.AddRange(calledMethodDefinition.GetTypeCheckTypes(_domainResolver));
-                    metaDataTypes.AddRange(calledMethodDefinition.GetMetaDataTypes(_domainResolver));
-                    accessedFieldMembers.AddRange(
-                        calledMethodDefinition.GetAccessedFieldMembers(_domainResolver)
-                    );
+                    var calledScan = calledMethodDefinition.ScanMethodBody(_domainResolver);
+                    bodyTypes.AddRange(calledScan.BodyTypes);
+                    castTypes.AddRange(calledScan.CastTypes);
+                    typeCheckTypes.AddRange(calledScan.TypeCheckTypes);
+                    metaDataTypes.AddRange(calledScan.MetaDataTypes);
+                    accessedFieldMembers.AddRange(calledScan.AccessedFieldMembers);
 
                     foreach (
                         var dep in CreateMethodBodyDependenciesRecursive(
