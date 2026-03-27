@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using JetBrains.Annotations;
 using Mono.Cecil;
@@ -30,11 +29,18 @@ namespace ArchUnitNET.Loader
 
         internal static string BuildFullName(this MethodReference methodReference)
         {
-            return methodReference.FullName
-                + methodReference.GenericParameters.Aggregate(
-                    string.Empty,
-                    (current, newElement) => current + "<" + newElement.Name + ">"
-                );
+            if (!methodReference.HasGenericParameters)
+            {
+                return methodReference.FullName;
+            }
+
+            var sb = new StringBuilder(methodReference.FullName);
+            foreach (var p in methodReference.GenericParameters)
+            {
+                sb.Append('<').Append(p.Name).Append('>');
+            }
+
+            return sb.ToString();
         }
 
         [NotNull]
@@ -84,120 +90,187 @@ namespace ArchUnitNET.Loader
 
         internal static ITypeInstance<IType> GetReturnType(
             this MethodReference methodReference,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         ) =>
             ReturnsVoid(methodReference)
                 ? null
-                : typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+                : domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                     methodReference.MethodReturnType.ReturnType
                 );
 
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetParameters(
             this MethodReference method,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         ) =>
             method.Parameters.Select(parameter =>
-                typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(parameter.ParameterType)
+                domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(parameter.ParameterType)
             );
 
         [NotNull]
         internal static IEnumerable<ITypeInstance<IType>> GetGenericParameters(
             this MethodReference method,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         ) =>
             method.GenericParameters.Select(
-                typeFactory.GetOrCreateStubTypeInstanceFromTypeReference
+                domainResolver.GetOrCreateStubTypeInstanceFromTypeReference
             );
 
+        /// <summary>
+        /// Result of a single-pass scan of a method body.
+        /// </summary>
+        internal struct MethodBodyScanResult
+        {
+            internal readonly List<ITypeInstance<IType>> BodyTypes;
+            internal readonly List<ITypeInstance<IType>> CastTypes;
+            internal readonly List<ITypeInstance<IType>> MetaDataTypes;
+            internal readonly List<ITypeInstance<IType>> TypeCheckTypes;
+            internal readonly List<FieldMember> AccessedFieldMembers;
+
+            internal MethodBodyScanResult(
+                List<ITypeInstance<IType>> bodyTypes,
+                List<ITypeInstance<IType>> castTypes,
+                List<ITypeInstance<IType>> metaDataTypes,
+                List<ITypeInstance<IType>> typeCheckTypes,
+                List<FieldMember> accessedFieldMembers
+            )
+            {
+                BodyTypes = bodyTypes;
+                CastTypes = castTypes;
+                MetaDataTypes = metaDataTypes;
+                TypeCheckTypes = typeCheckTypes;
+                AccessedFieldMembers = accessedFieldMembers;
+            }
+        }
+
+        /// <summary>
+        /// Scans the method body in a single pass, collecting body types, cast types,
+        /// metadata types, type-check types, accessed field members, and local variable types.
+        /// </summary>
         [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetBodyTypes(
+        internal static MethodBodyScanResult ScanMethodBody(
             this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
-            var instructions =
-                methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
+            var bodyTypes = new List<ITypeInstance<IType>>();
+            var castTypes = new List<ITypeInstance<IType>>();
+            var metaDataTypes = new List<ITypeInstance<IType>>();
+            var typeCheckTypes = new List<ITypeInstance<IType>>();
+            var accessedFieldMembers = new List<FieldMember>();
 
-            var bodyTypes = instructions
-                .Where(inst =>
-                    BodyTypeOpCodes.Contains(inst.OpCode) && inst.Operand is TypeReference
-                )
-                .Select(inst =>
-                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                        (TypeReference)inst.Operand
-                    )
+            var body = methodDefinition.Body;
+            if (body != null)
+            {
+                // Collect local variable types
+                var seenBodyTypes = new HashSet<ITypeInstance<IType>>();
+                bodyTypes.AddRange(
+                    body.Variables.Select(variableDefinition =>
+                            domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+                                variableDefinition.VariableType
+                            )
+                        )
+                        .Where(typeInstance => seenBodyTypes.Add(typeInstance))
                 );
 
-            //OpCodes.Ldstr should create a dependency to string, but it does not have a TypeReference as Operand so no Type can be created
+                // Single pass over instructions
+                var seenFieldRefs = new HashSet<FieldReference>(
+                    FieldReferenceNameComparer.Instance
+                );
+                foreach (var instruction in body.Instructions)
+                {
+                    var opCode = instruction.OpCode;
+                    var operand = instruction.Operand;
 
-            bodyTypes = bodyTypes
-                .Union(
-                    methodDefinition.Body?.Variables.Select(variableDefinition =>
+                    switch (operand)
                     {
-                        var variableTypeReference = variableDefinition.VariableType;
-                        return typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                            variableTypeReference
-                        );
-                    }) ?? Enumerable.Empty<TypeInstance<IType>>()
-                )
-                .Distinct();
+                        case TypeReference typeReference when opCode == OpCodes.Castclass:
+                            castTypes.Add(
+                                domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+                                    typeReference
+                                )
+                            );
+                            break;
+                        case TypeReference typeReference when opCode == OpCodes.Ldtoken:
+                            metaDataTypes.Add(
+                                domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+                                    typeReference
+                                )
+                            );
+                            break;
+                        case TypeReference typeReference when opCode == OpCodes.Isinst:
+                            typeCheckTypes.Add(
+                                domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+                                    typeReference
+                                )
+                            );
+                            break;
+                        case TypeReference typeReference:
+                        {
+                            if (BodyTypeOpCodes.Contains(opCode))
+                            {
+                                var bodyTypeInstance =
+                                    domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+                                        typeReference
+                                    );
+                                if (seenBodyTypes.Add(bodyTypeInstance))
+                                {
+                                    bodyTypes.Add(bodyTypeInstance);
+                                }
+                            }
 
-            return bodyTypes;
+                            break;
+                        }
+                        case FieldReference fieldReference when !seenFieldRefs.Add(fieldReference):
+                            continue;
+                        case FieldReference fieldReference:
+                        {
+                            var declaringType =
+                                domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
+                                    fieldReference.DeclaringType
+                                );
+                            accessedFieldMembers.Add(
+                                domainResolver.GetOrCreateFieldMember(
+                                    declaringType.Type,
+                                    fieldReference
+                                )
+                            );
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return new MethodBodyScanResult(
+                bodyTypes,
+                castTypes,
+                metaDataTypes,
+                typeCheckTypes,
+                accessedFieldMembers
+            );
         }
 
-        [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetCastTypes(
-            this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
-        )
+        /// <summary>
+        /// Comparer that deduplicates FieldReference by full name, avoiding repeated field lookups.
+        /// </summary>
+        private sealed class FieldReferenceNameComparer : IEqualityComparer<FieldReference>
         {
-            var instructions =
-                methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
+            internal static readonly FieldReferenceNameComparer Instance =
+                new FieldReferenceNameComparer();
 
-            return instructions
-                .Where(inst => inst.OpCode == OpCodes.Castclass && inst.Operand is TypeReference)
-                .Select(inst =>
-                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                        (TypeReference)inst.Operand
-                    )
-                );
-        }
+            public bool Equals(FieldReference x, FieldReference y)
+            {
+                if (x == null && y == null)
+                    return true;
+                if (x == null || y == null)
+                    return false;
+                return x.FullName == y.FullName;
+            }
 
-        [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetMetaDataTypes(
-            this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
-        )
-        {
-            var instructions =
-                methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
-
-            return instructions
-                .Where(inst => inst.OpCode == OpCodes.Ldtoken && inst.Operand is TypeReference)
-                .Select(inst =>
-                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                        (TypeReference)inst.Operand
-                    )
-                );
-        }
-
-        [NotNull]
-        internal static IEnumerable<ITypeInstance<IType>> GetTypeCheckTypes(
-            this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
-        )
-        {
-            var instructions =
-                methodDefinition.Body?.Instructions ?? Enumerable.Empty<Instruction>();
-
-            return instructions
-                .Where(inst => inst.OpCode == OpCodes.Isinst && inst.Operand is TypeReference)
-                .Select(inst =>
-                    typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                        (TypeReference)inst.Operand
-                    )
-                );
+            public int GetHashCode(FieldReference obj)
+            {
+                return obj?.FullName?.GetHashCode() ?? 0;
+            }
         }
 
         internal static bool IsIterator(this MethodDefinition methodDefinition)
@@ -214,52 +287,6 @@ namespace ArchUnitNET.Loader
                 att.AttributeType.FullName
                 == typeof(System.Runtime.CompilerServices.AsyncStateMachineAttribute).FullName
             );
-        }
-
-        [NotNull]
-        internal static IEnumerable<FieldMember> GetAccessedFieldMembers(
-            this MethodDefinition methodDefinition,
-            TypeFactory typeFactory
-        )
-        {
-            var accessedFieldMembers = new List<FieldMember>();
-            var instructions =
-                methodDefinition.Body?.Instructions.ToList() ?? new List<Instruction>();
-            var accessedFieldReferences = instructions
-                .Select(inst => inst.Operand)
-                .OfType<FieldReference>()
-                .Distinct();
-
-            foreach (var fieldReference in accessedFieldReferences)
-            {
-                var declaringType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
-                    fieldReference.DeclaringType
-                );
-                var matchingFieldMembers = declaringType
-                    .Type.GetFieldMembers()
-                    .Where(member => member.Name == fieldReference.Name)
-                    .ToList();
-
-                switch (matchingFieldMembers.Count)
-                {
-                    case 0:
-                        var stubFieldMember = typeFactory.CreateStubFieldMemberFromFieldReference(
-                            declaringType.Type,
-                            fieldReference
-                        );
-                        accessedFieldMembers.Add(stubFieldMember);
-                        break;
-                    case 1:
-                        accessedFieldMembers.Add(matchingFieldMembers.First());
-                        break;
-                    default:
-                        throw new MultipleOccurrencesInSequenceException(
-                            $"Multiple Fields matching {fieldReference.FullName} found in provided type."
-                        );
-                }
-            }
-
-            return accessedFieldMembers.Distinct();
         }
 
         internal static bool IsCompilerGenerated(this MemberReference memberReference)

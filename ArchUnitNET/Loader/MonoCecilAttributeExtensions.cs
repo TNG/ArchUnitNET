@@ -13,11 +13,11 @@ namespace ArchUnitNET.Loader
         [NotNull]
         public static AttributeInstance CreateAttributeFromCustomAttribute(
             this CustomAttribute customAttribute,
-            TypeFactory typeFactory
+            DomainResolver domainResolver
         )
         {
             var attributeTypeReference = customAttribute.AttributeType;
-            var attributeType = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(
+            var attributeType = domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(
                 attributeTypeReference
             );
             var attribute = attributeType.Type as Attribute;
@@ -41,7 +41,7 @@ namespace ArchUnitNET.Loader
             {
                 HandleAttributeArgument(
                     constructorArgument,
-                    typeFactory,
+                    domainResolver,
                     out var value,
                     out var type
                 );
@@ -53,7 +53,7 @@ namespace ArchUnitNET.Loader
                 var name = namedArgument.Name;
                 HandleAttributeArgument(
                     namedArgument.Argument,
-                    typeFactory,
+                    domainResolver,
                     out var value,
                     out var type
                 );
@@ -65,7 +65,7 @@ namespace ArchUnitNET.Loader
 
         private static void HandleAttributeArgument(
             CustomAttributeArgument argument,
-            TypeFactory typeFactory,
+            DomainResolver domainResolver,
             out object value,
             out ITypeInstance<IType> type
         )
@@ -75,21 +75,21 @@ namespace ArchUnitNET.Loader
                 argument = arg;
             }
 
-            type = typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(argument.Type);
+            type = domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(argument.Type);
 
             if (argument.Value is IEnumerable<CustomAttributeArgument> attArgEnumerable)
             {
                 value = (
                     from attArg in attArgEnumerable
                     select attArg.Value is TypeReference tr
-                        ? typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
+                        ? domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(tr)
                         : attArg.Value
                 ).ToArray();
             }
             else
             {
                 value = argument.Value is TypeReference tr
-                    ? typeFactory.GetOrCreateStubTypeInstanceFromTypeReference(tr)
+                    ? domainResolver.GetOrCreateStubTypeInstanceFromTypeReference(tr)
                     : argument.Value;
             }
         }

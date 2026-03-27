@@ -40,6 +40,30 @@ private static readonly Architecture Architecture =
         System.Reflection.Assembly.Load("ForbiddenClassAssemblyName")
     ).Build();
 ```
+#### 2.2.1. Caching
+
+ArchUnitNET uses two levels of caching to improve performance:
+
+**Architecture Cache** — When you call `Build()`, the resulting `Architecture` is stored in a global singleton cache keyed by the loaded assemblies. If you load the same set of assemblies again (e.g., in a different test class), the cached architecture is returned instead of re-analyzing everything.
+
+**Rule Evaluation Cache** — When architecture rules are evaluated, the filtered collections produced by object providers (e.g., `Types().That().ResideInNamespace(...)`) are cached within the architecture. If the same provider is used in multiple rules, the cached result is reused.
+
+Both caches are enabled by default. You can configure them via `ArchLoader`:
+
+```cs
+// Disable both rule evaluation and architecture caching
+private static readonly Architecture Architecture =
+    new ArchLoader()
+        .WithoutRuleEvaluationCache()
+        .WithoutArchitectureCache()
+        .LoadAssemblies(System.Reflection.Assembly.Load("ExampleClassAssemblyName"))
+        .Build();
+```
+
+`WithoutRuleEvaluationCache()` disables the rule evaluation cache so that each call to `GetOrCreateObjects` always executes the provider's filtering logic. This is useful in test scenarios where you need to ensure every provider independently exercises its code path.
+
+`WithoutArchitectureCache()` bypasses the global architecture cache, so each `Build()` call creates a fresh architecture instance. This is typically used together with `WithoutRuleEvaluationCache()` to avoid caching an architecture with non-standard caching settings in the global cache.
+
 #### 2.3. Declare Layers
 Declare variables you'll use throughout your tests up here
 ```cs

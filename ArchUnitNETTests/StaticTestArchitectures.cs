@@ -20,18 +20,32 @@ namespace ArchUnitNETTests
             .Build();
 
         public static readonly Architecture AttributeArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
             .LoadAssemblies(typeof(AttributeNamespace.ClassWithoutAttributes).Assembly)
             .Build();
 
         public static readonly Architecture DependencyArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
             .LoadAssemblies(typeof(TypeDependencyNamespace.BaseClass).Assembly)
             .Build();
 
+        public static readonly Architecture MethodDependencyArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
+            .LoadAssemblies(typeof(MethodDependencyNamespace.MethodDependencyClass).Assembly)
+            .Build();
+
         public static readonly Architecture InterfaceArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
             .LoadAssemblies(typeof(InterfaceAssembly.IBaseInterface).Assembly)
             .Build();
 
         public static readonly Architecture LoaderTestArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
             .LoadAssemblies(
                 typeof(LoaderTestAssembly.LoaderTestAssembly).Assembly,
                 typeof(OtherLoaderTestAssembly.OtherLoaderTestAssembly).Assembly
@@ -39,6 +53,8 @@ namespace ArchUnitNETTests
             .Build();
 
         public static readonly Architecture VisibilityArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
             .LoadAssemblies(typeof(VisibilityNamespace.PublicClass).Assembly)
             .Build();
 

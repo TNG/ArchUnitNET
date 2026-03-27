@@ -120,5 +120,37 @@ namespace ArchUnitNETTests.Domain
 
             Assert.True(_architectureCacheKey.Equals(referenceDuplicate));
         }
+
+        [Fact]
+        public void KeysWithDifferentRuleEvaluationCacheSettingsAreNotEqual()
+        {
+            _architectureCacheKey.Add(_baseClassModuleName, null);
+            // cache enabled (default)
+
+            _duplicateArchitectureCacheKey.Add(_baseClassModuleName, null);
+            _duplicateArchitectureCacheKey.SetRuleEvaluationCacheDisabled();
+
+            Assert.NotEqual(_architectureCacheKey, _duplicateArchitectureCacheKey);
+            Assert.NotEqual(
+                _architectureCacheKey.GetHashCode(),
+                _duplicateArchitectureCacheKey.GetHashCode()
+            );
+        }
+
+        [Fact]
+        public void KeysBothWithCacheDisabledAreEqual()
+        {
+            _architectureCacheKey.Add(_baseClassModuleName, null);
+            _architectureCacheKey.SetRuleEvaluationCacheDisabled();
+
+            _duplicateArchitectureCacheKey.Add(_baseClassModuleName, null);
+            _duplicateArchitectureCacheKey.SetRuleEvaluationCacheDisabled();
+
+            Assert.Equal(_architectureCacheKey, _duplicateArchitectureCacheKey);
+            Assert.Equal(
+                _architectureCacheKey.GetHashCode(),
+                _duplicateArchitectureCacheKey.GetHashCode()
+            );
+        }
     }
 }
