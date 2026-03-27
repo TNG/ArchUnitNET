@@ -1,0 +1,55 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithMethod" should have a method member with name "MethodA()"
+Result: True
+Description: TypeNamespace.ClassWithMethod passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithMethod" should be Types that have method member with name "MethodA()"
+Result: True
+Description: TypeNamespace.ClassWithMethod passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should have a method member with name "MethodA()"
+Result: False
+Description: TypeNamespace.ClassWithoutMembers does not have a method member with name "MethodA()"
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" should have a method member with name "MethodA()"" failed:
+	TypeNamespace.ClassWithoutMembers does not have a method member with name "MethodA()"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should be Types that have method member with name "MethodA()"
+Result: False
+Description: TypeNamespace.ClassWithoutMembers is not Types that have method member with name "MethodA()"
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" should be Types that have method member with name "MethodA()"" failed:
+	TypeNamespace.ClassWithoutMembers is not Types that have method member with name "MethodA()"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.ClassWithMethod" or "TypeNamespace.ClassWithoutMembers" should have a method member with name "MethodA()"
+Result: True
+Description: TypeNamespace.ClassWithMethod passed
+Result: False
+Description: TypeNamespace.ClassWithoutMembers does not have a method member with name "MethodA()"
+Message: 
+"Types that are "TypeNamespace.ClassWithMethod" or "TypeNamespace.ClassWithoutMembers" should have a method member with name "MethodA()"" failed:
+	TypeNamespace.ClassWithoutMembers does not have a method member with name "MethodA()"
+
+
+

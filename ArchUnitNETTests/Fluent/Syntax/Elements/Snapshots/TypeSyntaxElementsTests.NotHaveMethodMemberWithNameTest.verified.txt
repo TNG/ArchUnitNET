@@ -1,0 +1,55 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should not have method member with name "MethodA()"
+Result: True
+Description: TypeNamespace.ClassWithoutMembers passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should be Types that do not have method member with name "MethodA()"
+Result: True
+Description: TypeNamespace.ClassWithoutMembers passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithMethod" should not have method member with name "MethodA()"
+Result: False
+Description: TypeNamespace.ClassWithMethod does have method member with name "MethodA()"
+Message: 
+"Types that are "TypeNamespace.ClassWithMethod" should not have method member with name "MethodA()"" failed:
+	TypeNamespace.ClassWithMethod does have method member with name "MethodA()"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithMethod" should be Types that do not have method member with name "MethodA()"
+Result: False
+Description: TypeNamespace.ClassWithMethod is not Types that do not have method member with name "MethodA()"
+Message: 
+"Types that are "TypeNamespace.ClassWithMethod" should be Types that do not have method member with name "MethodA()"" failed:
+	TypeNamespace.ClassWithMethod is not Types that do not have method member with name "MethodA()"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" or "TypeNamespace.ClassWithMethod" should not have method member with name "MethodA()"
+Result: False
+Description: TypeNamespace.ClassWithMethod does have method member with name "MethodA()"
+Result: True
+Description: TypeNamespace.ClassWithoutMembers passed
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" or "TypeNamespace.ClassWithMethod" should not have method member with name "MethodA()"" failed:
+	TypeNamespace.ClassWithMethod does have method member with name "MethodA()"
+
+
+

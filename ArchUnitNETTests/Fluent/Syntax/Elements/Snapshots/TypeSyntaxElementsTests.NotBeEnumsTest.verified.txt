@@ -1,0 +1,75 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.RegularClass" should not be enums
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.SimpleStruct" should not be enums
+Result: True
+Description: TypeNamespace.SimpleStruct passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.RegularClass" should be Types that are not enums
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.SimpleStruct" should be Types that are not enums
+Result: True
+Description: TypeNamespace.SimpleStruct passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.SimpleEnum" should not be enums
+Result: False
+Description: TypeNamespace.SimpleEnum is an enum
+Message: 
+"Types that are "TypeNamespace.SimpleEnum" should not be enums" failed:
+	TypeNamespace.SimpleEnum is an enum
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.SimpleEnum" should be Types that are not enums
+Result: False
+Description: TypeNamespace.SimpleEnum is not Types that are not enums
+Message: 
+"Types that are "TypeNamespace.SimpleEnum" should be Types that are not enums" failed:
+	TypeNamespace.SimpleEnum is not Types that are not enums
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.SimpleStruct" should not be enums
+Result: True
+Description: TypeNamespace.SimpleStruct passed
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.SimpleEnum" should not be enums
+Result: False
+Description: TypeNamespace.SimpleEnum is an enum
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+"Types that are "TypeNamespace.RegularClass" or "TypeNamespace.SimpleEnum" should not be enums" failed:
+	TypeNamespace.SimpleEnum is an enum
+
+
+

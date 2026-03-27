@@ -34,57 +34,6 @@ namespace ArchUnitNETTests.Fluent
         }
 
         [Fact]
-        public void AreBeTest()
-        {
-            var rule = Classes()
-                .That()
-                .Are(typeof(EmptyTestClass))
-                .Should()
-                .Be(_classNotInArchitecture);
-            var negation = Classes()
-                .That()
-                .Are(typeof(EmptyTestClass))
-                .Should()
-                .NotBe(_classNotInArchitecture);
-            Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
-            negation.Check(Architecture);
-
-            AssertNoException(() =>
-                Classes().That().Are(_classNotInArchitecture).GetObjects(Architecture)
-            );
-            AssertNoException(() =>
-                Classes().That().AreNot(_classNotInArchitecture).GetObjects(Architecture)
-            );
-        }
-
-        [Fact]
-        public void AreAssignableTest()
-        {
-            var rule = Classes()
-                .That()
-                .Are(typeof(EmptyTestClass))
-                .Should()
-                .BeAssignableTo(_classNotInArchitecture);
-            var negation = Classes()
-                .That()
-                .Are(typeof(EmptyTestClass))
-                .Should()
-                .NotBeAssignableTo(_classNotInArchitecture);
-            Assert.Throws<FailedArchRuleException>(() => rule.Check(Architecture));
-            negation.Check(Architecture);
-
-            AssertNoException(() =>
-                Classes().That().AreAssignableTo(_classNotInArchitecture).GetObjects(Architecture)
-            );
-            AssertNoException(() =>
-                Classes()
-                    .That()
-                    .AreNotAssignableTo(_classNotInArchitecture)
-                    .GetObjects(Architecture)
-            );
-        }
-
-        [Fact]
         public void ImplementInterfaceTest()
         {
             var rule = Classes()

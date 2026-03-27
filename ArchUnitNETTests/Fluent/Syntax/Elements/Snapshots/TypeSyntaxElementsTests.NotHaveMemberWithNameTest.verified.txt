@@ -1,0 +1,55 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should not have member with name "PropertyB"
+Result: True
+Description: TypeNamespace.ClassWithoutMembers passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should be Types that do not have member with name "PropertyB"
+Result: True
+Description: TypeNamespace.ClassWithoutMembers passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithAllMembers" should not have member with name "PropertyB"
+Result: False
+Description: TypeNamespace.ClassWithAllMembers does have member with name "PropertyB"
+Message: 
+"Types that are "TypeNamespace.ClassWithAllMembers" should not have member with name "PropertyB"" failed:
+	TypeNamespace.ClassWithAllMembers does have member with name "PropertyB"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithAllMembers" should be Types that do not have member with name "PropertyB"
+Result: False
+Description: TypeNamespace.ClassWithAllMembers is not Types that do not have member with name "PropertyB"
+Message: 
+"Types that are "TypeNamespace.ClassWithAllMembers" should be Types that do not have member with name "PropertyB"" failed:
+	TypeNamespace.ClassWithAllMembers is not Types that do not have member with name "PropertyB"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" or "TypeNamespace.ClassWithAllMembers" should not have member with name "PropertyB"
+Result: False
+Description: TypeNamespace.ClassWithAllMembers does have member with name "PropertyB"
+Result: True
+Description: TypeNamespace.ClassWithoutMembers passed
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" or "TypeNamespace.ClassWithAllMembers" should not have member with name "PropertyB"" failed:
+	TypeNamespace.ClassWithAllMembers does have member with name "PropertyB"
+
+
+
