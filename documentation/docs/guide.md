@@ -51,7 +51,7 @@ ArchUnitNET uses two levels of caching to improve performance:
 Both caches are enabled by default. You can configure them via `ArchLoader`:
 
 ```cs
-// Disable rule evaluation caching (every rule evaluates its providers independently)
+// Disable both rule evaluation and architecture caching
 private static readonly Architecture Architecture =
     new ArchLoader()
         .WithoutRuleEvaluationCache()
