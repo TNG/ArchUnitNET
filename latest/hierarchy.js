@@ -27,8 +27,6 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.AddFieldMemberPredicate< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberPredicate.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.ShouldRelateToFieldMembersThat< TRuleTypeShouldConjunction, TRuleType >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1ShouldRelateToFieldMembersThat.html", null ]
     ] ],
-    [ "ArchUnitNET.Loader.LoadTasks.AddGenericArgumentDependencies", "classArchUnitNET_1_1Loader_1_1LoadTasks_1_1AddGenericArgumentDependencies.html", null ],
-    [ "ArchUnitNET.Loader.LoadTasks.AddGenericParameterDependencies", "classArchUnitNET_1_1Loader_1_1LoadTasks_1_1AddGenericParameterDependencies.html", null ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.AddInterfaceCondition< InterfacesShouldConjunction >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfaceCondition.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.InterfacesShould", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShould.html", null ]
     ] ],
@@ -469,8 +467,6 @@ var hierarchy =
       [ "ArchUnitNET.Fluent.Freeze.JsonViolationStore", "classArchUnitNET_1_1Fluent_1_1Freeze_1_1JsonViolationStore.html", null ],
       [ "ArchUnitNET.Fluent.Freeze.XmlViolationStore", "classArchUnitNET_1_1Fluent_1_1Freeze_1_1XmlViolationStore.html", null ]
     ] ],
-    [ "ArchUnitNET.Loader.LoadTasks.MatchFunction", "classArchUnitNET_1_1Loader_1_1LoadTasks_1_1MatchFunction.html", null ],
-    [ "ArchUnitNET.Domain.ObjectProviderCache", "classArchUnitNET_1_1Domain_1_1ObjectProviderCache.html", null ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.ObjectsShouldConjunction< AttributesShould, AttributesShouldConjunctionWithDescription, Attribute >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes.AttributesShouldConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AttributesShouldConjunction.html", null ]
     ] ],

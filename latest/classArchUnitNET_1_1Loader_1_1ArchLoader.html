@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('classArchUnitNET_1_1Loader_1_1ArchLoad
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classArchUnitNET_1_1Loader_1_1ArchLoader-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ArchUnitNET.Loader.ArchLoader Class Reference</div></div>
@@ -99,36 +100,42 @@ $(document).ready(function(){initNavTree('classArchUnitNET_1_1Loader_1_1ArchLoad
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a9fe7abb21385c2b2d0d0229434a64d2e" id="r_a9fe7abb21385c2b2d0d0229434a64d2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html#a9fe7abb21385c2b2d0d0229434a64d2e">WithoutRuleEvaluationCache</a> ()</td></tr>
+<tr class="memdesc:a9fe7abb21385c2b2d0d0229434a64d2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures this loader to disable rule evaluation caching in the built architecture. Each call to <a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html#a07efa609a93d18c7b26f3b93aa118b56" title="Returns the cached result for the given object provider, or invokes the providing function and caches...">Architecture.GetOrCreateObjects&lt;T&gt;</a> will invoke the providing function directly instead of returning a cached result.  <br /></td></tr>
+<tr class="separator:a9fe7abb21385c2b2d0d0229434a64d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7d1e45484b718fef8dd0e3920f9b38a" id="r_ad7d1e45484b718fef8dd0e3920f9b38a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html#ad7d1e45484b718fef8dd0e3920f9b38a">WithoutArchitectureCache</a> ()</td></tr>
+<tr class="memdesc:ad7d1e45484b718fef8dd0e3920f9b38a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures this loader to skip the global ArchitectureCache when building the architecture. Each call to Build will create a fresh architecture instance instead of returning a cached one.  <br /></td></tr>
+<tr class="separator:ad7d1e45484b718fef8dd0e3920f9b38a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6de340c891c6f7e04f6c5e401d202793" id="r_a6de340c891c6f7e04f6c5e401d202793"><td class="memItemLeft" align="right" valign="top"><a id="a6de340c891c6f7e04f6c5e401d202793" name="a6de340c891c6f7e04f6c5e401d202793"></a>
 <a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html">Architecture</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Build</b> ()</td></tr>
 <tr class="separator:a6de340c891c6f7e04f6c5e401d202793"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a303f65fc2d68339841c4f73ab3182ea8" id="r_a303f65fc2d68339841c4f73ab3182ea8"><td class="memItemLeft" align="right" valign="top"><a id="a303f65fc2d68339841c4f73ab3182ea8" name="a303f65fc2d68339841c4f73ab3182ea8"></a>
 <a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadAssemblies</b> (params <a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a>[] assemblies)</td></tr>
 <tr class="separator:a303f65fc2d68339841c4f73ab3182ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a032008159506f20a7fce7fae1057dd7f" id="r_a032008159506f20a7fce7fae1057dd7f"><td class="memItemLeft" align="right" valign="top"><a id="a032008159506f20a7fce7fae1057dd7f" name="a032008159506f20a7fce7fae1057dd7f"></a>
+<a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadAssembly</b> (<a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> assembly)</td></tr>
+<tr class="separator:a032008159506f20a7fce7fae1057dd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a2a079a9b0c5caf0d51ed0a5ed5eed0" id="r_a7a2a079a9b0c5caf0d51ed0a5ed5eed0"><td class="memItemLeft" align="right" valign="top"><a id="a7a2a079a9b0c5caf0d51ed0a5ed5eed0" name="a7a2a079a9b0c5caf0d51ed0a5ed5eed0"></a>
 <a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadAssembliesIncludingDependencies</b> (params <a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a>[] assemblies)</td></tr>
 <tr class="separator:a7a2a079a9b0c5caf0d51ed0a5ed5eed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ed35a101581c176852b51d9cfc92a48" id="r_a7ed35a101581c176852b51d9cfc92a48"><td class="memItemLeft" align="right" valign="top"><a id="a7ed35a101581c176852b51d9cfc92a48" name="a7ed35a101581c176852b51d9cfc92a48"></a>
 <a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadAssembliesIncludingDependencies</b> (IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> &gt; assemblies, bool recursive)</td></tr>
 <tr class="separator:a7ed35a101581c176852b51d9cfc92a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a13dbb15430a94f8f3457d93b1479ee" id="r_a3a13dbb15430a94f8f3457d93b1479ee"><td class="memItemLeft" align="right" valign="top"><a id="a3a13dbb15430a94f8f3457d93b1479ee" name="a3a13dbb15430a94f8f3457d93b1479ee"></a>
+<a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadAssemblyIncludingDependencies</b> (<a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> assembly, bool recursive=false)</td></tr>
+<tr class="separator:a3a13dbb15430a94f8f3457d93b1479ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a496385652b94e13a89b2ae82b3799edc" id="r_a496385652b94e13a89b2ae82b3799edc"><td class="memItemLeft" align="right" valign="top"><a id="a496385652b94e13a89b2ae82b3799edc" name="a496385652b94e13a89b2ae82b3799edc"></a>
+<a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadNamespacesWithinAssembly</b> (<a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> assembly, params string[] namespc)</td></tr>
+<tr class="separator:a496385652b94e13a89b2ae82b3799edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c1d010e0d6f4cbd82e99f793cf81339" id="r_a7c1d010e0d6f4cbd82e99f793cf81339"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html#a7c1d010e0d6f4cbd82e99f793cf81339">LoadAssembliesRecursively</a> (IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> &gt; assemblies, <a class="el" href="namespaceArchUnitNET_1_1Loader.html#aea62e93f76e6f80bae858e96178e600a">FilterFunc</a> filterFunc)</td></tr>
+<tr class="memdesc:a7c1d010e0d6f4cbd82e99f793cf81339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads assemblies from dependency tree with user-defined filtration logic.  <br /></td></tr>
+<tr class="separator:a7c1d010e0d6f4cbd82e99f793cf81339"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e76e0b824fac45131e7d7845ebca034" id="r_a2e76e0b824fac45131e7d7845ebca034"><td class="memItemLeft" align="right" valign="top"><a id="a2e76e0b824fac45131e7d7845ebca034" name="a2e76e0b824fac45131e7d7845ebca034"></a>
 <a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadFilteredDirectory</b> (string directory, string filter, SearchOption searchOption=TopDirectoryOnly)</td></tr>
 <tr class="separator:a2e76e0b824fac45131e7d7845ebca034"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65ab13ac2178b456e5bf4bf1cfbb96f7" id="r_a65ab13ac2178b456e5bf4bf1cfbb96f7"><td class="memItemLeft" align="right" valign="top"><a id="a65ab13ac2178b456e5bf4bf1cfbb96f7" name="a65ab13ac2178b456e5bf4bf1cfbb96f7"></a>
 <a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadFilteredDirectoryIncludingDependencies</b> (string directory, string filter, bool recursive=false, SearchOption searchOption=TopDirectoryOnly)</td></tr>
 <tr class="separator:a65ab13ac2178b456e5bf4bf1cfbb96f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a496385652b94e13a89b2ae82b3799edc" id="r_a496385652b94e13a89b2ae82b3799edc"><td class="memItemLeft" align="right" valign="top"><a id="a496385652b94e13a89b2ae82b3799edc" name="a496385652b94e13a89b2ae82b3799edc"></a>
-<a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadNamespacesWithinAssembly</b> (<a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> assembly, params string[] namespc)</td></tr>
-<tr class="separator:a496385652b94e13a89b2ae82b3799edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a032008159506f20a7fce7fae1057dd7f" id="r_a032008159506f20a7fce7fae1057dd7f"><td class="memItemLeft" align="right" valign="top"><a id="a032008159506f20a7fce7fae1057dd7f" name="a032008159506f20a7fce7fae1057dd7f"></a>
-<a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadAssembly</b> (<a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> assembly)</td></tr>
-<tr class="separator:a032008159506f20a7fce7fae1057dd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a13dbb15430a94f8f3457d93b1479ee" id="r_a3a13dbb15430a94f8f3457d93b1479ee"><td class="memItemLeft" align="right" valign="top"><a id="a3a13dbb15430a94f8f3457d93b1479ee" name="a3a13dbb15430a94f8f3457d93b1479ee"></a>
-<a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LoadAssemblyIncludingDependencies</b> (<a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> assembly, bool recursive=false)</td></tr>
-<tr class="separator:a3a13dbb15430a94f8f3457d93b1479ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c1d010e0d6f4cbd82e99f793cf81339" id="r_a7c1d010e0d6f4cbd82e99f793cf81339"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html#a7c1d010e0d6f4cbd82e99f793cf81339">LoadAssembliesRecursively</a> (IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> &gt; assemblies, <a class="el" href="namespaceArchUnitNET_1_1Loader.html#aea62e93f76e6f80bae858e96178e600a">FilterFunc</a> filterFunc)</td></tr>
-<tr class="memdesc:a7c1d010e0d6f4cbd82e99f793cf81339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads assemblies from dependency tree with user-defined filtration logic.  <br /></td></tr>
-<tr class="separator:a7c1d010e0d6f4cbd82e99f793cf81339"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7c1d010e0d6f4cbd82e99f793cf81339" name="a7c1d010e0d6f4cbd82e99f793cf81339"></a>
@@ -166,6 +173,46 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="ad7d1e45484b718fef8dd0e3920f9b38a" name="ad7d1e45484b718fef8dd0e3920f9b38a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7d1e45484b718fef8dd0e3920f9b38a">&#9670;&#160;</a></span>WithoutArchitectureCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a> ArchUnitNET.Loader.ArchLoader.WithoutArchitectureCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures this loader to skip the global ArchitectureCache when building the architecture. Each call to Build will create a fresh architecture instance instead of returning a cached one. </p>
+<dl class="section return"><dt>Returns</dt><dd>This loader instance for method chaining.</dd></dl>
+
+</div>
+</div>
+<a id="a9fe7abb21385c2b2d0d0229434a64d2e" name="a9fe7abb21385c2b2d0d0229434a64d2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fe7abb21385c2b2d0d0229434a64d2e">&#9670;&#160;</a></span>WithoutRuleEvaluationCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classArchUnitNET_1_1Loader_1_1ArchLoader.html">ArchLoader</a> ArchUnitNET.Loader.ArchLoader.WithoutRuleEvaluationCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures this loader to disable rule evaluation caching in the built architecture. Each call to <a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html#a07efa609a93d18c7b26f3b93aa118b56" title="Returns the cached result for the given object provider, or invokes the providing function and caches...">Architecture.GetOrCreateObjects&lt;T&gt;</a> will invoke the providing function directly instead of returning a cached result. </p>
+<dl class="section return"><dt>Returns</dt><dd>This loader instance for method chaining.</dd></dl>
 
 </div>
 </div>

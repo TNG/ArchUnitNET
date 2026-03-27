@@ -39,7 +39,8 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", null ],
+        [ "Properties", "functions_prop.html", null ]
       ] ]
     ] ]
   ] ]
@@ -48,8 +49,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShouldConjunction.html",
-"namespaceArchUnitNET_1_1Domain_1_1PlantUml.html"
+"classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1ShouldRelateToFieldMembersThat.html",
+"interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypePredicate.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

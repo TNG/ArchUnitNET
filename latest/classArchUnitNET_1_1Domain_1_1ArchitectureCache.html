@@ -98,17 +98,21 @@ $(document).ready(function(){initNavTree('classArchUnitNET_1_1Domain_1_1Architec
   <div class="headertitle"><div class="title">ArchUnitNET.Domain.ArchitectureCache Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A singleton cache that stores Architecture instances keyed by ArchitectureCacheKey. This avoids re-loading and re-analyzing assemblies when the same set of assemblies is loaded multiple times (e.g., across multiple test classes that share the same architecture).  
+ <a href="classArchUnitNET_1_1Domain_1_1ArchitectureCache.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9fb5fb22fd4446f1e02843d67816bf10" id="r_a9fb5fb22fd4446f1e02843d67816bf10"><td class="memItemLeft" align="right" valign="top"><a id="a9fb5fb22fd4446f1e02843d67816bf10" name="a9fb5fb22fd4446f1e02843d67816bf10"></a>
-<a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html">Architecture</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TryGetArchitecture</b> (<a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html">ArchitectureCacheKey</a> architectureCacheKey)</td></tr>
+<tr class="memitem:a9fb5fb22fd4446f1e02843d67816bf10" id="r_a9fb5fb22fd4446f1e02843d67816bf10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html">Architecture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCache.html#a9fb5fb22fd4446f1e02843d67816bf10">TryGetArchitecture</a> (<a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html">ArchitectureCacheKey</a> architectureCacheKey)</td></tr>
+<tr class="memdesc:a9fb5fb22fd4446f1e02843d67816bf10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to retrieve a cached architecture for the given key.  <br /></td></tr>
 <tr class="separator:a9fb5fb22fd4446f1e02843d67816bf10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f1d530e22cbda92b3b37efc1ef5aaea" id="r_a8f1d530e22cbda92b3b37efc1ef5aaea"><td class="memItemLeft" align="right" valign="top"><a id="a8f1d530e22cbda92b3b37efc1ef5aaea" name="a8f1d530e22cbda92b3b37efc1ef5aaea"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Add</b> (<a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html">ArchitectureCacheKey</a> architectureCacheKey, <a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html">Architecture</a> architecture)</td></tr>
+<tr class="memitem:a8f1d530e22cbda92b3b37efc1ef5aaea" id="r_a8f1d530e22cbda92b3b37efc1ef5aaea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCache.html#a8f1d530e22cbda92b3b37efc1ef5aaea">Add</a> (<a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html">ArchitectureCacheKey</a> architectureCacheKey, <a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html">Architecture</a> architecture)</td></tr>
+<tr class="memdesc:a8f1d530e22cbda92b3b37efc1ef5aaea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an architecture to the cache. If the key already exists, the existing entry is kept.  <br /></td></tr>
 <tr class="separator:a8f1d530e22cbda92b3b37efc1ef5aaea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35b7da6fa8378241f0d2be5e09fa7cfe" id="r_a35b7da6fa8378241f0d2be5e09fa7cfe"><td class="memItemLeft" align="right" valign="top"><a id="a35b7da6fa8378241f0d2be5e09fa7cfe" name="a35b7da6fa8378241f0d2be5e09fa7cfe"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Clear</b> ()</td></tr>
+<tr class="memdesc:a35b7da6fa8378241f0d2be5e09fa7cfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all entries from the cache. <br /></td></tr>
 <tr class="separator:a35b7da6fa8378241f0d2be5e09fa7cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
@@ -120,8 +124,78 @@ Protected Attributes</h2></td></tr>
 Properties</h2></td></tr>
 <tr class="memitem:a785783403d6d7e3a0f0322508c040656" id="r_a785783403d6d7e3a0f0322508c040656"><td class="memItemLeft" align="right" valign="top"><a id="a785783403d6d7e3a0f0322508c040656" name="a785783403d6d7e3a0f0322508c040656"></a>
 static <a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCache.html">ArchitectureCache</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Instance</b> = new <a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCache.html">ArchitectureCache</a>()<code> [get]</code></td></tr>
+<tr class="memdesc:a785783403d6d7e3a0f0322508c040656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the singleton instance of the architecture cache. <br /></td></tr>
 <tr class="separator:a785783403d6d7e3a0f0322508c040656"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A singleton cache that stores Architecture instances keyed by ArchitectureCacheKey. This avoids re-loading and re-analyzing assemblies when the same set of assemblies is loaded multiple times (e.g., across multiple test classes that share the same architecture). </p>
+<p>The architecture cache operates at the assembly-loading level: it caches the fully constructed Architecture object. This is separate from rule evaluation caching, which caches individual rule evaluation results within an architecture. Use ArchLoader.WithoutArchitectureCache on <code>ArchLoader</code> to bypass this cache when building an architecture. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8f1d530e22cbda92b3b37efc1ef5aaea" name="a8f1d530e22cbda92b3b37efc1ef5aaea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f1d530e22cbda92b3b37efc1ef5aaea">&#9670;&#160;</a></span>Add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArchUnitNET.Domain.ArchitectureCache.Add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html">ArchitectureCacheKey</a>&#160;</td>
+          <td class="paramname"><em>architectureCacheKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html">Architecture</a>&#160;</td>
+          <td class="paramname"><em>architecture</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds an architecture to the cache. If the key already exists, the existing entry is kept. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">architectureCacheKey</td><td>The key identifying the architecture.</td></tr>
+    <tr><td class="paramname">architecture</td><td>The architecture to cache.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the architecture was added; <code>false</code> if the key already existed.</dd></dl>
+
+</div>
+</div>
+<a id="a9fb5fb22fd4446f1e02843d67816bf10" name="a9fb5fb22fd4446f1e02843d67816bf10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fb5fb22fd4446f1e02843d67816bf10">&#9670;&#160;</a></span>TryGetArchitecture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html">Architecture</a> ArchUnitNET.Domain.ArchitectureCache.TryGetArchitecture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html">ArchitectureCacheKey</a>&#160;</td>
+          <td class="paramname"><em>architectureCacheKey</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attempts to retrieve a cached architecture for the given key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">architectureCacheKey</td><td>The key identifying the architecture.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The cached architecture, or <code>null</code> if not found.</dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="af4e863bca175252e3dd5595592f3c61c" name="af4e863bca175252e3dd5595592f3c61c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af4e863bca175252e3dd5595592f3c61c">&#9670;&#160;</a></span>Cache</h2>

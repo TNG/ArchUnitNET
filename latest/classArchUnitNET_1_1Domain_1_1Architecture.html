@@ -97,13 +97,17 @@ $(document).ready(function(){initNavTree('classArchUnitNET_1_1Domain_1_1Architec
   <div class="headertitle"><div class="title">ArchUnitNET.Domain.Architecture Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents a loaded and analyzed software architecture, containing all assemblies, namespaces, types, and their relationships.  
+ <a href="classArchUnitNET_1_1Domain_1_1Architecture.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4a690d8374c611a09515e4f8d146a365" id="r_a4a690d8374c611a09515e4f8d146a365"><td class="memItemLeft" align="right" valign="top"><a id="a4a690d8374c611a09515e4f8d146a365" name="a4a690d8374c611a09515e4f8d146a365"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Architecture</b> (IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> &gt; allAssemblies, IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Namespace.html">Namespace</a> &gt; namespaces, IEnumerable&lt; <a class="el" href="interfaceArchUnitNET_1_1Domain_1_1IType.html">IType</a> &gt; types, IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1GenericParameter.html">GenericParameter</a> &gt; genericParameters, IEnumerable&lt; <a class="el" href="interfaceArchUnitNET_1_1Domain_1_1IType.html">IType</a> &gt; referencedTypes)</td></tr>
-<tr class="separator:a4a690d8374c611a09515e4f8d146a365"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e0cb511cc2ada7f0330776e5debc483" id="r_a4e0cb511cc2ada7f0330776e5debc483"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html#a4e0cb511cc2ada7f0330776e5debc483">Architecture</a> (IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> &gt; allAssemblies, IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Namespace.html">Namespace</a> &gt; namespaces, IEnumerable&lt; <a class="el" href="interfaceArchUnitNET_1_1Domain_1_1IType.html">IType</a> &gt; types, IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1GenericParameter.html">GenericParameter</a> &gt; genericParameters, IEnumerable&lt; <a class="el" href="interfaceArchUnitNET_1_1Domain_1_1IType.html">IType</a> &gt; referencedTypes, bool useRuleEvaluationCache=true)</td></tr>
+<tr class="memdesc:a4e0cb511cc2ada7f0330776e5debc483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new architecture from the given domain elements.  <br /></td></tr>
+<tr class="separator:a4e0cb511cc2ada7f0330776e5debc483"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07efa609a93d18c7b26f3b93aa118b56" id="r_a07efa609a93d18c7b26f3b93aa118b56"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html#a07efa609a93d18c7b26f3b93aa118b56">GetOrCreateObjects&lt; T &gt;</a> (<a class="el" href="interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html">IObjectProvider</a>&lt; T &gt; objectProvider, Func&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Architecture.html">Architecture</a>, IEnumerable&lt; T &gt; &gt; providingFunction)</td></tr>
+<tr class="memdesc:a07efa609a93d18c7b26f3b93aa118b56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the cached result for the given object provider, or invokes the providing function and caches the result. Caching can be disabled via Loader.ArchLoader.WithoutRuleEvaluationCache.  <br /></td></tr>
 <tr class="separator:a07efa609a93d18c7b26f3b93aa118b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07a7a1965349a96f4277f322f3a98d61" id="r_a07a7a1965349a96f4277f322f3a98d61"><td class="memItemLeft" align="right" valign="top"><a id="a07a7a1965349a96f4277f322f3a98d61" name="a07a7a1965349a96f4277f322f3a98d61"></a>
 override bool&#160;</td><td class="memItemRight" valign="bottom"><b>Equals</b> (object obj)</td></tr>
@@ -166,6 +170,75 @@ IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1MethodMember.h
 IEnumerable&lt; <a class="el" href="interfaceArchUnitNET_1_1Domain_1_1IMember.html">IMember</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Members</b><code> [get]</code></td></tr>
 <tr class="separator:a7bf6b3818a28004a75cefc25b65ccc0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a loaded and analyzed software architecture, containing all assemblies, namespaces, types, and their relationships. </p>
+<p>An architecture is typically created via Loader.ArchLoader. Rule evaluation results are cached by default to avoid recomputing the same provider multiple times. Use Loader.ArchLoader.WithoutRuleEvaluationCache to disable this caching. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4e0cb511cc2ada7f0330776e5debc483" name="a4e0cb511cc2ada7f0330776e5debc483"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e0cb511cc2ada7f0330776e5debc483">&#9670;&#160;</a></span>Architecture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArchUnitNET.Domain.Architecture.Architecture </td>
+          <td>(</td>
+          <td class="paramtype">IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Assembly.html">Assembly</a> &gt;&#160;</td>
+          <td class="paramname"><em>allAssemblies</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1Namespace.html">Namespace</a> &gt;&#160;</td>
+          <td class="paramname"><em>namespaces</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IEnumerable&lt; <a class="el" href="interfaceArchUnitNET_1_1Domain_1_1IType.html">IType</a> &gt;&#160;</td>
+          <td class="paramname"><em>types</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IEnumerable&lt; <a class="el" href="classArchUnitNET_1_1Domain_1_1GenericParameter.html">GenericParameter</a> &gt;&#160;</td>
+          <td class="paramname"><em>genericParameters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IEnumerable&lt; <a class="el" href="interfaceArchUnitNET_1_1Domain_1_1IType.html">IType</a> &gt;&#160;</td>
+          <td class="paramname"><em>referencedTypes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>useRuleEvaluationCache</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new architecture from the given domain elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">allAssemblies</td><td>All assemblies in the architecture, including referenced-only assemblies.</td></tr>
+    <tr><td class="paramname">namespaces</td><td>The namespaces containing the loaded types.</td></tr>
+    <tr><td class="paramname">types</td><td>The types loaded from the assemblies.</td></tr>
+    <tr><td class="paramname">genericParameters</td><td>Generic parameters found in the loaded types.</td></tr>
+    <tr><td class="paramname">referencedTypes</td><td>Types referenced but not directly loaded.</td></tr>
+    <tr><td class="paramname">useRuleEvaluationCache</td><td>If <code>true</code> (the default), rule evaluation results are cached by object provider hash code and type. Pass <code>false</code> to disable caching. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a07efa609a93d18c7b26f3b93aa118b56" name="a07efa609a93d18c7b26f3b93aa118b56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a07efa609a93d18c7b26f3b93aa118b56">&#9670;&#160;</a></span>GetOrCreateObjects&lt; T &gt;()</h2>
@@ -192,6 +265,8 @@ IEnumerable&lt; <a class="el" href="interfaceArchUnitNET_1_1Domain_1_1IMember.ht
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns the cached result for the given object provider, or invokes the providing function and caches the result. Caching can be disabled via Loader.ArchLoader.WithoutRuleEvaluationCache. </p>
 <div class="typeconstraint">
 <dl><dt><b>Type Constraints</b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">

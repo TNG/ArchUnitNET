@@ -8,11 +8,12 @@ var searchData=
   ['classesshould_5',['ClassesShould',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShould.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types::Classes']]],
   ['classesshouldconjunction_6',['ClassesShouldConjunction',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShouldConjunction.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types::Classes']]],
   ['classesshouldconjunctionwithdescription_7',['ClassesShouldConjunctionWithDescription',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShouldConjunctionWithDescription.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types::Classes']]],
-  ['combinedarchrule_8',['CombinedArchRule',['../classArchUnitNET_1_1Fluent_1_1CombinedArchRule.html',1,'ArchUnitNET::Fluent']]],
-  ['combinedarchrulecreator_9',['CombinedArchRuleCreator',['../classArchUnitNET_1_1Fluent_1_1CombinedArchRuleCreator.html',1,'ArchUnitNET::Fluent']]],
-  ['combinedarchruledefinition_10',['CombinedArchRuleDefinition',['../classArchUnitNET_1_1Fluent_1_1CombinedArchRuleDefinition.html',1,'ArchUnitNET::Fluent']]],
-  ['compareto_11',['CompareTo',['../classArchUnitNET_1_1Domain_1_1SliceIdentifier.html#a40ffa49787d3561206424e19fb479070',1,'ArchUnitNET::Domain::SliceIdentifier']]],
-  ['complexcondition_12',['ComplexCondition',['../classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition.html',1,'ArchUnitNET::Fluent::Conditions']]],
-  ['conditionresult_13',['ConditionResult',['../classArchUnitNET_1_1Fluent_1_1Conditions_1_1ConditionResult.html',1,'ArchUnitNET::Fluent::Conditions']]],
-  ['customarchrule_14',['CustomArchRule',['../classArchUnitNET_1_1Fluent_1_1CustomArchRule.html',1,'ArchUnitNET::Fluent']]]
+  ['clear_8',['Clear',['../classArchUnitNET_1_1Domain_1_1ArchitectureCache.html#a35b7da6fa8378241f0d2be5e09fa7cfe',1,'ArchUnitNET::Domain::ArchitectureCache']]],
+  ['combinedarchrule_9',['CombinedArchRule',['../classArchUnitNET_1_1Fluent_1_1CombinedArchRule.html',1,'ArchUnitNET::Fluent']]],
+  ['combinedarchrulecreator_10',['CombinedArchRuleCreator',['../classArchUnitNET_1_1Fluent_1_1CombinedArchRuleCreator.html',1,'ArchUnitNET::Fluent']]],
+  ['combinedarchruledefinition_11',['CombinedArchRuleDefinition',['../classArchUnitNET_1_1Fluent_1_1CombinedArchRuleDefinition.html',1,'ArchUnitNET::Fluent']]],
+  ['compareto_12',['CompareTo',['../classArchUnitNET_1_1Domain_1_1SliceIdentifier.html#a40ffa49787d3561206424e19fb479070',1,'ArchUnitNET::Domain::SliceIdentifier']]],
+  ['complexcondition_13',['ComplexCondition',['../classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition.html',1,'ArchUnitNET::Fluent::Conditions']]],
+  ['conditionresult_14',['ConditionResult',['../classArchUnitNET_1_1Fluent_1_1Conditions_1_1ConditionResult.html',1,'ArchUnitNET::Fluent::Conditions']]],
+  ['customarchrule_15',['CustomArchRule',['../classArchUnitNET_1_1Fluent_1_1CustomArchRule.html',1,'ArchUnitNET::Fluent']]]
 ];

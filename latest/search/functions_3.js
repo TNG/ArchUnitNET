@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['matching_0',['Matching',['../classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRuleInitializer.html#a80aef6f5ae5eb688128d206e6764e081',1,'ArchUnitNET::Fluent::Slices::SliceRuleInitializer']]]
+  ['getorcreateobjects_3c_20t_20_3e_0',['GetOrCreateObjects&lt; T &gt;',['../classArchUnitNET_1_1Domain_1_1Architecture.html#a07efa609a93d18c7b26f3b93aa118b56',1,'ArchUnitNET::Domain::Architecture']]]
 ];
