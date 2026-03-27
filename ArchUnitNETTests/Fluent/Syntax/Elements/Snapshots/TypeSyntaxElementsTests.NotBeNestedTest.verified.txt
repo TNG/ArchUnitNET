@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.NonNestedClass" should not be nested
+Result: True
+Description: TypeNamespace.NonNestedClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.NonNestedClass" should be Types that are not nested
+Result: True
+Description: TypeNamespace.NonNestedClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.OuterClassA+InnerClassA" should not be nested
+Result: False
+Description: TypeNamespace.OuterClassA+InnerClassA is nested
+Message: 
+"Types that are "TypeNamespace.OuterClassA+InnerClassA" should not be nested" failed:
+	TypeNamespace.OuterClassA+InnerClassA is nested
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.OuterClassA+InnerClassA" should be Types that are not nested
+Result: False
+Description: TypeNamespace.OuterClassA+InnerClassA is not Types that are not nested
+Message: 
+"Types that are "TypeNamespace.OuterClassA+InnerClassA" should be Types that are not nested" failed:
+	TypeNamespace.OuterClassA+InnerClassA is not Types that are not nested
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.NonNestedClass" or "TypeNamespace.RegularClass" should not be nested
+Result: True
+Description: TypeNamespace.RegularClass passed
+Result: True
+Description: TypeNamespace.NonNestedClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.NonNestedClass" or "TypeNamespace.OuterClassA+InnerClassA" should not be nested
+Result: True
+Description: TypeNamespace.NonNestedClass passed
+Result: False
+Description: TypeNamespace.OuterClassA+InnerClassA is nested
+Message: 
+"Types that are "TypeNamespace.NonNestedClass" or "TypeNamespace.OuterClassA+InnerClassA" should not be nested" failed:
+	TypeNamespace.OuterClassA+InnerClassA is nested
+
+
+

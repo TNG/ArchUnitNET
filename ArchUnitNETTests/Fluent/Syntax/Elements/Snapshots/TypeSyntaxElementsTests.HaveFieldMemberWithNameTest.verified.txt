@@ -1,0 +1,55 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithField" should have a field member with name "FieldA"
+Result: True
+Description: TypeNamespace.ClassWithField passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithField" should be Types that have field member with name "FieldA"
+Result: True
+Description: TypeNamespace.ClassWithField passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should have a field member with name "FieldA"
+Result: False
+Description: TypeNamespace.ClassWithoutMembers does not have a field member with name "FieldA"
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" should have a field member with name "FieldA"" failed:
+	TypeNamespace.ClassWithoutMembers does not have a field member with name "FieldA"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassWithoutMembers" should be Types that have field member with name "FieldA"
+Result: False
+Description: TypeNamespace.ClassWithoutMembers is not Types that have field member with name "FieldA"
+Message: 
+"Types that are "TypeNamespace.ClassWithoutMembers" should be Types that have field member with name "FieldA"" failed:
+	TypeNamespace.ClassWithoutMembers is not Types that have field member with name "FieldA"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.ClassWithField" or "TypeNamespace.ClassWithoutMembers" should have a field member with name "FieldA"
+Result: True
+Description: TypeNamespace.ClassWithField passed
+Result: False
+Description: TypeNamespace.ClassWithoutMembers does not have a field member with name "FieldA"
+Message: 
+"Types that are "TypeNamespace.ClassWithField" or "TypeNamespace.ClassWithoutMembers" should have a field member with name "FieldA"" failed:
+	TypeNamespace.ClassWithoutMembers does not have a field member with name "FieldA"
+
+
+

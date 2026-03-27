@@ -14,7 +14,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArchUnitNET.xUnit\ArchUnitNET.xUnit.csproj" />
-    <ProjectReference Include="..\TestAssemblies\InterfaceAssembly\InterfaceAssembly.csproj" />
     <ProjectReference Include="..\TestAssembly\TestAssembly.csproj" />
     <ProjectReference Include="..\TestAssemblies\AttributeAssembly\AttributeAssembly.csproj" />
     <ProjectReference Include="..\TestAssemblies\TypeDependencyAssembly\TypeDependencyAssembly.csproj" />
@@ -32,6 +31,7 @@
       Aliases="global,OtherLoaderTestAssemblyAlias"
     />
     <ProjectReference Include="..\TestAssemblies\VisibilityAssembly\VisibilityAssembly.csproj" />
+    <ProjectReference Include="..\TestAssemblies\TypeAssembly\TypeAssembly.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />

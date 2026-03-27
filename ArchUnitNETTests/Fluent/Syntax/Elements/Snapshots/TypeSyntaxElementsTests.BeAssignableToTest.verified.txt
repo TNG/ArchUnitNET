@@ -1,0 +1,353 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be assignable to Types that are "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be Types that are assignable to Types that are "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+----- Complex conditions -----
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" should be assignable to types that are "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to Types that are "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to Types that are "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to Types that are "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to Types that are "TypeNamespace.BaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to Types that are "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to Types that are "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to Types that are "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to Types that are "TypeNamespace.BaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+----- Complex conditions -----
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to types that are "TypeNamespace.BaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to types that are "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+===== Multiple arguments =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to Types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to Types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to Types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to Types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to Types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to Types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to Types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to Types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not Types that are assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+----- Complex conditions -----
+
+Query: Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.UnrelatedClassForAssign" should be assignable to types that are "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign" or "TypeNamespace.OtherBaseClassForAssign"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" or "TypeNamespace.OtherDerivedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Result: True
+Description: TypeNamespace.OtherDerivedClassForAssign passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.DerivedClassForAssign" or "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"
+Result: True
+Description: TypeNamespace.DerivedClassForAssign passed
+Result: False
+Description: TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+Message: 
+"Types that are "TypeNamespace.DerivedClassForAssign" or "TypeNamespace.UnrelatedClassForAssign" should be assignable to "TypeNamespace.BaseClassForAssign"" failed:
+	TypeNamespace.UnrelatedClassForAssign is not assignable to "TypeNamespace.BaseClassForAssign"
+
+
+
+===== Type not in architecture =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.BaseClassForAssign" should be assignable to "AttributeNamespace.ClassWithoutAttributes"
+Result: False
+Description: TypeNamespace.BaseClassForAssign is not assignable to "AttributeNamespace.ClassWithoutAttributes"
+Message: 
+"Types that are "TypeNamespace.BaseClassForAssign" should be assignable to "AttributeNamespace.ClassWithoutAttributes"" failed:
+	TypeNamespace.BaseClassForAssign is not assignable to "AttributeNamespace.ClassWithoutAttributes"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"
+Result: False
+Description: TypeNamespace.BaseClassForAssign is not Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"
+Message: 
+"Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"" failed:
+	TypeNamespace.BaseClassForAssign is not Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"
+
+
+
+===== Empty Arguments (Predicates only) =====
+
+Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to no types (always false)
+Result: False
+Description: TypeNamespace.BaseClassForAssign is not Types that are assignable to no types (always false)
+Message: 
+"Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to no types (always false)" failed:
+	TypeNamespace.BaseClassForAssign is not Types that are assignable to no types (always false)
+
+
+
+Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to no types (always false)
+Result: False
+Description: TypeNamespace.BaseClassForAssign is not Types that are assignable to no types (always false)
+Message: 
+"Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to no types (always false)" failed:
+	TypeNamespace.BaseClassForAssign is not Types that are assignable to no types (always false)
+
+
+
