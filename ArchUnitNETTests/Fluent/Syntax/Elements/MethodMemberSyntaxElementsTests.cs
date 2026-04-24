@@ -2,6 +2,7 @@
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
+using ArchUnitNETTests.Domain.Dependencies.Attributes;
 using ArchUnitNETTests.Domain;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
@@ -300,6 +301,21 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                 Assert.True(dependentMethodsShouldBeDependent.HasNoViolations(Architecture));
                 Assert.True(notDependentMethodsShouldNotBeDependent.HasNoViolations(Architecture));
             }
+        }
+
+        // Test currently fails as method *parameter* attributes are considered method attributes
+        [Fact]
+        public void MethodParameterAttributeShouldNotCountAsMethodAttribute()
+        {
+            var architecture = StaticTestArchitectures.AttributeDependencyTestArchitecture;
+
+            var rule = MethodMembers()
+                .That()
+                .HaveFullNameContaining(nameof(ClassWithExampleAttribute.MethodWithParameterAttribute))
+                .Should()
+                .NotHaveAnyAttributes(typeof(ExampleParameterAttribute));
+
+            Assert.True(rule.HasNoViolations(architecture));
         }
 
         [Fact]
