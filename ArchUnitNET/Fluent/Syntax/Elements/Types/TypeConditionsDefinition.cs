@@ -93,13 +93,17 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public static IOrderedCondition<TRuleType> BeNestedIn(IObjectProvider<IType> objectProvider)
         {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
                 Architecture architecture
             )
             {
                 var typeList = objectProvider.GetObjects(architecture).ToList();
-                var failDescription = "is not nested in " + objectProvider.Description;
+                var failDescription =
+                    sizedObjectProvider != null && sizedObjectProvider.Count == 0
+                        ? "is not nested in no types (always false)"
+                        : "is not nested in " + objectProvider.Description;
                 foreach (var ruleType in ruleTypes)
                 {
                     if (

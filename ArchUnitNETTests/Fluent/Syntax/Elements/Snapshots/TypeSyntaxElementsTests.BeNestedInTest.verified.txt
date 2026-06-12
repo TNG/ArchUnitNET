@@ -241,19 +241,19 @@ All Evaluations passed
 
 Query: Types that are "TypeNamespace.OuterClassA+InnerClassA" should be nested in no types (always false)
 Result: False
-Description: TypeNamespace.OuterClassA+InnerClassA is not nested in 
+Description: TypeNamespace.OuterClassA+InnerClassA is not nested in no types (always false)
 Message: 
 "Types that are "TypeNamespace.OuterClassA+InnerClassA" should be nested in no types (always false)" failed:
-	TypeNamespace.OuterClassA+InnerClassA is not nested in 
+	TypeNamespace.OuterClassA+InnerClassA is not nested in no types (always false)
 
 
 
 Query: Types that are "TypeNamespace.OuterClassA+InnerClassA" should be nested in no types (always false)
 Result: False
-Description: TypeNamespace.OuterClassA+InnerClassA is not nested in 
+Description: TypeNamespace.OuterClassA+InnerClassA is not nested in no types (always false)
 Message: 
 "Types that are "TypeNamespace.OuterClassA+InnerClassA" should be nested in no types (always false)" failed:
-	TypeNamespace.OuterClassA+InnerClassA is not nested in 
+	TypeNamespace.OuterClassA+InnerClassA is not nested in no types (always false)
 
 
 
