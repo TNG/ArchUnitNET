@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNETTests.AssemblyTestHelper;
+using TypeNamespace;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
@@ -189,10 +191,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.CalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            // TODO: Empty IEnumerable<IType>/<Type> crashes with InvalidOperationException
-            // (.First() on empty list) — uncomment when AssertException supports lazy evaluation
-            // should.BeCalledBy(new List<IType>()).AssertException<InvalidOperationException>(helper);
-            // should.BeCalledBy(new List<System.Type>()).AssertException<InvalidOperationException>(helper);
+            should.BeCalledBy(new List<IType>()).AssertOnlyViolations(helper);
+            should.BeCalledBy(new List<System.Type>()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(MethodMembers().That().AreCalledBy(new List<IType>())).AssertOnlyViolations(helper);
@@ -202,10 +202,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.CalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.BeCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertOnlyViolations(helper);
+            should.BeCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(MethodMembers().That().AreCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().AreCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             MethodMembers().That().Are(helper.CalledMethod, helper.CalledMethod1).Should().BeCalledBy(helper.MethodDependencyClass).AssertNoViolations(helper);
@@ -272,10 +272,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.CalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            // TODO: Empty IEnumerable<IType>/<Type> crashes with InvalidOperationException
-            // (.First() on empty list) — uncomment when AssertException supports lazy evaluation
-            // should.NotBeCalledBy(new List<IType>()).AssertException<InvalidOperationException>(helper);
-            // should.NotBeCalledBy(new List<System.Type>()).AssertException<InvalidOperationException>(helper);
+            should.NotBeCalledBy(new List<IType>()).AssertNoViolations(helper);
+            should.NotBeCalledBy(new List<System.Type>()).AssertNoViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(MethodMembers().That().AreNotCalledBy(new List<IType>())).AssertNoViolations(helper);
@@ -285,10 +283,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.CalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.NotBeCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertNoViolations(helper);
+            should.NotBeCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(MethodMembers().That().AreNotCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().AreNotCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             MethodMembers().That().Are(helper.MethodWithoutDependencies, helper.MethodCallingCalledMethod).Should().NotBeCalledBy(helper.MethodDependencyClass).AssertNoViolations(helper);
@@ -355,10 +353,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            // TODO: Empty IEnumerable<IType>/<Type> crashes with InvalidOperationException
-            // (.First() on empty list) — uncomment when AssertException supports lazy evaluation
-            // should.HaveDependencyInMethodBodyTo(new List<IType>()).AssertException<InvalidOperationException>(helper);
-            // should.HaveDependencyInMethodBodyTo(new List<System.Type>()).AssertException<InvalidOperationException>(helper);
+            should.HaveDependencyInMethodBodyTo(new List<IType>()).AssertOnlyViolations(helper);
+            should.HaveDependencyInMethodBodyTo(new List<System.Type>()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<IType>())).AssertOnlyViolations(helper);
@@ -368,10 +364,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.HaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertOnlyViolations(helper);
+            should.HaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             MethodMembers().That().Are(helper.MethodCallingCalledMethod, helper.AnotherMethodCallingCalledMethod).Should().HaveDependencyInMethodBodyTo(helper.MethodDependencyClass).AssertNoViolations(helper);
@@ -438,10 +434,8 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            // TODO: Empty IEnumerable<IType>/<Type> crashes with InvalidOperationException
-            // (.First() on empty list) — uncomment when AssertException supports lazy evaluation
-            // should.NotHaveDependencyInMethodBodyTo(new List<IType>()).AssertException<InvalidOperationException>(helper);
-            // should.NotHaveDependencyInMethodBodyTo(new List<System.Type>()).AssertException<InvalidOperationException>(helper);
+            should.NotHaveDependencyInMethodBodyTo(new List<IType>()).AssertNoViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(new List<System.Type>()).AssertNoViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<IType>())).AssertNoViolations(helper);
@@ -451,10 +445,10 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.NotHaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertNoViolations(helper);
+            should.NotHaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) }).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             MethodMembers().That().Are(helper.MethodWithoutDependencies, helper.CalledMethod).Should().NotHaveDependencyInMethodBodyTo(helper.OtherCallingClass).AssertNoViolations(helper);
@@ -521,6 +515,48 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             MethodMembers().That().Are(helper.MethodReturningRegularClass, helper.MethodReturningOtherRegularClass).Should().HaveReturnType(helper.RegularClass).AssertAnyViolations(helper);
             MethodMembers().That().Are(helper.MethodReturningRegularClass, helper.MethodReturningOtherRegularClass).Should().HaveReturnType(helper.RegularClass, helper.OtherRegularClass).AssertNoViolations(helper);
 
+            helper.AddSnapshotHeader("Open generic System.Type matches closed generic IType");
+            should = MethodMembers().That().Are(helper.MethodReturningGenericClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveReturnType(typeof(GenericClass<>)).AssertNoViolations(helper);
+            should.HaveReturnType(new List<System.Type> { typeof(GenericClass<>) }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveReturnType(typeof(GenericClass<>))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<System.Type> { typeof(GenericClass<>) })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Specific closed generic System.Type matches exact return type");
+            should = MethodMembers().That().Are(helper.MethodReturningGenericClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveReturnType(typeof(GenericClass<RegularClass>)).AssertNoViolations(helper);
+            should.HaveReturnType(new List<System.Type> { typeof(GenericClass<RegularClass>) }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveReturnType(typeof(GenericClass<RegularClass>))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<System.Type> { typeof(GenericClass<RegularClass>) })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Specific closed generic System.Type rejects wrong generic argument");
+            should = MethodMembers().That().Are(helper.MethodReturningGenericClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveReturnType(typeof(GenericClass<OtherRegularClass>)).AssertOnlyViolations(helper);
+            should.HaveReturnType(new List<System.Type> { typeof(GenericClass<OtherRegularClass>) }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveReturnType(typeof(GenericClass<OtherRegularClass>))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<System.Type> { typeof(GenericClass<OtherRegularClass>) })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Two-arg open generic System.Type matches two-arg closed generic");
+            should = MethodMembers().That().Are(helper.MethodReturningTwoArgGenericClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveReturnType(typeof(GenericClass<,>)).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveReturnType(typeof(GenericClass<,>))).AssertNoViolations(helper);
+
             await helper.AssertSnapshotMatches();
         }
 
@@ -574,17 +610,49 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.NotHaveReturnType(helper.OtherRegularClassSystemType, helper.RegularClassSystemType).AssertOnlyViolations(helper);
             should.NotHaveReturnType(new List<System.Type> { helper.OtherRegularClassSystemType, helper.RegularClassSystemType }).AssertOnlyViolations(helper);
 
-            // DoNotHaveReturnType predicate uses .Any(type => !match) for IEnumerable<IType> — passes if ANY type doesn't match
-            // With {OtherRegularClass, RegularClass}: OtherRegularClass doesn't match (true) => Any = true => passes
-            // BUT: IEnumerable<Type> and IObjectProvider overloads use .All(type => !match) — fails if ANY type matches
+            // DoNotHaveReturnType predicate now uses consistent set-based semantics —
+            // passes only if return type is NOT in the provided set
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(MethodMembers().That().DoNotHaveReturnType(helper.OtherRegularClass, helper.RegularClass)).AssertNoViolations(helper);
-            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<IType> { helper.OtherRegularClass, helper.RegularClass })).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(helper.OtherRegularClass, helper.RegularClass)).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<IType> { helper.OtherRegularClass, helper.RegularClass })).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().DoNotHaveReturnType(helper.OtherRegularClassSystemType, helper.RegularClassSystemType)).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type> { helper.OtherRegularClassSystemType, helper.RegularClassSystemType })).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             MethodMembers().That().Are(helper.MethodReturningRegularClass, helper.MethodReturningOtherRegularClass).Should().NotHaveReturnType(helper.RegularClass).AssertAnyViolations(helper);
+
+            helper.AddSnapshotHeader("Open generic System.Type matches closed generic for negation");
+            should = MethodMembers().That().Are(helper.MethodReturningGenericClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveReturnType(typeof(GenericClass<>)).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(new List<System.Type> { typeof(GenericClass<>) }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveReturnType(typeof(GenericClass<>))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type> { typeof(GenericClass<>) })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Specific closed generic System.Type for negation");
+            should = MethodMembers().That().Are(helper.MethodReturningGenericClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveReturnType(typeof(GenericClass<RegularClass>)).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(new List<System.Type> { typeof(GenericClass<RegularClass>) }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveReturnType(typeof(GenericClass<RegularClass>))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type> { typeof(GenericClass<RegularClass>) })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Wrong closed generic System.Type is not a violation for negation");
+            should = MethodMembers().That().Are(helper.MethodReturningGenericClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveReturnType(typeof(GenericClass<OtherRegularClass>)).AssertNoViolations(helper);
+            should.NotHaveReturnType(new List<System.Type> { typeof(GenericClass<OtherRegularClass>) }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveReturnType(typeof(GenericClass<OtherRegularClass>))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type> { typeof(GenericClass<OtherRegularClass>) })).AssertNoViolations(helper);
 
             await helper.AssertSnapshotMatches();
         }

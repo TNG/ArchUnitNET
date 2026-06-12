@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
+using ArchUnitNET.Domain.Extensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
@@ -17,22 +18,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public TNextElement AreVirtual() => CreateNextElement(MethodMemberPredicatesDefinition.AreVirtual());
 
-        public TNextElement AreCalledBy(IType firstType, params IType[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.AreCalledBy(firstType, moreTypes));
-        public TNextElement AreCalledBy(Type type, params Type[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.AreCalledBy(type, moreTypes));
+        public TNextElement AreCalledBy() => AreCalledBy(new ObjectProvider<IType>());
+        public TNextElement AreCalledBy(params IType[] types) => AreCalledBy(new ObjectProvider<IType>(types));
+        public TNextElement AreCalledBy(params Type[] types) => AreCalledBy(new SystemTypeObjectProvider<IType>(types));
         public TNextElement AreCalledBy(IObjectProvider<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.AreCalledBy(types));
-        public TNextElement AreCalledBy(IEnumerable<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.AreCalledBy(types));
-        public TNextElement AreCalledBy(IEnumerable<Type> types) => CreateNextElement(MethodMemberPredicatesDefinition.AreCalledBy(types));
+        public TNextElement AreCalledBy(IEnumerable<IType> types) => AreCalledBy(new ObjectProvider<IType>(types));
+        public TNextElement AreCalledBy(IEnumerable<Type> types) => AreCalledBy(new SystemTypeObjectProvider<IType>(types));
 
-        public TNextElement HaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(firstType, moreTypes));
-        public TNextElement HaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(type, moreTypes));
+        public TNextElement HaveDependencyInMethodBodyTo() => HaveDependencyInMethodBodyTo(new ObjectProvider<IType>());
+        public TNextElement HaveDependencyInMethodBodyTo(params IType[] types) => HaveDependencyInMethodBodyTo(new ObjectProvider<IType>(types));
+        public TNextElement HaveDependencyInMethodBodyTo(params Type[] types) => HaveDependencyInMethodBodyTo(new SystemTypeObjectProvider<IType>(types));
         public TNextElement HaveDependencyInMethodBodyTo(IObjectProvider<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types));
-        public TNextElement HaveDependencyInMethodBodyTo(IEnumerable<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types));
-        public TNextElement HaveDependencyInMethodBodyTo(IEnumerable<Type> types) => CreateNextElement(MethodMemberPredicatesDefinition.HaveDependencyInMethodBodyTo(types));
+        public TNextElement HaveDependencyInMethodBodyTo(IEnumerable<IType> types) => HaveDependencyInMethodBodyTo(new ObjectProvider<IType>(types));
+        public TNextElement HaveDependencyInMethodBodyTo(IEnumerable<Type> types) => HaveDependencyInMethodBodyTo(new SystemTypeObjectProvider<IType>(types));
 
-        public TNextElement HaveReturnType(IType firstType, params IType[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.HaveReturnType(firstType, moreTypes));
-        public TNextElement HaveReturnType(IEnumerable<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.HaveReturnType(types));
+        public TNextElement HaveReturnType() => HaveReturnType(new ObjectProvider<IType>());
+        public TNextElement HaveReturnType(params IType[] types) => HaveReturnType(new ObjectProvider<IType>(types));
+        public TNextElement HaveReturnType(params Type[] types) => HaveReturnType((IEnumerable<Type>)types);
         public TNextElement HaveReturnType(IObjectProvider<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.HaveReturnType(types));
-        public TNextElement HaveReturnType(Type type, params Type[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.HaveReturnType(type, moreTypes));
+        public TNextElement HaveReturnType(IEnumerable<IType> types) => HaveReturnType(new ObjectProvider<IType>(types));
         public TNextElement HaveReturnType(IEnumerable<Type> types) => CreateNextElement(MethodMemberPredicatesDefinition.HaveReturnType(types));
 
         //Negations
@@ -41,22 +45,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
         public TNextElement AreNotVirtual() => CreateNextElement(MethodMemberPredicatesDefinition.AreNotVirtual());
 
-        public TNextElement AreNotCalledBy(IType firstType, params IType[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.AreNotCalledBy(firstType, moreTypes));
-        public TNextElement AreNotCalledBy(Type type, params Type[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.AreNotCalledBy(type, moreTypes));
+        public TNextElement AreNotCalledBy() => AreNotCalledBy(new ObjectProvider<IType>());
+        public TNextElement AreNotCalledBy(params IType[] types) => AreNotCalledBy(new ObjectProvider<IType>(types));
+        public TNextElement AreNotCalledBy(params Type[] types) => AreNotCalledBy(new SystemTypeObjectProvider<IType>(types));
         public TNextElement AreNotCalledBy(IObjectProvider<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.AreNotCalledBy(types));
-        public TNextElement AreNotCalledBy(IEnumerable<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.AreNotCalledBy(types));
-        public TNextElement AreNotCalledBy(IEnumerable<Type> types) => CreateNextElement(MethodMemberPredicatesDefinition.AreNotCalledBy(types));
+        public TNextElement AreNotCalledBy(IEnumerable<IType> types) => AreNotCalledBy(new ObjectProvider<IType>(types));
+        public TNextElement AreNotCalledBy(IEnumerable<Type> types) => AreNotCalledBy(new SystemTypeObjectProvider<IType>(types));
 
-        public TNextElement DoNotHaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(firstType, moreTypes));
-        public TNextElement DoNotHaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(type, moreTypes));
+        public TNextElement DoNotHaveDependencyInMethodBodyTo() => DoNotHaveDependencyInMethodBodyTo(new ObjectProvider<IType>());
+        public TNextElement DoNotHaveDependencyInMethodBodyTo(params IType[] types) => DoNotHaveDependencyInMethodBodyTo(new ObjectProvider<IType>(types));
+        public TNextElement DoNotHaveDependencyInMethodBodyTo(params Type[] types) => DoNotHaveDependencyInMethodBodyTo(new SystemTypeObjectProvider<IType>(types));
         public TNextElement DoNotHaveDependencyInMethodBodyTo(IObjectProvider<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types));
-        public TNextElement DoNotHaveDependencyInMethodBodyTo(IEnumerable<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types));
-        public TNextElement DoNotHaveDependencyInMethodBodyTo(IEnumerable<Type> types) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveDependencyInMethodBodyTo(types));
+        public TNextElement DoNotHaveDependencyInMethodBodyTo(IEnumerable<IType> types) => DoNotHaveDependencyInMethodBodyTo(new ObjectProvider<IType>(types));
+        public TNextElement DoNotHaveDependencyInMethodBodyTo(IEnumerable<Type> types) => DoNotHaveDependencyInMethodBodyTo(new SystemTypeObjectProvider<IType>(types));
 
-        public TNextElement DoNotHaveReturnType(IType firstType, params IType[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveReturnType(firstType, moreTypes));
-        public TNextElement DoNotHaveReturnType(IEnumerable<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
+        public TNextElement DoNotHaveReturnType() => DoNotHaveReturnType(new ObjectProvider<IType>());
+        public TNextElement DoNotHaveReturnType(params IType[] types) => DoNotHaveReturnType(new ObjectProvider<IType>(types));
+        public TNextElement DoNotHaveReturnType(params Type[] types) => DoNotHaveReturnType((IEnumerable<Type>)types);
         public TNextElement DoNotHaveReturnType(IObjectProvider<IType> types) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
-        public TNextElement DoNotHaveReturnType(Type type, params Type[] moreTypes) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveReturnType(type, moreTypes));
+        public TNextElement DoNotHaveReturnType(IEnumerable<IType> types) => DoNotHaveReturnType(new ObjectProvider<IType>(types));
         public TNextElement DoNotHaveReturnType(IEnumerable<Type> types) => CreateNextElement(MethodMemberPredicatesDefinition.DoNotHaveReturnType(types));
 
         // csharpier-ignore-end

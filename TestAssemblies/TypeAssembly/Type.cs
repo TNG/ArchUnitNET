@@ -200,3 +200,26 @@ public class ClassWithOtherRegularClassReturnType
         return new OtherRegularClass();
     }
 }
+
+// Generic return type test classes
+public class GenericClass<T> { }
+
+public class GenericClass<T1, T2> { }
+
+public class ClassWithGenericReturnType
+{
+    public GenericClass<RegularClass> MethodReturningGenericClass()
+    {
+        return new GenericClass<RegularClass>();
+    }
+
+    public GenericClass<OtherRegularClass> MethodReturningGenericClassWithOtherArg()
+    {
+        return new GenericClass<OtherRegularClass>();
+    }
+
+    public GenericClass<RegularClass, OtherRegularClass> MethodReturningTwoArgGenericClass()
+    {
+        return new GenericClass<RegularClass, OtherRegularClass>();
+    }
+}

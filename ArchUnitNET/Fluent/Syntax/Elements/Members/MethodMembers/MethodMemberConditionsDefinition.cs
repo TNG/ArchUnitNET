@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Conditions;
+using static ArchUnitNET.Domain.Extensions.EnumerableExtensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
@@ -38,26 +38,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         }
 
         public static IOrderedCondition<MethodMember> BeCalledBy(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return BeCalledBy(types);
-        }
-
-        public static IOrderedCondition<MethodMember> BeCalledBy(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return BeCalledBy(types);
-        }
-
-        public static IOrderedCondition<MethodMember> BeCalledBy(
             IObjectProvider<IType> objectProvider
         )
         {
@@ -66,478 +46,148 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var typeList = objectProvider.GetObjects(architecture).ToList();
-                var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
-                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(typeList).Any())
-                    .ToList();
-                var failDescription = "is not called by " + objectProvider.Description;
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
+                var isRequiredType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var methodMember in methodMembers)
                 {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            var description = "be called by " + objectProvider.Description;
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> BeCalledBy(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers)
-            {
-                var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
-                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(typeList).Any())
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription = "is not called by one of no types (always true)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => !type.Equals(firstType))
-                        .Distinct()
-                        .Aggregate(
-                            "is not called by \"" + firstType.FullName + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "be called by one of no types (always false)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "be called by \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> BeCalledBy(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<MethodMember> methodMembers,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
+                    if (methodMember.GetCallingTypes().Any(isRequiredType))
                     {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
+                        yield return new ConditionResult(methodMember, true);
                     }
-                    catch (TypeDoesNotExistInArchitecture)
+                    else
                     {
-                        //ignore, can't have a dependency anyways
+                        yield return new ConditionResult(
+                            methodMember,
+                            false,
+                            "is not called by " + objectProvider.Description
+                        );
                     }
                 }
-                var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
-                    .Where(methodMember =>
-                        methodMember.GetCallingTypes().Intersect(archUnitTypeList).Any()
-                    )
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription = "is not called by one of no types (always true)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => type != firstType)
-                        .Distinct()
-                        .Aggregate(
-                            "is not called by \"" + firstType.FullName + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "be called by one of no types (always false)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "be called by \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return HaveDependencyInMethodBodyTo(types);
-        }
-
-        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return HaveDependencyInMethodBodyTo(types);
-        }
-
-        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
-            IObjectProvider<IType> objectProvider
-        )
-        {
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<MethodMember> methodMembers,
-                Architecture architecture
-            )
-            {
-                var typeList = objectProvider.GetObjects(architecture).ToList();
-                var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
-                    .Where(methodMember =>
-                        methodMember
-                            .GetBodyTypeMemberDependencies()
-                            .Select(dependency => dependency.Target)
-                            .Intersect(typeList)
-                            .Any()
-                    )
-                    .ToList();
-                var failDescription =
-                    "does not have dependencies in method body to " + objectProvider.Description;
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            var description = "have dependencies in method body to " + objectProvider.Description;
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
-            IEnumerable<IType> types
-        )
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers)
-            {
-                var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
-                    .Where(methodMember =>
-                        methodMember
-                            .GetBodyTypeMemberDependencies()
-                            .Select(dependency => dependency.Target)
-                            .Intersect(typeList)
-                            .Any()
-                    )
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription =
-                        "does not have dependencies in method body to one of no types (always true)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => !type.Equals(firstType))
-                        .Distinct()
-                        .Aggregate(
-                            "does not have dependencies in method body to \""
-                                + firstType.FullName
-                                + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "have dependencies in method body to one of no types (always false)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "have dependencies in method body to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
-            IEnumerable<Type> types
-        )
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<MethodMember> methodMembers,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-                var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
-                    .Where(methodMember =>
-                        methodMember
-                            .GetBodyTypeMemberDependencies()
-                            .Select(dependency => dependency.Target)
-                            .Intersect(archUnitTypeList)
-                            .Any()
-                    )
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription =
-                        "does not have dependencies in method body to one of no types (always true)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => type != firstType)
-                        .Distinct()
-                        .Aggregate(
-                            "does not have dependencies in method body to \""
-                                + firstType.FullName
-                                + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "have dependencies in method body to one of no types (always false)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "have dependencies in method body to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> HaveReturnType(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return HaveReturnType(types);
-        }
-
-        public static IOrderedCondition<MethodMember> HaveReturnType(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-            var typeStringList = typeList.Select(type => type.FullName).ToList();
-            var description =
-                "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
-
-            bool Condition(MethodMember member)
-            {
-                return typeList.Any(type => member.ReturnType.FullNameEquals(type.FullName));
-            }
-
-            return new SimpleCondition<MethodMember>(
-                Condition,
-                member => "has return type \"" + member.ReturnType.FullName + "\"",
-                description
+            var description = objectProvider.FormatDescription(
+                "be called by one of no types (impossible)",
+                "be called by",
+                "be called by any"
             );
+            return new OrderedArchitectureCondition<MethodMember>(Condition, description);
         }
 
-        public static IOrderedCondition<MethodMember> HaveReturnType(IObjectProvider<IType> types)
+        public static IOrderedCondition<MethodMember> HaveDependencyInMethodBodyTo(
+            IObjectProvider<IType> objectProvider
+        )
         {
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<MethodMember> methodMembers,
                 Architecture architecture
             )
             {
-                var typeList = types.GetObjects(architecture).ToList();
-                var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
-                    .Where(methodMember =>
-                        typeList.Any(type => methodMember.ReturnType.FullNameEquals(type.FullName))
+                var isRequiredType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var methodMember in methodMembers)
+                {
+                    if (
+                        methodMember
+                            .GetBodyTypeMemberDependencies()
+                            .Select(dependency => dependency.Target)
+                            .Any(isRequiredType)
                     )
-                    .ToList();
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        "has return type \"" + failedObject.ReturnType.FullName + "\""
-                    );
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    {
+                        yield return new ConditionResult(methodMember, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            methodMember,
+                            false,
+                            "does not have dependencies in method body to "
+                                + objectProvider.Description
+                        );
+                    }
                 }
             }
 
-            var description = "have return type " + types.Description;
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
+            var description = objectProvider.FormatDescription(
+                "have dependencies in method body to one of no types (impossible)",
+                "have dependencies in method body to",
+                "have dependencies in method body to any"
+            );
+            return new OrderedArchitectureCondition<MethodMember>(Condition, description);
         }
 
         public static IOrderedCondition<MethodMember> HaveReturnType(
-            Type firstType,
-            params Type[] moreTypes
+            IObjectProvider<IType> objectProvider
         )
         {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return HaveReturnType(types);
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
+            {
+                var isRequiredType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var methodMember in methodMembers)
+                {
+                    if (isRequiredType(methodMember.ReturnType))
+                    {
+                        yield return new ConditionResult(methodMember, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            methodMember,
+                            false,
+                            "has return type \"" + methodMember.ReturnType.FullName + "\""
+                        );
+                    }
+                }
+            }
+
+            var description = objectProvider.FormatDescription(
+                "have return type of no types (impossible)",
+                "have return type",
+                "have return type"
+            );
+            return new OrderedArchitectureCondition<MethodMember>(Condition, description);
         }
 
         public static IOrderedCondition<MethodMember> HaveReturnType(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
-            var typeStringList = typeList.Select(type => type.ToString()).ToList();
-            var description =
-                "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
-            bool Condition(MethodMember member)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
-                return typeList.Any(type => member.ReturnTypeInstance.MatchesType(type));
+                foreach (var methodMember in methodMembers)
+                {
+                    if (typeList.Any(type => methodMember.ReturnTypeInstance.MatchesType(type)))
+                    {
+                        yield return new ConditionResult(methodMember, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            methodMember,
+                            false,
+                            "has return type \"" + methodMember.ReturnType.FullName + "\""
+                        );
+                    }
+                }
             }
 
-            return new SimpleCondition<MethodMember>(
-                Condition,
-                member => "has return type \"" + member.ReturnType.FullName + "\"",
-                description
+            var typeDescription = string.Join(
+                " or ",
+                typeList.Select(type => $"\"{type.FullName}\"")
             );
+            var description = typeList.Count == 0
+                ? "have return type of no types (impossible)"
+                : $"have return type {typeDescription}";
+            return new OrderedArchitectureCondition<MethodMember>(Condition, description);
         }
 
         //Negations
@@ -561,26 +211,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         }
 
         public static IOrderedCondition<MethodMember> NotBeCalledBy(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return NotBeCalledBy(types);
-        }
-
-        public static IOrderedCondition<MethodMember> NotBeCalledBy(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return NotBeCalledBy(types);
-        }
-
-        public static IOrderedCondition<MethodMember> NotBeCalledBy(
             IObjectProvider<IType> objectProvider
         )
         {
@@ -589,420 +219,36 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var typeList = objectProvider.GetObjects(architecture).ToList();
-                var methodMemberList = methodMembers.ToList();
-                var failedObjects = methodMemberList
-                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(typeList).Any())
-                    .ToList();
-                var failDescription = "is called by " + objectProvider.Description;
-                foreach (var failedObject in failedObjects)
+                var isForbiddenType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var methodMember in methodMembers)
                 {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in methodMemberList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            var description = "not be called by " + objectProvider.Description;
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> NotBeCalledBy(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers)
-            {
-                var methodMemberList = methodMembers.ToList();
-                var failedObjects = methodMemberList
-                    .Where(methodMember => methodMember.GetCallingTypes().Intersect(typeList).Any())
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription = "is called by one of no types (always false)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => !type.Equals(firstType))
-                        .Distinct()
-                        .Aggregate(
-                            "is called by \"" + firstType.FullName + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in failedObjects)
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in methodMemberList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not be called by one of no types (always true)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "not be called by \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> NotBeCalledBy(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<MethodMember> methodMembers,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
+                    if (!methodMember.GetCallingTypes().Any(isForbiddenType))
                     {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
+                        yield return new ConditionResult(methodMember, true);
                     }
-                    catch (TypeDoesNotExistInArchitecture)
+                    else
                     {
-                        //ignore, can't have a dependency anyways
+                        yield return new ConditionResult(
+                            methodMember,
+                            false,
+                            "is called by " + objectProvider.Description
+                        );
                     }
                 }
-                var methodMemberList = methodMembers.ToList();
-                var failedObjects = methodMemberList
-                    .Where(methodMember =>
-                        methodMember.GetCallingTypes().Intersect(archUnitTypeList).Any()
-                    )
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription = "is called by one of no types (always false)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => type != firstType)
-                        .Distinct()
-                        .Aggregate(
-                            "is called by \"" + firstType.FullName + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in failedObjects)
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in methodMemberList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "not be called by one of no types (always true)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "not be called by \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return NotHaveDependencyInMethodBodyTo(types);
-        }
-
-        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return NotHaveDependencyInMethodBodyTo(types);
-        }
-
-        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
-            IObjectProvider<IType> objectProvider
-        )
-        {
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<MethodMember> methodMembers,
-                Architecture architecture
-            )
-            {
-                var typeList = objectProvider.GetObjects(architecture).ToList();
-                var methodMemberList = methodMembers.ToList();
-                var failedObjects = methodMemberList
-                    .Where(methodMember =>
-                        methodMember
-                            .GetBodyTypeMemberDependencies()
-                            .Select(dependency => dependency.Target)
-                            .Intersect(typeList)
-                            .Any()
-                    )
-                    .ToList();
-                var failDescription =
-                    "does have dependencies in method body to " + objectProvider.Description;
-                foreach (var failedObject in failedObjects)
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in methodMemberList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            var description =
-                "not have dependencies in method body to " + objectProvider.Description;
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
-            IEnumerable<IType> types
-        )
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(IEnumerable<MethodMember> methodMembers)
-            {
-                var methodMemberList = methodMembers.ToList();
-                var failedObjects = methodMemberList
-                    .Where(methodMember =>
-                        methodMember
-                            .GetBodyTypeMemberDependencies()
-                            .Select(dependency => dependency.Target)
-                            .Intersect(typeList)
-                            .Any()
-                    )
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription =
-                        "does have dependencies in method body to one of no types (always false)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => !Equals(type, firstType))
-                        .Distinct()
-                        .Aggregate(
-                            "does have dependencies in method body to \""
-                                + firstType.FullName
-                                + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in failedObjects)
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in methodMemberList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description =
-                    "not have dependencies in method body to one of no types (always true)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => !Equals(type, firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "not have dependencies in method body to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerableCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
-            IEnumerable<Type> types
-        )
-        {
-            var typeList = types.ToList();
-            var firstType = typeList.First();
-
-            IEnumerable<ConditionResult> Condition(
-                IEnumerable<MethodMember> methodMembers,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-                var methodMemberList = methodMembers.ToList();
-                var failedObjects = methodMemberList
-                    .Where(methodMember =>
-                        methodMember
-                            .GetBodyTypeMemberDependencies()
-                            .Select(dependency => dependency.Target)
-                            .Intersect(archUnitTypeList)
-                            .Any()
-                    )
-                    .ToList();
-                string failDescription;
-                if (typeList.IsNullOrEmpty())
-                {
-                    failDescription =
-                        "does have dependencies in method body to one of no types (always false)";
-                }
-                else
-                {
-                    failDescription = typeList
-                        .Where(type => type != firstType)
-                        .Distinct()
-                        .Aggregate(
-                            "does have dependencies in method body to \""
-                                + firstType.FullName
-                                + "\"",
-                            (current, type) => current + " or \"" + type.FullName + "\""
-                        );
-                }
-
-                foreach (var failedObject in failedObjects)
-                {
-                    yield return new ConditionResult(failedObject, false, failDescription);
-                }
-
-                foreach (var passedObject in methodMemberList.Except(failedObjects))
-                {
-                    yield return new ConditionResult(passedObject, true);
-                }
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description =
-                    "not have dependencies in method body to one of no types (always true)";
-            }
-            else
-            {
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "not have dependencies in method body to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
-        }
-
-        public static IOrderedCondition<MethodMember> NotHaveReturnType(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return NotHaveReturnType(types);
-        }
-
-        public static IOrderedCondition<MethodMember> NotHaveReturnType(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-            var typeStringList = typeList.Select(type => type.FullName).ToList();
-            var description =
-                "not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
-
-            bool Condition(MethodMember member)
-            {
-                return typeList.All(type => !member.ReturnType.FullNameEquals(type.FullName));
-            }
-
-            return new SimpleCondition<MethodMember>(
-                Condition,
-                member => "has return type \"" + member.ReturnType.FullName + "\"",
-                description
+            var description = objectProvider.FormatDescription(
+                "not be called by one of no types (always true)",
+                "not be called by",
+                "not be called by any"
             );
+            return new OrderedArchitectureCondition<MethodMember>(Condition, description);
         }
 
-        public static IOrderedCondition<MethodMember> NotHaveReturnType(
-            IObjectProvider<IType> types
+        public static IOrderedCondition<MethodMember> NotHaveDependencyInMethodBodyTo(
+            IObjectProvider<IType> objectProvider
         )
         {
             IEnumerable<ConditionResult> Condition(
@@ -1010,62 +256,111 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                 Architecture architecture
             )
             {
-                var typeList = types.GetObjects(architecture).ToList();
-                var methodMemberList = methodMembers.ToList();
-                var passedObjects = methodMemberList
-                    .Where(methodMember =>
-                        typeList.All(type => !methodMember.ReturnType.FullNameEquals(type.FullName))
+                var isForbiddenType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var methodMember in methodMembers)
+                {
+                    if (
+                        !methodMember
+                            .GetBodyTypeMemberDependencies()
+                            .Select(dependency => dependency.Target)
+                            .Any(isForbiddenType)
                     )
-                    .ToList();
-                foreach (var failedObject in methodMemberList.Except(passedObjects))
-                {
-                    yield return new ConditionResult(
-                        failedObject,
-                        false,
-                        "has return type \"" + failedObject.ReturnType.FullName + "\""
-                    );
-                }
-
-                foreach (var passedObject in passedObjects)
-                {
-                    yield return new ConditionResult(passedObject, true);
+                    {
+                        yield return new ConditionResult(methodMember, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            methodMember,
+                            false,
+                            "does have dependencies in method body to "
+                                + objectProvider.Description
+                        );
+                    }
                 }
             }
 
-            var description = "not have return type " + types.Description;
-            return new ArchitectureCondition<MethodMember>(
-                Condition,
-                description
-            ).AsOrderedCondition();
+            var description = objectProvider.FormatDescription(
+                "not have dependencies in method body to one of no types (always true)",
+                "not have dependencies in method body to",
+                "not have dependencies in method body to any"
+            );
+            return new OrderedArchitectureCondition<MethodMember>(Condition, description);
         }
 
         public static IOrderedCondition<MethodMember> NotHaveReturnType(
-            Type firstType,
-            params Type[] moreTypes
+            IObjectProvider<IType> objectProvider
         )
         {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return NotHaveReturnType(types);
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
+            {
+                var isForbiddenType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                foreach (var methodMember in methodMembers)
+                {
+                    if (!isForbiddenType(methodMember.ReturnType))
+                    {
+                        yield return new ConditionResult(methodMember, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            methodMember,
+                            false,
+                            "has return type \"" + methodMember.ReturnType.FullName + "\""
+                        );
+                    }
+                }
+            }
+
+            var description = objectProvider.FormatDescription(
+                "not have return type of no types (always true)",
+                "not have return type",
+                "not have return type"
+            );
+            return new OrderedArchitectureCondition<MethodMember>(Condition, description);
         }
 
         public static IOrderedCondition<MethodMember> NotHaveReturnType(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
-            var typeStringList = typeList.Select(type => type.ToString()).ToList();
-            var description =
-                "not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
-            bool Condition(MethodMember member)
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
             {
-                return typeList.All(type => !member.ReturnTypeInstance.MatchesType(type));
+                foreach (var methodMember in methodMembers)
+                {
+                    if (typeList.All(type => !methodMember.ReturnTypeInstance.MatchesType(type)))
+                    {
+                        yield return new ConditionResult(methodMember, true);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(
+                            methodMember,
+                            false,
+                            "has return type \"" + methodMember.ReturnType.FullName + "\""
+                        );
+                    }
+                }
             }
 
-            return new SimpleCondition<MethodMember>(
-                Condition,
-                member => "has return type \"" + member.ReturnType.FullName + "\"",
-                description
+            var typeDescription = string.Join(
+                " or ",
+                typeList.Select(type => $"\"{type.FullName}\"")
             );
+            var description = typeList.Count == 0
+                ? "not have return type of no types (always true)"
+                : $"not have return type {typeDescription}";
+            return new OrderedArchitectureCondition<MethodMember>(Condition, description);
         }
     }
 }
