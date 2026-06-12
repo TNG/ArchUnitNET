@@ -142,6 +142,39 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
     public Class ClassWithStaticMethod;
     public Type ClassWithStaticMethodSystemType = typeof(ClassWithStaticMethod);
 
+    // Method member test classes
+    public Class ClassWithVirtualMethod;
+    public Type ClassWithVirtualMethodSystemType = typeof(ClassWithVirtualMethod);
+
+    public Class OtherClassWithVirtualMethod;
+    public Type OtherClassWithVirtualMethodSystemType = typeof(OtherClassWithVirtualMethod);
+
+    public Class ClassWithNonVirtualMethod;
+    public Type ClassWithNonVirtualMethodSystemType = typeof(ClassWithNonVirtualMethod);
+
+    public Class ClassWithStringReturnType;
+    public Type ClassWithStringReturnTypeSystemType = typeof(ClassWithStringReturnType);
+
+    public Class ClassWithIntReturnType;
+    public Type ClassWithIntReturnTypeSystemType = typeof(ClassWithIntReturnType);
+
+    public Class ClassWithRegularClassReturnType;
+    public Type ClassWithRegularClassReturnTypeSystemType = typeof(ClassWithRegularClassReturnType);
+
+    public Class ClassWithOtherRegularClassReturnType;
+    public Type ClassWithOtherRegularClassReturnTypeSystemType =
+        typeof(ClassWithOtherRegularClassReturnType);
+
+    // Generic return type test classes
+    public Class GenericClassOneArg;
+    public Type GenericClassOneArgSystemType = typeof(GenericClass<>);
+
+    public Class GenericClassTwoArg;
+    public Type GenericClassTwoArgSystemType = typeof(GenericClass<,>);
+
+    public Class ClassWithGenericReturnType;
+    public Type ClassWithGenericReturnTypeSystemType = typeof(ClassWithGenericReturnType);
+
     // Individual members
     public IMember StaticField;
     public IMember NonStaticField;
@@ -153,6 +186,20 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
     public IMember OtherStaticField;
     public IMember StaticProperty;
     public IMember StaticMethod;
+
+    // Method members (MethodMember type)
+    public MethodMember VirtualMethod;
+    public MethodMember OtherVirtualMethod;
+    public MethodMember NonVirtualMethod;
+    public MethodMember MethodReturningString;
+    public MethodMember MethodReturningInt;
+    public MethodMember ClassWithVirtualMethodConstructor;
+    public MethodMember ClassWithNonVirtualMethodConstructor;
+    public MethodMember MethodReturningRegularClass;
+    public MethodMember MethodReturningOtherRegularClass;
+    public MethodMember MethodReturningGenericClass;
+    public MethodMember MethodReturningGenericClassWithOtherArg;
+    public MethodMember MethodReturningTwoArgGenericClass;
 
     public TypeAssemblyTestHelper()
     {
@@ -241,5 +288,63 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
             .GetPropertyMembersWithName("StaticProperty")
             .First();
         StaticMethod = ClassWithStaticMethod.GetMethodMembersWithName("StaticMethod()").First();
+
+        // Method member test classes
+        ClassWithVirtualMethod = Architecture.GetClassOfType(typeof(ClassWithVirtualMethod));
+        OtherClassWithVirtualMethod = Architecture.GetClassOfType(
+            typeof(OtherClassWithVirtualMethod)
+        );
+        ClassWithNonVirtualMethod = Architecture.GetClassOfType(typeof(ClassWithNonVirtualMethod));
+        ClassWithStringReturnType = Architecture.GetClassOfType(typeof(ClassWithStringReturnType));
+        ClassWithIntReturnType = Architecture.GetClassOfType(typeof(ClassWithIntReturnType));
+        ClassWithRegularClassReturnType = Architecture.GetClassOfType(
+            typeof(ClassWithRegularClassReturnType)
+        );
+        ClassWithOtherRegularClassReturnType = Architecture.GetClassOfType(
+            typeof(ClassWithOtherRegularClassReturnType)
+        );
+
+        // Generic return type test classes
+        GenericClassOneArg = Architecture.GetClassOfType(typeof(GenericClass<>));
+        GenericClassTwoArg = Architecture.GetClassOfType(typeof(GenericClass<,>));
+        ClassWithGenericReturnType = Architecture.GetClassOfType(
+            typeof(ClassWithGenericReturnType)
+        );
+
+        // Method members (MethodMember type)
+        VirtualMethod = ClassWithVirtualMethod.GetMethodMembersWithName("VirtualMethod()").First();
+        OtherVirtualMethod = OtherClassWithVirtualMethod
+            .GetMethodMembersWithName("OtherVirtualMethod()")
+            .First();
+        NonVirtualMethod = ClassWithNonVirtualMethod
+            .GetMethodMembersWithName("NonVirtualMethod()")
+            .First();
+        MethodReturningString = ClassWithStringReturnType
+            .GetMethodMembersWithName("MethodReturningString()")
+            .First();
+        MethodReturningInt = ClassWithIntReturnType
+            .GetMethodMembersWithName("MethodReturningInt()")
+            .First();
+        ClassWithVirtualMethodConstructor = ClassWithVirtualMethod
+            .GetMethodMembersWithName(".ctor()")
+            .First();
+        ClassWithNonVirtualMethodConstructor = ClassWithNonVirtualMethod
+            .GetMethodMembersWithName(".ctor()")
+            .First();
+        MethodReturningRegularClass = ClassWithRegularClassReturnType
+            .GetMethodMembersWithName("MethodReturningRegularClass()")
+            .First();
+        MethodReturningOtherRegularClass = ClassWithOtherRegularClassReturnType
+            .GetMethodMembersWithName("MethodReturningOtherRegularClass()")
+            .First();
+        MethodReturningGenericClass = ClassWithGenericReturnType
+            .GetMethodMembersWithName("MethodReturningGenericClass()")
+            .First();
+        MethodReturningGenericClassWithOtherArg = ClassWithGenericReturnType
+            .GetMethodMembersWithName("MethodReturningGenericClassWithOtherArg()")
+            .First();
+        MethodReturningTwoArgGenericClass = ClassWithGenericReturnType
+            .GetMethodMembersWithName("MethodReturningTwoArgGenericClass()")
+            .First();
     }
 }

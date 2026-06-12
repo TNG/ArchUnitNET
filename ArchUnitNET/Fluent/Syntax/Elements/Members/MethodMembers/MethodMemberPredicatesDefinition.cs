@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain;
-using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
+using static ArchUnitNET.Domain.Extensions.EnumerableExtensions;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 {
@@ -23,304 +23,104 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             return new SimplePredicate<MethodMember>(member => member.IsVirtual, "are virtual");
         }
 
-        public static IPredicate<MethodMember> AreCalledBy(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return AreCalledBy(types);
-        }
-
-        public static IPredicate<MethodMember> AreCalledBy(Type firstType, params Type[] moreTypes)
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return AreCalledBy(types);
-        }
-
         public static IPredicate<MethodMember> AreCalledBy(IObjectProvider<IType> objectProvider)
         {
-            IEnumerable<MethodMember> Condition(
+            IEnumerable<MethodMember> Filter(
                 IEnumerable<MethodMember> ruleTypes,
                 Architecture architecture
             )
             {
-                var types = objectProvider.GetObjects(architecture);
-                return ruleTypes.Where(type => type.GetCallingTypes().Intersect(types).Any());
-            }
-
-            var description = "are called by " + objectProvider.Description;
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> AreCalledBy(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes)
-            {
-                return ruleTypes.Where(type => type.GetCallingTypes().Intersect(typeList).Any());
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are called by one of no types (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "are called by \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerablePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> AreCalledBy(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<MethodMember> Condition(
-                IEnumerable<MethodMember> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-                return ruleTypes.Where(type =>
-                    type.GetCallingTypes().Intersect(archUnitTypeList).Any()
+                var isRequiredType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                return ruleTypes.Where(methodMember =>
+                    methodMember.GetCallingTypes().Any(isRequiredType)
                 );
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are called by one of no types (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "are called by \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return HaveDependencyInMethodBodyTo(types);
-        }
-
-        public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return HaveDependencyInMethodBodyTo(types);
+            var description = objectProvider.FormatDescription(
+                "are called by one of no types (impossible)",
+                "are called by",
+                "are called by any"
+            );
+            return new ArchitecturePredicate<MethodMember>(Filter, description);
         }
 
         public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(
             IObjectProvider<IType> objectProvider
         )
         {
-            IEnumerable<MethodMember> Condition(
+            IEnumerable<MethodMember> Filter(
                 IEnumerable<MethodMember> ruleTypes,
                 Architecture architecture
             )
             {
-                var types = objectProvider.GetObjects(architecture);
-                return ruleTypes.Where(type =>
-                    type.GetBodyTypeMemberDependencies()
+                var isRequiredType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                return ruleTypes.Where(methodMember =>
+                    methodMember
+                        .GetBodyTypeMemberDependencies()
                         .Select(dependency => dependency.Target)
-                        .Intersect(types)
-                        .Any()
+                        .Any(isRequiredType)
                 );
             }
 
-            var description = "have dependencies in method body to " + objectProvider.Description;
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(
-            IEnumerable<IType> types
-        )
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes)
-            {
-                return ruleTypes.Where(type =>
-                    type.GetBodyTypeMemberDependencies()
-                        .Select(dependency => dependency.Target)
-                        .Intersect(typeList)
-                        .Any()
-                );
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "have dependencies in method body to one of no types (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "have dependencies in method body to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerablePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> HaveDependencyInMethodBodyTo(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<MethodMember> Condition(
-                IEnumerable<MethodMember> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-                return ruleTypes.Where(type =>
-                    type.GetBodyTypeMemberDependencies()
-                        .Select(dependency => dependency.Target)
-                        .Intersect(archUnitTypeList)
-                        .Any()
-                );
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "have dependencies in method body to one of no types (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "have dependencies in method body to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
+            var description = objectProvider.FormatDescription(
+                "have dependencies in method body to one of no types (impossible)",
+                "have dependencies in method body to",
+                "have dependencies in method body to any"
+            );
+            return new ArchitecturePredicate<MethodMember>(Filter, description);
         }
 
         public static IPredicate<MethodMember> HaveReturnType(
-            IType firstType,
-            params IType[] moreTypes
+            IObjectProvider<IType> objectProvider
         )
         {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return HaveReturnType(types);
-        }
-
-        public static IPredicate<MethodMember> HaveReturnType(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-            var typeStringList = typeList.Select(type => type.FullName).ToList();
-            var description =
-                "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
-
-            return new SimplePredicate<MethodMember>(
-                member => typeList.Any(type => member.ReturnType.FullNameEquals(type.FullName)),
-                description
-            );
-        }
-
-        public static IPredicate<MethodMember> HaveReturnType(IObjectProvider<IType> types)
-        {
-            IEnumerable<MethodMember> Condition(
+            IEnumerable<MethodMember> Filter(
                 IEnumerable<MethodMember> methodMembers,
                 Architecture architecture
             )
             {
-                var typeList = types.GetObjects(architecture).ToList();
-                var methodMemberList = methodMembers.ToList();
-                return methodMemberList.Where(methodMember =>
-                    typeList.Any(type => methodMember.ReturnType.FullNameEquals(type.FullName))
+                var isRequiredType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                return methodMembers.Where(methodMember =>
+                    isRequiredType(methodMember.ReturnType)
                 );
             }
 
-            var description = "have return type " + types.Description;
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> HaveReturnType(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return HaveReturnType(types);
+            var description = objectProvider.FormatDescription(
+                "have return type of no types (impossible)",
+                "have return type",
+                "have return type"
+            );
+            return new ArchitecturePredicate<MethodMember>(Filter, description);
         }
 
         public static IPredicate<MethodMember> HaveReturnType(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
-            var typeStringList = typeList.Select(type => type.ToString()).ToList();
-            var description =
-                "have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
-            return new SimplePredicate<MethodMember>(
-                member => typeList.Any(type => member.ReturnTypeInstance.MatchesType(type)),
-                description
+            IEnumerable<MethodMember> Filter(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
+            {
+                return methodMembers.Where(methodMember =>
+                    typeList.Any(type => methodMember.ReturnTypeInstance.MatchesType(type))
+                );
+            }
+
+            var typeDescription = string.Join(
+                " or ",
+                typeList.Select(type => $"\"{type.FullName}\"")
             );
+            var description = typeList.Count == 0
+                ? "have return type of no types (impossible)"
+                : $"have return type {typeDescription}";
+            return new ArchitecturePredicate<MethodMember>(Filter, description);
         }
 
         //Negations
@@ -342,311 +142,105 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         }
 
         public static IPredicate<MethodMember> AreNotCalledBy(
-            IType firstType,
-            params IType[] moreTypes
+            IObjectProvider<IType> objectProvider
         )
         {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return AreNotCalledBy(types);
-        }
-
-        public static IPredicate<MethodMember> AreNotCalledBy(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return AreNotCalledBy(types);
-        }
-
-        public static IPredicate<MethodMember> AreNotCalledBy(IObjectProvider<IType> objectProvider)
-        {
-            IEnumerable<MethodMember> Condition(
+            IEnumerable<MethodMember> Filter(
                 IEnumerable<MethodMember> ruleTypes,
                 Architecture architecture
             )
             {
-                var types = objectProvider.GetObjects(architecture);
-                return ruleTypes.Where(type => !type.GetCallingTypes().Intersect(types).Any());
-            }
-
-            var description = "are not called by " + objectProvider.Description;
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> AreNotCalledBy(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes)
-            {
-                return ruleTypes.Where(type => !type.GetCallingTypes().Intersect(typeList).Any());
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are not called by one of no types (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "are not called by \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerablePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> AreNotCalledBy(IEnumerable<Type> types)
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<MethodMember> Condition(
-                IEnumerable<MethodMember> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-                return ruleTypes.Where(type =>
-                    !type.GetCallingTypes().Intersect(archUnitTypeList).Any()
+                var isForbiddenType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                return ruleTypes.Where(methodMember =>
+                    !methodMember.GetCallingTypes().Any(isForbiddenType)
                 );
             }
 
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description = "are not called by one of no types (always false)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "are not called by \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
-            IType firstType,
-            params IType[] moreTypes
-        )
-        {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return DoNotHaveDependencyInMethodBodyTo(types);
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return DoNotHaveDependencyInMethodBodyTo(types);
+            var description = objectProvider.FormatDescription(
+                "are not called by one of no types (always true)",
+                "are not called by",
+                "are not called by any"
+            );
+            return new ArchitecturePredicate<MethodMember>(Filter, description);
         }
 
         public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
             IObjectProvider<IType> objectProvider
         )
         {
-            IEnumerable<MethodMember> Condition(
+            IEnumerable<MethodMember> Filter(
                 IEnumerable<MethodMember> ruleTypes,
                 Architecture architecture
             )
             {
-                var types = objectProvider.GetObjects(architecture);
-                return ruleTypes.Where(type =>
-                    !type.GetBodyTypeMemberDependencies()
+                var isForbiddenType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                return ruleTypes.Where(methodMember =>
+                    !methodMember
+                        .GetBodyTypeMemberDependencies()
                         .Select(dependency => dependency.Target)
-                        .Intersect(types)
-                        .Any()
+                        .Any(isForbiddenType)
                 );
             }
 
-            var description =
-                "do not have dependencies in method body to " + objectProvider.Description;
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
-            IEnumerable<IType> types
-        )
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<MethodMember> Condition(IEnumerable<MethodMember> ruleTypes)
-            {
-                return ruleTypes.Where(type =>
-                    !type.GetBodyTypeMemberDependencies()
-                        .Select(dependency => dependency.Target)
-                        .Intersect(typeList)
-                        .Any()
-                );
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description =
-                    "do not have dependencies in method body to one of no types (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => !type.Equals(firstType))
-                    .Distinct()
-                    .Aggregate(
-                        "do not have dependencies in method body to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new EnumerablePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveDependencyInMethodBodyTo(
-            IEnumerable<Type> types
-        )
-        {
-            var typeList = types.ToList();
-
-            IEnumerable<MethodMember> Condition(
-                IEnumerable<MethodMember> ruleTypes,
-                Architecture architecture
-            )
-            {
-                var archUnitTypeList = new List<IType>();
-                foreach (var type in typeList)
-                {
-                    try
-                    {
-                        var archUnitType = architecture.GetITypeOfType(type);
-                        archUnitTypeList.Add(archUnitType);
-                    }
-                    catch (TypeDoesNotExistInArchitecture)
-                    {
-                        //ignore, can't have a dependency anyways
-                    }
-                }
-                return ruleTypes.Where(type =>
-                    !type.GetBodyTypeMemberDependencies()
-                        .Select(dependency => dependency.Target)
-                        .Intersect(archUnitTypeList)
-                        .Any()
-                );
-            }
-
-            string description;
-            if (typeList.IsNullOrEmpty())
-            {
-                description =
-                    "do not have dependencies in method body to one of no types (always true)";
-            }
-            else
-            {
-                var firstType = typeList.First();
-                description = typeList
-                    .Where(type => type != firstType)
-                    .Distinct()
-                    .Aggregate(
-                        "do not have dependencies in method body to \"" + firstType.FullName + "\"",
-                        (current, type) => current + " or \"" + type.FullName + "\""
-                    );
-            }
-
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
+            var description = objectProvider.FormatDescription(
+                "do not have dependencies in method body to one of no types (always true)",
+                "do not have dependencies in method body to",
+                "do not have dependencies in method body to any"
+            );
+            return new ArchitecturePredicate<MethodMember>(Filter, description);
         }
 
         public static IPredicate<MethodMember> DoNotHaveReturnType(
-            IType firstType,
-            params IType[] moreTypes
+            IObjectProvider<IType> objectProvider
         )
         {
-            var types = new List<IType> { firstType };
-            types.AddRange(moreTypes);
-            return DoNotHaveReturnType(types);
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveReturnType(IEnumerable<IType> types)
-        {
-            var typeList = types.ToList();
-            var typeStringList = typeList.Select(type => type.FullName).ToList();
-            var description =
-                "do not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
-
-            return new SimplePredicate<MethodMember>(
-                member => typeList.Any(type => !member.ReturnType.FullNameEquals(type.FullName)),
-                description
-            );
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveReturnType(IObjectProvider<IType> types)
-        {
-            IEnumerable<MethodMember> Condition(
+            IEnumerable<MethodMember> Filter(
                 IEnumerable<MethodMember> methodMembers,
                 Architecture architecture
             )
             {
-                var typeList = types.GetObjects(architecture).ToList();
-                var methodMemberList = methodMembers.ToList();
-                return methodMemberList.Where(methodMember =>
-                    typeList.All(type => !methodMember.ReturnType.FullNameEquals(type.FullName))
+                var isForbiddenType = CreateLookupFn(
+                    objectProvider.GetObjects(architecture).ToList()
+                );
+                return methodMembers.Where(methodMember =>
+                    !isForbiddenType(methodMember.ReturnType)
                 );
             }
 
-            var description = "do not have return type " + types.Description;
-            return new ArchitecturePredicate<MethodMember>(Condition, description);
-        }
-
-        public static IPredicate<MethodMember> DoNotHaveReturnType(
-            Type firstType,
-            params Type[] moreTypes
-        )
-        {
-            var types = new List<Type> { firstType };
-            types.AddRange(moreTypes);
-            return DoNotHaveReturnType(types);
+            var description = objectProvider.FormatDescription(
+                "do not have return type of no types (always true)",
+                "do not have return type",
+                "do not have return type"
+            );
+            return new ArchitecturePredicate<MethodMember>(Filter, description);
         }
 
         public static IPredicate<MethodMember> DoNotHaveReturnType(IEnumerable<Type> types)
         {
             var typeList = types.ToList();
-            var typeStringList = typeList.Select(type => type.ToString()).ToList();
-            var description =
-                "do not have return type \"" + string.Join("\" or \"", typeStringList) + "\"";
 
-            return new SimplePredicate<MethodMember>(
-                member => typeList.All(type => !member.ReturnTypeInstance.MatchesType(type)),
-                description
+            IEnumerable<MethodMember> Filter(
+                IEnumerable<MethodMember> methodMembers,
+                Architecture architecture
+            )
+            {
+                return methodMembers.Where(methodMember =>
+                    typeList.All(type => !methodMember.ReturnTypeInstance.MatchesType(type))
+                );
+            }
+
+            var typeDescription = string.Join(
+                " or ",
+                typeList.Select(type => $"\"{type.FullName}\"")
             );
+            var description = typeList.Count == 0
+                ? "do not have return type of no types (always true)"
+                : $"do not have return type {typeDescription}";
+            return new ArchitecturePredicate<MethodMember>(Filter, description);
         }
     }
 }

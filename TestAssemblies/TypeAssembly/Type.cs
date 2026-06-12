@@ -152,3 +152,74 @@ public class ClassWithStaticMethod
 {
     public static void StaticMethod() { }
 }
+
+// Method member test classes
+public class ClassWithVirtualMethod
+{
+    public virtual void VirtualMethod() { }
+}
+
+public class OtherClassWithVirtualMethod
+{
+    public virtual void OtherVirtualMethod() { }
+}
+
+public class ClassWithNonVirtualMethod
+{
+    public void NonVirtualMethod() { }
+}
+
+public class ClassWithStringReturnType
+{
+    public string MethodReturningString()
+    {
+        return "";
+    }
+}
+
+public class ClassWithIntReturnType
+{
+    public int MethodReturningInt()
+    {
+        return 0;
+    }
+}
+
+public class ClassWithRegularClassReturnType
+{
+    public RegularClass MethodReturningRegularClass()
+    {
+        return new RegularClass();
+    }
+}
+
+public class ClassWithOtherRegularClassReturnType
+{
+    public OtherRegularClass MethodReturningOtherRegularClass()
+    {
+        return new OtherRegularClass();
+    }
+}
+
+// Generic return type test classes
+public class GenericClass<T> { }
+
+public class GenericClass<T1, T2> { }
+
+public class ClassWithGenericReturnType
+{
+    public GenericClass<RegularClass> MethodReturningGenericClass()
+    {
+        return new GenericClass<RegularClass>();
+    }
+
+    public GenericClass<OtherRegularClass> MethodReturningGenericClassWithOtherArg()
+    {
+        return new GenericClass<OtherRegularClass>();
+    }
+
+    public GenericClass<RegularClass, OtherRegularClass> MethodReturningTwoArgGenericClass()
+    {
+        return new GenericClass<RegularClass, OtherRegularClass>();
+    }
+}

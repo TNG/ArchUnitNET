@@ -24,3 +24,18 @@ public class MethodDependencyClass
 
     public void MethodWithoutDependencies() { }
 }
+
+public class OtherCallingClass
+{
+    public void MethodCallingCalledMethod()
+    {
+        var dep = new MethodDependencyClass();
+        dep.CalledMethod();
+    }
+
+    public void AnotherMethodCallingCalledMethod()
+    {
+        var dep = new MethodDependencyClass();
+        dep.CalledMethod1();
+    }
+}
