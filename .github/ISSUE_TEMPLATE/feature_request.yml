@@ -1,0 +1,26 @@
+name: Feature Request
+description: Are you missing a feature in ArchUnitNET?
+title: "[Feature]: "
+labels: ["needs-triage", "kind/feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping to improve ArchUnitNET!
+        Please fill out the sections below to help us understand your feature request.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Provide an overview of the requested functionality.
+      placeholder: I would like to see a feature that allows me to...
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case(s)
+      description: Provide any relevant use-cases.
+      placeholder: This feature would be useful in scenarios where...
+    validations:
+      required: false
