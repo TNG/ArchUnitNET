@@ -1,0 +1,81 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.RegularClass" should not be value types
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.RegularClass" should be Types that are not value types
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.SimpleEnum" should not be value types
+Result: False
+Description: TypeNamespace.SimpleEnum is a value type
+Message: 
+"Types that are "TypeNamespace.SimpleEnum" should not be value types" failed:
+	TypeNamespace.SimpleEnum is a value type
+
+
+
+Query: Types that are "TypeNamespace.SimpleStruct" should not be value types
+Result: False
+Description: TypeNamespace.SimpleStruct is a value type
+Message: 
+"Types that are "TypeNamespace.SimpleStruct" should not be value types" failed:
+	TypeNamespace.SimpleStruct is a value type
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.SimpleEnum" should be Types that are not value types
+Result: False
+Description: TypeNamespace.SimpleEnum is not Types that are not value types
+Message: 
+"Types that are "TypeNamespace.SimpleEnum" should be Types that are not value types" failed:
+	TypeNamespace.SimpleEnum is not Types that are not value types
+
+
+
+Query: Types that are "TypeNamespace.SimpleStruct" should be Types that are not value types
+Result: False
+Description: TypeNamespace.SimpleStruct is not Types that are not value types
+Message: 
+"Types that are "TypeNamespace.SimpleStruct" should be Types that are not value types" failed:
+	TypeNamespace.SimpleStruct is not Types that are not value types
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should not be value types
+Result: True
+Description: TypeNamespace.RegularClass passed
+Result: True
+Description: TypeNamespace.OtherRegularClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.SimpleEnum" should not be value types
+Result: False
+Description: TypeNamespace.SimpleEnum is a value type
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+"Types that are "TypeNamespace.RegularClass" or "TypeNamespace.SimpleEnum" should not be value types" failed:
+	TypeNamespace.SimpleEnum is a value type
+
+
+

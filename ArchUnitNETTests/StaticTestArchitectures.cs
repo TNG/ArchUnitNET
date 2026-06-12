@@ -4,6 +4,7 @@ using ArchUnitNET.xUnit;
 using ArchUnitNETTests.Domain.Dependencies.Attributes;
 using ArchUnitNETTests.Domain.Dependencies.Members;
 using TestAssembly;
+using TypeNamespace;
 
 // ReSharper disable InconsistentNaming
 
@@ -25,7 +26,7 @@ namespace ArchUnitNETTests
             .LoadAssemblies(typeof(AttributeNamespace.ClassWithoutAttributes).Assembly)
             .Build();
 
-        public static readonly Architecture DependencyArchitecture = new ArchLoader()
+        public static readonly Architecture TypeDependencyArchitecture = new ArchLoader()
             .WithoutRuleEvaluationCache()
             .WithoutArchitectureCache()
             .LoadAssemblies(typeof(TypeDependencyNamespace.BaseClass).Assembly)
@@ -35,12 +36,6 @@ namespace ArchUnitNETTests
             .WithoutRuleEvaluationCache()
             .WithoutArchitectureCache()
             .LoadAssemblies(typeof(MethodDependencyNamespace.MethodDependencyClass).Assembly)
-            .Build();
-
-        public static readonly Architecture InterfaceArchitecture = new ArchLoader()
-            .WithoutRuleEvaluationCache()
-            .WithoutArchitectureCache()
-            .LoadAssemblies(typeof(InterfaceAssembly.IBaseInterface).Assembly)
             .Build();
 
         public static readonly Architecture LoaderTestArchitecture = new ArchLoader()
@@ -56,6 +51,12 @@ namespace ArchUnitNETTests
             .WithoutRuleEvaluationCache()
             .WithoutArchitectureCache()
             .LoadAssemblies(typeof(VisibilityNamespace.PublicClass).Assembly)
+            .Build();
+
+        public static readonly Architecture TypeArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
+            .LoadAssemblies(typeof(TypeNamespace.RegularClass).Assembly)
             .Build();
 
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture = new ArchLoader()

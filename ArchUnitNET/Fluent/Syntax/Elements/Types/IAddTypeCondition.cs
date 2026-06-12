@@ -10,11 +10,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         : IAddObjectCondition<TNextElement, TRuleType>
         where TRuleType : ICanBeAnalyzed
     {
-        TNextElement Be(Type firstType, params Type[] moreTypes);
+        TNextElement Be(params Type[] types);
         TNextElement Be(IEnumerable<Type> types);
 
-        TNextElement BeAssignableTo(IType firstType, params IType[] moreTypes);
-        TNextElement BeAssignableTo(Type type, params Type[] moreTypes);
+        TNextElement BeAssignableTo();
+        TNextElement BeAssignableTo(params IType[] types);
+        TNextElement BeAssignableTo(params Type[] types);
         TNextElement BeAssignableTo(IObjectProvider<IType> types);
         TNextElement BeAssignableTo(IEnumerable<IType> types);
         TNextElement BeAssignableTo(IEnumerable<Type> types);
@@ -55,11 +56,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-        TNextElement NotBe(Type firstType, params Type[] moreTypes);
+        TNextElement NotBe(params Type[] types);
         TNextElement NotBe(IEnumerable<Type> types);
 
-        TNextElement NotBeAssignableTo(IType type, params IType[] moreTypes);
-        TNextElement NotBeAssignableTo(Type type, params Type[] moreTypes);
+        TNextElement NotBeAssignableTo();
+        TNextElement NotBeAssignableTo(params IType[] types);
+        TNextElement NotBeAssignableTo(params Type[] types);
         TNextElement NotBeAssignableTo(IObjectProvider<IType> types);
         TNextElement NotBeAssignableTo(IEnumerable<IType> types);
         TNextElement NotBeAssignableTo(IEnumerable<Type> types);

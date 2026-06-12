@@ -20,7 +20,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task AreTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
 
         // Single argument
         var predicates = new List<GivenTypesConjunction> {
@@ -62,7 +62,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task BeTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ChildClass).Should();
         should.Be(helper.ChildClass).AssertNoViolations(helper);
@@ -102,7 +102,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task BeTypesThatTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ChildClass).Should();
         should.BeTypesThat().Are(helper.ChildClass).AssertNoViolations(helper);
@@ -249,7 +249,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task CallAnyTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new MethodDependencyAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = MethodMembers().That().Are(helper.MethodWithSingleDependency).Should();
@@ -320,7 +320,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task DependOnAnyTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ChildClass).Should();
@@ -429,7 +429,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task DependOnAnyTypesThatTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         Types().That().Are(helper.ChildClass).Should().DependOnAnyTypesThat().Are(helper.BaseClass).AssertNoViolations(helper);
 
@@ -441,7 +441,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task ExistTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         Types().That().Are(helper.BaseClass).Should().Exist().AssertNoViolations(helper);
         Types().That().Are(helper.BaseClassSystemType).Should().Exist().AssertNoViolations(helper);
@@ -476,7 +476,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task FollowCustomConditionTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ChildClass).Should();
@@ -506,7 +506,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task FollowCustomPredicateTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ChildClass).Should();
@@ -1072,7 +1072,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task HaveNameTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.BaseClass).Should();
 
@@ -1153,7 +1153,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotBeTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().DependOnAny(helper.BaseClass).Should();
@@ -1225,7 +1225,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotCallAnyTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new MethodDependencyAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = MethodMembers().That().Are(helper.MethodWithSingleDependency).Should();
@@ -1294,7 +1294,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotDependOnAnyTypesThatTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         Types().That().Are(helper.BaseClass).Should().NotDependOnAnyTypesThat().Are(helper.ChildClass).AssertNoViolations(helper);
 
@@ -1306,7 +1306,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotDependOnAnyTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ChildClass).Should();
@@ -1409,7 +1409,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotExistTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().DependOnAny(helper.ChildClass).Should();
         should.NotExist().AssertNoViolations(helper);
@@ -1936,7 +1936,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotHaveNameTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.BaseClass).Should();
@@ -2018,7 +2018,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task OnlyDependOnTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ChildClass).Should();
@@ -2101,7 +2101,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task OnlyDependOnTypesThatTest()
     {
-        var helper = new DependencyAssemblyTestHelper();
+        var helper = new TypeDependencyAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ChildClass).Should();
         should.OnlyDependOnTypesThat().Are(helper.BaseClass).AssertNoViolations(helper);

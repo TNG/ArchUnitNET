@@ -16,20 +16,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             : base(ruleCreator) { }
 
         // csharpier-ignore-start
-        public TNextElement Be(Type firstType, params Type[] moreTypes) => CreateNextElement(TypeConditionsDefinition<TRuleType>.Be(firstType, moreTypes));
-        public TNextElement Be(IEnumerable<Type> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.Be(types));
+        public TNextElement Be(params Type[] types) => Be(new SystemTypeObjectProvider<IType>(types));
+        public TNextElement Be(IEnumerable<Type> types) => Be(new SystemTypeObjectProvider<IType>(types));
+        public TNextElement Be(IObjectProvider<IType> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.Be(types));
 
-        public TNextElement BeAssignableTo(IType firstType, params IType[] moreTypes) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeAssignableTo(firstType, moreTypes));
-        public TNextElement BeAssignableTo(Type firstType, params Type[] moreTypes) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeAssignableTo(firstType, moreTypes));
+        public TNextElement BeAssignableTo() => BeAssignableTo(new ObjectProvider<IType>());
+        public TNextElement BeAssignableTo(params IType[] types) => BeAssignableTo(new ObjectProvider<IType>(types));
+        public TNextElement BeAssignableTo(params Type[] types) => BeAssignableTo(new SystemTypeObjectProvider<IType>(types));
         public TNextElement BeAssignableTo(IObjectProvider<IType> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeAssignableTo(types));
-        public TNextElement BeAssignableTo(IEnumerable<IType> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeAssignableTo(types));
-        public TNextElement BeAssignableTo(IEnumerable<Type> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeAssignableTo(types));
+        public TNextElement BeAssignableTo(IEnumerable<IType> types) => BeAssignableTo(new ObjectProvider<IType>(types));
+        public TNextElement BeAssignableTo(IEnumerable<Type> types) => BeAssignableTo(new SystemTypeObjectProvider<IType>(types));
 
-        public TNextElement BeNestedIn(IType firstType, params IType[] moreTypes) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeNestedIn(firstType, moreTypes));
-        public TNextElement BeNestedIn(Type firstType, params Type[] moreTypes) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeNestedIn(firstType, moreTypes));
+        public TNextElement BeNestedIn() => BeNestedIn(new ObjectProvider<IType>());
+        public TNextElement BeNestedIn(params IType[] types) => BeNestedIn(new ObjectProvider<IType>(types));
+        public TNextElement BeNestedIn(params Type[] types) => BeNestedIn(new SystemTypeObjectProvider<IType>(types));
         public TNextElement BeNestedIn(IObjectProvider<IType> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeNestedIn(types));
-        public TNextElement BeNestedIn(IEnumerable<IType> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeNestedIn(types));
-        public TNextElement BeNestedIn(IEnumerable<Type> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeNestedIn(types));
+        public TNextElement BeNestedIn(IEnumerable<IType> types) => BeNestedIn(new ObjectProvider<IType>(types));
+        public TNextElement BeNestedIn(IEnumerable<Type> types) => BeNestedIn(new SystemTypeObjectProvider<IType>(types));
 
         public TNextElement BeValueTypes() => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeValueTypes());
         public TNextElement BeEnums() => CreateNextElement(TypeConditionsDefinition<TRuleType>.BeEnums());
@@ -68,14 +71,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-        public TNextElement NotBe(Type firstType, params Type[] moreTypes) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBe(firstType, moreTypes));
-        public TNextElement NotBe(IEnumerable<Type> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBe(types));
+        public TNextElement NotBe(params Type[] types) => NotBe(new SystemTypeObjectProvider<IType>(types));
+        public TNextElement NotBe(IEnumerable<Type> types) => NotBe(new SystemTypeObjectProvider<IType>(types));
+        public TNextElement NotBe(IObjectProvider<IType> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBe(types));
 
-        public TNextElement NotBeAssignableTo(IType firstType, params IType[] moreTypes) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBeAssignableTo(firstType, moreTypes));
-        public TNextElement NotBeAssignableTo(Type firstType, params Type[] moreTypes) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBeAssignableTo(firstType, moreTypes));
+        public TNextElement NotBeAssignableTo() => NotBeAssignableTo(new ObjectProvider<IType>());
+        public TNextElement NotBeAssignableTo(params IType[] types) => NotBeAssignableTo(new ObjectProvider<IType>(types));
+        public TNextElement NotBeAssignableTo(params Type[] types) => NotBeAssignableTo(new SystemTypeObjectProvider<IType>(types));
         public TNextElement NotBeAssignableTo(IObjectProvider<IType> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBeAssignableTo(types));
-        public TNextElement NotBeAssignableTo(IEnumerable<IType> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBeAssignableTo(types));
-        public TNextElement NotBeAssignableTo(IEnumerable<Type> types) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBeAssignableTo(types));
+        public TNextElement NotBeAssignableTo(IEnumerable<IType> types) => NotBeAssignableTo(new ObjectProvider<IType>(types));
+        public TNextElement NotBeAssignableTo(IEnumerable<Type> types) => NotBeAssignableTo(new SystemTypeObjectProvider<IType>(types));
 
         public TNextElement NotBeValueTypes() => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBeValueTypes());
         public TNextElement NotBeEnums() => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotBeEnums());

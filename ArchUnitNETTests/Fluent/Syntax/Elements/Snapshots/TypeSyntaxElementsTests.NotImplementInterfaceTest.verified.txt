@@ -1,0 +1,103 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassNotImplementingInterface" should not implement interface "TypeNamespace.ITestInterface"
+Result: True
+Description: TypeNamespace.ClassNotImplementingInterface passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.ClassNotImplementingInterface" should not implement interface "TypeNamespace.ITestInterface"
+Result: True
+Description: TypeNamespace.ClassNotImplementingInterface passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassNotImplementingInterface" should be Types that do not implement interface "TypeNamespace.ITestInterface"
+Result: True
+Description: TypeNamespace.ClassNotImplementingInterface passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.ClassNotImplementingInterface" should be Types that do not implement interface "TypeNamespace.ITestInterface"
+Result: True
+Description: TypeNamespace.ClassNotImplementingInterface passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassImplementingInterface" should not implement interface "TypeNamespace.ITestInterface"
+Result: False
+Description: TypeNamespace.ClassImplementingInterface does implement interface "TypeNamespace.ITestInterface"
+Message: 
+"Types that are "TypeNamespace.ClassImplementingInterface" should not implement interface "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.ClassImplementingInterface does implement interface "TypeNamespace.ITestInterface"
+
+
+
+Query: Types that are "TypeNamespace.ClassImplementingInterface" should not implement interface "TypeNamespace.ITestInterface"
+Result: False
+Description: TypeNamespace.ClassImplementingInterface does implement interface "TypeNamespace.ITestInterface"
+Message: 
+"Types that are "TypeNamespace.ClassImplementingInterface" should not implement interface "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.ClassImplementingInterface does implement interface "TypeNamespace.ITestInterface"
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassImplementingInterface" should be Types that do not implement interface "TypeNamespace.ITestInterface"
+Result: False
+Description: TypeNamespace.ClassImplementingInterface is not Types that do not implement interface "TypeNamespace.ITestInterface"
+Message: 
+"Types that are "TypeNamespace.ClassImplementingInterface" should be Types that do not implement interface "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.ClassImplementingInterface is not Types that do not implement interface "TypeNamespace.ITestInterface"
+
+
+
+Query: Types that are "TypeNamespace.ClassImplementingInterface" should be Types that do not implement interface "TypeNamespace.ITestInterface"
+Result: False
+Description: TypeNamespace.ClassImplementingInterface is not Types that do not implement interface "TypeNamespace.ITestInterface"
+Message: 
+"Types that are "TypeNamespace.ClassImplementingInterface" should be Types that do not implement interface "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.ClassImplementingInterface is not Types that do not implement interface "TypeNamespace.ITestInterface"
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.ClassNotImplementingInterface" or "TypeNamespace.ClassImplementingInterface" should not implement interface "TypeNamespace.ITestInterface"
+Result: False
+Description: TypeNamespace.ClassImplementingInterface does implement interface "TypeNamespace.ITestInterface"
+Result: True
+Description: TypeNamespace.ClassNotImplementingInterface passed
+Message: 
+"Types that are "TypeNamespace.ClassNotImplementingInterface" or "TypeNamespace.ClassImplementingInterface" should not implement interface "TypeNamespace.ITestInterface"" failed:
+	TypeNamespace.ClassImplementingInterface does implement interface "TypeNamespace.ITestInterface"
+
+
+
+===== Type not in architecture =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.ClassImplementingInterface" should not implement interface "System.IDisposable"
+Result: True
+Description: TypeNamespace.ClassImplementingInterface passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.ClassImplementingInterface" should be Types that do not implement interface "System.IDisposable"
+Result: True
+Description: TypeNamespace.ClassImplementingInterface passed
+Message: 
+All Evaluations passed
+

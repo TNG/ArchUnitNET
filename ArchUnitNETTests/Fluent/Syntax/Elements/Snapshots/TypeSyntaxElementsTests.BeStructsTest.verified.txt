@@ -1,0 +1,81 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.SimpleStruct" should be structs
+Result: True
+Description: TypeNamespace.SimpleStruct passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.SimpleStruct" should be Types that are structs
+Result: True
+Description: TypeNamespace.SimpleStruct passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.RegularClass" should be structs
+Result: False
+Description: TypeNamespace.RegularClass is no struct
+Message: 
+"Types that are "TypeNamespace.RegularClass" should be structs" failed:
+	TypeNamespace.RegularClass is no struct
+
+
+
+Query: Types that are "TypeNamespace.SimpleEnum" should be structs
+Result: False
+Description: TypeNamespace.SimpleEnum is no struct
+Message: 
+"Types that are "TypeNamespace.SimpleEnum" should be structs" failed:
+	TypeNamespace.SimpleEnum is no struct
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.RegularClass" should be Types that are structs
+Result: False
+Description: TypeNamespace.RegularClass is not Types that are structs
+Message: 
+"Types that are "TypeNamespace.RegularClass" should be Types that are structs" failed:
+	TypeNamespace.RegularClass is not Types that are structs
+
+
+
+Query: Types that are "TypeNamespace.SimpleEnum" should be Types that are structs
+Result: False
+Description: TypeNamespace.SimpleEnum is not Types that are structs
+Message: 
+"Types that are "TypeNamespace.SimpleEnum" should be Types that are structs" failed:
+	TypeNamespace.SimpleEnum is not Types that are structs
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.SimpleStruct" or "TypeNamespace.OtherStruct" should be structs
+Result: True
+Description: TypeNamespace.SimpleStruct passed
+Result: True
+Description: TypeNamespace.OtherStruct passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.SimpleStruct" or "TypeNamespace.RegularClass" should be structs
+Result: True
+Description: TypeNamespace.SimpleStruct passed
+Result: False
+Description: TypeNamespace.RegularClass is no struct
+Message: 
+"Types that are "TypeNamespace.SimpleStruct" or "TypeNamespace.RegularClass" should be structs" failed:
+	TypeNamespace.RegularClass is no struct
+
+
+

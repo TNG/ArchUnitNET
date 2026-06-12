@@ -14,20 +14,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             : base(archRuleCreator) { }
 
         // csharpier-ignore-start
-        public TNextElement Are(Type firstType, params Type[] moreTypes) => CreateNextElement(TypePredicatesDefinition<TRuleType>.Are(firstType, moreTypes));
-        public TNextElement Are(IEnumerable<Type> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.Are(types));
+        public TNextElement Are(params Type[] types) => Are(new SystemTypeObjectProvider<IType>(types));
+        public TNextElement Are(IEnumerable<Type> types) => Are(new SystemTypeObjectProvider<IType>(types));
+        public TNextElement Are(IObjectProvider<IType> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.Are(types));
 
-        public TNextElement AreAssignableTo(IType firstType, params IType[] moreTypes) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreAssignableTo(firstType, moreTypes));
-        public TNextElement AreAssignableTo(Type firstType, params Type[] moreTypes) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreAssignableTo(firstType, moreTypes));
+        public TNextElement AreAssignableTo() => AreAssignableTo(new ObjectProvider<IType>());
+        public TNextElement AreAssignableTo(params IType[] types) => AreAssignableTo(new ObjectProvider<IType>(types));
+        public TNextElement AreAssignableTo(params Type[] types) => AreAssignableTo(new SystemTypeObjectProvider<IType>(types));
         public TNextElement AreAssignableTo(IObjectProvider<IType> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreAssignableTo(types));
-        public TNextElement AreAssignableTo(IEnumerable<IType> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreAssignableTo(types));
-        public TNextElement AreAssignableTo(IEnumerable<Type> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreAssignableTo(types));
+        public TNextElement AreAssignableTo(IEnumerable<IType> types) => AreAssignableTo(new ObjectProvider<IType>(types));
+        public TNextElement AreAssignableTo(IEnumerable<Type> types) => AreAssignableTo(new SystemTypeObjectProvider<IType>(types));
 
-        public TNextElement AreNestedIn(IType firstType, params IType[] moreTypes) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNestedIn(firstType, moreTypes));
-        public TNextElement AreNestedIn(Type firstType, params Type[] moreTypes) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNestedIn(firstType, moreTypes));
+        public TNextElement AreNestedIn() => AreNestedIn(new ObjectProvider<IType>());
+        public TNextElement AreNestedIn(params IType[] types) => AreNestedIn(new ObjectProvider<IType>(types));
+        public TNextElement AreNestedIn(params Type[] types) => AreNestedIn(new SystemTypeObjectProvider<IType>(types));
         public TNextElement AreNestedIn(IObjectProvider<IType> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNestedIn(types));
-        public TNextElement AreNestedIn(IEnumerable<IType> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNestedIn(types));
-        public TNextElement AreNestedIn(IEnumerable<Type> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNestedIn(types));
+        public TNextElement AreNestedIn(IEnumerable<IType> types) => AreNestedIn(new ObjectProvider<IType>(types));
+        public TNextElement AreNestedIn(IEnumerable<Type> types) => AreNestedIn(new SystemTypeObjectProvider<IType>(types));
 
         public TNextElement AreValueTypes() => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreValueTypes());
         public TNextElement AreEnums() => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreEnums());
@@ -60,14 +63,16 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         //Negations
 
-        public TNextElement AreNot(Type firstType, params Type[] moreTypes) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNot(firstType, moreTypes));
-        public TNextElement AreNot(IEnumerable<Type> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNot(types));
+        public TNextElement AreNot(params Type[] types) => AreNot(new SystemTypeObjectProvider<IType>(types));
+        public TNextElement AreNot(IEnumerable<Type> types) => AreNot(new SystemTypeObjectProvider<IType>(types));
+        public TNextElement AreNot(IObjectProvider<IType> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNot(types));
 
-        public TNextElement AreNotAssignableTo(IType firstType, params IType[] moreTypes) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotAssignableTo(firstType, moreTypes));
-        public TNextElement AreNotAssignableTo(Type firstType, params Type[] moreTypes) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotAssignableTo(firstType, moreTypes));
+        public TNextElement AreNotAssignableTo() => AreNotAssignableTo(new ObjectProvider<IType>());
+        public TNextElement AreNotAssignableTo(params IType[] types) => AreNotAssignableTo(new ObjectProvider<IType>(types));
+        public TNextElement AreNotAssignableTo(params Type[] types) => AreNotAssignableTo(new SystemTypeObjectProvider<IType>(types));
         public TNextElement AreNotAssignableTo(IObjectProvider<IType> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotAssignableTo(types));
-        public TNextElement AreNotAssignableTo(IEnumerable<IType> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotAssignableTo(types));
-        public TNextElement AreNotAssignableTo(IEnumerable<Type> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotAssignableTo(types));
+        public TNextElement AreNotAssignableTo(IEnumerable<IType> types) => AreNotAssignableTo(new ObjectProvider<IType>(types));
+        public TNextElement AreNotAssignableTo(IEnumerable<Type> types) => AreNotAssignableTo(new SystemTypeObjectProvider<IType>(types));
 
         public TNextElement AreNotValueTypes() => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotValueTypes());
         public TNextElement AreNotEnums() => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotEnums());

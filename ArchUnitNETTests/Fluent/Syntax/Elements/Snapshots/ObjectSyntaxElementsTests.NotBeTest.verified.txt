@@ -101,12 +101,12 @@ Message:
 
 Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+Description: TypeDependencyNamespace.ChildClass is "TypeDependencyNamespace.ChildClass"
 Result: True
 Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 "Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+	TypeDependencyNamespace.ChildClass is "TypeDependencyNamespace.ChildClass"
 
 
 
@@ -134,12 +134,12 @@ Message:
 
 Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"
 Result: False
-Description: TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+Description: TypeDependencyNamespace.ChildClass is "TypeDependencyNamespace.ChildClass"
 Result: True
 Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 "Types that depend on "TypeDependencyNamespace.BaseClass" should not be "TypeDependencyNamespace.ChildClass"" failed:
-	TypeDependencyNamespace.ChildClass is TypeDependencyNamespace.ChildClass
+	TypeDependencyNamespace.ChildClass is "TypeDependencyNamespace.ChildClass"
 
 
 
@@ -204,7 +204,7 @@ Message:
 
 ----- Conditions -----
 
-Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be any of no objects (always true)
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should exist
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -220,7 +220,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on "TypeDependencyNamespace.BaseClass" should not be no type (always true)
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should exist
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -238,7 +238,7 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be Types that are not any of no objects (always true)
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be Types that are all types
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
@@ -254,7 +254,7 @@ Description: TypeDependencyNamespace.OtherChildClass passed
 Message: 
 All Evaluations passed
 
-Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be Types that are not no types (always true)
+Query: Types that depend on "TypeDependencyNamespace.BaseClass" should be Types that are all types
 Result: True
 Description: TypeDependencyNamespace.ChildClass passed
 Result: True
