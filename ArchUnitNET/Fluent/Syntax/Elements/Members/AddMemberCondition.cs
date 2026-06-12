@@ -14,11 +14,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             : base(ruleCreator) { }
 
         // csharpier-ignore-start
-        public TNextElement BeDeclaredIn(IType firstType, params IType[] moreTypes) => CreateNextElement(MemberConditionsDefinition<TRuleType>.BeDeclaredIn(firstType, moreTypes));
-        public TNextElement BeDeclaredIn(Type firstType, params Type[] moreTypes) => CreateNextElement(MemberConditionsDefinition<TRuleType>.BeDeclaredIn(firstType, moreTypes));
+        public TNextElement BeDeclaredIn() => BeDeclaredIn(new ObjectProvider<IType>());
+        public TNextElement BeDeclaredIn(params IType[] types) => BeDeclaredIn(new ObjectProvider<IType>(types));
+        public TNextElement BeDeclaredIn(params Type[] types) => BeDeclaredIn(new SystemTypeObjectProvider<IType>(types));
         public TNextElement BeDeclaredIn(IObjectProvider<IType> types) => CreateNextElement(MemberConditionsDefinition<TRuleType>.BeDeclaredIn(types));
-        public TNextElement BeDeclaredIn(IEnumerable<IType> types) => CreateNextElement(MemberConditionsDefinition<TRuleType>.BeDeclaredIn(types));
-        public TNextElement BeDeclaredIn(IEnumerable<Type> types) => CreateNextElement(MemberConditionsDefinition<TRuleType>.BeDeclaredIn(types));
+        public TNextElement BeDeclaredIn(IEnumerable<IType> types) => BeDeclaredIn(new ObjectProvider<IType>(types));
+        public TNextElement BeDeclaredIn(IEnumerable<Type> types) => BeDeclaredIn(new SystemTypeObjectProvider<IType>(types));
 
         public TNextElement BeStatic() => CreateNextElement(MemberConditionsDefinition<TRuleType>.BeStatic());
         public TNextElement BeReadOnly() => CreateNextElement(MemberConditionsDefinition<TRuleType>.BeReadOnly());
@@ -30,11 +31,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Negations
 
-        public TNextElement NotBeDeclaredIn(IType firstType, params IType[] moreTypes) => CreateNextElement(MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(firstType, moreTypes));
-        public TNextElement NotBeDeclaredIn(Type firstType, params Type[] moreTypes) => CreateNextElement(MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(firstType, moreTypes));
+        public TNextElement NotBeDeclaredIn() => NotBeDeclaredIn(new ObjectProvider<IType>());
+        public TNextElement NotBeDeclaredIn(params IType[] types) => NotBeDeclaredIn(new ObjectProvider<IType>(types));
+        public TNextElement NotBeDeclaredIn(params Type[] types) => NotBeDeclaredIn(new SystemTypeObjectProvider<IType>(types));
         public TNextElement NotBeDeclaredIn(IObjectProvider<IType> types) => CreateNextElement(MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(types));
-        public TNextElement NotBeDeclaredIn(IEnumerable<IType> types) => CreateNextElement(MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(types));
-        public TNextElement NotBeDeclaredIn(IEnumerable<Type> types) => CreateNextElement(MemberConditionsDefinition<TRuleType>.NotBeDeclaredIn(types));
+        public TNextElement NotBeDeclaredIn(IEnumerable<IType> types) => NotBeDeclaredIn(new ObjectProvider<IType>(types));
+        public TNextElement NotBeDeclaredIn(IEnumerable<Type> types) => NotBeDeclaredIn(new SystemTypeObjectProvider<IType>(types));
 
         public TNextElement NotBeStatic() => CreateNextElement(MemberConditionsDefinition<TRuleType>.NotBeStatic());
         public TNextElement NotBeReadOnly() => CreateNextElement(MemberConditionsDefinition<TRuleType>.NotBeReadOnly());

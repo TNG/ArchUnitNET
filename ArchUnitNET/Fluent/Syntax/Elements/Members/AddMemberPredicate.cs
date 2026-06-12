@@ -14,11 +14,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
             : base(ruleCreator) { }
 
         // csharpier-ignore-start
-        public TNextElement AreDeclaredIn(IType firstType, params IType[] moreTypes) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(firstType, moreTypes));
-        public TNextElement AreDeclaredIn(Type firstType, params Type[] moreTypes) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(firstType, moreTypes));
+        public TNextElement AreDeclaredIn() => AreDeclaredIn(new ObjectProvider<IType>());
+        public TNextElement AreDeclaredIn(params IType[] types) => AreDeclaredIn(new ObjectProvider<IType>(types));
+        public TNextElement AreDeclaredIn(params Type[] types) => AreDeclaredIn(new SystemTypeObjectProvider<IType>(types));
         public TNextElement AreDeclaredIn(IObjectProvider<IType> types) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(types));
-        public TNextElement AreDeclaredIn(IEnumerable<IType> types) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(types));
-        public TNextElement AreDeclaredIn(IEnumerable<Type> types) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreDeclaredIn(types));
+        public TNextElement AreDeclaredIn(IEnumerable<IType> types) => AreDeclaredIn(new ObjectProvider<IType>(types));
+        public TNextElement AreDeclaredIn(IEnumerable<Type> types) => AreDeclaredIn(new SystemTypeObjectProvider<IType>(types));
 
         public TNextElement AreStatic() => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreStatic());
         public TNextElement AreReadOnly() => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreReadOnly());
@@ -26,11 +27,12 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         //Negations
 
-        public TNextElement AreNotDeclaredIn(IType firstType, params IType[] moreTypes) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(firstType, moreTypes));
-        public TNextElement AreNotDeclaredIn(Type firstType, params Type[] moreTypes) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(firstType, moreTypes));
+        public TNextElement AreNotDeclaredIn() => AreNotDeclaredIn(new ObjectProvider<IType>());
+        public TNextElement AreNotDeclaredIn(params IType[] types) => AreNotDeclaredIn(new ObjectProvider<IType>(types));
+        public TNextElement AreNotDeclaredIn(params Type[] types) => AreNotDeclaredIn(new SystemTypeObjectProvider<IType>(types));
         public TNextElement AreNotDeclaredIn(IObjectProvider<IType> types) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(types));
-        public TNextElement AreNotDeclaredIn(IEnumerable<IType> types) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(types));
-        public TNextElement AreNotDeclaredIn(IEnumerable<Type> types) => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreNotDeclaredIn(types));
+        public TNextElement AreNotDeclaredIn(IEnumerable<IType> types) => AreNotDeclaredIn(new ObjectProvider<IType>(types));
+        public TNextElement AreNotDeclaredIn(IEnumerable<Type> types) => AreNotDeclaredIn(new SystemTypeObjectProvider<IType>(types));
 
         public TNextElement AreNotStatic() => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreNotStatic());
         public TNextElement AreNotReadOnly() => CreateNextElement(MemberPredicatesDefinition<TRuleType>.AreNotReadOnly());

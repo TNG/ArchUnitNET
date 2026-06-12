@@ -536,6 +536,7 @@ namespace ArchUnitNET.Loader
             var isCompilerGenerated = methodReference.IsCompilerGenerated();
             MethodForm methodForm;
             Visibility visibility;
+            bool isVirtual;
             bool isStub;
             bool? isIterator;
             bool? isStatic;
@@ -556,6 +557,7 @@ namespace ArchUnitNET.Loader
                 methodForm = methodReference.HasConstructorName()
                     ? MethodForm.Constructor
                     : MethodForm.Normal;
+                isVirtual = false;
                 isIterator = null;
                 isStatic = null;
                 isStub = true;
@@ -564,6 +566,7 @@ namespace ArchUnitNET.Loader
             {
                 visibility = methodDefinition.GetVisibility();
                 methodForm = methodDefinition.GetMethodForm();
+                isVirtual = methodDefinition.IsVirtual;
                 isIterator = methodDefinition.IsIterator();
                 isStatic = methodDefinition.IsStatic;
                 isStub = false;
@@ -574,7 +577,7 @@ namespace ArchUnitNET.Loader
                 fullName,
                 typeInstance.Type,
                 visibility,
-                false,
+                isVirtual,
                 methodForm,
                 isGeneric,
                 isStub,

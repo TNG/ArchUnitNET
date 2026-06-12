@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" should not be read only
+Result: True
+Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" should be Members that are not read only
+Result: True
+Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should not be read only
+Result: False
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is read only
+Message: 
+"Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should not be read only" failed:
+	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is read only
+
+
+
+----- Predicates -----
+
+Query: Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should be Members that are not read only
+Result: False
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Members that are not read only
+Message: 
+"Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should be Members that are not read only" failed:
+	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Members that are not read only
+
+
+
+===== Multiple inputs =====
+
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.ClassWithInitOnlyProperty::InitOnly... should not be read only
+Result: True
+Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
+Result: True
+Description: System.String TypeNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() passed
+Message: 
+All Evaluations passed
+
+Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should not be read only
+Result: False
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is read only
+Result: True
+Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+"Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" should not be read only" failed:
+	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is read only
+
+
+
