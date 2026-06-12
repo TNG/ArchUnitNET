@@ -165,6 +165,16 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
     public Type ClassWithOtherRegularClassReturnTypeSystemType =
         typeof(ClassWithOtherRegularClassReturnType);
 
+    // Generic return type test classes
+    public Class GenericClassOneArg;
+    public Type GenericClassOneArgSystemType = typeof(GenericClass<>);
+
+    public Class GenericClassTwoArg;
+    public Type GenericClassTwoArgSystemType = typeof(GenericClass<,>);
+
+    public Class ClassWithGenericReturnType;
+    public Type ClassWithGenericReturnTypeSystemType = typeof(ClassWithGenericReturnType);
+
     // Individual members
     public IMember StaticField;
     public IMember NonStaticField;
@@ -187,6 +197,9 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
     public MethodMember ClassWithNonVirtualMethodConstructor;
     public MethodMember MethodReturningRegularClass;
     public MethodMember MethodReturningOtherRegularClass;
+    public MethodMember MethodReturningGenericClass;
+    public MethodMember MethodReturningGenericClassWithOtherArg;
+    public MethodMember MethodReturningTwoArgGenericClass;
 
     public TypeAssemblyTestHelper()
     {
@@ -291,6 +304,13 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
             typeof(ClassWithOtherRegularClassReturnType)
         );
 
+        // Generic return type test classes
+        GenericClassOneArg = Architecture.GetClassOfType(typeof(GenericClass<>));
+        GenericClassTwoArg = Architecture.GetClassOfType(typeof(GenericClass<,>));
+        ClassWithGenericReturnType = Architecture.GetClassOfType(
+            typeof(ClassWithGenericReturnType)
+        );
+
         // Method members (MethodMember type)
         VirtualMethod = ClassWithVirtualMethod.GetMethodMembersWithName("VirtualMethod()").First();
         OtherVirtualMethod = OtherClassWithVirtualMethod
@@ -316,6 +336,15 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
             .First();
         MethodReturningOtherRegularClass = ClassWithOtherRegularClassReturnType
             .GetMethodMembersWithName("MethodReturningOtherRegularClass()")
+            .First();
+        MethodReturningGenericClass = ClassWithGenericReturnType
+            .GetMethodMembersWithName("MethodReturningGenericClass()")
+            .First();
+        MethodReturningGenericClassWithOtherArg = ClassWithGenericReturnType
+            .GetMethodMembersWithName("MethodReturningGenericClassWithOtherArg()")
+            .First();
+        MethodReturningTwoArgGenericClass = ClassWithGenericReturnType
+            .GetMethodMembersWithName("MethodReturningTwoArgGenericClass()")
             .First();
     }
 }

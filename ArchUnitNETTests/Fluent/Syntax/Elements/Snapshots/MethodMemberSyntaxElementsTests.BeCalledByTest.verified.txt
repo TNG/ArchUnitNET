@@ -14,7 +14,7 @@ Description: System.Void MethodDependencyNamespace.MethodDependencyClass::Called
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by Types that are "MethodDependencyNamespace.MethodDependencyClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
@@ -46,7 +46,7 @@ Description: System.Void MethodDependencyNamespace.MethodDependencyClass::Called
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by Types that are "MethodDependencyNamespace.MethodDependencyClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
@@ -86,11 +86,11 @@ Message:
 
 
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be called by Types that are "MethodDependencyNamespace.MethodDependencyClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be called by any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Result: False
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() is not called by Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be called by Types that are "MethodDependencyNamespace.MethodDependencyClass"" failed:
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be called by any Types that are "MethodDependencyNamespace.MethodDependencyClass"" failed:
 	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() is not called by Types that are "MethodDependencyNamespace.MethodDependencyClass"
 
 
@@ -133,12 +133,12 @@ Message:
 
 
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that are called by Types that are "MethodDependencyNamespace.MethodDependencyClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that are called by any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() is not Method members that are called by Types that are "MethodDependencyNamespace.MethodDependencyClass"
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() is not Method members that are called by any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that are called by Types that are "MethodDependencyNamespace.MethodDependencyClass"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() is not Method members that are called by Types that are "MethodDependencyNamespace.MethodDependencyClass"
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that are called by any Types that are "MethodDependencyNamespace.MethodDependencyClass"" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() is not Method members that are called by any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 
 
 
@@ -164,25 +164,25 @@ Message:
 
 ----- Conditions -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
@@ -190,25 +190,25 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() passed
 Message: 
@@ -218,23 +218,41 @@ All Evaluations passed
 
 ----- Conditions -----
 
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by one of no types (impossible)
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not called by 
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by one of no types (impossible)" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not called by 
+
+
+
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by one of no types (impossible)
+Result: False
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not called by 
+Message: 
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by one of no types (impossible)" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not called by 
+
+
+
 ----- Predicates -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (always false)
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (impossible)
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (always false)
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (impossible)
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (always false)" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (always false)
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (impossible)" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (impossible)
 
 
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (always false)
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (impossible)
 Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (always false)
+Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (impossible)
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (always false)" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (always false)
+"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (impossible)" failed:
+	System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (impossible)
 
 
 
@@ -243,24 +261,12 @@ Message:
 ----- Conditions -----
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not called by "AttributeNamespace.ClassWithoutAttributes"
-Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be called by "AttributeNamespace.ClassWithoutAttributes"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not called by "AttributeNamespace.ClassWithoutAttributes"
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates -----
 
 Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by "AttributeNamespace.ClassWithoutAttributes"
-Result: False
-Description: System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by "AttributeNamespace.ClassWithoutAttributes"
-Message: 
-"Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by "AttributeNamespace.ClassWithoutAttributes"" failed:
-	System.Void MethodDependencyNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by "AttributeNamespace.ClassWithoutAttributes"
-
-
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ===== Multiple inputs =====
 

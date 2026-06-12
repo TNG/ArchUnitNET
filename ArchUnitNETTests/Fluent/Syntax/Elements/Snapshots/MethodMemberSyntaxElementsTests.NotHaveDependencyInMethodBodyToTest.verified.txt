@@ -14,7 +14,7 @@ Description: System.Void MethodDependencyNamespace.MethodDependencyClass::Method
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to Types that are "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to any Types that are "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
@@ -46,7 +46,7 @@ Description: System.Void MethodDependencyNamespace.MethodDependencyClass::Method
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to Types that are "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to any Types that are "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
@@ -86,11 +86,11 @@ Message:
 
 
 
-Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should not have dependencies in method body to Types that are "MethodDependencyNamespace.MethodDependencyClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should not have dependencies in method body to any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Result: False
 Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does have dependencies in method body to Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should not have dependencies in method body to Types that are "MethodDependencyNamespace.MethodDependencyClass"" failed:
+"Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should not have dependencies in method body to any Types that are "MethodDependencyNamespace.MethodDependencyClass"" failed:
 	System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does have dependencies in method body to Types that are "MethodDependencyNamespace.MethodDependencyClass"
 
 
@@ -133,12 +133,12 @@ Message:
 
 
 
-Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should be Method members that do not have dependencies in method body to Types that are "MethodDependencyNamespace.MethodDependencyClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should be Method members that do not have dependencies in method body to any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Result: False
-Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() is not Method members that do not have dependencies in method body to Types that are "MethodDependencyNamespace.MethodDependencyClass"
+Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() is not Method members that do not have dependencies in method body to any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 Message: 
-"Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should be Method members that do not have dependencies in method body to Types that are "MethodDependencyNamespace.MethodDependencyClass"" failed:
-	System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() is not Method members that do not have dependencies in method body to Types that are "MethodDependencyNamespace.MethodDependencyClass"
+"Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should be Method members that do not have dependencies in method body to any Types that are "MethodDependencyNamespace.MethodDependencyClass"" failed:
+	System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() is not Method members that do not have dependencies in method body to any Types that are "MethodDependencyNamespace.MethodDependencyClass"
 
 
 
@@ -164,25 +164,25 @@ Message:
 
 ----- Conditions -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should not have dependencies in method body to any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.OtherCallingClass"
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
@@ -190,25 +190,25 @@ All Evaluations passed
 
 ----- Predicates -----
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.O...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespa...
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.O...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespa...
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.O...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespa...
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespace.O...
+Query: Method members that are "System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies()" should be Method members that do not have dependencies in method body to any "MethodDependencyNamespace.MethodDependencyClass" or "MethodDependencyNamespa...
 Result: True
 Description: System.Void MethodDependencyNamespace.MethodDependencyClass::MethodWithoutDependencies() passed
 Message: 
@@ -217,6 +217,18 @@ All Evaluations passed
 ===== Empty arguments =====
 
 ----- Conditions -----
+
+Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should not have dependencies in method body to one of no types (always true)
+Result: True
+Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should not have dependencies in method body to one of no types (always true)
+Result: True
+Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() passed
+Message: 
+All Evaluations passed
 
 ----- Predicates -----
 
@@ -237,18 +249,12 @@ All Evaluations passed
 ----- Conditions -----
 
 Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should not have dependencies in method body to "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ----- Predicates -----
 
 Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should be Method members that do not have dependencies in method body to "AttributeNamespace.ClassWithoutAttributes"
-Result: True
-Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() passed
-Message: 
-All Evaluations passed
+Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
 ===== Multiple inputs =====
 

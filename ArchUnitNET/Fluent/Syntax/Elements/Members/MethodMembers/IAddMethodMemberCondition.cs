@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using ArchUnitNET.Domain;
 
@@ -11,22 +11,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         TNextElement BeConstructor();
         TNextElement BeVirtual();
 
-        TNextElement BeCalledBy(IType firstType, params IType[] moreTypes);
-        TNextElement BeCalledBy(Type type, params Type[] moreTypes);
+        TNextElement BeCalledBy();
+        TNextElement BeCalledBy(params IType[] types);
+        TNextElement BeCalledBy(params Type[] types);
         TNextElement BeCalledBy(IObjectProvider<IType> types);
         TNextElement BeCalledBy(IEnumerable<IType> types);
         TNextElement BeCalledBy(IEnumerable<Type> types);
 
-        TNextElement HaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes);
-        TNextElement HaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes);
+        TNextElement HaveDependencyInMethodBodyTo();
+        TNextElement HaveDependencyInMethodBodyTo(params IType[] types);
+        TNextElement HaveDependencyInMethodBodyTo(params Type[] types);
         TNextElement HaveDependencyInMethodBodyTo(IObjectProvider<IType> types);
         TNextElement HaveDependencyInMethodBodyTo(IEnumerable<IType> types);
         TNextElement HaveDependencyInMethodBodyTo(IEnumerable<Type> types);
 
-        TNextElement HaveReturnType(IType firstType, params IType[] moreTypes);
-        TNextElement HaveReturnType(IEnumerable<IType> types);
+        TNextElement HaveReturnType();
+        TNextElement HaveReturnType(params IType[] types);
+        TNextElement HaveReturnType(params Type[] types);
         TNextElement HaveReturnType(IObjectProvider<IType> types);
-        TNextElement HaveReturnType(Type type, params Type[] moreTypes);
+        TNextElement HaveReturnType(IEnumerable<IType> types);
         TNextElement HaveReturnType(IEnumerable<Type> types);
 
         //Negations
@@ -34,22 +37,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
         TNextElement BeNoConstructor();
         TNextElement NotBeVirtual();
 
-        TNextElement NotBeCalledBy(IType firstType, params IType[] moreTypes);
-        TNextElement NotBeCalledBy(Type type, params Type[] moreTypes);
+        TNextElement NotBeCalledBy();
+        TNextElement NotBeCalledBy(params IType[] types);
+        TNextElement NotBeCalledBy(params Type[] types);
         TNextElement NotBeCalledBy(IObjectProvider<IType> types);
         TNextElement NotBeCalledBy(IEnumerable<IType> types);
         TNextElement NotBeCalledBy(IEnumerable<Type> types);
 
-        TNextElement NotHaveDependencyInMethodBodyTo(IType firstType, params IType[] moreTypes);
-        TNextElement NotHaveDependencyInMethodBodyTo(Type type, params Type[] moreTypes);
+        TNextElement NotHaveDependencyInMethodBodyTo();
+        TNextElement NotHaveDependencyInMethodBodyTo(params IType[] types);
+        TNextElement NotHaveDependencyInMethodBodyTo(params Type[] types);
         TNextElement NotHaveDependencyInMethodBodyTo(IObjectProvider<IType> types);
         TNextElement NotHaveDependencyInMethodBodyTo(IEnumerable<IType> types);
         TNextElement NotHaveDependencyInMethodBodyTo(IEnumerable<Type> types);
 
-        TNextElement NotHaveReturnType(IType firstType, params IType[] moreTypes);
-        TNextElement NotHaveReturnType(IEnumerable<IType> types);
+        TNextElement NotHaveReturnType();
+        TNextElement NotHaveReturnType(params IType[] types);
+        TNextElement NotHaveReturnType(params Type[] types);
         TNextElement NotHaveReturnType(IObjectProvider<IType> types);
-        TNextElement NotHaveReturnType(Type type, params Type[] moreTypes);
+        TNextElement NotHaveReturnType(IEnumerable<IType> types);
         TNextElement NotHaveReturnType(IEnumerable<Type> types);
     }
 }
