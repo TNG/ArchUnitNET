@@ -1,0 +1,99 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.ImmutableClass" should be immutable
+Result: True
+Description: ClassNamespace.ImmutableClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.ImmutableClass" should be Classes that are immutable
+Result: True
+Description: ClassNamespace.ImmutableClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.MutableClass" should be immutable
+Result: False
+Description: ClassNamespace.MutableClass is not immutable
+Message: 
+"Classes that are "ClassNamespace.MutableClass" should be immutable" failed:
+	ClassNamespace.MutableClass is not immutable
+
+
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.MutableClass" should be Classes that are immutable
+Result: False
+Description: ClassNamespace.MutableClass is not Classes that are immutable
+Message: 
+"Classes that are "ClassNamespace.MutableClass" should be Classes that are immutable" failed:
+	ClassNamespace.MutableClass is not Classes that are immutable
+
+
+
+===== Multiple inputs =====
+
+Query: Classes that are "ClassNamespace.ImmutableClass" or "ClassNamespace.OtherImmutableClass" should be immutable
+Result: True
+Description: ClassNamespace.ImmutableClass passed
+Result: True
+Description: ClassNamespace.OtherImmutableClass passed
+Message: 
+All Evaluations passed
+
+Query: Classes that are "ClassNamespace.ImmutableClass" or "ClassNamespace.MutableClass" should be immutable
+Result: True
+Description: ClassNamespace.ImmutableClass passed
+Result: False
+Description: ClassNamespace.MutableClass is not immutable
+Message: 
+"Classes that are "ClassNamespace.ImmutableClass" or "ClassNamespace.MutableClass" should be immutable" failed:
+	ClassNamespace.MutableClass is not immutable
+
+
+
+===== Class without members (vacuously immutable) =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.ClassWithoutMembers" should be immutable
+Result: True
+Description: ClassNamespace.ClassWithoutMembers passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.ClassWithoutMembers" should be Classes that are immutable
+Result: True
+Description: ClassNamespace.ClassWithoutMembers passed
+Message: 
+All Evaluations passed
+
+===== Class with only static members (vacuously immutable) =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.ClassWithOnlyStaticMembers" should be immutable
+Result: True
+Description: ClassNamespace.ClassWithOnlyStaticMembers passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.ClassWithOnlyStaticMembers" should be Classes that are immutable
+Result: True
+Description: ClassNamespace.ClassWithOnlyStaticMembers passed
+Message: 
+All Evaluations passed
+

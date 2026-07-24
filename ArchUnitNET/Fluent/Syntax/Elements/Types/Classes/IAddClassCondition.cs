@@ -8,12 +8,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Classes
     {
         TNextElement BeAbstract();
         TNextElement BeSealed();
+        TNextElement BeRecord();
         TNextElement BeImmutable();
 
         //Negations
 
         TNextElement NotBeAbstract();
         TNextElement NotBeSealed();
+        TNextElement NotBeRecord();
         TNextElement NotBeImmutable();
     }
 }
