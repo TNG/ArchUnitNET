@@ -145,3 +145,16 @@ public class OnceUsedAttribute : System.Attribute
 
 [OnceUsed]
 public class ClassWithSingleUniquelyUsedAttribute { }
+
+// Baseline (not abstract, not sealed)
+public class RegularAttribute : System.Attribute { }
+
+public class OtherRegularAttribute : System.Attribute { }
+
+public abstract class AbstractAttribute : System.Attribute { }
+
+public abstract class OtherAbstractAttribute : System.Attribute { }
+
+public sealed class SealedAttribute : System.Attribute { }
+
+public sealed class OtherSealedAttribute : System.Attribute { }

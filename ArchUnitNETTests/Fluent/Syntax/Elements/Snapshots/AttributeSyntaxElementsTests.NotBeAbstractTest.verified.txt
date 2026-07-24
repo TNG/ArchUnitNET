@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" should not be abstract
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" should be Attributes that are not abstract
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Attributes that are "AttributeNamespace.AbstractAttribute" should not be abstract
+Result: False
+Description: AttributeNamespace.AbstractAttribute is abstract
+Message: 
+"Attributes that are "AttributeNamespace.AbstractAttribute" should not be abstract" failed:
+	AttributeNamespace.AbstractAttribute is abstract
+
+
+
+----- Predicates -----
+
+Query: Attributes that are "AttributeNamespace.AbstractAttribute" should be Attributes that are not abstract
+Result: False
+Description: AttributeNamespace.AbstractAttribute is not Attributes that are not abstract
+Message: 
+"Attributes that are "AttributeNamespace.AbstractAttribute" should be Attributes that are not abstract" failed:
+	AttributeNamespace.AbstractAttribute is not Attributes that are not abstract
+
+
+
+===== Multiple inputs =====
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.OtherRegularAttribute" should not be abstract
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
+Result: True
+Description: AttributeNamespace.OtherRegularAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.AbstractAttribute" should not be abstract
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
+Result: False
+Description: AttributeNamespace.AbstractAttribute is abstract
+Message: 
+"Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.AbstractAttribute" should not be abstract" failed:
+	AttributeNamespace.AbstractAttribute is abstract
+
+
+

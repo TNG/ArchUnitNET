@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Attributes that are "AttributeNamespace.SealedAttribute" should be sealed
+Result: True
+Description: AttributeNamespace.SealedAttribute passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Attributes that are "AttributeNamespace.SealedAttribute" should be Attributes that are sealed
+Result: True
+Description: AttributeNamespace.SealedAttribute passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" should be sealed
+Result: False
+Description: AttributeNamespace.RegularAttribute is not sealed
+Message: 
+"Attributes that are "AttributeNamespace.RegularAttribute" should be sealed" failed:
+	AttributeNamespace.RegularAttribute is not sealed
+
+
+
+----- Predicates -----
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" should be Attributes that are sealed
+Result: False
+Description: AttributeNamespace.RegularAttribute is not Attributes that are sealed
+Message: 
+"Attributes that are "AttributeNamespace.RegularAttribute" should be Attributes that are sealed" failed:
+	AttributeNamespace.RegularAttribute is not Attributes that are sealed
+
+
+
+===== Multiple inputs =====
+
+Query: Attributes that are "AttributeNamespace.SealedAttribute" or "AttributeNamespace.OtherSealedAttribute" should be sealed
+Result: True
+Description: AttributeNamespace.SealedAttribute passed
+Result: True
+Description: AttributeNamespace.OtherSealedAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Attributes that are "AttributeNamespace.SealedAttribute" or "AttributeNamespace.RegularAttribute" should be sealed
+Result: False
+Description: AttributeNamespace.RegularAttribute is not sealed
+Result: True
+Description: AttributeNamespace.SealedAttribute passed
+Message: 
+"Attributes that are "AttributeNamespace.SealedAttribute" or "AttributeNamespace.RegularAttribute" should be sealed" failed:
+	AttributeNamespace.RegularAttribute is not sealed
+
+
+

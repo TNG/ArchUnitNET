@@ -86,6 +86,24 @@ public class AttributeAssemblyTestHelpers : AssemblyTestHelper
     public System.Type ClassWithThreeAttributesWithNamedArgumentsSystemType =
         typeof(ClassWithThreeAttributesWithNamedArguments);
 
+    public Attribute RegularAttribute;
+    public System.Type RegularAttributeSystemType = typeof(RegularAttribute);
+
+    public Attribute OtherRegularAttribute;
+    public System.Type OtherRegularAttributeSystemType = typeof(OtherRegularAttribute);
+
+    public Attribute AbstractAttribute;
+    public System.Type AbstractAttributeSystemType = typeof(AbstractAttribute);
+
+    public Attribute OtherAbstractAttribute;
+    public System.Type OtherAbstractAttributeSystemType = typeof(OtherAbstractAttribute);
+
+    public Attribute SealedAttribute;
+    public System.Type SealedAttributeSystemType = typeof(SealedAttribute);
+
+    public Attribute OtherSealedAttribute;
+    public System.Type OtherSealedAttributeSystemType = typeof(OtherSealedAttribute);
+
     public AttributeAssemblyTestHelpers()
     {
         Attribute1 = Architecture.GetAttributeOfType(typeof(Attribute1));
@@ -122,5 +140,11 @@ public class AttributeAssemblyTestHelpers : AssemblyTestHelper
         ClassWithThreeAttributesWithNamedArguments = Architecture.GetClassOfType(
             typeof(ClassWithThreeAttributesWithNamedArguments)
         );
+        RegularAttribute = Architecture.GetAttributeOfType(typeof(RegularAttribute));
+        OtherRegularAttribute = Architecture.GetAttributeOfType(typeof(OtherRegularAttribute));
+        AbstractAttribute = Architecture.GetAttributeOfType(typeof(AbstractAttribute));
+        OtherAbstractAttribute = Architecture.GetAttributeOfType(typeof(OtherAbstractAttribute));
+        SealedAttribute = Architecture.GetAttributeOfType(typeof(SealedAttribute));
+        OtherSealedAttribute = Architecture.GetAttributeOfType(typeof(OtherSealedAttribute));
     }
 }
