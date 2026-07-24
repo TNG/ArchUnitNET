@@ -1,4 +1,4 @@
-﻿using ArchUnitNET.Domain;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Predicates;
 using static ArchUnitNET.Domain.Visibility;
 
@@ -14,53 +14,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static IPredicate<PropertyMember> HavePrivateGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility == Private,
-                "have private getter"
-            );
-        }
+        public static IPredicate<PropertyMember> HavePrivateGetter() =>
+            HaveGetterWithVisibility(Private);
 
-        public static IPredicate<PropertyMember> HavePublicGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility == Public,
-                "have public getter"
-            );
-        }
+        public static IPredicate<PropertyMember> HavePublicGetter() =>
+            HaveGetterWithVisibility(Public);
 
-        public static IPredicate<PropertyMember> HaveProtectedGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility == Protected,
-                "have protected getter"
-            );
-        }
+        public static IPredicate<PropertyMember> HaveProtectedGetter() =>
+            HaveGetterWithVisibility(Protected);
 
-        public static IPredicate<PropertyMember> HaveInternalGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility == Internal,
-                "have internal getter"
-            );
-        }
+        public static IPredicate<PropertyMember> HaveInternalGetter() =>
+            HaveGetterWithVisibility(Internal);
 
-        public static IPredicate<PropertyMember> HaveProtectedInternalGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility == ProtectedInternal,
-                "have protected internal getter"
-            );
-        }
+        public static IPredicate<PropertyMember> HaveProtectedInternalGetter() =>
+            HaveGetterWithVisibility(ProtectedInternal);
 
-        public static IPredicate<PropertyMember> HavePrivateProtectedGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility == PrivateProtected,
-                "have private protected getter"
-            );
-        }
+        public static IPredicate<PropertyMember> HavePrivateProtectedGetter() =>
+            HaveGetterWithVisibility(PrivateProtected);
 
         public static IPredicate<PropertyMember> HaveSetter()
         {
@@ -70,53 +40,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static IPredicate<PropertyMember> HavePrivateSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility == Private,
-                "have private setter"
-            );
-        }
+        public static IPredicate<PropertyMember> HavePrivateSetter() =>
+            HaveSetterWithVisibility(Private);
 
-        public static IPredicate<PropertyMember> HavePublicSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility == Public,
-                "have public setter"
-            );
-        }
+        public static IPredicate<PropertyMember> HavePublicSetter() =>
+            HaveSetterWithVisibility(Public);
 
-        public static IPredicate<PropertyMember> HaveProtectedSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility == Protected,
-                "have protected setter"
-            );
-        }
+        public static IPredicate<PropertyMember> HaveProtectedSetter() =>
+            HaveSetterWithVisibility(Protected);
 
-        public static IPredicate<PropertyMember> HaveInternalSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility == Internal,
-                "have internal setter"
-            );
-        }
+        public static IPredicate<PropertyMember> HaveInternalSetter() =>
+            HaveSetterWithVisibility(Internal);
 
-        public static IPredicate<PropertyMember> HaveProtectedInternalSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility == ProtectedInternal,
-                "have protected internal setter"
-            );
-        }
+        public static IPredicate<PropertyMember> HaveProtectedInternalSetter() =>
+            HaveSetterWithVisibility(ProtectedInternal);
 
-        public static IPredicate<PropertyMember> HavePrivateProtectedSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility == PrivateProtected,
-                "have private protected setter"
-            );
-        }
+        public static IPredicate<PropertyMember> HavePrivateProtectedSetter() =>
+            HaveSetterWithVisibility(PrivateProtected);
 
         public static IPredicate<PropertyMember> HaveInitSetter()
         {
@@ -141,53 +81,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static IPredicate<PropertyMember> DoNotHavePrivateGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility != Private,
-                "do not have private getter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHavePrivateGetter() =>
+            DoNotHaveGetterWithVisibility(Private);
 
-        public static IPredicate<PropertyMember> DoNotHavePublicGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility != Public,
-                "do not have public getter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHavePublicGetter() =>
+            DoNotHaveGetterWithVisibility(Public);
 
-        public static IPredicate<PropertyMember> DoNotHaveProtectedGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility != Protected,
-                "do not have protected getter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHaveProtectedGetter() =>
+            DoNotHaveGetterWithVisibility(Protected);
 
-        public static IPredicate<PropertyMember> DoNotHaveInternalGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility != Internal,
-                "do not have internal getter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHaveInternalGetter() =>
+            DoNotHaveGetterWithVisibility(Internal);
 
-        public static IPredicate<PropertyMember> DoNotHaveProtectedInternalGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility != ProtectedInternal,
-                "do not have protected internal getter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHaveProtectedInternalGetter() =>
+            DoNotHaveGetterWithVisibility(ProtectedInternal);
 
-        public static IPredicate<PropertyMember> DoNotHavePrivateProtectedGetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.GetterVisibility != PrivateProtected,
-                "do not have private protected getter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHavePrivateProtectedGetter() =>
+            DoNotHaveGetterWithVisibility(PrivateProtected);
 
         public static IPredicate<PropertyMember> HaveNoSetter()
         {
@@ -197,53 +107,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static IPredicate<PropertyMember> DoNotHavePrivateSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility != Private,
-                "do not have private setter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHavePrivateSetter() =>
+            DoNotHaveSetterWithVisibility(Private);
 
-        public static IPredicate<PropertyMember> DoNotHavePublicSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility != Public,
-                "do not have public setter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHavePublicSetter() =>
+            DoNotHaveSetterWithVisibility(Public);
 
-        public static IPredicate<PropertyMember> DoNotHaveProtectedSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility != Protected,
-                "do not have protected setter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHaveProtectedSetter() =>
+            DoNotHaveSetterWithVisibility(Protected);
 
-        public static IPredicate<PropertyMember> DoNotHaveInternalSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility != Internal,
-                "do not have internal setter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHaveInternalSetter() =>
+            DoNotHaveSetterWithVisibility(Internal);
 
-        public static IPredicate<PropertyMember> DoNotHaveProtectedInternalSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility != ProtectedInternal,
-                "do not have protected internal setter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHaveProtectedInternalSetter() =>
+            DoNotHaveSetterWithVisibility(ProtectedInternal);
 
-        public static IPredicate<PropertyMember> DoNotHavePrivateProtectedSetter()
-        {
-            return new SimplePredicate<PropertyMember>(
-                member => member.SetterVisibility != PrivateProtected,
-                "do not have private protected setter"
-            );
-        }
+        public static IPredicate<PropertyMember> DoNotHavePrivateProtectedSetter() =>
+            DoNotHaveSetterWithVisibility(PrivateProtected);
 
         public static IPredicate<PropertyMember> DoNotHaveInitSetter()
         {
@@ -258,6 +138,42 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             return new SimplePredicate<PropertyMember>(
                 member => !member.IsVirtual,
                 "are not virtual"
+            );
+        }
+
+        private static IPredicate<PropertyMember> HaveGetterWithVisibility(Visibility visibility)
+        {
+            return new SimplePredicate<PropertyMember>(
+                member => member.GetterVisibility == visibility,
+                "have " + VisibilityStrings.ToString(visibility) + " getter"
+            );
+        }
+
+        private static IPredicate<PropertyMember> HaveSetterWithVisibility(Visibility visibility)
+        {
+            return new SimplePredicate<PropertyMember>(
+                member => member.SetterVisibility == visibility,
+                "have " + VisibilityStrings.ToString(visibility) + " setter"
+            );
+        }
+
+        private static IPredicate<PropertyMember> DoNotHaveGetterWithVisibility(
+            Visibility visibility
+        )
+        {
+            return new SimplePredicate<PropertyMember>(
+                member => member.GetterVisibility != visibility,
+                "do not have " + VisibilityStrings.ToString(visibility) + " getter"
+            );
+        }
+
+        private static IPredicate<PropertyMember> DoNotHaveSetterWithVisibility(
+            Visibility visibility
+        )
+        {
+            return new SimplePredicate<PropertyMember>(
+                member => member.SetterVisibility != visibility,
+                "do not have " + VisibilityStrings.ToString(visibility) + " setter"
             );
         }
     }

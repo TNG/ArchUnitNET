@@ -22,10 +22,10 @@ All Evaluations passed
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have a private protected setter
 Result: False
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have public setter
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 Message: 
 "Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have a private protected setter" failed:
-	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have public setter
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 
 
 
@@ -50,12 +50,12 @@ All Evaluations passed
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedSetterProperty::PropertyWithPrivateProtectedSetter()" or "System.String Propert... should have a private protected setter
 Result: False
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have public setter
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithPrivateProtectedSetterProperty::PropertyWithPrivateProtectedSetter() passed
 Message: 
 "Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedSetterProperty::PropertyWithPrivateProtectedSetter()" or "System.String Propert... should have a private protected setter" failed:
-	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have public setter
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 
 
 
