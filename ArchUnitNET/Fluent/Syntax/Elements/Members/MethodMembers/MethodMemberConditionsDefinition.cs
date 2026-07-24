@@ -41,6 +41,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IObjectProvider<IType> objectProvider
         )
         {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<MethodMember> methodMembers,
                 Architecture architecture
@@ -60,7 +61,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "is not called by " + objectProvider.Description
+                            (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                                ? "is not called by one of no types (impossible)"
+                                : "is not called by " + objectProvider.Description
                         );
                     }
                 }
@@ -78,6 +81,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IObjectProvider<IType> objectProvider
         )
         {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<MethodMember> methodMembers,
                 Architecture architecture
@@ -102,8 +106,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "does not have dependencies in method body to "
-                                + objectProvider.Description
+                            (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                                ? "does not have dependencies in method body to one of no types (impossible)"
+                                : "does not have dependencies in method body to "
+                                    + objectProvider.Description
                         );
                     }
                 }
@@ -215,6 +221,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IObjectProvider<IType> objectProvider
         )
         {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<MethodMember> methodMembers,
                 Architecture architecture
@@ -234,7 +241,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "is called by " + objectProvider.Description
+                            (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                                ? "is called by one of no types (always true)"
+                                : "is called by " + objectProvider.Description
                         );
                     }
                 }
@@ -252,6 +261,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
             IObjectProvider<IType> objectProvider
         )
         {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<MethodMember> methodMembers,
                 Architecture architecture
@@ -276,7 +286,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "does have dependencies in method body to " + objectProvider.Description
+                            (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                                ? "does have dependencies in method body to one of no types (always true)"
+                                : "does have dependencies in method body to "
+                                    + objectProvider.Description
                         );
                     }
                 }

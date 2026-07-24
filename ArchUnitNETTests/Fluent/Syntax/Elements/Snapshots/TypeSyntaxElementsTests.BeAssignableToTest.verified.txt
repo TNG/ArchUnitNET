@@ -319,7 +319,29 @@ Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in prov
 Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"
 Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
-===== Empty Arguments (Predicates only) =====
+===== Empty Arguments =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.BaseClassForAssign" should be assignable to no types (always false)
+Result: False
+Description: TypeNamespace.BaseClassForAssign is not assignable to no types (always false)
+Message: 
+"Types that are "TypeNamespace.BaseClassForAssign" should be assignable to no types (always false)" failed:
+	TypeNamespace.BaseClassForAssign is not assignable to no types (always false)
+
+
+
+Query: Types that are "TypeNamespace.BaseClassForAssign" should be assignable to no types (always false)
+Result: False
+Description: TypeNamespace.BaseClassForAssign is not assignable to no types (always false)
+Message: 
+"Types that are "TypeNamespace.BaseClassForAssign" should be assignable to no types (always false)" failed:
+	TypeNamespace.BaseClassForAssign is not assignable to no types (always false)
+
+
+
+----- Predicates -----
 
 Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to no types (always false)
 Result: False

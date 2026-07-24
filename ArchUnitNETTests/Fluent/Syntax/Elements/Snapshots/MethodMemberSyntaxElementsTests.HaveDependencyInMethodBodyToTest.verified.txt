@@ -220,19 +220,19 @@ All Evaluations passed
 
 Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should have dependencies in method body to one of no types (impossible)
 Result: False
-Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does not have dependencies in method body to 
+Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does not have dependencies in method body to one of no types (impossible)
 Message: 
 "Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should have dependencies in method body to one of no types (impossible)" failed:
-	System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does not have dependencies in method body to 
+	System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does not have dependencies in method body to one of no types (impossible)
 
 
 
 Query: Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should have dependencies in method body to one of no types (impossible)
 Result: False
-Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does not have dependencies in method body to 
+Description: System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does not have dependencies in method body to one of no types (impossible)
 Message: 
 "Method members that are "System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod()" should have dependencies in method body to one of no types (impossible)" failed:
-	System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does not have dependencies in method body to 
+	System.Void MethodDependencyNamespace.OtherCallingClass::MethodCallingCalledMethod() does not have dependencies in method body to one of no types (impossible)
 
 
 
