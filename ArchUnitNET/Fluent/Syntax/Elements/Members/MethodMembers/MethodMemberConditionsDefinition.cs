@@ -146,7 +146,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "has return type \"" + methodMember.ReturnType.FullName + "\""
+                            "has return type \""
+                                + methodMember.ReturnTypeInstance.GetFullNameForErrorMessage(
+                                    architecture
+                                )
+                                + "\""
                         );
                     }
                 }
@@ -180,7 +184,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "has return type \"" + methodMember.ReturnType.FullName + "\""
+                            "has return type \""
+                                + methodMember.ReturnTypeInstance.GetFullNameForErrorMessage(
+                                    architecture
+                                )
+                                + "\""
                         );
                     }
                 }
@@ -188,7 +196,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             var typeDescription = string.Join(
                 " or ",
-                typeList.Select(type => $"\"{type.FullName}\"")
+                typeList.Select(type => $"\"{type.GetFullNameForDescription()}\"")
             );
             var description =
                 typeList.Count == 0
@@ -326,7 +334,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "has return type \"" + methodMember.ReturnType.FullName + "\""
+                            "has return type \""
+                                + methodMember.ReturnTypeInstance.GetFullNameForErrorMessage(
+                                    architecture
+                                )
+                                + "\""
                         );
                     }
                 }
@@ -360,7 +372,11 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "has return type \"" + methodMember.ReturnType.FullName + "\""
+                            "has return type \""
+                                + methodMember.ReturnTypeInstance.GetFullNameForErrorMessage(
+                                    architecture
+                                )
+                                + "\""
                         );
                     }
                 }
@@ -368,7 +384,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
 
             var typeDescription = string.Join(
                 " or ",
-                typeList.Select(type => $"\"{type.FullName}\"")
+                typeList.Select(type => $"\"{type.GetFullNameForDescription()}\"")
             );
             var description =
                 typeList.Count == 0

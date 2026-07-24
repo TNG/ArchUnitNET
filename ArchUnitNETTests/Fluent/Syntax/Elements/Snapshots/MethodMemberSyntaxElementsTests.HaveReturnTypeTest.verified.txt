@@ -269,13 +269,13 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1[[TypeNamespace.RegularClass, TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd...
+Query: Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass>"
 Result: True
 Description: TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
 All Evaluations passed
 
-Query: Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1[[TypeNamespace.RegularClass, TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd...
+Query: Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass>"
 Result: True
 Description: TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
 Message: 
@@ -299,21 +299,21 @@ All Evaluations passed
 
 ----- Conditions -----
 
-Query: Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1[[TypeNamespace.OtherRegularClass, TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015...
+Query: Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1<TypeNamespace.OtherRegularClass>"
 Result: False
-Description: TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "TypeNamespace.GenericClass`1"
+Description: TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass>"
 Message: 
-"Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1[[TypeNamespace.OtherRegularClass, TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015..." failed:
-	TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "TypeNamespace.GenericClass`1"
+"Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1<TypeNamespace.OtherRegularClass>"" failed:
+	TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass>"
 
 
 
-Query: Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1[[TypeNamespace.OtherRegularClass, TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015...
+Query: Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1<TypeNamespace.OtherRegularClass>"
 Result: False
-Description: TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "TypeNamespace.GenericClass`1"
+Description: TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass>"
 Message: 
-"Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1[[TypeNamespace.OtherRegularClass, TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015..." failed:
-	TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "TypeNamespace.GenericClass`1"
+"Method members that are "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass()" should have return type "TypeNamespace.GenericClass`1<TypeNamespace.OtherRegularClass>"" failed:
+	TypeNamespace.GenericClass`1<TypeNamespace.RegularClass> TypeNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "TypeNamespace.GenericClass`1<TypeNamespace.RegularClass>"
 
 
 
