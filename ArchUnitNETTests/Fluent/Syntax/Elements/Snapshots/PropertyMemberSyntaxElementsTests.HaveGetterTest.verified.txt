@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have a getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should be Property members that have getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" should have a getter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty() has no getter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" should have a getter" failed:
+	System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty() has no getter
+
+
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" should be Property members that have getter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty() is not Property members that have getter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" should be Property members that have getter" failed:
+	System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty() is not Property members that have getter
+
+
+
+===== Multiple inputs =====
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithGetOnl... should have a getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
+Message: 
+All Evaluations passed
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithWriteO... should have a getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty() has no getter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithWriteO... should have a getter" failed:
+	System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty() has no getter
+
+
+

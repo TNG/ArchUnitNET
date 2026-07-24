@@ -69,6 +69,12 @@ namespace ArchUnitNETTests
             )
             .Build();
 
+        public static readonly Architecture PropertyMemberArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
+            .LoadAssemblies(typeof(PropertyMemberNamespace.ClassWithWritableProperty).Assembly)
+            .Build();
+
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture = new ArchLoader()
             .LoadAssemblies(typeof(Class1).Assembly)
             .Build();

@@ -1,0 +1,61 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter()" should have a protected internal setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter()" should be Property members that have protected internal setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have a protected internal setter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have a protected internal setter" failed:
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
+
+
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should be Property members that have protected internal setter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() is not Property members that have protected internal setter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should be Property members that have protected internal setter" failed:
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() is not Property members that have protected internal setter
+
+
+
+===== Multiple inputs =====
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter()" should have a protected internal setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter() passed
+Message: 
+All Evaluations passed
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter()" or "System.String Prope... should have a protected internal setter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter() passed
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter()" or "System.String Prope... should have a protected internal setter" failed:
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
+
+
+

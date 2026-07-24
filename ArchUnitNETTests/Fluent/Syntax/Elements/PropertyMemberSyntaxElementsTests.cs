@@ -1,1522 +1,971 @@
-﻿using System.Collections.Generic;
-using ArchUnitNET.Domain;
+﻿using System.Threading.Tasks;
+using ArchUnitNETTests.AssemblyTestHelper;
 using Xunit;
-using static ArchUnitNET.Domain.Visibility;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
+    // csharpier-ignore
     public class PropertyMemberSyntaxElementsTests
     {
-        public PropertyMemberSyntaxElementsTests()
-        {
-            _propertyMembers = Architecture.PropertyMembers;
-        }
-
-        private static readonly Architecture Architecture =
-            StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly IEnumerable<PropertyMember> _propertyMembers;
-
         [Fact]
-        public void AreVirtualTest()
+        public async Task BeVirtualTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberIsVirtual = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .BeVirtual();
-                var propertyMemberIsNotVirtual = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotBeVirtual();
-                var virtualPropertyMembersDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .AreVirtual()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var notVirtualPropertyMembersDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .AreNotVirtual()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.IsVirtual,
-                    propertyMemberIsVirtual.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    !propertyMember.IsVirtual,
-                    propertyMemberIsNotVirtual.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    !propertyMember.IsVirtual,
-                    virtualPropertyMembersDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.IsVirtual,
-                    notVirtualPropertyMembersDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.VirtualProperty).Should();
 
-            var virtualPropertyMembersShouldBeVirtual = PropertyMembers()
-                .That()
-                .AreVirtual()
-                .Should()
-                .BeVirtual()
-                .WithoutRequiringPositiveResults();
-            var virtualPropertyMembersAreNotVirtual = PropertyMembers()
-                .That()
-                .AreVirtual()
-                .Should()
-                .NotBeVirtual()
-                .AndShould()
-                .Exist();
-            var notVirtualPropertyMembersShouldBeVirtual = PropertyMembers()
-                .That()
-                .AreNotVirtual()
-                .Should()
-                .BeVirtual()
-                .AndShould()
-                .Exist();
-            var notVirtualPropertyMembersAreNotVirtual = PropertyMembers()
-                .That()
-                .AreNotVirtual()
-                .Should()
-                .NotBeVirtual();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeVirtual().AssertNoViolations(helper);
 
-            Assert.True(virtualPropertyMembersShouldBeVirtual.HasNoViolations(Architecture));
-            Assert.False(virtualPropertyMembersAreNotVirtual.HasNoViolations(Architecture));
-            Assert.False(notVirtualPropertyMembersShouldBeVirtual.HasNoViolations(Architecture));
-            Assert.True(notVirtualPropertyMembersAreNotVirtual.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().AreVirtual()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.NonVirtualProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeVirtual().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().AreVirtual()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.VirtualProperty, helper.OtherVirtualProperty).Should().BeVirtual().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.VirtualProperty, helper.NonVirtualProperty).Should().BeVirtual().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveGetterTest()
+        public async Task NotBeVirtualTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HaveGetter();
-                var propertyMemberHasNoGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHaveGetter();
-                var propertyMembersWithGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveNoGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.GetterVisibility != NotAccessible,
-                    propertyMemberHasGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility == NotAccessible,
-                    propertyMemberHasNoGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility == NotAccessible,
-                    propertyMembersWithGetterDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != NotAccessible,
-                    propertyMembersWithoutGetterDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.NonVirtualProperty).Should();
 
-            var propertyMembersWithGetterHaveGetter = PropertyMembers()
-                .That()
-                .HaveGetter()
-                .Should()
-                .HaveGetter();
-            var propertyMembersWithGetterHaveNoGetter = PropertyMembers()
-                .That()
-                .HaveGetter()
-                .Should()
-                .NotHaveGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutGetterHaveGetter = PropertyMembers()
-                .That()
-                .HaveNoGetter()
-                .Should()
-                .HaveGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutGetterHaveNoGetter = PropertyMembers()
-                .That()
-                .HaveNoGetter()
-                .Should()
-                .NotHaveGetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeVirtual().AssertNoViolations(helper);
 
-            Assert.True(propertyMembersWithGetterHaveGetter.HasNoViolations(Architecture));
-            Assert.False(propertyMembersWithGetterHaveNoGetter.HasNoViolations(Architecture));
-            Assert.False(propertyMembersWithoutGetterHaveGetter.HasNoViolations(Architecture));
-            Assert.True(propertyMembersWithoutGetterHaveNoGetter.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().AreNotVirtual()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.VirtualProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeVirtual().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().AreNotVirtual()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.NonVirtualProperty, helper.WritableProperty).Should().NotBeVirtual().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.NonVirtualProperty, helper.VirtualProperty).Should().NotBeVirtual().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveInternalGetterTest()
+        public async Task HaveGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasInternalGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HaveInternalGetter();
-                var propertyMemberDoesNotHaveInternalGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHaveInternalGetter();
-                var propertyMembersWithInternalGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveInternalGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutInternalGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .DoNotHaveInternalGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.GetterVisibility == Internal,
-                    propertyMemberHasInternalGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != Internal,
-                    propertyMemberDoesNotHaveInternalGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != Internal,
-                    propertyMembersWithInternalGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility == Internal,
-                    propertyMembersWithoutInternalGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
-            var propertyMembersWithInternalGetterHaveInternalGetter = PropertyMembers()
-                .That()
-                .HaveInternalGetter()
-                .Should()
-                .HaveInternalGetter()
-                .WithoutRequiringPositiveResults();
-            var propertyMembersWithInternalGetterDoNotHaveInternalGetter = PropertyMembers()
-                .That()
-                .HaveInternalGetter()
-                .Should()
-                .NotHaveInternalGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutInternalGetterHaveInternalGetter = PropertyMembers()
-                .That()
-                .DoNotHaveInternalGetter()
-                .Should()
-                .HaveInternalGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutInternalGetterDoNotHaveInternalGetter = PropertyMembers()
-                .That()
-                .DoNotHaveInternalGetter()
-                .Should()
-                .NotHaveInternalGetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveGetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithInternalGetterHaveInternalGetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithInternalGetterDoNotHaveInternalGetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithoutInternalGetterHaveInternalGetter.HasNoViolations(Architecture)
-            );
-            Assert.True(
-                propertyMembersWithoutInternalGetterDoNotHaveInternalGetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WriteOnlyProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.GetOnlyProperty).Should().HaveGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.WriteOnlyProperty).Should().HaveGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveInternalSetterTest()
+        public async Task NotHaveGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasInternalSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HaveInternalSetter();
-                var propertyMemberDoesNotHaveInternalSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHaveInternalSetter();
-                var propertyMembersWithInternalSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveInternalSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutInternalSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .DoNotHaveInternalSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.SetterVisibility == Internal,
-                    propertyMemberHasInternalSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != Internal,
-                    propertyMemberDoesNotHaveInternalSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != Internal,
-                    propertyMembersWithInternalSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility == Internal,
-                    propertyMembersWithoutInternalSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WriteOnlyProperty).Should();
 
-            var propertyMembersWithInternalSetterHaveInternalSetter = PropertyMembers()
-                .That()
-                .HaveInternalSetter()
-                .Should()
-                .HaveInternalSetter()
-                .WithoutRequiringPositiveResults();
-            var propertyMembersWithInternalSetterDoNotHaveInternalSetter = PropertyMembers()
-                .That()
-                .HaveInternalSetter()
-                .Should()
-                .NotHaveInternalSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutInternalSetterHaveInternalSetter = PropertyMembers()
-                .That()
-                .DoNotHaveInternalSetter()
-                .Should()
-                .HaveInternalSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutInternalSetterDoNotHaveInternalSetter = PropertyMembers()
-                .That()
-                .DoNotHaveInternalSetter()
-                .Should()
-                .NotHaveInternalSetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveGetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithInternalSetterHaveInternalSetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithInternalSetterDoNotHaveInternalSetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithoutInternalSetterHaveInternalSetter.HasNoViolations(Architecture)
-            );
-            Assert.True(
-                propertyMembersWithoutInternalSetterDoNotHaveInternalSetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveNoGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveNoGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WriteOnlyProperty).Should().NotHaveGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WriteOnlyProperty, helper.WritableProperty).Should().NotHaveGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HavePrivateGetterTest()
+        public async Task HaveSetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasPrivateGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HavePrivateGetter();
-                var propertyMemberDoesNotHavePrivateGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHavePrivateGetter();
-                var propertyMembersWithPrivateGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HavePrivateGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutPrivateGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .DoNotHavePrivateGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.GetterVisibility == Private,
-                    propertyMemberHasPrivateGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != Private,
-                    propertyMemberDoesNotHavePrivateGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != Private,
-                    propertyMembersWithPrivateGetterDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility == Private,
-                    propertyMembersWithoutPrivateGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
-            var propertyMembersWithPrivateGetterHavePrivateGetter = PropertyMembers()
-                .That()
-                .HavePrivateGetter()
-                .Should()
-                .HavePrivateGetter();
-            var propertyMembersWithPrivateGetterDoNotHavePrivateGetter = PropertyMembers()
-                .That()
-                .HavePrivateGetter()
-                .Should()
-                .NotHavePrivateGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutPrivateGetterHavePrivateGetter = PropertyMembers()
-                .That()
-                .DoNotHavePrivateGetter()
-                .Should()
-                .HavePrivateGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutPrivateGetterDoNotHavePrivateGetter = PropertyMembers()
-                .That()
-                .DoNotHavePrivateGetter()
-                .Should()
-                .NotHavePrivateGetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveSetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithPrivateGetterHavePrivateGetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithPrivateGetterDoNotHavePrivateGetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithoutPrivateGetterHavePrivateGetter.HasNoViolations(Architecture)
-            );
-            Assert.True(
-                propertyMembersWithoutPrivateGetterDoNotHavePrivateGetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.GetOnlyProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.InitOnlyProperty).Should().HaveSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.GetOnlyProperty).Should().HaveSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HavePrivateProtectedGetterTest()
+        public async Task NotHaveSetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasPrivateProtectedGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HavePrivateProtectedGetter();
-                var propertyMemberDoesNotHavePrivateProtectedGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHavePrivateProtectedGetter();
-                var propertyMembersWithPrivateProtectedGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HavePrivateProtectedGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutPrivateProtectedGetterDoNotIncludeMember =
-                    PropertyMembers()
-                        .That()
-                        .DoNotHavePrivateProtectedGetter()
-                        .Should()
-                        .NotBe(propertyMember)
-                        .AndShould()
-                        .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.GetterVisibility == PrivateProtected,
-                    propertyMemberHasPrivateProtectedGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != PrivateProtected,
-                    propertyMemberDoesNotHavePrivateProtectedGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != PrivateProtected,
-                    propertyMembersWithPrivateProtectedGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility == PrivateProtected,
-                    propertyMembersWithoutPrivateProtectedGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.GetOnlyProperty).Should();
 
-            var propertyMembersWithPrivateProtectedGetterHavePrivateProtectedGetter =
-                PropertyMembers()
-                    .That()
-                    .HavePrivateProtectedGetter()
-                    .Should()
-                    .HavePrivateProtectedGetter()
-                    .WithoutRequiringPositiveResults();
-            var propertyMembersWithPrivateProtectedGetterDoNotHavePrivateProtectedGetter =
-                PropertyMembers()
-                    .That()
-                    .HavePrivateProtectedGetter()
-                    .Should()
-                    .NotHavePrivateProtectedGetter()
-                    .AndShould()
-                    .Exist();
-            var propertyMembersWithoutPrivateProtectedGetterHavePrivateProtectedGetter =
-                PropertyMembers()
-                    .That()
-                    .DoNotHavePrivateProtectedGetter()
-                    .Should()
-                    .HavePrivateProtectedGetter()
-                    .AndShould()
-                    .Exist();
-            var propertyMembersWithoutPrivateProtectedGetterDoNotHavePrivateProtectedGetter =
-                PropertyMembers()
-                    .That()
-                    .DoNotHavePrivateProtectedGetter()
-                    .Should()
-                    .NotHavePrivateProtectedGetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveSetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithPrivateProtectedGetterHavePrivateProtectedGetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithPrivateProtectedGetterDoNotHavePrivateProtectedGetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithoutPrivateProtectedGetterHavePrivateProtectedGetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.True(
-                propertyMembersWithoutPrivateProtectedGetterDoNotHavePrivateProtectedGetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveNoSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveNoSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.GetOnlyProperty).Should().NotHaveSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.GetOnlyProperty, helper.WritableProperty).Should().NotHaveSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HavePrivateProtectedSetterTest()
+        public async Task HaveInitOnlySetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasPrivateProtectedSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HavePrivateProtectedSetter();
-                var propertyMemberDoesNotHavePrivateProtectedSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHavePrivateProtectedSetter();
-                var propertyMembersWithPrivateProtectedSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HavePrivateProtectedSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutPrivateProtectedSetterDoNotIncludeMember =
-                    PropertyMembers()
-                        .That()
-                        .DoNotHavePrivateProtectedSetter()
-                        .Should()
-                        .NotBe(propertyMember)
-                        .AndShould()
-                        .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.SetterVisibility == PrivateProtected,
-                    propertyMemberHasPrivateProtectedSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != PrivateProtected,
-                    propertyMemberDoesNotHavePrivateProtectedSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != PrivateProtected,
-                    propertyMembersWithPrivateProtectedSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility == PrivateProtected,
-                    propertyMembersWithoutPrivateProtectedSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.InitOnlyProperty).Should();
 
-            var propertyMembersWithPrivateProtectedSetterHavePrivateProtectedSetter =
-                PropertyMembers()
-                    .That()
-                    .HavePrivateProtectedSetter()
-                    .Should()
-                    .HavePrivateProtectedSetter()
-                    .WithoutRequiringPositiveResults();
-            var propertyMembersWithPrivateProtectedSetterDoNotHavePrivateProtectedSetter =
-                PropertyMembers()
-                    .That()
-                    .HavePrivateProtectedSetter()
-                    .Should()
-                    .NotHavePrivateProtectedSetter()
-                    .AndShould()
-                    .Exist();
-            var propertyMembersWithoutPrivateProtectedSetterHavePrivateProtectedSetter =
-                PropertyMembers()
-                    .That()
-                    .DoNotHavePrivateProtectedSetter()
-                    .Should()
-                    .HavePrivateProtectedSetter()
-                    .AndShould()
-                    .Exist();
-            var propertyMembersWithoutPrivateProtectedSetterDoNotHavePrivateProtectedSetter =
-                PropertyMembers()
-                    .That()
-                    .DoNotHavePrivateProtectedSetter()
-                    .Should()
-                    .NotHavePrivateProtectedSetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveInitOnlySetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithPrivateProtectedSetterHavePrivateProtectedSetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithPrivateProtectedSetterDoNotHavePrivateProtectedSetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithoutPrivateProtectedSetterHavePrivateProtectedSetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.True(
-                propertyMembersWithoutPrivateProtectedSetterDoNotHavePrivateProtectedSetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveInitOnlySetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveInitOnlySetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveInitOnlySetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.InitOnlyProperty).Should().HaveInitOnlySetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.InitOnlyProperty, helper.WritableProperty).Should().HaveInitOnlySetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HavePrivateSetterTest()
+        public async Task NotHaveInitOnlySetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasPrivateSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HavePrivateSetter();
-                var propertyMemberDoesNotHavePrivateSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHavePrivateSetter();
-                var propertyMembersWithPrivateSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HavePrivateSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutPrivateSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .DoNotHavePrivateSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.SetterVisibility == Private,
-                    propertyMemberHasPrivateSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != Private,
-                    propertyMemberDoesNotHavePrivateSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != Private,
-                    propertyMembersWithPrivateSetterDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility == Private,
-                    propertyMembersWithoutPrivateSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
-            var propertyMembersWithPrivateSetterHavePrivateSetter = PropertyMembers()
-                .That()
-                .HavePrivateSetter()
-                .Should()
-                .HavePrivateSetter();
-            var propertyMembersWithPrivateSetterDoNotHavePrivateSetter = PropertyMembers()
-                .That()
-                .HavePrivateSetter()
-                .Should()
-                .NotHavePrivateSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutPrivateSetterHavePrivateSetter = PropertyMembers()
-                .That()
-                .DoNotHavePrivateSetter()
-                .Should()
-                .HavePrivateSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutPrivateSetterDoNotHavePrivateSetter = PropertyMembers()
-                .That()
-                .DoNotHavePrivateSetter()
-                .Should()
-                .NotHavePrivateSetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveInitOnlySetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithPrivateSetterHavePrivateSetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithPrivateSetterDoNotHavePrivateSetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithoutPrivateSetterHavePrivateSetter.HasNoViolations(Architecture)
-            );
-            Assert.True(
-                propertyMembersWithoutPrivateSetterDoNotHavePrivateSetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveInitOnlySetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.InitOnlyProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveInitOnlySetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveInitOnlySetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.GetOnlyProperty).Should().NotHaveInitOnlySetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.InitOnlyProperty).Should().NotHaveInitOnlySetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveProtectedGetterTest()
+        public async Task HavePublicGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasProtectedGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HaveProtectedGetter();
-                var propertyMemberDoesNotHaveProtectedGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHaveProtectedGetter();
-                var propertyMembersWithProtectedGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveProtectedGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutProtectedGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .DoNotHaveProtectedGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.GetterVisibility == Protected,
-                    propertyMemberHasProtectedGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != Protected,
-                    propertyMemberDoesNotHaveProtectedGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != Protected,
-                    propertyMembersWithProtectedGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility == Protected,
-                    propertyMembersWithoutProtectedGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
-            var propertyMembersWithProtectedGetterHaveProtectedGetter = PropertyMembers()
-                .That()
-                .HaveProtectedGetter()
-                .Should()
-                .HaveProtectedGetter();
-            var propertyMembersWithProtectedGetterDoNotHaveProtectedGetter = PropertyMembers()
-                .That()
-                .HaveProtectedGetter()
-                .Should()
-                .NotHaveProtectedGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutProtectedGetterHaveProtectedGetter = PropertyMembers()
-                .That()
-                .DoNotHaveProtectedGetter()
-                .Should()
-                .HaveProtectedGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutProtectedGetterDoNotHaveProtectedGetter = PropertyMembers()
-                .That()
-                .DoNotHaveProtectedGetter()
-                .Should()
-                .NotHaveProtectedGetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePublicGetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithProtectedGetterHaveProtectedGetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithProtectedGetterDoNotHaveProtectedGetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithoutProtectedGetterHaveProtectedGetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.True(
-                propertyMembersWithoutProtectedGetterDoNotHaveProtectedGetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePublicGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithPrivateGetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePublicGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePublicGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.GetOnlyProperty).Should().HavePublicGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithPrivateGetter).Should().HavePublicGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveProtectedInternalGetterTest()
+        public async Task NotHavePublicGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasProtectedInternalGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HaveProtectedInternalGetter();
-                var propertyMemberDoesNotHaveProtectedInternalGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHaveProtectedInternalGetter();
-                var propertyMembersWithProtectedInternalGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveProtectedInternalGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutProtectedInternalGetterDoNotIncludeMember =
-                    PropertyMembers()
-                        .That()
-                        .DoNotHaveProtectedInternalGetter()
-                        .Should()
-                        .NotBe(propertyMember)
-                        .AndShould()
-                        .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.GetterVisibility == ProtectedInternal,
-                    propertyMemberHasProtectedInternalGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != ProtectedInternal,
-                    propertyMemberDoesNotHaveProtectedInternalGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != ProtectedInternal,
-                    propertyMembersWithProtectedInternalGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility == ProtectedInternal,
-                    propertyMembersWithoutProtectedInternalGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithPrivateGetter).Should();
 
-            var propertyMembersWithProtectedInternalGetterHaveProtectedInternalGetter =
-                PropertyMembers()
-                    .That()
-                    .HaveProtectedInternalGetter()
-                    .Should()
-                    .HaveProtectedInternalGetter()
-                    .WithoutRequiringPositiveResults();
-            var propertyMembersWithProtectedInternalGetterDoNotHaveProtectedInternalGetter =
-                PropertyMembers()
-                    .That()
-                    .HaveProtectedInternalGetter()
-                    .Should()
-                    .NotHaveProtectedInternalGetter()
-                    .AndShould()
-                    .Exist();
-            var propertyMembersWithoutProtectedInternalGetterHaveProtectedInternalGetter =
-                PropertyMembers()
-                    .That()
-                    .DoNotHaveProtectedInternalGetter()
-                    .Should()
-                    .HaveProtectedInternalGetter()
-                    .AndShould()
-                    .Exist();
-            var propertyMembersWithoutProtectedInternalGetterDoNotHaveProtectedInternalGetter =
-                PropertyMembers()
-                    .That()
-                    .DoNotHaveProtectedInternalGetter()
-                    .Should()
-                    .NotHaveProtectedInternalGetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePublicGetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithProtectedInternalGetterHaveProtectedInternalGetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithProtectedInternalGetterDoNotHaveProtectedInternalGetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithoutProtectedInternalGetterHaveProtectedInternalGetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.True(
-                propertyMembersWithoutProtectedInternalGetterDoNotHaveProtectedInternalGetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePublicGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePublicGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePublicGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithPrivateGetter, helper.PropertyWithProtectedGetter).Should().NotHavePublicGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateGetter, helper.WritableProperty).Should().NotHavePublicGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveProtectedInternalSetterTest()
+        public async Task HavePrivateGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasProtectedInternalSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HaveProtectedInternalSetter();
-                var propertyMemberDoesNotHaveProtectedInternalSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHaveProtectedInternalSetter();
-                var propertyMembersWithProtectedInternalSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveProtectedInternalSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutProtectedInternalSetterDoNotIncludeMember =
-                    PropertyMembers()
-                        .That()
-                        .DoNotHaveProtectedInternalSetter()
-                        .Should()
-                        .NotBe(propertyMember)
-                        .AndShould()
-                        .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.SetterVisibility == ProtectedInternal,
-                    propertyMemberHasProtectedInternalSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != ProtectedInternal,
-                    propertyMemberDoesNotHaveProtectedInternalSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != ProtectedInternal,
-                    propertyMembersWithProtectedInternalSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility == ProtectedInternal,
-                    propertyMembersWithoutProtectedInternalSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithPrivateGetter).Should();
 
-            var propertyMembersWithProtectedInternalSetterHaveProtectedInternalSetter =
-                PropertyMembers()
-                    .That()
-                    .HaveProtectedInternalSetter()
-                    .Should()
-                    .HaveProtectedInternalSetter()
-                    .WithoutRequiringPositiveResults();
-            var propertyMembersWithProtectedInternalSetterDoNotHaveProtectedInternalSetter =
-                PropertyMembers()
-                    .That()
-                    .HaveProtectedInternalSetter()
-                    .Should()
-                    .NotHaveProtectedInternalSetter()
-                    .AndShould()
-                    .Exist();
-            var propertyMembersWithoutProtectedInternalSetterHaveProtectedInternalSetter =
-                PropertyMembers()
-                    .That()
-                    .DoNotHaveProtectedInternalSetter()
-                    .Should()
-                    .HaveProtectedInternalSetter()
-                    .AndShould()
-                    .Exist();
-            var propertyMembersWithoutProtectedInternalSetterDoNotHaveProtectedInternalSetter =
-                PropertyMembers()
-                    .That()
-                    .DoNotHaveProtectedInternalSetter()
-                    .Should()
-                    .NotHaveProtectedInternalSetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePrivateGetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithProtectedInternalSetterHaveProtectedInternalSetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithProtectedInternalSetterDoNotHaveProtectedInternalSetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithoutProtectedInternalSetterHaveProtectedInternalSetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.True(
-                propertyMembersWithoutProtectedInternalSetterDoNotHaveProtectedInternalSetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePrivateGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePrivateGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePrivateGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithPrivateGetter).Should().HavePrivateGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateGetter, helper.WritableProperty).Should().HavePrivateGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveProtectedSetterTest()
+        public async Task NotHavePrivateGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasProtectedSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HaveProtectedSetter();
-                var propertyMemberDoesNotHaveProtectedSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHaveProtectedSetter();
-                var propertyMembersWithProtectedSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveProtectedSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutProtectedSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .DoNotHaveProtectedSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.SetterVisibility == Protected,
-                    propertyMemberHasProtectedSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != Protected,
-                    propertyMemberDoesNotHaveProtectedSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != Protected,
-                    propertyMembersWithProtectedSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility == Protected,
-                    propertyMembersWithoutProtectedSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
-            var propertyMembersWithProtectedSetterHaveProtectedSetter = PropertyMembers()
-                .That()
-                .HaveProtectedSetter()
-                .Should()
-                .HaveProtectedSetter()
-                .WithoutRequiringPositiveResults();
-            var propertyMembersWithProtectedSetterDoNotHaveProtectedSetter = PropertyMembers()
-                .That()
-                .HaveProtectedSetter()
-                .Should()
-                .NotHaveProtectedSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutProtectedSetterHaveProtectedSetter = PropertyMembers()
-                .That()
-                .DoNotHaveProtectedSetter()
-                .Should()
-                .HaveProtectedSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutProtectedSetterDoNotHaveProtectedSetter = PropertyMembers()
-                .That()
-                .DoNotHaveProtectedSetter()
-                .Should()
-                .NotHaveProtectedSetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePrivateGetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithProtectedSetterHaveProtectedSetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithProtectedSetterDoNotHaveProtectedSetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.False(
-                propertyMembersWithoutProtectedSetterHaveProtectedSetter.HasNoViolations(
-                    Architecture
-                )
-            );
-            Assert.True(
-                propertyMembersWithoutProtectedSetterDoNotHaveProtectedSetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePrivateGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithPrivateGetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePrivateGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePrivateGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.GetOnlyProperty).Should().NotHavePrivateGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithPrivateGetter).Should().NotHavePrivateGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HavePublicGetterTest()
+        public async Task HaveProtectedGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasPublicGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HavePublicGetter();
-                var propertyMemberDoesNotHavePublicGetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHavePublicGetter();
-                var propertyMembersWithPublicGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HavePublicGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutPublicGetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .DoNotHavePublicGetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.GetterVisibility == Public,
-                    propertyMemberHasPublicGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != Public,
-                    propertyMemberDoesNotHavePublicGetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility != Public,
-                    propertyMembersWithPublicGetterDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.GetterVisibility == Public,
-                    propertyMembersWithoutPublicGetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithProtectedGetter).Should();
 
-            var propertyMembersWithPublicGetterHavePublicGetter = PropertyMembers()
-                .That()
-                .HavePublicGetter()
-                .Should()
-                .HavePublicGetter();
-            var propertyMembersWithPublicGetterDoNotHavePublicGetter = PropertyMembers()
-                .That()
-                .HavePublicGetter()
-                .Should()
-                .NotHavePublicGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutPublicGetterHavePublicGetter = PropertyMembers()
-                .That()
-                .DoNotHavePublicGetter()
-                .Should()
-                .HavePublicGetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutPublicGetterDoNotHavePublicGetter = PropertyMembers()
-                .That()
-                .DoNotHavePublicGetter()
-                .Should()
-                .NotHavePublicGetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveProtectedGetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithPublicGetterHavePublicGetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithPublicGetterDoNotHavePublicGetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithoutPublicGetterHavePublicGetter.HasNoViolations(Architecture)
-            );
-            Assert.True(
-                propertyMembersWithoutPublicGetterDoNotHavePublicGetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveProtectedGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveProtectedGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveProtectedGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithProtectedGetter).Should().HaveProtectedGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithProtectedGetter, helper.WritableProperty).Should().HaveProtectedGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HavePublicSetterTest()
+        public async Task NotHaveProtectedGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasPublicSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HavePublicSetter();
-                var propertyMemberDoesNotHavePublicSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHavePublicSetter();
-                var propertyMembersWithPublicSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HavePublicSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutPublicSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .DoNotHavePublicSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.SetterVisibility == Public,
-                    propertyMemberHasPublicSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != Public,
-                    propertyMemberDoesNotHavePublicSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != Public,
-                    propertyMembersWithPublicSetterDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility == Public,
-                    propertyMembersWithoutPublicSetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
-            var propertyMembersWithPublicSetterHavePublicSetter = PropertyMembers()
-                .That()
-                .HavePublicSetter()
-                .Should()
-                .HavePublicSetter();
-            var propertyMembersWithPublicSetterDoNotHavePublicSetter = PropertyMembers()
-                .That()
-                .HavePublicSetter()
-                .Should()
-                .NotHavePublicSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutPublicSetterHavePublicSetter = PropertyMembers()
-                .That()
-                .DoNotHavePublicSetter()
-                .Should()
-                .HavePublicSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutPublicSetterDoNotHavePublicSetter = PropertyMembers()
-                .That()
-                .DoNotHavePublicSetter()
-                .Should()
-                .NotHavePublicSetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveProtectedGetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithPublicSetterHavePublicSetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithPublicSetterDoNotHavePublicSetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithoutPublicSetterHavePublicSetter.HasNoViolations(Architecture)
-            );
-            Assert.True(
-                propertyMembersWithoutPublicSetterDoNotHavePublicSetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveProtectedGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithProtectedGetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveProtectedGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveProtectedGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.GetOnlyProperty).Should().NotHaveProtectedGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithProtectedGetter).Should().NotHaveProtectedGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveSetterTest()
+        public async Task HaveInternalGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HaveSetter();
-                var propertyMemberHasNoSetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHaveSetter();
-                var propertyMembersWithSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutSetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveNoSetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.SetterVisibility != NotAccessible,
-                    propertyMemberHasSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility == NotAccessible,
-                    propertyMemberHasNoSetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility == NotAccessible,
-                    propertyMembersWithSetterDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.SetterVisibility != NotAccessible,
-                    propertyMembersWithoutSetterDoNotIncludeMember.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithInternalGetter).Should();
 
-            var propertyMembersWithSetterHaveSetter = PropertyMembers()
-                .That()
-                .HaveSetter()
-                .Should()
-                .HaveSetter();
-            var propertyMembersWithSetterHaveNoSetter = PropertyMembers()
-                .That()
-                .HaveSetter()
-                .Should()
-                .NotHaveSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutSetterHaveSetter = PropertyMembers()
-                .That()
-                .HaveNoSetter()
-                .Should()
-                .HaveSetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutSetterHaveNoSetter = PropertyMembers()
-                .That()
-                .HaveNoSetter()
-                .Should()
-                .NotHaveSetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveInternalGetter().AssertNoViolations(helper);
 
-            Assert.True(propertyMembersWithSetterHaveSetter.HasNoViolations(Architecture));
-            Assert.False(propertyMembersWithSetterHaveNoSetter.HasNoViolations(Architecture));
-            Assert.False(propertyMembersWithoutSetterHaveSetter.HasNoViolations(Architecture));
-            Assert.True(propertyMembersWithoutSetterHaveNoSetter.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveInternalGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveInternalGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveInternalGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithInternalGetter).Should().HaveInternalGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithInternalGetter, helper.WritableProperty).Should().HaveInternalGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void HaveInitOnlySetterTest()
+        public async Task NotHaveInternalGetterTest()
         {
-            foreach (var propertyMember in _propertyMembers)
-            {
-                var propertyMemberHasInitOnlySetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .HaveInitOnlySetter();
-                var propertyMemberHasNoInitOnlySetter = PropertyMembers()
-                    .That()
-                    .Are(propertyMember)
-                    .Should()
-                    .NotHaveInitOnlySetter();
-                var propertyMembersWithInitOnlySetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .HaveInitOnlySetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .OrShould()
-                    .NotExist();
-                var propertyMembersWithoutInitOnlySetterDoNotIncludeMember = PropertyMembers()
-                    .That()
-                    .DoNotHaveInitOnlySetter()
-                    .Should()
-                    .NotBe(propertyMember)
-                    .AndShould()
-                    .Exist();
+            var helper = new PropertyMemberAssemblyTestHelper();
 
-                Assert.Equal(
-                    propertyMember.Writability == Writability.InitOnly,
-                    propertyMemberHasInitOnlySetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.Writability != Writability.InitOnly,
-                    propertyMemberHasNoInitOnlySetter.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    propertyMember.Writability != Writability.InitOnly,
-                    propertyMembersWithInitOnlySetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-                Assert.Equal(
-                    propertyMember.Writability == Writability.InitOnly,
-                    propertyMembersWithoutInitOnlySetterDoNotIncludeMember.HasNoViolations(
-                        Architecture
-                    )
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
-            var propertyMembersWithInitOnlySetterHaveInitOnlySetter = PropertyMembers()
-                .That()
-                .HaveInitOnlySetter()
-                .Should()
-                .HaveInitOnlySetter();
-            var propertyMembersWithInitOnlySetterHaveNoInitOnlySetter = PropertyMembers()
-                .That()
-                .HaveInitOnlySetter()
-                .Should()
-                .NotHaveInitOnlySetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutInitOnlySetterHaveInitOnlySetter = PropertyMembers()
-                .That()
-                .DoNotHaveInitOnlySetter()
-                .Should()
-                .HaveInitOnlySetter()
-                .AndShould()
-                .Exist();
-            var propertyMembersWithoutInitOnlySetterHaveNoInitOnlySetter = PropertyMembers()
-                .That()
-                .DoNotHaveInitOnlySetter()
-                .Should()
-                .NotHaveInitOnlySetter();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveInternalGetter().AssertNoViolations(helper);
 
-            Assert.True(
-                propertyMembersWithInitOnlySetterHaveInitOnlySetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithInitOnlySetterHaveNoInitOnlySetter.HasNoViolations(Architecture)
-            );
-            Assert.False(
-                propertyMembersWithoutInitOnlySetterHaveInitOnlySetter.HasNoViolations(Architecture)
-            );
-            Assert.True(
-                propertyMembersWithoutInitOnlySetterHaveNoInitOnlySetter.HasNoViolations(
-                    Architecture
-                )
-            );
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveInternalGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithInternalGetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveInternalGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveInternalGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.GetOnlyProperty).Should().NotHaveInternalGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithInternalGetter).Should().NotHaveInternalGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task HaveProtectedInternalGetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithProtectedInternalGetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveProtectedInternalGetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveProtectedInternalGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveProtectedInternalGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveProtectedInternalGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithProtectedInternalGetter).Should().HaveProtectedInternalGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithProtectedInternalGetter, helper.WritableProperty).Should().HaveProtectedInternalGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotHaveProtectedInternalGetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveProtectedInternalGetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveProtectedInternalGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithProtectedInternalGetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveProtectedInternalGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveProtectedInternalGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.GetOnlyProperty).Should().NotHaveProtectedInternalGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithProtectedInternalGetter).Should().NotHaveProtectedInternalGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task HavePrivateProtectedGetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedGetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePrivateProtectedGetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePrivateProtectedGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePrivateProtectedGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePrivateProtectedGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedGetter).Should().HavePrivateProtectedGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedGetter, helper.WritableProperty).Should().HavePrivateProtectedGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotHavePrivateProtectedGetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePrivateProtectedGetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePrivateProtectedGetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedGetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePrivateProtectedGetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePrivateProtectedGetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.GetOnlyProperty).Should().NotHavePrivateProtectedGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithPrivateProtectedGetter).Should().NotHavePrivateProtectedGetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task HavePublicSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePublicSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePublicSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithPrivateSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePublicSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePublicSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.OtherWritableProperty).Should().HavePublicSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithPrivateSetter).Should().HavePublicSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotHavePublicSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithPrivateSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePublicSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePublicSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePublicSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePublicSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithPrivateSetter, helper.GetOnlyProperty).Should().NotHavePublicSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateSetter, helper.WritableProperty).Should().NotHavePublicSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task HavePrivateSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithPrivateSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePrivateSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePrivateSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePrivateSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePrivateSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithPrivateSetter).Should().HavePrivateSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateSetter, helper.WritableProperty).Should().HavePrivateSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotHavePrivateSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePrivateSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePrivateSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithPrivateSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePrivateSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePrivateSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.OtherWritableProperty).Should().NotHavePrivateSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithPrivateSetter).Should().NotHavePrivateSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task HaveProtectedSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithProtectedSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveProtectedSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveProtectedSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveProtectedSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveProtectedSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithProtectedSetter).Should().HaveProtectedSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithProtectedSetter, helper.WritableProperty).Should().HaveProtectedSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotHaveProtectedSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveProtectedSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveProtectedSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithProtectedSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveProtectedSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveProtectedSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.OtherWritableProperty).Should().NotHaveProtectedSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithProtectedSetter).Should().NotHaveProtectedSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task HaveInternalSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithInternalSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveInternalSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveInternalSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveInternalSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveInternalSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithInternalSetter).Should().HaveInternalSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithInternalSetter, helper.WritableProperty).Should().HaveInternalSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotHaveInternalSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveInternalSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveInternalSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithInternalSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveInternalSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveInternalSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.OtherWritableProperty).Should().NotHaveInternalSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithInternalSetter).Should().NotHaveInternalSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task HaveProtectedInternalSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithProtectedInternalSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveProtectedInternalSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveProtectedInternalSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveProtectedInternalSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HaveProtectedInternalSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithProtectedInternalSetter).Should().HaveProtectedInternalSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithProtectedInternalSetter, helper.WritableProperty).Should().HaveProtectedInternalSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotHaveProtectedInternalSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveProtectedInternalSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveProtectedInternalSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithProtectedInternalSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveProtectedInternalSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHaveProtectedInternalSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.OtherWritableProperty).Should().NotHaveProtectedInternalSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithProtectedInternalSetter).Should().NotHaveProtectedInternalSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task HavePrivateProtectedSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePrivateProtectedSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePrivateProtectedSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HavePrivateProtectedSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().HavePrivateProtectedSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedSetter).Should().HavePrivateProtectedSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedSetter, helper.WritableProperty).Should().HavePrivateProtectedSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotHavePrivateProtectedSetterTest()
+        {
+            var helper = new PropertyMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePrivateProtectedSetter().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePrivateProtectedSetter()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedSetter).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHavePrivateProtectedSetter().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(PropertyMembers().That().DoNotHavePrivateProtectedSetter()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            PropertyMembers().That().Are(helper.WritableProperty, helper.OtherWritableProperty).Should().NotHavePrivateProtectedSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WritableProperty, helper.PropertyWithPrivateProtectedSetter).Should().NotHavePrivateProtectedSetter().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
     }
 }

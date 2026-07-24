@@ -1,0 +1,61 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter()" should have a private protected getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter()" should be Property members that have private protected getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have a private protected getter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have public getter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should have a private protected getter" failed:
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have public getter
+
+
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should be Property members that have private protected getter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() is not Property members that have private protected getter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should be Property members that have private protected getter" failed:
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() is not Property members that have private protected getter
+
+
+
+===== Multiple inputs =====
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter()" should have a private protected getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter() passed
+Message: 
+All Evaluations passed
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter()" or "System.String Propert... should have a private protected getter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have public getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter() passed
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter()" or "System.String Propert... should have a private protected getter" failed:
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have public getter
+
+
+
