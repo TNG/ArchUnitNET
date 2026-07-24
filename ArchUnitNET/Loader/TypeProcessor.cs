@@ -864,9 +864,20 @@ namespace ArchUnitNET.Loader
             DomainResolver domainResolver
         )
         {
-            var compilerGeneratedGeneratorObject = (
-                (MethodReference)methodBody.Instructions.First(inst => inst.IsNewObjectOp()).Operand
-            ).DeclaringType.Resolve();
+            var compilerGeneratedGeneratorObject = methodBody
+                .Instructions.Where(inst => inst.IsNewObjectOp())
+                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.Resolve())
+                .FirstOrDefault(type =>
+                    type != null
+                    && type.Methods.Any(method => method.Name == nameof(IEnumerator.MoveNext))
+                );
+
+            if (compilerGeneratedGeneratorObject == null)
+            {
+                methodDefinition = methodBody.Method;
+                return;
+            }
+
             methodDefinition = compilerGeneratedGeneratorObject.Methods.First(method =>
                 method.Name == nameof(IEnumerator.MoveNext)
             );
@@ -898,10 +909,15 @@ namespace ArchUnitNET.Loader
             DomainResolver domainResolver
         )
         {
-            var compilerGeneratedGeneratorObject = (
-                (MethodReference)
-                    methodBody.Instructions.FirstOrDefault(inst => inst.IsNewObjectOp())?.Operand
-            )?.DeclaringType.Resolve();
+            var compilerGeneratedGeneratorObject = methodBody
+                .Instructions.Where(inst => inst.IsNewObjectOp())
+                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.Resolve())
+                .FirstOrDefault(type =>
+                    type != null
+                    && type.Methods.Any(method =>
+                        method.Name == nameof(IAsyncStateMachine.MoveNext)
+                    )
+                );
 
             if (compilerGeneratedGeneratorObject == null)
             {
