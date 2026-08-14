@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
@@ -10,12 +11,18 @@ namespace ArchUnitNET.Domain
         public readonly bool Ignored;
 
         /// <summary>
-        ///     The captured name parts, one per capture group in the matching pattern.
+        ///     The captured name parts, one per capture group in the matching pattern. Two slices
+        ///     are the same exactly when these match in order.
         /// </summary>
         public readonly IReadOnlyList<string> Parts;
 
-        private SliceIdentifier(IReadOnlyList<string> parts, bool ignored, string nameSpace = null)
-            : base(FormatIdentifier(parts, ignored))
+        private SliceIdentifier(
+            IReadOnlyList<string> parts,
+            IReadOnlyList<string> separators,
+            bool ignored,
+            string nameSpace = null
+        )
+            : base(FormatIdentifier(parts, separators, ignored))
         {
             Parts = parts;
             Ignored = ignored;
@@ -29,17 +36,27 @@ namespace ArchUnitNET.Domain
 
         public static SliceIdentifier Of(string identifier, string nameSpace = null)
         {
-            return new SliceIdentifier(new[] { identifier }, false, nameSpace);
+            return new SliceIdentifier(new[] { identifier }, null, false, nameSpace);
         }
 
-        public static SliceIdentifier Of(IReadOnlyList<string> parts, string nameSpace = null)
+        /// <param name="parts">One captured value per capture group in the pattern.</param>
+        /// <param name="separators">
+        ///     The text to put between adjacent parts, one shorter than <paramref name="parts"/>.
+        ///     Pass <c>null</c> to join everything with ".".
+        /// </param>
+        /// <param name="nameSpace">The namespace prefix to nest the slice under, if any.</param>
+        public static SliceIdentifier Of(
+            IReadOnlyList<string> parts,
+            IReadOnlyList<string> separators = null,
+            string nameSpace = null
+        )
         {
-            return new SliceIdentifier(parts, false, nameSpace);
+            return new SliceIdentifier(parts, separators, false, nameSpace);
         }
 
         public static SliceIdentifier Ignore()
         {
-            return new SliceIdentifier(new[] { "Ignored" }, true);
+            return new SliceIdentifier(new[] { "Ignored" }, null, true);
         }
 
         /// <summary>
@@ -101,13 +118,32 @@ namespace ArchUnitNET.Domain
             }
         }
 
-        private static string FormatIdentifier(IReadOnlyList<string> parts, bool ignored)
+        private static string FormatIdentifier(
+            IReadOnlyList<string> parts,
+            IReadOnlyList<string> separators,
+            bool ignored
+        )
         {
-            // Joined with "." so that a slice has exactly one name: PlantUML component aliases may
-            // not contain whitespace, and the exporter splits the name on "." to nest package
-            // blocks. "(**)" already produces dotted names, so this also makes "App.(*).(*)" name
-            // the same grouping the same way as "App.(**)".
-            return ignored ? "Ignored" : string.Join(".", parts);
+            if (ignored)
+            {
+                return "Ignored";
+            }
+
+            if (separators == null)
+            {
+                return string.Join(".", parts);
+            }
+
+            // A slice has exactly one name: PlantUML component aliases may not contain whitespace,
+            // and the exporter splits the name on "." to nest package blocks, so anything else
+            // would leave messages, the freeze store and diagrams disagreeing.
+            var result = new StringBuilder(parts[0]);
+            for (var i = 1; i < parts.Count; i++)
+            {
+                result.Append(separators[i - 1]).Append(parts[i]);
+            }
+
+            return result.ToString();
         }
     }
 }

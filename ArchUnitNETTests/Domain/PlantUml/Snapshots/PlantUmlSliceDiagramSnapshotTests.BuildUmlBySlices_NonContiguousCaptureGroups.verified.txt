@@ -4,10 +4,10 @@
 
 HIDE_STEREOTYPE()
 
-[Slice3.Group2]
-[Slice3.Inner]
-[Slice3.Group1]
-[Slice2.Service]
-[Slice1.Service]
-[Slice1.Service] --|> [Slice2.Service]
+[Slice3..Group2]
+[Slice3..Inner]
+[Slice3..Group1]
+[Slice2..Service]
+[Slice1..Service]
+[Slice1..Service] --|> [Slice2..Service]
 @enduml
