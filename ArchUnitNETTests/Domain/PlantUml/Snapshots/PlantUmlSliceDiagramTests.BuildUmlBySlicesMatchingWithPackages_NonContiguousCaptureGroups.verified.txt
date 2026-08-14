@@ -14,10 +14,9 @@ package "SlicesTestAssembly.MultipleSubnamespaces" as SlicesTestAssembly.Multipl
   package "Slice3" as SlicesTestAssembly.MultipleSubnamespaces.Slice3 {
     [Group1] as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1
     [Group2] as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2
+    [Inner] as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Inner
   }
 }
 
 [SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service]
-[SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service] -[#red]> SlicesTestAssembly.MultipleSubnamespaces.Slice3
-SlicesTestAssembly.MultipleSubnamespaces.Slice3 -[#green]> SlicesTestAssembly.MultipleSubnamespaces.Slice1
 @enduml

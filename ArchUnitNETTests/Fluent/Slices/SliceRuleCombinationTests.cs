@@ -38,10 +38,9 @@ namespace ArchUnitNETTests.Fluent.Slices
         private static SliceRule CyclicSliceRule =>
             SliceRuleDefinition.Slices().Matching(Root + "(**)").Should().BeFreeOfCycles();
 
-        // "(**).." on MultipleSubnamespaces is acyclic too, but only because it folds away the
-        // types that would form the cycle (see SlicesTests.SubnamespaceCycleDetection_
-        // FoldedIntoParent_MissesCycle) -- a fixture that is genuinely acyclic keeps this test
-        // stable once that fold is reimplemented.
+        // MultipleSubnamespaces has a cycle under every grouping (see
+        // SlicesTests.CycleDetectionTest), so the acyclic operand comes from SubnamespaceCircle,
+        // whose "(**)" slices depend on each other without forming a cycle.
         private static SliceRule AcyclicSliceRule =>
             SliceRuleDefinition
                 .Slices()

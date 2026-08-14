@@ -19,9 +19,19 @@ namespace ArchUnitNETTests.Fluent.Slices
                 .Should()
                 .BeFreeOfCycles()
                 .AssertOnlyViolations(helper);
+            // Slice3 depends back on Slice1, so the cycle survives every regrouping of the whole
+            // namespace -- including "(**)..", which used to skip the top-level classes and
+            // therefore missed the edge that closes the loop.
             SliceRuleDefinition
                 .Slices()
                 .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)..")
+                .Should()
+                .BeFreeOfCycles()
+                .AssertOnlyViolations(helper);
+            // Restricting the slices to the "Service" sub-namespaces drops that edge again.
+            SliceRuleDefinition
+                .Slices()
+                .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**).Service..")
                 .Should()
                 .BeFreeOfCycles()
                 .AssertNoViolations(helper);
@@ -73,7 +83,7 @@ namespace ArchUnitNETTests.Fluent.Slices
         public void MatchingTest()
         {
             Assert.Equal(
-                9,
+                3,
                 SliceRuleDefinition
                     .Slices()
                     .Matching("SlicesTestAssembly.MultipleSubnamespaces.(*)")
@@ -89,7 +99,7 @@ namespace ArchUnitNETTests.Fluent.Slices
                     .Count()
             );
             Assert.Equal(
-                9,
+                3,
                 SliceRuleDefinition
                     .Slices()
                     .Matching("SlicesTestAssembly.MultipleSubnamespaces.(*)..")
@@ -97,7 +107,7 @@ namespace ArchUnitNETTests.Fluent.Slices
                     .Count()
             );
             Assert.Equal(
-                3,
+                9,
                 SliceRuleDefinition
                     .Slices()
                     .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)..")
@@ -105,7 +115,7 @@ namespace ArchUnitNETTests.Fluent.Slices
                     .Count()
             );
             Assert.Equal(
-                4,
+                2,
                 SliceRuleDefinition
                     .Slices()
                     .Matching("SlicesTestAssembly.MultipleSubnamespaces.Slice3.(*)")
@@ -148,7 +158,7 @@ namespace ArchUnitNETTests.Fluent.Slices
                 .Matching("SlicesTestAssembly.MultipleSubnamespaces.(*)..")
                 .Should()
                 .NotDependOnEachOther()
-                .AssertAnyViolations(helper);
+                .AssertOnlyViolations(helper);
             SliceRuleDefinition
                 .Slices()
                 .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)..")
@@ -175,14 +185,14 @@ namespace ArchUnitNETTests.Fluent.Slices
             }
         }
 
-        // None of these patterns folds Slice2.Inner into Slice2, so Slice1 -> Slice2 and
-        // Slice2.Inner -> Slice1 stay dependencies between three distinct slices and there is
-        // genuinely no cycle to find.
+        // Neither of these patterns folds Slice2.Inner into Slice2 -- "(*)" ignores it altogether
+        // and "(**)" gives it a slice of its own -- so Slice1 -> Slice2 and Slice2.Inner -> Slice1
+        // stay dependencies between distinct slices and there is genuinely no cycle to find.
         [Fact]
         public void SubnamespaceCycleDetectionTest()
         {
             var helper = new SlicesAssemblyTestHelper().WithoutSnapshot();
-            foreach (var pattern in new[] { "(*)", "(*)..", "(**)" })
+            foreach (var pattern in new[] { "(*)", "(**)" })
             {
                 SliceRuleDefinition
                     .Slices()
@@ -193,27 +203,45 @@ namespace ArchUnitNETTests.Fluent.Slices
             }
         }
 
-        // See: https://github.com/TNG/ArchUnitNET/issues/208 -- "(**).." is the one pattern that
-        // folds Slice2.Inner into Slice2, which should surface the cycle
-        // Slice1 -> Slice2 -> (Slice2.Inner) -> Slice1. It currently does not: the fold drops the
-        // types sitting directly in the captured namespace (see
-        // Matching_DoubleAsteriskDotDot_DropsTypesDirectlyInCapturedNamespace), so Slice1Class
-        // never makes it into a slice and the cycle has no starting edge. Pinned as-is; this
-        // assertion is expected to flip once the matcher is reimplemented.
+        // See: https://github.com/TNG/ArchUnitNET/issues/208 -- "(*).." is the one pattern that
+        // folds Slice2.Inner into Slice2, which surfaces the cycle
+        // Slice1 -> Slice2 -> (Slice2.Inner) -> Slice1.
         [Fact]
-        public void SubnamespaceCycleDetection_FoldedIntoParent_MissesCycle()
+        public void SubnamespaceCycleDetection_FoldedIntoParent_DetectsCycle()
         {
             var helper = new SlicesAssemblyTestHelper().WithoutSnapshot();
             SliceRuleDefinition
                 .Slices()
-                .Matching("SlicesTestAssembly.SubnamespaceCircle.(**)..")
+                .Matching("SlicesTestAssembly.SubnamespaceCircle.(*)..")
                 .Should()
                 .BeFreeOfCycles()
-                .AssertNoViolations(helper);
+                .AssertOnlyViolations(helper);
         }
 
         [Fact]
-        public void Matching_SingleAsterisk_CapturesEveryDepth()
+        public void Matching_SingleAsterisk_CapturesExactlyOneSegment()
+        {
+            // A namespace deeper than the pattern does not match at all, so the types below
+            // "Slice1.Service" and friends are left out entirely.
+            Assert.Equal(new[] { "Slice1", "Slice2", "Slice3" }, Descriptions(Root + "(*)"));
+        }
+
+        [Fact]
+        public void Matching_SingleAsteriskDotDot_FoldsSubnamespacesIntoParent()
+        {
+            Assert.Equal(new[] { "Slice1", "Slice2", "Slice3" }, Descriptions(Root + "(*).."));
+
+            // Same names as "(*)", but the trailing ".." pulls the deeper types in as well.
+            var slices = SliceRuleDefinition
+                .Slices()
+                .Matching(Root + "(*)..")
+                .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
+                .ToList();
+            Assert.Equal(5, slices.Single(slice => slice.Description == "Slice3").Types.Count());
+        }
+
+        [Fact]
+        public void Matching_DoubleAsterisk_CapturesEveryDepth()
         {
             Assert.Equal(
                 new[]
@@ -228,136 +256,125 @@ namespace ArchUnitNETTests.Fluent.Slices
                     "Slice3.Group2",
                     "Slice3.Group2.Inner",
                 },
-                Descriptions(Root + "(*)")
+                Descriptions(Root + "(**)")
             );
         }
 
         [Fact]
-        public void Matching_SingleAsteriskDotDot_CapturesEveryDepth()
+        public void Matching_DoubleAsteriskDotDot_IsRedundant()
         {
-            Assert.Equal(Descriptions(Root + "(*)"), Descriptions(Root + "(*).."));
+            // "(**)" is already greedy, so a trailing ".." has nothing left to skip.
+            Assert.Equal(Descriptions(Root + "(**)"), Descriptions(Root + "(**).."));
         }
 
         [Fact]
-        public void Matching_DoubleAsteriskDotDot_FoldsSubnamespacesIntoParent()
+        public void Matching_TrailingLiteralAfterCapture_MatchesOnlyThatLiteral()
         {
-            Assert.Equal(new[] { "Slice1", "Slice2", "Slice3" }, Descriptions(Root + "(**).."));
+            Assert.Equal(new[] { "Slice1", "Slice2" }, Descriptions(Root + "(**).Service.."));
         }
 
-        /// <summary>
-        /// The descriptions above only say which slices exist; this pins what ends up inside
-        /// them, which is where "(**).." is at its most surprising. Folding keeps the types
-        /// from the sub-namespaces but drops the ones sitting directly in the captured
-        /// namespace, so Slice1Class/Slice2Class/Slice3Class are in no slice at all. That is
-        /// what makes the NotDependOnEachOther snapshots report Slice2 and Slice3 as
-        /// depending on nothing, and what hides the cycle in
-        /// <see cref="SubnamespaceCycleDetection_FoldedIntoParent_MissesCycle" />.
-        /// </summary>
         [Fact]
-        public void Matching_DoubleAsteriskDotDot_DropsTypesDirectlyInCapturedNamespace()
+        public void Matching_Alternation_MatchesEitherAlternative()
         {
-            var types = SliceRuleDefinition
-                .Slices()
-                .Matching(Root + "(**)..")
-                .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
-                .ToDictionary(
-                    slice => slice.Description,
-                    slice =>
-                        slice
-                            .Types.Select(type => type.FullName)
-                            .OrderBy(name => name, StringComparer.Ordinal)
-                            .ToArray()
-                );
-
-            Assert.Equal(new[] { Root + "Slice1.Service.Service1Class" }, types["Slice1"]);
-            Assert.Equal(new[] { Root + "Slice2.Service.Service2Class" }, types["Slice2"]);
             Assert.Equal(
-                new[]
-                {
-                    Root + "Slice3.Group1.Group1Class",
-                    Root + "Slice3.Group1.Inner.Inner1Class",
-                    Root + "Slice3.Group2.Group2Class",
-                    Root + "Slice3.Group2.Inner.Inner2Class",
-                },
-                types["Slice3"]
+                new[] { "Slice1", "Slice2", "Slice3.Group1", "Slice3.Group2" },
+                Descriptions(Root + "(**).[Service|Inner]")
+            );
+        }
+
+        // As in ArchUnit, "(A|B)" is a capture group like "(*)": the alternative that matched is
+        // part of the slice's identity and its name, whereas "[A|B]" only selects.
+        [Fact]
+        public void Matching_ParenthesisedAlternation_IsACaptureGroup()
+        {
+            Assert.Equal(new[] { "Slice1", "Slice2" }, Descriptions(Root + "(Slice1|Slice2).."));
+            Assert.Equal(
+                new[] { "Slice1.Service", "Slice2.Service" },
+                Descriptions(Root + "(Slice1|Slice2).(*)")
+            );
+            Assert.Equal(
+                new[] { "Slice1.Service", "Slice2.Service", "Slice3.Group1" },
+                Descriptions(Root + "(*).(Service|Group1)")
             );
         }
 
         [Fact]
-        public void Matching_TrailingLiteralAfterCapture_MatchesNothing()
+        public void MatchingWithPackages_ParenthesisedAlternationAsFirstGroup_KeepsThePrefix()
         {
-            Assert.Empty(Descriptions(Root + "(**).Service.."));
+            var slices = SliceRuleDefinition
+                .Slices()
+                .MatchingWithPackages(Root + "(Slice1|Slice2)..")
+                .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
+                .Select(slice => (slice.Description, slice.NameSpace))
+                .OrderBy(slice => slice.Description, StringComparer.Ordinal)
+                .ToArray();
+
+            Assert.Equal(new[] { (Root + "Slice1", Root), (Root + "Slice2", Root) }, slices);
         }
 
         [Fact]
-        public void Matching_Alternation_MatchesNothing()
-        {
-            Assert.Empty(Descriptions(Root + "(**).[Service|Inner]"));
-        }
-
-        [Fact]
-        public void Matching_LeadingDotDot_CapturesEveryDepth()
+        public void Matching_LeadingDotDot_SkipsWholeLeadingSegments()
         {
             Assert.Equal(Descriptions(Root + "(*)"), Descriptions("..MultipleSubnamespaces.(*)"));
         }
 
         // The fixture's namespace contains "DuplicatePrefix.Sub" twice
         // (SlicesTestAssembly.DuplicatePrefix.Sub.DuplicatePrefix.Sub), so a leading ".." pattern
-        // for that prefix has two candidate starting positions to strip from. This pins that
-        // AssignFunc's IndexOf (leftmost match) picks the first occurrence, leaving the second
-        // "DuplicatePrefix.Sub" -- and the one leading dot "..DuplicatePrefix.Sub." keeps after
-        // stripping only one of its two literal dots -- in the description. With an absolute
-        // (non-"..") prefix, the prefix can only ever be found at index 0, so that variant of this
-        // test would pass even if IndexOf were replaced by a hardcoded 0.
+        // for that prefix has two candidate positions to match at. The ".." is greedy, but
+        // skipping as far as the second occurrence leaves nothing for the capture group, so the
+        // match backtracks to the first: the captured slice is the *second* "DuplicatePrefix.Sub".
         [Fact]
-        public void MatchingWithPackages_DuplicatePrefixSegment_UsesFirstOccurrenceAsPrefix()
+        public void DuplicatePrefixSegment_CapturesAfterTheFirstOccurrenceOfThePrefix()
         {
             var slices = SliceRuleDefinition
                 .Slices()
-                .MatchingWithPackages("..DuplicatePrefix.Sub.(*)")
+                .Matching("..DuplicatePrefix.Sub.(**)")
                 .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                 .ToList();
 
             Assert.Single(slices);
-            Assert.Equal(".DuplicatePrefix.Sub.DuplicatePrefix.Sub", slices[0].Description);
+            Assert.Equal("DuplicatePrefix.Sub", slices[0].Description);
+        }
+
+        // MatchingWithPackages keeps everything in front of the capture group, so the same match
+        // names the slice after the whole namespace.
+        [Fact]
+        public void MatchingWithPackages_DuplicatePrefixSegment_KeepsBothOccurrences()
+        {
+            var slices = SliceRuleDefinition
+                .Slices()
+                .MatchingWithPackages("..DuplicatePrefix.Sub.(**)")
+                .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
+                .ToList();
+
+            Assert.Single(slices);
+            Assert.Equal(
+                "SlicesTestAssembly.DuplicatePrefix.Sub.DuplicatePrefix.Sub",
+                slices[0].Description
+            );
         }
 
         // --- ".." semantics -------------------------------------------------------------
 
         [Fact]
-        public void DotDot_BetweenCaptureGroups_CapturesEveryDepth()
+        public void DotDot_BetweenCaptureGroups_SkipsWholeSegments()
         {
+            // "Single" has nothing for the second group to capture and "AlphaService" is a single
+            // segment, so neither matches; "Outer.Mid.Inner" has its middle segment skipped.
             Assert.Equal(
-                new[]
-                {
-                    "Alpha.Service",
-                    "AlphaService",
-                    "Outer.Inner",
-                    "Outer.Mid.Inner",
-                    "Single",
-                },
+                new[] { "Alpha.Service", "Outer.Inner" },
                 Descriptions(DotDot + "(*)..(*)")
             );
         }
 
         [Fact]
-        public void DotDot_BeforeLiteral_CapturesEveryDepth()
+        public void DotDot_BeforeLiteral_MatchesOnlyWholeSegments()
         {
-            Assert.Equal(
-                new[]
-                {
-                    "Alpha.Service",
-                    "AlphaService",
-                    "Outer.Inner",
-                    "Outer.Mid.Inner",
-                    "Single",
-                },
-                Descriptions(DotDot + "(*)..Service")
-            );
+            Assert.Equal(new[] { "Alpha" }, Descriptions(DotDot + "(*)..Service"));
         }
 
         [Fact]
-        public void DotDot_BeforeLiteral_GivesAlphaServiceAndAlphaDotServiceDistinctSlices()
+        public void DotDot_BeforeLiteral_DoesNotSplitWithinASegment()
         {
             var slices = SliceRuleDefinition
                 .Slices()
@@ -365,14 +382,14 @@ namespace ArchUnitNETTests.Fluent.Slices
                 .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                 .ToList();
 
-            // "AlphaService" is one segment and "Alpha.Service" is two, but that distinction is
-            // never actually evaluated: the "..Service" postfix is discarded (see
-            // AlphaServiceClass.cs), so both namespaces just get their own unfolded slice, each
-            // holding exactly the one type it's made of. This is not evidence the matcher tells
-            // the two shapes apart -- it would look identical if it ignored segment boundaries
-            // entirely.
-            Assert.Single(slices.Single(slice => slice.Description == "AlphaService").Types);
-            Assert.Single(slices.Single(slice => slice.Description == "Alpha.Service").Types);
+            // Only "Alpha.Service" matches. "AlphaService" is one segment and must not be split
+            // into "Alpha" + "Service".
+            var alpha = Assert.Single(slices);
+            Assert.Equal("Alpha", alpha.Description);
+            Assert.Equal(
+                "SlicesTestAssembly.DotDotSemantics.Alpha.Service.AlphaServiceSegmentClass",
+                Assert.Single(alpha.Types).FullName
+            );
         }
 
         // --- failure messages -----------------------------------------------------------

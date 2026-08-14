@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -7,16 +9,16 @@ namespace ArchUnitNET.Domain
         public static readonly SliceIdentifierComparer Comparer = new SliceIdentifierComparer();
         public readonly bool Ignored;
 
-        private SliceIdentifier(
-            string identifier,
-            bool ignored,
-            int? countOfAsteriskInPattern = null,
-            string nameSpace = null
-        )
-            : base(identifier)
+        /// <summary>
+        /// The captured name parts, one per capture group in the matching pattern.
+        /// </summary>
+        public readonly IReadOnlyList<string> Parts;
+
+        private SliceIdentifier(IReadOnlyList<string> parts, bool ignored, string nameSpace = null)
+            : base(FormatIdentifier(parts, ignored))
         {
+            Parts = parts;
             Ignored = ignored;
-            CountOfAsteriskInPattern = countOfAsteriskInPattern;
             NameSpace = nameSpace;
         }
 
@@ -24,20 +26,20 @@ namespace ArchUnitNET.Domain
 
         [CanBeNull]
         public readonly string NameSpace;
-        public readonly int? CountOfAsteriskInPattern;
 
-        public static SliceIdentifier Of(
-            string identifier,
-            int? countOfAsteriskInPattern = null,
-            string nameSpace = null
-        )
+        public static SliceIdentifier Of(string identifier, string nameSpace = null)
         {
-            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
+            return new SliceIdentifier(new[] { identifier }, false, nameSpace);
+        }
+
+        public static SliceIdentifier Of(IReadOnlyList<string> parts, string nameSpace = null)
+        {
+            return new SliceIdentifier(parts, false, nameSpace);
         }
 
         public static SliceIdentifier Ignore()
         {
-            return new SliceIdentifier("Ignored", true);
+            return new SliceIdentifier(new[] { "Ignored" }, true);
         }
 
         /// <summary>
@@ -52,13 +54,22 @@ namespace ArchUnitNET.Domain
                 return false;
             }
 
-            return Ignored && other.Ignored
-                || !Ignored && !other.Ignored && Identifier == other.Identifier;
+            if (Ignored && other.Ignored)
+            {
+                return true;
+            }
+
+            if (Ignored || other.Ignored)
+            {
+                return false;
+            }
+
+            return Parts.SequenceEqual(other.Parts);
         }
 
         private bool Equals(SliceIdentifier other)
         {
-            return Identifier == other.Identifier && Ignored == other.Ignored;
+            return Ignored == other.Ignored && Parts.SequenceEqual(other.Parts);
         }
 
         public override bool Equals(object obj)
@@ -80,10 +91,23 @@ namespace ArchUnitNET.Domain
         {
             unchecked
             {
-                var hashCode = 397 ^ Identifier.GetHashCode();
-                hashCode = (hashCode * 397) ^ Ignored.GetHashCode();
+                var hashCode = 397 ^ Ignored.GetHashCode();
+                foreach (var part in Parts)
+                {
+                    hashCode = (hashCode * 397) ^ part.GetHashCode();
+                }
+
                 return hashCode;
             }
+        }
+
+        private static string FormatIdentifier(IReadOnlyList<string> parts, bool ignored)
+        {
+            // Joined with "." so that a slice has exactly one name: PlantUML component aliases may
+            // not contain whitespace, and the exporter splits the name on "." to nest package
+            // blocks. "(**)" already produces dotted names, so this also makes "App.(*).(*)" name
+            // the same grouping the same way as "App.(**)".
+            return ignored ? "Ignored" : string.Join(".", parts);
         }
     }
 }

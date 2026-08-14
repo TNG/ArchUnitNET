@@ -22,23 +22,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
         private const string Root = "SlicesTestAssembly.MultipleSubnamespaces.";
 
-        // --- The asterisk count decides which slices the exporter renders ---------------
+        // --- Each pattern shape groups MultipleSubnamespaces differently ----------------
         //
-        // Every pattern below matches the same nine slices -- SlicesTests.MatchingTest and
-        // Matching_SingleAsterisk_CapturesEveryDepth assert that. What differs is how many
-        // of them survive PlantUmlFileBuilder.RemovePatternInappropriateSlices, which drops
-        // a slice once its depth (dots in Description, less dots in NameSpace) reaches
-        // Slice.CountOfAsteriskInPattern:
-        //
-        //     (*)       count 1     ->  3 of 9 slices rendered
-        //     (*).(*)   count 2     ->  7 of 9 slices rendered
-        //     (**)      count null  ->  9 of 9 slices rendered
-        //
-        // CountOfAsteriskInPattern has no other consumer in the library: the slice domain
-        // carries it solely so the exporter can perform that deletion. So these snapshots
-        // are the only record that asking for "(*)" hands the diagram two-thirds fewer
-        // nodes than GetObjects returned, and a reimplementation is free to drop the field
-        // from SliceIdentifier only if it also changes what these files say.
+        // SlicesTests pins which slices each pattern produces; these snapshots pin how the
+        // exporter draws them.
 
         [Fact]
         public Task BuildUmlBySlices_SingleAsterisk()
@@ -52,17 +39,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return VerifySlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
         }
 
-        // The matcher discards everything after the first "(*", so "(*).(*)" and "(*)..(*)"
-        // are indistinguishable to it and the next two snapshots are byte-identical -- as are
-        // their MatchingWithPackages counterparts below. That identity is the point: it is
-        // what a reimplementation giving the second capture group any meaning would have to
-        // change. SlicesTests.DotDot_* cover the shapes that would tell the two patterns
-        // apart.
-        //
-        // Identical snapshots do not make these tests redundant with "(*)", though. The
-        // second group is dead to the matcher but still raises CountOfAsteriskInPattern to
-        // 2, which moves the exporter's cutoff -- hence seven nodes here against three for
-        // "(*)".
         [Fact]
         public Task BuildUmlBySlices_MultipleCaptureGroups()
         {
@@ -224,9 +200,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public Task BuildUmlBySlices_ExcludeNodesWithoutDependencies()
         {
-            // A single-asterisk pattern would already collapse away the dependency-less slices
-            // via RemovePatternInappropriateSlices, so use "(**)" to keep them in the slice list
-            // and let IncludeNodesWithoutDependencies do the removal instead.
+            // "(**)" keeps every namespace as a slice of its own, including ones without any
+            // dependency, so there is something for IncludeNodesWithoutDependencies to remove.
             var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
             var uml = new PlantUmlFileBuilder()
                 .WithDependenciesFrom(
@@ -242,8 +217,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public Task BuildUmlBySlices_WithDependencyFilter()
         {
-            // "(*)" would already collapse Slice3.Group1 away via RemovePatternInappropriateSlices,
-            // leaving no dependency for the filter to remove, so use "(**)" instead.
+            // "(**)" gives Slice3.Group1 a slice of its own, so there is a dependency for the
+            // filter to remove.
             var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
             var uml = new PlantUmlFileBuilder()
                 .WithDependenciesFrom(
@@ -288,9 +263,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void BuildUmlBySlicesFocusOn_UnknownPackage_Throws()
         {
-            // A single-asterisk pattern gives every slice a non-null CountOfAsteriskInPattern,
-            // which is required to reach RemovePatternInappropriateSlices' early return for a
-            // focus string that no slice contains, on the way to this exception.
             var slices = SliceRuleDefinition
                 .Slices()
                 .MatchingWithPackages(Root + "(*)")
@@ -323,15 +295,13 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.Equal(umlWithoutTrailingDot, umlWithTrailingDot);
         }
 
-        // --- RemovePatternInappropriateSlices' per-slice "continue" for FocusOn ------
+        // --- FocusOn with a single-asterisk pattern ----------------------------------
 
         [Fact]
         public Task BuildUmlBySlicesFocusOn_SingleAsteriskPattern_SkipsSlicesWithoutFocusString()
         {
-            // Focusing on the single-segment slice "Slice3" means slices whose Description
-            // doesn't contain it (e.g. "Slice1") skip the pattern-appropriateness check via
-            // RemovePatternInappropriateSlices' per-slice "continue", while "Slice3" itself is
-            // shallow enough to survive that check and keep the package reachable.
+            // Only "Slice3" contains the focus string, so it alone is coloured; the other slices
+            // are drawn because they depend on it or it depends on them.
             var slices = SortedSlices(
                 SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*)")
             );

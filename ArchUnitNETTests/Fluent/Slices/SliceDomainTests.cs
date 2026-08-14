@@ -105,6 +105,14 @@ namespace ArchUnitNETTests.Fluent.Slices
         }
 
         [Fact]
+        public void SliceIdentifier_CompareTo_OneIgnored_ReturnsFalse()
+        {
+            // Same parts, so only the Ignored flag tells the two apart.
+            Assert.False(SliceIdentifier.Of("Ignored").CompareTo(SliceIdentifier.Ignore()));
+            Assert.False(SliceIdentifier.Ignore().CompareTo(SliceIdentifier.Of("Ignored")));
+        }
+
+        [Fact]
         public void SliceIdentifier_Equals_Branches()
         {
             var identifier = SliceIdentifier.Of("A");

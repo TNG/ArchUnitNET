@@ -18,6 +18,4 @@ package "SlicesTestAssembly.MultipleSubnamespaces" as SlicesTestAssembly.Multipl
 }
 
 [SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service]
-[SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service] -[#red]> SlicesTestAssembly.MultipleSubnamespaces.Slice3
-SlicesTestAssembly.MultipleSubnamespaces.Slice3 -[#green]> SlicesTestAssembly.MultipleSubnamespaces.Slice1
 @enduml
