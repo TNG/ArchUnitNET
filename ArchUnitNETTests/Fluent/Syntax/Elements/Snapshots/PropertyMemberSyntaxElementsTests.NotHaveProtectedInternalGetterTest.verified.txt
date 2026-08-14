@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should not have a protected internal getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should be Property members that do not have protected internal getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter()" should not have a protected internal getter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter() does have a protected internal getter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter()" should not have a protected internal getter" failed:
+	System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter() does have a protected internal getter
+
+
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter()" should be Property members that do not have protected internal getter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter() is not Property members that do not have protected internal getter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter()" should be Property members that do not have protected internal getter" failed:
+	System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter() is not Property members that do not have protected internal getter
+
+
+
+===== Multiple inputs =====
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithGetOnl... should not have a protected internal getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
+Message: 
+All Evaluations passed
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithProtec... should not have a protected internal getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter() does have a protected internal getter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithProtec... should not have a protected internal getter" failed:
+	System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter() does have a protected internal getter
+
+
+

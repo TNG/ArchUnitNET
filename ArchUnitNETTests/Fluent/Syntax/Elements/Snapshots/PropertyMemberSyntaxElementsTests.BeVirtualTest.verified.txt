@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty()" should be virtual
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty()" should be Property members that are virtual
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" should be virtual
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() is not virtual
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" should be virtual" failed:
+	System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() is not virtual
+
+
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" should be Property members that are virtual
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() is not Property members that are virtual
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty()" should be Property members that are virtual" failed:
+	System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() is not Property members that are virtual
+
+
+
+===== Multiple inputs =====
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty()" or "System.String PropertyMemberNamespace.OtherClassWithVir... should be virtual
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithVirtualProperty::OtherVirtualProperty() passed
+Message: 
+All Evaluations passed
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithNonVirtu... should be virtual
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty() passed
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() is not virtual
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithNonVirtu... should be virtual" failed:
+	System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() is not virtual
+
+
+

@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should not have an init only setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should be Property members that do not have an init only setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty()" should not have an init only setter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() has an init only setter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty()" should not have an init only setter" failed:
+	System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() has an init only setter
+
+
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty()" should be Property members that do not have an init only setter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() is not Property members that do not have an init only setter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty()" should be Property members that do not have an init only setter" failed:
+	System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() is not Property members that do not have an init only setter
+
+
+
+===== Multiple inputs =====
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithGetOnl... should not have an init only setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
+Message: 
+All Evaluations passed
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithInitOn... should not have an init only setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() has an init only setter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithInitOn... should not have an init only setter" failed:
+	System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() has an init only setter
+
+
+

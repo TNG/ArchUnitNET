@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+using System.Collections.Generic;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Conditions;
 using static ArchUnitNET.Domain.Visibility;
 
@@ -6,6 +7,18 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
     public static class PropertyMemberConditionsDefinition
     {
+        private static readonly Dictionary<Visibility, string> VisibilityDescriptions =
+            new Dictionary<Visibility, string>
+            {
+                { Private, "a private" },
+                { Public, "a public" },
+                { Protected, "a protected" },
+                { Internal, "an internal" },
+                { ProtectedInternal, "a protected internal" },
+                { PrivateProtected, "a private protected" },
+                { NotAccessible, "a not accessible" },
+            };
+
         public static IOrderedCondition<PropertyMember> HaveGetter()
         {
             return new SimpleCondition<PropertyMember>(
@@ -15,75 +28,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static IOrderedCondition<PropertyMember> HavePrivateGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility == Private,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.GetterVisibility)
-                    + " getter",
-                "have a private getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HavePrivateGetter() =>
+            HaveGetterWithVisibility(Private);
 
-        public static IOrderedCondition<PropertyMember> HavePublicGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility == Public,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.GetterVisibility)
-                    + " getter",
-                "have a public getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HavePublicGetter() =>
+            HaveGetterWithVisibility(Public);
 
-        public static IOrderedCondition<PropertyMember> HaveProtectedGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility == Protected,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.GetterVisibility)
-                    + " getter",
-                "have a protected getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HaveProtectedGetter() =>
+            HaveGetterWithVisibility(Protected);
 
-        public static IOrderedCondition<PropertyMember> HaveInternalGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility == Internal,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.GetterVisibility)
-                    + " getter",
-                "have an internal getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HaveInternalGetter() =>
+            HaveGetterWithVisibility(Internal);
 
-        public static IOrderedCondition<PropertyMember> HaveProtectedInternalGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility == ProtectedInternal,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.GetterVisibility)
-                    + " getter",
-                "have a protected internal getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HaveProtectedInternalGetter() =>
+            HaveGetterWithVisibility(ProtectedInternal);
 
-        public static IOrderedCondition<PropertyMember> HavePrivateProtectedGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility == PrivateProtected,
-                member =>
-                    "does have " + VisibilityStrings.ToString(member.GetterVisibility) + " getter",
-                "have a private protected getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HavePrivateProtectedGetter() =>
+            HaveGetterWithVisibility(PrivateProtected);
 
         public static IOrderedCondition<PropertyMember> HaveSetter()
         {
@@ -94,75 +55,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static IOrderedCondition<PropertyMember> HavePrivateSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility == Private,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.SetterVisibility)
-                    + " setter",
-                "have a private setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HavePrivateSetter() =>
+            HaveSetterWithVisibility(Private);
 
-        public static IOrderedCondition<PropertyMember> HavePublicSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility == Public,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.SetterVisibility)
-                    + " setter",
-                "have a public setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HavePublicSetter() =>
+            HaveSetterWithVisibility(Public);
 
-        public static IOrderedCondition<PropertyMember> HaveProtectedSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility == Protected,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.SetterVisibility)
-                    + " setter",
-                "have a protected setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HaveProtectedSetter() =>
+            HaveSetterWithVisibility(Protected);
 
-        public static IOrderedCondition<PropertyMember> HaveInternalSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility == Internal,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.SetterVisibility)
-                    + " setter",
-                "have an internal setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HaveInternalSetter() =>
+            HaveSetterWithVisibility(Internal);
 
-        public static IOrderedCondition<PropertyMember> HaveProtectedInternalSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility == ProtectedInternal,
-                member =>
-                    "does have a "
-                    + VisibilityStrings.ToString(member.SetterVisibility)
-                    + " setter",
-                "have a protected internal setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HaveProtectedInternalSetter() =>
+            HaveSetterWithVisibility(ProtectedInternal);
 
-        public static IOrderedCondition<PropertyMember> HavePrivateProtectedSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility == PrivateProtected,
-                member =>
-                    "does have " + VisibilityStrings.ToString(member.SetterVisibility) + " setter",
-                "have a private protected setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> HavePrivateProtectedSetter() =>
+            HaveSetterWithVisibility(PrivateProtected);
 
         public static IOrderedCondition<PropertyMember> HaveInitSetter()
         {
@@ -193,59 +102,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static IOrderedCondition<PropertyMember> NotHavePrivateGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility != Private,
-                "not have a private getter",
-                "does have a private getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHavePrivateGetter() =>
+            NotHaveGetterWithVisibility(Private);
 
-        public static IOrderedCondition<PropertyMember> NotHavePublicGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility != Public,
-                "not have a public getter",
-                "does have a public getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHavePublicGetter() =>
+            NotHaveGetterWithVisibility(Public);
 
-        public static IOrderedCondition<PropertyMember> NotHaveProtectedGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility != Protected,
-                "not have a protected getter",
-                "does have a protected getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHaveProtectedGetter() =>
+            NotHaveGetterWithVisibility(Protected);
 
-        public static IOrderedCondition<PropertyMember> NotHaveInternalGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility != Internal,
-                "not have an internal getter",
-                "does have an internal getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHaveInternalGetter() =>
+            NotHaveGetterWithVisibility(Internal);
 
-        public static IOrderedCondition<PropertyMember> NotHaveProtectedInternalGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility != ProtectedInternal,
-                "not have a protected internal getter",
-                "does have a protected internal getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHaveProtectedInternalGetter() =>
+            NotHaveGetterWithVisibility(ProtectedInternal);
 
-        public static IOrderedCondition<PropertyMember> NotHavePrivateProtectedGetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.GetterVisibility != PrivateProtected,
-                "not have a private protected getter",
-                "does have a private protected getter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHavePrivateProtectedGetter() =>
+            NotHaveGetterWithVisibility(PrivateProtected);
 
         public static IOrderedCondition<PropertyMember> NotHaveSetter()
         {
@@ -256,59 +129,23 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             );
         }
 
-        public static IOrderedCondition<PropertyMember> NotHavePrivateSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != Private,
-                "not have a private setter",
-                "does have a private setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHavePrivateSetter() =>
+            NotHaveSetterWithVisibility(Private);
 
-        public static IOrderedCondition<PropertyMember> NotHavePublicSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != Public,
-                "not have a public setter",
-                "does have a public setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHavePublicSetter() =>
+            NotHaveSetterWithVisibility(Public);
 
-        public static IOrderedCondition<PropertyMember> NotHaveProtectedSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != Protected,
-                "not have a protected setter",
-                "does have a protected setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHaveProtectedSetter() =>
+            NotHaveSetterWithVisibility(Protected);
 
-        public static IOrderedCondition<PropertyMember> NotHaveInternalSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != Internal,
-                "not have an internal setter",
-                "does have an internal setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHaveInternalSetter() =>
+            NotHaveSetterWithVisibility(Internal);
 
-        public static IOrderedCondition<PropertyMember> NotHaveProtectedInternalSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != ProtectedInternal,
-                "not have a protected internal setter",
-                "does have a protected internal setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHaveProtectedInternalSetter() =>
+            NotHaveSetterWithVisibility(ProtectedInternal);
 
-        public static IOrderedCondition<PropertyMember> NotHavePrivateProtectedSetter()
-        {
-            return new SimpleCondition<PropertyMember>(
-                member => member.SetterVisibility != PrivateProtected,
-                "not have a private protected setter",
-                "does have a private protected setter"
-            );
-        }
+        public static IOrderedCondition<PropertyMember> NotHavePrivateProtectedSetter() =>
+            NotHaveSetterWithVisibility(PrivateProtected);
 
         public static IOrderedCondition<PropertyMember> NotHaveInitSetter()
         {
@@ -325,6 +162,52 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
                 member => !member.IsVirtual,
                 "not be virtual",
                 "is virtual"
+            );
+        }
+
+        private static IOrderedCondition<PropertyMember> HaveGetterWithVisibility(
+            Visibility visibility
+        )
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility == visibility,
+                member =>
+                    "does have " + VisibilityDescriptions[member.GetterVisibility] + " getter",
+                "have " + VisibilityDescriptions[visibility] + " getter"
+            );
+        }
+
+        private static IOrderedCondition<PropertyMember> HaveSetterWithVisibility(
+            Visibility visibility
+        )
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.SetterVisibility == visibility,
+                member =>
+                    "does have " + VisibilityDescriptions[member.SetterVisibility] + " setter",
+                "have " + VisibilityDescriptions[visibility] + " setter"
+            );
+        }
+
+        private static IOrderedCondition<PropertyMember> NotHaveGetterWithVisibility(
+            Visibility visibility
+        )
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.GetterVisibility != visibility,
+                "not have " + VisibilityDescriptions[visibility] + " getter",
+                "does have " + VisibilityDescriptions[visibility] + " getter"
+            );
+        }
+
+        private static IOrderedCondition<PropertyMember> NotHaveSetterWithVisibility(
+            Visibility visibility
+        )
+        {
+            return new SimpleCondition<PropertyMember>(
+                member => member.SetterVisibility != visibility,
+                "not have " + VisibilityDescriptions[visibility] + " setter",
+                "does have " + VisibilityDescriptions[visibility] + " setter"
             );
         }
     }

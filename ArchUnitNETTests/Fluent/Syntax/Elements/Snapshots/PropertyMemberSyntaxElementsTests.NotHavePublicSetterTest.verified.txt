@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" should not have a public setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" should be Property members that do not have public setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should not have a public setter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should not have a public setter" failed:
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
+
+
+
+----- Predicates -----
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should be Property members that do not have public setter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() is not Property members that do not have public setter
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" should be Property members that do not have public setter" failed:
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() is not Property members that do not have public setter
+
+
+
+===== Multiple inputs =====
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" or "System.String PropertyMemberNamespace.C... should not have a public setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter() passed
+Message: 
+All Evaluations passed
+
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" or "System.String PropertyMemberNamespace.C... should not have a public setter
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter() passed
+Message: 
+"Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" or "System.String PropertyMemberNamespace.C... should not have a public setter" failed:
+	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
+
+
+
