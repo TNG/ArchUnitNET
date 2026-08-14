@@ -6,22 +6,50 @@ using ArchUnitNET.Domain;
 
 namespace ArchUnitNET.Fluent.Slices
 {
+    /// <summary>
+    ///     Assigns types to slices by matching their namespaces against a pattern.
+    /// </summary>
+    /// <remarks>
+    ///     <para>A pattern is a namespace with these tokens in it:</para>
+    ///     <list type="table">
+    ///         <item><term>(*)</term><description>captures exactly one segment</description></item>
+    ///         <item><term>(**)</term><description>captures one or more segments</description></item>
+    ///         <item><term>*</term><description>matches one segment without capturing it</description></item>
+    ///         <item><term>..</term><description>matches zero or more segments</description></item>
+    ///         <item><term>[A|B]</term><description>matches one of the alternatives</description></item>
+    ///     </list>
+    ///     <para>
+    ///         A pattern must contain at least one capture group, may not mix (*) and (**), and may
+    ///         use (**) at most once. Types whose namespace does not match are left out of the rule.
+    ///     </para>
+    ///     <para>
+    ///         The slice's name is the pattern text from the first capture group to the last with
+    ///         the groups filled in, so "App.(*).(*)" names a slice "Orders.Http" while
+    ///         "App.(*)..(*)" names one "Orders..Http" -- the latter is not a namespace and does not
+    ///         claim to be. See <see cref="SliceIdentifier.Description"/>.
+    ///     </para>
+    /// </remarks>
     public class SliceRuleInitializer
     {
         private readonly SliceRuleCreator _ruleCreator;
 
+        /// <summary>
+        ///     Initializes a new instance with the given rule creator.
+        /// </summary>
+        /// <param name="ruleCreator">The rule creator that accumulates the rule definition.</param>
         public SliceRuleInitializer(SliceRuleCreator ruleCreator)
         {
             _ruleCreator = ruleCreator;
         }
 
         /// <summary>
+        ///     Groups types into slices named after what the pattern captured.
         /// </summary>
         /// <param name="pattern">
-        ///     check https://www.archunit.org/userguide/html/000_Index.html#_slices for examples for pattern
-        ///     usage
+        ///     The namespace pattern; see the remarks on <see cref="SliceRuleInitializer"/> and
+        ///     https://www.archunit.org/userguide/html/000_Index.html#_slices for more examples.
         /// </param>
-        /// <returns></returns>
+        /// <exception cref="ArgumentException">The pattern is malformed.</exception>
         public GivenSlices Matching(string pattern)
         {
             var (regex, separators) = ConvertPatternToRegex(pattern);
@@ -34,6 +62,15 @@ namespace ArchUnitNET.Fluent.Slices
             return new GivenSlices(_ruleCreator);
         }
 
+        /// <summary>
+        ///     Like <see cref="Matching"/>, but keeps the namespace the pattern matched before the
+        ///     first capture group. Slice names are then fully qualified, and PlantUML diagrams nest
+        ///     the slices in <c>package</c> blocks along that namespace.
+        /// </summary>
+        /// <param name="pattern">
+        ///     The namespace pattern; see the remarks on <see cref="SliceRuleInitializer"/>.
+        /// </param>
+        /// <exception cref="ArgumentException">The pattern is malformed.</exception>
         public GivenSlices MatchingWithPackages(string pattern)
         {
             var (regex, separators) = ConvertPatternToRegex(pattern);

@@ -5,9 +5,22 @@ using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
+    /// <summary>
+    ///     What a slice pattern captured for one type: one part per capture group, plus the text
+    ///     the pattern puts between them. Two identifiers belong to the same slice exactly when
+    ///     their <see cref="Parts"/> match in order -- the separators only shape the name.
+    /// </summary>
     public class SliceIdentifier : StringIdentifier, IHasDescription
     {
+        /// <summary>
+        ///     Groups identifiers by slice membership; see <see cref="CompareTo"/>.
+        /// </summary>
         public static readonly SliceIdentifierComparer Comparer = new SliceIdentifierComparer();
+
+        /// <summary>
+        ///     Whether the type that produced this identifier failed to match the pattern and is
+        ///     therefore left out of the rule.
+        /// </summary>
         public readonly bool Ignored;
 
         /// <summary>
@@ -29,11 +42,25 @@ namespace ArchUnitNET.Domain
             NameSpace = nameSpace;
         }
 
+        /// <summary>
+        ///     The slice's name: the captured parts joined by the pattern text that sits between
+        ///     their capture groups. "App.(*).(*)" over "App.Orders.Http" gives "Orders.Http",
+        ///     "App.(*)..(*)" over "App.Orders.Web.Http" gives "Orders..Http" -- the ".." says
+        ///     segments were skipped, so the name is never mistaken for a namespace that exists.
+        /// </summary>
         public string Description => Identifier;
 
+        /// <summary>
+        ///     The namespace prefix the pattern matched before the first capture group, or
+        ///     <c>null</c> when the rule was defined with <c>Matching</c> rather than
+        ///     <c>MatchingWithPackages</c>. Only used to nest the slice in diagrams.
+        /// </summary>
         [CanBeNull]
         public readonly string NameSpace;
 
+        /// <summary>
+        ///     Creates an identifier with a single captured part.
+        /// </summary>
         public static SliceIdentifier Of(string identifier, string nameSpace = null)
         {
             return new SliceIdentifier(new[] { identifier }, null, false, nameSpace);
@@ -54,16 +81,19 @@ namespace ArchUnitNET.Domain
             return new SliceIdentifier(parts, separators, false, nameSpace);
         }
 
+        /// <summary>
+        ///     Creates the identifier for a type that did not match the pattern. All such types
+        ///     share one slice, which the rule then leaves out.
+        /// </summary>
         public static SliceIdentifier Ignore()
         {
             return new SliceIdentifier(new[] { "Ignored" }, null, true);
         }
 
         /// <summary>
-        ///     Is true when the two SliceIdentifiers belong to the same slice
+        ///     Whether the two identifiers belong to the same slice: both ignored, or both not
+        ///     ignored with the same <see cref="Parts"/> in the same order.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool CompareTo(SliceIdentifier other)
         {
             if (other == null)
