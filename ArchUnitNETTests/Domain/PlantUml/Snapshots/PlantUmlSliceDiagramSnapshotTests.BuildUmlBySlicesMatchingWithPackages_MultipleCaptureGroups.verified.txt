@@ -5,16 +5,28 @@
 HIDE_STEREOTYPE()
 
 package SlicesTestAssembly.MultipleSubnamespaces {
-[Slice3] as SlicesTestAssembly.MultipleSubnamespaces.Slice3
+package Slice3 {
+[Group2] as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2
+}
 }
 
 package SlicesTestAssembly.MultipleSubnamespaces {
-[Slice2] as SlicesTestAssembly.MultipleSubnamespaces.Slice2
+package Slice3 {
+[Group1] as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1
+}
 }
 
 package SlicesTestAssembly.MultipleSubnamespaces {
-[Slice1] as SlicesTestAssembly.MultipleSubnamespaces.Slice1
+package Slice2 {
+[Service] as SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service
+}
 }
 
-[SlicesTestAssembly.MultipleSubnamespaces.Slice1] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice2]
+package SlicesTestAssembly.MultipleSubnamespaces {
+package Slice1 {
+[Service] as SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service
+}
+}
+
+[SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service]
 @enduml
