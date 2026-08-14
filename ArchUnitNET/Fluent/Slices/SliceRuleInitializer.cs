@@ -182,14 +182,21 @@ namespace ArchUnitNET.Fluent.Slices
                 return SliceIdentifier.Ignore();
             }
 
-            var capturedValue = match.Groups[1].Value;
+            // Group 0 is the whole match; the rest are the pattern's capture groups in order.
+            var parts = new string[match.Groups.Count - 1];
+            for (var i = 0; i < parts.Length; i++)
+            {
+                parts[i] = match.Groups[i + 1].Value;
+            }
+
             if (!fullName)
             {
-                return SliceIdentifier.Of(capturedValue);
+                return SliceIdentifier.Of(parts);
             }
 
             var slicePrefix = namespc.Substring(0, match.Groups[1].Index);
-            return SliceIdentifier.Of(slicePrefix + capturedValue, slicePrefix);
+            parts[0] = slicePrefix + parts[0];
+            return SliceIdentifier.Of(parts, slicePrefix);
         }
     }
 }

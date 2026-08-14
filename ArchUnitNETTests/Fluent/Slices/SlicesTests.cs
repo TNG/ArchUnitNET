@@ -304,8 +304,7 @@ namespace ArchUnitNETTests.Fluent.Slices
 
         // ".." is meant to skip whole namespace segments, but the regex it expands to is entirely
         // optional and carries its own dots, so it can also match empty in the middle of a
-        // segment. Only the first capture group names the slice so far, which is why the names
-        // below are truncated. Both warts are pinned here on purpose.
+        // segment. Pinned here on purpose.
 
         [Fact]
         public void DotDot_BetweenCaptureGroups_MaySplitWithinASegment()
@@ -313,10 +312,10 @@ namespace ArchUnitNETTests.Fluent.Slices
             Assert.Equal(
                 new[]
                 {
-                    "Alpha", // "Alpha.Service" -- as intended
-                    "AlphaServic", // "AlphaService" split after "AlphaServic"
-                    "Outer", // "Outer.Inner" and "Outer.Mid.Inner" -- as intended
-                    "Singl", // "Single" split after "Singl"
+                    "Alpha.Service", // as intended
+                    "AlphaServic.e", // "AlphaService" split mid-segment
+                    "Outer.Inner", // "Outer.Inner" and "Outer.Mid.Inner"
+                    "Singl.e", // "Single" split mid-segment
                 },
                 Descriptions(DotDot + "(*)..(*)")
             );
