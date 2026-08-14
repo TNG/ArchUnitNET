@@ -174,12 +174,58 @@ IArchRule rule = Classes().That().DoNotHaveAnyAttributes(typeof(Display)).Should
                     .NotDependOnAny(Classes().That().AreAssignableTo(typeof(ICanvas)));
 ```
 
-### 3.6. Cycle Rule
+### 3.6. Slice Rules
+Slices group types by namespace. A *slice* is the set of types whose namespaces produced the same
+captured values from a pattern -- with `"App.(*).."`, everything under `App.Orders` forms one slice,
+everything under `App.Shipping` another.
+
+To use the `Slices()` entry point directly, add:
+```cs
+using static ArchUnitNET.Fluent.Slices.SliceRuleDefinition;
+```
+
+#### Pattern syntax
+| Token    | Meaning |
+|----------|---------|
+| `(*)`    | Captures exactly one namespace segment. |
+| `(**)`   | Captures one or more segments. |
+| `(A\|B)` | Captures one of the listed alternatives. |
+| `*`      | Matches one segment without capturing it. |
+| `..`     | Matches zero or more segments. |
+| `[A\|B]` | Matches one of the listed alternatives. |
+
+A pattern must contain at least one capture group, may not mix `(*)` and `(**)`, and may use `(**)`
+at most once. `Matching` and `MatchingWithPackages` throw an `ArgumentException` otherwise -- when the
+rule is defined, not when it is checked. Types whose namespace does not match are left out entirely.
+
+#### How slices are named
+The name is what the capture groups captured, joined with `.`. Whatever sits before the first group
+or after the last one selects which types belong to a slice rather than naming it, so it is left out.
+
+| Pattern | Namespace | Slice name |
+|---|---|---|
+| `App.(*)` | `App.Orders` | `Orders` |
+| `App.(**)` | `App.Orders.Web` | `Orders.Web` |
+| `App.(*)..` | `App.Orders.Web` | `Orders` |
+| `App.(*).(*)` | `App.Orders.Http` | `Orders.Http` |
+
+A slice is identified by its name. `(*)` captures no dots and `(**)` may appear only once, so two
+types end up in the same slice exactly when their groups captured the same values.
+
+#### Cycle-free rule
 ![Cycle](img/cycle.svg)
 ```cs
 IArchRule rule = Slices().Matching("Module.(*)").Should()
                     .BeFreeOfCycles();
 ```
+
+#### No-dependency rule
+```cs
+IArchRule rule = Slices().Matching("Module.(*)").Should()
+                    .NotDependOnEachOther();
+```
+`NotDependOnEachOther` forbids *any* dependency between slices, where `BeFreeOfCycles` only forbids
+circular ones.
 
 ## 4. How to check
 
@@ -268,7 +314,7 @@ PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetOb
 ```
 
 ### 5.4 Small slices
-In order not to display all slices and all occurrences, you can use a single asterisk in the pattern. One star is one slice deep. You cannot mix single (*) and double (**) asterisks in a pattern.
+In order not to display all slices and all occurrences, you can use a single asterisk in the pattern. One star captures one namespace segment. You cannot mix single `(*)` and double `(**)` asterisks in one pattern, but you can repeat `(*)` -- `"ArchUnitNET.(*).(*)"` captures two segments and nests `[Syntax]` inside `package Fluent` inside `package ArchUnitNET`.
 
 #### 5.4.1 ArchUnitNET.(\*)
 ![Diagram](diagrams/archUnitNet_one.svg)
@@ -313,7 +359,7 @@ Focus mod allows you to show all dependencies on the selected package or out of 
 ![Diagram](diagrams/archUnitNet_focusOn.svg)
 ```cs
 string pattern = "ArchUnitNET.(**)";
-string focusOnThisPackage = "ArchUnitNET.Fluent.Syntax.Elements"
+string focusOnThisPackage = "ArchUnitNET.Fluent.Syntax.Elements";
 GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
 

@@ -105,6 +105,14 @@ namespace ArchUnitNETTests.Fluent.Slices
         }
 
         [Fact]
+        public void SliceIdentifier_CompareTo_OneIgnored_ReturnsFalse()
+        {
+            // Same name, so only the Ignored flag tells the two apart.
+            Assert.False(SliceIdentifier.Of("Ignored").CompareTo(SliceIdentifier.Ignore()));
+            Assert.False(SliceIdentifier.Ignore().CompareTo(SliceIdentifier.Of("Ignored")));
+        }
+
+        [Fact]
         public void SliceIdentifier_Equals_Branches()
         {
             var identifier = SliceIdentifier.Of("A");
@@ -114,6 +122,17 @@ namespace ArchUnitNETTests.Fluent.Slices
             Assert.False(identifier.Equals("not an identifier"));
             Assert.True(identifier.Equals(SliceIdentifier.Of("A")));
             Assert.False(identifier.Equals(SliceIdentifier.Of("B")));
+        }
+
+        [Fact]
+        public void SliceIdentifier_Equals_IgnoresNameSpace()
+        {
+            // The namespace only nests the slice in diagrams; the name alone is its identity.
+            Assert.Equal(SliceIdentifier.Of("A.B", "X."), SliceIdentifier.Of("A.B"));
+            Assert.Equal(
+                SliceIdentifier.Of("A.B", "X.").GetHashCode(),
+                SliceIdentifier.Of("A.B").GetHashCode()
+            );
         }
 
         [Fact]

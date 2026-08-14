@@ -6,9 +6,8 @@ using Xunit;
 namespace ArchUnitNETTests.Fluent.Slices
 {
     /// <summary>
-    /// Pins which slice patterns are rejected and with what message. The patterns are
-    /// validated while the slices are enumerated rather than when the rule is defined, so
-    /// every case here has to consume the result before the exception surfaces.
+    /// Pins which slice patterns are rejected and with what message. Patterns are validated
+    /// when the rule is defined, so no architecture is needed to provoke the failure.
     /// </summary>
     public class PatternValidationTests
     {
@@ -19,7 +18,7 @@ namespace ArchUnitNETTests.Fluent.Slices
         public void PatternWithoutCaptureGroupThrows(string pattern)
         {
             var ex = Assert.Throws<ArgumentException>(() =>
-                SliceRuleDefinition.Slices().Matching(pattern).GetObjects(Architecture).ToList()
+                SliceRuleDefinition.Slices().Matching(pattern)
             );
             Assert.Contains(
                 "have to contain (*) or (**)",
@@ -32,11 +31,7 @@ namespace ArchUnitNETTests.Fluent.Slices
         public void PatternMixingSingleAndDoubleAsteriskThrows()
         {
             var ex = Assert.Throws<ArgumentException>(() =>
-                SliceRuleDefinition
-                    .Slices()
-                    .Matching("Foo.(*).(**)")
-                    .GetObjects(Architecture)
-                    .ToList()
+                SliceRuleDefinition.Slices().Matching("Foo.(*).(**)")
             );
             Assert.Contains(
                 "can't contain both (*) and (**)",
@@ -49,11 +44,7 @@ namespace ArchUnitNETTests.Fluent.Slices
         public void PatternWithRepeatedDoubleAsteriskThrows()
         {
             var ex = Assert.Throws<ArgumentException>(() =>
-                SliceRuleDefinition
-                    .Slices()
-                    .Matching("Foo.(**).(**)")
-                    .GetObjects(Architecture)
-                    .ToList()
+                SliceRuleDefinition.Slices().Matching("Foo.(**).(**)")
             );
             Assert.Contains(
                 "can contain (**) only once",
@@ -62,28 +53,19 @@ namespace ArchUnitNETTests.Fluent.Slices
             );
         }
 
-        // Prefix and postfix are matched independently against the full namespace
-        // string, without regard for segment boundaries. Crafting them so their required
-        // regions overlap makes the postfix check pass against the full namespace while the
-        // slice string computed after stripping the prefix no longer contains it -- this is
-        // the one real way to reach AssignFunc's "not clearly assignable" guard.
-        [Fact]
-        public void PatternWithOverlappingPrefixAndPostfix_NotClearlyAssignableThrows()
+        [Theory]
+        [InlineData("Foo...(*)", "more than two '.' in a row")]
+        [InlineData("Foo.**.(*)", "more than one '*' in a row")]
+        [InlineData("Foo.(..).Bar", "does not support capturing via (..)")]
+        [InlineData("Foo.[Bar].(*)", "without specifying any alternative via '|'")]
+        [InlineData("Foo.Bar|Baz.(*)", "only supports '|' inside of '[]' or '()'")]
+        [InlineData("Foo.((*)).Bar", "does not support nesting")]
+        public void MalformedPatternThrows(string pattern, string expectedMessage)
         {
-            const string prefix = "SlicesTestAssembly.DotDotSeman";
-            const string postfix = "Assembly.DotDotSemantics.Single";
             var ex = Assert.Throws<ArgumentException>(() =>
-                SliceRuleDefinition
-                    .Slices()
-                    .Matching(prefix + "(**)" + postfix)
-                    .GetObjects(Architecture)
-                    .ToList()
+                SliceRuleDefinition.Slices().Matching(pattern)
             );
-            Assert.Contains(
-                "is not clearly assignable",
-                ex.Message,
-                StringComparison.OrdinalIgnoreCase
-            );
+            Assert.Contains(expectedMessage, ex.Message, StringComparison.OrdinalIgnoreCase);
         }
 
         [Theory]
@@ -92,6 +74,9 @@ namespace ArchUnitNETTests.Fluent.Slices
         [InlineData("Foo.(**)..")]
         [InlineData("Foo.(*)..")]
         [InlineData("Foo.(*).(*)")]
+        [InlineData("Foo.[Bar|Baz].(*)")]
+        [InlineData("Foo.(Bar|Baz)")]
+        [InlineData("Foo.(Bar|Baz).(*)")]
         public void ValidPatternDoesNotThrow(string pattern)
         {
             SliceRuleDefinition.Slices().Matching(pattern).GetObjects(Architecture).ToList();

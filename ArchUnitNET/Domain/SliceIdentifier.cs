@@ -2,49 +2,73 @@
 
 namespace ArchUnitNET.Domain
 {
+    /// <summary>
+    /// Identifies a slice by its name. Two identifiers are the same slice exactly when their
+    /// names are equal and both are ignored or both are not. Slice patterns build the name from
+    /// what their capture groups matched; see <see cref="Fluent.Slices.SliceRuleInitializer"/>.
+    /// </summary>
     public class SliceIdentifier : StringIdentifier, IHasDescription
     {
+        /// <summary>
+        /// Groups identifiers by slice membership; see <see cref="CompareTo"/>.
+        /// </summary>
         public static readonly SliceIdentifierComparer Comparer = new SliceIdentifierComparer();
+
+        /// <summary>
+        /// Whether the type that produced this identifier failed to match the pattern and is
+        /// therefore left out of the rule.
+        /// </summary>
         public readonly bool Ignored;
 
-        private SliceIdentifier(
-            string identifier,
-            bool ignored,
-            int? countOfAsteriskInPattern = null,
-            string nameSpace = null
-        )
+        private SliceIdentifier(string identifier, bool ignored, string nameSpace = null)
             : base(identifier)
         {
             Ignored = ignored;
-            CountOfAsteriskInPattern = countOfAsteriskInPattern;
             NameSpace = nameSpace;
         }
 
+        /// <summary>
+        /// The slice's name, which is also its identity. A slice pattern names a slice after
+        /// what its capture groups matched, joined with ".": "App.(*).(*)" over
+        /// "App.Orders.Http" gives "Orders.Http".
+        /// </summary>
         public string Description => Identifier;
 
+        /// <summary>
+        /// The namespace prefix the pattern matched before the first capture group, or
+        /// <c>null</c> when the rule was defined with <c>Matching</c> rather than
+        /// <c>MatchingWithPackages</c>. Only used to nest the slice in diagrams; it takes no
+        /// part in the slice's identity.
+        /// </summary>
         [CanBeNull]
         public readonly string NameSpace;
-        public readonly int? CountOfAsteriskInPattern;
 
-        public static SliceIdentifier Of(
-            string identifier,
-            int? countOfAsteriskInPattern = null,
-            string nameSpace = null
-        )
+        /// <summary>
+        /// Creates an identifier for the slice of the given name.
+        /// </summary>
+        /// <param name="identifier">
+        /// The slice's name and identity: a custom <c>SliceAssignment</c> that returns
+        /// identifiers of the same name for two types puts them into the same slice.
+        /// </param>
+        /// <param name="nameSpace">The namespace prefix to nest the slice under, if any.</param>
+        public static SliceIdentifier Of(string identifier, string nameSpace = null)
         {
-            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
+            return new SliceIdentifier(identifier, false, nameSpace);
         }
 
+        /// <summary>
+        /// Creates the identifier for a type that did not match the pattern. All such types
+        /// share one slice, which the rule then leaves out.
+        /// </summary>
         public static SliceIdentifier Ignore()
         {
             return new SliceIdentifier("Ignored", true);
         }
 
         /// <summary>
-        ///     Is true when the two SliceIdentifiers belong to the same slice
+        /// Whether the two identifiers belong to the same slice: both ignored, or both not
+        /// ignored with the same name.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool CompareTo(SliceIdentifier other)
         {
             if (other == null)
