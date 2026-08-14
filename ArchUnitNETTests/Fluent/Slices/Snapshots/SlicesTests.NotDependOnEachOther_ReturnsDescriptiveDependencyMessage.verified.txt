@@ -1,17 +1,64 @@
 ﻿Query: Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**).." should not depend on each other
+Result: False
+Description: Slice3 does depend on other slices:
+Slice3 -> Slice1
+	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class
+
 Result: True
-Description: Slice3 does not depend on another slice.
+Description: Slice3.Group2 does not depend on another slice.
 Result: True
-Description: Slice2 does not depend on another slice.
+Description: Slice3.Group2.Inner does not depend on another slice.
+Result: False
+Description: Slice3.Group1 does depend on other slices:
+Slice3.Group1 -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1.Group1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+
+Result: True
+Description: Slice3.Group1.Inner does not depend on another slice.
+Result: False
+Description: Slice2 does depend on other slices:
+Slice2 -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+
+Result: False
+Description: Slice2.Service does depend on other slices:
+Slice2.Service -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service.Service2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+
 Result: False
 Description: Slice1 does depend on other slices:
 Slice1 -> Slice2
+	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class
+
+Result: False
+Description: Slice1.Service does depend on other slices:
+Slice1.Service -> Slice2.Service
 	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service.Service1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service.Service2Class
 
 Message: 
 "Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**).." should not depend on each other" failed:
+	Slice3 does depend on other slices:
+Slice3 -> Slice1
+	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class
+
+	Slice3.Group1 does depend on other slices:
+Slice3.Group1 -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1.Group1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+
+	Slice2 does depend on other slices:
+Slice2 -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+
+	Slice2.Service does depend on other slices:
+Slice2.Service -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service.Service2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+
 	Slice1 does depend on other slices:
 Slice1 -> Slice2
+	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class
+
+	Slice1.Service does depend on other slices:
+Slice1.Service -> Slice2.Service
 	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service.Service1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service.Service2Class
 
 
