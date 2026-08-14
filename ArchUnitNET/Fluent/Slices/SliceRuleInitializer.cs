@@ -24,22 +24,19 @@ namespace ArchUnitNET.Fluent.Slices
         /// <returns></returns>
         public GivenSlices Matching(string pattern)
         {
-            var (regex, asterisk) = ConvertPatternToRegex(pattern);
+            var regex = ConvertPatternToRegex(pattern);
             _ruleCreator.SetSliceAssignment(
-                new SliceAssignment(
-                    type => AssignFunc(type, regex, asterisk),
-                    "matching \"" + pattern + "\""
-                )
+                new SliceAssignment(type => AssignFunc(type, regex), "matching \"" + pattern + "\"")
             );
             return new GivenSlices(_ruleCreator);
         }
 
         public GivenSlices MatchingWithPackages(string pattern)
         {
-            var (regex, asterisk) = ConvertPatternToRegex(pattern);
+            var regex = ConvertPatternToRegex(pattern);
             _ruleCreator.SetSliceAssignment(
                 new SliceAssignment(
-                    type => AssignFunc(type, regex, asterisk, true),
+                    type => AssignFunc(type, regex, true),
                     "matching \"" + pattern + "\""
                 )
             );
@@ -58,7 +55,7 @@ namespace ArchUnitNET.Fluent.Slices
         /// <summary>Matches zero or more namespace segments.</summary>
         private const string TwoDotsRegex = @"(?:(?:^\w*)?\.(?:\w+\.)*(?:\w*$)?)?";
 
-        private static (Regex regex, int? asterisk) ConvertPatternToRegex(string pattern)
+        private static Regex ConvertPatternToRegex(string pattern)
         {
             AssertPatternIsValid(pattern);
             var result = Regex
@@ -69,10 +66,7 @@ namespace ArchUnitNET.Fluent.Slices
                 .Replace(".", @"\.")
                 .Replace(@"\.\.", TwoDotsRegex)
                 .Replace(TwoStarRegexMarker, TwoStarCaptureRegex);
-            var countOfSingleAsterisk = pattern.Contains("(**)")
-                ? (int?)null
-                : pattern.Split(new[] { "(*)" }, StringSplitOptions.None).Length - 1;
-            return (new Regex($"^{result}$", RegexOptions.Compiled), countOfSingleAsterisk);
+            return new Regex($"^{result}$", RegexOptions.Compiled);
         }
 
         private static readonly Regex IllegalAlternation = new Regex(
@@ -179,12 +173,7 @@ namespace ArchUnitNET.Fluent.Slices
             return false;
         }
 
-        private static SliceIdentifier AssignFunc(
-            IType type,
-            Regex regex,
-            int? countOfSingleAsterisk,
-            bool fullName = false
-        )
+        private static SliceIdentifier AssignFunc(IType type, Regex regex, bool fullName = false)
         {
             var namespc = type.Namespace.FullName;
             var match = regex.Match(namespc);
@@ -196,15 +185,11 @@ namespace ArchUnitNET.Fluent.Slices
             var capturedValue = match.Groups[1].Value;
             if (!fullName)
             {
-                return SliceIdentifier.Of(capturedValue, countOfSingleAsterisk);
+                return SliceIdentifier.Of(capturedValue);
             }
 
             var slicePrefix = namespc.Substring(0, match.Groups[1].Index);
-            return SliceIdentifier.Of(
-                slicePrefix + capturedValue,
-                countOfSingleAsterisk,
-                slicePrefix
-            );
+            return SliceIdentifier.Of(slicePrefix + capturedValue, slicePrefix);
         }
     }
 }
