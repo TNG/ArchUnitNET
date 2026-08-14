@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" should not be sealed
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" should be Attributes that are not sealed
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Attributes that are "AttributeNamespace.SealedAttribute" should not be sealed
+Result: False
+Description: AttributeNamespace.SealedAttribute is sealed
+Message: 
+"Attributes that are "AttributeNamespace.SealedAttribute" should not be sealed" failed:
+	AttributeNamespace.SealedAttribute is sealed
+
+
+
+----- Predicates -----
+
+Query: Attributes that are "AttributeNamespace.SealedAttribute" should be Attributes that are not sealed
+Result: False
+Description: AttributeNamespace.SealedAttribute is not Attributes that are not sealed
+Message: 
+"Attributes that are "AttributeNamespace.SealedAttribute" should be Attributes that are not sealed" failed:
+	AttributeNamespace.SealedAttribute is not Attributes that are not sealed
+
+
+
+===== Multiple inputs =====
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.OtherRegularAttribute" should not be sealed
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
+Result: True
+Description: AttributeNamespace.OtherRegularAttribute passed
+Message: 
+All Evaluations passed
+
+Query: Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.SealedAttribute" should not be sealed
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
+Result: False
+Description: AttributeNamespace.SealedAttribute is sealed
+Message: 
+"Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.SealedAttribute" should not be sealed" failed:
+	AttributeNamespace.SealedAttribute is sealed
+
+
+

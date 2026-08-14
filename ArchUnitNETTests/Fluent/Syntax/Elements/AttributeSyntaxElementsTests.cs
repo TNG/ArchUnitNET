@@ -1,158 +1,131 @@
-﻿using System.Collections.Generic;
-using ArchUnitNET.Domain;
+using System.Threading.Tasks;
+using ArchUnitNETTests.AssemblyTestHelper;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
+    // csharpier-ignore
     public class AttributeSyntaxElementsTests
     {
-        public AttributeSyntaxElementsTests()
-        {
-            _attributes = Architecture.Attributes;
-        }
-
-        private static readonly Architecture Architecture =
-            StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly IEnumerable<Attribute> _attributes;
-
         [Fact]
-        public void AreAbstractTest()
+        public async Task BeAbstractTest()
         {
-            foreach (var attribute in _attributes)
-            {
-                var attributeIsAbstract = Attributes().That().Are(attribute).Should().BeAbstract();
-                var attributeIsNotAbstract = Attributes()
-                    .That()
-                    .Are(attribute)
-                    .Should()
-                    .NotBeAbstract();
-                var abstractAttributesDoNotIncludeType = Attributes()
-                    .That()
-                    .AreAbstract()
-                    .Should()
-                    .NotBe(attribute)
-                    .OrShould()
-                    .NotExist();
-                var notAbstractAttributesDoNotIncludeType = Attributes()
-                    .That()
-                    .AreNotAbstract()
-                    .Should()
-                    .NotBe(attribute)
-                    .AndShould()
-                    .Exist();
+            var helper = new AttributeAssemblyTestHelpers();
 
-                Assert.Equal(
-                    attribute.IsAbstract,
-                    attributeIsAbstract.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    !attribute.IsAbstract,
-                    attributeIsNotAbstract.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    !attribute.IsAbstract,
-                    abstractAttributesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    attribute.IsAbstract,
-                    notAbstractAttributesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = Attributes().That().Are(helper.AbstractAttribute).Should();
 
-            var abstractAttributesAreAbstract = Attributes()
-                .That()
-                .AreAbstract()
-                .Should()
-                .BeAbstract();
-            var abstractAttributesAreNotAbstract = Attributes()
-                .That()
-                .AreAbstract()
-                .Should()
-                .NotBeAbstract()
-                .AndShould()
-                .Exist();
-            var notAbstractAttributesAreAbstract = Attributes()
-                .That()
-                .AreNotAbstract()
-                .Should()
-                .BeAbstract()
-                .AndShould()
-                .Exist();
-            var notAbstractAttributesAreNotAbstract = Attributes()
-                .That()
-                .AreNotAbstract()
-                .Should()
-                .NotBeAbstract();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeAbstract().AssertNoViolations(helper);
 
-            Assert.True(abstractAttributesAreAbstract.HasNoViolations(Architecture));
-            Assert.False(abstractAttributesAreNotAbstract.HasNoViolations(Architecture));
-            Assert.False(notAbstractAttributesAreAbstract.HasNoViolations(Architecture));
-            Assert.True(notAbstractAttributesAreNotAbstract.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Attributes().That().AreAbstract()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Attributes().That().Are(helper.RegularAttribute).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeAbstract().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Attributes().That().AreAbstract()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Attributes().That().Are(helper.AbstractAttribute, helper.OtherAbstractAttribute).Should().BeAbstract().AssertNoViolations(helper);
+            Attributes().That().Are(helper.AbstractAttribute, helper.RegularAttribute).Should().BeAbstract().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void AreSealedTest()
+        public async Task NotBeAbstractTest()
         {
-            foreach (var attribute in _attributes)
-            {
-                var attributeIsSealed = Attributes().That().Are(attribute).Should().BeSealed();
-                var attributeIsNotSealed = Attributes()
-                    .That()
-                    .Are(attribute)
-                    .Should()
-                    .NotBeSealed();
-                var sealedAttributesDoNotIncludeType = Attributes()
-                    .That()
-                    .AreSealed()
-                    .Should()
-                    .NotBe(attribute);
-                var notSealedAttributesDoNotIncludeType = Attributes()
-                    .That()
-                    .AreNotSealed()
-                    .Should()
-                    .NotBe(attribute);
+            var helper = new AttributeAssemblyTestHelpers();
 
-                Assert.Equal(attribute.IsSealed, attributeIsSealed.HasNoViolations(Architecture));
-                Assert.Equal(
-                    !attribute.IsSealed,
-                    attributeIsNotSealed.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    !attribute.IsSealed,
-                    sealedAttributesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    attribute.IsSealed,
-                    notSealedAttributesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = Attributes().That().Are(helper.RegularAttribute).Should();
 
-            var sealedAttributesAreSealed = Attributes().That().AreSealed().Should().BeSealed();
-            var sealedAttributesAreNotSealed = Attributes()
-                .That()
-                .AreSealed()
-                .Should()
-                .NotBeSealed()
-                .AndShould()
-                .Exist();
-            var notSealedAttributesAreSealed = Attributes()
-                .That()
-                .AreNotSealed()
-                .Should()
-                .BeSealed()
-                .AndShould()
-                .Exist();
-            var notSealedAttributesAreNotSealed = Attributes()
-                .That()
-                .AreNotSealed()
-                .Should()
-                .NotBeSealed();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeAbstract().AssertNoViolations(helper);
 
-            Assert.True(sealedAttributesAreSealed.HasNoViolations(Architecture));
-            Assert.False(sealedAttributesAreNotSealed.HasNoViolations(Architecture));
-            Assert.False(notSealedAttributesAreSealed.HasNoViolations(Architecture));
-            Assert.True(notSealedAttributesAreNotSealed.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Attributes().That().AreNotAbstract()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Attributes().That().Are(helper.AbstractAttribute).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeAbstract().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Attributes().That().AreNotAbstract()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Attributes().That().Are(helper.RegularAttribute, helper.OtherRegularAttribute).Should().NotBeAbstract().AssertNoViolations(helper);
+            Attributes().That().Are(helper.RegularAttribute, helper.AbstractAttribute).Should().NotBeAbstract().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task BeSealedTest()
+        {
+            var helper = new AttributeAssemblyTestHelpers();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = Attributes().That().Are(helper.SealedAttribute).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeSealed().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Attributes().That().AreSealed()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Attributes().That().Are(helper.RegularAttribute).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeSealed().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Attributes().That().AreSealed()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Attributes().That().Are(helper.SealedAttribute, helper.OtherSealedAttribute).Should().BeSealed().AssertNoViolations(helper);
+            Attributes().That().Are(helper.SealedAttribute, helper.RegularAttribute).Should().BeSealed().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotBeSealedTest()
+        {
+            var helper = new AttributeAssemblyTestHelpers();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = Attributes().That().Are(helper.RegularAttribute).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeSealed().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Attributes().That().AreNotSealed()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Attributes().That().Are(helper.SealedAttribute).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeSealed().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Attributes().That().AreNotSealed()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Attributes().That().Are(helper.RegularAttribute, helper.OtherRegularAttribute).Should().NotBeSealed().AssertNoViolations(helper);
+            Attributes().That().Are(helper.RegularAttribute, helper.SealedAttribute).Should().NotBeSealed().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
     }
 }
