@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNETTests.AssemblyTestHelper;
-using TypeNamespace;
+using MethodMemberNamespace;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
@@ -16,7 +16,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task BeConstructorTest()
         {
-            var helper = new TypeAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.ClassWithVirtualMethodConstructor).Should();
@@ -46,7 +46,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task BeNoConstructorTest()
         {
-            var helper = new TypeAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.VirtualMethod).Should();
@@ -76,7 +76,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task BeVirtualTest()
         {
-            var helper = new TypeAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.VirtualMethod).Should();
@@ -106,7 +106,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task NotBeVirtualTest()
         {
-            var helper = new TypeAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.NonVirtualMethod).Should();
@@ -136,7 +136,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task BeCalledByTest()
         {
-            var helper = new MethodDependencyAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.CalledMethod).Should();
@@ -208,7 +208,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(MethodMembers().That().AreCalledBy(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            MethodMembers().That().Are(helper.CalledMethod, helper.CalledMethod1).Should().BeCalledBy(helper.MethodDependencyClass).AssertNoViolations(helper);
+            MethodMembers().That().Are(helper.CalledMethod, helper.OtherCalledMethod).Should().BeCalledBy(helper.MethodDependencyClass).AssertNoViolations(helper);
             MethodMembers().That().Are(helper.CalledMethod, helper.MethodWithoutDependencies).Should().BeCalledBy(helper.MethodDependencyClass).AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -217,7 +217,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task NotBeCalledByTest()
         {
-            var helper = new MethodDependencyAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
@@ -298,7 +298,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task HaveDependencyInMethodBodyToTest()
         {
-            var helper = new MethodDependencyAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
@@ -379,7 +379,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task NotHaveDependencyInMethodBodyToTest()
         {
-            var helper = new MethodDependencyAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
@@ -460,7 +460,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task HaveReturnTypeTest()
         {
-            var helper = new TypeAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
@@ -563,7 +563,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task DoNotHaveReturnTypeTest()
         {
-            var helper = new TypeAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
@@ -656,7 +656,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task BeMethodMembersThatTest()
         {
-            var helper = new TypeAssemblyTestHelper();
+            var helper = new MethodMemberAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             MethodMembers().That().Are(helper.ClassWithVirtualMethodConstructor).Should().BeMethodMembersThat().AreConstructors().AssertNoViolations(helper);

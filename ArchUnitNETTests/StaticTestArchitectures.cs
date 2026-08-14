@@ -59,6 +59,12 @@ namespace ArchUnitNETTests
             .LoadAssemblies(typeof(TypeNamespace.RegularClass).Assembly)
             .Build();
 
+        public static readonly Architecture MethodMemberArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
+            .LoadAssemblies(typeof(MethodMemberNamespace.RegularClass).Assembly)
+            .Build();
+
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture = new ArchLoader()
             .LoadAssemblies(typeof(Class1).Assembly)
             .Build();

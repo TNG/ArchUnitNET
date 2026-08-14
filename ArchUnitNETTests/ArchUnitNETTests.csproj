@@ -32,6 +32,7 @@
     />
     <ProjectReference Include="..\TestAssemblies\VisibilityAssembly\VisibilityAssembly.csproj" />
     <ProjectReference Include="..\TestAssemblies\TypeAssembly\TypeAssembly.csproj" />
+    <ProjectReference Include="..\TestAssemblies\MethodMemberAssembly\MethodMemberAssembly.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
