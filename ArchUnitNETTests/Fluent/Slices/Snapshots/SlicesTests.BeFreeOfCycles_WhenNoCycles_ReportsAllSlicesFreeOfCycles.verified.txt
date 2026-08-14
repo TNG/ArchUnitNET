@@ -1,0 +1,6 @@
+﻿Query: Slices matching "SlicesTestAssembly.DotDotSemantics.(*)" should be free of cycles
+Result: True
+Description: All Slices are free of cycles.
+Message: 
+All Evaluations passed
+

@@ -1,0 +1,19 @@
+﻿Query: Slices matching "SlicesTestAssembly.DirectCircle.(*)" should be free of cycles
+Result: False
+Description: Cycle found:
+Slice1 -> Slice2
+	SlicesTestAssembly.DirectCircle.Slice1.Slice1Class -> SlicesTestAssembly.DirectCircle.Slice2.Slice2Class
+Slice2 -> Slice1
+	SlicesTestAssembly.DirectCircle.Slice2.Slice2Class -> SlicesTestAssembly.DirectCircle.Slice1.Slice1Class
+
+Message: 
+"Slices matching "SlicesTestAssembly.DirectCircle.(*)" should be free of cycles" failed:
+	Cycle found:
+Slice1 -> Slice2
+	SlicesTestAssembly.DirectCircle.Slice1.Slice1Class -> SlicesTestAssembly.DirectCircle.Slice2.Slice2Class
+Slice2 -> Slice1
+	SlicesTestAssembly.DirectCircle.Slice2.Slice2Class -> SlicesTestAssembly.DirectCircle.Slice1.Slice1Class
+
+
+
+

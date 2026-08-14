@@ -1,0 +1,38 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+Boundary(SlicesTestAssembly.MultipleSubnamespaces, SlicesTestAssembly.MultipleSubnamespaces)  {
+Boundary(Slice3, Slice3)  {
+Boundary(Group2, Group2)  {
+Container(SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2.Inner, Inner)
+}
+}
+}
+
+Boundary(SlicesTestAssembly.MultipleSubnamespaces, SlicesTestAssembly.MultipleSubnamespaces)  {
+Boundary(Slice3, Slice3)  {
+Boundary(Group1, Group1)  {
+Container(SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1.Inner, Inner)
+}
+}
+}
+
+Boundary(SlicesTestAssembly.MultipleSubnamespaces, SlicesTestAssembly.MultipleSubnamespaces)  {
+Boundary(Slice2, Slice2)  {
+Container(SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service, Service)
+}
+}
+
+Boundary(SlicesTestAssembly.MultipleSubnamespaces, SlicesTestAssembly.MultipleSubnamespaces)  {
+Boundary(Slice1, Slice1)  {
+Container(SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service, Service)
+}
+}
+
+Slice3 -[#green]> Slice1
+[SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service] -[#red]> Slice3
+[SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service]
+@enduml
