@@ -143,7 +143,7 @@ namespace ArchUnitNETTests.Domain
         [Fact]
         public void Of_MultiPart_WithNamespace()
         {
-            var id = SliceIdentifier.Of(new List<string> { "App.Foo", "Bar.Baz" }, "App.");
+            var id = SliceIdentifier.Of(new List<string> { "App.Foo", "Bar.Baz" }, nameSpace: "App.");
             Assert.Equal("App.", id.NameSpace);
             Assert.Equal("App.Foo.Bar.Baz", id.Description);
         }
@@ -211,6 +211,30 @@ namespace ArchUnitNETTests.Domain
             var a = SliceIdentifier.Of(new List<string> { "Foo", "Bar" });
             var b = SliceIdentifier.Of(new List<string> { "Foo", "Baz" });
             Assert.False(SliceIdentifier.Comparer.Equals(a, b));
+        }
+
+        [Fact]
+        public void Of_MultiPart_WithSeparators_JoinsWithThem()
+        {
+            var id = SliceIdentifier.Of(
+                new List<string> { "Foo", "Bar", "Baz" },
+                new List<string> { "..", ".Service." }
+            );
+            Assert.Equal("Foo..Bar.Service.Baz", id.Description);
+        }
+
+        [Fact]
+        public void Of_MultiPart_SeparatorsDoNotAffectIdentity()
+        {
+            var dotted = SliceIdentifier.Of(new List<string> { "Foo", "Bar" });
+            var gapped = SliceIdentifier.Of(
+                new List<string> { "Foo", "Bar" },
+                new List<string> { ".." }
+            );
+            Assert.NotEqual(dotted.Description, gapped.Description);
+            Assert.True(dotted.CompareTo(gapped));
+            Assert.Equal(dotted, gapped);
+            Assert.Equal(dotted.GetHashCode(), gapped.GetHashCode());
         }
 
         [Fact]

@@ -24,19 +24,22 @@ namespace ArchUnitNET.Fluent.Slices
         /// <returns></returns>
         public GivenSlices Matching(string pattern)
         {
-            var regex = ConvertPatternToRegex(pattern);
+            var (regex, separators) = ConvertPatternToRegex(pattern);
             _ruleCreator.SetSliceAssignment(
-                new SliceAssignment(type => AssignFunc(type, regex), "matching \"" + pattern + "\"")
+                new SliceAssignment(
+                    type => AssignFunc(type, regex, separators),
+                    "matching \"" + pattern + "\""
+                )
             );
             return new GivenSlices(_ruleCreator);
         }
 
         public GivenSlices MatchingWithPackages(string pattern)
         {
-            var regex = ConvertPatternToRegex(pattern);
+            var (regex, separators) = ConvertPatternToRegex(pattern);
             _ruleCreator.SetSliceAssignment(
                 new SliceAssignment(
-                    type => AssignFunc(type, regex, true),
+                    type => AssignFunc(type, regex, separators, true),
                     "matching \"" + pattern + "\""
                 )
             );
@@ -55,7 +58,7 @@ namespace ArchUnitNET.Fluent.Slices
         /// <summary>Matches an escaped ".." in an already escaped pattern.</summary>
         private static readonly Regex EscapedTwoDots = new Regex(@"\\\.\\\.", RegexOptions.Compiled);
 
-        private static Regex ConvertPatternToRegex(string pattern)
+        private static (Regex regex, string[] separators) ConvertPatternToRegex(string pattern)
         {
             AssertPatternIsValid(pattern);
             var escaped = Regex
@@ -67,7 +70,40 @@ namespace ArchUnitNET.Fluent.Slices
             var result = EscapedTwoDots
                 .Replace(escaped, match => TwoDotsRegex(match, escaped))
                 .Replace(TwoStarRegexMarker, TwoStarCaptureRegex);
-            return new Regex($"^{result}$", RegexOptions.Compiled);
+            return (new Regex($"^{result}$", RegexOptions.Compiled), NameSeparators(pattern));
+        }
+
+        private static readonly Regex CaptureGroup = new Regex(@"\(\*\*?\)", RegexOptions.Compiled);
+
+        private static readonly Regex Alternation = new Regex(@"\[[^\]]*]", RegexOptions.Compiled);
+
+        /// <summary>
+        ///     The pattern text between each pair of adjacent capture groups, used to join the
+        ///     captured parts into the slice name. Everything before the first group and after the
+        ///     last one selects which types belong to a slice rather than naming it, so it is left
+        ///     out: that is what keeps "App.(*)" naming a slice "Orders" rather than "App.Orders".
+        /// </summary>
+        /// <remarks>
+        ///     Keeping the pattern's own text means the name says what sits between the captures:
+        ///     "App.(*).Service.(*)" names a slice "Orders.Service.Http", which is the real
+        ///     namespace, while "App.(*)..(*)" names one "Orders..Http", which visibly is not.
+        ///     Alternations become "*" because a PlantUML name may not contain "[" or "]", and
+        ///     because -- like "*" -- which alternative matched is not part of the slice's identity.
+        ///     The separators come from the pattern, not from the match, so every type the pattern
+        ///     groups together keeps the same name.
+        /// </remarks>
+        private static string[] NameSeparators(string pattern)
+        {
+            var groups = CaptureGroup.Matches(pattern);
+            var separators = new string[groups.Count - 1];
+            for (var i = 0; i < separators.Length; i++)
+            {
+                var start = groups[i].Index + groups[i].Length;
+                var between = pattern.Substring(start, groups[i + 1].Index - start);
+                separators[i] = Alternation.Replace(between, "*");
+            }
+
+            return separators;
         }
 
         /// <summary>
@@ -198,7 +234,12 @@ namespace ArchUnitNET.Fluent.Slices
             return false;
         }
 
-        private static SliceIdentifier AssignFunc(IType type, Regex regex, bool fullName = false)
+        private static SliceIdentifier AssignFunc(
+            IType type,
+            Regex regex,
+            string[] separators,
+            bool fullName = false
+        )
         {
             var namespc = type.Namespace.FullName;
             var match = regex.Match(namespc);
@@ -216,14 +257,14 @@ namespace ArchUnitNET.Fluent.Slices
 
             if (!fullName)
             {
-                return SliceIdentifier.Of(parts);
+                return SliceIdentifier.Of(parts, separators);
             }
 
             // An empty prefix means the pattern starts with its first capture group; there is no
             // namespace to nest the slice under, so report none rather than an empty one.
             var slicePrefix = namespc.Substring(0, match.Groups[1].Index);
             parts[0] = slicePrefix + parts[0];
-            return SliceIdentifier.Of(parts, slicePrefix == "" ? null : slicePrefix);
+            return SliceIdentifier.Of(parts, separators, slicePrefix == "" ? null : slicePrefix);
         }
     }
 }

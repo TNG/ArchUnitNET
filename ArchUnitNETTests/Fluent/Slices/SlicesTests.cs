@@ -306,11 +306,33 @@ namespace ArchUnitNETTests.Fluent.Slices
         public void DotDot_BetweenCaptureGroups_SkipsWholeSegments()
         {
             // "Single" has nothing for the second group to capture and "AlphaService" is a single
-            // segment, so neither matches; "Outer.Mid.Inner" has its middle segment skipped.
+            // segment, so neither matches; "Outer.Mid.Inner" has its middle segment skipped. The
+            // ".." is kept in the name so it never reads as a namespace that exists.
             Assert.Equal(
-                new[] { "Alpha.Service", "Outer.Inner" },
+                new[] { "Alpha..Service", "Outer..Inner" },
                 Descriptions(DotDot + "(*)..(*)")
             );
+        }
+
+        [Fact]
+        public void Matching_LiteralBetweenCaptureGroups_IsPartOfTheName()
+        {
+            Assert.Equal(new[] { "Outer.Mid.Inner" }, Descriptions(DotDot + "(*).Mid.(*)"));
+        }
+
+        [Fact]
+        public void Matching_WildcardBetweenCaptureGroups_StaysAWildcardInTheName()
+        {
+            // Which segment "*" matched is not part of the slice's identity, so it cannot go into
+            // the name; the pattern's own token does instead.
+            Assert.Equal(new[] { "Outer.*.Inner" }, Descriptions(DotDot + "(*).*.(*)"));
+        }
+
+        [Fact]
+        public void Matching_TrailingPatternText_IsNotPartOfTheName()
+        {
+            // Everything after the last capture group selects types rather than naming them.
+            Assert.Equal(new[] { "Outer" }, Descriptions(DotDot + "(*).Mid.Inner"));
         }
 
         [Fact]
