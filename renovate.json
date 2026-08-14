@@ -59,17 +59,36 @@
         "nuget"
       ],
       "matchFileNames": [
-        "ArchUnitNET.MSTestV2Tests/ArchUnitNET.MSTestV2Tests.csproj",
-        "ArchUnitNET.MSTestV3Tests/ArchUnitNET.MSTestV3Tests.csproj",
+        "ArchUnitNET.MSTestV2Tests/ArchUnitNET.MSTestV2Tests.csproj"
+      ],
+      "matchPackageNames": [
+        "MSTest{/,}**"
+      ],
+      "allowedVersions": "2.x"
+    },
+    {
+      "matchManagers": [
+        "nuget"
+      ],
+      "matchFileNames": [
+        "ArchUnitNET.MSTestV3Tests/ArchUnitNET.MSTestV3Tests.csproj"
+      ],
+      "matchPackageNames": [
+        "MSTest{/,}**"
+      ],
+      "allowedVersions": "3.x"
+    },
+    {
+      "matchManagers": [
+        "nuget"
+      ],
+      "matchFileNames": [
         "ArchUnitNET.MSTestV4Tests/ArchUnitNET.MSTestV4Tests.csproj"
       ],
       "matchPackageNames": [
         "MSTest{/,}**"
       ],
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "enabled": false
+      "allowedVersions": "4.x"
     },
     {
       "matchDepNames": [
