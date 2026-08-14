@@ -13,7 +13,7 @@
     ]
   },
   {
-    "ArchRuleDescription": "Slices matching \"TestAssembly.Slices.(**)\" should not depend on each other",
+    "ArchRuleDescription": "Slices matching \"SlicesTestAssembly.MultipleSubnamespaces.(**)\" should not depend on each other",
     "Violations": [
       "Slice3",
       "Slice3.Group1",
