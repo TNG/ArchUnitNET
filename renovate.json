@@ -37,7 +37,7 @@
       ],
       "matchFileNames": [
         "ArchUnitNET.MSTestV2/ArchUnitNET.MSTestV2.csproj",
-        "ArchUnitNET.MSTestV2/ArchUnitNET.MSTestV4.csproj",
+        "ArchUnitNET.MSTestV4/ArchUnitNET.MSTestV4.csproj",
         "ArchUnitNET.NUnit/ArchUnitNET.NUnit.csproj",
         "ArchUnitNET.xUnit/ArchUnitNET.xUnit.csproj",
         "ArchUnitNET.xUnitV3/ArchUnitNET.xUnitV3.csproj",
@@ -59,39 +59,17 @@
         "nuget"
       ],
       "matchFileNames": [
-        "ArchUnitNET.MSTestV2Tests/ArchUnitNET.MSTestV2Tests.csproj"
-      ],
-      "matchPackageNames": [
-        "MSTest.TestAdapter",
-        "MSTest.TestFramework"
-      ],
-      "allowedVersions": "2.x"
-    },
-    {
-      "matchManagers": [
-        "nuget"
-      ],
-      "matchFileNames": [
-        "ArchUnitNET.MSTestV3Tests/ArchUnitNET.MSTestV3Tests.csproj"
-      ],
-      "matchPackageNames": [
-        "MSTest.TestAdapter",
-        "MSTest.TestFramework"
-      ],
-      "allowedVersions": "3.x"
-    },
-    {
-      "matchManagers": [
-        "nuget"
-      ],
-      "matchFileNames": [
+        "ArchUnitNET.MSTestV2Tests/ArchUnitNET.MSTestV2Tests.csproj",
+        "ArchUnitNET.MSTestV3Tests/ArchUnitNET.MSTestV3Tests.csproj",
         "ArchUnitNET.MSTestV4Tests/ArchUnitNET.MSTestV4Tests.csproj"
       ],
       "matchPackageNames": [
-        "MSTest.TestAdapter",
-        "MSTest.TestFramework"
+        "MSTest{/,}**"
       ],
-      "allowedVersions": "4.x"
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
     },
     {
       "matchDepNames": [
