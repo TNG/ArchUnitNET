@@ -654,6 +654,22 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         }
 
         [Fact]
+        public async Task HaveReturnTypeWithAmbiguousReturnTypeTest()
+        {
+            var helper = new MethodMemberAssemblyTestHelper();
+
+            helper.AddSnapshotHeader(
+                "Failure message disambiguates return type with the same full name in multiple assemblies"
+            );
+            var should = MethodMembers().That().Are(helper.MethodWithAmbiguousReturnType).Should();
+
+            should.HaveReturnType(helper.RegularClass).AssertOnlyViolations(helper);
+            should.NotHaveReturnType(helper.AmbiguousReturnType).AssertOnlyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
         public async Task BeMethodMembersThatTest()
         {
             var helper = new MethodMemberAssemblyTestHelper();

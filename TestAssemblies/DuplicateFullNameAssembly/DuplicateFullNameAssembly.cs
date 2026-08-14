@@ -1,6 +1,6 @@
-namespace LoaderTestAssembly;
+namespace DuplicateFullNameAssembly;
 
-public class LoaderTestAssembly { }
+public class DuplicateFullNameAssembly { }
 
 public class ClassWithDuplicateParameters
 {

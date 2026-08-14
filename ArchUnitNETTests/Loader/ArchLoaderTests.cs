@@ -1,5 +1,5 @@
-﻿extern alias LoaderTestAssemblyAlias;
-extern alias OtherLoaderTestAssemblyAlias;
+﻿extern alias DuplicateFullNameAssemblyAlias;
+extern alias OtherDuplicateFullNameAssemblyAlias;
 
 using System;
 using System.Collections.Generic;
@@ -15,8 +15,8 @@ using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 using static ArchUnitNETTests.StaticTestArchitectures;
 
-using DuplicateClass = LoaderTestAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
-using OtherDuplicateClass = OtherLoaderTestAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
+using DuplicateClass = DuplicateFullNameAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
+using OtherDuplicateClass = OtherDuplicateFullNameAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
 
 namespace ArchUnitNETTests.Loader
 {
@@ -203,8 +203,14 @@ namespace ArchUnitNETTests.Loader
                 .Types.Where(type => type.Namespace.FullName == "DuplicateClassAcrossAssemblies")
                 .ToList();
             Assert.Equal(2, types.Count);
-            Assert.Single(types, type => type.Assembly.Name.StartsWith("LoaderTestAssembly"));
-            Assert.Single(types, type => type.Assembly.Name.StartsWith("OtherLoaderTestAssembly"));
+            Assert.Single(
+                types,
+                type => type.Assembly.Name.StartsWith("DuplicateFullNameAssembly")
+            );
+            Assert.Single(
+                types,
+                type => type.Assembly.Name.StartsWith("OtherDuplicateFullNameAssembly")
+            );
 
             // Loaded as stub types
 
@@ -221,8 +227,14 @@ namespace ArchUnitNETTests.Loader
                 )
                 .ToList();
             Assert.Equal(2, types.Count);
-            Assert.Single(types, type => type.Assembly.Name.StartsWith("LoaderTestAssembly"));
-            Assert.Single(types, type => type.Assembly.Name.StartsWith("OtherLoaderTestAssembly"));
+            Assert.Single(
+                types,
+                type => type.Assembly.Name.StartsWith("DuplicateFullNameAssembly")
+            );
+            Assert.Single(
+                types,
+                type => type.Assembly.Name.StartsWith("OtherDuplicateFullNameAssembly")
+            );
         }
 
         [Fact]

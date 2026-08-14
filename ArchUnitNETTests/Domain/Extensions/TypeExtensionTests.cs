@@ -1,3 +1,6 @@
+extern alias DuplicateFullNameAssemblyAlias;
+extern alias OtherDuplicateFullNameAssemblyAlias;
+
 using System;
 using System.Linq;
 using ArchUnitNET.Domain;
@@ -7,6 +10,9 @@ using ArchUnitNETTests.Domain.Dependencies.Members;
 using ArchUnitNETTests.Fluent.Extensions;
 using ArchUnitNETTests.Loader;
 using Xunit;
+
+using DuplicateClass = DuplicateFullNameAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
+using OtherDuplicateClass = OtherDuplicateFullNameAssemblyAlias::DuplicateClassAcrossAssemblies.DuplicateClass;
 
 namespace ArchUnitNETTests.Domain.Extensions
 {
@@ -81,6 +87,45 @@ namespace ArchUnitNETTests.Domain.Extensions
             Assert.True(_methodMember.FullNameEquals(_methodMember.FullName));
             Assert.True(_methodMember.FullNameEquals(_methodMember.FullName.ToLower()));
             Assert.False(_exampleAttribute.FullNameEquals(null));
+        }
+
+        [Fact]
+        public void GetFullNameForErrorMessageTest()
+        {
+            Assert.Equal(
+                _methodOriginClass.FullName,
+                _methodOriginClass.GetFullNameForErrorMessage(Architecture)
+            );
+
+            var loaderArchitecture = StaticTestArchitectures.LoaderTestArchitecture;
+            var duplicateClass = loaderArchitecture.GetClassOfType(typeof(DuplicateClass));
+            var otherDuplicateClass = loaderArchitecture.GetClassOfType(
+                typeof(OtherDuplicateClass)
+            );
+
+            Assert.Equal(
+                duplicateClass.FullName + ", " + duplicateClass.Assembly.FullName,
+                duplicateClass.GetFullNameForErrorMessage(loaderArchitecture)
+            );
+            Assert.Equal(
+                otherDuplicateClass.FullName + ", " + otherDuplicateClass.Assembly.FullName,
+                otherDuplicateClass.GetFullNameForErrorMessage(loaderArchitecture)
+            );
+        }
+
+        [Fact]
+        public void HasAmbiguousFullNameTest()
+        {
+            Assert.False(_methodOriginClass.HasAmbiguousFullName(Architecture));
+
+            var loaderArchitecture = StaticTestArchitectures.LoaderTestArchitecture;
+            var duplicateClass = loaderArchitecture.GetClassOfType(typeof(DuplicateClass));
+            var otherDuplicateClass = loaderArchitecture.GetClassOfType(
+                typeof(OtherDuplicateClass)
+            );
+
+            Assert.True(duplicateClass.HasAmbiguousFullName(loaderArchitecture));
+            Assert.True(otherDuplicateClass.HasAmbiguousFullName(loaderArchitecture));
         }
 
         [Fact]

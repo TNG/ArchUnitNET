@@ -36,6 +36,10 @@ public class MethodMemberAssemblyTestHelper : AssemblyTestHelper
     public MethodMember MethodReturningGenericClass;
     public MethodMember MethodReturningTwoArgGenericClass;
 
+    public Class ClassWithAmbiguousReturnType;
+    public MethodMember MethodWithAmbiguousReturnType;
+    public IType AmbiguousReturnType;
+
     public Class MethodDependencyClass;
     public Type MethodDependencyClassSystemType = typeof(MethodDependencyClass);
 
@@ -97,6 +101,14 @@ public class MethodMemberAssemblyTestHelper : AssemblyTestHelper
         MethodReturningTwoArgGenericClass = ClassWithGenericReturnType
             .GetMethodMembersWithName("MethodReturningTwoArgGenericClass()")
             .First();
+
+        ClassWithAmbiguousReturnType = Architecture.GetClassOfType(
+            typeof(DuplicateFullNameAssembly.ClassWithAmbiguousReturnType)
+        );
+        MethodWithAmbiguousReturnType = ClassWithAmbiguousReturnType
+            .GetMethodMembersWithName("MethodWithAmbiguousReturnType()")
+            .First();
+        AmbiguousReturnType = MethodWithAmbiguousReturnType.ReturnType;
 
         MethodDependencyClass = Architecture.GetClassOfType(typeof(MethodDependencyClass));
         OtherCallingClass = Architecture.GetClassOfType(typeof(OtherCallingClass));

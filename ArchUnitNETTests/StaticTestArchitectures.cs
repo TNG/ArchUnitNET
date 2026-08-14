@@ -42,8 +42,8 @@ namespace ArchUnitNETTests
             .WithoutRuleEvaluationCache()
             .WithoutArchitectureCache()
             .LoadAssemblies(
-                typeof(LoaderTestAssembly.LoaderTestAssembly).Assembly,
-                typeof(OtherLoaderTestAssembly.OtherLoaderTestAssembly).Assembly
+                typeof(DuplicateFullNameAssembly.DuplicateFullNameAssembly).Assembly,
+                typeof(OtherDuplicateFullNameAssembly.OtherDuplicateFullNameAssembly).Assembly
             )
             .Build();
 
@@ -62,7 +62,11 @@ namespace ArchUnitNETTests
         public static readonly Architecture MethodMemberArchitecture = new ArchLoader()
             .WithoutRuleEvaluationCache()
             .WithoutArchitectureCache()
-            .LoadAssemblies(typeof(MethodMemberNamespace.RegularClass).Assembly)
+            .LoadAssemblies(
+                typeof(MethodMemberNamespace.RegularClass).Assembly,
+                typeof(DuplicateFullNameAssembly.DuplicateFullNameAssembly).Assembly,
+                typeof(OtherDuplicateFullNameAssembly.OtherDuplicateFullNameAssembly).Assembly
+            )
             .Build();
 
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture = new ArchLoader()

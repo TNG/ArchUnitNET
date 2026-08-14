@@ -146,11 +146,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "has return type \""
-                                + methodMember.ReturnTypeInstance.GetFullNameForErrorMessage(
-                                    architecture
-                                )
-                                + "\""
+                            BuildReturnTypeFailDescription(methodMember, architecture)
                         );
                     }
                 }
@@ -184,11 +180,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "has return type \""
-                                + methodMember.ReturnTypeInstance.GetFullNameForErrorMessage(
-                                    architecture
-                                )
-                                + "\""
+                            BuildReturnTypeFailDescription(methodMember, architecture)
                         );
                     }
                 }
@@ -334,11 +326,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "has return type \""
-                                + methodMember.ReturnTypeInstance.GetFullNameForErrorMessage(
-                                    architecture
-                                )
-                                + "\""
+                            BuildReturnTypeFailDescription(methodMember, architecture)
                         );
                     }
                 }
@@ -372,11 +360,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                         yield return new ConditionResult(
                             methodMember,
                             false,
-                            "has return type \""
-                                + methodMember.ReturnTypeInstance.GetFullNameForErrorMessage(
-                                    architecture
-                                )
-                                + "\""
+                            BuildReturnTypeFailDescription(methodMember, architecture)
                         );
                     }
                 }
@@ -391,6 +375,20 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers
                     ? "not have return type of no types (always true)"
                     : $"not have return type {typeDescription}";
             return new OrderedArchitectureCondition<MethodMember>(Condition, description);
+        }
+
+        private static string BuildReturnTypeFailDescription(
+            MethodMember methodMember,
+            Architecture architecture
+        )
+        {
+            var returnTypeName = methodMember.ReturnTypeInstance.GetFullNameForErrorMessage(
+                architecture
+            );
+            var ambiguityNote = methodMember.ReturnType.HasAmbiguousFullName(architecture)
+                ? " (the return type's full name is ambiguous in this architecture; its assembly is shown to disambiguate it)"
+                : "";
+            return "has return type \"" + returnTypeName + "\"" + ambiguityNote;
         }
     }
 }

@@ -334,11 +334,15 @@ namespace ArchUnitNET.Domain.Extensions
                 : type.Dependencies.OfType<InheritsBaseClassDependency>();
         }
 
+        public static bool HasAmbiguousFullName(this IType type, Architecture architecture)
+        {
+            return architecture.Types.Count(t => t.FullName == type.FullName) > 1;
+        }
+
         public static string GetFullNameForErrorMessage(this IType type, Architecture architecture)
         {
-            var isAmbiguous = architecture.Types.Count(t => t.FullName == type.FullName) > 1;
-            return isAmbiguous
-                ? type.FullName + " (" + type.Assembly.FullName + ")"
+            return type.HasAmbiguousFullName(architecture)
+                ? type.FullName + ", " + type.Assembly.FullName
                 : type.FullName;
         }
 
