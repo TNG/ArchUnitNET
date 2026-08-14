@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -128,7 +128,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         )
         {
             _sliceList = slices.Distinct().ToList();
-            RemovePatternInappropriateSlices();
 
             var nodes = new Dictionary<Slice, IPlantUmlElement>();
             if (generationOptions == null)
@@ -263,8 +262,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             {
                 package = package.Remove(package.Length - 1);
             }
-
-            RemovePatternInappropriateSlices(package);
 
             var existPackage = _sliceList.Any(slice =>
                 (slice.NameSpace + slice.Description).Contains(package)
@@ -447,44 +444,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     )
                     .Any(dep => targetSlice.Types.Contains(dep.Target))
             );
-
-        private void RemovePatternInappropriateSlices(string thatContainsThisString = null)
-        {
-            if (_sliceList.Any(slice => slice.CountOfAsteriskInPattern == null))
-            {
-                return;
-            }
-            if (
-                thatContainsThisString != null
-                && !_sliceList.Any(slice =>
-                    (slice.NameSpace + slice.Description).Contains(thatContainsThisString)
-                )
-            )
-            {
-                return;
-            }
-
-            for (var i = _sliceList.Count - 1; i >= 0; i--)
-            {
-                var dots = 0;
-
-                if (
-                    thatContainsThisString != null
-                    && !(_sliceList[i].Description).Contains(thatContainsThisString)
-                )
-                {
-                    continue;
-                }
-
-                dots += _sliceList[i].Description.Count(c => c == '.');
-                dots -= (_sliceList[i].NameSpace ?? string.Empty).Count(c => c == '.');
-
-                if (dots >= _sliceList[i].CountOfAsteriskInPattern)
-                {
-                    _sliceList.RemoveAt(i);
-                }
-            }
-        }
 
         private void RemoveDuplicatedArrowsIfExist()
         {

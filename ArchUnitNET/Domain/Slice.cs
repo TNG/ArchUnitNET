@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
 using JetBrains.Annotations;
@@ -29,7 +29,6 @@ namespace ArchUnitNET.Domain
 
         [CanBeNull]
         public string NameSpace => Identifier.NameSpace;
-        public int? CountOfAsteriskInPattern => Identifier.CountOfAsteriskInPattern;
 
         protected bool Equals(Slice other)
         {

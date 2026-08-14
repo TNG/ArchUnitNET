@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -7,16 +7,10 @@ namespace ArchUnitNET.Domain
         public static readonly SliceIdentifierComparer Comparer = new SliceIdentifierComparer();
         public readonly bool Ignored;
 
-        private SliceIdentifier(
-            string identifier,
-            bool ignored,
-            int? countOfAsteriskInPattern = null,
-            string nameSpace = null
-        )
+        private SliceIdentifier(string identifier, bool ignored, string nameSpace = null)
             : base(identifier)
         {
             Ignored = ignored;
-            CountOfAsteriskInPattern = countOfAsteriskInPattern;
             NameSpace = nameSpace;
         }
 
@@ -24,15 +18,10 @@ namespace ArchUnitNET.Domain
 
         [CanBeNull]
         public readonly string NameSpace;
-        public readonly int? CountOfAsteriskInPattern;
 
-        public static SliceIdentifier Of(
-            string identifier,
-            int? countOfAsteriskInPattern = null,
-            string nameSpace = null
-        )
+        public static SliceIdentifier Of(string identifier, string nameSpace = null)
         {
-            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
+            return new SliceIdentifier(identifier, false, nameSpace);
         }
 
         public static SliceIdentifier Ignore()
