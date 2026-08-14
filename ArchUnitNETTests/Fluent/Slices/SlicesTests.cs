@@ -13,26 +13,26 @@ namespace ArchUnitNETTests.Fluent.Slices
             Assert.Throws<FailedArchRuleException>(() =>
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(**)")
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)")
                     .Should()
                     .BeFreeOfCycles()
-                    .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Check(StaticTestArchitectures.SlicesTestArchitecture)
             );
             Assert.False(
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(**)")
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)")
                     .Should()
                     .BeFreeOfCycles()
-                    .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .HasNoViolations(StaticTestArchitectures.SlicesTestArchitecture)
             );
             Assert.True(
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(**)..")
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)..")
                     .Should()
                     .BeFreeOfCycles()
-                    .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .HasNoViolations(StaticTestArchitectures.SlicesTestArchitecture)
             );
         }
 
@@ -40,50 +40,50 @@ namespace ArchUnitNETTests.Fluent.Slices
         public void MatchingTest()
         {
             Assert.Equal(
-                7,
+                9,
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(*)")
-                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(*)")
+                    .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                     .Count()
             );
             Assert.Equal(
-                7,
+                9,
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(**)")
-                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)")
+                    .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                     .Count()
             );
             Assert.Equal(
-                7,
+                9,
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(*)..")
-                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(*)..")
+                    .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                     .Count()
             );
             Assert.Equal(
                 3,
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(**)..")
-                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)..")
+                    .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                     .Count()
             );
             Assert.Equal(
-                2,
+                4,
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.Slice3.(*)")
-                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.Slice3.(*)")
+                    .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                     .Count()
             );
             Assert.False(
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.Service.(*)")
-                    .GetObjects(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.Service.(*)")
+                    .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                     .Any()
             );
         }
@@ -93,55 +93,55 @@ namespace ArchUnitNETTests.Fluent.Slices
         {
             SliceRuleDefinition
                 .Slices()
-                .Matching("TestAssembly.Slices.Slice3.(*)")
+                .Matching("SlicesTestAssembly.MultipleSubnamespaces.Slice3.(*)")
                 .Should()
                 .NotDependOnEachOther()
-                .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
+                .Check(StaticTestArchitectures.SlicesTestArchitecture);
             SliceRuleDefinition
                 .Slices()
-                .Matching("TestAssembly.Slices.Slice1.(*)")
+                .Matching("SlicesTestAssembly.MultipleSubnamespaces.Slice1.(*)")
                 .Should()
                 .NotDependOnEachOther()
-                .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture);
+                .Check(StaticTestArchitectures.SlicesTestArchitecture);
             Assert.True(
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.Slice1.(*)")
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.Slice1.(*)")
                     .Should()
                     .NotDependOnEachOther()
-                    .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .HasNoViolations(StaticTestArchitectures.SlicesTestArchitecture)
             );
             Assert.Throws<FailedArchRuleException>(() =>
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(**)")
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)")
                     .Should()
                     .NotDependOnEachOther()
-                    .Check(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .Check(StaticTestArchitectures.SlicesTestArchitecture)
             );
             Assert.False(
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(**)")
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)")
                     .Should()
                     .NotDependOnEachOther()
-                    .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .HasNoViolations(StaticTestArchitectures.SlicesTestArchitecture)
             );
             Assert.False(
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(*)..")
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(*)..")
                     .Should()
                     .NotDependOnEachOther()
-                    .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .HasNoViolations(StaticTestArchitectures.SlicesTestArchitecture)
             );
             Assert.False(
                 SliceRuleDefinition
                     .Slices()
-                    .Matching("TestAssembly.Slices.(**)..")
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces.(**)..")
                     .Should()
                     .NotDependOnEachOther()
-                    .HasNoViolations(StaticTestArchitectures.ArchUnitNETTestAssemblyArchitecture)
+                    .HasNoViolations(StaticTestArchitectures.SlicesTestArchitecture)
             );
         }
     }
