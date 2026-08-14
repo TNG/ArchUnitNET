@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using ArchUnitNET.Domain.PlantUml.Export;
 using ArchUnitNET.Fluent.Slices;
@@ -93,6 +92,15 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_NonContiguousCaptureGroups_LimitDependencies()
+        {
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*)..(*)"),
+                new GenerationOptions { LimitDependencies = true }
+            );
+        }
+
+        [Fact]
         public Task BuildUmlBySlicesMatchingWithPackages_C4Style()
         {
             return VerifySlices(
@@ -102,18 +110,22 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
-        public void BuildUmlBySlices_C4Style_Throws()
+        public Task BuildUmlBySlices_C4Style()
         {
             // Slices produced by Matching (as opposed to MatchingWithPackages) have no namespace
-            // prefix, and PlantUmlSlice.BuildStringC4Style dereferences it unconditionally.
-            var slices = SliceRuleDefinition
-                .Slices()
-                .Matching(Root + "(**)")
-                .GetObjects(Architecture);
-            Assert.Throws<NullReferenceException>(() =>
-                new PlantUmlFileBuilder()
-                    .WithDependenciesFrom(slices, new GenerationOptions { C4Style = true })
-                    .AsString()
+            // prefix, so they render as plain containers without a surrounding boundary.
+            return VerifySlices(
+                SliceRuleDefinition.Slices().Matching(Root + "(**)"),
+                new GenerationOptions { C4Style = true }
+            );
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_NonContiguousCaptureGroups_C4Style()
+        {
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*)..(*)"),
+                new GenerationOptions { C4Style = true }
             );
         }
 

@@ -111,7 +111,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             var result = new StringBuilder();
             if (Namespace == null)
             {
-                result.Append("Container(" + _name + ", " + _name + ")");
+                return result.Append("Container(" + _name + ", " + _name + ")");
             }
 
             var namespc = Namespace.Remove(Namespace.Length - 1);

@@ -146,7 +146,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 }
                 else if (!sliceIsPackage)
                 {
-                    var slc = new PlantUmlSlice(slice.Description, slice.NameSpace);
+                    var slc = new PlantUmlSlice(slice.Description, NestingNamespace(slice));
                     if (generationOptions.C4Style)
                     {
                         slc.UseS4Style();
@@ -311,13 +311,20 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     nodes.Add(
                         slice,
                         slice.Description.Contains(package)
-                            ? new PlantUmlSlice(slice.Description, slice.NameSpace, "99ffd1")
-                            : new PlantUmlSlice(slice.Description, slice.NameSpace)
+                            ? new PlantUmlSlice(
+                                slice.Description,
+                                NestingNamespace(slice),
+                                "99ffd1"
+                            )
+                            : new PlantUmlSlice(slice.Description, NestingNamespace(slice))
                     );
                 }
                 else if (!slice.Description.Contains(package))
                 {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description + ".", slice.NameSpace));
+                    nodes.Add(
+                        slice,
+                        new PlantUmlSlice(slice.Description + ".", NestingNamespace(slice))
+                    );
                 }
             }
 
@@ -365,7 +372,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 .Where(slice => IsPackage(slice) && slice.Description.Contains(package))
                 .Select(slice => new PlantUmlSlice(
                     slice.Description + ".",
-                    slice.NameSpace,
+                    NestingNamespace(slice),
                     "99ffd1"
                 ))
                 .ToList();
@@ -583,6 +590,35 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        ///     The namespace to nest a slice under in the diagram, or <c>null</c> to draw it flat.
+        /// </summary>
+        /// <remarks>
+        ///     PlantUmlSlice splits a slice name on "." to build nested package blocks, which only
+        ///     tells the truth when the name really is the namespace path of everything inside it.
+        ///     A pattern with a ".." between two capture groups drops the segments in between, so
+        ///     e.g. "App.(*)..(*)" names the types in "App.Slice3.Group1.Inner" "App.Slice3.Inner"
+        ///     -- nesting that would draw "Inner" as a sibling of "Group1" while its types actually
+        ///     live inside it. Such a slice is drawn as one flat, fully qualified component instead,
+        ///     which claims no parent.
+        /// </remarks>
+        private static string NestingNamespace(Slice slice)
+        {
+            if (!slice.ContainsNamespace())
+            {
+                return null;
+            }
+
+            var describesEveryType = slice.Types.All(type =>
+                type.Namespace.FullName == slice.Description
+                || type.Namespace.FullName.StartsWith(
+                    slice.Description + ".",
+                    StringComparison.Ordinal
+                )
+            );
+            return describesEveryType ? slice.NameSpace : null;
         }
 
         private bool IsPackage(Slice slice)
