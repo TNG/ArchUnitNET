@@ -5,12 +5,6 @@
 HIDE_STEREOTYPE()
 
 package SlicesTestAssembly.MultipleSubnamespaces {
-package Slice {
-[3] as SlicesTestAssembly.MultipleSubnamespaces.Slice.3
-}
-}
-
-package SlicesTestAssembly.MultipleSubnamespaces {
 package Slice3 {
 [Group2] as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2
 }
@@ -29,20 +23,8 @@ package Slice3 {
 }
 
 package SlicesTestAssembly.MultipleSubnamespaces {
-package Slice {
-[2] as SlicesTestAssembly.MultipleSubnamespaces.Slice.2
-}
-}
-
-package SlicesTestAssembly.MultipleSubnamespaces {
 package Slice2 {
 [Service] as SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service
-}
-}
-
-package SlicesTestAssembly.MultipleSubnamespaces {
-package Slice {
-[1] as SlicesTestAssembly.MultipleSubnamespaces.Slice.1
 }
 }
 
@@ -52,10 +34,5 @@ package Slice1 {
 }
 }
 
-[SlicesTestAssembly.MultipleSubnamespaces.Slice.3] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice.1]
-[SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice.3]
-[SlicesTestAssembly.MultipleSubnamespaces.Slice.2] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice.3]
-[SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice.3]
-[SlicesTestAssembly.MultipleSubnamespaces.Slice.1] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice.2]
 [SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service]
 @enduml

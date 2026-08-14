@@ -52,21 +52,46 @@ namespace ArchUnitNET.Fluent.Slices
         /// <summary>Captures exactly one namespace segment.</summary>
         private const string SingleStarCaptureRegex = @"(\w+)";
 
-        /// <summary>Matches zero or more namespace segments.</summary>
-        private const string TwoDotsRegex = @"(?:(?:^\w*)?\.(?:\w+\.)*(?:\w*$)?)?";
+        /// <summary>Matches an escaped ".." in an already escaped pattern.</summary>
+        private static readonly Regex EscapedTwoDots = new Regex(@"\\\.\\\.", RegexOptions.Compiled);
 
         private static Regex ConvertPatternToRegex(string pattern)
         {
             AssertPatternIsValid(pattern);
-            var result = Regex
+            var escaped = Regex
                 .Replace(pattern, @"\[(.*?)]", "(?:$1)")
                 .Replace(TwoStarCaptureLiteral, TwoStarRegexMarker)
                 .Replace("(*)", SingleStarCaptureRegex)
                 .Replace("*", @"\w+")
-                .Replace(".", @"\.")
-                .Replace(@"\.\.", TwoDotsRegex)
+                .Replace(".", @"\.");
+            var result = EscapedTwoDots
+                .Replace(escaped, match => TwoDotsRegex(match, escaped))
                 .Replace(TwoStarRegexMarker, TwoStarCaptureRegex);
             return new Regex($"^{result}$", RegexOptions.Compiled);
+        }
+
+        /// <summary>
+        ///     Expands one ".." into a regex matching zero or more whole namespace segments,
+        ///     together with the dot that separates them from what surrounds the "..".
+        /// </summary>
+        /// <remarks>
+        ///     This deviates from PackageMatcher.TWO_DOTS_REGEX in ArchUnit, which is
+        ///     "(?:(?:^\w*)?\.(?:\w+\.)*(?:\w*$)?)?". That expression is optional as a whole and
+        ///     brings its own dots, so it also matches the empty string in the middle of a segment:
+        ///     "App.(*)..(*)" then splits "App.Slice3" into "Slice" and "3", and "App.(*)..Service"
+        ///     matches "App.MyService" as if "MyService" were two segments. Consuming the boundary
+        ///     dot unconditionally is what keeps ".." on segment boundaries.
+        /// </remarks>
+        private static string TwoDotsRegex(Match match, string escapedPattern)
+        {
+            if (match.Index == 0)
+            {
+                return @"(?:\w+\.)*";
+            }
+
+            return match.Index + match.Length == escapedPattern.Length
+                ? @"(?:\.\w+)*"
+                : @"\.(?:\w+\.)*";
         }
 
         private static readonly Regex IllegalAlternation = new Regex(

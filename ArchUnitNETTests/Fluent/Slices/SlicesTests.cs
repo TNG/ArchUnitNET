@@ -302,33 +302,25 @@ namespace ArchUnitNETTests.Fluent.Slices
 
         // --- ".." semantics -------------------------------------------------------------
 
-        // ".." is meant to skip whole namespace segments, but the regex it expands to is entirely
-        // optional and carries its own dots, so it can also match empty in the middle of a
-        // segment. Pinned here on purpose.
-
         [Fact]
-        public void DotDot_BetweenCaptureGroups_MaySplitWithinASegment()
+        public void DotDot_BetweenCaptureGroups_SkipsWholeSegments()
         {
+            // "Single" has nothing for the second group to capture and "AlphaService" is a single
+            // segment, so neither matches; "Outer.Mid.Inner" has its middle segment skipped.
             Assert.Equal(
-                new[]
-                {
-                    "Alpha.Service", // as intended
-                    "AlphaServic.e", // "AlphaService" split mid-segment
-                    "Outer.Inner", // "Outer.Inner" and "Outer.Mid.Inner"
-                    "Singl.e", // "Single" split mid-segment
-                },
+                new[] { "Alpha.Service", "Outer.Inner" },
                 Descriptions(DotDot + "(*)..(*)")
             );
         }
 
         [Fact]
-        public void DotDot_BeforeLiteral_MaySplitWithinASegment()
+        public void DotDot_BeforeLiteral_MatchesOnlyWholeSegments()
         {
             Assert.Equal(new[] { "Alpha" }, Descriptions(DotDot + "(*)..Service"));
         }
 
         [Fact]
-        public void DotDot_BeforeLiteral_MergesSegmentAndNonSegmentMatches()
+        public void DotDot_BeforeLiteral_DoesNotSplitWithinASegment()
         {
             var slices = SliceRuleDefinition
                 .Slices()
@@ -336,19 +328,13 @@ namespace ArchUnitNETTests.Fluent.Slices
                 .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                 .ToList();
 
-            // "Alpha.Service" is two segments and "AlphaService" is one, yet both end up in the
-            // same slice because ".." matched empty inside the latter.
+            // Only "Alpha.Service" matches. "AlphaService" is one segment and must not be split
+            // into "Alpha" + "Service".
             var alpha = Assert.Single(slices);
             Assert.Equal("Alpha", alpha.Description);
             Assert.Equal(
-                new[]
-                {
-                    "SlicesTestAssembly.DotDotSemantics.Alpha.Service.AlphaServiceSegmentClass",
-                    "SlicesTestAssembly.DotDotSemantics.AlphaService.AlphaServiceClass",
-                },
-                alpha
-                    .Types.Select(type => type.FullName)
-                    .OrderBy(name => name, StringComparer.Ordinal)
+                "SlicesTestAssembly.DotDotSemantics.Alpha.Service.AlphaServiceSegmentClass",
+                Assert.Single(alpha.Types).FullName
             );
         }
 
