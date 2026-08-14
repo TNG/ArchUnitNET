@@ -32,7 +32,7 @@ namespace ArchUnitNET.Domain
 
         protected bool Equals(Slice other)
         {
-            return Equals(Identifier, other.Identifier) && Equals(Types, other.Types);
+            return Equals(Identifier, other.Identifier);
         }
 
         public override bool Equals(object obj)
@@ -57,11 +57,7 @@ namespace ArchUnitNET.Domain
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return ((Identifier != null ? Identifier.GetHashCode() : 0) * 397)
-                    ^ (Types != null ? Types.GetHashCode() : 0);
-            }
+            return Identifier != null ? Identifier.GetHashCode() : 0;
         }
 
         public override string ToString()
