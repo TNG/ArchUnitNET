@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11925.98 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAssembly", "TestAssembly\TestAssembly.csproj", "{7DEF5F34-AB86-457B-819D-5E7387B3FF87}"
 EndProject
@@ -62,6 +62,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyMemberAssembly", "TestAssemblies\PropertyMemberAssembly\PropertyMemberAssembly.csproj", "{1D0187EB-9D04-4CF3-AE63-0C0E97FCB49C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassAssembly", "TestAssemblies\ClassAssembly\ClassAssembly.csproj", "{2C04EB93-5AE0-474C-B328-145A734A5E2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A780B3D6-C525-4270-ABF1-63BA65EA1593}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		renovate.json = renovate.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -438,5 +444,8 @@ Global
 		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
 		{1D0187EB-9D04-4CF3-AE63-0C0E97FCB49C} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
 		{2C04EB93-5AE0-474C-B328-145A734A5E2B} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D1A8274D-32D6-44DB-9BB3-1A5B273709AF}
 	EndGlobalSection
 EndGlobal
