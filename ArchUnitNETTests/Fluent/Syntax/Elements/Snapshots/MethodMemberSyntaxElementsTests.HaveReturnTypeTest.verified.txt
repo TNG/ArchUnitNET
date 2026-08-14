@@ -1,0 +1,357 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type Types that are "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type Types that are "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+
+
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+
+
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type Types that are "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type Types that are "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+
+
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+
+
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+
+
+
+----- Predicates -----
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+
+
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+
+
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type Types that are "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type Types that are "MethodMemberNamespace.OtherRegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type Types that are "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type Types that are "MethodMemberNamespace.OtherRegularClass"
+
+
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+
+
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.OtherRegularClass"" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type "MethodMemberNamespace.OtherRegularClass"
+
+
+
+===== Multiple arguments =====
+
+----- Conditions -----
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
+===== Multiple inputs =====
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should have return type "MethodMemberNamespace.RegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Result: False
+Description: MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() has return type "MethodMemberNamespace.OtherRegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should have return type "MethodMemberNamespace.RegularClass"" failed:
+	MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() has return type "MethodMemberNamespace.OtherRegularClass"
+
+
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Result: True
+Description: MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() passed
+Message: 
+All Evaluations passed
+
+===== Open generic System.Type matches closed generic IType =====
+
+----- Conditions -----
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1"
+Result: True
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1"
+Result: True
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1"
+Result: True
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1"
+Result: True
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
+Message: 
+All Evaluations passed
+
+===== Specific closed generic System.Type matches exact return type =====
+
+----- Conditions -----
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
+Result: True
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
+Result: True
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.RegularClass, MethodMemberAssembly, Version=1....
+Result: True
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
+Message: 
+All Evaluations passed
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.RegularClass, MethodMemberAssembly, Version=1....
+Result: True
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() passed
+Message: 
+All Evaluations passed
+
+===== Specific closed generic System.Type rejects wrong generic argument =====
+
+----- Conditions -----
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"
+Result: False
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
+Message: 
+"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"" failed:
+	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
+
+
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"
+Result: False
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
+Message: 
+"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should have return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.OtherRegularClass>"" failed:
+	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() has return type "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass>"
+
+
+
+----- Predicates -----
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Versi...
+Result: False
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neu...
+Message: 
+"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Versi..." failed:
+	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neu...
+
+
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Versi...
+Result: False
+Description: MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neu...
+Message: 
+"Method members that are "MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGene... should be Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Versi..." failed:
+	MethodMemberNamespace.GenericClass`1<MethodMemberNamespace.RegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningGenericClass() is not Method members that have return type "MethodMemberNamespace.GenericClass`1[[MethodMemberNamespace.OtherRegularClass, MethodMemberAssembly, Version=1.0.0.0, Culture=neu...
+
+
+
+===== Two-arg open generic System.Type matches two-arg closed generic =====
+
+----- Conditions -----
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWi... should have return type "MethodMemberNamespace.GenericClass`2"
+Result: True
+Description: MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningTwoArgGenericClass() passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Method members that are "MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWi... should be Method members that have return type "MethodMemberNamespace.GenericClass`2"
+Result: True
+Description: MethodMemberNamespace.GenericClass`2<MethodMemberNamespace.RegularClass,MethodMemberNamespace.OtherRegularClass> MethodMemberNamespace.ClassWithGenericReturnType::MethodReturningTwoArgGenericClass() passed
+Message: 
+All Evaluations passed
+

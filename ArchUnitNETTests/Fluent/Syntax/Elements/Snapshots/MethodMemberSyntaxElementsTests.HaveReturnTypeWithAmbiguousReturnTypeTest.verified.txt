@@ -1,0 +1,20 @@
+﻿===== Failure message disambiguates return type with the same full name in multiple assemblies =====
+
+Query: Method members that are "DuplicateClassAcrossAssemblies.DuplicateClass DuplicateFullNameAssembly.ClassWithAmbiguousReturnType::MethodWithAmbiguousReturnType()" should have return type "MethodMemberNamespace.RegularClass"
+Result: False
+Description: DuplicateClassAcrossAssemblies.DuplicateClass DuplicateFullNameAssembly.ClassWithAmbiguousReturnType::MethodWithAmbiguousReturnType() has return type "DuplicateClassAcrossAssemblies.DuplicateClass, DuplicateFullNameAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" (the return type's full name is ambiguous in this architecture; its assembly is shown to disambiguate it)
+Message: 
+"Method members that are "DuplicateClassAcrossAssemblies.DuplicateClass DuplicateFullNameAssembly.ClassWithAmbiguousReturnType::MethodWithAmbiguousReturnType()" should have return type "MethodMemberNamespace.RegularClass"" failed:
+	DuplicateClassAcrossAssemblies.DuplicateClass DuplicateFullNameAssembly.ClassWithAmbiguousReturnType::MethodWithAmbiguousReturnType() has return type "DuplicateClassAcrossAssemblies.DuplicateClass, DuplicateFullNameAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" (the return type's full name is ambiguous in this architecture; its assembly is shown to disambiguate it)
+
+
+
+Query: Method members that are "DuplicateClassAcrossAssemblies.DuplicateClass DuplicateFullNameAssembly.ClassWithAmbiguousReturnType::MethodWithAmbiguousReturnType()" should not have return type "DuplicateClassAcrossAssemblies.DuplicateClass"
+Result: False
+Description: DuplicateClassAcrossAssemblies.DuplicateClass DuplicateFullNameAssembly.ClassWithAmbiguousReturnType::MethodWithAmbiguousReturnType() has return type "DuplicateClassAcrossAssemblies.DuplicateClass, DuplicateFullNameAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" (the return type's full name is ambiguous in this architecture; its assembly is shown to disambiguate it)
+Message: 
+"Method members that are "DuplicateClassAcrossAssemblies.DuplicateClass DuplicateFullNameAssembly.ClassWithAmbiguousReturnType::MethodWithAmbiguousReturnType()" should not have return type "DuplicateClassAcrossAssemblies.DuplicateClass"" failed:
+	DuplicateClassAcrossAssemblies.DuplicateClass DuplicateFullNameAssembly.ClassWithAmbiguousReturnType::MethodWithAmbiguousReturnType() has return type "DuplicateClassAcrossAssemblies.DuplicateClass, DuplicateFullNameAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" (the return type's full name is ambiguous in this architecture; its assembly is shown to disambiguate it)
+
+
+

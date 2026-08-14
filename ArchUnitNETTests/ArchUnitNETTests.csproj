@@ -23,15 +23,16 @@
       ReferenceOutputAssembly="false"
     />
     <ProjectReference
-      Include="..\TestAssemblies\LoaderTestAssembly\LoaderTestAssembly.csproj"
-      Aliases="global,LoaderTestAssemblyAlias"
+      Include="..\TestAssemblies\DuplicateFullNameAssembly\DuplicateFullNameAssembly.csproj"
+      Aliases="global,DuplicateFullNameAssemblyAlias"
     />
     <ProjectReference
-      Include="..\TestAssemblies\OtherLoaderTestAssembly\OtherLoaderTestAssembly.csproj"
-      Aliases="global,OtherLoaderTestAssemblyAlias"
+      Include="..\TestAssemblies\OtherDuplicateFullNameAssembly\OtherDuplicateFullNameAssembly.csproj"
+      Aliases="global,OtherDuplicateFullNameAssemblyAlias"
     />
     <ProjectReference Include="..\TestAssemblies\VisibilityAssembly\VisibilityAssembly.csproj" />
     <ProjectReference Include="..\TestAssemblies\TypeAssembly\TypeAssembly.csproj" />
+    <ProjectReference Include="..\TestAssemblies\MethodMemberAssembly\MethodMemberAssembly.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />

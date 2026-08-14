@@ -31,9 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttributeAssembly", "TestAs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisibilityAssembly", "TestAssemblies\VisibilityAssembly\VisibilityAssembly.csproj", "{FBCD91F2-4DB9-44AC-8214-6F2FFF9178D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoaderTestAssembly", "TestAssemblies\LoaderTestAssembly\LoaderTestAssembly.csproj", "{0243F2D4-AC89-4561-A936-D647B6BB821F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuplicateFullNameAssembly", "TestAssemblies\DuplicateFullNameAssembly\DuplicateFullNameAssembly.csproj", "{0243F2D4-AC89-4561-A936-D647B6BB821F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherLoaderTestAssembly", "TestAssemblies\OtherLoaderTestAssembly\OtherLoaderTestAssembly.csproj", "{5A24529B-1794-4080-ADCC-77440BA0A0B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherDuplicateFullNameAssembly", "TestAssemblies\OtherDuplicateFullNameAssembly\OtherDuplicateFullNameAssembly.csproj", "{5A24529B-1794-4080-ADCC-77440BA0A0B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilteredDirectoryLoaderTestAssembly", "TestAssemblies\FilteredDirectoryLoaderTestAssembly\FilteredDirectoryLoaderTestAssembly.csproj", "{E6CB8C69-25F5-4C94-8EA3-D56E444EB46B}"
 EndProject
@@ -56,6 +56,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnitNET.MSTestV4", "ArchUnitNET.MSTestV4\ArchUnitNET.MSTestV4.csproj", "{50F0F64A-F4A2-47E5-82E9-B66F07CE4198}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeAssembly", "TestAssemblies\TypeAssembly\TypeAssembly.csproj", "{ABCA0EC3-E47E-453E-B4CC-3446ED4F7643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MethodMemberAssembly", "TestAssemblies\MethodMemberAssembly\MethodMemberAssembly.csproj", "{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -379,6 +381,18 @@ Global
 		{ABCA0EC3-E47E-453E-B4CC-3446ED4F7643}.Release|x64.Build.0 = Release|Any CPU
 		{ABCA0EC3-E47E-453E-B4CC-3446ED4F7643}.Release|x86.ActiveCfg = Release|Any CPU
 		{ABCA0EC3-E47E-453E-B4CC-3446ED4F7643}.Release|x86.Build.0 = Release|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Debug|x64.Build.0 = Debug|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Debug|x86.Build.0 = Debug|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Release|x64.ActiveCfg = Release|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Release|x64.Build.0 = Release|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Release|x86.ActiveCfg = Release|Any CPU
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -393,5 +407,6 @@ Global
 		{E6CB8C69-25F5-4C94-8EA3-D56E444EB46B} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
 		{AA695589-8CCC-4474-9A7F-01A6376C375A} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
 		{ABCA0EC3-E47E-453E-B4CC-3446ED4F7643} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
+		{05F40E4D-94EC-4DF7-B0FA-1BCBFDF56088} = {B1191F18-91CB-4387-B775-A5EB64D3AC30}
 	EndGlobalSection
 EndGlobal

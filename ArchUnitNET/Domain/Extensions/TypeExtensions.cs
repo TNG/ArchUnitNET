@@ -334,6 +334,53 @@ namespace ArchUnitNET.Domain.Extensions
                 : type.Dependencies.OfType<InheritsBaseClassDependency>();
         }
 
+        public static bool HasAmbiguousFullName(this IType type, Architecture architecture)
+        {
+            return architecture.Types.Count(t => t.FullName == type.FullName) > 1;
+        }
+
+        public static string GetFullNameForErrorMessage(this IType type, Architecture architecture)
+        {
+            return type.HasAmbiguousFullName(architecture)
+                ? type.FullName + ", " + type.Assembly.FullName
+                : type.FullName;
+        }
+
+        public static string GetFullNameForErrorMessage(
+            this ITypeInstance<IType> typeInstance,
+            Architecture architecture
+        )
+        {
+            var fullName = typeInstance.Type.GetFullNameForErrorMessage(architecture);
+            var genericArguments = typeInstance.GenericArguments.ToList();
+            return genericArguments.Count == 0
+                ? fullName
+                : fullName
+                    + "<"
+                    + string.Join(
+                        ",",
+                        genericArguments.Select(argument =>
+                            argument.GetFullNameForErrorMessage(architecture)
+                        )
+                    )
+                    + ">";
+        }
+
+        public static string GetFullNameForDescription(this Type type)
+        {
+            var fullName = type.Namespace + "." + type.Name;
+            if (!type.IsConstructedGenericType)
+            {
+                return fullName;
+            }
+
+            var argumentsDescription = string.Join(
+                ",",
+                type.GetGenericArguments().Select(GetFullNameForDescription)
+            );
+            return fullName + "<" + argumentsDescription + ">";
+        }
+
         public static bool MatchesType(this ITypeInstance<IType> typeInstance, Type targetType)
         {
             var targetTypeFullNameWithoutAssembly = targetType.Namespace + "." + targetType.Name;

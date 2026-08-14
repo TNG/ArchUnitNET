@@ -226,8 +226,14 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Types().That().AreAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments (Predicates only)");
+            helper.AddSnapshotHeader("Empty Arguments");
             should = Types().That().Are(helper.BaseClassForAssign).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeAssignableTo(new List<IType>()).AssertOnlyViolations(helper);
+            should.BeAssignableTo(new List<System.Type>()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
             should.Be(Types().That().AreAssignableTo(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(Types().That().AreAssignableTo(new List<System.Type>())).AssertOnlyViolations(helper);
 

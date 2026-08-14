@@ -61,6 +61,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IObjectProvider<IType> objectProvider
         )
         {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
                 Architecture architecture
@@ -69,7 +70,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 var isExpectedType = CreateLookupFn(
                     objectProvider.GetObjects(architecture).ToList()
                 );
-                var failDescription = "is not assignable to " + objectProvider.Description;
+                var failDescription =
+                    (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                        ? "is not assignable to no types (always false)"
+                        : "is not assignable to " + objectProvider.Description;
                 foreach (var ruleType in ruleTypes)
                 {
                     if (ruleType.GetAssignableTypes().Any(isExpectedType))
@@ -503,6 +507,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             IObjectProvider<IType> objectProvider
         )
         {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
             IEnumerable<ConditionResult> Condition(
                 IEnumerable<TRuleType> ruleTypes,
                 Architecture architecture
@@ -511,7 +516,10 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 var isForbiddenType = CreateLookupFn(
                     objectProvider.GetObjects(architecture).ToList()
                 );
-                var failDescription = "is assignable to " + objectProvider.Description;
+                var failDescription =
+                    (sizedObjectProvider != null && sizedObjectProvider.Count == 0)
+                        ? "is assignable to no types (always true)"
+                        : "is assignable to " + objectProvider.Description;
                 foreach (var ruleType in ruleTypes)
                 {
                     if (ruleType.GetAssignableTypes().Any(isForbiddenType))
