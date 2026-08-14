@@ -1,0 +1,13 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+[Slice3]
+[Slice2]
+[Slice1]
+[Slice3] --|> [Slice1]
+[Slice2] --|> [Slice3]
+[Slice1] --|> [Slice2]
+@enduml
