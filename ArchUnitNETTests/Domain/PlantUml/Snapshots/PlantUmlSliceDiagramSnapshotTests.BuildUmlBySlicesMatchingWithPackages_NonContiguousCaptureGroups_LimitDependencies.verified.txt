@@ -29,5 +29,4 @@ package Slice1 {
 }
 }
 
-[SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service]
 @enduml

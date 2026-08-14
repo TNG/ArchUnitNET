@@ -219,9 +219,11 @@ namespace ArchUnitNET.Fluent.Slices
                 return SliceIdentifier.Of(parts);
             }
 
+            // An empty prefix means the pattern starts with its first capture group; there is no
+            // namespace to nest the slice under, so report none rather than an empty one.
             var slicePrefix = namespc.Substring(0, match.Groups[1].Index);
             parts[0] = slicePrefix + parts[0];
-            return SliceIdentifier.Of(parts, slicePrefix);
+            return SliceIdentifier.Of(parts, slicePrefix == "" ? null : slicePrefix);
         }
     }
 }
