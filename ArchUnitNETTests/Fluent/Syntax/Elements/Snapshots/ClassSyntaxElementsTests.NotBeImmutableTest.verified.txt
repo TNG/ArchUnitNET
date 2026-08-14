@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.MutableClass" should not be immutable
+Result: True
+Description: ClassNamespace.MutableClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.MutableClass" should be Classes that are not immutable
+Result: True
+Description: ClassNamespace.MutableClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.ImmutableClass" should not be immutable
+Result: False
+Description: ClassNamespace.ImmutableClass is immutable
+Message: 
+"Classes that are "ClassNamespace.ImmutableClass" should not be immutable" failed:
+	ClassNamespace.ImmutableClass is immutable
+
+
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.ImmutableClass" should be Classes that are not immutable
+Result: False
+Description: ClassNamespace.ImmutableClass is not Classes that are not immutable
+Message: 
+"Classes that are "ClassNamespace.ImmutableClass" should be Classes that are not immutable" failed:
+	ClassNamespace.ImmutableClass is not Classes that are not immutable
+
+
+
+===== Multiple inputs =====
+
+Query: Classes that are "ClassNamespace.MutableClass" or "ClassNamespace.OtherMutableClass" should not be immutable
+Result: True
+Description: ClassNamespace.MutableClass passed
+Result: True
+Description: ClassNamespace.OtherMutableClass passed
+Message: 
+All Evaluations passed
+
+Query: Classes that are "ClassNamespace.MutableClass" or "ClassNamespace.ImmutableClass" should not be immutable
+Result: False
+Description: ClassNamespace.ImmutableClass is immutable
+Result: True
+Description: ClassNamespace.MutableClass passed
+Message: 
+"Classes that are "ClassNamespace.MutableClass" or "ClassNamespace.ImmutableClass" should not be immutable" failed:
+	ClassNamespace.ImmutableClass is immutable
+
+
+

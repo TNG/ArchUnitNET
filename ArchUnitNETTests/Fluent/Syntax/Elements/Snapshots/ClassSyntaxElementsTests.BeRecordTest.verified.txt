@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.RecordClass" should be record
+Result: True
+Description: ClassNamespace.RecordClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.RecordClass" should be Classes that are record
+Result: True
+Description: ClassNamespace.RecordClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.RegularClass" should be record
+Result: False
+Description: ClassNamespace.RegularClass is not record
+Message: 
+"Classes that are "ClassNamespace.RegularClass" should be record" failed:
+	ClassNamespace.RegularClass is not record
+
+
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.RegularClass" should be Classes that are record
+Result: False
+Description: ClassNamespace.RegularClass is not Classes that are record
+Message: 
+"Classes that are "ClassNamespace.RegularClass" should be Classes that are record" failed:
+	ClassNamespace.RegularClass is not Classes that are record
+
+
+
+===== Multiple inputs =====
+
+Query: Classes that are "ClassNamespace.RecordClass" or "ClassNamespace.OtherRecordClass" should be record
+Result: True
+Description: ClassNamespace.RecordClass passed
+Result: True
+Description: ClassNamespace.OtherRecordClass passed
+Message: 
+All Evaluations passed
+
+Query: Classes that are "ClassNamespace.RecordClass" or "ClassNamespace.RegularClass" should be record
+Result: False
+Description: ClassNamespace.RegularClass is not record
+Result: True
+Description: ClassNamespace.RecordClass passed
+Message: 
+"Classes that are "ClassNamespace.RecordClass" or "ClassNamespace.RegularClass" should be record" failed:
+	ClassNamespace.RegularClass is not record
+
+
+

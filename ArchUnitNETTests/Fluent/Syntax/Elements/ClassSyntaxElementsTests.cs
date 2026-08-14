@@ -1,279 +1,269 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ArchUnitNET.Domain;
+using System.Threading.Tasks;
+using ArchUnitNETTests.AssemblyTestHelper;
 using Xunit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ArchUnitNETTests.Fluent.Syntax.Elements
 {
+    // csharpier-ignore
     public class ClassSyntaxElementsTests
     {
-        public ClassSyntaxElementsTests()
-        {
-            _classes = Architecture.Classes;
-        }
-
-        private static readonly Architecture Architecture =
-            StaticTestArchitectures.ArchUnitNETTestArchitecture;
-        private readonly IEnumerable<Class> _classes;
-
         [Fact]
-        public void AreAbstractTest()
+        public async Task BeAbstractTest()
         {
-            foreach (var cls in _classes)
-            {
-                var clsIsAbstract = Classes().That().Are(cls).Should().BeAbstract();
-                var clsIsNotAbstract = Classes().That().Are(cls).Should().NotBeAbstract();
-                var abstractClassesDoNotIncludeType = Classes()
-                    .That()
-                    .AreAbstract()
-                    .Should()
-                    .NotBe(cls);
-                var notAbstractClassesDoNotIncludeType = Classes()
-                    .That()
-                    .AreNotAbstract()
-                    .Should()
-                    .NotBe(cls);
+            var helper = new ClassAssemblyTestHelper();
 
-                Assert.Equal(cls.IsAbstract, clsIsAbstract.HasNoViolations(Architecture));
-                Assert.Equal(!cls.IsAbstract, clsIsNotAbstract.HasNoViolations(Architecture));
-                Assert.Equal(
-                    !cls.IsAbstract,
-                    abstractClassesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    cls.IsAbstract,
-                    notAbstractClassesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = Classes().That().Are(helper.AbstractClass).Should();
 
-            var abstractClassesAreAbstract = Classes().That().AreAbstract().Should().BeAbstract();
-            var abstractClassesAreNotAbstract = Classes()
-                .That()
-                .AreAbstract()
-                .Should()
-                .NotBeAbstract();
-            var notAbstractClassesAreAbstract = Classes()
-                .That()
-                .AreNotAbstract()
-                .Should()
-                .BeAbstract();
-            var notAbstractClassesAreNotAbstract = Classes()
-                .That()
-                .AreNotAbstract()
-                .Should()
-                .NotBeAbstract();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeAbstract().AssertNoViolations(helper);
 
-            Assert.True(abstractClassesAreAbstract.HasNoViolations(Architecture));
-            Assert.False(abstractClassesAreNotAbstract.HasNoViolations(Architecture));
-            Assert.False(notAbstractClassesAreAbstract.HasNoViolations(Architecture));
-            Assert.True(notAbstractClassesAreNotAbstract.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreAbstract()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Classes().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeAbstract().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreAbstract()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Classes().That().Are(helper.AbstractClass, helper.OtherAbstractClass).Should().BeAbstract().AssertNoViolations(helper);
+            Classes().That().Are(helper.AbstractClass, helper.RegularClass).Should().BeAbstract().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void AreEnumsTest()
+        public async Task NotBeAbstractTest()
         {
-            Assert.True(
-                Classes().That().AreNotEnums().Should().Be(Classes()).HasNoViolations(Architecture)
-            );
-            Assert.True(
-                Classes().That().AreEnums().Should().NotExist().HasNoViolations(Architecture)
-            );
-            Assert.True(Classes().Should().NotBeEnums().HasNoViolations(Architecture));
-            Assert.False(Classes().Should().BeEnums().HasNoViolations(Architecture));
+            var helper = new ClassAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = Classes().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeAbstract().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotAbstract()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Classes().That().Are(helper.AbstractClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeAbstract().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotAbstract()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Classes().That().Are(helper.RegularClass, helper.OtherRegularClass).Should().NotBeAbstract().AssertNoViolations(helper);
+            Classes().That().Are(helper.RegularClass, helper.AbstractClass).Should().NotBeAbstract().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void AreSealedTest()
+        public async Task BeSealedTest()
         {
-            foreach (var cls in _classes)
-            {
-                var clsIsSealed = Classes().That().Are(cls).Should().BeSealed();
-                var clsIsNotSealed = Classes().That().Are(cls).Should().NotBeSealed();
-                var sealedClassesDoNotIncludeType = Classes()
-                    .That()
-                    .AreSealed()
-                    .Should()
-                    .NotBe(cls);
-                var notSealedClassesDoNotIncludeType = Classes()
-                    .That()
-                    .AreNotSealed()
-                    .Should()
-                    .NotBe(cls);
+            var helper = new ClassAssemblyTestHelper();
 
-                Assert.Equal(cls.IsSealed, clsIsSealed.HasNoViolations(Architecture));
-                Assert.Equal(!cls.IsSealed, clsIsNotSealed.HasNoViolations(Architecture));
-                Assert.Equal(
-                    !cls.IsSealed,
-                    sealedClassesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    cls.IsSealed,
-                    notSealedClassesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = Classes().That().Are(helper.SealedClass).Should();
 
-            var sealedClassesAreSealed = Classes().That().AreSealed().Should().BeSealed();
-            var sealedClassesAreNotSealed = Classes().That().AreSealed().Should().NotBeSealed();
-            var notSealedClassesAreSealed = Classes().That().AreNotSealed().Should().BeSealed();
-            var notSealedClassesAreNotSealed = Classes()
-                .That()
-                .AreNotSealed()
-                .Should()
-                .NotBeSealed();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeSealed().AssertNoViolations(helper);
 
-            Assert.True(sealedClassesAreSealed.HasNoViolations(Architecture));
-            Assert.False(sealedClassesAreNotSealed.HasNoViolations(Architecture));
-            Assert.False(notSealedClassesAreSealed.HasNoViolations(Architecture));
-            Assert.True(notSealedClassesAreNotSealed.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreSealed()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Classes().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeSealed().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreSealed()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Classes().That().Are(helper.SealedClass, helper.OtherSealedClass).Should().BeSealed().AssertNoViolations(helper);
+            Classes().That().Are(helper.SealedClass, helper.RegularClass).Should().BeSealed().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void AreStructsTest()
+        public async Task NotBeSealedTest()
         {
-            Assert.True(
-                Classes()
-                    .That()
-                    .AreNotStructs()
-                    .Should()
-                    .Be(Classes())
-                    .HasNoViolations(Architecture)
-            );
-            Assert.True(
-                Classes().That().AreStructs().Should().NotExist().HasNoViolations(Architecture)
-            );
-            Assert.True(Classes().Should().NotBeStructs().HasNoViolations(Architecture));
-            Assert.False(Classes().Should().BeStructs().HasNoViolations(Architecture));
+            var helper = new ClassAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = Classes().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeSealed().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotSealed()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Classes().That().Are(helper.SealedClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeSealed().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotSealed()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Classes().That().Are(helper.RegularClass, helper.OtherRegularClass).Should().NotBeSealed().AssertNoViolations(helper);
+            Classes().That().Are(helper.RegularClass, helper.SealedClass).Should().NotBeSealed().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void AreValueTypesTest()
+        public async Task BeRecordTest()
         {
-            Assert.True(
-                Classes()
-                    .That()
-                    .AreNotValueTypes()
-                    .Should()
-                    .Be(Classes())
-                    .HasNoViolations(Architecture)
-            );
-            Assert.True(
-                Classes().That().AreValueTypes().Should().NotExist().HasNoViolations(Architecture)
-            );
-            Assert.True(Classes().Should().NotBeValueTypes().HasNoViolations(Architecture));
-            Assert.False(Classes().Should().BeValueTypes().HasNoViolations(Architecture));
+            var helper = new ClassAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = Classes().That().Are(helper.RecordClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeRecord().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreRecord()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Classes().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeRecord().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreRecord()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Classes().That().Are(helper.RecordClass, helper.OtherRecordClass).Should().BeRecord().AssertNoViolations(helper);
+            Classes().That().Are(helper.RecordClass, helper.RegularClass).Should().BeRecord().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void AreImmutableTest()
+        public async Task NotBeRecordTest()
         {
-            foreach (var cls in _classes)
-            {
-                var clsIsImmutable = Classes().That().Are(cls).Should().BeImmutable();
-                var clsIsNotImmutable = Classes().That().Are(cls).Should().NotBeImmutable();
-                var immutableClassesDoNotIncludeType = Classes()
-                    .That()
-                    .AreImmutable()
-                    .Should()
-                    .NotBe(cls);
-                var notImmutableClassesDoNotIncludeType = Classes()
-                    .That()
-                    .AreNotImmutable()
-                    .Should()
-                    .NotBe(cls);
+            var helper = new ClassAssemblyTestHelper();
 
-                bool isImmutable = cls
-                    .Members.Where(m => m.IsStatic == false)
-                    .All(m => m.Writability.IsImmutable());
-                Assert.Equal(isImmutable, clsIsImmutable.HasNoViolations(Architecture));
-                Assert.Equal(!isImmutable, clsIsNotImmutable.HasNoViolations(Architecture));
-                Assert.Equal(
-                    !isImmutable,
-                    immutableClassesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-                Assert.Equal(
-                    isImmutable,
-                    notImmutableClassesDoNotIncludeType.HasNoViolations(Architecture)
-                );
-            }
+            helper.AddSnapshotHeader("No Violations");
+            var should = Classes().That().Are(helper.RegularClass).Should();
 
-            var immutableClassesAreImmutable = Classes()
-                .That()
-                .AreImmutable()
-                .Should()
-                .BeImmutable();
-            var immutableClassesAreNotImmutable = Classes()
-                .That()
-                .AreImmutable()
-                .Should()
-                .NotBeImmutable();
-            var notImmutableClassesAreImmutable = Classes()
-                .That()
-                .AreNotImmutable()
-                .Should()
-                .BeImmutable();
-            var notImmutableClassesAreNotImmutabled = Classes()
-                .That()
-                .AreNotImmutable()
-                .Should()
-                .NotBeImmutable();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeRecord().AssertNoViolations(helper);
 
-            Assert.True(immutableClassesAreImmutable.HasNoViolations(Architecture));
-            Assert.False(immutableClassesAreNotImmutable.HasNoViolations(Architecture));
-            Assert.False(notImmutableClassesAreImmutable.HasNoViolations(Architecture));
-            Assert.True(notImmutableClassesAreNotImmutabled.HasNoViolations(Architecture));
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotRecord()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Classes().That().Are(helper.RecordClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeRecord().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotRecord()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Classes().That().Are(helper.RegularClass, helper.OtherRegularClass).Should().NotBeRecord().AssertNoViolations(helper);
+            Classes().That().Are(helper.RegularClass, helper.RecordClass).Should().NotBeRecord().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
         [Fact]
-        public void AreRecordTest()
+        public async Task BeImmutableTest()
         {
-            var recordsAreRecord = Classes().That().AreRecord().Should().BeRecord();
+            var helper = new ClassAssemblyTestHelper();
 
-            var recordsAreNotRecord = Classes().That().AreRecord().Should().NotBeRecord();
+            helper.AddSnapshotHeader("No Violations");
+            var should = Classes().That().Are(helper.ImmutableClass).Should();
 
-            var notRecordsAreRecord = Classes().That().AreNotRecord().Should().BeRecord();
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeImmutable().AssertNoViolations(helper);
 
-            var notRecordsAreNotRecord = Classes().That().AreNotRecord().Should().NotBeRecord();
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreImmutable()).AssertNoViolations(helper);
 
-            Assert.True(recordsAreRecord.HasNoViolations(Architecture));
-            Assert.False(recordsAreNotRecord.HasNoViolations(Architecture));
-            Assert.False(notRecordsAreRecord.HasNoViolations(Architecture));
-            Assert.True(notRecordsAreNotRecord.HasNoViolations(Architecture));
+            helper.AddSnapshotHeader("Violations");
+            should = Classes().That().Are(helper.MutableClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeImmutable().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreImmutable()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Classes().That().Are(helper.ImmutableClass, helper.OtherImmutableClass).Should().BeImmutable().AssertNoViolations(helper);
+            Classes().That().Are(helper.ImmutableClass, helper.MutableClass).Should().BeImmutable().AssertAnyViolations(helper);
+
+            helper.AddSnapshotHeader("Class without members (vacuously immutable)");
+            should = Classes().That().Are(helper.ClassWithoutMembers).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeImmutable().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreImmutable()).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Class with only static members (vacuously immutable)");
+            should = Classes().That().Are(helper.ClassWithOnlyStaticMembers).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeImmutable().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreImmutable()).AssertNoViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
 
-        private record ImmutableRecord(string Property, string AnotherProperty);
-
-#pragma warning disable 0169
-#pragma warning disable 0414
-        private class ImmutableClass
+        [Fact]
+        public async Task NotBeImmutableTest()
         {
-            private readonly string field;
+            var helper = new ClassAssemblyTestHelper();
 
-            private readonly string initializedField = "";
+            helper.AddSnapshotHeader("No Violations");
+            var should = Classes().That().Are(helper.MutableClass).Should();
 
-            public string Property { get; }
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeImmutable().AssertNoViolations(helper);
 
-            public string AnotherProperty { get; init; }
-        }
-#pragma warning restore 0169
-#pragma warning restore 0414
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotImmutable()).AssertNoViolations(helper);
 
-        private class ImmutableClassWithoutMembers { }
+            helper.AddSnapshotHeader("Violations");
+            should = Classes().That().Are(helper.ImmutableClass).Should();
 
-        private class ImmutableClassWithoutPropertiesAndFields
-        {
-            private void Method() { }
-        }
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeImmutable().AssertOnlyViolations(helper);
 
-        private class ImmutableClassWithOnlyStaticMembers
-        {
-            private const string ConstField = "const";
-#pragma warning disable 0169
-            private static string StaticField;
-#pragma warning restore 0169
-            public static string StaticProperty { get; set; }
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotImmutable()).AssertOnlyViolations(helper);
 
-            private static void Method() { }
+            helper.AddSnapshotHeader("Multiple inputs");
+            Classes().That().Are(helper.MutableClass, helper.OtherMutableClass).Should().NotBeImmutable().AssertNoViolations(helper);
+            Classes().That().Are(helper.MutableClass, helper.ImmutableClass).Should().NotBeImmutable().AssertAnyViolations(helper);
+
+            await helper.AssertSnapshotMatches();
         }
     }
 }

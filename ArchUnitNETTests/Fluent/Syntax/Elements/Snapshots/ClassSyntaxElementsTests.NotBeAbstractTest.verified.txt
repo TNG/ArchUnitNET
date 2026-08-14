@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.RegularClass" should not be abstract
+Result: True
+Description: ClassNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.RegularClass" should be Classes that are not abstract
+Result: True
+Description: ClassNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.AbstractClass" should not be abstract
+Result: False
+Description: ClassNamespace.AbstractClass is abstract
+Message: 
+"Classes that are "ClassNamespace.AbstractClass" should not be abstract" failed:
+	ClassNamespace.AbstractClass is abstract
+
+
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.AbstractClass" should be Classes that are not abstract
+Result: False
+Description: ClassNamespace.AbstractClass is not Classes that are not abstract
+Message: 
+"Classes that are "ClassNamespace.AbstractClass" should be Classes that are not abstract" failed:
+	ClassNamespace.AbstractClass is not Classes that are not abstract
+
+
+
+===== Multiple inputs =====
+
+Query: Classes that are "ClassNamespace.RegularClass" or "ClassNamespace.OtherRegularClass" should not be abstract
+Result: True
+Description: ClassNamespace.RegularClass passed
+Result: True
+Description: ClassNamespace.OtherRegularClass passed
+Message: 
+All Evaluations passed
+
+Query: Classes that are "ClassNamespace.RegularClass" or "ClassNamespace.AbstractClass" should not be abstract
+Result: True
+Description: ClassNamespace.RegularClass passed
+Result: False
+Description: ClassNamespace.AbstractClass is abstract
+Message: 
+"Classes that are "ClassNamespace.RegularClass" or "ClassNamespace.AbstractClass" should not be abstract" failed:
+	ClassNamespace.AbstractClass is abstract
+
+
+

@@ -1,0 +1,63 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.SealedClass" should be sealed
+Result: True
+Description: ClassNamespace.SealedClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.SealedClass" should be Classes that are sealed
+Result: True
+Description: ClassNamespace.SealedClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.RegularClass" should be sealed
+Result: False
+Description: ClassNamespace.RegularClass is not sealed
+Message: 
+"Classes that are "ClassNamespace.RegularClass" should be sealed" failed:
+	ClassNamespace.RegularClass is not sealed
+
+
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.RegularClass" should be Classes that are sealed
+Result: False
+Description: ClassNamespace.RegularClass is not Classes that are sealed
+Message: 
+"Classes that are "ClassNamespace.RegularClass" should be Classes that are sealed" failed:
+	ClassNamespace.RegularClass is not Classes that are sealed
+
+
+
+===== Multiple inputs =====
+
+Query: Classes that are "ClassNamespace.SealedClass" or "ClassNamespace.OtherSealedClass" should be sealed
+Result: True
+Description: ClassNamespace.SealedClass passed
+Result: True
+Description: ClassNamespace.OtherSealedClass passed
+Message: 
+All Evaluations passed
+
+Query: Classes that are "ClassNamespace.SealedClass" or "ClassNamespace.RegularClass" should be sealed
+Result: False
+Description: ClassNamespace.RegularClass is not sealed
+Result: True
+Description: ClassNamespace.SealedClass passed
+Message: 
+"Classes that are "ClassNamespace.SealedClass" or "ClassNamespace.RegularClass" should be sealed" failed:
+	ClassNamespace.RegularClass is not sealed
+
+
+
