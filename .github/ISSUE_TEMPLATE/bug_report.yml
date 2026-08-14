@@ -1,0 +1,111 @@
+name: Bug Report
+description: Report a bug in ArchUnitNET
+title: "[Bug]: "
+labels: ["needs-triage", "kind/bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug in ArchUnitNET!
+        Please fill out the sections below to help us resolve the issue.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and detailed description of the bug.
+      placeholder: What went wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: minimal-working-example
+    attributes:
+      label: Minimal Working Example
+      description: |
+        Provide a minimal, reproducible example that demonstrates the bug.
+        This should include the smallest possible code snippet and any necessary setup
+        (e.g., test classes, ArchUnitNET rules, or configuration) needed to reproduce the issue.
+      placeholder: |
+        using ArchUnitNET.Domain;
+        using ArchUnitNET.Fluent;
+        using ArchUnitNET.Loader;
+        using ArchUnitNET.xUnit;
+        using Xunit;
+        using static ArchUnitNET.Fluent.ArchRuleDefinition;
+
+        internal interface IExampleInterface { }
+
+        internal class ExampleClass : IExampleInterface { }
+
+        namespace ExampleTest
+        {
+          public class ExampleArchUnitTest
+          {
+            private static readonly Architecture Architecture = new ArchLoader()
+              .LoadAssemblies(typeof(ExampleClass).Assembly)
+              .Build();
+
+            private readonly IObjectProvider<IType> ExampleLayer = Types()
+              .That()
+              .ResideInAssembly("ExampleAssembly")
+              .As("Example Layer");
+
+            private readonly IObjectProvider<Class> ExampleClasses = Classes()
+              .That()
+              .ImplementInterface(typeof(IExampleInterface))
+              .As("Example Classes");
+        
+            [Fact]
+            public void TypesShouldBeInCorrectLayer()
+            {
+              IArchRule exampleClassesShouldBeInExampleLayer = Classes()
+                .That()
+                .Are(ExampleClasses)
+                .Should()
+                .Be(ExampleLayer);
+
+              exampleClassesShouldBeInExampleLayer.Check(Architecture);
+            }
+          }
+        }
+      render: csharp
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened? Include any error messages or stack traces if applicable.
+      placeholder: |
+        Include the full exception message and stack trace if available.
+    validations:
+      required: true
+  - type: input
+    id: archunitnet-version
+    attributes:
+      label: ArchUnitNET Version
+      description: Which version of ArchUnitNET are you using?
+      placeholder: e.g., 0.12.0
+    validations:
+      required: true
+  - type: input
+    id: dotnet-version
+    attributes:
+      label: .NET Version
+      description: Which version of .NET are you targeting?
+      placeholder: e.g., .NET 10.0
+    validations:
+      required: false
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context about the problem (workarounds tried, related issues, etc.).
+    validations:
+      required: false
