@@ -59,6 +59,21 @@ namespace ArchUnitNETTests
             .LoadAssemblies(typeof(TypeNamespace.RegularClass).Assembly)
             .Build();
 
+        /// <summary>
+        /// Two loaded assemblies, so that the moreAssemblies slot of ResideInAssembly and
+        /// NotResideInAssembly can be exercised with an assembly that is loaded but does not match.
+        /// Against a single-assembly architecture every such argument either matches or throws
+        /// AssemblyDoesNotExistInArchitecture.
+        /// </summary>
+        public static readonly Architecture TypeAndClassArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
+            .LoadAssemblies(
+                typeof(TypeNamespace.RegularClass).Assembly,
+                typeof(ClassNamespace.RegularClass).Assembly
+            )
+            .Build();
+
         public static readonly Architecture MethodMemberArchitecture = new ArchLoader()
             .WithoutRuleEvaluationCache()
             .WithoutArchitectureCache()
