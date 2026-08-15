@@ -27,8 +27,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static IPredicate<T> AreStatic()
         {
+            // IsStatic is null for stub members, i.e. members built from a reference rather than a
+            // definition. Treat the unknown state as a match, the same way MemberConditionsDefinition.BeStatic
+            // and every other HasValue guard under Elements/ does; otherwise AreStatic and BeStatic would
+            // disagree on the same member. There is no fluent path that reaches a stub member today —
+            // Architecture.Members only covers loaded types and the member entry points have no
+            // includeReferenced overload — so this cannot be covered by a syntax test.
             return new SimplePredicate<T>(
-                member => member.IsStatic.HasValue && member.IsStatic.Value,
+                member => !member.IsStatic.HasValue || member.IsStatic.Value,
                 "are static"
             );
         }
@@ -69,8 +75,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
 
         public static IPredicate<T> AreNotStatic()
         {
+            // See AreStatic for why the unknown state matches here as well.
             return new SimplePredicate<T>(
-                member => member.IsStatic.HasValue && !member.IsStatic.Value,
+                member => !member.IsStatic.HasValue || !member.IsStatic.Value,
                 "are not static"
             );
         }
