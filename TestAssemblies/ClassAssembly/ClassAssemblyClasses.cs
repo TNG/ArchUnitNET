@@ -45,3 +45,11 @@ public class ClassWithOnlyStaticMembers
 {
     public static string StaticProperty { get; set; } = "";
 }
+
+// Immutability only considers instance members, so this class is immutable despite the mutable static
+// field. Without the static member the immutability conditions never take the exclusion.
+public class ClassWithImmutableInstanceAndMutableStaticMember
+{
+    public static string MutableStaticField = "";
+    public readonly string ImmutableInstanceField = "";
+}
