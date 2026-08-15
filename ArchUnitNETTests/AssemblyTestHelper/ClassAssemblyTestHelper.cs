@@ -51,6 +51,10 @@ public class ClassAssemblyTestHelper : AssemblyTestHelper
     public Class ClassWithOnlyStaticMembers;
     public Type ClassWithOnlyStaticMembersSystemType = typeof(ClassWithOnlyStaticMembers);
 
+    public Class ClassWithImmutableInstanceAndMutableStaticMember;
+    public Type ClassWithImmutableInstanceAndMutableStaticMemberSystemType =
+        typeof(ClassWithImmutableInstanceAndMutableStaticMember);
+
     public ClassAssemblyTestHelper()
     {
         RegularClass = Architecture.GetClassOfType(typeof(RegularClass));
@@ -68,6 +72,9 @@ public class ClassAssemblyTestHelper : AssemblyTestHelper
         ClassWithoutMembers = Architecture.GetClassOfType(typeof(ClassWithoutMembers));
         ClassWithOnlyStaticMembers = Architecture.GetClassOfType(
             typeof(ClassWithOnlyStaticMembers)
+        );
+        ClassWithImmutableInstanceAndMutableStaticMember = Architecture.GetClassOfType(
+            typeof(ClassWithImmutableInstanceAndMutableStaticMember)
         );
     }
 }

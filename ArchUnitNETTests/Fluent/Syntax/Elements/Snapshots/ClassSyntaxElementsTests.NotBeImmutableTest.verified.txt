@@ -40,6 +40,54 @@ Message:
 
 
 
+===== Class with only static members (vacuously immutable) =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.ClassWithOnlyStaticMembers" should not be immutable
+Result: False
+Description: ClassNamespace.ClassWithOnlyStaticMembers is immutable
+Message: 
+"Classes that are "ClassNamespace.ClassWithOnlyStaticMembers" should not be immutable" failed:
+	ClassNamespace.ClassWithOnlyStaticMembers is immutable
+
+
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.ClassWithOnlyStaticMembers" should be Classes that are not immutable
+Result: False
+Description: ClassNamespace.ClassWithOnlyStaticMembers is not Classes that are not immutable
+Message: 
+"Classes that are "ClassNamespace.ClassWithOnlyStaticMembers" should be Classes that are not immutable" failed:
+	ClassNamespace.ClassWithOnlyStaticMembers is not Classes that are not immutable
+
+
+
+===== Mutable static member does not make a class mutable =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember" should not be immutable
+Result: False
+Description: ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember is immutable
+Message: 
+"Classes that are "ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember" should not be immutable" failed:
+	ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember is immutable
+
+
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember" should be Classes that are not immutable
+Result: False
+Description: ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember is not Classes that are not immutable
+Message: 
+"Classes that are "ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember" should be Classes that are not immutable" failed:
+	ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember is not Classes that are not immutable
+
+
+
 ===== Multiple inputs =====
 
 Query: Classes that are "ClassNamespace.MutableClass" or "ClassNamespace.OtherMutableClass" should not be immutable
