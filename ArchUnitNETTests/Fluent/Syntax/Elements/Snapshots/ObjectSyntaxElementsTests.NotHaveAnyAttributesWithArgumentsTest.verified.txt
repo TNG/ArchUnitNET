@@ -142,6 +142,30 @@ Message:
 
 
 
+===== Multiple arguments on one attribute instance =====
+
+----- Conditions -----
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should not have any attributes with arguments "Argument1" and "1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments does have attribute AttributeNamespace.Attribute1 with arguments "Argument1" and "1"
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should not have any attributes with arguments "Argument1" and "1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments does have attribute AttributeNamespace.Attribute1 with arguments "Argument1" and "1"
+
+
+
+----- Predicates -----
+
+Query: Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that do not have any attributes with arguments "Argument1" and "1"
+Result: False
+Description: AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that do not have any attributes with arguments "Argument1" and "1"
+Message: 
+"Types that are "AttributeNamespace.ClassWithSingleAttributeWithArguments" should be Types that do not have any attributes with arguments "Argument1" and "1"" failed:
+	AttributeNamespace.ClassWithSingleAttributeWithArguments is not Types that do not have any attributes with arguments "Argument1" and "1"
+
+
+
 ===== Multiple inputs =====
 
 ----- Conditions -----

@@ -1597,6 +1597,17 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.UnusedTypeArgument, helper.Attribute1StringArgument })).AssertOnlyViolations(helper);
 
+        // Both arguments belong to the same attribute instance, so the failure message has to use the
+        // plural spelling. In the block above only one of the two arguments matches.
+        helper.AddSnapshotHeader("Multiple arguments on one attribute instance");
+        should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
+
+        helper.AddSnapshotSubHeader("Conditions");
+        should.NotHaveAnyAttributesWithArguments(new List<object> { helper.Attribute1StringArgument, helper.Attribute1IntegerArgument }).AssertOnlyViolations(helper);
+
+        helper.AddSnapshotSubHeader("Predicates");
+        should.Be(Types().That().DoNotHaveAnyAttributesWithArguments(new List<object> { helper.Attribute1StringArgument, helper.Attribute1IntegerArgument })).AssertOnlyViolations(helper);
+
         helper.AddSnapshotHeader("Multiple inputs");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments, helper.ClassWithTwoAttributesWithArguments).Should();
 
