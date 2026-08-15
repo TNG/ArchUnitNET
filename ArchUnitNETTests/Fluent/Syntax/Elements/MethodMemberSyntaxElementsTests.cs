@@ -511,6 +511,19 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(MethodMembers().That().HaveReturnType(helper.RegularClassSystemType, helper.OtherRegularClassSystemType)).AssertNoViolations(helper);
             should.Be(MethodMembers().That().HaveReturnType(new List<System.Type> { helper.RegularClassSystemType, helper.OtherRegularClassSystemType })).AssertNoViolations(helper);
 
+            helper.AddSnapshotHeader("Empty arguments");
+            should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.HaveReturnType(Types().That().Are(new List<IType>())).AssertOnlyViolations(helper);
+            should.HaveReturnType(new List<IType>()).AssertOnlyViolations(helper);
+            should.HaveReturnType(new List<System.Type>()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveReturnType(Types().That().Are(new List<IType>()))).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<IType>())).AssertOnlyViolations(helper);
+            should.Be(MethodMembers().That().HaveReturnType(new List<System.Type>())).AssertOnlyViolations(helper);
+
             helper.AddSnapshotHeader("Multiple inputs");
             MethodMembers().That().Are(helper.MethodReturningRegularClass, helper.MethodReturningOtherRegularClass).Should().HaveReturnType(helper.RegularClass).AssertAnyViolations(helper);
             MethodMembers().That().Are(helper.MethodReturningRegularClass, helper.MethodReturningOtherRegularClass).Should().HaveReturnType(helper.RegularClass, helper.OtherRegularClass).AssertNoViolations(helper);
@@ -613,6 +626,19 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(MethodMembers().That().DoNotHaveReturnType(new List<IType> { helper.OtherRegularClass, helper.RegularClass })).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().DoNotHaveReturnType(helper.OtherRegularClassSystemType, helper.RegularClassSystemType)).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type> { helper.OtherRegularClassSystemType, helper.RegularClassSystemType })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Empty arguments");
+            should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveReturnType(Types().That().Are(new List<IType>())).AssertNoViolations(helper);
+            should.NotHaveReturnType(new List<IType>()).AssertNoViolations(helper);
+            should.NotHaveReturnType(new List<System.Type>()).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveReturnType(Types().That().Are(new List<IType>()))).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<IType>())).AssertNoViolations(helper);
+            should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type>())).AssertNoViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             MethodMembers().That().Are(helper.MethodReturningRegularClass, helper.MethodReturningOtherRegularClass).Should().NotHaveReturnType(helper.RegularClass).AssertAnyViolations(helper);
