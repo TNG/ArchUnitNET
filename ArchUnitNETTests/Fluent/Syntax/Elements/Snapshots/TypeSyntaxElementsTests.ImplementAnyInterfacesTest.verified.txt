@@ -185,49 +185,49 @@ Message:
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any of no interfaces (always false)
 Result: False
-Description: TypeNamespace.ITestInterface does not implement any interface
-Result: False
 Description: TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+Result: False
+Description: TypeNamespace.ITestInterface does not implement any interface
 Message: 
 "Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any of no interfaces (always false)" failed:
-	TypeNamespace.ITestInterface does not implement any interface
 	TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+	TypeNamespace.ITestInterface does not implement any interface
 
 
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any of no interfaces (always false)
 Result: False
-Description: TypeNamespace.ITestInterface does not implement any interface
-Result: False
 Description: TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+Result: False
+Description: TypeNamespace.ITestInterface does not implement any interface
 Message: 
 "Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any of no interfaces (always false)" failed:
-	TypeNamespace.ITestInterface does not implement any interface
 	TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+	TypeNamespace.ITestInterface does not implement any interface
 
 
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any of no interfaces (always false)
 Result: False
-Description: TypeNamespace.ITestInterface does not implement any interface
-Result: False
 Description: TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+Result: False
+Description: TypeNamespace.ITestInterface does not implement any interface
 Message: 
 "Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any of no interfaces (always false)" failed:
-	TypeNamespace.ITestInterface does not implement any interface
 	TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+	TypeNamespace.ITestInterface does not implement any interface
 
 
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any Interfaces that have name "NotTheNameOfAnyObject"
 Result: False
-Description: TypeNamespace.ITestInterface does not implement any interface
-Result: False
 Description: TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+Result: False
+Description: TypeNamespace.ITestInterface does not implement any interface
 Message: 
 "Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any Interfaces that have name "NotTheNameOfAnyObject"" failed:
-	TypeNamespace.ITestInterface does not implement any interface
 	TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+	TypeNamespace.ITestInterface does not implement any interface
 
 
 
@@ -235,49 +235,49 @@ Message:
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that implement any of no interfaces (always false)
 Result: False
-Description: TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
-Result: False
 Description: TypeNamespace.IChildTestInterface is not Interfaces that implement any of no interfaces (always false)
+Result: False
+Description: TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
 Message: 
 "Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that implement any of no interfaces (always false)" failed:
-	TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
 	TypeNamespace.IChildTestInterface is not Interfaces that implement any of no interfaces (always false)
+	TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
 
 
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that implement any of no interfaces (always false)
 Result: False
-Description: TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
-Result: False
 Description: TypeNamespace.IChildTestInterface is not Interfaces that implement any of no interfaces (always false)
+Result: False
+Description: TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
 Message: 
 "Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that implement any of no interfaces (always false)" failed:
-	TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
 	TypeNamespace.IChildTestInterface is not Interfaces that implement any of no interfaces (always false)
+	TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
 
 
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that implement any of no interfaces (always false)
 Result: False
-Description: TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
-Result: False
 Description: TypeNamespace.IChildTestInterface is not Interfaces that implement any of no interfaces (always false)
+Result: False
+Description: TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
 Message: 
 "Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that implement any of no interfaces (always false)" failed:
-	TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
 	TypeNamespace.IChildTestInterface is not Interfaces that implement any of no interfaces (always false)
+	TypeNamespace.ITestInterface is not Interfaces that implement any of no interfaces (always false)
 
 
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
 Result: False
-Description: TypeNamespace.ITestInterface is not Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
-Result: False
 Description: TypeNamespace.IChildTestInterface is not Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
+Result: False
+Description: TypeNamespace.ITestInterface is not Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
 Message: 
 "Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"" failed:
-	TypeNamespace.ITestInterface is not Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
 	TypeNamespace.IChildTestInterface is not Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
+	TypeNamespace.ITestInterface is not Interfaces that implement any Interfaces that have name "NotTheNameOfAnyObject"
 
 
 
@@ -285,13 +285,13 @@ Message:
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any interfaces that are any of no objects (always empty)
 Result: False
-Description: TypeNamespace.ITestInterface does not implement any interface
-Result: False
 Description: TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+Result: False
+Description: TypeNamespace.ITestInterface does not implement any interface
 Message: 
 "Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should implement any interfaces that are any of no objects (always empty)" failed:
-	TypeNamespace.ITestInterface does not implement any interface
 	TypeNamespace.IChildTestInterface only implements TypeNamespace.ITestInterface
+	TypeNamespace.ITestInterface does not implement any interface
 
 
 

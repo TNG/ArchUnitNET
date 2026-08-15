@@ -44,9 +44,9 @@ Message:
 
 Query: Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.OtherRegularAttribute" should not be sealed
 Result: True
-Description: AttributeNamespace.RegularAttribute passed
-Result: True
 Description: AttributeNamespace.OtherRegularAttribute passed
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
 Message: 
 All Evaluations passed
 

@@ -51,10 +51,10 @@ Message:
 All Evaluations passed
 
 Query: Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::No... should be virtual
-Result: True
-Description: System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod() passed
 Result: False
 Description: System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not virtual
+Result: True
+Description: System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod() passed
 Message: 
 "Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::No... should be virtual" failed:
 	System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() is not virtual

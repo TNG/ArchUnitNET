@@ -44,9 +44,9 @@ Message:
 
 Query: Members that are "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" or "System.String TypeNamespace.ClassWithGetOnlyProperty::GetOnlyProperty()" should be immutable
 Result: True
-Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField passed
-Result: True
 Description: System.String TypeNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
+Result: True
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField passed
 Message: 
 All Evaluations passed
 

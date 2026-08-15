@@ -44,9 +44,9 @@ Message:
 
 Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should reside in namespace with full name matching "TypeName.*"
 Result: True
-Description: TypeNamespace.RegularClass passed
-Result: True
 Description: TypeNamespace.OtherRegularClass passed
+Result: True
+Description: TypeNamespace.RegularClass passed
 Message: 
 All Evaluations passed
 

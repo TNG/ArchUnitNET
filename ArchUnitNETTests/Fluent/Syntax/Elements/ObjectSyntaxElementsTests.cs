@@ -53,8 +53,9 @@ public class ObjectSyntaxElementsTests
         Assert.Equal([.. Types().That().Are(new List<IType>()).GetObjects(helper.Architecture)], new List<IType>());
         Assert.Equal([.. Types().That().Are(new List<System.Type>()).GetObjects(helper.Architecture)], new List<IType>());
 
-        // Empty inputs
-        Types().That().Are([]).Should().BeTypesThat().Are(helper.ChildClass).AssertOnlyViolations(helper);
+        // Empty inputs. This is the one place where an empty result set is the point of the assertion,
+        // so it is also the only place that needs allowNoResults.
+        Types().That().Are([]).Should().BeTypesThat().Are(helper.ChildClass).AssertOnlyViolations(helper, allowNoResults: true);
 
         await helper.AssertSnapshotMatches();
     }

@@ -51,10 +51,10 @@ Message:
 All Evaluations passed
 
 Query: Classes that are "ClassNamespace.AbstractClass" or "ClassNamespace.RegularClass" should be abstract
-Result: False
-Description: ClassNamespace.RegularClass is not abstract
 Result: True
 Description: ClassNamespace.AbstractClass passed
+Result: False
+Description: ClassNamespace.RegularClass is not abstract
 Message: 
 "Classes that are "ClassNamespace.AbstractClass" or "ClassNamespace.RegularClass" should be abstract" failed:
 	ClassNamespace.RegularClass is not abstract

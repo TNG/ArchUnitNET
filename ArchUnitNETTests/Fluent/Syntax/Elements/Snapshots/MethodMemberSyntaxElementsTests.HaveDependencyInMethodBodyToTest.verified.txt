@@ -272,9 +272,9 @@ Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in prov
 
 Query: Method members that are "System.Void MethodMemberNamespace.OtherCallingClass::MethodCallingCalledMethod()" or "System.Void MethodMemberNamespace.OtherCallingClass::Ano... should have dependencies in method body to "MethodMemberNamespace.MethodDependencyClass"
 Result: True
-Description: System.Void MethodMemberNamespace.OtherCallingClass::MethodCallingCalledMethod() passed
-Result: True
 Description: System.Void MethodMemberNamespace.OtherCallingClass::AnotherMethodCallingCalledMethod() passed
+Result: True
+Description: System.Void MethodMemberNamespace.OtherCallingClass::MethodCallingCalledMethod() passed
 Message: 
 All Evaluations passed
 

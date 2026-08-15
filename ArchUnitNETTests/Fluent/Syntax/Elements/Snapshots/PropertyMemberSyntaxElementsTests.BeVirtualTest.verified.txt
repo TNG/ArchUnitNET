@@ -51,10 +51,10 @@ Message:
 All Evaluations passed
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithNonVirtu... should be virtual
-Result: True
-Description: System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty() passed
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() is not virtual
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty() passed
 Message: 
 "Property members that are "System.String PropertyMemberNamespace.ClassWithVirtualProperty::VirtualProperty()" or "System.String PropertyMemberNamespace.ClassWithNonVirtu... should be virtual" failed:
 	System.String PropertyMemberNamespace.ClassWithNonVirtualProperty::NonVirtualProperty() is not virtual

@@ -51,10 +51,10 @@ Message:
 All Evaluations passed
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithIntern... should not have an internal setter
-Result: True
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter() does have an internal setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
 "Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithIntern... should not have an internal setter" failed:
 	System.String PropertyMemberNamespace.ClassWithInternalSetterProperty::PropertyWithInternalSetter() does have an internal setter

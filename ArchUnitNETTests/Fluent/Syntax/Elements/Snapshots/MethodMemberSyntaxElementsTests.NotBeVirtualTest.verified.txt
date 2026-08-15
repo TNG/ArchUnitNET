@@ -44,17 +44,17 @@ Message:
 
 Query: Method members that are "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" or "System.String MethodMemberNamespace.ClassWithStringReturn... should not be virtual
 Result: True
-Description: System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() passed
-Result: True
 Description: System.String MethodMemberNamespace.ClassWithStringReturnType::MethodReturningString() passed
+Result: True
+Description: System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() passed
 Message: 
 All Evaluations passed
 
 Query: Method members that are "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithVirtualMethod:... should not be virtual
-Result: False
-Description: System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod() is virtual
 Result: True
 Description: System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod() passed
+Result: False
+Description: System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod() is virtual
 Message: 
 "Method members that are "System.Void MethodMemberNamespace.ClassWithNonVirtualMethod::NonVirtualMethod()" or "System.Void MethodMemberNamespace.ClassWithVirtualMethod:... should not be virtual" failed:
 	System.Void MethodMemberNamespace.ClassWithVirtualMethod::VirtualMethod() is virtual

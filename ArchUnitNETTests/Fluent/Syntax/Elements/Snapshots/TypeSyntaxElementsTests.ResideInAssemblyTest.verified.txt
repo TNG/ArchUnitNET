@@ -98,9 +98,9 @@ Message:
 
 Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should reside in assembly with full name "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4"
 Result: True
-Description: TypeNamespace.RegularClass passed
-Result: True
 Description: TypeNamespace.OtherRegularClass passed
+Result: True
+Description: TypeNamespace.RegularClass passed
 Message: 
 All Evaluations passed
 
