@@ -116,45 +116,15 @@ Description: TypeNamespace.RegularClass passed
 Message: 
 All Evaluations passed
 
-===== Multiple assemblies =====
+===== Assembly not in architecture =====
 
 ----- Conditions -----
 
-Query: Types that are "TypeNamespace.RegularClass" should not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Culture...
-Result: False
-Description: TypeNamespace.RegularClass does reside in TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4
-Message: 
-"Types that are "TypeNamespace.RegularClass" should not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Culture..." failed:
-	TypeNamespace.RegularClass does reside in TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4
-
-
-
-Query: Types that are "TypeNamespace.RegularClass" should not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Culture...
-Result: False
-Description: TypeNamespace.RegularClass does reside in TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4
-Message: 
-"Types that are "TypeNamespace.RegularClass" should not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Culture..." failed:
-	TypeNamespace.RegularClass does reside in TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4
-
-
+Query: Types that are "TypeNamespace.RegularClass" should not reside in assembly "ArchUnitNET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4"
+Exception: Assembly ArchUnitNET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4 does not exist in provided architecture.
 
 ----- Predicates -----
 
-Query: Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version...
-Result: False
-Description: TypeNamespace.RegularClass is not Types that do not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cult...
-Message: 
-"Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version..." failed:
-	TypeNamespace.RegularClass is not Types that do not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cult...
-
-
-
-Query: Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version...
-Result: False
-Description: TypeNamespace.RegularClass is not Types that do not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cult...
-Message: 
-"Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version..." failed:
-	TypeNamespace.RegularClass is not Types that do not reside in assembly "TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cult...
-
-
+Query: Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "ArchUnitNET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4"
+Exception: Assembly ArchUnitNET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4 does not exist in provided architecture.
 

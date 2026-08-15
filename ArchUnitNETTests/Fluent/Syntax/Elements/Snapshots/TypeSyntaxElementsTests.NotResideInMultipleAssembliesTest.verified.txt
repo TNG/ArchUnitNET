@@ -1,0 +1,82 @@
+﻿===== No assembly matches =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.RegularClass" should not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "ClassAssembly, Version=1.0.0.0, Cultu...
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.RegularClass" should not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "ClassAssembly, Version=1.0.0.0, Cultu...
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "ClassAssembly, Versi...
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+Query: Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "ClassAssembly, Versi...
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+===== Second assembly decides =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.RegularClass" should not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cultur...
+Result: False
+Description: TypeNamespace.RegularClass does reside in TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4
+Message: 
+"Types that are "TypeNamespace.RegularClass" should not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cultur..." failed:
+	TypeNamespace.RegularClass does reside in TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4
+
+
+
+Query: Types that are "TypeNamespace.RegularClass" should not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cultur...
+Result: False
+Description: TypeNamespace.RegularClass does reside in TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4
+Message: 
+"Types that are "TypeNamespace.RegularClass" should not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cultur..." failed:
+	TypeNamespace.RegularClass does reside in TypeAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Versio...
+Result: False
+Description: TypeNamespace.RegularClass is not Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cul...
+Message: 
+"Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Versio..." failed:
+	TypeNamespace.RegularClass is not Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cul...
+
+
+
+Query: Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Versio...
+Result: False
+Description: TypeNamespace.RegularClass is not Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cul...
+Message: 
+"Types that are "TypeNamespace.RegularClass" should be Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Versio..." failed:
+	TypeNamespace.RegularClass is not Types that do not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "TypeAssembly, Version=1.0.0.0, Cul...
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should not reside in assembly "ClassAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=015ff5fd0dc0bfa4" or "ClassAssembly, Version=1.0.0.0, Cultu...
+Result: True
+Description: TypeNamespace.OtherRegularClass passed
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
