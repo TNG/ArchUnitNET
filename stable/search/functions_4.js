@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['withoutrequiringpositiveresults_0',['WithoutRequiringPositiveResults',['../classArchUnitNET_1_1Fluent_1_1ArchRule.html#acb00ed05764ea20f0ed4b4609374d9d2',1,'ArchUnitNET::Fluent::ArchRule']]]
+  ['loadassembliesrecursively_0',['LoadAssembliesRecursively',['../classArchUnitNET_1_1Loader_1_1ArchLoader.html#a7c1d010e0d6f4cbd82e99f793cf81339',1,'ArchUnitNET::Loader::ArchLoader']]]
 ];

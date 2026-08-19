@@ -1,5 +1,16 @@
 var NAVTREEINDEX2 =
 {
+"interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypePredicate.html":[1,0,0,1,6,0,1,10],
+"interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypePredicate.html":[0,0,0,1,7,0,1,10],
+"interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfaceCondition.html":[0,0,0,1,7,0,1,2,6],
+"interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfaceCondition.html":[1,0,0,1,6,0,1,2,6],
+"interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfacePredicate.html":[1,0,0,1,6,0,1,2,7],
+"interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfacePredicate.html":[0,0,0,1,7,0,1,2,7],
+"namespaceArchUnitNET.html":[0,0,0],
+"namespaceArchUnitNET_1_1Domain.html":[0,0,0,0],
+"namespaceArchUnitNET_1_1Domain_1_1Dependencies.html":[0,0,0,0,0],
+"namespaceArchUnitNET_1_1Domain_1_1Exceptions.html":[0,0,0,0,1],
+"namespaceArchUnitNET_1_1Domain_1_1Extensions.html":[0,0,0,0,2],
 "namespaceArchUnitNET_1_1Domain_1_1PlantUml.html":[0,0,0,0,3],
 "namespaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Exceptions.html":[0,0,0,0,3,0],
 "namespaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export.html":[0,0,0,0,3,1],
@@ -25,12 +36,11 @@ var NAVTREEINDEX2 =
 "namespaceArchUnitNET_1_1Library.html":[0,0,0,2],
 "namespaceArchUnitNET_1_1Library_1_1Rules.html":[0,0,0,2,0],
 "namespaceArchUnitNET_1_1Loader.html":[0,0,0,3],
-"namespaceArchUnitNET_1_1Loader.html#aea62e93f76e6f80bae858e96178e600a":[0,0,0,3,5],
-"namespaceArchUnitNET_1_1Loader_1_1LoadTasks.html":[0,0,0,3,0],
+"namespaceArchUnitNET_1_1Loader.html#aea62e93f76e6f80bae858e96178e600a":[0,0,0,3,4],
 "namespacemembers.html":[0,1,0],
 "namespacemembers_func.html":[0,1,1],
 "namespaces.html":[0,0],
 "pages.html":[],
-"structArchUnitNET_1_1Loader_1_1FilterResult.html":[1,0,0,2,3],
-"structArchUnitNET_1_1Loader_1_1FilterResult.html":[0,0,0,3,3]
+"structArchUnitNET_1_1Loader_1_1FilterResult.html":[1,0,0,2,2],
+"structArchUnitNET_1_1Loader_1_1FilterResult.html":[0,0,0,3,2]
 };

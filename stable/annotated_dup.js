@@ -51,9 +51,9 @@ var annotated_dup =
             [ "RenderOptions", "classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1RenderOptions.html", null ]
           ] ]
         ] ],
-        [ "Architecture", "classArchUnitNET_1_1Domain_1_1Architecture.html", null ],
-        [ "ArchitectureCache", "classArchUnitNET_1_1Domain_1_1ArchitectureCache.html", null ],
-        [ "ArchitectureCacheKey", "classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html", null ],
+        [ "Architecture", "classArchUnitNET_1_1Domain_1_1Architecture.html", "classArchUnitNET_1_1Domain_1_1Architecture" ],
+        [ "ArchitectureCache", "classArchUnitNET_1_1Domain_1_1ArchitectureCache.html", "classArchUnitNET_1_1Domain_1_1ArchitectureCache" ],
+        [ "ArchitectureCacheKey", "classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html", "classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey" ],
         [ "Assembly", "classArchUnitNET_1_1Domain_1_1Assembly.html", null ],
         [ "Attribute", "classArchUnitNET_1_1Domain_1_1Attribute.html", null ],
         [ "AttributeArgument", "classArchUnitNET_1_1Domain_1_1AttributeArgument.html", null ],
@@ -87,7 +87,6 @@ var annotated_dup =
         [ "MethodMember", "classArchUnitNET_1_1Domain_1_1MethodMember.html", null ],
         [ "MethodMemberInstance", "classArchUnitNET_1_1Domain_1_1MethodMemberInstance.html", null ],
         [ "Namespace", "classArchUnitNET_1_1Domain_1_1Namespace.html", null ],
-        [ "ObjectProviderCache", "classArchUnitNET_1_1Domain_1_1ObjectProviderCache.html", null ],
         [ "PropertyMember", "classArchUnitNET_1_1Domain_1_1PropertyMember.html", null ],
         [ "Slice", "classArchUnitNET_1_1Domain_1_1Slice.html", null ],
         [ "SliceIdentifier", "classArchUnitNET_1_1Domain_1_1SliceIdentifier.html", "classArchUnitNET_1_1Domain_1_1SliceIdentifier" ],
@@ -281,11 +280,6 @@ var annotated_dup =
         [ "LogicalConjunction", "classArchUnitNET_1_1Fluent_1_1LogicalConjunction.html", null ]
       ] ],
       [ "Loader", "namespaceArchUnitNET_1_1Loader.html", [
-        [ "LoadTasks", "namespaceArchUnitNET_1_1Loader_1_1LoadTasks.html", [
-          [ "AddGenericArgumentDependencies", "classArchUnitNET_1_1Loader_1_1LoadTasks_1_1AddGenericArgumentDependencies.html", null ],
-          [ "AddGenericParameterDependencies", "classArchUnitNET_1_1Loader_1_1LoadTasks_1_1AddGenericParameterDependencies.html", null ],
-          [ "MatchFunction", "classArchUnitNET_1_1Loader_1_1LoadTasks_1_1MatchFunction.html", null ]
-        ] ],
         [ "ArchLoader", "classArchUnitNET_1_1Loader_1_1ArchLoader.html", "classArchUnitNET_1_1Loader_1_1ArchLoader" ],
         [ "ArchLoaderException", "classArchUnitNET_1_1Loader_1_1ArchLoaderException.html", null ],
         [ "FilterResult", "structArchUnitNET_1_1Loader_1_1FilterResult.html", null ],

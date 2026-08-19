@@ -96,12 +96,15 @@ $(document).ready(function(){initNavTree('classArchUnitNET_1_1Domain_1_1Architec
   <div class="headertitle"><div class="title">ArchUnitNET.Domain.ArchitectureCacheKey Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Identifies a cached Architecture by the set of loaded modules, their namespace filters, and whether rule evaluation caching is disabled. Two keys are equal when they represent the same combination of modules, filters, and caching flag, regardless of insertion order.  
+ <a href="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for ArchUnitNET.Domain.ArchitectureCacheKey:</div>
 <div class="dyncontent">
 <div class="center"><img src="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey__inherit__graph.png" border="0" usemap="#aArchUnitNET_8Domain_8ArchitectureCacheKey_inherit__map" alt="Inheritance graph"/></div>
 <map name="aArchUnitNET_8Domain_8ArchitectureCacheKey_inherit__map" id="aArchUnitNET_8Domain_8ArchitectureCacheKey_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,93,247,133"/>
+<area shape="rect" title="Identifies a cached Architecture by the set of loaded modules, their namespace filters,..." alt="" coords="5,93,247,133"/>
 <area shape="rect" title=" " alt="" coords="33,5,219,45"/>
 <area shape="poly" title=" " alt="" coords="129,59,129,93,123,93,123,59"/>
 </map>
@@ -111,7 +114,7 @@ Collaboration diagram for ArchUnitNET.Domain.ArchitectureCacheKey:</div>
 <div class="dyncontent">
 <div class="center"><img src="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey__coll__graph.png" border="0" usemap="#aArchUnitNET_8Domain_8ArchitectureCacheKey_coll__map" alt="Collaboration graph"/></div>
 <map name="aArchUnitNET_8Domain_8ArchitectureCacheKey_coll__map" id="aArchUnitNET_8Domain_8ArchitectureCacheKey_coll__map">
-<area shape="rect" title=" " alt="" coords="5,93,247,133"/>
+<area shape="rect" title="Identifies a cached Architecture by the set of loaded modules, their namespace filters,..." alt="" coords="5,93,247,133"/>
 <area shape="rect" title=" " alt="" coords="33,5,219,45"/>
 <area shape="poly" title=" " alt="" coords="129,59,129,93,123,93,123,59"/>
 </map>
@@ -122,9 +125,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a45ceef24ec57a2f5207f7278da4a954a" id="r_a45ceef24ec57a2f5207f7278da4a954a"><td class="memItemLeft" align="right" valign="top"><a id="a45ceef24ec57a2f5207f7278da4a954a" name="a45ceef24ec57a2f5207f7278da4a954a"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Equals</b> (<a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html">ArchitectureCacheKey</a> other)</td></tr>
 <tr class="separator:a45ceef24ec57a2f5207f7278da4a954a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f36bdc2ecc54ad5e880c239ae6ffd40" id="r_a4f36bdc2ecc54ad5e880c239ae6ffd40"><td class="memItemLeft" align="right" valign="top"><a id="a4f36bdc2ecc54ad5e880c239ae6ffd40" name="a4f36bdc2ecc54ad5e880c239ae6ffd40"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Add</b> (string moduleName, string filter)</td></tr>
+<tr class="memitem:a4f36bdc2ecc54ad5e880c239ae6ffd40" id="r_a4f36bdc2ecc54ad5e880c239ae6ffd40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html#a4f36bdc2ecc54ad5e880c239ae6ffd40">Add</a> (string moduleName, string filter)</td></tr>
+<tr class="memdesc:a4f36bdc2ecc54ad5e880c239ae6ffd40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a module and optional namespace filter to this key.  <br /></td></tr>
 <tr class="separator:a4f36bdc2ecc54ad5e880c239ae6ffd40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a26ae02cb80d6264398bd6e0f66ed83" id="r_a6a26ae02cb80d6264398bd6e0f66ed83"><td class="memItemLeft" align="right" valign="top"><a id="a6a26ae02cb80d6264398bd6e0f66ed83" name="a6a26ae02cb80d6264398bd6e0f66ed83"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRuleEvaluationCacheDisabled</b> ()</td></tr>
+<tr class="memdesc:a6a26ae02cb80d6264398bd6e0f66ed83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks this key as representing an architecture with rule evaluation caching disabled. Architectures with caching disabled are stored separately in the cache. <br /></td></tr>
+<tr class="separator:a6a26ae02cb80d6264398bd6e0f66ed83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef3b847a8b6f1cf84960d0432f23d0f3" id="r_aef3b847a8b6f1cf84960d0432f23d0f3"><td class="memItemLeft" align="right" valign="top"><a id="aef3b847a8b6f1cf84960d0432f23d0f3" name="aef3b847a8b6f1cf84960d0432f23d0f3"></a>
 override bool&#160;</td><td class="memItemRight" valign="bottom"><b>Equals</b> (object obj)</td></tr>
 <tr class="separator:aef3b847a8b6f1cf84960d0432f23d0f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +139,46 @@ override bool&#160;</td><td class="memItemRight" valign="bottom"><b>Equals</b> (
 override int&#160;</td><td class="memItemRight" valign="bottom"><b>GetHashCode</b> ()</td></tr>
 <tr class="separator:a94ceaf9e33982b652f35a78139564a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Identifies a cached Architecture by the set of loaded modules, their namespace filters, and whether rule evaluation caching is disabled. Two keys are equal when they represent the same combination of modules, filters, and caching flag, regardless of insertion order. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4f36bdc2ecc54ad5e880c239ae6ffd40" name="a4f36bdc2ecc54ad5e880c239ae6ffd40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f36bdc2ecc54ad5e880c239ae6ffd40">&#9670;&#160;</a></span>Add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArchUnitNET.Domain.ArchitectureCacheKey.Add </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>moduleName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>filter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a module and optional namespace filter to this key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">moduleName</td><td>The name of the loaded module.</td></tr>
+    <tr><td class="paramname">filter</td><td>The namespace filter applied when loading, or <code>null</code> if no filter was used. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/runner/work/ArchUnitNET/ArchUnitNET/current/ArchUnitNET/Domain/<b>ArchitectureCacheKey.cs</b></li>
 </ul>

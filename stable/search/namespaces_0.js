@@ -29,6 +29,5 @@ var searchData=
   ['archunitnet_3a_3afluent_3a_3asyntax_3a_3aelements_3a_3atypes_3a_3ainterfaces_26',['Interfaces',['../namespaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
   ['archunitnet_3a_3alibrary_27',['Library',['../namespaceArchUnitNET_1_1Library.html',1,'ArchUnitNET']]],
   ['archunitnet_3a_3alibrary_3a_3arules_28',['Rules',['../namespaceArchUnitNET_1_1Library_1_1Rules.html',1,'ArchUnitNET::Library']]],
-  ['archunitnet_3a_3aloader_29',['Loader',['../namespaceArchUnitNET_1_1Loader.html',1,'ArchUnitNET']]],
-  ['archunitnet_3a_3aloader_3a_3aloadtasks_30',['LoadTasks',['../namespaceArchUnitNET_1_1Loader_1_1LoadTasks.html',1,'ArchUnitNET::Loader']]]
+  ['archunitnet_3a_3aloader_29',['Loader',['../namespaceArchUnitNET_1_1Loader.html',1,'ArchUnitNET']]]
 ];

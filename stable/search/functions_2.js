@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loadassembliesrecursively_0',['LoadAssembliesRecursively',['../classArchUnitNET_1_1Loader_1_1ArchLoader.html#a7c1d010e0d6f4cbd82e99f793cf81339',1,'ArchUnitNET::Loader::ArchLoader']]]
+  ['filterfunc_0',['FilterFunc',['../namespaceArchUnitNET_1_1Loader.html#aea62e93f76e6f80bae858e96178e600a',1,'ArchUnitNET::Loader']]]
 ];
