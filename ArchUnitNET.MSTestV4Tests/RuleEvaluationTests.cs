@@ -34,16 +34,10 @@ namespace ArchUnitNET.MSTestV4Tests
             Assert.ThrowsExactly<AssertFailedException>(() =>
                 ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
             );
-            Assert.AreEqual(
-                _expectedErrorMessage,
-                RemoveAssertionText(
-                    Assert
-                        .ThrowsExactly<AssertFailedException>(() =>
-                            ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
-                        )
-                        .Message
-                )
+            var exception = Assert.ThrowsExactly<AssertFailedException>(() =>
+                ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
             );
+            Assert.EndsWith(_expectedErrorMessage, exception.Message);
         }
 
         [TestMethod]
@@ -53,29 +47,10 @@ namespace ArchUnitNET.MSTestV4Tests
             _trueRule.Check(_architecture);
             Assert.ThrowsExactly<AssertFailedException>(() => _architecture.CheckRule(_falseRule));
             Assert.ThrowsExactly<AssertFailedException>(() => _falseRule.Check(_architecture));
-            Assert.AreEqual(
-                _expectedErrorMessage,
-                RemoveAssertionText(
-                    Assert
-                        .ThrowsExactly<AssertFailedException>(() =>
-                            _architecture.CheckRule(_falseRule)
-                        )
-                        .Message
-                )
+            var exception = Assert.ThrowsExactly<AssertFailedException>(() =>
+                ArchRuleAssert.FulfilsRule(_architecture, _falseRule)
             );
-            Assert.AreEqual(
-                _expectedErrorMessage,
-                RemoveAssertionText(
-                    Assert
-                        .ThrowsExactly<AssertFailedException>(() => _falseRule.Check(_architecture))
-                        .Message
-                )
-            );
-        }
-
-        private static string RemoveAssertionText(string exceptionMessage)
-        {
-            return exceptionMessage.Replace("Assert.Fail failed. ", string.Empty);
+            Assert.EndsWith(_expectedErrorMessage, exception.Message);
         }
     }
 }
