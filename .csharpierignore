@@ -1,2 +1,3 @@
-ArchUnitNETTests/Fluent/Syntax/Elements/TypeSyntaxElementsTests.cs 
+ArchUnitNETTests/Fluent/Syntax/Elements/TypeSyntaxElementsTests.cs
 ArchUnitNETTests/Fluent/Syntax/Elements/ObjectSyntaxElementsTests.cs
+ArchUnitNETTests/Fluent/Syntax/Elements/FieldMemberSyntaxElementsTests.cs
