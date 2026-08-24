@@ -1,0 +1,59 @@
+amends "package://github.com/jdx/hk/releases/download/v1.56.1/hk@1.56.1#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v1.56.1/hk@1.56.1#/Builtins.pkl"
+
+// Golden/fixture files and vendored legal text are excluded: their exact
+// bytes are compared by tests (Verify snapshots, frozen-rules fixtures)
+// or are copied verbatim from upstream (DCO, NOTICE, license texts), so
+// whitespace-only "fixes" here would cause false test failures or churn
+// in text nobody intends to edit.
+local hygieneExclude = List(
+    "**/Snapshots/*.verified.txt",
+    "ArchUnitNETTests/ArchUnitNET/Storage/*.json",
+    "ArchUnitNETTests/ArchUnitNET/Storage/*.xml",
+    "ArchUnitNETTests/**/*.puml",
+    "ExampleTest/**/*.puml",
+    "DCO",
+    "NOTICE",
+    "Licenses/**",
+)
+
+local linters = new Mapping<String, Step> {
+    ["check_merge_conflict"] = Builtins.check_merge_conflict
+    ["check_case_conflict"] = Builtins.check_case_conflict
+    ["detect_private_key"] = Builtins.detect_private_key
+    ["trailing_whitespace"] = (Builtins.trailing_whitespace) {
+        exclude = hygieneExclude
+    }
+    ["newlines"] = (Builtins.newlines) {
+        exclude = hygieneExclude
+    }
+    ["check_added_large_files"] = (Builtins.check_added_large_files) {
+        exclude = List("Licenses/AdditionalLicenses.txt")
+    }
+    ["actionlint"] = Builtins.actionlint
+    ["gitleaks"] = Builtins.gitleaks
+    ["zizmor"] = (Builtins.zizmor) {
+        check = "zizmor --no-progress --no-online-audits --quiet {{ files }}"
+        fix = "zizmor --no-progress --no-online-audits --quiet --fix {{ files }}"
+    }
+    ["csharpier"] {
+        glob = "*.cs"
+        check = "dotnet csharpier check {{ files }}"
+        fix = "dotnet csharpier format {{ files }}"
+    }
+}
+
+hooks {
+    ["pre-commit"] {
+        fix = true
+        stash = "git"
+        steps = linters
+    }
+    ["fix"] {
+        fix = true
+        steps = linters
+    }
+    ["check"] {
+        steps = linters
+    }
+}
