@@ -130,6 +130,8 @@ jobs:
     if: github.event_name == 'release'
     runs-on: windows-latest
     environment: deploy
+    permissions:
+      id-token: write
     needs:
       - formatting
       - coverage
@@ -165,8 +167,12 @@ jobs:
           else
             echo "CREATE_RELEASE=false" >> "$GITHUB_ENV"
           fi
+      - name: NuGet login (OIDC → temp API key)
+        if: env.CREATE_RELEASE == 'true'
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+        id: nuget-login
+        with:
+          user: ${{ secrets.NUGET_USER }}
       - name: Push
         if: env.CREATE_RELEASE == 'true'
-        run: dotnet nuget push .\nupkgs\*.nupkg --source https://api.nuget.org/v3/index.json --api-key "$env:NUGET_API_KEY"
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push .\nupkgs\*.nupkg --source https://api.nuget.org/v3/index.json --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
