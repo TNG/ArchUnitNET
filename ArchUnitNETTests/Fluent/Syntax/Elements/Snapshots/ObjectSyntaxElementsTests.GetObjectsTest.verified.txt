@@ -1,0 +1,16 @@
+﻿===== Bare object provider =====
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be assignable to Types
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+
+===== Combined arch rule as object provider =====
+
+Query: Types should be assignable to Types that are "TypeDependencyNamespace.ChildClass" should exist and Types
+Exception: GetObjects() can't be used with CombinedArchRule "Types that are "TypeDependencyNamespace.ChildClass" should exist and Types" because the analyzed objects might be of different type. Try to use simple ArchRules instead.
+
+Query: Types should be assignable to Types that are "TypeDependencyNamespace.ChildClass" should exist and combined types
+Exception: GetObjects() can't be used with CombinedArchRule "Types that are "TypeDependencyNamespace.ChildClass" should exist and combined types" because the analyzed objects might be of different type. Try to use simple ArchRules instead.
+
