@@ -12,6 +12,11 @@ public static class AssemblyTestHelperExtensions
         testHelper.AssertNoViolations(archRule);
     }
 
+    public static void AssertHasViolations(this IArchRule archRule, AssemblyTestHelper testHelper)
+    {
+        testHelper.AssertHasViolations(archRule);
+    }
+
     public static void AssertAnyViolations(this IArchRule archRule, AssemblyTestHelper testHelper)
     {
         testHelper.AssertAnyViolations(archRule);

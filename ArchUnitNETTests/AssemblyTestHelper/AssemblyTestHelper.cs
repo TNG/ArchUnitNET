@@ -99,6 +99,25 @@ public abstract class AssemblyTestHelper
         Record(output);
     }
 
+    /// <summary>
+    /// The exact negation of <see cref="AssertNoViolations" />, and like it a statement about the
+    /// verdict, not the results -- see there for why the two differ. Use it wherever the point of
+    /// the test is that a rule fails as a whole; prefer <see cref="AssertOnlyViolations" /> when
+    /// the point is that every evaluated object was reported, since this assertion is also
+    /// satisfied by the failing placeholder <see cref="ArchRule{TRuleType}.Evaluate" /> injects
+    /// for a rule whose input set is empty.
+    /// </summary>
+    public void AssertHasViolations(IArchRule rule)
+    {
+        var results = rule.Evaluate(Architecture).ToList();
+        var output = FormatSnapshot(rule, results);
+        if (rule.HasNoViolations(Architecture))
+        {
+            Assert.Fail(output);
+        }
+        Record(output);
+    }
+
     public void AssertAnyViolations(IArchRule rule)
     {
         var results = rule.Evaluate(Architecture).ToList();
