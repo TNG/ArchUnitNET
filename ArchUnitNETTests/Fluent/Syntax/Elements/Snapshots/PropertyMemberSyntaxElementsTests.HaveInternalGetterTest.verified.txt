@@ -42,9 +42,11 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter()" should have an internal getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter()" or "System.String PropertyMemberNamespace... should have an internal getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithInternalGetterProperty::OtherPropertyWithInternalGetter() passed
 Message: 
 All Evaluations passed
 

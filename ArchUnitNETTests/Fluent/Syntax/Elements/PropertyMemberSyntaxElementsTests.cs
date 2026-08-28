@@ -122,7 +122,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HaveNoGetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.WriteOnlyProperty).Should().NotHaveGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.WriteOnlyProperty, helper.OtherWriteOnlyProperty).Should().NotHaveGetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.WriteOnlyProperty, helper.WritableProperty).Should().NotHaveGetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -182,7 +182,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HaveNoSetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.GetOnlyProperty).Should().NotHaveSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.GetOnlyProperty, helper.OtherGetOnlyProperty).Should().NotHaveSetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.GetOnlyProperty, helper.WritableProperty).Should().NotHaveSetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -212,7 +212,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HaveInitOnlySetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.InitOnlyProperty).Should().HaveInitOnlySetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.InitOnlyProperty, helper.OtherInitOnlyProperty).Should().HaveInitOnlySetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.InitOnlyProperty, helper.WritableProperty).Should().HaveInitOnlySetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -332,7 +332,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HavePrivateGetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithPrivateGetter).Should().HavePrivateGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateGetter, helper.OtherPropertyWithPrivateGetter).Should().HavePrivateGetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithPrivateGetter, helper.WritableProperty).Should().HavePrivateGetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -392,7 +392,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HaveProtectedGetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithProtectedGetter).Should().HaveProtectedGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithProtectedGetter, helper.OtherPropertyWithProtectedGetter).Should().HaveProtectedGetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithProtectedGetter, helper.WritableProperty).Should().HaveProtectedGetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -452,7 +452,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HaveInternalGetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithInternalGetter).Should().HaveInternalGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithInternalGetter, helper.OtherPropertyWithInternalGetter).Should().HaveInternalGetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithInternalGetter, helper.WritableProperty).Should().HaveInternalGetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -512,7 +512,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HaveProtectedInternalGetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithProtectedInternalGetter).Should().HaveProtectedInternalGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithProtectedInternalGetter, helper.OtherPropertyWithProtectedInternalGetter).Should().HaveProtectedInternalGetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithProtectedInternalGetter, helper.WritableProperty).Should().HaveProtectedInternalGetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -572,7 +572,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HavePrivateProtectedGetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedGetter).Should().HavePrivateProtectedGetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedGetter, helper.OtherPropertyWithPrivateProtectedGetter).Should().HavePrivateProtectedGetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedGetter, helper.WritableProperty).Should().HavePrivateProtectedGetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -692,7 +692,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HavePrivateSetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithPrivateSetter).Should().HavePrivateSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateSetter, helper.OtherPropertyWithPrivateSetter).Should().HavePrivateSetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithPrivateSetter, helper.WritableProperty).Should().HavePrivateSetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -752,7 +752,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HaveProtectedSetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithProtectedSetter).Should().HaveProtectedSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithProtectedSetter, helper.OtherPropertyWithProtectedSetter).Should().HaveProtectedSetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithProtectedSetter, helper.WritableProperty).Should().HaveProtectedSetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -812,7 +812,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HaveInternalSetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithInternalSetter).Should().HaveInternalSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithInternalSetter, helper.OtherPropertyWithInternalSetter).Should().HaveInternalSetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithInternalSetter, helper.WritableProperty).Should().HaveInternalSetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -872,7 +872,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HaveProtectedInternalSetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithProtectedInternalSetter).Should().HaveProtectedInternalSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithProtectedInternalSetter, helper.OtherPropertyWithProtectedInternalSetter).Should().HaveProtectedInternalSetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithProtectedInternalSetter, helper.WritableProperty).Should().HaveProtectedInternalSetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
@@ -932,7 +932,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(PropertyMembers().That().HavePrivateProtectedSetter()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
-            PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedSetter).Should().HavePrivateProtectedSetter().AssertNoViolations(helper);
+            PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedSetter, helper.OtherPropertyWithPrivateProtectedSetter).Should().HavePrivateProtectedSetter().AssertNoViolations(helper);
             PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedSetter, helper.WritableProperty).Should().HavePrivateProtectedSetter().AssertAnyViolations(helper);
 
             await helper.AssertSnapshotMatches();
