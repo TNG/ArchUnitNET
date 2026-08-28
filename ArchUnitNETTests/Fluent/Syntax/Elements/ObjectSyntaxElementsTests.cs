@@ -6,6 +6,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Exceptions;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Conditions;
+using ArchUnitNET.Fluent.Exceptions;
 using ArchUnitNET.Fluent.Predicates;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNETTests.AssemblyTestHelper;
@@ -449,6 +450,42 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotHeader("Violations");
         Types().That().HaveFullName(helper.NonExistentObjectName).Should().Exist().AssertOnlyViolations(helper);
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
+    public async Task BareObjectProviderDescriptionTest()
+    {
+        var helper = new TypeDependencyAssemblyTestHelper();
+
+        // A bare GivenObjects (not a "...That()" conjunction) passed as an object provider argument
+        // routes its description through GivenObjects.FormatDescription instead of a "...WithDescription"
+        // conjunction's custom description.
+        helper.AddSnapshotHeader("Bare object provider");
+        Types().That().Are(helper.ChildClass).Should().BeAssignableTo(Types()).AssertNoViolations(helper);
+
+        await helper.AssertSnapshotMatches();
+    }
+
+    [Fact]
+    public async Task GetObjectsOnCombinedArchRuleTest()
+    {
+        var helper = new TypeDependencyAssemblyTestHelper();
+
+        helper.AddSnapshotHeader("Combined arch rule as object provider");
+        var someRule = Types().That().Are(helper.ChildClass).Should().Exist();
+        var combinedProvider = someRule.And().Types();
+        Types()
+            .Should()
+            .BeAssignableTo(combinedProvider)
+            .AssertException<CannotGetObjectsOfCombinedArchRuleException>(helper);
+
+        var describedCombinedProvider = someRule.And().Types().That().AreValueTypes().As("combined types");
+        Types()
+            .Should()
+            .BeAssignableTo(describedCombinedProvider)
+            .AssertException<CannotGetObjectsOfCombinedArchRuleException>(helper);
+
         await helper.AssertSnapshotMatches();
     }
 
