@@ -4,6 +4,7 @@ using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ArchUnitNETTests.Fluent
 {
+    // csharpier-ignore
     public class DescriptionTests
     {
         private readonly IArchRule _descriptionTestRule = Classes()
@@ -23,11 +24,6 @@ namespace ArchUnitNETTests.Fluent
             .Should()
             .Exist()
             .Because("reason3");
-
-        private readonly IArchRule _customDescriptionTestRule1 = Classes()
-            .Should()
-            .BeAbstract()
-            .As(CustomDescription);
 
         private readonly IArchRule _customDescriptionTestRule2 = Classes()
             .That()
@@ -59,8 +55,6 @@ namespace ArchUnitNETTests.Fluent
         [Fact]
         public void CustomDescriptionTest()
         {
-            Assert.Equal("Classes " + CustomDescription, _customDescriptionTestRule1.Description);
-            Assert.Equal("Classes " + CustomDescription, _customDescriptionTestRule1.ToString());
             Assert.Equal(
                 CustomDescription + " and are protected " + CustomDescription,
                 _customDescriptionTestRule2.Description
@@ -84,6 +78,158 @@ namespace ArchUnitNETTests.Fluent
         {
             Assert.Equal(ExpectedDescription, _descriptionTestRule.Description);
             Assert.Equal(ExpectedDescription, _descriptionTestRule.ToString());
+        }
+
+        [Fact]
+        public void CustomDescriptionIsSupportedForEveryRuleType()
+        {
+            Assert.Equal(
+                CustomDescription,
+                Classes().That().FollowCustomPredicate(c => true, "exist").As(CustomDescription).Description
+            );
+            Assert.Equal(
+                "Classes " + CustomDescription,
+                Classes().Should().Exist().As(CustomDescription).Description
+            );
+
+            Assert.Equal(
+                CustomDescription,
+                Types().That().FollowCustomPredicate(t => true, "exist").As(CustomDescription).Description
+            );
+            Assert.Equal(
+                "Types " + CustomDescription,
+                Types().Should().Exist().As(CustomDescription).Description
+            );
+
+            Assert.Equal(
+                CustomDescription,
+                Interfaces().That().FollowCustomPredicate(i => true, "exist").As(CustomDescription).Description
+            );
+            Assert.Equal(
+                "Interfaces " + CustomDescription,
+                Interfaces().Should().Exist().As(CustomDescription).Description
+            );
+
+            Assert.Equal(
+                CustomDescription,
+                Attributes().That().FollowCustomPredicate(a => true, "exist").As(CustomDescription).Description
+            );
+            Assert.Equal(
+                "Attributes " + CustomDescription,
+                Attributes().Should().Exist().As(CustomDescription).Description
+            );
+
+            Assert.Equal(
+                CustomDescription,
+                Members().That().FollowCustomPredicate(m => true, "exist").As(CustomDescription).Description
+            );
+            Assert.Equal(
+                "Members " + CustomDescription,
+                Members().Should().Exist().As(CustomDescription).Description
+            );
+
+            Assert.Equal(
+                CustomDescription,
+                MethodMembers().That().FollowCustomPredicate(m => true, "exist").As(CustomDescription).Description
+            );
+            Assert.Equal(
+                "Method members " + CustomDescription,
+                MethodMembers().Should().Exist().As(CustomDescription).Description
+            );
+
+            Assert.Equal(
+                CustomDescription,
+                PropertyMembers().That().FollowCustomPredicate(p => true, "exist").As(CustomDescription).Description
+            );
+            Assert.Equal(
+                "Property members " + CustomDescription,
+                PropertyMembers().Should().Exist().As(CustomDescription).Description
+            );
+
+            Assert.Equal(
+                CustomDescription,
+                FieldMembers().That().FollowCustomPredicate(f => true, "exist").As(CustomDescription).Description
+            );
+            Assert.Equal(
+                "Field members " + CustomDescription,
+                FieldMembers().Should().Exist().As(CustomDescription).Description
+            );
+        }
+
+        [Fact]
+        public void BecauseIsSupportedForEveryRuleType()
+        {
+            Assert.Equal(
+                "Classes that exist because reason",
+                Classes().That().FollowCustomPredicate(c => true, "exist").Because("reason").Description
+            );
+            Assert.Equal(
+                "Classes should exist because reason",
+                Classes().Should().Exist().Because("reason").Description
+            );
+
+            Assert.Equal(
+                "Types that exist because reason",
+                Types().That().FollowCustomPredicate(t => true, "exist").Because("reason").Description
+            );
+            Assert.Equal(
+                "Types should exist because reason",
+                Types().Should().Exist().Because("reason").Description
+            );
+
+            Assert.Equal(
+                "Interfaces that exist because reason",
+                Interfaces().That().FollowCustomPredicate(i => true, "exist").Because("reason").Description
+            );
+            Assert.Equal(
+                "Interfaces should exist because reason",
+                Interfaces().Should().Exist().Because("reason").Description
+            );
+
+            Assert.Equal(
+                "Attributes that exist because reason",
+                Attributes().That().FollowCustomPredicate(a => true, "exist").Because("reason").Description
+            );
+            Assert.Equal(
+                "Attributes should exist because reason",
+                Attributes().Should().Exist().Because("reason").Description
+            );
+
+            Assert.Equal(
+                "Members that exist because reason",
+                Members().That().FollowCustomPredicate(m => true, "exist").Because("reason").Description
+            );
+            Assert.Equal(
+                "Members should exist because reason",
+                Members().Should().Exist().Because("reason").Description
+            );
+
+            Assert.Equal(
+                "Method members that exist because reason",
+                MethodMembers().That().FollowCustomPredicate(m => true, "exist").Because("reason").Description
+            );
+            Assert.Equal(
+                "Method members should exist because reason",
+                MethodMembers().Should().Exist().Because("reason").Description
+            );
+
+            Assert.Equal(
+                "Property members that exist because reason",
+                PropertyMembers().That().FollowCustomPredicate(p => true, "exist").Because("reason").Description
+            );
+            Assert.Equal(
+                "Property members should exist because reason",
+                PropertyMembers().Should().Exist().Because("reason").Description
+            );
+
+            Assert.Equal(
+                "Field members that exist because reason",
+                FieldMembers().That().FollowCustomPredicate(f => true, "exist").Because("reason").Description
+            );
+            Assert.Equal(
+                "Field members should exist because reason",
+                FieldMembers().Should().Exist().Because("reason").Description
+            );
         }
     }
 }
