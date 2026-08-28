@@ -4,7 +4,7 @@ using static ArchUnitNET.Domain.Visibility;
 
 namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
 {
-    public static class PropertyMemberPredicateDefinition
+    public static class PropertyMemberPredicatesDefinition
     {
         public static IPredicate<PropertyMember> HaveGetter()
         {

@@ -6,7 +6,7 @@ using AttributeNamespace;
 
 namespace ArchUnitNETTests.AssemblyTestHelper;
 
-public class AttributeAssemblyTestHelpers : AssemblyTestHelper
+public class AttributeAssemblyTestHelper : AssemblyTestHelper
 {
     public sealed override Architecture Architecture =>
         StaticTestArchitectures.AttributeArchitecture;
@@ -104,7 +104,7 @@ public class AttributeAssemblyTestHelpers : AssemblyTestHelper
     public Attribute OtherSealedAttribute;
     public System.Type OtherSealedAttributeSystemType = typeof(OtherSealedAttribute);
 
-    public AttributeAssemblyTestHelpers()
+    public AttributeAssemblyTestHelper()
     {
         Attribute1 = Architecture.GetAttributeOfType(typeof(Attribute1));
         Attribute2 = Architecture.GetAttributeOfType(typeof(Attribute2));
