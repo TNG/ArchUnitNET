@@ -191,10 +191,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.CalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.BeCalledBy().AssertOnlyViolations(helper);
             should.BeCalledBy(new List<IType>()).AssertOnlyViolations(helper);
             should.BeCalledBy(new List<System.Type>()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreCalledBy()).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().AreCalledBy(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().AreCalledBy(new List<System.Type>())).AssertOnlyViolations(helper);
 
@@ -272,10 +274,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.CalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeCalledBy().AssertNoViolations(helper);
             should.NotBeCalledBy(new List<IType>()).AssertNoViolations(helper);
             should.NotBeCalledBy(new List<System.Type>()).AssertNoViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().AreNotCalledBy()).AssertNoViolations(helper);
             should.Be(MethodMembers().That().AreNotCalledBy(new List<IType>())).AssertNoViolations(helper);
             should.Be(MethodMembers().That().AreNotCalledBy(new List<System.Type>())).AssertNoViolations(helper);
 
@@ -353,10 +357,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.HaveDependencyInMethodBodyTo().AssertOnlyViolations(helper);
             should.HaveDependencyInMethodBodyTo(new List<IType>()).AssertOnlyViolations(helper);
             should.HaveDependencyInMethodBodyTo(new List<System.Type>()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo()).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().HaveDependencyInMethodBodyTo(new List<System.Type>())).AssertOnlyViolations(helper);
 
@@ -434,10 +440,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveDependencyInMethodBodyTo().AssertNoViolations(helper);
             should.NotHaveDependencyInMethodBodyTo(new List<IType>()).AssertNoViolations(helper);
             should.NotHaveDependencyInMethodBodyTo(new List<System.Type>()).AssertNoViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo()).AssertNoViolations(helper);
             should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<IType>())).AssertNoViolations(helper);
             should.Be(MethodMembers().That().DoNotHaveDependencyInMethodBodyTo(new List<System.Type>())).AssertNoViolations(helper);
 
@@ -515,11 +523,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.HaveReturnType().AssertOnlyViolations(helper);
             should.HaveReturnType(Types().That().Are(new List<IType>())).AssertOnlyViolations(helper);
             should.HaveReturnType(new List<IType>()).AssertOnlyViolations(helper);
             should.HaveReturnType(new List<System.Type>()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().HaveReturnType()).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().HaveReturnType(Types().That().Are(new List<IType>()))).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().HaveReturnType(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(MethodMembers().That().HaveReturnType(new List<System.Type>())).AssertOnlyViolations(helper);
@@ -631,11 +641,13 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.NotHaveReturnType().AssertNoViolations(helper);
             should.NotHaveReturnType(Types().That().Are(new List<IType>())).AssertNoViolations(helper);
             should.NotHaveReturnType(new List<IType>()).AssertNoViolations(helper);
             should.NotHaveReturnType(new List<System.Type>()).AssertNoViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(MethodMembers().That().DoNotHaveReturnType()).AssertNoViolations(helper);
             should.Be(MethodMembers().That().DoNotHaveReturnType(Types().That().Are(new List<IType>()))).AssertNoViolations(helper);
             should.Be(MethodMembers().That().DoNotHaveReturnType(new List<IType>())).AssertNoViolations(helper);
             should.Be(MethodMembers().That().DoNotHaveReturnType(new List<System.Type>())).AssertNoViolations(helper);

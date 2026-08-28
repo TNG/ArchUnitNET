@@ -242,6 +242,12 @@ Message:
 
 ----- Conditions -----
 
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should not have return type of no types (always true)
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
+
 Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should not have return type Types that are any of no objects (always empty)
 Result: True
 Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
@@ -261,6 +267,12 @@ Message:
 All Evaluations passed
 
 ----- Predicates -----
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that do not have return type of no types (always true)
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
+Message: 
+All Evaluations passed
 
 Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that do not have return type Types that are any of no objects (always empty)
 Result: True

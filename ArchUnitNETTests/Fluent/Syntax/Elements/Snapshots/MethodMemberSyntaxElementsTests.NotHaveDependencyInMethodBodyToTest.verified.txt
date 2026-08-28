@@ -230,7 +230,19 @@ Description: System.Void MethodMemberNamespace.OtherCallingClass::MethodCallingC
 Message: 
 All Evaluations passed
 
+Query: Method members that are "System.Void MethodMemberNamespace.OtherCallingClass::MethodCallingCalledMethod()" should not have dependencies in method body to one of no types (always true)
+Result: True
+Description: System.Void MethodMemberNamespace.OtherCallingClass::MethodCallingCalledMethod() passed
+Message: 
+All Evaluations passed
+
 ----- Predicates -----
+
+Query: Method members that are "System.Void MethodMemberNamespace.OtherCallingClass::MethodCallingCalledMethod()" should be Method members that do not have dependencies in method body to one of no types (always true)
+Result: True
+Description: System.Void MethodMemberNamespace.OtherCallingClass::MethodCallingCalledMethod() passed
+Message: 
+All Evaluations passed
 
 Query: Method members that are "System.Void MethodMemberNamespace.OtherCallingClass::MethodCallingCalledMethod()" should be Method members that do not have dependencies in method body to one of no types (always true)
 Result: True
