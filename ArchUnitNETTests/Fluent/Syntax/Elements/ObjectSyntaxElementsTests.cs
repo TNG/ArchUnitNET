@@ -573,7 +573,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task HaveAnyAttributesTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
@@ -657,7 +657,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task HaveAnyAttributesThatTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should.HaveAnyAttributesThat().Are(helper.Attribute1).AssertNoViolations(helper);
@@ -671,7 +671,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task HaveAnyAttributesWithArgumentsTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations with type arguments");
         var should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -743,7 +743,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task HaveAnyAttributesWithNamedArguments()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations with type arguments");
         var should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -853,7 +853,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task HaveAttributeWithArgumentsTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations with type arguments");
         var should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -958,7 +958,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task HaveAttributeWithNamedArguments()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations with type arguments");
         var should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -1461,7 +1461,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotHaveAnyAttributesTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
@@ -1555,7 +1555,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotHaveAnyAttributesThatTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
         should.NotHaveAnyAttributesThat().Are(helper.UnusedAttribute).AssertNoViolations(helper);
@@ -1569,7 +1569,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotHaveAnyAttributesWithArgumentsTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations with type arguments");
         var should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -1660,7 +1660,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotHaveAnyAttributesWithNamedArgumentsTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations with type arguments");
         var should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -1751,7 +1751,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotHaveAttributeWithArgumentsTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations with type arguments");
         var should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
@@ -1852,7 +1852,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task NotHaveAttributeWithNamedArgumentsTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
 
         helper.AddSnapshotHeader("No violations with type arguments");
         var should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
@@ -2164,7 +2164,8 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task OnlyHaveAttributesTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
+
 
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
@@ -2258,7 +2259,7 @@ public class ObjectSyntaxElementsTests
     [Fact]
     public async Task OnlyHaveAttributesThatTest()
     {
-        var helper = new AttributeAssemblyTestHelpers();
+        var helper = new AttributeAssemblyTestHelper();
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
         should.OnlyHaveAttributesThat().Are(helper.Attribute1).AssertNoViolations(helper);

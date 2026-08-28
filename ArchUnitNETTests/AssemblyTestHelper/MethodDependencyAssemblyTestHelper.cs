@@ -9,31 +9,31 @@ public class MethodDependencyAssemblyTestHelper : AssemblyTestHelper
     public sealed override Architecture Architecture =>
         StaticTestArchitectures.MethodDependencyArchitecture;
 
-    public Class MethodDependencyClass;
-    public System.Type MethodDependencyClassSystemType =
+    public readonly Class MethodDependencyClass;
+    public readonly System.Type MethodDependencyClassSystemType =
         typeof(MethodDependencyNamespace.MethodDependencyClass);
 
-    public Class OtherCallingClass;
-    public System.Type OtherCallingClassSystemType =
+    public readonly Class OtherCallingClass;
+    public readonly System.Type OtherCallingClassSystemType =
         typeof(MethodDependencyNamespace.OtherCallingClass);
 
-    public MethodMember MethodWithSingleDependency;
+    public readonly MethodMember MethodWithSingleDependency;
 
-    public MethodMember CalledMethod;
+    public readonly MethodMember CalledMethod;
 
-    public MethodMember MethodWithMultipleDependencies;
+    public readonly MethodMember MethodWithMultipleDependencies;
 
-    public MethodMember CalledMethod1;
+    public readonly MethodMember CalledMethod1;
 
-    public MethodMember CalledMethod2;
+    public readonly MethodMember CalledMethod2;
 
-    public MethodMember CalledMethod3;
+    private readonly MethodMember CalledMethod3;
 
-    public MethodMember MethodWithoutDependencies;
+    public readonly MethodMember MethodWithoutDependencies;
 
-    public MethodMember MethodCallingCalledMethod;
+    public readonly MethodMember MethodCallingCalledMethod;
 
-    public MethodMember AnotherMethodCallingCalledMethod;
+    public readonly MethodMember AnotherMethodCallingCalledMethod;
 
     public MethodDependencyAssemblyTestHelper()
     {

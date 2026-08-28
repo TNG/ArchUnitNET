@@ -11,7 +11,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task BeAbstractTest()
         {
-            var helper = new AttributeAssemblyTestHelpers();
+            var helper = new AttributeAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = Attributes().That().Are(helper.AbstractAttribute).Should();
@@ -41,7 +41,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task NotBeAbstractTest()
         {
-            var helper = new AttributeAssemblyTestHelpers();
+            var helper = new AttributeAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = Attributes().That().Are(helper.RegularAttribute).Should();
@@ -71,7 +71,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task BeSealedTest()
         {
-            var helper = new AttributeAssemblyTestHelpers();
+            var helper = new AttributeAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = Attributes().That().Are(helper.SealedAttribute).Should();
@@ -101,7 +101,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         [Fact]
         public async Task NotBeSealedTest()
         {
-            var helper = new AttributeAssemblyTestHelpers();
+            var helper = new AttributeAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
             var should = Attributes().That().Are(helper.RegularAttribute).Should();

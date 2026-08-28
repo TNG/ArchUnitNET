@@ -12,44 +12,39 @@ public class VisibilityAssemblyTestHelper : AssemblyTestHelper
     public sealed override Architecture Architecture =>
         StaticTestArchitectures.VisibilityArchitecture;
 
-    public Class PublicClass;
-    public Type PublicSystemType = typeof(PublicClass);
+    public readonly Class PublicClass;
 
-    public Class OtherPublicClass;
-    public Type OtherPublicClassSystemType = typeof(OtherPublicClass);
+    public readonly Class OtherPublicClass;
 
-    public Class InternalClass;
+    public readonly Class InternalClass;
 
-    public Class OtherInternalClass;
+    public readonly Class OtherInternalClass;
 
-    public Class OuterClass;
-    public Type OuterSystemType = typeof(OuterClass);
+    private readonly Class OuterClass;
 
-    public Class PublicInnerClass;
-    public Type PublicInnerSystemType = typeof(OuterClass.PublicInnerClass);
+    public readonly Class PublicInnerClass;
 
-    public Class OtherPublicInnerClass;
-    public Type OtherPublicInnerSystemType = typeof(OuterClass.OtherPublicInnerClass);
+    private readonly Class OtherPublicInnerClass;
 
-    public Class InternalInnerClass;
+    public readonly Class InternalInnerClass;
 
-    public Class OtherInternalInnerClass;
+    private readonly Class OtherInternalInnerClass;
 
-    public Class ProtectedInternalInnerClass;
+    public readonly Class ProtectedInternalInnerClass;
 
-    public Class OtherProtectedInternalInnerClass;
+    public readonly Class OtherProtectedInternalInnerClass;
 
-    public Class ProtectedInnerClass;
+    public readonly Class ProtectedInnerClass;
 
-    public Class OtherProtectedInnerClass;
+    public readonly Class OtherProtectedInnerClass;
 
-    public Class PrivateProtectedInnerClass;
+    public readonly Class PrivateProtectedInnerClass;
 
-    public Class OtherPrivateProtectedInnerClass;
+    public readonly Class OtherPrivateProtectedInnerClass;
 
-    public Class PrivateInnerClass;
+    public readonly Class PrivateInnerClass;
 
-    public Class OtherPrivateInnerClass;
+    public readonly Class OtherPrivateInnerClass;
 
     public VisibilityAssemblyTestHelper()
     {
