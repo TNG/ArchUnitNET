@@ -6,7 +6,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces
         : GivenObjectsConjunction<
             GivenInterfacesThat,
             InterfacesShould,
-            GivenInterfacesConjunction,
+            GivenInterfacesConjunctionWithDescription,
             Interface
         >
     {
