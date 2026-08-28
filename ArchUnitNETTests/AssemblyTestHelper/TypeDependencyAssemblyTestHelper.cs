@@ -11,57 +11,46 @@ public class TypeDependencyAssemblyTestHelper : AssemblyTestHelper
     public sealed override Architecture Architecture =>
         StaticTestArchitectures.TypeDependencyArchitecture;
 
-    public Class BaseClass;
-    public Type BaseClassSystemType = typeof(BaseClass);
+    public readonly Class BaseClass;
+    public readonly Type BaseClassSystemType = typeof(BaseClass);
 
-    public Class ChildClass;
-    public Type ChildClassSystemType = typeof(ChildClass);
+    public readonly Class ChildClass;
+    public readonly Type ChildClassSystemType = typeof(ChildClass);
 
-    public Class OtherChildClass;
-    public Type OtherChildClassSystemType = typeof(OtherChildClass);
+    private readonly Class OtherChildClass;
 
-    public Class BaseClassWithMember;
-    public Type BaseClassWithMemberSystemType = typeof(BaseClassWithMember);
+    public readonly Class BaseClassWithMember;
+    public readonly Type BaseClassWithMemberSystemType = typeof(BaseClassWithMember);
 
-    public Class ChildClassWithMember;
-    public Type ChildClassWithMemberSystemType = typeof(ChildClassWithMember);
+    private readonly Class ChildClassWithMember;
 
-    public Class OtherChildClassWithMember;
-    public Type OtherChildClassWithMemberSystemType = typeof(OtherChildClassWithMember);
+    private readonly Class OtherChildClassWithMember;
 
-    public Class BaseClassWithMultipleDependencies;
-    public Type BaseClassWithMultipleDependenciesSystemType =
+    private readonly Class BaseClassWithMultipleDependencies;
+    public readonly Type BaseClassWithMultipleDependenciesSystemType =
         typeof(BaseClassWithMultipleDependencies);
 
-    public Class ChildClass1;
-    public Type ChildClass1SystemType = typeof(ChildClass1);
+    public readonly Class ChildClass1;
 
-    public Class ChildClass2;
-    public Type ChildClass2SystemType = typeof(ChildClass2);
+    public readonly Class ChildClass2;
 
-    public Class OtherBaseClass;
-    public Type OtherBaseClassSystemType = typeof(OtherBaseClass);
+    public readonly Class OtherBaseClass;
+    public readonly Type OtherBaseClassSystemType = typeof(OtherBaseClass);
 
-    public Class ClassWithMultipleDependencies;
-    public Type ClassWithMultipleDependenciesSystemType = typeof(ClassWithMultipleDependencies);
+    public readonly Class ClassWithMultipleDependencies;
 
-    public Class ClassWithoutDependencies;
-    public Type ClassWithoutDependenciesSystemType = typeof(ClassWithoutDependencies);
+    public readonly Class ClassWithoutDependencies;
+    public readonly Type ClassWithoutDependenciesSystemType = typeof(ClassWithoutDependencies);
 
-    public Class GenericBaseClass;
-    public Type GenericBaseClassSystemType = typeof(GenericBaseClass<>);
+    private readonly Class GenericBaseClass;
 
-    public Class ChildClassOfGeneric;
-    public Type ChildClassOfGenericSystemType = typeof(ChildClassOfGeneric);
+    private readonly Class ChildClassOfGeneric;
 
-    public Class OtherClassWithoutDependencies;
-    public Type OtherClassWithoutDependenciesSystemType = typeof(OtherClassWithoutDependencies);
+    private readonly Class OtherClassWithoutDependencies;
 
-    public Class ClassWithReferencedTypeDependency;
-    public Type ClassWithReferencedTypeDependencySystemType =
-        typeof(ClassWithReferencedTypeDependency);
+    public readonly Class ClassWithReferencedTypeDependency;
 
-    public Type ReferencedType = typeof(List<>);
+    public readonly Type ReferencedType = typeof(List<>);
 
     public TypeDependencyAssemblyTestHelper()
     {
