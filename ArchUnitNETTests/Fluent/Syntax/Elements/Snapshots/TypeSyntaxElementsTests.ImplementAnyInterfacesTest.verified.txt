@@ -1,4 +1,4 @@
-﻿===== No Violations =====
+﻿===== No violations =====
 
 ----- Conditions -----
 
@@ -179,7 +179,7 @@ Message:
 
 
 
-===== Empty Arguments (Only Violations) =====
+===== Empty arguments (Only violations) =====
 
 ----- Conditions -----
 

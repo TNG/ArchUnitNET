@@ -17,7 +17,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Members().That().Are(helper.StaticField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -47,7 +47,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Members().That().Are(helper.NonStaticField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -77,7 +77,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Members().That().Are(helper.ReadOnlyField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -107,7 +107,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Members().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -137,7 +137,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Members().That().Are(helper.ReadOnlyField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -167,7 +167,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Members().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -197,7 +197,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Members().That().Are(helper.StaticField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -286,7 +286,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Members().That().Are(helper.StaticField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");

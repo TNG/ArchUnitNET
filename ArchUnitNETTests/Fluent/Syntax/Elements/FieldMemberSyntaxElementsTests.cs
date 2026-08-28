@@ -17,7 +17,7 @@ public class FieldMemberSyntaxElementsTests
     {
         var helper = new TypeAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No Violations");
+        helper.AddSnapshotHeader("No violations");
         var should = FieldMembers().That().Are(helper.StaticField).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -47,7 +47,7 @@ public class FieldMemberSyntaxElementsTests
     {
         var helper = new TypeAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No Violations");
+        helper.AddSnapshotHeader("No violations");
 
         helper.AddSnapshotSubHeader("Conditions");
         FieldMembers().That().Are(helper.StaticField, helper.ReadOnlyField).And().AreStatic().Should().BeStatic().AndShould().NotBeReadOnly().AssertNoViolations(helper);

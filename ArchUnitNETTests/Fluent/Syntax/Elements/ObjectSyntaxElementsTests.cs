@@ -358,7 +358,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DependOnAny(new List<IType> { helper.ClassWithoutDependencies })).AssertOnlyViolations(helper);
         should.Be(Types().That().DependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -910,7 +910,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute2StringArgument })).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute2StringArgument })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1054,7 +1054,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, ("NamedParameter1", helper.Attribute1TypeArgument))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1378,7 +1378,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotDependOnAny(helper.BaseClassSystemType)).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotDependOnAny(Classes().That().Are(helper.BaseClass))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ChildClass).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1393,7 +1393,7 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Conditions");
         should.NotDependOnAny(helper.ReferencedType).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Predicates");
+        helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotDependOnAny(helper.ReferencedType)).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Empty arguments");
@@ -1497,7 +1497,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributes(Attributes().That().Are(helper.Attribute1))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1808,7 +1808,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.UnusedAttribute, new List<object> { helper.Attribute1StringArgument })).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.UnusedAttributeSystemType, new List<object> { helper.Attribute1StringArgument })).AssertNoViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1929,7 +1929,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, ("NamedParameter1", helper.Attribute1TypeArgument))).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) })).AssertNoViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -2103,7 +2103,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyDependOn(new List<IType> { helper.BaseClass })).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyDependOn(new List<System.Type> { helper.BaseClassSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -2166,7 +2166,6 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new AttributeAssemblyTestHelper();
 
-
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
 
@@ -2201,7 +2200,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyHaveAttributes(new List<System.Type> { helper.UnusedAttributeSystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyHaveAttributes(Attributes().That().Are(helper.UnusedAttribute))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Attribute outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
 
         helper.AddSnapshotSubHeader("Conditions");

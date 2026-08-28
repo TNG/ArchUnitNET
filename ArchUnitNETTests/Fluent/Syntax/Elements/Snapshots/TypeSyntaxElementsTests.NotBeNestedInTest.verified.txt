@@ -1,4 +1,4 @@
-﻿===== No Violations =====
+﻿===== No violations =====
 
 ----- Conditions -----
 
@@ -235,7 +235,7 @@ Description: TypeNamespace.NonNestedClass passed
 Message: 
 All Evaluations passed
 
-===== Empty Arguments =====
+===== Empty arguments =====
 
 ----- Conditions -----
 

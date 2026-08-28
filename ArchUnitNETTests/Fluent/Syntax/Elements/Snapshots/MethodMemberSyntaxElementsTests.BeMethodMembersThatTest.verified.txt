@@ -1,4 +1,4 @@
-﻿===== No Violations =====
+﻿===== No violations =====
 
 Query: Method members that are "System.Void MethodMemberNamespace.ClassWithVirtualMethod::.ctor()" should be method members that are constructors
 Result: True

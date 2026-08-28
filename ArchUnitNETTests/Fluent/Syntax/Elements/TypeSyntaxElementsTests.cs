@@ -22,7 +22,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -47,7 +47,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(Types().That().Are(helper.RegularClassSystemType)).AssertOnlyViolations(helper);
             should.Be(Types().That().Are(new List<System.Type> { helper.RegularClassSystemType })).AssertOnlyViolations(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments (Only Violations)");
+            helper.AddSnapshotHeader("Empty arguments (Only violations)");
             should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -89,7 +89,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.OtherRegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -111,7 +111,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(Types().That().AreNot(helper.RegularClassSystemType)).AssertOnlyViolations(helper);
             should.Be(Types().That().AreNot(new List<System.Type> { helper.RegularClassSystemType })).AssertOnlyViolations(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments (No Violations)");
+            helper.AddSnapshotHeader("Empty arguments (No violations)");
             should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -153,7 +153,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.DerivedClassForAssign).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -226,7 +226,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Types().That().AreAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments");
+            helper.AddSnapshotHeader("Empty arguments");
             should = Types().That().Are(helper.BaseClassForAssign).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -247,7 +247,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.UnrelatedClassForAssign).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -320,7 +320,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Types().That().AreNotAssignableTo(new List<System.Type> { typeof(AttributeNamespace.ClassWithoutAttributes) })).AssertException<TypeDoesNotExistInArchitecture>(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments");
+            helper.AddSnapshotHeader("Empty arguments");
             should = Types().That().Are(helper.BaseClassForAssign).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -341,7 +341,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.InnerClassA).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -394,7 +394,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(Types().That().AreNestedIn(helper.OuterClassASystemType, helper.NonNestedClassSystemType)).AssertNoViolations(helper);
             should.Be(Types().That().AreNestedIn(new List<System.Type> { helper.OuterClassASystemType, helper.NonNestedClassSystemType })).AssertNoViolations(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments");
+            helper.AddSnapshotHeader("Empty arguments");
             should = Types().That().Are(helper.InnerClassA).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -415,7 +415,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.NonNestedClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -468,7 +468,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should.Be(Types().That().AreNotNestedIn(helper.OuterClassASystemType, helper.OuterClassBSystemType)).AssertNoViolations(helper);
             should.Be(Types().That().AreNotNestedIn(new List<System.Type> { helper.OuterClassASystemType, helper.OuterClassBSystemType })).AssertNoViolations(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments");
+            helper.AddSnapshotHeader("Empty arguments");
             should = Types().That().Are(helper.NonNestedClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -489,7 +489,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             helper.AddSnapshotSubHeader("Conditions");
             Types().That().Are(helper.SimpleEnum).Should().BeValueTypes().AssertNoViolations(helper);
             Types().That().Are(helper.SimpleStruct).Should().BeValueTypes().AssertNoViolations(helper);
@@ -517,7 +517,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             helper.AddSnapshotSubHeader("Conditions");
             Types().That().Are(helper.RegularClass).Should().NotBeValueTypes().AssertNoViolations(helper);
 
@@ -545,7 +545,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             helper.AddSnapshotSubHeader("Conditions");
             Types().That().Are(helper.SimpleEnum).Should().BeEnums().AssertNoViolations(helper);
 
@@ -573,7 +573,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             helper.AddSnapshotSubHeader("Conditions");
             Types().That().Are(helper.RegularClass).Should().NotBeEnums().AssertNoViolations(helper);
             Types().That().Are(helper.SimpleStruct).Should().NotBeEnums().AssertNoViolations(helper);
@@ -601,7 +601,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             helper.AddSnapshotSubHeader("Conditions");
             Types().That().Are(helper.SimpleStruct).Should().BeStructs().AssertNoViolations(helper);
 
@@ -629,7 +629,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             helper.AddSnapshotSubHeader("Conditions");
             Types().That().Are(helper.RegularClass).Should().NotBeStructs().AssertNoViolations(helper);
             Types().That().Are(helper.SimpleEnum).Should().NotBeStructs().AssertNoViolations(helper);
@@ -657,7 +657,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassImplementingInterface).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -699,7 +699,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassNotImplementingInterface).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -741,7 +741,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Interfaces().That().Are(helper.ChildTestInterface).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -781,7 +781,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotSubHeader("Complex conditions");
             should.ImplementAnyInterfacesThat().Are(helper.OtherTestInterface).AssertOnlyViolations(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments (Only Violations)");
+            helper.AddSnapshotHeader("Empty arguments (Only violations)");
             should = Interfaces().That().Are(helper.TestInterface, helper.ChildTestInterface).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -834,7 +834,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Interfaces().That().Are(helper.ChildTestInterface).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -874,7 +874,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotSubHeader("Complex conditions");
             should.NotImplementAnyInterfacesThat().Are(helper.TestInterface).AssertOnlyViolations(helper);
 
-            helper.AddSnapshotHeader("Empty Arguments (No Violations)");
+            helper.AddSnapshotHeader("Empty arguments (No violations)");
             should = Interfaces().That().Are(helper.TestInterface, helper.ChildTestInterface).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -920,7 +920,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -949,7 +949,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -978,7 +978,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1007,7 +1007,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1039,7 +1039,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var archAssembly = helper.Architecture.Assemblies.First();
             var assemblyFullName = archAssembly.FullName;
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1126,7 +1126,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var archAssembly = helper.Architecture.Assemblies.First();
             var assemblyFullName = archAssembly.FullName;
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1210,7 +1210,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassWithProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1239,7 +1239,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassWithoutMembers).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1268,7 +1268,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassWithField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1297,7 +1297,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassWithoutMembers).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1326,7 +1326,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassWithMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1355,7 +1355,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassWithoutMembers).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1384,7 +1384,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassWithAllMembers).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1413,7 +1413,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.ClassWithoutMembers).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1442,7 +1442,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.InnerClassA).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -1472,7 +1472,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new TypeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Types().That().Are(helper.NonNestedClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
