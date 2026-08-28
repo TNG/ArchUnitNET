@@ -721,7 +721,7 @@ public class ObjectSyntaxElementsTests
         should.HaveAnyAttributesWithArguments(new List<object> { helper.UnusedAttributeIntValue, helper.UnusedAttributeStringValue }).AssertOnlyViolations(helper);
 
         helper.AddSnapshotSubHeader("Predicates");
-        should.Be(Types().That().HaveAnyAttributesWithArguments(new List<object> { helper.UnusedAttributeIntValue, helper.UnusedAttributeStringValue })).AssertOnlyViolations(helper);
+        should.Be(Types().That().HaveAnyAttributesWithArguments(helper.UnusedAttributeIntValue, helper.UnusedAttributeStringValue)).AssertOnlyViolations(helper);
 
         helper.AddSnapshotHeader("Multiple inputs");
 
