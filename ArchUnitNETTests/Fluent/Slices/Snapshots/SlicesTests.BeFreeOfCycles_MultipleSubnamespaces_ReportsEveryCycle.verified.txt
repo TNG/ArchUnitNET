@@ -1,0 +1,23 @@
+﻿Query: Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**)" should be free of cycles
+Result: False
+Description: Cycle found:
+Slice2 -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+Slice1 -> Slice2
+	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class
+Slice3 -> Slice1
+	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class
+
+Message: 
+"Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**)" should be free of cycles" failed:
+	Cycle found:
+Slice2 -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+Slice1 -> Slice2
+	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class
+Slice3 -> Slice1
+	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class
+
+
+
+
