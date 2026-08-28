@@ -236,7 +236,25 @@ Message:
 
 
 
+Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" should be called by one of no types (impossible)
+Result: False
+Description: System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod() is not called by one of no types (impossible)
+Message: 
+"Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" should be called by one of no types (impossible)" failed:
+	System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod() is not called by one of no types (impossible)
+
+
+
 ----- Predicates -----
+
+Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (impossible)
+Result: False
+Description: System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (impossible)
+Message: 
+"Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (impossible)" failed:
+	System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod() is not Method members that are called by one of no types (impossible)
+
+
 
 Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are called by one of no types (impossible)
 Result: False

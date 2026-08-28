@@ -1,0 +1,8 @@
+﻿===== Bare object provider =====
+
+Query: Types that are "TypeDependencyNamespace.ChildClass" should be assignable to Types
+Result: True
+Description: TypeDependencyNamespace.ChildClass passed
+Message: 
+All Evaluations passed
+

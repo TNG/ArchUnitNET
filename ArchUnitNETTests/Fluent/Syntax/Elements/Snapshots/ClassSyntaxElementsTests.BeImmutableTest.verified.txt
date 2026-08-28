@@ -97,3 +97,21 @@ Description: ClassNamespace.ClassWithOnlyStaticMembers passed
 Message: 
 All Evaluations passed
 
+===== Mutable static member does not make a class mutable =====
+
+----- Conditions -----
+
+Query: Classes that are "ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember" should be immutable
+Result: True
+Description: ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Classes that are "ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember" should be Classes that are immutable
+Result: True
+Description: ClassNamespace.ClassWithImmutableInstanceAndMutableStaticMember passed
+Message: 
+All Evaluations passed
+

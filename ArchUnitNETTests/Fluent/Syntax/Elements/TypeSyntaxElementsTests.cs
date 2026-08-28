@@ -230,10 +230,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.BaseClassForAssign).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.BeAssignableTo().AssertOnlyViolations(helper);
             should.BeAssignableTo(new List<IType>()).AssertOnlyViolations(helper);
             should.BeAssignableTo(new List<System.Type>()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreAssignableTo()).AssertOnlyViolations(helper);
             should.Be(Types().That().AreAssignableTo(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(Types().That().AreAssignableTo(new List<System.Type>())).AssertOnlyViolations(helper);
 
@@ -322,10 +324,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.BaseClassForAssign).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeAssignableTo().AssertNoViolations(helper);
             should.NotBeAssignableTo(new List<IType>()).AssertNoViolations(helper);
             should.NotBeAssignableTo(new List<System.Type>()).AssertNoViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreNotAssignableTo()).AssertNoViolations(helper);
             should.Be(Types().That().AreNotAssignableTo(new List<IType>())).AssertNoViolations(helper);
             should.Be(Types().That().AreNotAssignableTo(new List<System.Type>())).AssertNoViolations(helper);
 
@@ -394,10 +398,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.InnerClassA).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.BeNestedIn().AssertOnlyViolations(helper);
             should.BeNestedIn(new List<IType>()).AssertOnlyViolations(helper);
             should.BeNestedIn(new List<System.Type>()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreNestedIn()).AssertOnlyViolations(helper);
             should.Be(Types().That().AreNestedIn(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(Types().That().AreNestedIn(new List<System.Type>())).AssertOnlyViolations(helper);
 
@@ -988,16 +994,52 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotHeader("Multiple inputs");
             Types().That().Are(helper.RegularClass, helper.OtherRegularClass).Should().ResideInAssembly(assemblyFullName).AssertNoViolations(helper);
 
-            helper.AddSnapshotHeader("Multiple assemblies");
+            // The multiple-assembly cases need a second loaded assembly to say anything, so they live in
+            // ResideInMultipleAssembliesTest.
+
+            helper.AddSnapshotHeader("Assembly not in architecture");
             should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.ResideInAssembly(archAssembly, archAssembly).AssertNoViolations(helper);
-            should.ResideInAssembly(typeAssembly, typeAssembly).AssertNoViolations(helper);
+            should.ResideInAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).AssertException<AssemblyDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Types().That().ResideInAssembly(archAssembly, archAssembly)).AssertNoViolations(helper);
-            should.Be(Types().That().ResideInAssembly(typeAssembly, typeAssembly)).AssertNoViolations(helper);
+            should.Be(Types().That().ResideInAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly)).AssertException<AssemblyDoesNotExistInArchitecture>(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task ResideInMultipleAssembliesTest()
+        {
+            var helper = new TypeAndClassAssemblyTestHelper();
+
+            // Only the second slot can decide here: the first argument is a loaded assembly the type does
+            // not reside in, so the short circuit in the condition does not fire.
+            helper.AddSnapshotHeader("Second assembly decides");
+            var should = Types().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.ResideInAssembly(helper.ClassReflectionAssembly, helper.TypeReflectionAssembly).AssertNoViolations(helper);
+            should.ResideInAssembly(helper.ClassArchAssembly, helper.TypeArchAssembly).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().ResideInAssembly(helper.ClassReflectionAssembly, helper.TypeReflectionAssembly)).AssertNoViolations(helper);
+            should.Be(Types().That().ResideInAssembly(helper.ClassArchAssembly, helper.TypeArchAssembly)).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("No assembly matches");
+            should = Types().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.ResideInAssembly(helper.ClassReflectionAssembly, helper.ClassReflectionAssembly).AssertOnlyViolations(helper);
+            should.ResideInAssembly(helper.ClassArchAssembly, helper.ClassArchAssembly).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().ResideInAssembly(helper.ClassReflectionAssembly, helper.ClassReflectionAssembly)).AssertOnlyViolations(helper);
+            should.Be(Types().That().ResideInAssembly(helper.ClassArchAssembly, helper.ClassArchAssembly)).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Types().That().Are(helper.RegularClass, helper.OtherRegularClass).Should().ResideInAssembly(helper.ClassReflectionAssembly, helper.TypeReflectionAssembly).AssertNoViolations(helper);
 
             await helper.AssertSnapshotMatches();
         }
@@ -1039,16 +1081,52 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotHeader("Multiple inputs");
             Types().That().Are(helper.RegularClass, helper.OtherRegularClass).Should().NotResideInAssembly("NonExistentAssembly").AssertNoViolations(helper);
 
-            helper.AddSnapshotHeader("Multiple assemblies");
+            // The multiple-assembly cases need a second loaded assembly to say anything, so they live in
+            // NotResideInMultipleAssembliesTest.
+
+            helper.AddSnapshotHeader("Assembly not in architecture");
             should = Types().That().Are(helper.RegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
-            should.NotResideInAssembly(archAssembly, archAssembly).AssertOnlyViolations(helper);
-            should.NotResideInAssembly(typeAssembly, typeAssembly).AssertOnlyViolations(helper);
+            should.NotResideInAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).AssertException<AssemblyDoesNotExistInArchitecture>(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            should.Be(Types().That().DoNotResideInAssembly(archAssembly, archAssembly)).AssertOnlyViolations(helper);
-            should.Be(Types().That().DoNotResideInAssembly(typeAssembly, typeAssembly)).AssertOnlyViolations(helper);
+            should.Be(Types().That().DoNotResideInAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly)).AssertException<AssemblyDoesNotExistInArchitecture>(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotResideInMultipleAssembliesTest()
+        {
+            var helper = new TypeAndClassAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No assembly matches");
+            var should = Types().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotResideInAssembly(helper.ClassReflectionAssembly, helper.ClassReflectionAssembly).AssertNoViolations(helper);
+            should.NotResideInAssembly(helper.ClassArchAssembly, helper.ClassArchAssembly).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().DoNotResideInAssembly(helper.ClassReflectionAssembly, helper.ClassReflectionAssembly)).AssertNoViolations(helper);
+            should.Be(Types().That().DoNotResideInAssembly(helper.ClassArchAssembly, helper.ClassArchAssembly)).AssertNoViolations(helper);
+
+            // Only the second slot can decide here: the first argument is a loaded assembly the type does
+            // not reside in, so the short circuit in the condition does not fire.
+            helper.AddSnapshotHeader("Second assembly decides");
+            should = Types().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotResideInAssembly(helper.ClassReflectionAssembly, helper.TypeReflectionAssembly).AssertOnlyViolations(helper);
+            should.NotResideInAssembly(helper.ClassArchAssembly, helper.TypeArchAssembly).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().DoNotResideInAssembly(helper.ClassReflectionAssembly, helper.TypeReflectionAssembly)).AssertOnlyViolations(helper);
+            should.Be(Types().That().DoNotResideInAssembly(helper.ClassArchAssembly, helper.TypeArchAssembly)).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Types().That().Are(helper.RegularClass, helper.OtherRegularClass).Should().NotResideInAssembly(helper.ClassReflectionAssembly, helper.ClassReflectionAssembly).AssertNoViolations(helper);
 
             await helper.AssertSnapshotMatches();
         }

@@ -42,9 +42,11 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty()" should have no setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty()" or "System.String PropertyMemberNamespace.OtherClassWithGet... should have no setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithGetOnlyProperty::OtherGetOnlyProperty() passed
 Message: 
 All Evaluations passed
 

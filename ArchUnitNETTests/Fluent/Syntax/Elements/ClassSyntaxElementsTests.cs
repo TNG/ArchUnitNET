@@ -233,6 +233,15 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Classes().That().AreImmutable()).AssertNoViolations(helper);
 
+            helper.AddSnapshotHeader("Mutable static member does not make a class mutable");
+            should = Classes().That().Are(helper.ClassWithImmutableInstanceAndMutableStaticMember).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.BeImmutable().AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreImmutable()).AssertNoViolations(helper);
+
             await helper.AssertSnapshotMatches();
         }
 
@@ -252,6 +261,24 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             helper.AddSnapshotHeader("Violations");
             should = Classes().That().Are(helper.ImmutableClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeImmutable().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotImmutable()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Class with only static members (vacuously immutable)");
+            should = Classes().That().Are(helper.ClassWithOnlyStaticMembers).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeImmutable().AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Classes().That().AreNotImmutable()).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Mutable static member does not make a class mutable");
+            should = Classes().That().Are(helper.ClassWithImmutableInstanceAndMutableStaticMember).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
             should.NotBeImmutable().AssertOnlyViolations(helper);

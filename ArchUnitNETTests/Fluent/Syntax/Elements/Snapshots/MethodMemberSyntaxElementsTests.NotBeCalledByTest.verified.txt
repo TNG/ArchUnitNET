@@ -230,7 +230,19 @@ Description: System.Void MethodMemberNamespace.MethodDependencyClass::CalledMeth
 Message: 
 All Evaluations passed
 
+Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" should not be called by one of no types (always true)
+Result: True
+Description: System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod() passed
+Message: 
+All Evaluations passed
+
 ----- Predicates -----
+
+Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are not called by one of no types (always true)
+Result: True
+Description: System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod() passed
+Message: 
+All Evaluations passed
 
 Query: Method members that are "System.Void MethodMemberNamespace.MethodDependencyClass::CalledMethod()" should be Method members that are not called by one of no types (always true)
 Result: True

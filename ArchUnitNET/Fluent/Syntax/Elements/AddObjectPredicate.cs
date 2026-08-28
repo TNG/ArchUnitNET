@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Fluent.Predicates;
@@ -58,7 +57,6 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         public TNextElement OnlyHaveAttributes(IEnumerable<Type> attributes) => OnlyHaveAttributes(new SystemTypeObjectProvider<Attribute>(attributes));
 
         public TNextElement HaveAnyAttributesWithArguments(IEnumerable<object> argumentValues) => CreateNextElement(ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributesWithArguments(argumentValues));
-        public TNextElement HaveAnyAttributesWithArguments(object firstArgumentValue, params object[] moreArgumentValues) => CreateNextElement(ObjectPredicatesDefinition<TRuleType>.HaveAnyAttributesWithArguments(new[] { firstArgumentValue }.Concat(moreArgumentValues)));
 
         public TNextElement HaveAttributeWithArguments(Attribute attribute, IEnumerable<object> argumentValues) => CreateNextElement(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(attribute.FullName, _ => attribute, argumentValues));
         public TNextElement HaveAttributeWithArguments(Type attribute, IEnumerable<object> argumentValues) => CreateNextElement(ObjectPredicatesDefinition<TRuleType>.HaveAttributeWithArguments(attribute.FullName, architecture => architecture.GetAttributeOfType(attribute), argumentValues));

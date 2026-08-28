@@ -42,9 +42,11 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter()" should have a protected internal setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter()" or "System.String Prope... should have a protected internal setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithProtectedInternalSetterProperty::PropertyWithProtectedInternalSetter() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithProtectedInternalSetterProperty::OtherPropertyWithProtectedInternalSetter() passed
 Message: 
 All Evaluations passed
 

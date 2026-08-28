@@ -1,0 +1,42 @@
+﻿===== No Violations =====
+
+----- Conditions -----
+
+Query: Field members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" and are static should be static and should not be read only
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Field members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" and are static should be Field members that are static and are not read only
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Field members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" and are not static should be static and should not be read only
+Result: False
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not static and is read only
+Message: 
+"Field members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" and are not static should be static and should not be read only" failed:
+	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not static and is read only
+
+
+
+----- Predicates -----
+
+Query: Field members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" and are not static should be Field members that are static and are not read only
+Result: False
+Description: System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Field members that are static and are not read only
+Message: 
+"Field members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField" and are not static should be Field members that are static and are not read only" failed:
+	System.String TypeNamespace.ClassWithReadOnlyField::ReadOnlyField is not Field members that are static and are not read only
+
+
+
