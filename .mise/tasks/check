@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#MISE description="Run formatting and lint checks via hk"
+#USAGE flag "-f --fix" help="Apply fixes instead of only reporting them"
+set -euo pipefail
+
+if [ "${usage_fix:-}" = "true" ]; then
+  hk check --all --fix --no-fail-fast
+else
+  hk check --all --no-fail-fast
+fi

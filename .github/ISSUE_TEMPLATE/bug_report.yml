@@ -53,7 +53,7 @@ body:
               .That()
               .ImplementInterface(typeof(IExampleInterface))
               .As("Example Classes");
-        
+
             [Fact]
             public void TypesShouldBeInCorrectLayer()
             {

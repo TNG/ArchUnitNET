@@ -20,7 +20,7 @@ namespace Module.Three{
     }
 }
 Module.Three.ClassOne --> Module.One.ClassTwo
-note on link #red 
+note on link #red
     Combination of accesses forms cycle
 end note
 @enduml

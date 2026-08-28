@@ -31,6 +31,18 @@ If your Pull Request resolves an issue, please add a respective line to the end,
 Resolves #123
 ```
 
-### Formatting
+## Tooling
 
-Please adjust your code formatter to the general style of the project.
+This project uses [mise](https://mise.jdx.dev) to pin the .NET SDK and dev tools, and
+[hk](https://hk.jdx.dev) to run formatting/lint checks. After installing mise, run:
+
+```
+mise install
+mise run check
+```
+
+Formatting and autofixes can be applied using:
+
+```
+mise run check --fix
+```

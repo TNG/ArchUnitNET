@@ -1,0 +1,10 @@
+[extend]
+useDefault = true
+
+[allowlist]
+# gitleaks' `dir` mode scans the working tree regardless of git tracking, so
+# gitignored local IDE state (e.g. JetBrains .idea/workspace.xml, common for
+# this C# project's contributors) gets scanned even though it's never committed.
+paths = [
+  '''\.idea/''',
+]
