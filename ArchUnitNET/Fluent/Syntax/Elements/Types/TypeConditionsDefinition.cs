@@ -133,6 +133,46 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        public static IOrderedCondition<TRuleType> NotBeNestedIn(
+            IObjectProvider<IType> objectProvider
+        )
+        {
+            var sizedObjectProvider = objectProvider as ISizedObjectProvider<IType>;
+            IEnumerable<ConditionResult> Condition(
+                IEnumerable<TRuleType> ruleTypes,
+                Architecture architecture
+            )
+            {
+                var typeList = objectProvider.GetObjects(architecture).ToList();
+                var failDescription =
+                    sizedObjectProvider != null && sizedObjectProvider.Count == 0
+                        ? "is nested in no types (always true)"
+                        : "is nested in " + objectProvider.Description;
+                foreach (var ruleType in ruleTypes)
+                {
+                    if (
+                        typeList.Any(outerType =>
+                            ruleType.FullName.StartsWith(outerType.FullName + "+")
+                        )
+                    )
+                    {
+                        yield return new ConditionResult(ruleType, false, failDescription);
+                    }
+                    else
+                    {
+                        yield return new ConditionResult(ruleType, true);
+                    }
+                }
+            }
+
+            var description = objectProvider.FormatDescription(
+                "not be nested in no types (always true)",
+                "not be nested in",
+                "not be nested in"
+            );
+            return new OrderedArchitectureCondition<TRuleType>(Condition, description);
+        }
+
         public static IOrderedCondition<TRuleType> BeValueTypes()
         {
             return new SimpleCondition<TRuleType>(

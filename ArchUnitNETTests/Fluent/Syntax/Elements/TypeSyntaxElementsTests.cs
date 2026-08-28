@@ -411,6 +411,80 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         }
 
         [Fact]
+        public async Task NotBeNestedInTest()
+        {
+            var helper = new TypeAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No Violations");
+            var should = Types().That().Are(helper.NonNestedClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeNestedIn(helper.OuterClassA).AssertNoViolations(helper);
+            should.NotBeNestedIn(helper.OuterClassASystemType).AssertNoViolations(helper);
+            should.NotBeNestedIn(Types().That().Are(helper.OuterClassA)).AssertNoViolations(helper);
+            should.NotBeNestedIn(new List<IType> { helper.OuterClassA }).AssertNoViolations(helper);
+            should.NotBeNestedIn(new List<System.Type> { helper.OuterClassASystemType }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreNotNestedIn(helper.OuterClassA)).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(helper.OuterClassASystemType)).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(Types().That().Are(helper.OuterClassA))).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(new List<IType> { helper.OuterClassA })).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(new List<System.Type> { helper.OuterClassASystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Types().That().Are(helper.InnerClassA).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeNestedIn(helper.OuterClassA).AssertOnlyViolations(helper);
+            should.NotBeNestedIn(helper.OuterClassASystemType).AssertOnlyViolations(helper);
+            should.NotBeNestedIn(Types().That().Are(helper.OuterClassA)).AssertOnlyViolations(helper);
+            should.NotBeNestedIn(new List<IType> { helper.OuterClassA }).AssertOnlyViolations(helper);
+            should.NotBeNestedIn(new List<System.Type> { helper.OuterClassASystemType }).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreNotNestedIn(helper.OuterClassA)).AssertOnlyViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(helper.OuterClassASystemType)).AssertOnlyViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(Types().That().Are(helper.OuterClassA))).AssertOnlyViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(new List<IType> { helper.OuterClassA })).AssertOnlyViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(new List<System.Type> { helper.OuterClassASystemType })).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Types().That().Are(helper.NonNestedClass, helper.InnerClassB).Should().NotBeNestedIn(helper.OuterClassA).AssertNoViolations(helper);
+            Types().That().Are(helper.NonNestedClass, helper.InnerClassA).Should().NotBeNestedIn(helper.OuterClassA).AssertAnyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple arguments");
+            should = Types().That().Are(helper.NonNestedClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeNestedIn(helper.OuterClassA, helper.OuterClassB).AssertNoViolations(helper);
+            should.NotBeNestedIn(new List<IType> { helper.OuterClassA, helper.OuterClassB }).AssertNoViolations(helper);
+            should.NotBeNestedIn(helper.OuterClassASystemType, helper.OuterClassBSystemType).AssertNoViolations(helper);
+            should.NotBeNestedIn(new List<System.Type> { helper.OuterClassASystemType, helper.OuterClassBSystemType }).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreNotNestedIn(helper.OuterClassA, helper.OuterClassB)).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(new List<IType> { helper.OuterClassA, helper.OuterClassB })).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(helper.OuterClassASystemType, helper.OuterClassBSystemType)).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(new List<System.Type> { helper.OuterClassASystemType, helper.OuterClassBSystemType })).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Empty Arguments");
+            should = Types().That().Are(helper.NonNestedClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeNestedIn().AssertNoViolations(helper);
+            should.NotBeNestedIn(new List<IType>()).AssertNoViolations(helper);
+            should.NotBeNestedIn(new List<System.Type>()).AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreNotNestedIn()).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(new List<IType>())).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNestedIn(new List<System.Type>())).AssertNoViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
         public async Task BeValueTypesTest()
         {
             var helper = new TypeAssemblyTestHelper();

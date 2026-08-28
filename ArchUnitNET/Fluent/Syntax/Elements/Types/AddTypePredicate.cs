@@ -74,6 +74,13 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         public TNextElement AreNotAssignableTo(IEnumerable<IType> types) => AreNotAssignableTo(new ObjectProvider<IType>(types));
         public TNextElement AreNotAssignableTo(IEnumerable<Type> types) => AreNotAssignableTo(new SystemTypeObjectProvider<IType>(types));
 
+        public TNextElement AreNotNestedIn() => AreNotNestedIn(new ObjectProvider<IType>());
+        public TNextElement AreNotNestedIn(params IType[] types) => AreNotNestedIn(new ObjectProvider<IType>(types));
+        public TNextElement AreNotNestedIn(params Type[] types) => AreNotNestedIn(new SystemTypeObjectProvider<IType>(types));
+        public TNextElement AreNotNestedIn(IObjectProvider<IType> types) => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotNestedIn(types));
+        public TNextElement AreNotNestedIn(IEnumerable<IType> types) => AreNotNestedIn(new ObjectProvider<IType>(types));
+        public TNextElement AreNotNestedIn(IEnumerable<Type> types) => AreNotNestedIn(new SystemTypeObjectProvider<IType>(types));
+
         public TNextElement AreNotValueTypes() => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotValueTypes());
         public TNextElement AreNotEnums() => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotEnums());
         public TNextElement AreNotStructs() => CreateNextElement(TypePredicatesDefinition<TRuleType>.AreNotStructs());
