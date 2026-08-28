@@ -1,0 +1,19 @@
+﻿Query: Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**).." should not depend on each other
+Result: False
+Description: SlicesTestAssembly.MultipleSubnamespaces.Slice1 does depend on other slices:
+SlicesTestAssembly.MultipleSubnamespaces.Slice1 -> SlicesTestAssembly.MultipleSubnamespaces.Slice2
+	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service.Service1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service.Service2Class
+
+Result: True
+Description: SlicesTestAssembly.MultipleSubnamespaces.Slice2 does not depend on another slice.
+Result: True
+Description: SlicesTestAssembly.MultipleSubnamespaces.Slice3 does not depend on another slice.
+Message: 
+"Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**).." should not depend on each other" failed:
+	SlicesTestAssembly.MultipleSubnamespaces.Slice1 does depend on other slices:
+SlicesTestAssembly.MultipleSubnamespaces.Slice1 -> SlicesTestAssembly.MultipleSubnamespaces.Slice2
+	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service.Service1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service.Service2Class
+
+
+
+
