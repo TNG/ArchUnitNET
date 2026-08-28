@@ -1443,18 +1443,22 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var helper = new TypeAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
+            var should = Types().That().Are(helper.InnerClassA).Should();
+
             helper.AddSnapshotSubHeader("Conditions");
-            Types().That().Are(helper.InnerClassA).Should().BeNested().AssertNoViolations(helper);
+            should.BeNested().AssertNoViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            Types().That().Are(helper.InnerClassA).Should().Be(Types().That().AreNested()).AssertNoViolations(helper);
+            should.Be(Types().That().AreNested()).AssertNoViolations(helper);
 
             helper.AddSnapshotHeader("Violations");
+            should = Types().That().Are(helper.NonNestedClass).Should();
+
             helper.AddSnapshotSubHeader("Conditions");
-            Types().That().Are(helper.NonNestedClass).Should().BeNested().AssertOnlyViolations(helper);
+            should.BeNested().AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            Types().That().Are(helper.NonNestedClass).Should().Be(Types().That().AreNested()).AssertOnlyViolations(helper);
+            should.Be(Types().That().AreNested()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             Types().That().Are(helper.InnerClassA, helper.OtherInnerClassA).Should().BeNested().AssertNoViolations(helper);
@@ -1469,18 +1473,22 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             var helper = new TypeAssemblyTestHelper();
 
             helper.AddSnapshotHeader("No Violations");
+            var should = Types().That().Are(helper.NonNestedClass).Should();
+
             helper.AddSnapshotSubHeader("Conditions");
-            Types().That().Are(helper.NonNestedClass).Should().NotBeNested().AssertNoViolations(helper);
+            should.NotBeNested().AssertNoViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            Types().That().Are(helper.NonNestedClass).Should().Be(Types().That().AreNotNested()).AssertNoViolations(helper);
+            should.Be(Types().That().AreNotNested()).AssertNoViolations(helper);
 
             helper.AddSnapshotHeader("Violations");
+            should = Types().That().Are(helper.InnerClassA).Should();
+
             helper.AddSnapshotSubHeader("Conditions");
-            Types().That().Are(helper.InnerClassA).Should().NotBeNested().AssertOnlyViolations(helper);
+            should.NotBeNested().AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
-            Types().That().Are(helper.InnerClassA).Should().Be(Types().That().AreNotNested()).AssertOnlyViolations(helper);
+            should.Be(Types().That().AreNotNested()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Multiple inputs");
             Types().That().Are(helper.NonNestedClass, helper.RegularClass).Should().NotBeNested().AssertNoViolations(helper);
