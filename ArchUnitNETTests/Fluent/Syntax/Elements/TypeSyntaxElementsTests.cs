@@ -320,18 +320,18 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             helper.AddSnapshotHeader("Empty Arguments");
             should = Types().That().Are(helper.BaseClassForAssign).Should();
-            
+
             helper.AddSnapshotSubHeader("Conditions");
             should.NotBeAssignableTo(new List<IType>()).AssertNoViolations(helper);
             should.NotBeAssignableTo(new List<System.Type>()).AssertNoViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Types().That().AreNotAssignableTo(new List<IType>())).AssertNoViolations(helper);
             should.Be(Types().That().AreNotAssignableTo(new List<System.Type>())).AssertNoViolations(helper);
 
             await helper.AssertSnapshotMatches();
         }
-        
+
         [Fact]
         public async Task BeNestedInTest()
         {
@@ -392,11 +392,11 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             helper.AddSnapshotHeader("Empty Arguments");
             should = Types().That().Are(helper.InnerClassA).Should();
-            
+
             helper.AddSnapshotSubHeader("Conditions");
             should.BeNestedIn(new List<IType>()).AssertOnlyViolations(helper);
             should.BeNestedIn(new List<System.Type>()).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Types().That().AreNestedIn(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(Types().That().AreNestedIn(new List<System.Type>())).AssertOnlyViolations(helper);
@@ -683,59 +683,59 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             helper.AddSnapshotHeader("Violations");
             should = Interfaces().That().Are(helper.ChildTestInterface).Should();
-            
+
             helper.AddSnapshotSubHeader("Conditions");
             should.ImplementAnyInterfaces(helper.OtherTestInterface).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces([helper.OtherTestInterface]).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(helper.OtherTestInterfaceSystemType).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces([helper.OtherTestInterfaceSystemType]).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(Interfaces().That().Are(helper.OtherTestInterface)).AssertOnlyViolations(helper);
-                
+
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Interfaces().That().ImplementAnyInterfaces(helper.OtherTestInterface)).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces([helper.OtherTestInterface])).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces(helper.OtherTestInterfaceSystemType)).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces([helper.OtherTestInterfaceSystemType])).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces(Interfaces().That().Are(helper.OtherTestInterface))).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Complex conditions");
             should.ImplementAnyInterfacesThat().Are(helper.OtherTestInterface).AssertOnlyViolations(helper);
 
             helper.AddSnapshotHeader("Empty Arguments (Only Violations)");
             should = Interfaces().That().Are(helper.TestInterface, helper.ChildTestInterface).Should();
-            
+
             helper.AddSnapshotSubHeader("Conditions");
             should.ImplementAnyInterfaces().AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(new List<Interface>()).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(new List<System.Type>()).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
-           
+
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Interfaces().That().ImplementAnyInterfaces()).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces(new List<Interface>())).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces(new List<System.Type>())).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName))).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Complex conditions");
             should.ImplementAnyInterfacesThat().Are(new List<Interface>()).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotHeader("Multiple arguments");
             should = Interfaces().That().Are(helper.ChildTestInterface).Should();
-            
+
             helper.AddSnapshotSubHeader("Conditions");
             should.ImplementAnyInterfaces(helper.OtherTestInterface, helper.OtherChildTestInterface).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces([helper.OtherTestInterface, helper.OtherChildTestInterface]).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(helper.OtherTestInterfaceSystemType, helper.OtherChildTestInterfaceSystemType).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces([helper.OtherTestInterfaceSystemType, helper.OtherChildTestInterfaceSystemType]).AssertOnlyViolations(helper);
             should.ImplementAnyInterfaces(Interfaces().That().Are(helper.OtherTestInterface, helper.OtherChildTestInterface)).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Interfaces().That().ImplementAnyInterfaces(helper.OtherTestInterface, helper.OtherChildTestInterface)).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces([helper.OtherTestInterface, helper.OtherChildTestInterface])).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces(helper.OtherTestInterfaceSystemType, helper.OtherChildTestInterfaceSystemType)).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces([helper.OtherTestInterfaceSystemType, helper.OtherChildTestInterfaceSystemType])).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().ImplementAnyInterfaces(Interfaces().That().Are(helper.OtherTestInterface, helper.OtherChildTestInterface))).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Complex conditions");
             should.ImplementAnyInterfacesThat().Are(helper.OtherTestInterface, helper.OtherChildTestInterface).AssertOnlyViolations(helper);
             should.ImplementAnyInterfacesThat().Are([helper.OtherTestInterface, helper.OtherChildTestInterface]).AssertOnlyViolations(helper);
@@ -745,7 +745,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             helper.AddSnapshotSubHeader("Complex conditions");
             should.ImplementAnyInterfacesThat().Are(helper.OtherTestInterface, helper.OtherChildTestInterface).AssertOnlyViolations(helper);
-            
+
             await helper.AssertSnapshotMatches();
         }
 
@@ -776,62 +776,62 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
 
             helper.AddSnapshotHeader("Violations");
             should = Interfaces().That().Are(helper.ChildTestInterface).Should();
-            
+
             helper.AddSnapshotSubHeader("Conditions");
             should.NotImplementAnyInterfaces(helper.TestInterface).AssertOnlyViolations(helper);
             should.NotImplementAnyInterfaces([helper.TestInterface]).AssertOnlyViolations(helper);
             should.NotImplementAnyInterfaces(helper.TestInterfaceSystemType).AssertOnlyViolations(helper);
             should.NotImplementAnyInterfaces([helper.TestInterfaceSystemType]).AssertOnlyViolations(helper);
             should.NotImplementAnyInterfaces(Interfaces().That().Are(helper.TestInterface)).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces(helper.TestInterface)).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces([helper.TestInterface])).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces(helper.TestInterfaceSystemType)).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces([helper.TestInterfaceSystemType])).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces(Interfaces().That().Are(helper.TestInterface))).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Complex conditions");
             should.NotImplementAnyInterfacesThat().Are(helper.TestInterface).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotHeader("Empty Arguments (No Violations)");
             should = Interfaces().That().Are(helper.TestInterface, helper.ChildTestInterface).Should();
-            
+
             helper.AddSnapshotSubHeader("Conditions");
             should.NotImplementAnyInterfaces().AssertNoViolations(helper);
             should.NotImplementAnyInterfaces(new List<Interface>()).AssertNoViolations(helper);
             should.NotImplementAnyInterfaces(new List<System.Type>()).AssertNoViolations(helper);
             should.NotImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName)).AssertNoViolations(helper);
-           
+
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces()).AssertNoViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces(new List<Interface>())).AssertNoViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces(new List<System.Type>())).AssertNoViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces(Interfaces().That().HaveName(helper.NonExistentObjectName))).AssertNoViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Complex conditions");
             should.NotImplementAnyInterfacesThat().Are(new List<Interface>()).AssertNoViolations(helper);
-            
+
             helper.AddSnapshotHeader("Multiple arguments");
             should = Interfaces().That().Are(helper.ChildTestInterface).Should();
-            
+
             helper.AddSnapshotSubHeader("Conditions");
             should.NotImplementAnyInterfaces(helper.TestInterface, helper.OtherTestInterface).AssertOnlyViolations(helper);
             should.NotImplementAnyInterfaces([helper.TestInterface, helper.OtherTestInterface]).AssertOnlyViolations(helper);
             should.NotImplementAnyInterfaces(helper.TestInterfaceSystemType, helper.OtherTestInterfaceSystemType).AssertOnlyViolations(helper);
             should.NotImplementAnyInterfaces([helper.TestInterfaceSystemType, helper.OtherTestInterfaceSystemType]).AssertOnlyViolations(helper);
             should.NotImplementAnyInterfaces(Interfaces().That().Are(helper.TestInterface, helper.OtherTestInterface)).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Predicates");
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces(helper.TestInterface, helper.OtherTestInterface)).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces([helper.TestInterface, helper.OtherTestInterface])).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces(helper.TestInterfaceSystemType, helper.OtherTestInterfaceSystemType)).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces([helper.TestInterfaceSystemType, helper.OtherTestInterfaceSystemType])).AssertOnlyViolations(helper);
             should.Be(Interfaces().That().DoNotImplementAnyInterfaces(Interfaces().That().Are(helper.TestInterface, helper.OtherTestInterface))).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Complex conditions");
             should.NotImplementAnyInterfacesThat().Are(helper.TestInterface, helper.OtherTestInterface).AssertOnlyViolations(helper);
-            
+
             await helper.AssertSnapshotMatches();
         }
 

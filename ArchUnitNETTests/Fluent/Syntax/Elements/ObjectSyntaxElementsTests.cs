@@ -254,7 +254,7 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotHeader("No violations");
         var should = MethodMembers().That().Are(helper.MethodWithSingleDependency).Should();
-        
+
         helper.AddSnapshotSubHeader("Conditions");
         should.CallAny(helper.CalledMethod).AssertNoViolations(helper);
         should.CallAny(new List<MethodMember> { helper.CalledMethod }).AssertNoViolations(helper);
@@ -306,7 +306,7 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotHeader("Input with multiple dependencies");
         should = MethodMembers().That().Are(helper.MethodWithMultipleDependencies).Should();
-        
+
         helper.AddSnapshotSubHeader("Conditions");
         should.CallAny(helper.CalledMethod1, helper.MethodWithoutDependencies).AssertNoViolations(helper);
         should.CallAny(helper.MethodWithoutDependencies).AssertOnlyViolations(helper);
@@ -368,13 +368,13 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotHeader("Referenced type");
         should = Types().That().Are(helper.ClassWithReferencedTypeDependency).Should();
-        
+
         helper.AddSnapshotSubHeader("Conditions");
         should.DependOnAny(helper.ReferencedType).AssertNoViolations(helper);
-        
+
         helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DependOnAny(helper.ReferencedType)).AssertNoViolations(helper);
-        
+
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
 
@@ -518,7 +518,7 @@ public class ObjectSyntaxElementsTests
         helper.AddSnapshotSubHeader("Predicates");
         should.BeTypesThat().FollowCustomPredicate(new CustomPredicate()).AssertNoViolations(helper);
         should.BeTypesThat().FollowCustomPredicate(t => t.Name == "ChildClass", "follow custom predicate").AssertNoViolations(helper);
-        
+
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.BaseClass).Should();
 
@@ -1147,7 +1147,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAssemblyQualifiedNameStartingWith(helper.BaseClass.Name)).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAssemblyQualifiedNameEndingWith(helper.BaseClass.Namespace.FullName)).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAssemblyQualifiedNameContaining(helper.NonExistentObjectName)).AssertOnlyViolations(helper);
-        
+
         await helper.AssertSnapshotMatches();
     }
 
@@ -1352,13 +1352,13 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotHeader("Referenced type");
         should = Types().That().Are(helper.ClassWithReferencedTypeDependency).Should();
-        
+
         helper.AddSnapshotSubHeader("Conditions");
         should.NotDependOnAny(helper.ReferencedType).AssertOnlyViolations(helper);
-        
+
         helper.AddSnapshotHeader("Predicates");
         should.Be(Types().That().DoNotDependOnAny(helper.ReferencedType)).AssertOnlyViolations(helper);
-        
+
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ChildClass).Should();
 
@@ -1771,7 +1771,7 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotHeader("Empty arguments");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
-        
+
         helper.AddSnapshotSubHeader("Conditions");
         should.NotHaveAttributeWithArguments(helper.Attribute1, new List<object>()).AssertNoViolations(helper);
         should.NotHaveAttributeWithArguments(helper.Attribute1SystemType, new List<object>()).AssertNoViolations(helper);
@@ -1975,7 +1975,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameStartingWith(helper.BaseClass.Name)).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameEndingWith("Test")).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameContaining(helper.NonExistentObjectName)).AssertNoViolations(helper);
-        
+
         helper.AddSnapshotHeader("Violations");
         should = Types().That().Are(helper.BaseClass).Should();
 
@@ -2012,7 +2012,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameStartingWith(helper.BaseClass.Namespace.Name)).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameEndingWith(helper.BaseClass.Assembly.FullName)).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAssemblyQualifiedNameContaining(helper.BaseClass.Namespace.Name)).AssertOnlyViolations(helper);
-        
+
         await helper.AssertSnapshotMatches();
     }
 
@@ -2117,10 +2117,10 @@ public class ObjectSyntaxElementsTests
     public async Task OnlyHaveAttributesTest()
     {
         var helper = new AttributeAssemblyTestHelpers();
-        
+
         helper.AddSnapshotHeader("No violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
-        
+
         helper.AddSnapshotSubHeader("Conditions");
         should.OnlyHaveAttributes(helper.Attribute1).AssertNoViolations(helper);
         should.OnlyHaveAttributes(new List<Attribute> { helper.Attribute1 }).AssertNoViolations(helper);
@@ -2229,8 +2229,8 @@ public class ObjectSyntaxElementsTests
             Types().That().ArePrivate().Should().BePrivate(),
             Types().That().ArePrivate().Should().BeTypesThat().ArePrivate(),
             Types().That().ArePublic().Should().BePublic(),
-            Types().That().ArePublic().Should().BeTypesThat().ArePublic(), 
-            Types().That().AreProtected().Should().BeProtected(), 
+            Types().That().ArePublic().Should().BeTypesThat().ArePublic(),
+            Types().That().AreProtected().Should().BeProtected(),
             Types().That().AreProtected().Should().BeTypesThat().AreProtected(),
             Types().That().AreInternal().Should().BeInternal(),
             Types().That().AreInternal().Should().BeTypesThat().AreInternal(),

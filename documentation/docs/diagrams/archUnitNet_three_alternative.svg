@@ -911,72 +911,64 @@ hide stereotype
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Loader" <<boundary>> as Loader   {
-rectangle "==LoadTasks" <<container>> as ArchUnitNET.Loader.LoadTasks 
+rectangle "==LoadTasks" <<container>> as ArchUnitNET.Loader.LoadTasks
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Fluent" <<boundary>> as Fluent   {
 rectangle "==Syntax" <<boundary>> as Syntax   {
-rectangle "==Elements" <<container>> as ArchUnitNET.Fluent.Syntax.Elements 
+rectangle "==Elements" <<container>> as ArchUnitNET.Fluent.Syntax.Elements
 }
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Fluent" <<boundary>> as Fluent   {
-rectangle "==Slices" <<container>> as ArchUnitNET.Fluent.Slices 
+rectangle "==Slices" <<container>> as ArchUnitNET.Fluent.Slices
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Fluent" <<boundary>> as Fluent   {
-rectangle "==Predicates" <<container>> as ArchUnitNET.Fluent.Predicates 
+rectangle "==Predicates" <<container>> as ArchUnitNET.Fluent.Predicates
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Fluent" <<boundary>> as Fluent   {
-rectangle "==PlantUml" <<container>> as ArchUnitNET.Fluent.PlantUml 
+rectangle "==PlantUml" <<container>> as ArchUnitNET.Fluent.PlantUml
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Fluent" <<boundary>> as Fluent   {
-rectangle "==Freeze" <<container>> as ArchUnitNET.Fluent.Freeze 
+rectangle "==Freeze" <<container>> as ArchUnitNET.Fluent.Freeze
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Fluent" <<boundary>> as Fluent   {
-rectangle "==Extensions" <<container>> as ArchUnitNET.Fluent.Extensions 
+rectangle "==Extensions" <<container>> as ArchUnitNET.Fluent.Extensions
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Fluent" <<boundary>> as Fluent   {
-rectangle "==Exceptions" <<container>> as ArchUnitNET.Fluent.Exceptions 
+rectangle "==Exceptions" <<container>> as ArchUnitNET.Fluent.Exceptions
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Fluent" <<boundary>> as Fluent   {
-rectangle "==Conditions" <<container>> as ArchUnitNET.Fluent.Conditions 
+rectangle "==Conditions" <<container>> as ArchUnitNET.Fluent.Conditions
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Domain" <<boundary>> as Domain   {
 rectangle "==PlantUml" <<boundary>> as PlantUml   {
-rectangle "==Import" <<container>> as ArchUnitNET.Domain.PlantUml.Import 
-}
-}
-}
-
-rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
-rectangle "==Domain" <<boundary>> as Domain   {
-rectangle "==PlantUml" <<boundary>> as PlantUml   {
-rectangle "==Export" <<container>> as ArchUnitNET.Domain.PlantUml.Export 
+rectangle "==Import" <<container>> as ArchUnitNET.Domain.PlantUml.Import
 }
 }
 }
@@ -984,26 +976,34 @@ rectangle "==Export" <<container>> as ArchUnitNET.Domain.PlantUml.Export
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Domain" <<boundary>> as Domain   {
 rectangle "==PlantUml" <<boundary>> as PlantUml   {
-rectangle "==Exceptions" <<container>> as ArchUnitNET.Domain.PlantUml.Exceptions 
+rectangle "==Export" <<container>> as ArchUnitNET.Domain.PlantUml.Export
 }
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Domain" <<boundary>> as Domain   {
-rectangle "==Extensions" <<container>> as ArchUnitNET.Domain.Extensions 
+rectangle "==PlantUml" <<boundary>> as PlantUml   {
+rectangle "==Exceptions" <<container>> as ArchUnitNET.Domain.PlantUml.Exceptions
 }
-}
-
-rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
-rectangle "==Domain" <<boundary>> as Domain   {
-rectangle "==Exceptions" <<container>> as ArchUnitNET.Domain.Exceptions 
 }
 }
 
 rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
 rectangle "==Domain" <<boundary>> as Domain   {
-rectangle "==Dependencies" <<container>> as ArchUnitNET.Domain.Dependencies 
+rectangle "==Extensions" <<container>> as ArchUnitNET.Domain.Extensions
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Domain" <<boundary>> as Domain   {
+rectangle "==Exceptions" <<container>> as ArchUnitNET.Domain.Exceptions
+}
+}
+
+rectangle "==ArchUnitNET" <<boundary>> as ArchUnitNET   {
+rectangle "==Domain" <<boundary>> as Domain   {
+rectangle "==Dependencies" <<container>> as ArchUnitNET.Domain.Dependencies
 }
 }
 

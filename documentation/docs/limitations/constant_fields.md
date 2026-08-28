@@ -15,7 +15,7 @@ class ClassAccessingField
 }
 ```
 
-Looking at the above example one might expect, that MethodAccessingConstField 
+Looking at the above example one might expect, that MethodAccessingConstField
 should have a type dependency to ClassWithStaticField. In fact the compiler only generates a Ldstr opcode
 indicating that a constant string is stored in var a. It therefore is not possible to find out from where the constant field came.
 

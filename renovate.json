@@ -91,6 +91,22 @@
       "allowedVersions": "4.x"
     },
     {
+      "matchManagers": [
+        "nuget"
+      ],
+      "matchFileNames": [
+        "ArchUnitNET.TUnitTests/ArchUnitNET.TUnitTests.csproj"
+      ],
+      "matchPackageNames": [
+        "TUnit{/,}**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "enabled": false
+    },
+    {
       "matchDepNames": [
         "dotnet-sdk"
       ],

@@ -101,7 +101,7 @@ public void TypesShouldBeInCorrectLayer()
     IArchRule combinedArchRule =
         exampleClassesShouldBeInExampleLayer
 		.And(forbiddenInterfacesShouldBeInForbiddenLayer);
-			
+
     combinedArchRule.Check(Architecture);
 }
 ```
@@ -183,7 +183,7 @@ IArchRule rule = Slices().Matching("Module.(*)").Should()
 
 ## 4. How to check
 
-To get a meaningful error message we recommend using 
+To get a meaningful error message we recommend using
 the xUnit or NUnit extension.
 
 ### 4.1 ArchUnitNET xUnit/NUnit extension
@@ -206,7 +206,7 @@ String myDiagram = "./Resources/my-diagram.puml";
 IArchRule someRule = Types().Should().AdhereToPlantUmlDiagram(myDiagram);
 someRule.Check(Architecture);
 ```
-The diagrams must be component diagrams and associate types to components via stereotypes. 
+The diagrams must be component diagrams and associate types to components via stereotypes.
 ```plantuml
 @startuml
 [Model] <<Model.*>>
@@ -214,7 +214,7 @@ The diagrams must be component diagrams and associate types to components via st
 
 [Controller] --> [Model]
 @enduml
-``` 
+```
 Consider this diagram applied as a rule via AdhereToPlantUmlDiagram(..), then a class that resides in the namespace Model accessing a class in the namepace Controller would be reported as a violation.
 
 Only dependencies specified in the PlantUML diagram are considered. So any unknown dependency (e.g.  View.*) will be ignored.

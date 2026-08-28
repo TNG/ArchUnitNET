@@ -175,9 +175,9 @@ ArchUnitNET is published under the Apache License 2.0
       has been advised of the possibility of such damages.
 
 ##### 9. Accepting Warranty or Additional Liability
-	  While redistributing the Work or Derivative Works thereof, 
-	  You may choose to offer, and charge a fee for, acceptance of support, 
-	  warranty, indemnity, or other liability obligations and/or rights consistent 
+	  While redistributing the Work or Derivative Works thereof,
+	  You may choose to offer, and charge a fee for, acceptance of support,
+	  warranty, indemnity, or other liability obligations and/or rights consistent
 	  with this License. However, in accepting such obligations, You may act only
       on Your own behalf and on Your sole responsibility, not on behalf
       of any other Contributor, and only if You agree to indemnify,
