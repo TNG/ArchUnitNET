@@ -62,6 +62,9 @@ jobs:
         with:
           cache: false
       - name: Run tests
+        run: dotnet test -c Debug ArchUnit.TestsWithoutTUnit.slnf
+      - name: Run TUnit tests
+        working-directory: ./ArchUnitNET.TUnitTests
         run: dotnet test -c Debug
   publish-docs:
     name: Publish documentation

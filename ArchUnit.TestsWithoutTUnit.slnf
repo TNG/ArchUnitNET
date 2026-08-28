@@ -1,0 +1,15 @@
+{
+  "solution": {
+		"path": "ArchUnit.sln",
+		"projects": [
+		  "ArchUnitNET.NUnitTests\\ArchUnitNET.NUnitTests.csproj",
+		  "ArchUnitNETTests\\ArchUnitNETTests.csproj",
+		  "ArchUnitNET.MSTestV3Tests\\ArchUnitNET.MSTestV3Tests.csproj",
+		  "ArchUnitNET.xUnitV3Tests\\ArchUnitNET.xUnitV3Tests.csproj",
+		  "ArchUnitNET.MSTestV4Tests\\ArchUnitNET.MSTestV4Tests.csproj",
+		  "ExampleTest\\ExampleTest.csproj",
+		  "ArchUnitNET.MSTestV2Tests\\ArchUnitNET.MSTestV2Tests.csproj",
+		  "ArchUnitNET.xUnitTests\\ArchUnitNET.xUnitTests.csproj"
+		]
+  }
+}
