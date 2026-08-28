@@ -59,6 +59,24 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new ArchitecturePredicate<T>(Condition, description);
         }
 
+        public static IPredicate<T> AreNotNestedIn(IObjectProvider<IType> objectProvider)
+        {
+            IEnumerable<T> Condition(IEnumerable<T> ruleTypes, Architecture architecture)
+            {
+                var types = objectProvider.GetObjects(architecture);
+                return ruleTypes.Where(type =>
+                    !types.Any(outerType => type.FullName.StartsWith(outerType.FullName + "+"))
+                );
+            }
+
+            var description = objectProvider.FormatDescription(
+                "are not nested in no types (always true)",
+                "are not nested in",
+                "are not nested in"
+            );
+            return new ArchitecturePredicate<T>(Condition, description);
+        }
+
         public static IPredicate<T> AreValueTypes()
         {
             return new SimplePredicate<T>(
