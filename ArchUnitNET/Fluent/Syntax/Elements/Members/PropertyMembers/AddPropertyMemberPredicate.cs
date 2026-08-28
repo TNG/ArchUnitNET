@@ -11,45 +11,45 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers
             : base(ruleCreator) { }
 
         // csharpier-ignore-start
-        public TNextElement HaveGetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveGetter());
-        public TNextElement HavePrivateGetter() => CreateNextElement(PropertyMemberPredicateDefinition.HavePrivateGetter());
-        public TNextElement HavePublicGetter() => CreateNextElement(PropertyMemberPredicateDefinition.HavePublicGetter());
-        public TNextElement HaveProtectedGetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveProtectedGetter());
-        public TNextElement HaveInternalGetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveInternalGetter());
-        public TNextElement HaveProtectedInternalGetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveProtectedInternalGetter());
-        public TNextElement HavePrivateProtectedGetter() => CreateNextElement(PropertyMemberPredicateDefinition.HavePrivateProtectedGetter());
+        public TNextElement HaveGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveGetter());
+        public TNextElement HavePrivateGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HavePrivateGetter());
+        public TNextElement HavePublicGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HavePublicGetter());
+        public TNextElement HaveProtectedGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveProtectedGetter());
+        public TNextElement HaveInternalGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveInternalGetter());
+        public TNextElement HaveProtectedInternalGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveProtectedInternalGetter());
+        public TNextElement HavePrivateProtectedGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HavePrivateProtectedGetter());
 
-        public TNextElement HaveSetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveSetter());
-        public TNextElement HavePrivateSetter() => CreateNextElement(PropertyMemberPredicateDefinition.HavePrivateSetter());
-        public TNextElement HavePublicSetter() => CreateNextElement(PropertyMemberPredicateDefinition.HavePublicSetter());
-        public TNextElement HaveProtectedSetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveProtectedSetter());
-        public TNextElement HaveInternalSetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveInternalSetter());
-        public TNextElement HaveProtectedInternalSetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveProtectedInternalSetter());
-        public TNextElement HavePrivateProtectedSetter() => CreateNextElement(PropertyMemberPredicateDefinition.HavePrivateProtectedSetter());
-        public TNextElement HaveInitOnlySetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveInitSetter());
+        public TNextElement HaveSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveSetter());
+        public TNextElement HavePrivateSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HavePrivateSetter());
+        public TNextElement HavePublicSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HavePublicSetter());
+        public TNextElement HaveProtectedSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveProtectedSetter());
+        public TNextElement HaveInternalSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveInternalSetter());
+        public TNextElement HaveProtectedInternalSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveProtectedInternalSetter());
+        public TNextElement HavePrivateProtectedSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HavePrivateProtectedSetter());
+        public TNextElement HaveInitOnlySetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveInitSetter());
 
-        public TNextElement AreVirtual() => CreateNextElement(PropertyMemberPredicateDefinition.AreVirtual());
+        public TNextElement AreVirtual() => CreateNextElement(PropertyMemberPredicatesDefinition.AreVirtual());
 
         //Negations
 
-        public TNextElement HaveNoGetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveNoGetter());
-        public TNextElement DoNotHavePrivateGetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHavePrivateGetter());
-        public TNextElement DoNotHavePublicGetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHavePublicGetter());
-        public TNextElement DoNotHaveProtectedGetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHaveProtectedGetter());
-        public TNextElement DoNotHaveInternalGetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHaveInternalGetter());
-        public TNextElement DoNotHaveProtectedInternalGetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHaveProtectedInternalGetter());
-        public TNextElement DoNotHavePrivateProtectedGetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedGetter());
+        public TNextElement HaveNoGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveNoGetter());
+        public TNextElement DoNotHavePrivateGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHavePrivateGetter());
+        public TNextElement DoNotHavePublicGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHavePublicGetter());
+        public TNextElement DoNotHaveProtectedGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHaveProtectedGetter());
+        public TNextElement DoNotHaveInternalGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHaveInternalGetter());
+        public TNextElement DoNotHaveProtectedInternalGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHaveProtectedInternalGetter());
+        public TNextElement DoNotHavePrivateProtectedGetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHavePrivateProtectedGetter());
 
-        public TNextElement HaveNoSetter() => CreateNextElement(PropertyMemberPredicateDefinition.HaveNoSetter());
-        public TNextElement DoNotHavePrivateSetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHavePrivateSetter());
-        public TNextElement DoNotHavePublicSetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHavePublicSetter());
-        public TNextElement DoNotHaveProtectedSetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHaveProtectedSetter());
-        public TNextElement DoNotHaveInternalSetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHaveInternalSetter());
-        public TNextElement DoNotHaveProtectedInternalSetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHaveProtectedInternalSetter());
-        public TNextElement DoNotHavePrivateProtectedSetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHavePrivateProtectedSetter());
-        public TNextElement DoNotHaveInitOnlySetter() => CreateNextElement(PropertyMemberPredicateDefinition.DoNotHaveInitSetter());
+        public TNextElement HaveNoSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.HaveNoSetter());
+        public TNextElement DoNotHavePrivateSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHavePrivateSetter());
+        public TNextElement DoNotHavePublicSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHavePublicSetter());
+        public TNextElement DoNotHaveProtectedSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHaveProtectedSetter());
+        public TNextElement DoNotHaveInternalSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHaveInternalSetter());
+        public TNextElement DoNotHaveProtectedInternalSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHaveProtectedInternalSetter());
+        public TNextElement DoNotHavePrivateProtectedSetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHavePrivateProtectedSetter());
+        public TNextElement DoNotHaveInitOnlySetter() => CreateNextElement(PropertyMemberPredicatesDefinition.DoNotHaveInitSetter());
 
-        public TNextElement AreNotVirtual() => CreateNextElement(PropertyMemberPredicateDefinition.AreNotVirtual());
+        public TNextElement AreNotVirtual() => CreateNextElement(PropertyMemberPredicatesDefinition.AreNotVirtual());
 
         // csharpier-ignore-end
     }
