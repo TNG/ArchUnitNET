@@ -11,195 +11,150 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
     public sealed override Architecture Architecture => StaticTestArchitectures.TypeArchitecture;
 
     // Enums
-    public IType SimpleEnum;
-    public Type SimpleEnumSystemType = typeof(SimpleEnum);
+    public readonly IType SimpleEnum;
 
-    public IType OtherEnum;
-    public Type OtherEnumSystemType = typeof(OtherEnum);
+    public readonly IType OtherEnum;
 
     // Structs
-    public IType SimpleStruct;
-    public Type SimpleStructSystemType = typeof(SimpleStruct);
+    public readonly IType SimpleStruct;
 
-    public IType OtherStruct;
-    public Type OtherStructSystemType = typeof(OtherStruct);
+    public readonly IType OtherStruct;
 
     // Regular classes
-    public Class RegularClass;
-    public Type RegularClassSystemType = typeof(RegularClass);
+    public readonly Class RegularClass;
+    public readonly Type RegularClassSystemType = typeof(RegularClass);
 
-    public Class OtherRegularClass;
-    public Type OtherRegularClassSystemType = typeof(OtherRegularClass);
+    public readonly Class OtherRegularClass;
+    public readonly Type OtherRegularClassSystemType = typeof(OtherRegularClass);
 
     // Member classes
-    public Class ClassWithProperty;
-    public Type ClassWithPropertySystemType = typeof(ClassWithProperty);
+    public readonly Class ClassWithProperty;
+    public readonly Type ClassWithPropertySystemType = typeof(ClassWithProperty);
 
-    public Class ClassWithField;
-    public Type ClassWithFieldSystemType = typeof(ClassWithField);
+    public readonly Class ClassWithField;
 
-    public Class ClassWithMethod;
-    public Type ClassWithMethodSystemType = typeof(ClassWithMethod);
+    public readonly Class ClassWithMethod;
 
-    public Class ClassWithAllMembers;
-    public Type ClassWithAllMembersSystemType = typeof(ClassWithAllMembers);
+    public readonly Class ClassWithAllMembers;
 
-    public Class ClassWithoutMembers;
-    public Type ClassWithoutMembersSystemType = typeof(ClassWithoutMembers);
+    public readonly Class ClassWithoutMembers;
 
     // Nested classes
-    public Class OuterClassA;
-    public Type OuterClassASystemType = typeof(OuterClassA);
+    public readonly Class OuterClassA;
+    public readonly Type OuterClassASystemType = typeof(OuterClassA);
 
-    public Class OuterClassB;
-    public Type OuterClassBSystemType = typeof(OuterClassB);
+    public readonly Class OuterClassB;
+    public readonly Type OuterClassBSystemType = typeof(OuterClassB);
 
-    public Class InnerClassA;
-    public Type InnerClassASystemType = typeof(OuterClassA.InnerClassA);
+    public readonly Class InnerClassA;
 
-    public Class OtherInnerClassA;
-    public Type OtherInnerClassASystemType = typeof(OuterClassA.OtherInnerClassA);
+    public readonly Class OtherInnerClassA;
 
-    public Class InnerClassB;
-    public Type InnerClassBSystemType = typeof(OuterClassB.InnerClassB);
+    public readonly Class InnerClassB;
 
-    public Class NonNestedClass;
-    public Type NonNestedClassSystemType = typeof(NonNestedClass);
+    public readonly Class NonNestedClass;
+    public readonly Type NonNestedClassSystemType = typeof(NonNestedClass);
 
     // Interfaces
-    public Interface TestInterface;
-    public Type TestInterfaceSystemType = typeof(ITestInterface);
+    public readonly Interface TestInterface;
+    public readonly Type TestInterfaceSystemType = typeof(ITestInterface);
 
-    public Interface OtherTestInterface;
-    public Type OtherTestInterfaceSystemType = typeof(IOtherTestInterface);
+    public readonly Interface OtherTestInterface;
+    public readonly Type OtherTestInterfaceSystemType = typeof(IOtherTestInterface);
 
-    public Interface ChildTestInterface;
-    public Type ChildTestInterfaceSystemType = typeof(IChildTestInterface);
+    public readonly Interface ChildTestInterface;
 
-    public Interface OtherChildTestInterface;
-    public Type OtherChildTestInterfaceSystemType = typeof(IOtherChildTestInterface);
-
-    public Interface MultiParentTestInterface;
-    public Type MultiParentTestInterfaceSystemType = typeof(IMultiParentTestInterface);
-
-    public Interface StandaloneTestInterface;
-    public Type StandaloneTestInterfaceSystemType = typeof(IStandaloneTestInterface);
+    public readonly Interface OtherChildTestInterface;
+    public readonly Type OtherChildTestInterfaceSystemType = typeof(IOtherChildTestInterface);
 
     // Interface implementation
-    public Class ClassImplementingInterface;
-    public Type ClassImplementingInterfaceSystemType = typeof(ClassImplementingInterface);
+    public readonly Class ClassImplementingInterface;
 
-    public Class ClassNotImplementingInterface;
-    public Type ClassNotImplementingInterfaceSystemType = typeof(ClassNotImplementingInterface);
+    public readonly Class ClassNotImplementingInterface;
 
     // Assignability
-    public Class BaseClassForAssign;
-    public Type BaseClassForAssignSystemType = typeof(BaseClassForAssign);
+    public readonly Class BaseClassForAssign;
+    public readonly Type BaseClassForAssignSystemType = typeof(BaseClassForAssign);
 
-    public Class OtherBaseClassForAssign;
-    public Type OtherBaseClassForAssignSystemType = typeof(OtherBaseClassForAssign);
+    public readonly Class OtherBaseClassForAssign;
+    public readonly Type OtherBaseClassForAssignSystemType = typeof(OtherBaseClassForAssign);
 
-    public Class DerivedClassForAssign;
-    public Type DerivedClassForAssignSystemType = typeof(DerivedClassForAssign);
+    public readonly Class DerivedClassForAssign;
 
-    public Class OtherDerivedClassForAssign;
-    public Type OtherDerivedClassForAssignSystemType = typeof(OtherDerivedClassForAssign);
+    public readonly Class OtherDerivedClassForAssign;
 
-    public Class UnrelatedClassForAssign;
-    public Type UnrelatedClassForAssignSystemType = typeof(UnrelatedClassForAssign);
+    public readonly Class UnrelatedClassForAssign;
 
-    public Class OtherUnrelatedClassForAssign;
-    public Type OtherUnrelatedClassForAssignSystemType = typeof(OtherUnrelatedClassForAssign);
+    public readonly Class OtherUnrelatedClassForAssign;
 
     // Member test classes
-    public Class ClassWithStaticField;
-    public Type ClassWithStaticFieldSystemType = typeof(ClassWithStaticField);
+    public readonly Class ClassWithStaticField;
+    public readonly Type ClassWithStaticFieldSystemType = typeof(ClassWithStaticField);
 
-    public Class ClassWithNonStaticField;
-    public Type ClassWithNonStaticFieldSystemType = typeof(ClassWithNonStaticField);
+    public readonly Class ClassWithNonStaticField;
+    public readonly Type ClassWithNonStaticFieldSystemType = typeof(ClassWithNonStaticField);
 
-    public Class ClassWithReadOnlyField;
-    public Type ClassWithReadOnlyFieldSystemType = typeof(ClassWithReadOnlyField);
+    public readonly Class ClassWithReadOnlyField;
+    public readonly Type ClassWithReadOnlyFieldSystemType = typeof(ClassWithReadOnlyField);
 
-    public Class ClassWithWritableProperty;
-    public Type ClassWithWritablePropertySystemType = typeof(ClassWithWritableProperty);
+    private readonly Class ClassWithWritableProperty;
 
-    public Class OtherClassWithWritableProperty;
-    public Type OtherClassWithWritablePropertySystemType = typeof(OtherClassWithWritableProperty);
+    private readonly Class OtherClassWithWritableProperty;
 
-    public Class ClassWithInitOnlyProperty;
-    public Type ClassWithInitOnlyPropertySystemType = typeof(ClassWithInitOnlyProperty);
+    private readonly Class ClassWithInitOnlyProperty;
 
-    public Class ClassWithGetOnlyProperty;
-    public Type ClassWithGetOnlyPropertySystemType = typeof(ClassWithGetOnlyProperty);
+    private readonly Class ClassWithGetOnlyProperty;
 
-    public Class OtherClassWithStaticField;
-    public Type OtherClassWithStaticFieldSystemType = typeof(OtherClassWithStaticField);
+    public readonly Class OtherClassWithStaticField;
 
-    public Class ClassWithStaticProperty;
-    public Type ClassWithStaticPropertySystemType = typeof(ClassWithStaticProperty);
+    private readonly Class ClassWithStaticProperty;
 
-    public Class ClassWithStaticMethod;
-    public Type ClassWithStaticMethodSystemType = typeof(ClassWithStaticMethod);
+    private readonly Class ClassWithStaticMethod;
 
     // Method member test classes
-    public Class ClassWithVirtualMethod;
-    public Type ClassWithVirtualMethodSystemType = typeof(ClassWithVirtualMethod);
+    private readonly Class ClassWithVirtualMethod;
 
-    public Class OtherClassWithVirtualMethod;
-    public Type OtherClassWithVirtualMethodSystemType = typeof(OtherClassWithVirtualMethod);
+    private readonly Class OtherClassWithVirtualMethod;
 
-    public Class ClassWithNonVirtualMethod;
-    public Type ClassWithNonVirtualMethodSystemType = typeof(ClassWithNonVirtualMethod);
+    private readonly Class ClassWithNonVirtualMethod;
 
-    public Class ClassWithStringReturnType;
-    public Type ClassWithStringReturnTypeSystemType = typeof(ClassWithStringReturnType);
+    private readonly Class ClassWithStringReturnType;
 
-    public Class ClassWithIntReturnType;
-    public Type ClassWithIntReturnTypeSystemType = typeof(ClassWithIntReturnType);
+    private readonly Class ClassWithIntReturnType;
 
-    public Class ClassWithRegularClassReturnType;
-    public Type ClassWithRegularClassReturnTypeSystemType = typeof(ClassWithRegularClassReturnType);
+    private readonly Class ClassWithRegularClassReturnType;
 
-    public Class ClassWithOtherRegularClassReturnType;
-    public Type ClassWithOtherRegularClassReturnTypeSystemType =
-        typeof(ClassWithOtherRegularClassReturnType);
+    private readonly Class ClassWithOtherRegularClassReturnType;
 
     // Generic return type test classes
-    public Class GenericClassOneArg;
-    public Type GenericClassOneArgSystemType = typeof(GenericClass<>);
 
-    public Class GenericClassTwoArg;
-    public Type GenericClassTwoArgSystemType = typeof(GenericClass<,>);
-
-    public Class ClassWithGenericReturnType;
-    public Type ClassWithGenericReturnTypeSystemType = typeof(ClassWithGenericReturnType);
+    private readonly Class ClassWithGenericReturnType;
 
     // Individual members
-    public IMember StaticField;
-    public IMember NonStaticField;
-    public IMember ReadOnlyField;
-    public IMember WritableProperty;
-    public IMember OtherWritableProperty;
-    public IMember InitOnlyProperty;
-    public IMember GetOnlyProperty;
-    public IMember OtherStaticField;
-    public IMember StaticProperty;
-    public IMember StaticMethod;
+    public readonly IMember StaticField;
+    public readonly IMember NonStaticField;
+    public readonly IMember ReadOnlyField;
+    public readonly IMember WritableProperty;
+    public readonly IMember OtherWritableProperty;
+    public readonly IMember InitOnlyProperty;
+    public readonly IMember GetOnlyProperty;
+    public readonly IMember OtherStaticField;
+    private readonly IMember StaticProperty;
+    private readonly IMember StaticMethod;
 
     // Method members (MethodMember type)
-    public MethodMember VirtualMethod;
-    public MethodMember OtherVirtualMethod;
-    public MethodMember NonVirtualMethod;
-    public MethodMember MethodReturningString;
-    public MethodMember MethodReturningInt;
-    public MethodMember ClassWithVirtualMethodConstructor;
-    public MethodMember ClassWithNonVirtualMethodConstructor;
-    public MethodMember MethodReturningRegularClass;
-    public MethodMember MethodReturningOtherRegularClass;
-    public MethodMember MethodReturningGenericClass;
-    public MethodMember MethodReturningGenericClassWithOtherArg;
-    public MethodMember MethodReturningTwoArgGenericClass;
+    public readonly MethodMember VirtualMethod;
+    public readonly MethodMember OtherVirtualMethod;
+    public readonly MethodMember NonVirtualMethod;
+    public readonly MethodMember MethodReturningString;
+    private readonly MethodMember MethodReturningInt;
+    public readonly MethodMember ClassWithVirtualMethodConstructor;
+    public readonly MethodMember ClassWithNonVirtualMethodConstructor;
+    public readonly MethodMember MethodReturningRegularClass;
+    public readonly MethodMember MethodReturningOtherRegularClass;
+    public readonly MethodMember MethodReturningGenericClass;
+    private readonly MethodMember MethodReturningGenericClassWithOtherArg;
+    public readonly MethodMember MethodReturningTwoArgGenericClass;
 
     public TypeAssemblyTestHelper()
     {
@@ -228,10 +183,6 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
         OtherTestInterface = Architecture.GetInterfaceOfType(typeof(IOtherTestInterface));
         ChildTestInterface = Architecture.GetInterfaceOfType(typeof(IChildTestInterface));
         OtherChildTestInterface = Architecture.GetInterfaceOfType(typeof(IOtherChildTestInterface));
-        MultiParentTestInterface = Architecture.GetInterfaceOfType(
-            typeof(IMultiParentTestInterface)
-        );
-        StandaloneTestInterface = Architecture.GetInterfaceOfType(typeof(IStandaloneTestInterface));
 
         ClassImplementingInterface = Architecture.GetClassOfType(
             typeof(ClassImplementingInterface)
@@ -305,8 +256,6 @@ public class TypeAssemblyTestHelper : AssemblyTestHelper
         );
 
         // Generic return type test classes
-        GenericClassOneArg = Architecture.GetClassOfType(typeof(GenericClass<>));
-        GenericClassTwoArg = Architecture.GetClassOfType(typeof(GenericClass<,>));
         ClassWithGenericReturnType = Architecture.GetClassOfType(
             typeof(ClassWithGenericReturnType)
         );

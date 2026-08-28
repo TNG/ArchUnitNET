@@ -11,36 +11,28 @@ public class AttributeAssemblyTestHelper : AssemblyTestHelper
     public sealed override Architecture Architecture =>
         StaticTestArchitectures.AttributeArchitecture;
 
-    public Attribute Attribute1;
-    public System.Type Attribute1SystemType = typeof(Attribute1);
+    public readonly Attribute Attribute1;
+    public readonly System.Type Attribute1SystemType = typeof(Attribute1);
 
-    public Attribute Attribute2;
-    public System.Type Attribute2SystemType = typeof(Attribute2);
+    public readonly Attribute Attribute2;
+    public readonly System.Type Attribute2SystemType = typeof(Attribute2);
 
-    public Attribute Attribute3;
-    public System.Type Attribute3SystemType = typeof(Attribute3);
+    private readonly Attribute Attribute3;
 
-    public Attribute OnceUsedAttribute;
-    public System.Type OnceUsedAttributeSystemType = typeof(OnceUsedAttribute);
+    private readonly Attribute OnceUsedAttribute;
 
-    public Attribute UnusedAttribute;
-    public System.Type UnusedAttributeSystemType = typeof(UnusedAttribute);
+    public readonly Attribute UnusedAttribute;
+    public readonly System.Type UnusedAttributeSystemType = typeof(UnusedAttribute);
 
-    public Class ClassWithoutAttributes;
-    public System.Type ClassWithoutAttributesSystemType = typeof(ClassWithoutAttributes);
+    public readonly Class ClassWithoutAttributes;
 
-    public Class ClassWithSingleAttribute;
-    public System.Type ClassWithSingleAttributeSystemType = typeof(ClassWithSingleAttribute);
+    public readonly Class ClassWithSingleAttribute;
 
-    public Class ClassWithSingleUniquelyUsedAttribute;
-    public System.Type ClassWithSingleUniquelyUsedAttributeSystemType =
-        typeof(ClassWithSingleUniquelyUsedAttribute);
+    private readonly Class ClassWithSingleUniquelyUsedAttribute;
 
-    public Class ClassWithTwoAttributes;
-    public System.Type ClassWithTwoAttributesSystemType = typeof(ClassWithTwoAttributes);
+    public readonly Class ClassWithTwoAttributes;
 
-    public Class ClassWithThreeAttributes;
-    public System.Type ClassWithThreeAttributesSystemType = typeof(ClassWithThreeAttributes);
+    public readonly Class ClassWithThreeAttributes;
 
     public readonly string UnusedAttributeStringValue = "NotTheValueOfAnyAttribute";
     public readonly int UnusedAttributeIntValue = 42;
@@ -54,55 +46,31 @@ public class AttributeAssemblyTestHelper : AssemblyTestHelper
 
     public readonly object Attribute2StringArgument = "Argument2";
     public readonly object Attribute2IntegerArgument = 2;
-    public readonly object Attribute2TypeArgument;
     public readonly object Attribute2TypeArgumentSystemType = typeof(TypeArgument2);
 
-    public readonly object Attribute3StringArgument = "Argument3";
-    public readonly object Attribute3IntegerArgument = 3;
-    public readonly object Attribute3TypeArgument;
-    public readonly object Attribute3TypeArgumentSystemType = typeof(TypeArgument3);
+    public readonly Class ClassWithSingleAttributeWithArguments;
 
-    public Class ClassWithSingleAttributeWithArguments;
-    public System.Type ClassWithSingleAttributeWithArgumentsSystemType =
-        typeof(ClassWithSingleAttributeWithArguments);
+    public readonly Class ClassWithTwoAttributesWithArguments;
 
-    public Class ClassWithTwoAttributesWithArguments;
-    public System.Type ClassWithTwoAttributesWithArgumentsSystemType =
-        typeof(ClassWithTwoAttributesWithArguments);
+    private readonly Class ClassWithThreeAttributesWithArguments;
 
-    public Class ClassWithThreeAttributesWithArguments;
-    public System.Type ClassWithThreeAttributesWithArgumentsSystemType =
-        typeof(ClassWithThreeAttributesWithArguments);
+    public readonly Class ClassWithSingleAttributeWithNamedArguments;
 
-    public Class ClassWithSingleAttributeWithNamedArguments;
-    public System.Type ClassWithSingleAttributeWithNamedArgumentsSystemType =
-        typeof(ClassWithSingleAttributeWithNamedArguments);
+    public readonly Class ClassWithTwoAttributesWithNamedArguments;
 
-    public Class ClassWithTwoAttributesWithNamedArguments;
-    public System.Type ClassWithTwoAttributesWithNamedArgumentsSystemType =
-        typeof(ClassWithTwoAttributesWithNamedArguments);
+    private readonly Class ClassWithThreeAttributesWithNamedArguments;
 
-    public Class ClassWithThreeAttributesWithNamedArguments;
-    public System.Type ClassWithThreeAttributesWithNamedArgumentsSystemType =
-        typeof(ClassWithThreeAttributesWithNamedArguments);
+    public readonly Attribute RegularAttribute;
 
-    public Attribute RegularAttribute;
-    public System.Type RegularAttributeSystemType = typeof(RegularAttribute);
+    public readonly Attribute OtherRegularAttribute;
 
-    public Attribute OtherRegularAttribute;
-    public System.Type OtherRegularAttributeSystemType = typeof(OtherRegularAttribute);
+    public readonly Attribute AbstractAttribute;
 
-    public Attribute AbstractAttribute;
-    public System.Type AbstractAttributeSystemType = typeof(AbstractAttribute);
+    public readonly Attribute OtherAbstractAttribute;
 
-    public Attribute OtherAbstractAttribute;
-    public System.Type OtherAbstractAttributeSystemType = typeof(OtherAbstractAttribute);
+    public readonly Attribute SealedAttribute;
 
-    public Attribute SealedAttribute;
-    public System.Type SealedAttributeSystemType = typeof(SealedAttribute);
-
-    public Attribute OtherSealedAttribute;
-    public System.Type OtherSealedAttributeSystemType = typeof(OtherSealedAttribute);
+    public readonly Attribute OtherSealedAttribute;
 
     public AttributeAssemblyTestHelper()
     {
@@ -120,8 +88,6 @@ public class AttributeAssemblyTestHelper : AssemblyTestHelper
         ClassWithThreeAttributes = Architecture.GetClassOfType(typeof(ClassWithThreeAttributes));
         UnusedTypeArgument = Architecture.GetClassOfType(typeof(UnusedTypeArgument));
         Attribute1TypeArgument = Architecture.GetClassOfType(typeof(TypeArgument1));
-        Attribute2TypeArgument = Architecture.GetClassOfType(typeof(TypeArgument2));
-        Attribute3TypeArgument = Architecture.GetClassOfType(typeof(TypeArgument3));
         ClassWithSingleAttributeWithArguments = Architecture.GetClassOfType(
             typeof(ClassWithSingleAttributeWithArguments)
         );

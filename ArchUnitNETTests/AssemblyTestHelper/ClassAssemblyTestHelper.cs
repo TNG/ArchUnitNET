@@ -9,51 +9,37 @@ public class ClassAssemblyTestHelper : AssemblyTestHelper
 {
     public sealed override Architecture Architecture => StaticTestArchitectures.ClassArchitecture;
 
-    public Class RegularClass;
-    public Type RegularClassSystemType = typeof(RegularClass);
+    public readonly Class RegularClass;
+    public readonly Type RegularClassSystemType = typeof(RegularClass);
 
-    public Class OtherRegularClass;
-    public Type OtherRegularClassSystemType = typeof(OtherRegularClass);
+    public readonly Class OtherRegularClass;
+    public readonly Type OtherRegularClassSystemType = typeof(OtherRegularClass);
 
-    public Class AbstractClass;
-    public Type AbstractClassSystemType = typeof(AbstractClass);
+    public readonly Class AbstractClass;
 
-    public Class OtherAbstractClass;
-    public Type OtherAbstractClassSystemType = typeof(OtherAbstractClass);
+    public readonly Class OtherAbstractClass;
 
-    public Class SealedClass;
-    public Type SealedClassSystemType = typeof(SealedClass);
+    public readonly Class SealedClass;
 
-    public Class OtherSealedClass;
-    public Type OtherSealedClassSystemType = typeof(OtherSealedClass);
+    public readonly Class OtherSealedClass;
 
-    public Class RecordClass;
-    public Type RecordClassSystemType = typeof(RecordClass);
+    public readonly Class RecordClass;
 
-    public Class OtherRecordClass;
-    public Type OtherRecordClassSystemType = typeof(OtherRecordClass);
+    public readonly Class OtherRecordClass;
 
-    public Class ImmutableClass;
-    public Type ImmutableClassSystemType = typeof(ImmutableClass);
+    public readonly Class ImmutableClass;
 
-    public Class OtherImmutableClass;
-    public Type OtherImmutableClassSystemType = typeof(OtherImmutableClass);
+    public readonly Class OtherImmutableClass;
 
-    public Class MutableClass;
-    public Type MutableClassSystemType = typeof(MutableClass);
+    public readonly Class MutableClass;
 
-    public Class OtherMutableClass;
-    public Type OtherMutableClassSystemType = typeof(OtherMutableClass);
+    public readonly Class OtherMutableClass;
 
-    public Class ClassWithoutMembers;
-    public Type ClassWithoutMembersSystemType = typeof(ClassWithoutMembers);
+    public readonly Class ClassWithoutMembers;
 
-    public Class ClassWithOnlyStaticMembers;
-    public Type ClassWithOnlyStaticMembersSystemType = typeof(ClassWithOnlyStaticMembers);
+    public readonly Class ClassWithOnlyStaticMembers;
 
-    public Class ClassWithImmutableInstanceAndMutableStaticMember;
-    public Type ClassWithImmutableInstanceAndMutableStaticMemberSystemType =
-        typeof(ClassWithImmutableInstanceAndMutableStaticMember);
+    public readonly Class ClassWithImmutableInstanceAndMutableStaticMember;
 
     public ClassAssemblyTestHelper()
     {

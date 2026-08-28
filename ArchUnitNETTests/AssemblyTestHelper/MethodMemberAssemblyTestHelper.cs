@@ -11,46 +11,46 @@ public class MethodMemberAssemblyTestHelper : AssemblyTestHelper
     public sealed override Architecture Architecture =>
         StaticTestArchitectures.MethodMemberArchitecture;
 
-    public Class RegularClass;
-    public Type RegularClassSystemType = typeof(RegularClass);
+    public readonly Class RegularClass;
+    public readonly Type RegularClassSystemType = typeof(RegularClass);
 
-    public Class OtherRegularClass;
-    public Type OtherRegularClassSystemType = typeof(OtherRegularClass);
+    public readonly Class OtherRegularClass;
+    public readonly Type OtherRegularClassSystemType = typeof(OtherRegularClass);
 
-    public Class ClassWithVirtualMethod;
-    public Class OtherClassWithVirtualMethod;
-    public Class ClassWithNonVirtualMethod;
-    public Class ClassWithStringReturnType;
-    public Class ClassWithRegularClassReturnType;
-    public Class ClassWithOtherRegularClassReturnType;
-    public Class ClassWithGenericReturnType;
+    private readonly Class ClassWithVirtualMethod;
+    private readonly Class OtherClassWithVirtualMethod;
+    private readonly Class ClassWithNonVirtualMethod;
+    private readonly Class ClassWithStringReturnType;
+    private readonly Class ClassWithRegularClassReturnType;
+    private readonly Class ClassWithOtherRegularClassReturnType;
+    private readonly Class ClassWithGenericReturnType;
 
-    public MethodMember VirtualMethod;
-    public MethodMember OtherVirtualMethod;
-    public MethodMember NonVirtualMethod;
-    public MethodMember ClassWithVirtualMethodConstructor;
-    public MethodMember ClassWithNonVirtualMethodConstructor;
-    public MethodMember MethodReturningString;
-    public MethodMember MethodReturningRegularClass;
-    public MethodMember MethodReturningOtherRegularClass;
-    public MethodMember MethodReturningGenericClass;
-    public MethodMember MethodReturningTwoArgGenericClass;
+    public readonly MethodMember VirtualMethod;
+    public readonly MethodMember OtherVirtualMethod;
+    public readonly MethodMember NonVirtualMethod;
+    public readonly MethodMember ClassWithVirtualMethodConstructor;
+    public readonly MethodMember ClassWithNonVirtualMethodConstructor;
+    public readonly MethodMember MethodReturningString;
+    public readonly MethodMember MethodReturningRegularClass;
+    public readonly MethodMember MethodReturningOtherRegularClass;
+    public readonly MethodMember MethodReturningGenericClass;
+    public readonly MethodMember MethodReturningTwoArgGenericClass;
 
-    public Class ClassWithAmbiguousReturnType;
-    public MethodMember MethodWithAmbiguousReturnType;
-    public IType AmbiguousReturnType;
+    private readonly Class ClassWithAmbiguousReturnType;
+    public readonly MethodMember MethodWithAmbiguousReturnType;
+    public readonly IType AmbiguousReturnType;
 
-    public Class MethodDependencyClass;
-    public Type MethodDependencyClassSystemType = typeof(MethodDependencyClass);
+    public readonly Class MethodDependencyClass;
+    public readonly Type MethodDependencyClassSystemType = typeof(MethodDependencyClass);
 
-    public Class OtherCallingClass;
-    public Type OtherCallingClassSystemType = typeof(OtherCallingClass);
+    public readonly Class OtherCallingClass;
+    public readonly Type OtherCallingClassSystemType = typeof(OtherCallingClass);
 
-    public MethodMember CalledMethod;
-    public MethodMember OtherCalledMethod;
-    public MethodMember MethodWithoutDependencies;
-    public MethodMember MethodCallingCalledMethod;
-    public MethodMember AnotherMethodCallingCalledMethod;
+    public readonly MethodMember CalledMethod;
+    public readonly MethodMember OtherCalledMethod;
+    public readonly MethodMember MethodWithoutDependencies;
+    public readonly MethodMember MethodCallingCalledMethod;
+    public readonly MethodMember AnotherMethodCallingCalledMethod;
 
     public MethodMemberAssemblyTestHelper()
     {
