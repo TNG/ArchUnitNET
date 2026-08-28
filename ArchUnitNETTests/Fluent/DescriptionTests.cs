@@ -95,13 +95,24 @@ namespace ArchUnitNETTests.Fluent
         {
             Assert.Equal(
                 CustomDescription,
-                Types().That().FollowCustomPredicate(t => true, "exist").As(CustomDescription).Description
+                Types()
+                    .That()
+                    .FollowCustomPredicate(t => true, "exist")
+                    .As(CustomDescription)
+                    .Description
             );
-            Assert.Equal("Types " + CustomDescription, Types().Should().Exist().As(CustomDescription).Description);
+            Assert.Equal(
+                "Types " + CustomDescription,
+                Types().Should().Exist().As(CustomDescription).Description
+            );
 
             Assert.Equal(
                 CustomDescription,
-                Interfaces().That().FollowCustomPredicate(i => true, "exist").As(CustomDescription).Description
+                Interfaces()
+                    .That()
+                    .FollowCustomPredicate(i => true, "exist")
+                    .As(CustomDescription)
+                    .Description
             );
             Assert.Equal(
                 "Interfaces " + CustomDescription,
@@ -113,12 +124,20 @@ namespace ArchUnitNETTests.Fluent
             // predicate-side one is otherwise unreachable.
             Assert.Equal(
                 CustomDescription,
-                Attributes().That().FollowCustomPredicate(a => true, "exist").As(CustomDescription).Description
+                Attributes()
+                    .That()
+                    .FollowCustomPredicate(a => true, "exist")
+                    .As(CustomDescription)
+                    .Description
             );
 
             Assert.Equal(
                 CustomDescription,
-                Members().That().FollowCustomPredicate(m => true, "exist").As(CustomDescription).Description
+                Members()
+                    .That()
+                    .FollowCustomPredicate(m => true, "exist")
+                    .As(CustomDescription)
+                    .Description
             );
             Assert.Equal(
                 "Members " + CustomDescription,
@@ -127,7 +146,11 @@ namespace ArchUnitNETTests.Fluent
 
             Assert.Equal(
                 CustomDescription,
-                MethodMembers().That().FollowCustomPredicate(m => true, "exist").As(CustomDescription).Description
+                MethodMembers()
+                    .That()
+                    .FollowCustomPredicate(m => true, "exist")
+                    .As(CustomDescription)
+                    .Description
             );
             Assert.Equal(
                 "Method members " + CustomDescription,
@@ -136,7 +159,11 @@ namespace ArchUnitNETTests.Fluent
 
             Assert.Equal(
                 CustomDescription,
-                PropertyMembers().That().FollowCustomPredicate(p => true, "exist").As(CustomDescription).Description
+                PropertyMembers()
+                    .That()
+                    .FollowCustomPredicate(p => true, "exist")
+                    .As(CustomDescription)
+                    .Description
             );
             Assert.Equal(
                 "Property members " + CustomDescription,
@@ -145,7 +172,11 @@ namespace ArchUnitNETTests.Fluent
 
             Assert.Equal(
                 CustomDescription,
-                FieldMembers().That().FollowCustomPredicate(f => true, "exist").As(CustomDescription).Description
+                FieldMembers()
+                    .That()
+                    .FollowCustomPredicate(f => true, "exist")
+                    .As(CustomDescription)
+                    .Description
             );
             Assert.Equal(
                 "Field members " + CustomDescription,
@@ -158,7 +189,11 @@ namespace ArchUnitNETTests.Fluent
         {
             Assert.Equal(
                 "Types that exist because reason",
-                Types().That().FollowCustomPredicate(t => true, "exist").Because("reason").Description
+                Types()
+                    .That()
+                    .FollowCustomPredicate(t => true, "exist")
+                    .Because("reason")
+                    .Description
             );
             Assert.Equal(
                 "Types should exist because reason",
@@ -167,7 +202,11 @@ namespace ArchUnitNETTests.Fluent
 
             Assert.Equal(
                 "Interfaces that exist because reason",
-                Interfaces().That().FollowCustomPredicate(i => true, "exist").Because("reason").Description
+                Interfaces()
+                    .That()
+                    .FollowCustomPredicate(i => true, "exist")
+                    .Because("reason")
+                    .Description
             );
             Assert.Equal(
                 "Interfaces should exist because reason",
@@ -176,12 +215,20 @@ namespace ArchUnitNETTests.Fluent
 
             Assert.Equal(
                 "Attributes that exist because reason",
-                Attributes().That().FollowCustomPredicate(a => true, "exist").Because("reason").Description
+                Attributes()
+                    .That()
+                    .FollowCustomPredicate(a => true, "exist")
+                    .Because("reason")
+                    .Description
             );
 
             Assert.Equal(
                 "Members that exist because reason",
-                Members().That().FollowCustomPredicate(m => true, "exist").Because("reason").Description
+                Members()
+                    .That()
+                    .FollowCustomPredicate(m => true, "exist")
+                    .Because("reason")
+                    .Description
             );
             Assert.Equal(
                 "Members should exist because reason",
@@ -190,7 +237,11 @@ namespace ArchUnitNETTests.Fluent
 
             Assert.Equal(
                 "Method members that exist because reason",
-                MethodMembers().That().FollowCustomPredicate(m => true, "exist").Because("reason").Description
+                MethodMembers()
+                    .That()
+                    .FollowCustomPredicate(m => true, "exist")
+                    .Because("reason")
+                    .Description
             );
             Assert.Equal(
                 "Method members should exist because reason",
@@ -199,7 +250,11 @@ namespace ArchUnitNETTests.Fluent
 
             Assert.Equal(
                 "Property members that exist because reason",
-                PropertyMembers().That().FollowCustomPredicate(p => true, "exist").Because("reason").Description
+                PropertyMembers()
+                    .That()
+                    .FollowCustomPredicate(p => true, "exist")
+                    .Because("reason")
+                    .Description
             );
             Assert.Equal(
                 "Property members should exist because reason",
@@ -208,7 +263,11 @@ namespace ArchUnitNETTests.Fluent
 
             Assert.Equal(
                 "Field members that exist because reason",
-                FieldMembers().That().FollowCustomPredicate(f => true, "exist").Because("reason").Description
+                FieldMembers()
+                    .That()
+                    .FollowCustomPredicate(f => true, "exist")
+                    .Because("reason")
+                    .Description
             );
             Assert.Equal(
                 "Field members should exist because reason",
