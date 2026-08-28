@@ -28,7 +28,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> AreStatic()
         {
             return new SimplePredicate<T>(
-                member => member.IsStatic.HasValue && member.IsStatic.Value,
+                member => !member.IsStatic.HasValue || member.IsStatic.Value,
                 "are static"
             );
         }
@@ -70,7 +70,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Members
         public static IPredicate<T> AreNotStatic()
         {
             return new SimplePredicate<T>(
-                member => member.IsStatic.HasValue && !member.IsStatic.Value,
+                member => !member.IsStatic.HasValue || !member.IsStatic.Value,
                 "are not static"
             );
         }
