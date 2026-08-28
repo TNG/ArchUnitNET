@@ -1,4 +1,4 @@
-﻿===== No violations =====
+﻿===== No Violations =====
 
 Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" should have attributes that are "AttributeNamespace.Attribute1"
 Result: True

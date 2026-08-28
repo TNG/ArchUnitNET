@@ -316,7 +316,7 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithNamedArguments passe
 Message: 
 All Evaluations passed
 
-===== Type outside of architecture =====
+===== Type not in architecture =====
 
 ----- Conditions -----
 

@@ -179,7 +179,7 @@ Message:
 
 
 
-===== Empty Arguments (Only Violations) =====
+===== Empty arguments (Only Violations) =====
 
 ----- Conditions -----
 

@@ -1,4 +1,4 @@
-﻿===== No violations =====
+﻿===== No Violations =====
 
 ----- Conditions -----
 
@@ -160,7 +160,7 @@ Message:
 
 
 
-===== Attribute outside of architecture =====
+===== Type not in architecture =====
 
 ----- Conditions -----
 

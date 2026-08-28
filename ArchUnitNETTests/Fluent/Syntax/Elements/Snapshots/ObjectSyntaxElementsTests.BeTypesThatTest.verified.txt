@@ -1,4 +1,4 @@
-﻿===== No violations =====
+﻿===== No Violations =====
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should be types that are "TypeDependencyNamespace.ChildClass"
 Result: True

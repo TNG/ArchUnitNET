@@ -172,7 +172,7 @@ Description: AttributeNamespace.ClassWithSingleAttributeWithArguments passed
 Message: 
 All Evaluations passed
 
-===== Type outside of architecture =====
+===== Type not in architecture =====
 
 ----- Conditions -----
 

@@ -1,4 +1,4 @@
-﻿===== No violations =====
+﻿===== No Violations =====
 
 Query: Types that depend on "TypeDependencyNamespace.ChildClass" should not exist
 Message: 

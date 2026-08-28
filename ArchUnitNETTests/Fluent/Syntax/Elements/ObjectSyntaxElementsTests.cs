@@ -65,7 +65,7 @@ public class ObjectSyntaxElementsTests
     public async Task BeTest()
     {
         var helper = new TypeDependencyAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ChildClass).Should();
         should.Be(helper.ChildClass).AssertNoViolations(helper);
         should.Be(helper.ChildClassSystemType).AssertNoViolations(helper);
@@ -105,7 +105,7 @@ public class ObjectSyntaxElementsTests
     public async Task BeTypesThatTest()
     {
         var helper = new TypeDependencyAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ChildClass).Should();
         should.BeTypesThat().Are(helper.ChildClass).AssertNoViolations(helper);
 
@@ -119,7 +119,7 @@ public class ObjectSyntaxElementsTests
     public async Task BeInternalTest()
     {
         var helper = new VisibilityAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         Types().That().Are(helper.InternalClass).Should().BeInternal().AssertNoViolations(helper);
         Types().That().Are(helper.InternalInnerClass).Should().BeInternal().AssertNoViolations(helper);
 
@@ -141,7 +141,7 @@ public class ObjectSyntaxElementsTests
     public async Task BePrivateTest()
     {
         var helper = new VisibilityAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         Types().That().Are(helper.PrivateInnerClass).Should().BePrivate().AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
@@ -163,7 +163,7 @@ public class ObjectSyntaxElementsTests
     public async Task BePrivateProtectedTest()
     {
         var helper = new VisibilityAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         Types().That().Are(helper.PrivateProtectedInnerClass).Should().BePrivateProtected().AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
@@ -185,7 +185,7 @@ public class ObjectSyntaxElementsTests
     public async Task BeProtectedTest()
     {
         var helper = new VisibilityAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         Types().That().Are(helper.ProtectedInnerClass).Should().BeProtected().AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
@@ -207,7 +207,7 @@ public class ObjectSyntaxElementsTests
     public async Task BeProtectedInternalTest()
     {
         var helper = new VisibilityAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         Types().That().Are(helper.ProtectedInternalInnerClass).Should().BeProtectedInternal().AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
@@ -230,7 +230,7 @@ public class ObjectSyntaxElementsTests
     public async Task BePublicTest()
     {
         var helper = new VisibilityAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         Types().That().Are(helper.PublicClass).Should().BePublic().AssertNoViolations(helper);
         Types().That().Are(helper.PublicInnerClass).Should().BePublic().AssertNoViolations(helper);
 
@@ -253,7 +253,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new MethodDependencyAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = MethodMembers().That().Are(helper.MethodWithSingleDependency).Should();
         
         helper.AddSnapshotSubHeader("Conditions");
@@ -324,7 +324,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new TypeDependencyAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ChildClass).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -358,7 +358,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DependOnAny(new List<IType> { helper.ClassWithoutDependencies })).AssertOnlyViolations(helper);
         should.Be(Types().That().DependOnAny(new List<System.Type> { helper.ClassWithoutDependenciesSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -432,7 +432,7 @@ public class ObjectSyntaxElementsTests
     public async Task DependOnAnyTypesThatTest()
     {
         var helper = new TypeDependencyAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         Types().That().Are(helper.ChildClass).Should().DependOnAnyTypesThat().Are(helper.BaseClass).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
@@ -444,7 +444,7 @@ public class ObjectSyntaxElementsTests
     public async Task ExistTest()
     {
         var helper = new TypeDependencyAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         Types().That().Are(helper.BaseClass).Should().Exist().AssertNoViolations(helper);
         Types().That().Are(helper.BaseClassSystemType).Should().Exist().AssertNoViolations(helper);
 
@@ -512,7 +512,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new TypeDependencyAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ChildClass).Should();
         should.FollowCustomCondition(new CustomCondition()).AssertNoViolations(helper);
         should.FollowCustomCondition(t => new ConditionResult(t, t.Name == "ChildClass", "does not follow custom condition"), "follow custom condition").AssertNoViolations(helper);
@@ -542,7 +542,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new TypeDependencyAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ChildClass).Should();
         helper.AddSnapshotSubHeader("Conditions");
         should.Be(Types().That().FollowCustomPredicate(new CustomPredicate())).AssertNoViolations(helper);
@@ -571,7 +571,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new AttributeAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -654,7 +654,7 @@ public class ObjectSyntaxElementsTests
     public async Task HaveAnyAttributesThatTest()
     {
         var helper = new AttributeAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
         should.HaveAnyAttributesThat().Are(helper.Attribute1).AssertNoViolations(helper);
 
@@ -906,7 +906,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1, new List<object> { helper.Attribute2StringArgument })).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithArguments(helper.Attribute1SystemType, new List<object> { helper.Attribute2StringArgument })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1050,7 +1050,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, ("NamedParameter1", helper.Attribute1TypeArgument))).AssertOnlyViolations(helper);
         should.Be(Types().That().HaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1107,7 +1107,7 @@ public class ObjectSyntaxElementsTests
     public async Task HaveNameTest()
     {
         var helper = new TypeDependencyAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.BaseClass).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1189,7 +1189,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new TypeDependencyAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().DependOnAny(helper.BaseClass).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1261,7 +1261,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new MethodDependencyAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = MethodMembers().That().Are(helper.MethodWithSingleDependency).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1329,7 +1329,7 @@ public class ObjectSyntaxElementsTests
     public async Task NotDependOnAnyTypesThatTest()
     {
         var helper = new TypeDependencyAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         Types().That().Are(helper.BaseClass).Should().NotDependOnAnyTypesThat().Are(helper.ChildClass).AssertNoViolations(helper);
 
         helper.AddSnapshotHeader("Violations");
@@ -1342,7 +1342,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new TypeDependencyAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ChildClass).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1374,7 +1374,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotDependOnAny(helper.BaseClassSystemType)).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotDependOnAny(Classes().That().Are(helper.BaseClass))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ChildClass).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1385,11 +1385,11 @@ public class ObjectSyntaxElementsTests
 
         helper.AddSnapshotHeader("Referenced type");
         should = Types().That().Are(helper.ClassWithReferencedTypeDependency).Should();
-        
+
         helper.AddSnapshotSubHeader("Conditions");
         should.NotDependOnAny(helper.ReferencedType).AssertOnlyViolations(helper);
-        
-        helper.AddSnapshotHeader("Predicates");
+
+        helper.AddSnapshotSubHeader("Predicates");
         should.Be(Types().That().DoNotDependOnAny(helper.ReferencedType)).AssertOnlyViolations(helper);
         
         helper.AddSnapshotHeader("Empty arguments");
@@ -1444,7 +1444,7 @@ public class ObjectSyntaxElementsTests
     public async Task NotExistTest()
     {
         var helper = new TypeDependencyAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().DependOnAny(helper.ChildClass).Should();
         should.NotExist().AssertNoViolations(helper);
 
@@ -1459,7 +1459,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new AttributeAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1493,7 +1493,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAnyAttributes(new List<System.Type> { helper.Attribute1SystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().DoNotHaveAnyAttributes(Attributes().That().Are(helper.Attribute1))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithTwoAttributes).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1552,7 +1552,7 @@ public class ObjectSyntaxElementsTests
     public async Task NotHaveAnyAttributesThatTest()
     {
         var helper = new AttributeAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
         should.NotHaveAnyAttributesThat().Are(helper.UnusedAttribute).AssertNoViolations(helper);
 
@@ -1804,7 +1804,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.UnusedAttribute, new List<object> { helper.Attribute1StringArgument })).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithArguments(helper.UnusedAttributeSystemType, new List<object> { helper.Attribute1StringArgument })).AssertNoViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithArguments).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1925,7 +1925,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, ("NamedParameter1", helper.Attribute1TypeArgument))).AssertNoViolations(helper);
         should.Be(Types().That().DoNotHaveAttributeWithNamedArguments(helper.UnusedAttributeSystemType, new List<(string, object)> { ("NamedParameter1", helper.Attribute1TypeArgument) })).AssertNoViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttributeWithNamedArguments).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -1983,7 +1983,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new TypeDependencyAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.BaseClass).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -2065,7 +2065,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new TypeDependencyAssemblyTestHelper();
 
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ChildClass).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -2099,7 +2099,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyDependOn(new List<IType> { helper.BaseClass })).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyDependOn(new List<System.Type> { helper.BaseClassSystemType })).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Type outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithMultipleDependencies).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -2147,7 +2147,7 @@ public class ObjectSyntaxElementsTests
     public async Task OnlyDependOnTypesThatTest()
     {
         var helper = new TypeDependencyAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ChildClass).Should();
         should.OnlyDependOnTypesThat().Are(helper.BaseClass).AssertNoViolations(helper);
 
@@ -2162,7 +2162,7 @@ public class ObjectSyntaxElementsTests
     {
         var helper = new AttributeAssemblyTestHelper();
         
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
         
         helper.AddSnapshotSubHeader("Conditions");
@@ -2196,7 +2196,7 @@ public class ObjectSyntaxElementsTests
         should.Be(Types().That().OnlyHaveAttributes(new List<System.Type> { helper.UnusedAttributeSystemType })).AssertOnlyViolations(helper);
         should.Be(Types().That().OnlyHaveAttributes(Attributes().That().Are(helper.UnusedAttribute))).AssertOnlyViolations(helper);
 
-        helper.AddSnapshotHeader("Attribute outside of architecture");
+        helper.AddSnapshotHeader("Type not in architecture");
         should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
 
         helper.AddSnapshotSubHeader("Conditions");
@@ -2255,7 +2255,7 @@ public class ObjectSyntaxElementsTests
     public async Task OnlyHaveAttributesThatTest()
     {
         var helper = new AttributeAssemblyTestHelper();
-        helper.AddSnapshotHeader("No violations");
+        helper.AddSnapshotHeader("No Violations");
         var should = Types().That().Are(helper.ClassWithSingleAttribute).Should();
         should.OnlyHaveAttributesThat().Are(helper.Attribute1).AssertNoViolations(helper);
 

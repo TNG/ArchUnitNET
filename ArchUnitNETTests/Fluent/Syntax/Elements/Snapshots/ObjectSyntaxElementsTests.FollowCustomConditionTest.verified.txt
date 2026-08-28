@@ -1,4 +1,4 @@
-﻿===== No violations =====
+﻿===== No Violations =====
 
 Query: Types that are "TypeDependencyNamespace.ChildClass" should follow custom condition
 Result: True

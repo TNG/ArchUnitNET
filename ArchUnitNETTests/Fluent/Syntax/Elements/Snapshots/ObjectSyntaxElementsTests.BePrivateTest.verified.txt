@@ -1,4 +1,4 @@
-﻿===== No violations =====
+﻿===== No Violations =====
 
 Query: Types that are "VisibilityNamespace.OuterClass+PrivateInnerClass" should be private
 Result: True

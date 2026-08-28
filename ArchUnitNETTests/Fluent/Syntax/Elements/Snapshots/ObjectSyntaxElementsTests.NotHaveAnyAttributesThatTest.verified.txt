@@ -1,4 +1,4 @@
-﻿===== No violations =====
+﻿===== No Violations =====
 
 Query: Types that are "AttributeNamespace.ClassWithSingleAttribute" should not have attributes that are "AttributeNamespace.UnusedAttribute"
 Result: True
