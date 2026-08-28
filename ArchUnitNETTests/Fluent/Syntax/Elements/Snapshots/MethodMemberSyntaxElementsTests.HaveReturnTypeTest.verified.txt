@@ -218,6 +218,15 @@ All Evaluations passed
 
 ----- Conditions -----
 
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type of no types (impossible)
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type of no types (impossible)" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
+
+
+
 Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should have return type Types that are any of no objects (always empty)
 Result: False
 Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
@@ -246,6 +255,15 @@ Message:
 
 
 ----- Predicates -----
+
+Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type of no types (impossible)
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type of no types (impossible)
+Message: 
+"Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type of no types (impossible)" failed:
+	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() is not Method members that have return type of no types (impossible)
+
+
 
 Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" should be Method members that have return type Types that are any of no objects (always empty)
 Result: False

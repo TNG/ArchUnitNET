@@ -230,10 +230,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.BaseClassForAssign).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.BeAssignableTo().AssertOnlyViolations(helper);
             should.BeAssignableTo(new List<IType>()).AssertOnlyViolations(helper);
             should.BeAssignableTo(new List<System.Type>()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreAssignableTo()).AssertOnlyViolations(helper);
             should.Be(Types().That().AreAssignableTo(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(Types().That().AreAssignableTo(new List<System.Type>())).AssertOnlyViolations(helper);
 
@@ -322,10 +324,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.BaseClassForAssign).Should();
             
             helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeAssignableTo().AssertNoViolations(helper);
             should.NotBeAssignableTo(new List<IType>()).AssertNoViolations(helper);
             should.NotBeAssignableTo(new List<System.Type>()).AssertNoViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreNotAssignableTo()).AssertNoViolations(helper);
             should.Be(Types().That().AreNotAssignableTo(new List<IType>())).AssertNoViolations(helper);
             should.Be(Types().That().AreNotAssignableTo(new List<System.Type>())).AssertNoViolations(helper);
 
@@ -394,10 +398,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Types().That().Are(helper.InnerClassA).Should();
             
             helper.AddSnapshotSubHeader("Conditions");
+            should.BeNestedIn().AssertOnlyViolations(helper);
             should.BeNestedIn(new List<IType>()).AssertOnlyViolations(helper);
             should.BeNestedIn(new List<System.Type>()).AssertOnlyViolations(helper);
-            
+
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().AreNestedIn()).AssertOnlyViolations(helper);
             should.Be(Types().That().AreNestedIn(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(Types().That().AreNestedIn(new List<System.Type>())).AssertOnlyViolations(helper);
 

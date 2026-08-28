@@ -256,10 +256,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Members().That().Are(helper.StaticField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.BeDeclaredIn().AssertOnlyViolations(helper);
             should.BeDeclaredIn(new List<IType>()).AssertOnlyViolations(helper);
             should.BeDeclaredIn(new List<System.Type>()).AssertOnlyViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Members().That().AreDeclaredIn()).AssertOnlyViolations(helper);
             should.Be(Members().That().AreDeclaredIn(new List<IType>())).AssertOnlyViolations(helper);
             should.Be(Members().That().AreDeclaredIn(new List<System.Type>())).AssertOnlyViolations(helper);
 
@@ -343,10 +345,12 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             should = Members().That().Are(helper.StaticField).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
+            should.NotBeDeclaredIn().AssertNoViolations(helper);
             should.NotBeDeclaredIn(new List<IType>()).AssertNoViolations(helper);
             should.NotBeDeclaredIn(new List<System.Type>()).AssertNoViolations(helper);
 
             helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Members().That().AreNotDeclaredIn()).AssertNoViolations(helper);
             should.Be(Members().That().AreNotDeclaredIn(new List<IType>())).AssertNoViolations(helper);
             should.Be(Members().That().AreNotDeclaredIn(new List<System.Type>())).AssertNoViolations(helper);
 

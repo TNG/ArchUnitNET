@@ -335,7 +335,19 @@ Description: TypeNamespace.BaseClassForAssign passed
 Message: 
 All Evaluations passed
 
+Query: Types that are "TypeNamespace.BaseClassForAssign" should not be assignable to no types (always true)
+Result: True
+Description: TypeNamespace.BaseClassForAssign passed
+Message: 
+All Evaluations passed
+
 ----- Predicates -----
+
+Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are not assignable to no types (always true)
+Result: True
+Description: TypeNamespace.BaseClassForAssign passed
+Message: 
+All Evaluations passed
 
 Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are not assignable to no types (always true)
 Result: True
