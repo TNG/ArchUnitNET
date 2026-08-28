@@ -44,9 +44,9 @@ Message:
 
 Query: Attributes that are "AttributeNamespace.SealedAttribute" or "AttributeNamespace.OtherSealedAttribute" should be sealed
 Result: True
-Description: AttributeNamespace.SealedAttribute passed
-Result: True
 Description: AttributeNamespace.OtherSealedAttribute passed
+Result: True
+Description: AttributeNamespace.SealedAttribute passed
 Message: 
 All Evaluations passed
 

@@ -51,10 +51,10 @@ Message:
 All Evaluations passed
 
 Query: Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.Int32 TypeNamespace.ClassWithNonStaticField::NonStaticField" should be static
-Result: True
-Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
 Result: False
 Description: System.Int32 TypeNamespace.ClassWithNonStaticField::NonStaticField is not static
+Result: True
+Description: System.Int32 TypeNamespace.ClassWithStaticField::StaticField passed
 Message: 
 "Members that are "System.Int32 TypeNamespace.ClassWithStaticField::StaticField" or "System.Int32 TypeNamespace.ClassWithNonStaticField::NonStaticField" should be static" failed:
 	System.Int32 TypeNamespace.ClassWithNonStaticField::NonStaticField is not static

@@ -75,9 +75,9 @@ Message:
 
 Query: Types that are "VisibilityNamespace.OuterClass+ProtectedInternalInnerClass" or "VisibilityNamespace.OuterClass+OtherProtectedInternalInnerClass" should be protected internal
 Result: True
-Description: VisibilityNamespace.OuterClass+ProtectedInternalInnerClass passed
-Result: True
 Description: VisibilityNamespace.OuterClass+OtherProtectedInternalInnerClass passed
+Result: True
+Description: VisibilityNamespace.OuterClass+ProtectedInternalInnerClass passed
 Message: 
 All Evaluations passed
 

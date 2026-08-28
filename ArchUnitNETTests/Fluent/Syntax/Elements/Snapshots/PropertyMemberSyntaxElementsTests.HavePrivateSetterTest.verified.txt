@@ -49,10 +49,10 @@ Message:
 All Evaluations passed
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" or "System.String PropertyMemberNamespace.C... should have a private setter
-Result: False
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter() passed
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter
 Message: 
 "Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" or "System.String PropertyMemberNamespace.C... should have a private setter" failed:
 	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public setter

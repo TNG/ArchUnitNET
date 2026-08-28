@@ -51,10 +51,10 @@ Message:
 All Evaluations passed
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithProtec... should not have a protected setter
-Result: True
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter() does have a protected setter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
 "Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithProtec... should not have a protected setter" failed:
 	System.String PropertyMemberNamespace.ClassWithProtectedSetterProperty::PropertyWithProtectedSetter() does have a protected setter

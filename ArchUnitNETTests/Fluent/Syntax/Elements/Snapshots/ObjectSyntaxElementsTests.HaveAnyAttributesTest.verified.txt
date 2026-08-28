@@ -310,17 +310,17 @@ All Evaluations passed
 
 Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" should have "AttributeNamespace.Attribute1"
 Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Result: True
 Description: AttributeNamespace.ClassWithThreeAttributes passed
+Result: True
+Description: AttributeNamespace.ClassWithTwoAttributes passed
 Message: 
 All Evaluations passed
 
 Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithoutAttributes" should have "AttributeNamespace.Attribute1"
-Result: False
-Description: AttributeNamespace.ClassWithoutAttributes does not have any attributes
 Result: True
 Description: AttributeNamespace.ClassWithTwoAttributes passed
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes does not have any attributes
 Message: 
 "Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithoutAttributes" should have "AttributeNamespace.Attribute1"" failed:
 	AttributeNamespace.ClassWithoutAttributes does not have any attributes
@@ -331,17 +331,17 @@ Message:
 
 Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithThreeAttributes" should be Types that have "AttributeNamespace.Attribute1"
 Result: True
-Description: AttributeNamespace.ClassWithTwoAttributes passed
-Result: True
 Description: AttributeNamespace.ClassWithThreeAttributes passed
+Result: True
+Description: AttributeNamespace.ClassWithTwoAttributes passed
 Message: 
 All Evaluations passed
 
 Query: Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithoutAttributes" should be Types that have "AttributeNamespace.Attribute1"
-Result: False
-Description: AttributeNamespace.ClassWithoutAttributes is not Types that have "AttributeNamespace.Attribute1"
 Result: True
 Description: AttributeNamespace.ClassWithTwoAttributes passed
+Result: False
+Description: AttributeNamespace.ClassWithoutAttributes is not Types that have "AttributeNamespace.Attribute1"
 Message: 
 "Types that are "AttributeNamespace.ClassWithTwoAttributes" or "AttributeNamespace.ClassWithoutAttributes" should be Types that have "AttributeNamespace.Attribute1"" failed:
 	AttributeNamespace.ClassWithoutAttributes is not Types that have "AttributeNamespace.Attribute1"

@@ -153,10 +153,10 @@ All Evaluations passed
 ===== Multiple inputs =====
 
 Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should be "TypeNamespace.RegularClass"
-Result: True
-Description: TypeNamespace.RegularClass passed
 Result: False
 Description: TypeNamespace.OtherRegularClass is not "TypeNamespace.RegularClass"
+Result: True
+Description: TypeNamespace.RegularClass passed
 Message: 
 "Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should be "TypeNamespace.RegularClass"" failed:
 	TypeNamespace.OtherRegularClass is not "TypeNamespace.RegularClass"

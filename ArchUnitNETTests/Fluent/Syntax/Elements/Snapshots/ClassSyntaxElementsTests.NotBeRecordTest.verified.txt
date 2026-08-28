@@ -44,17 +44,17 @@ Message:
 
 Query: Classes that are "ClassNamespace.RegularClass" or "ClassNamespace.OtherRegularClass" should not be record
 Result: True
-Description: ClassNamespace.RegularClass passed
-Result: True
 Description: ClassNamespace.OtherRegularClass passed
+Result: True
+Description: ClassNamespace.RegularClass passed
 Message: 
 All Evaluations passed
 
 Query: Classes that are "ClassNamespace.RegularClass" or "ClassNamespace.RecordClass" should not be record
-Result: True
-Description: ClassNamespace.RegularClass passed
 Result: False
 Description: ClassNamespace.RecordClass is record
+Result: True
+Description: ClassNamespace.RegularClass passed
 Message: 
 "Classes that are "ClassNamespace.RegularClass" or "ClassNamespace.RecordClass" should not be record" failed:
 	ClassNamespace.RecordClass is record

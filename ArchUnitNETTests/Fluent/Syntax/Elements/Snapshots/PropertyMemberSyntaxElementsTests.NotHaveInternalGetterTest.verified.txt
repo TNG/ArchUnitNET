@@ -44,17 +44,17 @@ Message:
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithGetOnl... should not have an internal getter
 Result: True
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
-Result: True
 Description: System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
 All Evaluations passed
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithIntern... should not have an internal getter
-Result: True
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter() does have an internal getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
 "Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithIntern... should not have an internal getter" failed:
 	System.String PropertyMemberNamespace.ClassWithInternalGetterProperty::PropertyWithInternalGetter() does have an internal getter

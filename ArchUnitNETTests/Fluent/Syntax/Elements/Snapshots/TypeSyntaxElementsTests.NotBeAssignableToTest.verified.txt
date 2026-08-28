@@ -290,9 +290,9 @@ Message:
 
 Query: Types that are "TypeNamespace.UnrelatedClassForAssign" or "TypeNamespace.OtherUnrelatedClassForAssign" should not be assignable to "TypeNamespace.BaseClassForAssign"
 Result: True
-Description: TypeNamespace.UnrelatedClassForAssign passed
-Result: True
 Description: TypeNamespace.OtherUnrelatedClassForAssign passed
+Result: True
+Description: TypeNamespace.UnrelatedClassForAssign passed
 Message: 
 All Evaluations passed
 

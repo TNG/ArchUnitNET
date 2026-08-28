@@ -44,9 +44,9 @@ Message:
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithGetOnl... should have a getter
 Result: True
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
-Result: True
 Description: System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
 All Evaluations passed
 

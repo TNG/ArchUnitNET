@@ -44,17 +44,17 @@ Message:
 
 Query: Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.OtherRegularAttribute" should not be abstract
 Result: True
-Description: AttributeNamespace.RegularAttribute passed
-Result: True
 Description: AttributeNamespace.OtherRegularAttribute passed
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
 Message: 
 All Evaluations passed
 
 Query: Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.AbstractAttribute" should not be abstract
-Result: True
-Description: AttributeNamespace.RegularAttribute passed
 Result: False
 Description: AttributeNamespace.AbstractAttribute is abstract
+Result: True
+Description: AttributeNamespace.RegularAttribute passed
 Message: 
 "Attributes that are "AttributeNamespace.RegularAttribute" or "AttributeNamespace.AbstractAttribute" should not be abstract" failed:
 	AttributeNamespace.AbstractAttribute is abstract

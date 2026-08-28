@@ -44,9 +44,9 @@ Message:
 
 Query: Members that are "System.String TypeNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String TypeNamespace.ClassWithInitOnlyProperty::InitOnly... should not be read only
 Result: True
-Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
-Result: True
 Description: System.String TypeNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() passed
+Result: True
+Description: System.String TypeNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
 All Evaluations passed
 
