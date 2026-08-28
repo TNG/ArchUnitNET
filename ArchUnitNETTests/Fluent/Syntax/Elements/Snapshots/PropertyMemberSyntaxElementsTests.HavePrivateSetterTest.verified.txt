@@ -42,9 +42,11 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" should have a private setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter()" or "System.String PropertyMemberNamespace.O... should have a private setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithPrivateSetterProperty::PropertyWithPrivateSetter() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithPrivateSetterProperty::OtherPropertyWithPrivateSetter() passed
 Message: 
 All Evaluations passed
 

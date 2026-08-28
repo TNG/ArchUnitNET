@@ -42,9 +42,11 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty()" should have an only init only setter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty()" or "System.String PropertyMemberNamespace.OtherClassWithI... should have an only init only setter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithInitOnlyProperty::InitOnlyProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithInitOnlyProperty::OtherInitOnlyProperty() passed
 Message: 
 All Evaluations passed
 

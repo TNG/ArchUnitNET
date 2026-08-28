@@ -42,9 +42,11 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter()" should have a private protected getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter()" or "System.String Propert... should have a private protected getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithPrivateProtectedGetterProperty::OtherPropertyWithPrivateProtectedGetter() passed
 Message: 
 All Evaluations passed
 

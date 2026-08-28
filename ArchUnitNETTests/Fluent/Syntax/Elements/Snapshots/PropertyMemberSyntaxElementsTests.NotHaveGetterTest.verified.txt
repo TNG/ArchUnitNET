@@ -42,9 +42,11 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" should have no getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty()" or "System.String PropertyMemberNamespace.OtherClassWit... should have no getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithWriteOnlyProperty::WriteOnlyProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithWriteOnlyProperty::OtherWriteOnlyProperty() passed
 Message: 
 All Evaluations passed
 

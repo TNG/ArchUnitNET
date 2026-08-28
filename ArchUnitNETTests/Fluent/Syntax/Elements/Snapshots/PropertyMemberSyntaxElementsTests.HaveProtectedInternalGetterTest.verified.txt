@@ -42,9 +42,11 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter()" should have a protected internal getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter()" or "System.String Prope... should have a protected internal getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithProtectedInternalGetterProperty::PropertyWithProtectedInternalGetter() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithProtectedInternalGetterProperty::OtherPropertyWithProtectedInternalGetter() passed
 Message: 
 All Evaluations passed
 

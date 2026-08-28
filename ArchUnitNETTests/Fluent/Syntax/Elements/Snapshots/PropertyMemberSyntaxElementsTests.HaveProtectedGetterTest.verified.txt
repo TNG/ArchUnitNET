@@ -42,9 +42,11 @@ Message:
 
 ===== Multiple inputs =====
 
-Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedGetterProperty::PropertyWithProtectedGetter()" should have a protected getter
+Query: Property members that are "System.String PropertyMemberNamespace.ClassWithProtectedGetterProperty::PropertyWithProtectedGetter()" or "System.String PropertyMemberNamespa... should have a protected getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithProtectedGetterProperty::PropertyWithProtectedGetter() passed
+Result: True
+Description: System.String PropertyMemberNamespace.OtherClassWithProtectedGetterProperty::OtherPropertyWithProtectedGetter() passed
 Message: 
 All Evaluations passed
 
