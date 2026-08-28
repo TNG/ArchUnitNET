@@ -72,17 +72,17 @@ Message:
 
 Query: Types that are "VisibilityNamespace.PublicClass" or "VisibilityNamespace.OtherPublicClass" should be public
 Result: True
-Description: VisibilityNamespace.PublicClass passed
-Result: True
 Description: VisibilityNamespace.OtherPublicClass passed
+Result: True
+Description: VisibilityNamespace.PublicClass passed
 Message: 
 All Evaluations passed
 
 Query: Types that are "VisibilityNamespace.PublicClass" or "VisibilityNamespace.InternalClass" should be public
-Result: True
-Description: VisibilityNamespace.PublicClass passed
 Result: False
 Description: VisibilityNamespace.InternalClass is internal
+Result: True
+Description: VisibilityNamespace.PublicClass passed
 Message: 
 "Types that are "VisibilityNamespace.PublicClass" or "VisibilityNamespace.InternalClass" should be public" failed:
 	VisibilityNamespace.InternalClass is internal

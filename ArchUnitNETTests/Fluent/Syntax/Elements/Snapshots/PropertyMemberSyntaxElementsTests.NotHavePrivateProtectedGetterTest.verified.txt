@@ -44,17 +44,17 @@ Message:
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithGetOnl... should not have a private protected getter
 Result: True
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
-Result: True
 Description: System.String PropertyMemberNamespace.ClassWithGetOnlyProperty::GetOnlyProperty() passed
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
 All Evaluations passed
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivat... should not have a private protected getter
-Result: True
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Result: False
 Description: System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter() does have a private protected getter
+Result: True
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() passed
 Message: 
 "Property members that are "System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty()" or "System.String PropertyMemberNamespace.ClassWithPrivat... should not have a private protected getter" failed:
 	System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter() does have a private protected getter

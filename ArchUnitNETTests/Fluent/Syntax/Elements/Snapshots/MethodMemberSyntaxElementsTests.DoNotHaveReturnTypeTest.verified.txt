@@ -241,10 +241,10 @@ Message:
 ===== Multiple inputs =====
 
 Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should not have return type "MethodMemberNamespace.RegularClass"
-Result: False
-Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
 Result: True
 Description: MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() passed
+Result: False
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"
 Message: 
 "Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should not have return type "MethodMemberNamespace.RegularClass"" failed:
 	MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() has return type "MethodMemberNamespace.RegularClass"

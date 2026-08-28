@@ -51,10 +51,10 @@ Message:
 All Evaluations passed
 
 Query: Attributes that are "AttributeNamespace.AbstractAttribute" or "AttributeNamespace.RegularAttribute" should be abstract
-Result: False
-Description: AttributeNamespace.RegularAttribute is not abstract
 Result: True
 Description: AttributeNamespace.AbstractAttribute passed
+Result: False
+Description: AttributeNamespace.RegularAttribute is not abstract
 Message: 
 "Attributes that are "AttributeNamespace.AbstractAttribute" or "AttributeNamespace.RegularAttribute" should be abstract" failed:
 	AttributeNamespace.RegularAttribute is not abstract

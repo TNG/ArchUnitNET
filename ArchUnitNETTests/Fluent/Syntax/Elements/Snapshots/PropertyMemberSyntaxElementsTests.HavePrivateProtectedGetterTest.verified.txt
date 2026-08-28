@@ -49,10 +49,10 @@ Message:
 All Evaluations passed
 
 Query: Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter()" or "System.String Propert... should have a private protected getter
-Result: False
-Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public getter
 Result: True
 Description: System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter() passed
+Result: False
+Description: System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public getter
 Message: 
 "Property members that are "System.String PropertyMemberNamespace.ClassWithPrivateProtectedGetterProperty::PropertyWithPrivateProtectedGetter()" or "System.String Propert... should have a private protected getter" failed:
 	System.String PropertyMemberNamespace.ClassWithWritableProperty::WritableProperty() does have a public getter

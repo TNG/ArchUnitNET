@@ -217,10 +217,10 @@ All Evaluations passed
 ===== Multiple inputs =====
 
 Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should have return type "MethodMemberNamespace.RegularClass"
-Result: True
-Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
 Result: False
 Description: MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() has return type "MethodMemberNamespace.OtherRegularClass"
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
 Message: 
 "Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should have return type "MethodMemberNamespace.RegularClass"" failed:
 	MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() has return type "MethodMemberNamespace.OtherRegularClass"
@@ -229,9 +229,9 @@ Message:
 
 Query: Method members that are "MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass()" or "MethodMemberNames... should have return type "MethodMemberNamespace.RegularClass" or "MethodMemberNamespace.OtherRegularClass"
 Result: True
-Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
-Result: True
 Description: MethodMemberNamespace.OtherRegularClass MethodMemberNamespace.ClassWithOtherRegularClassReturnType::MethodReturningOtherRegularClass() passed
+Result: True
+Description: MethodMemberNamespace.RegularClass MethodMemberNamespace.ClassWithRegularClassReturnType::MethodReturningRegularClass() passed
 Message: 
 All Evaluations passed
 

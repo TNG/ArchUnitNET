@@ -44,9 +44,9 @@ Message:
 
 Query: Types that are "TypeNamespace.NonNestedClass" or "TypeNamespace.RegularClass" should not be nested
 Result: True
-Description: TypeNamespace.RegularClass passed
-Result: True
 Description: TypeNamespace.NonNestedClass passed
+Result: True
+Description: TypeNamespace.RegularClass passed
 Message: 
 All Evaluations passed
 

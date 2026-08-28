@@ -22,6 +22,15 @@ public static class AssemblyTestHelperExtensions
         testHelper.AssertOnlyViolations(archRule);
     }
 
+    public static void AssertOnlyViolations(
+        this IArchRule archRule,
+        AssemblyTestHelper testHelper,
+        bool allowNoResults
+    )
+    {
+        testHelper.AssertOnlyViolations(archRule, allowNoResults);
+    }
+
     public static void AssertException<T>(this IArchRule archRule, AssemblyTestHelper testHelper)
         where T : Exception
     {

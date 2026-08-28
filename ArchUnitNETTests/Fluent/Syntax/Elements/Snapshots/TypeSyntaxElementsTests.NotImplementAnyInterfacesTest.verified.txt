@@ -185,33 +185,33 @@ Message:
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any of no interfaces (always true)
 Result: True
-Description: TypeNamespace.ITestInterface passed
-Result: True
 Description: TypeNamespace.IChildTestInterface passed
+Result: True
+Description: TypeNamespace.ITestInterface passed
 Message: 
 All Evaluations passed
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any of no interfaces (always true)
 Result: True
-Description: TypeNamespace.ITestInterface passed
-Result: True
 Description: TypeNamespace.IChildTestInterface passed
+Result: True
+Description: TypeNamespace.ITestInterface passed
 Message: 
 All Evaluations passed
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any of no interfaces (always true)
 Result: True
-Description: TypeNamespace.ITestInterface passed
-Result: True
 Description: TypeNamespace.IChildTestInterface passed
+Result: True
+Description: TypeNamespace.ITestInterface passed
 Message: 
 All Evaluations passed
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any Interfaces that have name "NotTheNameOfAnyObject"
 Result: True
-Description: TypeNamespace.ITestInterface passed
-Result: True
 Description: TypeNamespace.IChildTestInterface passed
+Result: True
+Description: TypeNamespace.ITestInterface passed
 Message: 
 All Evaluations passed
 
@@ -219,33 +219,33 @@ All Evaluations passed
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any of no interfaces (always true)
 Result: True
-Description: TypeNamespace.ITestInterface passed
-Result: True
 Description: TypeNamespace.IChildTestInterface passed
+Result: True
+Description: TypeNamespace.ITestInterface passed
 Message: 
 All Evaluations passed
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any of no interfaces (always true)
 Result: True
-Description: TypeNamespace.ITestInterface passed
-Result: True
 Description: TypeNamespace.IChildTestInterface passed
+Result: True
+Description: TypeNamespace.ITestInterface passed
 Message: 
 All Evaluations passed
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any of no interfaces (always true)
 Result: True
-Description: TypeNamespace.ITestInterface passed
-Result: True
 Description: TypeNamespace.IChildTestInterface passed
+Result: True
+Description: TypeNamespace.ITestInterface passed
 Message: 
 All Evaluations passed
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should be Interfaces that do not implement any Interfaces that have name "NotTheNameOfAnyObject"
 Result: True
-Description: TypeNamespace.ITestInterface passed
-Result: True
 Description: TypeNamespace.IChildTestInterface passed
+Result: True
+Description: TypeNamespace.ITestInterface passed
 Message: 
 All Evaluations passed
 
@@ -253,9 +253,9 @@ All Evaluations passed
 
 Query: Interfaces that are "TypeNamespace.ITestInterface" or "TypeNamespace.IChildTestInterface" should not implement any interfaces that are any of no objects (always empty)
 Result: True
-Description: TypeNamespace.ITestInterface passed
-Result: True
 Description: TypeNamespace.IChildTestInterface passed
+Result: True
+Description: TypeNamespace.ITestInterface passed
 Message: 
 All Evaluations passed
 

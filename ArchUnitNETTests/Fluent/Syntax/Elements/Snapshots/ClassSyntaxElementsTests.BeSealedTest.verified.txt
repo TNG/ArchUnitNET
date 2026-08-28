@@ -44,9 +44,9 @@ Message:
 
 Query: Classes that are "ClassNamespace.SealedClass" or "ClassNamespace.OtherSealedClass" should be sealed
 Result: True
-Description: ClassNamespace.SealedClass passed
-Result: True
 Description: ClassNamespace.OtherSealedClass passed
+Result: True
+Description: ClassNamespace.SealedClass passed
 Message: 
 All Evaluations passed
 

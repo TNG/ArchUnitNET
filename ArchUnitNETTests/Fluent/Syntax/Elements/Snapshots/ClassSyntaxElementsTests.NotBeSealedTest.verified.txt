@@ -44,9 +44,9 @@ Message:
 
 Query: Classes that are "ClassNamespace.RegularClass" or "ClassNamespace.OtherRegularClass" should not be sealed
 Result: True
-Description: ClassNamespace.RegularClass passed
-Result: True
 Description: ClassNamespace.OtherRegularClass passed
+Result: True
+Description: ClassNamespace.RegularClass passed
 Message: 
 All Evaluations passed
 
