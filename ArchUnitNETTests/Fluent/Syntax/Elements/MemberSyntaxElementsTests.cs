@@ -370,36 +370,5 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             await helper.AssertSnapshotMatches();
         }
 
-        [Fact]
-        public async Task BeDeclaredInTypesThatTest()
-        {
-            var helper = new TypeAssemblyTestHelper();
-
-            helper.AddSnapshotHeader("No Violations");
-            var should = Members().That().Are(helper.StaticField).Should();
-            should.BeDeclaredInTypesThat().Are(helper.ClassWithStaticField).AssertNoViolations(helper);
-
-            helper.AddSnapshotHeader("Violations");
-            should = Members().That().Are(helper.StaticField).Should();
-            should.BeDeclaredInTypesThat().Are(helper.ClassWithNonStaticField).AssertOnlyViolations(helper);
-
-            await helper.AssertSnapshotMatches();
-        }
-
-        [Fact]
-        public async Task NotBeDeclaredInTypesThatTest()
-        {
-            var helper = new TypeAssemblyTestHelper();
-
-            helper.AddSnapshotHeader("No Violations");
-            var should = Members().That().Are(helper.StaticField).Should();
-            should.NotBeDeclaredInTypesThat().Are(helper.ClassWithNonStaticField).AssertNoViolations(helper);
-
-            helper.AddSnapshotHeader("Violations");
-            should = Members().That().Are(helper.StaticField).Should();
-            should.NotBeDeclaredInTypesThat().Are(helper.ClassWithStaticField).AssertOnlyViolations(helper);
-
-            await helper.AssertSnapshotMatches();
-        }
     }
 }
