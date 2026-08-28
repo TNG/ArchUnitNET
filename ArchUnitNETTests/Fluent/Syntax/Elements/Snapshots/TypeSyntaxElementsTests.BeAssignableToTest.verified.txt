@@ -1,4 +1,4 @@
-﻿===== No Violations =====
+﻿===== No violations =====
 
 ----- Conditions -----
 
@@ -319,7 +319,7 @@ Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in prov
 Query: Types that are "TypeNamespace.BaseClassForAssign" should be Types that are assignable to "AttributeNamespace.ClassWithoutAttributes"
 Exception: Type AttributeNamespace.ClassWithoutAttributes does not exist in provided architecture or is no class.
 
-===== Empty Arguments =====
+===== Empty arguments =====
 
 ----- Conditions -----
 

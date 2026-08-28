@@ -142,7 +142,7 @@ Message:
 
 
 
-===== Type outside of architecture =====
+===== Type not in architecture =====
 
 ----- Conditions -----
 
@@ -167,7 +167,7 @@ Message:
 
 
 
-===== Predicates =====
+----- Predicates -----
 
 Query: Types that are "TypeDependencyNamespace.ClassWithReferencedTypeDependency" should be Types that do not depend on "System.Collections.Generic.List`1"
 Result: False

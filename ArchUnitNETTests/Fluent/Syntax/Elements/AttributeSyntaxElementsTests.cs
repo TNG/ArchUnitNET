@@ -13,7 +13,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new AttributeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Attributes().That().Are(helper.AbstractAttribute).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -43,7 +43,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new AttributeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Attributes().That().Are(helper.RegularAttribute).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -73,7 +73,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new AttributeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Attributes().That().Are(helper.SealedAttribute).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -103,7 +103,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new AttributeAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = Attributes().That().Are(helper.RegularAttribute).Should();
 
             helper.AddSnapshotSubHeader("Conditions");

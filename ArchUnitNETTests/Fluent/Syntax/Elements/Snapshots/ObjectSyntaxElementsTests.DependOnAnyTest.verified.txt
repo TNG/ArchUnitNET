@@ -160,7 +160,7 @@ Message:
 
 
 
-===== Type outside of architecture =====
+===== Type not in architecture =====
 
 ----- Conditions -----
 

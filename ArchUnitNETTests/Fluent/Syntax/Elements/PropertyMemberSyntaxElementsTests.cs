@@ -13,7 +13,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.VirtualProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -43,7 +43,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.NonVirtualProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -73,7 +73,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -103,7 +103,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WriteOnlyProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -133,7 +133,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -163,7 +163,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.GetOnlyProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -193,7 +193,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.InitOnlyProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -223,7 +223,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -253,7 +253,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -283,7 +283,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithPrivateGetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -313,7 +313,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithPrivateGetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -343,7 +343,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -373,7 +373,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithProtectedGetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -403,7 +403,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -433,7 +433,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithInternalGetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -463,7 +463,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -493,7 +493,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithProtectedInternalGetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -523,7 +523,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -553,7 +553,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedGetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -583,7 +583,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -613,7 +613,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -643,7 +643,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithPrivateSetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -673,7 +673,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithPrivateSetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -703,7 +703,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -733,7 +733,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithProtectedSetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -763,7 +763,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -793,7 +793,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithInternalSetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -823,7 +823,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -853,7 +853,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithProtectedInternalSetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -883,7 +883,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -913,7 +913,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.PropertyWithPrivateProtectedSetter).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -943,7 +943,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new PropertyMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = PropertyMembers().That().Are(helper.WritableProperty).Should();
 
             helper.AddSnapshotSubHeader("Conditions");

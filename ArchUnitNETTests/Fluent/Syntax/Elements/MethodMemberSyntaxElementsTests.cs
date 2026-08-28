@@ -18,7 +18,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.ClassWithVirtualMethodConstructor).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -48,7 +48,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.VirtualMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -78,7 +78,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.VirtualMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -108,7 +108,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.NonVirtualMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -138,7 +138,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.CalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -221,7 +221,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -304,7 +304,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.MethodCallingCalledMethod).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -387,7 +387,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.MethodWithoutDependencies).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -470,7 +470,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -588,7 +588,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             var should = MethodMembers().That().Are(helper.MethodReturningRegularClass).Should();
 
             helper.AddSnapshotSubHeader("Conditions");
@@ -712,7 +712,7 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         {
             var helper = new MethodMemberAssemblyTestHelper();
 
-            helper.AddSnapshotHeader("No Violations");
+            helper.AddSnapshotHeader("No violations");
             MethodMembers().That().Are(helper.ClassWithVirtualMethodConstructor).Should().BeMethodMembersThat().AreConstructors().AssertNoViolations(helper);
 
             helper.AddSnapshotHeader("Violations");
