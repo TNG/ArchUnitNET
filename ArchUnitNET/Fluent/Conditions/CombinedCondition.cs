@@ -40,8 +40,26 @@ namespace ArchUnitNET.Fluent.Conditions
             var rightResults = _rightCondition.Check(objectCollection, architecture);
             if (objectCollection.Count == 0)
             {
-                return leftResults.Concat(rightResults);
+                var leftResultsList = leftResults.ToList();
+                var rightResultsList = rightResults.ToList();
+                if (leftResultsList.Count == 0)
+                {
+                    return rightResultsList;
+                }
+                if (rightResultsList.Count == 0)
+                {
+                    return leftResultsList;
+                }
+                return Combine(leftResultsList, rightResultsList);
             }
+            return Combine(leftResults, rightResults);
+        }
+
+        private IEnumerable<IConditionResult> Combine(
+            IEnumerable<IConditionResult> leftResults,
+            IEnumerable<IConditionResult> rightResults
+        )
+        {
             return leftResults.Zip(
                 rightResults,
                 (leftResult, rightResult) =>
