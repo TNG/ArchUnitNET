@@ -5,15 +5,10 @@ namespace ArchUnitNET.Fluent.PlantUml
     public class GivenPlantUmlFluentComponentDiagram
     {
         private readonly PlantUmlFileBuilder _builder;
-        private readonly string _description;
 
-        internal GivenPlantUmlFluentComponentDiagram(
-            PlantUmlFileBuilder builder,
-            string description
-        )
+        internal GivenPlantUmlFluentComponentDiagram(PlantUmlFileBuilder builder)
         {
             _builder = builder;
-            _description = description;
         }
 
         public string AsString(RenderOptions renderOptions = null)
