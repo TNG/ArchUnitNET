@@ -34,10 +34,28 @@ namespace ArchUnitNET.Fluent
 
         public bool HasNoViolations(Architecture architecture)
         {
-            return Evaluate(architecture).All(result => result.Passed);
+            if (PartialArchRuleConjunction != null)
+            {
+                return PartialArchRuleConjunction.LogicalConjunction.Evaluate(
+                    PartialArchRuleConjunction.LeftArchRule.HasNoViolations(architecture),
+                    EvaluateCondition(architecture).All(result => result.Passed)
+                );
+            }
+            return EvaluateCondition(architecture).All(result => result.Passed);
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
+        {
+            if (PartialArchRuleConjunction != null)
+            {
+                return PartialArchRuleConjunction
+                    .LeftArchRule.Evaluate(architecture)
+                    .Concat(EvaluateCondition(architecture));
+            }
+            return EvaluateCondition(architecture);
+        }
+
+        private IEnumerable<EvaluationResult> EvaluateCondition(Architecture architecture)
         {
             return Condition
                 .Check(ObjectProvider.GetObjects(architecture), architecture)
