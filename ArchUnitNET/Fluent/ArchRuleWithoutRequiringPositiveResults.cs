@@ -6,10 +6,10 @@ using JetBrains.Annotations;
 
 namespace ArchUnitNET.Fluent
 {
-    public class ArchRuleWithoutRequirungPositiveResults<TRuleType> : IArchRule
+    public class ArchRuleWithoutRequiringPositiveResults<TRuleType> : IArchRule
         where TRuleType : ICanBeAnalyzed
     {
-        internal ArchRuleWithoutRequirungPositiveResults(
+        internal ArchRuleWithoutRequiringPositiveResults(
             PartialArchRuleConjunction partialArchRuleConjunction,
             IObjectProvider<TRuleType> objectProvider,
             IOrderedCondition<TRuleType> condition
@@ -91,6 +91,49 @@ namespace ArchUnitNET.Fluent
         public IArchRule Or(IArchRule archRule)
         {
             return new CombinedArchRule(this, LogicalConjunctionDefinition.Or, archRule);
+        }
+
+        public override string ToString()
+        {
+            return Description;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return GetType() == obj.GetType()
+                && Equals((ArchRuleWithoutRequiringPositiveResults<TRuleType>)obj);
+        }
+
+        private bool Equals(ArchRuleWithoutRequiringPositiveResults<TRuleType> other)
+        {
+            return Equals(PartialArchRuleConjunction, other.PartialArchRuleConjunction)
+                && Equals(ObjectProvider, other.ObjectProvider)
+                && Equals(Condition, other.Condition);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode =
+                    PartialArchRuleConjunction != null
+                        ? PartialArchRuleConjunction.GetHashCode()
+                        : 0;
+                hashCode =
+                    (hashCode * 397) ^ (ObjectProvider != null ? ObjectProvider.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Condition != null ? Condition.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

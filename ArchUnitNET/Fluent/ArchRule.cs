@@ -37,9 +37,9 @@ namespace ArchUnitNET.Fluent
         /// By default, rules are evaluated so positive results are required to be present.
         /// This call defeats this check on the rule.
         /// </summary>
-        public ArchRuleWithoutRequirungPositiveResults<TRuleType> WithoutRequiringPositiveResults()
+        public ArchRuleWithoutRequiringPositiveResults<TRuleType> WithoutRequiringPositiveResults()
         {
-            return new ArchRuleWithoutRequirungPositiveResults<TRuleType>(
+            return new ArchRuleWithoutRequiringPositiveResults<TRuleType>(
                 PartialArchRuleConjunction,
                 ObjectProvider,
                 Condition
