@@ -97,6 +97,38 @@ namespace ArchUnitNET.Fluent.Conditions
             {
                 return _condition.CheckEmpty();
             }
+
+            private bool Equals(ConditionWithDescription<TRuleType> other)
+            {
+                return Equals(_condition, other._condition) && Description == other.Description;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType()
+                    && Equals((ConditionWithDescription<TRuleType>)obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = _condition != null ? _condition.GetHashCode() : 0;
+                    hashCode =
+                        (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
+                    return hashCode;
+                }
+            }
         }
 
         public static IOrderedCondition<TRuleType> As<TRuleType>(
@@ -133,6 +165,36 @@ namespace ArchUnitNET.Fluent.Conditions
             public bool CheckEmpty()
             {
                 return _condition.CheckEmpty();
+            }
+
+            private bool Equals(ConditionWithReason<TRuleType> other)
+            {
+                return Equals(_condition, other._condition) && _reason == other._reason;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType() && Equals((ConditionWithReason<TRuleType>)obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = _condition != null ? _condition.GetHashCode() : 0;
+                    hashCode = (hashCode * 397) ^ (_reason != null ? _reason.GetHashCode() : 0);
+                    return hashCode;
+                }
             }
         }
 

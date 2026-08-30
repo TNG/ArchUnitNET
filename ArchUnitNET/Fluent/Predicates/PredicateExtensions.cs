@@ -25,6 +25,38 @@ namespace ArchUnitNET.Fluent.Predicates
             {
                 return _predicate.GetMatchingObjects(objects, architecture);
             }
+
+            private bool Equals(PredicateWithDescription<TRuleType> other)
+            {
+                return Equals(_predicate, other._predicate) && Description == other.Description;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType()
+                    && Equals((PredicateWithDescription<TRuleType>)obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = _predicate != null ? _predicate.GetHashCode() : 0;
+                    hashCode =
+                        (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
+                    return hashCode;
+                }
+            }
         }
 
         public static IPredicate<TRuleType> As<TRuleType>(
@@ -56,6 +88,36 @@ namespace ArchUnitNET.Fluent.Predicates
             )
             {
                 return _predicate.GetMatchingObjects(objects, architecture);
+            }
+
+            private bool Equals(PredicateWithReason<TRuleType> other)
+            {
+                return Equals(_predicate, other._predicate) && _reason == other._reason;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+
+                return obj.GetType() == GetType() && Equals((PredicateWithReason<TRuleType>)obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = _predicate != null ? _predicate.GetHashCode() : 0;
+                    hashCode = (hashCode * 397) ^ (_reason != null ? _reason.GetHashCode() : 0);
+                    return hashCode;
+                }
             }
         }
 

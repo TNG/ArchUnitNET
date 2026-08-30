@@ -39,5 +39,42 @@ namespace ArchUnitNET.Fluent.Predicates
                 _rightPredicate.GetMatchingObjects(objectCollection, architecture)
             );
         }
+
+        private bool Equals(CombinedPredicate<TRuleType> other)
+        {
+            return Equals(_leftPredicate, other._leftPredicate)
+                && Equals(_logicalConjunction, other._logicalConjunction)
+                && Equals(_rightPredicate, other._rightPredicate);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((CombinedPredicate<TRuleType>)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = _leftPredicate != null ? _leftPredicate.GetHashCode() : 0;
+                hashCode =
+                    (hashCode * 397)
+                    ^ (_logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0);
+                hashCode =
+                    (hashCode * 397)
+                    ^ (_rightPredicate != null ? _rightPredicate.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
     }
 }

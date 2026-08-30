@@ -66,5 +66,42 @@ namespace ArchUnitNET.Fluent.Conditions
                 _rightCondition.CheckEmpty()
             );
         }
+
+        private bool Equals(CombinedCondition<TRuleType> other)
+        {
+            return Equals(_leftCondition, other._leftCondition)
+                && Equals(_logicalConjunction, other._logicalConjunction)
+                && Equals(_rightCondition, other._rightCondition);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((CombinedCondition<TRuleType>)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = _leftCondition != null ? _leftCondition.GetHashCode() : 0;
+                hashCode =
+                    (hashCode * 397)
+                    ^ (_logicalConjunction != null ? _logicalConjunction.GetHashCode() : 0);
+                hashCode =
+                    (hashCode * 397)
+                    ^ (_rightCondition != null ? _rightCondition.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
     }
 }
