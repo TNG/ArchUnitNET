@@ -61,11 +61,13 @@ namespace ArchUnitNET.Fluent
                 .Check(ObjectProvider.GetObjects(architecture), architecture)
                 .Select(conditionResult => new EvaluationResult(
                     conditionResult.AnalyzedObject,
-                    new StringIdentifier(conditionResult.AnalyzedObject.FullName),
+                    new StringIdentifier(conditionResult.AnalyzedObject?.FullName ?? ""),
                     conditionResult.Pass,
-                    conditionResult.Pass
-                        ? $"{conditionResult.AnalyzedObject.FullName} passed"
-                        : $"{conditionResult.AnalyzedObject.FullName} {conditionResult.Description}",
+                    conditionResult.AnalyzedObject != null
+                        ? conditionResult.Pass
+                            ? $"{conditionResult.AnalyzedObject.FullName} passed"
+                            : $"{conditionResult.AnalyzedObject.FullName} {conditionResult.Description}"
+                        : conditionResult.Description,
                     this,
                     architecture
                 ));
