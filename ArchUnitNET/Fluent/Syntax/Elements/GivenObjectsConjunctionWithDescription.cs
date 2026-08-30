@@ -40,9 +40,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
                     "GetObjects cannot be called on a combined arch rule, because the analyzed objects may be of different types."
                 );
             }
-            return Predicate.GetMatchingObjects(
-                ObjectProvider.GetObjects(architecture),
-                architecture
+            return architecture.GetOrCreateObjects(
+                this,
+                arch => Predicate.GetMatchingObjects(ObjectProvider.GetObjects(arch), arch)
             );
         }
 
