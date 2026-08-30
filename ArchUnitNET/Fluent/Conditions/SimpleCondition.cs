@@ -19,7 +19,7 @@ namespace ArchUnitNET.Fluent.Conditions
             _condition = obj =>
             {
                 var passed = condition(obj);
-                return new ConditionResult(obj, condition(obj), passed ? null : failDescription);
+                return new ConditionResult(obj, passed, passed ? null : failDescription);
             };
             Description = description;
         }
