@@ -77,14 +77,6 @@ namespace ArchUnitNET.Fluent.Conditions
             );
         }
 
-        public bool CheckEmpty()
-        {
-            return _logicalConjunction.Evaluate(
-                _leftCondition.CheckEmpty(),
-                _rightCondition.CheckEmpty()
-            );
-        }
-
         private bool Equals(CombinedCondition<TRuleType> other)
         {
             return Equals(_leftCondition, other._leftCondition)

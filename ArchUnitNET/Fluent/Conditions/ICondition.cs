@@ -20,7 +20,5 @@ namespace ArchUnitNET.Fluent.Conditions
             IEnumerable<TRuleType> objects,
             Architecture architecture
         );
-
-        bool CheckEmpty();
     }
 }

@@ -33,11 +33,6 @@ namespace ArchUnitNET.Fluent.Conditions
             return _condition(objects, architecture);
         }
 
-        public bool CheckEmpty()
-        {
-            return true;
-        }
-
         public override string ToString()
         {
             return Description;

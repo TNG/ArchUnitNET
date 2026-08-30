@@ -504,11 +504,6 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     "does not follow custom condition"
                 ));
             }
-
-            public bool CheckEmpty()
-            {
-                return true;
-            }
         }
 
         [Fact]

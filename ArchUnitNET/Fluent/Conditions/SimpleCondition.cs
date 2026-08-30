@@ -58,11 +58,6 @@ namespace ArchUnitNET.Fluent.Conditions
             return objects.Select(obj => _condition(obj));
         }
 
-        public bool CheckEmpty()
-        {
-            return true;
-        }
-
         public override string ToString()
         {
             return Description;

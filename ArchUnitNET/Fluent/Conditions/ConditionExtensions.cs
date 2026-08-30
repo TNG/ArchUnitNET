@@ -29,8 +29,6 @@ namespace ArchUnitNET.Fluent.Conditions
                 return objectCollection.Select(ruleType => results(ruleType));
             }
 
-            public bool CheckEmpty() => _condition.CheckEmpty();
-
             private static Func<TRuleType, IConditionResult> Check(
                 Architecture architecture,
                 ICollection<TRuleType> objects,
@@ -91,11 +89,6 @@ namespace ArchUnitNET.Fluent.Conditions
             )
             {
                 return _condition.Check(objects, architecture);
-            }
-
-            public bool CheckEmpty()
-            {
-                return _condition.CheckEmpty();
             }
 
             private bool Equals(ConditionWithDescription<TRuleType> other)
@@ -160,11 +153,6 @@ namespace ArchUnitNET.Fluent.Conditions
             )
             {
                 return _condition.Check(objects, architecture);
-            }
-
-            public bool CheckEmpty()
-            {
-                return _condition.CheckEmpty();
             }
 
             private bool Equals(ConditionWithReason<TRuleType> other)

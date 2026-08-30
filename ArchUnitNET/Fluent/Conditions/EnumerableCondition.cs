@@ -27,10 +27,5 @@ namespace ArchUnitNET.Fluent.Conditions
         {
             return _condition(objects);
         }
-
-        public bool CheckEmpty()
-        {
-            return true;
-        }
     }
 }

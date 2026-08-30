@@ -43,11 +43,6 @@ namespace ArchUnitNET.Fluent.Conditions
             ));
         }
 
-        public bool CheckEmpty()
-        {
-            return !_valueIfExists;
-        }
-
         public override string ToString()
         {
             return Description;
