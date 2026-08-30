@@ -13,7 +13,7 @@ namespace ArchUnitNET.Fluent.Slices
             _sliceAssignment = sliceAssignment;
         }
 
-        public string Description => _sliceAssignment.Description;
+        public string Description => $"Slices {_sliceAssignment.Description}";
 
         public SlicesShould Should()
         {
