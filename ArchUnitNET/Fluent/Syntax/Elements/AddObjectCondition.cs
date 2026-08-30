@@ -23,7 +23,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         )
             : base(partialArchRuleConjunction, objectProvider) { }
 
-        public override string Description { get; } = "";
+        public override string Description => $"{ObjectProvider.Description} should";
 
         // csharpier-ignore-start
 

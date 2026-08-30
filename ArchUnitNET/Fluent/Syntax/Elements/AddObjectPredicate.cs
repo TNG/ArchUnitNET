@@ -19,7 +19,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements
         )
             : base(partialArchRuleConjunction, objectProvider) { }
 
-        public override string Description { get; } = "";
+        public override string Description => ObjectProvider.Description;
 
         // csharpier-ignore-start
         public TNextElement FollowCustomPredicate(IPredicate<TRuleType> predicate) => CreateNextElement(predicate);
