@@ -122,19 +122,13 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
-        public void BuildUmlBySlices_C4Style_Throws()
+        public Task BuildUmlBySlices_C4Style()
         {
             // Slices produced by Matching (as opposed to MatchingWithPackages) have no namespace
-            // prefix, and BuildStringC4Style's no-namespace branch appends its Container line but
-            // then falls through into Namespace.Remove instead of returning, so C4 style cannot
-            // render a namespace-less slice at all.
-            Assert.Throws<NullReferenceException>(() =>
-                new PlantUmlFileBuilder()
-                    .WithDependenciesFrom(
-                        SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)")),
-                        new GenerationOptions { C4Style = true }
-                    )
-                    .AsString()
+            // prefix, so this exercises PlantUmlSlice.BuildStringC4Style's no-namespace branch.
+            return VerifySlices(
+                SliceRuleDefinition.Slices().Matching(Root + "(**)"),
+                new GenerationOptions { C4Style = true }
             );
         }
 
