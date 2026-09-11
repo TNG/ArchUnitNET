@@ -147,7 +147,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
                 + Environment.NewLine
                 + "[h] --> [i]"
                 + Environment.NewLine
-                + "i --|> a"
+                + "[i] --|> [a]"
                 + Environment.NewLine
                 + "@enduml"
                 + Environment.NewLine;
@@ -177,7 +177,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
                 "f -[#blue]> [g]",
                 "g -[#green]> h",
                 "[h] --> [i]",
-                "i --|> a",
+                "[i] --|> [a]",
                 "@enduml",
             };
             ComponentDiagram()

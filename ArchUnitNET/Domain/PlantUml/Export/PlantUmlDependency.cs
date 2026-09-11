@@ -92,7 +92,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                         && (OriginCountOfDots() == 0 || HaveSameParentNamespace(Origin, Target))
                     )
                     {
-                        return Origin + " --|> " + Target + Environment.NewLine;
+                        return "[" + Origin + "] --|> [" + Target + "]" + Environment.NewLine;
                     }
 
                     if (OriginCountOfDots() < TargetCountOfDots())
@@ -105,7 +105,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
                         if (tmp != Origin && HaveSameParentNamespace(tmp, Origin))
                         {
-                            return Origin + " --> " + tmp + Environment.NewLine;
+                            return "[" + Origin + "] --> " + tmp + Environment.NewLine;
                         }
                     }
                     else
@@ -118,7 +118,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
                         if (tmp != Target && HaveSameParentNamespace(tmp, Target))
                         {
-                            return tmp + " -> " + Target + Environment.NewLine;
+                            return tmp + " -> [" + Target + "]" + Environment.NewLine;
                         }
                     }
                     return "";
