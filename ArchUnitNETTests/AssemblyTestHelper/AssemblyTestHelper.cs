@@ -15,10 +15,25 @@ namespace ArchUnitNETTests.AssemblyTestHelper;
 public abstract class AssemblyTestHelper
 {
     private readonly StringBuilder _snapshot = new StringBuilder();
+    private bool _recordSnapshot = true;
 
     public readonly string NonExistentObjectName = "NotTheNameOfAnyObject";
 
     public abstract Architecture Architecture { get; }
+
+    public AssemblyTestHelper WithoutSnapshot()
+    {
+        _recordSnapshot = false;
+        return this;
+    }
+
+    private void Record(string output)
+    {
+        if (_recordSnapshot)
+        {
+            _snapshot.Append(output);
+        }
+    }
 
     public void AddSnapshotHeader(string header)
     {
@@ -62,15 +77,45 @@ public abstract class AssemblyTestHelper
         return results.Any(result => result.EvaluatedObject is ICanBeEvaluated);
     }
 
+    /// <summary>
+    /// Asserts the rule's verdict -- <see cref="IArchRule.HasNoViolations" /> -- rather than the
+    /// shape of its results. The distinction matters for
+    /// <see cref="CombinedArchRule" />: its verdict applies the conjunction, while its
+    /// <see cref="CombinedArchRule.Evaluate" /> merely concatenates both operands' results and
+    /// never applies it. A passing <c>Or</c> whose first operand fails therefore has failing
+    /// results, which is why this assertion cannot be expressed as
+    /// <c>results.All(r =&gt; r.Passed)</c>, and why <see cref="AssertAnyViolations" /> and
+    /// <see cref="AssertOnlyViolations" /> -- which do read the results -- say nothing about a
+    /// combinator.
+    /// </summary>
     public void AssertNoViolations(IArchRule rule)
     {
         var results = rule.Evaluate(Architecture).ToList();
         var output = FormatSnapshot(rule, results);
-        if (!results.All(result => result.Passed))
+        if (!rule.HasNoViolations(Architecture))
         {
             Assert.Fail(output);
         }
-        _snapshot.Append(output);
+        Record(output);
+    }
+
+    /// <summary>
+    /// The exact negation of <see cref="AssertNoViolations" />, and like it a statement about the
+    /// verdict, not the results -- see there for why the two differ. Use it wherever the point of
+    /// the test is that a rule fails as a whole; prefer <see cref="AssertOnlyViolations" /> when
+    /// the point is that every evaluated object was reported, since this assertion is also
+    /// satisfied by the failing placeholder <see cref="ArchRule{TRuleType}.Evaluate" /> injects
+    /// for a rule whose input set is empty.
+    /// </summary>
+    public void AssertHasViolations(IArchRule rule)
+    {
+        var results = rule.Evaluate(Architecture).ToList();
+        var output = FormatSnapshot(rule, results);
+        if (rule.HasNoViolations(Architecture))
+        {
+            Assert.Fail(output);
+        }
+        Record(output);
     }
 
     public void AssertAnyViolations(IArchRule rule)
@@ -85,7 +130,7 @@ public abstract class AssemblyTestHelper
         {
             Assert.Fail(output);
         }
-        _snapshot.Append(output);
+        Record(output);
     }
 
     public void AssertOnlyViolations(IArchRule rule)
@@ -109,7 +154,7 @@ public abstract class AssemblyTestHelper
                     + output
             );
         }
-        _snapshot.Append(output);
+        Record(output);
     }
 
     public void AssertException<T>(IArchRule rule)
@@ -123,6 +168,15 @@ public abstract class AssemblyTestHelper
 
     public Task AssertSnapshotMatches([CallerFilePath] string sourceFile = "")
     {
+        if (!_recordSnapshot)
+        {
+            Assert.Fail(
+                "This helper was created with WithoutSnapshot(), so nothing was recorded and the "
+                    + "snapshot would verify as empty. Drop the WithoutSnapshot() call or the "
+                    + "AssertSnapshotMatches() call."
+            );
+        }
+
         return Verifier
             .Verify(_snapshot.ToString(), null, sourceFile)
             .DisableDiff() // Don't open diff tool during the test

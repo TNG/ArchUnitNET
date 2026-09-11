@@ -1,0 +1,16 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package SlicesTestAssembly.DirectCircle {
+[Slice1] as SlicesTestAssembly.DirectCircle.Slice1
+}
+
+package SlicesTestAssembly.DirectCircle {
+[Slice2] as SlicesTestAssembly.DirectCircle.Slice2
+}
+
+[SlicesTestAssembly.DirectCircle.Slice1] <-[#red]> [SlicesTestAssembly.DirectCircle.Slice2]
+@enduml
