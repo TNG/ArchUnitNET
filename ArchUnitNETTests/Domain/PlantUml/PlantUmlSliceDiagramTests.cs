@@ -80,6 +80,14 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_CaptureGroupAtStart()
+        {
+            // Nothing precedes the capture group, so there is no namespace to nest the slices
+            // under and they are drawn flat, like those of Matching.
+            return VerifySlices(SliceRuleDefinition.Slices().MatchingWithPackages("(*).."));
+        }
+
+        [Fact]
         public Task BuildUmlBySlicesMatchingWithPackages_LimitDependencies()
         {
             return VerifySlices(
