@@ -117,6 +117,15 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_NonContiguousCaptureGroups_C4Style()
+        {
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*)..(*)"),
+                new GenerationOptions { C4Style = true }
+            );
+        }
+
+        [Fact]
         public Task BuildUmlBySlicesFocusOn()
         {
             var slices = SortedSlices(
