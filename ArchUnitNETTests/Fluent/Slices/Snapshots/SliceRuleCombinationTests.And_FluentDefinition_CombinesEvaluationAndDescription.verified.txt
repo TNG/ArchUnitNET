@@ -1,0 +1,45 @@
+﻿===== Slice operand on its own =====
+
+Query: Slices matching "SlicesTestAssembly.SubnamespaceCircle.(**)" should be free of cycles
+Result: True
+Description: All Slices are free of cycles.
+Message: 
+All Evaluations passed
+
+===== Both operands pass =====
+
+Query: Slices matching "SlicesTestAssembly.SubnamespaceCircle.(**)" should be free of cycles and Types that have full name "SlicesTestAssembly.DotDotSemantics.Outer.Mid.Inner.MidInnerClass" should exist
+Result: True
+Description: All Slices are free of cycles.
+Result: True
+Description: SlicesTestAssembly.DotDotSemantics.Outer.Mid.Inner.MidInnerClass passed
+Message: 
+All Evaluations passed
+
+===== Slice operand fails =====
+
+Query: Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**)" should be free of cycles and Types that have full name "SlicesTestAssembly.DotDotSemantics.Outer.Mid.Inner.MidInnerClass" should exist
+Result: False
+Description: Cycle found:
+Slice2 -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+Slice1 -> Slice2
+	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class
+Slice3 -> Slice1
+	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class
+
+Result: True
+Description: SlicesTestAssembly.DotDotSemantics.Outer.Mid.Inner.MidInnerClass passed
+Message: 
+"Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**)" should be free of cycles" failed:
+	Cycle found:
+Slice2 -> Slice3
+	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
+Slice1 -> Slice2
+	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class
+Slice3 -> Slice1
+	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class
+
+
+
+

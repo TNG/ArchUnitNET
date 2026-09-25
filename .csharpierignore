@@ -1,0 +1,3 @@
+# XmlViolationStore rewrites this file without a trailing newline on every test run; CSharpier's
+# XML formatter requires one. Excluded so `csharpier check` doesn't flag the store's own output.
+ArchUnitNETTests/ArchUnitNET/Storage/FrozenRules.xml

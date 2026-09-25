@@ -129,6 +129,14 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public void SliceWithHyperlinkAppendsHyperlinkTest()
+        {
+            var slice = new PlantUmlSlice("Slice1", hyperlink: "https://example.com");
+            var uml = slice.GetPlantUmlString(new RenderOptions());
+            Assert.Equal("[Slice1] [[https://example.com]] " + Environment.NewLine, uml);
+        }
+
+        [Fact]
         public void HandleIllegalComponentNamesTest()
         {
             var forbiddenCharacters = new[] { "[", "]", "\r", "\n", "\f", "\a", "\b", "\v" };
