@@ -1,6 +1,5 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ArchUnitNET.Domain.PlantUml.Export
@@ -38,111 +37,99 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             C4Style = true;
         }
 
-        public string GetPlantUmlString(RenderOptions renderOptions)
+        internal bool IsNested => Namespace != null;
+
+        internal bool IsC4Style => C4Style;
+
+        internal string SliceColor => Color;
+
+        /// <summary>
+        /// The outermost package this slice is nested in, which is its whole namespace.
+        /// </summary>
+        internal string RootPackage => Namespace.Remove(Namespace.Length - 1);
+
+        /// <summary>
+        /// The packages this slice is nested in, outermost first. The first entry is the whole
+        /// namespace of the slice, the others are the segments between it and the leaf.
+        /// </summary>
+        internal IReadOnlyList<string> PackagePath
         {
-            var result = C4Style ? BuildStringC4Style() : BuildString();
-
-            if (Hyperlink != null)
+            get
             {
-                result.Append(" [[" + Hyperlink + "]] ");
+                var path = new List<string> { RootPackage };
+                var segments = _name.Remove(0, Namespace.Length).Split('.');
+                path.AddRange(segments.Take(segments.Length - 1));
+                return path;
             }
-
-            return result.AppendLine().ToString();
         }
 
-        private StringBuilder BuildString()
+        /// <summary>
+        /// The label of the component inside its innermost package, or an empty string if the
+        /// slice only stands for that package.
+        /// </summary>
+        internal string Leaf
         {
-            var result = new StringBuilder();
-            if (Namespace != null)
+            get
             {
-                result.Append("package " + Namespace.Remove(Namespace.Length - 1));
                 var name = _name.Remove(0, Namespace.Length);
-                var iter = 1;
-                while (name.Contains("."))
-                {
-                    var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
-                    result.AppendLine(" {");
-                    result.Append("package " + name.Remove(dotPattern));
-                    name = name.Remove(0, dotPattern + 1);
-                    iter++;
-                }
+                return name.Substring(name.LastIndexOf('.') + 1);
+            }
+        }
 
-                if (name != "")
-                {
-                    result.AppendLine(" {");
-                    result.Append("[" + name + "] as " + _name);
-                    if (Color != null)
-                    {
-                        result.AppendLine(" #" + Color);
-                    }
-                    else
-                    {
-                        result.AppendLine();
-                    }
-                }
-                else if (Color != null)
-                {
-                    result.AppendLine(" #" + Color + " {");
-                }
-                else
-                {
-                    result.AppendLine(" {");
-                }
+        public string GetPlantUmlString(RenderOptions renderOptions)
+        {
+            if (IsNested)
+            {
+                return new PlantUmlSliceTree(this).GetPlantUmlString(renderOptions);
+            }
 
-                for (var i = iter; i > 0; i--)
-                {
-                    result.AppendLine("}");
-                }
+            var result = new StringBuilder();
+            if (C4Style)
+            {
+                result.Append("Container(" + _name + ", " + _name + ")");
+                AppendHyperlink(result);
             }
             else
             {
                 result.Append("[" + _name + "]");
+                AppendHyperlink(result);
                 if (Color != null)
                 {
                     result.Append(" #" + Color);
                 }
             }
 
-            return result;
+            return result.AppendLine().ToString();
         }
 
-        private StringBuilder BuildStringC4Style()
+        internal string GetLeafString()
         {
             var result = new StringBuilder();
-            if (Namespace == null)
+            if (C4Style)
             {
-                result.Append("Container(" + _name + ", " + _name + ")");
-                return result;
+                result.Append("Container(" + _name + ", " + Leaf + ")");
+                AppendHyperlink(result);
+            }
+            else
+            {
+                result.Append("[" + Leaf + "] as " + _name);
+                AppendHyperlink(result);
+                if (Color != null)
+                {
+                    result.Append(" #" + Color);
+                }
             }
 
-            var namespc = Namespace.Remove(Namespace.Length - 1);
-            result.Append("Boundary(" + namespc + ", " + namespc + ") ");
-            var name = _name.Remove(0, Namespace.Length);
-            var iter = 1;
-            while (name.Contains("."))
-            {
-                var dotPattern = name.IndexOf(".", StringComparison.Ordinal);
-                result.AppendLine(" {");
-                result.Append(
-                    "Boundary(" + name.Remove(dotPattern) + ", " + name.Remove(dotPattern) + ") "
-                );
-                name = name.Remove(0, dotPattern + 1);
-                iter++;
-            }
+            return result.ToString();
+        }
 
-            result.AppendLine(" {");
-            if (name != "")
+        // PlantUML only accepts a link in front of the color, not after it.
+        private void AppendHyperlink(StringBuilder result)
+        {
+            if (Hyperlink != null)
             {
-                result.Append("Container(" + _name + ", " + name + ")");
-                result.AppendLine();
+                result.Append(" [[" + Hyperlink + "]] ");
             }
-
-            for (var i = iter; i > 0; i--)
-            {
-                result.AppendLine("}");
-            }
-
-            return result;
         }
     }
 }

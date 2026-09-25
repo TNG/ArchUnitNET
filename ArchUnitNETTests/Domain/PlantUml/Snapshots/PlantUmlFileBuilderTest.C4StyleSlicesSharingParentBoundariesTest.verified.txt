@@ -1,0 +1,14 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+Boundary(A, A) {
+  Boundary(A.X, X) {
+    Container(A.X.One, One)
+    Container(A.X.Two, Two)
+  }
+}
+
+@enduml

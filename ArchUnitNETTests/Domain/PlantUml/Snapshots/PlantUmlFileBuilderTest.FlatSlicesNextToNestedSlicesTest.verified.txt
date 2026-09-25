@@ -1,0 +1,14 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+[Flat1]
+package "A" as A {
+  [X] as A.X
+  [Y] as A.Y
+}
+
+[Flat2]
+@enduml
