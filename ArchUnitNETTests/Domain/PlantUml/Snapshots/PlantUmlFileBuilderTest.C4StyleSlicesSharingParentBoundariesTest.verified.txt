@@ -4,16 +4,11 @@
 
 HIDE_STEREOTYPE()
 
-Boundary(A, A)  {
-Boundary(X, X)  {
-Container(A.X.One, One)
-}
-}
-
-Boundary(A, A)  {
-Boundary(X, X)  {
-Container(A.X.Two, Two)
-}
+Boundary(A, A) {
+  Boundary(X, X) {
+    Container(A.X.One, One)
+    Container(A.X.Two, Two)
+  }
 }
 
 @enduml

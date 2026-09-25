@@ -5,9 +5,9 @@
 HIDE_STEREOTYPE()
 
 package A {
-package B {
-[C] as A.B.C
+  package B {
+    [C] as A.B.C [[https://example.com]] 
+  }
 }
-}
- [[https://example.com]] 
+
 @enduml

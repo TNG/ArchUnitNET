@@ -89,6 +89,18 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public void SliceWithHyperlinkAndColorPutsHyperlinkBeforeColorTest()
+        {
+            var slice = new PlantUmlSlice(
+                "Slice1",
+                color: "99ffd1",
+                hyperlink: "https://example.com"
+            );
+            var uml = slice.GetPlantUmlString(new RenderOptions());
+            Assert.Equal("[Slice1] [[https://example.com]]  #99ffd1" + Environment.NewLine, uml);
+        }
+
+        [Fact]
         public Task NestedSliceWithHyperlinkTest()
         {
             return VerifyElements(

@@ -5,14 +5,9 @@
 HIDE_STEREOTYPE()
 
 package A {
-package X {
-[One] as A.X.One
-}
-}
-
-package A {
-package X #99ffd1 {
-}
+  package X #99ffd1 {
+    [One] as A.X.One
+  }
 }
 
 @enduml

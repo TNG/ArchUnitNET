@@ -5,15 +5,9 @@
 HIDE_STEREOTYPE()
 
 package SlicesTestAssembly.MultipleSubnamespaces {
-[Slice1] as SlicesTestAssembly.MultipleSubnamespaces.Slice1
-}
-
-package SlicesTestAssembly.MultipleSubnamespaces {
-[Slice2] as SlicesTestAssembly.MultipleSubnamespaces.Slice2
-}
-
-package SlicesTestAssembly.MultipleSubnamespaces {
-[Slice3] as SlicesTestAssembly.MultipleSubnamespaces.Slice3
+  [Slice1] as SlicesTestAssembly.MultipleSubnamespaces.Slice1
+  [Slice2] as SlicesTestAssembly.MultipleSubnamespaces.Slice2
+  [Slice3] as SlicesTestAssembly.MultipleSubnamespaces.Slice3
 }
 
 [SlicesTestAssembly.MultipleSubnamespaces.Slice1] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice2]

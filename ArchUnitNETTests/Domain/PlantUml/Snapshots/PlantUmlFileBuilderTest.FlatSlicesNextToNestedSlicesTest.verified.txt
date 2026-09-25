@@ -6,12 +6,9 @@ HIDE_STEREOTYPE()
 
 [Flat1]
 package A {
-[X] as A.X
+  [X] as A.X
+  [Y] as A.Y
 }
 
 [Flat2]
-package A {
-[Y] as A.Y
-}
-
 @enduml
