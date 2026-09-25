@@ -1,0 +1,8 @@
+{
+  "solution": {
+    "path": "ArchUnit.sln",
+    "projects": [
+      "ArchUnitNET.TUnitTests\\ArchUnitNET.TUnitTests.csproj"
+    ]
+  }
+}

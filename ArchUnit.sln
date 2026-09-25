@@ -67,7 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlicesTestAssembly", "TestA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A780B3D6-C525-4270-ABF1-63BA65EA1593}"
 	ProjectSection(SolutionItems) = preProject
-		ArchUnit.TestsWithoutTUnit.slnf = ArchUnit.TestsWithoutTUnit.slnf
+		ArchUnitNET.mtp.slnf = ArchUnitNET.mtp.slnf
+		ArchUnitNET.vstest.slnf = ArchUnitNET.vstest.slnf
 		README.md = README.md
 		renovate.json = renovate.json
 	EndProjectSection
