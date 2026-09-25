@@ -4,8 +4,8 @@
 
 HIDE_STEREOTYPE()
 
-package A {
-  package X #99ffd1 {
+package "A" as A {
+  package "X" as A.X #99ffd1 {
     [One] as A.X.One
   }
 }

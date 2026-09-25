@@ -4,19 +4,19 @@
 
 HIDE_STEREOTYPE()
 
-package A {
-  package X {
+package "A" as A {
+  package "X" as A.X {
     [One] as A.X.One
-    package Deep {
+    package "Deep" as A.X.Deep {
       [Three] as A.X.Deep.Three
     }
   }
-  package Y {
+  package "Y" as A.Y {
     [Two] as A.Y.Two
   }
 }
 
-package B {
+package "B" as B {
   [Four] as B.Four
 }
 

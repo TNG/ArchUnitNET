@@ -4,14 +4,14 @@
 
 HIDE_STEREOTYPE()
 
-package SlicesTestAssembly.SameNamedSubnamespaces {
-  package Billing {
-    package Domain {
+package "SlicesTestAssembly.SameNamedSubnamespaces" as SlicesTestAssembly.SameNamedSubnamespaces {
+  package "Billing" as SlicesTestAssembly.SameNamedSubnamespaces.Billing {
+    package "Domain" as SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain {
       [Model] as SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain.Model
     }
   }
-  package Orders {
-    package Domain {
+  package "Orders" as SlicesTestAssembly.SameNamedSubnamespaces.Orders {
+    package "Domain" as SlicesTestAssembly.SameNamedSubnamespaces.Orders.Domain {
       [Model] as SlicesTestAssembly.SameNamedSubnamespaces.Orders.Domain.Model
     }
   }
@@ -19,5 +19,5 @@ package SlicesTestAssembly.SameNamedSubnamespaces {
 }
 
 [SlicesTestAssembly.SameNamedSubnamespaces.Orders.Domain.Model] --|> [SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain.Model]
-[SlicesTestAssembly.SameNamedSubnamespaces.Web] -[#red]> Domain
+[SlicesTestAssembly.SameNamedSubnamespaces.Web] -[#red]> SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain
 @enduml

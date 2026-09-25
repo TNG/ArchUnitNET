@@ -4,14 +4,14 @@
 
 HIDE_STEREOTYPE()
 
-package A {
-  package Orders {
-    package Domain {
+package "A" as A {
+  package "Orders" as A.Orders {
+    package "Domain" as A.Orders.Domain {
       [Model] as A.Orders.Domain.Model
     }
   }
-  package Billing {
-    package Domain {
+  package "Billing" as A.Billing {
+    package "Domain" as A.Billing.Domain {
       [Model] as A.Billing.Domain.Model
     }
   }

@@ -4,8 +4,8 @@
 
 HIDE_STEREOTYPE()
 
-package A {
-  package B {
+package "A" as A {
+  package "B" as A.B {
     [C] as A.B.C [[https://example.com]] 
   }
 }

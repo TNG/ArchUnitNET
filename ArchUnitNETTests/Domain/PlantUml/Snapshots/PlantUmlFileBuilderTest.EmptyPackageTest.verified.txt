@@ -4,11 +4,12 @@
 
 HIDE_STEREOTYPE()
 
-package A {
-  package X {
+package "A" as A {
+  package "X" as A.X {
     [One] as A.X.One
   }
-  package Y #99ffd1 {
+  package "Y" as A.Y #99ffd1 {
+    label " " as A.Y.__empty__
   }
 }
 

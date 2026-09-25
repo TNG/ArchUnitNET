@@ -12,10 +12,16 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     /// its own would re-open its parent packages once per slice. PlantUML merges those re-opened
     /// packages, but the source then reads nothing like a hand-written diagram. Collecting the
     /// slices into a tree first opens every package exactly once.
+    ///
+    /// PlantUML identifies a package by its name, not by where it is nested, so two packages
+    /// called "Domain" under different parents would be drawn as one. Every package is therefore
+    /// labelled with its own segment but identified by its full path, which is also the name the
+    /// dependencies use to point at it.
     /// </remarks>
     internal class PlantUmlSliceTree : IPlantUmlElement
     {
         private readonly string _name;
+        private readonly string _path;
         private readonly bool _c4Style;
         private string _color;
 
@@ -27,14 +33,15 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         /// Creates the tree for the root package of the given nested slice, holding that slice.
         /// </summary>
         public PlantUmlSliceTree(PlantUmlSlice slice)
-            : this(slice.RootPackage, slice.IsC4Style)
+            : this(slice.RootPackage, slice.RootPackage, slice.IsC4Style)
         {
             Add(slice);
         }
 
-        private PlantUmlSliceTree(string name, bool c4Style)
+        private PlantUmlSliceTree(string name, string path, bool c4Style)
         {
             _name = name;
+            _path = path;
             _c4Style = c4Style;
         }
 
@@ -74,7 +81,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 .FirstOrDefault(child => child._name == name);
             if (package == null)
             {
-                package = new PlantUmlSliceTree(name, c4Style);
+                package = new PlantUmlSliceTree(name, _path + "." + name, c4Style);
                 _children.Add(package);
             }
 
@@ -87,15 +94,24 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             var childIndent = new string(' ', 2 * (depth + 1));
             if (_c4Style)
             {
-                result.AppendLine(indent + "Boundary(" + _name + ", " + _name + ") {");
+                result.AppendLine(indent + "Boundary(" + _path + ", " + _name + ") {");
             }
             else if (_color != null)
             {
-                result.AppendLine(indent + "package " + _name + " #" + _color + " {");
+                result.AppendLine(
+                    indent + "package \"" + _name + "\" as " + _path + " #" + _color + " {"
+                );
             }
             else
             {
-                result.AppendLine(indent + "package " + _name + " {");
+                result.AppendLine(indent + "package \"" + _name + "\" as " + _path + " {");
+            }
+
+            // PlantUML draws an empty package as a single node that shows both its label and its
+            // alias. A blank placeholder keeps it a regular package that only shows its label.
+            if (!_c4Style && _children.Count == 0)
+            {
+                result.AppendLine(childIndent + "label \" \" as " + _path + ".__empty__");
             }
 
             foreach (var child in _children)

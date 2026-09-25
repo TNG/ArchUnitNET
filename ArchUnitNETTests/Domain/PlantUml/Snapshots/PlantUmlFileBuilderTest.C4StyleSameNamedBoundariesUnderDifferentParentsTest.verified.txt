@@ -5,13 +5,13 @@
 HIDE_STEREOTYPE()
 
 Boundary(A, A) {
-  Boundary(Orders, Orders) {
-    Boundary(Domain, Domain) {
+  Boundary(A.Orders, Orders) {
+    Boundary(A.Orders.Domain, Domain) {
       Container(A.Orders.Domain.Model, Model)
     }
   }
-  Boundary(Billing, Billing) {
-    Boundary(Domain, Domain) {
+  Boundary(A.Billing, Billing) {
+    Boundary(A.Billing.Domain, Domain) {
       Container(A.Billing.Domain.Model, Model)
     }
   }

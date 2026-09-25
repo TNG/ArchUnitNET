@@ -4,7 +4,7 @@
 
 HIDE_STEREOTYPE()
 
-package SlicesTestAssembly.MultipleSubnamespaces {
+package "SlicesTestAssembly.MultipleSubnamespaces" as SlicesTestAssembly.MultipleSubnamespaces {
   [Slice1] as SlicesTestAssembly.MultipleSubnamespaces.Slice1
   [Slice2] as SlicesTestAssembly.MultipleSubnamespaces.Slice2
   [Slice3] as SlicesTestAssembly.MultipleSubnamespaces.Slice3

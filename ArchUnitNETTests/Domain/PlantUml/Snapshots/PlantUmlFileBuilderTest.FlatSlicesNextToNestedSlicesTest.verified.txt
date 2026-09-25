@@ -5,7 +5,7 @@
 HIDE_STEREOTYPE()
 
 [Flat1]
-package A {
+package "A" as A {
   [X] as A.X
   [Y] as A.Y
 }

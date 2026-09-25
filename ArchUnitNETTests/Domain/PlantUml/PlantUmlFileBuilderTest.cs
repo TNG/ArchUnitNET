@@ -193,9 +193,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Theory]
-        [InlineData(DependencyType.OneToPackage, "[A.Web] -[#red]> Domain")]
-        [InlineData(DependencyType.PackageToOne, "Web -[#blue]> [A.Billing.Domain]")]
-        [InlineData(DependencyType.PackageToPackage, "Web -[#green]> Domain")]
+        [InlineData(DependencyType.OneToPackage, "[A.Web] -[#red]> A.Billing.Domain")]
+        [InlineData(DependencyType.PackageToOne, "A.Web -[#blue]> [A.Billing.Domain]")]
+        [InlineData(DependencyType.PackageToPackage, "A.Web -[#green]> A.Billing.Domain")]
         public void PackageArrowsTest(DependencyType dependencyType, string expected)
         {
             var dependency = new PlantUmlDependency("A.Web", "A.Billing.Domain", dependencyType);
@@ -210,7 +210,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 "A.Orders.Model",
                 DependencyType.PackageToPackageIfSameParentNamespace
             );
-            Assert.Equal("Domain ..> Model" + Environment.NewLine, dependency.GetPlantUmlString());
+            Assert.Equal(
+                "A.Orders.Domain ..> A.Orders.Model" + Environment.NewLine,
+                dependency.GetPlantUmlString()
+            );
         }
 
         [Fact]
@@ -226,8 +229,14 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 "A.Web",
                 DependencyType.OneToOneIfSameParentNamespace
             );
-            Assert.Equal("A.Web --> Billing" + Environment.NewLine, toPackage.GetPlantUmlString());
-            Assert.Equal("Billing -> A.Web" + Environment.NewLine, fromPackage.GetPlantUmlString());
+            Assert.Equal(
+                "A.Web --> A.Billing" + Environment.NewLine,
+                toPackage.GetPlantUmlString()
+            );
+            Assert.Equal(
+                "A.Billing -> A.Web" + Environment.NewLine,
+                fromPackage.GetPlantUmlString()
+            );
         }
 
         [Fact]
