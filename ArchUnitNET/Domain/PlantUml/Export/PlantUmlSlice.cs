@@ -13,6 +13,11 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private string Color { get; }
         private bool C4Style { get; set; }
 
+        // Set when the caller already knows where the slice sits, because its name cannot be
+        // split on "." to find out; see the internal constructor.
+        private readonly IReadOnlyList<string> _packages;
+        private readonly string _leaf;
+
         public PlantUmlSlice(
             string name,
             string nameSpace = null,
@@ -27,6 +32,32 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             Namespace = nameSpace;
             Color = color;
             Alias = name;
+        }
+
+        /// <summary>
+        /// Creates a nested slice whose packages and label are given rather than read off its
+        /// name. A name such as "App.Orders..Http" is not a namespace path: split on "." it
+        /// would claim an empty package, and "Orders.*.Http" would claim one called "*".
+        /// </summary>
+        /// <param name="name">The full slice name, which is also the alias arrows point at.</param>
+        /// <param name="nameSpace">The root package, with a trailing ".".</param>
+        /// <param name="packages">The packages between the root package and the slice.</param>
+        /// <param name="leaf">
+        /// The label inside the innermost package, or an empty string if the slice only stands
+        /// for that package.
+        /// </param>
+        /// <param name="color">The background color, if any.</param>
+        internal PlantUmlSlice(
+            string name,
+            string nameSpace,
+            IReadOnlyList<string> packages,
+            string leaf,
+            string color = null
+        )
+            : this(name, nameSpace, color)
+        {
+            _packages = packages;
+            _leaf = leaf;
         }
 
         public override string ToString()
@@ -66,6 +97,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             get
             {
                 var path = new List<string> { RootPackage };
+                if (_packages != null)
+                {
+                    path.AddRange(_packages);
+                    return path;
+                }
+
                 var segments = _name.Remove(0, Namespace.Length).Split('.');
                 path.AddRange(segments.Take(segments.Length - 1));
                 return path;
@@ -80,6 +117,11 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         {
             get
             {
+                if (_leaf != null)
+                {
+                    return _leaf;
+                }
+
                 var name = _name.Remove(0, Namespace.Length);
                 return name.Substring(name.LastIndexOf('.') + 1);
             }
@@ -126,7 +168,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             else
             {
                 // PlantUML reads a "*" at the start of a label as a list bullet and drops it,
-                // which would turn a label such as "*.Http" into ".Http".
+                // which would turn the "*.Http" of "App.(*).*.(*)" into ".Http".
                 var label = Leaf.StartsWith("*", StringComparison.Ordinal) ? "~" + Leaf : Leaf;
                 result.Append("[" + label + "] as " + Alias);
                 AppendHyperlink(result);

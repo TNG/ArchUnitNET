@@ -71,14 +71,18 @@ namespace ArchUnitNETTests.Fluent.Slices
         [InlineData("*.(**)..(Web|Api)")]
         public void SameName_OnlyForSameCaptures(string pattern)
         {
-            var regex = SliceRuleInitializer.ConvertPatternToRegex(pattern);
+            var (regex, separators) = SliceRuleInitializer.ConvertPatternToRegex(pattern);
             var matches = Namespaces()
                 .Select(nameSpace => regex.Match(nameSpace))
                 .Where(match => match.Success)
                 .ToList();
             Assert.NotEmpty(matches);
 
-            foreach (var slice in matches.GroupBy(match => SliceRuleInitializer.SliceName(match)))
+            foreach (
+                var slice in matches.GroupBy(match =>
+                    SliceRuleInitializer.SliceName(match, separators)
+                )
+            )
             {
                 var captures = slice.Select(Captures).Distinct().ToList();
                 Assert.True(

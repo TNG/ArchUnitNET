@@ -80,6 +80,44 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_LiteralBetweenCaptureGroups()
+        {
+            // The literal is part of the name, so the name is the namespace path of its types
+            // and the slice nests all the way down.
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*).Group1.(*)")
+            );
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_WildcardBetweenCaptureGroups()
+        {
+            // "Slice3.*.Inner" holds the types of both Group1.Inner and Group2.Inner, so it nests
+            // only under Slice3, the namespace they share, and keeps "*.Inner" as its label.
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*).*.(*)")
+            );
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_WildcardBetweenCaptureGroups_C4Style()
+        {
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*).*.(*)"),
+                new GenerationOptions { C4Style = true }
+            );
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_NonContiguousCaptureGroups_LimitDependencies()
+        {
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*)..(*)"),
+                new GenerationOptions { LimitDependencies = true }
+            );
+        }
+
+        [Fact]
         public Task BuildUmlBySlicesMatchingWithPackages_CaptureGroupAtStart()
         {
             // Nothing precedes the capture group, so there is no namespace to nest the slices
@@ -112,6 +150,15 @@ namespace ArchUnitNETTests.Domain.PlantUml
             // prefix, so this exercises PlantUmlSlice.BuildStringC4Style's no-namespace branch.
             return VerifySlices(
                 SliceRuleDefinition.Slices().Matching(Root + "(**)"),
+                new GenerationOptions { C4Style = true }
+            );
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_NonContiguousCaptureGroups_C4Style()
+        {
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*)..(*)"),
                 new GenerationOptions { C4Style = true }
             );
         }

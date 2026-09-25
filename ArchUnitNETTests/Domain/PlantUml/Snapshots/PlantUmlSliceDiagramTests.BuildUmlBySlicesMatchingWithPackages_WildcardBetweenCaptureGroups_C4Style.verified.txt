@@ -1,0 +1,13 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+Boundary(SlicesTestAssembly.MultipleSubnamespaces, SlicesTestAssembly.MultipleSubnamespaces) {
+  Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice3, Slice3) {
+    Container(SlicesTestAssembly.MultipleSubnamespaces.Slice3._.Inner, *.Inner)
+  }
+}
+
+@enduml

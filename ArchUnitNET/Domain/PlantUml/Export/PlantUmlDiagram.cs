@@ -59,11 +59,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         /// A slice is identified in the diagram by its name, but not every name is a valid id.
         /// PlantUML rejects "[Inner] as App.Outer+Inner" and "Container(App.Orders.*.Http, ...)"
         /// as syntax errors, and slice names can contain such characters: SlicedBy names slices
-        /// after type names such as "Outer+Inner" or "List`1", and a hand-built SliceIdentifier
-        /// can be called anything. No character that a namespace cannot contain works in their
-        /// place either, so the id is made from the name with those characters replaced by "_",
-        /// and suffixed until it clashes with no other name in the diagram. The name itself stays
-        /// the label, and slices whose names are valid ids keep them.
+        /// after type names such as "Outer+Inner" or "List`1", a hand-built SliceIdentifier can
+        /// be called anything, and a pattern with a "*" between two capture groups keeps it in
+        /// the name. No character that a namespace cannot contain works in their place either, so
+        /// the id is made from the name with those characters replaced by "_", and suffixed until
+        /// it clashes with no other name in the diagram. The name itself stays the label, and
+        /// slices whose names are valid ids keep them.
         /// </remarks>
         private static void AssignAliases(IReadOnlyCollection<IPlantUmlElement> elements)
         {

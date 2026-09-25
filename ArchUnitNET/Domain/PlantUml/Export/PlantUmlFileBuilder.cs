@@ -146,7 +146,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 }
                 else if (!sliceIsPackage)
                 {
-                    var slc = new PlantUmlSlice(slice.Description, slice.NameSpace);
+                    var slc = CreateNode(slice, slice.Description);
                     if (generationOptions.C4Style)
                     {
                         slc.UseS4Style();
@@ -311,13 +311,13 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     nodes.Add(
                         slice,
                         slice.Description.Contains(package)
-                            ? new PlantUmlSlice(slice.Description, slice.NameSpace, "99ffd1")
-                            : new PlantUmlSlice(slice.Description, slice.NameSpace)
+                            ? CreateNode(slice, slice.Description, "99ffd1")
+                            : CreateNode(slice, slice.Description)
                     );
                 }
                 else if (!slice.Description.Contains(package))
                 {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description + ".", slice.NameSpace));
+                    nodes.Add(slice, CreateNode(slice, slice.Description + "."));
                 }
             }
 
@@ -363,11 +363,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             var tempList = _sliceList
                 .Where(slice => IsPackage(slice) && slice.Description.Contains(package))
-                .Select(slice => new PlantUmlSlice(
-                    slice.Description + ".",
-                    slice.NameSpace,
-                    "99ffd1"
-                ))
+                .Select(slice => CreateNode(slice, slice.Description + ".", "99ffd1"))
                 .ToList();
             if (tempList.Count > 0)
             {
@@ -585,6 +581,93 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             }
         }
 
+        /// <summary>
+        /// Creates the diagram node for a slice, nested as deep as its types really share a
+        /// namespace.
+        /// </summary>
+        /// <remarks>
+        /// A slice name is only a namespace path when the capture groups of its pattern sit next
+        /// to each other. "App.(*)..(*)" names the types in "App.Slice3.Group1.Inner"
+        /// "App.Slice3..Inner", so splitting that name on "." would claim an empty package, and
+        /// "App.(*).*.(*)" would claim one called "*". The packages are therefore taken from the
+        /// start of the name only as far as every type in the slice lives in them, and the rest
+        /// of the name becomes the label: "..Inner" inside "Slice3", where it sits next to
+        /// "Group1" without claiming to be its sibling.
+        /// </remarks>
+        /// <param name="slice">The slice to draw.</param>
+        /// <param name="name">
+        /// The node's name, which is the slice's description, followed by a "." if the node only
+        /// stands for the package of that name.
+        /// </param>
+        /// <param name="color">The background color, if any.</param>
+        private static PlantUmlSlice CreateNode(Slice slice, string name, string color = null)
+        {
+            var nameSpace = slice.NameSpace;
+            if (nameSpace == null || !name.StartsWith(nameSpace, StringComparison.Ordinal))
+            {
+                return new PlantUmlSlice(name, null, color);
+            }
+
+            var typeSegments = new List<string[]>();
+            foreach (var type in slice.Types)
+            {
+                var typeNamespace = type.Namespace.FullName + ".";
+                if (!typeNamespace.StartsWith(nameSpace, StringComparison.Ordinal))
+                {
+                    // Not even the root package holds this type, so there is nothing to nest in.
+                    return new PlantUmlSlice(name, null, color);
+                }
+
+                typeSegments.Add(typeNamespace.Substring(nameSpace.Length).Split('.'));
+            }
+
+            // The last segment is the label, so at most the ones before it become packages.
+            var segments = name.Substring(nameSpace.Length).Split('.');
+            var packageCount = 0;
+            while (
+                packageCount < segments.Length - 1
+                && segments[packageCount] != ""
+                && typeSegments.All(typeSegment =>
+                    typeSegment.Length > packageCount
+                    && typeSegment[packageCount] == segments[packageCount]
+                )
+            )
+            {
+                packageCount++;
+            }
+
+            // Stopping at the empty segment of a ".." leaves the label starting with only one of
+            // its two dots; restore the other so the label shows that segments were skipped.
+            var leaf = string.Join(".", segments.Skip(packageCount));
+            if (leaf.StartsWith(".", StringComparison.Ordinal))
+            {
+                leaf = "." + leaf;
+            }
+
+            return new PlantUmlSlice(
+                name,
+                nameSpace,
+                segments.Take(packageCount).ToList(),
+                leaf,
+                color
+            );
+        }
+
+        /// <summary>
+        /// Whether every type in the slice lives in the namespace the slice is named after or
+        /// below it, so that the name can stand for a package.
+        /// </summary>
+        private static bool IsNamespaceOfItsTypes(Slice slice)
+        {
+            return slice.Types.All(type =>
+                type.Namespace.FullName == slice.Description
+                || type.Namespace.FullName.StartsWith(
+                    slice.Description + ".",
+                    StringComparison.Ordinal
+                )
+            );
+        }
+
         private bool IsPackage(Slice slice)
         {
             if (!slice.ContainsNamespace())
@@ -592,11 +675,18 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 return false;
             }
 
+            // A slice only stands for a package if its name is one: "App.Orders..Http" is not,
+            // whatever other slice names happen to start with it.
+            if (!IsNamespaceOfItsTypes(slice))
+            {
+                return false;
+            }
+
             for (var i = _sliceList.Count - 1; i >= 0; i--)
             {
                 if (
-                    _sliceList[i].Description != slice.Description
-                    & _sliceList[i].Description.StartsWith(slice.Description)
+                    _sliceList[i]
+                        .Description.StartsWith(slice.Description + ".", StringComparison.Ordinal)
                 )
                 {
                     return true;

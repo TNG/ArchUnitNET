@@ -199,8 +199,9 @@ at most once. `Matching` and `MatchingWithPackages` throw an `ArgumentException`
 rule is defined, not when it is checked. Types whose namespace does not match are left out entirely.
 
 #### How slices are named
-The name is what the capture groups captured, joined with `.`. Whatever sits before the first group
-or after the last one selects which types belong to a slice rather than naming it, so it is left out.
+The name is the pattern text **from the first capture group to the last**, with the groups replaced
+by what they captured. Whatever sits before the first group or after the last one selects which types
+belong to a slice rather than naming it, so it is left out.
 
 | Pattern | Namespace | Slice name |
 |---|---|---|
@@ -208,9 +209,21 @@ or after the last one selects which types belong to a slice rather than naming i
 | `App.(**)` | `App.Orders.Web` | `Orders.Web` |
 | `App.(*)..` | `App.Orders.Web` | `Orders` |
 | `App.(*).(*)` | `App.Orders.Http` | `Orders.Http` |
+| `App.(*).Service.(*)` | `App.Orders.Service.Http` | `Orders.Service.Http` |
+| `App.(*)..(*)` | `App.Orders.Web.Http` | `Orders..Http` |
+| `App.(*).*.(*)` | `App.Orders.Web.Http` | `Orders.*.Http` |
 
-A slice is identified by its name. `(*)` captures no dots and `(**)` may appear only once, so two
-types end up in the same slice exactly when their groups captured the same values.
+A slice is identified by its name. The text between the groups is the same for every type a pattern
+matches, so two types end up in the same slice exactly when their groups captured the same values:
+every type `"App.(*)..(*)"` matches gets a `..` in its name, whether or not anything was actually
+skipped.
+
+In diagrams, `MatchingWithPackages` nests a slice in `package` blocks only as deep as all of its
+types really share a namespace, and labels it with the rest of its name. With contiguous capture
+groups (`"App.(*).(*)"`, `"App.(*).Service.(*)"`) the name is that namespace, so the slice nests all
+the way down. With a `..` or a `*` between them it stops there: `Orders..Http` is drawn as
+`..Http` inside `package Orders`, and `Orders.*.Http` as `*.Http`, so no package is drawn that the
+slice's types are not in.
 
 #### Cycle-free rule
 ![Cycle](img/cycle.svg)
@@ -315,6 +328,8 @@ PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetOb
 
 ### 5.4 Small slices
 In order not to display all slices and all occurrences, you can use a single asterisk in the pattern. One star captures one namespace segment. You cannot mix single `(*)` and double `(**)` asterisks in one pattern, but you can repeat `(*)` -- `"ArchUnitNET.(*).(*)"` captures two segments and nests `[Syntax]` inside `package Fluent` inside `package ArchUnitNET`.
+
+Keep repeated capture groups adjacent if you want that nesting all the way down: with a `..` or a `*` between two groups, the slice is nested only as deep as its types share a namespace, and labelled with the rest of its name, e.g. `..Http` inside `package Orders`. See [3.6](#36-slice-rules).
 
 #### 5.4.1 ArchUnitNET.(\*)
 ![Diagram](diagrams/archUnitNet_one.svg)

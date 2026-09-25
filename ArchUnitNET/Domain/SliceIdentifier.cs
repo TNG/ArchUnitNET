@@ -29,8 +29,10 @@ namespace ArchUnitNET.Domain
 
         /// <summary>
         /// The slice's name, which is also its identity. A slice pattern names a slice after
-        /// what its capture groups matched, joined with ".": "App.(*).(*)" over
-        /// "App.Orders.Http" gives "Orders.Http".
+        /// what its capture groups matched, joined by the pattern text between them:
+        /// "App.(*).(*)" over "App.Orders.Http" gives "Orders.Http", "App.(*)..(*)" over
+        /// "App.Orders.Web.Http" gives "Orders..Http" -- the ".." says segments were skipped,
+        /// so the name is never mistaken for a namespace that exists.
         /// </summary>
         public string Description => Identifier;
 

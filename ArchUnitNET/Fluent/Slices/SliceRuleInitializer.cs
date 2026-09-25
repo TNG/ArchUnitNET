@@ -25,12 +25,15 @@ namespace ArchUnitNET.Fluent.Slices
     ///     use (**) at most once. Types whose namespace does not match are left out of the rule.
     /// </para>
     /// <para>
-    ///     The slice's name is what the capture groups matched, joined with ".", so
-    ///     "App.(*).(*)" names a slice "Orders.Http". See <see cref="SliceIdentifier.Description"/>.
+    ///     The slice's name is the pattern text from the first capture group to the last with
+    ///     the groups filled in, so "App.(*).(*)" names a slice "Orders.Http" while
+    ///     "App.(*)..(*)" names one "Orders..Http" -- the latter is not a namespace and does not
+    ///     claim to be. See <see cref="SliceIdentifier.Description"/>.
     /// </para>
     /// <para>
     ///     The name is also the slice's identity: types with the same name share a slice. That
-    ///     groups them exactly by what they captured; see <see cref="SliceName"/>.
+    ///     groups them exactly by what they captured, because every type a pattern matches gets
+    ///     the same text between its captured values; see <see cref="NameSeparators"/>.
     /// </para>
     /// </remarks>
     public class SliceRuleInitializer
@@ -56,9 +59,12 @@ namespace ArchUnitNET.Fluent.Slices
         /// <exception cref="ArgumentException">The pattern is malformed.</exception>
         public GivenSlices Matching(string pattern)
         {
-            var regex = ConvertPatternToRegex(pattern);
+            var (regex, separators) = ConvertPatternToRegex(pattern);
             _ruleCreator.SetSliceAssignment(
-                new SliceAssignment(type => AssignFunc(type, regex), "matching \"" + pattern + "\"")
+                new SliceAssignment(
+                    type => AssignFunc(type, regex, separators),
+                    "matching \"" + pattern + "\""
+                )
             );
             return new GivenSlices(_ruleCreator);
         }
@@ -74,10 +80,10 @@ namespace ArchUnitNET.Fluent.Slices
         /// <exception cref="ArgumentException">The pattern is malformed.</exception>
         public GivenSlices MatchingWithPackages(string pattern)
         {
-            var regex = ConvertPatternToRegex(pattern);
+            var (regex, separators) = ConvertPatternToRegex(pattern);
             _ruleCreator.SetSliceAssignment(
                 new SliceAssignment(
-                    type => AssignFunc(type, regex, true),
+                    type => AssignFunc(type, regex, separators, true),
                     "matching \"" + pattern + "\""
                 )
             );
@@ -99,7 +105,7 @@ namespace ArchUnitNET.Fluent.Slices
             RegexOptions.Compiled
         );
 
-        internal static Regex ConvertPatternToRegex(string pattern)
+        internal static (Regex regex, string[] separators) ConvertPatternToRegex(string pattern)
         {
             AssertPatternIsValid(pattern);
             var escaped = Regex
@@ -111,7 +117,64 @@ namespace ArchUnitNET.Fluent.Slices
             var result = EscapedTwoDots
                 .Replace(escaped, match => TwoDotsRegex(match, escaped))
                 .Replace(TwoStarRegexMarker, TwoStarCaptureRegex);
-            return new Regex($"^{result}$", RegexOptions.Compiled);
+            return (new Regex($"^{result}$", RegexOptions.Compiled), NameSeparators(pattern));
+        }
+
+        /// <summary>
+        /// The slice's name: what the capture groups matched, joined by the pattern text between
+        /// them (see <see cref="NameSeparators"/>).
+        /// </summary>
+        internal static string SliceName(Match match, string[] separators)
+        {
+            // Group 0 is the whole match; the rest are the pattern's capture groups in order.
+            var name = new StringBuilder(match.Groups[1].Value);
+            for (var i = 2; i < match.Groups.Count; i++)
+            {
+                name.Append(separators[i - 2]).Append(match.Groups[i].Value);
+            }
+
+            return name.ToString();
+        }
+
+        private static readonly Regex Alternation = new Regex(@"\[[^\]]*]", RegexOptions.Compiled);
+
+        /// <summary>
+        /// The pattern text between each pair of adjacent capture groups, used to join the
+        /// captured parts into the slice name. Everything before the first group and after the
+        /// last one selects which types belong to a slice rather than naming it, so it is left
+        /// out: that is what keeps "App.(*)" naming a slice "Orders" rather than "App.Orders".
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Keeping the pattern's own text means the name says what sits between the captures:
+        /// "App.(*).Service.(*)" names a slice "Orders.Service.Http", which is the real
+        /// namespace, while "App.(*)..(*)" names one "Orders..Http", which visibly is not.
+        /// Alternations become "*" because a PlantUML name may not contain "[" or "]", and
+        /// because -- like "*" -- which alternative matched is not part of the slice's identity.
+        /// </para>
+        /// <para>
+        /// The separators come from the pattern, not from the match, so they are the same for
+        /// every type the pattern matches. That is what lets the name identify the slice: types
+        /// get the same name exactly when they captured the same values. With plain text between
+        /// the groups the name is the matched part of the namespace, which the pattern splits
+        /// into its groups only one way. With "..", "*" or an alternation between them the name
+        /// contains a ".." or "*", which no captured value can contain. Both rely on "(*)"
+        /// capturing no dots and "(**)" appearing at most once; a change to the pattern syntax
+        /// has to keep that true.
+        /// </para>
+        /// </remarks>
+        private static string[] NameSeparators(string pattern)
+        {
+            var groups = CaptureGroup.Matches(pattern);
+            var separators = new string[groups.Count - 1];
+            for (var i = 0; i < separators.Length; i++)
+            {
+                var start = groups[i].Index + groups[i].Length;
+                var between = pattern.Substring(start, groups[i + 1].Index - start);
+                separators[i] = Alternation.Replace(between, "*");
+            }
+
+            return separators;
         }
 
         /// <summary>
@@ -251,7 +314,12 @@ namespace ArchUnitNET.Fluent.Slices
             return false;
         }
 
-        private static SliceIdentifier AssignFunc(IType type, Regex regex, bool fullName = false)
+        private static SliceIdentifier AssignFunc(
+            IType type,
+            Regex regex,
+            string[] separators,
+            bool fullName = false
+        )
         {
             var namespc = type.Namespace.FullName;
             var match = regex.Match(namespc);
@@ -260,7 +328,7 @@ namespace ArchUnitNET.Fluent.Slices
                 return SliceIdentifier.Ignore();
             }
 
-            var name = SliceName(match);
+            var name = SliceName(match, separators);
             if (!fullName)
             {
                 return SliceIdentifier.Of(name);
@@ -270,29 +338,6 @@ namespace ArchUnitNET.Fluent.Slices
             // namespace to nest the slice under, so report none rather than an empty one.
             var slicePrefix = namespc.Substring(0, match.Groups[1].Index);
             return SliceIdentifier.Of(slicePrefix + name, slicePrefix == "" ? null : slicePrefix);
-        }
-
-        /// <summary>
-        /// The slice's name: what the capture groups matched, joined with ".".
-        /// </summary>
-        /// <remarks>
-        /// The name is also the slice's identity, so two types share a slice exactly when they get
-        /// the same name. That groups them by what they captured, because "(*)" captures no dots
-        /// and "(**)" appears at most once: the captures can be read back from the name in only
-        /// one way. Joining with "." matches the exporter, which splits slice names on "." to
-        /// nest package blocks, and makes "App.(*).(*)" name a grouping the same way as
-        /// "App.(**)".
-        /// </remarks>
-        internal static string SliceName(Match match)
-        {
-            // Group 0 is the whole match; the rest are the pattern's capture groups in order.
-            var name = new StringBuilder(match.Groups[1].Value);
-            for (var i = 2; i < match.Groups.Count; i++)
-            {
-                name.Append('.').Append(match.Groups[i].Value);
-            }
-
-            return name.ToString();
         }
     }
 }
