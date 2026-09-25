@@ -182,6 +182,31 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return VerifyUml(uml);
         }
 
+        // --- Packages with the same name under different parents stay apart ----------
+        //
+        // Orders and Billing both contain a Domain package. PlantUML identifies a package by
+        // its name, so unless each one is identified by its full path, both Domain packages
+        // are drawn as one, and the arrows into Billing.Domain end in Orders.Domain.
+
+        private const string SameNamedRoot = "SlicesTestAssembly.SameNamedSubnamespaces.";
+
+        [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_SameNamedPackages()
+        {
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(SameNamedRoot + "(**)")
+            );
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesMatchingWithPackages_SameNamedPackages_C4Style()
+        {
+            return VerifySlices(
+                SliceRuleDefinition.Slices().MatchingWithPackages(SameNamedRoot + "(**)"),
+                new GenerationOptions { C4Style = true }
+            );
+        }
+
         // --- LimitDependencies without namespaces takes the OneToOneCompact branch ----
 
         [Fact]

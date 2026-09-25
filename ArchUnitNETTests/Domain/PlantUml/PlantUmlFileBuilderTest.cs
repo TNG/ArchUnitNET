@@ -135,6 +135,18 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task EmptyPackageTest()
+        {
+            return VerifyElements(
+                new[]
+                {
+                    new PlantUmlSlice("A.X.One", "A."),
+                    new PlantUmlSlice("A.Y.", "A.", "99ffd1"),
+                }
+            );
+        }
+
+        [Fact]
         public Task FlatSlicesNextToNestedSlicesTest()
         {
             return VerifyElements(
@@ -156,6 +168,66 @@ namespace ArchUnitNETTests.Domain.PlantUml
             one.UseS4Style();
             two.UseS4Style();
             return VerifyElements(new[] { one, two });
+        }
+
+        [Fact]
+        public Task SameNamedPackagesUnderDifferentParentsTest()
+        {
+            return VerifyElements(
+                new[]
+                {
+                    new PlantUmlSlice("A.Orders.Domain.Model", "A."),
+                    new PlantUmlSlice("A.Billing.Domain.Model", "A."),
+                }
+            );
+        }
+
+        [Fact]
+        public Task C4StyleSameNamedBoundariesUnderDifferentParentsTest()
+        {
+            var orders = new PlantUmlSlice("A.Orders.Domain.Model", "A.");
+            var billing = new PlantUmlSlice("A.Billing.Domain.Model", "A.");
+            orders.UseS4Style();
+            billing.UseS4Style();
+            return VerifyElements(new[] { orders, billing });
+        }
+
+        [Theory]
+        [InlineData(DependencyType.OneToPackage, "[A.Web] -[#red]> Domain")]
+        [InlineData(DependencyType.PackageToOne, "Web -[#blue]> [A.Billing.Domain]")]
+        [InlineData(DependencyType.PackageToPackage, "Web -[#green]> Domain")]
+        public void PackageArrowsTest(DependencyType dependencyType, string expected)
+        {
+            var dependency = new PlantUmlDependency("A.Web", "A.Billing.Domain", dependencyType);
+            Assert.Equal(expected + Environment.NewLine, dependency.GetPlantUmlString());
+        }
+
+        [Fact]
+        public void PackageToPackageIfSameParentNamespaceArrowTest()
+        {
+            var dependency = new PlantUmlDependency(
+                "A.Orders.Domain",
+                "A.Orders.Model",
+                DependencyType.PackageToPackageIfSameParentNamespace
+            );
+            Assert.Equal("Domain ..> Model" + Environment.NewLine, dependency.GetPlantUmlString());
+        }
+
+        [Fact]
+        public void OneToOneIfSameParentNamespacePackageArrowsTest()
+        {
+            var toPackage = new PlantUmlDependency(
+                "A.Web",
+                "A.Billing.Domain",
+                DependencyType.OneToOneIfSameParentNamespace
+            );
+            var fromPackage = new PlantUmlDependency(
+                "A.Billing.Domain",
+                "A.Web",
+                DependencyType.OneToOneIfSameParentNamespace
+            );
+            Assert.Equal("A.Web --> Billing" + Environment.NewLine, toPackage.GetPlantUmlString());
+            Assert.Equal("Billing -> A.Web" + Environment.NewLine, fromPackage.GetPlantUmlString());
         }
 
         [Fact]
