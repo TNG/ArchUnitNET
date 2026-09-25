@@ -161,6 +161,40 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task SliceNamesThatAreNotValidIdsTest()
+        {
+            // PlantUML rejects "*" in an id, so both slices get one with "_" instead; the second
+            // is suffixed because "A._.B" is already taken by the third slice.
+            return VerifyElements(
+                new IPlantUmlElement[]
+                {
+                    new PlantUmlSlice("A.*.B"),
+                    new PlantUmlSlice("A.X.*", "A."),
+                    new PlantUmlSlice("A._.B"),
+                    new PlantUmlDependency("A.*.B", "A.X.*", DependencyType.OneToOne),
+                    new PlantUmlDependency("A._.B", "A.*.B", DependencyType.OneToOne),
+                }
+            );
+        }
+
+        [Fact]
+        public Task C4StyleSliceNamesThatAreNotValidIdsTest()
+        {
+            var flat = new PlantUmlSlice("A.*.B");
+            var nested = new PlantUmlSlice("A.X.*", "A.");
+            flat.UseS4Style();
+            nested.UseS4Style();
+            return VerifyElements(
+                new IPlantUmlElement[]
+                {
+                    flat,
+                    nested,
+                    new PlantUmlDependency("A.*.B", "A.X.*", DependencyType.OneToOne),
+                }
+            );
+        }
+
+        [Fact]
         public Task C4StyleSlicesSharingParentBoundariesTest()
         {
             var one = new PlantUmlSlice("A.X.One", "A.");
