@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
 using ArchUnitNET.Domain.PlantUml.Export;
 using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Loader;
+using VerifyXunit;
 using Xunit;
 
 namespace ArchUnitNETTests.Domain.PlantUml
@@ -66,66 +68,16 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
-        public void BuildUmlByDependenciesTest()
+        public Task BuildUmlByDependenciesTest()
         {
-            var builder = new PlantUmlFileBuilder().WithElements(Dependencies);
-            var uml = builder.AsString();
-            Assert.NotEmpty(uml);
-
-            var expectedUml =
-                "@startuml"
-                + Environment.NewLine
-                + Environment.NewLine
-                + "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml"
-                + Environment.NewLine
-                + Environment.NewLine
-                + "HIDE_STEREOTYPE()"
-                + Environment.NewLine
-                + Environment.NewLine
-                + "[a] --|> [b]"
-                + Environment.NewLine
-                + "[b] --|> [c]"
-                + Environment.NewLine
-                + "[c] --|> [a]"
-                + Environment.NewLine
-                + "@enduml"
-                + Environment.NewLine;
-            Assert.Equal(expectedUml, uml);
+            return VerifyElements(Dependencies);
         }
 
         [Fact]
-        public void BuildUmlByDependenciesWithObjectsWithNoDependenciesTest()
+        public Task BuildUmlByDependenciesWithObjectsWithNoDependenciesTest()
         {
             var classesWithoutDependencies = new[] { new PlantUmlClass("d") };
-            var builder = new PlantUmlFileBuilder().WithElements(
-                Dependencies.Concat(classesWithoutDependencies)
-            );
-            var uml = builder.AsString();
-            Assert.NotEmpty(uml);
-
-            var expectedUml =
-                "@startuml"
-                + Environment.NewLine
-                + Environment.NewLine
-                + "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml"
-                + Environment.NewLine
-                + Environment.NewLine
-                + "HIDE_STEREOTYPE()"
-                + Environment.NewLine
-                + Environment.NewLine
-                + "class \"d\" {"
-                + Environment.NewLine
-                + "}"
-                + Environment.NewLine
-                + "[a] --|> [b]"
-                + Environment.NewLine
-                + "[b] --|> [c]"
-                + Environment.NewLine
-                + "[c] --|> [a]"
-                + Environment.NewLine
-                + "@enduml"
-                + Environment.NewLine;
-            Assert.Equal(expectedUml, uml);
+            return VerifyElements(Dependencies.Concat(classesWithoutDependencies));
         }
 
         [Fact]
@@ -134,6 +86,64 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var slice = new PlantUmlSlice("Slice1", hyperlink: "https://example.com");
             var uml = slice.GetPlantUmlString(new RenderOptions());
             Assert.Equal("[Slice1] [[https://example.com]] " + Environment.NewLine, uml);
+        }
+
+        [Fact]
+        public Task NestedSliceWithHyperlinkTest()
+        {
+            return VerifyElements(
+                new[] { new PlantUmlSlice("A.B.C", "A.", hyperlink: "https://example.com") }
+            );
+        }
+
+        [Fact]
+        public Task SlicesSharingParentPackagesTest()
+        {
+            return VerifyElements(
+                new[]
+                {
+                    new PlantUmlSlice("A.X.One", "A."),
+                    new PlantUmlSlice("A.Y.Two", "A."),
+                    new PlantUmlSlice("A.X.Deep.Three", "A."),
+                    new PlantUmlSlice("B.Four", "B."),
+                }
+            );
+        }
+
+        [Fact]
+        public Task PackageOnlySliceWithColorTest()
+        {
+            return VerifyElements(
+                new[]
+                {
+                    new PlantUmlSlice("A.X.One", "A."),
+                    new PlantUmlSlice("A.X.", "A.", "99ffd1"),
+                }
+            );
+        }
+
+        [Fact]
+        public Task FlatSlicesNextToNestedSlicesTest()
+        {
+            return VerifyElements(
+                new[]
+                {
+                    new PlantUmlSlice("Flat1"),
+                    new PlantUmlSlice("A.X", "A."),
+                    new PlantUmlSlice("Flat2"),
+                    new PlantUmlSlice("A.Y", "A."),
+                }
+            );
+        }
+
+        [Fact]
+        public Task C4StyleSlicesSharingParentBoundariesTest()
+        {
+            var one = new PlantUmlSlice("A.X.One", "A.");
+            var two = new PlantUmlSlice("A.X.Two", "A.");
+            one.UseS4Style();
+            two.UseS4Style();
+            return VerifyElements(new[] { one, two });
         }
 
         [Fact]
@@ -160,7 +170,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
-        public void SpecialCharactersInComponentNamesTest()
+        public Task SpecialCharactersInComponentNamesTest()
         {
             var dependenciesWithSpecialCharacters = new List<IPlantUmlElement>
             {
@@ -172,35 +182,17 @@ namespace ArchUnitNETTests.Domain.PlantUml
             {
                 new PlantUmlClass("!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€"),
             };
-            var builder = new PlantUmlFileBuilder().WithElements(
+            return VerifyElements(
                 dependenciesWithSpecialCharacters.Concat(classesWithSpecialCharacters)
             );
-            var uml = builder.AsString();
-            Assert.NotEmpty(uml);
+        }
 
-            var expectedUml =
-                "@startuml"
-                + Environment.NewLine
-                + Environment.NewLine
-                + "!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml"
-                + Environment.NewLine
-                + Environment.NewLine
-                + "HIDE_STEREOTYPE()"
-                + Environment.NewLine
-                + Environment.NewLine
-                + "class \"!§´`$%&/()=?\\\täöüß^°-*+,-.,;:<>|@€\" {"
-                + Environment.NewLine
-                + "}"
-                + Environment.NewLine
-                + "[!\"§´`] --|> [$%&/()=?]"
-                + Environment.NewLine
-                + "[\\\t%] --|> [äöüß]"
-                + Environment.NewLine
-                + "[^°-*+.,;:] --|> [<>|@€]"
-                + Environment.NewLine
-                + "@enduml"
-                + Environment.NewLine;
-            Assert.Equal(expectedUml, uml);
+        private static Task VerifyElements(IEnumerable<IPlantUmlElement> elements)
+        {
+            return Verifier
+                .Verify(new PlantUmlFileBuilder().WithElements(elements).AsString())
+                .DisableDiff() // Don't open diff tool during the test
+                .UseDirectory("Snapshots");
         }
     }
 

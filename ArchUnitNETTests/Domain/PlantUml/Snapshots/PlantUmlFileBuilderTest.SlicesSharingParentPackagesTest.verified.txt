@@ -1,0 +1,31 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package A {
+package X {
+[One] as A.X.One
+}
+}
+
+package A {
+package Y {
+[Two] as A.Y.Two
+}
+}
+
+package A {
+package X {
+package Deep {
+[Three] as A.X.Deep.Three
+}
+}
+}
+
+package B {
+[Four] as B.Four
+}
+
+@enduml
