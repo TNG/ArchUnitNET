@@ -3,7 +3,7 @@ experimental = true
 
 [tools]
 dotnet = "10.0.400"
-hk = "1.56.0"
+hk = "2.3.0"
 actionlint = "1.7.12"
 gitleaks = "8.30.1"
 zizmor = "1.29.0"
