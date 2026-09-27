@@ -864,23 +864,18 @@ namespace ArchUnitNET.Loader
             DomainResolver domainResolver
         )
         {
-            var compilerGeneratedGeneratorObject = methodBody
-                .Instructions.Where(inst => inst.IsNewObjectOp())
-                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.Resolve())
-                .FirstOrDefault(type =>
-                    type != null
-                    && type.Methods.Any(method => method.Name == nameof(IEnumerator.MoveNext))
-                );
+            var compilerGeneratedGeneratorObject = methodBody.Method.GetStateMachineType();
+            var moveNextMethod = compilerGeneratedGeneratorObject?.Methods.FirstOrDefault(method =>
+                method.Name == nameof(IEnumerator.MoveNext)
+            );
 
-            if (compilerGeneratedGeneratorObject == null)
+            if (moveNextMethod == null)
             {
                 methodDefinition = methodBody.Method;
                 return;
             }
 
-            methodDefinition = compilerGeneratedGeneratorObject.Methods.First(method =>
-                method.Name == nameof(IEnumerator.MoveNext)
-            );
+            methodDefinition = moveNextMethod;
             visitedMethodReferences.Add(methodDefinition);
             methodBody = methodDefinition.Body;
 
@@ -909,25 +904,18 @@ namespace ArchUnitNET.Loader
             DomainResolver domainResolver
         )
         {
-            var compilerGeneratedGeneratorObject = methodBody
-                .Instructions.Where(inst => inst.IsNewObjectOp())
-                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.Resolve())
-                .FirstOrDefault(type =>
-                    type != null
-                    && type.Methods.Any(method =>
-                        method.Name == nameof(IAsyncStateMachine.MoveNext)
-                    )
-                );
+            var compilerGeneratedGeneratorObject = methodBody.Method.GetStateMachineType();
+            var moveNextMethod = compilerGeneratedGeneratorObject?.Methods.FirstOrDefault(method =>
+                method.Name == nameof(IAsyncStateMachine.MoveNext)
+            );
 
-            if (compilerGeneratedGeneratorObject == null)
+            if (moveNextMethod == null)
             {
                 methodDefinition = methodBody.Method;
                 return;
             }
 
-            methodDefinition = compilerGeneratedGeneratorObject.Methods.First(method =>
-                method.Name == nameof(IAsyncStateMachine.MoveNext)
-            );
+            methodDefinition = moveNextMethod;
 
             visitedMethodReferences.Add(methodDefinition);
             methodBody = methodDefinition.Body;
