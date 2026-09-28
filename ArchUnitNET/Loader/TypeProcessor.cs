@@ -797,15 +797,7 @@ namespace ArchUnitNET.Loader
 
                 if (calledMethodReference.IsCompilerGenerated())
                 {
-                    MethodDefinition calledMethodDefinition;
-                    try
-                    {
-                        calledMethodDefinition = calledMethodReference.Resolve();
-                    }
-                    catch (AssemblyResolutionException)
-                    {
-                        calledMethodDefinition = null;
-                    }
+                    var calledMethodDefinition = calledMethodReference.TryResolve();
 
                     if (calledMethodDefinition?.Body == null)
                     {
@@ -866,7 +858,7 @@ namespace ArchUnitNET.Loader
         {
             var compilerGeneratedGeneratorObject = methodBody
                 .Instructions.Where(inst => inst.IsNewObjectOp())
-                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.Resolve())
+                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.TryResolve())
                 .FirstOrDefault(type =>
                     type != null
                     && type.Methods.Any(method => method.Name == nameof(IEnumerator.MoveNext))
@@ -911,7 +903,7 @@ namespace ArchUnitNET.Loader
         {
             var compilerGeneratedGeneratorObject = methodBody
                 .Instructions.Where(inst => inst.IsNewObjectOp())
-                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.Resolve())
+                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.TryResolve())
                 .FirstOrDefault(type =>
                     type != null
                     && type.Methods.Any(method =>
@@ -1083,7 +1075,7 @@ namespace ArchUnitNET.Loader
             TypeDefinition typeDefinition
         )
         {
-            var baseType = typeDefinition.BaseType?.Resolve();
+            var baseType = typeDefinition.BaseType.TryResolve();
             var baseInterfaces =
                 baseType != null
                     ? GetInterfacesImplementedByClass(baseType)

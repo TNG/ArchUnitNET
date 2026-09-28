@@ -46,7 +46,7 @@ namespace ArchUnitNET.Loader
                 && methodCallAssignment.Operand is FieldReference fieldReference
             )
             {
-                return fieldReference.Resolve();
+                return fieldReference.TryResolve();
             }
 
             return null;
