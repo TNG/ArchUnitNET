@@ -296,11 +296,25 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new OrderedArchitectureCondition<TRuleType>(Condition, description);
         }
 
+        private static string DescribeNamespaceOf(IType type)
+        {
+            return type.Namespace == null
+                ? "does not reside in a namespace"
+                : "does reside in " + type.Namespace.FullName;
+        }
+
+        private static string DescribeAssemblyOf(IType type)
+        {
+            return type.Assembly == null
+                ? "does not reside in an assembly"
+                : "does reside in " + type.Assembly.FullName;
+        }
+
         public static IOrderedCondition<TRuleType> ResideInNamespace(string fullName)
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInNamespace(fullName),
-                obj => "does reside in " + obj.Namespace.FullName,
+                obj => DescribeNamespaceOf(obj),
                 "reside in namespace with full name \"" + fullName + "\""
             );
         }
@@ -309,7 +323,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInNamespaceMatching(pattern),
-                obj => "does reside in " + obj.Namespace.FullName,
+                obj => DescribeNamespaceOf(obj),
                 "reside in namespace with full name matching \"" + pattern + "\""
             );
         }
@@ -318,7 +332,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInAssembly(fullName),
-                obj => "does reside in " + obj.Assembly.FullName,
+                obj => DescribeAssemblyOf(obj),
                 "reside in assembly with full name \"" + fullName + "\""
             );
         }
@@ -327,7 +341,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimpleCondition<TRuleType>(
                 type => type.ResidesInAssemblyMatching(pattern),
-                obj => "does reside in " + obj.Assembly.FullName,
+                obj => DescribeAssemblyOf(obj),
                 "reside in assembly with full name matching \"" + pattern + "\""
             );
         }
@@ -339,9 +353,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
-                return ruleType.Assembly.Equals(architecture.GetAssemblyOfAssembly(assembly))
+                return Equals(ruleType.Assembly, architecture.GetAssemblyOfAssembly(assembly))
                     || moreAssemblies.Any(asm =>
-                        ruleType.Assembly.Equals(architecture.GetAssemblyOfAssembly(asm))
+                        Equals(ruleType.Assembly, architecture.GetAssemblyOfAssembly(asm))
                     );
             }
 
@@ -352,7 +366,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             return new OrderedArchitectureCondition<TRuleType>(
                 Condition,
-                (type, architecture) => "does reside in " + type.Assembly.FullName,
+                (type, architecture) => DescribeAssemblyOf(type),
                 description
             );
         }
@@ -375,7 +389,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             return new SimpleCondition<TRuleType>(
                 Condition,
-                type => "does reside in " + type.Assembly.FullName,
+                type => DescribeAssemblyOf(type),
                 description
             );
         }
@@ -706,7 +720,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInNamespace(fullName),
-                obj => "does reside in " + obj.Namespace.FullName,
+                obj => DescribeNamespaceOf(obj),
                 "not reside in namespace with full name \"" + fullName + "\""
             );
         }
@@ -715,7 +729,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInNamespaceMatching(pattern),
-                obj => "does reside in " + obj.Namespace.FullName,
+                obj => DescribeNamespaceOf(obj),
                 "not reside in namespace with full name matching \"" + pattern + "\""
             );
         }
@@ -724,7 +738,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInAssembly(fullName),
-                obj => "does reside in " + obj.Assembly.FullName,
+                obj => DescribeAssemblyOf(obj),
                 "not reside in assembly with full name \"" + fullName + "\""
             );
         }
@@ -733,7 +747,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             return new SimpleCondition<TRuleType>(
                 type => !type.ResidesInAssemblyMatching(pattern),
-                obj => "does reside in " + obj.Assembly.FullName,
+                obj => DescribeAssemblyOf(obj),
                 "not reside in assembly with full name matching \"" + pattern + "\""
             );
         }
@@ -745,9 +759,9 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
         {
             bool Condition(TRuleType ruleType, Architecture architecture)
             {
-                return !ruleType.Assembly.Equals(architecture.GetAssemblyOfAssembly(assembly))
+                return !Equals(ruleType.Assembly, architecture.GetAssemblyOfAssembly(assembly))
                     && !moreAssemblies.Any(asm =>
-                        ruleType.Assembly.Equals(architecture.GetAssemblyOfAssembly(asm))
+                        Equals(ruleType.Assembly, architecture.GetAssemblyOfAssembly(asm))
                     );
             }
 
@@ -758,7 +772,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             return new OrderedArchitectureCondition<TRuleType>(
                 Condition,
-                (type, architecture) => "does reside in " + type.Assembly.FullName,
+                (type, architecture) => DescribeAssemblyOf(type),
                 description
             );
         }
@@ -781,7 +795,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
             return new SimpleCondition<TRuleType>(
                 Condition,
-                type => "does reside in " + type.Assembly.FullName,
+                type => DescribeAssemblyOf(type),
                 description
             );
         }

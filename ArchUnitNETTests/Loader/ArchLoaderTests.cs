@@ -223,7 +223,7 @@ namespace ArchUnitNETTests.Loader
 
             types = ArchUnitNETTestArchitecture
                 .ReferencedTypes.Where(type =>
-                    type.Namespace.FullName == "DuplicateClassAcrossAssemblies"
+                    type.Namespace?.FullName == "DuplicateClassAcrossAssemblies"
                 )
                 .ToList();
             Assert.Equal(2, types.Count);

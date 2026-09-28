@@ -241,22 +241,22 @@ namespace ArchUnitNET.Domain.Extensions
 
         public static bool ResidesInNamespace(this IType e, string fullName)
         {
-            return e.Namespace.FullNameEquals(fullName);
+            return e.Namespace != null && e.Namespace.FullNameEquals(fullName);
         }
 
         public static bool ResidesInNamespaceMatching(this IType e, string pattern)
         {
-            return e.Namespace.FullNameMatches(pattern);
+            return e.Namespace != null && e.Namespace.FullNameMatches(pattern);
         }
 
         public static bool ResidesInAssembly(this IType e, string fullName)
         {
-            return e.Assembly.FullNameEquals(fullName);
+            return e.Assembly != null && e.Assembly.FullNameEquals(fullName);
         }
 
         public static bool ResidesInAssemblyMatching(this IType e, string pattern)
         {
-            return e.Assembly.FullNameMatches(pattern);
+            return e.Assembly != null && e.Assembly.FullNameMatches(pattern);
         }
 
         public static bool IsDeclaredAsFieldIn(this IType type, string fullName)
