@@ -25,7 +25,10 @@ namespace ArchUnitNET.Fluent
 
         public bool HasNoViolations(Architecture architecture)
         {
-            return HasNoViolations(GetAnalyzedObjects(architecture), architecture);
+            var objects = GetAnalyzedObjects(architecture).ToList();
+            if (RequirePositiveResults && objects.Count == 0)
+                return false;
+            return HasNoViolations(objects, architecture);
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
