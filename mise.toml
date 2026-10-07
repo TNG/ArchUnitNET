@@ -25,3 +25,16 @@ description = "Restore local .NET tools (csharpier, verify.tool, reportgenerator
 sources = [".config/dotnet-tools.json"]
 run = "dotnet tool restore"
 auto = true
+
+[tasks."test:vstest"]
+description = "Run all VSTest-based test projects"
+run = "dotnet test -c Debug ArchUnitNET.vstest.slnf"
+
+[tasks."test:mtp"]
+description = "Run the TUnit (MTP) test project"
+dir = "ArchUnitNET.TUnitTests"
+run = "dotnet test -c Debug ../ArchUnitNET.mtp.slnf"
+
+[tasks.test]
+description = "Run all tests (VSTest and MTP in parallel)"
+depends = ["test:vstest", "test:mtp"]
