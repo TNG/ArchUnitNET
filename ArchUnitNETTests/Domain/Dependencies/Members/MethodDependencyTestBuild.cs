@@ -146,6 +146,105 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
             }
         }
 
+        public class MethodCallDependencyInAsyncLambdaTestData : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _methodCallDependencyData = new List<object[]>
+            {
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdas),
+                    nameof(ClassWithAsyncLambdas.MethodWithAsyncLambda).BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    StaticConstants.ConstructorNameBase.BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdas),
+                    nameof(ClassWithAsyncLambdas.MethodWithAsyncLambda).BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.MethodWithCapturingAsyncLambda)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    StaticConstants.ConstructorNameBase.BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.MethodWithCapturingAsyncLambda)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.MethodWithAsyncLocalFunction)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    StaticConstants.ConstructorNameBase.BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.MethodWithAsyncLocalFunction)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.MethodWithNestedAsyncLambda)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    StaticConstants.ConstructorNameBase.BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.MethodWithNestedAsyncLambda)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.AsyncMethodWithAsyncLambda)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    StaticConstants.ConstructorNameBase.BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.AsyncMethodWithAsyncLambda)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.GenericMethodWithAsyncLambda)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    StaticConstants.ConstructorNameBase.BuildMethodMemberName()
+                ),
+                BuildMethodCallDependencyTestData(
+                    typeof(ClassWithAsyncLambdaVariants),
+                    nameof(ClassWithAsyncLambdaVariants.GenericMethodWithAsyncLambda)
+                        .BuildMethodMemberName(),
+                    typeof(ClassWithMethodB),
+                    nameof(ClassWithMethodB.MethodB).BuildMethodMemberName()
+                ),
+            };
+
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                return _methodCallDependencyData.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
         public class MethodSignatureDependencyTestData : IEnumerable<object[]>
         {
             private readonly List<object[]> _methodSignatureDependencyData = new List<object[]>

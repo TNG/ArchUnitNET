@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Dependencies;
 using ArchUnitNET.Domain.Extensions;
@@ -108,6 +110,17 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         }
 
         [Theory]
+        [ClassData(typeof(MethodDependencyTestBuild.MethodCallDependencyInAsyncLambdaTestData))]
+        public void MethodCallDependenciesAreFoundInAsyncLambdas(
+            IMember originMember,
+            MethodCallDependency expectedDependency
+        )
+        {
+            Assert.True(originMember.HasMemberDependency(expectedDependency));
+            Assert.Contains(expectedDependency, originMember.GetMethodCallDependencies());
+        }
+
+        [Theory]
         [ClassData(
             typeof(MethodDependencyTestBuild.MethodCallGenericConstructorArgumentsDependencyTestData)
         )]
@@ -170,6 +183,88 @@ namespace ArchUnitNETTests.Domain.Dependencies.Members
         {
             var classWithMethodB = new ClassWithMethodB();
             ClassWithMethodB.MethodB();
+        }
+    }
+
+    public class ClassWithAsyncLambdas
+    {
+        public static void MethodWithAsyncLambda()
+        {
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+            Func<Task> asyncLambda = async () =>
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+            {
+                var classWithMethodB = new ClassWithMethodB();
+                ClassWithMethodB.MethodB();
+            };
+        }
+    }
+
+    public class ClassWithAsyncLambdaVariants
+    {
+        public static void MethodWithCapturingAsyncLambda()
+        {
+            var capturedValue = 0;
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+            Func<Task> asyncLambda = async () =>
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+            {
+                capturedValue++;
+                var classWithMethodB = new ClassWithMethodB();
+                ClassWithMethodB.MethodB();
+            };
+        }
+
+        public static void MethodWithAsyncLocalFunction()
+        {
+            _ = LocalFunctionAsync();
+
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+            async Task LocalFunctionAsync()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+            {
+                var classWithMethodB = new ClassWithMethodB();
+                ClassWithMethodB.MethodB();
+            }
+        }
+
+        public static void MethodWithNestedAsyncLambda()
+        {
+            Func<Task> outerAsyncLambda = async () =>
+            {
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+                Func<Task> innerAsyncLambda = async () =>
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+                {
+                    var classWithMethodB = new ClassWithMethodB();
+                    ClassWithMethodB.MethodB();
+                };
+                await innerAsyncLambda();
+            };
+        }
+
+        public static async Task AsyncMethodWithAsyncLambda()
+        {
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+            Func<Task> asyncLambda = async () =>
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+            {
+                var classWithMethodB = new ClassWithMethodB();
+                ClassWithMethodB.MethodB();
+            };
+            await asyncLambda();
+        }
+
+        public static void GenericMethodWithAsyncLambda<T>()
+        {
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+            Func<Task<T>> asyncLambda = async () =>
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+            {
+                var classWithMethodB = new ClassWithMethodB();
+                ClassWithMethodB.MethodB();
+                return default;
+            };
         }
     }
 
