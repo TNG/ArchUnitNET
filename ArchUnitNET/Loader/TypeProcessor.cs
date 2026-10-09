@@ -821,6 +821,17 @@ namespace ArchUnitNET.Loader
                         );
                     }
 
+                    if (calledMethodDefinition.IsAsync())
+                    {
+                        HandleAsync(
+                            out calledMethodDefinition,
+                            ref calledMethodBody,
+                            bodyTypes,
+                            visitedMethodReferences,
+                            domainResolver
+                        );
+                    }
+
                     var calledScan = calledMethodDefinition.ScanMethodBody(domainResolver);
                     bodyTypes.AddRange(calledScan.BodyTypes);
                     castTypes.AddRange(calledScan.CastTypes);
