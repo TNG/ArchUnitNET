@@ -102,6 +102,10 @@ namespace ArchUnitNETTests
             )
             .Build();
 
+        public static readonly Architecture OptimizedArchitecture = new ArchLoader()
+            .LoadAssemblies(typeof(OptimizedAssembly.ClassWithAsyncMethod).Assembly)
+            .Build();
+
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture = new ArchLoader()
             .LoadAssemblies(typeof(Class1).Assembly)
             .Build();

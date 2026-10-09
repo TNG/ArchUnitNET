@@ -9,6 +9,18 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         public string Origin { get; }
         public DependencyType DependencyType { get; }
 
+        /// <summary>
+        /// The id PlantUML knows the origin by. It is <see cref="Origin"/> unless that contains
+        /// characters PlantUML does not accept in an id; see <see cref="PlantUmlDiagram"/>.
+        /// </summary>
+        internal string OriginAlias { get; set; }
+
+        /// <summary>
+        /// The id PlantUML knows the target by. It is <see cref="Target"/> unless that contains
+        /// characters PlantUML does not accept in an id; see <see cref="PlantUmlDiagram"/>.
+        /// </summary>
+        internal string TargetAlias { get; set; }
+
         public PlantUmlDependency(string origin, string target, DependencyType dependencyType)
         {
             PlantUmlNameChecker.AssertNoForbiddenCharacters(origin, target);
@@ -16,6 +28,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             Target = target;
             Origin = origin;
             DependencyType = dependencyType;
+            OriginAlias = origin;
+            TargetAlias = target;
         }
 
         private static int CountOfDots(string str)
@@ -38,41 +52,53 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             switch (DependencyType)
             {
                 case DependencyType.OneToOne:
-                    return "[" + Origin + "]" + " --|> " + "[" + Target + "]" + Environment.NewLine;
+                    return "["
+                        + OriginAlias
+                        + "]"
+                        + " --|> "
+                        + "["
+                        + TargetAlias
+                        + "]"
+                        + Environment.NewLine;
 
                 case DependencyType.OneToMany:
                     return "["
-                        + Origin
+                        + OriginAlias
                         + "]"
                         + " \"1\" --|> \"many\" "
                         + "["
-                        + Target
+                        + TargetAlias
                         + "]"
                         + Environment.NewLine;
 
                 case DependencyType.OneToPackage:
-                    return "[" + Origin + "] -[#red]> " + Target + Environment.NewLine;
+                    return "[" + OriginAlias + "] -[#red]> " + TargetAlias + Environment.NewLine;
 
                 case DependencyType.PackageToOne:
-                    return Origin + " -[#blue]> [" + Target + "]" + Environment.NewLine;
+                    return OriginAlias + " -[#blue]> [" + TargetAlias + "]" + Environment.NewLine;
 
                 case DependencyType.PackageToPackage:
-                    return Origin + " -[#green]> " + Target + Environment.NewLine;
+                    return OriginAlias + " -[#green]> " + TargetAlias + Environment.NewLine;
 
                 case DependencyType.OneToOneCompact:
                     if (OriginCountOfDots() == TargetCountOfDots())
                     {
-                        return "[" + Origin + "] --> [" + Target + "]" + Environment.NewLine;
+                        return "["
+                            + OriginAlias
+                            + "] --> ["
+                            + TargetAlias
+                            + "]"
+                            + Environment.NewLine;
                     }
                     return "";
 
                 case DependencyType.Circle:
                     return "["
-                        + Origin
+                        + OriginAlias
                         + "]"
                         + " <-[#red]> "
                         + "["
-                        + Target
+                        + TargetAlias
                         + "]"
                         + Environment.NewLine;
 
@@ -82,7 +108,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                         && (OriginCountOfDots() == 0 || HaveSameParentNamespace(Origin, Target))
                     )
                     {
-                        return Origin + " ..> " + Target + Environment.NewLine;
+                        return OriginAlias + " ..> " + TargetAlias + Environment.NewLine;
                     }
                     return "";
 
@@ -92,7 +118,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                         && (OriginCountOfDots() == 0 || HaveSameParentNamespace(Origin, Target))
                     )
                     {
-                        return Origin + " --|> " + Target + Environment.NewLine;
+                        return "["
+                            + OriginAlias
+                            + "] --|> ["
+                            + TargetAlias
+                            + "]"
+                            + Environment.NewLine;
                     }
 
                     if (OriginCountOfDots() < TargetCountOfDots())
@@ -105,7 +136,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
                         if (tmp != Origin && HaveSameParentNamespace(tmp, Origin))
                         {
-                            return Origin + " --> " + tmp + Environment.NewLine;
+                            return "[" + OriginAlias + "] --> " + tmp + Environment.NewLine;
                         }
                     }
                     else
@@ -118,7 +149,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
                         if (tmp != Target && HaveSameParentNamespace(tmp, Target))
                         {
-                            return tmp + " -> " + Target + Environment.NewLine;
+                            return tmp + " -> [" + TargetAlias + "]" + Environment.NewLine;
                         }
                     }
                     return "";

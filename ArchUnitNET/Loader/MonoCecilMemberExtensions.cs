@@ -289,14 +289,41 @@ namespace ArchUnitNET.Loader
             );
         }
 
+        /// <summary>
+        /// Resolves the compiler-generated state machine type of an async or iterator method
+        /// from its <see cref="System.Runtime.CompilerServices.AsyncStateMachineAttribute"/> or
+        /// <see cref="System.Runtime.CompilerServices.IteratorStateMachineAttribute"/>. Unlike
+        /// looking for the <c>newobj</c> that creates it, this also works for the struct state
+        /// machines the compiler emits for async methods in optimized builds.
+        /// </summary>
+        [CanBeNull]
+        internal static TypeDefinition GetStateMachineType(this MethodDefinition methodDefinition)
+        {
+            var stateMachineAttribute = methodDefinition.CustomAttributes.FirstOrDefault(att =>
+                att.AttributeType.FullName
+                    == typeof(System.Runtime.CompilerServices.AsyncStateMachineAttribute).FullName
+                || att.AttributeType.FullName
+                    == typeof(System.Runtime.CompilerServices.IteratorStateMachineAttribute).FullName
+            );
+            if (stateMachineAttribute == null || !stateMachineAttribute.HasConstructorArguments)
+            {
+                return null;
+            }
+
+            var stateMachineType =
+                stateMachineAttribute.ConstructorArguments[0].Value as TypeReference;
+            return stateMachineType?.Resolve();
+        }
+
         internal static bool IsCompilerGenerated(this MemberReference memberReference)
         {
             if (memberReference.Name.HasCompilerGeneratedName())
             {
                 return true;
             }
-            var declaringType =
-                memberReference.Resolve()?.DeclaringType ?? memberReference.DeclaringType;
+
+            var resolvedType = memberReference.TryResolve();
+            var declaringType = resolvedType?.DeclaringType ?? memberReference.DeclaringType;
             return declaringType != null && declaringType.Name.HasCompilerGeneratedName();
         }
 

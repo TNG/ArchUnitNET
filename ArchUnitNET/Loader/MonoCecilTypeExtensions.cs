@@ -51,8 +51,13 @@ namespace ArchUnitNET.Loader
         {
             if (typeDefinition?.BaseType != null)
             {
-                return typeDefinition.BaseType.FullName == "System.Attribute"
-                    || IsAttribute(typeDefinition.BaseType.Resolve());
+                if (typeDefinition.BaseType.FullName == "System.Attribute")
+                {
+                    return true;
+                }
+
+                var resolvedBaseType = typeDefinition.BaseType.TryResolve();
+                return resolvedBaseType != null && IsAttribute(resolvedBaseType);
             }
 
             return false;

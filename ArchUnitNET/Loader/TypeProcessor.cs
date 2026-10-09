@@ -797,15 +797,10 @@ namespace ArchUnitNET.Loader
 
                 if (calledMethodReference.IsCompilerGenerated())
                 {
-                    MethodDefinition calledMethodDefinition;
-                    try
-                    {
-                        calledMethodDefinition = calledMethodReference.Resolve();
-                    }
-                    catch (AssemblyResolutionException)
-                    {
-                        calledMethodDefinition = null;
-                    }
+                    // Here an AssemblyResolutionException would only occur if the method is from a referenced assembly that is not available.
+                    // However, since we are only resolving compiler-generated methods here, we can safely assume that the method is from an
+                    // available assembly and don't need to handle the exception.
+                    var calledMethodDefinition = calledMethodReference.Resolve();
 
                     if (calledMethodDefinition?.Body == null)
                     {
@@ -864,23 +859,18 @@ namespace ArchUnitNET.Loader
             DomainResolver domainResolver
         )
         {
-            var compilerGeneratedGeneratorObject = methodBody
-                .Instructions.Where(inst => inst.IsNewObjectOp())
-                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.Resolve())
-                .FirstOrDefault(type =>
-                    type != null
-                    && type.Methods.Any(method => method.Name == nameof(IEnumerator.MoveNext))
-                );
+            var compilerGeneratedGeneratorObject = methodBody.Method.GetStateMachineType();
+            var moveNextMethod = compilerGeneratedGeneratorObject?.Methods.FirstOrDefault(method =>
+                method.Name == nameof(IEnumerator.MoveNext)
+            );
 
-            if (compilerGeneratedGeneratorObject == null)
+            if (moveNextMethod == null)
             {
                 methodDefinition = methodBody.Method;
                 return;
             }
 
-            methodDefinition = compilerGeneratedGeneratorObject.Methods.First(method =>
-                method.Name == nameof(IEnumerator.MoveNext)
-            );
+            methodDefinition = moveNextMethod;
             visitedMethodReferences.Add(methodDefinition);
             methodBody = methodDefinition.Body;
 
@@ -909,25 +899,18 @@ namespace ArchUnitNET.Loader
             DomainResolver domainResolver
         )
         {
-            var compilerGeneratedGeneratorObject = methodBody
-                .Instructions.Where(inst => inst.IsNewObjectOp())
-                .Select(inst => ((MethodReference)inst.Operand).DeclaringType.Resolve())
-                .FirstOrDefault(type =>
-                    type != null
-                    && type.Methods.Any(method =>
-                        method.Name == nameof(IAsyncStateMachine.MoveNext)
-                    )
-                );
+            var compilerGeneratedGeneratorObject = methodBody.Method.GetStateMachineType();
+            var moveNextMethod = compilerGeneratedGeneratorObject?.Methods.FirstOrDefault(method =>
+                method.Name == nameof(IAsyncStateMachine.MoveNext)
+            );
 
-            if (compilerGeneratedGeneratorObject == null)
+            if (moveNextMethod == null)
             {
                 methodDefinition = methodBody.Method;
                 return;
             }
 
-            methodDefinition = compilerGeneratedGeneratorObject.Methods.First(method =>
-                method.Name == nameof(IAsyncStateMachine.MoveNext)
-            );
+            methodDefinition = moveNextMethod;
 
             visitedMethodReferences.Add(methodDefinition);
             methodBody = methodDefinition.Body;
@@ -1083,7 +1066,7 @@ namespace ArchUnitNET.Loader
             TypeDefinition typeDefinition
         )
         {
-            var baseType = typeDefinition.BaseType?.Resolve();
+            var baseType = typeDefinition.BaseType.TryResolve();
             var baseInterfaces =
                 baseType != null
                     ? GetInterfacesImplementedByClass(baseType)
