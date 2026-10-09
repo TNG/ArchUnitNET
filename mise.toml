@@ -26,14 +26,20 @@ sources = [".config/dotnet-tools.json"]
 run = "dotnet tool restore"
 auto = true
 
+[tasks.build]
+description = "Build the solution"
+run = "dotnet build -c Debug ArchUnit.sln"
+
 [tasks."test:vstest"]
 description = "Run all VSTest-based test projects"
-run = "dotnet test -c Debug ArchUnitNET.vstest.slnf"
+depends = ["build"]
+run = "dotnet test -c Debug --no-build ArchUnitNET.vstest.slnf"
 
 [tasks."test:mtp"]
 description = "Run the TUnit (MTP) test project"
+depends = ["build"]
 dir = "ArchUnitNET.TUnitTests"
-run = "dotnet test -c Debug ../ArchUnitNET.mtp.slnf"
+run = "dotnet test -c Debug --no-build ../ArchUnitNET.mtp.slnf"
 
 [tasks.test]
 description = "Run all tests (VSTest and MTP in parallel)"
