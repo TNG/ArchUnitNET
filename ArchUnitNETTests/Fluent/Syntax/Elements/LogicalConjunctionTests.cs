@@ -845,6 +845,35 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
                     .HasNoViolations(Architecture)
             );
         }
+
+        [Fact]
+        public void And_FluentFormWithNotExistOnEmptySecondRule_Passes()
+        {
+            var thisClassExistsAndNoClassNamedXExists = ThisClassExists
+                .And()
+                .Classes()
+                .That()
+                .HaveName("NotTheNameOfAnyObject")
+                .Should()
+                .NotExist();
+
+            Assert.True(thisClassExistsAndNoClassNamedXExists.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void And_FluentFormWithEmptySecondRule_WithoutRequiringPositiveResults_Passes()
+        {
+            var thisClassExistsAndEmptyRule = ThisClassExists
+                .And()
+                .Classes()
+                .That()
+                .HaveName("NotTheNameOfAnyObject")
+                .Should()
+                .Be(ThisClass)
+                .WithoutRequiringPositiveResults();
+
+            Assert.True(thisClassExistsAndEmptyRule.HasNoViolations(Architecture));
+        }
     }
 
     internal class OtherClassForLogicalConjunctionTest { }
