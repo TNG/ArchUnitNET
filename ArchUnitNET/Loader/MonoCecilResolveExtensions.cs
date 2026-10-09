@@ -29,24 +29,6 @@ namespace ArchUnitNET.Loader
         }
 
         [CanBeNull]
-        public static MethodDefinition TryResolve([CanBeNull] this MethodReference methodReference)
-        {
-            if (methodReference == null)
-            {
-                return null;
-            }
-
-            try
-            {
-                return methodReference.Resolve();
-            }
-            catch (AssemblyResolutionException)
-            {
-                return null;
-            }
-        }
-
-        [CanBeNull]
         public static FieldDefinition TryResolve([CanBeNull] this FieldReference fieldReference)
         {
             if (fieldReference == null)

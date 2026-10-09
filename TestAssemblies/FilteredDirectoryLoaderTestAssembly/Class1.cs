@@ -19,3 +19,13 @@ public class DerivedAttribute : BaseAttribute { }
 
 [Derived]
 public class ClassWithDerivedAttribute { }
+
+public class UnavailableFieldAssigner
+{
+    public void AssignUnavailableField()
+    {
+        UnavailableFieldHolder.Value = CreateValue();
+    }
+
+    private static int CreateValue() => 42;
+}

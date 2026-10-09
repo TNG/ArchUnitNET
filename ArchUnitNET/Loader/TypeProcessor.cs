@@ -797,7 +797,10 @@ namespace ArchUnitNET.Loader
 
                 if (calledMethodReference.IsCompilerGenerated())
                 {
-                    var calledMethodDefinition = calledMethodReference.TryResolve();
+                    // Here an AssemblyResolutionException would only occur if the method is from a referenced assembly that is not available.
+                    // However, since we are only resolving compiler-generated methods here, we can safely assume that the method is from an
+                    // available assembly and don't need to handle the exception.
+                    var calledMethodDefinition = calledMethodReference.Resolve();
 
                     if (calledMethodDefinition?.Body == null)
                     {

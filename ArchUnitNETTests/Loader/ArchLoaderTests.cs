@@ -327,7 +327,7 @@ namespace ArchUnitNETTests.Loader
                     System.IO.SearchOption.AllDirectories
                 )
                 .Build();
-            Assert.Equal(3, architecture.Types.Count());
+            Assert.Equal(4, architecture.Types.Count());
             var loggerType = architecture.ReferencedTypes.WhereFullNameIs("Serilog.ILogger");
             Assert.NotNull(loggerType);
             Assert.True(loggerType is UnavailableType);

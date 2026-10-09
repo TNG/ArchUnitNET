@@ -5,3 +5,8 @@ public class AssemblyAttribute : Attribute { }
 
 [AttributeUsage(AttributeTargets.All)]
 public class BaseAttribute : Attribute { }
+
+public static class UnavailableFieldHolder
+{
+    public static int Value;
+}
