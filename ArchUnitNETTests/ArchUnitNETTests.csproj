@@ -36,6 +36,7 @@
     <ProjectReference Include="..\TestAssemblies\PropertyMemberAssembly\PropertyMemberAssembly.csproj" />
     <ProjectReference Include="..\TestAssemblies\ClassAssembly\ClassAssembly.csproj" />
     <ProjectReference Include="..\TestAssemblies\SlicesTestAssembly\SlicesTestAssembly.csproj" />
+    <ProjectReference Include="..\TestAssemblies\OptimizedAssembly\OptimizedAssembly.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
