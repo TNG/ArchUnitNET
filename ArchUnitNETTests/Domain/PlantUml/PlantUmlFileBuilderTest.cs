@@ -230,11 +230,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 DependencyType.OneToOneIfSameParentNamespace
             );
             Assert.Equal(
-                "A.Web --> A.Billing" + Environment.NewLine,
+                "[A.Web] --> A.Billing" + Environment.NewLine,
                 toPackage.GetPlantUmlString()
             );
             Assert.Equal(
-                "A.Billing -> A.Web" + Environment.NewLine,
+                "A.Billing -> [A.Web]" + Environment.NewLine,
                 fromPackage.GetPlantUmlString()
             );
         }
