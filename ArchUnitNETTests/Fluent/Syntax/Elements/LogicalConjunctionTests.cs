@@ -787,6 +787,21 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             );
         }
 
+        [Fact]
+        public void And_FluentFormWithEmptySecondRule_ReportsFailingResult()
+        {
+            var thisClassExistsAndEmptyRule = ThisClassExists
+                .And()
+                .Classes()
+                .That()
+                .HaveName("NotTheNameOfAnyObject")
+                .Should()
+                .Be(ThisClass);
+
+            Assert.False(thisClassExistsAndEmptyRule.HasNoViolations(Architecture));
+            Assert.Contains(thisClassExistsAndEmptyRule.Evaluate(Architecture), e => !e.Passed);
+        }
+
         // rule.And(other) and rule.And().other must give the same verdict
         [Fact]
         public void And_FluentAndDirectForms_AreConsistent()

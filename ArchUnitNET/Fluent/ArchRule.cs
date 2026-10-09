@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax;
 
@@ -28,25 +27,7 @@ namespace ArchUnitNET.Fluent
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
-            var result = _ruleCreator.Evaluate(architecture).ToList();
-
-            // To require positives, we only ever need to add
-            // a non-passing result if there are no results.
-            if (_ruleCreator.RequirePositiveResults && result.Count == 0)
-            {
-                result.Add(
-                    new EvaluationResult(
-                        this,
-                        new StringIdentifier(Description),
-                        false,
-                        $"The rule requires positive evaluation, not just absence of violations. Use {nameof(WithoutRequiringPositiveResults)}() or improve your rule's predicates.",
-                        this,
-                        architecture
-                    )
-                );
-            }
-
-            return result;
+            return _ruleCreator.Evaluate(architecture);
         }
 
         public CombinedArchRuleDefinition And()
