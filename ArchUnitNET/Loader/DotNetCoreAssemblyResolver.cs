@@ -34,25 +34,42 @@ namespace ArchUnitNET.Loader
                 throw new ArgumentNullException(nameof(name));
             }
 
-            if (
-                _libraries.TryGetValue(name.FullName, out var assemblyDefinition)
-                || string.IsNullOrEmpty(AssemblyPath)
-            )
+            if (_libraries.TryGetValue(name.FullName, out var assemblyDefinition))
             {
                 return assemblyDefinition;
             }
 
-            var file = Directory
-                .EnumerateFiles(AssemblyPath, $"{name.Name}.dll", SearchOption.AllDirectories)
-                .FirstOrDefault();
+            if (!string.IsNullOrEmpty(AssemblyPath))
+            {
+                var file = Directory
+                    .EnumerateFiles(AssemblyPath, $"{name.Name}.dll", SearchOption.AllDirectories)
+                    .FirstOrDefault();
 
-            if (file == null)
+                if (file != null)
+                {
+                    assemblyDefinition = AssemblyDefinition.ReadAssembly(file, parameters);
+                    _libraries.Add(name.FullName, assemblyDefinition);
+                    return assemblyDefinition;
+                }
+            }
+
+            // Fall back to DefaultAssemblyResolver for framework assemblies not found in
+            // AssemblyPath. Pass the original parameters so the loaded assembly keeps using
+            // this resolver (which returns null for unresolvable references) instead of the
+            // DefaultAssemblyResolver (which throws).
+            try
+            {
+                assemblyDefinition = _defaultAssemblyResolver.Resolve(name, parameters);
+            }
+            catch (AssemblyResolutionException)
             {
                 return null;
             }
 
-            assemblyDefinition = AssemblyDefinition.ReadAssembly(file, parameters);
-            _libraries.Add(name.FullName, assemblyDefinition);
+            if (assemblyDefinition != null)
+            {
+                _libraries.Add(name.FullName, assemblyDefinition);
+            }
 
             return assemblyDefinition;
         }
@@ -84,7 +101,7 @@ namespace ArchUnitNET.Loader
 
         public void AddLib(AssemblyNameReference name)
         {
-            var assembly = Resolve(name) ?? _defaultAssemblyResolver.Resolve(name);
+            var assembly = Resolve(name);
             AddLib(name, assembly ?? throw new AssemblyResolutionException(name));
         }
 

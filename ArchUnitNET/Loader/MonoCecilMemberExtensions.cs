@@ -321,8 +321,9 @@ namespace ArchUnitNET.Loader
             {
                 return true;
             }
-            var declaringType =
-                memberReference.Resolve()?.DeclaringType ?? memberReference.DeclaringType;
+
+            var resolvedType = memberReference.TryResolve();
+            var declaringType = resolvedType?.DeclaringType ?? memberReference.DeclaringType;
             return declaringType != null && declaringType.Name.HasCompilerGeneratedName();
         }
 

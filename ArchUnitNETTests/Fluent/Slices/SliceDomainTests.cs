@@ -70,11 +70,10 @@ namespace ArchUnitNETTests.Fluent.Slices
         }
 
         /// <remarks>
-        /// Slice.Equals compares its Types collection by reference, not by content, so
-        /// <c>differentTypesInstance</c> below is unequal despite also being empty. That
-        /// relies on the two <c>new IType[0]</c> expressions yielding distinct references --
-        /// true today, but it would silently stop testing anything if empty arrays were ever
-        /// interned, so the two instances are kept deliberately separate and named for it.
+        /// Slice.Equals looks at the identifier alone, so <c>differentTypesInstance</c> below is
+        /// equal despite holding a distinct Types instance. The two <c>new IType[0]</c>
+        /// expressions are kept deliberately separate and named for it: they are what would make
+        /// this fail again if Types were ever compared by reference.
         /// </remarks>
         [Fact]
         public void Slice_Equals_Branches()
@@ -92,7 +91,8 @@ namespace ArchUnitNETTests.Fluent.Slices
             Assert.True(slice.Equals(slice));
             Assert.False(slice.Equals("not a slice"));
             Assert.True(slice.Equals(sameIdentifierAndTypes));
-            Assert.False(slice.Equals(differentTypesInstance));
+            Assert.True(slice.Equals(differentTypesInstance));
+            Assert.Equal(slice.GetHashCode(), differentTypesInstance.GetHashCode());
             Assert.False(slice.Equals(differentIdentifier));
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -25,6 +26,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             Hyperlink = hyperlink;
             Namespace = nameSpace;
             Color = color;
+            Alias = name;
         }
 
         public override string ToString()
@@ -36,6 +38,13 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         {
             C4Style = true;
         }
+
+        /// <summary>
+        /// The id PlantUML knows this slice by, which dependencies point at. It is the slice
+        /// name unless that name contains characters PlantUML does not accept in an id; see
+        /// <see cref="PlantUmlDiagram"/>.
+        /// </summary>
+        internal string Alias { get; set; }
 
         internal bool IsNested => Namespace != null;
 
@@ -86,12 +95,16 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             var result = new StringBuilder();
             if (C4Style)
             {
-                result.Append("Container(" + _name + ", " + _name + ")");
+                result.Append("Container(" + Alias + ", " + _name + ")");
                 AppendHyperlink(result);
             }
             else
             {
                 result.Append("[" + _name + "]");
+                if (Alias != _name)
+                {
+                    result.Append(" as " + Alias);
+                }
                 AppendHyperlink(result);
                 if (Color != null)
                 {
@@ -107,12 +120,15 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             var result = new StringBuilder();
             if (C4Style)
             {
-                result.Append("Container(" + _name + ", " + Leaf + ")");
+                result.Append("Container(" + Alias + ", " + Leaf + ")");
                 AppendHyperlink(result);
             }
             else
             {
-                result.Append("[" + Leaf + "] as " + _name);
+                // PlantUML reads a "*" at the start of a label as a list bullet and drops it,
+                // which would turn a label such as "*.Http" into ".Http".
+                var label = Leaf.StartsWith("*", StringComparison.Ordinal) ? "~" + Leaf : Leaf;
+                result.Append("[" + label + "] as " + Alias);
                 AppendHyperlink(result);
                 if (Color != null)
                 {
