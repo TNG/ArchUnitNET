@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent.Syntax;
 
@@ -23,57 +22,32 @@ namespace ArchUnitNET.Fluent
 
         public bool HasNoViolations(Architecture architecture)
         {
-            if (_ruleCreator.RequirePositiveResults)
-            {
-                return Evaluate(architecture).All(e => e.Passed);
-            }
-            else
-            {
-                return _ruleCreator.HasNoViolations(architecture);
-            }
+            return _ruleCreator.HasNoViolations(architecture);
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
-            var result = _ruleCreator.Evaluate(architecture).ToList();
-
-            // To require positives, we only ever need to add
-            // a non-passing result if there are no results.
-            if (_ruleCreator.RequirePositiveResults && result.Count == 0)
-            {
-                result.Add(
-                    new EvaluationResult(
-                        this,
-                        new StringIdentifier(Description),
-                        false,
-                        $"The rule requires positive evaluation, not just absence of violations. Use {nameof(WithoutRequiringPositiveResults)}() or improve your rule's predicates.",
-                        this,
-                        architecture
-                    )
-                );
-            }
-
-            return result;
+            return _ruleCreator.Evaluate(architecture);
         }
 
         public CombinedArchRuleDefinition And()
         {
-            return new CombinedArchRuleDefinition(_ruleCreator, LogicalConjunctionDefinition.And);
+            return new CombinedArchRuleDefinition(this, LogicalConjunctionDefinition.And);
         }
 
         public CombinedArchRuleDefinition Or()
         {
-            return new CombinedArchRuleDefinition(_ruleCreator, LogicalConjunctionDefinition.Or);
+            return new CombinedArchRuleDefinition(this, LogicalConjunctionDefinition.Or);
         }
 
         public IArchRule And(IArchRule archRule)
         {
-            return new CombinedArchRule(_ruleCreator, LogicalConjunctionDefinition.And, archRule);
+            return new CombinedArchRule(this, LogicalConjunctionDefinition.And, archRule);
         }
 
         public IArchRule Or(IArchRule archRule)
         {
-            return new CombinedArchRule(_ruleCreator, LogicalConjunctionDefinition.Or, archRule);
+            return new CombinedArchRule(this, LogicalConjunctionDefinition.Or, archRule);
         }
     }
 }

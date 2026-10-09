@@ -25,12 +25,29 @@ namespace ArchUnitNET.Fluent
 
         public bool HasNoViolations(Architecture architecture)
         {
-            return HasNoViolations(GetAnalyzedObjects(architecture), architecture);
+            return Evaluate(architecture).All(result => result.Passed);
         }
 
         public IEnumerable<EvaluationResult> Evaluate(Architecture architecture)
         {
-            return EvaluateConditions(GetAnalyzedObjects(architecture), architecture);
+            var filteredObjects = GetAnalyzedObjects(architecture).ToList();
+            var results = EvaluateConditions(filteredObjects, architecture).ToList();
+            if (RequirePositiveResults && results.Count == 0)
+            {
+                return new[]
+                {
+                    new EvaluationResult(
+                        this,
+                        new StringIdentifier(Description),
+                        false,
+                        "The rule requires positive evaluation, not just absence of violations. Use WithoutRequiringPositiveResults() or improve your rule's predicates.",
+                        this,
+                        architecture
+                    ),
+                };
+            }
+
+            return results;
         }
 
         public void AddPredicate(IPredicate<TRuleType> predicate)
@@ -96,7 +113,10 @@ namespace ArchUnitNET.Fluent
         private void SetRequirePositiveResults(bool requirePositive)
         {
             if (_requirePositiveResults != null && _requirePositiveResults != requirePositive)
+            {
                 throw new InvalidOperationException("conflicting positive expectation");
+            }
+
             _requirePositiveResults = requirePositive;
         }
 
@@ -104,14 +124,6 @@ namespace ArchUnitNET.Fluent
         {
             get => _requirePositiveResults ?? true;
             set => SetRequirePositiveResults(value);
-        }
-
-        private bool HasNoViolations(
-            IEnumerable<TRuleType> filteredObjects,
-            Architecture architecture
-        )
-        {
-            return EvaluateConditions(filteredObjects, architecture).All(result => result.Passed);
         }
 
         private IEnumerable<EvaluationResult> EvaluateConditions(

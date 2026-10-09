@@ -680,6 +680,200 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
             Assert.True(otherCondition2OrThisCondition2.HasNoViolations(Architecture));
             Assert.True(falseThisCondition1OrFalseThisCondition2.HasNoViolations(Architecture));
         }
+
+        [Fact]
+        public void Or_WithArchRule_IsCommutative()
+        {
+            // TT
+            Assert.True(ThisClassExists.Or(OtherCondition1).HasNoViolations(Architecture));
+            Assert.True(OtherCondition1.Or(ThisClassExists).HasNoViolations(Architecture));
+
+            // TF / FT
+            Assert.True(ThisClassExists.Or(ThisClassDoesNotExist).HasNoViolations(Architecture));
+            Assert.True(ThisClassDoesNotExist.Or(ThisClassExists).HasNoViolations(Architecture));
+
+            // FF
+            Assert.False(
+                ThisClassDoesNotExist.Or(FalseThisShouldCondition1).HasNoViolations(Architecture)
+            );
+            Assert.False(
+                FalseThisShouldCondition1.Or(ThisClassDoesNotExist).HasNoViolations(Architecture)
+            );
+
+            // Empty-predicate rule (no matching objects): counts as failing with RequirePositiveResults
+            var emptyRule = Classes()
+                .That()
+                .HaveName("NotTheNameOfAnyObject")
+                .Should()
+                .Be(ThisClass);
+            Assert.False(emptyRule.HasNoViolations(Architecture));
+            Assert.False(emptyRule.Or(ThisClassDoesNotExist).HasNoViolations(Architecture));
+            Assert.False(ThisClassDoesNotExist.Or(emptyRule).HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void And_WithArchRule_IsCommutative()
+        {
+            // TT
+            Assert.True(ThisClassExists.And(OtherCondition1).HasNoViolations(Architecture));
+            Assert.True(OtherCondition1.And(ThisClassExists).HasNoViolations(Architecture));
+
+            // TF / FT
+            Assert.False(ThisClassExists.And(ThisClassDoesNotExist).HasNoViolations(Architecture));
+            Assert.False(ThisClassDoesNotExist.And(ThisClassExists).HasNoViolations(Architecture));
+
+            // FF
+            Assert.False(
+                ThisClassDoesNotExist.And(FalseThisShouldCondition1).HasNoViolations(Architecture)
+            );
+            Assert.False(
+                FalseThisShouldCondition1.And(ThisClassDoesNotExist).HasNoViolations(Architecture)
+            );
+
+            // Empty-predicate rule (no matching objects): counts as failing with RequirePositiveResults
+            var emptyRule = Classes()
+                .That()
+                .HaveName("NotTheNameOfAnyObject")
+                .Should()
+                .Be(ThisClass);
+            Assert.False(emptyRule.HasNoViolations(Architecture));
+            Assert.False(emptyRule.And(ThisClassExists).HasNoViolations(Architecture));
+            Assert.False(ThisClassExists.And(emptyRule).HasNoViolations(Architecture));
+        }
+
+        // rule.Or(other) and rule.Or().other must give the same verdict
+        [Fact]
+        public void Or_FluentAndDirectForms_AreConsistent()
+        {
+            // FT: first fails, second passes
+            Assert.True(ThisClassDoesNotExist.Or(OtherCondition1).HasNoViolations(Architecture));
+            Assert.True(
+                ThisClassDoesNotExist
+                    .Or()
+                    .Classes()
+                    .That()
+                    .Are(OtherClass)
+                    .Should()
+                    .Be(OtherClass)
+                    .HasNoViolations(Architecture)
+            );
+
+            // TF: first passes, second fails
+            Assert.True(OtherCondition1.Or(ThisClassDoesNotExist).HasNoViolations(Architecture));
+            Assert.True(
+                OtherCondition1
+                    .Or()
+                    .Classes()
+                    .That()
+                    .Are(ThisClass)
+                    .Should()
+                    .NotBe(ThisClass)
+                    .HasNoViolations(Architecture)
+            );
+
+            // FF
+            Assert.False(
+                ThisClassDoesNotExist.Or(FalseThisShouldCondition1).HasNoViolations(Architecture)
+            );
+            Assert.False(
+                ThisClassDoesNotExist
+                    .Or()
+                    .Classes()
+                    .That()
+                    .Are(ThisClass)
+                    .Should()
+                    .NotBe(ThisClass)
+                    .HasNoViolations(Architecture)
+            );
+        }
+
+        [Fact]
+        public void And_FluentFormWithEmptySecondRule_ReportsFailingResult()
+        {
+            var thisClassExistsAndEmptyRule = ThisClassExists
+                .And()
+                .Classes()
+                .That()
+                .HaveName("NotTheNameOfAnyObject")
+                .Should()
+                .Be(ThisClass);
+
+            Assert.False(thisClassExistsAndEmptyRule.HasNoViolations(Architecture));
+            Assert.Contains(thisClassExistsAndEmptyRule.Evaluate(Architecture), e => !e.Passed);
+        }
+
+        // rule.And(other) and rule.And().other must give the same verdict
+        [Fact]
+        public void And_FluentAndDirectForms_AreConsistent()
+        {
+            // TT
+            Assert.True(ThisClassExists.And(OtherCondition1).HasNoViolations(Architecture));
+            Assert.True(
+                ThisClassExists
+                    .And()
+                    .Classes()
+                    .That()
+                    .Are(OtherClass)
+                    .Should()
+                    .Be(OtherClass)
+                    .HasNoViolations(Architecture)
+            );
+
+            // TF
+            Assert.False(ThisClassExists.And(ThisClassDoesNotExist).HasNoViolations(Architecture));
+            Assert.False(
+                ThisClassExists
+                    .And()
+                    .Classes()
+                    .That()
+                    .Are(ThisClass)
+                    .Should()
+                    .NotBe(ThisClass)
+                    .HasNoViolations(Architecture)
+            );
+
+            // FT
+            Assert.False(ThisClassDoesNotExist.And(OtherCondition1).HasNoViolations(Architecture));
+            Assert.False(
+                ThisClassDoesNotExist
+                    .And()
+                    .Classes()
+                    .That()
+                    .Are(OtherClass)
+                    .Should()
+                    .Be(OtherClass)
+                    .HasNoViolations(Architecture)
+            );
+        }
+
+        [Fact]
+        public void And_FluentFormWithNotExistOnEmptySecondRule_Passes()
+        {
+            var thisClassExistsAndNoClassNamedXExists = ThisClassExists
+                .And()
+                .Classes()
+                .That()
+                .HaveName("NotTheNameOfAnyObject")
+                .Should()
+                .NotExist();
+
+            Assert.True(thisClassExistsAndNoClassNamedXExists.HasNoViolations(Architecture));
+        }
+
+        [Fact]
+        public void And_FluentFormWithEmptySecondRule_WithoutRequiringPositiveResults_Passes()
+        {
+            var thisClassExistsAndEmptyRule = ThisClassExists
+                .And()
+                .Classes()
+                .That()
+                .HaveName("NotTheNameOfAnyObject")
+                .Should()
+                .Be(ThisClass)
+                .WithoutRequiringPositiveResults();
+
+            Assert.True(thisClassExistsAndEmptyRule.HasNoViolations(Architecture));
+        }
     }
 
     internal class OtherClassForLogicalConjunctionTest { }
