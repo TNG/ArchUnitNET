@@ -161,8 +161,14 @@ namespace ArchUnitNET.Fluent.Slices
                 );
             }
 
+            // An empty prefix means the pattern starts with its capture group; there is no
+            // namespace to nest the slice under, so report none rather than an empty one.
             return fullName
-                ? SliceIdentifier.Of(slicePrefix + sliceString, countOfSingleAsterisk, slicePrefix)
+                ? SliceIdentifier.Of(
+                    slicePrefix + sliceString,
+                    countOfSingleAsterisk,
+                    slicePrefix == "" ? null : slicePrefix
+                )
                 : SliceIdentifier.Of(sliceString, countOfSingleAsterisk);
         }
     }
