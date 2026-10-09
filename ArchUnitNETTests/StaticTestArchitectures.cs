@@ -106,6 +106,12 @@ namespace ArchUnitNETTests
             .LoadAssemblies(typeof(OptimizedAssembly.ClassWithAsyncMethod).Assembly)
             .Build();
 
+        public static readonly Architecture FunctionPointerArchitecture = new ArchLoader()
+            .WithoutRuleEvaluationCache()
+            .WithoutArchitectureCache()
+            .LoadAssemblies(typeof(FunctionPointerNamespace.ClassWithFunctionPointerField).Assembly)
+            .Build();
+
         public static readonly Architecture ArchUnitNETTestAssemblyArchitecture = new ArchLoader()
             .LoadAssemblies(typeof(Class1).Assembly)
             .Build();
