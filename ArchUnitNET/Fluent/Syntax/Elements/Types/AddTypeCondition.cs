@@ -50,6 +50,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public TNextElement ResideInNamespace(string fullName) => CreateNextElement(TypeConditionsDefinition<TRuleType>.ResideInNamespace(fullName));
         public TNextElement ResideInNamespaceMatching(string pattern) => CreateNextElement(TypeConditionsDefinition<TRuleType>.ResideInNamespaceMatching(pattern));
+        public TNextElement ResideInNamespaceOrBelow(string fullName) => CreateNextElement(TypeConditionsDefinition<TRuleType>.ResideInNamespaceOrBelow(fullName));
 
         public TNextElement ResideInAssembly(string fullName) => CreateNextElement(TypeConditionsDefinition<TRuleType>.ResideInAssembly(fullName));
         public TNextElement ResideInAssemblyMatching(string pattern) => CreateNextElement(TypeConditionsDefinition<TRuleType>.ResideInAssemblyMatching(pattern));
@@ -105,6 +106,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         public TNextElement NotResideInNamespace(string fullName) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotResideInNamespace(fullName));
         public TNextElement NotResideInNamespaceMatching(string pattern) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotResideInNamespaceMatching(pattern));
+        public TNextElement NotResideInNamespaceOrBelow(string fullName) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotResideInNamespaceOrBelow(fullName));
 
         public TNextElement NotResideInAssembly(string fullName) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotResideInAssembly(fullName));
         public TNextElement NotResideInAssemblyMatching(string pattern) => CreateNextElement(TypeConditionsDefinition<TRuleType>.NotResideInAssemblyMatching(pattern));

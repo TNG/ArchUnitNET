@@ -38,7 +38,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         TNextElement ResideInNamespace(string fullName);
         TNextElement ResideInNamespaceMatching(string pattern);
-
+        TNextElement ResideInNamespaceOrBelow(string fullName);
         TNextElement ResideInAssembly(string fullName);
         TNextElement ResideInAssemblyMatching(string pattern);
         TNextElement ResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);
@@ -84,6 +84,7 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
 
         TNextElement NotResideInNamespace(string fullName);
         TNextElement NotResideInNamespaceMatching(string pattern);
+        TNextElement NotResideInNamespaceOrBelow(string fullName);
 
         TNextElement NotResideInAssemblyMatching(string pattern);
         TNextElement NotResideInAssembly(Assembly assembly, params Assembly[] moreAssemblies);

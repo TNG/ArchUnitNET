@@ -1032,6 +1032,64 @@ namespace ArchUnitNETTests.Fluent.Syntax.Elements
         }
 
         [Fact]
+        public async Task ResideInNamespaceOrBelowTest()
+        {
+            var helper = new TypeAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No violations");
+            var should = Types().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.ResideInNamespaceOrBelow("TypeNamespace").AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().ResideInNamespaceOrBelow("TypeNamespace")).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Types().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.ResideInNamespaceOrBelow("TypeName").AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().ResideInNamespaceOrBelow("TypeName")).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Types().That().Are(helper.RegularClass, helper.OtherRegularClass).Should().ResideInNamespaceOrBelow("TypeNamespace").AssertNoViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
+        public async Task NotResideInNamespaceOrBelowTest()
+        {
+            var helper = new TypeAssemblyTestHelper();
+
+            helper.AddSnapshotHeader("No violations");
+            var should = Types().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotResideInNamespaceOrBelow("TypeName").AssertNoViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().DoNotResideInNamespaceOrBelow("TypeName")).AssertNoViolations(helper);
+
+            helper.AddSnapshotHeader("Violations");
+            should = Types().That().Are(helper.RegularClass).Should();
+
+            helper.AddSnapshotSubHeader("Conditions");
+            should.NotResideInNamespaceOrBelow("TypeNamespace").AssertOnlyViolations(helper);
+
+            helper.AddSnapshotSubHeader("Predicates");
+            should.Be(Types().That().DoNotResideInNamespaceOrBelow("TypeNamespace")).AssertOnlyViolations(helper);
+
+            helper.AddSnapshotHeader("Multiple inputs");
+            Types().That().Are(helper.RegularClass, helper.OtherRegularClass).Should().NotResideInNamespaceOrBelow("TypeName").AssertNoViolations(helper);
+
+            await helper.AssertSnapshotMatches();
+        }
+
+        [Fact]
         public async Task ResideInAssemblyTest()
         {
             var helper = new TypeAssemblyTestHelper();

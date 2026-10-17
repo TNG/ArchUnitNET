@@ -314,6 +314,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        public static IOrderedCondition<TRuleType> ResideInNamespaceOrBelow(string fullName)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => type.ResidesInNamespaceOrBelow(fullName),
+                obj => ResideInNamespaceFailDescription(obj),
+                "reside in namespace with full name \"" + fullName + "\" or below"
+            );
+        }
+
         public static IOrderedCondition<TRuleType> ResideInAssembly(string fullName)
         {
             return new SimpleCondition<TRuleType>(
@@ -717,6 +726,15 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
                 type => !type.ResidesInNamespaceMatching(pattern),
                 obj => ResideInNamespaceFailDescription(obj),
                 "not reside in namespace with full name matching \"" + pattern + "\""
+            );
+        }
+
+        public static IOrderedCondition<TRuleType> NotResideInNamespaceOrBelow(string fullName)
+        {
+            return new SimpleCondition<TRuleType>(
+                type => !type.ResidesInNamespaceOrBelow(fullName),
+                obj => ResideInNamespaceFailDescription(obj),
+                "not reside in namespace with full name \"" + fullName + "\" or below"
             );
         }
 
