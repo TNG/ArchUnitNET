@@ -38,6 +38,7 @@ namespace ArchUnitNETTests.Domain
         {
             Assert.False(_functionPointer.ResidesInNamespace("System"));
             Assert.False(_functionPointer.ResidesInNamespaceMatching(".*"));
+            Assert.False(_functionPointer.ResidesInNamespaceOrBelow("System"));
         }
 
         [Fact]

@@ -1,0 +1,52 @@
+﻿===== No violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.RegularClass" should not reside in namespace with full name "TypeName" or below
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.RegularClass" should be Types that do not reside in namespace with full name "TypeName" or below
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+
+===== Violations =====
+
+----- Conditions -----
+
+Query: Types that are "TypeNamespace.RegularClass" should not reside in namespace with full name "TypeNamespace" or below
+Result: False
+Description: TypeNamespace.RegularClass does reside in TypeNamespace
+Message: 
+"Types that are "TypeNamespace.RegularClass" should not reside in namespace with full name "TypeNamespace" or below" failed:
+	TypeNamespace.RegularClass does reside in TypeNamespace
+
+
+
+----- Predicates -----
+
+Query: Types that are "TypeNamespace.RegularClass" should be Types that do not reside in namespace with full name "TypeNamespace" or below
+Result: False
+Description: TypeNamespace.RegularClass is not Types that do not reside in namespace with full name "TypeNamespace" or below
+Message: 
+"Types that are "TypeNamespace.RegularClass" should be Types that do not reside in namespace with full name "TypeNamespace" or below" failed:
+	TypeNamespace.RegularClass is not Types that do not reside in namespace with full name "TypeNamespace" or below
+
+
+
+===== Multiple inputs =====
+
+Query: Types that are "TypeNamespace.RegularClass" or "TypeNamespace.OtherRegularClass" should not reside in namespace with full name "TypeName" or below
+Result: True
+Description: TypeNamespace.OtherRegularClass passed
+Result: True
+Description: TypeNamespace.RegularClass passed
+Message: 
+All Evaluations passed
+

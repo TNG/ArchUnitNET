@@ -161,6 +161,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             );
         }
 
+        public static IPredicate<T> ResideInNamespaceOrBelow(string fullName)
+        {
+            return new SimplePredicate<T>(
+                type => type.ResidesInNamespaceOrBelow(fullName),
+                "reside in namespace with full name \"" + fullName + "\" or below"
+            );
+        }
+
         public static IPredicate<T> ResideInAssembly(string fullName)
         {
             return new SimplePredicate<T>(
@@ -369,6 +377,14 @@ namespace ArchUnitNET.Fluent.Syntax.Elements.Types
             return new SimplePredicate<T>(
                 type => !type.ResidesInNamespaceMatching(pattern),
                 "do not reside in namespace with full name matching \"" + pattern + "\""
+            );
+        }
+
+        public static IPredicate<T> DoNotResideInNamespaceOrBelow(string fullName)
+        {
+            return new SimplePredicate<T>(
+                type => !type.ResidesInNamespaceOrBelow(fullName),
+                "do not reside in namespace with full name \"" + fullName + "\" or below"
             );
         }
 
