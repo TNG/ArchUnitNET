@@ -532,6 +532,18 @@ namespace ArchUnitNETTests.Domain.PlantUml
             );
         }
 
+        [Fact]
+        public void DoesNotReadStereotypesFromTheAlias()
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram.From(_memoryStream).RawLine("[A] <<Real.*>> as \"<<Fake.*>>\"").Write()
+            );
+
+            PlantUmlComponent component = diagram.AllComponents.Single();
+            Assert.Equal(new[] { new Stereotype("Real.*") }, component.Stereotypes);
+            Assert.Equal(new Alias("<<Fake.*>>"), component.Alias);
+        }
+
         [Theory]
         [InlineData("[A <<X>>")]
         [InlineData("A] <<X>>")]

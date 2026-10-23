@@ -7,57 +7,42 @@ using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
-using static ArchUnitNET.Domain.PlantUml.Import.PlantUmlPatterns;
 
 namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class PlantUmlParser
     {
-        private PlantUmlPatterns _plantUmlPatterns = new PlantUmlPatterns();
-
         public PlantUmlParsedDiagram Parse(string filename)
         {
             if (filename is null)
             {
                 throw new ArgumentNullException(nameof(filename));
             }
-            return CreateDiagram(ReadLines(filename));
+            return CreateDiagram(
+                ReadLines(() => new StreamReader(filename, Encoding.UTF8), filename)
+            );
         }
 
         public PlantUmlParsedDiagram Parse(Stream stream)
         {
             if (stream is null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
-            return CreateDiagram(ReadLines(stream));
+            return CreateDiagram(
+                ReadLines(() => new StreamReader(stream, Encoding.UTF8), "stream")
+            );
         }
 
-        private IEnumerable<string> ReadLines(string filename)
-        {
-            try
-            {
-                return File.ReadAllLines(filename, Encoding.UTF8);
-            }
-            catch (Exception ex)
-                when (ex is IOException
-                    || ex is UnauthorizedAccessException
-                    || ex is SecurityException
-                )
-            {
-                throw new PlantUmlParseException("Could not parse diagram from " + filename, ex);
-            }
-        }
-
-        private IEnumerable<string> ReadLines(Stream stream)
+        private static IEnumerable<string> ReadLines(Func<TextReader> open, string source)
         {
             try
             {
                 var lines = new List<string>();
-                using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
+                using (TextReader reader = open())
                 {
                     string line;
-                    while ((line = sr.ReadLine()) != null)
+                    while ((line = reader.ReadLine()) != null)
                     {
                         lines.Add(line);
                     }
@@ -70,7 +55,7 @@ namespace ArchUnitNET.Domain.PlantUml.Import
                     || ex is SecurityException
                 )
             {
-                throw new PlantUmlParseException("Could not parse diagram from stream", ex);
+                throw new PlantUmlParseException("Could not parse diagram from " + source, ex);
             }
         }
 
@@ -98,18 +83,18 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         {
             var result = new List<ParsedDependency>();
             foreach (
-                PlantUmlDependencyMatcher matcher in _plantUmlPatterns.MatchDependencies(
-                    plantUmlDiagramLines
+                PlantUmlDependencyMatcher matcher in plantUmlDiagramLines.SelectMany(
+                    PlantUmlDependencyMatcher.TryParse
                 )
             )
             {
                 PlantUmlComponent origin = FindComponentMatching(
                     plantUmlComponents,
-                    matcher.MatchOrigin
+                    matcher.Origin
                 );
                 PlantUmlComponent target = FindComponentMatching(
                     plantUmlComponents,
-                    matcher.MatchTarget
+                    matcher.Target
                 );
                 result.Add(new ParsedDependency(origin.Identifier, target.Identifier));
             }
@@ -130,27 +115,24 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         private ISet<PlantUmlComponent> ParseComponents(IEnumerable<string> plantUmlDiagramLines)
         {
             return new HashSet<PlantUmlComponent>(
-                _plantUmlPatterns
-                    .FilterComponents(plantUmlDiagramLines)
-                    .Select(p => CreateNewComponent(p))
-                    .Distinct()
+                plantUmlDiagramLines
+                    .Select(PlantUmlComponentMatcher.TryParse)
+                    .Where(matcher => matcher != null)
+                    .Select(CreateNewComponent)
             );
         }
 
-        private PlantUmlComponent CreateNewComponent(string input)
+        private PlantUmlComponent CreateNewComponent(PlantUmlComponentMatcher matcher)
         {
-            PlantUmlComponentMatcher matcher = _plantUmlPatterns.MatchComponent(input);
-
-            var componentName = new ComponentName(matcher.MatchComponentName());
+            var componentName = new ComponentName(matcher.Name);
             ImmutableHashSet<Stereotype> immutableStereotypes = IdentifyStereotypes(
                 matcher,
                 componentName
             );
-            string alias = matcher.MatchAlias();
             return new PlantUmlComponent(
                 componentName,
                 immutableStereotypes,
-                alias != null ? new Alias(alias) : null
+                matcher.Alias != null ? new Alias(matcher.Alias) : null
             );
         }
 
@@ -159,13 +141,9 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             ComponentName componentName
         )
         {
-            var stereotypes = ImmutableHashSet.CreateBuilder<Stereotype>();
-            foreach (string stereotype in matcher.MatchStereoTypes())
-            {
-                stereotypes.Add(new Stereotype(stereotype));
-            }
-
-            ImmutableHashSet<Stereotype> result = stereotypes.ToImmutable();
+            ImmutableHashSet<Stereotype> result = matcher
+                .Stereotypes.Select(stereotype => new Stereotype(stereotype))
+                .ToImmutableHashSet();
             if (result.IsEmpty)
             {
                 throw new IllegalDiagramException(
@@ -181,7 +159,9 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         private IEnumerable<string> FilterOutComments(IEnumerable<string> lines)
         {
-            return lines.Where(l => !Regex.IsMatch(l, "^\\s*'")).ToList();
+            return lines
+                .Where(l => !l.TrimStart().StartsWith("'", StringComparison.Ordinal))
+                .ToList();
         }
     }
 }
