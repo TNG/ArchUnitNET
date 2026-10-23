@@ -18,6 +18,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             .LoadAssembly(typeof(PlantUmlFluentComponentDiagramTests).Assembly)
             .Build();
 
+#pragma warning disable CS0618 // Covers every dependency type, including the obsolete ones.
         private static readonly List<IPlantUmlElement> Dependencies = new List<IPlantUmlElement>
         {
             new PlantUmlDependency("a", "b", DependencyType.OneToOne),
@@ -30,6 +31,7 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             new PlantUmlDependency("h", "i", DependencyType.OneToOneCompact),
             new PlantUmlDependency("i", "a", DependencyType.OneToOneIfSameParentNamespace),
         };
+#pragma warning restore CS0618
 
         [Fact]
         public void ComponentDiagramFromSlicesTest()
@@ -45,11 +47,14 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             Assert.NotEmpty(uml2);
 
             var arch1 = new ArchLoader().LoadAssembly(typeof(Architecture).Assembly).Build();
-            var sliceRule1 = SliceRuleDefinition
-                .Slices()
-                .MatchingWithPackages("ArchUnitNET.(*).(*).(*)");
+            var sliceRule1 = SliceRuleDefinition.Slices().Matching("ArchUnitNET.(*).(*).(*)");
             const string path = "../../../Fluent/PlantUml/Test.puml";
-            var g = new GenerationOptions() { C4Style = true, LimitDependencies = true };
+            var g = new GenerationOptions()
+            {
+                C4Style = true,
+                LimitDependencies = true,
+                NestSlicesInPackages = true,
+            };
             ComponentDiagram()
                 .WithDependenciesFromSlices(sliceRule1.GetObjects(arch1), g)
                 .WriteToFile(path);

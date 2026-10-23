@@ -1,0 +1,41 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package "SlicesTestAssembly.MultipleSubnamespaces" as SlicesTestAssembly.MultipleSubnamespaces {
+  package "Slice1" as SlicesTestAssembly.MultipleSubnamespaces.Slice1 {
+    [Slice1] as Slice1
+    package "Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service {
+      [Slice1.Service] as Slice1.Service
+    }
+  }
+  package "Slice2" as SlicesTestAssembly.MultipleSubnamespaces.Slice2 {
+    [Slice2] as Slice2
+    package "Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service {
+      [Slice2.Service] as Slice2.Service
+    }
+  }
+  package "Slice3" as SlicesTestAssembly.MultipleSubnamespaces.Slice3 {
+    [Slice3] as Slice3
+    package "Group1" as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1 {
+      [Slice3.Group1] as Slice3.Group1
+      package "Inner" as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1.Inner {
+        [Slice3.Group1.Inner] as Slice3.Group1.Inner
+      }
+    }
+    package "Group2" as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2 {
+      [Slice3.Group2] as Slice3.Group2
+      package "Inner" as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2.Inner {
+        [Slice3.Group2.Inner] as Slice3.Group2.Inner
+      }
+    }
+  }
+}
+
+[Slice1] --> [Slice2]
+[Slice1.Service] --> [Slice2.Service]
+[Slice2] --> [Slice3]
+[Slice3] --> [Slice1]
+@enduml

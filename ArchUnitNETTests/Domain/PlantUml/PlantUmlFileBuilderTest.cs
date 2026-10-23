@@ -66,6 +66,22 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task BuildUmlByNamespacesLimitDependenciesSnapshotTest()
+        {
+            // Only the arrows between namespaces with the same number of segments are drawn.
+            var namespaces = StaticTestArchitectures.SlicesTestArchitecture.Namespaces.Where(ns =>
+                ns.FullName.StartsWith("SlicesTestAssembly.MultipleSubnamespaces")
+            );
+            var uml = new PlantUmlFileBuilder()
+                .WithDependenciesFrom(
+                    namespaces,
+                    new GenerationOptions { LimitDependencies = true }
+                )
+                .AsString();
+            return Verifier.Verify(uml).DisableDiff().UseDirectory("Snapshots");
+        }
+
+        [Fact]
         public void BuildUmlBySlicesTest()
         {
             var slices = SliceRuleDefinition
@@ -188,6 +204,20 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task SliceNamesThatArePackageIdsTest()
+        {
+            // Each slice is named like the package it is drawn in, so both get an id of their own.
+            return VerifyElements(
+                new IPlantUmlElement[]
+                {
+                    new PlantUmlSlice("A.X", "A.", new[] { "X" }, "A.X"),
+                    new PlantUmlSlice("A.X.Y", "A.", new[] { "X", "Y" }, "A.X.Y"),
+                    new PlantUmlDependency("A.X.Y", "A.X", DependencyType.OneToOne),
+                }
+            );
+        }
+
+        [Fact]
         public Task C4StyleSliceNamesThatAreNotValidIdsTest()
         {
             var flat = new PlantUmlSlice("A.*.B");
@@ -236,6 +266,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return VerifyElements(new[] { orders, billing });
         }
 
+#pragma warning disable CS0618 // These tests cover the obsolete dependency types.
         [Theory]
         [InlineData(DependencyType.OneToPackage, "[A.Web] -[#red]> A.Billing.Domain")]
         [InlineData(DependencyType.PackageToOne, "A.Web -[#blue]> [A.Billing.Domain]")]
@@ -244,6 +275,21 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             var dependency = new PlantUmlDependency("A.Web", "A.Billing.Domain", dependencyType);
             Assert.Equal(expected + Environment.NewLine, dependency.GetPlantUmlString());
+        }
+
+        [Fact]
+        public void OneToOneCompactArrowIgnoresDotsTest()
+        {
+            // The exporter decides which compact arrows to draw, not the arrow itself.
+            var dependency = new PlantUmlDependency(
+                "A.Web",
+                "A.Billing.Domain",
+                DependencyType.OneToOneCompact
+            );
+            Assert.Equal(
+                "[A.Web] --> [A.Billing.Domain]" + Environment.NewLine,
+                dependency.GetPlantUmlString()
+            );
         }
 
         [Fact]
@@ -282,6 +328,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 fromPackage.GetPlantUmlString()
             );
         }
+#pragma warning restore CS0618
 
         [Fact]
         public void HandleIllegalComponentNamesTest()

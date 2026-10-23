@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace ArchUnitNET.Domain
+﻿namespace ArchUnitNET.Domain
 {
     public class SliceIdentifier : StringIdentifier, IHasDescription
     {
@@ -10,29 +8,21 @@ namespace ArchUnitNET.Domain
         private SliceIdentifier(
             string identifier,
             bool ignored,
-            int? countOfAsteriskInPattern = null,
-            string nameSpace = null
+            int? countOfAsteriskInPattern = null
         )
             : base(identifier)
         {
             Ignored = ignored;
             CountOfAsteriskInPattern = countOfAsteriskInPattern;
-            NameSpace = nameSpace;
         }
 
         public string Description => Identifier;
 
-        [CanBeNull]
-        public readonly string NameSpace;
         public readonly int? CountOfAsteriskInPattern;
 
-        public static SliceIdentifier Of(
-            string identifier,
-            int? countOfAsteriskInPattern = null,
-            string nameSpace = null
-        )
+        public static SliceIdentifier Of(string identifier, int? countOfAsteriskInPattern = null)
         {
-            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
+            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern);
         }
 
         public static SliceIdentifier Ignore()

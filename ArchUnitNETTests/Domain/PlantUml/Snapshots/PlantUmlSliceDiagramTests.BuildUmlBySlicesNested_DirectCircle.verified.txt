@@ -5,9 +5,13 @@
 HIDE_STEREOTYPE()
 
 package "SlicesTestAssembly.DirectCircle" as SlicesTestAssembly.DirectCircle {
-  [Slice1] as SlicesTestAssembly.DirectCircle.Slice1
-  [Slice2] as SlicesTestAssembly.DirectCircle.Slice2
+  package "Slice1" as SlicesTestAssembly.DirectCircle.Slice1 {
+    [Slice1] as Slice1
+  }
+  package "Slice2" as SlicesTestAssembly.DirectCircle.Slice2 {
+    [Slice2] as Slice2
+  }
 }
 
-[SlicesTestAssembly.DirectCircle.Slice1] <-[#red]> [SlicesTestAssembly.DirectCircle.Slice2]
+[Slice1] <-[#red]> [Slice2]
 @enduml
