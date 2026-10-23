@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
@@ -65,7 +65,7 @@ namespace ArchUnitNETTests.Fluent.Slices
         {
             var slice = new Slice(SliceIdentifier.Of("SomeSlice"), Array.Empty<IType>());
 
-            Assert.Equal("SomeSlice", slice.ToString());
+            Assert.Equal("Slice SomeSlice", slice.ToString());
             Assert.Equal(slice.Description, slice.ToString());
         }
 
@@ -105,6 +105,14 @@ namespace ArchUnitNETTests.Fluent.Slices
         }
 
         [Fact]
+        public void SliceIdentifier_CompareTo_OneIgnored_ReturnsFalse()
+        {
+            // Same parts, so only the Ignored flag tells the two apart.
+            Assert.False(SliceIdentifier.Of("Ignored").CompareTo(SliceIdentifier.Ignore()));
+            Assert.False(SliceIdentifier.Ignore().CompareTo(SliceIdentifier.Of("Ignored")));
+        }
+
+        [Fact]
         public void SliceIdentifier_Equals_Branches()
         {
             var identifier = SliceIdentifier.Of("A");
@@ -117,14 +125,131 @@ namespace ArchUnitNETTests.Fluent.Slices
         }
 
         [Fact]
+        public void SliceIdentifier_Equals_ComparesParts()
+        {
+            var identifier = SliceIdentifier.Of(new[] { "A", "B" });
+
+            Assert.Equal(SliceIdentifier.Of(new[] { "A", "B" }), identifier);
+            Assert.Equal(
+                SliceIdentifier.Of(new[] { "A", "B" }).GetHashCode(),
+                identifier.GetHashCode()
+            );
+            Assert.NotEqual(SliceIdentifier.Of(new[] { "B", "A" }), identifier);
+            Assert.NotEqual(SliceIdentifier.Of("A.B"), identifier);
+            Assert.NotEqual(SliceIdentifier.Of(new[] { "A", "B", "C" }), identifier);
+        }
+
+        [Fact]
         public void SliceIdentifier_Equals_IgnoresDiagramData()
         {
             // Where a diagram draws the slice is no part of its identity.
-            var nested = SliceIdentifier.OfMatch("A.B", null, "X.", "A.B");
+            var nested = SliceIdentifier.OfMatch(new[] { "A", "B" }, null, "X.", "A.B");
 
-            Assert.Equal(SliceIdentifier.Of("A.B"), nested);
-            Assert.Equal(SliceIdentifier.Of("A.B").GetHashCode(), nested.GetHashCode());
-            Assert.Equal("A.B", nested.Description);
+            Assert.Equal(SliceIdentifier.Of(new[] { "A", "B" }), nested);
+            Assert.Equal(
+                SliceIdentifier.Of(new[] { "A", "B" }).GetHashCode(),
+                nested.GetHashCode()
+            );
+            Assert.Equal("Slice A - B", nested.Description);
+        }
+
+        [Fact]
+        public void SliceIdentifier_OfString_IsASingleSlicePart()
+        {
+            var ofString = SliceIdentifier.Of("Orders");
+            var ofParts = SliceIdentifier.Of(new[] { "Orders" });
+
+            Assert.Equal(new[] { "Orders" }, ofString.Parts);
+            Assert.Equal(ofParts, ofString);
+            Assert.Equal("Slice Orders", ofString.Description);
+            Assert.Equal("Slice Orders", ofParts.Description);
+        }
+
+        [Fact]
+        public void SliceIdentifier_Description_PrefixesTheJoinedParts()
+        {
+            Assert.Equal("Slice Orders.Web", SliceIdentifier.Of("Orders.Web").Description);
+            Assert.Equal(
+                "Slice Orders - Http",
+                SliceIdentifier.Of(new[] { "Orders", "Http" }).Description
+            );
+        }
+
+        [Fact]
+        public void SliceIdentifier_Of_RejectsMissingParts()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+                SliceIdentifier.Of((System.Collections.Generic.IEnumerable<string>)null)
+            );
+            Assert.Throws<ArgumentException>(() => SliceIdentifier.Of(new string[0]));
+            Assert.Throws<ArgumentException>(() => SliceIdentifier.Of(new[] { "A", null }));
+        }
+
+        [Fact]
+        public void SliceIdentifier_PartsContainingTheSeparator_AreADifferentSlice()
+        {
+            // Both are described "Slice A - B", but they are different slices.
+            var onePart = SliceIdentifier.Of(new[] { "A - B" });
+            var twoParts = SliceIdentifier.Of(new[] { "A", "B" });
+
+            Assert.Equal(onePart.Description, twoParts.Description);
+            Assert.NotEqual(onePart, twoParts);
+            Assert.False(SliceIdentifier.Comparer.Equals(onePart, twoParts));
+        }
+
+        [Fact]
+        public void SliceIdentifier_ToString_IsTheDescription()
+        {
+            Assert.Equal("Slice Orders", SliceIdentifier.Of("Orders").ToString());
+        }
+
+        // --- Violation keys, which violation stores keep ---------------------------------
+
+        [Fact]
+        public void ViolationKey_IsTheDescription()
+        {
+            var keys = SliceRuleDefinition
+                .Slices()
+                .Matching(Root + "(*)")
+                .Should()
+                .NotDependOnEachOther()
+                .Evaluate(Architecture)
+                .Select(result => result.EvaluatedObjectIdentifier.Identifier);
+
+            Assert.Contains("Slice Slice1", keys);
+        }
+
+        [Fact]
+        public void ViolationKey_OfSeveralParts_IsTheDescription()
+        {
+            // Patterns capture a single part, so a custom assignment builds several.
+            var creator = new SliceRuleCreator();
+            creator.SetSliceAssignment(
+                new SliceAssignment(
+                    type => SliceIdentifier.Of(new[] { "Custom", type.Name }),
+                    "by name"
+                )
+            );
+
+            var keys = new SlicesShould(creator)
+                .NotDependOnEachOther()
+                .Evaluate(Architecture)
+                .Select(result => result.EvaluatedObjectIdentifier.Identifier);
+
+            Assert.Contains("Slice Custom - Slice1Class", keys);
+        }
+
+        // --- SlicedBy ------------------------------------------------------------------
+
+        [Fact]
+        public void SlicedBy_NamesSlicesAfterTheTypeLikeEveryOtherSlice()
+        {
+            var type = Architecture.GetClassOfType(typeof(MixedTypesClass));
+
+            var slice = Assert.Single(new IType[] { type }.SlicedBy(""));
+
+            Assert.Equal(new[] { type.FullName }, slice.Identifier.Parts);
+            Assert.Equal("Slice " + type.FullName, slice.Description);
         }
 
         [Fact]

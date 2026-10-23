@@ -728,12 +728,14 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         /// nested slice is therefore drawn under its qualified name, the namespace its types
         /// matched before the first capture group followed by its
         /// <see cref="SliceIdentifier.DiagramPath"/>, e.g. "App.Orders.Http", with that namespace
-        /// as its root package. Every other slice is drawn under its description, without a
-        /// package.
+        /// as its root package. Every other slice is drawn under its description, e.g.
+        /// "Slice Orders - Http", without a package.
         /// </para>
         /// <para>
-        /// Qualified names of one pattern are distinct, but a description can coincide with a
-        /// qualified name. Drawing two slices as one node would be wrong, so that is rejected.
+        /// A description always contains a space and a qualified name never does, so the two
+        /// can't be mistaken for each other, and qualified names of one pattern are distinct.
+        /// Descriptions can still coincide, for a custom slice whose part contains " - ".
+        /// Drawing two slices as one node would be wrong, so that is rejected.
         /// </para>
         /// </remarks>
         /// <param name="nestSlicesInPackages">
@@ -757,11 +759,11 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 if (slicesByName.TryGetValue(diagramName.Name, out var other))
                 {
                     throw new ArgumentException(
-                        "The slices \""
-                            + other.Identifier.Identifier
-                            + "\" and \""
-                            + slice.Identifier.Identifier
-                            + "\" would both be drawn as \""
+                        "The slices with parts "
+                            + FormatParts(other)
+                            + " and "
+                            + FormatParts(slice)
+                            + " would both be drawn as \""
                             + diagramName.Name
                             + "\"."
                     );
@@ -770,6 +772,13 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 slicesByName.Add(diagramName.Name, slice);
                 _diagramNames.Add(slice, diagramName);
             }
+        }
+
+        private static string FormatParts(Slice slice)
+        {
+            return "["
+                + string.Join(", ", slice.Identifier.Parts.Select(part => "\"" + part + "\""))
+                + "]";
         }
 
         /// <summary>The name the diagram draws a slice under; see <see cref="AssignDiagramNames"/>.</summary>

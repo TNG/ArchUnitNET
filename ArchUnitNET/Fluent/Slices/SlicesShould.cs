@@ -91,7 +91,7 @@ namespace ArchUnitNET.Fluent.Slices
                     }
 
                     var cycleIdentifier = new EnumerableIdentifier(
-                        cycle.Contents.Select(slice => slice.Identifier)
+                        cycle.Contents.Select(slice => new StringIdentifier(slice.Description))
                     );
                     yield return new EvaluationResult(
                         cycle,
@@ -106,7 +106,7 @@ namespace ArchUnitNET.Fluent.Slices
             else
             {
                 var slicesIdentifier = new EnumerableIdentifier(
-                    slicesList.Select(slice => slice.Identifier)
+                    slicesList.Select(slice => new StringIdentifier(slice.Description))
                 );
                 yield return new EvaluationResult(
                     slicesList,
@@ -166,7 +166,7 @@ namespace ArchUnitNET.Fluent.Slices
 
                 yield return new EvaluationResult(
                     slice,
-                    slice.Identifier,
+                    new StringIdentifier(slice.Description),
                     passed,
                     description,
                     archRule,

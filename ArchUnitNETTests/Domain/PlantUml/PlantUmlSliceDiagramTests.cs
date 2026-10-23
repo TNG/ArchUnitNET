@@ -154,9 +154,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             // Slices that are not nested have no namespace, so the focused ones take
             // PlantUmlSlice.BuildString's namespace-less branch with a colour set -- the only
-            // path on which the exporter renders "[Slice1] #99ffd1" rather than a package.
-            // They are drawn under their description, which carries no Root prefix, hence the
-            // bare focus string.
+            // path on which the exporter renders "[Slice Slice1] #99ffd1" rather than a package.
+            // They are drawn under their description, which "Slice1" is contained in.
             var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
             var uml = new PlantUmlFileBuilder()
                 .WithDependenciesFromFocusOn(slices, "Slice1")
@@ -371,9 +370,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var nested = new PlantUmlFileBuilder().WithDependenciesFrom(slices, Nested).AsString();
 
             Assert.DoesNotContain("package", flat);
-            Assert.Contains("[Slice1.Service]", flat);
+            Assert.Contains("[Slice Slice1] as Slice_Slice1", flat);
             Assert.Contains("package \"SlicesTestAssembly.MultipleSubnamespaces\"", nested);
-            Assert.DoesNotContain("[Slice1.Service]", nested);
+            Assert.DoesNotContain("Slice Slice1", nested);
         }
 
         // --- Two slices may not share a node ----------------------------------------------
@@ -381,20 +380,18 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public void BuildUmlBySlices_SameDiagramName_Throws()
         {
-            // A slice that is not nested is drawn under its description, which here is the
-            // qualified name a nested slice is drawn under.
-            var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"))
-                .Concat(
-                    new[] { new Slice(SliceIdentifier.Of(Root + "Slice1"), Array.Empty<IType>()) }
-                )
-                .ToList();
+            // Different slices, both described "Slice A - B".
+            var slices = new[]
+            {
+                new Slice(SliceIdentifier.Of(new[] { "A - B" }), Array.Empty<IType>()),
+                new Slice(SliceIdentifier.Of(new[] { "A", "B" }), Array.Empty<IType>()),
+            };
 
             var ex = Assert.Throws<ArgumentException>(() =>
-                new PlantUmlFileBuilder().WithDependenciesFrom(slices, Nested)
+                new PlantUmlFileBuilder().WithDependenciesFrom(slices)
             );
             Assert.Equal(
-                "The slices \"Slice1\" and \"SlicesTestAssembly.MultipleSubnamespaces.Slice1\" "
-                    + "would both be drawn as \"SlicesTestAssembly.MultipleSubnamespaces.Slice1\".",
+                "The slices with parts [\"A - B\"] and [\"A\", \"B\"] would both be drawn as \"Slice A - B\".",
                 ex.Message
             );
         }
