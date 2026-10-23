@@ -15,12 +15,12 @@
   {
     "ArchRuleDescription": "Slices matching \"SlicesTestAssembly.MultipleSubnamespaces.(**)\" should not depend on each other",
     "Violations": [
-      "Slice3",
-      "Slice3.Group1",
-      "Slice2",
-      "Slice2.Service",
-      "Slice1",
-      "Slice1.Service"
+      "Slice Slice3",
+      "Slice Slice3.Group1",
+      "Slice Slice2",
+      "Slice Slice2.Service",
+      "Slice Slice1",
+      "Slice Slice1.Service"
     ]
   }
 ]
