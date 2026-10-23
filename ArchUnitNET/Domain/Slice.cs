@@ -27,9 +27,24 @@ namespace ArchUnitNET.Domain
 
         public string Description => Identifier.Description;
 
-        [CanBeNull]
-        public string NameSpace => Identifier.NameSpace;
         public int? CountOfAsteriskInPattern => Identifier.CountOfAsteriskInPattern;
+
+        /// <summary>
+        /// The namespace a diagram nests this slice under when it nests slices in packages: the
+        /// part of the namespace that the pattern matched before the first capture group, if
+        /// it is the same for every type in the slice, which may be empty. <c>null</c> if it
+        /// differs between the types, or if the slice does not come from a slice pattern; a
+        /// diagram then draws the slice on its own. It takes no part in the slice's identity.
+        /// </summary>
+        [CanBeNull]
+        internal string DiagramNamespace { get; set; }
+
+        /// <summary>
+        /// Whether diagrams nest this slice in packages even if
+        /// <see cref="PlantUml.Export.GenerationOptions.NestSlicesInPackages"/> is not set, which
+        /// is the case for slices of the obsolete <c>MatchingWithPackages</c>.
+        /// </summary>
+        internal bool NestByDefault { get; set; }
 
         protected bool Equals(Slice other)
         {
@@ -64,11 +79,6 @@ namespace ArchUnitNET.Domain
         public override string ToString()
         {
             return Description;
-        }
-
-        public bool ContainsNamespace()
-        {
-            return NameSpace != null;
         }
     }
 }

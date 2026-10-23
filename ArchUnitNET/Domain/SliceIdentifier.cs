@@ -11,28 +11,62 @@ namespace ArchUnitNET.Domain
             string identifier,
             bool ignored,
             int? countOfAsteriskInPattern = null,
-            string nameSpace = null
+            string matchedPrefix = null,
+            string diagramPath = null
         )
             : base(identifier)
         {
             Ignored = ignored;
             CountOfAsteriskInPattern = countOfAsteriskInPattern;
-            NameSpace = nameSpace;
+            MatchedPrefix = matchedPrefix;
+            DiagramPath = diagramPath;
         }
 
         public string Description => Identifier;
 
+        /// <summary>
+        /// The part of the type's namespace the pattern matched before the first capture group,
+        /// e.g. "App." for "App.(*)" over "App.Orders", or an empty string if the pattern starts
+        /// with a group; <c>null</c> if the identifier does not come from a slice pattern. Only
+        /// used to nest the slice in diagrams; it takes no part in the slice's identity.
+        /// </summary>
         [CanBeNull]
-        public readonly string NameSpace;
+        internal readonly string MatchedPrefix;
+
+        /// <summary>
+        /// The path a diagram nests the slice along below <see cref="MatchedPrefix"/>: the part of
+        /// the namespace the pattern captured, e.g. "Orders.Web" for "App.(**)" over
+        /// "App.Orders.Web". <c>null</c> if the identifier does not come from a slice pattern. It
+        /// takes no part in the slice's identity.
+        /// </summary>
+        [CanBeNull]
+        internal readonly string DiagramPath;
+
         public readonly int? CountOfAsteriskInPattern;
 
-        public static SliceIdentifier Of(
+        public static SliceIdentifier Of(string identifier, int? countOfAsteriskInPattern = null)
+        {
+            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern);
+        }
+
+        /// <summary>
+        /// Creates the identifier a slice pattern assigns to a type, together with where the
+        /// pattern matched, which diagrams use to nest the slice.
+        /// </summary>
+        internal static SliceIdentifier OfMatch(
             string identifier,
-            int? countOfAsteriskInPattern = null,
-            string nameSpace = null
+            int? countOfAsteriskInPattern,
+            string matchedPrefix,
+            string diagramPath
         )
         {
-            return new SliceIdentifier(identifier, false, countOfAsteriskInPattern, nameSpace);
+            return new SliceIdentifier(
+                identifier,
+                false,
+                countOfAsteriskInPattern,
+                matchedPrefix,
+                diagramPath
+            );
         }
 
         public static SliceIdentifier Ignore()

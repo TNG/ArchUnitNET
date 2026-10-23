@@ -22,12 +22,15 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
         private const string Root = "SlicesTestAssembly.MultipleSubnamespaces.";
 
+        private static GenerationOptions Nested =>
+            new GenerationOptions { NestSlicesInPackages = true };
+
         // --- The asterisk count decides which slices the exporter renders ---------------
         //
         // Every pattern below matches the same nine slices -- SlicesTests.MatchingTest and
         // Matching_SingleAsterisk_CapturesEveryDepth assert that. What differs is how many
         // of them survive PlantUmlFileBuilder.RemovePatternInappropriateSlices, which drops
-        // a slice once its depth (dots in Description, less dots in NameSpace) reaches
+        // a slice once its depth (dots in its Description) reaches
         // Slice.CountOfAsteriskInPattern:
         //
         //     (*)       count 1     ->  3 of 9 slices rendered
@@ -54,7 +57,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
         // The matcher discards everything after the first "(*", so "(*).(*)" and "(*)..(*)"
         // are indistinguishable to it and the next two snapshots are byte-identical -- as are
-        // their MatchingWithPackages counterparts below. That identity is the point: it is
+        // their nested counterparts below. That identity is the point: it is
         // what a reimplementation giving the second capture group any meaning would have to
         // change. SlicesTests.DotDot_* cover the shapes that would tell the two patterns
         // apart.
@@ -76,64 +79,60 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_SingleAsterisk()
+        public Task BuildUmlBySlicesNested_SingleAsterisk()
         {
-            return VerifySlices(SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*)"));
+            return VerifySlices(SliceRuleDefinition.Slices().Matching(Root + "(*)"), Nested);
         }
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_DoubleAsterisk()
+        public Task BuildUmlBySlicesNested_DoubleAsterisk()
         {
-            return VerifySlices(SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(**)"));
+            return VerifySlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"), Nested);
         }
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_MultipleCaptureGroups()
+        public Task BuildUmlBySlicesNested_MultipleCaptureGroups()
         {
-            return VerifySlices(
-                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*).(*)")
-            );
+            return VerifySlices(SliceRuleDefinition.Slices().Matching(Root + "(*).(*)"), Nested);
         }
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_NonContiguousCaptureGroups()
+        public Task BuildUmlBySlicesNested_NonContiguousCaptureGroups()
         {
-            return VerifySlices(
-                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*)..(*)")
-            );
+            return VerifySlices(SliceRuleDefinition.Slices().Matching(Root + "(*)..(*)"), Nested);
         }
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_CaptureGroupAtStart()
+        public Task BuildUmlBySlicesNested_CaptureGroupAtStart()
         {
             // Nothing precedes the capture group, so there is no namespace to nest the slices
             // under and they are drawn flat, like those of Matching.
-            return VerifySlices(SliceRuleDefinition.Slices().MatchingWithPackages("(**).Service"));
+            return VerifySlices(SliceRuleDefinition.Slices().Matching("(**).Service"), Nested);
         }
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_LimitDependencies()
+        public Task BuildUmlBySlicesNested_LimitDependencies()
         {
             return VerifySlices(
-                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(**)"),
-                new GenerationOptions { LimitDependencies = true }
+                SliceRuleDefinition.Slices().Matching(Root + "(**)"),
+                new GenerationOptions { NestSlicesInPackages = true, LimitDependencies = true }
             );
         }
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_C4Style()
+        public Task BuildUmlBySlicesNested_C4Style()
         {
             return VerifySlices(
-                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(**)"),
-                new GenerationOptions { C4Style = true }
+                SliceRuleDefinition.Slices().Matching(Root + "(**)"),
+                new GenerationOptions { NestSlicesInPackages = true, C4Style = true }
             );
         }
 
         [Fact]
         public Task BuildUmlBySlices_C4Style()
         {
-            // Slices produced by Matching (as opposed to MatchingWithPackages) have no namespace
-            // prefix, so this exercises PlantUmlSlice.BuildStringC4Style's no-namespace branch.
+            // Slices that are not nested have no namespace prefix, so this exercises
+            // PlantUmlSlice.BuildStringC4Style's no-namespace branch.
             return VerifySlices(
                 SliceRuleDefinition.Slices().Matching(Root + "(**)"),
                 new GenerationOptions { C4Style = true }
@@ -143,11 +142,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public Task BuildUmlBySlicesFocusOn()
         {
-            var slices = SortedSlices(
-                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(**)")
-            );
+            var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
             var uml = new PlantUmlFileBuilder()
-                .WithDependenciesFromFocusOn(slices, Root + "Slice1")
+                .WithDependenciesFromFocusOn(slices, Root + "Slice1", Nested)
                 .AsString();
             return VerifyUml(uml);
         }
@@ -155,10 +152,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public Task BuildUmlBySlicesFocusOn_Matching_ColorsFocusedSlices()
         {
-            // Slices produced by Matching have no namespace, so the focused ones take
+            // Slices that are not nested have no namespace, so the focused ones take
             // PlantUmlSlice.BuildString's namespace-less branch with a colour set -- the only
             // path on which the exporter renders "[Slice1] #99ffd1" rather than a package.
-            // Their Description carries no Root prefix either, hence the bare focus string.
+            // They are drawn under their description, which carries no Root prefix, hence the
+            // bare focus string.
             var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
             var uml = new PlantUmlFileBuilder()
                 .WithDependenciesFromFocusOn(slices, "Slice1")
@@ -179,14 +177,12 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_DirectCircle()
+        public Task BuildUmlBySlicesNested_DirectCircle()
         {
             var slices = SortedSlices(
-                SliceRuleDefinition
-                    .Slices()
-                    .MatchingWithPackages("SlicesTestAssembly.DirectCircle.(*)")
+                SliceRuleDefinition.Slices().Matching("SlicesTestAssembly.DirectCircle.(*)")
             );
-            var uml = new PlantUmlFileBuilder().WithDependenciesFrom(slices).AsString();
+            var uml = new PlantUmlFileBuilder().WithDependenciesFrom(slices, Nested).AsString();
             return VerifyUml(uml);
         }
 
@@ -199,19 +195,20 @@ namespace ArchUnitNETTests.Domain.PlantUml
         private const string SameNamedRoot = "SlicesTestAssembly.SameNamedSubnamespaces.";
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_SameNamedPackages()
+        public Task BuildUmlBySlicesNested_SameNamedPackages()
         {
             return VerifySlices(
-                SliceRuleDefinition.Slices().MatchingWithPackages(SameNamedRoot + "(**)")
+                SliceRuleDefinition.Slices().Matching(SameNamedRoot + "(**)"),
+                Nested
             );
         }
 
         [Fact]
-        public Task BuildUmlBySlicesMatchingWithPackages_SameNamedPackages_C4Style()
+        public Task BuildUmlBySlicesNested_SameNamedPackages_C4Style()
         {
             return VerifySlices(
-                SliceRuleDefinition.Slices().MatchingWithPackages(SameNamedRoot + "(**)"),
-                new GenerationOptions { C4Style = true }
+                SliceRuleDefinition.Slices().Matching(SameNamedRoot + "(**)"),
+                new GenerationOptions { NestSlicesInPackages = true, C4Style = true }
             );
         }
 
@@ -272,10 +269,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             var slices = SliceRuleDefinition
                 .Slices()
-                .MatchingWithPackages(Root + "(**)")
+                .Matching(Root + "(**)")
                 .GetObjects(Architecture);
             var ex = Assert.Throws<ArgumentException>(() =>
-                new PlantUmlFileBuilder().WithDependenciesFromFocusOn(slices, "")
+                new PlantUmlFileBuilder().WithDependenciesFromFocusOn(slices, "", Nested)
             );
             Assert.Equal("Package can't be empty", ex.Message);
         }
@@ -285,10 +282,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             var slices = SliceRuleDefinition
                 .Slices()
-                .MatchingWithPackages(Root + "(**)")
+                .Matching(Root + "(**)")
                 .GetObjects(Architecture);
             var ex = Assert.Throws<ArgumentException>(() =>
-                new PlantUmlFileBuilder().WithDependenciesFromFocusOn(slices, ".")
+                new PlantUmlFileBuilder().WithDependenciesFromFocusOn(slices, ".", Nested)
             );
             Assert.Equal("Package can't contain a single dot only", ex.Message);
         }
@@ -301,10 +298,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
             // focus string that no slice contains, on the way to this exception.
             var slices = SliceRuleDefinition
                 .Slices()
-                .MatchingWithPackages(Root + "(*)")
+                .Matching(Root + "(*)")
                 .GetObjects(Architecture);
             var ex = Assert.Throws<ArgumentException>(() =>
-                new PlantUmlFileBuilder().WithDependenciesFromFocusOn(slices, "NotAPackage")
+                new PlantUmlFileBuilder().WithDependenciesFromFocusOn(slices, "NotAPackage", Nested)
             );
             Assert.Contains("is not contained in this slice", ex.Message);
         }
@@ -314,18 +311,18 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             var slicesWithTrailingDot = SliceRuleDefinition
                 .Slices()
-                .MatchingWithPackages(Root + "(**)")
+                .Matching(Root + "(**)")
                 .GetObjects(Architecture);
             var umlWithTrailingDot = new PlantUmlFileBuilder()
-                .WithDependenciesFromFocusOn(slicesWithTrailingDot, Root + "Slice1.")
+                .WithDependenciesFromFocusOn(slicesWithTrailingDot, Root + "Slice1.", Nested)
                 .AsString();
 
             var slicesWithoutTrailingDot = SliceRuleDefinition
                 .Slices()
-                .MatchingWithPackages(Root + "(**)")
+                .Matching(Root + "(**)")
                 .GetObjects(Architecture);
             var umlWithoutTrailingDot = new PlantUmlFileBuilder()
-                .WithDependenciesFromFocusOn(slicesWithoutTrailingDot, Root + "Slice1")
+                .WithDependenciesFromFocusOn(slicesWithoutTrailingDot, Root + "Slice1", Nested)
                 .AsString();
 
             Assert.Equal(umlWithoutTrailingDot, umlWithTrailingDot);
@@ -340,13 +337,66 @@ namespace ArchUnitNETTests.Domain.PlantUml
             // doesn't contain it (e.g. "Slice1") skip the pattern-appropriateness check via
             // RemovePatternInappropriateSlices' per-slice "continue", while "Slice3" itself is
             // shallow enough to survive that check and keep the package reachable.
-            var slices = SortedSlices(
-                SliceRuleDefinition.Slices().MatchingWithPackages(Root + "(*)")
-            );
+            var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(*)"));
             var uml = new PlantUmlFileBuilder()
-                .WithDependenciesFromFocusOn(slices, Root + "Slice3")
+                .WithDependenciesFromFocusOn(slices, Root + "Slice3", Nested)
                 .AsString();
             return VerifyUml(uml);
+        }
+
+        // --- Where nested slices are rooted ----------------------------------------------
+        //
+        // A nested slice's root package is the namespace its types matched before the first
+        // capture group, so it has to come from the match, not from the pattern text.
+
+        [Fact]
+        public Task BuildUmlBySlicesNested_DuplicatePrefixSegment()
+        {
+            // The leading ".." matches "SlicesTestAssembly.DuplicatePrefix.Sub.", so that whole
+            // namespace is the root package, although "DuplicatePrefix.Sub" occurs in it twice.
+            return VerifySlices(
+                SliceRuleDefinition.Slices().Matching("..DuplicatePrefix.Sub.(**)"),
+                Nested
+            );
+        }
+
+        // --- One set of slices, drawn flat and nested ------------------------------------
+
+        [Fact]
+        public void BuildUmlBySlices_SameSlicesDrawnFlatAndNested()
+        {
+            var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
+
+            var flat = new PlantUmlFileBuilder().WithDependenciesFrom(slices).AsString();
+            var nested = new PlantUmlFileBuilder().WithDependenciesFrom(slices, Nested).AsString();
+
+            Assert.DoesNotContain("package", flat);
+            Assert.Contains("[Slice1.Service]", flat);
+            Assert.Contains("package \"SlicesTestAssembly.MultipleSubnamespaces\"", nested);
+            Assert.DoesNotContain("[Slice1.Service]", nested);
+        }
+
+        // --- Two slices may not share a node ----------------------------------------------
+
+        [Fact]
+        public void BuildUmlBySlices_SameDiagramName_Throws()
+        {
+            // A slice that is not nested is drawn under its description, which here is the
+            // qualified name a nested slice is drawn under.
+            var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"))
+                .Concat(
+                    new[] { new Slice(SliceIdentifier.Of(Root + "Slice1"), Array.Empty<IType>()) }
+                )
+                .ToList();
+
+            var ex = Assert.Throws<ArgumentException>(() =>
+                new PlantUmlFileBuilder().WithDependenciesFrom(slices, Nested)
+            );
+            Assert.Equal(
+                "The slices \"Slice1\" and \"SlicesTestAssembly.MultipleSubnamespaces.Slice1\" "
+                    + "would both be drawn as \"SlicesTestAssembly.MultipleSubnamespaces.Slice1\".",
+                ex.Message
+            );
         }
 
         /// <summary>
