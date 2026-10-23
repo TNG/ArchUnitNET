@@ -176,15 +176,15 @@ namespace ArchUnitNETTests.Fluent.Slices
             Assert.Equal(
                 new[]
                 {
-                    "Slice1",
-                    "Slice1.Service",
-                    "Slice2",
-                    "Slice2.Service",
-                    "Slice3",
-                    "Slice3.Group1",
-                    "Slice3.Group1.Inner",
-                    "Slice3.Group2",
-                    "Slice3.Group2.Inner",
+                    "Slice Slice1",
+                    "Slice Slice1.Service",
+                    "Slice Slice2",
+                    "Slice Slice2.Service",
+                    "Slice Slice3",
+                    "Slice Slice3.Group1",
+                    "Slice Slice3.Group1.Inner",
+                    "Slice Slice3.Group2",
+                    "Slice Slice3.Group2.Inner",
                 },
                 Descriptions(Root + "(*)")
             );
@@ -199,7 +199,10 @@ namespace ArchUnitNETTests.Fluent.Slices
         [Fact]
         public void Matching_DoubleAsteriskDotDot_FoldsSubnamespacesIntoParent()
         {
-            Assert.Equal(new[] { "Slice1", "Slice2", "Slice3" }, Descriptions(Root + "(**).."));
+            Assert.Equal(
+                new[] { "Slice Slice1", "Slice Slice2", "Slice Slice3" },
+                Descriptions(Root + "(**)..")
+            );
         }
 
         /// <summary>
@@ -227,8 +230,8 @@ namespace ArchUnitNETTests.Fluent.Slices
                             .ToArray()
                 );
 
-            Assert.Equal(new[] { Root + "Slice1.Service.Service1Class" }, types["Slice1"]);
-            Assert.Equal(new[] { Root + "Slice2.Service.Service2Class" }, types["Slice2"]);
+            Assert.Equal(new[] { Root + "Slice1.Service.Service1Class" }, types["Slice Slice1"]);
+            Assert.Equal(new[] { Root + "Slice2.Service.Service2Class" }, types["Slice Slice2"]);
             Assert.Equal(
                 new[]
                 {
@@ -237,7 +240,7 @@ namespace ArchUnitNETTests.Fluent.Slices
                     Root + "Slice3.Group2.Group2Class",
                     Root + "Slice3.Group2.Inner.Inner2Class",
                 },
-                types["Slice3"]
+                types["Slice Slice3"]
             );
         }
 
@@ -276,7 +279,7 @@ namespace ArchUnitNETTests.Fluent.Slices
                 .ToList();
 
             Assert.Single(slices);
-            Assert.Equal("DuplicatePrefix.Sub", slices[0].Description);
+            Assert.Equal("Slice DuplicatePrefix.Sub", slices[0].Description);
         }
 
         // --- ".." semantics -------------------------------------------------------------
@@ -287,11 +290,11 @@ namespace ArchUnitNETTests.Fluent.Slices
             Assert.Equal(
                 new[]
                 {
-                    "Alpha.Service",
-                    "AlphaService",
-                    "Outer.Inner",
-                    "Outer.Mid.Inner",
-                    "Single",
+                    "Slice Alpha.Service",
+                    "Slice AlphaService",
+                    "Slice Outer.Inner",
+                    "Slice Outer.Mid.Inner",
+                    "Slice Single",
                 },
                 Descriptions(DotDot + "(*)..(*)")
             );
@@ -303,11 +306,11 @@ namespace ArchUnitNETTests.Fluent.Slices
             Assert.Equal(
                 new[]
                 {
-                    "Alpha.Service",
-                    "AlphaService",
-                    "Outer.Inner",
-                    "Outer.Mid.Inner",
-                    "Single",
+                    "Slice Alpha.Service",
+                    "Slice AlphaService",
+                    "Slice Outer.Inner",
+                    "Slice Outer.Mid.Inner",
+                    "Slice Single",
                 },
                 Descriptions(DotDot + "(*)..Service")
             );
@@ -328,8 +331,8 @@ namespace ArchUnitNETTests.Fluent.Slices
             // holding exactly the one type it's made of. This is not evidence the matcher tells
             // the two shapes apart -- it would look identical if it ignored segment boundaries
             // entirely.
-            Assert.Single(slices.Single(slice => slice.Description == "AlphaService").Types);
-            Assert.Single(slices.Single(slice => slice.Description == "Alpha.Service").Types);
+            Assert.Single(slices.Single(slice => slice.Description == "Slice AlphaService").Types);
+            Assert.Single(slices.Single(slice => slice.Description == "Slice Alpha.Service").Types);
         }
 
         // --- failure messages -----------------------------------------------------------

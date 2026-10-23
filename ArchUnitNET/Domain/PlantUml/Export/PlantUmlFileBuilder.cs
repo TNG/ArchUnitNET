@@ -138,12 +138,14 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         /// <c>package</c> of the deepest namespace that contains all of its types. With
         /// <see cref="GenerationOptions.LimitDependencies"/>, only the arrows between slices whose
         /// types share an equally deep namespace are drawn.</param>
+        /// <exception cref="ArgumentException">Two slices would be drawn under the same name.</exception>
         public PlantUmlFileBuilder WithDependenciesFrom(
             IEnumerable<Slice> slices,
             GenerationOptions generationOptions = null
         )
         {
             _sliceList = slices.Distinct().ToList();
+            AssertDistinctNames();
             RemovePatternInappropriateSlices();
             AssignCommonNamespaces();
 
@@ -315,7 +317,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         /// <param name="generationOptions">Only <see cref="GenerationOptions.NestSlicesInPackages"/>
         /// is read; the defaults if <c>null</c>.</param>
         /// <exception cref="ArgumentException">The package is empty, a single dot or a namespace
-        /// that no slice lies in.</exception>
+        /// that no slice lies in, or two slices would be drawn under the same name.</exception>
         public PlantUmlFileBuilder WithDependenciesFromFocusOn(
             IEnumerable<Slice> slices,
             string package,
@@ -323,6 +325,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         )
         {
             _sliceList = slices.Distinct().ToList();
+            AssertDistinctNames();
 
             switch (package)
             {
@@ -507,6 +510,40 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Rejects two slices with the same name, which the diagram would draw as one node. Only
+        /// slices with different parts can share one, when a part contains " - ", as
+        /// <c>["A - B"]</c> and <c>["A", "B"]</c> are both named "Slice A - B".
+        /// </summary>
+        private void AssertDistinctNames()
+        {
+            var slicesByName = new Dictionary<string, Slice>();
+            foreach (var slice in _sliceList)
+            {
+                if (slicesByName.TryGetValue(slice.Description, out var other))
+                {
+                    throw new ArgumentException(
+                        "The slices with parts "
+                            + FormatParts(other)
+                            + " and "
+                            + FormatParts(slice)
+                            + " would both be drawn as \""
+                            + slice.Description
+                            + "\"."
+                    );
+                }
+
+                slicesByName.Add(slice.Description, slice);
+            }
+        }
+
+        private static string FormatParts(Slice slice)
+        {
+            return "["
+                + string.Join(", ", slice.Identifier.Parts.Select(part => "\"" + part + "\""))
+                + "]";
         }
 
         /// <summary>

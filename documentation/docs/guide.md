@@ -174,12 +174,45 @@ IArchRule rule = Classes().That().DoNotHaveAnyAttributes(typeof(Display)).Should
                     .NotDependOnAny(Classes().That().AreAssignableTo(typeof(ICanvas)));
 ```
 
-### 3.6. Cycle Rule
+### 3.6. Slice Rules
+Slices group types by namespace. A *slice* is the set of types whose namespaces produced the same
+captured values from a pattern -- with `"App.(*)"`, the types in `App.Orders` form one slice, those in
+`App.Shipping` another.
+
+To use the `Slices()` entry point directly, add:
+```cs
+using static ArchUnitNET.Fluent.Slices.SliceRuleDefinition;
+```
+
+#### How slices are named
+A slice is identified by **what its capture groups captured**, in group order. Two types end up in
+the same slice exactly when their groups captured the same values.
+
+A slice is named after its captures: `Slice ` followed by the captured values joined with ` - `. The
+name never reads as a namespace, and it is what failure messages and diagrams show.
+
+| Pattern | Namespace | Slice name |
+|---|---|---|
+| `App.(*)` | `App.Orders` | `Slice Orders` |
+| `App.(**)` | `App.Orders.Web` | `Slice Orders.Web` |
+
+Frozen violations of a slice rule (see `FreezingArchRule`) are stored by the slice name, e.g.
+`Slice Orders`.
+
+#### Cycle-free rule
 ![Cycle](img/cycle.svg)
 ```cs
 IArchRule rule = Slices().Matching("Module.(*)").Should()
                     .BeFreeOfCycles();
 ```
+
+#### No-dependency rule
+```cs
+IArchRule rule = Slices().Matching("Module.(*)").Should()
+                    .NotDependOnEachOther();
+```
+`NotDependOnEachOther` forbids *any* dependency between slices, where `BeFreeOfCycles` only forbids
+circular ones.
 
 ## 4. How to check
 
