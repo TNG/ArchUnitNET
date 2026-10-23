@@ -56,6 +56,29 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             File.Delete(path);
         }
 
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void ComponentDiagramFromNamespacesTest(bool limitDependencies)
+        {
+            var namespaces = StaticTestArchitectures
+                .SlicesTestArchitecture.Namespaces.Where(ns =>
+                    ns.FullName.StartsWith("SlicesTestAssembly.MultipleSubnamespaces")
+                )
+                .ToList();
+            var generationOptions = new GenerationOptions { LimitDependencies = limitDependencies };
+
+            var uml = ComponentDiagram()
+                .WithDependenciesFromNamespaces(namespaces, generationOptions)
+                .AsString();
+
+            var expected = new PlantUmlFileBuilder()
+                .WithDependenciesFrom(namespaces, generationOptions)
+                .AsString();
+            Assert.Contains("namespace", uml);
+            Assert.Equal(expected, uml);
+        }
+
         [Fact]
         public void ComponentDiagramFromTypesTest()
         {

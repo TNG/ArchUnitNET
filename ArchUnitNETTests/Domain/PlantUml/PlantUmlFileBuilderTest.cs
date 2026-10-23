@@ -56,6 +56,16 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task BuildUmlByNamespacesSnapshotTest()
+        {
+            var namespaces = StaticTestArchitectures.SlicesTestArchitecture.Namespaces.Where(ns =>
+                ns.FullName.StartsWith("SlicesTestAssembly.MultipleSubnamespaces")
+            );
+            var uml = new PlantUmlFileBuilder().WithDependenciesFrom(namespaces).AsString();
+            return Verifier.Verify(uml).DisableDiff().UseDirectory("Snapshots");
+        }
+
+        [Fact]
         public void BuildUmlBySlicesTest()
         {
             var slices = SliceRuleDefinition

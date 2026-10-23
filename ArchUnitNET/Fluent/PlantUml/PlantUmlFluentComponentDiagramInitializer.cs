@@ -89,5 +89,26 @@ namespace ArchUnitNET.Fluent.PlantUml
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
+
+        /// <summary>
+        /// Draws the given namespaces as nested PlantUML namespaces, with an arrow from one
+        /// namespace to another wherever one of its types depends on one of the other's; see
+        /// <see cref="PlantUmlFileBuilder.WithDependenciesFrom(IEnumerable{Namespace}, GenerationOptions)"/>.
+        /// </summary>
+        /// <param name="namespaces">The namespaces to draw, e.g. <see cref="Architecture.Namespaces"/>.</param>
+        /// <param name="generationOptions">Filters and layout options; the defaults if <c>null</c>.
+        /// <see cref="GenerationOptions.C4Style"/> does not apply to namespaces.</param>
+        public GivenPlantUmlFluentComponentDiagram WithDependenciesFromNamespaces(
+            IEnumerable<Namespace> namespaces,
+            GenerationOptions generationOptions = null
+        )
+        {
+            _fluentComponentDiagramCreator.Builder.WithDependenciesFrom(
+                namespaces,
+                generationOptions
+            );
+            _fluentComponentDiagramCreator.AddToDescription("with dependencies from namespaces");
+            return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
+        }
     }
 }
