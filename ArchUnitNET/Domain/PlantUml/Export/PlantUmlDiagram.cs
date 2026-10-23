@@ -64,6 +64,10 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         /// place either, so the id is made from the name with those characters replaced by "_",
         /// and suffixed until it clashes with no other name in the diagram. The name itself stays
         /// the label, and slices whose names are valid ids keep them.
+        ///
+        /// A valid name can still be taken by a package: a nested slice named after its own
+        /// namespace, such as "App.Orders", would share its id with the package "App.Orders" it
+        /// is drawn in. Such a slice gets a replacement id as well.
         /// </remarks>
         private static void AssignAliases(IReadOnlyCollection<IPlantUmlElement> elements)
         {
@@ -72,13 +76,22 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             // Only slices are declared with an id; a dependency between components that are not
             // declared names them in brackets, where PlantUML accepts more.
             var sliceNames = slices.Select(slice => slice.ToString()).Distinct().ToList();
+            var packageIds = new HashSet<string>(
+                slices.Where(slice => slice.IsNested).SelectMany(slice => slice.PackageIds)
+            );
             var taken = new HashSet<string>(
-                sliceNames.Concat(dependencies.SelectMany(dep => new[] { dep.Origin, dep.Target }))
+                sliceNames
+                    .Concat(dependencies.SelectMany(dep => new[] { dep.Origin, dep.Target }))
+                    .Concat(packageIds)
             );
 
             // In the order the slices appear, so the same diagram always gets the same ids.
             var aliases = new Dictionary<string, string>();
-            foreach (var name in sliceNames.Where(name => CharactersNotAllowedInId.IsMatch(name)))
+            foreach (
+                var name in sliceNames.Where(name =>
+                    CharactersNotAllowedInId.IsMatch(name) || packageIds.Contains(name)
+                )
+            )
             {
                 var alias = CharactersNotAllowedInId.Replace(name, "_");
                 var candidate = alias;

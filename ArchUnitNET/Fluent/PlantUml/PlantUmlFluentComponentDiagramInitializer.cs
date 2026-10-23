@@ -65,14 +65,25 @@ namespace ArchUnitNET.Fluent.PlantUml
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);
         }
 
+        /// <summary>
+        /// Draws only the slices whose types all lie in the namespace
+        /// <paramref name="focusOnPackage"/> or below it, and the slices they depend on or that
+        /// depend on them; see <see cref="PlantUmlFileBuilder.WithDependenciesFromFocusOn"/>.
+        /// </summary>
+        /// <param name="slices">The slices to draw.</param>
+        /// <param name="focusOnPackage">The namespace to focus on.</param>
+        /// <param name="generationOptions">Only
+        /// <see cref="GenerationOptions.NestSlicesInPackages"/> is read.</param>
         public GivenPlantUmlFluentComponentDiagram WithDependenciesFromSlices(
             IEnumerable<Slice> slices,
-            string focusOnPackage
+            string focusOnPackage,
+            GenerationOptions generationOptions = null
         )
         {
             _fluentComponentDiagramCreator.Builder.WithDependenciesFromFocusOn(
                 slices,
-                focusOnPackage
+                focusOnPackage,
+                generationOptions
             );
             _fluentComponentDiagramCreator.AddToDescription("with dependencies from slices");
             return new GivenPlantUmlFluentComponentDiagram(_fluentComponentDiagramCreator);

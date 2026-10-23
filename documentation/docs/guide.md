@@ -239,28 +239,29 @@ PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetOb
 ```
 
 ### 5.2 Structured diagram dependencies
-On the previous case there are too many dependencies, this option is suitable mainly for small projects / architectures / slices. With an increase in the number of objects, it makes sense to introduce another type of display - a display with packages. It differs from the previous case only with the modified creation of SliceRule.
+On the previous case there are too many dependencies, this option is suitable mainly for small projects / architectures / slices. With an increase in the number of objects, it makes sense to introduce another type of display - a display with packages. It differs from the previous case only in the `NestSlicesInPackages` option, which draws the namespaces as `package` blocks and each slice in the package of the deepest namespace that contains all of its types. A package that holds no slice and only one other package is merged with it, e.g. into `Orders.Domain`. A slice whose types share no namespace is drawn outside any package. This applies to every slice, also to those of `SlicedBy` and of custom assignments.
 
 ![Diagram](diagrams/archUnitNet_all_withPackages.svg)
 ```cs
 string pattern = "ArchUnitNET.(**)";
-GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+GivenSlices sliceRule = SliceRuleDefinition.Slices().Matching(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
+GenerationOptions g = new GenerationOptions(){NestSlicesInPackages = true};
 
 string path = "diagram.puml";
 
-PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch)).WriteToFile(path);
+PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), g).WriteToFile(path);
 ```
 
 ### 5.3 LimitDependencies-mod
-The previous case still shows a large number of connections. For maximum simplification, as well as demonstrating the overall picture, it makes sense to reformat it into a limited-dependencies version. This kind of display shows dependencies between packages at the same slice level.
+The previous case still shows a large number of connections. For maximum simplification, as well as demonstrating the overall picture, it makes sense to reformat it into a limited-dependencies version. This kind of display shows only dependencies between slices at the same depth, i.e. whose types share an equally deep namespace, nested or not.
 
 ![Diagram](diagrams/archUnitNet_all_compact.svg)
 ```cs
 string pattern = "ArchUnitNET.(**)";
-GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+GivenSlices sliceRule = SliceRuleDefinition.Slices().Matching(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
-GenerationOptions g = new GenerationOptions(){LimitDependencies = true};
+GenerationOptions g = new GenerationOptions(){NestSlicesInPackages = true, LimitDependencies = true};
 
 string path = "diagram.puml";
 
@@ -298,9 +299,9 @@ To enable an C4plantUML-style view of diagrams, set in the GenerationOptions fla
 ![Diagram](diagrams/archUnitNet_three_alternative.svg)
 ```cs
 string pattern = "ArchUnitNET.(*).(*).(*)";
-GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+GivenSlices sliceRule = SliceRuleDefinition.Slices().Matching(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
-GenerationOptions g = new GenerationOptions(){C4Style = true};
+GenerationOptions g = new GenerationOptions(){NestSlicesInPackages = true, C4Style = true};
 
 string path = "diagram.puml";
 
@@ -308,19 +309,31 @@ PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetOb
 ```
 
 ### 5.6 Focus-mod
-Focus mod allows you to show all dependencies on the selected package or out of the package.
+Focus mod allows you to show all dependencies on the selected package or out of the package. The package to focus on is a namespace. A slice is focused when all of its types lie in it, flat or nested; slices that depend on it or that it depends on are drawn as well.
 
 ![Diagram](diagrams/archUnitNet_focusOn.svg)
 ```cs
 string pattern = "ArchUnitNET.(**)";
-string focusOnThisPackage = "ArchUnitNET.Fluent.Syntax.Elements"
-GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+string focusOnThisPackage = "ArchUnitNET.Fluent.Syntax.Elements";
+GivenSlices sliceRule = SliceRuleDefinition.Slices().Matching(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
+GenerationOptions g = new GenerationOptions(){NestSlicesInPackages = true};
 
 string path = "diagram.puml";
 
-PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), focusOnThisPackage).WriteToFile(path);
+PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), focusOnThisPackage, g).WriteToFile(path);
 ```
+
+### 5.7 Migrating from MatchingWithPackages
+`MatchingWithPackages` is obsolete and will be removed in a future release. It creates the same slices
+as `Matching`, with the same names and violations, and only nests them in diagrams. Replace
+`MatchingWithPackages(pattern)` with `Matching(pattern)` and draw the slices with
+`new GenerationOptions { NestSlicesInPackages = true }`. Diagrams change too: a slice is a box
+inside its namespace instead of being drawn as that namespace.
+
+Failure messages of former `MatchingWithPackages` rules no longer start a slice's name with the
+namespace before the first capture group, and their frozen violations, which were stored under those
+longer names, have to be frozen again once.
 
 ## 6. Further Reading and Examples
 A complete overview of all available methods can be found [here](additional.md).

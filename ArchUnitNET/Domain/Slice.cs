@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ArchUnitNET.Domain.Dependencies;
-using JetBrains.Annotations;
 
 namespace ArchUnitNET.Domain
 {
@@ -27,9 +26,14 @@ namespace ArchUnitNET.Domain
 
         public string Description => Identifier.Description;
 
-        [CanBeNull]
-        public string NameSpace => Identifier.NameSpace;
         public int? CountOfAsteriskInPattern => Identifier.CountOfAsteriskInPattern;
+
+        /// <summary>
+        /// Whether diagrams nest this slice in packages even if
+        /// <see cref="PlantUml.Export.GenerationOptions.NestSlicesInPackages"/> is not set, which
+        /// is the case for slices of the obsolete <c>MatchingWithPackages</c>.
+        /// </summary>
+        internal bool NestByDefault { get; set; }
 
         protected bool Equals(Slice other)
         {
@@ -64,11 +68,6 @@ namespace ArchUnitNET.Domain
         public override string ToString()
         {
             return Description;
-        }
-
-        public bool ContainsNamespace()
-        {
-            return NameSpace != null;
         }
     }
 }
