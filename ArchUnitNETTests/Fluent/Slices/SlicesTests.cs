@@ -27,48 +27,6 @@ namespace ArchUnitNETTests.Fluent.Slices
                 .AssertNoViolations(helper);
         }
 
-        // --- Rule evaluation driven by MatchingWithPackages (not just Matching) -------
-
-        [Fact]
-        public void BeFreeOfCycles_MatchingWithPackages_DetectsCycle()
-        {
-            var helper = new SlicesAssemblyTestHelper().WithoutSnapshot();
-            SliceRuleDefinition
-                .Slices()
-                .MatchingWithPackages("SlicesTestAssembly.MultipleSubnamespaces.(**)")
-                .Should()
-                .BeFreeOfCycles()
-                .AssertOnlyViolations(helper);
-        }
-
-        // SubnamespaceCircle has real edges (Slice1 -> Slice2, Slice2.Inner -> Slice1) but no
-        // cycle, unlike DotDotSemantics whose fixtures have no members and thus no edges at all --
-        // an empty graph would pass here even if BeFreeOfCycles always returned "no cycles".
-        [Fact]
-        public void BeFreeOfCycles_MatchingWithPackages_WhenAcyclic_Passes()
-        {
-            var helper = new SlicesAssemblyTestHelper().WithoutSnapshot();
-            SliceRuleDefinition
-                .Slices()
-                .MatchingWithPackages("SlicesTestAssembly.SubnamespaceCircle.(**)")
-                .Should()
-                .BeFreeOfCycles()
-                .AssertNoViolations(helper);
-        }
-
-        [Fact]
-        public Task NotDependOnEachOther_MatchingWithPackages_ReportsViolations()
-        {
-            var helper = new SlicesAssemblyTestHelper();
-            var rule = SliceRuleDefinition
-                .Slices()
-                .MatchingWithPackages("SlicesTestAssembly.MultipleSubnamespaces.(**)..")
-                .Should()
-                .NotDependOnEachOther();
-            rule.AssertAnyViolations(helper);
-            return helper.AssertSnapshotMatches();
-        }
-
         [Fact]
         public void MatchingTest()
         {
@@ -305,21 +263,20 @@ namespace ArchUnitNETTests.Fluent.Slices
         // (SlicesTestAssembly.DuplicatePrefix.Sub.DuplicatePrefix.Sub), so a leading ".." pattern
         // for that prefix has two candidate starting positions to strip from. This pins that
         // AssignFunc's IndexOf (leftmost match) picks the first occurrence, leaving the second
-        // "DuplicatePrefix.Sub" -- and the one leading dot "..DuplicatePrefix.Sub." keeps after
-        // stripping only one of its two literal dots -- in the description. With an absolute
-        // (non-"..") prefix, the prefix can only ever be found at index 0, so that variant of this
-        // test would pass even if IndexOf were replaced by a hardcoded 0.
+        // "DuplicatePrefix.Sub" in the description. With an absolute (non-"..") prefix, the
+        // prefix can only ever be found at index 0, so that variant of this test would pass even
+        // if IndexOf were replaced by a hardcoded 0.
         [Fact]
-        public void MatchingWithPackages_DuplicatePrefixSegment_UsesFirstOccurrenceAsPrefix()
+        public void DuplicatePrefixSegment_CapturesAfterTheFirstOccurrenceOfThePrefix()
         {
             var slices = SliceRuleDefinition
                 .Slices()
-                .MatchingWithPackages("..DuplicatePrefix.Sub.(*)")
+                .Matching("..DuplicatePrefix.Sub.(**)")
                 .GetObjects(StaticTestArchitectures.SlicesTestArchitecture)
                 .ToList();
 
             Assert.Single(slices);
-            Assert.Equal(".DuplicatePrefix.Sub.DuplicatePrefix.Sub", slices[0].Description);
+            Assert.Equal("DuplicatePrefix.Sub", slices[0].Description);
         }
 
         // --- ".." semantics -------------------------------------------------------------

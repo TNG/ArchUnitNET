@@ -117,6 +117,17 @@ namespace ArchUnitNETTests.Fluent.Slices
         }
 
         [Fact]
+        public void SliceIdentifier_Equals_IgnoresDiagramData()
+        {
+            // Where a diagram draws the slice is no part of its identity.
+            var nested = SliceIdentifier.OfMatch("A.B", null, "X.", "A.B");
+
+            Assert.Equal(SliceIdentifier.Of("A.B"), nested);
+            Assert.Equal(SliceIdentifier.Of("A.B").GetHashCode(), nested.GetHashCode());
+            Assert.Equal("A.B", nested.Description);
+        }
+
+        [Fact]
         public void SliceIdentifierComparer_Equals_NullFirstArgument_ReturnsFalse()
         {
             Assert.False(SliceIdentifier.Comparer.Equals(null, SliceIdentifier.Of("A")));

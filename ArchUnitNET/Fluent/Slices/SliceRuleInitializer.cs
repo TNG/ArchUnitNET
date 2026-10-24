@@ -21,6 +21,27 @@ namespace ArchUnitNET.Fluent.Slices
         /// <returns></returns>
         public GivenSlices Matching(string pattern)
         {
+            return Matching(pattern, false);
+        }
+
+        /// <summary>
+        /// Creates the same slices as <see cref="Matching"/>, which PlantUML diagrams nest in
+        /// <c>package</c> blocks even without
+        /// <see cref="Domain.PlantUml.Export.GenerationOptions.NestSlicesInPackages"/>.
+        /// </summary>
+        /// <param name="pattern">The namespace pattern, as for <see cref="Matching"/>.</param>
+        [Obsolete(
+            "Use Matching(pattern) and draw the slices with "
+                + "new GenerationOptions { NestSlicesInPackages = true }. MatchingWithPackages "
+                + "creates the same slices as Matching and will be removed in a future release."
+        )]
+        public GivenSlices MatchingWithPackages(string pattern)
+        {
+            return Matching(pattern, true);
+        }
+
+        private GivenSlices Matching(string pattern, bool nestByDefault)
+        {
             _ruleCreator.SetSliceAssignment(
                 new SliceAssignment(
                     t =>
@@ -28,22 +49,8 @@ namespace ArchUnitNET.Fluent.Slices
                         var parseResult = Parse(pattern);
                         return AssignFunc(t, parseResult.pattern, parseResult.asterisk);
                     },
-                    "matching \"" + pattern + "\""
-                )
-            );
-            return new GivenSlices(_ruleCreator);
-        }
-
-        public GivenSlices MatchingWithPackages(string pattern)
-        {
-            _ruleCreator.SetSliceAssignment(
-                new SliceAssignment(
-                    t =>
-                    {
-                        var parseResult = Parse(pattern);
-                        return AssignFunc(t, parseResult.pattern, parseResult.asterisk, true);
-                    },
-                    "matching \"" + pattern + "\""
+                    "matching \"" + pattern + "\"",
+                    nestByDefault
                 )
             );
             return new GivenSlices(_ruleCreator);
@@ -87,8 +94,7 @@ namespace ArchUnitNET.Fluent.Slices
         private static SliceIdentifier AssignFunc(
             IType type,
             string pattern,
-            int? countOfSingleAsterisk,
-            bool fullName = false
+            int? countOfSingleAsterisk
         )
         {
             var indexOfAsteriskInPattern = pattern.IndexOf("(*", StringComparison.Ordinal);
@@ -133,14 +139,14 @@ namespace ArchUnitNET.Fluent.Slices
             }
 
             var sliceString = namespc;
+            var matchedPrefix = "";
 
             if (slicePrefix != "")
             {
-                sliceString = namespc
-                    .Substring(
-                        namespc.IndexOf(slicePrefix, StringComparison.Ordinal) + slicePrefix.Length
-                    )
-                    .TrimStart('.');
+                var prefixEnd =
+                    namespc.IndexOf(slicePrefix, StringComparison.Ordinal) + slicePrefix.Length;
+                matchedPrefix = namespc.Substring(0, prefixEnd);
+                sliceString = namespc.Substring(prefixEnd).TrimStart('.');
             }
 
             if (!sliceString.Contains(slicePostfix))
@@ -161,15 +167,14 @@ namespace ArchUnitNET.Fluent.Slices
                 );
             }
 
-            // An empty prefix means the pattern starts with its capture group; there is no
-            // namespace to nest the slice under, so report none rather than an empty one.
-            return fullName
-                ? SliceIdentifier.Of(
-                    slicePrefix + sliceString,
-                    countOfSingleAsterisk,
-                    slicePrefix == "" ? null : slicePrefix
-                )
-                : SliceIdentifier.Of(sliceString, countOfSingleAsterisk);
+            // What the pattern captured is both what identifies the slice and the path a
+            // diagram nests it along.
+            return SliceIdentifier.OfMatch(
+                sliceString,
+                countOfSingleAsterisk,
+                matchedPrefix,
+                sliceString
+            );
         }
     }
 }

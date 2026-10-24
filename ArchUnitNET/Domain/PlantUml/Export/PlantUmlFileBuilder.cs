@@ -15,6 +15,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         private List<Slice> _sliceList = new List<Slice>();
 
+        /// <summary>
+        /// The name each slice is drawn under, and the root package it is nested in, if any.
+        /// </summary>
+        private Dictionary<Slice, (string Name, string NameSpace)> _diagramNames =
+            new Dictionary<Slice, (string Name, string NameSpace)>();
+
         public string AsString(RenderOptions renderOptions = null)
         {
             if (renderOptions == null)
@@ -122,13 +128,21 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return this;
         }
 
+        /// <summary>
+        /// Draws the given slices as components, with an arrow from one slice to another wherever
+        /// one of its types depends on one of the other's.
+        /// </summary>
+        /// <param name="slices">The slices to draw, e.g. from <c>GivenSlices.GetObjects</c>.</param>
+        /// <param name="generationOptions">Filters and layout options; the defaults if <c>null</c>.
+        /// With <see cref="GenerationOptions.NestSlicesInPackages"/>, slices from a slice pattern
+        /// are nested in <c>package</c> blocks along the namespace they matched.</param>
+        /// <exception cref="ArgumentException">Two slices would be drawn under the same name.</exception>
         public PlantUmlFileBuilder WithDependenciesFrom(
             IEnumerable<Slice> slices,
             GenerationOptions generationOptions = null
         )
         {
             _sliceList = slices.Distinct().ToList();
-            RemovePatternInappropriateSlices();
 
             var nodes = new Dictionary<Slice, IPlantUmlElement>();
             if (generationOptions == null)
@@ -136,20 +150,23 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 generationOptions = new GenerationOptions();
             }
 
+            AssignDiagramNames(generationOptions.NestSlicesInPackages);
+            RemovePatternInappropriateSlices();
+
             foreach (var slice in _sliceList)
             {
                 var sliceIsPackage = IsPackage(slice);
                 var dependencyTargets = SelectDependencies(
                     slice,
                     _sliceList,
-                    target => target.Description,
+                    NameOf,
                     target => target.Types,
                     generationOptions
                 );
 
                 if (!sliceIsPackage)
                 {
-                    var slc = new PlantUmlSlice(slice.Description, slice.NameSpace);
+                    var slc = new PlantUmlSlice(NameOf(slice), NameSpaceOf(slice));
                     if (generationOptions.C4Style)
                     {
                         slc.UseS4Style();
@@ -163,8 +180,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     {
                         _dependencies.AddRange(
                             dependencyTargets.Select(target => new PlantUmlDependency(
-                                slice.Description,
-                                target.Description,
+                                NameOf(slice),
+                                NameOf(target),
                                 DependencyType.PackageToOne
                             ))
                         );
@@ -173,21 +190,21 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     {
                         _dependencies.AddRange(
                             dependencyTargets.Select(target => new PlantUmlDependency(
-                                slice.Description,
-                                target.Description,
+                                NameOf(slice),
+                                NameOf(target),
                                 DependencyType.OneToOne
                             ))
                         );
                     }
                 }
-                else if (slice.ContainsNamespace())
+                else if (NameSpaceOf(slice) != null)
                 {
                     if (sliceIsPackage)
                     {
                         _dependencies.AddRange(
                             dependencyTargets.Select(target => new PlantUmlDependency(
-                                slice.Description,
-                                target.Description,
+                                NameOf(slice),
+                                NameOf(target),
                                 DependencyType.PackageToPackageIfSameParentNamespace
                             ))
                         );
@@ -196,15 +213,15 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     {
                         var dt = dependencyTargets
                             .Select(target => new PlantUmlDependency(
-                                slice.Description,
-                                target.Description,
+                                NameOf(slice),
+                                NameOf(target),
                                 DependencyType.OneToOneIfSameParentNamespace
                             ))
                             .Where(dependency =>
                                 dependency.OriginCountOfDots() < dependency.TargetCountOfDots()
                                 || _sliceList.All(slc =>
-                                    slc.Description == dependency.Target
-                                    || !slc.Description.Contains(dependency.Target)
+                                    NameOf(slc) == dependency.Target
+                                    || !NameOf(slc).Contains(dependency.Target)
                                 )
                             );
                         _dependencies.AddRange(dt);
@@ -214,8 +231,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 {
                     _dependencies.AddRange(
                         dependencyTargets.Select(target => new PlantUmlDependency(
-                            slice.Description,
-                            target.Description,
+                            NameOf(slice),
+                            NameOf(target),
                             DependencyType.OneToOneCompact
                         ))
                     );
@@ -224,7 +241,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             if (!generationOptions.IncludeNodesWithoutDependencies)
             {
-                RemoveNodesNotContainedInDependencies(nodes, slice => slice.Description);
+                RemoveNodesNotContainedInDependencies(nodes, NameOf);
             }
 
             if (!generationOptions.LimitDependencies)
@@ -328,12 +345,25 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return this;
         }
 
+        /// <summary>
+        /// Draws only the dependencies from and to the slices whose diagram name contains
+        /// <paramref name="package"/>, and colors those slices.
+        /// </summary>
+        /// <param name="slices">The slices to draw, e.g. from <c>GivenSlices.GetObjects</c>.</param>
+        /// <param name="package">The text to focus on. When slices are nested in packages, their
+        /// diagram names are fully qualified, so this has to be as well.</param>
+        /// <param name="generationOptions">Only <see cref="GenerationOptions.NestSlicesInPackages"/>
+        /// is read; the defaults if <c>null</c>.</param>
+        /// <exception cref="ArgumentException">The package is empty, a single dot or not contained
+        /// in any slice's diagram name, or two slices would be drawn under the same name.</exception>
         public PlantUmlFileBuilder WithDependenciesFromFocusOn(
             IEnumerable<Slice> slices,
-            string package
+            string package,
+            GenerationOptions generationOptions = null
         )
         {
             _sliceList = slices.Distinct().ToList();
+            AssignDiagramNames(generationOptions?.NestSlicesInPackages ?? false);
 
             switch (package)
             {
@@ -351,7 +381,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             RemovePatternInappropriateSlices(package);
 
             var existPackage = _sliceList.Any(slice =>
-                (slice.NameSpace + slice.Description).Contains(package)
+                (NameSpaceOf(slice) + NameOf(slice)).Contains(package)
             );
             if (!existPackage)
             {
@@ -361,7 +391,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             }
 
             var nodes = new Dictionary<Slice, IPlantUmlElement>();
-            var generationOptions = new GenerationOptions();
+            var defaultOptions = new GenerationOptions();
 
             foreach (var slice in _sliceList)
             {
@@ -369,17 +399,17 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 var dependencyTargets = SelectDependencies(
                     slice,
                     _sliceList,
-                    target => target.Description,
+                    NameOf,
                     target => target.Types,
-                    generationOptions
+                    defaultOptions
                 );
 
                 if (sliceIsPackage)
                 {
                     _dependencies.AddRange(
                         dependencyTargets.Select(target => new PlantUmlDependency(
-                            slice.Description,
-                            target.Description,
+                            NameOf(slice),
+                            NameOf(target),
                             DependencyType.PackageToOne
                         ))
                     );
@@ -388,8 +418,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 {
                     _dependencies.AddRange(
                         dependencyTargets.Select(target => new PlantUmlDependency(
-                            slice.Description,
-                            target.Description,
+                            NameOf(slice),
+                            NameOf(target),
                             DependencyType.OneToOne
                         ))
                     );
@@ -399,20 +429,20 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 {
                     nodes.Add(
                         slice,
-                        slice.Description.Contains(package)
-                            ? new PlantUmlSlice(slice.Description, slice.NameSpace, "99ffd1")
-                            : new PlantUmlSlice(slice.Description, slice.NameSpace)
+                        NameOf(slice).Contains(package)
+                            ? new PlantUmlSlice(NameOf(slice), NameSpaceOf(slice), "99ffd1")
+                            : new PlantUmlSlice(NameOf(slice), NameSpaceOf(slice))
                     );
                 }
-                else if (!slice.Description.Contains(package))
+                else if (!NameOf(slice).Contains(package))
                 {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description + ".", slice.NameSpace));
+                    nodes.Add(slice, new PlantUmlSlice(NameOf(slice) + ".", NameSpaceOf(slice)));
                 }
             }
 
-            if (!generationOptions.IncludeNodesWithoutDependencies)
+            if (!defaultOptions.IncludeNodesWithoutDependencies)
             {
-                RemoveNodesNotContainedInDependencies(nodes, slice => slice.Description);
+                RemoveNodesNotContainedInDependencies(nodes, NameOf);
             }
 
             RemoveDuplicateDependenciesWhenShowingPackages();
@@ -433,8 +463,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             for (var i = nodes.Count - 1; i >= 0; i--)
             {
                 var nodeExist = _dependencies.Any(dep =>
-                    nodes.ElementAt(i).Key.Description == dep.Origin
-                    || nodes.ElementAt(i).Key.Description == dep.Target
+                    NameOf(nodes.ElementAt(i).Key) == dep.Origin
+                    || NameOf(nodes.ElementAt(i).Key) == dep.Target
                 );
                 if (!nodeExist)
                 {
@@ -445,10 +475,10 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             _diagram.AddElements(nodes.Values);
 
             var tempList = _sliceList
-                .Where(slice => IsPackage(slice) && slice.Description.Contains(package))
+                .Where(slice => IsPackage(slice) && NameOf(slice).Contains(package))
                 .Select(slice => new PlantUmlSlice(
-                    slice.Description + ".",
-                    slice.NameSpace,
+                    NameOf(slice) + ".",
+                    NameSpaceOf(slice),
                     "99ffd1"
                 ))
                 .ToList();
@@ -517,7 +547,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             if (
                 thatContainsThisString != null
                 && !_sliceList.Any(slice =>
-                    (slice.NameSpace + slice.Description).Contains(thatContainsThisString)
+                    (NameSpaceOf(slice) + NameOf(slice)).Contains(thatContainsThisString)
                 )
             )
             {
@@ -530,14 +560,15 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
                 if (
                     thatContainsThisString != null
-                    && !(_sliceList[i].Description).Contains(thatContainsThisString)
+                    && !NameOf(_sliceList[i]).Contains(thatContainsThisString)
                 )
                 {
                     continue;
                 }
 
+                // The description is never qualified, so its dots are those below the namespace
+                // the pattern matched before its capture group.
                 dots += _sliceList[i].Description.Count(c => c == '.');
-                dots -= (_sliceList[i].NameSpace ?? string.Empty).Count(c => c == '.');
 
                 if (dots >= _sliceList[i].CountOfAsteriskInPattern)
                 {
@@ -565,7 +596,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         private void RemoveDuplicateDependenciesWhenShowingPackages()
         {
-            if (_sliceList.Any(slice => !slice.ContainsNamespace()))
+            if (_sliceList.Any(slice => NameSpaceOf(slice) == null))
             {
                 return;
             }
@@ -574,8 +605,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             {
                 if (
                     _sliceList.Any(slice =>
-                        slice.Description.Contains(_dependencies[j].Target)
-                        && slice.Description != _dependencies[j].Target
+                        NameOf(slice).Contains(_dependencies[j].Target)
+                        && NameOf(slice) != _dependencies[j].Target
                     )
                 )
                 {
@@ -686,9 +717,79 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             }
         }
 
+        /// <summary>
+        /// Decides for every slice the name it is drawn under and the root package it is nested
+        /// in, if any.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The slice exporter works out the layout from these names alone: which slice is the
+        /// package of another, which arrows to merge, how deep <c>LimitDependencies</c> goes. A
+        /// nested slice is therefore drawn under its qualified name, the namespace its types
+        /// matched before the first capture group followed by its
+        /// <see cref="SliceIdentifier.DiagramPath"/>, e.g. "App.Orders.Http", with that namespace
+        /// as its root package. Every other slice is drawn under its description, without a
+        /// package.
+        /// </para>
+        /// <para>
+        /// Qualified names of one pattern are distinct, but a description can coincide with a
+        /// qualified name. Drawing two slices as one node would be wrong, so that is rejected.
+        /// </para>
+        /// </remarks>
+        /// <param name="nestSlicesInPackages">
+        /// Whether the options ask for nesting; slices of <c>MatchingWithPackages</c> are nested
+        /// regardless.
+        /// </param>
+        private void AssignDiagramNames(bool nestSlicesInPackages)
+        {
+            var nest = nestSlicesInPackages || _sliceList.Any(slice => slice.NestByDefault);
+            _diagramNames = new Dictionary<Slice, (string Name, string NameSpace)>();
+            var slicesByName = new Dictionary<string, Slice>();
+            foreach (var slice in _sliceList)
+            {
+                var nameSpace = slice.DiagramNamespace;
+                var diagramPath = slice.Identifier.DiagramPath;
+                (string Name, string NameSpace) diagramName =
+                    nest && nameSpace != null && diagramPath != null
+                        ? (nameSpace + diagramPath, nameSpace == "" ? null : nameSpace)
+                        : (slice.Description, null);
+
+                if (slicesByName.TryGetValue(diagramName.Name, out var other))
+                {
+                    throw new ArgumentException(
+                        "The slices \""
+                            + other.Identifier.Identifier
+                            + "\" and \""
+                            + slice.Identifier.Identifier
+                            + "\" would both be drawn as \""
+                            + diagramName.Name
+                            + "\"."
+                    );
+                }
+
+                slicesByName.Add(diagramName.Name, slice);
+                _diagramNames.Add(slice, diagramName);
+            }
+        }
+
+        /// <summary>The name the diagram draws a slice under; see <see cref="AssignDiagramNames"/>.</summary>
+        private string NameOf(Slice slice)
+        {
+            return _diagramNames[slice].Name;
+        }
+
+        /// <summary>
+        /// The root package a slice is nested in, with a trailing ".", or <c>null</c> if it is
+        /// drawn on its own.
+        /// </summary>
+        private string NameSpaceOf(Slice slice)
+        {
+            return _diagramNames[slice].NameSpace;
+        }
+
         private bool IsPackage(Slice slice)
         {
-            if (!slice.ContainsNamespace())
+            if (NameSpaceOf(slice) == null)
             {
                 return false;
             }
@@ -696,8 +797,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             for (var i = _sliceList.Count - 1; i >= 0; i--)
             {
                 if (
-                    _sliceList[i].Description != slice.Description
-                    & _sliceList[i].Description.StartsWith(slice.Description)
+                    NameOf(_sliceList[i]) != NameOf(slice)
+                    & NameOf(_sliceList[i]).StartsWith(NameOf(slice))
                 )
                 {
                     return true;
