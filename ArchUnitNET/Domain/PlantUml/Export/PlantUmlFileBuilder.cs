@@ -139,13 +139,15 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             foreach (var slice in _sliceList)
             {
                 var sliceIsPackage = IsPackage(slice);
-                var dependencyTargets = SelectDependencies(slice, generationOptions);
+                var dependencyTargets = SelectDependencies(
+                    slice,
+                    _sliceList,
+                    target => target.Description,
+                    target => target.Types,
+                    generationOptions
+                );
 
-                if (slice is Namespace) //This throws errors if namespaces and slices are used in the same diagram, the syntax can't be mixed in PlantUML
-                {
-                    nodes.Add(slice, new PlantUmlNamespace(slice.Description));
-                }
-                else if (!sliceIsPackage)
+                if (!sliceIsPackage)
                 {
                     var slc = new PlantUmlSlice(slice.Description, slice.NameSpace);
                     if (generationOptions.C4Style)
@@ -222,10 +224,8 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             if (!generationOptions.IncludeNodesWithoutDependencies)
             {
-                nodes = RemoveNodesNotContainedInDependencies(nodes);
+                RemoveNodesNotContainedInDependencies(nodes, slice => slice.Description);
             }
-
-            var nodeElements = HandleNodes(nodes);
 
             if (!generationOptions.LimitDependencies)
             {
@@ -234,10 +234,94 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             }
             RemoveDuplicatedArrowsIfExist();
 
-            _diagram.AddElements(
-                nodeElements.OrderBy(element =>
-                    element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1
+            _diagram.AddElements(nodes.Values);
+            _diagram.AddElements(_dependencies);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Draws the given namespaces as nested PlantUML namespaces, with an arrow from one
+        /// namespace to another wherever one of its types depends on one of the other's. Parent
+        /// namespaces that are not in the list are added so that the nesting is complete.
+        /// </summary>
+        /// <param name="namespaces">The namespaces to draw, e.g. <see cref="Architecture.Namespaces"/>.</param>
+        /// <param name="generationOptions">Filters and layout options; the defaults if <c>null</c>.
+        /// <see cref="GenerationOptions.C4Style"/> does not apply to namespaces.</param>
+        public PlantUmlFileBuilder WithDependenciesFrom(
+            IEnumerable<Namespace> namespaces,
+            GenerationOptions generationOptions = null
+        )
+        {
+            var namespaceList = namespaces.Distinct().ToList();
+            if (generationOptions == null)
+            {
+                generationOptions = new GenerationOptions();
+            }
+
+            var dependencyType = generationOptions.LimitDependencies
+                ? DependencyType.OneToOneCompact
+                : DependencyType.OneToOne;
+            var nodes = new Dictionary<Namespace, IPlantUmlElement>();
+
+            foreach (var ns in namespaceList)
+            {
+                nodes.Add(ns, new PlantUmlNamespace(ns.FullName));
+                _dependencies.AddRange(
+                    SelectDependencies(
+                            ns,
+                            namespaceList,
+                            target => target.FullName,
+                            target => target.Types,
+                            generationOptions
+                        )
+                        .Select(target => new PlantUmlDependency(
+                            ns.FullName,
+                            target.FullName,
+                            dependencyType
+                        ))
+                );
+            }
+
+            if (!generationOptions.IncludeNodesWithoutDependencies)
+            {
+                RemoveNodesNotContainedInDependencies(nodes, ns => ns.FullName);
+            }
+
+            var nodeElements = nodes.Values.ToList();
+            foreach (var ns in nodes.Keys)
+            {
+                var namespaceName = ns.FullName;
+                var dotIndex = namespaceName.Length;
+                var parentNamespaces = new List<string>();
+                while (dotIndex != -1)
+                {
+                    namespaceName = namespaceName.Substring(0, dotIndex);
+                    parentNamespaces.Add(namespaceName);
+                    dotIndex = namespaceName.LastIndexOf('.');
+                }
+
+                parentNamespaces.Reverse();
+                foreach (
+                    var parent in parentNamespaces.Where(parentName =>
+                        nodeElements
+                            .OfType<PlantUmlNamespace>()
+                            .All(element => element.Name != parentName)
+                    )
                 )
+                {
+                    nodeElements.Add(new PlantUmlNamespace(parent));
+                }
+            }
+
+            if (!generationOptions.LimitDependencies)
+            {
+                ReplaceCirclesWithAppropriateDependencyType();
+            }
+            RemoveDuplicatedArrowsIfExist();
+
+            _diagram.AddElements(
+                nodeElements.OrderBy(element => ((PlantUmlNamespace)element).Name.Length)
             );
             _diagram.AddElements(_dependencies);
 
@@ -282,7 +366,13 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             foreach (var slice in _sliceList)
             {
                 var sliceIsPackage = IsPackage(slice);
-                var dependencyTargets = SelectDependencies(slice, generationOptions);
+                var dependencyTargets = SelectDependencies(
+                    slice,
+                    _sliceList,
+                    target => target.Description,
+                    target => target.Types,
+                    generationOptions
+                );
 
                 if (sliceIsPackage)
                 {
@@ -305,11 +395,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     );
                 }
 
-                if (slice is Namespace) //This throws errors if namespaces and slices are used in the same diagram, the syntax can't be mixed in PlantUML
-                {
-                    nodes.Add(slice, new PlantUmlNamespace(slice.Description));
-                }
-                else if (!sliceIsPackage)
+                if (!sliceIsPackage)
                 {
                     nodes.Add(
                         slice,
@@ -326,7 +412,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             if (!generationOptions.IncludeNodesWithoutDependencies)
             {
-                nodes = RemoveNodesNotContainedInDependencies(nodes);
+                RemoveNodesNotContainedInDependencies(nodes, slice => slice.Description);
             }
 
             RemoveDuplicateDependenciesWhenShowingPackages();
@@ -356,13 +442,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 }
             }
 
-            var nodeElements = HandleNodes(nodes);
-
-            _diagram.AddElements(
-                nodeElements.OrderBy(element =>
-                    element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1
-                )
-            );
+            _diagram.AddElements(nodes.Values);
 
             var tempList = _sliceList
                 .Where(slice => IsPackage(slice) && slice.Description.Contains(package))
@@ -381,72 +461,52 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return this;
         }
 
-        private Dictionary<Slice, IPlantUmlElement> RemoveNodesNotContainedInDependencies(
-            Dictionary<Slice, IPlantUmlElement> nodes
+        /// <summary>
+        /// Removes the nodes whose name no dependency starts or ends at.
+        /// </summary>
+        private void RemoveNodesNotContainedInDependencies<T>(
+            Dictionary<T, IPlantUmlElement> nodes,
+            Func<T, string> nameOf
         )
         {
+            var namesInDependencies = new HashSet<string>(
+                _dependencies.SelectMany(dep => new[] { dep.Origin, dep.Target })
+            );
+            // Collected first: removing entries while enumerating the dictionary throws on
+            // .NET Framework.
             foreach (
-                var entry in nodes.Where(node =>
-                    !_dependencies
-                        .SelectMany(dep => new[] { dep.Origin, dep.Target })
-                        .Contains(node.Key.Description)
-                )
+                var key in nodes
+                    .Keys.Where(key => !namesInDependencies.Contains(nameOf(key)))
+                    .ToList()
             )
             {
-                nodes.Remove(entry.Key);
+                nodes.Remove(key);
             }
-            return nodes;
         }
 
-        private static IEnumerable<IPlantUmlElement> HandleNodes(
-            Dictionary<Slice, IPlantUmlElement> nodes
-        )
-        {
-            var nodeElements = nodes.Values.ToList();
-
-            foreach (var node in nodes)
-            {
-                if (node.Key is Namespace)
-                {
-                    var namespaceName = node.Key.Description;
-                    var dotIndex = namespaceName.Length;
-                    var parentNamespaces = new List<string>();
-                    while (dotIndex != -1)
-                    {
-                        namespaceName = namespaceName.Substring(0, dotIndex);
-                        parentNamespaces.Add(namespaceName);
-                        dotIndex = namespaceName.LastIndexOf('.');
-                    }
-
-                    parentNamespaces.Reverse();
-                    foreach (
-                        var namespc in parentNamespaces.Where(namespcName =>
-                            nodeElements
-                                .OfType<PlantUmlNamespace>()
-                                .All(element => element.Name != namespcName)
-                        )
-                    )
-                    {
-                        nodeElements.Add(new PlantUmlNamespace(namespc));
-                    }
-                }
-            }
-
-            return nodeElements;
-        }
-
-        private IEnumerable<Slice> SelectDependencies(
-            Slice slice,
+        /// <summary>
+        /// The candidates, other than <paramref name="origin"/> itself, that one of the origin's
+        /// dependencies passing <see cref="GenerationOptions.DependencyFilter"/> points into.
+        /// </summary>
+        private static IEnumerable<T> SelectDependencies<T>(
+            T origin,
+            IEnumerable<T> candidates,
+            Func<T, string> nameOf,
+            Func<T, IEnumerable<IType>> typesOf,
             GenerationOptions generationOptions
-        ) =>
-            _sliceList.Where(targetSlice =>
-                targetSlice.Description != slice.Description
-                && slice
+        )
+            where T : IHasDependencies
+        {
+            var originName = nameOf(origin);
+            return candidates.Where(target =>
+                nameOf(target) != originName
+                && origin
                     .Dependencies.Where(dep =>
                         generationOptions.DependencyFilter?.Invoke(dep) ?? true
                     )
-                    .Any(dep => targetSlice.Types.Contains(dep.Target))
+                    .Any(dep => typesOf(target).Contains(dep.Target))
             );
+        }
 
         private void RemovePatternInappropriateSlices(string thatContainsThisString = null)
         {
