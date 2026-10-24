@@ -249,6 +249,16 @@ namespace ArchUnitNET.Domain.Extensions
             return e.Namespace != null && e.Namespace.FullNameMatches(pattern);
         }
 
+        public static bool ResidesInNamespaceOrBelow(this IType e, string fullName)
+        {
+            return e.Namespace != null
+                && fullName != null
+                && (
+                    e.Namespace.FullNameEquals(fullName)
+                    || e.Namespace.FullNameStartsWith(fullName + ".")
+                );
+        }
+
         public static bool ResidesInAssembly(this IType e, string fullName)
         {
             return e.Assembly != null && e.Assembly.FullNameEquals(fullName);

@@ -270,6 +270,28 @@ namespace ArchUnitNETTests.Domain.Extensions
         }
 
         [Fact]
+        public void NamespaceOrBelowMatchAsExpected()
+        {
+            Assert.True(_exampleAttribute.ResidesInNamespaceOrBelow(ExpectedAttributeNamespace));
+            Assert.True(_exampleAttribute.ResidesInNamespaceOrBelow(ParentAttributeNamespace));
+            Assert.True(_exampleAttribute.ResidesInNamespaceOrBelow("ArchUnitNETTests"));
+            Assert.True(
+                _exampleAttribute.ResidesInNamespaceOrBelow(ParentAttributeNamespace.ToUpper())
+            );
+            Assert.False(
+                _exampleAttribute.ResidesInNamespaceOrBelow("ArchUnitNETTests.Domain.Depend")
+            );
+            Assert.False(
+                _exampleAttribute.ResidesInNamespaceOrBelow(ParentAttributeNamespace + ".")
+            );
+            Assert.False(
+                _exampleAttribute.ResidesInNamespaceOrBelow(ExpectedAttributeNamespace + ".Sub")
+            );
+            Assert.False(_exampleAttribute.ResidesInNamespaceOrBelow(string.Empty));
+            Assert.False(_exampleAttribute.ResidesInNamespaceOrBelow(null));
+        }
+
+        [Fact]
         public void NameStartsWithTest()
         {
             Assert.True(
