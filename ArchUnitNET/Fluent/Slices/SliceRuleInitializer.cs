@@ -170,7 +170,7 @@ namespace ArchUnitNET.Fluent.Slices
             // What the pattern captured is both what identifies the slice and the path a
             // diagram nests it along.
             return SliceIdentifier.OfMatch(
-                sliceString,
+                new[] { sliceString },
                 countOfSingleAsterisk,
                 matchedPrefix,
                 sliceString
