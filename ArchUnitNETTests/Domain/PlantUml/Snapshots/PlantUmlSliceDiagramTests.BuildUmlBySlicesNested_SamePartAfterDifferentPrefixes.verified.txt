@@ -1,0 +1,32 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package "SlicesTestAssembly.MultipleSubnamespaces" as SlicesTestAssembly.MultipleSubnamespaces {
+  package "Slice3" as SlicesTestAssembly.MultipleSubnamespaces.Slice3 {
+    package "Group1" as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1 {
+      [Slice Group1] as Slice_Group1
+    }
+    package "Group2" as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2 {
+      [Slice Group2] as Slice_Group2
+    }
+    [Slice Inner] as Slice_Inner
+    [Slice Slice3] as Slice_Slice3
+  }
+  [Slice Service] as Slice_Service
+  package "Slice1" as SlicesTestAssembly.MultipleSubnamespaces.Slice1 {
+    [Slice Slice1] as Slice_Slice1
+  }
+  package "Slice2" as SlicesTestAssembly.MultipleSubnamespaces.Slice2 {
+    [Slice Slice2] as Slice_Slice2
+  }
+}
+
+[Slice_Group1] --|> [Slice_Slice3]
+[Slice_Service] --|> [Slice_Slice3]
+[Slice_Slice1] --|> [Slice_Slice2]
+[Slice_Slice2] --|> [Slice_Slice3]
+[Slice_Slice3] --|> [Slice_Slice1]
+@enduml
