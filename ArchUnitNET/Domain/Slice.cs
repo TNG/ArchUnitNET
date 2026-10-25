@@ -26,8 +26,6 @@ namespace ArchUnitNET.Domain
 
         public string Description => Identifier.Description;
 
-        public int? CountOfAsteriskInPattern => Identifier.CountOfAsteriskInPattern;
-
         /// <summary>
         /// Whether diagrams nest this slice in packages even if
         /// <see cref="PlantUml.Export.GenerationOptions.NestSlicesInPackages"/> is not set, which

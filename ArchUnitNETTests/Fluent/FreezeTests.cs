@@ -40,6 +40,14 @@ namespace ArchUnitNETTests.Fluent
             .Should()
             .NotDependOnEachOther();
 
+        // Several capture groups, so the store keys its violations by slice names whose parts
+        // are joined with " - ".
+        private readonly IArchRule _frozenMultiGroupSliceRule = SliceRuleDefinition
+            .Slices()
+            .Matching("SlicesTestAssembly.MultipleSubnamespaces.(*).(*)")
+            .Should()
+            .NotDependOnEachOther();
+
         private readonly IArchRule _failingFrozenSliceRule = SliceRuleDefinition
             .Slices()
             .Matching("SlicesTestAssembly.MultipleSubnamespaces.(*)..")
@@ -52,6 +60,8 @@ namespace ArchUnitNETTests.Fluent
             Freeze(_frozenRule).Check(Architecture);
             Freeze(_frozenRule2).Check(Architecture);
             Freeze(_frozenSliceRule).Check(StaticTestArchitectures.SlicesTestArchitecture);
+            Freeze(_frozenMultiGroupSliceRule)
+                .Check(StaticTestArchitectures.SlicesTestArchitecture);
         }
 
         [Fact]
@@ -60,6 +70,8 @@ namespace ArchUnitNETTests.Fluent
             Freeze(_frozenRule, new XmlViolationStore()).Check(Architecture);
             Freeze(_frozenRule2, new XmlViolationStore()).Check(Architecture);
             Freeze(_frozenSliceRule, new XmlViolationStore())
+                .Check(StaticTestArchitectures.SlicesTestArchitecture);
+            Freeze(_frozenMultiGroupSliceRule, new XmlViolationStore())
                 .Check(StaticTestArchitectures.SlicesTestArchitecture);
         }
 

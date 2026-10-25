@@ -5,33 +5,21 @@
 HIDE_STEREOTYPE()
 
 package "SlicesTestAssembly.MultipleSubnamespaces" as SlicesTestAssembly.MultipleSubnamespaces {
-  package "Slice1" as SlicesTestAssembly.MultipleSubnamespaces.Slice1 {
-    [Slice Slice1] as Slice_Slice1
-    package "Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service {
-      [Slice Slice1.Service] as Slice_Slice1.Service
-    }
+  package "Slice1.Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service {
+    [Slice Slice1 - Service] as Slice_Slice1___Service
   }
-  package "Slice2" as SlicesTestAssembly.MultipleSubnamespaces.Slice2 {
-    [Slice Slice2] as Slice_Slice2
-    package "Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service {
-      [Slice Slice2.Service] as Slice_Slice2.Service
-    }
+  package "Slice2.Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service {
+    [Slice Slice2 - Service] as Slice_Slice2___Service
   }
   package "Slice3" as SlicesTestAssembly.MultipleSubnamespaces.Slice3 {
-    [Slice Slice3] as Slice_Slice3
     package "Group1" as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1 {
-      [Slice Slice3.Group1] as Slice_Slice3.Group1
+      [Slice Slice3 - Group1] as Slice_Slice3___Group1
     }
     package "Group2" as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2 {
-      [Slice Slice3.Group2] as Slice_Slice3.Group2
+      [Slice Slice3 - Group2] as Slice_Slice3___Group2
     }
   }
 }
 
-[Slice_Slice1] --|> [Slice_Slice2]
-[Slice_Slice1.Service] --|> [Slice_Slice2.Service]
-[Slice_Slice2] --|> [Slice_Slice3]
-[Slice_Slice2.Service] --|> [Slice_Slice3]
-[Slice_Slice3] --|> [Slice_Slice1]
-[Slice_Slice3.Group1] --|> [Slice_Slice3]
+[Slice_Slice1___Service] --|> [Slice_Slice2___Service]
 @enduml
