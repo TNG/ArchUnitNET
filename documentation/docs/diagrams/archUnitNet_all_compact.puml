@@ -1,0 +1,105 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package "ArchUnitNET" as ArchUnitNET {
+  package "Loader" as ArchUnitNET.Loader {
+    [Slice Loader] as Slice_Loader
+  }
+  package "Library.Rules" as ArchUnitNET.Library.Rules {
+    [Slice Library.Rules] as Slice_Library.Rules
+  }
+  package "Fluent" as ArchUnitNET.Fluent {
+    [Slice Fluent] as Slice_Fluent
+    package "Syntax" as ArchUnitNET.Fluent.Syntax {
+      [Slice Fluent.Syntax] as Slice_Fluent.Syntax
+      package "Elements" as ArchUnitNET.Fluent.Syntax.Elements {
+        [Slice Fluent.Syntax.Elements] as Slice_Fluent.Syntax.Elements
+        package "Types" as ArchUnitNET.Fluent.Syntax.Elements.Types {
+          [Slice Fluent.Syntax.Elements.Types] as Slice_Fluent.Syntax.Elements.Types
+          package "Interfaces" as ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces {
+            [Slice Fluent.Syntax.Elements.Types.Interfaces] as Slice_Fluent.Syntax.Elements.Types.Interfaces
+          }
+          package "Classes" as ArchUnitNET.Fluent.Syntax.Elements.Types.Classes {
+            [Slice Fluent.Syntax.Elements.Types.Classes] as Slice_Fluent.Syntax.Elements.Types.Classes
+          }
+          package "Attributes" as ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes {
+            [Slice Fluent.Syntax.Elements.Types.Attributes] as Slice_Fluent.Syntax.Elements.Types.Attributes
+          }
+        }
+        package "Members" as ArchUnitNET.Fluent.Syntax.Elements.Members {
+          [Slice Fluent.Syntax.Elements.Members] as Slice_Fluent.Syntax.Elements.Members
+          package "PropertyMembers" as ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers {
+            [Slice Fluent.Syntax.Elements.Members.PropertyMembers] as Slice_Fluent.Syntax.Elements.Members.PropertyMembers
+          }
+          package "MethodMembers" as ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers {
+            [Slice Fluent.Syntax.Elements.Members.MethodMembers] as Slice_Fluent.Syntax.Elements.Members.MethodMembers
+          }
+          package "FieldMembers" as ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers {
+            [Slice Fluent.Syntax.Elements.Members.FieldMembers] as Slice_Fluent.Syntax.Elements.Members.FieldMembers
+          }
+        }
+      }
+    }
+    package "Slices" as ArchUnitNET.Fluent.Slices {
+      [Slice Fluent.Slices] as Slice_Fluent.Slices
+    }
+    package "Predicates" as ArchUnitNET.Fluent.Predicates {
+      [Slice Fluent.Predicates] as Slice_Fluent.Predicates
+    }
+    package "PlantUml" as ArchUnitNET.Fluent.PlantUml {
+      [Slice Fluent.PlantUml] as Slice_Fluent.PlantUml
+    }
+    package "Freeze" as ArchUnitNET.Fluent.Freeze {
+      [Slice Fluent.Freeze] as Slice_Fluent.Freeze
+    }
+    package "Extensions" as ArchUnitNET.Fluent.Extensions {
+      [Slice Fluent.Extensions] as Slice_Fluent.Extensions
+    }
+    package "Exceptions" as ArchUnitNET.Fluent.Exceptions {
+      [Slice Fluent.Exceptions] as Slice_Fluent.Exceptions
+    }
+    package "Conditions" as ArchUnitNET.Fluent.Conditions {
+      [Slice Fluent.Conditions] as Slice_Fluent.Conditions
+    }
+  }
+  package "Domain" as ArchUnitNET.Domain {
+    [Slice Domain] as Slice_Domain
+    package "PlantUml" as ArchUnitNET.Domain.PlantUml {
+      package "Import" as ArchUnitNET.Domain.PlantUml.Import {
+        [Slice Domain.PlantUml.Import] as Slice_Domain.PlantUml.Import
+      }
+      package "Export" as ArchUnitNET.Domain.PlantUml.Export {
+        [Slice Domain.PlantUml.Export] as Slice_Domain.PlantUml.Export
+      }
+      package "Exceptions" as ArchUnitNET.Domain.PlantUml.Exceptions {
+        [Slice Domain.PlantUml.Exceptions] as Slice_Domain.PlantUml.Exceptions
+      }
+    }
+    package "Extensions" as ArchUnitNET.Domain.Extensions {
+      [Slice Domain.Extensions] as Slice_Domain.Extensions
+    }
+    package "Exceptions" as ArchUnitNET.Domain.Exceptions {
+      [Slice Domain.Exceptions] as Slice_Domain.Exceptions
+    }
+    package "Dependencies" as ArchUnitNET.Domain.Dependencies {
+      [Slice Domain.Dependencies] as Slice_Domain.Dependencies
+    }
+  }
+}
+
+[Slice_Loader] --> [Slice_Domain]
+[Slice_Library.Rules] --> [Slice_Domain.Extensions]
+[Slice_Fluent] --> [Slice_Domain]
+[Slice_Fluent.Syntax.Elements.Members] --> [Slice_Fluent.Syntax.Elements.Types]
+[Slice_Fluent.Slices] --> [Slice_Domain.Dependencies]
+[Slice_Fluent.Freeze] --> [Slice_Domain.Exceptions]
+[Slice_Fluent.Extensions] --> [Slice_Domain.Extensions]
+[Slice_Fluent.Conditions] --> [Slice_Fluent.Predicates]
+[Slice_Domain.PlantUml.Import] --> [Slice_Domain.PlantUml.Exceptions]
+[Slice_Domain.PlantUml.Export] --> [Slice_Domain.PlantUml.Exceptions]
+[Slice_Domain.Extensions] --> [Slice_Domain.Exceptions]
+[Slice_Domain.Extensions] --> [Slice_Domain.Dependencies]
+@enduml
