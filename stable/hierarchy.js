@@ -164,7 +164,7 @@ var hierarchy =
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenFieldMembersThat, FieldMembersShould, GivenFieldMembersConjunctionWithDescription, FieldMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers.GivenFieldMembersConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembersConjunction.html", null ]
     ] ],
-    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenInterfacesThat, InterfacesShould, GivenInterfacesConjunction, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
+    [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenInterfacesThat, InterfacesShould, GivenInterfacesConjunctionWithDescription, Interface >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
       [ "ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.GivenInterfacesConjunction", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesConjunction.html", null ]
     ] ],
     [ "ArchUnitNET.Fluent.Syntax.Elements.GivenObjectsConjunction< GivenMembersThat, MembersShould, GivenMembersConjunctionWithDescription, IMember >", "classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction.html", [
