@@ -183,6 +183,29 @@ namespace ArchUnitNETTests.Fluent.Slices
             Assert.False(SliceIdentifier.Comparer.Equals(onePart, twoParts));
         }
 
+        [Theory]
+        [InlineData("App.(*)", "App.Orders", "Slice Orders")]
+        [InlineData("App.(**)", "App.Orders.Web", "Slice Orders.Web")]
+        [InlineData("App.(*)..", "App.Orders.Web", "Slice Orders")]
+        [InlineData("App.(*).(*)", "App.Orders.Http", "Slice Orders - Http")]
+        [InlineData("App.(*).Service.(*)", "App.Orders.Service.Http", "Slice Orders - Http")]
+        [InlineData("App.(*)..(*)", "App.Orders.Web.Http", "Slice Orders - Http")]
+        [InlineData("App.(*).*.(*)", "App.Orders.Web.Http", "Slice Orders - Http")]
+        public void SliceIdentifier_Description_OfAMatch_IsSliceFollowedByTheCaptures(
+            string pattern,
+            string nameSpace,
+            string expected
+        )
+        {
+            var match = SliceRuleInitializer.ConvertPatternToRegex(pattern).Match(nameSpace);
+
+            Assert.True(match.Success);
+            Assert.Equal(
+                expected,
+                SliceIdentifier.Of(SliceRuleInitializer.Captures(match)).Description
+            );
+        }
+
         [Fact]
         public void SliceIdentifier_ToString_IsTheDescription()
         {
@@ -208,21 +231,15 @@ namespace ArchUnitNETTests.Fluent.Slices
         [Fact]
         public void ViolationKey_OfSeveralParts_IsTheDescription()
         {
-            // Patterns capture a single part, so a custom assignment builds several.
-            var creator = new SliceRuleCreator();
-            creator.SetSliceAssignment(
-                new SliceAssignment(
-                    type => SliceIdentifier.Of(new[] { "Custom", type.Name }),
-                    "by name"
-                )
-            );
-
-            var keys = new SlicesShould(creator)
+            var keys = SliceRuleDefinition
+                .Slices()
+                .Matching(Root + "(*).(*)")
+                .Should()
                 .NotDependOnEachOther()
                 .Evaluate(Architecture)
                 .Select(result => result.EvaluatedObjectIdentifier.Identifier);
 
-            Assert.Contains("Slice Custom - Slice1Class", keys);
+            Assert.Contains("Slice Slice1 - Service", keys);
         }
 
         // --- SlicedBy ------------------------------------------------------------------

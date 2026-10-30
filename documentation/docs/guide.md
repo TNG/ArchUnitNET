@@ -184,9 +184,27 @@ To use the `Slices()` entry point directly, add:
 using static ArchUnitNET.Fluent.Slices.SliceRuleDefinition;
 ```
 
+#### Pattern syntax
+| Token    | Meaning |
+|----------|---------|
+| `(*)`    | Captures exactly one namespace segment. |
+| `(**)`   | Captures one or more segments. |
+| `(A\|B)` | Captures one of the listed alternatives. |
+| `*`      | Matches one segment without capturing it. |
+| `..`     | Matches zero or more segments. |
+| `[A\|B]` | Matches one of the listed alternatives. |
+
+A pattern must contain at least one capture group, may not mix `(*)` and `(**)`, and may use `(**)`
+at most once. `Matching` throws an `ArgumentException` otherwise -- when the rule is defined, not when
+it is checked. Types whose namespace does not match are left out entirely.
+
 #### How slices are named
 A slice is identified by **what its capture groups captured**, in group order. Two types end up in
-the same slice exactly when their groups captured the same values.
+the same slice exactly when their groups captured the same values. The pattern text between, before
+and after the groups only selects which types belong to a slice: `"App.(*).(*)"`,
+`"App.(*).Service.(*)"` and `"App.(*)..(*)"` all put the types they match in `Orders` and `Http`
+into the same slice, while `"App.(**)"` over `App.Orders.Http` captures the single value
+`Orders.Http`, which is a different slice.
 
 A slice is named after its captures: `Slice ` followed by the captured values joined with ` - `. The
 name never reads as a namespace, and it is what failure messages and diagrams show.
@@ -195,9 +213,18 @@ name never reads as a namespace, and it is what failure messages and diagrams sh
 |---|---|---|
 | `App.(*)` | `App.Orders` | `Slice Orders` |
 | `App.(**)` | `App.Orders.Web` | `Slice Orders.Web` |
+| `App.(*)..` | `App.Orders.Web` | `Slice Orders` |
+| `App.(*).(*)` | `App.Orders.Http` | `Slice Orders - Http` |
+| `App.(*).Service.(*)` | `App.Orders.Service.Http` | `Slice Orders - Http` |
+| `App.(*)..(*)` | `App.Orders.Web.Http` | `Slice Orders - Http` |
+| `App.(*).*.(*)` | `App.Orders.Web.Http` | `Slice Orders - Http` |
 
 Frozen violations of a slice rule (see `FreezingArchRule`) are stored by the slice name, e.g.
 `Slice Orders`.
+
+With `NestSlicesInPackages`, each slice is drawn under its name inside the package of the deepest
+namespace all its types share (see [5.2](#52-structured-diagram-dependencies)). `Slice Orders - Http`
+of `App.(*)..(*)` sits in `Orders` when its types are in `Orders.Web.Http` and `Orders.Api.Http`.
 
 #### Cycle-free rule
 ![Cycle](img/cycle.svg)
@@ -302,7 +329,7 @@ PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetOb
 ```
 
 ### 5.4 Small slices
-In order not to display all slices and all occurrences, you can use a single asterisk in the pattern. One star is one slice deep. You cannot mix single (*) and double (**) asterisks in a pattern.
+In order not to display all slices and all occurrences, you can use a single asterisk in the pattern. One star captures one namespace segment. You cannot mix single `(*)` and double `(**)` asterisks in one pattern, but you can repeat `(*)` -- `"ArchUnitNET.(*).(*)"` captures two segments and draws `Slice Fluent - Syntax` inside the `ArchUnitNET.Fluent.Syntax` namespace.
 
 #### 5.4.1 ArchUnitNET.(\*)
 ![Diagram](diagrams/archUnitNet_one.svg)

@@ -146,7 +146,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         {
             _sliceList = slices.Distinct().ToList();
             AssertDistinctNames();
-            RemovePatternInappropriateSlices();
             AssignCommonNamespaces();
 
             if (generationOptions == null)
@@ -340,7 +339,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 package = package.Remove(package.Length - 1);
             }
 
-            RemovePatternInappropriateSlices();
             AssignCommonNamespaces();
 
             var focusedSlices = new HashSet<string>(
@@ -446,28 +444,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     )
                     .Any(dep => typesOf(target).Contains(dep.Target))
             );
-        }
-
-        private void RemovePatternInappropriateSlices()
-        {
-            if (_sliceList.Any(slice => slice.CountOfAsteriskInPattern == null))
-            {
-                return;
-            }
-
-            for (var i = _sliceList.Count - 1; i >= 0; i--)
-            {
-                var dots = 0;
-
-                // The description is never qualified, so its dots are those below the namespace
-                // the pattern matched before its capture group.
-                dots += _sliceList[i].Description.Count(c => c == '.');
-
-                if (dots >= _sliceList[i].CountOfAsteriskInPattern)
-                {
-                    _sliceList.RemoveAt(i);
-                }
-            }
         }
 
         private void RemoveDuplicatedArrowsIfExist()

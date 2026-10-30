@@ -19,4 +19,7 @@
     <Violation>Slice Slice1</Violation>
     <Violation>Slice Slice1.Service</Violation>
   </FrozenRule>
+  <FrozenRule ArchRule="Slices matching &quot;SlicesTestAssembly.MultipleSubnamespaces.(*).(*)&quot; should not depend on each other">
+    <Violation>Slice Slice1 - Service</Violation>
+  </FrozenRule>
 </FrozenRules>

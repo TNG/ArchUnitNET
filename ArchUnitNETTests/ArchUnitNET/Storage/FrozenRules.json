@@ -30,6 +30,12 @@
     ]
   },
   {
+    "ArchRuleDescription": "Slices matching \"SlicesTestAssembly.MultipleSubnamespaces.(*).(*)\" should not depend on each other",
+    "Violations": [
+      "Slice Slice1 - Service"
+    ]
+  },
+  {
     "ArchRuleDescription": "Slices matching \"SlicesTestAssembly.MultipleSubnamespaces.(*)..\" should not depend on each other",
     "Violations": []
   }
