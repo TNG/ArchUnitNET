@@ -45,11 +45,14 @@ namespace ArchUnitNETTests.Fluent.PlantUml
             Assert.NotEmpty(uml2);
 
             var arch1 = new ArchLoader().LoadAssembly(typeof(Architecture).Assembly).Build();
-            var sliceRule1 = SliceRuleDefinition
-                .Slices()
-                .MatchingWithPackages("ArchUnitNET.(*).(*).(*)");
+            var sliceRule1 = SliceRuleDefinition.Slices().Matching("ArchUnitNET.(*).(*).(*)");
             const string path = "../../../Fluent/PlantUml/Test.puml";
-            var g = new GenerationOptions() { C4Style = true, LimitDependencies = true };
+            var g = new GenerationOptions()
+            {
+                C4Style = true,
+                LimitDependencies = true,
+                NestSlicesInPackages = true,
+            };
             ComponentDiagram()
                 .WithDependenciesFromSlices(sliceRule1.GetObjects(arch1), g)
                 .WriteToFile(path);

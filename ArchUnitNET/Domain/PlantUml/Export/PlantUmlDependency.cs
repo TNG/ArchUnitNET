@@ -81,16 +81,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     return OriginAlias + " -[#green]> " + TargetAlias + Environment.NewLine;
 
                 case DependencyType.OneToOneCompact:
-                    if (OriginCountOfDots() == TargetCountOfDots())
-                    {
-                        return "["
-                            + OriginAlias
-                            + "] --> ["
-                            + TargetAlias
-                            + "]"
-                            + Environment.NewLine;
-                    }
-                    return "";
+                    return "[" + OriginAlias + "] --> [" + TargetAlias + "]" + Environment.NewLine;
 
                 case DependencyType.Circle:
                     return "["
