@@ -10,14 +10,14 @@
       "rollForward": false
     },
     "verify.tool": {
-      "version": "0.8.0",
+      "version": "0.9.2",
       "commands": [
         "dotnet-verify"
       ],
       "rollForward": false
     },
     "dotnet-reportgenerator-globaltool": {
-      "version": "5.5.11",
+      "version": "5.5.12",
       "commands": [
         "reportgenerator"
       ],
