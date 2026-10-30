@@ -6,23 +6,23 @@ HIDE_STEREOTYPE()
 
 package "SlicesTestAssembly.SameNamedSubnamespaces" as SlicesTestAssembly.SameNamedSubnamespaces {
   package "Billing.Domain" as SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain {
-    [Billing.Domain] as Billing.Domain
+    [Slice Billing.Domain] as Slice_Billing.Domain
     package "Model" as SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain.Model {
-      [Billing.Domain.Model] as Billing.Domain.Model
+      [Slice Billing.Domain.Model] as Slice_Billing.Domain.Model
     }
   }
   package "Orders.Domain" as SlicesTestAssembly.SameNamedSubnamespaces.Orders.Domain {
-    [Orders.Domain] as Orders.Domain
+    [Slice Orders.Domain] as Slice_Orders.Domain
     package "Model" as SlicesTestAssembly.SameNamedSubnamespaces.Orders.Domain.Model {
-      [Orders.Domain.Model] as Orders.Domain.Model
+      [Slice Orders.Domain.Model] as Slice_Orders.Domain.Model
     }
   }
   package "Web" as SlicesTestAssembly.SameNamedSubnamespaces.Web {
-    [Web] as Web
+    [Slice Web] as Slice_Web
   }
 }
 
-[Orders.Domain] --|> [Billing.Domain]
-[Orders.Domain.Model] --|> [Billing.Domain.Model]
-[Web] --|> [Billing.Domain]
+[Slice_Orders.Domain] --|> [Slice_Billing.Domain]
+[Slice_Orders.Domain.Model] --|> [Slice_Billing.Domain.Model]
+[Slice_Web] --|> [Slice_Billing.Domain]
 @enduml

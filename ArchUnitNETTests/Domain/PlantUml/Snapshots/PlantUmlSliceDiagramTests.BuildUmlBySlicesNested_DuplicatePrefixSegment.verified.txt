@@ -5,7 +5,7 @@
 HIDE_STEREOTYPE()
 
 package "SlicesTestAssembly.DuplicatePrefix.Sub.DuplicatePrefix.Sub" as SlicesTestAssembly.DuplicatePrefix.Sub.DuplicatePrefix.Sub {
-  [DuplicatePrefix.Sub] as DuplicatePrefix.Sub
+  [Slice DuplicatePrefix.Sub] as Slice_DuplicatePrefix.Sub
 }
 
 @enduml

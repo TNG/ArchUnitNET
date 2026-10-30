@@ -6,23 +6,23 @@ HIDE_STEREOTYPE()
 
 Boundary(SlicesTestAssembly.SameNamedSubnamespaces, SlicesTestAssembly.SameNamedSubnamespaces) {
   Boundary(SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain, Billing.Domain) {
-    Container(Billing.Domain, Billing.Domain)
+    Container(Slice_Billing.Domain, Slice Billing.Domain)
     Boundary(SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain.Model, Model) {
-      Container(Billing.Domain.Model, Billing.Domain.Model)
+      Container(Slice_Billing.Domain.Model, Slice Billing.Domain.Model)
     }
   }
   Boundary(SlicesTestAssembly.SameNamedSubnamespaces.Orders.Domain, Orders.Domain) {
-    Container(Orders.Domain, Orders.Domain)
+    Container(Slice_Orders.Domain, Slice Orders.Domain)
     Boundary(SlicesTestAssembly.SameNamedSubnamespaces.Orders.Domain.Model, Model) {
-      Container(Orders.Domain.Model, Orders.Domain.Model)
+      Container(Slice_Orders.Domain.Model, Slice Orders.Domain.Model)
     }
   }
   Boundary(SlicesTestAssembly.SameNamedSubnamespaces.Web, Web) {
-    Container(Web, Web)
+    Container(Slice_Web, Slice Web)
   }
 }
 
-[Orders.Domain] --|> [Billing.Domain]
-[Orders.Domain.Model] --|> [Billing.Domain.Model]
-[Web] --|> [Billing.Domain]
+[Slice_Orders.Domain] --|> [Slice_Billing.Domain]
+[Slice_Orders.Domain.Model] --|> [Slice_Billing.Domain.Model]
+[Slice_Web] --|> [Slice_Billing.Domain]
 @enduml
