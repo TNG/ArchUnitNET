@@ -5,6 +5,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Freeze;
 using ArchUnitNET.Fluent.Slices;
+using ArchUnitNET.Library.Rules;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
 using Xunit;
@@ -175,6 +176,22 @@ namespace ArchUnitNETTests.Fluent
 
                 Assert.True(File.Exists(jsonPath));
                 Assert.True(File.Exists(xmlPath));
+            }
+        }
+
+        [Fact]
+        public void FrozenTargetFrameworkRuleDoesNotStoreAssemblyVersion()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                var path = dir.PathFor("FrozenRules.json");
+                var rule = TargetFrameworkRules.ShouldBeDotNetFramework();
+
+                Freeze(rule, new JsonViolationStore(path)).Check(Architecture);
+
+                var stored = File.ReadAllText(path);
+                Assert.Contains(typeof(FreezeTests).Assembly.GetName().Name, stored);
+                Assert.DoesNotContain("Version=", stored);
             }
         }
 
