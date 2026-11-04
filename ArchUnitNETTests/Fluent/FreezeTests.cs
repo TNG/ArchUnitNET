@@ -130,6 +130,54 @@ namespace ArchUnitNETTests.Fluent
             }
         }
 
+        [Fact]
+        public void FreezeThrowsOnMalformedJsonStoreAndLeavesFileUntouched()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                const string content = "{ this is not valid json";
+                var path = dir.CreateFile("FrozenRules.json", content);
+
+                Assert.ThrowsAny<Exception>(() =>
+                    Freeze(_frozenRule, new JsonViolationStore(path)).Check(Architecture)
+                );
+
+                Assert.Equal(content, File.ReadAllText(path));
+            }
+        }
+
+        [Fact]
+        public void FreezeThrowsOnMalformedXmlStoreAndLeavesFileUntouched()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                const string content = "<FrozenRules><FrozenRule";
+                var path = dir.CreateFile("FrozenRules.xml", content);
+
+                Assert.ThrowsAny<Exception>(() =>
+                    Freeze(_frozenRule, new XmlViolationStore(path)).Check(Architecture)
+                );
+
+                Assert.Equal(content, File.ReadAllText(path));
+            }
+        }
+
+        [Fact]
+        public void FreezeCreatesStoreInMissingDirectory()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                var jsonPath = dir.PathFor(Path.Combine("json", "FrozenRules.json"));
+                var xmlPath = dir.PathFor(Path.Combine("xml", "FrozenRules.xml"));
+
+                Freeze(_frozenRule, new JsonViolationStore(jsonPath)).Check(Architecture);
+                Freeze(_frozenRule, new XmlViolationStore(xmlPath)).Check(Architecture);
+
+                Assert.True(File.Exists(jsonPath));
+                Assert.True(File.Exists(xmlPath));
+            }
+        }
+
         private class Violation { }
 
         private class Violation2 { }
