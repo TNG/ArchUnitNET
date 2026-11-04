@@ -75,7 +75,7 @@ namespace ArchUnitNET.Fluent.Freeze
             storedRule?.Remove();
             storageDoc.Root.Add(ruleElement);
 
-            using (var writer = XmlWriter.Create(DefaultStoragePath, WriterSettings))
+            using (var writer = XmlWriter.Create(_storagePath, WriterSettings))
             {
                 storageDoc.WriteTo(writer);
             }

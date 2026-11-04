@@ -1,4 +1,7 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using System.IO;
+using System.Xml.Linq;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Freeze;
 using ArchUnitNET.Fluent.Slices;
@@ -108,6 +111,23 @@ namespace ArchUnitNETTests.Fluent
                 .Check(Architecture);
             Freeze(_frozenSliceRule, "../../../ArchUnitNET/Storage/CustomPathFrozenRules.json")
                 .Check(StaticTestArchitectures.SlicesTestArchitecture);
+        }
+
+        [Fact]
+        public void XmlViolationStoreWritesToCustomPath()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                var path = dir.PathFor("FrozenRules.xml");
+
+                Freeze(_frozenRule, new XmlViolationStore(path)).Check(Architecture);
+
+                Assert.True(File.Exists(path));
+                Assert.Contains(
+                    XDocument.Load(path).Root.Elements(),
+                    element => element.Attribute("ArchRule")?.Value == _frozenRule.Description
+                );
+            }
         }
 
         private class Violation { }
