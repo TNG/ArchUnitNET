@@ -505,14 +505,10 @@ namespace ArchUnitNET.Loader
         )
         {
             var methodReferenceFullName = methodReference.BuildFullName();
+            var methodKey = MemberCacheKey(typeInstance.Type, methodReferenceFullName);
             if (methodReference.IsGenericInstance)
             {
-                if (
-                    _allMethods.TryGetValue(
-                        methodReferenceFullName,
-                        out var existingGenericInstance
-                    )
-                )
+                if (_allMethods.TryGetValue(methodKey, out var existingGenericInstance))
                 {
                     return existingGenericInstance;
                 }
@@ -521,11 +517,11 @@ namespace ArchUnitNET.Loader
                     typeInstance,
                     methodReference
                 );
-                _allMethods.Add(methodReferenceFullName, genericResult);
+                _allMethods.Add(methodKey, genericResult);
                 return genericResult;
             }
 
-            if (_allMethods.TryGetValue(methodReferenceFullName, out var existingMethodInstance))
+            if (_allMethods.TryGetValue(methodKey, out var existingMethodInstance))
             {
                 return existingMethodInstance;
             }
@@ -592,7 +588,7 @@ namespace ArchUnitNET.Loader
                 Enumerable.Empty<GenericArgument>()
             );
 
-            _allMethods.Add(methodReferenceFullName, result);
+            _allMethods.Add(methodKey, result);
 
             var genericParameters = GetGenericParameters(methodReference);
             methodMember.GenericParameters.AddRange(genericParameters);
@@ -643,7 +639,8 @@ namespace ArchUnitNET.Loader
         )
         {
             var fullName = fieldReference.FullName;
-            if (_allFields.TryGetValue(fullName, out var existing))
+            var fieldKey = MemberCacheKey(type, fullName);
+            if (_allFields.TryGetValue(fieldKey, out var existing))
             {
                 return existing;
             }
@@ -681,8 +678,20 @@ namespace ArchUnitNET.Loader
                 writeAccessor
             );
 
-            _allFields.Add(fullName, fieldMember);
+            _allFields.Add(fieldKey, fieldMember);
             return fieldMember;
+        }
+
+        /// <summary>
+        /// Members are cached per declaring type, like types are cached per assembly, so that
+        /// types with the same full name in different assemblies don't share their members.
+        /// </summary>
+        private static string MemberCacheKey(IType declaringType, string memberFullName)
+        {
+            return System.Reflection.Assembly.CreateQualifiedName(
+                declaringType.Assembly?.FullName ?? "",
+                memberFullName
+            );
         }
 
         private static Visibility GetVisibilityFromFieldDefinition(

@@ -196,6 +196,29 @@ namespace ArchUnitNETTests.Loader
         }
 
         [Fact]
+        public void MembersOfTypesWithSameFullNameInMultipleAssembliesAreNotShared()
+        {
+            var types = LoaderTestArchitecture
+                .Types.Where(type => type.Namespace.FullName == "DuplicateClassAcrossAssemblies")
+                .ToList();
+            Assert.Equal(2, types.Count);
+            foreach (var type in types)
+            {
+                Assert.Single(type.Members.OfType<MethodMember>(), m => m.IsConstructor());
+                Assert.Single(type.Members.OfType<FieldMember>());
+                Assert.All(type.Members, member => Assert.Same(type, member.DeclaringType));
+            }
+
+            var members = LoaderTestArchitecture
+                .Members.Where(member =>
+                    member.DeclaringType.Namespace.FullName == "DuplicateClassAcrossAssemblies"
+                )
+                .ToList();
+            Assert.Equal(4, members.Count);
+            Assert.Equal(4, members.Distinct().Count());
+        }
+
+        [Fact]
         public void SameFullNameInMultipleAssemblies()
         {
             // Loaded as non-stub types

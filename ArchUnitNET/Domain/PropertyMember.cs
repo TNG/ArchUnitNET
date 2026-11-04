@@ -122,12 +122,12 @@ namespace ArchUnitNET.Domain
 
         private bool Equals(PropertyMember other)
         {
-            return Equals(FullName, other.FullName);
+            return AssemblyQualifiedName == other.AssemblyQualifiedName;
         }
 
         public override int GetHashCode()
         {
-            return FullName.GetHashCode();
+            return AssemblyQualifiedName.GetHashCode();
         }
     }
 }
