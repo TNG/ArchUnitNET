@@ -50,25 +50,33 @@ namespace ArchUnitNET.Fluent
             return new GivenInterfaces(ruleCreator);
         }
 
-        public static GivenMembers Members()
+        public static GivenMembers Members(bool includeReferenced = false)
         {
-            var ruleCreator = new ArchRuleCreator<IMember>(BasicObjectProviderDefinition.Members);
+            var ruleCreator = includeReferenced
+                ? new ArchRuleCreator<IMember>(
+                    BasicObjectProviderDefinition.MembersIncludingReferenced
+                )
+                : new ArchRuleCreator<IMember>(BasicObjectProviderDefinition.Members);
             return new GivenMembers(ruleCreator);
         }
 
-        public static GivenFieldMembers FieldMembers()
+        public static GivenFieldMembers FieldMembers(bool includeReferenced = false)
         {
-            var ruleCreator = new ArchRuleCreator<FieldMember>(
-                BasicObjectProviderDefinition.FieldMembers
-            );
+            var ruleCreator = includeReferenced
+                ? new ArchRuleCreator<FieldMember>(
+                    BasicObjectProviderDefinition.FieldMembersIncludingReferenced
+                )
+                : new ArchRuleCreator<FieldMember>(BasicObjectProviderDefinition.FieldMembers);
             return new GivenFieldMembers(ruleCreator);
         }
 
-        public static GivenMethodMembers MethodMembers()
+        public static GivenMethodMembers MethodMembers(bool includeReferenced = false)
         {
-            var ruleCreator = new ArchRuleCreator<MethodMember>(
-                BasicObjectProviderDefinition.MethodMembers
-            );
+            var ruleCreator = includeReferenced
+                ? new ArchRuleCreator<MethodMember>(
+                    BasicObjectProviderDefinition.MethodMembersIncludingReferenced
+                )
+                : new ArchRuleCreator<MethodMember>(BasicObjectProviderDefinition.MethodMembers);
             return new GivenMethodMembers(ruleCreator);
         }
 

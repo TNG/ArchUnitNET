@@ -1122,6 +1122,30 @@ namespace ArchUnitNET.Loader
                 ((List<IType>)type.Namespace.Types).Add(type);
             }
         }
+
+        // ── Phase 12: Register referenced members with referenced types ─────
+
+        /// <summary>
+        /// Adds each member the loaded types reference on a referenced type to that type's members.
+        /// Referenced types never pass through <see cref="AddMembers"/>, so without this step a
+        /// member such as a called framework method is reachable from its call site but not from
+        /// its declaring type. Must run after method body dependencies, which create these members.
+        /// </summary>
+        internal static void AddReferencedMembers(IEnumerable<IMember> members)
+        {
+            foreach (var member in members.Distinct())
+            {
+                var declaringType = member.DeclaringType;
+                if (
+                    declaringType.IsStub
+                    && !declaringType.IsGenericParameter
+                    && !member.IsCompilerGenerated
+                )
+                {
+                    declaringType.Members.Add(member);
+                }
+            }
+        }
     }
 
     /// <summary>
