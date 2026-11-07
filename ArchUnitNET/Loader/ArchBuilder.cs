@@ -305,6 +305,13 @@ namespace ArchUnitNET.Loader
             TypeProcessor.AddTypesToNamespaces(
                 _typesToProcess.Values.Select(entry => entry.TypeInstance.Type)
             );
+
+            // Phase 12: Register referenced members with their referenced types
+            TypeProcessor.AddReferencedMembers(
+                _domainResolver
+                    .MethodMemberInstances.Select(instance => (IMember)instance.Member)
+                    .Concat(_domainResolver.FieldMembers)
+            );
         }
     }
 }
