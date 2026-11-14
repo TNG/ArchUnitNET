@@ -9,6 +9,10 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         // e.g. '<<Some.Namespace.*>>', can be repeated
         internal const string Stereotypes = @"(?:<<(?<stereotype>[^<>]+)>>\s*)*";
 
+        // an optional trailing color, e.g. ' #palegreen' or ' #red;line:blue',
+        // see https://plantuml.com/component-diagram#individual-colors
+        internal const string Color = @"(?:\s+#[^\s{""]+)?";
+
         internal static ISet<string> GetStereotypes(Match match)
         {
             return new HashSet<string>(
@@ -19,14 +23,29 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
     internal class PlantUmlDependencyMatcher
     {
-        // e.g. '-left->' or '--[#green]->'
-        private const string ArrowCenter = @"(?:left|right|up|down|\[[^\]]+\])?";
+        // '[Some Name]', or a name or alias without brackets and whitespace, e.g. 'some-alias'
+        private const string LeftEndpoint = @"(?:\[(?<left>[^\[\]]+)\]|(?<left>[^\s\[\]<>"":]+?))";
+        private const string RightEndpoint =
+            @"(?:\[(?<right>[^\[\]]+)\]|(?<right>[^\s\[\]<>"":]+?))";
 
-        private static readonly Regex RightArrowPattern = new Regex(
-            @"\s-+" + ArrowCenter + @"-*>\s"
-        );
-        private static readonly Regex LeftArrowPattern = new Regex(
-            @"\s<-*" + ArrowCenter + @"-+\s"
+        // a line style, e.g. '[#green]' or '[#red,dashed]'
+        private const string Style = @"(?:\[[^\[\]]*\])?";
+
+        // a direction in full or abbreviated to its first one or two characters,
+        // see https://plantuml.com/component-diagram#changing-arrows-direction
+        private const string Direction = @"(?:left|right|down|up|le|ri|do|l|r|u|d)?";
+
+        private const string Center = Style + Direction + Style;
+
+        // the line of an arrow, e.g. '--', '-up-' or '-[#red]-'
+        private const string Line = "(?:-+" + Center + "-*|-*" + Center + "-+)";
+
+        // e.g. '-->', '<--' or '<-->'
+        private const string Arrow =
+            "(?:(?<leftHead><)" + Line + "(?<rightHead>>)?|" + Line + "(?<rightHead>>))";
+
+        private static readonly Regex Pattern = new Regex(
+            @"^\s*" + LeftEndpoint + @"\s*" + Arrow + @"\s*" + RightEndpoint + @"\s*(?::.*)?$" // the optional description, e.g. ': uses'
         );
 
         private PlantUmlDependencyMatcher(string origin, string target)
@@ -40,27 +59,21 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         internal static IEnumerable<PlantUmlDependencyMatcher> TryParse(string line)
         {
-            if (RightArrowPattern.IsMatch(line))
+            Match match = Pattern.Match(line);
+            if (!match.Success)
             {
-                IList<string> parts = ParseParts(line, RightArrowPattern);
-                yield return new PlantUmlDependencyMatcher(parts[0], parts[1]);
+                yield break;
             }
-            if (LeftArrowPattern.IsMatch(line))
+            string left = match.Groups["left"].Value;
+            string right = match.Groups["right"].Value;
+            if (match.Groups["rightHead"].Success)
             {
-                IList<string> parts = ParseParts(line, LeftArrowPattern);
-                yield return new PlantUmlDependencyMatcher(parts[1], parts[0]);
+                yield return new PlantUmlDependencyMatcher(left, right);
             }
-        }
-
-        private static IList<string> ParseParts(string line, Regex arrowPattern)
-        {
-            line = Regex.Replace(line, ":.*", ""); // remove the optional description
-            return arrowPattern
-                .Replace(line, " ")
-                .Split(' ')
-                .Select(l => l.Trim())
-                .Take(2)
-                .ToList();
+            if (match.Groups["leftHead"].Success)
+            {
+                yield return new PlantUmlDependencyMatcher(right, left);
+            }
         }
     }
 
@@ -69,7 +82,9 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         private static readonly Regex Pattern = new Regex(
             @"^\s*\[(?<name>[^\[\]]+)\]\s*"
                 + PlantUmlPatterns.Stereotypes
-                + @"\s*(?:as ""?(?<alias>[^""]+)""?)?\s*$"
+                + @"\s*(?:as ""?(?<alias>[^""]+?)""?)?"
+                + PlantUmlPatterns.Color
+                + @"\s*$"
         );
 
         private PlantUmlComponentMatcher(Match match)

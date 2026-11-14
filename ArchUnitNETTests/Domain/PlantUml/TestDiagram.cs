@@ -48,6 +48,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
             {
                 line += " as " + creator.Alias;
             }
+            if (creator.Color != null)
+            {
+                line += " " + creator.Color;
+            }
             _lines.Add(line);
             return this;
         }
@@ -86,12 +90,19 @@ namespace ArchUnitNETTests.Domain.PlantUml
 
             public string ComponentName { get; }
             public string Alias { get; private set; }
+            public string Color { get; private set; }
 
             public List<string> Stereotypes { get; } = new List<string>();
 
             public ComponentBuilder WithAlias(string alias)
             {
                 Alias = alias;
+                return this;
+            }
+
+            public ComponentBuilder WithColor(string color)
+            {
+                Color = color;
                 return this;
             }
 

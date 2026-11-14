@@ -101,6 +101,112 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.Equal(target.ComponentName, new ComponentName("SomeTarget"));
         }
 
+        [Theory]
+        [ClassData(typeof(ComponentFormattingTestData))]
+        public void ParsesComponentsWithColors(string componentLine, string expectedAlias)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram.From(_memoryStream).RawLine(componentLine).Write()
+            );
+
+            PlantUmlComponent component = diagram.AllComponents.Single();
+            Assert.Equal(new ComponentName("Some Component"), component.ComponentName);
+            Assert.Contains(new Stereotype("Some.*"), component.Stereotypes);
+            Assert.Equal(expectedAlias != null ? new Alias(expectedAlias) : null, component.Alias);
+        }
+
+        [Fact]
+        public void ParsesDependenciesBetweenColoredComponents()
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .Component("A")
+                    .WithColor("#palegreen")
+                    .WithStereoTypes("A.*")
+                    .Component("B")
+                    .WithColor("#palegreen")
+                    .WithStereoTypes("B.*")
+                    .RawLine("B-u->A")
+                    .Write()
+            );
+
+            PlantUmlComponent b = GetComponentWithName("B", diagram);
+            Assert.Equal(new ComponentName("A"), b.Dependencies.Single().ComponentName);
+        }
+
+        [Theory]
+        [InlineData("[Some Origin] --> [Some Target]")]
+        [InlineData("[Some Target] <-l- [Some Origin]")]
+        [InlineData("[Some Origin]-->[Some Target]")]
+        public void ParsesDependenciesBetweenComponentNamesWithSpaces(string dependency)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .Component("Some Origin")
+                    .WithStereoTypes("Origin.*")
+                    .Component("Some Target")
+                    .WithStereoTypes("Target.*")
+                    .RawLine(dependency)
+                    .Write()
+            );
+
+            PlantUmlComponent origin = GetComponentWithName("Some Origin", diagram);
+            Assert.Equal(
+                new ComponentName("Some Target"),
+                origin.Dependencies.Single().ComponentName
+            );
+        }
+
+        [Theory]
+        [InlineData("some-origin --> some-target")]
+        [InlineData("some-origin-->some-target")]
+        [InlineData("some-target<-u-some-origin")]
+        public void ParsesDependenciesBetweenAliasesWithHyphens(string dependency)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .Component("SomeOrigin")
+                    .WithAlias("some-origin")
+                    .WithStereoTypes("Origin.*")
+                    .Component("SomeTarget")
+                    .WithAlias("some-target")
+                    .WithStereoTypes("Target.*")
+                    .RawLine(dependency)
+                    .Write()
+            );
+
+            PlantUmlComponent origin = GetComponentWithName("SomeOrigin", diagram);
+            Assert.Equal(
+                new ComponentName("SomeTarget"),
+                origin.Dependencies.Single().ComponentName
+            );
+        }
+
+        [Theory]
+        [InlineData("[A] <--> [B]")]
+        [InlineData("[A] <-[#red]> [B]")]
+        public void ParsesArrowsWithHeadsOnBothEndsAsDependenciesInBothDirections(string dependency)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .Component("A")
+                    .WithStereoTypes("A.*")
+                    .Component("B")
+                    .WithStereoTypes("B.*")
+                    .RawLine(dependency)
+                    .Write()
+            );
+
+            PlantUmlComponent a = GetComponentWithName("A", diagram);
+            PlantUmlComponent b = GetComponentWithName("B", diagram);
+            Assert.Equal(new[] { b }, a.Dependencies);
+            Assert.Equal(new[] { a }, b.Dependencies);
+        }
+
         [Fact]
         public void DoesNotIncludeCommentedOutLines()
         {
@@ -766,22 +872,97 @@ namespace ArchUnitNETTests.Domain.PlantUml
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            List<string> arrowCenters = new List<string>();
+            var rightArrows = new List<string>();
+            var leftArrows = new List<string>();
             for (int i = 1; i <= 10; i++)
             {
-                arrowCenters.Add(new string('-', i));
+                rightArrows.Add(new string('-', i) + ">");
+                leftArrows.Add("<" + new string('-', i));
             }
             for (int i = 2; i <= 10; i++)
             {
-                foreach (string infix in new string[] { "left", "right", "up", "down", "[#green]" })
+                foreach (string infix in new[] { "left", "right", "up", "down", "[#green]" })
                 {
-                    arrowCenters.Add(new string('-', i - 1) + infix + "-");
+                    rightArrows.Add(new string('-', i - 1) + infix + "->");
+                    leftArrows.Add("<-" + infix + new string('-', i - 1));
                 }
             }
-            foreach (string arrowCenter in arrowCenters)
+            foreach (
+                string infix in new[]
+                {
+                    "l",
+                    "r",
+                    "u",
+                    "d",
+                    "le",
+                    "ri",
+                    "do",
+                    "[#red,dashed]",
+                    "[#red]up",
+                    "up[#red]",
+                    "[#red]u",
+                    "[hidden]",
+                }
+            )
             {
-                yield return new object[] { "[SomeOrigin] " + arrowCenter + "> [SomeTarget]" };
-                yield return new object[] { "[SomeTarget] <" + arrowCenter + " [SomeOrigin]" };
+                rightArrows.Add("-" + infix + "->");
+                leftArrows.Add("<-" + infix + "-");
+            }
+            // style without trailing dash, as written by PlantUmlFileBuilder
+            rightArrows.Add("-[#red]>");
+            leftArrows.Add("<[#red]-");
+
+            foreach (string separator in new[] { " ", "" })
+            {
+                foreach (string arrow in rightArrows)
+                {
+                    yield return new object[]
+                    {
+                        "[SomeOrigin]" + separator + arrow + separator + "[SomeTarget]",
+                    };
+                }
+                foreach (string arrow in leftArrows)
+                {
+                    yield return new object[]
+                    {
+                        "[SomeTarget]" + separator + arrow + separator + "[SomeOrigin]",
+                    };
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    public class ComponentFormattingTestData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            foreach (string color in new[] { "#palegreen", "#99ffd1", "#red;line:blue" })
+            {
+                // line, expected alias
+                yield return new object[] { "[Some Component] <<Some.*>> " + color, null };
+                yield return new object[] { "[Some Component] <<Some.*>> " + color + "  ", null };
+                yield return new object[]
+                {
+                    "[Some Component] <<Some.*>> as someAlias " + color,
+                    "someAlias",
+                };
+                yield return new object[]
+                {
+                    "[Some Component] <<Some.*>> as \"some alias\" " + color,
+                    "some alias",
+                };
+                yield return new object[]
+                {
+                    "[Some Component] <<Some.*>> as some-alias " + color,
+                    "some-alias",
+                };
+                yield return new object[]
+                {
+                    "[Some Component] <<Some.*>> <<Other.*>> as someAlias " + color,
+                    "someAlias",
+                };
             }
         }
 

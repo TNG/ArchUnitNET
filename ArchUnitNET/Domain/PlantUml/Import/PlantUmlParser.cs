@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
-using System.Text.RegularExpressions;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
 
 namespace ArchUnitNET.Domain.PlantUml.Import
@@ -88,28 +87,11 @@ namespace ArchUnitNET.Domain.PlantUml.Import
                 )
             )
             {
-                PlantUmlComponent origin = FindComponentMatching(
-                    plantUmlComponents,
-                    matcher.Origin
-                );
-                PlantUmlComponent target = FindComponentMatching(
-                    plantUmlComponents,
-                    matcher.Target
-                );
+                PlantUmlComponent origin = plantUmlComponents.FindComponentWith(matcher.Origin);
+                PlantUmlComponent target = plantUmlComponents.FindComponentWith(matcher.Target);
                 result.Add(new ParsedDependency(origin.Identifier, target.Identifier));
             }
             return result;
-        }
-
-        private PlantUmlComponent FindComponentMatching(
-            PlantUmlComponents plantUmlComponents,
-            string originOrTargetString
-        )
-        {
-            originOrTargetString = Regex.Replace(originOrTargetString.Trim(), @"^\[", "");
-            originOrTargetString = Regex.Replace(originOrTargetString, "]$", "");
-
-            return plantUmlComponents.FindComponentWith(originOrTargetString);
         }
 
         private ISet<PlantUmlComponent> ParseComponents(IEnumerable<string> plantUmlDiagramLines)
