@@ -30,6 +30,9 @@ namespace ArchUnitNETTests.Fluent.Slices
                 Root + "(**)..",
                 Root + "(*).(*)",
                 Root + "(*)..(*)",
+                Root + "(*).*.(*)",
+                // A wildcard before the first group: the slices are grouped by the capture alone.
+                Root + "*.(*)",
                 "..DuplicatePrefix.Sub.(**)",
                 "(**).Service",
                 "SlicesTestAssembly.SubnamespaceCircle.(**)",

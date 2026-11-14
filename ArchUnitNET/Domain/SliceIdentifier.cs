@@ -7,28 +7,32 @@ namespace ArchUnitNET.Domain
     /// <summary>
     /// Identifies a slice by its parts: for a slice pattern, the values its capture groups
     /// captured, in group order. Two identifiers are the same slice exactly when their parts are
-    /// equal and both are ignored or both are not.
+    /// equal and both are ignored or both are not. See
+    /// <see cref="Fluent.Slices.SliceRuleInitializer"/>.
     /// </summary>
     public class SliceIdentifier : IHasDescription
     {
+        /// <summary>
+        /// Groups identifiers by slice membership; see <see cref="CompareTo"/>.
+        /// </summary>
         public static readonly SliceIdentifierComparer Comparer = new SliceIdentifierComparer();
+
+        /// <summary>
+        /// Whether the type that produced this identifier failed to match the pattern and is
+        /// therefore left out of the rule.
+        /// </summary>
         public readonly bool Ignored;
 
-        private SliceIdentifier(
-            IReadOnlyList<string> parts,
-            bool ignored,
-            int? countOfAsteriskInPattern = null
-        )
+        private SliceIdentifier(IReadOnlyList<string> parts, bool ignored)
         {
             Parts = parts;
             Ignored = ignored;
-            CountOfAsteriskInPattern = countOfAsteriskInPattern;
         }
 
         /// <summary>
         /// What identifies the slice: for a slice pattern, the values its capture groups
-        /// captured, in group order. "App.(**)" over "App.Orders.Web" gives
-        /// <c>[Orders.Web]</c>.
+        /// captured, in group order. "App.(*).(*)" over "App.Orders.Http" gives
+        /// <c>[Orders, Http]</c>, and so does "App.(*)..(*)" over "App.Orders.Web.Http".
         /// </summary>
         public IReadOnlyList<string> Parts { get; }
 
@@ -39,8 +43,6 @@ namespace ArchUnitNET.Domain
         /// </summary>
         public string Description => "Slice " + string.Join(" - ", Parts);
 
-        public readonly int? CountOfAsteriskInPattern;
-
         /// <summary>
         /// Creates an identifier for a slice with a single part, the same slice as
         /// <c>Of(new[] { part })</c>.
@@ -49,12 +51,9 @@ namespace ArchUnitNET.Domain
         /// The slice's only part: a custom <c>SliceAssignment</c> that returns identifiers with the
         /// same part for two types puts them into the same slice.
         /// </param>
-        /// <param name="countOfAsteriskInPattern">
-        /// The number of "(*)" groups in the pattern, if the slice comes from one.
-        /// </param>
-        public static SliceIdentifier Of(string part, int? countOfAsteriskInPattern = null)
+        public static SliceIdentifier Of(string part)
         {
-            return new SliceIdentifier(CheckParts(new[] { part }), false, countOfAsteriskInPattern);
+            return Of(new[] { part });
         }
 
         /// <summary>
@@ -68,6 +67,10 @@ namespace ArchUnitNET.Domain
             return new SliceIdentifier(CheckParts(parts), false);
         }
 
+        /// <summary>
+        /// Creates the identifier for a type that did not match the pattern. All such types
+        /// share one slice, which the rule then leaves out.
+        /// </summary>
         public static SliceIdentifier Ignore()
         {
             return new SliceIdentifier(new[] { "Ignored" }, true);

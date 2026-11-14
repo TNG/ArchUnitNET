@@ -1,0 +1,17 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+[Slice Group1] as Slice_Group1
+[Slice Group2] as Slice_Group2
+[Slice Inner] as Slice_Inner
+[Slice Service] as Slice_Service
+[Slice Slice1] as Slice_Slice1
+[Slice Slice2] as Slice_Slice2
+[Slice Slice3] as Slice_Slice3
+[Slice_Slice1] --> [Slice_Slice2]
+[Slice_Slice2] --> [Slice_Slice3]
+[Slice_Slice3] --> [Slice_Slice1]
+@enduml

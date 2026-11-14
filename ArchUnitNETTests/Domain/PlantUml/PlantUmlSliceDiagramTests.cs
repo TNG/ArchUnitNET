@@ -26,23 +26,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
         private static GenerationOptions Nested =>
             new GenerationOptions { NestSlicesInPackages = true };
 
-        // --- The asterisk count decides which slices the exporter renders ---------------
+        // --- Each pattern shape groups MultipleSubnamespaces differently ----------------
         //
-        // Every pattern below matches the same nine slices -- SlicesTests.MatchingTest and
-        // Matching_SingleAsterisk_CapturesEveryDepth assert that. What differs is how many
-        // of them survive PlantUmlFileBuilder.RemovePatternInappropriateSlices, which drops
-        // a slice once its depth (dots in its Description) reaches
-        // Slice.CountOfAsteriskInPattern:
-        //
-        //     (*)       count 1     ->  3 of 9 slices rendered
-        //     (*).(*)   count 2     ->  7 of 9 slices rendered
-        //     (**)      count null  ->  9 of 9 slices rendered
-        //
-        // CountOfAsteriskInPattern has no other consumer in the library: the slice domain
-        // carries it solely so the exporter can perform that deletion. So these snapshots
-        // are the only record that asking for "(*)" hands the diagram two-thirds fewer
-        // nodes than GetObjects returned, and a reimplementation is free to drop the field
-        // from SliceIdentifier only if it also changes what these files say.
+        // SlicesTests pins which slices each pattern produces; these snapshots pin how the
+        // exporter draws them.
 
         [Fact]
         public Task BuildUmlBySlices_SingleAsterisk()
@@ -56,17 +43,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return VerifySlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
         }
 
-        // The matcher discards everything after the first "(*", so "(*).(*)" and "(*)..(*)"
-        // are indistinguishable to it and the next two snapshots are byte-identical -- as are
-        // their nested counterparts below. That identity is the point: it is
-        // what a reimplementation giving the second capture group any meaning would have to
-        // change. SlicesTests.DotDot_* cover the shapes that would tell the two patterns
-        // apart.
-        //
-        // Identical snapshots do not make these tests redundant with "(*)", though. The
-        // second group is dead to the matcher but still raises CountOfAsteriskInPattern to
-        // 2, which moves the exporter's cutoff -- hence seven nodes here against three for
-        // "(*)".
         [Fact]
         public Task BuildUmlBySlices_MultipleCaptureGroups()
         {
@@ -104,6 +80,36 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public Task BuildUmlBySlicesNested_LiteralBetweenCaptureGroups()
+        {
+            // Only the types decide where a slice sits: "Slice Slice3 - Inner" sits at
+            // Slice3.Group1.Inner here, but at Slice3 for "(*).*.(*)" below.
+            return VerifySlices(
+                SliceRuleDefinition.Slices().Matching(Root + "(*).Group1.(*)"),
+                Nested
+            );
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesNested_WildcardBetweenCaptureGroups()
+        {
+            // "Slice Slice3 - Inner" holds the types of both Group1.Inner and Group2.Inner, so it
+            // sits at Slice3, the namespace they share.
+            return VerifySlices(SliceRuleDefinition.Slices().Matching(Root + "(*).*.(*)"), Nested);
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesNested_NonContiguousCaptureGroups_LimitDependencies()
+        {
+            // No name has a dot, but "Slice Slice3 - Inner" sits at depth 3 and the others at
+            // depth 4, so only "Slice Slice1 - Service" -> "Slice Slice2 - Service" stays.
+            return VerifySlices(
+                SliceRuleDefinition.Slices().Matching(Root + "(*)..(*)"),
+                new GenerationOptions { NestSlicesInPackages = true, LimitDependencies = true }
+            );
+        }
+
+        [Fact]
         public Task BuildUmlBySlicesNested_CaptureGroupAtStart()
         {
             // Nothing precedes the capture group, so every slice is named after a whole
@@ -137,6 +143,15 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return VerifySlices(
                 SliceRuleDefinition.Slices().Matching(Root + "(**)"),
                 new GenerationOptions { C4Style = true }
+            );
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesNested_NonContiguousCaptureGroups_C4Style()
+        {
+            return VerifySlices(
+                SliceRuleDefinition.Slices().Matching(Root + "(*)..(*)"),
+                new GenerationOptions { NestSlicesInPackages = true, C4Style = true }
             );
         }
 
@@ -227,14 +242,25 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return VerifyUml(uml);
         }
 
+        [Fact]
+        public Task BuildUmlBySlices_LimitDependencies_SamePartAfterDifferentPrefixes()
+        {
+            // Group1, Service and Slice3 have no dots, but lie at depths 4, 2 and 3, so of the
+            // arrows between them only Slice1 -> Slice2 -> Slice3 -> Slice1 stays.
+            var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + ".(*)"));
+            var uml = new PlantUmlFileBuilder()
+                .WithDependenciesFrom(slices, new GenerationOptions { LimitDependencies = true })
+                .AsString();
+            return VerifyUml(uml);
+        }
+
         // --- IncludeNodesWithoutDependencies = false removes dependency-less slices ----
 
         [Fact]
         public Task BuildUmlBySlices_ExcludeNodesWithoutDependencies()
         {
-            // A single-asterisk pattern would already collapse away the dependency-less slices
-            // via RemovePatternInappropriateSlices, so use "(**)" to keep them in the slice list
-            // and let IncludeNodesWithoutDependencies do the removal instead.
+            // "(**)" keeps every namespace as a slice of its own, including ones without any
+            // dependency, so there is something for IncludeNodesWithoutDependencies to remove.
             var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
             var uml = new PlantUmlFileBuilder()
                 .WithDependenciesFrom(
@@ -250,8 +276,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public Task BuildUmlBySlices_WithDependencyFilter()
         {
-            // "(*)" would already collapse Slice3.Group1 away via RemovePatternInappropriateSlices,
-            // leaving no dependency for the filter to remove, so use "(**)" instead.
+            // "(**)" gives Slice3.Group1 a slice of its own, so there is a dependency for the
+            // filter to remove.
             var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
             var uml = new PlantUmlFileBuilder()
                 .WithDependenciesFrom(
@@ -354,9 +380,22 @@ namespace ArchUnitNETTests.Domain.PlantUml
         [Fact]
         public Task BuildUmlBySlicesFocusOn_SingleAsteriskPattern()
         {
-            // RemovePatternInappropriateSlices leaves the three slices "(*)" stands for, of
-            // which "Slice3" lies in the namespace focused on.
+            // "(*)" captures a single segment, so the slices are Slice1 to Slice3, of which
+            // "Slice3" lies in the namespace focused on.
             var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(*)"));
+            var uml = new PlantUmlFileBuilder()
+                .WithDependenciesFromFocusOn(slices, Root + "Slice3", Nested)
+                .AsString();
+            return VerifyUml(uml);
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesFocusOn_SamePartAfterDifferentPrefixes()
+        {
+            // Slice3, Group1, Group2 and Inner lie in Slice3, although their names don't say so.
+            // Group2 and Inner have no arrows and are left out like any such slice; Service,
+            // Slice1 and Slice2 are drawn as neighbours.
+            var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + ".(*)"));
             var uml = new PlantUmlFileBuilder()
                 .WithDependenciesFromFocusOn(slices, Root + "Slice3", Nested)
                 .AsString();
@@ -417,6 +456,17 @@ namespace ArchUnitNETTests.Domain.PlantUml
         //
         // A nested slice sits in the package of the deepest namespace that contains all of its
         // types. The packages come from those namespaces, not from the pattern.
+
+        [Fact]
+        public Task BuildUmlBySlicesNested_ParenthesisedAlternationAsFirstGroup()
+        {
+            // The alternation captures Slice1 or Slice2, and the ".." folds their Service
+            // namespaces into them, so there are two slices and no Slice3.
+            return VerifySlices(
+                SliceRuleDefinition.Slices().Matching(Root + "(Slice1|Slice2).."),
+                Nested
+            );
+        }
 
         [Fact]
         public Task BuildUmlBySlicesNested_DuplicatePrefixSegment()
@@ -498,6 +548,31 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.Contains(
                 Environment.NewLine + "[Slice Mixed] as Slice_Mixed" + Environment.NewLine,
                 uml
+            );
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesNested_WildcardBeforeFirstGroup()
+        {
+            // "*" matches Slice1 for one Service namespace and Slice2 for the other, but both
+            // capture "Service", so slice "Service" has types in Slice1.Service and
+            // Slice2.Service, and it sits in MultipleSubnamespaces. To keep the two Service
+            // namespaces apart, capture the segment instead: "(*).(*)"
+            // (BuildUmlBySlicesNested_MultipleCaptureGroups).
+            return VerifySlices(SliceRuleDefinition.Slices().Matching(Root + "*.(*)"), Nested);
+        }
+
+        [Fact]
+        public Task BuildUmlBySlicesNested_SamePartAfterDifferentPrefixes()
+        {
+            // The ".." lets "(*)" capture the last segment after any prefix, so slices are named
+            // after it alone. Service sits at MultipleSubnamespaces, as its types are in
+            // Slice1.Service and Slice2.Service, and Inner at Slice3.
+            return VerifySlices(
+                SliceRuleDefinition
+                    .Slices()
+                    .Matching("SlicesTestAssembly.MultipleSubnamespaces..(*)"),
+                Nested
             );
         }
 
