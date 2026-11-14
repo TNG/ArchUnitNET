@@ -279,6 +279,23 @@ The diagrams must be component diagrams and associate types to components via st
 Consider this diagram applied as a rule via AdhereToPlantUmlDiagram(..), then a class that resides in the namespace Model accessing a class in the namepace Controller would be reported as a violation.
 
 Only dependencies specified in the PlantUML diagram are considered. So any unknown dependency (e.g.  View.*) will be ignored.
+
+Components can be grouped with `package`, `node`, `folder`, `frame`, `cloud` or `database`. A dependency from or to a group applies to all components nested in it (including those in nested groups). A group does not contain any types of its own: every component still needs its own stereotype, and stereotypes written on a group are only drawn.
+```plantuml
+@startuml
+package "Ui" as ui {
+  [Controller] <<Controller.*>>
+  [View] <<View.*>>
+}
+package "Domain" as domain {
+  [Model] <<Model.*>>
+}
+
+ui --> domain
+@enduml
+```
+Groups are referenced by their alias, or by their name if they have no alias. Quoted names containing spaces need an alias to be used in dependencies.
+
 #### 4.3.1 PlantUML Diagram rules
 
 The rules that a PlantUML diagram used with ArchUnitNet must abide can be found in the [ArchUnit documentation](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2). In contrast to ArchUnit ArchUnitNet uses a regex as the namespace identifier instead of the two dots syntax.

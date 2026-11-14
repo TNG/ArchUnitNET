@@ -789,6 +789,186 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.All(diagram.AllComponents, c => Assert.Empty(c.Dependencies));
         }
 
+        [Theory]
+        [InlineData("package")]
+        [InlineData("node")]
+        [InlineData("folder")]
+        [InlineData("frame")]
+        [InlineData("cloud")]
+        [InlineData("database")]
+        public void ComponentsInGroupKeepOnlyTheirOwnStereotypes(string keyword)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .RawLine(keyword + " \"Group\" <<GroupNs>> {")
+                    .RawLine("[Inner] <<InnerNs>>")
+                    .RawLine("}")
+                    .Write()
+            );
+
+            Assert.Equal(
+                new Stereotype("InnerNs"),
+                GetComponentWithName("Inner", diagram).Stereotypes.Single()
+            );
+        }
+
+        [Fact]
+        public void ThrowsExceptionForComponentInGroupWithoutOwnStereotype()
+        {
+            TestDiagram
+                .From(_memoryStream)
+                .RawLine("package Group <<GroupNs>> {")
+                .RawLine("[Inner]")
+                .RawLine("}")
+                .Write();
+
+            IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() =>
+                CreateDiagram(_memoryStream)
+            );
+            Assert.Contains("'Inner'", exception.Message);
+        }
+
+        [Theory]
+        [InlineData("package Group <<GroupNs>> #palegreen {")]
+        [InlineData("package Group <<GroupNs>> #red;line:blue{")]
+        [InlineData("package \"Colored Group\" as Group <<GroupNs>> #palegreen {")]
+        public void ParsesColoredGroups(string groupLine)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .RawLine(groupLine)
+                    .RawLine("[Inner] <<InnerNs>>")
+                    .RawLine("}")
+                    .RawLine("Group --> [Target]")
+                    .Component("Target")
+                    .WithStereoTypes("TargetNs")
+                    .Write()
+            );
+
+            Assert.Equal(new[] { "Inner->Target" }, GetDependencies(diagram));
+        }
+
+        [Fact]
+        public void DependencyBetweenGroupsAppliesToAllNestedComponents()
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .RawLine("package \"Outer\" as outer {")
+                    .RawLine("node inner {")
+                    .RawLine("[A] <<A>>")
+                    .RawLine("}")
+                    .RawLine("[B] <<B>>")
+                    .RawLine("}")
+                    .RawLine("package target {")
+                    .RawLine("[C] <<C>>")
+                    .RawLine("}")
+                    .RawLine("outer --> target")
+                    .Write()
+            );
+
+            Assert.Equal(
+                new[] { "C" },
+                GetComponentWithName("A", diagram)
+                    .Dependencies.Select(d => d.ComponentName.AsString())
+            );
+            Assert.Equal(
+                new[] { "C" },
+                GetComponentWithName("B", diagram)
+                    .Dependencies.Select(d => d.ComponentName.AsString())
+            );
+            Assert.Empty(GetComponentWithName("C", diagram).Dependencies);
+        }
+
+        [Theory]
+        [InlineData("[Shared] --> [Target]", "Shared")]
+        [InlineData("Shared --> [Target]", "Inner")]
+        public void BracketedEndpointRefersToComponentEvenIfAGroupHasTheSameName(
+            string dependency,
+            string expectedOrigin
+        )
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .RawLine("package Shared {")
+                    .RawLine("[Inner] <<Inner>>")
+                    .RawLine("}")
+                    .Component("Shared")
+                    .WithStereoTypes("Shared")
+                    .Component("Target")
+                    .WithStereoTypes("Target")
+                    .RawLine(dependency)
+                    .Write()
+            );
+
+            Assert.Equal(
+                new[] { expectedOrigin },
+                diagram
+                    .AllComponents.Where(component => component.Dependencies.Any())
+                    .Select(component => component.ComponentName.AsString())
+            );
+        }
+
+        [Fact]
+        public void ThrowsExceptionForUnclosedGroup()
+        {
+            TestDiagram.From(_memoryStream).RawLine("package Group <<Ns>> {").Write();
+
+            IllegalDiagramException exception = Assert.Throws<IllegalDiagramException>(() =>
+                CreateDiagram(_memoryStream)
+            );
+            Assert.Contains("never closed", exception.Message);
+        }
+
+        [Fact]
+        public void IgnoresBracesOfNonGroupBlocks()
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .RawLine("skinparam component {")
+                    .RawLine("BackgroundColor white")
+                    .RawLine("}")
+                    .RawLine("[Outside] <<Outside>>")
+                    .Write()
+            );
+
+            Assert.Equal(
+                new Stereotype("Outside"),
+                GetComponentWithName("Outside", diagram).Stereotypes.Single()
+            );
+        }
+
+        [Theory]
+        [InlineData("[Origin] --> [Shared]", "Shared")]
+        [InlineData("[Origin] --> Shared", "Inner")]
+        [InlineData("[Shared] <-- [Origin]", "Shared")]
+        [InlineData("Shared <-- [Origin]", "Inner")]
+        public void BracketedTargetRefersToComponentEvenIfAGroupHasTheSameName(
+            string dependency,
+            string expectedTarget
+        )
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .RawLine("package Shared {")
+                    .RawLine("[Inner] <<Inner>>")
+                    .RawLine("}")
+                    .Component("Shared")
+                    .WithStereoTypes("Shared")
+                    .Component("Origin")
+                    .WithStereoTypes("Origin")
+                    .RawLine(dependency)
+                    .Write()
+            );
+
+            Assert.Equal(new[] { "Origin->" + expectedTarget }, GetDependencies(diagram));
+        }
+
         [Fact]
         public void ThrowsArgumentNullExceptionForNullFilename()
         {

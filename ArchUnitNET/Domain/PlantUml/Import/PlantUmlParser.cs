@@ -61,12 +61,15 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         private PlantUmlParsedDiagram CreateDiagram(IEnumerable<string> rawDiagramLines)
         {
             IEnumerable<string> diagramLines = FilterOutComments(rawDiagramLines);
-            ISet<PlantUmlComponent> components = ParseComponents(diagramLines);
+            (ISet<PlantUmlComponent> components, IList<PlantUmlGroup> groups) = ParseComponents(
+                diagramLines
+            );
 
             var plantUmlComponents = new PlantUmlComponents(components);
 
             IEnumerable<ParsedDependency> dependencies = ParseDependencies(
                 plantUmlComponents,
+                groups,
                 diagramLines
             );
 
@@ -77,6 +80,7 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         private IEnumerable<ParsedDependency> ParseDependencies(
             PlantUmlComponents plantUmlComponents,
+            IList<PlantUmlGroup> groups,
             IEnumerable<string> plantUmlDiagramLines
         )
         {
@@ -87,21 +91,100 @@ namespace ArchUnitNET.Domain.PlantUml.Import
                 )
             )
             {
-                PlantUmlComponent origin = plantUmlComponents.FindComponentWith(matcher.Origin);
-                PlantUmlComponent target = plantUmlComponents.FindComponentWith(matcher.Target);
-                result.Add(new ParsedDependency(origin.Identifier, target.Identifier));
+                foreach (
+                    ComponentIdentifier origin in ResolveEndpoint(
+                        plantUmlComponents,
+                        groups,
+                        matcher.Origin
+                    )
+                )
+                {
+                    foreach (
+                        ComponentIdentifier target in ResolveEndpoint(
+                            plantUmlComponents,
+                            groups,
+                            matcher.Target
+                        )
+                    )
+                    {
+                        if (!origin.Equals(target))
+                        {
+                            result.Add(new ParsedDependency(origin, target));
+                        }
+                    }
+                }
             }
             return result;
         }
 
-        private ISet<PlantUmlComponent> ParseComponents(IEnumerable<string> plantUmlDiagramLines)
+        // A dependency endpoint is either a component or a group. A group stands for
+        // all components nested inside it, unless the endpoint is written in brackets,
+        // which always refers to a component.
+        private IEnumerable<ComponentIdentifier> ResolveEndpoint(
+            PlantUmlComponents plantUmlComponents,
+            IList<PlantUmlGroup> groups,
+            PlantUmlEndpoint endpoint
+        )
         {
-            return new HashSet<PlantUmlComponent>(
-                plantUmlDiagramLines
-                    .Select(PlantUmlComponentMatcher.TryParse)
-                    .Where(matcher => matcher != null)
-                    .Select(CreateNewComponent)
-            );
+            if (endpoint.MayReferToGroup)
+            {
+                PlantUmlGroup group = groups.FirstOrDefault(g => g.IsReferencedBy(endpoint.Name));
+                if (group != null)
+                {
+                    return group.Members;
+                }
+            }
+            return new[] { plantUmlComponents.FindComponentWith(endpoint.Name).Identifier };
+        }
+
+        private (ISet<PlantUmlComponent> Components, IList<PlantUmlGroup> Groups) ParseComponents(
+            IEnumerable<string> plantUmlDiagramLines
+        )
+        {
+            var components = new HashSet<PlantUmlComponent>();
+            var groups = new List<PlantUmlGroup>();
+            // Every '{' opens a block, but only some blocks are groups (others are e.g. skinparam),
+            // so non-group blocks are tracked as null to keep braces balanced.
+            var openBlocks = new Stack<PlantUmlGroup>();
+            foreach (string line in plantUmlDiagramLines)
+            {
+                if (PlantUmlGroupMatcher.TryParse(line) is PlantUmlGroupMatcher groupMatcher)
+                {
+                    var group = new PlantUmlGroup(groupMatcher.Name, groupMatcher.Alias);
+                    groups.Add(group);
+                    openBlocks.Push(group);
+                }
+                else if (PlantUmlPatterns.IsBlockOpen(line))
+                {
+                    openBlocks.Push(null);
+                }
+                else if (PlantUmlPatterns.IsBlockClose(line))
+                {
+                    if (openBlocks.Count > 0)
+                    {
+                        openBlocks.Pop();
+                    }
+                }
+                else if (
+                    PlantUmlComponentMatcher.TryParse(line) is PlantUmlComponentMatcher matcher
+                )
+                {
+                    PlantUmlComponent component = CreateNewComponent(matcher);
+                    components.Add(component);
+                    foreach (PlantUmlGroup group in openBlocks.Where(g => g != null))
+                    {
+                        group.AddMember(component.Identifier);
+                    }
+                }
+            }
+            PlantUmlGroup unclosedGroup = openBlocks.FirstOrDefault(g => g != null);
+            if (unclosedGroup != null)
+            {
+                throw new IllegalDiagramException(
+                    string.Format("Group '{0}' is never closed", unclosedGroup.Name)
+                );
+            }
+            return (components, groups);
         }
 
         private PlantUmlComponent CreateNewComponent(PlantUmlComponentMatcher matcher)

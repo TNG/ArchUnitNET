@@ -19,6 +19,20 @@ namespace ArchUnitNET.Domain.PlantUml.Import
                 match.Groups["stereotype"].Captures.Cast<Capture>().Select(c => c.Value)
             );
         }
+
+        private static readonly Regex BlockOpenPattern = new Regex(@"\{\s*$");
+
+        private static readonly Regex BlockClosePattern = new Regex(@"^\s*}\s*$");
+
+        internal static bool IsBlockOpen(string line)
+        {
+            return BlockOpenPattern.IsMatch(line);
+        }
+
+        internal static bool IsBlockClose(string line)
+        {
+            return BlockClosePattern.IsMatch(line);
+        }
     }
 
     // Matches a link between two components, see e.g.
@@ -28,9 +42,10 @@ namespace ArchUnitNET.Domain.PlantUml.Import
     {
         // '[Some Name]', or a name or alias without brackets, e.g. 'some-alias' or 'Some.Name'
         private const string PlainName = @"[^\s\[\]<>"":*#+|^@(){}\\~=]+?";
-        private const string LeftEndpoint = @"(?:\[(?<left>[^\[\]]+)\]|(?<left>" + PlainName + "))";
+        private const string LeftEndpoint =
+            @"(?:(?<leftBracket>\[)(?<left>[^\[\]]+)\]|(?<left>" + PlainName + "))";
         private const string RightEndpoint =
-            @"(?:\[(?<right>[^\[\]]+)\]|(?<right>" + PlainName + "))";
+            @"(?:(?<rightBracket>\[)(?<right>[^\[\]]+)\]|(?<right>" + PlainName + "))";
 
         // a multiplicity next to an endpoint, e.g. '"1"' or '"many"'
         private const string Multiplicity = @"(?:""[^""]*""\s*)?";
@@ -113,14 +128,14 @@ namespace ArchUnitNET.Domain.PlantUml.Import
                 + @"\s*(?::.*)?$" // the optional description, e.g. ': uses'
         );
 
-        private PlantUmlDependencyMatcher(string origin, string target)
+        private PlantUmlDependencyMatcher(PlantUmlEndpoint origin, PlantUmlEndpoint target)
         {
             Origin = origin;
             Target = target;
         }
 
-        internal string Origin { get; }
-        internal string Target { get; }
+        internal PlantUmlEndpoint Origin { get; }
+        internal PlantUmlEndpoint Target { get; }
 
         internal static IEnumerable<PlantUmlDependencyMatcher> TryParse(string line)
         {
@@ -129,8 +144,8 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             {
                 yield break;
             }
-            string left = match.Groups["left"].Value;
-            string right = match.Groups["right"].Value;
+            var left = new PlantUmlEndpoint(match, "left");
+            var right = new PlantUmlEndpoint(match, "right");
             if (match.Groups["rightArrow"].Success || match.Groups["leftDiamond"].Success)
             {
                 yield return new PlantUmlDependencyMatcher(left, right);
@@ -151,6 +166,22 @@ namespace ArchUnitNET.Domain.PlantUml.Import
                 .SelectMany(style => style.Value.Split(','))
                 .Any(attribute => attribute.Trim() == "hidden");
         }
+    }
+
+    // One side of a link, e.g. '[Some Name]' or 'some-alias'
+    internal class PlantUmlEndpoint
+    {
+        internal PlantUmlEndpoint(Match match, string side)
+        {
+            Name = match.Groups[side].Value;
+            MayReferToGroup = !match.Groups[side + "Bracket"].Success;
+        }
+
+        internal string Name { get; }
+
+        // A name in brackets always refers to a component, a name without brackets may also
+        // refer to a group.
+        internal bool MayReferToGroup { get; }
     }
 
     internal class PlantUmlComponentMatcher
@@ -178,6 +209,34 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         {
             Match match = Pattern.Match(line);
             return match.Success ? new PlantUmlComponentMatcher(match) : null;
+        }
+    }
+
+    internal class PlantUmlGroupMatcher
+    {
+        private static readonly Regex Pattern = new Regex(
+            @"^\s*(?:package|node|folder|frame|cloud|database)\s+"
+                + @"(?:""(?<name>[^""]+)""|(?<name>[^\s{""<]+))\s*"
+                + @"(?:as\s+""?(?<alias>[^""\s{<]+)""?\s*)?"
+                // stereotypes on a group are accepted, but do not assign any types to it
+                + PlantUmlPatterns.Stereotypes
+                + PlantUmlPatterns.Color
+                + @"\s*\{\s*$"
+        );
+
+        private PlantUmlGroupMatcher(Match match)
+        {
+            Name = match.Groups["name"].Value;
+            Alias = match.Groups["alias"].Success ? match.Groups["alias"].Value : null;
+        }
+
+        internal string Name { get; }
+        internal string Alias { get; } // null without 'as'
+
+        internal static PlantUmlGroupMatcher TryParse(string line)
+        {
+            Match match = Pattern.Match(line);
+            return match.Success ? new PlantUmlGroupMatcher(match) : null;
         }
     }
 }
