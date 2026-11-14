@@ -1,0 +1,57 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package "ArchUnitNET" as ArchUnitNET {
+  package "Library.Rules" as ArchUnitNET.Library.Rules {
+    [Slice Library - Rules] as Slice_Library___Rules
+  }
+  package "Fluent" as ArchUnitNET.Fluent {
+    package "Syntax" as ArchUnitNET.Fluent.Syntax {
+      [Slice Fluent - Syntax] as Slice_Fluent___Syntax
+    }
+    package "Slices" as ArchUnitNET.Fluent.Slices {
+      [Slice Fluent - Slices] as Slice_Fluent___Slices
+    }
+    package "Predicates" as ArchUnitNET.Fluent.Predicates {
+      [Slice Fluent - Predicates] as Slice_Fluent___Predicates
+    }
+    package "PlantUml" as ArchUnitNET.Fluent.PlantUml {
+      [Slice Fluent - PlantUml] as Slice_Fluent___PlantUml
+    }
+    package "Freeze" as ArchUnitNET.Fluent.Freeze {
+      [Slice Fluent - Freeze] as Slice_Fluent___Freeze
+    }
+    package "Extensions" as ArchUnitNET.Fluent.Extensions {
+      [Slice Fluent - Extensions] as Slice_Fluent___Extensions
+    }
+    package "Exceptions" as ArchUnitNET.Fluent.Exceptions {
+      [Slice Fluent - Exceptions] as Slice_Fluent___Exceptions
+    }
+    package "Conditions" as ArchUnitNET.Fluent.Conditions {
+      [Slice Fluent - Conditions] as Slice_Fluent___Conditions
+    }
+  }
+  package "Domain" as ArchUnitNET.Domain {
+    package "Extensions" as ArchUnitNET.Domain.Extensions {
+      [Slice Domain - Extensions] as Slice_Domain___Extensions
+    }
+    package "Exceptions" as ArchUnitNET.Domain.Exceptions {
+      [Slice Domain - Exceptions] as Slice_Domain___Exceptions
+    }
+    package "Dependencies" as ArchUnitNET.Domain.Dependencies {
+      [Slice Domain - Dependencies] as Slice_Domain___Dependencies
+    }
+  }
+}
+
+[Slice_Library___Rules] --|> [Slice_Domain___Extensions]
+[Slice_Fluent___Slices] --|> [Slice_Domain___Dependencies]
+[Slice_Fluent___Freeze] --|> [Slice_Domain___Exceptions]
+[Slice_Fluent___Extensions] --|> [Slice_Domain___Extensions]
+[Slice_Fluent___Conditions] --|> [Slice_Fluent___Predicates]
+[Slice_Domain___Extensions] --|> [Slice_Domain___Exceptions]
+[Slice_Domain___Extensions] --|> [Slice_Domain___Dependencies]
+@enduml

@@ -1,0 +1,132 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package "ArchUnitNET" as ArchUnitNET {
+  package "Fluent" as ArchUnitNET.Fluent {
+    [Slice Fluent] as Slice_Fluent
+    package "Syntax" as ArchUnitNET.Fluent.Syntax {
+      [Slice Fluent.Syntax] as Slice_Fluent.Syntax
+      package "Elements" as ArchUnitNET.Fluent.Syntax.Elements {
+        [Slice Fluent.Syntax.Elements] as Slice_Fluent.Syntax.Elements #99ffd1
+        package "Types" as ArchUnitNET.Fluent.Syntax.Elements.Types {
+          [Slice Fluent.Syntax.Elements.Types] as Slice_Fluent.Syntax.Elements.Types #99ffd1
+          package "Interfaces" as ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces {
+            [Slice Fluent.Syntax.Elements.Types.Interfaces] as Slice_Fluent.Syntax.Elements.Types.Interfaces #99ffd1
+          }
+          package "Classes" as ArchUnitNET.Fluent.Syntax.Elements.Types.Classes {
+            [Slice Fluent.Syntax.Elements.Types.Classes] as Slice_Fluent.Syntax.Elements.Types.Classes #99ffd1
+          }
+          package "Attributes" as ArchUnitNET.Fluent.Syntax.Elements.Types.Attributes {
+            [Slice Fluent.Syntax.Elements.Types.Attributes] as Slice_Fluent.Syntax.Elements.Types.Attributes #99ffd1
+          }
+        }
+        package "Members" as ArchUnitNET.Fluent.Syntax.Elements.Members {
+          [Slice Fluent.Syntax.Elements.Members] as Slice_Fluent.Syntax.Elements.Members #99ffd1
+          package "PropertyMembers" as ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers {
+            [Slice Fluent.Syntax.Elements.Members.PropertyMembers] as Slice_Fluent.Syntax.Elements.Members.PropertyMembers #99ffd1
+          }
+          package "MethodMembers" as ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers {
+            [Slice Fluent.Syntax.Elements.Members.MethodMembers] as Slice_Fluent.Syntax.Elements.Members.MethodMembers #99ffd1
+          }
+          package "FieldMembers" as ArchUnitNET.Fluent.Syntax.Elements.Members.FieldMembers {
+            [Slice Fluent.Syntax.Elements.Members.FieldMembers] as Slice_Fluent.Syntax.Elements.Members.FieldMembers #99ffd1
+          }
+        }
+      }
+    }
+    package "Predicates" as ArchUnitNET.Fluent.Predicates {
+      [Slice Fluent.Predicates] as Slice_Fluent.Predicates
+    }
+    package "Exceptions" as ArchUnitNET.Fluent.Exceptions {
+      [Slice Fluent.Exceptions] as Slice_Fluent.Exceptions
+    }
+    package "Conditions" as ArchUnitNET.Fluent.Conditions {
+      [Slice Fluent.Conditions] as Slice_Fluent.Conditions
+    }
+  }
+  package "Domain" as ArchUnitNET.Domain {
+    [Slice Domain] as Slice_Domain
+    package "PlantUml.Import" as ArchUnitNET.Domain.PlantUml.Import {
+      [Slice Domain.PlantUml.Import] as Slice_Domain.PlantUml.Import
+    }
+    package "Extensions" as ArchUnitNET.Domain.Extensions {
+      [Slice Domain.Extensions] as Slice_Domain.Extensions
+    }
+    package "Dependencies" as ArchUnitNET.Domain.Dependencies {
+      [Slice Domain.Dependencies] as Slice_Domain.Dependencies
+    }
+  }
+}
+
+[Slice_Fluent] <-[#red]> [Slice_Fluent.Syntax.Elements.Types]
+[Slice_Fluent] <-[#red]> [Slice_Fluent.Syntax.Elements.Types.Interfaces]
+[Slice_Fluent] <-[#red]> [Slice_Fluent.Syntax.Elements.Types.Classes]
+[Slice_Fluent] <-[#red]> [Slice_Fluent.Syntax.Elements.Types.Attributes]
+[Slice_Fluent] <-[#red]> [Slice_Fluent.Syntax.Elements.Members]
+[Slice_Fluent] <-[#red]> [Slice_Fluent.Syntax.Elements.Members.PropertyMembers]
+[Slice_Fluent] <-[#red]> [Slice_Fluent.Syntax.Elements.Members.MethodMembers]
+[Slice_Fluent] <-[#red]> [Slice_Fluent.Syntax.Elements.Members.FieldMembers]
+[Slice_Fluent.Syntax.Elements] --|> [Slice_Fluent]
+[Slice_Fluent.Syntax.Elements] --|> [Slice_Fluent.Syntax]
+[Slice_Fluent.Syntax.Elements] <-[#red]> [Slice_Fluent.Syntax.Elements.Types]
+[Slice_Fluent.Syntax.Elements] <-[#red]> [Slice_Fluent.Syntax.Elements.Types.Interfaces]
+[Slice_Fluent.Syntax.Elements] <-[#red]> [Slice_Fluent.Syntax.Elements.Types.Attributes]
+[Slice_Fluent.Syntax.Elements] <-[#red]> [Slice_Fluent.Syntax.Elements.Members.MethodMembers]
+[Slice_Fluent.Syntax.Elements] --|> [Slice_Fluent.Predicates]
+[Slice_Fluent.Syntax.Elements] --|> [Slice_Fluent.Exceptions]
+[Slice_Fluent.Syntax.Elements] --|> [Slice_Fluent.Conditions]
+[Slice_Fluent.Syntax.Elements] --|> [Slice_Domain]
+[Slice_Fluent.Syntax.Elements] --|> [Slice_Domain.Extensions]
+[Slice_Fluent.Syntax.Elements.Types] --|> [Slice_Fluent.Syntax]
+[Slice_Fluent.Syntax.Elements.Types] <-[#red]> [Slice_Fluent.Syntax.Elements.Types.Interfaces]
+[Slice_Fluent.Syntax.Elements.Types] --|> [Slice_Fluent.Predicates]
+[Slice_Fluent.Syntax.Elements.Types] --|> [Slice_Fluent.Conditions]
+[Slice_Fluent.Syntax.Elements.Types] --|> [Slice_Domain]
+[Slice_Fluent.Syntax.Elements.Types] --|> [Slice_Domain.PlantUml.Import]
+[Slice_Fluent.Syntax.Elements.Types] --|> [Slice_Domain.Extensions]
+[Slice_Fluent.Syntax.Elements.Types] --|> [Slice_Domain.Dependencies]
+[Slice_Fluent.Syntax.Elements.Types.Interfaces] --|> [Slice_Fluent.Syntax]
+[Slice_Fluent.Syntax.Elements.Types.Interfaces] --|> [Slice_Fluent.Predicates]
+[Slice_Fluent.Syntax.Elements.Types.Interfaces] --|> [Slice_Fluent.Conditions]
+[Slice_Fluent.Syntax.Elements.Types.Interfaces] --|> [Slice_Domain]
+[Slice_Fluent.Syntax.Elements.Types.Classes] --|> [Slice_Fluent.Syntax]
+[Slice_Fluent.Syntax.Elements.Types.Classes] --|> [Slice_Fluent.Syntax.Elements]
+[Slice_Fluent.Syntax.Elements.Types.Classes] --|> [Slice_Fluent.Syntax.Elements.Types]
+[Slice_Fluent.Syntax.Elements.Types.Classes] --|> [Slice_Fluent.Predicates]
+[Slice_Fluent.Syntax.Elements.Types.Classes] --|> [Slice_Fluent.Conditions]
+[Slice_Fluent.Syntax.Elements.Types.Classes] --|> [Slice_Domain]
+[Slice_Fluent.Syntax.Elements.Types.Attributes] --|> [Slice_Fluent.Syntax]
+[Slice_Fluent.Syntax.Elements.Types.Attributes] --|> [Slice_Fluent.Syntax.Elements.Types]
+[Slice_Fluent.Syntax.Elements.Types.Attributes] --|> [Slice_Fluent.Predicates]
+[Slice_Fluent.Syntax.Elements.Types.Attributes] --|> [Slice_Fluent.Conditions]
+[Slice_Fluent.Syntax.Elements.Types.Attributes] --|> [Slice_Domain]
+[Slice_Fluent.Syntax.Elements.Members] --|> [Slice_Fluent.Syntax]
+[Slice_Fluent.Syntax.Elements.Members] --|> [Slice_Fluent.Syntax.Elements]
+[Slice_Fluent.Syntax.Elements.Members] --|> [Slice_Fluent.Syntax.Elements.Types]
+[Slice_Fluent.Syntax.Elements.Members] --|> [Slice_Fluent.Predicates]
+[Slice_Fluent.Syntax.Elements.Members] --|> [Slice_Fluent.Conditions]
+[Slice_Fluent.Syntax.Elements.Members] --|> [Slice_Domain]
+[Slice_Fluent.Syntax.Elements.Members] --|> [Slice_Domain.Extensions]
+[Slice_Fluent.Syntax.Elements.Members.PropertyMembers] --|> [Slice_Fluent.Syntax]
+[Slice_Fluent.Syntax.Elements.Members.PropertyMembers] --|> [Slice_Fluent.Syntax.Elements]
+[Slice_Fluent.Syntax.Elements.Members.PropertyMembers] --|> [Slice_Fluent.Syntax.Elements.Members]
+[Slice_Fluent.Syntax.Elements.Members.PropertyMembers] --|> [Slice_Fluent.Predicates]
+[Slice_Fluent.Syntax.Elements.Members.PropertyMembers] --|> [Slice_Fluent.Conditions]
+[Slice_Fluent.Syntax.Elements.Members.PropertyMembers] --|> [Slice_Domain]
+[Slice_Fluent.Syntax.Elements.Members.MethodMembers] --|> [Slice_Fluent.Syntax]
+[Slice_Fluent.Syntax.Elements.Members.MethodMembers] --|> [Slice_Fluent.Syntax.Elements.Members]
+[Slice_Fluent.Syntax.Elements.Members.MethodMembers] --|> [Slice_Fluent.Predicates]
+[Slice_Fluent.Syntax.Elements.Members.MethodMembers] --|> [Slice_Fluent.Conditions]
+[Slice_Fluent.Syntax.Elements.Members.MethodMembers] --|> [Slice_Domain]
+[Slice_Fluent.Syntax.Elements.Members.MethodMembers] --|> [Slice_Domain.Extensions]
+[Slice_Fluent.Syntax.Elements.Members.MethodMembers] --|> [Slice_Domain.Dependencies]
+[Slice_Fluent.Syntax.Elements.Members.FieldMembers] --|> [Slice_Fluent.Syntax]
+[Slice_Fluent.Syntax.Elements.Members.FieldMembers] --|> [Slice_Fluent.Syntax.Elements]
+[Slice_Fluent.Syntax.Elements.Members.FieldMembers] --|> [Slice_Fluent.Syntax.Elements.Members]
+[Slice_Fluent.Syntax.Elements.Members.FieldMembers] --|> [Slice_Fluent.Predicates]
+[Slice_Fluent.Syntax.Elements.Members.FieldMembers] --|> [Slice_Fluent.Conditions]
+[Slice_Fluent.Syntax.Elements.Members.FieldMembers] --|> [Slice_Domain]
+@enduml
