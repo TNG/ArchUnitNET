@@ -37,11 +37,17 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return str.Count(c => c == '.');
         }
 
+        [Obsolete(
+            "Only the obsolete dependency types use this. It will be removed in a future release."
+        )]
         public int OriginCountOfDots()
         {
             return CountOfDots(Origin);
         }
 
+        [Obsolete(
+            "Only the obsolete dependency types use this. It will be removed in a future release."
+        )]
         public int TargetCountOfDots()
         {
             return CountOfDots(Target);
@@ -49,6 +55,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         public string GetPlantUmlString(RenderOptions renderOptions = null)
         {
+#pragma warning disable CS0618 // The obsolete dependency types still render until they are removed.
             switch (DependencyType)
             {
                 case DependencyType.OneToOne:
@@ -81,16 +88,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                     return OriginAlias + " -[#green]> " + TargetAlias + Environment.NewLine;
 
                 case DependencyType.OneToOneCompact:
-                    if (OriginCountOfDots() == TargetCountOfDots())
-                    {
-                        return "["
-                            + OriginAlias
-                            + "] --> ["
-                            + TargetAlias
-                            + "]"
-                            + Environment.NewLine;
-                    }
-                    return "";
+                    return "[" + OriginAlias + "] --> [" + TargetAlias + "]" + Environment.NewLine;
 
                 case DependencyType.Circle:
                     return "["
@@ -157,6 +155,7 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 case DependencyType.NoDependency:
                     return "";
             }
+#pragma warning restore CS0618
 
             return "";
         }
@@ -205,11 +204,32 @@ namespace ArchUnitNET.Domain.PlantUml.Export
     {
         OneToOne,
         OneToMany,
+
+        [Obsolete(
+            "PlantUmlFileBuilder no longer creates this dependency type. It will be removed in a future release."
+        )]
         OneToPackage,
+
+        [Obsolete(
+            "PlantUmlFileBuilder no longer creates this dependency type. It will be removed in a future release."
+        )]
         PackageToOne,
+
+        [Obsolete(
+            "PlantUmlFileBuilder no longer creates this dependency type. It will be removed in a future release."
+        )]
         PackageToPackage,
+
+        [Obsolete(
+            "PlantUmlFileBuilder no longer creates this dependency type. It will be removed in a future release."
+        )]
         OneToOneIfSameParentNamespace,
+
+        [Obsolete(
+            "PlantUmlFileBuilder no longer creates this dependency type. It will be removed in a future release."
+        )]
         PackageToPackageIfSameParentNamespace,
+
         OneToOneCompact,
         Circle,
         NoDependency,

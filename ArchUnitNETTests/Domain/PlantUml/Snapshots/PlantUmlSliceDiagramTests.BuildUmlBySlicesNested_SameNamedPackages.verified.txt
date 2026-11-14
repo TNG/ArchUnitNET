@@ -1,0 +1,28 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package "SlicesTestAssembly.SameNamedSubnamespaces" as SlicesTestAssembly.SameNamedSubnamespaces {
+  package "Billing.Domain" as SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain {
+    [Billing.Domain] as Billing.Domain
+    package "Model" as SlicesTestAssembly.SameNamedSubnamespaces.Billing.Domain.Model {
+      [Billing.Domain.Model] as Billing.Domain.Model
+    }
+  }
+  package "Orders.Domain" as SlicesTestAssembly.SameNamedSubnamespaces.Orders.Domain {
+    [Orders.Domain] as Orders.Domain
+    package "Model" as SlicesTestAssembly.SameNamedSubnamespaces.Orders.Domain.Model {
+      [Orders.Domain.Model] as Orders.Domain.Model
+    }
+  }
+  package "Web" as SlicesTestAssembly.SameNamedSubnamespaces.Web {
+    [Web] as Web
+  }
+}
+
+[Orders.Domain] --|> [Billing.Domain]
+[Orders.Domain.Model] --|> [Billing.Domain.Model]
+[Web] --|> [Billing.Domain]
+@enduml
