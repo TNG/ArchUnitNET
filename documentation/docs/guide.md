@@ -285,7 +285,7 @@ The rules that a PlantUML diagram used with ArchUnitNet must abide can be found 
 
 #### 4.3.2 Which links allow a dependency
 
-Whether a link allows a dependency, and in which direction, depends only on its decorations. The line (`--`, `..`, `==`, `~~`), its length, a direction such as `-up->`, colors, multiplicities and labels make no difference.
+Whether a link allows a dependency, and in which direction, depends on its decorations, unless it is hidden. The line (`--`, `..`, `==`, `~~`), its length, a direction such as `-up->`, colors, multiplicities and labels make no difference.
 
 | Link | Example | Allows |
 |------|---------|--------|
@@ -293,6 +293,7 @@ Whether a link allows a dependency, and in which direction, depends only on its 
 | A composition or aggregation diamond (`*`, `o`) at the component that depends on the other | `[A] *-- [B]`, `[B] --o [A]` | A → B |
 | Such decorations at both ends | `[A] <--> [B]`, `[A] *--* [B]` | A → B and B → A |
 | Any other decoration, or none | `[A] -- [B]`, `[A] #-- [B]`, `[A] -0)- [B]` | nothing |
+| A hidden link, which only affects the layout | `[A] -[hidden]-> [B]`, `[A] -[#red,hidden]-> [B]` | nothing |
 
 Names without brackets may not contain characters that are used in links: `*`, `#`, `+`, `|`, `^`, `@`, `(`, `)`, `{`, `}`, `\`, `~`, `=`. Put such names in brackets, e.g. `[a+b] --> [c]`. A decoration made of a letter or digit (`o`, `x`, `0`) must be separated from a name without brackets, so `a--oak` is a link without decorations to `oak`.
 

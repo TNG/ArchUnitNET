@@ -226,6 +226,33 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Theory]
+        [InlineData("[A] -[hidden]-> [B]")]
+        [InlineData("[A] -[hidden]> [B]")]
+        [InlineData("[B] <-[hidden]- [A]")]
+        [InlineData("A -[hidden]--> B")]
+        [InlineData("A -[#red,hidden]-> B")]
+        [InlineData("A -[#red, hidden]-> B")]
+        [InlineData("A -[hidden]up-> B")]
+        [InlineData("A -up[hidden]-> B")]
+        [InlineData("A *-[hidden]- B")]
+        [InlineData("A <-[hidden]-> B")]
+        public void IgnoresHiddenLinks(string link)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .Component("A")
+                    .WithStereoTypes("A.*")
+                    .Component("B")
+                    .WithStereoTypes("B.*")
+                    .RawLine(link)
+                    .Write()
+            );
+
+            Assert.Empty(GetDependencies(diagram));
+        }
+
+        [Theory]
         [InlineData("box-->oak", new[] { "Box->Oak" })]
         [InlineData("oak<--box", new[] { "Box->Oak" })]
         [InlineData("box--oak", new string[0])]
@@ -965,7 +992,6 @@ namespace ArchUnitNETTests.Domain.PlantUml
                     "[#red]up",
                     "up[#red]",
                     "[#red]u",
-                    "[hidden]",
                 }
             )
             {

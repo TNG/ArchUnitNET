@@ -121,6 +121,8 @@ namespace ArchUnitNETTests.Dependencies
         [InlineData("[Origin] #-- [Target]")]
         [InlineData("[Origin] <-- [Target]")]
         [InlineData("[Origin] --* [Target]")]
+        [InlineData("[Origin] -[hidden]-> [Target]")]
+        [InlineData("[Origin] -[hidden]> [Target]")]
         public void LinksThatDoNotAllowTheDependencyDoNotChangeViolations(string link)
         {
             Architecture architecture = GetArchitectureFrom("SimpleDependency");

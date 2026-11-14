@@ -125,7 +125,7 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         internal static IEnumerable<PlantUmlDependencyMatcher> TryParse(string line)
         {
             Match match = Pattern.Match(line);
-            if (!match.Success)
+            if (!match.Success || IsHidden(match))
             {
                 yield break;
             }
@@ -139,6 +139,17 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             {
                 yield return new PlantUmlDependencyMatcher(right, left);
             }
+        }
+
+        // Hidden links only affect the layout, e.g. '-[hidden]->' or '-[#red,hidden]->',
+        // see https://plantuml.com/class-diagram#help-on-layout
+        private static bool IsHidden(Match match)
+        {
+            return match
+                .Groups["style"]
+                .Captures.Cast<Capture>()
+                .SelectMany(style => style.Value.Split(','))
+                .Any(attribute => attribute.Trim() == "hidden");
         }
     }
 
