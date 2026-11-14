@@ -294,6 +294,7 @@ Whether a link allows a dependency, and in which direction, depends on its decor
 | Such decorations at both ends | `[A] <--> [B]`, `[A] *--* [B]` | A → B and B → A |
 | Any other decoration, or none | `[A] -- [B]`, `[A] #-- [B]`, `[A] -0)- [B]` | nothing |
 | A hidden link, which only affects the layout | `[A] -[hidden]-> [B]`, `[A] -[#red,hidden]-> [B]` | nothing |
+| A chain of links, which is not transitive | `[A] --> [B]`, `[B] --> [C]` | A → B and B → C, but not A → C |
 
 Names without brackets may not contain characters that are used in links: `*`, `#`, `+`, `|`, `^`, `@`, `(`, `)`, `{`, `}`, `\`, `~`, `=`. Put such names in brackets, e.g. `[a+b] --> [c]`. A decoration made of a letter or digit (`o`, `x`, `0`) must be separated from a name without brackets, so `a--oak` is a link without decorations to `oak`.
 

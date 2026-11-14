@@ -140,6 +140,32 @@ namespace ArchUnitNETTests.Dependencies
             }
         }
 
+        [Fact]
+        public void DependenciesAreNotTransitive()
+        {
+            Architecture architecture = GetArchitectureFrom("SimpleDependency");
+            using (MemoryStream withoutLinksStream = new MemoryStream())
+            using (MemoryStream transitiveStream = new MemoryStream())
+            {
+                CreateSimpleDependencyDiagram(withoutLinksStream, null).Write();
+                CreateSimpleDependencyDiagram(transitiveStream, null)
+                    .Component("Intermediate")
+                    .WithStereoTypes("TestAssembly.Diagram.SimpleDependency.Intermediate.*")
+                    .RawLine("[Origin] --> [Intermediate]")
+                    .RawLine("[Intermediate] --> [Target]")
+                    .Write();
+
+                List<string> violationsWithoutLinks = GetViolations(
+                    withoutLinksStream,
+                    architecture
+                );
+                List<string> transitiveViolations = GetViolations(transitiveStream, architecture);
+
+                Assert.NotEmpty(violationsWithoutLinks);
+                Assert.Equal(violationsWithoutLinks, transitiveViolations);
+            }
+        }
+
         private static TestDiagram CreateSimpleDependencyDiagram(Stream stream, string color)
         {
             return TestDiagram
