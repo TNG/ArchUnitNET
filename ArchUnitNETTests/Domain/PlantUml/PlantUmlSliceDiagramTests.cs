@@ -155,7 +155,8 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             // Slices that are not nested have no namespace, so the focused ones take
             // PlantUmlSlice.BuildString's namespace-less branch with a colour set, which renders
-            // "[Slice1] #99ffd1". The focus string is a namespace, flat or nested.
+            // "[Slice Slice1] as Slice_Slice1 #99ffd1". The focus string is a namespace, flat or
+            // nested.
             var slices = SortedSlices(SliceRuleDefinition.Slices().Matching(Root + "(**)"));
             var uml = new PlantUmlFileBuilder()
                 .WithDependenciesFromFocusOn(slices, Root + "Slice1")
@@ -374,8 +375,11 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .WithDependenciesFromFocusOn(slices, "SlicesTestAssembly.PrefixSiblings.Orders")
                 .AsString();
 
-            Assert.Contains("[Orders] #99ffd1", uml);
-            Assert.Contains("[OrdersArchive]" + Environment.NewLine, uml);
+            Assert.Contains("[Slice Orders] as Slice_Orders #99ffd1", uml);
+            Assert.Contains(
+                "[Slice OrdersArchive] as Slice_OrdersArchive" + Environment.NewLine,
+                uml
+            );
         }
 
         [Fact]
@@ -388,9 +392,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .WithDependenciesFromFocusOn(slices, Root + "Slice3", Nested)
                 .AsString();
 
-            Assert.Contains("[Slice3] as Slice3 #99ffd1", uml);
-            Assert.Contains("[Services] as Services" + Environment.NewLine, uml);
-            Assert.Contains("[Services] --|> [Slice3]", uml);
+            Assert.Contains("[Slice Slice3] as Slice_Slice3 #99ffd1", uml);
+            Assert.Contains("[Slice Services] as Slice_Services" + Environment.NewLine, uml);
+            Assert.Contains("[Slice_Services] --|> [Slice_Slice3]", uml);
         }
 
         [Fact]
@@ -406,7 +410,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .AsString();
 
             Assert.Equal(DrawnSlices(flat), DrawnSlices(nested));
-            Assert.Contains("Slice3.Group1 (focused)", DrawnSlices(flat));
+            Assert.Contains("Slice Slice3.Group1 (focused)", DrawnSlices(flat));
         }
 
         // --- Where nested slices are drawn -----------------------------------------------
@@ -436,9 +440,9 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.Contains(
                 Lines(
                     "  package \"Slice3\" as SlicesTestAssembly.MultipleSubnamespaces.Slice3 {",
-                    "    [Slice3] as Slice3",
+                    "    [Slice Slice3] as Slice_Slice3",
                     "    package \"Group1\" as SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1 {",
-                    "      [Slice3.Group1] as Slice3.Group1"
+                    "      [Slice Slice3.Group1] as Slice_Slice3.Group1"
                 ),
                 uml
             );
@@ -469,7 +473,7 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.Contains(
                 Lines(
                     "package \"SlicesTestAssembly.MultipleSubnamespaces\" as SlicesTestAssembly.MultipleSubnamespaces {",
-                    "  [Services] as Services"
+                    "  [Slice Services] as Slice_Services"
                 ),
                 uml
             );
@@ -491,7 +495,10 @@ namespace ArchUnitNETTests.Domain.PlantUml
                 .ToList();
             var uml = new PlantUmlFileBuilder().WithDependenciesFrom(slices, Nested).AsString();
 
-            Assert.Contains(Environment.NewLine + "[Mixed]" + Environment.NewLine, uml);
+            Assert.Contains(
+                Environment.NewLine + "[Slice Mixed] as Slice_Mixed" + Environment.NewLine,
+                uml
+            );
         }
 
         // --- One set of slices, drawn flat and nested ------------------------------------
@@ -505,9 +512,30 @@ namespace ArchUnitNETTests.Domain.PlantUml
             var nested = new PlantUmlFileBuilder().WithDependenciesFrom(slices, Nested).AsString();
 
             Assert.DoesNotContain("package", flat);
-            Assert.Contains("[Slice1.Service]", flat);
+            Assert.Contains("[Slice Slice1] as Slice_Slice1", flat);
             Assert.Contains("package \"SlicesTestAssembly.MultipleSubnamespaces\"", nested);
-            Assert.Contains("[Slice1.Service] as Slice1.Service", nested);
+            Assert.Contains("[Slice Slice1] as Slice_Slice1", nested);
+        }
+
+        // --- Two slices may not share a node ----------------------------------------------
+
+        [Fact]
+        public void BuildUmlBySlices_SameDiagramName_Throws()
+        {
+            // Different slices, both described "Slice A - B".
+            var slices = new[]
+            {
+                new Slice(SliceIdentifier.Of(new[] { "A - B" }), Array.Empty<IType>()),
+                new Slice(SliceIdentifier.Of(new[] { "A", "B" }), Array.Empty<IType>()),
+            };
+
+            var ex = Assert.Throws<ArgumentException>(() =>
+                new PlantUmlFileBuilder().WithDependenciesFrom(slices)
+            );
+            Assert.Equal(
+                "The slices with parts [\"A - B\"] and [\"A\", \"B\"] would both be drawn as \"Slice A - B\".",
+                ex.Message
+            );
         }
 
         /// <summary>

@@ -6,17 +6,17 @@ HIDE_STEREOTYPE()
 
 package "SlicesTestAssembly.MultipleSubnamespaces" as SlicesTestAssembly.MultipleSubnamespaces {
   package "Slice1" as SlicesTestAssembly.MultipleSubnamespaces.Slice1 {
-    [Slice1] as Slice1
+    [Slice Slice1] as Slice_Slice1
   }
   package "Slice2" as SlicesTestAssembly.MultipleSubnamespaces.Slice2 {
-    [Slice2] as Slice2
+    [Slice Slice2] as Slice_Slice2
   }
   package "Slice3" as SlicesTestAssembly.MultipleSubnamespaces.Slice3 {
-    [Slice3] as Slice3
+    [Slice Slice3] as Slice_Slice3
   }
 }
 
-[Slice1] --|> [Slice2]
-[Slice2] --|> [Slice3]
-[Slice3] --|> [Slice1]
+[Slice_Slice1] --|> [Slice_Slice2]
+[Slice_Slice2] --|> [Slice_Slice3]
+[Slice_Slice3] --|> [Slice_Slice1]
 @enduml

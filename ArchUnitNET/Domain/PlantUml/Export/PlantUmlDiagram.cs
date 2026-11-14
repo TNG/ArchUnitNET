@@ -57,13 +57,14 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         /// </summary>
         /// <remarks>
         /// A slice is identified in the diagram by its name, but not every name is a valid id.
-        /// PlantUML rejects "[Inner] as App.Outer+Inner" and "Container(App.Orders.*.Http, ...)"
-        /// as syntax errors, and slice names can contain such characters: SlicedBy names slices
-        /// after type names such as "Outer+Inner" or "List`1", and a hand-built SliceIdentifier
-        /// can be called anything. No character that a namespace cannot contain works in their
-        /// place either, so the id is made from the name with those characters replaced by "_",
-        /// and suffixed until it clashes with no other name in the diagram. The name itself stays
-        /// the label, and slices whose names are valid ids keep them.
+        /// PlantUML rejects "[Inner] as App.Outer+Inner" and "Container(Slice Orders, ...)" as
+        /// syntax errors, and slice names can contain such characters: every slice description
+        /// starts with "Slice " and joins several parts with " - ", SlicedBy names slices after
+        /// type names such as "Outer+Inner" or "List`1", and a hand-built SliceIdentifier can be
+        /// called anything. No character that a namespace cannot contain works in their place
+        /// either, so the id is made from the name with those characters replaced by "_", and
+        /// suffixed until it clashes with no other name in the diagram. The name itself stays the
+        /// label, and slices whose names are valid ids keep them.
         ///
         /// A valid name can still be taken by a package: a nested slice named after its own
         /// namespace, such as "App.Orders", would share its id with the package "App.Orders" it

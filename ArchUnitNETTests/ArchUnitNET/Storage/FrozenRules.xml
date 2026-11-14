@@ -12,11 +12,11 @@
     <Violation>ArchUnitNETTests.Fluent.FreezeTests+Violation</Violation>
   </FrozenRule>
   <FrozenRule ArchRule="Slices matching &quot;SlicesTestAssembly.MultipleSubnamespaces.(**)&quot; should not depend on each other">
-    <Violation>Slice3</Violation>
-    <Violation>Slice3.Group1</Violation>
-    <Violation>Slice2</Violation>
-    <Violation>Slice2.Service</Violation>
-    <Violation>Slice1</Violation>
-    <Violation>Slice1.Service</Violation>
+    <Violation>Slice Slice3</Violation>
+    <Violation>Slice Slice3.Group1</Violation>
+    <Violation>Slice Slice2</Violation>
+    <Violation>Slice Slice2.Service</Violation>
+    <Violation>Slice Slice1</Violation>
+    <Violation>Slice Slice1.Service</Violation>
   </FrozenRule>
 </FrozenRules>

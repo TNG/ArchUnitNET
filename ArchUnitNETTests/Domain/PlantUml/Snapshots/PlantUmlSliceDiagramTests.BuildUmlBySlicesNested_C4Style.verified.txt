@@ -6,38 +6,38 @@ HIDE_STEREOTYPE()
 
 Boundary(SlicesTestAssembly.MultipleSubnamespaces, SlicesTestAssembly.MultipleSubnamespaces) {
   Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice1, Slice1) {
-    Container(Slice1, Slice1)
+    Container(Slice_Slice1, Slice Slice1)
     Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service, Service) {
-      Container(Slice1.Service, Slice1.Service)
+      Container(Slice_Slice1.Service, Slice Slice1.Service)
     }
   }
   Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice2, Slice2) {
-    Container(Slice2, Slice2)
+    Container(Slice_Slice2, Slice Slice2)
     Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service, Service) {
-      Container(Slice2.Service, Slice2.Service)
+      Container(Slice_Slice2.Service, Slice Slice2.Service)
     }
   }
   Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice3, Slice3) {
-    Container(Slice3, Slice3)
+    Container(Slice_Slice3, Slice Slice3)
     Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1, Group1) {
-      Container(Slice3.Group1, Slice3.Group1)
+      Container(Slice_Slice3.Group1, Slice Slice3.Group1)
       Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group1.Inner, Inner) {
-        Container(Slice3.Group1.Inner, Slice3.Group1.Inner)
+        Container(Slice_Slice3.Group1.Inner, Slice Slice3.Group1.Inner)
       }
     }
     Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2, Group2) {
-      Container(Slice3.Group2, Slice3.Group2)
+      Container(Slice_Slice3.Group2, Slice Slice3.Group2)
       Boundary(SlicesTestAssembly.MultipleSubnamespaces.Slice3.Group2.Inner, Inner) {
-        Container(Slice3.Group2.Inner, Slice3.Group2.Inner)
+        Container(Slice_Slice3.Group2.Inner, Slice Slice3.Group2.Inner)
       }
     }
   }
 }
 
-[Slice1] --|> [Slice2]
-[Slice1.Service] --|> [Slice2.Service]
-[Slice2] --|> [Slice3]
-[Slice2.Service] --|> [Slice3]
-[Slice3] --|> [Slice1]
-[Slice3.Group1] --|> [Slice3]
+[Slice_Slice1] --|> [Slice_Slice2]
+[Slice_Slice1.Service] --|> [Slice_Slice2.Service]
+[Slice_Slice2] --|> [Slice_Slice3]
+[Slice_Slice2.Service] --|> [Slice_Slice3]
+[Slice_Slice3] --|> [Slice_Slice1]
+[Slice_Slice3.Group1] --|> [Slice_Slice3]
 @enduml

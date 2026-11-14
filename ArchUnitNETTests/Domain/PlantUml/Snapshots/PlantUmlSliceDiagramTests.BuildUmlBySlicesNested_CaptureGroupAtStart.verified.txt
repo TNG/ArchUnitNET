@@ -6,17 +6,17 @@ HIDE_STEREOTYPE()
 
 package "SlicesTestAssembly" as SlicesTestAssembly {
   package "DotDotSemantics.Alpha.Service" as SlicesTestAssembly.DotDotSemantics.Alpha.Service {
-    [SlicesTestAssembly.DotDotSemantics.Alpha] as SlicesTestAssembly.DotDotSemantics.Alpha
+    [Slice SlicesTestAssembly.DotDotSemantics.Alpha] as Slice_SlicesTestAssembly.DotDotSemantics.Alpha
   }
   package "MultipleSubnamespaces" as SlicesTestAssembly.MultipleSubnamespaces {
     package "Slice1.Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service {
-      [SlicesTestAssembly.MultipleSubnamespaces.Slice1] as SlicesTestAssembly.MultipleSubnamespaces.Slice1
+      [Slice SlicesTestAssembly.MultipleSubnamespaces.Slice1] as Slice_SlicesTestAssembly.MultipleSubnamespaces.Slice1
     }
     package "Slice2.Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service {
-      [SlicesTestAssembly.MultipleSubnamespaces.Slice2] as SlicesTestAssembly.MultipleSubnamespaces.Slice2
+      [Slice SlicesTestAssembly.MultipleSubnamespaces.Slice2] as Slice_SlicesTestAssembly.MultipleSubnamespaces.Slice2
     }
   }
 }
 
-[SlicesTestAssembly.MultipleSubnamespaces.Slice1] --|> [SlicesTestAssembly.MultipleSubnamespaces.Slice2]
+[Slice_SlicesTestAssembly.MultipleSubnamespaces.Slice1] --|> [Slice_SlicesTestAssembly.MultipleSubnamespaces.Slice2]
 @enduml
