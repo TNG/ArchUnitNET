@@ -207,6 +207,59 @@ namespace ArchUnitNETTests.Domain.PlantUml
             Assert.Equal(new[] { a }, b.Dependencies);
         }
 
+        [Theory]
+        [ClassData(typeof(LinkTypeTestData))]
+        public void ParsesDependenciesFromLinkTypes(string link, string[] expectedDependencies)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .Component("A")
+                    .WithStereoTypes("A.*")
+                    .Component("B")
+                    .WithStereoTypes("B.*")
+                    .RawLine(link)
+                    .Write()
+            );
+
+            Assert.Equal(expectedDependencies, GetDependencies(diagram));
+        }
+
+        [Theory]
+        [InlineData("box-->oak", new[] { "Box->Oak" })]
+        [InlineData("oak<--box", new[] { "Box->Oak" })]
+        [InlineData("box--oak", new string[0])]
+        [InlineData("oak--box", new string[0])]
+        [InlineData("box --o oak", new[] { "Oak->Box" })]
+        [InlineData("box o-- oak", new[] { "Box->Oak" })]
+        [InlineData("box--x0", new string[0])]
+        [InlineData("x0--box", new string[0])]
+        [InlineData("x0 --x box", new string[0])]
+        [InlineData("x0 0)-- box", new string[0])]
+        public void ParsesDecorationLettersOnlyIfSeparatedFromNames(
+            string link,
+            string[] expectedDependencies
+        )
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .Component("Box")
+                    .WithAlias("box")
+                    .WithStereoTypes("Box.*")
+                    .Component("Oak")
+                    .WithAlias("oak")
+                    .WithStereoTypes("Oak.*")
+                    .Component("X0")
+                    .WithAlias("x0")
+                    .WithStereoTypes("X0.*")
+                    .RawLine(link)
+                    .Write()
+            );
+
+            Assert.Equal(expectedDependencies, GetDependencies(diagram));
+        }
+
         [Fact]
         public void DoesNotIncludeCommentedOutLines()
         {
@@ -780,6 +833,17 @@ namespace ArchUnitNETTests.Domain.PlantUml
             return component;
         }
 
+        private static IEnumerable<string> GetDependencies(PlantUmlParsedDiagram diagram)
+        {
+            return diagram
+                .AllComponents.SelectMany(origin =>
+                    origin.Dependencies.Select(target =>
+                        origin.ComponentName.AsString() + "->" + target.ComponentName.AsString()
+                    )
+                )
+                .OrderBy(dependency => dependency);
+        }
+
         private PlantUmlComponent GetComponentWithAlias(Alias alias, PlantUmlParsedDiagram diagram)
         {
             return diagram.ComponentsWithAlias.Where(c => alias.Equals(c.Alias)).Single();
@@ -929,6 +993,138 @@ namespace ArchUnitNETTests.Domain.PlantUml
                     };
                 }
             }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    public class LinkTypeTestData : IEnumerable<object[]>
+    {
+        // the link types shown on https://plantuml.com/class-diagram,
+        // https://plantuml.com/component-diagram and https://plantuml.com/deployment-diagram
+        private static readonly string[] FromAToB =
+        {
+            "-->",
+            "->",
+            "..>",
+            "==>",
+            "~~>",
+            "-->>",
+            "--|>",
+            "..|>",
+            "--||>",
+            "--:|>",
+            "--^",
+            "--\\\\",
+            "*--",
+            "o--",
+            "*..",
+            "o..",
+            "*-->",
+            "#-->>",
+            "*-0)-+",
+            "-le(0)->",
+            ".up(0).>",
+            "~up(0)~>",
+            "-ri0)->",
+            "-[#red]>",
+            "-[#red,dashed,thickness=2]->",
+        };
+
+        private static readonly string[] FromBToA =
+        {
+            "<--",
+            "<-",
+            "<..",
+            "<|--",
+            "<|..",
+            "<<--",
+            "^--",
+            "--*",
+            "--o",
+            "..o",
+            "<--*",
+            "<--o",
+            "<-[#blue]-",
+        };
+
+        private static readonly string[] InBothDirections =
+        {
+            "<-->",
+            "<..>",
+            "<-0->",
+            "<-(0)->",
+            "<-->>",
+            "<|--|>",
+            "^--^",
+            "*--*",
+            "o--o",
+            "*--o",
+        };
+
+        private static readonly string[] WithoutDirection =
+        {
+            "--",
+            "-",
+            "..",
+            "==",
+            "~~",
+            "-up-",
+            "-[#red]-",
+            "#--",
+            "x--",
+            "}--",
+            "+--",
+            "@--",
+            "0--",
+            ")--",
+            "0)--",
+            "()--",
+            "--#",
+            "--x",
+            "--{",
+            "--+",
+            "--@",
+            "--0",
+            "--(",
+            "--(0",
+            "--()",
+            "-0-",
+            "-0)-",
+            "-(0-",
+            "-(0)-",
+            "0)-(0-(0",
+            ")-0-(0",
+            "#~~(",
+        };
+
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            var expectations = new[]
+            {
+                (FromAToB, new[] { "A->B" }),
+                (FromBToA, new[] { "B->A" }),
+                (InBothDirections, new[] { "A->B", "B->A" }),
+                (WithoutDirection, new string[0]),
+            };
+            foreach ((string[] links, string[] expectedDependencies) in expectations)
+            {
+                foreach (string link in links)
+                {
+                    yield return new object[] { "[A] " + link + " [B]", expectedDependencies };
+                    yield return new object[] { "A " + link + " B", expectedDependencies };
+                    yield return new object[] { "[A]" + link + "[B]", expectedDependencies };
+                }
+            }
+            yield return new object[] { "[A] \"1\" *-- \"many\" [B] : contains", new[] { "A->B" } };
+            yield return new object[] { "A --> \"1\" B", new[] { "A->B" } };
+            yield return new object[] { "[A] \"1\" --|> \"many\" [B]", new[] { "A->B" } };
+            yield return new object[]
+            {
+                "A --> B #line:red;line.bold;text:red  : red bold",
+                new[] { "A->B" },
+            };
+            yield return new object[] { "A - B : drives >", new string[0] };
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

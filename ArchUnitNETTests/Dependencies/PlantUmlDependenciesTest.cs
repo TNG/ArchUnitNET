@@ -80,6 +80,12 @@ namespace ArchUnitNETTests.Dependencies
         [InlineData("#palegreen", "Origin-u->Target")]
         [InlineData("#palegreen", "[Origin] -[#red]up-> [Target]")]
         [InlineData("#palegreen", "[Target]<-l-[Origin] : uses")]
+        [InlineData(null, "[Origin] --|> [Target]")]
+        [InlineData(null, "[Target] <|-- [Origin]")]
+        [InlineData(null, "[Origin] \"1\" --|> \"many\" [Target]")]
+        [InlineData(null, "Origin ..> Target")]
+        [InlineData(null, "[Origin] *-- [Target]")]
+        [InlineData(null, "[Target] --o [Origin]")]
         public void FormattedDiagramWithDependencyIsAllowed(string color, string dependency)
         {
             using (MemoryStream memoryStream = new MemoryStream())
@@ -107,6 +113,28 @@ namespace ArchUnitNETTests.Dependencies
 
                 Assert.NotEmpty(plainViolations);
                 Assert.Equal(plainViolations, formattedViolations);
+            }
+        }
+
+        [Theory]
+        [InlineData("[Origin] -- [Target]")]
+        [InlineData("[Origin] #-- [Target]")]
+        [InlineData("[Origin] <-- [Target]")]
+        [InlineData("[Origin] --* [Target]")]
+        public void LinksThatDoNotAllowTheDependencyDoNotChangeViolations(string link)
+        {
+            Architecture architecture = GetArchitectureFrom("SimpleDependency");
+            using (MemoryStream withoutLinkStream = new MemoryStream())
+            using (MemoryStream withLinkStream = new MemoryStream())
+            {
+                CreateSimpleDependencyDiagram(withoutLinkStream, null).Write();
+                CreateSimpleDependencyDiagram(withLinkStream, null).RawLine(link).Write();
+
+                List<string> violationsWithoutLink = GetViolations(withoutLinkStream, architecture);
+                List<string> violationsWithLink = GetViolations(withLinkStream, architecture);
+
+                Assert.NotEmpty(violationsWithoutLink);
+                Assert.Equal(violationsWithoutLink, violationsWithLink);
             }
         }
 

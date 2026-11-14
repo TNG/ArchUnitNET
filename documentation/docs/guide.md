@@ -283,6 +283,19 @@ Only dependencies specified in the PlantUML diagram are considered. So any unkno
 
 The rules that a PlantUML diagram used with ArchUnitNet must abide can be found in the [ArchUnit documentation](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2). In contrast to ArchUnit ArchUnitNet uses a regex as the namespace identifier instead of the two dots syntax.
 
+#### 4.3.2 Which links allow a dependency
+
+Whether a link allows a dependency, and in which direction, depends only on its decorations. The line (`--`, `..`, `==`, `~~`), its length, a direction such as `-up->`, colors, multiplicities and labels make no difference.
+
+| Link | Example | Allows |
+|------|---------|--------|
+| An arrow head (`>`, `>>`, `\|>`, `\|\|>`, `:\|>`, `^`, `\\`) at the component that is depended upon | `[A] --> [B]`, `[A] ..\|> [B]`, `[B] <-- [A]` | A → B |
+| A composition or aggregation diamond (`*`, `o`) at the component that depends on the other | `[A] *-- [B]`, `[B] --o [A]` | A → B |
+| Such decorations at both ends | `[A] <--> [B]`, `[A] *--* [B]` | A → B and B → A |
+| Any other decoration, or none | `[A] -- [B]`, `[A] #-- [B]`, `[A] -0)- [B]` | nothing |
+
+Names without brackets may not contain characters that are used in links: `*`, `#`, `+`, `|`, `^`, `@`, `(`, `)`, `{`, `}`, `\`, `~`, `=`. Put such names in brackets, e.g. `[a+b] --> [c]`. A decoration made of a letter or digit (`o`, `x`, `0`) must be separated from a name without brackets, so `a--oak` is a link without decorations to `oak`.
+
 ## 5. PlantUML file diagram builder
 ArchUnitNET can build a dependency diagram from packages on its own. You can see some examples below.
 

@@ -21,31 +21,96 @@ namespace ArchUnitNET.Domain.PlantUml.Import
         }
     }
 
+    // Matches a link between two components, see e.g.
+    // https://plantuml.com/class-diagram#relations-between-classes and
+    // https://plantuml.com/deployment-diagram#linking-or-arrow
     internal class PlantUmlDependencyMatcher
     {
-        // '[Some Name]', or a name or alias without brackets and whitespace, e.g. 'some-alias'
-        private const string LeftEndpoint = @"(?:\[(?<left>[^\[\]]+)\]|(?<left>[^\s\[\]<>"":]+?))";
+        // '[Some Name]', or a name or alias without brackets, e.g. 'some-alias' or 'Some.Name'
+        private const string PlainName = @"[^\s\[\]<>"":*#+|^@(){}\\~=]+?";
+        private const string LeftEndpoint = @"(?:\[(?<left>[^\[\]]+)\]|(?<left>" + PlainName + "))";
         private const string RightEndpoint =
-            @"(?:\[(?<right>[^\[\]]+)\]|(?<right>[^\s\[\]<>"":]+?))";
+            @"(?:\[(?<right>[^\[\]]+)\]|(?<right>" + PlainName + "))";
+
+        // a multiplicity next to an endpoint, e.g. '"1"' or '"many"'
+        private const string Multiplicity = @"(?:""[^""]*""\s*)?";
+
+        // Decorations made of letters or digits must be separated from a name without brackets,
+        // so that e.g. 'a--oak' is a link to 'oak' and not an aggregation of 'ak'.
+        private const string SeparatedOnTheLeft = @"(?<![^\s\]""])";
+        private const string SeparatedOnTheRight = @"(?![^\s\[""])";
+
+        // Heads that point at the component that is depended upon, e.g. '<', '<|' or '^',
+        // and composition or aggregation diamonds, which sit at the component that depends
+        // on the other. Other decorations, e.g. '#', 'x', '}', '+', '0', '@', ')' or '()',
+        // allow no dependency.
+        private const string LeftDecoration =
+            @"(?:(?<leftArrow><\||<<|<|\^)"
+            + @"|(?<leftDiamond>\*)"
+            + "|"
+            + SeparatedOnTheLeft
+            + "(?<leftDiamond>o)"
+            + @"|\(\)|[#}+@)]"
+            + "|"
+            + SeparatedOnTheLeft
+            + @"(?:x|0\)?))?";
+
+        // the mirror images of the left decorations, plus '||>', ':|>' and '\\' (a half arrow)
+        private const string RightDecoration =
+            @"(?:(?<rightArrow>:\|>|\|\|>|\|>|>>|>|\^|\\\\)"
+            + @"|(?<rightDiamond>\*)"
+            + "|(?<rightDiamond>o)"
+            + SeparatedOnTheRight
+            + @"|\(\)|\(0|[#{+@(]"
+            + "|(?:x|0)"
+            + SeparatedOnTheRight
+            + ")?";
 
         // a line style, e.g. '[#green]' or '[#red,dashed]'
-        private const string Style = @"(?:\[[^\[\]]*\])?";
+        private const string Style = @"\[(?<style>[^\[\]]*)\]";
 
         // a direction in full or abbreviated to its first one or two characters,
         // see https://plantuml.com/component-diagram#changing-arrows-direction
-        private const string Direction = @"(?:left|right|down|up|le|ri|do|l|r|u|d)?";
+        private const string Direction = "left|right|down|up|le|ri|do|l|r|u|d";
 
-        private const string Center = Style + Direction + Style;
+        // a circle or socket in the middle of a line, e.g. '-0-', '-0)-' or '-(0)-'
+        private const string Circle = @"\(0\)|\(0|0\)|0";
 
-        // the line of an arrow, e.g. '--', '-up-' or '-[#red]-'
-        private const string Line = "(?:-+" + Center + "-*|-*" + Center + "-+)";
+        private const string MiddleToken = "(?:" + Style + "|" + Direction + "|" + Circle + ")";
 
-        // e.g. '-->', '<--' or '<-->'
-        private const string Arrow =
-            "(?:(?<leftHead><)" + Line + "(?<rightHead>>)?|" + Line + "(?<rightHead>>))";
+        // plain ('--'), dashed ('..'), bold ('==') or dotted ('~~')
+        private const string LineCharacters = "[-.=~]";
+
+        // e.g. '--', '.up.', '-[#red]-' or '-(0)-'
+        private const string Line =
+            "(?:"
+            + LineCharacters
+            + "+(?:"
+            + MiddleToken
+            + "+"
+            + LineCharacters
+            + "*)?|"
+            + MiddleToken
+            + "+"
+            + LineCharacters
+            + "+)";
+
+        // an inline style after the link, e.g. '#line:red;line.bold;text:red'
+        private const string InlineStyle = @"(?:\s+#\S+)?";
 
         private static readonly Regex Pattern = new Regex(
-            @"^\s*" + LeftEndpoint + @"\s*" + Arrow + @"\s*" + RightEndpoint + @"\s*(?::.*)?$" // the optional description, e.g. ': uses'
+            @"^\s*"
+                + LeftEndpoint
+                + @"\s*"
+                + Multiplicity
+                + LeftDecoration
+                + Line
+                + RightDecoration
+                + @"\s*"
+                + Multiplicity
+                + RightEndpoint
+                + InlineStyle
+                + @"\s*(?::.*)?$" // the optional description, e.g. ': uses'
         );
 
         private PlantUmlDependencyMatcher(string origin, string target)
@@ -66,11 +131,11 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             }
             string left = match.Groups["left"].Value;
             string right = match.Groups["right"].Value;
-            if (match.Groups["rightHead"].Success)
+            if (match.Groups["rightArrow"].Success || match.Groups["leftDiamond"].Success)
             {
                 yield return new PlantUmlDependencyMatcher(left, right);
             }
-            if (match.Groups["leftHead"].Success)
+            if (match.Groups["leftArrow"].Success || match.Groups["rightDiamond"].Success)
             {
                 yield return new PlantUmlDependencyMatcher(right, left);
             }
