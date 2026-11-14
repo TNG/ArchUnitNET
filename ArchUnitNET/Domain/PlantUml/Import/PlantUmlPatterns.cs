@@ -1,214 +1,92 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace ArchUnitNET.Domain.PlantUml.Import
 {
-    internal class PlantUmlPatterns
+    internal static class PlantUmlPatterns
     {
-        private static readonly string ComponentNameGroupName = "componentName";
-        private static readonly string ComponentNameFormat;
-        private static readonly Regex StereotypePattern;
-        private static readonly string StereotypeFormat;
-        private static readonly string AliasGroupName = "alias";
-        private static readonly string AliasFormat;
-        private static readonly Regex PlantUmlComponentPattern;
+        // e.g. '<<Some.Namespace.*>>', can be repeated
+        internal const string Stereotypes = @"(?:<<(?<stereotype>[^<>]+)>>\s*)*";
 
-        static PlantUmlPatterns()
+        internal static ISet<string> GetStereotypes(Match match)
         {
-            StereotypeFormat = "(?:<<" + Capture(AnythingBut("<>")) + ">>\\s*)";
-            ComponentNameFormat =
-                "\\[" + Capture(AnythingBut("\\[\\]"), ComponentNameGroupName) + "]";
-            StereotypePattern = new Regex(StereotypeFormat);
-            AliasFormat = "\\s*(?:as \"?" + Capture("[^\"]+", AliasGroupName) + "\"?)?";
-            PlantUmlComponentPattern = new Regex(
-                @"\A(?:^\s*"
-                    + ComponentNameFormat
-                    + @"\s*"
-                    + StereotypeFormat
-                    + "*"
-                    + AliasFormat
-                    + @"\s*)\z"
+            return new HashSet<string>(
+                match.Groups["stereotype"].Captures.Cast<Capture>().Select(c => c.Value)
             );
         }
+    }
 
-        private static string Capture(string pattern)
+    internal class PlantUmlDependencyMatcher
+    {
+        // e.g. '-left->' or '--[#green]->'
+        private const string ArrowCenter = @"(?:left|right|up|down|\[[^\]]+\])?";
+
+        private static readonly Regex RightArrowPattern = new Regex(
+            @"\s-+" + ArrowCenter + @"-*>\s"
+        );
+        private static readonly Regex LeftArrowPattern = new Regex(
+            @"\s<-*" + ArrowCenter + @"-+\s"
+        );
+
+        private PlantUmlDependencyMatcher(string origin, string target)
         {
-            return "(" + pattern + ")";
+            Origin = origin;
+            Target = target;
         }
 
-        private static string Capture(string pattern, string name)
+        internal string Origin { get; }
+        internal string Target { get; }
+
+        internal static IEnumerable<PlantUmlDependencyMatcher> TryParse(string line)
         {
-            return "(?<" + name + ">" + pattern + ")";
-        }
-
-        private static string AnythingBut(string charsJoined)
-        {
-            return "[^" + charsJoined + "]+";
-        }
-
-        internal IEnumerable<string> FilterComponents(IEnumerable<string> plantUmlDiagramLines)
-        {
-            return plantUmlDiagramLines.Where(l => PlantUmlComponentPattern.Match(l).Success);
-        }
-
-        internal IEnumerable<PlantUmlDependencyMatcher> MatchDependencies(
-            IEnumerable<string> diagramLines
-        )
-        {
-            var result = new List<PlantUmlDependencyMatcher>();
-            foreach (string line in diagramLines)
+            if (RightArrowPattern.IsMatch(line))
             {
-                result.AddRange(PlantUmlDependencyMatcher.TryParseFromLeftToRight(line));
-                result.AddRange(PlantUmlDependencyMatcher.TryParseFromRightToLeft(line));
+                IList<string> parts = ParseParts(line, RightArrowPattern);
+                yield return new PlantUmlDependencyMatcher(parts[0], parts[1]);
             }
-            return result;
-        }
-
-        internal PlantUmlComponentMatcher MatchComponent(string input)
-        {
-            return new PlantUmlComponentMatcher(input);
-        }
-
-        internal class PlantUmlDependencyMatcher
-        {
-            private static readonly string ColorRegex = @"\[[^]]+]"; // for arrows like '--[#green]->'
-            private static readonly string DeppendencyArrowCenterRegex =
-                @"(left|right|up|down|" + ColorRegex + ")?";
-            private static readonly Regex DependencyRightArrowPattern = new Regex(
-                @"\s-+" + DeppendencyArrowCenterRegex + @"-*>\s"
-            );
-            private static readonly Regex DependencyLeftArrowPattern = new Regex(
-                @"\s<-*" + DeppendencyArrowCenterRegex + @"-+\s"
-            );
-
-            public PlantUmlDependencyMatcher(string origin, string target)
+            if (LeftArrowPattern.IsMatch(line))
             {
-                if (origin is null)
-                {
-                    throw new ArgumentNullException(nameof(origin));
-                }
-
-                if (target is null)
-                {
-                    throw new ArgumentNullException(nameof(target));
-                }
-
-                MatchOrigin = origin;
-                MatchTarget = target;
-            }
-
-            public string MatchTarget { get; private set; }
-            public string MatchOrigin { get; private set; }
-
-            internal static IEnumerable<PlantUmlDependencyMatcher> TryParseFromLeftToRight(
-                string line
-            )
-            {
-                return IsDependencyFromLeftToRight(line)
-                    ? ImmutableList.CreateRange(
-                        new List<PlantUmlDependencyMatcher> { ParseDependencyFromLeftToRight(line) }
-                    )
-                    : Enumerable.Empty<PlantUmlDependencyMatcher>();
-            }
-
-            internal static IEnumerable<PlantUmlDependencyMatcher> TryParseFromRightToLeft(
-                string line
-            )
-            {
-                return IsDependencyFromRightToLeft(line)
-                    ? ImmutableList.CreateRange(
-                        new List<PlantUmlDependencyMatcher> { ParseDependencyFromRightToLeft(line) }
-                    )
-                    : Enumerable.Empty<PlantUmlDependencyMatcher>();
-            }
-
-            private static PlantUmlDependencyMatcher ParseDependencyFromRightToLeft(string line)
-            {
-                IList<string> parts = ParseParts(line, DependencyLeftArrowPattern);
-                return new PlantUmlDependencyMatcher(parts[1], parts[0]);
-            }
-
-            private static bool IsDependencyFromRightToLeft(string line)
-            {
-                return DependencyLeftArrowPattern.IsMatch(line);
-            }
-
-            private static bool IsDependencyFromLeftToRight(string line)
-            {
-                return DependencyRightArrowPattern.IsMatch(line);
-            }
-
-            private static PlantUmlDependencyMatcher ParseDependencyFromLeftToRight(string line)
-            {
-                IList<string> parts = ParseParts(line, DependencyRightArrowPattern);
-                return new PlantUmlDependencyMatcher(parts[0], parts[1]);
-            }
-
-            private static IList<string> ParseParts(string line, Regex dependencyRightArrowPattern)
-            {
-                line = RemoveOptionalDescription(line);
-                return dependencyRightArrowPattern
-                    .Replace(line, " ")
-                    .Split(' ')
-                    .Select(l => l.Trim())
-                    .Take(2)
-                    .ToList();
-            }
-
-            private static string RemoveOptionalDescription(string line)
-            {
-                return Regex.Replace(line, ":.*", "");
+                IList<string> parts = ParseParts(line, LeftArrowPattern);
+                yield return new PlantUmlDependencyMatcher(parts[1], parts[0]);
             }
         }
 
-        internal class PlantUmlComponentMatcher
+        private static IList<string> ParseParts(string line, Regex arrowPattern)
         {
-            private Match _componentMatch;
-            private Match _stereotypeMatch;
+            line = Regex.Replace(line, ":.*", ""); // remove the optional description
+            return arrowPattern
+                .Replace(line, " ")
+                .Split(' ')
+                .Select(l => l.Trim())
+                .Take(2)
+                .ToList();
+        }
+    }
 
-            public PlantUmlComponentMatcher(string input)
-            {
-                _componentMatch = PlantUmlComponentPattern.Match(input);
-                if (!_componentMatch.Success)
-                {
-                    throw new InvalidOperationException(
-                        string.Format(
-                            "input {0} does not match pattern {1}",
-                            input,
-                            PlantUmlComponentPattern
-                        )
-                    );
-                }
-                _stereotypeMatch = StereotypePattern.Match(input);
-            }
+    internal class PlantUmlComponentMatcher
+    {
+        private static readonly Regex Pattern = new Regex(
+            @"^\s*\[(?<name>[^\[\]]+)\]\s*"
+                + PlantUmlPatterns.Stereotypes
+                + @"\s*(?:as ""?(?<alias>[^""]+)""?)?\s*$"
+        );
 
-            internal string MatchAlias()
-            {
-                if (_componentMatch.Groups[AliasGroupName].Success)
-                {
-                    return _componentMatch.Groups[AliasGroupName].Value;
-                }
-                return null;
-            }
+        private PlantUmlComponentMatcher(Match match)
+        {
+            Name = match.Groups["name"].Value;
+            Alias = match.Groups["alias"].Success ? match.Groups["alias"].Value : null;
+            Stereotypes = PlantUmlPatterns.GetStereotypes(match);
+        }
 
-            internal string MatchComponentName()
-            {
-                return _componentMatch.Groups[ComponentNameGroupName].Value;
-            }
+        internal string Name { get; }
+        internal string Alias { get; } // null without 'as'
+        internal ISet<string> Stereotypes { get; }
 
-            internal ISet<string> MatchStereoTypes()
-            {
-                ISet<string> result = new HashSet<string>();
-                while (_stereotypeMatch.Success)
-                {
-                    result.Add(_stereotypeMatch.Groups[1].Value);
-                    _stereotypeMatch = _stereotypeMatch.NextMatch();
-                }
-                return result;
-            }
+        internal static PlantUmlComponentMatcher TryParse(string line)
+        {
+            Match match = Pattern.Match(line);
+            return match.Success ? new PlantUmlComponentMatcher(match) : null;
         }
     }
 }
