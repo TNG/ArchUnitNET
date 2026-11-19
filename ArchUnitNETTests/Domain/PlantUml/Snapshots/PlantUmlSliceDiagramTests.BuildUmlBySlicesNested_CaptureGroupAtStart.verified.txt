@@ -1,0 +1,22 @@
+﻿@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package "SlicesTestAssembly" as SlicesTestAssembly {
+  package "DotDotSemantics.Alpha.Service" as SlicesTestAssembly.DotDotSemantics.Alpha.Service {
+    [Slice SlicesTestAssembly.DotDotSemantics.Alpha] as Slice_SlicesTestAssembly.DotDotSemantics.Alpha
+  }
+  package "MultipleSubnamespaces" as SlicesTestAssembly.MultipleSubnamespaces {
+    package "Slice1.Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice1.Service {
+      [Slice SlicesTestAssembly.MultipleSubnamespaces.Slice1] as Slice_SlicesTestAssembly.MultipleSubnamespaces.Slice1
+    }
+    package "Slice2.Service" as SlicesTestAssembly.MultipleSubnamespaces.Slice2.Service {
+      [Slice SlicesTestAssembly.MultipleSubnamespaces.Slice2] as Slice_SlicesTestAssembly.MultipleSubnamespaces.Slice2
+    }
+  }
+}
+
+[Slice_SlicesTestAssembly.MultipleSubnamespaces.Slice1] --|> [Slice_SlicesTestAssembly.MultipleSubnamespaces.Slice2]
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package "ArchUnitNET.Fluent.Syntax.Elements" as ArchUnitNET.Fluent.Syntax.Elements {
+  package "Types" as ArchUnitNET.Fluent.Syntax.Elements.Types {
+    [Slice Syntax - Elements - Types] as Slice_Syntax___Elements___Types
+  }
+  package "Members" as ArchUnitNET.Fluent.Syntax.Elements.Members {
+    [Slice Syntax - Elements - Members] as Slice_Syntax___Elements___Members
+  }
+}
+
+[Slice_Syntax___Elements___Members] --|> [Slice_Syntax___Elements___Types]
+@enduml

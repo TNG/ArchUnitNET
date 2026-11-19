@@ -1119,7 +1119,7 @@ namespace ArchUnitNET.Loader
         {
             foreach (var type in types)
             {
-                ((List<IType>)type.Namespace.Types).Add(type);
+                type.Namespace.AddType(type);
             }
         }
     }

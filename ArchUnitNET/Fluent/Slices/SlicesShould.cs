@@ -7,10 +7,26 @@ using StronglyConnectedComponents;
 
 namespace ArchUnitNET.Fluent.Slices
 {
+    /// <summary>
+    /// Provides condition methods for slice rules. The two available conditions are:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <see cref="BeFreeOfCycles"/> -- asserts that no cyclic dependencies exist between slices.
+    ///     </item>
+    ///     <item>
+    ///         <see cref="NotDependOnEachOther"/> -- asserts that no slice depends on any other slice.
+    ///         This is a stricter condition than cycle-freedom.
+    ///     </item>
+    /// </list>
+    /// </summary>
     public class SlicesShould
     {
         private readonly SliceRuleCreator _ruleCreator;
 
+        /// <summary>
+        /// Initializes a new instance with the given rule creator.
+        /// </summary>
+        /// <param name="ruleCreator">The rule creator that accumulates the rule definition.</param>
         public SlicesShould(SliceRuleCreator ruleCreator)
         {
             _ruleCreator = ruleCreator;
@@ -29,6 +45,12 @@ namespace ArchUnitNET.Fluent.Slices
                 .Where(slc => slc != null);
         }
 
+        /// <summary>
+        /// Asserts that the matched slices are free of dependency cycles. A cycle exists when
+        /// slice A depends on slice B and slice B (directly or transitively) depends back on
+        /// slice A. Uses Tarjan's algorithm to detect strongly connected components.
+        /// </summary>
+        /// <returns>A <see cref="SliceRule"/> representing the complete rule.</returns>
         public SliceRule BeFreeOfCycles()
         {
             _ruleCreator.SetEvaluationFunction(EvaluateBeFreeOfCycles);
@@ -91,7 +113,7 @@ namespace ArchUnitNET.Fluent.Slices
                     }
 
                     var cycleIdentifier = new EnumerableIdentifier(
-                        cycle.Contents.Select(slice => slice.Identifier)
+                        cycle.Contents.Select(slice => new StringIdentifier(slice.Description))
                     );
                     yield return new EvaluationResult(
                         cycle,
@@ -106,7 +128,7 @@ namespace ArchUnitNET.Fluent.Slices
             else
             {
                 var slicesIdentifier = new EnumerableIdentifier(
-                    slicesList.Select(slice => slice.Identifier)
+                    slicesList.Select(slice => new StringIdentifier(slice.Description))
                 );
                 yield return new EvaluationResult(
                     slicesList,
@@ -119,6 +141,12 @@ namespace ArchUnitNET.Fluent.Slices
             }
         }
 
+        /// <summary>
+        /// Asserts that no slice depends on any other slice. This is stricter than
+        /// <see cref="BeFreeOfCycles"/> -- it fails if any inter-slice dependency exists,
+        /// even without forming a cycle.
+        /// </summary>
+        /// <returns>A <see cref="SliceRule"/> representing the complete rule.</returns>
         public SliceRule NotDependOnEachOther()
         {
             _ruleCreator.SetEvaluationFunction(EvaluateNotDependOnEachOther);
@@ -166,7 +194,7 @@ namespace ArchUnitNET.Fluent.Slices
 
                 yield return new EvaluationResult(
                     slice,
-                    slice.Identifier,
+                    new StringIdentifier(slice.Description),
                     passed,
                     description,
                     archRule,

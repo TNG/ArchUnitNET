@@ -15,6 +15,12 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
         private List<Slice> _sliceList = new List<Slice>();
 
+        /// <summary>
+        /// The deepest namespace that contains all types of each slice; see
+        /// <see cref="CommonNamespaceOf"/>.
+        /// </summary>
+        private Dictionary<Slice, string> _commonNamespaces = new Dictionary<Slice, string>();
+
         public string AsString(RenderOptions renderOptions = null)
         {
             if (renderOptions == null)
@@ -122,15 +128,26 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             return this;
         }
 
+        /// <summary>
+        /// Draws the given slices as components, with an arrow from one slice to another wherever
+        /// one of its types depends on one of the other's.
+        /// </summary>
+        /// <param name="slices">The slices to draw, e.g. from <c>GivenSlices.GetObjects</c>.</param>
+        /// <param name="generationOptions">Filters and layout options; the defaults if <c>null</c>.
+        /// With <see cref="GenerationOptions.NestSlicesInPackages"/>, every slice is drawn in the
+        /// <c>package</c> of the deepest namespace that contains all of its types. With
+        /// <see cref="GenerationOptions.LimitDependencies"/>, only the arrows between slices whose
+        /// types share an equally deep namespace are drawn.</param>
+        /// <exception cref="ArgumentException">Two slices would be drawn under the same name.</exception>
         public PlantUmlFileBuilder WithDependenciesFrom(
             IEnumerable<Slice> slices,
             GenerationOptions generationOptions = null
         )
         {
             _sliceList = slices.Distinct().ToList();
-            RemovePatternInappropriateSlices();
+            AssertDistinctNames();
+            AssignCommonNamespaces();
 
-            var nodes = new Dictionary<Slice, IPlantUmlElement>();
             if (generationOptions == null)
             {
                 generationOptions = new GenerationOptions();
@@ -138,118 +155,176 @@ namespace ArchUnitNET.Domain.PlantUml.Export
 
             foreach (var slice in _sliceList)
             {
-                var sliceIsPackage = IsPackage(slice);
-                var dependencyTargets = SelectDependencies(slice, generationOptions);
-
-                if (slice is Namespace) //This throws errors if namespaces and slices are used in the same diagram, the syntax can't be mixed in PlantUML
-                {
-                    nodes.Add(slice, new PlantUmlNamespace(slice.Description));
-                }
-                else if (!sliceIsPackage)
-                {
-                    var slc = new PlantUmlSlice(slice.Description, slice.NameSpace);
-                    if (generationOptions.C4Style)
-                    {
-                        slc.UseS4Style();
-                    }
-                    nodes.Add(slice, slc);
-                }
+                var dependencyTargets = SelectDependencies(
+                    slice,
+                    _sliceList,
+                    target => target.Description,
+                    target => target.Types,
+                    generationOptions
+                );
 
                 if (!generationOptions.LimitDependencies)
-                {
-                    if (sliceIsPackage)
-                    {
-                        _dependencies.AddRange(
-                            dependencyTargets.Select(target => new PlantUmlDependency(
-                                slice.Description,
-                                target.Description,
-                                DependencyType.PackageToOne
-                            ))
-                        );
-                    }
-                    else
-                    {
-                        _dependencies.AddRange(
-                            dependencyTargets.Select(target => new PlantUmlDependency(
-                                slice.Description,
-                                target.Description,
-                                DependencyType.OneToOne
-                            ))
-                        );
-                    }
-                }
-                else if (slice.ContainsNamespace())
-                {
-                    if (sliceIsPackage)
-                    {
-                        _dependencies.AddRange(
-                            dependencyTargets.Select(target => new PlantUmlDependency(
-                                slice.Description,
-                                target.Description,
-                                DependencyType.PackageToPackageIfSameParentNamespace
-                            ))
-                        );
-                    }
-                    else
-                    {
-                        var dt = dependencyTargets
-                            .Select(target => new PlantUmlDependency(
-                                slice.Description,
-                                target.Description,
-                                DependencyType.OneToOneIfSameParentNamespace
-                            ))
-                            .Where(dependency =>
-                                dependency.OriginCountOfDots() < dependency.TargetCountOfDots()
-                                || _sliceList.All(slc =>
-                                    slc.Description == dependency.Target
-                                    || !slc.Description.Contains(dependency.Target)
-                                )
-                            );
-                        _dependencies.AddRange(dt);
-                    }
-                }
-                else
                 {
                     _dependencies.AddRange(
                         dependencyTargets.Select(target => new PlantUmlDependency(
                             slice.Description,
                             target.Description,
-                            DependencyType.OneToOneCompact
+                            DependencyType.OneToOne
                         ))
+                    );
+                }
+                else
+                {
+                    _dependencies.AddRange(
+                        dependencyTargets
+                            .Where(target =>
+                                CountOfSegments(_commonNamespaces[target])
+                                == CountOfSegments(_commonNamespaces[slice])
+                            )
+                            .Select(target => new PlantUmlDependency(
+                                slice.Description,
+                                target.Description,
+                                DependencyType.OneToOneCompact
+                            ))
                     );
                 }
             }
 
-            if (!generationOptions.IncludeNodesWithoutDependencies)
+            if (!generationOptions.LimitDependencies)
             {
-                nodes = RemoveNodesNotContainedInDependencies(nodes);
+                ReplaceCirclesWithAppropriateDependencyType();
+            }
+            RemoveDuplicatedArrowsIfExist();
+
+            var drawnSlices = generationOptions.IncludeNodesWithoutDependencies
+                ? _sliceList
+                : SlicesContainedInDependencies();
+            var packages = AssignPackages(drawnSlices, generationOptions.NestSlicesInPackages);
+            foreach (var slice in drawnSlices)
+            {
+                var node = CreateNode(slice, packages);
+                if (generationOptions.C4Style)
+                {
+                    node.UseS4Style();
+                }
+                _diagram.AddElement(node);
+            }
+            _diagram.AddElements(_dependencies);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Draws the given namespaces as nested PlantUML namespaces, with an arrow from one
+        /// namespace to another wherever one of its types depends on one of the other's. Parent
+        /// namespaces that are not in the list are added so that the nesting is complete.
+        /// </summary>
+        /// <param name="namespaces">The namespaces to draw, e.g. <see cref="Architecture.Namespaces"/>.</param>
+        /// <param name="generationOptions">Filters and layout options; the defaults if <c>null</c>.
+        /// <see cref="GenerationOptions.C4Style"/> does not apply to namespaces.</param>
+        public PlantUmlFileBuilder WithDependenciesFrom(
+            IEnumerable<Namespace> namespaces,
+            GenerationOptions generationOptions = null
+        )
+        {
+            var namespaceList = namespaces.Distinct().ToList();
+            if (generationOptions == null)
+            {
+                generationOptions = new GenerationOptions();
             }
 
-            var nodeElements = HandleNodes(nodes);
+            var dependencyType = generationOptions.LimitDependencies
+                ? DependencyType.OneToOneCompact
+                : DependencyType.OneToOne;
+            var nodes = new Dictionary<Namespace, IPlantUmlElement>();
+
+            foreach (var ns in namespaceList)
+            {
+                nodes.Add(ns, new PlantUmlNamespace(ns.FullName));
+                _dependencies.AddRange(
+                    SelectDependencies(
+                            ns,
+                            namespaceList,
+                            target => target.FullName,
+                            target => target.Types,
+                            generationOptions
+                        )
+                        .Where(target =>
+                            !generationOptions.LimitDependencies
+                            || CountOfSegments(target.FullName) == CountOfSegments(ns.FullName)
+                        )
+                        .Select(target => new PlantUmlDependency(
+                            ns.FullName,
+                            target.FullName,
+                            dependencyType
+                        ))
+                );
+            }
+
+            if (!generationOptions.IncludeNodesWithoutDependencies)
+            {
+                RemoveNodesNotContainedInDependencies(nodes, ns => ns.FullName);
+            }
+
+            var nodeElements = nodes.Values.ToList();
+            foreach (var ns in nodes.Keys)
+            {
+                var namespaceName = ns.FullName;
+                var dotIndex = namespaceName.Length;
+                var parentNamespaces = new List<string>();
+                while (dotIndex != -1)
+                {
+                    namespaceName = namespaceName.Substring(0, dotIndex);
+                    parentNamespaces.Add(namespaceName);
+                    dotIndex = namespaceName.LastIndexOf('.');
+                }
+
+                parentNamespaces.Reverse();
+                foreach (
+                    var parent in parentNamespaces.Where(parentName =>
+                        nodeElements
+                            .OfType<PlantUmlNamespace>()
+                            .All(element => element.Name != parentName)
+                    )
+                )
+                {
+                    nodeElements.Add(new PlantUmlNamespace(parent));
+                }
+            }
 
             if (!generationOptions.LimitDependencies)
             {
-                RemoveDuplicateDependenciesWhenShowingPackages();
                 ReplaceCirclesWithAppropriateDependencyType();
             }
             RemoveDuplicatedArrowsIfExist();
 
             _diagram.AddElements(
-                nodeElements.OrderBy(element =>
-                    element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1
-                )
+                nodeElements.OrderBy(element => ((PlantUmlNamespace)element).Name.Length)
             );
             _diagram.AddElements(_dependencies);
 
             return this;
         }
 
+        /// <summary>
+        /// Draws only the slices whose types all lie in the namespace <paramref name="package"/>
+        /// or below it, colored, and the slices they depend on or that depend on them, with the
+        /// arrows between them that start or end at one of the former.
+        /// </summary>
+        /// <param name="slices">The slices to draw, e.g. from <c>GivenSlices.GetObjects</c>.</param>
+        /// <param name="package">The namespace to focus on.</param>
+        /// <param name="generationOptions">Only <see cref="GenerationOptions.NestSlicesInPackages"/>
+        /// is read; the defaults if <c>null</c>.</param>
+        /// <exception cref="ArgumentException">The package is empty, a single dot or a namespace
+        /// that no slice lies in, or two slices would be drawn under the same name.</exception>
         public PlantUmlFileBuilder WithDependenciesFromFocusOn(
             IEnumerable<Slice> slices,
-            string package
+            string package,
+            GenerationOptions generationOptions = null
         )
         {
             _sliceList = slices.Distinct().ToList();
+            AssertDistinctNames();
 
             switch (package)
             {
@@ -264,226 +339,111 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                 package = package.Remove(package.Length - 1);
             }
 
-            RemovePatternInappropriateSlices(package);
+            AssignCommonNamespaces();
 
-            var existPackage = _sliceList.Any(slice =>
-                (slice.NameSpace + slice.Description).Contains(package)
+            var focusedSlices = new HashSet<string>(
+                _sliceList
+                    .Where(slice => LiesIn(_commonNamespaces[slice], package))
+                    .Select(slice => slice.Description)
             );
-            if (!existPackage)
+            if (focusedSlices.Count == 0)
             {
-                throw new ArgumentException(
-                    "The package [" + package + "] is not contained in this slice"
-                );
+                throw new ArgumentException("No slice lies in the namespace [" + package + "]");
             }
 
-            var nodes = new Dictionary<Slice, IPlantUmlElement>();
-            var generationOptions = new GenerationOptions();
+            var defaultOptions = new GenerationOptions();
 
             foreach (var slice in _sliceList)
             {
-                var sliceIsPackage = IsPackage(slice);
-                var dependencyTargets = SelectDependencies(slice, generationOptions);
+                var dependencyTargets = SelectDependencies(
+                    slice,
+                    _sliceList,
+                    target => target.Description,
+                    target => target.Types,
+                    defaultOptions
+                );
 
-                if (sliceIsPackage)
-                {
-                    _dependencies.AddRange(
-                        dependencyTargets.Select(target => new PlantUmlDependency(
-                            slice.Description,
-                            target.Description,
-                            DependencyType.PackageToOne
-                        ))
-                    );
-                }
-                else
-                {
-                    _dependencies.AddRange(
-                        dependencyTargets.Select(target => new PlantUmlDependency(
-                            slice.Description,
-                            target.Description,
-                            DependencyType.OneToOne
-                        ))
-                    );
-                }
-
-                if (slice is Namespace) //This throws errors if namespaces and slices are used in the same diagram, the syntax can't be mixed in PlantUML
-                {
-                    nodes.Add(slice, new PlantUmlNamespace(slice.Description));
-                }
-                else if (!sliceIsPackage)
-                {
-                    nodes.Add(
-                        slice,
-                        slice.Description.Contains(package)
-                            ? new PlantUmlSlice(slice.Description, slice.NameSpace, "99ffd1")
-                            : new PlantUmlSlice(slice.Description, slice.NameSpace)
-                    );
-                }
-                else if (!slice.Description.Contains(package))
-                {
-                    nodes.Add(slice, new PlantUmlSlice(slice.Description + ".", slice.NameSpace));
-                }
+                _dependencies.AddRange(
+                    dependencyTargets.Select(target => new PlantUmlDependency(
+                        slice.Description,
+                        target.Description,
+                        DependencyType.OneToOne
+                    ))
+                );
             }
 
-            if (!generationOptions.IncludeNodesWithoutDependencies)
-            {
-                nodes = RemoveNodesNotContainedInDependencies(nodes);
-            }
-
-            RemoveDuplicateDependenciesWhenShowingPackages();
             ReplaceCirclesWithAppropriateDependencyType();
             RemoveDuplicatedArrowsIfExist();
 
-            for (var j = _dependencies.Count - 1; j >= 0; j--)
-            {
-                if (
-                    !_dependencies[j].Origin.Contains(package)
-                    && !_dependencies[j].Target.Contains(package)
-                )
-                {
-                    _dependencies.RemoveAt(j);
-                }
-            }
-
-            for (var i = nodes.Count - 1; i >= 0; i--)
-            {
-                var nodeExist = _dependencies.Any(dep =>
-                    nodes.ElementAt(i).Key.Description == dep.Origin
-                    || nodes.ElementAt(i).Key.Description == dep.Target
-                );
-                if (!nodeExist)
-                {
-                    nodes.Remove(nodes.ElementAt(i).Key);
-                }
-            }
-
-            var nodeElements = HandleNodes(nodes);
-
-            _diagram.AddElements(
-                nodeElements.OrderBy(element =>
-                    element is PlantUmlNamespace @namespace ? @namespace.Name.Length : -1
-                )
+            _dependencies.RemoveAll(dependency =>
+                !focusedSlices.Contains(dependency.Origin)
+                && !focusedSlices.Contains(dependency.Target)
             );
 
-            var tempList = _sliceList
-                .Where(slice => IsPackage(slice) && slice.Description.Contains(package))
-                .Select(slice => new PlantUmlSlice(
-                    slice.Description + ".",
-                    slice.NameSpace,
-                    "99ffd1"
-                ))
-                .ToList();
-            if (tempList.Count > 0)
-            {
-                _diagram.AddElements(tempList.OrderByDescending(element => element.ToString()));
-            }
+            var drawnSlices = SlicesContainedInDependencies();
+            var packages = AssignPackages(
+                drawnSlices,
+                generationOptions?.NestSlicesInPackages ?? false
+            );
+            _diagram.AddElements(
+                drawnSlices.Select(slice =>
+                    CreateNode(
+                        slice,
+                        packages,
+                        focusedSlices.Contains(slice.Description) ? "99ffd1" : null
+                    )
+                )
+            );
             _diagram.AddElements(_dependencies);
 
             return this;
         }
 
-        private Dictionary<Slice, IPlantUmlElement> RemoveNodesNotContainedInDependencies(
-            Dictionary<Slice, IPlantUmlElement> nodes
+        /// <summary>
+        /// Removes the nodes whose name no dependency starts or ends at.
+        /// </summary>
+        private void RemoveNodesNotContainedInDependencies<T>(
+            Dictionary<T, IPlantUmlElement> nodes,
+            Func<T, string> nameOf
         )
         {
+            var namesInDependencies = new HashSet<string>(
+                _dependencies.SelectMany(dep => new[] { dep.Origin, dep.Target })
+            );
+            // Collected first: removing entries while enumerating the dictionary throws on
+            // .NET Framework.
             foreach (
-                var entry in nodes.Where(node =>
-                    !_dependencies
-                        .SelectMany(dep => new[] { dep.Origin, dep.Target })
-                        .Contains(node.Key.Description)
-                )
+                var key in nodes
+                    .Keys.Where(key => !namesInDependencies.Contains(nameOf(key)))
+                    .ToList()
             )
             {
-                nodes.Remove(entry.Key);
+                nodes.Remove(key);
             }
-            return nodes;
         }
 
-        private static IEnumerable<IPlantUmlElement> HandleNodes(
-            Dictionary<Slice, IPlantUmlElement> nodes
-        )
-        {
-            var nodeElements = nodes.Values.ToList();
-
-            foreach (var node in nodes)
-            {
-                if (node.Key is Namespace)
-                {
-                    var namespaceName = node.Key.Description;
-                    var dotIndex = namespaceName.Length;
-                    var parentNamespaces = new List<string>();
-                    while (dotIndex != -1)
-                    {
-                        namespaceName = namespaceName.Substring(0, dotIndex);
-                        parentNamespaces.Add(namespaceName);
-                        dotIndex = namespaceName.LastIndexOf('.');
-                    }
-
-                    parentNamespaces.Reverse();
-                    foreach (
-                        var namespc in parentNamespaces.Where(namespcName =>
-                            nodeElements
-                                .OfType<PlantUmlNamespace>()
-                                .All(element => element.Name != namespcName)
-                        )
-                    )
-                    {
-                        nodeElements.Add(new PlantUmlNamespace(namespc));
-                    }
-                }
-            }
-
-            return nodeElements;
-        }
-
-        private IEnumerable<Slice> SelectDependencies(
-            Slice slice,
+        /// <summary>
+        /// The candidates, other than <paramref name="origin"/> itself, that one of the origin's
+        /// dependencies passing <see cref="GenerationOptions.DependencyFilter"/> points into.
+        /// </summary>
+        private static IEnumerable<T> SelectDependencies<T>(
+            T origin,
+            IEnumerable<T> candidates,
+            Func<T, string> nameOf,
+            Func<T, IEnumerable<IType>> typesOf,
             GenerationOptions generationOptions
-        ) =>
-            _sliceList.Where(targetSlice =>
-                targetSlice.Description != slice.Description
-                && slice
+        )
+            where T : IHasDependencies
+        {
+            var originName = nameOf(origin);
+            return candidates.Where(target =>
+                nameOf(target) != originName
+                && origin
                     .Dependencies.Where(dep =>
                         generationOptions.DependencyFilter?.Invoke(dep) ?? true
                     )
-                    .Any(dep => targetSlice.Types.Contains(dep.Target))
+                    .Any(dep => typesOf(target).Contains(dep.Target))
             );
-
-        private void RemovePatternInappropriateSlices(string thatContainsThisString = null)
-        {
-            if (_sliceList.Any(slice => slice.CountOfAsteriskInPattern == null))
-            {
-                return;
-            }
-            if (
-                thatContainsThisString != null
-                && !_sliceList.Any(slice =>
-                    (slice.NameSpace + slice.Description).Contains(thatContainsThisString)
-                )
-            )
-            {
-                return;
-            }
-
-            for (var i = _sliceList.Count - 1; i >= 0; i--)
-            {
-                var dots = 0;
-
-                if (
-                    thatContainsThisString != null
-                    && !(_sliceList[i].Description).Contains(thatContainsThisString)
-                )
-                {
-                    continue;
-                }
-
-                dots += _sliceList[i].Description.Count(c => c == '.');
-                dots -= (_sliceList[i].NameSpace ?? string.Empty).Count(c => c == '.');
-
-                if (dots >= _sliceList[i].CountOfAsteriskInPattern)
-                {
-                    _sliceList.RemoveAt(i);
-                }
-            }
         }
 
         private void RemoveDuplicatedArrowsIfExist()
@@ -499,104 +459,6 @@ namespace ArchUnitNET.Domain.PlantUml.Export
                         _dependencies.RemoveAt(i);
                         break;
                     }
-                }
-            }
-        }
-
-        private void RemoveDuplicateDependenciesWhenShowingPackages()
-        {
-            if (_sliceList.Any(slice => !slice.ContainsNamespace()))
-            {
-                return;
-            }
-
-            for (var j = _dependencies.Count - 1; j >= 0; j--)
-            {
-                if (
-                    _sliceList.Any(slice =>
-                        slice.Description.Contains(_dependencies[j].Target)
-                        && slice.Description != _dependencies[j].Target
-                    )
-                )
-                {
-                    if (_dependencies[j].Origin.Contains(_dependencies[j].Target))
-                    {
-                        _dependencies.RemoveAt(j);
-                    }
-                    else if (_dependencies[j].DependencyType == DependencyType.PackageToOne)
-                    {
-                        _dependencies[j] = new PlantUmlDependency(
-                            _dependencies[j].Origin,
-                            _dependencies[j].Target,
-                            DependencyType.PackageToPackage
-                        );
-                    }
-                    else
-                    {
-                        _dependencies[j] = new PlantUmlDependency(
-                            _dependencies[j].Origin,
-                            _dependencies[j].Target,
-                            DependencyType.OneToPackage
-                        );
-                    }
-                    continue;
-                }
-
-                if (_dependencies[j].DependencyType != DependencyType.PackageToOne)
-                {
-                    continue;
-                }
-
-                if (_dependencies[j].Target.Contains(_dependencies[j].Origin))
-                {
-                    _dependencies.RemoveAt(j);
-                }
-            }
-
-            for (var i = _dependencies.Count - 1; i >= 0; i--)
-            {
-                if (
-                    _dependencies[i].DependencyType == DependencyType.PackageToOne
-                    || _dependencies[i].DependencyType == DependencyType.PackageToPackage
-                )
-                {
-                    if (
-                        _dependencies.Any(dependency =>
-                            _dependencies[i].Target == dependency.Target
-                            && dependency.Origin.Contains(_dependencies[i].Origin)
-                            && dependency.Origin != _dependencies[i].Origin
-                        )
-                    )
-                    {
-                        _dependencies.RemoveAt(i);
-                        continue;
-                    }
-                }
-
-                if (
-                    _dependencies[i].DependencyType == DependencyType.OneToPackage
-                    || _dependencies[i].DependencyType == DependencyType.PackageToPackage
-                )
-                {
-                    if (
-                        _dependencies.Any(dependency =>
-                            dependency.Target.Contains(_dependencies[i].Target)
-                            && dependency.Target != _dependencies[i].Target
-                            && dependency.Origin.Contains(_dependencies[i].Origin)
-                        )
-                    )
-                    {
-                        _dependencies.RemoveAt(i);
-                        continue;
-                    }
-                }
-
-                if (
-                    _dependencies[i].Target.Contains(_dependencies[i].Origin)
-                    && _dependencies[i].Target != _dependencies[i].Origin
-                )
-                {
-                    _dependencies.RemoveAt(i);
                 }
             }
         }
@@ -626,25 +488,206 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             }
         }
 
-        private bool IsPackage(Slice slice)
+        /// <summary>
+        /// Rejects two slices with the same name, which the diagram would draw as one node. Only
+        /// slices with different parts can share one, when a part contains " - ", as
+        /// <c>["A - B"]</c> and <c>["A", "B"]</c> are both named "Slice A - B".
+        /// </summary>
+        private void AssertDistinctNames()
         {
-            if (!slice.ContainsNamespace())
+            var slicesByName = new Dictionary<string, Slice>();
+            foreach (var slice in _sliceList)
             {
-                return false;
-            }
-
-            for (var i = _sliceList.Count - 1; i >= 0; i--)
-            {
-                if (
-                    _sliceList[i].Description != slice.Description
-                    & _sliceList[i].Description.StartsWith(slice.Description)
-                )
+                if (slicesByName.TryGetValue(slice.Description, out var other))
                 {
-                    return true;
+                    throw new ArgumentException(
+                        "The slices with parts "
+                            + FormatParts(other)
+                            + " and "
+                            + FormatParts(slice)
+                            + " would both be drawn as \""
+                            + slice.Description
+                            + "\"."
+                    );
+                }
+
+                slicesByName.Add(slice.Description, slice);
+            }
+        }
+
+        private static string FormatParts(Slice slice)
+        {
+            return "["
+                + string.Join(", ", slice.Identifier.Parts.Select(part => "\"" + part + "\""))
+                + "]";
+        }
+
+        /// <summary>
+        /// The slices that a dependency starts or ends at, in the order of the slice list.
+        /// </summary>
+        private List<Slice> SlicesContainedInDependencies()
+        {
+            var namesInDependencies = new HashSet<string>(
+                _dependencies.SelectMany(dep => new[] { dep.Origin, dep.Target })
+            );
+            return _sliceList
+                .Where(slice => namesInDependencies.Contains(slice.Description))
+                .ToList();
+        }
+
+        private void AssignCommonNamespaces()
+        {
+            _commonNamespaces = _sliceList.ToDictionary(slice => slice, CommonNamespaceOf);
+        }
+
+        /// <summary>
+        /// The deepest namespace that contains all types of the slice, i.e. the longest sequence
+        /// of leading segments their namespaces share, or an empty string if they share none.
+        /// </summary>
+        private static string CommonNamespaceOf(Slice slice)
+        {
+            string[] commonSegments = null;
+            var length = 0;
+            foreach (var type in slice.Types)
+            {
+                var segments = (type.Namespace?.FullName ?? "").Split('.');
+                if (commonSegments == null)
+                {
+                    commonSegments = segments;
+                    length = segments.Length;
+                    continue;
+                }
+
+                length = Math.Min(length, segments.Length);
+                for (var i = 0; i < length; i++)
+                {
+                    if (segments[i] != commonSegments[i])
+                    {
+                        length = i;
+                        break;
+                    }
                 }
             }
 
-            return false;
+            return commonSegments == null ? "" : string.Join(".", commonSegments.Take(length));
+        }
+
+        private static int CountOfSegments(string nameSpace)
+        {
+            return nameSpace == "" ? 0 : nameSpace.Count(c => c == '.') + 1;
+        }
+
+        /// <summary>
+        /// Whether <paramref name="nameSpace"/> is <paramref name="package"/> or lies below it.
+        /// </summary>
+        private static bool LiesIn(string nameSpace, string package)
+        {
+            return nameSpace == package
+                || nameSpace.StartsWith(package + ".", StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// Decides for every slice the packages it is drawn in, outermost first, if slices are
+        /// nested at all.
+        /// </summary>
+        /// <remarks>
+        /// The packages are the namespace tree of the slices' common namespaces, and each slice
+        /// sits in the package of its own common namespace. A package that holds no slice and
+        /// exactly one package is merged with that package into one labelled with both, e.g.
+        /// "Orders.Domain", down to the first package that holds a slice or several packages. So
+        /// the outermost package is a whole namespace such as "App.Orders". A slice whose types
+        /// share no namespace is in no package and is drawn on its own.
+        /// </remarks>
+        /// <param name="slices">The slices that are drawn.</param>
+        /// <param name="nestSlicesInPackages">
+        /// Whether the options ask for nesting; slices of <c>MatchingWithPackages</c> are nested
+        /// regardless.
+        /// </param>
+        private Dictionary<Slice, List<string>> AssignPackages(
+            List<Slice> slices,
+            bool nestSlicesInPackages
+        )
+        {
+            var packages = new Dictionary<Slice, List<string>>();
+            if (!nestSlicesInPackages && !slices.Any(slice => slice.NestByDefault))
+            {
+                return packages;
+            }
+
+            var nestedSlices = slices.Where(slice => _commonNamespaces[slice] != "").ToList();
+            var root = new NamespaceNode();
+            foreach (var slice in nestedSlices)
+            {
+                var node = root;
+                foreach (var segment in _commonNamespaces[slice].Split('.'))
+                {
+                    node = node.GetOrAddChild(segment);
+                }
+                node.HoldsSlice = true;
+            }
+
+            foreach (var slice in nestedSlices)
+            {
+                var path = new List<string>();
+                var node = root;
+                foreach (var segment in _commonNamespaces[slice].Split('.'))
+                {
+                    var mergesWithChild =
+                        node != root && !node.HoldsSlice && node.Children.Count == 1;
+                    node = node.Children[segment];
+                    if (mergesWithChild)
+                    {
+                        path[path.Count - 1] += "." + segment;
+                    }
+                    else
+                    {
+                        path.Add(segment);
+                    }
+                }
+                packages.Add(slice, path);
+            }
+
+            return packages;
+        }
+
+        private static PlantUmlSlice CreateNode(
+            Slice slice,
+            Dictionary<Slice, List<string>> packages,
+            string color = null
+        )
+        {
+            if (!packages.TryGetValue(slice, out var path))
+            {
+                return new PlantUmlSlice(slice.Description, null, color);
+            }
+
+            return new PlantUmlSlice(
+                slice.Description,
+                path[0] + ".",
+                path.Skip(1).ToList(),
+                slice.Description,
+                color
+            );
+        }
+
+        /// <summary>A namespace in the tree that <see cref="AssignPackages"/> builds.</summary>
+        private class NamespaceNode
+        {
+            public readonly Dictionary<string, NamespaceNode> Children =
+                new Dictionary<string, NamespaceNode>();
+
+            public bool HoldsSlice;
+
+            public NamespaceNode GetOrAddChild(string segment)
+            {
+                if (!Children.TryGetValue(segment, out var child))
+                {
+                    child = new NamespaceNode();
+                    Children.Add(segment, child);
+                }
+
+                return child;
+            }
         }
     }
 }

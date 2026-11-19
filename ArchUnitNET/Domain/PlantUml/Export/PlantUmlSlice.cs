@@ -13,6 +13,10 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         private string Color { get; }
         private bool C4Style { get; set; }
 
+        // Set when the caller already knows where the slice sits; see the internal constructor.
+        private readonly IReadOnlyList<string> _packages;
+        private readonly string _leaf;
+
         public PlantUmlSlice(
             string name,
             string nameSpace = null,
@@ -27,6 +31,31 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             Namespace = nameSpace;
             Color = color;
             Alias = name;
+        }
+
+        /// <summary>
+        /// Creates a nested slice whose packages and label are given rather than read off its
+        /// name.
+        /// </summary>
+        /// <param name="name">The full slice name, which is also the alias arrows point at.</param>
+        /// <param name="nameSpace">The root package, with a trailing ".".</param>
+        /// <param name="packages">The packages between the root package and the slice.</param>
+        /// <param name="leaf">
+        /// The label inside the innermost package, or an empty string if the slice only stands
+        /// for that package.
+        /// </param>
+        /// <param name="color">The background color, if any.</param>
+        internal PlantUmlSlice(
+            string name,
+            string nameSpace,
+            IReadOnlyList<string> packages,
+            string leaf,
+            string color = null
+        )
+            : this(name, nameSpace, color)
+        {
+            _packages = packages;
+            _leaf = leaf;
         }
 
         public override string ToString()
@@ -66,9 +95,32 @@ namespace ArchUnitNET.Domain.PlantUml.Export
             get
             {
                 var path = new List<string> { RootPackage };
+                if (_packages != null)
+                {
+                    path.AddRange(_packages);
+                    return path;
+                }
+
                 var segments = _name.Remove(0, Namespace.Length).Split('.');
                 path.AddRange(segments.Take(segments.Length - 1));
                 return path;
+            }
+        }
+
+        /// <summary>
+        /// The ids of the packages this slice is nested in, outermost first; see
+        /// <see cref="PlantUmlSliceTree"/>.
+        /// </summary>
+        internal IEnumerable<string> PackageIds
+        {
+            get
+            {
+                string id = null;
+                foreach (var package in PackagePath)
+                {
+                    id = id == null ? package : id + "." + package;
+                    yield return id;
+                }
             }
         }
 
@@ -80,6 +132,11 @@ namespace ArchUnitNET.Domain.PlantUml.Export
         {
             get
             {
+                if (_leaf != null)
+                {
+                    return _leaf;
+                }
+
                 var name = _name.Remove(0, Namespace.Length);
                 return name.Substring(name.LastIndexOf('.') + 1);
             }

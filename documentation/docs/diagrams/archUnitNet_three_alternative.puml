@@ -1,0 +1,26 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+Boundary(ArchUnitNET, ArchUnitNET) {
+  Boundary(ArchUnitNET.Fluent.Syntax.Elements, Fluent.Syntax.Elements) {
+    Container(Slice_Fluent___Syntax___Elements, Slice Fluent - Syntax - Elements)
+  }
+  Boundary(ArchUnitNET.Domain.PlantUml, Domain.PlantUml) {
+    Boundary(ArchUnitNET.Domain.PlantUml.Import, Import) {
+      Container(Slice_Domain___PlantUml___Import, Slice Domain - PlantUml - Import)
+    }
+    Boundary(ArchUnitNET.Domain.PlantUml.Export, Export) {
+      Container(Slice_Domain___PlantUml___Export, Slice Domain - PlantUml - Export)
+    }
+    Boundary(ArchUnitNET.Domain.PlantUml.Exceptions, Exceptions) {
+      Container(Slice_Domain___PlantUml___Exceptions, Slice Domain - PlantUml - Exceptions)
+    }
+  }
+}
+
+[Slice_Domain___PlantUml___Import] --|> [Slice_Domain___PlantUml___Exceptions]
+[Slice_Domain___PlantUml___Export] --|> [Slice_Domain___PlantUml___Exceptions]
+@enduml

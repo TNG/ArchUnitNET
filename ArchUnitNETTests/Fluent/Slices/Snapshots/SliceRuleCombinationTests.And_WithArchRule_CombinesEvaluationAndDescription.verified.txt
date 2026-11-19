@@ -26,11 +26,11 @@ Message:
 Query: Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**)" should be free of cycles and Types that have name "NotTheNameOfAnyObject" should exist
 Result: False
 Description: Cycle found:
-Slice2 -> Slice3
+Slice Slice2 -> Slice Slice3
 	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
-Slice1 -> Slice2
+Slice Slice1 -> Slice Slice2
 	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class
-Slice3 -> Slice1
+Slice Slice3 -> Slice Slice1
 	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class
 
 Result: False
@@ -38,11 +38,11 @@ Description: There are no objects matching the criteria
 Message: 
 "Slices matching "SlicesTestAssembly.MultipleSubnamespaces.(**)" should be free of cycles" failed:
 	Cycle found:
-Slice2 -> Slice3
+Slice Slice2 -> Slice Slice3
 	SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class
-Slice1 -> Slice2
+Slice Slice1 -> Slice Slice2
 	SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice2.Slice2Class
-Slice3 -> Slice1
+Slice Slice3 -> Slice Slice1
 	SlicesTestAssembly.MultipleSubnamespaces.Slice3.Slice3Class -> SlicesTestAssembly.MultipleSubnamespaces.Slice1.Slice1Class
 
 

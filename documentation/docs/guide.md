@@ -174,12 +174,73 @@ IArchRule rule = Classes().That().DoNotHaveAnyAttributes(typeof(Display)).Should
                     .NotDependOnAny(Classes().That().AreAssignableTo(typeof(ICanvas)));
 ```
 
-### 3.6. Cycle Rule
+### 3.6. Slice Rules
+Slices group types by namespace. A *slice* is the set of types whose namespaces produced the same
+captured values from a pattern -- with `"App.(*)"`, the types in `App.Orders` form one slice, those in
+`App.Shipping` another.
+
+To use the `Slices()` entry point directly, add:
+```cs
+using static ArchUnitNET.Fluent.Slices.SliceRuleDefinition;
+```
+
+#### Pattern syntax
+| Token    | Meaning |
+|----------|---------|
+| `(*)`    | Captures exactly one namespace segment. |
+| `(**)`   | Captures one or more segments. |
+| `(A\|B)` | Captures one of the listed alternatives. |
+| `*`      | Matches one segment without capturing it. |
+| `..`     | Matches zero or more segments. |
+| `[A\|B]` | Matches one of the listed alternatives. |
+
+A pattern must contain at least one capture group, may not mix `(*)` and `(**)`, and may use `(**)`
+at most once. Apart from these tokens, it may only contain the characters of namespace segments, so
+regex syntax such as `+` or `?` is rejected. `Matching` throws an `ArgumentException` otherwise -- when the rule is defined, not when
+it is checked. Types whose namespace does not match are left out entirely.
+
+#### How slices are named
+A slice is identified by **what its capture groups captured**, in group order. Two types end up in
+the same slice exactly when their groups captured the same values. The pattern text between, before
+and after the groups only selects which types belong to a slice: `"App.(*).(*)"`,
+`"App.(*).Service.(*)"` and `"App.(*)..(*)"` all put the types they match in `Orders` and `Http`
+into the same slice, while `"App.(**)"` over `App.Orders.Http` captures the single value
+`Orders.Http`, which is a different slice.
+
+A slice is named after its captures: `Slice ` followed by the captured values joined with ` - `. The
+name never reads as a namespace, and it is what failure messages and diagrams show.
+
+| Pattern | Namespace | Slice name |
+|---|---|---|
+| `App.(*)` | `App.Orders` | `Slice Orders` |
+| `App.(**)` | `App.Orders.Web` | `Slice Orders.Web` |
+| `App.(*)..` | `App.Orders.Web` | `Slice Orders` |
+| `App.(*).(*)` | `App.Orders.Http` | `Slice Orders - Http` |
+| `App.(*).Service.(*)` | `App.Orders.Service.Http` | `Slice Orders - Http` |
+| `App.(*)..(*)` | `App.Orders.Web.Http` | `Slice Orders - Http` |
+| `App.(*).*.(*)` | `App.Orders.Web.Http` | `Slice Orders - Http` |
+
+Frozen violations of a slice rule (see `FreezingArchRule`) are stored by the slice name, e.g.
+`Slice Orders`.
+
+With `NestSlicesInPackages`, each slice is drawn under its name inside the package of the deepest
+namespace all its types share (see [5.2](#52-structured-diagram-dependencies)). `Slice Orders - Http`
+of `App.(*)..(*)` sits in `Orders` when its types are in `Orders.Web.Http` and `Orders.Api.Http`.
+
+#### Cycle-free rule
 ![Cycle](img/cycle.svg)
 ```cs
 IArchRule rule = Slices().Matching("Module.(*)").Should()
                     .BeFreeOfCycles();
 ```
+
+#### No-dependency rule
+```cs
+IArchRule rule = Slices().Matching("Module.(*)").Should()
+                    .NotDependOnEachOther();
+```
+`NotDependOnEachOther` forbids *any* dependency between slices, where `BeFreeOfCycles` only forbids
+circular ones.
 
 ## 4. How to check
 
@@ -239,28 +300,29 @@ PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetOb
 ```
 
 ### 5.2 Structured diagram dependencies
-On the previous case there are too many dependencies, this option is suitable mainly for small projects / architectures / slices. With an increase in the number of objects, it makes sense to introduce another type of display - a display with packages. It differs from the previous case only with the modified creation of SliceRule.
+On the previous case there are too many dependencies, this option is suitable mainly for small projects / architectures / slices. With an increase in the number of objects, it makes sense to introduce another type of display - a display with packages. It differs from the previous case only in the `NestSlicesInPackages` option, which draws the namespaces as `package` blocks and each slice in the package of the deepest namespace that contains all of its types. A package that holds no slice and only one other package is merged with it, e.g. into `Orders.Domain`. A slice whose types share no namespace is drawn outside any package. This applies to every slice, also to those of `SlicedBy` and of custom assignments.
 
 ![Diagram](diagrams/archUnitNet_all_withPackages.svg)
 ```cs
 string pattern = "ArchUnitNET.(**)";
-GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+GivenSlices sliceRule = SliceRuleDefinition.Slices().Matching(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
+GenerationOptions g = new GenerationOptions(){NestSlicesInPackages = true};
 
 string path = "diagram.puml";
 
-PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch)).WriteToFile(path);
+PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), g).WriteToFile(path);
 ```
 
 ### 5.3 LimitDependencies-mod
-The previous case still shows a large number of connections. For maximum simplification, as well as demonstrating the overall picture, it makes sense to reformat it into a limited-dependencies version. This kind of display shows dependencies between packages at the same slice level.
+The previous case still shows a large number of connections. For maximum simplification, as well as demonstrating the overall picture, it makes sense to reformat it into a limited-dependencies version. This kind of display shows only dependencies between slices at the same depth, i.e. whose types share an equally deep namespace, nested or not.
 
 ![Diagram](diagrams/archUnitNet_all_compact.svg)
 ```cs
 string pattern = "ArchUnitNET.(**)";
-GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+GivenSlices sliceRule = SliceRuleDefinition.Slices().Matching(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
-GenerationOptions g = new GenerationOptions(){LimitDependencies = true};
+GenerationOptions g = new GenerationOptions(){NestSlicesInPackages = true, LimitDependencies = true};
 
 string path = "diagram.puml";
 
@@ -268,7 +330,7 @@ PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetOb
 ```
 
 ### 5.4 Small slices
-In order not to display all slices and all occurrences, you can use a single asterisk in the pattern. One star is one slice deep. You cannot mix single (*) and double (**) asterisks in a pattern.
+In order not to display all slices and all occurrences, you can use a single asterisk in the pattern. One star captures one namespace segment. You cannot mix single `(*)` and double `(**)` asterisks in one pattern, but you can repeat `(*)` -- `"ArchUnitNET.(*).(*)"` captures two segments and draws `Slice Fluent - Syntax` inside the `ArchUnitNET.Fluent.Syntax` namespace.
 
 #### 5.4.1 ArchUnitNET.(\*)
 ![Diagram](diagrams/archUnitNet_one.svg)
@@ -298,9 +360,9 @@ To enable an C4plantUML-style view of diagrams, set in the GenerationOptions fla
 ![Diagram](diagrams/archUnitNet_three_alternative.svg)
 ```cs
 string pattern = "ArchUnitNET.(*).(*).(*)";
-GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+GivenSlices sliceRule = SliceRuleDefinition.Slices().Matching(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
-GenerationOptions g = new GenerationOptions(){C4Style = true};
+GenerationOptions g = new GenerationOptions(){NestSlicesInPackages = true, C4Style = true};
 
 string path = "diagram.puml";
 
@@ -308,19 +370,31 @@ PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetOb
 ```
 
 ### 5.6 Focus-mod
-Focus mod allows you to show all dependencies on the selected package or out of the package.
+Focus mod allows you to show all dependencies on the selected package or out of the package. The package to focus on is a namespace. A slice is focused when all of its types lie in it, flat or nested; slices that depend on it or that it depends on are drawn as well.
 
 ![Diagram](diagrams/archUnitNet_focusOn.svg)
 ```cs
 string pattern = "ArchUnitNET.(**)";
-string focusOnThisPackage = "ArchUnitNET.Fluent.Syntax.Elements"
-GivenSlices sliceRule = SliceRuleDefinition.Slices().MatchingWithPackages(pattern);
+string focusOnThisPackage = "ArchUnitNET.Fluent.Syntax.Elements";
+GivenSlices sliceRule = SliceRuleDefinition.Slices().Matching(pattern);
 Architecture arch = new ArchLoader().LoadAssembly(typeof(ArchUnitNET.Domain.Architecture).Assembly).Build();
+GenerationOptions g = new GenerationOptions(){NestSlicesInPackages = true};
 
 string path = "diagram.puml";
 
-PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), focusOnThisPackage).WriteToFile(path);
+PlantUmlDefinition.ComponentDiagram().WithDependenciesFromSlices(sliceRule.GetObjects(arch), focusOnThisPackage, g).WriteToFile(path);
 ```
+
+### 5.7 Migrating from MatchingWithPackages
+`MatchingWithPackages` is obsolete and will be removed in a future release. It creates the same slices
+as `Matching`, with the same names and violations, and only nests them in diagrams. Replace
+`MatchingWithPackages(pattern)` with `Matching(pattern)` and draw the slices with
+`new GenerationOptions { NestSlicesInPackages = true }`. Diagrams change too: a slice is a box
+inside its namespace instead of being drawn as that namespace.
+
+Failure messages of former `MatchingWithPackages` rules no longer start a slice's name with the
+namespace before the first capture group, and their frozen violations, which were stored under those
+longer names, have to be frozen again once.
 
 ## 6. Further Reading and Examples
 A complete overview of all available methods can be found [here](additional.md).

@@ -1,5 +1,8 @@
-using ArchUnitNET.Domain.PlantUml.Export;
+﻿using ArchUnitNET.Domain.PlantUml.Export;
 using Xunit;
+
+// These tests also cover how the obsolete dependency types render.
+#pragma warning disable CS0618
 
 namespace ArchUnitNETTests.Domain.PlantUml
 {

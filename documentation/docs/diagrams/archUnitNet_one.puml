@@ -1,0 +1,21 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+HIDE_STEREOTYPE()
+
+package "ArchUnitNET" as ArchUnitNET {
+  package "Loader" as ArchUnitNET.Loader {
+    [Slice Loader] as Slice_Loader
+  }
+  package "Fluent" as ArchUnitNET.Fluent {
+    [Slice Fluent] as Slice_Fluent
+  }
+  package "Domain" as ArchUnitNET.Domain {
+    [Slice Domain] as Slice_Domain
+  }
+}
+
+[Slice_Loader] --|> [Slice_Domain]
+[Slice_Fluent] --|> [Slice_Domain]
+@enduml
