@@ -478,6 +478,167 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public void ParsesAComponentDiagramThatUsesQuotedAliasWithAndWithoutBrackets()
+        {
+            TestDiagram
+                .From(_memoryStream)
+                .RawLine("[A] <<Origin.*>> as \"foo\"")
+                .RawLine("[B] <<Target.*>> as \"bar\"")
+                .DependencyFrom("foo")
+                .To("bar")
+                .DependencyFrom("[foo]")
+                .To("[bar]")
+                .Write();
+
+            PlantUmlParsedDiagram diagram = CreateDiagram(_memoryStream);
+
+            PlantUmlComponent foo = GetComponentWithAlias(new Alias("foo"), diagram);
+            PlantUmlComponent bar = GetComponentWithAlias(new Alias("bar"), diagram);
+
+            Assert.Equal(new[] { bar }, foo.Dependencies);
+            Assert.Empty(bar.Dependencies);
+        }
+
+        [Theory]
+        [InlineData("[A] <<X>>", "A", null, new[] { "X" })]
+        [InlineData("[A]<<X>>", "A", null, new[] { "X" })]
+        [InlineData("[A] <<X>><<Y>>", "A", null, new[] { "X", "Y" })]
+        [InlineData("[A] <<X>>   <<Y>> <<Z>>", "A", null, new[] { "X", "Y", "Z" })]
+        [InlineData("[A B] <<X.*>>", "A B", null, new[] { "X.*" })]
+        [InlineData("[A] <<X>> as B", "A", "B", new[] { "X" })]
+        [InlineData("[A] <<X>> as \"B\"", "A", "B", new[] { "X" })]
+        [InlineData("[A] <<X>> as \"B C\"", "A", "B C", new[] { "X" })]
+        [InlineData("[A] <<X>> <<Y>> as \"B\"", "A", "B", new[] { "X", "Y" })]
+        [InlineData("   [A] <<X>>", "A", null, new[] { "X" })]
+        [InlineData("[A] <<X>>   ", "A", null, new[] { "X" })]
+        [InlineData("\t[A] <<X>> as \"B\"\t", "A", "B", new[] { "X" })]
+        public void ParsesComponentLineVariants(
+            string line,
+            string expectedName,
+            string expectedAlias,
+            string[] expectedStereotypes
+        )
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram.From(_memoryStream).RawLine(line).Write()
+            );
+
+            PlantUmlComponent component = diagram.AllComponents.Single();
+            Assert.Equal(new ComponentName(expectedName), component.ComponentName);
+            Assert.Equal(expectedAlias != null ? new Alias(expectedAlias) : null, component.Alias);
+            Assert.Equal(
+                expectedStereotypes.Select(s => new Stereotype(s)),
+                component.Stereotypes.OrderBy(s => s.AsString())
+            );
+        }
+
+        [Fact]
+        public void DoesNotReadStereotypesFromTheAlias()
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram.From(_memoryStream).RawLine("[A] <<Real.*>> as \"<<Fake.*>>\"").Write()
+            );
+
+            PlantUmlComponent component = diagram.AllComponents.Single();
+            Assert.Equal(new[] { new Stereotype("Real.*") }, component.Stereotypes);
+            Assert.Equal(new Alias("<<Fake.*>>"), component.Alias);
+        }
+
+        [Theory]
+        [InlineData("[A <<X>>")]
+        [InlineData("A] <<X>>")]
+        [InlineData("[[A]] <<X>>")]
+        [InlineData("[A] <<X>")]
+        [InlineData("[A] <<X>> B")]
+        [InlineData("[A] <<X>> as \"B\" C")]
+        [InlineData("B [A] <<X>>")]
+        public void IgnoresLinesThatAreNotComponents(string line)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram.From(_memoryStream).RawLine(line).Write()
+            );
+
+            Assert.Empty(diagram.AllComponents);
+        }
+
+        [Theory]
+        [ClassData(typeof(DependencyLineVariantsTestData))]
+        public void ParsesDependencyLineVariants(string dependency)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .Component("SomeOrigin")
+                    .WithStereoTypes("Origin.*")
+                    .Component("SomeTarget")
+                    .WithStereoTypes("Target.*")
+                    .RawLine(dependency)
+                    .Write()
+            );
+
+            PlantUmlComponent origin = GetComponentWithName("SomeOrigin", diagram);
+            PlantUmlComponent target = GetComponentWithName("SomeTarget", diagram);
+
+            Assert.Equal(new[] { target }, origin.Dependencies);
+            Assert.Empty(target.Dependencies);
+        }
+
+        [Theory]
+        [InlineData("[SomeOrigin] -- [SomeTarget]")]
+        [InlineData("[SomeOrigin] - [SomeTarget]")]
+        [InlineData("[SomeOrigin] [SomeTarget]")]
+        public void IgnoresLinesThatAreNotDependencies(string line)
+        {
+            PlantUmlParsedDiagram diagram = CreateDiagram(
+                TestDiagram
+                    .From(_memoryStream)
+                    .Component("SomeOrigin")
+                    .WithStereoTypes("Origin.*")
+                    .Component("SomeTarget")
+                    .WithStereoTypes("Target.*")
+                    .RawLine(line)
+                    .Write()
+            );
+
+            Assert.All(diagram.AllComponents, c => Assert.Empty(c.Dependencies));
+        }
+
+        [Fact]
+        public void ThrowsArgumentNullExceptionForNullFilename()
+        {
+            Assert.Throws<ArgumentNullException>(() => _parser.Parse((string)null));
+        }
+
+        [Fact]
+        public void ThrowsArgumentNullExceptionForNullStream()
+        {
+            Assert.Throws<ArgumentNullException>(() => _parser.Parse((Stream)null));
+        }
+
+        [Fact]
+        public void ThrowsParseExceptionForMissingFile()
+        {
+            string path = Path.Combine(
+                Path.GetTempPath(),
+                "plantuml_diagram_" + Guid.NewGuid() + ".puml"
+            );
+
+            PlantUmlParseException exception = Assert.Throws<PlantUmlParseException>(() =>
+                _parser.Parse(path)
+            );
+            Assert.IsAssignableFrom<IOException>(exception.InnerException);
+        }
+
+        [Fact]
+        public void ThrowsParseExceptionForUnreadableStream()
+        {
+            PlantUmlParseException exception = Assert.Throws<PlantUmlParseException>(() =>
+                _parser.Parse(new UnreadableStream())
+            );
+            Assert.IsAssignableFrom<IOException>(exception.InnerException);
+        }
+
+        [Fact]
         public void ParsesASimpleComponentWithFile()
         {
             string path = Path.Combine(
@@ -527,6 +688,78 @@ namespace ArchUnitNETTests.Domain.PlantUml
         {
             return _parser.Parse(stream);
         }
+
+        private class UnreadableStream : Stream
+        {
+            public override bool CanRead => true;
+            public override bool CanSeek => false;
+            public override bool CanWrite => false;
+            public override long Length => throw new NotSupportedException();
+
+            public override long Position
+            {
+                get => throw new NotSupportedException();
+                set => throw new NotSupportedException();
+            }
+
+            public override int Read(byte[] buffer, int offset, int count)
+            {
+                throw new IOException("Simulated read failure");
+            }
+
+            public override void Flush() { }
+
+            public override long Seek(long offset, SeekOrigin origin)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override void SetLength(long value)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override void Write(byte[] buffer, int offset, int count)
+            {
+                throw new NotSupportedException();
+            }
+        }
+    }
+
+    public class DependencyLineVariantsTestData : IEnumerable<object[]>
+    {
+        // Complements DependencyArrowTestData, which covers every arrow center between
+        // bracketed endpoints without a description
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            string[] arrowCenters = { "-", "--", "-left-", "-[#green]-" };
+            foreach (bool bracketed in new[] { true, false })
+            {
+                foreach (bool described in new[] { true, false })
+                {
+                    if (bracketed && !described)
+                    {
+                        continue;
+                    }
+                    string origin = bracketed ? "[SomeOrigin]" : "SomeOrigin";
+                    string target = bracketed ? "[SomeTarget]" : "SomeTarget";
+                    string description = described ? " : some description" : "";
+                    foreach (string arrowCenter in arrowCenters)
+                    {
+                        yield return new object[]
+                        {
+                            origin + " " + arrowCenter + "> " + target + description,
+                        };
+                        yield return new object[]
+                        {
+                            target + " <" + arrowCenter + " " + origin + description,
+                        };
+                    }
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
     public class DependencyArrowTestData : IEnumerable<object[]>
