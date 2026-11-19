@@ -1,7 +1,17 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Domain_1_1IObjectProvider.html" title=" " alt="" coords="5,37,213,77"/>
-<area shape="rect" id="Node000001" href="$interfaceArchUnitNET_1_1Domain_1_1ISizedObjectProvider.html" title="An interface for object providers that can provide a size independent of the used architecture." alt="" coords="261,5,463,45"/>
-<area shape="poly" id="edge26_Node000000_Node000001" title=" " alt="" coords="226,40,261,35,261,41,227,45"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1BasicObjectProvider.html" title=" " alt="" coords="269,69,455,109"/>
-<area shape="poly" id="edge27_Node000000_Node000002" title=" " alt="" coords="227,70,269,75,268,80,226,75"/>
+<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1IPlantUmlElement.html" title=" " alt="" coords="5,179,222,223"/>
+<area shape="rect" id="Node000001" href="$interfaceArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1IPlantUmlContainer.html" title=" " alt="" coords="277,40,502,85"/>
+<area shape="poly" id="edge25_Node000000_Node000001" title=" " alt="" coords="153,167,207,130,269,95,301,84,297,87,271,99,209,134,157,171"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlClass.html" title=" " alt="" coords="292,109,486,154"/>
+<area shape="poly" id="edge28_Node000000_Node000004" title=" " alt="" coords="219,172,300,153,295,156,221,177"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlDependency.html" title=" " alt="" coords="270,179,509,223"/>
+<area shape="poly" id="edge29_Node000000_Node000005" title=" " alt="" coords="236,198,272,200,267,202,238,204"/>
+<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlInterface.html" title=" " alt="" coords="281,248,498,293"/>
+<area shape="poly" id="edge30_Node000000_Node000006" title=" " alt="" coords="220,225,300,247,295,248,220,230"/>
+<area shape="rect" id="Node000007" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlSlice.html" title=" " alt="" coords="292,317,486,362"/>
+<area shape="poly" id="edge31_Node000000_Node000007" title=" " alt="" coords="156,230,209,268,271,303,302,317,296,317,269,307,207,272,154,236"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlDiagram.html" title=" " alt="" coords="568,5,782,50"/>
+<area shape="poly" id="edge26_Node000001_Node000002" title=" " alt="" coords="517,44,570,40,565,42,518,49"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlNamespace.html" title=" " alt="" coords="557,75,792,119"/>
+<area shape="poly" id="edge27_Node000001_Node000003" title=" " alt="" coords="517,75,559,82,554,83,518,81"/>
 </map>

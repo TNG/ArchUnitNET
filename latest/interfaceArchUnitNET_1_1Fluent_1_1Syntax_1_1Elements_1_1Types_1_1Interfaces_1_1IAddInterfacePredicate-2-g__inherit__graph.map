@@ -1,0 +1,13 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IAddInterfacePredicate&lt; out TNextElement, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Types.Interfaces.IAddInterfacePredicate&lt; out TNextElement, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="593,45,870,124"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfacePredicate-2-g.html" title=" " alt="" coords="918,53,1220,115"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="886,82,921,84,915,84,886,87"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypePredicate-2-g.html" title=" " alt="" coords="298,53,545,115"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="561,82,595,84,590,84,561,87"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectPredicate-2-g.html" title=" " alt="" coords="5,53,250,115"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,82,300,84,295,85,266,87"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesThat.html" title=" " alt="" coords="1292,5,1526,67"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1234,58,1289,53,1295,52,1235,63"/>
+<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1ShouldRelateToInterfacesThat-2-g.html" title=" " alt="" coords="1268,92,1551,170"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1235,104,1270,111,1264,111,1235,110"/>
+</map>

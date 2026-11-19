@@ -1,5 +1,12 @@
 <map id="ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.GivenMethodMembers" name="ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.GivenMethodMembers">
-<area shape="rect" id="Node000001" title=" " alt="" coords="11,108,278,163"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects.html" title=" " alt="" coords="5,5,284,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,74,147,108,142,108,142,74"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="875,32,1141,93"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects-3-g.html" title=" " alt="" coords="583,23,827,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="843,60,877,62,872,62,843,65"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement-1-g.html" title=" " alt="" coords="318,5,535,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="551,40,585,47,580,47,551,46"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,48,270,76"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="272,43,320,40,315,41,273,49"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Domain_1_1IObjectProvider-1-g.html" title=" " alt="" coords="323,75,530,119"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="273,76,325,84,320,85,273,81"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="545,80,580,78,585,77,546,85"/>
 </map>

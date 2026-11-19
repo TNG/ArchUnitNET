@@ -1,5 +1,16 @@
 <map id="ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould" name="ArchUnitNET.Fluent.Syntax.Elements.Members.MembersShould">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,108,263,148"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition.html" title=" " alt="" coords="23,5,245,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,74,137,108,131,108,131,74"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="1270,56,1526,101"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition-2-g.html" title=" " alt="" coords="929,48,1222,110"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1237,76,1272,79,1266,79,1237,81"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1AddObjectCondition-2-g.html" title=" " alt="" coords="624,5,843,67"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="858,49,931,61,926,61,858,54"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement-1-g.html" title=" " alt="" coords="319,14,536,58"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="552,34,626,36,620,36,552,39"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,22,270,50"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="285,34,321,36,316,37,286,39"/>
+<area shape="rect" id="Node000006" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectCondition-2-g.html" title=" " alt="" coords="318,87,537,148"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="551,82,620,66,626,65,552,87"/>
+<area shape="rect" id="Node000007" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IAddMemberCondition-2-g.html" title=" " alt="" coords="585,91,881,152"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="552,116,587,119,582,120,553,122"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="896,98,926,97,932,97,897,104"/>
 </map>

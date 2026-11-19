@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setruleevaluationcachedisabled_0',['SetRuleEvaluationCacheDisabled',['../classArchUnitNET_1_1Domain_1_1ArchitectureCacheKey.html#a6a26ae02cb80d6264398bd6e0f66ed83',1,'ArchUnitNET::Domain::ArchitectureCacheKey']]]
+  ['hasnoviolations_0',['HasNoViolations',['../classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRule.html#ab4eeb679c82c93521e000f5254466628',1,'ArchUnitNET.Fluent.Slices.SliceRule.HasNoViolations()'],['../classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRuleCreator.html#a252db18a2ab2695e97e654eb2025f1dd',1,'ArchUnitNET.Fluent.Slices.SliceRuleCreator.HasNoViolations()']]]
 ];

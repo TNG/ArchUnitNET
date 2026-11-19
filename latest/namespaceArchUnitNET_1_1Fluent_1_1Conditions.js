@@ -1,13 +1,13 @@
 var namespaceArchUnitNET_1_1Fluent_1_1Conditions =
 [
-    [ "ArchitectureCondition", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ArchitectureCondition.html", null ],
-    [ "ComplexCondition", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition.html", null ],
+    [ "ArchitectureCondition&lt; TRuleType &gt;", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ArchitectureCondition-1-g.html", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ArchitectureCondition-1-g" ],
+    [ "ComplexCondition&lt; TRuleType, TRelatedType &gt;", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition-2-g.html", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition-2-g" ],
     [ "ConditionResult", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ConditionResult.html", null ],
-    [ "EnumerableCondition", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1EnumerableCondition.html", null ],
-    [ "ExistsCondition", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ExistsCondition.html", null ],
-    [ "ICondition", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition.html", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition" ],
-    [ "IOrderedCondition", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1IOrderedCondition.html", null ],
-    [ "OrderedArchitectureCondition", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1OrderedArchitectureCondition.html", null ],
-    [ "RelationCondition", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1RelationCondition.html", null ],
-    [ "SimpleCondition", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition.html", null ]
+    [ "EnumerableCondition&lt; TRuleType &gt;", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1EnumerableCondition-1-g.html", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1EnumerableCondition-1-g" ],
+    [ "ExistsCondition&lt; TRuleType &gt;", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ExistsCondition-1-g.html", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1ExistsCondition-1-g" ],
+    [ "ICondition&lt; in TRuleType &gt;", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition-1-g.html", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition-1-g" ],
+    [ "IOrderedCondition&lt; in TRuleType &gt;", "interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1IOrderedCondition-1-g.html", null ],
+    [ "OrderedArchitectureCondition&lt; TRuleType &gt;", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1OrderedArchitectureCondition-1-g.html", null ],
+    [ "RelationCondition&lt; TRuleType, TRelatedType &gt;", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1RelationCondition-2-g.html", null ],
+    [ "SimpleCondition&lt; TRuleType &gt;", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition-1-g.html", "classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition-1-g" ]
 ];

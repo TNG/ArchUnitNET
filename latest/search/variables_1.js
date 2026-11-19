@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['loadandcontinue_0',['LoadAndContinue',['../structArchUnitNET_1_1Loader_1_1FilterResult.html#aae6a712c7f110c95627d0ed1d7d2954b',1,'ArchUnitNET::Loader::FilterResult']]],
-  ['loadandstop_1',['LoadAndStop',['../structArchUnitNET_1_1Loader_1_1FilterResult.html#a8fa0f0365d6d50cad12e049c06891163',1,'ArchUnitNET::Loader::FilterResult']]]
+  ['dontloadandstop_0',['DontLoadAndStop',['../structArchUnitNET_1_1Loader_1_1FilterResult.html#a2e7d35eeb9400158fe4b32e4e65eea51',1,'ArchUnitNET::Loader::FilterResult']]]
 ];

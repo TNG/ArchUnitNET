@@ -1,0 +1,11 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IAddClassCondition&lt; TNextElement, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Types.Classes.IAddClassCondition&lt; TNextElement, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="569,5,850,67"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassCondition-1-g.html" title=" " alt="" coords="898,5,1140,67"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="866,34,900,36,895,36,866,39"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypeCondition-2-g.html" title=" " alt="" coords="273,5,521,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="537,34,571,36,566,36,537,39"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectCondition-2-g.html" title=" " alt="" coords="5,5,225,67"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="240,34,275,36,270,36,240,39"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShould.html" title=" " alt="" coords="1188,5,1419,67"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1155,34,1190,36,1185,36,1155,39"/>
+</map>

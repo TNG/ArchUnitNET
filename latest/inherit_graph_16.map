@@ -1,3 +1,371 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1ConditionResult.html" title=" " alt="" coords="5,5,231,45"/>
+<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectCondition-2-g.html" title=" " alt="" coords="353,460,572,522"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1AddObjectCondition-2-g.html" title=" " alt="" coords="676,460,896,522"/>
+<area shape="poly" id="edge35_Node000000_Node000001" title=" " alt="" coords="586,489,678,490,674,493,589,493"/>
+<area shape="rect" id="Node000006" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IAddMemberCondition-2-g.html" title=" " alt="" coords="638,211,934,273"/>
+<area shape="poly" id="edge52_Node000000_Node000006" title=" " alt="" coords="514,450,746,271,743,276,518,453"/>
+<area shape="rect" id="Node000018" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypeCondition-2-g.html" title=" " alt="" coords="662,546,910,608"/>
+<area shape="poly" id="edge60_Node000000_Node000018" title=" " alt="" coords="586,522,669,544,664,547,589,526"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition-2-g.html" title=" " alt="" coords="1014,211,1307,273"/>
+<area shape="poly" id="edge36_Node000001_Node000002" title=" " alt="" coords="814,447,845,407,884,362,930,319,981,282,1016,267,1012,272,984,287,933,323,888,366,849,410,819,449"/>
+<area shape="rect" id="Node000014" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypeCondition-2-g.html" title=" " alt="" coords="1038,503,1283,565"/>
+<area shape="poly" id="edge44_Node000001_Node000014" title=" " alt="" coords="909,503,1040,519,1036,522,912,508"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberCondition-1-g.html" title=" " alt="" coords="1399,26,1715,88"/>
+<area shape="poly" id="edge37_Node000002_Node000003" title=" " alt="" coords="1318,208,1337,196,1354,176,1361,155,1368,133,1385,111,1428,86,1425,90,1388,115,1372,135,1366,157,1358,179,1340,200,1323,211"/>
+<area shape="rect" id="Node000013" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html" title=" " alt="" coords="1429,220,1685,264"/>
+<area shape="poly" id="edge39_Node000002_Node000013" title=" " alt="" coords="1321,240,1430,240,1426,244,1324,244"/>
+<area shape="rect" id="Node000008" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberCondition-1-g.html" title=" " alt="" coords="1390,124,1724,186"/>
+<area shape="poly" id="edge40_Node000002_Node000008" title=" " alt="" coords="1318,205,1415,185,1411,189,1321,209"/>
+<area shape="rect" id="Node000011" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberCondition-1-g.html" title=" " alt="" coords="1387,296,1727,358"/>
+<area shape="poly" id="edge42_Node000002_Node000011" title=" " alt="" coords="1320,274,1413,294,1408,297,1323,279"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1FieldMembersShould.html" title=" " alt="" coords="1832,26,2080,88"/>
+<area shape="poly" id="edge38_Node000003_Node000004" title=" " alt="" coords="1729,54,1834,55,1830,58,1732,59"/>
+<area shape="rect" id="Node000009" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShould.html" title=" " alt="" coords="1824,124,2089,186"/>
+<area shape="poly" id="edge41_Node000008_Node000009" title=" " alt="" coords="1738,153,1825,154,1821,157,1741,158"/>
+<area shape="rect" id="Node000012" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembersShould.html" title=" " alt="" coords="1820,296,2092,358"/>
+<area shape="poly" id="edge43_Node000011_Node000012" title=" " alt="" coords="1741,325,1822,326,1818,329,1744,330"/>
+<area shape="rect" id="Node000015" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributeCondition-1-g.html" title=" " alt="" coords="1418,416,1696,478"/>
+<area shape="poly" id="edge45_Node000014_Node000015" title=" " alt="" coords="1296,502,1420,476,1416,480,1300,506"/>
+<area shape="rect" id="Node000020" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassCondition-1-g.html" title=" " alt="" coords="1436,576,1678,638"/>
+<area shape="poly" id="edge47_Node000014_Node000020" title=" " alt="" coords="1297,557,1438,584,1433,586,1299,562"/>
+<area shape="rect" id="Node000023" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfaceCondition-1-g.html" title=" " alt="" coords="1417,662,1696,724"/>
+<area shape="poly" id="edge49_Node000014_Node000023" title=" " alt="" coords="1296,553,1340,575,1357,593,1365,612,1373,631,1388,648,1419,666,1414,668,1385,652,1368,634,1360,614,1353,596,1337,579,1298,558"/>
+<area shape="rect" id="Node000025" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html" title=" " alt="" coords="1453,508,1661,552"/>
+<area shape="poly" id="edge51_Node000014_Node000025" title=" " alt="" coords="1296,530,1455,529,1450,533,1300,535"/>
+<area shape="rect" id="Node000016" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AttributesShould.html" title=" " alt="" coords="1826,416,2086,478"/>
+<area shape="poly" id="edge46_Node000015_Node000016" title=" " alt="" coords="1709,445,1828,446,1824,449,1712,450"/>
+<area shape="rect" id="Node000021" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShould.html" title=" " alt="" coords="1840,576,2072,638"/>
+<area shape="poly" id="edge48_Node000020_Node000021" title=" " alt="" coords="1692,605,1842,606,1838,609,1694,610"/>
+<area shape="rect" id="Node000024" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShould.html" title=" " alt="" coords="1826,662,2087,724"/>
+<area shape="poly" id="edge50_Node000023_Node000024" title=" " alt="" coords="1711,690,1828,691,1823,694,1714,695"/>
+<area shape="poly" id="edge53_Node000006_Node000002" title=" " alt="" coords="949,240,1016,240,1012,244,952,244"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IAddFieldMemberCondition-2-g.html" title=" " alt="" coords="1006,5,1315,84"/>
+<area shape="poly" id="edge54_Node000006_Node000005" title=" " alt="" coords="830,200,898,144,939,117,981,93,1008,82,1005,87,984,98,942,121,902,149,834,202"/>
+<area shape="rect" id="Node000007" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IAddMethodMemberCondition-2-g.html" title=" " alt="" coords="997,108,1324,187"/>
+<area shape="poly" id="edge56_Node000006_Node000007" title=" " alt="" coords="923,205,1004,185,1001,189,927,209"/>
+<area shape="rect" id="Node000010" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IAddPropertyMemberCondition-2-g.html" title=" " alt="" coords="1025,297,1296,376"/>
+<area shape="poly" id="edge58_Node000006_Node000010" title=" " alt="" coords="924,275,1027,301,1023,304,927,279"/>
+<area shape="poly" id="edge55_Node000005_Node000003" title=" " alt="" coords="1329,48,1401,50,1396,53,1332,52"/>
+<area shape="poly" id="edge57_Node000007_Node000008" title=" " alt="" coords="1338,149,1392,150,1387,154,1341,153"/>
+<area shape="poly" id="edge59_Node000010_Node000011" title=" " alt="" coords="1310,331,1388,330,1384,333,1313,335"/>
+<area shape="poly" id="edge61_Node000018_Node000014" title=" " alt="" coords="924,559,1040,546,1036,550,928,563"/>
+<area shape="rect" id="Node000017" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAddAttributeCondition-2-g.html" title=" " alt="" coords="1034,400,1287,479"/>
+<area shape="poly" id="edge62_Node000018_Node000017" title=" " alt="" coords="923,537,933,532,947,521,956,511,966,500,981,489,1036,466,1032,471,984,494,970,504,960,514,951,525,936,536,927,541"/>
+<area shape="rect" id="Node000019" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IAddClassCondition-2-g.html" title=" " alt="" coords="1020,588,1301,650"/>
+<area shape="poly" id="edge64_Node000018_Node000019" title=" " alt="" coords="924,590,1022,602,1017,605,927,595"/>
+<area shape="rect" id="Node000022" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfaceCondition-2-g.html" title=" " alt="" coords="1034,675,1287,753"/>
+<area shape="poly" id="edge66_Node000018_Node000022" title=" " alt="" coords="866,612,983,660,1036,678,1031,680,981,664,868,617"/>
+<area shape="poly" id="edge63_Node000017_Node000015" title=" " alt="" coords="1301,440,1420,443,1416,446,1304,444"/>
+<area shape="poly" id="edge65_Node000019_Node000020" title=" " alt="" coords="1315,612,1438,609,1434,613,1318,617"/>
+<area shape="poly" id="edge67_Node000022_Node000023" title=" " alt="" coords="1301,704,1419,699,1415,702,1304,709"/>
+<area shape="rect" id="Node000154" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectPredicate-2-g.html" title=" " alt="" coords="341,2224,585,2286"/>
+<area shape="rect" id="Node000139" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1AddObjectPredicate-3-g.html" title=" " alt="" coords="672,2169,901,2248"/>
+<area shape="poly" id="edge68_Node000154_Node000139" title=" " alt="" coords="599,2234,673,2223,669,2227,602,2238"/>
+<area shape="rect" id="Node000145" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IAddMemberPredicate-2-g.html" title=" " alt="" coords="638,2272,934,2334"/>
+<area shape="poly" id="edge93_Node000154_Node000145" title=" " alt="" coords="599,2274,640,2280,636,2283,602,2278"/>
+<area shape="rect" id="Node000155" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1IAddTypePredicate-2-g.html" title=" " alt="" coords="662,1914,910,1976"/>
+<area shape="poly" id="edge101_Node000154_Node000155" title=" " alt="" coords="583,2215,588,2211,618,2176,666,2112,765,1974,763,1979,671,2115,623,2180,592,2215,587,2218"/>
+<area shape="rect" id="Node000140" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberPredicate-3-g.html" title=" " alt="" coords="1015,2264,1306,2343"/>
+<area shape="poly" id="edge69_Node000139_Node000140" title=" " alt="" coords="914,2239,1017,2265,1012,2268,917,2244"/>
+<area shape="rect" id="Node000156" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate-3-g.html" title=" " alt="" coords="1039,1956,1282,2035"/>
+<area shape="poly" id="edge81_Node000139_Node000156" title=" " alt="" coords="834,2156,901,2097,940,2069,981,2044,1040,2021,1037,2025,984,2048,943,2073,904,2102,838,2159"/>
+<area shape="rect" id="Node000141" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberPredicate-2-g.html" title=" " alt="" coords="1405,2123,1709,2201"/>
+<area shape="poly" id="edge70_Node000140_Node000141" title=" " alt="" coords="1319,2258,1337,2249,1361,2230,1385,2210,1411,2200,1408,2204,1388,2215,1364,2234,1340,2254,1322,2262"/>
+<area shape="rect" id="Node000171" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersThat.html" title=" " alt="" coords="1417,2430,1696,2475"/>
+<area shape="poly" id="edge73_Node000140_Node000171" title=" " alt="" coords="1319,2340,1340,2352,1356,2368,1365,2385,1373,2401,1388,2416,1419,2432,1414,2434,1385,2420,1368,2404,1360,2388,1352,2371,1337,2356,1321,2345"/>
+<area shape="rect" id="Node000147" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberPredicate-2-g.html" title=" " alt="" coords="1396,2225,1718,2304"/>
+<area shape="poly" id="edge74_Node000140_Node000147" title=" " alt="" coords="1320,2285,1397,2279,1393,2282,1323,2290"/>
+<area shape="rect" id="Node000151" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberPredicate-2-g.html" title=" " alt="" coords="1393,2499,1721,2577"/>
+<area shape="poly" id="edge77_Node000140_Node000151" title=" " alt="" coords="1319,2337,1341,2352,1354,2369,1362,2386,1365,2420,1369,2454,1376,2470,1389,2485,1402,2498,1397,2499,1385,2489,1371,2472,1364,2455,1360,2421,1357,2388,1350,2372,1337,2356,1321,2342"/>
+<area shape="rect" id="Node000172" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat-2-g.html" title=" " alt="" coords="1398,2328,1716,2407"/>
+<area shape="poly" id="edge80_Node000140_Node000172" title=" " alt="" coords="1321,2327,1400,2340,1395,2343,1323,2332"/>
+<area shape="rect" id="Node000142" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembersThat.html" title=" " alt="" coords="1832,2066,2080,2128"/>
+<area shape="poly" id="edge71_Node000141_Node000142" title=" " alt="" coords="1723,2132,1834,2115,1830,2118,1726,2137"/>
+<area shape="rect" id="Node000143" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1ShouldRelateToFieldMembersThat-2-g.html" title=" " alt="" coords="1832,2152,2080,2247"/>
+<area shape="poly" id="edge72_Node000141_Node000143" title=" " alt="" coords="1723,2175,1834,2187,1829,2189,1725,2180"/>
+<area shape="rect" id="Node000148" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1GivenMethodMembersThat.html" title=" " alt="" coords="1824,2271,2089,2333"/>
+<area shape="poly" id="edge75_Node000147_Node000148" title=" " alt="" coords="1732,2279,1826,2288,1821,2291,1735,2284"/>
+<area shape="rect" id="Node000149" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1ShouldRelateToMethodMembersThat-2-g.html" title=" " alt="" coords="1824,2357,2089,2436"/>
+<area shape="poly" id="edge76_Node000147_Node000149" title=" " alt="" coords="1714,2308,1728,2313,1752,2328,1776,2342,1826,2362,1821,2364,1774,2347,1750,2332,1726,2318,1716,2313"/>
+<area shape="rect" id="Node000152" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembersThat.html" title=" " alt="" coords="1820,2496,2092,2558"/>
+<area shape="poly" id="edge78_Node000151_Node000152" title=" " alt="" coords="1735,2531,1823,2530,1818,2532,1738,2536"/>
+<area shape="rect" id="Node000153" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1ShouldRelateToPropertyMembersThat-2-g.html" title=" " alt="" coords="1820,2583,2092,2661"/>
+<area shape="poly" id="edge79_Node000151_Node000153" title=" " alt="" coords="1735,2573,1823,2593,1818,2594,1737,2578"/>
+<area shape="rect" id="Node000157" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributePredicate-2-g.html" title=" " alt="" coords="1406,1647,1708,1709"/>
+<area shape="poly" id="edge82_Node000156_Node000157" title=" " alt="" coords="1295,1970,1318,1957,1337,1942,1353,1919,1361,1897,1363,1875,1362,1852,1362,1805,1369,1780,1385,1755,1415,1728,1453,1707,1449,1711,1418,1732,1389,1758,1374,1782,1367,1805,1367,1852,1368,1875,1366,1898,1358,1922,1341,1945,1321,1962,1298,1974"/>
+<area shape="rect" id="Node000161" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassPredicate-2-g.html" title=" " alt="" coords="1406,1768,1708,1830"/>
+<area shape="poly" id="edge85_Node000156_Node000161" title=" " alt="" coords="1295,1966,1337,1941,1354,1920,1360,1898,1367,1875,1385,1852,1425,1829,1422,1833,1388,1856,1372,1877,1365,1900,1358,1923,1340,1945,1299,1970"/>
+<area shape="rect" id="Node000165" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html" title=" " alt="" coords="1441,2054,1672,2099"/>
+<area shape="poly" id="edge88_Node000156_Node000165" title=" " alt="" coords="1296,2021,1387,2039,1446,2052,1441,2055,1386,2045,1299,2026"/>
+<area shape="rect" id="Node000166" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfacePredicate-2-g.html" title=" " alt="" coords="1406,1866,1708,1928"/>
+<area shape="poly" id="edge89_Node000156_Node000166" title=" " alt="" coords="1295,1959,1432,1926,1428,1930,1299,1964"/>
+<area shape="rect" id="Node000170" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat-2-g.html" title=" " alt="" coords="1425,1952,1689,2031"/>
+<area shape="poly" id="edge92_Node000156_Node000170" title=" " alt="" coords="1296,1992,1427,1991,1422,1994,1299,1996"/>
+<area shape="rect" id="Node000158" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1GivenAttributesThat.html" title=" " alt="" coords="1840,1534,2073,1596"/>
+<area shape="poly" id="edge83_Node000157_Node000158" title=" " alt="" coords="1662,1640,1774,1605,1841,1589,1837,1592,1776,1610,1665,1644"/>
+<area shape="rect" id="Node000159" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1ShouldRelateToAttributesThat-2-g.html" title=" " alt="" coords="1815,1620,2097,1699"/>
+<area shape="poly" id="edge84_Node000157_Node000159" title=" " alt="" coords="1722,1668,1817,1664,1812,1667,1725,1673"/>
+<area shape="rect" id="Node000162" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1GivenClassesThat.html" title=" " alt="" coords="1807,1722,2105,1767"/>
+<area shape="poly" id="edge86_Node000161_Node000162" title=" " alt="" coords="1722,1774,1809,1764,1804,1767,1724,1779"/>
+<area shape="rect" id="Node000163" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ShouldRelateToClassesThat-2-g.html" title=" " alt="" coords="1800,1791,2112,1853"/>
+<area shape="poly" id="edge87_Node000161_Node000163" title=" " alt="" coords="1722,1806,1802,1812,1797,1814,1725,1811"/>
+<area shape="rect" id="Node000167" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesThat.html" title=" " alt="" coords="1839,1876,2073,1938"/>
+<area shape="poly" id="edge90_Node000166_Node000167" title=" " alt="" coords="1722,1899,1841,1903,1836,1906,1725,1903"/>
+<area shape="rect" id="Node000168" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1ShouldRelateToInterfacesThat-2-g.html" title=" " alt="" coords="1814,1963,2098,2041"/>
+<area shape="poly" id="edge91_Node000166_Node000168" title=" " alt="" coords="1697,1929,1728,1937,1816,1962,1812,1964,1726,1942,1699,1934"/>
+<area shape="poly" id="edge94_Node000145_Node000140" title=" " alt="" coords="948,2301,1017,2302,1012,2305,951,2306"/>
+<area shape="rect" id="Node000144" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IAddFieldMemberPredicate-2-g.html" title=" " alt="" coords="1037,2059,1284,2137"/>
+<area shape="poly" id="edge95_Node000145_Node000144" title=" " alt="" coords="928,2262,932,2257,944,2244,951,2231,956,2203,961,2175,968,2161,981,2147,1006,2129,1038,2116,1035,2120,1009,2133,984,2151,973,2164,966,2177,961,2204,956,2233,948,2247,936,2261,932,2265"/>
+<area shape="rect" id="Node000146" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IAddMethodMemberPredicate-2-g.html" title=" " alt="" coords="1028,2161,1293,2240"/>
+<area shape="poly" id="edge97_Node000145_Node000146" title=" " alt="" coords="914,2266,1029,2235,1026,2239,918,2270"/>
+<area shape="rect" id="Node000150" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IAddPropertyMemberPredicate-2-g.html" title=" " alt="" coords="1025,2367,1296,2445"/>
+<area shape="poly" id="edge99_Node000145_Node000150" title=" " alt="" coords="914,2336,1027,2368,1022,2370,917,2341"/>
+<area shape="poly" id="edge96_Node000144_Node000141" title=" " alt="" coords="1298,2118,1406,2136,1402,2139,1301,2123"/>
+<area shape="poly" id="edge98_Node000146_Node000147" title=" " alt="" coords="1307,2222,1398,2237,1393,2240,1310,2227"/>
+<area shape="poly" id="edge100_Node000150_Node000151" title=" " alt="" coords="1310,2444,1340,2456,1364,2470,1388,2485,1415,2497,1410,2499,1385,2490,1361,2475,1337,2460,1311,2449"/>
+<area shape="poly" id="edge102_Node000155_Node000156" title=" " alt="" coords="924,1961,1041,1977,1036,1980,927,1966"/>
+<area shape="rect" id="Node000160" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAddAttributePredicate-2-g.html" title=" " alt="" coords="1022,1648,1299,1727"/>
+<area shape="poly" id="edge103_Node000155_Node000160" title=" " alt="" coords="921,1904,932,1894,947,1874,953,1855,955,1816,957,1776,965,1756,980,1736,999,1721,1024,1709,1020,1713,1002,1725,984,1740,970,1759,963,1777,961,1816,959,1856,951,1877,936,1897,925,1907"/>
+<area shape="rect" id="Node000164" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IAddClassPredicate-2-g.html" title=" " alt="" coords="1038,1751,1283,1829"/>
+<area shape="poly" id="edge105_Node000155_Node000164" title=" " alt="" coords="913,1905,933,1893,947,1880,956,1866,965,1852,981,1838,1039,1813,1035,1817,984,1843,969,1856,960,1869,951,1883,936,1897,917,1908"/>
+<area shape="rect" id="Node000169" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfacePredicate-2-g.html" title=" " alt="" coords="1022,1853,1299,1932"/>
+<area shape="poly" id="edge107_Node000155_Node000169" title=" " alt="" coords="923,1923,1024,1910,1020,1914,927,1927"/>
+<area shape="poly" id="edge104_Node000160_Node000157" title=" " alt="" coords="1313,1681,1408,1680,1404,1683,1316,1686"/>
+<area shape="poly" id="edge106_Node000164_Node000161" title=" " alt="" coords="1297,1791,1408,1794,1404,1797,1300,1796"/>
+<area shape="poly" id="edge108_Node000169_Node000166" title=" " alt="" coords="1313,1892,1408,1894,1404,1897,1316,1896"/>
+<area shape="rect" id="Node000112" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeCompilerGenerated.html" title=" " alt="" coords="359,4209,566,4254"/>
+<area shape="rect" id="Node000090" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeAnalyzed.html" title=" " alt="" coords="682,4209,890,4254"/>
+<area shape="poly" id="edge109_Node000112_Node000090" title=" " alt="" coords="581,4229,684,4230,680,4233,583,4234"/>
+<area shape="rect" id="Node000091" href="$interfaceArchUnitNET_1_1Domain_1_1IMember.html" title=" " alt="" coords="1051,4503,1270,4530"/>
+<area shape="poly" id="edge110_Node000090_Node000091" title=" " alt="" coords="830,4261,1143,4502,1138,4503,829,4266"/>
+<area shape="rect" id="Node000102" href="$interfaceArchUnitNET_1_1Domain_1_1IType.html" title=" " alt="" coords="1063,4218,1258,4245"/>
+<area shape="poly" id="edge114_Node000090_Node000102" title=" " alt="" coords="904,4229,1065,4230,1060,4232,906,4234"/>
+<area shape="rect" id="Node000092" href="$classArchUnitNET_1_1Domain_1_1FieldMember.html" title=" " alt="" coords="1461,4529,1653,4574"/>
+<area shape="poly" id="edge111_Node000091_Node000092" title=" " alt="" coords="1285,4525,1463,4543,1458,4543,1286,4530"/>
+<area shape="rect" id="Node000101" href="$classArchUnitNET_1_1Domain_1_1MethodMember.html" title=" " alt="" coords="1452,4460,1662,4504"/>
+<area shape="poly" id="edge112_Node000091_Node000101" title=" " alt="" coords="1285,4503,1454,4491,1449,4492,1286,4508"/>
+<area shape="rect" id="Node000098" href="$classArchUnitNET_1_1Domain_1_1PropertyMember.html" title=" " alt="" coords="1449,4598,1665,4643"/>
+<area shape="poly" id="edge113_Node000091_Node000098" title=" " alt="" coords="1219,4533,1387,4583,1451,4600,1446,4600,1386,4589,1219,4539"/>
+<area shape="rect" id="Node000103" href="$classArchUnitNET_1_1Domain_1_1Class.html" title=" " alt="" coords="1459,4218,1655,4245"/>
+<area shape="poly" id="edge115_Node000102_Node000103" title=" " alt="" coords="1273,4229,1461,4231,1455,4232,1274,4234"/>
+<area shape="rect" id="Node000105" href="$classArchUnitNET_1_1Domain_1_1Enum.html" title=" " alt="" coords="1458,4270,1656,4297"/>
+<area shape="poly" id="edge117_Node000102_Node000105" title=" " alt="" coords="1274,4243,1460,4270,1454,4271,1274,4249"/>
+<area shape="rect" id="Node000106" href="$classArchUnitNET_1_1Domain_1_1FunctionPointer.html" title=" " alt="" coords="1449,4321,1665,4366"/>
+<area shape="poly" id="edge118_Node000102_Node000106" title=" " alt="" coords="1213,4248,1295,4277,1387,4306,1451,4323,1446,4324,1386,4311,1293,4283,1213,4254"/>
+<area shape="rect" id="Node000107" href="$classArchUnitNET_1_1Domain_1_1GenericParameter.html" title=" " alt="" coords="1451,4390,1662,4435"/>
+<area shape="poly" id="edge119_Node000102_Node000107" title=" " alt="" coords="1191,4253,1277,4315,1331,4348,1388,4376,1453,4397,1448,4398,1386,4380,1328,4352,1274,4319,1190,4258"/>
+<area shape="rect" id="Node000108" href="$classArchUnitNET_1_1Domain_1_1Interface.html" title=" " alt="" coords="1447,4010,1666,4037"/>
+<area shape="poly" id="edge120_Node000102_Node000108" title=" " alt="" coords="1273,4231,1307,4221,1337,4203,1352,4185,1359,4167,1360,4127,1361,4087,1369,4067,1385,4048,1414,4030,1449,4022,1444,4024,1416,4035,1388,4052,1374,4070,1366,4088,1365,4127,1364,4168,1356,4188,1340,4207,1309,4226,1275,4236"/>
+<area shape="rect" id="Node000109" href="$classArchUnitNET_1_1Domain_1_1Struct.html" title=" " alt="" coords="1457,4062,1656,4089"/>
+<area shape="poly" id="edge121_Node000102_Node000109" title=" " alt="" coords="1272,4229,1306,4219,1337,4203,1349,4191,1355,4179,1360,4153,1365,4126,1373,4112,1385,4100,1419,4082,1459,4074,1454,4076,1421,4087,1388,4104,1377,4115,1370,4127,1365,4154,1360,4181,1353,4194,1340,4207,1308,4224,1274,4234"/>
+<area shape="rect" id="Node000110" href="$classArchUnitNET_1_1Domain_1_1UnavailableType.html" title=" " alt="" coords="1422,4114,1692,4141"/>
+<area shape="poly" id="edge122_Node000102_Node000110" title=" " alt="" coords="1272,4223,1306,4215,1337,4202,1352,4191,1360,4178,1369,4164,1385,4152,1424,4139,1420,4141,1388,4156,1373,4168,1365,4181,1356,4195,1340,4207,1308,4220,1274,4228"/>
+<area shape="rect" id="Node000111" href="$classArchUnitNET_1_1Loader_1_1Type.html" title=" " alt="" coords="1465,4166,1648,4193"/>
+<area shape="poly" id="edge123_Node000102_Node000111" title=" " alt="" coords="1273,4214,1467,4190,1462,4192,1274,4219"/>
+<area shape="rect" id="Node000104" href="$classArchUnitNET_1_1Domain_1_1Attribute.html" title=" " alt="" coords="1847,4218,2065,4245"/>
+<area shape="poly" id="edge116_Node000103_Node000104" title=" " alt="" coords="1670,4229,1849,4231,1844,4232,1671,4234"/>
+<area shape="rect" id="Node000113" href="$interfaceArchUnitNET_1_1Domain_1_1ICanBeGeneric.html" title=" " alt="" coords="359,4398,566,4443"/>
+<area shape="poly" id="edge124_Node000113_Node000090" title=" " alt="" coords="575,4390,589,4384,640,4353,688,4317,760,4256,764,4253,691,4322,643,4357,591,4388,578,4394"/>
+<area shape="rect" id="Node000114" href="$interfaceArchUnitNET_1_1Domain_1_1IHasAttributes.html" title=" " alt="" coords="19,4131,274,4158"/>
+<area shape="poly" id="edge126_Node000114_Node000090" title=" " alt="" coords="184,4121,264,4084,314,4066,369,4051,426,4042,483,4041,539,4051,591,4074,604,4085,612,4097,619,4121,624,4147,630,4159,640,4171,668,4191,700,4208,695,4209,665,4195,636,4175,625,4162,619,4148,613,4123,607,4099,600,4088,589,4079,538,4056,483,4047,426,4047,370,4056,316,4071,266,4089,188,4125"/>
+<area shape="rect" id="Node000115" href="$classArchUnitNET_1_1Domain_1_1Assembly.html" title=" " alt="" coords="350,4278,576,4305"/>
+<area shape="poly" id="edge125_Node000114_Node000115" title=" " alt="" coords="176,4166,248,4216,291,4242,337,4264,371,4276,366,4278,335,4268,289,4247,245,4221,178,4171"/>
+<area shape="rect" id="Node000089" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDependencies.html" title=" " alt="" coords="5,3935,288,3962"/>
+<area shape="poly" id="edge127_Node000089_Node000090" title=" " alt="" coords="302,3936,388,3935,472,3939,543,3950,571,3960,592,3972,612,3995,621,4019,623,4044,621,4070,618,4095,618,4121,624,4146,640,4171,663,4191,692,4208,687,4209,660,4196,636,4174,619,4148,613,4121,612,4095,615,4069,617,4044,616,4021,607,3998,588,3976,569,3965,542,3956,472,3944,388,3940,305,3941"/>
+<area shape="rect" id="Node000088" href="$classArchUnitNET_1_1Domain_1_1Namespace.html" title="A namespace of the loaded architecture together with the types declared directly in it...." alt="" coords="344,3986,582,4013"/>
+<area shape="poly" id="edge128_Node000089_Node000088" title=" " alt="" coords="251,3963,374,3983,370,3986,254,3968"/>
+<area shape="rect" id="Node000121" href="$classArchUnitNET_1_1Domain_1_1Slice.html" title="A group of types whose namespaces produced the same SliceIdentifier under a slice pattern...." alt="" coords="367,3884,559,3912"/>
+<area shape="poly" id="edge129_Node000089_Node000121" title=" " alt="" coords="251,3930,374,3911,370,3914,254,3934"/>
+<area shape="rect" id="Node000056" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="14,3566,279,3593"/>
+<area shape="poly" id="edge161_Node000056_Node000088" title=" " alt="" coords="157,3606,184,3669,222,3752,274,3840,304,3883,338,3921,383,3957,430,3984,425,3986,380,3962,334,3925,300,3886,269,3843,218,3754,179,3671,158,3611"/>
+<area shape="poly" id="edge162_Node000056_Node000121" title=" " alt="" coords="157,3605,183,3664,220,3736,244,3773,271,3810,302,3842,337,3870,368,3886,364,3888,334,3875,299,3846,267,3813,239,3776,215,3739,178,3666,158,3610"/>
+<area shape="rect" id="Node000057" href="$interfaceArchUnitNET_1_1Domain_1_1IObjectProvider-1-g.html" title=" " alt="" coords="359,3522,566,3567"/>
+<area shape="poly" id="edge130_Node000056_Node000057" title=" " alt="" coords="292,3561,361,3554,357,3558,295,3565"/>
+<area shape="rect" id="Node000122" href="$classArchUnitNET_1_1Domain_1_1SliceIdentifier.html" title="Identifies a slice by its parts: for a slice pattern, the values its capture groups captured,..." alt="" coords="367,3592,559,3636"/>
+<area shape="poly" id="edge163_Node000056_Node000122" title=" " alt="" coords="292,3593,368,3602,364,3605,295,3598"/>
+<area shape="rect" id="Node000123" href="$interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition-1-g.html" title="A condition that can be checked against objects of type TRuleType." alt="" coords="351,3661,575,3706"/>
+<area shape="poly" id="edge164_Node000056_Node000123" title=" " alt="" coords="197,3597,337,3646,377,3659,372,3662,335,3651,199,3602"/>
+<area shape="rect" id="Node000131" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1RelationCondition-2-g.html" title=" " alt="" coords="351,3730,575,3792"/>
+<area shape="poly" id="edge173_Node000056_Node000131" title=" " alt="" coords="174,3601,247,3658,291,3688,337,3716,362,3728,358,3731,334,3720,288,3693,244,3662,176,3606"/>
+<area shape="rect" id="Node000132" href="$classArchUnitNET_1_1Fluent_1_1EvaluationResult.html" title=" " alt="" coords="353,3816,573,3860"/>
+<area shape="poly" id="edge174_Node000056_Node000132" title=" " alt="" coords="162,3604,192,3648,231,3701,280,3755,337,3801,361,3814,356,3816,334,3806,277,3759,227,3705,188,3651,163,3609"/>
+<area shape="rect" id="Node000051" href="$interfaceArchUnitNET_1_1Fluent_1_1ICanBeEvaluated.html" title=" " alt="" coords="364,1510,562,1555"/>
+<area shape="poly" id="edge175_Node000056_Node000051" title=" " alt="" coords="146,3550,163,3231,200,2705,225,2419,256,2150,292,1918,312,1823,333,1746,357,1689,386,1636,444,1553,443,1558,391,1638,361,1692,338,1748,317,1825,297,1919,261,2151,231,2420,205,2705,169,3231,152,3550"/>
+<area shape="rect" id="Node000133" href="$classArchUnitNET_1_1Fluent_1_1LogicalConjunction.html" title=" " alt="" coords="364,2156,562,2200"/>
+<area shape="poly" id="edge204_Node000056_Node000133" title=" " alt="" coords="145,3550,148,3295,156,3103,170,2892,193,2680,208,2579,227,2484,248,2397,273,2322,301,2259,334,2211,365,2190,363,2194,338,2215,306,2261,278,2324,253,2399,232,2485,214,2580,198,2680,176,2892,161,3103,154,3295,150,3550"/>
+<area shape="rect" id="Node000134" href="$interfaceArchUnitNET_1_1Fluent_1_1Predicates_1_1IPredicate-1-g.html" title=" " alt="" coords="351,1760,574,1804"/>
+<area shape="poly" id="edge205_Node000056_Node000134" title=" " alt="" coords="147,3550,161,3345,194,2999,219,2793,250,2576,288,2357,333,2143,361,2042,394,1945,452,1802,451,1807,399,1947,366,2044,338,2144,293,2358,255,2577,224,2793,199,2999,166,3345,152,3550"/>
+<area shape="rect" id="Node000138" href="$classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceAssignment.html" title="Defines how types are assigned to slices. The assignment function maps each type to a SliceIdentifier..." alt="" coords="366,2802,560,2847"/>
+<area shape="poly" id="edge209_Node000056_Node000138" title=" " alt="" coords="149,3549,170,3404,209,3196,235,3090,264,2992,297,2912,315,2881,334,2857,367,2837,364,2842,337,2861,319,2884,302,2914,269,2994,240,3091,215,3197,176,3405,154,3550"/>
+<area shape="rect" id="Node000026" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement-1-g.html" title=" " alt="" coords="354,2872,572,2916"/>
+<area shape="poly" id="edge210_Node000056_Node000026" title=" " alt="" coords="158,3550,451,2914,451,2920,163,3552"/>
+<area shape="rect" id="Node000058" href="$interfaceArchUnitNET_1_1Domain_1_1ISizedObjectProvider-1-g.html" title="An interface for object providers that can provide a size independent of the used architecture." alt="" coords="686,3522,886,3567"/>
+<area shape="poly" id="edge131_Node000057_Node000058" title=" " alt="" coords="581,3542,688,3543,683,3546,584,3547"/>
+<area shape="rect" id="Node000059" href="$classArchUnitNET_1_1Fluent_1_1BasicObjectProvider-1-g.html" title=" " alt="" coords="693,3661,879,3706"/>
+<area shape="poly" id="edge132_Node000057_Node000059" title=" " alt="" coords="579,3570,592,3577,608,3595,616,3613,624,3630,640,3647,665,3660,695,3671,690,3673,663,3665,636,3651,620,3633,611,3615,604,3598,588,3581,581,3576"/>
+<area shape="rect" id="Node000060" href="$classArchUnitNET_1_1Fluent_1_1Slices_1_1GivenSlices.html" title="Represents slices that have been matched by a namespace pattern. Use Should to continue defining rule..." alt="" coords="690,3592,883,3636"/>
+<area shape="poly" id="edge133_Node000057_Node000060" title=" " alt="" coords="581,3568,691,3592,687,3595,583,3573"/>
+<area shape="rect" id="Node000061" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjects-3-g.html" title=" " alt="" coords="664,3420,908,3499"/>
+<area shape="poly" id="edge134_Node000057_Node000061" title=" " alt="" coords="563,3516,665,3490,661,3493,567,3520"/>
+<area shape="rect" id="Node000070" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunctionWithDescription-3-g.html" title=" " alt="" coords="647,2855,925,2933"/>
+<area shape="poly" id="edge143_Node000057_Node000070" title=" " alt="" coords="480,3507,766,2931,764,2936,484,3510"/>
+<area shape="rect" id="Node000062" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembers.html" title=" " alt="" coords="1037,3272,1284,3334"/>
+<area shape="poly" id="edge135_Node000061_Node000062" title=" " alt="" coords="857,3409,917,3374,981,3344,1039,3326,1034,3330,983,3348,919,3379,860,3413"/>
+<area shape="rect" id="Node000063" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembers.html" title=" " alt="" coords="1035,3358,1286,3403"/>
+<area shape="poly" id="edge136_Node000061_Node000063" title=" " alt="" coords="922,3426,982,3413,1042,3402,1038,3405,983,3418,925,3430"/>
+<area shape="rect" id="Node000064" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1GivenMethodMembers.html" title=" " alt="" coords="1028,3427,1293,3489"/>
+<area shape="poly" id="edge137_Node000061_Node000064" title=" " alt="" coords="923,3456,1030,3457,1025,3460,925,3461"/>
+<area shape="rect" id="Node000065" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembers.html" title=" " alt="" coords="1025,3512,1296,3574"/>
+<area shape="poly" id="edge138_Node000061_Node000065" title=" " alt="" coords="923,3488,1027,3512,1022,3514,925,3493"/>
+<area shape="rect" id="Node000066" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1GivenAttributes.html" title=" " alt="" coords="1044,3598,1277,3660"/>
+<area shape="poly" id="edge139_Node000061_Node000066" title=" " alt="" coords="922,3499,936,3508,953,3528,960,3548,968,3566,984,3584,1013,3600,1046,3613,1041,3615,1010,3605,981,3588,963,3569,955,3550,948,3530,933,3512,923,3504"/>
+<area shape="rect" id="Node000067" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1GivenClasses.html" title=" " alt="" coords="1026,3684,1295,3728"/>
+<area shape="poly" id="edge140_Node000061_Node000067" title=" " alt="" coords="921,3496,936,3508,951,3529,959,3550,960,3592,961,3632,969,3651,984,3669,1004,3684,1028,3696,1023,3697,1001,3688,981,3673,964,3654,956,3633,954,3592,953,3551,947,3532,932,3512,922,3501"/>
+<area shape="rect" id="Node000068" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypes.html" title=" " alt="" coords="1059,3753,1262,3798"/>
+<area shape="poly" id="edge141_Node000061_Node000068" title=" " alt="" coords="921,3495,936,3508,956,3538,963,3569,963,3598,959,3628,955,3656,956,3684,964,3712,984,3739,1000,3752,1019,3761,1061,3775,1056,3776,1017,3766,997,3756,980,3743,959,3714,951,3685,950,3656,954,3627,958,3598,958,3569,951,3541,932,3512,921,3500"/>
+<area shape="rect" id="Node000069" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfaces.html" title=" " alt="" coords="1043,3822,1278,3884"/>
+<area shape="poly" id="edge142_Node000061_Node000069" title=" " alt="" coords="921,3495,936,3508,960,3548,968,3586,966,3625,959,3662,952,3699,951,3736,960,3772,984,3808,1012,3829,1046,3844,1040,3846,1009,3834,980,3812,955,3774,946,3736,947,3698,954,3661,961,3624,963,3587,955,3549,932,3512,922,3500"/>
+<area shape="rect" id="Node000071" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1GivenObjectsConjunction-4-g.html" title=" " alt="" coords="1014,2897,1307,2992"/>
+<area shape="poly" id="edge144_Node000070_Node000071" title=" " alt="" coords="940,2913,1016,2923,1011,2926,942,2917"/>
+<area shape="rect" id="Node000080" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembersConjunctionWithDescription.html" title=" " alt="" coords="994,3016,1327,3078"/>
+<area shape="poly" id="edge153_Node000070_Node000080" title=" " alt="" coords="860,2939,920,2973,983,3002,1017,3015,1012,3017,981,3007,918,2977,861,2944"/>
+<area shape="rect" id="Node000081" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersConjunctionWithDescription.html" title=" " alt="" coords="997,3102,1324,3164"/>
+<area shape="poly" id="edge154_Node000070_Node000081" title=" " alt="" coords="825,2943,895,3019,937,3056,984,3088,1008,3100,1003,3102,981,3092,934,3061,891,3023,825,2948"/>
+<area shape="rect" id="Node000082" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1GivenMethodMembersConjunctionWithDescription.html" title=" " alt="" coords="985,3187,1336,3249"/>
+<area shape="poly" id="edge155_Node000070_Node000082" title=" " alt="" coords="810,2945,840,3001,878,3062,926,3123,954,3150,984,3173,1004,3186,999,3187,981,3178,950,3154,922,3126,874,3065,835,3003,810,2950"/>
+<area shape="rect" id="Node000083" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyM539792d9549d09ca006fd2d2747f42dc.html" title=" " alt="" coords="982,2470,1339,2532"/>
+<area shape="poly" id="edge156_Node000070_Node000083" title=" " alt="" coords="800,2839,824,2770,862,2690,886,2648,913,2609,945,2573,981,2541,1001,2530,998,2534,984,2545,949,2577,918,2612,890,2651,866,2692,829,2772,805,2841"/>
+<area shape="rect" id="Node000084" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1GivenAttributesConjunctionWithDescription.html" title=" " alt="" coords="1027,2555,1294,2617"/>
+<area shape="poly" id="edge157_Node000070_Node000084" title=" " alt="" coords="810,2840,838,2788,877,2730,924,2674,952,2649,981,2626,1029,2605,1025,2609,984,2631,955,2653,928,2678,881,2734,843,2791,815,2842"/>
+<area shape="rect" id="Node000085" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1GivenClassesConjunctionWithDescription.html" title=" " alt="" coords="1026,2640,1295,2702"/>
+<area shape="poly" id="edge158_Node000070_Node000085" title=" " alt="" coords="827,2841,895,2773,936,2740,981,2712,1027,2694,1024,2698,984,2716,940,2744,899,2777,832,2844"/>
+<area shape="rect" id="Node000086" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesConjunctionWithDescription.html" title=" " alt="" coords="1021,2726,1300,2788"/>
+<area shape="poly" id="edge159_Node000070_Node000086" title=" " alt="" coords="871,2845,925,2820,981,2797,1022,2785,1018,2789,983,2802,928,2824,875,2849"/>
+<area shape="rect" id="Node000087" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesConjunctionWithDescription.html" title=" " alt="" coords="1027,2811,1294,2873"/>
+<area shape="poly" id="edge160_Node000070_Node000087" title=" " alt="" coords="940,2870,1028,2859,1024,2862,943,2875"/>
+<area shape="rect" id="Node000072" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1GivenFieldMembersConjunction.html" title=" " alt="" coords="1433,3044,1680,3106"/>
+<area shape="poly" id="edge145_Node000071_Node000072" title=" " alt="" coords="1321,2995,1340,3002,1364,3017,1388,3030,1435,3048,1430,3050,1386,3035,1361,3021,1337,3007,1322,3000"/>
+<area shape="rect" id="Node000073" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1GivenMembersConjunction.html" title=" " alt="" coords="1393,3130,1720,3175"/>
+<area shape="poly" id="edge146_Node000071_Node000073" title=" " alt="" coords="1320,2988,1341,3003,1353,3017,1360,3032,1364,3062,1369,3090,1376,3103,1388,3116,1407,3129,1402,3130,1385,3120,1372,3106,1364,3092,1359,3063,1355,3034,1348,3020,1337,3007,1321,2993"/>
+<area shape="rect" id="Node000074" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1GivenMethodMembersConjunction.html" title=" " alt="" coords="1424,3199,1690,3261"/>
+<area shape="poly" id="edge147_Node000071_Node000074" title=" " alt="" coords="1320,2986,1341,3003,1357,3027,1365,3050,1364,3097,1363,3120,1365,3142,1372,3164,1389,3185,1406,3199,1427,3212,1421,3213,1403,3204,1385,3189,1367,3166,1359,3143,1358,3120,1359,3097,1359,3051,1352,3029,1337,3006,1320,2991"/>
+<area shape="rect" id="Node000075" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembersConjunction.html" title=" " alt="" coords="1421,2634,1692,2696"/>
+<area shape="poly" id="edge148_Node000071_Node000075" title=" " alt="" coords="1318,2899,1337,2883,1352,2861,1359,2839,1359,2795,1360,2750,1368,2728,1385,2705,1423,2682,1419,2686,1389,2709,1373,2730,1365,2751,1364,2795,1364,2840,1357,2863,1341,2886,1322,2903"/>
+<area shape="rect" id="Node000076" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1GivenAttributesConjunction.html" title=" " alt="" coords="1440,2719,1674,2781"/>
+<area shape="poly" id="edge149_Node000071_Node000076" title=" " alt="" coords="1319,2896,1337,2883,1353,2860,1360,2837,1366,2814,1385,2791,1411,2774,1442,2764,1437,2767,1413,2779,1388,2795,1371,2816,1365,2839,1358,2863,1341,2887,1323,2900"/>
+<area shape="rect" id="Node000077" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1GivenClassesConjunction.html" title=" " alt="" coords="1422,2804,1692,2866"/>
+<area shape="poly" id="edge150_Node000071_Node000077" title=" " alt="" coords="1320,2894,1386,2875,1431,2865,1426,2868,1387,2881,1323,2899"/>
+<area shape="rect" id="Node000078" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesConjunction.html" title=" " alt="" coords="1417,2890,1696,2935"/>
+<area shape="poly" id="edge151_Node000071_Node000078" title=" " alt="" coords="1321,2929,1419,2923,1414,2925,1324,2934"/>
+<area shape="rect" id="Node000079" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesConjunction.html" title=" " alt="" coords="1440,2959,1674,3021"/>
+<area shape="poly" id="edge152_Node000071_Node000079" title=" " alt="" coords="1321,2961,1442,2975,1437,2978,1323,2966"/>
+<area shape="rect" id="Node000124" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1ArchitectureCondition-1-g.html" title=" " alt="" coords="656,4116,916,4160"/>
+<area shape="poly" id="edge165_Node000123_Node000124" title=" " alt="" coords="587,3712,592,3716,608,3738,620,3759,630,3801,629,3843,622,3884,614,3925,611,3967,618,4010,627,4032,640,4055,656,4073,674,4089,718,4115,712,4116,671,4093,652,4077,636,4058,622,4035,613,4012,606,3967,609,3924,617,3883,624,3842,625,3802,615,3761,604,3741,588,3720,587,3717"/>
+<area shape="rect" id="Node000130" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1EnumerableCondition-1-g.html" title=" " alt="" coords="657,4000,915,4044"/>
+<area shape="poly" id="edge167_Node000123_Node000130" title=" " alt="" coords="587,3712,592,3716,615,3751,623,3785,622,3820,616,3854,610,3887,609,3920,618,3953,640,3986,659,4002,654,4003,636,3989,613,3955,604,3921,605,3887,611,3853,616,3819,618,3786,610,3753,588,3720,588,3718"/>
+<area shape="rect" id="Node000126" href="$interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1IOrderedCondition-1-g.html" title="An IOrderedCondition is a Condition that has the semantic requirement that the order of the results c..." alt="" coords="660,3930,912,3975"/>
+<area shape="poly" id="edge168_Node000123_Node000126" title=" " alt="" coords="581,3711,591,3716,624,3739,653,3766,706,3826,747,3883,775,3930,770,3930,743,3886,702,3829,650,3770,620,3743,589,3720,582,3716"/>
+<area shape="rect" id="Node000125" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1OrderedArchitectureCondition-1-g.html" title=" " alt="" coords="1048,4131,1273,4193"/>
+<area shape="poly" id="edge166_Node000124_Node000125" title=" " alt="" coords="931,4145,1050,4154,1045,4156,932,4150"/>
+<area shape="poly" id="edge171_Node000126_Node000125" title=" " alt="" coords="925,3978,936,3985,950,4002,958,4019,961,4053,964,4086,971,4102,984,4117,1014,4137,1050,4152,1045,4153,1012,4142,981,4121,967,4105,959,4088,956,4054,952,4020,946,4005,932,3989,926,3983"/>
+<area shape="rect" id="Node000127" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition-2-g.html" title=" " alt="" coords="1047,4046,1274,4108"/>
+<area shape="poly" id="edge169_Node000126_Node000127" title=" " alt="" coords="922,3979,936,3985,951,3997,960,4009,969,4021,984,4032,1014,4046,1049,4058,1044,4060,1012,4051,981,4036,966,4025,956,4012,947,4001,933,3990,923,3984"/>
+<area shape="rect" id="Node000128" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1ExistsCondition-1-g.html" title=" " alt="" coords="1048,3908,1273,3952"/>
+<area shape="poly" id="edge170_Node000126_Node000128" title=" " alt="" coords="927,3942,1050,3936,1046,3938,929,3947"/>
+<area shape="rect" id="Node000129" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition-1-g.html" title=" " alt="" coords="1048,3977,1273,4022"/>
+<area shape="poly" id="edge172_Node000126_Node000129" title=" " alt="" coords="927,3968,1050,3984,1045,3986,929,3973"/>
+<area shape="rect" id="Node000046" href="$interfaceArchUnitNET_1_1Fluent_1_1IArchRule.html" title=" " alt="" coords="680,1346,893,1373"/>
+<area shape="poly" id="edge176_Node000051_Node000046" title=" " alt="" coords="517,1501,760,1371,757,1376,521,1504"/>
+<area shape="rect" id="Node000052" href="$interfaceArchUnitNET_1_1Fluent_1_1IArchRuleCreator-1-g.html" title=" " alt="" coords="688,1545,884,1590"/>
+<area shape="poly" id="edge200_Node000051_Node000052" title=" " alt="" coords="576,1543,690,1555,686,1559,579,1547"/>
+<area shape="rect" id="Node000055" href="$classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRuleCreator.html" title="Internal orchestrator that wires together the slice assignment (how types map to slices) and the eval..." alt="" coords="690,1476,883,1520"/>
+<area shape="poly" id="edge203_Node000051_Node000055" title=" " alt="" coords="575,1518,691,1506,687,1510,579,1522"/>
+<area shape="rect" id="Node000027" href="$classArchUnitNET_1_1Fluent_1_1ArchRule-1-g.html" title=" " alt="" coords="1056,1441,1265,1486"/>
+<area shape="poly" id="edge177_Node000046_Node000027" title=" " alt="" coords="836,1377,906,1402,983,1426,1058,1444,1053,1447,982,1431,905,1407,838,1382"/>
+<area shape="rect" id="Node000047" href="$classArchUnitNET_1_1Fluent_1_1CombinedArchRule.html" title=" " alt="" coords="1052,1372,1269,1416"/>
+<area shape="poly" id="edge196_Node000046_Node000047" title=" " alt="" coords="906,1368,1054,1382,1049,1386,909,1373"/>
+<area shape="rect" id="Node000048" href="$classArchUnitNET_1_1Fluent_1_1CustomArchRule.html" title=" " alt="" coords="1060,1164,1261,1208"/>
+<area shape="poly" id="edge197_Node000046_Node000048" title=" " alt="" coords="812,1333,885,1274,932,1244,981,1218,1019,1205,1061,1196,1057,1200,1021,1210,983,1223,934,1248,888,1279,816,1336"/>
+<area shape="rect" id="Node000049" href="$classArchUnitNET_1_1Fluent_1_1Freeze_1_1FreezingArchRule.html" title=" " alt="" coords="1061,1233,1260,1278"/>
+<area shape="poly" id="edge198_Node000046_Node000049" title=" " alt="" coords="835,1338,905,1312,982,1287,1063,1270,1059,1274,983,1293,906,1317,839,1341"/>
+<area shape="rect" id="Node000050" href="$classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRule.html" title="A completed slice architecture rule that can be evaluated against an architecture...." alt="" coords="1064,1302,1257,1347"/>
+<area shape="poly" id="edge199_Node000046_Node000050" title=" " alt="" coords="906,1346,1066,1332,1062,1335,909,1350"/>
+<area shape="rect" id="Node000028" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunctionWithDescription-2-g.html" title=" " alt="" coords="1429,1136,1685,1215"/>
+<area shape="poly" id="edge178_Node000027_Node000028" title=" " alt="" coords="1279,1450,1310,1440,1337,1426,1370,1405,1400,1379,1455,1322,1499,1264,1535,1213,1532,1218,1503,1267,1459,1325,1404,1383,1373,1409,1340,1431,1311,1445,1282,1453"/>
+<area shape="rect" id="Node000029" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1FieldMembersShouldConjunctionWithDescription.html" title=" " alt="" coords="1787,747,2125,809"/>
+<area shape="poly" id="edge179_Node000028_Node000029" title=" " alt="" coords="1573,1120,1602,1051,1644,969,1671,927,1701,887,1735,850,1773,819,1795,807,1791,811,1777,823,1739,854,1705,891,1675,930,1649,972,1607,1053,1578,1122"/>
+<area shape="rect" id="Node000030" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShouldConjunctionWithDescription.html" title=" " alt="" coords="1828,832,2084,894"/>
+<area shape="poly" id="edge180_Node000028_Node000030" title=" " alt="" coords="1584,1121,1617,1068,1660,1010,1712,952,1742,926,1774,904,1830,880,1826,884,1776,908,1745,930,1716,956,1664,1013,1621,1071,1589,1123"/>
+<area shape="rect" id="Node000031" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShouldConjunctionWithDescription.html" title=" " alt="" coords="1778,918,2134,980"/>
+<area shape="poly" id="edge181_Node000028_Node000031" title=" " alt="" coords="1602,1123,1678,1053,1724,1018,1774,989,1802,978,1799,982,1776,994,1727,1023,1682,1057,1606,1126"/>
+<area shape="rect" id="Node000032" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembercbe5c60298a4477121e1e7b307af6b72.html" title=" " alt="" coords="1775,1003,2137,1065"/>
+<area shape="poly" id="edge182_Node000028_Node000032" title=" " alt="" coords="1648,1127,1710,1099,1774,1074,1813,1064,1809,1067,1776,1079,1712,1104,1652,1131"/>
+<area shape="rect" id="Node000033" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1ObjectsShouldConjunction-3-g.html" title=" " alt="" coords="1784,1089,2128,1168"/>
+<area shape="poly" id="edge183_Node000028_Node000033" title=" " alt="" coords="1699,1156,1786,1147,1782,1150,1702,1161"/>
+<area shape="rect" id="Node000042" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AttributesShouldConjunctionWithDescription.html" title=" " alt="" coords="1826,1192,2086,1254"/>
+<area shape="poly" id="edge192_Node000028_Node000042" title=" " alt="" coords="1699,1190,1828,1206,1824,1209,1701,1195"/>
+<area shape="rect" id="Node000043" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShouldConjunctionWithDescription.html" title=" " alt="" coords="1833,1278,2079,1340"/>
+<area shape="poly" id="edge193_Node000028_Node000043" title=" " alt="" coords="1657,1219,1776,1263,1835,1281,1830,1284,1774,1269,1659,1224"/>
+<area shape="rect" id="Node000044" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShouldConjunctionWithDescription.html" title=" " alt="" coords="1826,1363,2087,1425"/>
+<area shape="poly" id="edge194_Node000028_Node000044" title=" " alt="" coords="1606,1223,1684,1289,1729,1322,1776,1349,1828,1370,1823,1372,1774,1354,1726,1326,1680,1293,1607,1228"/>
+<area shape="rect" id="Node000045" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunctionWithDescription.html" title=" " alt="" coords="1814,1448,2099,1510"/>
+<area shape="poly" id="edge195_Node000028_Node000045" title=" " alt="" coords="1587,1225,1622,1277,1665,1333,1717,1388,1776,1434,1815,1454,1810,1456,1774,1439,1713,1392,1661,1337,1618,1280,1588,1231"/>
+<area shape="rect" id="Node000034" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1FieldMembersShouldConjunction.html" title=" " alt="" coords="2204,799,2452,861"/>
+<area shape="poly" id="edge184_Node000033_Node000034" title=" " alt="" coords="2133,1077,2135,1075,2153,1050,2160,1025,2161,1000,2159,975,2156,949,2157,923,2165,897,2183,871,2206,855,2203,859,2187,874,2170,899,2163,924,2162,949,2164,975,2167,1000,2166,1026,2158,1052,2139,1078,2138,1080"/>
+<area shape="rect" id="Node000035" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShouldConjunction.html" title=" " alt="" coords="2200,884,2456,946"/>
+<area shape="poly" id="edge185_Node000033_Node000035" title=" " alt="" coords="2132,1078,2135,1075,2148,1061,2154,1047,2159,1017,2163,987,2171,971,2183,956,2202,945,2198,949,2187,960,2175,974,2169,988,2164,1018,2159,1048,2152,1064,2139,1079,2136,1081"/>
+<area shape="rect" id="Node000036" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShouldConjunction.html" title=" " alt="" coords="2195,970,2461,1032"/>
+<area shape="poly" id="edge186_Node000033_Node000036" title=" " alt="" coords="2121,1081,2136,1074,2160,1058,2184,1041,2213,1030,2209,1034,2187,1046,2163,1062,2139,1079,2125,1085"/>
+<area shape="rect" id="Node000037" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembersShouldConjunction.html" title=" " alt="" coords="2192,1055,2464,1117"/>
+<area shape="poly" id="edge187_Node000033_Node000037" title=" " alt="" coords="2142,1105,2194,1100,2189,1103,2145,1109"/>
+<area shape="rect" id="Node000038" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AttributesShouldConjunction.html" title=" " alt="" coords="2198,1140,2458,1202"/>
+<area shape="poly" id="edge188_Node000033_Node000038" title=" " alt="" coords="2142,1148,2200,1155,2195,1158,2144,1152"/>
+<area shape="rect" id="Node000039" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ClassesShouldConjunction.html" title=" " alt="" coords="2212,1226,2444,1288"/>
+<area shape="poly" id="edge189_Node000033_Node000039" title=" " alt="" coords="2122,1172,2139,1178,2163,1195,2187,1212,2214,1224,2209,1226,2184,1216,2160,1199,2136,1183,2124,1177"/>
+<area shape="rect" id="Node000040" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1InterfacesShouldConjunction.html" title=" " alt="" coords="2197,1311,2459,1373"/>
+<area shape="poly" id="edge190_Node000033_Node000040" title=" " alt="" coords="2134,1175,2139,1179,2152,1194,2159,1209,2164,1239,2169,1269,2175,1283,2187,1297,2203,1310,2197,1311,2183,1301,2171,1286,2163,1271,2159,1240,2154,1211,2148,1197,2135,1183,2135,1180"/>
+<area shape="rect" id="Node000041" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunction.html" title=" " alt="" coords="2185,1397,2471,1442"/>
+<area shape="poly" id="edge191_Node000033_Node000041" title=" " alt="" coords="2135,1176,2139,1179,2158,1205,2165,1231,2166,1258,2163,1283,2161,1309,2162,1334,2169,1358,2187,1383,2203,1396,2197,1397,2183,1387,2165,1361,2157,1335,2156,1309,2158,1283,2161,1257,2160,1232,2153,1207,2135,1182,2136,1181"/>
+<area shape="rect" id="Node000053" href="$classArchUnitNET_1_1Fluent_1_1ArchRuleCreator-1-g.html" title=" " alt="" coords="1056,1580,1265,1624"/>
+<area shape="poly" id="edge201_Node000052_Node000053" title=" " alt="" coords="898,1576,1058,1591,1054,1594,901,1580"/>
+<area shape="rect" id="Node000054" href="$classArchUnitNET_1_1Fluent_1_1CombinedArchRuleCreator-1-g.html" title=" " alt="" coords="1048,1510,1273,1555"/>
+<area shape="poly" id="edge202_Node000052_Node000054" title=" " alt="" coords="898,1555,1050,1541,1046,1545,901,1559"/>
+<area shape="rect" id="Node000135" href="$classArchUnitNET_1_1Fluent_1_1Predicates_1_1ArchitecturePredicate-1-g.html" title=" " alt="" coords="657,1725,915,1770"/>
+<area shape="poly" id="edge206_Node000134_Node000135" title=" " alt="" coords="588,1766,658,1759,654,1763,592,1770"/>
+<area shape="rect" id="Node000136" href="$classArchUnitNET_1_1Fluent_1_1Predicates_1_1EnumerablePredicate-1-g.html" title=" " alt="" coords="658,1794,915,1839"/>
+<area shape="poly" id="edge207_Node000134_Node000136" title=" " alt="" coords="588,1793,659,1801,655,1804,592,1798"/>
+<area shape="rect" id="Node000137" href="$classArchUnitNET_1_1Fluent_1_1Predicates_1_1SimplePredicate-1-g.html" title=" " alt="" coords="674,1656,898,1700"/>
+<area shape="poly" id="edge208_Node000134_Node000137" title=" " alt="" coords="528,1751,637,1710,681,1699,677,1703,639,1715,532,1755"/>
+<area shape="poly" id="edge212_Node000026_Node000001" title=" " alt="" coords="582,2865,588,2858,594,2843,600,2817,609,2734,617,2467,617,2106,612,1697,607,1288,606,926,614,659,623,575,629,549,636,532,654,515,678,503,675,508,657,520,640,536,634,550,628,576,619,659,611,926,612,1288,617,1697,622,2106,623,2467,614,2735,605,2818,599,2845,592,2861,586,2867"/>
+<area shape="poly" id="edge213_Node000026_Node000139" title=" " alt="" coords="581,2865,588,2858,601,2836,611,2808,619,2737,618,2653,613,2561,607,2470,605,2384,613,2312,623,2283,636,2259,651,2243,673,2231,670,2235,655,2247,640,2262,627,2285,619,2313,611,2385,612,2469,618,2561,624,2653,625,2737,616,2809,606,2838,592,2861,586,2867"/>
+<area shape="poly" id="edge214_Node000026_Node000061" title=" " alt="" coords="485,2927,765,3419,760,3420,484,2932"/>
+<area shape="poly" id="edge215_Node000026_Node000070" title=" " alt="" coords="585,2892,649,2892,645,2896,588,2896"/>
+<area shape="poly" id="edge211_Node000026_Node000027" title=" " alt="" coords="582,2865,588,2858,598,2835,606,2797,613,2686,613,2541,610,2379,607,2218,607,2073,616,1962,624,1924,636,1900,653,1884,671,1873,708,1863,747,1865,785,1873,824,1881,861,1883,898,1875,915,1864,932,1849,950,1828,961,1807,968,1786,970,1764,967,1720,956,1676,946,1631,942,1586,944,1563,951,1541,963,1518,980,1496,996,1482,1015,1472,1057,1461,1054,1464,1017,1477,999,1487,984,1500,967,1521,956,1543,950,1564,947,1586,951,1630,961,1675,972,1719,976,1764,973,1787,966,1809,954,1831,936,1853,918,1869,900,1879,862,1888,823,1886,784,1878,746,1870,709,1868,673,1878,657,1888,640,1904,629,1926,621,1963,613,2074,612,2218,615,2379,619,2541,618,2686,611,2798,603,2837,592,2861,586,2867"/>
+<area shape="rect" id="Node000116" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title=" " alt="" coords="32,4278,261,4305"/>
+<area shape="poly" id="edge216_Node000116_Node000115" title=" " alt="" coords="276,4289,352,4290,348,4293,278,4294"/>
+<area shape="poly" id="edge219_Node000116_Node000088" title=" " alt="" coords="179,4267,232,4223,286,4168,300,4144,308,4121,316,4099,334,4075,356,4055,380,4037,430,4012,426,4016,383,4042,359,4059,338,4078,321,4102,313,4123,305,4146,290,4172,236,4227,183,4270"/>
+<area shape="rect" id="Node000117" href="$interfaceArchUnitNET_1_1Domain_1_1IHasAssemblyQualifiedName.html" title=" " alt="" coords="336,4329,590,4374"/>
+<area shape="poly" id="edge217_Node000116_Node000117" title=" " alt="" coords="243,4306,288,4314,350,4327,346,4330,287,4319,245,4311"/>
+<area shape="poly" id="edge218_Node000117_Node000090" title=" " alt="" coords="567,4322,589,4314,667,4283,740,4253,735,4256,670,4288,591,4319,569,4326"/>
+<area shape="rect" id="Node000119" href="$interfaceArchUnitNET_1_1Domain_1_1IHasVisibility.html" title=" " alt="" coords="339,4088,586,4116"/>
+<area shape="poly" id="edge220_Node000119_Node000090" title=" " alt="" coords="577,4119,591,4125,607,4136,617,4147,626,4159,639,4170,675,4190,715,4208,709,4209,673,4195,637,4175,622,4163,612,4151,603,4140,589,4130,579,4124"/>
+<area shape="rect" id="Node000118" href="$interfaceArchUnitNET_1_1Domain_1_1IResidesInAssembly.html" title=" " alt="" coords="38,4329,255,4374"/>
+<area shape="poly" id="edge221_Node000118_Node000117" title=" " alt="" coords="268,4349,338,4350,333,4353,271,4354"/>
+<area shape="rect" id="Node000120" href="$interfaceArchUnitNET_1_1Domain_1_1IResidesInNamespace.html" title=" " alt="" coords="355,4140,571,4184"/>
+<area shape="poly" id="edge222_Node000120_Node000090" title=" " alt="" coords="585,4186,685,4208,680,4210,586,4191"/>
+<area shape="rect" id="Node000093" href="$interfaceArchUnitNET_1_1Domain_1_1ITypeInstance-1-g.html" title=" " alt="" coords="1063,4697,1258,4742"/>
+<area shape="poly" id="edge225_Node000093_Node000092" title=" " alt="" coords="1204,4685,1286,4633,1335,4606,1386,4583,1458,4566,1463,4565,1388,4589,1337,4611,1288,4638,1206,4690"/>
+<area shape="poly" id="edge228_Node000093_Node000098" title=" " alt="" coords="1251,4690,1386,4653,1445,4642,1451,4641,1387,4658,1252,4695"/>
+<area shape="rect" id="Node000094" href="$classArchUnitNET_1_1Domain_1_1AttributeArgument.html" title=" " alt="" coords="1448,4788,1666,4832"/>
+<area shape="poly" id="edge223_Node000093_Node000094" title=" " alt="" coords="1265,4743,1387,4773,1450,4789,1445,4788,1386,4778,1265,4749"/>
+<area shape="rect" id="Node000096" href="$classArchUnitNET_1_1Domain_1_1GenericArgument.html" title=" " alt="" coords="1451,4857,1662,4902"/>
+<area shape="poly" id="edge226_Node000093_Node000096" title=" " alt="" coords="1208,4748,1290,4797,1338,4821,1388,4842,1453,4863,1448,4863,1386,4847,1336,4826,1288,4801,1207,4753"/>
+<area shape="rect" id="Node000097" href="$classArchUnitNET_1_1Domain_1_1MethodMemberInstance.html" title=" " alt="" coords="1452,4668,1662,4712"/>
+<area shape="poly" id="edge227_Node000093_Node000097" title=" " alt="" coords="1273,4708,1454,4697,1448,4698,1274,4714"/>
+<area shape="rect" id="Node000099" href="$classArchUnitNET_1_1Domain_1_1TypeInstance-1-g.html" title=" " alt="" coords="1415,4736,1699,4764"/>
+<area shape="poly" id="edge229_Node000093_Node000099" title=" " alt="" coords="1274,4725,1417,4739,1411,4739,1274,4731"/>
+<area shape="rect" id="Node000095" href="$classArchUnitNET_1_1Domain_1_1AttributeNamedArgument.html" title=" " alt="" coords="1847,4793,2065,4838"/>
+<area shape="poly" id="edge224_Node000094_Node000095" title=" " alt="" coords="1682,4809,1849,4814,1844,4814,1682,4814"/>
+<area shape="rect" id="Node000100" href="$classArchUnitNET_1_1Domain_1_1AttributeInstance.html" title=" " alt="" coords="1847,4724,2065,4768"/>
+<area shape="poly" id="edge230_Node000099_Node000100" title=" " alt="" coords="1714,4746,1849,4747,1844,4747,1714,4751"/>
 </map>

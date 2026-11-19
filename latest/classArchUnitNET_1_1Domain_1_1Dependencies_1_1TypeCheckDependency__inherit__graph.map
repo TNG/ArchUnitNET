@@ -1,12 +1,12 @@
 <map id="ArchUnitNET.Domain.Dependencies.TypeCheckDependency" name="ArchUnitNET.Domain.Dependencies.TypeCheckDependency">
-<area shape="rect" id="Node000001" title=" " alt="" coords="77,225,335,265"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html" title=" " alt="" coords="85,152,327,177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,191,209,225,203,225,203,191"/>
-<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html" title=" " alt="" coords="5,79,193,104"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="129,109,190,150,187,154,126,114"/>
-<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title=" " alt="" coords="137,5,275,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="179,40,118,81,115,76,176,36"/>
-<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html" title=" " alt="" coords="217,79,408,104"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="236,36,297,76,294,81,233,40"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="286,114,225,154,222,150,283,109"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="921,40,1179,85"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html" title=" " alt="" coords="616,40,873,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="889,60,923,62,918,62,889,65"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html" title=" " alt="" coords="311,5,568,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="584,41,618,48,613,48,584,47"/>
+<area shape="rect" id="Node000004" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1ITypeDependency.html" title=" " alt="" coords="5,40,263,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="278,43,313,42,307,43,279,49"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Domain_1_1Dependencies_1_1IMemberTypeDependency.html" title=" " alt="" coords="311,75,568,119"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="278,76,313,82,307,82,278,81"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="583,78,613,77,618,77,584,83"/>
 </map>

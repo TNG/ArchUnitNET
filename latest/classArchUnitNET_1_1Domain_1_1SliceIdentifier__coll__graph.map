@@ -1,9 +1,9 @@
 <map id="ArchUnitNET.Domain.SliceIdentifier" name="ArchUnitNET.Domain.SliceIdentifier">
-<area shape="rect" id="Node000001" title=" " alt="" coords="115,93,308,133"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1StringIdentifier.html" title=" " alt="" coords="5,5,124,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,36,183,91,180,95,93,40"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="149,5,274,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,44,214,93,209,93,209,44"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="298,5,357,31"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="304,41,237,95,233,91,301,37"/>
+<area shape="rect" id="Node000001" title="Identifies a slice by its parts: for a slice pattern, the values its capture groups captured,..." alt="" coords="115,217,307,262"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,108,270,136"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,146,200,217,195,217,152,151"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1SliceIdentifierComparer.html" title="An equality comparer for SliceIdentifier that groups identifiers by slice membership...." alt="" coords="293,99,486,144"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="346,152,246,219,243,214,341,153"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="313,5,466,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="391,64,392,100,387,98,388,68"/>
 </map>

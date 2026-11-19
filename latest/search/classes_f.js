@@ -5,11 +5,10 @@ var searchData=
   ['typedependencycomparer_2',['TypeDependencyComparer',['../classArchUnitNET_1_1Domain_1_1TypeDependencyComparer.html',1,'ArchUnitNET::Domain']]],
   ['typedoesnotexistinarchitecture_3',['TypeDoesNotExistInArchitecture',['../classArchUnitNET_1_1Domain_1_1Exceptions_1_1TypeDoesNotExistInArchitecture.html',1,'ArchUnitNET::Domain::Exceptions']]],
   ['typegenericparametertypeconstraintdependency_4',['TypeGenericParameterTypeConstraintDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeGenericParameterTypeConstraintDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
-  ['typeinstance_5',['TypeInstance',['../classArchUnitNET_1_1Domain_1_1TypeInstance.html',1,'ArchUnitNET::Domain']]],
-  ['typeinstance_3c_20attribute_20_3e_6',['TypeInstance&lt; Attribute &gt;',['../classArchUnitNET_1_1Domain_1_1TypeInstance.html',1,'ArchUnitNET::Domain']]],
-  ['typeinstancedependency_7',['TypeInstanceDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
-  ['typereferencedependency_8',['TypeReferenceDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeReferenceDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
-  ['typesshould_9',['TypesShould',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
-  ['typesshouldconjunction_10',['TypesShouldConjunction',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunction.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
-  ['typesshouldconjunctionwithdescription_11',['TypesShouldConjunctionWithDescription',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunctionWithDescription.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]]
+  ['typeinstance_2d1_2dg_5',['TypeInstance-1-g',['../classArchUnitNET_1_1Domain_1_1TypeInstance-1-g.html',1,'ArchUnitNET::Domain']]],
+  ['typeinstancedependency_6',['TypeInstanceDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeInstanceDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
+  ['typereferencedependency_7',['TypeReferenceDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1TypeReferenceDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
+  ['typesshould_8',['TypesShould',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShould.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
+  ['typesshouldconjunction_9',['TypesShouldConjunction',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunction.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
+  ['typesshouldconjunctionwithdescription_10',['TypesShouldConjunctionWithDescription',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1TypesShouldConjunctionWithDescription.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]]
 ];

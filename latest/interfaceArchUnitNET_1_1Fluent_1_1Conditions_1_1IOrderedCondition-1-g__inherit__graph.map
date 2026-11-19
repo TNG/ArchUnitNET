@@ -1,0 +1,15 @@
+<map id="ArchUnitNET.Fluent.Conditions.IOrderedCondition&lt; in TRuleType &gt;" name="ArchUnitNET.Fluent.Conditions.IOrderedCondition&lt; in TRuleType &gt;">
+<area shape="rect" id="Node000001" title="An IOrderedCondition is a Condition that has the semantic requirement that the order of the results c..." alt="" coords="590,130,842,174"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1ComplexCondition-2-g.html" title=" " alt="" coords="890,5,1118,67"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="783,121,889,76,917,68,922,67,891,81,785,126"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1ExistsCondition-1-g.html" title=" " alt="" coords="892,91,1116,136"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="858,130,894,128,889,129,859,136"/>
+<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1OrderedArchitectureCondition-1-g.html" title=" " alt="" coords="892,160,1116,222"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="858,169,894,176,889,176,858,174"/>
+<area shape="rect" id="Node000007" href="$classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition-1-g.html" title=" " alt="" coords="891,246,1117,290"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="776,179,891,231,926,246,921,245,889,236,775,185"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Conditions_1_1ICondition-1-g.html" title="A condition that can be checked against objects of type TRuleType." alt="" coords="318,130,542,174"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="557,150,592,152,587,153,558,155"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,138,270,166"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="285,150,320,151,315,153,286,155"/>
+</map>

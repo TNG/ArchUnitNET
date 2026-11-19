@@ -1,7 +1,7 @@
 <map id="ArchUnitNET.Domain.IHasAssemblyQualifiedName" name="ArchUnitNET.Domain.IHasAssemblyQualifiedName">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,260,119"/>
-<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title=" " alt="" coords="14,5,105,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,39,117,77,113,80,78,43"/>
-<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IResidesInAssembly.html" title=" " alt="" coords="129,5,283,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="188,43,152,80,148,77,184,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="116,98,370,143"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Domain_1_1IHasName.html" title=" " alt="" coords="5,14,235,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,48,216,97,211,98,149,53"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Domain_1_1IResidesInAssembly.html" title=" " alt="" coords="258,5,475,50"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="328,58,273,100,271,95,323,60"/>
 </map>

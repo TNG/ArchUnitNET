@@ -1,0 +1,30 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.IAddMemberCondition&lt; TNextElement, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.IAddMemberCondition&lt; TNextElement, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="273,156,569,218"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition-2-g.html" title=" " alt="" coords="634,108,927,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="584,163,637,158,631,160,585,168"/>
+<area shape="rect" id="Node000011" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1IAddFieldMemberCondition-2-g.html" title=" " alt="" coords="626,5,935,84"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="497,147,616,94,652,84,647,86,618,99,499,152"/>
+<area shape="rect" id="Node000012" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IAddMethodMemberCondition-2-g.html" title=" " alt="" coords="617,195,944,273"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="584,206,619,213,614,213,585,211"/>
+<area shape="rect" id="Node000013" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1IAddPropertyMemberCondition-2-g.html" title=" " alt="" coords="645,297,916,376"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="492,223,553,254,618,284,648,297,643,297,616,288,551,259,491,228"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectCondition-2-g.html" title=" " alt="" coords="5,156,225,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="239,185,274,186,270,188,241,190"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1AddFieldMemberCondition-1-g.html" title=" " alt="" coords="1004,23,1321,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="936,102,1024,85,1019,86,937,107"/>
+<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html" title=" " alt="" coords="1034,117,1291,162"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="942,137,1037,139,1032,140,942,142"/>
+<area shape="rect" id="Node000007" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1AddMethodMemberCondition-1-g.html" title=" " alt="" coords="995,195,1330,257"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="934,171,1026,195,1021,195,934,177"/>
+<area shape="rect" id="Node000009" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberCondition-1-g.html" title=" " alt="" coords="992,288,1333,350"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="941,176,946,180,964,202,971,224,978,246,994,267,1026,289,1020,287,991,271,973,249,966,226,959,204,942,184,940,182"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1FieldMembersShould.html" title=" " alt="" coords="1393,23,1640,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1336,51,1395,54,1390,54,1336,57"/>
+<area shape="rect" id="Node000008" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShould.html" title=" " alt="" coords="1384,195,1649,257"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="1345,223,1386,226,1381,226,1345,229"/>
+<area shape="rect" id="Node000010" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1PropertyMembersShould.html" title=" " alt="" coords="1381,288,1652,350"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1348,317,1383,319,1378,319,1348,322"/>
+<area shape="poly" id="edge11_Node000011_Node000004" title=" " alt="" coords="950,46,1007,50,1002,51,951,51"/>
+<area shape="poly" id="edge13_Node000012_Node000007" title=" " alt="" coords="960,228,997,229,992,230,960,233"/>
+<area shape="poly" id="edge15_Node000013_Node000009" title=" " alt="" coords="932,327,994,327,989,327,932,332"/>
+</map>

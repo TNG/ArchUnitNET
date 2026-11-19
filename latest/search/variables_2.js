@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['skipandcontinue_0',['SkipAndContinue',['../structArchUnitNET_1_1Loader_1_1FilterResult.html#aab78bf85c47209723b8b6c724efd1d47',1,'ArchUnitNET::Loader::FilterResult']]]
+  ['identifier_0',['Identifier',['../classArchUnitNET_1_1Domain_1_1Slice.html#ac9bcf6692215ddccb7e5f7aa0405b723',1,'ArchUnitNET::Domain::Slice']]],
+  ['ignored_1',['Ignored',['../classArchUnitNET_1_1Domain_1_1SliceIdentifier.html#a4f34f532be333ab2140a1d289c92aac6',1,'ArchUnitNET::Domain::SliceIdentifier']]]
 ];

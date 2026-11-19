@@ -1,7 +1,7 @@
 var namespaceArchUnitNET_1_1Fluent_1_1Predicates =
 [
-    [ "ArchitecturePredicate", "classArchUnitNET_1_1Fluent_1_1Predicates_1_1ArchitecturePredicate.html", null ],
-    [ "EnumerablePredicate", "classArchUnitNET_1_1Fluent_1_1Predicates_1_1EnumerablePredicate.html", null ],
-    [ "IPredicate", "interfaceArchUnitNET_1_1Fluent_1_1Predicates_1_1IPredicate.html", null ],
-    [ "SimplePredicate", "classArchUnitNET_1_1Fluent_1_1Predicates_1_1SimplePredicate.html", null ]
+    [ "ArchitecturePredicate&lt; TRuleType &gt;", "classArchUnitNET_1_1Fluent_1_1Predicates_1_1ArchitecturePredicate-1-g.html", null ],
+    [ "EnumerablePredicate&lt; TRuleType &gt;", "classArchUnitNET_1_1Fluent_1_1Predicates_1_1EnumerablePredicate-1-g.html", null ],
+    [ "IPredicate&lt; TRuleType &gt;", "interfaceArchUnitNET_1_1Fluent_1_1Predicates_1_1IPredicate-1-g.html", null ],
+    [ "SimplePredicate&lt; TRuleType &gt;", "classArchUnitNET_1_1Fluent_1_1Predicates_1_1SimplePredicate-1-g.html", null ]
 ];

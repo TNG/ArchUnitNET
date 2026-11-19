@@ -1,7 +1,17 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$interfaceArchUnitNET_1_1Fluent_1_1Freeze_1_1IViolationStore.html" title=" " alt="" coords="5,37,204,77"/>
-<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Fluent_1_1Freeze_1_1JsonViolationStore.html" title=" " alt="" coords="252,5,451,45"/>
-<area shape="poly" id="edge45_Node000000_Node000001" title=" " alt="" coords="217,40,251,36,252,41,218,45"/>
-<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Freeze_1_1XmlViolationStore.html" title=" " alt="" coords="252,69,451,109"/>
-<area shape="poly" id="edge46_Node000000_Node000002" title=" " alt="" coords="218,69,252,74,251,79,217,75"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,222,91,250"/>
+<area shape="rect" id="Node000001" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1AssemblyDoesNotExistInArchitecture.html" title=" " alt="" coords="153,5,418,50"/>
+<area shape="poly" id="edge232_Node000000_Node000001" title=" " alt="" coords="54,206,64,172,81,133,105,93,137,60,159,48,156,53,140,64,110,97,86,135,69,174,59,207"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1InvalidStateException.html" title=" " alt="" coords="167,75,404,119"/>
+<area shape="poly" id="edge233_Node000000_Node000002" title=" " alt="" coords="63,207,94,167,114,146,137,129,168,116,165,120,140,134,118,150,98,170,68,210"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1MultipleOccurrencesInSequenceException.html" title=" " alt="" coords="139,144,432,189"/>
+<area shape="poly" id="edge234_Node000000_Node000003" title=" " alt="" coords="95,214,138,198,182,187,178,191,139,204,99,218"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Domain_1_1Exceptions_1_1TypeDoesNotExistInArchitecture.html" title=" " alt="" coords="167,213,404,258"/>
+<area shape="poly" id="edge235_Node000000_Node000004" title=" " alt="" coords="105,233,169,234,165,237,108,238"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Domain_1_1PlantUml_1_1Exceptions_1_1FileAlreadyExistsException.html" title=" " alt="" coords="166,282,405,344"/>
+<area shape="poly" id="edge236_Node000000_Node000005" title=" " alt="" coords="98,253,140,268,176,280,171,283,138,273,99,258"/>
+<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleCreatorException.html" title=" " alt="" coords="146,368,424,429"/>
+<area shape="poly" id="edge237_Node000000_Node000006" title=" " alt="" coords="63,261,96,309,116,333,140,353,160,366,155,367,137,358,113,337,92,312,63,266"/>
+<area shape="rect" id="Node000007" href="$classArchUnitNET_1_1Fluent_1_1Exceptions_1_1CannotGetObjectsOfCombinedArchRuleException.html" title=" " alt="" coords="146,453,424,514"/>
+<area shape="poly" id="edge238_Node000000_Node000007" title=" " alt="" coords="54,262,66,304,82,351,106,398,140,439,157,452,151,452,137,443,102,401,77,353,61,305,54,268"/>
 </map>

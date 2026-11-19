@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['shouldrelatetoattributesthat_0',['ShouldRelateToAttributesThat',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1ShouldRelateToAttributesThat.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types::Attributes']]],
-  ['shouldrelatetoclassesthat_1',['ShouldRelateToClassesThat',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ShouldRelateToClassesThat.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types::Classes']]],
-  ['shouldrelatetofieldmembersthat_2',['ShouldRelateToFieldMembersThat',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1ShouldRelateToFieldMembersThat.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members::FieldMembers']]],
-  ['shouldrelatetointerfacesthat_3',['ShouldRelateToInterfacesThat',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1ShouldRelateToInterfacesThat.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types::Interfaces']]],
-  ['shouldrelatetomembersthat_4',['ShouldRelateToMembersThat',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members']]],
-  ['shouldrelatetomethodmembersthat_5',['ShouldRelateToMethodMembersThat',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1ShouldRelateToMethodMembersThat.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members::MethodMembers']]],
-  ['shouldrelatetopropertymembersthat_6',['ShouldRelateToPropertyMembersThat',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1ShouldRelateToPropertyMembersThat.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members::PropertyMembers']]],
-  ['shouldrelatetotypesthat_7',['ShouldRelateToTypesThat',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
-  ['simplecondition_8',['SimpleCondition',['../classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition.html',1,'ArchUnitNET::Fluent::Conditions']]],
-  ['simplepredicate_9',['SimplePredicate',['../classArchUnitNET_1_1Fluent_1_1Predicates_1_1SimplePredicate.html',1,'ArchUnitNET::Fluent::Predicates']]],
+  ['shouldrelatetoattributesthat_2d2_2dg_0',['ShouldRelateToAttributesThat-2-g',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1ShouldRelateToAttributesThat-2-g.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types::Attributes']]],
+  ['shouldrelatetoclassesthat_2d2_2dg_1',['ShouldRelateToClassesThat-2-g',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ShouldRelateToClassesThat-2-g.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types::Classes']]],
+  ['shouldrelatetofieldmembersthat_2d2_2dg_2',['ShouldRelateToFieldMembersThat-2-g',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1FieldMembers_1_1ShouldRelateToFieldMembersThat-2-g.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members::FieldMembers']]],
+  ['shouldrelatetointerfacesthat_2d2_2dg_3',['ShouldRelateToInterfacesThat-2-g',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1ShouldRelateToInterfacesThat-2-g.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types::Interfaces']]],
+  ['shouldrelatetomembersthat_2d2_2dg_4',['ShouldRelateToMembersThat-2-g',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1ShouldRelateToMembersThat-2-g.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members']]],
+  ['shouldrelatetomethodmembersthat_2d2_2dg_5',['ShouldRelateToMethodMembersThat-2-g',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1ShouldRelateToMethodMembersThat-2-g.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members::MethodMembers']]],
+  ['shouldrelatetopropertymembersthat_2d2_2dg_6',['ShouldRelateToPropertyMembersThat-2-g',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1ShouldRelateToPropertyMembersThat-2-g.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members::PropertyMembers']]],
+  ['shouldrelatetotypesthat_2d2_2dg_7',['ShouldRelateToTypesThat-2-g',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat-2-g.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Types']]],
+  ['simplecondition_2d1_2dg_8',['SimpleCondition-1-g',['../classArchUnitNET_1_1Fluent_1_1Conditions_1_1SimpleCondition-1-g.html',1,'ArchUnitNET::Fluent::Conditions']]],
+  ['simplepredicate_2d1_2dg_9',['SimplePredicate-1-g',['../classArchUnitNET_1_1Fluent_1_1Predicates_1_1SimplePredicate-1-g.html',1,'ArchUnitNET::Fluent::Predicates']]],
   ['slice_10',['Slice',['../classArchUnitNET_1_1Domain_1_1Slice.html',1,'ArchUnitNET::Domain']]],
   ['sliceassignment_11',['SliceAssignment',['../classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceAssignment.html',1,'ArchUnitNET::Fluent::Slices']]],
   ['sliceidentifier_12',['SliceIdentifier',['../classArchUnitNET_1_1Domain_1_1SliceIdentifier.html',1,'ArchUnitNET::Domain']]],
@@ -21,6 +21,5 @@ var searchData=
   ['stringidentifier_18',['StringIdentifier',['../classArchUnitNET_1_1Domain_1_1StringIdentifier.html',1,'ArchUnitNET::Domain']]],
   ['stringidentifiercomparer_19',['StringIdentifierComparer',['../classArchUnitNET_1_1Domain_1_1StringIdentifierComparer.html',1,'ArchUnitNET::Domain']]],
   ['struct_20',['Struct',['../classArchUnitNET_1_1Domain_1_1Struct.html',1,'ArchUnitNET::Domain']]],
-  ['syntaxelement_21',['SyntaxElement',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html',1,'ArchUnitNET::Fluent::Syntax']]],
-  ['syntaxelement_3c_20trelatedtype_20_3e_22',['SyntaxElement&lt; TRelatedType &gt;',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement.html',1,'ArchUnitNET::Fluent::Syntax']]]
+  ['syntaxelement_2d1_2dg_21',['SyntaxElement-1-g',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement-1-g.html',1,'ArchUnitNET::Fluent::Syntax']]]
 ];

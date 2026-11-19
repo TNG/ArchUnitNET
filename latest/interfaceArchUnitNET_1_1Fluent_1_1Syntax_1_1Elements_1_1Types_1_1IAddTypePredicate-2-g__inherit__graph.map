@@ -1,0 +1,38 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Types.IAddTypePredicate&lt; out TNextElement, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Types.IAddTypePredicate&lt; out TNextElement, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="298,255,545,316"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1AddTypePredicate-3-g.html" title=" " alt="" coords="610,194,853,273"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="560,260,612,253,607,255,561,265"/>
+<area shape="rect" id="Node000015" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1IAddAttributePredicate-2-g.html" title=" " alt="" coords="594,69,870,148"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="484,244,592,179,656,147,651,149,594,184,487,248"/>
+<area shape="rect" id="Node000016" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1IAddClassPredicate-2-g.html" title=" " alt="" coords="609,297,854,376"/>
+<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="560,306,611,316,606,317,561,311"/>
+<area shape="rect" id="Node000017" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1IAddInterfacePredicate-2-g.html" title=" " alt="" coords="593,400,870,478"/>
+<area shape="poly" id="edge18_Node000001_Node000017" title=" " alt="" coords="482,322,537,355,594,386,619,399,614,399,592,391,534,360,482,328"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectPredicate-2-g.html" title=" " alt="" coords="5,255,250,316"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="264,283,300,284,295,287,266,288"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1AddAttributePredicate-2-g.html" title=" " alt="" coords="918,53,1220,115"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="821,184,869,157,892,140,917,124,948,115,943,117,920,129,895,144,872,161,824,189"/>
+<area shape="rect" id="Node000007" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1AddClassPredicate-2-g.html" title=" " alt="" coords="918,311,1220,372"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="857,276,919,296,958,310,952,310,918,301,857,281"/>
+<area shape="rect" id="Node000010" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1GivenTypesThat.html" title=" " alt="" coords="953,242,1185,286"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="869,243,956,253,951,254,869,249"/>
+<area shape="rect" id="Node000011" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1AddInterfacePredicate-2-g.html" title=" " alt="" coords="918,400,1220,462"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="866,278,872,282,884,295,890,308,897,334,903,359,909,370,920,382,943,400,938,399,917,386,905,374,898,361,891,335,885,310,879,298,868,286,865,283"/>
+<area shape="rect" id="Node000014" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1ShouldRelateToTypesThat-2-g.html" title=" " alt="" coords="937,140,1201,218"/>
+<area shape="poly" id="edge13_Node000003_Node000014" title=" " alt="" coords="868,209,939,200,934,201,869,214"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1GivenAttributesThat.html" title=" " alt="" coords="1307,5,1540,67"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1235,59,1309,51,1304,53,1236,64"/>
+<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Attributes_1_1ShouldRelateToAttributesThat-2-g.html" title=" " alt="" coords="1283,92,1565,170"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1235,103,1285,112,1280,113,1235,109"/>
+<area shape="rect" id="Node000008" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1GivenClassesThat.html" title=" " alt="" coords="1275,243,1573,288"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="1231,304,1313,289,1319,288,1232,309"/>
+<area shape="rect" id="Node000009" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Classes_1_1ShouldRelateToClassesThat-2-g.html" title=" " alt="" coords="1268,312,1580,374"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="1235,339,1270,342,1264,342,1235,345"/>
+<area shape="rect" id="Node000012" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1GivenInterfacesThat.html" title=" " alt="" coords="1307,397,1541,459"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="1235,427,1309,429,1304,429,1236,432"/>
+<area shape="rect" id="Node000013" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Types_1_1Interfaces_1_1ShouldRelateToInterfacesThat-2-g.html" title=" " alt="" coords="1282,484,1566,562"/>
+<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="1205,463,1284,486,1279,486,1205,469"/>
+<area shape="poly" id="edge15_Node000015_Node000004" title=" " alt="" coords="885,95,920,94,915,96,886,100"/>
+<area shape="poly" id="edge17_Node000016_Node000007" title=" " alt="" coords="870,336,921,339,915,339,870,341"/>
+<area shape="poly" id="edge19_Node000017_Node000011" title=" " alt="" coords="886,433,921,434,915,435,886,438"/>
+</map>

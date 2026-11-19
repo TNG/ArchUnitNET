@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['xmlviolationstore_0',['XmlViolationStore',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1XmlViolationStore.html',1,'ArchUnitNET::Fluent::Freeze']]]
+  ['withdependenciesfrom_0',['WithDependenciesFrom',['../classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlFileBuilder.html#aa3b356aaba6672f5901ac72b4f3cd6b1',1,'ArchUnitNET.Domain.PlantUml.Export.PlantUmlFileBuilder.WithDependenciesFrom(IEnumerable&lt; Slice &gt; slices, GenerationOptions generationOptions=null)'],['../classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlFileBuilder.html#a9b02aa9641d4afc4fe7476e12b527452',1,'ArchUnitNET.Domain.PlantUml.Export.PlantUmlFileBuilder.WithDependenciesFrom(IEnumerable&lt; Namespace &gt; namespaces, GenerationOptions generationOptions=null)']]],
+  ['withdependenciesfromfocuson_1',['WithDependenciesFromFocusOn',['../classArchUnitNET_1_1Domain_1_1PlantUml_1_1Export_1_1PlantUmlFileBuilder.html#a7dc021d7a15b301eb4c48a7b94420390',1,'ArchUnitNET::Domain::PlantUml::Export::PlantUmlFileBuilder']]],
+  ['withdependenciesfromnamespaces_2',['WithDependenciesFromNamespaces',['../classArchUnitNET_1_1Fluent_1_1PlantUml_1_1PlantUmlFluentComponentDiagramInitializer.html#a041fe2410cf4bd33f4a5e73aa53ad432',1,'ArchUnitNET::Fluent::PlantUml::PlantUmlFluentComponentDiagramInitializer']]],
+  ['withdependenciesfromslices_3',['WithDependenciesFromSlices',['../classArchUnitNET_1_1Fluent_1_1PlantUml_1_1PlantUmlFluentComponentDiagramInitializer.html#a46e613a3592d902ab116e7a50006749d',1,'ArchUnitNET::Fluent::PlantUml::PlantUmlFluentComponentDiagramInitializer']]],
+  ['withoutarchitecturecache_4',['WithoutArchitectureCache',['../classArchUnitNET_1_1Loader_1_1ArchLoader.html#ad7d1e45484b718fef8dd0e3920f9b38a',1,'ArchUnitNET::Loader::ArchLoader']]],
+  ['withoutrequiringpositiveresults_5',['WithoutRequiringPositiveResults',['../classArchUnitNET_1_1Fluent_1_1ArchRule-1-g.html#acb00ed05764ea20f0ed4b4609374d9d2',1,'ArchUnitNET::Fluent::ArchRule-1-g']]],
+  ['withoutruleevaluationcache_6',['WithoutRuleEvaluationCache',['../classArchUnitNET_1_1Loader_1_1ArchLoader.html#a9fe7abb21385c2b2d0d0229434a64d2e',1,'ArchUnitNET::Loader::ArchLoader']]]
 ];

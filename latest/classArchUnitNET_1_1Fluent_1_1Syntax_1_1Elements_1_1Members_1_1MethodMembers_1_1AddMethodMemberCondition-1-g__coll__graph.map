@@ -1,0 +1,24 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.AddMethodMemberCondition&lt; TNextElement &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.MethodMembers.AddMethodMemberCondition&lt; TNextElement &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1888,45,2222,107"/>
+<area shape="rect" id="Node000002" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1AddMemberCondition-2-g.html" title=" " alt="" coords="1529,5,1821,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1837,50,1890,59,1885,59,1836,56"/>
+<area shape="rect" id="Node000003" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1AddObjectCondition-2-g.html" title=" " alt="" coords="1204,5,1424,67"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1439,34,1531,36,1526,36,1439,39"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1SyntaxElement-1-g.html" title=" " alt="" coords="898,14,1115,58"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1131,34,1206,36,1201,36,1131,39"/>
+<area shape="rect" id="Node000005" href="$interfaceArchUnitNET_1_1Domain_1_1IHasDescription.html" title=" " alt="" coords="5,28,270,55"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="285,34,319,34,596,26,873,27,900,30,895,30,873,32,596,31,319,39,286,40"/>
+<area shape="rect" id="Node000007" href="$interfaceArchUnitNET_1_1Fluent_1_1ICanBeEvaluated.html" title=" " alt="" coords="319,48,516,93"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="285,54,321,60,316,61,286,60"/>
+<area shape="rect" id="Node000006" href="$interfaceArchUnitNET_1_1Fluent_1_1IArchRuleCreator-1-g.html" title=" " alt="" coords="566,48,761,93"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="776,61,873,52,900,51,895,52,873,57,777,66"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="532,68,568,71,563,71,532,73"/>
+<area shape="rect" id="Node000008" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectCondition-2-g.html" title=" " alt="" coords="897,84,1116,146"/>
+<area shape="poly" id="edge8_Node000003_Node000008" title=" " alt="" coords="1131,80,1201,65,1207,64,1132,86"/>
+<area shape="rect" id="Node000009" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IAddMemberCondition-2-g.html" title=" " alt="" coords="1166,91,1462,152"/>
+<area shape="poly" id="edge10_Node000009_Node000008" title=" " alt="" coords="1132,115,1168,118,1162,118,1132,120"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="1462,84,1539,68,1544,67,1462,89"/>
+<area shape="rect" id="Node000010" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1IAddMethodMemberCondition-2-g.html" title=" " alt="" coords="1511,92,1839,170"/>
+<area shape="poly" id="edge12_Node000010_Node000009" title=" " alt="" coords="1478,123,1514,127,1508,127,1478,128"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="1854,102,1885,101,1890,100,1854,108"/>
+</map>

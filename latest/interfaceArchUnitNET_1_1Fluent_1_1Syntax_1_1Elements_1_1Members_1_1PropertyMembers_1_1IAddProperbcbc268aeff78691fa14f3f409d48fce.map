@@ -1,0 +1,13 @@
+<map id="ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IAddPropertyMemberPredicate&lt; out TNextElement, TRuleType &gt;" name="ArchUnitNET.Fluent.Syntax.Elements.Members.PropertyMembers.IAddPropertyMemberPredicate&lt; out TNextElement, TRuleType &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="641,45,912,124"/>
+<area shape="rect" id="Node000004" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1AddPropertyMemberPredicate-2-g.html" title=" " alt="" coords="960,45,1289,124"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="928,82,963,84,958,84,928,87"/>
+<area shape="rect" id="Node000002" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1IAddMemberPredicate-2-g.html" title=" " alt="" coords="298,53,593,115"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="608,82,643,84,638,84,609,87"/>
+<area shape="rect" id="Node000003" href="$interfaceArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1IAddObjectPredicate-2-g.html" title=" " alt="" coords="5,53,250,115"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,82,300,84,295,85,266,87"/>
+<area shape="rect" id="Node000005" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1GivenPropertyMembersThat.html" title=" " alt="" coords="1337,5,1608,67"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1304,57,1333,55,1339,55,1305,62"/>
+<area shape="rect" id="Node000006" href="$classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1PropertyMembers_1_1ShouldRelateToPropertyMembersThat-2-g.html" title=" " alt="" coords="1337,92,1608,170"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1305,106,1339,113,1333,112,1304,111"/>
+</map>

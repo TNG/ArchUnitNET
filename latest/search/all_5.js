@@ -8,7 +8,9 @@ var searchData=
   ['filealreadyexistsexception_5',['FileAlreadyExistsException',['../classArchUnitNET_1_1Domain_1_1PlantUml_1_1Exceptions_1_1FileAlreadyExistsException.html',1,'ArchUnitNET::Domain::PlantUml::Exceptions']]],
   ['filterfunc_6',['FilterFunc',['../namespaceArchUnitNET_1_1Loader.html#aea62e93f76e6f80bae858e96178e600a',1,'ArchUnitNET::Loader']]],
   ['filterresult_7',['FilterResult',['../structArchUnitNET_1_1Loader_1_1FilterResult.html',1,'ArchUnitNET::Loader']]],
-  ['freezingarchrule_8',['FreezingArchRule',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1FreezingArchRule.html',1,'ArchUnitNET::Fluent::Freeze']]],
-  ['frozenrule_9',['FrozenRule',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1FrozenRule.html',1,'ArchUnitNET::Fluent::Freeze']]],
-  ['functionpointer_10',['FunctionPointer',['../classArchUnitNET_1_1Domain_1_1FunctionPointer.html',1,'ArchUnitNET::Domain']]]
+  ['formatdescription_8',['FormatDescription',['../classArchUnitNET_1_1Fluent_1_1Slices_1_1GivenSlices.html#a6e6d6f1a7b2ec335c6d82f3a3a12508d',1,'ArchUnitNET::Fluent::Slices::GivenSlices']]],
+  ['freezingarchrule_9',['FreezingArchRule',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1FreezingArchRule.html',1,'ArchUnitNET::Fluent::Freeze']]],
+  ['frozenrule_10',['FrozenRule',['../classArchUnitNET_1_1Fluent_1_1Freeze_1_1FrozenRule.html',1,'ArchUnitNET::Fluent::Freeze']]],
+  ['fullname_11',['FullName',['../classArchUnitNET_1_1Domain_1_1Namespace.html#a91fe9694d30e0d93df4b6b481ad5af21',1,'ArchUnitNET::Domain::Namespace']]],
+  ['functionpointer_12',['FunctionPointer',['../classArchUnitNET_1_1Domain_1_1FunctionPointer.html',1,'ArchUnitNET::Domain']]]
 ];

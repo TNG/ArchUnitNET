@@ -1,19 +1,7 @@
 var searchData=
 [
-  ['matching_0',['Matching',['../classArchUnitNET_1_1Fluent_1_1Slices_1_1SliceRuleInitializer.html#a80aef6f5ae5eb688128d206e6764e081',1,'ArchUnitNET::Fluent::Slices::SliceRuleInitializer']]],
-  ['membergenericparametertypeconstraintdependency_1',['MemberGenericParameterTypeConstraintDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberGenericParameterTypeConstraintDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
-  ['memberlist_2',['MemberList',['../classArchUnitNET_1_1Domain_1_1MemberList.html',1,'ArchUnitNET::Domain']]],
-  ['membersshould_3',['MembersShould',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShould.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members']]],
-  ['membersshouldconjunction_4',['MembersShouldConjunction',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShouldConjunction.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members']]],
-  ['membersshouldconjunctionwithdescription_5',['MembersShouldConjunctionWithDescription',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MembersShouldConjunctionWithDescription.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members']]],
-  ['membertypeinstancedependency_6',['MemberTypeInstanceDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1MemberTypeInstanceDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
-  ['metadatadependency_7',['MetaDataDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1MetaDataDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
-  ['methodcalldependency_8',['MethodCallDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodCallDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
-  ['methodmember_9',['MethodMember',['../classArchUnitNET_1_1Domain_1_1MethodMember.html',1,'ArchUnitNET::Domain']]],
-  ['methodmemberinstance_10',['MethodMemberInstance',['../classArchUnitNET_1_1Domain_1_1MethodMemberInstance.html',1,'ArchUnitNET::Domain']]],
-  ['methodmembersshould_11',['MethodMembersShould',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShould.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members::MethodMembers']]],
-  ['methodmembersshouldconjunction_12',['MethodMembersShouldConjunction',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShouldConjunction.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members::MethodMembers']]],
-  ['methodmembersshouldconjunctionwithdescription_13',['MethodMembersShouldConjunctionWithDescription',['../classArchUnitNET_1_1Fluent_1_1Syntax_1_1Elements_1_1Members_1_1MethodMembers_1_1MethodMembersShouldConjunctionWithDescription.html',1,'ArchUnitNET::Fluent::Syntax::Elements::Members::MethodMembers']]],
-  ['methodsignaturedependency_14',['MethodSignatureDependency',['../classArchUnitNET_1_1Domain_1_1Dependencies_1_1MethodSignatureDependency.html',1,'ArchUnitNET::Domain::Dependencies']]],
-  ['multipleoccurrencesinsequenceexception_15',['MultipleOccurrencesInSequenceException',['../classArchUnitNET_1_1Domain_1_1Exceptions_1_1MultipleOccurrencesInSequenceException.html',1,'ArchUnitNET::Domain::Exceptions']]]
+  ['loadandcontinue_0',['LoadAndContinue',['../structArchUnitNET_1_1Loader_1_1FilterResult.html#aae6a712c7f110c95627d0ed1d7d2954b',1,'ArchUnitNET::Loader::FilterResult']]],
+  ['loadandstop_1',['LoadAndStop',['../structArchUnitNET_1_1Loader_1_1FilterResult.html#a8fa0f0365d6d50cad12e049c06891163',1,'ArchUnitNET::Loader::FilterResult']]],
+  ['loadassembliesrecursively_2',['LoadAssembliesRecursively',['../classArchUnitNET_1_1Loader_1_1ArchLoader.html#a7c1d010e0d6f4cbd82e99f793cf81339',1,'ArchUnitNET::Loader::ArchLoader']]],
+  ['logicalconjunction_3',['LogicalConjunction',['../classArchUnitNET_1_1Fluent_1_1LogicalConjunction.html',1,'ArchUnitNET::Fluent']]]
 ];
