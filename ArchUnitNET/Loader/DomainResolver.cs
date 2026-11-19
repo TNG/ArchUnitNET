@@ -52,6 +52,16 @@ namespace ArchUnitNET.Loader
         public IEnumerable<ITypeInstance<IType>> Types => _allTypes.Values;
 
         /// <summary>
+        /// All method members that have been created or cached, including generic method instances.
+        /// </summary>
+        internal IEnumerable<MethodMemberInstance> MethodMemberInstances => _allMethods.Values;
+
+        /// <summary>
+        /// All field members that have been created or cached.
+        /// </summary>
+        internal IEnumerable<FieldMember> FieldMembers => _allFields.Values;
+
+        /// <summary>
         /// Returns the existing <see cref="Assembly"/> for the given full name, or creates
         /// and caches a new one.
         /// </summary>
