@@ -197,7 +197,11 @@ namespace ArchUnitNET.Fluent
                 }
             }
 
-            var identifier = new StringIdentifier(analyzedObject.FullName);
+            // The full name and the simple assembly name, so that objects with the same full name in
+            // different assemblies can be told apart. FreezingArchRule relies on this form.
+            var identifier = new StringIdentifier(
+                analyzedObject.FullName + ", " + (analyzedObject.Assembly?.Name ?? "")
+            );
             return new EvaluationResult(
                 analyzedObject,
                 identifier,
