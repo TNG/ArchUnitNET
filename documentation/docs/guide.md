@@ -279,9 +279,41 @@ The diagrams must be component diagrams and associate types to components via st
 Consider this diagram applied as a rule via AdhereToPlantUmlDiagram(..), then a class that resides in the namespace Model accessing a class in the namepace Controller would be reported as a violation.
 
 Only dependencies specified in the PlantUML diagram are considered. So any unknown dependency (e.g.  View.*) will be ignored.
+
+Components can be grouped with `package`, `node`, `folder`, `frame`, `cloud` or `database`. A dependency from or to a group applies to all components nested in it (including those in nested groups). A group does not contain any types of its own: every component still needs its own stereotype, and stereotypes written on a group are only drawn.
+```plantuml
+@startuml
+package "Ui" as ui {
+  [Controller] <<Controller.*>>
+  [View] <<View.*>>
+}
+package "Domain" as domain {
+  [Model] <<Model.*>>
+}
+
+ui --> domain
+@enduml
+```
+Groups are referenced by their alias, or by their name if they have no alias. Quoted names containing spaces need an alias to be used in dependencies.
+
 #### 4.3.1 PlantUML Diagram rules
 
 The rules that a PlantUML diagram used with ArchUnitNet must abide can be found in the [ArchUnit documentation](https://www.archunit.org/userguide/html/000_Index.html#_configurations_2). In contrast to ArchUnit ArchUnitNet uses a regex as the namespace identifier instead of the two dots syntax.
+
+#### 4.3.2 Which links allow a dependency
+
+Whether a link allows a dependency, and in which direction, depends on its decorations, unless it is hidden. The line (`--`, `..`, `==`, `~~`), its length, a direction such as `-up->`, colors, multiplicities and labels make no difference.
+
+| Link | Example | Allows |
+|------|---------|--------|
+| An arrow head (`>`, `>>`, `\|>`, `\|\|>`, `:\|>`, `^`, `\\`) at the component that is depended upon | `[A] --> [B]`, `[A] ..\|> [B]`, `[B] <-- [A]` | A → B |
+| A composition or aggregation diamond (`*`, `o`) at the component that depends on the other | `[A] *-- [B]`, `[B] --o [A]` | A → B |
+| Such decorations at both ends | `[A] <--> [B]`, `[A] *--* [B]` | A → B and B → A |
+| Any other decoration, or none | `[A] -- [B]`, `[A] #-- [B]`, `[A] -0)- [B]` | nothing |
+| A hidden link, which only affects the layout | `[A] -[hidden]-> [B]`, `[A] -[#red,hidden]-> [B]` | nothing |
+| A chain of links, which is not transitive | `[A] --> [B]`, `[B] --> [C]` | A → B and B → C, but not A → C |
+
+Names without brackets may not contain characters that are used in links: `*`, `#`, `+`, `|`, `^`, `@`, `(`, `)`, `{`, `}`, `\`, `~`, `=`. Put such names in brackets, e.g. `[a+b] --> [c]`. A decoration made of a letter or digit (`o`, `x`, `0`) must be separated from a name without brackets, so `a--oak` is a link without decorations to `oak`.
 
 ## 5. PlantUML file diagram builder
 ArchUnitNET can build a dependency diagram from packages on its own. You can see some examples below.

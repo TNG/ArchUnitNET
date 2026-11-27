@@ -81,6 +81,40 @@ namespace ArchUnitNETTests.Domain.PlantUml
         }
 
         [Fact]
+        public void GroupsDoNotAssignTypesButExpandDependencies()
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                // The group stereotype is only drawn. If it were inherited, both nested
+                // components would share it and the diagram would be rejected.
+                ClassDiagramAssociation classDiagramAssociation = CreateAssociation(
+                    TestDiagram
+                        .From(memoryStream)
+                        .RawLine("package Origins <<.*.Diagram.*>> {")
+                        .RawLine("[Origin] <<.*.SimpleDependency.Origin>>")
+                        .RawLine("[Independent] <<.*.NoDependencies.Independent>>")
+                        .RawLine("}")
+                        .RawLine("package Targets {")
+                        .RawLine("[Target] <<.*.SimpleDependency.Target>>")
+                        .RawLine("}")
+                        .RawLine("Origins --> Targets")
+                        .Write()
+                );
+
+                Class clazz = Architecture.GetClassOfType(typeof(SomeOriginClass));
+
+                Assert.Equal(
+                    new[] { ".*.SimpleDependency.Origin" },
+                    classDiagramAssociation.GetNamespaceIdentifiersFromComponentOf(clazz)
+                );
+                Assert.Equal(
+                    new[] { ".*.SimpleDependency.Target" },
+                    classDiagramAssociation.GetTargetNamespaceIdentifiers(clazz)
+                );
+            }
+        }
+
+        [Fact]
         public void RejectsClassNotContainedInAnyComponent()
         {
             using (MemoryStream memoryStream = new MemoryStream())

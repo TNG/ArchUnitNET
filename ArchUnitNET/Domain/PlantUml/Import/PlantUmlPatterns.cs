@@ -1,214 +1,242 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace ArchUnitNET.Domain.PlantUml.Import
 {
-    internal class PlantUmlPatterns
+    internal static class PlantUmlPatterns
     {
-        private static readonly string ComponentNameGroupName = "componentName";
-        private static readonly string ComponentNameFormat;
-        private static readonly Regex StereotypePattern;
-        private static readonly string StereotypeFormat;
-        private static readonly string AliasGroupName = "alias";
-        private static readonly string AliasFormat;
-        private static readonly Regex PlantUmlComponentPattern;
+        // e.g. '<<Some.Namespace.*>>', can be repeated
+        internal const string Stereotypes = @"(?:<<(?<stereotype>[^<>]+)>>\s*)*";
 
-        static PlantUmlPatterns()
+        // an optional trailing color, e.g. ' #palegreen' or ' #red;line:blue',
+        // see https://plantuml.com/component-diagram#individual-colors
+        internal const string Color = @"(?:\s+#[^\s{""]+)?";
+
+        internal static ISet<string> GetStereotypes(Match match)
         {
-            StereotypeFormat = "(?:<<" + Capture(AnythingBut("<>")) + ">>\\s*)";
-            ComponentNameFormat =
-                "\\[" + Capture(AnythingBut("\\[\\]"), ComponentNameGroupName) + "]";
-            StereotypePattern = new Regex(StereotypeFormat);
-            AliasFormat = "\\s*(?:as \"?" + Capture("[^\"]+", AliasGroupName) + "\"?)?";
-            PlantUmlComponentPattern = new Regex(
-                @"\A(?:^\s*"
-                    + ComponentNameFormat
-                    + @"\s*"
-                    + StereotypeFormat
-                    + "*"
-                    + AliasFormat
-                    + @"\s*)\z"
+            return new HashSet<string>(
+                match.Groups["stereotype"].Captures.Cast<Capture>().Select(c => c.Value)
             );
         }
 
-        private static string Capture(string pattern)
+        private static readonly Regex BlockOpenPattern = new Regex(@"\{\s*$");
+
+        private static readonly Regex BlockClosePattern = new Regex(@"^\s*}\s*$");
+
+        internal static bool IsBlockOpen(string line)
         {
-            return "(" + pattern + ")";
+            return BlockOpenPattern.IsMatch(line);
         }
 
-        private static string Capture(string pattern, string name)
+        internal static bool IsBlockClose(string line)
         {
-            return "(?<" + name + ">" + pattern + ")";
+            return BlockClosePattern.IsMatch(line);
+        }
+    }
+
+    // Matches a link between two components, see e.g.
+    // https://plantuml.com/class-diagram#relations-between-classes and
+    // https://plantuml.com/deployment-diagram#linking-or-arrow
+    internal class PlantUmlDependencyMatcher
+    {
+        // '[Some Name]', or a name or alias without brackets, e.g. 'some-alias' or 'Some.Name'
+        private const string PlainName = @"[^\s\[\]<>"":*#+|^@(){}\\~=]+?";
+        private const string LeftEndpoint =
+            @"(?:(?<leftBracket>\[)(?<left>[^\[\]]+)\]|(?<left>" + PlainName + "))";
+        private const string RightEndpoint =
+            @"(?:(?<rightBracket>\[)(?<right>[^\[\]]+)\]|(?<right>" + PlainName + "))";
+
+        // a multiplicity next to an endpoint, e.g. '"1"' or '"many"'
+        private const string Multiplicity = @"(?:""[^""]*""\s*)?";
+
+        // Decorations made of letters or digits must be separated from a name without brackets,
+        // so that e.g. 'a--oak' is a link to 'oak' and not an aggregation of 'ak'.
+        private const string SeparatedOnTheLeft = @"(?<![^\s\]""])";
+        private const string SeparatedOnTheRight = @"(?![^\s\[""])";
+
+        // Heads that point at the component that is depended upon, e.g. '<', '<|' or '^',
+        // and composition or aggregation diamonds, which sit at the component that depends
+        // on the other. Other decorations, e.g. '#', 'x', '}', '+', '0', '@', ')' or '()',
+        // allow no dependency.
+        private const string LeftDecoration =
+            @"(?:(?<leftArrow><\||<<|<|\^)"
+            + @"|(?<leftDiamond>\*)"
+            + "|"
+            + SeparatedOnTheLeft
+            + "(?<leftDiamond>o)"
+            + @"|\(\)|[#}+@)]"
+            + "|"
+            + SeparatedOnTheLeft
+            + @"(?:x|0\)?))?";
+
+        // the mirror images of the left decorations, plus '||>', ':|>' and '\\' (a half arrow)
+        private const string RightDecoration =
+            @"(?:(?<rightArrow>:\|>|\|\|>|\|>|>>|>|\^|\\\\)"
+            + @"|(?<rightDiamond>\*)"
+            + "|(?<rightDiamond>o)"
+            + SeparatedOnTheRight
+            + @"|\(\)|\(0|[#{+@(]"
+            + "|(?:x|0)"
+            + SeparatedOnTheRight
+            + ")?";
+
+        // a line style, e.g. '[#green]' or '[#red,dashed]'
+        private const string Style = @"\[(?<style>[^\[\]]*)\]";
+
+        // a direction in full or abbreviated to its first one or two characters,
+        // see https://plantuml.com/component-diagram#changing-arrows-direction
+        private const string Direction = "left|right|down|up|le|ri|do|l|r|u|d";
+
+        // a circle or socket in the middle of a line, e.g. '-0-', '-0)-' or '-(0)-'
+        private const string Circle = @"\(0\)|\(0|0\)|0";
+
+        private const string MiddleToken = "(?:" + Style + "|" + Direction + "|" + Circle + ")";
+
+        // plain ('--'), dashed ('..'), bold ('==') or dotted ('~~')
+        private const string LineCharacters = "[-.=~]";
+
+        // e.g. '--', '.up.', '-[#red]-' or '-(0)-'
+        private const string Line =
+            "(?:"
+            + LineCharacters
+            + "+(?:"
+            + MiddleToken
+            + "+"
+            + LineCharacters
+            + "*)?|"
+            + MiddleToken
+            + "+"
+            + LineCharacters
+            + "+)";
+
+        // an inline style after the link, e.g. '#line:red;line.bold;text:red'
+        private const string InlineStyle = @"(?:\s+#\S+)?";
+
+        private static readonly Regex Pattern = new Regex(
+            @"^\s*"
+                + LeftEndpoint
+                + @"\s*"
+                + Multiplicity
+                + LeftDecoration
+                + Line
+                + RightDecoration
+                + @"\s*"
+                + Multiplicity
+                + RightEndpoint
+                + InlineStyle
+                + @"\s*(?::.*)?$" // the optional description, e.g. ': uses'
+        );
+
+        private PlantUmlDependencyMatcher(PlantUmlEndpoint origin, PlantUmlEndpoint target)
+        {
+            Origin = origin;
+            Target = target;
         }
 
-        private static string AnythingBut(string charsJoined)
+        internal PlantUmlEndpoint Origin { get; }
+        internal PlantUmlEndpoint Target { get; }
+
+        internal static IEnumerable<PlantUmlDependencyMatcher> TryParse(string line)
         {
-            return "[^" + charsJoined + "]+";
-        }
-
-        internal IEnumerable<string> FilterComponents(IEnumerable<string> plantUmlDiagramLines)
-        {
-            return plantUmlDiagramLines.Where(l => PlantUmlComponentPattern.Match(l).Success);
-        }
-
-        internal IEnumerable<PlantUmlDependencyMatcher> MatchDependencies(
-            IEnumerable<string> diagramLines
-        )
-        {
-            var result = new List<PlantUmlDependencyMatcher>();
-            foreach (string line in diagramLines)
+            Match match = Pattern.Match(line);
+            if (!match.Success || IsHidden(match))
             {
-                result.AddRange(PlantUmlDependencyMatcher.TryParseFromLeftToRight(line));
-                result.AddRange(PlantUmlDependencyMatcher.TryParseFromRightToLeft(line));
+                yield break;
             }
-            return result;
-        }
-
-        internal PlantUmlComponentMatcher MatchComponent(string input)
-        {
-            return new PlantUmlComponentMatcher(input);
-        }
-
-        internal class PlantUmlDependencyMatcher
-        {
-            private static readonly string ColorRegex = @"\[[^]]+]"; // for arrows like '--[#green]->'
-            private static readonly string DeppendencyArrowCenterRegex =
-                @"(left|right|up|down|" + ColorRegex + ")?";
-            private static readonly Regex DependencyRightArrowPattern = new Regex(
-                @"\s-+" + DeppendencyArrowCenterRegex + @"-*>\s"
-            );
-            private static readonly Regex DependencyLeftArrowPattern = new Regex(
-                @"\s<-*" + DeppendencyArrowCenterRegex + @"-+\s"
-            );
-
-            public PlantUmlDependencyMatcher(string origin, string target)
+            var left = new PlantUmlEndpoint(match, "left");
+            var right = new PlantUmlEndpoint(match, "right");
+            if (match.Groups["rightArrow"].Success || match.Groups["leftDiamond"].Success)
             {
-                if (origin is null)
-                {
-                    throw new ArgumentNullException(nameof(origin));
-                }
-
-                if (target is null)
-                {
-                    throw new ArgumentNullException(nameof(target));
-                }
-
-                MatchOrigin = origin;
-                MatchTarget = target;
+                yield return new PlantUmlDependencyMatcher(left, right);
             }
-
-            public string MatchTarget { get; private set; }
-            public string MatchOrigin { get; private set; }
-
-            internal static IEnumerable<PlantUmlDependencyMatcher> TryParseFromLeftToRight(
-                string line
-            )
+            if (match.Groups["leftArrow"].Success || match.Groups["rightDiamond"].Success)
             {
-                return IsDependencyFromLeftToRight(line)
-                    ? ImmutableList.CreateRange(
-                        new List<PlantUmlDependencyMatcher> { ParseDependencyFromLeftToRight(line) }
-                    )
-                    : Enumerable.Empty<PlantUmlDependencyMatcher>();
-            }
-
-            internal static IEnumerable<PlantUmlDependencyMatcher> TryParseFromRightToLeft(
-                string line
-            )
-            {
-                return IsDependencyFromRightToLeft(line)
-                    ? ImmutableList.CreateRange(
-                        new List<PlantUmlDependencyMatcher> { ParseDependencyFromRightToLeft(line) }
-                    )
-                    : Enumerable.Empty<PlantUmlDependencyMatcher>();
-            }
-
-            private static PlantUmlDependencyMatcher ParseDependencyFromRightToLeft(string line)
-            {
-                IList<string> parts = ParseParts(line, DependencyLeftArrowPattern);
-                return new PlantUmlDependencyMatcher(parts[1], parts[0]);
-            }
-
-            private static bool IsDependencyFromRightToLeft(string line)
-            {
-                return DependencyLeftArrowPattern.IsMatch(line);
-            }
-
-            private static bool IsDependencyFromLeftToRight(string line)
-            {
-                return DependencyRightArrowPattern.IsMatch(line);
-            }
-
-            private static PlantUmlDependencyMatcher ParseDependencyFromLeftToRight(string line)
-            {
-                IList<string> parts = ParseParts(line, DependencyRightArrowPattern);
-                return new PlantUmlDependencyMatcher(parts[0], parts[1]);
-            }
-
-            private static IList<string> ParseParts(string line, Regex dependencyRightArrowPattern)
-            {
-                line = RemoveOptionalDescription(line);
-                return dependencyRightArrowPattern
-                    .Replace(line, " ")
-                    .Split(' ')
-                    .Select(l => l.Trim())
-                    .Take(2)
-                    .ToList();
-            }
-
-            private static string RemoveOptionalDescription(string line)
-            {
-                return Regex.Replace(line, ":.*", "");
+                yield return new PlantUmlDependencyMatcher(right, left);
             }
         }
 
-        internal class PlantUmlComponentMatcher
+        // Hidden links only affect the layout, e.g. '-[hidden]->' or '-[#red,hidden]->',
+        // see https://plantuml.com/class-diagram#help-on-layout
+        private static bool IsHidden(Match match)
         {
-            private Match _componentMatch;
-            private Match _stereotypeMatch;
+            return match
+                .Groups["style"]
+                .Captures.Cast<Capture>()
+                .SelectMany(style => style.Value.Split(','))
+                .Any(attribute => attribute.Trim() == "hidden");
+        }
+    }
 
-            public PlantUmlComponentMatcher(string input)
-            {
-                _componentMatch = PlantUmlComponentPattern.Match(input);
-                if (!_componentMatch.Success)
-                {
-                    throw new InvalidOperationException(
-                        string.Format(
-                            "input {0} does not match pattern {1}",
-                            input,
-                            PlantUmlComponentPattern
-                        )
-                    );
-                }
-                _stereotypeMatch = StereotypePattern.Match(input);
-            }
+    // One side of a link, e.g. '[Some Name]' or 'some-alias'
+    internal class PlantUmlEndpoint
+    {
+        internal PlantUmlEndpoint(Match match, string side)
+        {
+            Name = match.Groups[side].Value;
+            MayReferToGroup = !match.Groups[side + "Bracket"].Success;
+        }
 
-            internal string MatchAlias()
-            {
-                if (_componentMatch.Groups[AliasGroupName].Success)
-                {
-                    return _componentMatch.Groups[AliasGroupName].Value;
-                }
-                return null;
-            }
+        internal string Name { get; }
 
-            internal string MatchComponentName()
-            {
-                return _componentMatch.Groups[ComponentNameGroupName].Value;
-            }
+        // A name in brackets always refers to a component, a name without brackets may also
+        // refer to a group.
+        internal bool MayReferToGroup { get; }
+    }
 
-            internal ISet<string> MatchStereoTypes()
-            {
-                ISet<string> result = new HashSet<string>();
-                while (_stereotypeMatch.Success)
-                {
-                    result.Add(_stereotypeMatch.Groups[1].Value);
-                    _stereotypeMatch = _stereotypeMatch.NextMatch();
-                }
-                return result;
-            }
+    internal class PlantUmlComponentMatcher
+    {
+        private static readonly Regex Pattern = new Regex(
+            @"^\s*\[(?<name>[^\[\]]+)\]\s*"
+                + PlantUmlPatterns.Stereotypes
+                + @"\s*(?:as ""?(?<alias>[^""]+?)""?)?"
+                + PlantUmlPatterns.Color
+                + @"\s*$"
+        );
+
+        private PlantUmlComponentMatcher(Match match)
+        {
+            Name = match.Groups["name"].Value;
+            Alias = match.Groups["alias"].Success ? match.Groups["alias"].Value : null;
+            Stereotypes = PlantUmlPatterns.GetStereotypes(match);
+        }
+
+        internal string Name { get; }
+        internal string Alias { get; } // null without 'as'
+        internal ISet<string> Stereotypes { get; }
+
+        internal static PlantUmlComponentMatcher TryParse(string line)
+        {
+            Match match = Pattern.Match(line);
+            return match.Success ? new PlantUmlComponentMatcher(match) : null;
+        }
+    }
+
+    internal class PlantUmlGroupMatcher
+    {
+        private static readonly Regex Pattern = new Regex(
+            @"^\s*(?:package|node|folder|frame|cloud|database)\s+"
+                + @"(?:""(?<name>[^""]+)""|(?<name>[^\s{""<]+))\s*"
+                + @"(?:as\s+""?(?<alias>[^""\s{<]+)""?\s*)?"
+                // stereotypes on a group are accepted, but do not assign any types to it
+                + PlantUmlPatterns.Stereotypes
+                + PlantUmlPatterns.Color
+                + @"\s*\{\s*$"
+        );
+
+        private PlantUmlGroupMatcher(Match match)
+        {
+            Name = match.Groups["name"].Value;
+            Alias = match.Groups["alias"].Success ? match.Groups["alias"].Value : null;
+        }
+
+        internal string Name { get; }
+        internal string Alias { get; } // null without 'as'
+
+        internal static PlantUmlGroupMatcher TryParse(string line)
+        {
+            Match match = Pattern.Match(line);
+            return match.Success ? new PlantUmlGroupMatcher(match) : null;
         }
     }
 }

@@ -5,59 +5,43 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
-using System.Text.RegularExpressions;
 using ArchUnitNET.Domain.PlantUml.Exceptions;
-using static ArchUnitNET.Domain.PlantUml.Import.PlantUmlPatterns;
 
 namespace ArchUnitNET.Domain.PlantUml.Import
 {
     internal class PlantUmlParser
     {
-        private PlantUmlPatterns _plantUmlPatterns = new PlantUmlPatterns();
-
         public PlantUmlParsedDiagram Parse(string filename)
         {
             if (filename is null)
             {
                 throw new ArgumentNullException(nameof(filename));
             }
-            return CreateDiagram(ReadLines(filename));
+            return CreateDiagram(
+                ReadLines(() => new StreamReader(filename, Encoding.UTF8), filename)
+            );
         }
 
         public PlantUmlParsedDiagram Parse(Stream stream)
         {
             if (stream is null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
-            return CreateDiagram(ReadLines(stream));
+            return CreateDiagram(
+                ReadLines(() => new StreamReader(stream, Encoding.UTF8), "stream")
+            );
         }
 
-        private IEnumerable<string> ReadLines(string filename)
-        {
-            try
-            {
-                return File.ReadAllLines(filename, Encoding.UTF8);
-            }
-            catch (Exception ex)
-                when (ex is IOException
-                    || ex is UnauthorizedAccessException
-                    || ex is SecurityException
-                )
-            {
-                throw new PlantUmlParseException("Could not parse diagram from " + filename, ex);
-            }
-        }
-
-        private IEnumerable<string> ReadLines(Stream stream)
+        private static IEnumerable<string> ReadLines(Func<TextReader> open, string source)
         {
             try
             {
                 var lines = new List<string>();
-                using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
+                using (TextReader reader = open())
                 {
                     string line;
-                    while ((line = sr.ReadLine()) != null)
+                    while ((line = reader.ReadLine()) != null)
                     {
                         lines.Add(line);
                     }
@@ -70,19 +54,22 @@ namespace ArchUnitNET.Domain.PlantUml.Import
                     || ex is SecurityException
                 )
             {
-                throw new PlantUmlParseException("Could not parse diagram from stream", ex);
+                throw new PlantUmlParseException("Could not parse diagram from " + source, ex);
             }
         }
 
         private PlantUmlParsedDiagram CreateDiagram(IEnumerable<string> rawDiagramLines)
         {
             IEnumerable<string> diagramLines = FilterOutComments(rawDiagramLines);
-            ISet<PlantUmlComponent> components = ParseComponents(diagramLines);
+            (ISet<PlantUmlComponent> components, IList<PlantUmlGroup> groups) = ParseComponents(
+                diagramLines
+            );
 
             var plantUmlComponents = new PlantUmlComponents(components);
 
             IEnumerable<ParsedDependency> dependencies = ParseDependencies(
                 plantUmlComponents,
+                groups,
                 diagramLines
             );
 
@@ -93,64 +80,124 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         private IEnumerable<ParsedDependency> ParseDependencies(
             PlantUmlComponents plantUmlComponents,
+            IList<PlantUmlGroup> groups,
             IEnumerable<string> plantUmlDiagramLines
         )
         {
             var result = new List<ParsedDependency>();
             foreach (
-                PlantUmlDependencyMatcher matcher in _plantUmlPatterns.MatchDependencies(
-                    plantUmlDiagramLines
+                PlantUmlDependencyMatcher matcher in plantUmlDiagramLines.SelectMany(
+                    PlantUmlDependencyMatcher.TryParse
                 )
             )
             {
-                PlantUmlComponent origin = FindComponentMatching(
-                    plantUmlComponents,
-                    matcher.MatchOrigin
-                );
-                PlantUmlComponent target = FindComponentMatching(
-                    plantUmlComponents,
-                    matcher.MatchTarget
-                );
-                result.Add(new ParsedDependency(origin.Identifier, target.Identifier));
+                foreach (
+                    ComponentIdentifier origin in ResolveEndpoint(
+                        plantUmlComponents,
+                        groups,
+                        matcher.Origin
+                    )
+                )
+                {
+                    foreach (
+                        ComponentIdentifier target in ResolveEndpoint(
+                            plantUmlComponents,
+                            groups,
+                            matcher.Target
+                        )
+                    )
+                    {
+                        if (!origin.Equals(target))
+                        {
+                            result.Add(new ParsedDependency(origin, target));
+                        }
+                    }
+                }
             }
             return result;
         }
 
-        private PlantUmlComponent FindComponentMatching(
+        // A dependency endpoint is either a component or a group. A group stands for
+        // all components nested inside it, unless the endpoint is written in brackets,
+        // which always refers to a component.
+        private IEnumerable<ComponentIdentifier> ResolveEndpoint(
             PlantUmlComponents plantUmlComponents,
-            string originOrTargetString
+            IList<PlantUmlGroup> groups,
+            PlantUmlEndpoint endpoint
         )
         {
-            originOrTargetString = Regex.Replace(originOrTargetString.Trim(), @"^\[", "");
-            originOrTargetString = Regex.Replace(originOrTargetString, "]$", "");
-
-            return plantUmlComponents.FindComponentWith(originOrTargetString);
+            if (endpoint.MayReferToGroup)
+            {
+                PlantUmlGroup group = groups.FirstOrDefault(g => g.IsReferencedBy(endpoint.Name));
+                if (group != null)
+                {
+                    return group.Members;
+                }
+            }
+            return new[] { plantUmlComponents.FindComponentWith(endpoint.Name).Identifier };
         }
 
-        private ISet<PlantUmlComponent> ParseComponents(IEnumerable<string> plantUmlDiagramLines)
+        private (ISet<PlantUmlComponent> Components, IList<PlantUmlGroup> Groups) ParseComponents(
+            IEnumerable<string> plantUmlDiagramLines
+        )
         {
-            return new HashSet<PlantUmlComponent>(
-                _plantUmlPatterns
-                    .FilterComponents(plantUmlDiagramLines)
-                    .Select(p => CreateNewComponent(p))
-                    .Distinct()
-            );
+            var components = new HashSet<PlantUmlComponent>();
+            var groups = new List<PlantUmlGroup>();
+            // Every '{' opens a block, but only some blocks are groups (others are e.g. skinparam),
+            // so non-group blocks are tracked as null to keep braces balanced.
+            var openBlocks = new Stack<PlantUmlGroup>();
+            foreach (string line in plantUmlDiagramLines)
+            {
+                if (PlantUmlGroupMatcher.TryParse(line) is PlantUmlGroupMatcher groupMatcher)
+                {
+                    var group = new PlantUmlGroup(groupMatcher.Name, groupMatcher.Alias);
+                    groups.Add(group);
+                    openBlocks.Push(group);
+                }
+                else if (PlantUmlPatterns.IsBlockOpen(line))
+                {
+                    openBlocks.Push(null);
+                }
+                else if (PlantUmlPatterns.IsBlockClose(line))
+                {
+                    if (openBlocks.Count > 0)
+                    {
+                        openBlocks.Pop();
+                    }
+                }
+                else if (
+                    PlantUmlComponentMatcher.TryParse(line) is PlantUmlComponentMatcher matcher
+                )
+                {
+                    PlantUmlComponent component = CreateNewComponent(matcher);
+                    components.Add(component);
+                    foreach (PlantUmlGroup group in openBlocks.Where(g => g != null))
+                    {
+                        group.AddMember(component.Identifier);
+                    }
+                }
+            }
+            PlantUmlGroup unclosedGroup = openBlocks.FirstOrDefault(g => g != null);
+            if (unclosedGroup != null)
+            {
+                throw new IllegalDiagramException(
+                    string.Format("Group '{0}' is never closed", unclosedGroup.Name)
+                );
+            }
+            return (components, groups);
         }
 
-        private PlantUmlComponent CreateNewComponent(string input)
+        private PlantUmlComponent CreateNewComponent(PlantUmlComponentMatcher matcher)
         {
-            PlantUmlComponentMatcher matcher = _plantUmlPatterns.MatchComponent(input);
-
-            var componentName = new ComponentName(matcher.MatchComponentName());
+            var componentName = new ComponentName(matcher.Name);
             ImmutableHashSet<Stereotype> immutableStereotypes = IdentifyStereotypes(
                 matcher,
                 componentName
             );
-            string alias = matcher.MatchAlias();
             return new PlantUmlComponent(
                 componentName,
                 immutableStereotypes,
-                alias != null ? new Alias(alias) : null
+                matcher.Alias != null ? new Alias(matcher.Alias) : null
             );
         }
 
@@ -159,13 +206,9 @@ namespace ArchUnitNET.Domain.PlantUml.Import
             ComponentName componentName
         )
         {
-            var stereotypes = ImmutableHashSet.CreateBuilder<Stereotype>();
-            foreach (string stereotype in matcher.MatchStereoTypes())
-            {
-                stereotypes.Add(new Stereotype(stereotype));
-            }
-
-            ImmutableHashSet<Stereotype> result = stereotypes.ToImmutable();
+            ImmutableHashSet<Stereotype> result = matcher
+                .Stereotypes.Select(stereotype => new Stereotype(stereotype))
+                .ToImmutableHashSet();
             if (result.IsEmpty)
             {
                 throw new IllegalDiagramException(
@@ -181,7 +224,9 @@ namespace ArchUnitNET.Domain.PlantUml.Import
 
         private IEnumerable<string> FilterOutComments(IEnumerable<string> lines)
         {
-            return lines.Where(l => !Regex.IsMatch(l, "^\\s*'")).ToList();
+            return lines
+                .Where(l => !l.TrimStart().StartsWith("'", StringComparison.Ordinal))
+                .ToList();
         }
     }
 }

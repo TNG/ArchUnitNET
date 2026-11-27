@@ -71,6 +71,124 @@ namespace ArchUnitNETTests.Dependencies
             }
         }
 
+        [Theory]
+        [InlineData(null, "[Origin] --> [Target]")]
+        [InlineData(null, "Origin-u->Target")]
+        [InlineData(null, "[Origin] -[#red]up-> [Target]")]
+        [InlineData(null, "[Target]<-l-[Origin] : uses")]
+        [InlineData("#palegreen", "[Origin] --> [Target]")]
+        [InlineData("#palegreen", "Origin-u->Target")]
+        [InlineData("#palegreen", "[Origin] -[#red]up-> [Target]")]
+        [InlineData("#palegreen", "[Target]<-l-[Origin] : uses")]
+        [InlineData(null, "[Origin] --|> [Target]")]
+        [InlineData(null, "[Target] <|-- [Origin]")]
+        [InlineData(null, "[Origin] \"1\" --|> \"many\" [Target]")]
+        [InlineData(null, "Origin ..> Target")]
+        [InlineData(null, "[Origin] *-- [Target]")]
+        [InlineData(null, "[Target] --o [Origin]")]
+        public void FormattedDiagramWithDependencyIsAllowed(string color, string dependency)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                CreateSimpleDependencyDiagram(memoryStream, color).RawLine(dependency).Write();
+
+                AssertNoViolation(memoryStream, "SimpleDependency");
+            }
+        }
+
+        [Theory]
+        [InlineData("#palegreen")]
+        [InlineData("#red;line:blue")]
+        public void FormattingDoesNotChangeViolations(string color)
+        {
+            Architecture architecture = GetArchitectureFrom("SimpleDependency");
+            using (MemoryStream plainStream = new MemoryStream())
+            using (MemoryStream formattedStream = new MemoryStream())
+            {
+                CreateSimpleDependencyDiagram(plainStream, null).Write();
+                CreateSimpleDependencyDiagram(formattedStream, color).Write();
+
+                List<string> plainViolations = GetViolations(plainStream, architecture);
+                List<string> formattedViolations = GetViolations(formattedStream, architecture);
+
+                Assert.NotEmpty(plainViolations);
+                Assert.Equal(plainViolations, formattedViolations);
+            }
+        }
+
+        [Theory]
+        [InlineData("[Origin] -- [Target]")]
+        [InlineData("[Origin] #-- [Target]")]
+        [InlineData("[Origin] <-- [Target]")]
+        [InlineData("[Origin] --* [Target]")]
+        [InlineData("[Origin] -[hidden]-> [Target]")]
+        [InlineData("[Origin] -[hidden]> [Target]")]
+        public void LinksThatDoNotAllowTheDependencyDoNotChangeViolations(string link)
+        {
+            Architecture architecture = GetArchitectureFrom("SimpleDependency");
+            using (MemoryStream withoutLinkStream = new MemoryStream())
+            using (MemoryStream withLinkStream = new MemoryStream())
+            {
+                CreateSimpleDependencyDiagram(withoutLinkStream, null).Write();
+                CreateSimpleDependencyDiagram(withLinkStream, null).RawLine(link).Write();
+
+                List<string> violationsWithoutLink = GetViolations(withoutLinkStream, architecture);
+                List<string> violationsWithLink = GetViolations(withLinkStream, architecture);
+
+                Assert.NotEmpty(violationsWithoutLink);
+                Assert.Equal(violationsWithoutLink, violationsWithLink);
+            }
+        }
+
+        [Fact]
+        public void DependenciesAreNotTransitive()
+        {
+            Architecture architecture = GetArchitectureFrom("SimpleDependency");
+            using (MemoryStream withoutLinksStream = new MemoryStream())
+            using (MemoryStream transitiveStream = new MemoryStream())
+            {
+                CreateSimpleDependencyDiagram(withoutLinksStream, null).Write();
+                CreateSimpleDependencyDiagram(transitiveStream, null)
+                    .Component("Intermediate")
+                    .WithStereoTypes("TestAssembly.Diagram.SimpleDependency.Intermediate.*")
+                    .RawLine("[Origin] --> [Intermediate]")
+                    .RawLine("[Intermediate] --> [Target]")
+                    .Write();
+
+                List<string> violationsWithoutLinks = GetViolations(
+                    withoutLinksStream,
+                    architecture
+                );
+                List<string> transitiveViolations = GetViolations(transitiveStream, architecture);
+
+                Assert.NotEmpty(violationsWithoutLinks);
+                Assert.Equal(violationsWithoutLinks, transitiveViolations);
+            }
+        }
+
+        private static TestDiagram CreateSimpleDependencyDiagram(Stream stream, string color)
+        {
+            return TestDiagram
+                .From(stream)
+                .Component("Origin")
+                .WithColor(color)
+                .WithStereoTypes("TestAssembly.Diagram.SimpleDependency.Origin.*")
+                .Component("Target")
+                .WithColor(color)
+                .WithStereoTypes("TestAssembly.Diagram.SimpleDependency.Target.*");
+        }
+
+        private static List<string> GetViolations(Stream stream, Architecture architecture)
+        {
+            return Types()
+                .Should()
+                .AdhereToPlantUmlDiagram(stream)
+                .Evaluate(architecture)
+                .Where(result => !result.Passed)
+                .Select(result => result.Description)
+                .ToList();
+        }
+
         private void AssertNoViolation(Stream stream, string namespc)
         {
             var check = Types().Should().AdhereToPlantUmlDiagram(stream);
