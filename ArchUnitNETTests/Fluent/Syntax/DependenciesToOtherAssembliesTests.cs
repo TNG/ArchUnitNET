@@ -1,4 +1,5 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Domain.Extensions;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
@@ -128,6 +129,66 @@ namespace ArchUnitNETTests.Fluent.Syntax
                 Assert.Contains(interfaceInTestAssembly, Types(true).GetObjects(Architecture));
                 Assert.Contains(interfaceInTestAssembly, Interfaces(true).GetObjects(Architecture));
             }
+
+            [Fact]
+            public void IncludeReferencedMembersTest()
+            {
+                var classInTestAssembly = Architecture.GetClassOfType(typeof(ClassInTestAssembly));
+                var method = Assert.Single(
+                    classInTestAssembly.GetMethodMembersWithName("MethodInTestAssembly()")
+                );
+                var field = Assert.Single(
+                    classInTestAssembly.GetFieldMembersWithName("FieldInTestAssembly")
+                );
+
+                Assert.Contains(method, MethodMembers(true).GetObjects(Architecture));
+                Assert.Contains(method, Members(true).GetObjects(Architecture));
+                Assert.Contains(field, FieldMembers(true).GetObjects(Architecture));
+                Assert.Contains(field, Members(true).GetObjects(Architecture));
+
+                Assert.DoesNotContain(method, MethodMembers().GetObjects(Architecture));
+                Assert.DoesNotContain(field, FieldMembers().GetObjects(Architecture));
+                Assert.DoesNotContain(method, Members().GetObjects(Architecture));
+            }
+
+            [Fact]
+            public void ReferencedTypeHasOnlyTheMembersLoadedTypesUseTest()
+            {
+                var classInTestAssembly = Architecture.GetClassOfType(typeof(ClassInTestAssembly));
+
+                Assert.Empty(
+                    classInTestAssembly.GetMethodMembersWithName("UnusedMethodInTestAssembly()")
+                );
+                Assert.All(
+                    Architecture.ReferencedMembers,
+                    member => Assert.True(member.DeclaringType.IsStub)
+                );
+            }
+
+            [Fact]
+            public void NotCallAnyReferencedMethodTest()
+            {
+                var getNow = MethodMembers(true)
+                    .That()
+                    .AreDeclaredIn(typeof(DateTime))
+                    .And()
+                    .HaveName("get_Now()");
+
+                Types()
+                    .That()
+                    .Are(typeof(DependingClass))
+                    .Should()
+                    .CallAny(getNow)
+                    .Check(Architecture);
+                Assert.Throws<FailedArchRuleException>(() =>
+                    Types()
+                        .That()
+                        .Are(typeof(DependingClass))
+                        .Should()
+                        .NotCallAny(getNow)
+                        .Check(Architecture)
+                );
+            }
         }
     }
 
@@ -140,6 +201,8 @@ namespace ArchUnitNETTests.Fluent.Syntax
         {
             dep = new ClassInTestAssembly();
             dep.MethodInTestAssembly();
+            _ = dep.FieldInTestAssembly;
+            _ = DateTime.Now;
         }
     }
 }

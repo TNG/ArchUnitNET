@@ -71,5 +71,25 @@ namespace ArchUnitNET.Fluent
                 architecture => architecture.Interfaces.Concat(architecture.ReferencedInterfaces),
                 "Interfaces (including referenced)"
             );
+
+        public static readonly BasicObjectProvider<IMember> MembersIncludingReferenced =
+            new BasicObjectProvider<IMember>(
+                architecture => architecture.Members.Concat(architecture.ReferencedMembers),
+                "Members (including referenced)"
+            );
+
+        public static readonly BasicObjectProvider<FieldMember> FieldMembersIncludingReferenced =
+            new BasicObjectProvider<FieldMember>(
+                architecture =>
+                    architecture.FieldMembers.Concat(architecture.ReferencedFieldMembers),
+                "Field members (including referenced)"
+            );
+
+        public static readonly BasicObjectProvider<MethodMember> MethodMembersIncludingReferenced =
+            new BasicObjectProvider<MethodMember>(
+                architecture =>
+                    architecture.MethodMembers.Concat(architecture.ReferencedMethodMembers),
+                "Method members (including referenced)"
+            );
     }
 }

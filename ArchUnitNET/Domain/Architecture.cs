@@ -68,6 +68,17 @@ namespace ArchUnitNET.Domain
         public IEnumerable<FieldMember> FieldMembers => Members.OfType<FieldMember>();
         public IEnumerable<MethodMember> MethodMembers => Members.OfType<MethodMember>();
         public IEnumerable<IMember> Members => Types.SelectMany(type => type.Members);
+        public IEnumerable<FieldMember> ReferencedFieldMembers =>
+            ReferencedMembers.OfType<FieldMember>();
+        public IEnumerable<MethodMember> ReferencedMethodMembers =>
+            ReferencedMembers.OfType<MethodMember>();
+
+        /// <summary>
+        /// The members of referenced types that the loaded types use, such as a framework method
+        /// they call or a framework field they read. A referenced type carries no other members.
+        /// </summary>
+        public IEnumerable<IMember> ReferencedMembers =>
+            ReferencedTypes.SelectMany(type => type.Members);
 
         /// <summary>
         /// Returns the cached result for the given object provider, or invokes the providing
