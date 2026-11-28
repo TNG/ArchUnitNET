@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
@@ -192,6 +193,142 @@ namespace ArchUnitNETTests.Fluent
                 var stored = File.ReadAllText(path);
                 Assert.Contains(typeof(FreezeTests).Assembly.GetName().Name, stored);
                 Assert.DoesNotContain("Version=", stored);
+            }
+        }
+
+        [Theory]
+        [InlineData(DuplicateKind.Type)]
+        [InlineData(DuplicateKind.Member)]
+        public void DuplicateRuleFailsForExactlyTheDuplicates(DuplicateKind duplicate)
+        {
+            var failing = DuplicateFullNames
+                .Rule(duplicate)
+                .Evaluate(DuplicateFullNames.Architecture)
+                .Where(result => !result.Passed)
+                .Select(DuplicateFullNames.AssemblyOf)
+                .OrderBy(name => name);
+
+            Assert.Equal(
+                new[] { DuplicateFullNames.AssemblyA, DuplicateFullNames.AssemblyB },
+                failing
+            );
+        }
+
+        [Theory]
+        [InlineData(StoreKind.Json, DuplicateKind.Type)]
+        [InlineData(StoreKind.Xml, DuplicateKind.Type)]
+        [InlineData(StoreKind.Json, DuplicateKind.Member)]
+        [InlineData(StoreKind.Xml, DuplicateKind.Member)]
+        public void FreezingDuplicateFullNamesStoresEachWithItsAssembly(
+            StoreKind kind,
+            DuplicateKind duplicate
+        )
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                var rule = DuplicateFullNames.Rule(duplicate);
+                var path = dir.PathFor(FreezeTestStores.FileName(kind));
+
+                Freeze(rule, FreezeTestStores.Create(kind, path))
+                    .Check(DuplicateFullNames.Architecture);
+
+                Assert.Equal(
+                    new[]
+                    {
+                        DuplicateFullNames.Identifier(duplicate, DuplicateFullNames.AssemblyA),
+                        DuplicateFullNames.Identifier(duplicate, DuplicateFullNames.AssemblyB),
+                    },
+                    FreezeTestStores.ReadViolations(kind, path, rule.Description).OrderBy(v => v)
+                );
+
+                // A second run is fully frozen
+                Freeze(rule, FreezeTestStores.Create(kind, path))
+                    .Check(DuplicateFullNames.Architecture);
+            }
+        }
+
+        [Theory]
+        [InlineData(StoreKind.Json)]
+        [InlineData(StoreKind.Xml)]
+        public void OnlyTheDuplicateMissingFromTheStoreFails(StoreKind kind)
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                var rule = DuplicateFullNames.Rule(DuplicateKind.Type);
+                var path = dir.CreateFile(
+                    FreezeTestStores.FileName(kind),
+                    FreezeTestStores.HandWritten(
+                        kind,
+                        (
+                            rule.Description,
+                            new[]
+                            {
+                                DuplicateFullNames.Identifier(
+                                    DuplicateKind.Type,
+                                    DuplicateFullNames.AssemblyA
+                                ),
+                            }
+                        )
+                    )
+                );
+
+                var results = Freeze(rule, FreezeTestStores.Create(kind, path))
+                    .Evaluate(DuplicateFullNames.Architecture)
+                    .ToList();
+
+                Assert.Equal(2, results.Count);
+                Assert.Equal(
+                    DuplicateFullNames.AssemblyA,
+                    DuplicateFullNames.AssemblyOf(Assert.Single(results, result => result.Passed))
+                );
+                Assert.Equal(
+                    DuplicateFullNames.AssemblyB,
+                    DuplicateFullNames.AssemblyOf(Assert.Single(results, result => !result.Passed))
+                );
+            }
+        }
+
+        [Theory]
+        [InlineData(StoreKind.Json)]
+        [InlineData(StoreKind.Xml)]
+        public void CombinedRulesStoreIdentifiersWithAssembly(StoreKind kind)
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                var thisAssembly = typeof(FreezeTests).Assembly.GetName().Name;
+                var andRule = Types()
+                    .That()
+                    .Are(typeof(Violation))
+                    .Should()
+                    .BePublic()
+                    .And(Types().That().Are(typeof(Violation2)).Should().BePublic());
+                var orRule = Types()
+                    .That()
+                    .Are(typeof(Violation))
+                    .Should()
+                    .BePublic()
+                    .Or(Types().That().Are(typeof(Violation2)).Should().NotBePublic());
+                var andShouldRule = Types()
+                    .That()
+                    .Are(typeof(Violation))
+                    .Should()
+                    .BePublic()
+                    .AndShould()
+                    .BePrivate();
+                var path = dir.PathFor(FreezeTestStores.FileName(kind));
+
+                foreach (var rule in new[] { andRule, orRule, (IArchRule)andShouldRule })
+                {
+                    Freeze(rule, FreezeTestStores.Create(kind, path)).Check(Architecture);
+                    var stored = FreezeTestStores.ReadViolations(kind, path, rule.Description);
+                    Assert.NotEmpty(stored);
+                    Assert.All(
+                        stored,
+                        violation => Assert.EndsWith(", " + thisAssembly, violation)
+                    );
+                    // fully frozen on the second run
+                    Freeze(rule, FreezeTestStores.Create(kind, path)).Check(Architecture);
+                }
             }
         }
 
