@@ -86,12 +86,12 @@ namespace ArchUnitNET.Domain
 
         private bool Equals(FieldMember other)
         {
-            return FullName.Equals(other.FullName);
+            return AssemblyQualifiedName == other.AssemblyQualifiedName;
         }
 
         public override int GetHashCode()
         {
-            return FullName.GetHashCode();
+            return AssemblyQualifiedName.GetHashCode();
         }
     }
 }
