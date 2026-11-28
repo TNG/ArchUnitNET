@@ -1,7 +1,11 @@
-﻿using ArchUnitNET.Domain;
+﻿using System;
+using System.IO;
+using System.Xml.Linq;
+using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Freeze;
 using ArchUnitNET.Fluent.Slices;
+using ArchUnitNET.Library.Rules;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
 using Xunit;
@@ -108,6 +112,87 @@ namespace ArchUnitNETTests.Fluent
                 .Check(Architecture);
             Freeze(_frozenSliceRule, "../../../ArchUnitNET/Storage/CustomPathFrozenRules.json")
                 .Check(StaticTestArchitectures.SlicesTestArchitecture);
+        }
+
+        [Fact]
+        public void XmlViolationStoreWritesToCustomPath()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                var path = dir.PathFor("FrozenRules.xml");
+
+                Freeze(_frozenRule, new XmlViolationStore(path)).Check(Architecture);
+
+                Assert.True(File.Exists(path));
+                Assert.Contains(
+                    XDocument.Load(path).Root.Elements(),
+                    element => element.Attribute("ArchRule")?.Value == _frozenRule.Description
+                );
+            }
+        }
+
+        [Fact]
+        public void FreezeThrowsOnMalformedJsonStoreAndLeavesFileUntouched()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                const string content = "{ this is not valid json";
+                var path = dir.CreateFile("FrozenRules.json", content);
+
+                Assert.ThrowsAny<Exception>(() =>
+                    Freeze(_frozenRule, new JsonViolationStore(path)).Check(Architecture)
+                );
+
+                Assert.Equal(content, File.ReadAllText(path));
+            }
+        }
+
+        [Fact]
+        public void FreezeThrowsOnMalformedXmlStoreAndLeavesFileUntouched()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                const string content = "<FrozenRules><FrozenRule";
+                var path = dir.CreateFile("FrozenRules.xml", content);
+
+                Assert.ThrowsAny<Exception>(() =>
+                    Freeze(_frozenRule, new XmlViolationStore(path)).Check(Architecture)
+                );
+
+                Assert.Equal(content, File.ReadAllText(path));
+            }
+        }
+
+        [Fact]
+        public void FreezeCreatesStoreInMissingDirectory()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                var jsonPath = dir.PathFor(Path.Combine("json", "FrozenRules.json"));
+                var xmlPath = dir.PathFor(Path.Combine("xml", "FrozenRules.xml"));
+
+                Freeze(_frozenRule, new JsonViolationStore(jsonPath)).Check(Architecture);
+                Freeze(_frozenRule, new XmlViolationStore(xmlPath)).Check(Architecture);
+
+                Assert.True(File.Exists(jsonPath));
+                Assert.True(File.Exists(xmlPath));
+            }
+        }
+
+        [Fact]
+        public void FrozenTargetFrameworkRuleDoesNotStoreAssemblyVersion()
+        {
+            using (var dir = new TempStoreDirectory())
+            {
+                var path = dir.PathFor("FrozenRules.json");
+                var rule = TargetFrameworkRules.ShouldBeDotNetFramework();
+
+                Freeze(rule, new JsonViolationStore(path)).Check(Architecture);
+
+                var stored = File.ReadAllText(path);
+                Assert.Contains(typeof(FreezeTests).Assembly.GetName().Name, stored);
+                Assert.DoesNotContain("Version=", stored);
+            }
         }
 
         private class Violation { }

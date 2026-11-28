@@ -108,7 +108,7 @@ namespace ArchUnitNET.Fluent.Freeze
 
                 return results ?? new List<FrozenRule>();
             }
-            catch (Exception)
+            catch (Exception e) when (e is FileNotFoundException || e is DirectoryNotFoundException)
             {
                 return new List<FrozenRule>();
             }

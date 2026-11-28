@@ -75,7 +75,7 @@ namespace ArchUnitNET.Fluent.Freeze
             storedRule?.Remove();
             storageDoc.Root.Add(ruleElement);
 
-            using (var writer = XmlWriter.Create(DefaultStoragePath, WriterSettings))
+            using (var writer = XmlWriter.Create(_storagePath, WriterSettings))
             {
                 storageDoc.WriteTo(writer);
             }
@@ -100,7 +100,7 @@ namespace ArchUnitNET.Fluent.Freeze
                     ? doc
                     : new XDocument(new XElement("FrozenRules"));
             }
-            catch (Exception) //file not found or invalid xml document
+            catch (Exception e) when (e is FileNotFoundException || e is DirectoryNotFoundException)
             {
                 return new XDocument(new XElement("FrozenRules"));
             }
